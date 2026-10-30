@@ -45,7 +45,7 @@
       "75%": 2.782,
       "max": 35.593
     },
-    "tc_reported_vs_recomputed_mae": 0.1196896227614771
+    "tc_reported_vs_recomputed_mae": 0.11968962276147713
   },
   "jarvis": {
     "dataset": "supercon_3d",
@@ -93,6 +93,6 @@
       "75%": 4.769,
       "max": 31.911
     },
-    "tc_reported_vs_recomputed_mae": 0.3306834999651725
+    "tc_reported_vs_recomputed_mae": 0.33068349996517254
   }
 }

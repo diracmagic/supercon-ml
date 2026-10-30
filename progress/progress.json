@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-30T14:57:30-05:00",
-  "badge": "3/10 done · now: baselines",
+  "updated": "2026-10-30T16:05:04-05:00",
+  "badge": "3/10 done · now: foundation model",
   "project": "Finding high-Tc superconductors with materials foundation models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
   "target": {
@@ -51,10 +51,11 @@
     },
     {
       "id": "foundation",
-      "status": "pending",
+      "status": "active",
       "name": "Foundation-model descriptors + prediction heads",
       "short": "Foundation model",
-      "detail": "Frozen MACE-MP-0 descriptors, one head per track, ensembles for uncertainty"
+      "detail": "Electron-phonon head done: frozen MACE-MP-0 (medium) descriptors with 3-model bagged gradient boosting for uncertainty; measured-Tc head next",
+      "date": "2026-10-30"
     },
     {
       "id": "test",
@@ -128,12 +129,8 @@
       "event": "Gradient-boosting baseline: Tc MAE 1.05 K, lambda MAE 0.099, omega_log MAE 22.1 K (5-fold composition-grouped CV)"
     },
     {
-      "at": "2026-10-30T14:57:30-05:00",
-      "event": "Downloaded 8,253 Alexandria and 1,058 JARVIS electron-phonon entries; kept 7,582 for training"
-    },
-    {
-      "at": "2026-10-30T14:57:30-05:00",
-      "event": "Gradient-boosting baseline: Tc MAE 1.05 K, lambda MAE 0.099, omega_log MAE 22.1 K (5-fold composition-grouped CV)"
+      "at": "2026-10-30T16:05:04-05:00",
+      "event": "MACE-MP-0 descriptors + gradient boosting: Tc MAE 1.16 K (baseline 1.05 K), lambda MAE 0.105, omega_log MAE 23.1 K; uncertainty vs error Spearman 0.63"
     }
   ],
   "baselines": [
@@ -220,6 +217,38 @@
       "mae": 22.1,
       "unit": "K",
       "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+      "tag": "foundation-eph",
+      "model": "MACE-MP-0 descriptors + gradient boosting",
+      "target": "Tc",
+      "mae": 1.165,
+      "unit": "K",
+      "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+      "tag": "foundation-eph",
+      "model": "MACE-MP-0 descriptors, lambda and omega_log, then Allen-Dynes",
+      "target": "Tc",
+      "mae": 1.135,
+      "unit": "K",
+      "note": "Same CV; mu* = 0.1"
+    },
+    {
+      "tag": "foundation-eph",
+      "model": "MACE-MP-0 descriptors + gradient boosting",
+      "target": "lambda",
+      "mae": 0.105,
+      "unit": "",
+      "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+      "tag": "foundation-eph",
+      "model": "MACE-MP-0 descriptors + gradient boosting",
+      "target": "omega_log",
+      "mae": 23.1,
+      "unit": "K",
+      "note": "5-fold composition-grouped CV on Alexandria"
     }
   ],
   "history": [
@@ -231,11 +260,11 @@
       "mae": 1.045
     },
     {
-      "at": "2026-10-30T14:57:30-05:00",
-      "model": "Gradient-boosting baseline",
+      "at": "2026-10-30T16:05:04-05:00",
+      "model": "MACE-MP-0 descriptors + gradient boosting",
       "target": "Tc",
       "split": "val",
-      "mae": 1.045
+      "mae": 1.165
     }
   ]
 }

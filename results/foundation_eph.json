@@ -1,0 +1,43 @@
+{
+  "run_at": "2026-10-30T16:05:04-05:00",
+  "commit": "87a3951",
+  "descriptors": "MACE-MP-0 medium, invariant node features, mean/std/max over atoms",
+  "head": "HistGradientBoostingRegressor, 3-model bootstrap ensemble per fold",
+  "cv": "5-fold GroupKFold by chemical system",
+  "mu_star": 0.1,
+  "n_train": 7582,
+  "n_features": 811,
+  "scores": {
+    "lambda": {
+      "mae": 0.10468589277981223,
+      "rmse": 0.16596609097955345,
+      "r2": 0.6305146227181253,
+      "n": 7582
+    },
+    "wlog": {
+      "mae": 23.058507278046733,
+      "rmse": 34.76799678722532,
+      "r2": 0.7698103741654756,
+      "n": 7582
+    },
+    "tc_direct": {
+      "mae": 1.1649988340717843,
+      "rmse": 2.3192274138097355,
+      "r2": 0.6057839891505912,
+      "n": 7582,
+      "tail_threshold": 7.571265198345577,
+      "tail_n": 759,
+      "tail_mae": 4.884513740073484,
+      "uncertainty_spearman": 0.6314895175936139
+    },
+    "tc_via_lambda_wlog": {
+      "mae": 1.1350277042639594,
+      "rmse": 2.208853908530407,
+      "r2": 0.6424131222594994,
+      "n": 7582,
+      "tail_threshold": 7.571265198345577,
+      "tail_n": 759,
+      "tail_mae": 3.6152294803573444
+    }
+  }
+}
