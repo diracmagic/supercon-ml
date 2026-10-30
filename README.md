@@ -7,7 +7,11 @@ Machine learning for superconductors. The project predicts the critical temperat
 
 ## Follow the progress
 
-The app shows every stage, the training results and the GitHub Actions runs as they happen. It also has a **Physics demos** view, with *Hello Super*, a 90-second animated tour of the project, an animation of how our models work, and demos of zero resistance, the Meissner effect, Cooper pairs and the Allen–Dynes formula, and a **Theory & materials** view on the main theories of superconductivity and the materials behind today's headlines, with links to the original papers.
+The app shows every stage, the training results and the GitHub Actions runs as they happen. It also has four other views:
+
+- **Physics demos**, starting with *Hello Super*, a 90-second animated tour of the project, and *Our AI model: Storm*, an animation of the model our AI agent designed. Demos of zero resistance, the Meissner effect, Cooper pairs and the Allen–Dynes formula follow.
+- **Theory & materials**: the main theories of superconductivity and the materials behind today's headlines, each with an animation, the original papers and the latest results, plus the Nobel Prizes for superconductivity.
+- **News & papers**: superconductivity news and new papers from arXiv, Nature, Science, PRL and PRX, refreshed every three hours, plus a curated list of recent advances in experiment, theory and AI for superconductivity.
 
 | Platform | Get it |
 |---|---|
@@ -16,6 +20,16 @@ The app shows every stage, the training results and the GitHub Actions runs as t
 | iPhone, iPad and Android | Open [diracmagic.github.io/supercon-ml](https://diracmagic.github.io/supercon-ml/) and add it to your home screen (iPhone and iPad: **Share → Add to Home Screen**; Android: **⋮ → Install app**). |
 
 The installers aren't code-signed yet. On Windows, click **More info → Run anyway** if SmartScreen appears. On macOS, if it says it can't verify the developer, open **System Settings → Privacy & Security** and click **Open Anyway**.
+
+## Storm, the AI-designed model
+
+An AI agent (Claude) designs the project's T<sub>c</sub> models. In each search round it proposes new feature sets, physics features and settings. Every candidate is trained and scored with the same composition-grouped five-fold cross-validation, and a design is released as a new version of **Storm** only if it beats the current best on average and in at least 4 of the 5 folds. The locked JARVIS test set is never used to pick a design.
+
+| Version | Design | T<sub>c</sub> MAE (grouped CV) | Baseline |
+|---|---|---|---|
+| Storm 1.0 | Hand-made features + 11 AI-proposed physics features, deeper boosted trees | 0.97 K, better in 5 of 5 folds | 1.05 K |
+
+Each release writes its structure and scores to `progress/progress.json` (`ai_model`), and the app animates that spec. Details of every candidate are in `results/model_search.json`.
 
 ## What the project does
 
@@ -45,6 +59,7 @@ Each paper uses its own data split, so these numbers are a reference point rathe
 
 - `progress/progress.json`: stages, activity log and results. The desktop app and the progress badge read this file.
 - `ml/pipeline.py`: downloads the data, trains the models and updates the progress file. `.github/workflows/train.yml` runs it on GitHub Actions.
+- `feed/papers.py`: collects new superconductivity papers and news into `progress/papers.json`; `.github/workflows/papers.yml` runs it every three hours.
 - `results/`: metrics and predictions from the latest training run.
 - `app/`: the desktop app (Tauri). `app/dist/index.html` is the whole interface; `manifest.webmanifest` and `sw.js` make the same page installable on phones.
 - `.github/workflows/app.yml`: builds the Windows and macOS installers and publishes them as a release.
