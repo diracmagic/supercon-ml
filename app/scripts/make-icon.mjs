@@ -1,14 +1,17 @@
 // Draws the app icon as a 1024x1024 PNG with no dependencies.
 // The mark is a resistance-temperature curve: zero below Tc, a sharp rise,
 // then the normal state. `npx tauri icon` turns the PNG into every platform icon.
-// Usage: node scripts/make-icon.mjs app-icon.png
+// Usage: node scripts/make-icon.mjs app-icon.png [size] [full]
+// `full` fills the whole square (for iOS and Android maskable icons, which add their own mask).
 import { writeFileSync } from 'node:fs';
 import { deflateSync } from 'node:zlib';
 
-const SIZE = 1024;
+const D = 1024; // design grid
+const SIZE = Number(process.argv[3]) || D;
+const SCALE = D / SIZE; // design units per output pixel
 const out = process.argv[2] || 'app-icon.png';
 
-const TILE = { inset: 72, radius: 210 };
+const TILE = process.argv[4] === 'full' ? { inset: 0, radius: 0 } : { inset: 72, radius: 210 };
 const TOP_LEFT = [0x0d, 0x36, 0x6b];
 const BOTTOM_RIGHT = [0x39, 0x87, 0xe5];
 const CURVE = [
@@ -18,7 +21,7 @@ const CURVE = [
 const STROKE = 30; // half width in px
 
 function roundedRectDistance(x, y) {
-  const c = SIZE / 2;
+  const c = D / 2;
   const half = c - TILE.inset;
   const qx = Math.abs(x - c) - (half - TILE.radius);
   const qy = Math.abs(y - c) - (half - TILE.radius);
@@ -51,16 +54,16 @@ const raw = Buffer.alloc(rowBytes * SIZE);
 for (let y = 0; y < SIZE; y++) {
   raw[y * rowBytes] = 0; // PNG filter: none
   for (let x = 0; x < SIZE; x++) {
-    const px = x + 0.5;
-    const py = y + 0.5;
-    const tile = coverage(roundedRectDistance(px, py));
+    const px = (x + 0.5) * SCALE;
+    const py = (y + 0.5) * SCALE;
+    const tile = coverage(roundedRectDistance(px, py) / SCALE);
     const o = y * rowBytes + 1 + x * 4;
     if (tile === 0) continue; // stays transparent
-    const g = Math.max(0, Math.min(1, (px + py) / (2 * SIZE)));
+    const g = Math.max(0, Math.min(1, (px + py) / (2 * D)));
     let r = TOP_LEFT[0] + (BOTTOM_RIGHT[0] - TOP_LEFT[0]) * g;
     let gr = TOP_LEFT[1] + (BOTTOM_RIGHT[1] - TOP_LEFT[1]) * g;
     let b = TOP_LEFT[2] + (BOTTOM_RIGHT[2] - TOP_LEFT[2]) * g;
-    const ink = coverage(curveDistance(px, py));
+    const ink = coverage(curveDistance(px, py) / SCALE);
     r += (255 - r) * ink;
     gr += (255 - gr) * ink;
     b += (255 - b) * ink;
