@@ -1,7 +1,8 @@
 """supercon-ml pipeline: electron-phonon data, baseline models and progress updates.
 
 Usage (from the repository root):
-    python ml/pipeline.py baseline
+    python ml/pipeline.py baseline     # composition + structure features, gradient boosting
+    python ml/pipeline.py foundation   # adds frozen MACE-MP-0 descriptors and bagged heads
 
 The command downloads the Alexandria and JARVIS electron-phonon datasets through
 jarvis-tools, cleans them, recomputes the Allen-Dynes Tc with one mu*, trains
@@ -303,11 +304,107 @@ def update_progress(summary: dict, scores: dict) -> None:
     log(f"progress updated: {prog['badge']}")
 
 
+# ---------------------------------------------------------------- foundation-model descriptors
+
+MACE_MODEL = os.environ.get("MACE_MODEL", "medium")
+N_BAGS = 3
+
+
+def mace_descriptors(df: pd.DataFrame, key: str) -> np.ndarray:
+    """Mean, std and max over atoms of frozen MACE-MP-0 invariant descriptors."""
+    cache = CACHE / f"mace_mp0_{MACE_MODEL}_{key}.npz"
+    ids = df["id"].astype(str).to_numpy()
+    if cache.exists():
+        z = np.load(cache, allow_pickle=True)
+        if len(z["ids"]) == len(ids) and (z["ids"] == ids).all():
+            log(f"MACE descriptors loaded from cache ({z['X'].shape})")
+            return z["X"]
+    import torch
+    from jarvis.core.atoms import Atoms
+    from mace.calculators import mace_mp
+
+    torch.set_num_threads(os.cpu_count() or 2)
+    calc = mace_mp(model=MACE_MODEL, device="cpu", default_dtype="float32")
+    feats = []
+    t0 = time.time()
+    for i, a in enumerate(df["atoms"]):
+        d = calc.get_descriptors(Atoms.from_dict(a).ase_converter(), invariants_only=True)
+        if isinstance(d, list):
+            d = d[0]
+        d = np.asarray(d, dtype=np.float32)
+        feats.append(np.concatenate([d.mean(0), d.std(0), d.max(0)]))
+        if (i + 1) % 1000 == 0:
+            log(f"MACE descriptors: {i + 1}/{len(df)} in {time.time() - t0:.0f}s")
+    X = np.vstack(feats)
+    CACHE.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(cache, ids=ids, X=X)
+    log(f"MACE descriptors: {X.shape} in {time.time() - t0:.0f}s")
+    return X
+
+
+def bagged_grouped_cv(X: np.ndarray, y: np.ndarray, groups: np.ndarray, log_target=False, n_bags=N_BAGS):
+    """Grouped CV with a bootstrap ensemble per fold; returns the mean prediction and its spread."""
+    from sklearn.ensemble import HistGradientBoostingRegressor
+    from sklearn.model_selection import GroupKFold
+
+    preds = np.zeros((n_bags, len(y)))
+    rng = np.random.default_rng(SEED)
+    for k, (tr, te) in enumerate(GroupKFold(n_splits=N_FOLDS).split(X, y, groups)):
+        for b in range(n_bags):
+            idx = rng.choice(tr, size=len(tr), replace=True)
+            model = HistGradientBoostingRegressor(
+                max_iter=1000, learning_rate=0.04, max_leaf_nodes=31, min_samples_leaf=20,
+                l2_regularization=1.0, early_stopping=True, validation_fraction=0.1,
+                n_iter_no_change=40, random_state=SEED + 13 * k + b)
+            target = np.log1p(y[idx]) if log_target else y[idx]
+            model.fit(X[idx], target)
+            p = model.predict(X[te])
+            preds[b, te] = np.expm1(p) if log_target else p
+    return preds.mean(0), preds.std(0)
+
+
+def update_progress_foundation(scores: dict, base: dict | None) -> None:
+    prog = json.loads(PROGRESS.read_text(encoding="utf-8"))
+    stamp = now_iso()
+    for st in prog["stages"]:
+        if st["id"] == "foundation":
+            st.update(status="active", date=stamp[:10], detail=(
+                f"Electron-phonon head done: frozen MACE-MP-0 ({MACE_MODEL}) descriptors with "
+                f"{N_BAGS}-model bagged gradient boosting for uncertainty; measured-Tc head next"))
+    tc = scores["tc_direct"]
+    note = f"{N_FOLDS}-fold composition-grouped CV on Alexandria"
+    prog["results"] = [r for r in prog.get("results", []) if r.get("tag") != "foundation-eph"] + [
+        {"tag": "foundation-eph", "model": f"MACE-MP-0 descriptors + gradient boosting", "target": "Tc",
+         "mae": round(tc["mae"], 3), "unit": "K", "note": note},
+        {"tag": "foundation-eph", "model": "MACE-MP-0 descriptors, lambda and omega_log, then Allen-Dynes",
+         "target": "Tc", "mae": round(scores["tc_via_lambda_wlog"]["mae"], 3), "unit": "K",
+         "note": f"Same CV; mu* = {MU_STAR}"},
+        {"tag": "foundation-eph", "model": "MACE-MP-0 descriptors + gradient boosting", "target": "lambda",
+         "mae": round(scores["lambda"]["mae"], 3), "unit": "", "note": note},
+        {"tag": "foundation-eph", "model": "MACE-MP-0 descriptors + gradient boosting", "target": "omega_log",
+         "mae": round(scores["wlog"]["mae"], 1), "unit": "K", "note": note},
+    ]
+    prog.setdefault("history", []).append({
+        "at": stamp, "model": "MACE-MP-0 descriptors + gradient boosting", "target": "Tc", "split": "val",
+        "mae": round(tc["mae"], 3)})
+    change = ""
+    if base:
+        change = f" (baseline {base['tc_direct']['mae']:.2f} K)"
+    prog["log"].append({"at": stamp, "event": (
+        f"MACE-MP-0 descriptors + gradient boosting: Tc MAE {tc['mae']:.2f} K{change}, lambda MAE "
+        f"{scores['lambda']['mae']:.3f}, omega_log MAE {scores['wlog']['mae']:.1f} K; uncertainty vs error "
+        f"Spearman {scores['tc_direct'].get('uncertainty_spearman', float('nan')):.2f}")})
+    done = sum(1 for s in prog["stages"] if s["status"] == "done")
+    prog["badge"] = f"{done}/{len(prog['stages'])} done · now: foundation model"
+    prog["updated"] = stamp
+    PROGRESS.write_text(json.dumps(prog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    log(f"progress updated: {prog['badge']}")
+
+
 # ---------------------------------------------------------------- commands
 
 
-def run_baseline() -> None:
-    RESULTS.mkdir(exist_ok=True)
+def load_clean() -> tuple[dict, dict]:
     summary = {}
     frames = {}
     for key, name in (("alexandria", "alex_supercon"), ("jarvis", "supercon_3d")):
@@ -325,6 +422,12 @@ def run_baseline() -> None:
             both = df[df["tc_reported"].notna()]
             summary[key]["tc_reported_vs_recomputed_mae"] = float(np.mean(np.abs(both["tc_reported"] - both["tc"])))
         log(f"{key}: {counts}")
+    return summary, frames
+
+
+def run_baseline() -> None:
+    RESULTS.mkdir(exist_ok=True)
+    summary, frames = load_clean()
     (RESULTS / "data_summary.json").write_text(json.dumps(summary, indent=2, default=str) + "\n")
 
     train = frames["alexandria"]
@@ -366,12 +469,65 @@ def run_baseline() -> None:
     update_progress(summary, scores)
 
 
+def run_foundation() -> None:
+    from scipy.stats import spearmanr
+
+    RESULTS.mkdir(exist_ok=True)
+    _, frames = load_clean()
+    train = frames["alexandria"]
+    table = element_table(sorted({e for els in train["elements"] for e in els}))
+    base_X = featurize(train, table)
+    M = mace_descriptors(train, "alexandria")
+    X = np.hstack([base_X.to_numpy(float), M])
+    log(f"features: {base_X.shape[1]} composition/structure + {M.shape[1]} MACE = {X.shape[1]}")
+    groups = train["chemsys"].to_numpy()
+    y_lam = train["lambda"].to_numpy()
+    y_wlog = train["wlog"].to_numpy()
+    y_tc = train["tc"].to_numpy()
+    t0 = time.time()
+    p_lam, s_lam = bagged_grouped_cv(X, y_lam, groups)
+    p_wlog, s_wlog = bagged_grouped_cv(X, y_wlog, groups)
+    p_tc, s_tc = bagged_grouped_cv(X, y_tc, groups, log_target=True)
+    log(f"bagged CV done in {time.time() - t0:.0f}s")
+    p_tc = np.clip(p_tc, 0, None)
+    tail = float(np.quantile(y_tc, 0.9))
+    scores = {
+        "lambda": metrics(y_lam, p_lam),
+        "wlog": metrics(y_wlog, p_wlog),
+        "tc_direct": metrics(y_tc, p_tc, tail=tail),
+        "tc_via_lambda_wlog": metrics(y_tc, allen_dynes(np.clip(p_lam, 0, None), np.clip(p_wlog, 0, None)), tail=tail),
+    }
+    scores["tc_direct"]["uncertainty_spearman"] = float(spearmanr(s_tc, np.abs(p_tc - y_tc)).correlation)
+    for k, v in scores.items():
+        log(f"{k}: " + ", ".join(f"{m}={x:.4g}" for m, x in v.items() if isinstance(x, float)))
+    base_path = RESULTS / "baseline_eph.json"
+    base = json.loads(base_path.read_text())["scores"] if base_path.exists() else None
+    out = {
+        "run_at": now_iso(),
+        "commit": os.environ.get("GITHUB_SHA", "local")[:7],
+        "descriptors": f"MACE-MP-0 {MACE_MODEL}, invariant node features, mean/std/max over atoms",
+        "head": f"HistGradientBoostingRegressor, {N_BAGS}-model bootstrap ensemble per fold",
+        "cv": f"{N_FOLDS}-fold GroupKFold by chemical system",
+        "mu_star": MU_STAR,
+        "n_train": int(len(train)),
+        "n_features": int(X.shape[1]),
+        "scores": scores,
+    }
+    (RESULTS / "foundation_eph.json").write_text(json.dumps(out, indent=2) + "\n")
+    pd.DataFrame({"id": train["id"], "chemsys": groups, "tc": y_tc, "tc_pred": p_tc, "tc_std": s_tc,
+                  "lambda": y_lam, "lambda_pred": p_lam, "wlog": y_wlog, "wlog_pred": p_wlog}).round(5) \
+        .to_csv(RESULTS / "foundation_eph_predictions.csv", index=False)
+    update_progress_foundation(scores, base)
+
+
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["baseline"])
+    ap.add_argument("command", choices=["baseline", "foundation"])
     args = ap.parse_args(argv)
     if args.command == "baseline":
         run_baseline()
+    elif args.command == "foundation":
+        run_foundation()
 
 
 if __name__ == "__main__":
