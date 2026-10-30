@@ -16,10 +16,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  baseline:
-    name: Electron-phonon baseline
+  electron-phonon:
+    name: Electron-phonon models
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
 
@@ -30,18 +30,27 @@ jobs:
           cache-dependency-path: ml/requirements.txt
 
       - name: Install dependencies
-        run: pip install -r ml/requirements.txt
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r ml/requirements.txt mace-torch
 
-      - name: Cache downloaded datasets
+      - name: Restore datasets and descriptors
         uses: actions/cache@v4
         with:
-          path: ~/.cache/supercon-data
-          key: supercon-data-v1
+          path: |
+            ~/.cache/supercon-data
+            ~/.cache/mace
+          key: supercon-cache-${{ github.run_id }}
+          restore-keys: supercon-cache-
 
-      - name: Download data and train baselines
+      - name: Baseline (composition and structure features)
         run: python ml/pipeline.py baseline
 
+      - name: Foundation model (MACE-MP-0 descriptors)
+        run: python ml/pipeline.py foundation
+
       - name: Commit results and progress
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -49,7 +58,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "Nothing to commit"
           else
-            git commit -m "Update baseline results (run ${GITHUB_RUN_NUMBER})"
+            git commit -m "Update training results (run ${GITHUB_RUN_NUMBER})"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
