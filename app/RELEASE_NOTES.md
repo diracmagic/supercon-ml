@@ -1,5 +1,7 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.2.0 adds a Physics demos view with four animations: zero resistance, the Meissner effect, Cooper pairs, and an Allen–Dynes T<sub>c</sub> explorer.
+
 ### Download
 
 - **Windows 10/11:** `SuperconProgress-windows-x64-setup.exe` (or the `.msi`)
