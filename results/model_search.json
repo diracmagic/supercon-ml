@@ -1,0 +1,416 @@
+{
+  "run_at": "2026-10-30T17:31:09-05:00",
+  "commit": "d1f96a6",
+  "round": 1,
+  "model": "Storm",
+  "version": "1.0",
+  "designer": "AI agent (Claude) proposed the candidate feature sets, the physics features and the settings",
+  "selection": "5-fold GroupKFold by chemical system on Alexandria (7,582 materials); the locked JARVIS test set is not used",
+  "rule": "release the lowest-error design among those that beat the baseline on average and in at least 4 of 5 folds; otherwise the best design stays experimental",
+  "caveat": "picking the best of several candidates on the same folds makes its score slightly optimistic; the locked JARVIS test set will check the final model once",
+  "scikit_learn": "1.9.1",
+  "physics_features": {
+    "vec": "valence electrons per atom; Matthias found Tc peaks near 4.7 and 6.5 in transition-metal compounds",
+    "matthias_d47": "distance of the valence-electron count from the first Matthias peak (4.7)",
+    "matthias_d65": "distance from the second Matthias peak (6.5)",
+    "d_fraction": "share of d-block atoms, a proxy for a high density of states at the Fermi level",
+    "p_fraction": "share of p-block atoms (covalent bonding, as in MgB2 and the A15 compounds)",
+    "light_fraction": "share of light atoms (Z <= 9), which vibrate at high frequency",
+    "inv_sqrt_mass": "composition average of M^-1/2; phonon frequencies scale like M^-1/2 (isotope effect)",
+    "omega_proxy": "M^-1/2 divided by the mean nearest-neighbour distance, a crude stiffness-over-mass frequency scale",
+    "mass_ratio": "heaviest over lightest atomic mass; light atoms in a heavy matrix give separate optical modes",
+    "x_diff": "electronegativity difference, a proxy for ionicity and charge transfer",
+    "packing_fraction": "atomic-sphere volume over volume per atom, a proxy for how compressed the lattice is"
+  },
+  "baseline": {
+    "id": "A",
+    "name": "Hand-made features (baseline)",
+    "tc_mae": 1.0454738804890746,
+    "fold_mae": [
+      1.1104625137703033,
+      1.057417417696244,
+      0.9374199590096807,
+      1.078520254795788,
+      1.0434985103590522
+    ]
+  },
+  "leaderboard": [
+    {
+      "id": "D1",
+      "set": "D",
+      "name": "Hand-made + physics features",
+      "settings": "deeper trees",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "n_features": 54,
+      "tc_mae": 0.9687274184455797,
+      "tc_rmse": 2.0155528648448127,
+      "tc_r2": 0.702260829383683,
+      "tc_tail_mae": 3.7348654895707334,
+      "fold_mae": [
+        1.0190205845206133,
+        0.9849558253095789,
+        0.8737968748689737,
+        0.9847094226782664,
+        0.9811105051849394
+      ],
+      "seconds": 19,
+      "folds_better": 5
+    },
+    {
+      "id": "D4",
+      "set": "D",
+      "name": "Hand-made + physics features",
+      "settings": "half the features per split",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 20,
+        "l2_regularization": 1.0,
+        "max_features": 0.5
+      },
+      "n_features": 54,
+      "tc_mae": 1.011928717848249,
+      "tc_rmse": 2.1067374579756786,
+      "tc_r2": 0.6747117159875479,
+      "tc_tail_mae": 3.93146315277846,
+      "fold_mae": [
+        1.0776383842580524,
+        1.030430939019925,
+        0.9181426315900238,
+        1.0224416329411237,
+        1.01093445269361
+      ],
+      "seconds": 11,
+      "folds_better": 5
+    },
+    {
+      "id": "D3",
+      "set": "D",
+      "name": "Hand-made + physics features",
+      "settings": "slower learning",
+      "params": {
+        "max_iter": 1600,
+        "learning_rate": 0.02,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 20,
+        "l2_regularization": 1.0
+      },
+      "n_features": 54,
+      "tc_mae": 1.01945526909109,
+      "tc_rmse": 2.116624953949329,
+      "tc_r2": 0.6716512168795508,
+      "tc_tail_mae": 3.98233424207272,
+      "fold_mae": [
+        1.0794413374322065,
+        1.0238273953081132,
+        0.9271239165824271,
+        1.03680910465311,
+        1.0300321388446616
+      ],
+      "seconds": 23,
+      "folds_better": 5
+    },
+    {
+      "id": "D",
+      "set": "D",
+      "name": "Hand-made + physics features",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 20,
+        "l2_regularization": 1.0
+      },
+      "n_features": 54,
+      "tc_mae": 1.0207155244084138,
+      "tc_rmse": 2.110365159162425,
+      "tc_r2": 0.6735904897206546,
+      "tc_tail_mae": 3.978406282334466,
+      "fold_mae": [
+        1.0825768898073316,
+        1.0246017520738886,
+        0.9280123130855032,
+        1.0396099169571522,
+        1.0287333809934809
+      ],
+      "seconds": 11,
+      "folds_better": 5
+    },
+    {
+      "id": "A",
+      "set": "A",
+      "name": "Hand-made features (baseline)",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 20,
+        "l2_regularization": 1.0
+      },
+      "n_features": 43,
+      "tc_mae": 1.0454738804890746,
+      "tc_rmse": 2.127751751945418,
+      "tc_r2": 0.6681899768858999,
+      "tc_tail_mae": 3.9418606293341005,
+      "fold_mae": [
+        1.1104625137703033,
+        1.057417417696244,
+        0.9374199590096807,
+        1.078520254795788,
+        1.0434985103590522
+      ],
+      "seconds": 10,
+      "folds_better": 0
+    },
+    {
+      "id": "E",
+      "set": "E",
+      "name": "Hand-made + physics + 32 MACE components",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 20,
+        "l2_regularization": 1.0
+      },
+      "n_features": 86,
+      "tc_mae": 1.0592631766223854,
+      "tc_rmse": 2.1579518837500524,
+      "tc_r2": 0.6587040764692376,
+      "tc_tail_mae": 4.194899280055237,
+      "fold_mae": [
+        1.1139657970837826,
+        1.1324741577586688,
+        0.9326471073843504,
+        1.0730754509795477,
+        1.0440689941789307
+      ],
+      "seconds": 20,
+      "folds_better": 2
+    },
+    {
+      "id": "C",
+      "set": "C",
+      "name": "Hand-made + 32 MACE principal components",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 20,
+        "l2_regularization": 1.0
+      },
+      "n_features": 75,
+      "tc_mae": 1.08048439339539,
+      "tc_rmse": 2.177720993351362,
+      "tc_r2": 0.6524221737885318,
+      "tc_tail_mae": 4.178453316437392,
+      "fold_mae": [
+        1.1524120139191794,
+        1.1425415961263472,
+        0.9447775727591841,
+        1.1059419019424894,
+        1.0566605017394775
+      ],
+      "seconds": 20,
+      "folds_better": 0
+    },
+    {
+      "id": "B",
+      "set": "B",
+      "name": "Hand-made + full MACE-MP-0 descriptors",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 20,
+        "l2_regularization": 1.0
+      },
+      "n_features": 811,
+      "tc_mae": 1.0888954156193524,
+      "tc_rmse": 2.213561838691036,
+      "tc_r2": 0.6408871832810713,
+      "tc_tail_mae": 4.441803710659117,
+      "fold_mae": [
+        1.1466949426409645,
+        1.1180220207376907,
+        0.9723183003851216,
+        1.1108611504859334,
+        1.0965233247097563
+      ],
+      "seconds": 126,
+      "folds_better": 0
+    },
+    {
+      "id": "D2",
+      "set": "D",
+      "name": "Hand-made + physics features",
+      "settings": "stronger regularization",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 40,
+        "l2_regularization": 5.0
+      },
+      "n_features": 54,
+      "tc_mae": 1.098619096775029,
+      "tc_rmse": 2.202904471712,
+      "tc_r2": 0.6443368125959263,
+      "tc_tail_mae": 4.355836086626477,
+      "fold_mae": [
+        1.1650096107200032,
+        1.1096387154446208,
+        0.986514047159867,
+        1.1335826030831422,
+        1.0982994453747577
+      ],
+      "seconds": 6,
+      "folds_better": 0
+    }
+  ],
+  "best": {
+    "id": "D1",
+    "set": "D",
+    "name": "Hand-made + physics features",
+    "settings": "deeper trees",
+    "params": {
+      "max_iter": 800,
+      "learning_rate": 0.04,
+      "max_leaf_nodes": 63,
+      "min_samples_leaf": 10,
+      "l2_regularization": 1.0
+    },
+    "n_features": 54,
+    "tc_mae": 0.9687274184455797,
+    "tc_rmse": 2.0155528648448127,
+    "tc_r2": 0.702260829383683,
+    "tc_tail_mae": 3.7348654895707334,
+    "fold_mae": [
+      1.0190205845206133,
+      0.9849558253095789,
+      0.8737968748689737,
+      0.9847094226782664,
+      0.9811105051849394
+    ],
+    "seconds": 19,
+    "folds_better": 5,
+    "scores": {
+      "lambda": {
+        "mae": 0.09160850936486695,
+        "rmse": 0.15106102360971752,
+        "r2": 0.6938999703591848,
+        "n": 7582
+      },
+      "wlog": {
+        "mae": 20.86267162413798,
+        "rmse": 31.80385744493099,
+        "r2": 0.8073868181453098,
+        "n": 7582
+      },
+      "tc_via_lambda_wlog": {
+        "mae": 1.013019121738631,
+        "rmse": 2.0690930312029883,
+        "r2": 0.6862327414506255,
+        "n": 7582,
+        "tail_threshold": 7.571265198345577,
+        "tail_n": 759,
+        "tail_mae": 3.056020527112582
+      }
+    }
+  },
+  "adopted": true,
+  "spec": {
+    "inputs": [
+      {
+        "group": "composition",
+        "label": "Composition statistics",
+        "n": 34,
+        "detail": "mean, spread, min and max of 8 element properties, plus element and site counts"
+      },
+      {
+        "group": "structure",
+        "label": "Crystal structure",
+        "n": 9,
+        "detail": "volume and density, lattice lengths, nearest-neighbour distances"
+      },
+      {
+        "group": "physics",
+        "label": "Physics features proposed by the AI",
+        "n": 11,
+        "items": [
+          {
+            "name": "vec",
+            "why": "valence electrons per atom; Matthias found Tc peaks near 4.7 and 6.5 in transition-metal compounds"
+          },
+          {
+            "name": "matthias_d47",
+            "why": "distance of the valence-electron count from the first Matthias peak (4.7)"
+          },
+          {
+            "name": "matthias_d65",
+            "why": "distance from the second Matthias peak (6.5)"
+          },
+          {
+            "name": "d_fraction",
+            "why": "share of d-block atoms, a proxy for a high density of states at the Fermi level"
+          },
+          {
+            "name": "p_fraction",
+            "why": "share of p-block atoms (covalent bonding, as in MgB2 and the A15 compounds)"
+          },
+          {
+            "name": "light_fraction",
+            "why": "share of light atoms (Z <= 9), which vibrate at high frequency"
+          },
+          {
+            "name": "inv_sqrt_mass",
+            "why": "composition average of M^-1/2; phonon frequencies scale like M^-1/2 (isotope effect)"
+          },
+          {
+            "name": "omega_proxy",
+            "why": "M^-1/2 divided by the mean nearest-neighbour distance, a crude stiffness-over-mass frequency scale"
+          },
+          {
+            "name": "mass_ratio",
+            "why": "heaviest over lightest atomic mass; light atoms in a heavy matrix give separate optical modes"
+          },
+          {
+            "name": "x_diff",
+            "why": "electronegativity difference, a proxy for ionicity and charge transfer"
+          },
+          {
+            "name": "packing_fraction",
+            "why": "atomic-sphere volume over volume per atom, a proxy for how compressed the lattice is"
+          }
+        ]
+      }
+    ],
+    "learner": {
+      "kind": "gradient-boosting",
+      "trees": 800,
+      "leaves": 63,
+      "learning_rate": 0.04,
+      "min_leaf": 10,
+      "l2": 1.0,
+      "features_per_split": 1.0
+    },
+    "target": "log(1 + Tc)",
+    "cv": "5-fold, grouped by chemical system"
+  },
+  "changes": [
+    "Adds 11 physics features proposed by the AI: valence electrons per atom and the distance to Matthias's two Tc peaks, d- and p-block shares, light-atom share, an M^-1/2 phonon scale, a stiffness-over-mass proxy, mass ratio, electronegativity spread and packing fraction",
+    "Deeper trees: up to 63 leaves (was 31), at least 10 materials per leaf (was 20)"
+  ]
+}

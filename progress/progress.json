@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-30T16:05:04-05:00",
+  "updated": "2026-10-30T17:31:09-05:00",
   "badge": "3/10 done · now: foundation model",
   "project": "Finding high-Tc superconductors with materials foundation models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
@@ -131,6 +131,10 @@
     {
       "at": "2026-10-30T16:05:04-05:00",
       "event": "MACE-MP-0 descriptors + gradient boosting: Tc MAE 1.16 K (baseline 1.05 K), lambda MAE 0.105, omega_log MAE 23.1 K; uncertainty vs error Spearman 0.63"
+    },
+    {
+      "at": "2026-10-30T17:31:09-05:00",
+      "event": "Storm 1.0, the AI-designed model from search round 1 (9 candidates): Tc MAE 0.97 K against 1.05 K for the baseline, better in 5 of 5 folds; adopted"
     }
   ],
   "baselines": [
@@ -265,6 +269,296 @@
       "target": "Tc",
       "split": "val",
       "mae": 1.165
+    },
+    {
+      "at": "2026-10-30T17:31:09-05:00",
+      "model": "Storm 1.0 (AI-designed)",
+      "target": "Tc",
+      "split": "val",
+      "mae": 0.969
     }
-  ]
+  ],
+  "search": {
+    "round": 1,
+    "at": "2026-10-30T17:31:09-05:00",
+    "designer": "AI agent (Claude) proposed the candidate feature sets, the physics features and the settings",
+    "selection": "5-fold GroupKFold by chemical system on Alexandria (7,582 materials); the locked JARVIS test set is not used",
+    "rule": "release the lowest-error design among those that beat the baseline on average and in at least 4 of 5 folds; otherwise the best design stays experimental",
+    "baseline": {
+      "name": "Hand-made features (baseline)",
+      "tc_mae": 1.045
+    },
+    "best": {
+      "id": "D1",
+      "name": "Hand-made + physics features",
+      "settings": "deeper trees",
+      "tc_mae": 0.969,
+      "folds_better": 5
+    },
+    "adopted": true,
+    "candidates": [
+      {
+        "id": "D1",
+        "name": "Hand-made + physics features",
+        "settings": "deeper trees",
+        "n_features": 54,
+        "tc_mae": 0.969,
+        "folds_better": 5
+      },
+      {
+        "id": "D4",
+        "name": "Hand-made + physics features",
+        "settings": "half the features per split",
+        "n_features": 54,
+        "tc_mae": 1.012,
+        "folds_better": 5
+      },
+      {
+        "id": "D3",
+        "name": "Hand-made + physics features",
+        "settings": "slower learning",
+        "n_features": 54,
+        "tc_mae": 1.019,
+        "folds_better": 5
+      },
+      {
+        "id": "D",
+        "name": "Hand-made + physics features",
+        "settings": "default",
+        "n_features": 54,
+        "tc_mae": 1.021,
+        "folds_better": 5
+      },
+      {
+        "id": "A",
+        "name": "Hand-made features (baseline)",
+        "settings": "default",
+        "n_features": 43,
+        "tc_mae": 1.045,
+        "folds_better": 0
+      },
+      {
+        "id": "E",
+        "name": "Hand-made + physics + 32 MACE components",
+        "settings": "default",
+        "n_features": 86,
+        "tc_mae": 1.059,
+        "folds_better": 2
+      },
+      {
+        "id": "C",
+        "name": "Hand-made + 32 MACE principal components",
+        "settings": "default",
+        "n_features": 75,
+        "tc_mae": 1.08,
+        "folds_better": 0
+      },
+      {
+        "id": "B",
+        "name": "Hand-made + full MACE-MP-0 descriptors",
+        "settings": "default",
+        "n_features": 811,
+        "tc_mae": 1.089,
+        "folds_better": 0
+      },
+      {
+        "id": "D2",
+        "name": "Hand-made + physics features",
+        "settings": "stronger regularization",
+        "n_features": 54,
+        "tc_mae": 1.099,
+        "folds_better": 0
+      }
+    ],
+    "caveat": "picking the best of several candidates on the same folds makes its score slightly optimistic; the locked JARVIS test set will check the final model once",
+    "details": "results/model_search.json"
+  },
+  "ai_model": {
+    "name": "Storm",
+    "about": "Storm is the project's AI-designed Tc model. An AI agent (Claude) proposes each design; every candidate is trained and scored with the same composition-grouped cross-validation, and a new version is released only if it beats the current best on average and in at least 4 of the 5 folds.",
+    "current": "1.0",
+    "versions": [
+      {
+        "version": "1.0",
+        "round": 1,
+        "date": "2026-10-30",
+        "status": "adopted",
+        "summary": "Hand-made + physics features, deeper trees",
+        "changes": [
+          "Adds 11 physics features proposed by the AI: valence electrons per atom and the distance to Matthias's two Tc peaks, d- and p-block shares, light-atom share, an M^-1/2 phonon scale, a stiffness-over-mass proxy, mass ratio, electronegativity spread and packing fraction",
+          "Deeper trees: up to 63 leaves (was 31), at least 10 materials per leaf (was 20)"
+        ],
+        "spec": {
+          "inputs": [
+            {
+              "group": "composition",
+              "label": "Composition statistics",
+              "n": 34,
+              "detail": "mean, spread, min and max of 8 element properties, plus element and site counts"
+            },
+            {
+              "group": "structure",
+              "label": "Crystal structure",
+              "n": 9,
+              "detail": "volume and density, lattice lengths, nearest-neighbour distances"
+            },
+            {
+              "group": "physics",
+              "label": "Physics features proposed by the AI",
+              "n": 11,
+              "items": [
+                {
+                  "name": "vec",
+                  "why": "valence electrons per atom; Matthias found Tc peaks near 4.7 and 6.5 in transition-metal compounds"
+                },
+                {
+                  "name": "matthias_d47",
+                  "why": "distance of the valence-electron count from the first Matthias peak (4.7)"
+                },
+                {
+                  "name": "matthias_d65",
+                  "why": "distance from the second Matthias peak (6.5)"
+                },
+                {
+                  "name": "d_fraction",
+                  "why": "share of d-block atoms, a proxy for a high density of states at the Fermi level"
+                },
+                {
+                  "name": "p_fraction",
+                  "why": "share of p-block atoms (covalent bonding, as in MgB2 and the A15 compounds)"
+                },
+                {
+                  "name": "light_fraction",
+                  "why": "share of light atoms (Z <= 9), which vibrate at high frequency"
+                },
+                {
+                  "name": "inv_sqrt_mass",
+                  "why": "composition average of M^-1/2; phonon frequencies scale like M^-1/2 (isotope effect)"
+                },
+                {
+                  "name": "omega_proxy",
+                  "why": "M^-1/2 divided by the mean nearest-neighbour distance, a crude stiffness-over-mass frequency scale"
+                },
+                {
+                  "name": "mass_ratio",
+                  "why": "heaviest over lightest atomic mass; light atoms in a heavy matrix give separate optical modes"
+                },
+                {
+                  "name": "x_diff",
+                  "why": "electronegativity difference, a proxy for ionicity and charge transfer"
+                },
+                {
+                  "name": "packing_fraction",
+                  "why": "atomic-sphere volume over volume per atom, a proxy for how compressed the lattice is"
+                }
+              ]
+            }
+          ],
+          "learner": {
+            "kind": "gradient-boosting",
+            "trees": 800,
+            "leaves": 63,
+            "learning_rate": 0.04,
+            "min_leaf": 10,
+            "l2": 1.0,
+            "features_per_split": 1.0
+          },
+          "target": "log(1 + Tc)",
+          "cv": "5-fold, grouped by chemical system"
+        },
+        "scores": {
+          "tc_mae": 0.969,
+          "reference_mae": 1.045,
+          "reference": "Hand-made features (baseline)",
+          "folds": [
+            1.019,
+            0.985,
+            0.874,
+            0.985,
+            0.981
+          ],
+          "reference_folds": [
+            1.11,
+            1.057,
+            0.937,
+            1.079,
+            1.043
+          ],
+          "folds_better": 5,
+          "tail_mae": 3.735,
+          "tc_via_lambda_wlog_mae": 1.013,
+          "lambda_mae": 0.092,
+          "omega_log_mae": 20.9
+        },
+        "search": {
+          "candidates": 9,
+          "leaderboard": [
+            {
+              "id": "D1",
+              "name": "Hand-made + physics features",
+              "settings": "deeper trees",
+              "tc_mae": 0.969,
+              "folds_better": 5
+            },
+            {
+              "id": "D4",
+              "name": "Hand-made + physics features",
+              "settings": "half the features per split",
+              "tc_mae": 1.012,
+              "folds_better": 5
+            },
+            {
+              "id": "D3",
+              "name": "Hand-made + physics features",
+              "settings": "slower learning",
+              "tc_mae": 1.019,
+              "folds_better": 5
+            },
+            {
+              "id": "D",
+              "name": "Hand-made + physics features",
+              "settings": "default",
+              "tc_mae": 1.021,
+              "folds_better": 5
+            },
+            {
+              "id": "A",
+              "name": "Hand-made features (baseline)",
+              "settings": "default",
+              "tc_mae": 1.045,
+              "folds_better": 0
+            },
+            {
+              "id": "E",
+              "name": "Hand-made + physics + 32 MACE components",
+              "settings": "default",
+              "tc_mae": 1.059,
+              "folds_better": 2
+            },
+            {
+              "id": "C",
+              "name": "Hand-made + 32 MACE principal components",
+              "settings": "default",
+              "tc_mae": 1.08,
+              "folds_better": 0
+            },
+            {
+              "id": "B",
+              "name": "Hand-made + full MACE-MP-0 descriptors",
+              "settings": "default",
+              "tc_mae": 1.089,
+              "folds_better": 0
+            },
+            {
+              "id": "D2",
+              "name": "Hand-made + physics features",
+              "settings": "stronger regularization",
+              "tc_mae": 1.099,
+              "folds_better": 0
+            }
+          ]
+        }
+      }
+    ]
+  }
 }
