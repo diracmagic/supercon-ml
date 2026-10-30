@@ -1,0 +1,107 @@
+name: Desktop app
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - '.github/workflows/app.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: desktop-app
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (${{ matrix.label }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            label: windows
+            rust-targets: ''
+            build-args: ''
+          - os: macos-latest
+            label: macos
+            rust-targets: aarch64-apple-darwin,x86_64-apple-darwin
+            build-args: --target universal-apple-darwin
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust-targets }}
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: app/src-tauri -> target
+
+      - name: Install the Tauri CLI
+        run: npm install --no-audit --no-fund
+
+      - name: Generate icons
+        run: |
+          node scripts/make-icon.mjs app-icon.png
+          npx tauri icon app-icon.png -o src-tauri/icons
+
+      - name: Bundle the latest progress data
+        run: cp ../progress/progress.json dist/progress.json
+
+      - name: Build installers
+        run: npx tauri build ${{ matrix.build-args }}
+
+      - name: Collect installers
+        run: |
+          mkdir -p ../out
+          if [ "${{ matrix.label }}" = "windows" ]; then
+            cp src-tauri/target/release/bundle/nsis/*-setup.exe ../out/SuperconProgress-windows-x64-setup.exe
+            cp src-tauri/target/release/bundle/msi/*.msi ../out/SuperconProgress-windows-x64.msi
+          else
+            cp src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg ../out/SuperconProgress-macos-universal.dmg
+          fi
+          ls -la ../out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer-${{ matrix.label }}
+          path: out/*
+          if-no-files-found: error
+
+  release:
+    name: Publish release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+
+      - name: Read the app version
+        id: version
+        run: echo "value=$(node -p "require('./app/src-tauri/tauri.conf.json').version")" >> "$GITHUB_OUTPUT"
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: app-v${{ steps.version.outputs.value }}
+          name: Supercon Progress ${{ steps.version.outputs.value }}
+          body_path: app/RELEASE_NOTES.md
+          files: out/*
+          make_latest: true
+          fail_on_unmatched_files: true
