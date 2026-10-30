@@ -1,5 +1,5 @@
-"""Live paper feed for the app: new superconductivity papers from arXiv and from Nature, Science,
-Physical Review Letters and Physical Review X.
+"""Live paper and news feed for the app: new superconductivity papers from arXiv and from Nature,
+Science, Physical Review Letters and Physical Review X, plus superconductivity news from science-news sites.
 
 Run from the repository root:  python feed/papers.py
 It writes progress/papers.json, which the app reads. Only the standard library is used.
@@ -8,11 +8,14 @@ Sources:
     abstracts, is offered under CC0.
   - Crossref REST API, filtered by journal ISSN and publication date; titles are matched for
     superconductivity. Abstracts are shown only when the publisher deposited one with Crossref.
+  - News: the RSS feeds of ScienceDaily, Phys.org, Physics World, APS Physics and Quanta Magazine,
+    keeping items that mention superconductivity. Only the headline, a short snippet and the link are kept.
 Topic and type tags are assigned automatically from keywords, so they are a rough guide.
 """
 from __future__ import annotations
 
 import datetime as dt
+import email.utils
 import html
 import json
 import re
@@ -25,7 +28,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "progress" / "papers.json"
-UA = "supercon-ml paper feed (https://github.com/diracmagic/supercon-ml)"
+UA = "Mozilla/5.0 (compatible; supercon-ml-feed/1.0; +https://github.com/diracmagic/supercon-ml)"
 ARXIV_MAX = 80
 JOURNAL_DAYS = 150
 JOURNAL_MAX = 30
@@ -36,6 +39,16 @@ JOURNALS = [
     ("PRX", "Phys. Rev. X", ["2160-3308"]),
 ]
 ABSTRACT_MAX = 1400
+NEWS_FEEDS = [
+    ("ScienceDaily", "https://www.sciencedaily.com/rss/matter_energy/superconductors.xml"),
+    ("Phys.org", "https://phys.org/rss-feed/physics-news/superconductivity/"),
+    ("Physics World", "https://physicsworld.com/feed/"),
+    ("APS Physics", "https://feeds.aps.org/rss/recent/physics.xml"),
+    ("Quanta Magazine", "https://www.quantamagazine.org/feed/"),
+]
+NEWS_DAYS = 180
+NEWS_MAX = 40
+SNIPPET_MAX = 280
 
 TOPICS = [
     ("Cuprates", r"cuprate|CuO[_]?2|YBa[_]?2Cu|YBCO|Bi[_]?2Sr[_]?2|Bi-?22[01]2|La[_]?2-?x?Sr|LSCO|Hg-?12[0-9]{2}|HgBa|Nd[_]?2-?x?Ce|copper oxide"),
@@ -219,6 +232,49 @@ def fetch_journal(short: str, name: str, issns: list) -> list:
     return items[:JOURNAL_MAX]
 
 
+def parse_date(s: str) -> str:
+    s = (s or "").strip()
+    if not s:
+        return ""
+    try:
+        return email.utils.parsedate_to_datetime(s).date().isoformat()
+    except (TypeError, ValueError, IndexError):
+        m = re.match(r"(\d{4}-\d{2}-\d{2})", s)
+        return m.group(1) if m else ""
+
+
+def fetch_news(name: str, url: str) -> list:
+    root = ET.fromstring(get(url))
+    atom = "{http://www.w3.org/2005/Atom}"
+    entries = root.findall(".//item") or root.findall(f".//{atom}entry")
+    since = (dt.date.today() - dt.timedelta(days=NEWS_DAYS)).isoformat()
+    items = []
+    for e in entries:
+        def text(tag):
+            el = e.find(tag)
+            if el is None:
+                el = e.find(atom + tag)
+            return el.text if el is not None and el.text else ""
+        title = clean_text(text("title"))
+        desc = clean_text(text("description") or text("summary") or text("content"))
+        link = text("link").strip()
+        if not link:
+            el = e.find(atom + "link")
+            link = el.get("href", "") if el is not None else ""
+        date = parse_date(text("pubDate") or text("published") or text("updated") or text("{http://purl.org/dc/elements/1.1/}date"))
+        if not title or not link.startswith("http") or not re.search(r"supercond", title + " " + desc, re.I):
+            continue
+        if date and date < since:
+            continue
+        snippet = desc if len(desc) <= SNIPPET_MAX else desc[:SNIPPET_MAX].rsplit(" ", 1)[0] + "…"
+        topics, _ = tags_for(title + " " + desc)
+        if re.search(EXCLUDE, title + " " + desc, re.I):
+            topics = (topics + ["Quantum devices"])[:3]
+        items.append({"id": link, "source": name, "title": title, "date": date, "summary": snippet, "url": link, "topics": topics})
+    log(f"news, {name}: {len(items)} superconductivity items")
+    return items
+
+
 def main() -> int:
     old = {}
     if OUT.exists():
@@ -226,7 +282,7 @@ def main() -> int:
             old = json.loads(OUT.read_text(encoding="utf-8"))
         except ValueError:
             old = {}
-    feed = {"arxiv": old.get("arxiv", []), "journals": old.get("journals", [])}
+    feed = {"arxiv": old.get("arxiv", []), "journals": old.get("journals", []), "news": old.get("news", [])}
     ok = []
     try:
         feed["arxiv"] = fetch_arxiv() or feed["arxiv"]
@@ -250,10 +306,28 @@ def main() -> int:
             seen.add(x["id"])
             unique.append(x)
     feed["journals"] = unique
+    news, kept_news = [], {}
+    for x in feed["news"]:
+        kept_news.setdefault(x.get("source"), []).append(x)
+    for name, url in NEWS_FEEDS:
+        time.sleep(1)
+        try:
+            news += fetch_news(name, url)
+            ok.append(name)
+        except Exception as err:
+            log(f"news, {name} skipped: {err}")
+            news += kept_news.get(name, [])
+    seen_n, uniq_n = set(), []
+    for x in sorted(news, key=lambda x: x.get("date", ""), reverse=True):
+        key = re.sub(r"\W+", " ", x["title"].lower()).strip()
+        if x["url"] not in seen_n and key not in seen_n:
+            seen_n.update([x["url"], key])
+            uniq_n.append(x)
+    feed["news"] = uniq_n[:NEWS_MAX]
     if not ok:
         log("no source could be fetched; leaving the feed unchanged")
         return 0
-    same = old.get("arxiv") == feed["arxiv"] and old.get("journals") == feed["journals"]
+    same = old.get("arxiv") == feed["arxiv"] and old.get("journals") == feed["journals"] and old.get("news") == feed["news"]
     if same:
         log("no change")
         return 0
@@ -262,15 +336,16 @@ def main() -> int:
         "schema": 1,
         "updated": now,
         "about": ("New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from "
-                  "Nature, Science, Physical Review Letters and Physical Review X, refreshed every three hours. "
-                  "Topic and type tags are assigned automatically from keywords."),
+                  "Nature, Science, Physical Review Letters and Physical Review X, and superconductivity news from "
+                  "science-news sites, refreshed every three hours. Topic and type tags are assigned automatically."),
         "sources_ok": ok,
         "arxiv": feed["arxiv"],
         "journals": feed["journals"],
+        "news": feed["news"],
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    log(f"wrote {OUT.relative_to(ROOT)}: {len(out['arxiv'])} arXiv and {len(out['journals'])} journal papers")
+    log(f"wrote {OUT.relative_to(ROOT)}: {len(out['arxiv'])} arXiv and {len(out['journals'])} journal papers, {len(out['news'])} news items")
     return 0
 
 
