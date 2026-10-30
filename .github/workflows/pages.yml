@@ -1,0 +1,57 @@
+name: Phone app
+
+# Publishes the app as an installable web app on GitHub Pages, so anyone can follow
+# the progress on a phone: https://diracmagic.github.io/supercon-ml/
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'app/dist/**'
+      - 'app/scripts/make-icon.mjs'
+      - '.github/workflows/pages.yml'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Publish to GitHub Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Assemble the site
+        run: |
+          mkdir -p _site/icons
+          cp app/dist/index.html app/dist/manifest.webmanifest app/dist/sw.js _site/
+          cp progress/progress.json _site/progress.json
+          node app/scripts/make-icon.mjs _site/icons/icon-192.png 192
+          node app/scripts/make-icon.mjs _site/icons/icon-512.png 512
+          node app/scripts/make-icon.mjs _site/icons/icon-maskable-512.png 512 full
+          node app/scripts/make-icon.mjs _site/icons/apple-touch-icon.png 180 full
+          touch _site/.nojekyll
+          ls -la _site _site/icons
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
