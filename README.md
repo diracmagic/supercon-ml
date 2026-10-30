@@ -26,7 +26,7 @@ The installers aren't code-signed yet. On Windows, click **More info → Run any
 
 **Mechanism analysis.** Comparing the electron–phonon T<sub>c</sub> with the measured T<sub>c</sub> flags materials whose superconductivity phonons can't explain. Within each family, feature attributions test whether the models recover known structure–T<sub>c</sub> correlations.
 
-Magnetic materials and hydrides under pressure are excluded from the electron–phonon track.
+Hydrides are excluded from the electron–phonon track.
 
 ## Published baselines
 
@@ -43,6 +43,8 @@ Each paper uses its own data split, so these numbers are a reference point rathe
 ## Repository layout
 
 - `progress/progress.json`: stages, activity log and results. The desktop app and the progress badge read this file.
+- `ml/pipeline.py`: downloads the data, trains the models and updates the progress file. `.github/workflows/train.yml` runs it on GitHub Actions.
+- `results/`: metrics and predictions from the latest training run.
 - `app/`: the desktop app (Tauri). `app/dist/index.html` is the whole interface.
 - `.github/workflows/app.yml`: builds the Windows and macOS installers and publishes them as a release.
 
