@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Supercon Progress</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230d366b'/%3E%3Cstop offset='1' stop-color='%233987e5'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='72' y='72' width='880' height='880' rx='210' fill='url(%23g)'/%3E%3Cpath d='M250 690H455L478 676 494 630 506 540 518 462 536 432 566 420 790 336' fill='none' stroke='%23fff' stroke-width='60' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root {
+  --font: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --surface-2: #f1f0ec;
+  --hover: #ecebe6;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.10);
+  --accent: #2a78d6;
+  --accent-track: #cde2fb;
+  --accent-wash: rgba(42, 120, 214, 0.07);
+  --good: #0ca30c;
+  --warning: #fab219;
+  --critical: #d03b3b;
+  --tip-shadow: 0 6px 20px rgba(11, 11, 11, 0.12);
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --surface-2: #242422;
+    --hover: #2b2b29;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+    --accent: #3987e5;
+    --accent-track: #0d366b;
+    --accent-wash: rgba(57, 135, 229, 0.12);
+    --tip-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --surface-2: #242422;
+  --hover: #2b2b29;
+  --ink: #f0efec;
+  --ink-2: #c3c2b7;
+  --muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.10);
+  --accent: #3987e5;
+  --accent-track: #0d366b;
+  --accent-wash: rgba(57, 135, 229, 0.12);
+  --tip-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body {
+  min-height: 100vh;
+  background: var(--page);
+  color: var(--ink);
+  font: 14px/1.5 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration-color: var(--axis); text-underline-offset: 2px; }
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+button { font: inherit; color: inherit; }
+h1, h2, h3, p { margin: 0; }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 20px 24px 28px; }
+@media (max-width: 600px) { .wrap { padding: 16px; } }
+
+/* header */
+.top { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 16px; margin-bottom: 16px; }
+.brand { display: flex; align-items: center; gap: 12px; flex: 1 1 340px; min-width: 0; }
+.logo { width: 36px; height: 36px; flex: none; }
+.brand h1 { font-size: 17px; font-weight: 600; line-height: 1.3; }
+.brand p { font-size: 13px; line-height: 1.35; color: var(--ink-2); }
+.controls { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.stamp { display: inline-flex; align-items: center; gap: 6px; margin-right: 4px; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--axis); }
+.live-dot.is-live { background: var(--good); }
+.live-dot.is-off { background: var(--muted); }
+.btn {
+  height: 32px; min-width: 32px; padding: 0 10px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); cursor: pointer; font-size: 13px;
+}
+.btn:hover { background: var(--hover); }
+.btn svg { width: 16px; height: 16px; }
+.btn.icon-only { padding: 0; width: 32px; }
+.btn.small { height: 28px; font-size: 12px; }
+.btn.is-busy svg { animation: spin 0.9s linear infinite; }
+
+.notice {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin-bottom: 16px; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 10px;
+  background: var(--surface-2); color: var(--ink-2); font-size: 13px;
+}
+.notice svg { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.card-head h2 { font-size: 15px; font-weight: 600; line-height: 1.35; }
+.card-head p { margin-top: 2px; font-size: 12.5px; color: var(--ink-2); }
+.muted-p { font-size: 13px; color: var(--ink-2); }
+
+/* summary tiles */
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+@media (max-width: 760px) { .kpis { grid-template-columns: minmax(0, 1fr); } }
+
+/* animated pipeline */
+.pipeline { margin-bottom: 12px; padding-bottom: 8px; }
+.pipe-head { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 4px 24px; }
+.hero { font-size: 48px; font-weight: 600; line-height: 1; letter-spacing: -0.01em; }
+.pipe-meta { padding-bottom: 4px; min-width: 0; }
+.pipe-strong { font-size: 14px; font-weight: 600; }
+.pipe-meta .tile-sub { margin-top: 2px; }
+.pipe { margin-top: 14px; }
+.pipe-svg { display: block; overflow: visible; }
+.pipe-track { stroke: var(--accent-track); stroke-width: 6; stroke-linecap: round; }
+.pipe-fill { stroke: var(--accent); stroke-width: 6; stroke-linecap: round; }
+.pipe-comet { fill: #fff; }
+.pipe-halo { fill: var(--accent); }
+.pipe-label { font-size: 12px; fill: var(--ink-2); }
+.pipe-label.is-current { fill: var(--ink); font-weight: 600; }
+.pipe-pop { transform-box: fill-box; transform-origin: center; animation: pop 0.55s cubic-bezier(0.2, 0.8, 0.3, 1.35) both; }
+@keyframes pop { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .pipe-pop { animation: none; } }
+.tile-label { font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
+.tile-value { font-size: 26px; font-weight: 600; line-height: 1.15; }
+.tile-value small { margin-left: 4px; font-size: 14px; font-weight: 500; color: var(--ink-2); }
+.tile-value.dim { color: var(--muted); }
+.tile-status { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 600; line-height: 30px; }
+.tile-status svg { width: 22px; height: 22px; display: block; }
+.tile-sub { margin-top: 8px; font-size: 12.5px; color: var(--ink-2); overflow-wrap: anywhere; }
+.tile-sub + .tile-sub { margin-top: 2px; }
+.tile-sub.muted { color: var(--muted); }
+
+/* layout */
+.grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.col { display: grid; gap: 16px; min-width: 0; }
+
+/* status glyphs */
+.f-good { fill: var(--good); }
+.f-warning { fill: var(--warning); }
+.f-critical { fill: var(--critical); }
+.f-accent { fill: var(--accent); }
+.f-surface { fill: var(--surface); }
+.s-white { stroke: #fff; }
+.s-accent { stroke: var(--accent); }
+.s-axis { stroke: var(--axis); }
+.s-muted { stroke: var(--muted); }
+.s-track { stroke: var(--accent-track); }
+.pulse { animation: pulse 1.6s ease-in-out infinite; }
+.spin { animation: spin 0.9s linear infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .pulse, .spin, .btn.is-busy svg { animation: none; } }
+
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 0 8px; border-radius: 999px;
+  background: var(--surface-2); color: var(--ink-2);
+  font-size: 12px; line-height: 20px; white-space: nowrap;
+}
+.chip i { width: 8px; height: 8px; border-radius: 50%; }
+.d-done, .d-success { background: var(--good); }
+.d-active, .d-running, .d-queued { background: var(--accent); }
+.d-blocked, .d-attention { background: var(--warning); }
+.d-pending { background: var(--axis); }
+.d-failure { background: var(--critical); }
+.d-cancelled { background: var(--muted); }
+
+/* stages */
+.steps { list-style: none; margin: 0; padding: 0; }
+.step { position: relative; display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; padding: 10px 10px 10px 6px; border-radius: 10px; }
+.step:not(:last-child)::before { content: ""; position: absolute; left: 17px; top: 36px; bottom: -12px; width: 2px; background: var(--grid); }
+.step.is-active { background: var(--accent-wash); }
+.step-icon svg { width: 24px; height: 24px; display: block; position: relative; }
+.step-head { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; min-height: 24px; }
+.step-name { font-weight: 600; }
+.step-date { margin-left: auto; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.step-detail { margin-top: 2px; font-size: 13px; color: var(--ink-2); overflow-wrap: anywhere; }
+
+/* activity */
+.feed { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.feed li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 10px; }
+.feed time { padding-top: 1px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.feed p { font-size: 13px; overflow-wrap: anywhere; }
+@media (max-width: 420px) { .feed li { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+.link-btn { margin-top: 10px; padding: 0; border: 0; background: none; cursor: pointer; font-size: 12.5px; color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--axis); text-underline-offset: 2px; }
+.link-btn:hover { color: var(--ink); }
+.head-link { font-size: 12.5px; color: var(--ink-2); }
+
+/* github */
+.sub-h { margin: 4px 0 2px; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.sub-h + .muted-p { margin: 4px 0 8px; }
+.gh-list { list-style: none; margin: 0 0 8px; padding: 0; }
+.gh-list li + li { border-top: 1px solid var(--grid); }
+.gh-item { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; padding: 8px 0; color: inherit; text-decoration: none; }
+.gh-item:hover .gh-title { text-decoration: underline; text-decoration-color: var(--axis); }
+.gh-icon svg { width: 18px; height: 18px; display: block; margin-top: 1px; color: var(--muted); }
+.gh-text { display: grid; min-width: 0; }
+.gh-title { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gh-meta { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sha { font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); }
+
+/* results */
+.figure { margin: 0 0 16px; }
+.fig-title { margin-bottom: 8px; font-size: 13px; font-weight: 600; }
+.empty { display: flex; align-items: center; gap: 12px; padding: 18px 16px; border-radius: 10px; background: var(--surface-2); color: var(--ink-2); font-size: 13px; }
+.empty svg { width: 28px; height: 28px; flex: none; color: var(--muted); }
+.chart { position: relative; }
+.plot { display: block; overflow: visible; }
+.plot:focus { outline: none; }
+.plot:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+.plot .grid-line { stroke: var(--grid); stroke-width: 1; }
+.plot .axis-line { stroke: var(--axis); stroke-width: 1; }
+.plot .ref-line { stroke: var(--ink-2); stroke-width: 1; }
+.plot .ref-label { font-size: 11px; fill: var(--ink-2); }
+.plot .tick { font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+.plot .series-line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.plot .series-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+.plot .hover-dot { fill: none; stroke: var(--accent); stroke-width: 2; }
+.plot .crosshair { stroke: var(--axis); stroke-width: 1; }
+.plot .end-label { font-size: 12px; font-weight: 600; fill: var(--ink); }
+.tooltip {
+  position: absolute; z-index: 2; pointer-events: none;
+  transform: translate(-50%, calc(-100% - 10px));
+  min-width: 140px; padding: 8px 10px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); box-shadow: var(--tip-shadow);
+  font-size: 12px; color: var(--ink-2); white-space: nowrap;
+}
+.tooltip b { display: block; font-size: 14px; color: var(--ink); }
+.tip-row { display: block; }
+.tip-row .key { display: inline-block; width: 12px; height: 2px; margin-right: 6px; border-radius: 1px; background: var(--accent); vertical-align: middle; }
+.tbl-wrap { overflow-x: auto; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+.tbl th { padding: 6px 8px; border-bottom: 1px solid var(--axis); text-align: left; font-size: 12px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+.tbl td { padding: 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+.tbl .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tbl tr.ours td { background: var(--accent-wash); }
+.tbl .notes { color: var(--ink-2); }
+.tag { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 999px; background: var(--accent-track); color: var(--ink); font-size: 11px; line-height: 18px; white-space: nowrap; }
+.note { margin-top: 10px; font-size: 12px; color: var(--muted); }
+
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; margin-top: 20px; font-size: 12px; color: var(--muted); }
+.foot a { color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 1024 1024" aria-hidden="true">
+        <defs>
+          <linearGradient id="logo-g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#0d366b"/>
+            <stop offset="1" stop-color="#3987e5"/>
+          </linearGradient>
+        </defs>
+        <rect x="72" y="72" width="880" height="880" rx="210" fill="url(#logo-g)"/>
+        <path d="M250 690H455L478 676 494 630 506 540 518 462 536 432 566 420 790 336" fill="none" stroke="#fff" stroke-width="60" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h1 id="app-name">Supercon Progress</h1>
+        <p id="project"></p>
+      </div>
+    </div>
+    <div class="controls">
+      <span class="stamp"><i id="live-dot" class="live-dot"></i><span id="stamp"></span></span>
+      <button id="btn-refresh" class="btn icon-only" type="button"></button>
+      <button id="btn-theme" class="btn icon-only" type="button"></button>
+    </div>
+  </header>
+
+  <div id="notice" class="notice" role="status" hidden></div>
+
+  <main id="main" hidden>
+    <section id="pipeline" class="card pipeline"></section>
+    <section id="kpis" class="kpis"></section>
+    <div class="grid">
+      <div class="col">
+        <section id="stages-card" class="card"></section>
+        <section id="results-card" class="card"></section>
+      </div>
+      <div class="col">
+        <section id="activity-card" class="card"></section>
+        <section id="github-card" class="card"></section>
+      </div>
+    </div>
+  </main>
+
+  <footer id="foot" class="foot"></footer>
+</div>
+
+<script id="bundled-data" type="application/json"></script>
+<script>
+(function () {
+  'use strict';
+
+  var APP_VERSION = '0.1.0';
+  var REPO = 'diracmagic/supercon-ml';
+  var BRANCH = 'main';
+  var REPO_URL = 'https://github.com/' + REPO;
+  var DATA_URL = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/progress/progress.json';
+  var API = 'https://api.github.com/repos/' + REPO;
+  var REFRESH_MS = 3 * 60 * 1000;
+  var LOG_LIMIT = 6;
+
+  var STR = {
+    en: {
+      appName: 'Supercon Progress',
+      refresh: 'Refresh',
+      checked: 'Refresh (last checked {t})',
+      themeSystem: 'Theme: follow system',
+      themeLight: 'Theme: light',
+      themeDark: 'Theme: dark',
+      updated: 'Progress updated {t}',
+      loading: 'Loading…',
+      offline: 'Can’t reach GitHub right now, so this shows the most recent copy available (updated {t}).',
+      notPublished: 'Live data isn’t published on GitHub yet, so this shows the copy bundled with the app (updated {t}).',
+      pipelineAria: 'Pipeline: {d} of {n} stages done. {s}',
+      noData: 'No progress data could be loaded yet. Check your internet connection and refresh.',
+      rateLimited: 'GitHub’s hourly limit for anonymous requests was reached. Build status comes back at {t}.',
+      repoMissing: 'The repository isn’t public yet, so live build status isn’t available.',
+      ghError: 'Couldn’t load build status from GitHub.',
+      progress: 'Overall progress',
+      stagesDone: '{d} of {n} stages done',
+      now: 'Now: {s}',
+      allDone: 'All stages done',
+      latestBuild: 'Latest build',
+      noRuns: 'No builds yet',
+      bestTc: 'Best Tc error so far',
+      noModel: 'No trained model yet',
+      vsBaseline: 'Best published, structure only: {v}',
+      target: 'Target for v0.1',
+      daysLeft: '{n} days left',
+      dayLeft: '1 day left',
+      dueToday: 'Due today',
+      overdue: '{n} days past the target',
+      stages: 'Stages',
+      stagesSub: 'From plan to public release',
+      targetOn: 'Target {d}',
+      st_done: 'Done',
+      st_active: 'In progress',
+      st_blocked: 'Blocked',
+      st_pending: 'Not started',
+      activity: 'Activity',
+      showAll: 'Show all ({n})',
+      showLess: 'Show less',
+      onGithub: 'On GitHub',
+      openRepo: 'Open repository',
+      runs: 'Workflow runs',
+      commits: 'Commits',
+      noCommits: 'No commits yet',
+      run_running: 'Running',
+      run_queued: 'Queued',
+      run_success: 'Succeeded',
+      run_failure: 'Failed',
+      run_cancelled: 'Cancelled',
+      run_attention: 'Needs attention',
+      results: 'Results',
+      resultsSub: 'Mean absolute error (MAE) on held-out materials. Lower is better.',
+      chartTitle: 'Validation Tc error by training run (K)',
+      chartEmpty: 'Results appear here after the first training run.',
+      showTable: 'Show as table',
+      showChart: 'Show as chart',
+      colModel: 'Model',
+      colTarget: 'Target',
+      colMae: 'MAE',
+      colNotes: 'Notes',
+      colRun: 'Run',
+      colDate: 'Date',
+      thisProject: 'This project',
+      refLabel: '{m}, published: {v}',
+      baselineNote: 'Published numbers come from each paper’s own data split, so they are a reference point, not a head-to-head comparison.',
+      footData: 'Data: progress/progress.json'
+    }
+  };
+
+  var G = {
+    done: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" class="f-good"/><path d="M7.5 12.4l3 3 6-6.4" class="s-white" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    active: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" class="f-surface s-accent" stroke-width="2"/><circle cx="12" cy="12" r="4" class="f-accent pulse"/></svg>',
+    blocked: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" class="f-warning"/><path d="M12 7.2v6" stroke="#0b0b0b" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.3" fill="#0b0b0b"/></svg>',
+    pending: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" class="f-surface s-axis" stroke-width="2"/></svg>',
+    failure: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" class="f-critical"/><path d="M8.6 8.6l6.8 6.8M15.4 8.6l-6.8 6.8" class="s-white" stroke-width="2.2" stroke-linecap="round"/></svg>',
+    cancelled: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" class="f-surface s-muted" stroke-width="2"/><path d="M8 12h8" class="s-muted" stroke-width="2.2" stroke-linecap="round"/></svg>',
+    running: '<svg viewBox="0 0 24 24" aria-hidden="true" class="spin"><circle cx="12" cy="12" r="9" fill="none" class="s-track" stroke-width="2.6"/><path d="M12 3a9 9 0 0 1 9 9" fill="none" class="s-accent" stroke-width="2.6" stroke-linecap="round"/></svg>',
+    queued: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" class="f-surface s-accent" stroke-width="2"/><path d="M12 7.5V12l3 2" class="s-accent" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    commit: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.5"/><path d="M3 12h5.5M15.5 12H21"/></svg>',
+    refresh: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 1 1-2.6-6.1"/><path d="M20 4v5h-5"/></svg>',
+    system: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>',
+    light: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>',
+    dark: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',
+    info: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.4"/></svg>',
+    chart: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5h16"/><path d="M5 15l4-4 3 3 7-8"/></svg>'
+  };
+  var RUN_GLYPH = { running: 'running', queued: 'queued', success: 'done', failure: 'failure', cancelled: 'cancelled', attention: 'blocked' };
+  var STAGE_STATUSES = ['done', 'active', 'blocked', 'pending'];
+
+  var store = {
+    get: function (k) { try { return window.localStorage.getItem('supercon.' + k); } catch (e) { return null; } },
+    set: function (k, v) { try { window.localStorage.setItem('supercon.' + k, v); } catch (e) { /* storage unavailable */ } }
+  };
+
+  var lang = 'en';
+  var theme = (function () {
+    var s = store.get('theme');
+    return s === 'light' || s === 'dark' ? s : 'system';
+  })();
+
+  var state = {
+    data: null, live: null, loaded: false, shownPct: null, pipeIntro: false,
+    runs: null, commits: null, gh: null,
+    checkedAt: null, busy: false,
+    showAllLog: false, view: 'chart'
+  };
+
+  /* ---------- helpers ---------- */
+  function $(sel) { return document.querySelector(sel); }
+  function clear(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+  function list(x) { return Array.isArray(x) ? x : []; }
+  function h(tag, attrs) {
+    var el = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      var v = attrs[k];
+      if (v === null || v === undefined || v === false) return;
+      if (k === 'class') el.className = v;
+      else if (k === 'text') el.textContent = v;
+      else if (k.slice(0, 2) === 'on' && typeof v === 'function') el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v === true ? '' : String(v));
+    });
+    append(el, Array.prototype.slice.call(arguments, 2));
+    return el;
+  }
+  function append(el, kids) {
+    kids.forEach(function (kid) {
+      if (kid === null || kid === undefined || kid === false) return;
+      if (Array.isArray(kid)) append(el, kid);
+      else el.appendChild(kid instanceof Node ? kid : document.createTextNode(String(kid)));
+    });
+  }
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  function s(tag, attrs, text) {
+    var el = document.createElementNS(SVGNS, tag);
+    Object.keys(attrs || {}).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+    if (text !== undefined) el.textContent = text;
+    return el;
+  }
+  function glyph(kind, cls) {
+    var span = h('span', { class: cls });
+    span.innerHTML = G[kind] || '';
+    return span;
+  }
+  function t(key, vars) {
+    var str = (STR[lang] && STR[lang][key] !== undefined) ? STR[lang][key] : (STR.en[key] !== undefined ? STR.en[key] : key);
+    return vars ? str.replace(/\{(\w+)\}/g, function (_, k) { return vars[k] !== undefined ? vars[k] : ''; }) : str;
+  }
+  function L(v) {
+    if (v === null || v === undefined) return '';
+    if (typeof v === 'string' || typeof v === 'number') return String(v);
+    return v[lang] || v.en || v.zh || '';
+  }
+  function locale() { return 'en-US'; }
+  function isHttps(u) { return typeof u === 'string' && /^https:\/\/\S+$/.test(u); }
+
+  function parseDate(v) {
+    if (!v) return null;
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v);
+    if (m) return new Date(+m[1], +m[2] - 1, +m[3]);
+    var d = new Date(v);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function fmt(d, opts) { try { return new Intl.DateTimeFormat(locale(), opts).format(d); } catch (e) { return d.toLocaleString(); } }
+  function fmtDay(d) { return fmt(d, { month: 'short', day: 'numeric' }); }
+  function fmtStamp(d) { return fmt(d, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }); }
+  function fmtTime(d) { return fmt(d, { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }); }
+  function rel(d) {
+    var sec = (d.getTime() - Date.now()) / 1000;
+    var a = Math.abs(sec);
+    var unit, n;
+    if (a < 45) { unit = 'second'; n = 0; }
+    else if (a < 3600) { unit = 'minute'; n = Math.round(sec / 60); }
+    else if (a < 86400) { unit = 'hour'; n = Math.round(sec / 3600); }
+    else if (a < 86400 * 30) { unit = 'day'; n = Math.round(sec / 86400); }
+    else return fmt(d, { year: 'numeric', month: 'short', day: 'numeric' });
+    if (window.Intl && Intl.RelativeTimeFormat) {
+      return new Intl.RelativeTimeFormat(locale(), { numeric: 'auto' }).format(n, unit);
+    }
+    return fmtStamp(d);
+  }
+  function daysUntil(d) {
+    var now = new Date();
+    var a = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var b = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    return Math.round((b - a) / 86400000);
+  }
+  function fmtVal(v) { return typeof v === 'number' ? String(Number(v.toPrecision(3))) : String(v); }
+  function fmtTick(v) { return String(Number(v.toFixed(3))); }
+  function niceStep(max, count) {
+    var raw = max / count;
+    var p = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+    var f = raw / p;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p;
+  }
+
+  function openExternal(url) {
+    if (!isHttps(url)) return;
+    var T = window.__TAURI__;
+    var I = window.__TAURI_INTERNALS__;
+    try {
+      if (T && T.opener && typeof T.opener.openUrl === 'function') { Promise.resolve(T.opener.openUrl(url)).catch(function () {}); return; }
+      if (T && T.core && typeof T.core.invoke === 'function') { Promise.resolve(T.core.invoke('plugin:opener|open_url', { url: url })).catch(function () {}); return; }
+      if (I && typeof I.invoke === 'function') { Promise.resolve(I.invoke('plugin:opener|open_url', { url: url })).catch(function () {}); return; }
+    } catch (e) { /* fall through to the browser */ }
+    window.open(url, '_blank', 'noopener');
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (/^https?:/i.test(href)) { e.preventDefault(); openExternal(href); }
+  });
+
+  /* ---------- data ---------- */
+  function getJSON(url, opts) {
+    opts = opts || {};
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, opts.timeout || 12000);
+    return fetch(url, { signal: ctl ? ctl.signal : undefined, headers: opts.headers, cache: 'no-cache' })
+      .then(function (r) {
+        if (!r.ok) { var err = new Error('HTTP ' + r.status); err.status = r.status; err.headers = r.headers; throw err; }
+        return r.json();
+      })
+      .then(function (v) { clearTimeout(timer); return v; }, function (err) { clearTimeout(timer); throw err; });
+  }
+  function valid(d) { return d && typeof d === 'object' && Array.isArray(d.stages); }
+
+  function loadBundled() {
+    var inline = document.getElementById('bundled-data');
+    var text = inline ? inline.textContent.trim() : '';
+    if (text) {
+      try {
+        var d0 = JSON.parse(text);
+        if (valid(d0) && !state.data) state.data = d0;
+        return Promise.resolve();
+      } catch (e) { /* fall back to the bundled file */ }
+    }
+    return getJSON('progress.json', { timeout: 4000 }).then(function (d) {
+      if (valid(d) && !state.data) state.data = d;
+    }, function () { /* no bundled copy */ });
+  }
+  // Resolves to 'ok', 'missing' (repository or file not published yet) or 'offline'.
+  function loadLive() {
+    return getJSON(DATA_URL).then(function (d) {
+      if (!valid(d)) return 'offline';
+      state.data = d;
+      return 'ok';
+    }, function (err) { return err && err.status === 404 ? 'missing' : 'offline'; });
+  }
+  function classify(err) {
+    var st = err && err.status;
+    if (st === 404) return { kind: 'missing' };
+    if (st === 403 || st === 429) {
+      var hd = err.headers;
+      var remaining = hd ? hd.get('x-ratelimit-remaining') : null;
+      var reset = hd ? Number(hd.get('x-ratelimit-reset')) : 0;
+      if (st === 429 || remaining === '0') return { kind: 'rate', until: reset ? reset * 1000 : Date.now() + 15 * 60 * 1000 };
+    }
+    return { kind: 'error' };
+  }
+  function loadGitHub() {
+    if (state.gh && state.gh.kind === 'rate' && Date.now() < state.gh.until) return Promise.resolve();
+    var opts = { headers: { Accept: 'application/vnd.github+json' } };
+    return Promise.all([
+      getJSON(API + '/actions/runs?per_page=5', opts).then(function (v) { return { ok: v }; }, function (e) { return { err: e }; }),
+      getJSON(API + '/commits?per_page=5', opts).then(function (v) { return { ok: v }; }, function (e) { return { err: e }; })
+    ]).then(function (res) {
+      var problem = null;
+      if (res[0].ok) state.runs = list(res[0].ok.workflow_runs);
+      else problem = classify(res[0].err);
+      if (res[1].ok) state.commits = list(res[1].ok);
+      else if (res[1].err && res[1].err.status === 409) state.commits = []; // empty repository
+      else problem = problem || classify(res[1].err);
+      state.gh = problem;
+    });
+  }
+  function refreshAll() {
+    if (state.busy) return Promise.resolve();
+    state.busy = true;
+    setBusy(true);
+    return Promise.all([loadLive(), loadGitHub()]).then(function (res) {
+      state.live = res[0];
+      state.loaded = true;
+      state.checkedAt = new Date();
+    }).catch(function () { /* keep the previous render */ }).then(function () {
+      state.busy = false;
+      setBusy(false);
+      render();
+    });
+  }
+
+  /* ---------- derived values ---------- */
+  function runState(r) {
+    if (!r) return null;
+    if (r.status !== 'completed') return r.status === 'in_progress' ? 'running' : 'queued';
+    switch (r.conclusion) {
+      case 'success': return 'success';
+      case 'failure': case 'timed_out': case 'startup_failure': return 'failure';
+      case 'action_required': return 'attention';
+      default: return 'cancelled';
+    }
+  }
+  function bestBaseline(d, target) {
+    var best = null;
+    list(d.baselines).forEach(function (b) {
+      if (b && b.target === target && b.inputs === 'structure' && typeof b.mae === 'number' && (!best || b.mae < best.mae)) best = b;
+    });
+    return best;
+  }
+  function bestOurs(d, target) {
+    var best = null;
+    list(d.results).concat(list(d.history)).forEach(function (r) {
+      if (r && r.target === target && typeof r.mae === 'number' && (!best || r.mae < best.mae)) best = r;
+    });
+    return best;
+  }
+  function ghMessage(p) {
+    if (!p) return '';
+    if (p.kind === 'missing') return t('repoMissing');
+    if (p.kind === 'rate') return t('rateLimited', { t: fmtTime(new Date(p.until)) });
+    return t('ghError');
+  }
+
+  /* ---------- rendering ---------- */
+  function setBusy(on) { $('#btn-refresh').classList.toggle('is-busy', on); }
+
+  function cardHead(title, sub, action) {
+    return h('div', { class: 'card-head' },
+      h('div', null, h('h2', { text: title }), sub ? h('p', { text: sub }) : null),
+      action || null);
+  }
+  function tile(label) {
+    return h('div', { class: 'card tile' }, h('p', { class: 'tile-label', text: label }), Array.prototype.slice.call(arguments, 1));
+  }
+  function chip(kind, label) { return h('span', { class: 'chip' }, h('i', { class: 'd-' + kind }), label); }
+  function targetNode(target) {
+    var map = { Tc: ['T', 'c'], Tc_exp: ['T', 'c', ' (measured)'], omega_log: ['ω', 'log'], lambda: ['λ', null] };
+    var m = map[target];
+    if (!m) return document.createTextNode(String(target || ''));
+    return h('span', null, m[0], m[1] ? h('sub', { text: m[1] }) : null, m[2] || null);
+  }
+
+  function renderChrome() {
+    document.title = t('appName');
+    $('#app-name').textContent = t('appName');
+    $('#project').textContent = state.data ? L(state.data.project) : '';
+
+    var up = state.data ? parseDate(state.data.updated) : null;
+    $('#stamp').textContent = up ? t('updated', { t: rel(up) }) : (state.loaded ? '' : t('loading'));
+    $('#live-dot').className = 'live-dot' + (state.live === 'ok' ? ' is-live' : state.live ? ' is-off' : '');
+
+    var r = $('#btn-refresh');
+    if (!r.firstChild) r.innerHTML = G.refresh;
+    var rl = state.checkedAt ? t('checked', { t: fmtTime(state.checkedAt) }) : t('refresh');
+    r.title = rl;
+    r.setAttribute('aria-label', rl);
+
+
+    var tb = $('#btn-theme');
+    tb.innerHTML = G[theme];
+    var tl = t(theme === 'light' ? 'themeLight' : theme === 'dark' ? 'themeDark' : 'themeSystem');
+    tb.title = tl;
+    tb.setAttribute('aria-label', tl);
+
+    var notice = $('#notice');
+    var msg = '';
+    if (state.data && state.live === 'missing') msg = t('notPublished', { t: up ? fmtStamp(up) : '—' });
+    else if (state.data && state.live === 'offline') msg = t('offline', { t: up ? fmtStamp(up) : '—' });
+    else if (!state.data && state.loaded) msg = t('noData');
+    clear(notice);
+    if (msg) { append(notice, [glyph('info', 'notice-glyph'), h('span', { text: msg })]); notice.hidden = false; }
+    else notice.hidden = true;
+
+    var foot = $('#foot');
+    clear(foot);
+    append(foot, [
+      h('span', { text: t('appName') + ' ' + APP_VERSION }),
+      h('span', null, h('a', { href: REPO_URL, text: 'github.com/' + REPO }), ' · ' + t('footData'))
+    ]);
+  }
+
+  function reducedMotion() {
+    return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }
+  function currentIndex(stages) {
+    var pick = function (st) { for (var i = 0; i < stages.length; i++) if (stages[i].status === st) return i; return -1; };
+    var i = pick('active');
+    if (i < 0) i = pick('blocked');
+    if (i < 0) for (var j = 0; j < stages.length; j++) if (stages[j].status !== 'done') { i = j; break; }
+    return i;
+  }
+  function countUp(el, from, to, ms) {
+    if (reducedMotion() || from === to || !window.requestAnimationFrame) { el.textContent = to + '%'; return; }
+    var t0 = null;
+    function frame(now) {
+      if (t0 === null) t0 = now;
+      var k = Math.min(1, (now - t0) / ms);
+      var e = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(from + (to - from) * e) + '%';
+      if (k < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  var pipeObserver = null;
+  function renderPipeline(d) {
+    var el = $('#pipeline');
+    clear(el);
+    var stages = list(d.stages);
+    var n = stages.length;
+    var done = stages.filter(function (x) { return x.status === 'done'; }).length;
+    var ci = currentIndex(stages);
+    var cur = ci >= 0 ? stages[ci] : null;
+    var pct = n ? Math.round(done / n * 100) : 0;
+    var nowText = cur ? t('now', { s: L(cur.name) }) : t('allDone');
+    var num = h('span', { text: (state.shownPct === null ? 0 : state.shownPct) + '%' });
+    el.appendChild(h('div', { class: 'pipe-head' },
+      h('div', null, h('p', { class: 'tile-label', text: t('progress') }), h('p', { class: 'hero' }, num)),
+      h('div', { class: 'pipe-meta' },
+        h('p', { class: 'pipe-strong', text: t('stagesDone', { d: done, n: n }) }),
+        h('p', { class: 'tile-sub', text: nowText }))));
+    countUp(num, state.shownPct === null ? 0 : state.shownPct, pct, 1100);
+    state.shownPct = pct;
+
+    var host = h('div', { class: 'pipe', role: 'img', 'aria-label': t('pipelineAria', { d: done, n: n, s: nowText }) });
+    el.appendChild(host);
+    if (pipeObserver) { pipeObserver.disconnect(); pipeObserver = null; }
+    if (window.ResizeObserver) {
+      var lastW = 0;
+      pipeObserver = new ResizeObserver(function (entries) {
+        var w = Math.floor(entries[0].contentRect.width);
+        if (w && Math.abs(w - lastW) > 4) { lastW = w; drawPipeline(host, stages, ci); }
+      });
+      pipeObserver.observe(host);
+    } else {
+      setTimeout(function () { drawPipeline(host, stages, ci); }, 0);
+    }
+  }
+
+  function drawPipeline(host, stages, ci) {
+    clear(host);
+    var n = stages.length;
+    if (!n) return;
+    var W = Math.max(280, Math.floor(host.getBoundingClientRect().width) || 800);
+    var H = 64;
+    var padX = 14;
+    var y = 16;
+    var spacing = n > 1 ? (W - 2 * padX) / (n - 1) : 0;
+    var showAll = spacing >= 92;
+    var motion = !reducedMotion();
+    var intro = motion && !state.pipeIntro;
+    function X(i) { return n === 1 ? W / 2 : padX + i * spacing; }
+
+    var svg = s('svg', { viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, class: 'pipe-svg', 'aria-hidden': 'true' });
+    svg.appendChild(s('line', { x1: X(0), x2: X(n - 1), y1: y, y2: y, class: 'pipe-track' }));
+    var end = ci >= 0 ? X(ci) : X(n - 1);
+    var len = end - X(0);
+    if (len > 0) {
+      var fill = s('line', { x1: X(0), x2: end, y1: y, y2: y, class: 'pipe-fill' });
+      if (intro) {
+        fill.style.strokeDasharray = len + ' ' + len;
+        fill.style.strokeDashoffset = String(len);
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            fill.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.2, 0.7, 0.2, 1)';
+            fill.style.strokeDashoffset = '0';
+          });
+        });
+      }
+      svg.appendChild(fill);
+    }
+    if (motion && ci > 0 && stages[ci].status !== 'blocked') {
+      var comet = s('circle', { cx: X(ci - 1), cy: y, r: 2.5, class: 'pipe-comet', opacity: 0 });
+      comet.appendChild(s('animate', { attributeName: 'cx', from: X(ci - 1), to: X(ci), dur: '1.8s', begin: intro ? '1.2s' : '0s', repeatCount: 'indefinite' }));
+      comet.appendChild(s('animate', { attributeName: 'opacity', values: '0;0.95;0.95;0', keyTimes: '0;0.15;0.75;1', dur: '1.8s', begin: intro ? '1.2s' : '0s', repeatCount: 'indefinite' }));
+      svg.appendChild(comet);
+    }
+    stages.forEach(function (st, i) {
+      var status = STAGE_STATUSES.indexOf(st.status) >= 0 ? st.status : 'pending';
+      var g = s('g', { transform: 'translate(' + X(i).toFixed(1) + ' ' + y + ')' });
+      if (status === 'active' && motion) {
+        var halo = s('circle', { r: 10, class: 'pipe-halo', opacity: 0 });
+        halo.appendChild(s('animate', { attributeName: 'r', values: '10;22', dur: '1.8s', repeatCount: 'indefinite' }));
+        halo.appendChild(s('animate', { attributeName: 'opacity', values: '0.35;0', dur: '1.8s', repeatCount: 'indefinite' }));
+        g.appendChild(halo);
+      }
+      var node = s('g', intro ? { class: 'pipe-pop', style: 'animation-delay:' + (i * 90) + 'ms' } : {});
+      if (status === 'done') {
+        node.appendChild(s('circle', { r: 11, class: 'f-good' }));
+        node.appendChild(s('path', { d: 'M-4.6 0.4l3 3 6-6.4', class: 's-white', fill: 'none', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+      } else if (status === 'active') {
+        node.appendChild(s('circle', { r: 10, class: 'f-surface s-accent', 'stroke-width': 2.5 }));
+        node.appendChild(s('circle', { r: 4.5, class: 'f-accent' }));
+      } else if (status === 'blocked') {
+        node.appendChild(s('circle', { r: 11, class: 'f-warning' }));
+        node.appendChild(s('path', { d: 'M0 -5v6', stroke: '#0b0b0b', 'stroke-width': 2.2, 'stroke-linecap': 'round' }));
+        node.appendChild(s('circle', { cy: 4.6, r: 1.3, fill: '#0b0b0b' }));
+      } else {
+        node.appendChild(s('circle', { r: 8, class: 'f-surface s-axis', 'stroke-width': 2 }));
+      }
+      g.appendChild(node);
+      svg.appendChild(g);
+      if (showAll || i === ci) {
+        var anchor = 'middle';
+        var lx = X(i);
+        if (n > 1 && i === 0) { anchor = 'start'; lx = X(i) - 11; }
+        else if (n > 1 && i === n - 1) { anchor = 'end'; lx = X(i) + 11; }
+        else if (!showAll) {
+          if (lx < 70) { anchor = 'start'; lx = X(i) - 11; }
+          else if (lx > W - 70) { anchor = 'end'; lx = X(i) + 11; }
+        }
+        svg.appendChild(s('text', { x: lx, y: y + 38, 'text-anchor': anchor, class: 'pipe-label' + (i === ci ? ' is-current' : '') }, L(st.short) || L(st.name)));
+      }
+    });
+    host.appendChild(svg);
+    if (intro) state.pipeIntro = true;
+  }
+
+  function renderKpis(d) {
+    var el = $('#kpis');
+    clear(el);
+
+    var run = list(state.runs)[0];
+    if (run) {
+      var k = runState(run);
+      var when = parseDate(run.run_started_at || run.created_at);
+      el.appendChild(tile(t('latestBuild'),
+        h('p', { class: 'tile-status' }, glyph(RUN_GLYPH[k], ''), h('span', { text: t('run_' + k) })),
+        h('p', { class: 'tile-sub' }, isHttps(run.html_url) ? h('a', { href: run.html_url, text: run.display_title || run.name || '' }) : (run.display_title || run.name || '')),
+        h('p', { class: 'tile-sub muted', text: [run.name, when ? rel(when) : ''].filter(Boolean).join(' · ') })));
+    } else {
+      el.appendChild(tile(t('latestBuild'),
+        h('p', { class: 'tile-value dim', text: '—' }),
+        h('p', { class: 'tile-sub', text: state.gh ? ghMessage(state.gh) : (state.runs ? t('noRuns') : t('loading')) })));
+    }
+
+    var best = bestOurs(d, 'Tc');
+    var ref = bestBaseline(d, 'Tc');
+    el.appendChild(tile(t('bestTc'),
+      best ? h('p', { class: 'tile-value' }, fmtVal(best.mae), h('small', { text: 'K' })) : h('p', { class: 'tile-value dim', text: '—' }),
+      h('p', { class: 'tile-sub', text: best ? L(best.model) : t('noModel') }),
+      ref ? h('p', { class: 'tile-sub muted', text: t('vsBaseline', { v: fmtVal(ref.mae) + ' K, ' + L(ref.model) }) }) : null));
+
+    var tg = d.target ? parseDate(d.target.date) : null;
+    if (tg) {
+      var days = daysUntil(tg);
+      el.appendChild(tile(t('target'),
+        h('p', { class: 'tile-value', text: fmtDay(tg) }),
+        h('p', { class: 'tile-sub', text: days > 1 ? t('daysLeft', { n: days }) : days === 1 ? t('dayLeft') : days === 0 ? t('dueToday') : t('overdue', { n: -days }) })));
+    }
+  }
+
+  function renderStages(d) {
+    var el = $('#stages-card');
+    clear(el);
+    el.appendChild(cardHead(t('stages'), t('stagesSub')));
+    var ol = h('ol', { class: 'steps' });
+    list(d.stages).forEach(function (st) {
+      var status = STAGE_STATUSES.indexOf(st.status) >= 0 ? st.status : 'pending';
+      var date = parseDate(st.date);
+      var dateText = '';
+      if (date) dateText = (status === 'pending' && daysUntil(date) > 0) ? t('targetOn', { d: fmtDay(date) }) : fmtDay(date);
+      ol.appendChild(h('li', { class: 'step is-' + status },
+        glyph(status, 'step-icon'),
+        h('div', null,
+          h('div', { class: 'step-head' },
+            h('span', { class: 'step-name', text: L(st.name) }),
+            chip(status, t('st_' + status)),
+            dateText ? h('span', { class: 'step-date', text: dateText }) : null),
+          st.detail ? h('p', { class: 'step-detail', text: L(st.detail) }) : null)));
+    });
+    el.appendChild(ol);
+  }
+
+  function renderActivity(d) {
+    var el = $('#activity-card');
+    clear(el);
+    el.appendChild(cardHead(t('activity')));
+    var items = list(d.log).map(function (x) { return { at: parseDate(x && x.at), text: L(x && x.event) }; })
+      .filter(function (x) { return x.text; })
+      .sort(function (a, b) { return (b.at ? b.at.getTime() : 0) - (a.at ? a.at.getTime() : 0); });
+    if (!items.length) { el.appendChild(h('p', { class: 'muted-p', text: '—' })); return; }
+    var ul = h('ul', { class: 'feed' });
+    (state.showAllLog ? items : items.slice(0, LOG_LIMIT)).forEach(function (x) {
+      ul.appendChild(h('li', null,
+        h('time', { datetime: x.at ? x.at.toISOString() : null, text: x.at ? fmtStamp(x.at) : '' }),
+        h('p', { text: x.text })));
+    });
+    el.appendChild(ul);
+    if (items.length > LOG_LIMIT) {
+      el.appendChild(h('button', {
+        class: 'link-btn', type: 'button',
+        text: state.showAllLog ? t('showLess') : t('showAll', { n: items.length }),
+        onclick: function () { state.showAllLog = !state.showAllLog; renderActivity(state.data); }
+      }));
+    }
+  }
+
+  function renderGitHub() {
+    var el = $('#github-card');
+    clear(el);
+    el.appendChild(cardHead(t('onGithub'), null, h('a', { class: 'head-link', href: REPO_URL, text: t('openRepo') })));
+    var runs = list(state.runs).slice(0, 5);
+    var commits = list(state.commits).slice(0, 5);
+    if (state.gh && !runs.length && !commits.length) {
+      el.appendChild(h('p', { class: 'muted-p', text: ghMessage(state.gh) }));
+      return;
+    }
+    el.appendChild(h('h3', { class: 'sub-h', text: t('runs') }));
+    if (!runs.length) el.appendChild(h('p', { class: 'muted-p', text: state.runs ? t('noRuns') : t('loading') }));
+    else {
+      var ul = h('ul', { class: 'gh-list' });
+      runs.forEach(function (r) {
+        var k = runState(r);
+        var when = parseDate(r.run_started_at || r.created_at);
+        var meta = [t('run_' + k), r.name, r.run_number ? '#' + r.run_number : '', when ? rel(when) : ''].filter(Boolean).join(' · ');
+        ul.appendChild(h('li', null, h('a', { class: 'gh-item', href: isHttps(r.html_url) ? r.html_url : null },
+          glyph(RUN_GLYPH[k], 'gh-icon'),
+          h('span', { class: 'gh-text' },
+            h('span', { class: 'gh-title', text: r.display_title || r.name || '' }),
+            h('span', { class: 'gh-meta', text: meta })))));
+      });
+      el.appendChild(ul);
+    }
+    el.appendChild(h('h3', { class: 'sub-h', text: t('commits') }));
+    if (!commits.length) el.appendChild(h('p', { class: 'muted-p', text: state.commits ? t('noCommits') : t('loading') }));
+    else {
+      var cl = h('ul', { class: 'gh-list' });
+      commits.forEach(function (c) {
+        var info = c && c.commit ? c.commit : {};
+        var msg = String(info.message || '').split('\n')[0];
+        var when = parseDate(info.author && info.author.date);
+        cl.appendChild(h('li', null, h('a', { class: 'gh-item', href: isHttps(c.html_url) ? c.html_url : null },
+          glyph('commit', 'gh-icon'),
+          h('span', { class: 'gh-text' },
+            h('span', { class: 'gh-title', text: msg }),
+            h('span', { class: 'gh-meta' }, h('span', { class: 'sha', text: String(c.sha || '').slice(0, 7) }), when ? ' · ' + rel(when) : '')))));
+      });
+      el.appendChild(cl);
+    }
+    if (state.gh) el.appendChild(h('p', { class: 'muted-p', text: ghMessage(state.gh) }));
+  }
+
+  var chartObserver = null;
+  function renderResults(d) {
+    var el = $('#results-card');
+    clear(el);
+    var pts = list(d.history)
+      .filter(function (x) { return x && x.target === 'Tc' && typeof x.mae === 'number' && (!x.split || x.split === 'val'); })
+      .map(function (x) { return { at: parseDate(x.at), y: x.mae, model: L(x.model) }; })
+      .sort(function (a, b) { return (a.at ? a.at.getTime() : 0) - (b.at ? b.at.getTime() : 0); });
+    var ref = bestBaseline(d, 'Tc');
+    var toggle = pts.length ? h('button', {
+      class: 'btn small', type: 'button',
+      text: state.view === 'chart' ? t('showTable') : t('showChart'),
+      onclick: function () { state.view = state.view === 'chart' ? 'table' : 'chart'; renderResults(state.data); }
+    }) : null;
+    el.appendChild(cardHead(t('results'), t('resultsSub'), toggle));
+
+    var fig = h('figure', { class: 'figure' }, h('figcaption', { class: 'fig-title', text: t('chartTitle') }));
+    if (chartObserver) { chartObserver.disconnect(); chartObserver = null; }
+    if (!pts.length) {
+      fig.appendChild(h('div', { class: 'empty' }, glyph('chart', ''), h('p', { text: t('chartEmpty') })));
+    } else if (state.view === 'table') {
+      fig.appendChild(historyTable(pts));
+    } else {
+      var host = h('div', { class: 'chart' });
+      fig.appendChild(host);
+      if (window.ResizeObserver) {
+        var lastW = 0;
+        chartObserver = new ResizeObserver(function (entries) {
+          var w = Math.floor(entries[0].contentRect.width);
+          if (w && Math.abs(w - lastW) > 4) { lastW = w; drawChart(host, pts, ref); }
+        });
+        chartObserver.observe(host);
+      } else {
+        setTimeout(function () { drawChart(host, pts, ref); }, 0);
+      }
+    }
+    el.appendChild(fig);
+    el.appendChild(resultsTable(d));
+    el.appendChild(h('p', { class: 'note', text: t('baselineNote') }));
+  }
+
+  function historyTable(pts) {
+    var tb = h('tbody');
+    pts.forEach(function (p, i) {
+      tb.appendChild(h('tr', null,
+        h('td', { class: 'num', text: '#' + (i + 1) }),
+        h('td', { text: p.at ? fmtStamp(p.at) : '' }),
+        h('td', { text: p.model || t('thisProject') }),
+        h('td', { class: 'num', text: fmtVal(p.y) + ' K' })));
+    });
+    return h('div', { class: 'tbl-wrap' }, h('table', { class: 'tbl' },
+      h('thead', null, h('tr', null,
+        h('th', { class: 'num', text: t('colRun') }), h('th', { text: t('colDate') }),
+        h('th', { text: t('colModel') }), h('th', { class: 'num', text: t('colMae') }))),
+      tb));
+  }
+
+  function resultsTable(d) {
+    var rows = list(d.results).map(function (r) { return { r: r, ours: true }; })
+      .concat(list(d.baselines).map(function (r) { return { r: r, ours: false }; }));
+    var tb = h('tbody');
+    rows.forEach(function (row) {
+      var r = row.r || {};
+      var unit = r.unit ? ' ' + r.unit : '';
+      var note = L(r.note);
+      var notes = [note];
+      if (r.source) notes.push(note ? ' · ' : '', isHttps(r.link) ? h('a', { href: r.link, text: r.source }) : r.source);
+      tb.appendChild(h('tr', { class: row.ours ? 'ours' : null },
+        h('td', null, L(r.model), row.ours ? h('span', { class: 'tag', text: t('thisProject') }) : null),
+        h('td', null, targetNode(r.target)),
+        h('td', { class: 'num', text: typeof r.mae === 'number' ? fmtVal(r.mae) + unit : '—' }),
+        h('td', { class: 'notes' }, notes)));
+    });
+    return h('div', { class: 'tbl-wrap' }, h('table', { class: 'tbl' },
+      h('thead', null, h('tr', null,
+        h('th', { text: t('colModel') }), h('th', { text: t('colTarget') }),
+        h('th', { class: 'num', text: t('colMae') }), h('th', { text: t('colNotes') }))),
+      tb));
+  }
+
+  function drawChart(host, pts, ref) {
+    clear(host);
+    var W = Math.max(280, Math.floor(host.getBoundingClientRect().width) || 600);
+    var H = 228;
+    var m = { t: 12, r: 12, b: 28, l: 40 };
+    var pw = W - m.l - m.r;
+    var ph = H - m.t - m.b;
+    var vals = pts.map(function (p) { return p.y; });
+    if (ref) vals.push(ref.mae);
+    var top = Math.max.apply(null, vals) * 1.15 || 1;
+    var step = niceStep(top, 4);
+    var yMax = Math.ceil(top / step) * step;
+    var n = pts.length;
+    function X(i) { return m.l + (n === 1 ? pw / 2 : i * pw / (n - 1)); }
+    function Y(v) { return m.t + ph - v / yMax * ph; }
+
+    var svg = s('svg', {
+      viewBox: '0 0 ' + W + ' ' + H, width: W, height: H, class: 'plot', role: 'img', tabindex: '0',
+      'aria-label': t('chartTitle') + ': ' + pts.map(function (p) { return fmtVal(p.y) + ' K'; }).join(', ')
+    });
+    for (var v = 0; v <= yMax + step * 1e-6; v += step) {
+      var yy = Math.round(Y(v)) + 0.5;
+      svg.appendChild(s('line', { x1: m.l, x2: W - m.r, y1: yy, y2: yy, class: v === 0 ? 'axis-line' : 'grid-line' }));
+      svg.appendChild(s('text', { x: m.l - 8, y: yy + 4, 'text-anchor': 'end', class: 'tick' }, fmtTick(v)));
+    }
+    var ticks = n === 1 ? [0] : n < 6 ? pts.map(function (_, i) { return i; }) : [0, Math.floor((n - 1) / 2), n - 1];
+    ticks.forEach(function (i) {
+      var anchor = n === 1 ? 'middle' : i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle';
+      svg.appendChild(s('text', { x: X(i), y: H - 8, 'text-anchor': anchor, class: 'tick' }, pts[i].at ? fmtDay(pts[i].at) : '#' + (i + 1)));
+    });
+    var last = n - 1;
+    if (ref) {
+      var ry = Math.round(Y(ref.mae)) + 0.5;
+      var near = Math.abs(Y(pts[last].y) - ry) < 22;
+      svg.appendChild(s('line', { x1: m.l, x2: W - m.r, y1: ry, y2: ry, class: 'ref-line' }));
+      svg.appendChild(s('text', { x: m.l + 6, y: near ? ry + 15 : ry - 6, class: 'ref-label' }, t('refLabel', { m: L(ref.model), v: fmtVal(ref.mae) + ' K' })));
+    }
+    if (n > 1) {
+      svg.appendChild(s('path', { class: 'series-line', d: pts.map(function (p, i) { return (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(p.y).toFixed(1); }).join(' ') }));
+    }
+    pts.forEach(function (p, i) { svg.appendChild(s('circle', { cx: X(i), cy: Y(p.y), r: 4, class: 'series-dot' })); });
+    svg.appendChild(s('text', {
+      x: n === 1 ? X(last) : X(last) - 8, y: Y(pts[last].y) - 10,
+      'text-anchor': n === 1 ? 'middle' : 'end', class: 'end-label'
+    }, fmtVal(pts[last].y) + ' K'));
+
+    var cross = s('line', { y1: m.t, y2: m.t + ph, class: 'crosshair', visibility: 'hidden' });
+    var ring = s('circle', { r: 6.5, class: 'hover-dot', visibility: 'hidden' });
+    var hit = s('rect', { x: m.l - 16, y: 0, width: pw + 32, height: m.t + ph + 8, fill: 'transparent' });
+    svg.appendChild(cross);
+    svg.appendChild(ring);
+    svg.appendChild(hit);
+    var tip = h('div', { class: 'tooltip', hidden: true });
+    host.appendChild(svg);
+    host.appendChild(tip);
+
+    var cur = -1;
+    function show(i) {
+      cur = i;
+      var p = pts[i];
+      var x = X(i);
+      var y = Y(p.y);
+      cross.setAttribute('x1', x); cross.setAttribute('x2', x); cross.setAttribute('visibility', 'visible');
+      ring.setAttribute('cx', x); ring.setAttribute('cy', y); ring.setAttribute('visibility', 'visible');
+      clear(tip);
+      append(tip, [
+        h('b', { text: fmtVal(p.y) + ' K' }),
+        h('span', { class: 'tip-row' }, h('i', { class: 'key' }), p.model || t('thisProject')),
+        h('span', { class: 'tip-row', text: p.at ? fmtStamp(p.at) : '#' + (i + 1) })
+      ]);
+      tip.hidden = false;
+      tip.style.left = Math.min(Math.max(x, 86), W - 86) + 'px';
+      tip.style.top = y + 'px';
+    }
+    function hide() {
+      cur = -1;
+      cross.setAttribute('visibility', 'hidden');
+      ring.setAttribute('visibility', 'hidden');
+      tip.hidden = true;
+    }
+    function nearest(evt) {
+      var box = svg.getBoundingClientRect();
+      var px = (evt.clientX - box.left) * (W / box.width);
+      var best = 0;
+      var bd = Infinity;
+      for (var i = 0; i < n; i++) { var dd = Math.abs(X(i) - px); if (dd < bd) { bd = dd; best = i; } }
+      return best;
+    }
+    hit.addEventListener('pointermove', function (e) { show(nearest(e)); });
+    hit.addEventListener('pointerleave', hide);
+    svg.addEventListener('focus', function () { show(cur >= 0 ? cur : last); });
+    svg.addEventListener('blur', hide);
+    svg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { show(Math.max(0, (cur < 0 ? last : cur) - 1)); e.preventDefault(); }
+      else if (e.key === 'ArrowRight') { show(Math.min(last, (cur < 0 ? 0 : cur) + 1)); e.preventDefault(); }
+      else if (e.key === 'Escape') hide();
+    });
+  }
+
+  function render() {
+    renderChrome();
+    var d = state.data;
+    $('#main').hidden = !d;
+    if (!d) return;
+    renderPipeline(d);
+    renderKpis(d);
+    renderStages(d);
+    renderResults(d);
+    renderActivity(d);
+    renderGitHub();
+  }
+
+  function applyTheme() {
+    if (theme === 'system') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', theme);
+  }
+
+  $('#btn-refresh').addEventListener('click', function () { refreshAll(); });
+  $('#btn-theme').addEventListener('click', function () {
+    theme = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system';
+    store.set('theme', theme);
+    applyTheme();
+    renderChrome();
+  });
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && state.checkedAt && Date.now() - state.checkedAt.getTime() > 60 * 1000) refreshAll();
+  });
+
+  applyTheme();
+  render();
+  loadBundled().then(function () { render(); return refreshAll(); });
+  setInterval(refreshAll, REFRESH_MS);
+  setInterval(function () { if (!state.busy) renderChrome(); }, 60 * 1000);
+})();
+</script>
+</body>
+</html>
