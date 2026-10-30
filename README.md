@@ -7,12 +7,13 @@ Machine learning for superconductors. The project predicts the critical temperat
 
 ## Follow the progress
 
-The desktop app shows every stage, the training results and the GitHub Actions runs as they happen.
+The app shows every stage, the training results and the GitHub Actions runs as they happen. It also has a **Physics demos** view, with *Hello Super*, a 90-second animated tour of the project, an animation of how our models work, and demos of zero resistance, the Meissner effect, Cooper pairs and the Allen–Dynes formula, and a **Theory & materials** view on the main theories of superconductivity and the materials behind today's headlines, with links to the original papers.
 
-| Platform | Download |
+| Platform | Get it |
 |---|---|
 | Windows 10/11 | [SuperconProgress-windows-x64-setup.exe](https://github.com/diracmagic/supercon-ml/releases/latest/download/SuperconProgress-windows-x64-setup.exe) |
 | macOS, Apple Silicon and Intel | [SuperconProgress-macos-universal.dmg](https://github.com/diracmagic/supercon-ml/releases/latest/download/SuperconProgress-macos-universal.dmg) |
+| iPhone, iPad and Android | Open [diracmagic.github.io/supercon-ml](https://diracmagic.github.io/supercon-ml/) and add it to your home screen (iPhone and iPad: **Share → Add to Home Screen**; Android: **⋮ → Install app**). |
 
 The installers aren't code-signed yet. On Windows, click **More info → Run anyway** if SmartScreen appears. On macOS, if it says it can't verify the developer, open **System Settings → Privacy & Security** and click **Open Anyway**.
 
@@ -45,8 +46,9 @@ Each paper uses its own data split, so these numbers are a reference point rathe
 - `progress/progress.json`: stages, activity log and results. The desktop app and the progress badge read this file.
 - `ml/pipeline.py`: downloads the data, trains the models and updates the progress file. `.github/workflows/train.yml` runs it on GitHub Actions.
 - `results/`: metrics and predictions from the latest training run.
-- `app/`: the desktop app (Tauri). `app/dist/index.html` is the whole interface.
+- `app/`: the desktop app (Tauri). `app/dist/index.html` is the whole interface; `manifest.webmanifest` and `sw.js` make the same page installable on phones.
 - `.github/workflows/app.yml`: builds the Windows and macOS installers and publishes them as a release.
+- `.github/workflows/pages.yml`: publishes the phone version to GitHub Pages.
 
 ## Build the app yourself
 
