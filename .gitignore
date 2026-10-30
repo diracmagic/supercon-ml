@@ -1,0 +1,7 @@
+node_modules/
+app/src-tauri/target/
+app/src-tauri/gen/
+app/src-tauri/icons/
+app/app-icon.png
+app/dist/progress.json
+.DS_Store
