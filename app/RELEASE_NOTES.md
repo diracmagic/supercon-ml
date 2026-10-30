@@ -1,6 +1,10 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.2.0 adds a Physics demos view with four animations: zero resistance, the Meissner effect, Cooper pairs, and an Allen–Dynes T<sub>c</sub> explorer.
+Version 0.2.0 adds:
+
+- **Physics demos**: *Hello Super*, a 90-second animated tour of the project; *Our model*, an animation of the baseline and foundation-model pipelines; and demos of zero resistance, the Meissner effect, Cooper pairs and an Allen–Dynes T<sub>c</sub> explorer.
+- **Theory & materials**: an interactive T<sub>c</sub>-by-year chart, the main theories of superconductivity and the materials to know, each with links to the original papers.
+- **Phone and iPad version**: the same app at [diracmagic.github.io/supercon-ml](https://diracmagic.github.io/supercon-ml/), installable to the home screen on iPhone, iPad and Android.
 
 ### Download
 
