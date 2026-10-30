@@ -1,13 +1,17 @@
 {
  "schema": 1,
- "updated": "2026-10-30T22:27:27+00:00",
- "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Science, Physical Review Letters and Physical Review X, refreshed every three hours. Topic and type tags are assigned automatically from keywords.",
+ "updated": "2026-10-30T23:59:39+00:00",
+ "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Science, Physical Review Letters and Physical Review X, and superconductivity news from science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources_ok": [
   "arXiv",
   "Nature",
   "Science",
   "PRL",
-  "PRX"
+  "PRX",
+  "Phys.org",
+  "Physics World",
+  "APS Physics",
+  "Quanta Magazine"
  ],
  "arxiv": [
   {
@@ -3318,6 +3322,267 @@
    "doi": "10.1038/d41586-026-01801-4",
    "topics": [],
    "kind": ""
+  }
+ ],
+ "news": [
+  {
+   "id": "https://phys.org/news/2026-10-ute-reveals-flavors-superconductivity-extreme.html",
+   "source": "Phys.org",
+   "title": "UTe₂ reveals two flavors of superconductivity under extreme pressure",
+   "date": "2026-10-30",
+   "summary": "Quantum researchers are searching for a topological superconductor—a material that, if discovered, would allow major advances in quantum computing by combining two distinct \"flavors\" of superconductivity.",
+   "url": "https://phys.org/news/2026-10-ute-reveals-flavors-superconductivity-extreme.html",
+   "topics": [
+    "Topological",
+    "Quantum devices"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-10-unusual-quantum-states-layer-graphene.html",
+   "source": "Phys.org",
+   "title": "Unusual quantum states in six-layer graphene offer clues to superconductivity",
+   "date": "2026-10-30",
+   "summary": "Graphene, a material consisting of a sheet of carbon atoms arranged in a honeycomb pattern, has proved promising for various technological applications. Materials in which several layers of graphene are stacked together can exhibit different advantageous properties.",
+   "url": "https://phys.org/news/2026-10-unusual-quantum-states-layer-graphene.html",
+   "topics": [
+    "Moiré and 2D"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-10-terahertz-distinguishes-groups-particles-superconducting.html",
+   "source": "Phys.org",
+   "title": "Terahertz light distinguishes two groups of particles trapped inside superconducting vortices",
+   "date": "2026-10-29",
+   "summary": "Scientists at Rutgers and in Estonia have used invisible light to look into tiny magnetic whirlpools, called vortices, inside a superconductor, revealing details that could help researchers develop better materials for carrying electricity.",
+   "url": "https://phys.org/news/2026-10-terahertz-distinguishes-groups-particles-superconducting.html",
+   "topics": [
+    "Vortices and junctions"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-10-hidden-rivalry-quantum-states-heart.html",
+   "source": "Phys.org",
+   "title": "A hidden rivalry between two quantum states at the heart of superconductors",
+   "date": "2026-10-20",
+   "summary": "Transmitting electricity without losing any energy may sound impossible, yet this is precisely the promise of superconductivity. For nearly 40 years, scientists have been working to understand materials that exhibit this remarkable property at relatively high temperatures.…",
+   "url": "https://phys.org/news/2026-10-hidden-rivalry-quantum-states-heart.html",
+   "topics": [
+    "Quantum devices"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-10-gun-mystery-high-temperature-superconductivity.html",
+   "source": "Phys.org",
+   "title": "'Smoking gun' may help solve mystery of high-temperature superconductivity",
+   "date": "2026-10-20",
+   "summary": "Superconductivity has many important practical applications, including creating powerful magnets used in high-resolution medical scans, transporting electricity efficiently and building ultrasensitive measuring devices. Until now, understanding exactly what lay behind this…",
+   "url": "https://phys.org/news/2026-10-gun-mystery-high-temperature-superconductivity.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-10-odd-molecule-difference-quantum-world.html",
+   "source": "Phys.org",
+   "title": "Even or odd numbers: A single molecule makes all the difference in the quantum world",
+   "date": "2026-10-16",
+   "summary": "The researchers in the Quantum Detection Microscopy group at CIC nanoGUNE, in collaboration with chemists at CiQUS of the University of Santiago de Compostela, have demonstrated that adding or removing a single molecule from a quantum chain can fundamentally change its…",
+   "url": "https://phys.org/news/2026-10-odd-molecule-difference-quantum-world.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-10-superconducting-circuit-street-quantum.html",
+   "source": "Phys.org",
+   "title": "From spin wave to superconducting circuit: A one-way street for quantum information",
+   "date": "2026-10-14",
+   "summary": "Quantum information systems could one day shape everyday life through faster computing, sharper sensing and more secure communication. A new result from the U.S. Department of Energy's (DOE) Argonne National Laboratory and the University of Illinois Urbana-Champaign (U. of I.)…",
+   "url": "https://phys.org/news/2026-10-superconducting-circuit-street-quantum.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-10-electronic-stripes-linked-unusual-vortex.html",
+   "source": "Phys.org",
+   "title": "Electronic stripes linked to unusual vortex states in a superconductor",
+   "date": "2026-10-08",
+   "summary": "Superconductors, materials that can carry electric current with an electrical resistance of zero, have proved to be promising for the development of various technologies, including medical devices, particle accelerators and quantum computers. Studying these materials could help…",
+   "url": "https://phys.org/news/2026-10-electronic-stripes-linked-unusual-vortex.html",
+   "topics": [
+    "Vortices and junctions",
+    "Quantum devices"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-10-quantum-material-superconducting-states-conflicting.html",
+   "source": "Phys.org",
+   "title": "One quantum material, two superconducting states: Stretching helps explain conflicting experiments",
+   "date": "2026-10-07",
+   "summary": "Unconventional superconductors can host unusual electronic states, but understanding what drives their superconductivity becomes difficult when different forms of order coexist. The kagome metal CsV3Sb5 has become a particularly debated example.",
+   "url": "https://phys.org/news/2026-10-quantum-material-superconducting-states-conflicting.html",
+   "topics": [
+    "Kagome",
+    "Electron–phonon"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-10-cooper-pairs-superconducting-critical-temperature.html",
+   "source": "Phys.org",
+   "title": "Cooper pairs found above superconducting critical temperature in pair density waves",
+   "date": "2026-10-03",
+   "summary": "Physicists with the University of Illinois Urbana-Champaign's Grainger College of Engineering have identified a new form of superconducting behavior. Experiments on the metal uranium ditelluride reveal that Cooper pairs, the composite electron units responsible for…",
+   "url": "https://phys.org/news/2026-10-cooper-pairs-superconducting-critical-temperature.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-10-scientists-superconductor-reversal-symmetry.html",
+   "source": "Phys.org",
+   "title": "Scientists discover first type I superconductor that breaks time-reversal symmetry",
+   "date": "2026-10-02",
+   "summary": "Superconductors are materials that conduct electricity with no resistance and expel magnetic fields when cooled to ultralow temperatures. And depending on their quantum structure, they can also showcase strange properties like magnetic levitation. But now things are getting a…",
+   "url": "https://phys.org/news/2026-10-scientists-superconductor-reversal-symmetry.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-09-scandium-electrons-room-temperature-superconductivity.html",
+   "source": "Phys.org",
+   "title": "Scandium's electrons may explain predicted room-temperature superconductivity",
+   "date": "2026-09-29",
+   "summary": "Scientists have confirmed the existence of a predicted room temperature superconductor, while explaining the microscopic mechanism that distinguishes it from a similar one discovered several years ago. The work, published in the journal Physical Review B, offers \"a theoretical…",
+   "url": "https://phys.org/news/2026-09-scandium-electrons-room-temperature-superconductivity.html",
+   "topics": [
+    "Hydrides"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-09-picosecond-pulses-superconductors-critical-current.html",
+   "source": "Phys.org",
+   "title": "Picosecond pulses push superconductors beyond their critical-current limit",
+   "date": "2026-09-24",
+   "summary": "Superconductors can carry electrical current without resistance, but only up to a maximum value known as the critical current. The critical current is a crucial figure of merit for applications, and materials science has long been focused on increasing this limit. Researchers at…",
+   "url": "https://phys.org/news/2026-09-picosecond-pulses-superconductors-critical-current.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-09-atom-high-rails-superconducting-vortices.html",
+   "source": "Phys.org",
+   "title": "One-atom-high rails steer superconducting vortices, with temperature and magnetic field tuning their guidance",
+   "date": "2026-09-24",
+   "summary": "Researchers at the Research Center for Materials Nanoarchitectonics (MANA), a center within Japan's National Institute for Materials Science (NIMS), discovered that atomic-scale steps can guide superconducting vortices in an ultrathin superconductor.",
+   "url": "https://phys.org/news/2026-09-atom-high-rails-superconducting-vortices.html",
+   "topics": [
+    "Vortices and junctions"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-09-chemists-overturn-year-assumption-key.html",
+   "source": "Phys.org",
+   "title": "Chemists overturn 40-year assumption about a key class of superconductors",
+   "date": "2026-09-17",
+   "summary": "Scientists at Warwick have shown that a material treated for 40 years as a uniform, textbook superconductor is in fact a patchwork of different crystal structures throughout its bulk, using an advanced 3D imaging technique to see deep inside the crystal for the first time.",
+   "url": "https://phys.org/news/2026-09-chemists-overturn-year-assumption-key.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-09-disorder-key-tuning-high-temperature.html",
+   "source": "Phys.org",
+   "title": "Disorder is key to tuning a high-temperature superconductor",
+   "date": "2026-09-17",
+   "summary": "Cornell physicists have discovered that minimizing disorder, not varying electron count, is the key factor for controlling superconductivity in the unique material iron selenide (FeSe), a new insight for understanding high-temperature superconductors.",
+   "url": "https://phys.org/news/2026-09-disorder-key-tuning-high-temperature.html",
+   "topics": [
+    "Iron-based"
+   ]
+  },
+  {
+   "id": "https://physicsworld.com/a/vacuumtronics-could-help-make-better-superconductors/",
+   "source": "Physics World",
+   "title": "‘Vacuumtronics’ could help make better superconductors",
+   "date": "2026-09-15",
+   "summary": "Vacuum fluctuations could be a non-invasive way to tune superconductivity The post ‘Vacuumtronics’ could help make better superconductors appeared first on Physics World.",
+   "url": "https://physicsworld.com/a/vacuumtronics-could-help-make-better-superconductors/",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-09-spinons-electrons-pair-stripes-superconductors.html",
+   "source": "Phys.org",
+   "title": "Spinons may help electrons pair along stripes in some superconductors",
+   "date": "2026-09-10",
+   "summary": "Superconductors are materials that carry electricity with zero resistance below specific temperatures. Many of these materials become superconducting at very low temperatures, yet some enter superconducting phases at higher temperatures.",
+   "url": "https://phys.org/news/2026-09-spinons-electrons-pair-stripes-superconductors.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-09-quantum-phases-chromium-based-material.html",
+   "source": "Phys.org",
+   "title": "Three quantum phases in chromium-based material hint at a spin-triplet superconductor",
+   "date": "2026-09-07",
+   "summary": "Superconductors are materials that conduct electricity without electrical resistance when cooled below a specific critical temperature. These materials have proved promising for the development of various technologies, including medical imaging instruments, particle…",
+   "url": "https://phys.org/news/2026-09-quantum-phases-chromium-based-material.html",
+   "topics": [
+    "Triplet and ruthenates",
+    "Quantum devices"
+   ]
+  },
+  {
+   "id": "https://physicsworld.com/a/noise-that-entangles-may-accelerate-the-dawn-of-quantum-technologies/",
+   "source": "Physics World",
+   "title": "Noise that entangles may accelerate the dawn of quantum technologies",
+   "date": "2026-09-07",
+   "summary": "Two superconducting qubits, a metre of cable apart, have been driven into an entangled state not in spite of their environment, but by it The post Noise that entangles may accelerate the dawn of quantum technologies appeared first on Physics World.",
+   "url": "https://physicsworld.com/a/noise-that-entangles-may-accelerate-the-dawn-of-quantum-technologies/",
+   "topics": [
+    "Quantum devices"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-09-magic-angle-graphene-evidence-unconventional.html",
+   "source": "Phys.org",
+   "title": "Magic-angle graphene provides evidence for unconventional superconductivity",
+   "date": "2026-09-04",
+   "summary": "Researchers have completely suppressed superconductivity in magic-angle graphene by screening interactions between electrons, helping resolve a long-running debate about the origin of the phenomenon.",
+   "url": "https://phys.org/news/2026-09-magic-angle-graphene-evidence-unconventional.html",
+   "topics": [
+    "Moiré and 2D",
+    "Electron–phonon"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-08-superconductors-thinner-accommodate-magnetic-fields.html",
+   "source": "Phys.org",
+   "title": "Making superconductors thinner can change how they accommodate magnetic fields",
+   "date": "2026-09-02",
+   "summary": "What happens when a superconductor becomes so thin that electrons can no longer behave as if they were moving through an ordinary three-dimensional piece of metal? This question has been at the center of my recent work on quantum confinement in metallic films. Over the past few…",
+   "url": "https://phys.org/news/2026-08-superconductors-thinner-accommodate-magnetic-fields.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-08-high-magnetic-fields-revive-superconductivity.html",
+   "source": "Phys.org",
+   "title": "High magnetic fields revive superconductivity in nickelates",
+   "date": "2026-08-26",
+   "summary": "Scientists from the National University of Singapore (NUS), in collaboration with Los Alamos National Laboratory in the United States, have uncovered that a class of nickel-based materials known as samarium (Sm)-based infinite-layer nickelates can regain their superconducting…",
+   "url": "https://phys.org/news/2026-08-high-magnetic-fields-revive-superconductivity.html",
+   "topics": [
+    "Nickelates"
+   ]
+  },
+  {
+   "id": "https://phys.org/news/2026-08-vacuum-fluctuation-superconductivity.html",
+   "source": "Phys.org",
+   "title": "Vacuum-fluctuation-enhanced superconductivity demonstrated for the first time",
+   "date": "2026-08-24",
+   "summary": "In a study published in Nature on Aug. 19, a research team has enhanced superconductivity through vacuum fluctuations for the first time. The achievement marks a significant advance in controlling quantum states of matter.",
+   "url": "https://phys.org/news/2026-08-vacuum-fluctuation-superconductivity.html",
+   "topics": []
+  },
+  {
+   "id": "https://phys.org/news/2026-08-superconducting-gap-ultrathin-nickelate-defies.html",
+   "source": "Phys.org",
+   "title": "The superconducting gap of an ultrathin nickelate defies expectations",
+   "date": "2026-08-23",
+   "summary": "Superconductors are materials that carry electrical current with zero resistance below a specific critical temperature. In conventional superconductors, the transition to superconductivity generally occurs at very low temperatures.",
+   "url": "https://phys.org/news/2026-08-superconducting-gap-ultrathin-nickelate-defies.html",
+   "topics": [
+    "Nickelates",
+    "Electron–phonon"
+   ]
   }
  ]
 }
