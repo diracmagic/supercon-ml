@@ -27,6 +27,7 @@
   --good: #0ca30c;
   --warning: #fab219;
   --critical: #d03b3b;
+  --warm: #eb6834;
   --tip-shadow: 0 6px 20px rgba(11, 11, 11, 0.12);
 }
 @media (prefers-color-scheme: dark) {
@@ -45,6 +46,7 @@
     --accent: #3987e5;
     --accent-track: #0d366b;
     --accent-wash: rgba(57, 135, 229, 0.12);
+    --warm: #d95926;
     --tip-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
   }
 }
@@ -63,6 +65,7 @@
   --accent: #3987e5;
   --accent-track: #0d366b;
   --accent-wash: rgba(57, 135, 229, 0.12);
+  --warm: #d95926;
   --tip-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
@@ -265,6 +268,24 @@ h1, h2, h3, p { margin: 0; }
 .tag { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 999px; background: var(--accent-track); color: var(--ink); font-size: 11px; line-height: 18px; white-space: nowrap; }
 .note { margin-top: 10px; font-size: 12px; color: var(--muted); }
 
+/* view switch and physics demos */
+.views { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.views button { padding: 5px 12px; border: 0; border-radius: 7px; background: none; color: var(--ink-2); font-size: 13px; cursor: pointer; }
+.views button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(11, 11, 11, 0.08); }
+.demos { margin-bottom: 12px; }
+.demo-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.demo-tab { padding: 5px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--ink-2); font-size: 13px; cursor: pointer; }
+.demo-tab:hover { background: var(--hover); }
+.demo-tab[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: var(--surface); }
+.demo-stage { overflow: hidden; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.demo-stage canvas { display: block; width: 100%; }
+.demo-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-top: 12px; }
+.slider { display: flex; flex: 1 1 240px; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-2); }
+.slider input[type="range"] { flex: 1; min-width: 120px; accent-color: var(--accent); }
+.slider output { min-width: 62px; color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.demo-readout { color: var(--ink); font-size: 13px; font-weight: 600; }
+.demo-caption { max-width: 860px; margin-top: 12px; color: var(--ink-2); font-size: 13.5px; line-height: 1.6; }
+
 .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; margin-top: 20px; font-size: 12px; color: var(--muted); }
 .foot a { color: var(--ink-2); }
 </style>
@@ -287,6 +308,10 @@ h1, h2, h3, p { margin: 0; }
         <h1 id="app-name">Supercon Progress</h1>
         <p id="project"></p>
       </div>
+    </div>
+    <div class="views" role="tablist" aria-label="View">
+      <button id="view-progress" type="button" role="tab" aria-selected="true">Progress</button>
+      <button id="view-demos" type="button" role="tab" aria-selected="false">Physics demos</button>
     </div>
     <div class="controls">
       <span class="stamp"><i id="live-dot" class="live-dot"></i><span id="stamp"></span></span>
@@ -312,6 +337,8 @@ h1, h2, h3, p { margin: 0; }
     </div>
   </main>
 
+  <section id="demos" class="card demos" hidden></section>
+
   <footer id="foot" class="foot"></footer>
 </div>
 
@@ -320,7 +347,7 @@ h1, h2, h3, p { margin: 0; }
 (function () {
   'use strict';
 
-  var APP_VERSION = '0.1.0';
+  var APP_VERSION = '0.2.0';
   var REPO = 'diracmagic/supercon-ml';
   var BRANCH = 'main';
   var REPO_URL = 'https://github.com/' + REPO;
@@ -415,6 +442,8 @@ h1, h2, h3, p { margin: 0; }
     light: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>',
     dark: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',
     info: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.4"/></svg>',
+    play: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></svg>',
+    pause: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><rect x="7" y="5.5" width="3.5" height="13" rx="1"/><rect x="13.5" y="5.5" width="3.5" height="13" rx="1"/></svg>',
     chart: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5h16"/><path d="M5 15l4-4 3 3 7-8"/></svg>'
   };
   var RUN_GLYPH = { running: 'running', queued: 'queued', success: 'done', failure: 'failure', cancelled: 'cancelled', attention: 'blocked' };
@@ -1153,10 +1182,546 @@ h1, h2, h3, p { margin: 0; }
     });
   }
 
+  /* ---------- physics demos ---------- */
+  var DEMOS = [
+    { id: 'resistance', label: 'Zero resistance', temp: true, height: 360,
+      caption: 'Above Tc, electrons scatter off vibrating ions, so a current loses energy as heat. Below Tc they bind into Cooper pairs that move together as one coherent quantum state, and the resistance drops to exactly zero.' },
+    { id: 'meissner', label: 'Meissner effect', temp: true, height: 340,
+      caption: 'Below Tc a superconductor expels magnetic field from its interior. Screening currents in a thin surface layer (⊗ into the page, ⊙ out of it) cancel the field inside. This is why a magnet can levitate above a cooled superconductor.' },
+    { id: 'pairs', label: 'Cooper pairs', temp: true, height: 380,
+      caption: 'A passing electron pulls the positive ions toward it. The heavy ions relax slowly, so a positively charged wake lingers and attracts a second electron: an attraction carried by lattice vibrations (phonons). Its strength is λ and the typical vibration energy is ω_log, the two quantities our models predict. In BCS theory the paired electrons have opposite momenta and spins, and one pair spans many lattice spacings.' },
+    { id: 'allen-dynes', label: 'Predict Tc', temp: false, height: 380,
+      caption: 'The Allen–Dynes formula estimates Tc from the electron–phonon coupling λ, the logarithmic phonon frequency ω_log and the Coulomb pseudopotential μ*. Stronger coupling and stiffer, higher-frequency lattice vibrations both raise Tc. Drag the sliders, or point at the map to read off Tc.' }
+  ];
+  var RAMP_LIGHT = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b'];
+  var TC_MAX = 80;
+  var view = store.get('view') === 'demos' ? 'demos' : 'progress';
+  var demo = {
+    id: 'resistance', t: 1.4, auto: true, clock: 0, raf: 0, last: 0, built: false,
+    canvas: null, ctx: null, W: 0, H: 0, dpr: 1,
+    electrons: null, ions: null, e1: null, e2: null, sizeKey: '',
+    lam: 1.0, wlog: 300, mu: 0.10, heat: null, heatKey: '', hover: null, fieldKey: '', field: null
+  };
+  (function () {
+    var saved = store.get('demo');
+    if (DEMOS.some(function (d) { return d.id === saved; })) demo.id = saved;
+  })();
+
+  function demoDef() { return DEMOS.filter(function (d) { return d.id === demo.id; })[0]; }
+  function gapRatio(t) { return t >= 1 ? 0 : Math.tanh(1.74 * Math.sqrt(1 / Math.max(t, 1e-3) - 1)); }
+  function allenDynes(lam, wlog, mu) {
+    var d = lam - mu * (1 + 0.62 * lam);
+    return d > 0 ? (wlog / 1.2) * Math.exp(-1.04 * (1 + lam) / d) : 0;
+  }
+  function cssVar(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function colors() {
+    return {
+      surface: cssVar('--surface'), surface2: cssVar('--surface-2'), ink: cssVar('--ink'), ink2: cssVar('--ink-2'),
+      muted: cssVar('--muted'), grid: cssVar('--grid'), axis: cssVar('--axis'), accent: cssVar('--accent'),
+      track: cssVar('--accent-track'), warm: cssVar('--warm'), font: cssVar('--font') || 'system-ui, sans-serif',
+      dark: document.documentElement.getAttribute('data-theme') === 'dark' ||
+        (document.documentElement.getAttribute('data-theme') !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    };
+  }
+  function hexRgb(hex) {
+    var m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex || '');
+    return m ? [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)] : [128, 128, 128];
+  }
+  function mix(a, b, k) {
+    var x = hexRgb(a), y = hexRgb(b);
+    return 'rgb(' + [0, 1, 2].map(function (i) { return Math.round(x[i] + (y[i] - x[i]) * k); }).join(',') + ')';
+  }
+  function rampColor(v, dark) {
+    var stops = dark ? RAMP_LIGHT.slice().reverse() : RAMP_LIGHT;
+    var p = Math.max(0, Math.min(1, v)) * (stops.length - 1);
+    var i = Math.min(stops.length - 2, Math.floor(p));
+    var a = hexRgb(stops[i]), b = hexRgb(stops[i + 1]), k = p - i;
+    return [0, 1, 2].map(function (j) { return Math.round(a[j] + (b[j] - a[j]) * k); });
+  }
+  function motionOK() { return !reducedMotion(); }
+
+  function buildDemos() {
+    var el = $('#demos');
+    clear(el);
+    var tabs = h('div', { class: 'demo-tabs', role: 'tablist', 'aria-label': 'Demos' });
+    DEMOS.forEach(function (d) {
+      tabs.appendChild(h('button', {
+        class: 'demo-tab', type: 'button', role: 'tab', 'data-id': d.id,
+        'aria-selected': d.id === demo.id ? 'true' : 'false', text: d.label,
+        onclick: function () { selectDemo(d.id); }
+      }));
+    });
+    var canvas = h('canvas', { role: 'img' });
+    var stage = h('div', { class: 'demo-stage' }, canvas);
+    var play = h('button', { class: 'btn', type: 'button', id: 'demo-play', onclick: function () { demo.auto = !demo.auto; syncControls(); kick(); } });
+    var tempIn = h('input', { type: 'range', min: '0.2', max: '1.6', step: '0.01', id: 'demo-temp', 'aria-label': 'Temperature as a fraction of Tc' });
+    tempIn.addEventListener('input', function () { demo.t = parseFloat(tempIn.value); demo.auto = false; syncControls(); kick(); });
+    var tempOut = h('output', { id: 'demo-temp-out' });
+    var tempRow = h('div', { class: 'demo-controls', id: 'demo-temp-row' },
+      play,
+      h('label', { class: 'slider' }, h('span', { text: 'Temperature' }), tempIn, tempOut),
+      h('span', { class: 'demo-readout', id: 'demo-readout' }));
+    function slider(id, label, min, max, step, key, fmtv) {
+      var input = h('input', { type: 'range', min: String(min), max: String(max), step: String(step), id: id, 'aria-label': label });
+      var out = h('output', { id: id + '-out' });
+      input.addEventListener('input', function () { demo[key] = parseFloat(input.value); syncControls(); kick(); });
+      out.fmt = fmtv;
+      return h('label', { class: 'slider' }, h('span', { text: label }), input, out);
+    }
+    var adRow = h('div', { class: 'demo-controls', id: 'demo-ad-row' },
+      slider('demo-lam', 'λ', 0.1, 2.5, 0.01, 'lam', function (v) { return v.toFixed(2); }),
+      slider('demo-wlog', 'ω_log', 20, 1000, 5, 'wlog', function (v) { return Math.round(v) + ' K'; }),
+      slider('demo-mu', 'μ*', 0.05, 0.2, 0.005, 'mu', function (v) { return v.toFixed(3); }),
+      h('span', { class: 'demo-readout', id: 'demo-ad-readout' }));
+    var caption = h('p', { class: 'demo-caption', id: 'demo-caption' });
+    append(el, [
+      h('div', { class: 'card-head' }, h('div', null,
+        h('h2', { text: 'Superconductivity, animated' }),
+        h('p', { text: 'Four short demos of the physics behind this project.' }))),
+      tabs, stage, tempRow, adRow, caption
+    ]);
+    demo.canvas = canvas;
+    demo.ctx = canvas.getContext('2d');
+    canvas.addEventListener('pointermove', function (e) { var r = canvas.getBoundingClientRect(); demo.hover = { x: e.clientX - r.left, y: e.clientY - r.top }; kick(); });
+    canvas.addEventListener('pointerleave', function () { demo.hover = null; kick(); });
+    if (window.ResizeObserver) new ResizeObserver(function () { sizeCanvas(); kick(); }).observe(stage);
+    else window.addEventListener('resize', function () { sizeCanvas(); kick(); });
+    demo.built = true;
+    if (!motionOK()) demo.auto = false;
+    syncControls();
+    sizeCanvas();
+  }
+
+  function selectDemo(id) {
+    demo.id = id;
+    store.set('demo', id);
+    [].forEach.call(document.querySelectorAll('.demo-tab'), function (b) { b.setAttribute('aria-selected', b.getAttribute('data-id') === id ? 'true' : 'false'); });
+    demo.electrons = null; demo.ions = null; demo.sizeKey = '';
+    syncControls();
+    sizeCanvas();
+    kick();
+  }
+
+  function syncControls() {
+    var d = demoDef();
+    $('#demo-temp-row').hidden = !d.temp;
+    $('#demo-ad-row').hidden = d.temp;
+    $('#demo-caption').textContent = d.caption;
+    var play = $('#demo-play');
+    play.innerHTML = demo.auto ? G.pause : G.play;
+    play.appendChild(document.createTextNode(demo.auto ? 'Pause' : 'Play'));
+    play.setAttribute('aria-label', demo.auto ? 'Pause the temperature sweep' : 'Play a temperature sweep');
+    play.hidden = !motionOK();
+    $('#demo-temp').value = String(demo.t.toFixed(2));
+    $('#demo-temp-out').textContent = demo.t.toFixed(2) + ' Tc';
+    ['lam', 'wlog', 'mu'].forEach(function (k) {
+      var input = $('#demo-' + k), out = $('#demo-' + k + '-out');
+      input.value = String(demo[k]);
+      out.textContent = out.fmt(demo[k]);
+    });
+  }
+
+  function sizeCanvas() {
+    if (!demo.canvas) return;
+    var stage = demo.canvas.parentNode;
+    var W = Math.max(280, Math.floor(stage.getBoundingClientRect().width));
+    var d = demoDef();
+    var H = W < 560 ? Math.round(d.height * 0.85) : d.height;
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (W === demo.W && H === demo.H && dpr === demo.dpr) return;
+    demo.W = W; demo.H = H; demo.dpr = dpr;
+    demo.canvas.width = Math.round(W * dpr);
+    demo.canvas.height = Math.round(H * dpr);
+    demo.canvas.style.height = H + 'px';
+    demo.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    demo.electrons = null; demo.ions = null; demo.fieldKey = ''; demo.heatKey = '';
+  }
+
+  function demosVisible() { return view === 'demos' && demo.built && !document.hidden; }
+  function kick() {
+    if (!demosVisible() || demo.raf) return;
+    demo.last = 0;
+    demo.raf = requestAnimationFrame(frame);
+  }
+  function frame(ts) {
+    demo.raf = 0;
+    if (!demosVisible()) return;
+    var moving = motionOK();
+    var dt = moving && demo.last ? Math.min(0.05, (ts - demo.last) / 1000) : 0;
+    demo.last = ts;
+    demo.clock += dt;
+    var d = demoDef();
+    if (d.temp && demo.auto && moving) {
+      demo.t = 0.9 + 0.65 * Math.cos(2 * Math.PI * demo.clock / 14);
+      $('#demo-temp').value = demo.t.toFixed(2);
+      $('#demo-temp-out').textContent = demo.t.toFixed(2) + ' Tc';
+    }
+    var C = colors();
+    var c = demo.ctx;
+    c.clearRect(0, 0, demo.W, demo.H);
+    c.fillStyle = C.surface;
+    c.fillRect(0, 0, demo.W, demo.H);
+    if (d.id === 'resistance') drawResistance(c, C, dt);
+    else if (d.id === 'meissner') drawMeissner(c, C, dt);
+    else if (d.id === 'pairs') drawPairs(c, C, dt);
+    else drawAllenDynes(c, C);
+    if (moving) demo.raf = requestAnimationFrame(frame);
+  }
+
+  function dot(c, x, y, r, fill, ring) {
+    c.beginPath();
+    c.arc(x, y, r, 0, Math.PI * 2);
+    if (ring) { c.lineWidth = 2; c.strokeStyle = ring; c.stroke(); }
+    c.fillStyle = fill;
+    c.fill();
+  }
+  function label(c, C, text, x, y, opts) {
+    opts = opts || {};
+    c.font = (opts.weight || '400') + ' ' + (opts.size || 12) + 'px ' + C.font;
+    c.fillStyle = opts.color || C.ink2;
+    c.textAlign = opts.align || 'left';
+    c.textBaseline = opts.base || 'alphabetic';
+    c.fillText(text, x, y);
+  }
+  function stateText(s) { return s > 0 ? 'Superconducting' : 'Normal state'; }
+
+  // Small line plot shared by the resistance and gap demos.
+  function miniPlot(c, C, box, fn, yMax, t, yLabel, valueText) {
+    var x0 = box.x + 44, x1 = box.x + box.w - 16, y0 = box.y + 18, y1 = box.y + box.h - 40;
+    function X(v) { return x0 + (v / 1.6) * (x1 - x0); }
+    function Y(v) { return y1 - (v / yMax) * (y1 - y0); }
+    c.lineWidth = 1;
+    [0.25, 0.5, 0.75, 1].forEach(function (g) {
+      var yy = Math.round(Y(g * yMax)) + 0.5;
+      c.strokeStyle = C.grid; c.beginPath(); c.moveTo(x0, yy); c.lineTo(x1, yy); c.stroke();
+    });
+    c.strokeStyle = C.axis; c.beginPath(); c.moveTo(x0, Math.round(y1) + 0.5); c.lineTo(x1, Math.round(y1) + 0.5); c.stroke();
+    var tcx = Math.round(X(1)) + 0.5;
+    c.strokeStyle = C.axis; c.beginPath(); c.moveTo(tcx, y0); c.lineTo(tcx, y1); c.stroke();
+    [0, 0.5, 1, 1.5].forEach(function (v) {
+      label(c, C, v === 1 ? 'Tc' : String(v), X(v), y1 + 16, { align: 'center', size: 11, color: C.muted });
+    });
+    label(c, C, 'Temperature (T / Tc)', (x0 + x1) / 2, y1 + 32, { align: 'center', size: 11, color: C.muted });
+    label(c, C, yLabel, x0, y0 - 6, { size: 11, color: C.muted });
+    c.beginPath();
+    for (var v = 0; v <= 1.6001; v += 0.005) {
+      var px = X(v), py = Y(fn(v));
+      if (v === 0) c.moveTo(px, py); else c.lineTo(px, py);
+    }
+    c.lineWidth = 2; c.lineJoin = 'round'; c.strokeStyle = C.accent; c.stroke();
+    var mx = X(Math.max(0, Math.min(1.6, t))), my = Y(fn(t));
+    dot(c, mx, my, 5, C.accent, C.surface);
+    var right = mx > x1 - 150;
+    label(c, C, valueText, right ? mx - 12 : mx + 12, my - 10, { align: right ? 'right' : 'left', weight: '600', color: C.ink });
+  }
+
+  function resistanceOf(t) {
+    var normal = 0.55 + 0.45 * (t / 1.6);
+    return normal / (1 + Math.exp(-(t - 1) / 0.015));
+  }
+
+  function drawResistance(c, C, dt) {
+    var W = demo.W, H = demo.H, t = demo.t, s = gapRatio(t);
+    var left = 16, right = W - 16, top = 16, wireH = Math.min(132, Math.round(H * 0.4));
+    c.fillStyle = C.surface2;
+    c.beginPath();
+    if (c.roundRect) c.roundRect(left, top, right - left, wireH, 12); else c.rect(left, top, right - left, wireH);
+    c.fill();
+    var cols = Math.max(8, Math.floor((right - left) / 36)), rows = 3;
+    var amp = (0.6 + 3.4 * Math.min(t, 1.6) / 1.6) * (1 - 0.55 * s);
+    for (var r = 0; r < rows; r++) {
+      for (var k = 0; k < cols; k++) {
+        var x = left + (k + 0.5) * (right - left) / cols + amp * Math.sin(demo.clock * 9 + k * 1.7 + r * 2.3);
+        var y = top + (r + 0.5) * wireH / rows + amp * Math.cos(demo.clock * 11 + k * 2.1 + r);
+        dot(c, x, y, 5, mix(C.muted, C.surface2, 0.35));
+      }
+    }
+    var N = 24;
+    if (!demo.electrons) {
+      demo.electrons = [];
+      for (var i = 0; i < N; i++) {
+        var a0 = Math.random() * Math.PI * 2;
+        demo.electrons.push({ x: left + Math.random() * (right - left), y: top + 8 + Math.random() * (wireH - 16), vx: 60 * Math.cos(a0), vy: 60 * Math.sin(a0) });
+      }
+    }
+    var es = demo.electrons;
+    var scatter = (1 - s) * (2 + 5 * Math.min(t, 1.6) / 1.6);
+    es.forEach(function (p) {
+      if (dt && Math.random() < scatter * dt) {
+        var ang = Math.random() * Math.PI * 2, sp = 60 + 50 * Math.random();
+        p.vx = sp * Math.cos(ang) + 25; p.vy = sp * Math.sin(ang);
+      }
+      var k = Math.min(1, dt * (0.4 + 5 * s));
+      p.vx += (90 * s + 25 * (1 - s) - p.vx) * k * (s > 0 ? 1 : 0.15);
+      p.vy += (0 - p.vy) * Math.min(1, dt * 5 * s);
+    });
+    for (var j = 0; j + 1 < N; j += 2) {
+      var p = es[j], q = es[j + 1];
+      if (s > 0) {
+        var mx = (p.x + q.x) / 2, my = (p.y + q.y) / 2, pull = Math.min(1, dt * 3 * s);
+        if (Math.abs(p.x - q.x) > (right - left) / 2) { q.x = p.x; }
+        p.x += (mx - 6 - p.x) * pull; q.x += (mx + 6 - q.x) * pull;
+        p.y += (my - p.y) * pull; q.y += (my - q.y) * pull;
+        q.vx = p.vx = (p.vx + q.vx) / 2 * (1 - pull) + 90 * pull;
+      }
+    }
+    es.forEach(function (p) {
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      if (p.y < top + 7) { p.y = top + 7; p.vy = Math.abs(p.vy); }
+      if (p.y > top + wireH - 7) { p.y = top + wireH - 7; p.vy = -Math.abs(p.vy); }
+      if (p.x > right - 4) p.x -= right - left - 8;
+      if (p.x < left + 4) p.x += right - left - 8;
+    });
+    if (s > 0.05) {
+      c.lineWidth = 2; c.strokeStyle = C.accent; c.globalAlpha = Math.min(0.8, s);
+      for (var m = 0; m + 1 < N; m += 2) {
+        if (Math.abs(es[m].x - es[m + 1].x) < 40) { c.beginPath(); c.moveTo(es[m].x, es[m].y); c.lineTo(es[m + 1].x, es[m + 1].y); c.stroke(); }
+      }
+      c.globalAlpha = 1;
+    }
+    es.forEach(function (p) { dot(c, p.x, p.y, 3.5, C.accent); });
+    var narrow = W < 560;
+    label(c, C, s > 0 ? (narrow ? 'Pairs flow freely' : 'Cooper pairs flow without scattering') : (narrow ? 'Electrons scatter' : 'Electrons scatter off vibrating ions'), left + 10, top + wireH + 20, { size: 12, color: C.ink2 });
+    label(c, C, stateText(s), right - 10, top + wireH + 20, { align: 'right', size: 12, weight: '600', color: C.ink });
+    var R = resistanceOf(t);
+    miniPlot(c, C, { x: 0, y: top + wireH + 30, w: W, h: H - (top + wireH + 30) }, resistanceOf, 1.1, t,
+      'Resistance (R / Rₙ)', R < 0.005 ? 'R = 0' : 'R = ' + R.toFixed(2) + ' Rₙ');
+    $('#demo-readout').textContent = R < 0.005 ? 'Zero resistance' : 'Resistance ' + R.toFixed(2) + ' Rₙ';
+    demo.canvas.setAttribute('aria-label', 'Zero-resistance demo at ' + t.toFixed(2) + ' Tc: ' + stateText(s));
+  }
+
+  function solveFieldLine(x, cval, re) {
+    if (re < 0.5) return cval;
+    var lo = Math.sqrt(Math.max(re * re - x * x, 0)), hi = cval + re;
+    for (var i = 0; i < 30; i++) {
+      var mid = (lo + hi) / 2;
+      var g = mid * (1 - re * re / (x * x + mid * mid));
+      if (g < cval) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  function drawMeissner(c, C, dt) {
+    var W = demo.W, H = demo.H, t = demo.t, s = Math.min(1, gapRatio(t) * 1.6);
+    var band = H - 30, cx = W / 2, cy = band / 2 + 4, a = Math.min(W, band) * 0.26;
+    var re = a * Math.sqrt(s);
+    var key = [W, H, Math.round(re * 4)].join(':');
+    if (demo.fieldKey !== key) {
+      demo.fieldKey = key;
+      demo.field = [];
+      var spacing = Math.max(18, Math.round(H / 16));
+      for (var k = 1; k * spacing < H / 2 + spacing; k++) {
+        var cval = k * spacing - spacing / 2;
+        var top = [], bottom = [];
+        for (var x = -W / 2 - 8; x <= W / 2 + 8; x += 4) {
+          var y = solveFieldLine(x, cval, re);
+          top.push([cx + x, cy - y]);
+          bottom.push([cx + x, cy + y]);
+        }
+        demo.field.push(top, bottom);
+      }
+    }
+    c.save();
+    c.beginPath();
+    c.rect(0, 0, W, band);
+    c.clip();
+    c.beginPath();
+    c.arc(cx, cy, a, 0, Math.PI * 2);
+    c.fillStyle = mix(C.surface2, C.track, s);
+    c.fill();
+    c.lineWidth = 1; c.strokeStyle = C.axis; c.stroke();
+    c.lineWidth = 1.6; c.strokeStyle = C.ink2;
+    c.setLineDash([7, 9]);
+    c.lineDashOffset = -demo.clock * 36;
+    demo.field.forEach(function (pts) {
+      c.beginPath();
+      pts.forEach(function (p, i) { if (i) c.lineTo(p[0], p[1]); else c.moveTo(p[0], p[1]); });
+      c.stroke();
+    });
+    c.setLineDash([]);
+    if (s > 0.03) {
+      c.globalAlpha = Math.min(1, s * 1.4);
+      var rr = 5 + 4 * s;
+      [[cx, cy - a, 'in'], [cx, cy + a, 'out'], [cx - a * 0.71, cy - a * 0.71, 'in'], [cx + a * 0.71, cy - a * 0.71, 'in'], [cx - a * 0.71, cy + a * 0.71, 'out'], [cx + a * 0.71, cy + a * 0.71, 'out']].forEach(function (m) {
+        dot(c, m[0], m[1], rr, C.surface, C.accent);
+        c.strokeStyle = C.accent; c.fillStyle = C.accent; c.lineWidth = 2;
+        if (m[2] === 'out') { c.beginPath(); c.arc(m[0], m[1], 1.8, 0, Math.PI * 2); c.fill(); }
+        else { var q = rr * 0.55; c.beginPath(); c.moveTo(m[0] - q, m[1] - q); c.lineTo(m[0] + q, m[1] + q); c.moveTo(m[0] + q, m[1] - q); c.lineTo(m[0] - q, m[1] + q); c.stroke(); }
+      });
+      c.globalAlpha = 1;
+    }
+    label(c, C, s > 0 ? 'Superconductor' : 'Normal metal', cx, cy + 4, { align: 'center', size: 13, weight: '600', color: C.ink });
+    c.restore();
+    c.strokeStyle = C.grid; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(0, band + 0.5); c.lineTo(W, band + 0.5); c.stroke();
+    var what = s <= 0 ? 'Field passes straight through' : s >= 0.98 ? 'Field expelled from the interior' : 'Field being expelled';
+    label(c, C, 'Magnetic field →', 16, H - 11, { size: 12, color: C.muted });
+    label(c, C, stateText(s) + ' · ' + what, W - 16, H - 11, { align: 'right', size: 12, weight: '600', color: C.ink });
+    $('#demo-readout').textContent = what;
+    demo.canvas.setAttribute('aria-label', 'Meissner-effect demo at ' + t.toFixed(2) + ' Tc: ' + what);
+  }
+
+  function drawPairs(c, C, dt) {
+    var W = demo.W, H = demo.H, t = demo.t, s = gapRatio(t);
+    var d = 34, top = 14, regionH = Math.round(H * 0.6);
+    var rows = Math.max(3, Math.floor(regionH / d)), cols = Math.ceil(W / d) + 1;
+    var key = [W, H].join(':');
+    if (!demo.ions || demo.sizeKey !== key) {
+      demo.sizeKey = key;
+      demo.ions = [];
+      for (var r = 0; r < rows; r++) for (var k = 0; k < cols; k++) demo.ions.push({ x0: (k + 0.5) * d, y0: top + (r + 0.5) * d, ux: 0, uy: 0 });
+      var lane = top + Math.floor(rows / 2) * d;
+      demo.e1 = { x: W * 0.55, y: lane };
+      demo.e2 = { x: W * 0.55 - 2.6 * d, y: lane, vx: 30, vy: 0 };
+    }
+    var e1 = demo.e1, e2 = demo.e2, laneY = e1.y;
+    e1.x += 70 * dt;
+    if (e1.x > W + 40) { e1.x -= W + 80; e2.x -= W + 80; }
+    var pullR2 = (2.3 * d) * (2.3 * d), sig2 = 2 * (0.9 * d) * (0.9 * d);
+    demo.ions.forEach(function (ion) {
+      var dx = e1.x - ion.x0, dy = e1.y - ion.y0, r2 = dx * dx + dy * dy;
+      if (r2 < pullR2 && r2 > 1) {
+        var f = 160 * Math.exp(-r2 / sig2) / Math.sqrt(r2);
+        ion.ux += f * dx * dt; ion.uy += f * dy * dt;
+      }
+      ion.ux -= ion.ux * dt * 0.8; ion.uy -= ion.uy * dt * 0.8;
+      var u = Math.hypot(ion.ux, ion.uy);
+      if (u > 9) { ion.ux *= 9 / u; ion.uy *= 9 / u; }
+    });
+    var target = { x: e1.x - 2.6 * d, y: laneY + 4 * Math.sin(demo.clock * 3) };
+    if (dt && Math.random() < (1 - s) * 3 * dt) {
+      var ang = Math.random() * Math.PI * 2;
+      e2.vx = 70 * Math.cos(ang) + 20; e2.vy = 70 * Math.sin(ang);
+    }
+    var free = { x: e2.vx * dt, y: e2.vy * dt };
+    var paired = { x: (target.x - e2.x) * Math.min(1, dt * 2.5), y: (target.y - e2.y) * Math.min(1, dt * 2.5) };
+    e2.x += (1 - s) * free.x + s * paired.x;
+    e2.y += (1 - s) * free.y + s * paired.y;
+    if (e2.y < top + 8) { e2.y = top + 8; e2.vy = Math.abs(e2.vy); }
+    if (e2.y > top + rows * d - 8) { e2.y = top + rows * d - 8; e2.vy = -Math.abs(e2.vy); }
+    if (e2.x > W + 40) e2.x -= W + 80;
+    if (e2.x < -40) e2.x += W + 80;
+    var jitter = (0.4 + 3.2 * Math.min(t, 1.6) / 1.6) * (1 - 0.4 * s);
+    demo.ions.forEach(function (ion, i) {
+      var w = Math.min(1, Math.hypot(ion.ux, ion.uy) / 7);
+      var x = ion.x0 + ion.ux + jitter * Math.sin(demo.clock * 8 + i * 1.3);
+      var y = ion.y0 + ion.uy + jitter * Math.cos(demo.clock * 10 + i * 0.7);
+      dot(c, x, y, 6 + 1.5 * w, mix(mix(C.muted, C.surface, 0.35), C.warm, w));
+      c.strokeStyle = C.surface; c.lineWidth = 1.4;
+      c.beginPath(); c.moveTo(x - 2.5, y); c.lineTo(x + 2.5, y); c.moveTo(x, y - 2.5); c.lineTo(x, y + 2.5); c.stroke();
+    });
+    if (s > 0.15 && Math.abs(e1.x - e2.x) < 4 * d) {
+      c.globalAlpha = Math.min(0.9, s);
+      c.setLineDash([4, 5]); c.lineWidth = 1.5; c.strokeStyle = C.accent;
+      var midx = (e1.x + e2.x) / 2, midy = Math.min(e1.y, e2.y) - 26;
+      c.beginPath(); c.moveTo(e2.x, e2.y - 8); c.quadraticCurveTo(midx, midy, e1.x, e1.y - 8); c.stroke();
+      c.setLineDash([]);
+      c.font = '600 12px ' + C.font;
+      var tw = c.measureText('Cooper pair').width;
+      c.fillStyle = C.surface;
+      c.beginPath();
+      if (c.roundRect) c.roundRect(midx - tw / 2 - 6, midy - 19, tw + 12, 20, 6); else c.rect(midx - tw / 2 - 6, midy - 19, tw + 12, 20);
+      c.fill();
+      label(c, C, 'Cooper pair', midx, midy - 4, { align: 'center', size: 12, weight: '600', color: C.ink });
+      c.globalAlpha = 1;
+    }
+    [e2, e1].forEach(function (e) {
+      dot(c, e.x, e.y, 6.5, C.accent, C.surface);
+      c.strokeStyle = C.surface; c.lineWidth = 1.6; c.beginPath(); c.moveTo(e.x - 3, e.y); c.lineTo(e.x + 3, e.y); c.stroke();
+    });
+    var gapTop = top + rows * d + 6;
+    miniPlot(c, C, { x: 0, y: gapTop, w: W, h: H - gapTop }, gapRatio, 1.1, t, 'Energy gap (Δ / Δ₀)',
+      s > 0 ? 'Δ = ' + s.toFixed(2) + ' Δ₀' : 'No gap');
+    $('#demo-readout').textContent = s > 0 ? 'Energy gap ' + s.toFixed(2) + ' Δ₀' : 'No energy gap above Tc';
+    demo.canvas.setAttribute('aria-label', 'Cooper-pair demo at ' + t.toFixed(2) + ' Tc: ' + stateText(s));
+  }
+
+  function drawAllenDynes(c, C) {
+    var W = demo.W, H = demo.H;
+    var x0 = 56, x1 = W - 20, y0 = 16, y1 = H - 70;
+    var LMAX = 2.5, WMAX = 1000;
+    function X(l) { return x0 + (l / LMAX) * (x1 - x0); }
+    function Y(w) { return y1 - (w / WMAX) * (y1 - y0); }
+    var key = [Math.round(x1 - x0), Math.round(y1 - y0), demo.mu, C.dark ? 'd' : 'l'].join(':');
+    if (demo.heatKey !== key) {
+      demo.heatKey = key;
+      var nx = 150, ny = 100;
+      var off = document.createElement('canvas');
+      off.width = nx; off.height = ny;
+      var g = off.getContext('2d'), img = g.createImageData(nx, ny);
+      for (var j = 0; j < ny; j++) {
+        for (var i = 0; i < nx; i++) {
+          var tc = allenDynes(LMAX * (i + 0.5) / nx, WMAX * (ny - j - 0.5) / ny, demo.mu);
+          var rgb = rampColor(Math.sqrt(Math.min(tc, TC_MAX) / TC_MAX), C.dark);
+          var o = (j * nx + i) * 4;
+          img.data[o] = rgb[0]; img.data[o + 1] = rgb[1]; img.data[o + 2] = rgb[2]; img.data[o + 3] = 255;
+        }
+      }
+      g.putImageData(img, 0, 0);
+      demo.heat = off;
+    }
+    c.imageSmoothingEnabled = true;
+    c.drawImage(demo.heat, x0, y0, x1 - x0, y1 - y0);
+    c.lineWidth = 1; c.strokeStyle = C.axis;
+    c.strokeRect(Math.round(x0) + 0.5, Math.round(y0) + 0.5, Math.round(x1 - x0), Math.round(y1 - y0));
+    [0, 0.5, 1, 1.5, 2, 2.5].forEach(function (l) { label(c, C, String(l), X(l), y1 + 15, { align: 'center', size: 11, color: C.muted }); });
+    label(c, C, 'Electron–phonon coupling λ', x1, y1 + 30, { align: 'right', size: 11, color: C.muted });
+    [0, 250, 500, 750, 1000].forEach(function (w) { label(c, C, String(w), x0 - 8, Y(w) + 4, { align: 'right', size: 11, color: C.muted }); });
+    c.save(); c.translate(14, (y0 + y1) / 2); c.rotate(-Math.PI / 2);
+    label(c, C, 'ω_log (K)', 0, 0, { align: 'center', size: 11, color: C.muted, base: 'middle' });
+    c.restore();
+    var lx0 = x0, lx1 = Math.min(x1, x0 + 260), ly = H - 22;
+    for (var p = 0; p <= 100; p++) {
+      var rgb2 = rampColor(p / 100, C.dark);
+      c.fillStyle = 'rgb(' + rgb2.join(',') + ')';
+      c.fillRect(lx0 + (lx1 - lx0) * p / 101, ly - 10, (lx1 - lx0) / 101 + 1, 10);
+    }
+    [0, 5, 20, 45, 80].forEach(function (v) {
+      label(c, C, v + (v === 80 ? '+ K' : ''), lx0 + (lx1 - lx0) * Math.sqrt(v / TC_MAX), ly + 13, { align: 'center', size: 10, color: C.muted });
+    });
+    label(c, C, 'Tc', lx1 + 10, ly - 1, { size: 11, color: C.muted });
+    var mx = X(demo.lam), my = Y(demo.wlog);
+    if (motionOK()) {
+      var k = (demo.clock % 1.6) / 1.6;
+      c.globalAlpha = 1 - k; c.lineWidth = 2; c.strokeStyle = C.ink;
+      c.beginPath(); c.arc(mx, my, 7 + 10 * k, 0, Math.PI * 2); c.stroke();
+      c.globalAlpha = 1;
+    }
+    dot(c, mx, my, 6, C.surface, C.ink);
+    var tc = allenDynes(demo.lam, demo.wlog, demo.mu);
+    var right = mx > x1 - 120;
+    label(c, C, 'Tc = ' + tc.toFixed(1) + ' K', right ? mx - 12 : mx + 12, my - 10, { align: right ? 'right' : 'left', weight: '600', size: 13, color: C.ink });
+    var text = 'Tc = ' + tc.toFixed(1) + ' K';
+    var hv = demo.hover;
+    if (hv && hv.x >= x0 && hv.x <= x1 && hv.y >= y0 && hv.y <= y1) {
+      var hl = (hv.x - x0) / (x1 - x0) * LMAX, hw = (y1 - hv.y) / (y1 - y0) * WMAX;
+      c.strokeStyle = C.ink; c.globalAlpha = 0.5; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(hv.x + 0.5, y0); c.lineTo(hv.x + 0.5, y1); c.moveTo(x0, hv.y + 0.5); c.lineTo(x1, hv.y + 0.5); c.stroke();
+      c.globalAlpha = 1;
+      text += ' · at the pointer: λ ' + hl.toFixed(2) + ', ω_log ' + Math.round(hw) + ' K → Tc ' + allenDynes(hl, hw, demo.mu).toFixed(1) + ' K';
+    }
+    $('#demo-ad-readout').textContent = text;
+    demo.canvas.setAttribute('aria-label', 'Allen-Dynes map; at lambda ' + demo.lam.toFixed(2) + ' and omega_log ' + Math.round(demo.wlog) + ' K the estimated Tc is ' + tc.toFixed(1) + ' K');
+  }
+
+  function setView(v) {
+    view = v;
+    store.set('view', v);
+    $('#view-progress').setAttribute('aria-selected', v === 'progress' ? 'true' : 'false');
+    $('#view-demos').setAttribute('aria-selected', v === 'demos' ? 'true' : 'false');
+    $('#demos').hidden = v !== 'demos';
+    $('#main').hidden = v !== 'progress' || !state.data;
+    if (v === 'demos') {
+      if (!demo.built) buildDemos();
+      sizeCanvas();
+      kick();
+    }
+  }
+
   function render() {
     renderChrome();
     var d = state.data;
-    $('#main').hidden = !d;
+    $('#main').hidden = !d || view !== 'progress';
     if (!d) return;
     renderPipeline(d);
     renderKpis(d);
@@ -1177,13 +1742,19 @@ h1, h2, h3, p { margin: 0; }
     store.set('theme', theme);
     applyTheme();
     renderChrome();
+    kick();
   });
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden && state.checkedAt && Date.now() - state.checkedAt.getTime() > 60 * 1000) refreshAll();
   });
 
+  $('#view-progress').addEventListener('click', function () { setView('progress'); });
+  $('#view-demos').addEventListener('click', function () { setView('demos'); });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) kick(); });
+
   applyTheme();
   render();
+  setView(view);
   loadBundled().then(function () { render(); return refreshAll(); });
   setInterval(refreshAll, REFRESH_MS);
   setInterval(function () { if (!state.busy) renderChrome(); }, 60 * 1000);
