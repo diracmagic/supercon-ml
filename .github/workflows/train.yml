@@ -2,11 +2,14 @@ name: Train
 
 on:
   workflow_dispatch:
+    inputs:
+      stages:
+        description: Stages to run, in order (any of baseline foundation search)
+        default: search
   push:
     branches: [main]
     paths:
       - 'ml/**'
-      - '.github/workflows/train.yml'
 
 permissions:
   contents: write
@@ -14,6 +17,10 @@ permissions:
 concurrency:
   group: train
   cancel-in-progress: false
+
+env:
+  # pushes to ml/ run the AI-designed model search; earlier stages can be re-run by hand
+  STAGES: ${{ inputs.stages || 'search' }}
 
 jobs:
   electron-phonon:
@@ -44,10 +51,16 @@ jobs:
           restore-keys: supercon-cache-
 
       - name: Baseline (composition and structure features)
+        if: contains(env.STAGES, 'baseline')
         run: python ml/pipeline.py baseline
 
       - name: Foundation model (MACE-MP-0 descriptors)
+        if: contains(env.STAGES, 'foundation')
         run: python ml/pipeline.py foundation
+
+      - name: Storm, the AI-designed model (search round)
+        if: contains(env.STAGES, 'search')
+        run: python ml/pipeline.py search
 
       - name: Commit results and progress
         if: always()
@@ -59,6 +72,8 @@ jobs:
             echo "Nothing to commit"
           else
             git commit -m "Update training results (run ${GITHUB_RUN_NUMBER})"
-            git pull --rebase origin main
-            git push origin HEAD:main
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push origin HEAD:main && break
+              sleep 10
+            done
           fi
