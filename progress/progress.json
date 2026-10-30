@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-30T14:17:00-05:00",
-  "badge": "1/10 done · now: compute setup",
+  "updated": "2026-10-30T14:46:56-05:00",
+  "badge": "3/10 done · now: baselines",
   "project": "Finding high-Tc superconductors with materials foundation models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
   "target": {
@@ -20,7 +20,7 @@
     },
     {
       "id": "compute",
-      "status": "active",
+      "status": "done",
       "date": "2026-10-30",
       "name": "Compute environment",
       "short": "Compute",
@@ -28,10 +28,11 @@
     },
     {
       "id": "data-eph",
-      "status": "pending",
+      "status": "done",
       "name": "Electron–phonon data",
       "short": "E–ph data",
-      "detail": "About 8,250 Alexandria electron–phonon calculations and 1,058 from JARVIS; one μ*, composition-grouped splits"
+      "detail": "7,582 Alexandria entries kept for training (of 8,253); 1,032 JARVIS entries held out as the locked test set; Tc recomputed with mu* = 0.1",
+      "date": "2026-10-30"
     },
     {
       "id": "data-measured",
@@ -42,10 +43,11 @@
     },
     {
       "id": "baseline",
-      "status": "pending",
+      "status": "active",
       "name": "Baseline models",
       "short": "Baselines",
-      "detail": "Composition and structure features with gradient boosting, for both tracks"
+      "detail": "Electron-phonon baseline done (gradient boosting, composition + structure features); measured-Tc baseline next",
+      "date": "2026-10-30"
     },
     {
       "id": "foundation",
@@ -116,6 +118,14 @@
     {
       "at": "2026-10-30T14:17:00-05:00",
       "event": "Widened the scope: unconventional superconductors, high-Tc screening and a mechanism analysis"
+    },
+    {
+      "at": "2026-10-30T14:46:56-05:00",
+      "event": "Downloaded 8,253 Alexandria and 1,058 JARVIS electron-phonon entries; kept 7,582 for training"
+    },
+    {
+      "at": "2026-10-30T14:46:56-05:00",
+      "event": "Gradient-boosting baseline: Tc MAE 1.05 K, lambda MAE 0.099, omega_log MAE 22.1 K (5-fold composition-grouped CV)"
     }
   ],
   "baselines": [
@@ -170,6 +180,47 @@
       "link": "https://arxiv.org/abs/2503.20005"
     }
   ],
-  "results": [],
-  "history": []
+  "results": [
+    {
+      "tag": "baseline-eph",
+      "model": "Gradient boosting (composition + structure)",
+      "target": "Tc",
+      "mae": 1.045,
+      "unit": "K",
+      "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+      "tag": "baseline-eph",
+      "model": "Gradient boosting for lambda and omega_log, then Allen-Dynes",
+      "target": "Tc",
+      "mae": 1.078,
+      "unit": "K",
+      "note": "Same CV; Tc computed from the two predicted quantities with mu* = 0.1"
+    },
+    {
+      "tag": "baseline-eph",
+      "model": "Gradient boosting (composition + structure)",
+      "target": "lambda",
+      "mae": 0.099,
+      "unit": "",
+      "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+      "tag": "baseline-eph",
+      "model": "Gradient boosting (composition + structure)",
+      "target": "omega_log",
+      "mae": 22.1,
+      "unit": "K",
+      "note": "5-fold composition-grouped CV on Alexandria"
+    }
+  ],
+  "history": [
+    {
+      "at": "2026-10-30T14:46:56-05:00",
+      "model": "Gradient-boosting baseline",
+      "target": "Tc",
+      "split": "val",
+      "mae": 1.045
+    }
+  ]
 }

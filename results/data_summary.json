@@ -1,0 +1,98 @@
+{
+  "alexandria": {
+    "dataset": "alex_supercon",
+    "fields": {
+      "lambda": "la",
+      "wlog": "wlog",
+      "tc": "Tc",
+      "id": "id",
+      "atoms": "atoms",
+      "magmom": null
+    },
+    "counts": {
+      "raw": 8253,
+      "finite_physical": 8253,
+      "no_hydrides": 7582,
+      "non_magnetic": 7582
+    },
+    "lambda": {
+      "count": 7582.0,
+      "mean": 0.4242,
+      "std": 0.2731,
+      "min": 0.0209,
+      "25%": 0.2489,
+      "50%": 0.3549,
+      "75%": 0.5219,
+      "max": 3.2733
+    },
+    "wlog": {
+      "count": 7582.0,
+      "mean": 220.37,
+      "std": 72.47,
+      "min": 41.39,
+      "25%": 174.91,
+      "50%": 212.84,
+      "75%": 254.77,
+      "max": 1103.5
+    },
+    "tc_ad": {
+      "count": 7582.0,
+      "mean": 2.233,
+      "std": 3.694,
+      "min": 0.0,
+      "25%": 0.011,
+      "50%": 0.421,
+      "75%": 2.782,
+      "max": 35.593
+    },
+    "tc_reported_vs_recomputed_mae": 0.1196896227614771
+  },
+  "jarvis": {
+    "dataset": "supercon_3d",
+    "fields": {
+      "lambda": "lamb",
+      "wlog": "wlog",
+      "tc": "Tc",
+      "id": "jid",
+      "atoms": "atoms",
+      "magmom": null
+    },
+    "counts": {
+      "raw": 1058,
+      "finite_physical": 1051,
+      "no_hydrides": 1032,
+      "non_magnetic": 1032
+    },
+    "lambda": {
+      "count": 1032.0,
+      "mean": 0.9252,
+      "std": 1.2183,
+      "min": 0.0902,
+      "25%": 0.2856,
+      "50%": 0.4616,
+      "75%": 0.9904,
+      "max": 9.6998
+    },
+    "wlog": {
+      "count": 1032.0,
+      "mean": 199.19,
+      "std": 144.58,
+      "min": 4.98,
+      "25%": 75.21,
+      "50%": 186.25,
+      "75%": 286.9,
+      "max": 912.36
+    },
+    "tc_ad": {
+      "count": 1032.0,
+      "mean": 3.261,
+      "std": 4.511,
+      "min": 0.0,
+      "25%": 0.061,
+      "50%": 1.553,
+      "75%": 4.769,
+      "max": 31.911
+    },
+    "tc_reported_vs_recomputed_mae": 0.3306834999651725
+  }
+}
