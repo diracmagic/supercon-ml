@@ -257,6 +257,37 @@ def now_iso() -> str:
     return dt.datetime.now(CENTRAL).replace(microsecond=0).isoformat()
 
 
+def add_log(prog: dict, stamp: str, event: str) -> None:
+    """Append an activity entry unless the same event is already recorded."""
+    if not any(e.get("event") == event for e in prog.get("log", [])):
+        prog.setdefault("log", []).append({"at": stamp, "event": event})
+
+
+def add_history(prog: dict, entry: dict) -> None:
+    """Append a training-run point unless the latest point for this model has the same score."""
+    hist = prog.setdefault("history", [])
+    same = [h for h in hist if h.get("model") == entry["model"] and h.get("target") == entry["target"]]
+    if not same or same[-1].get("mae") != entry["mae"]:
+        hist.append(entry)
+
+
+def tidy(prog: dict) -> None:
+    """Drop repeated activity entries and repeated history points left by earlier runs."""
+    seen, log = set(), []
+    for e in prog.get("log", []):
+        if e.get("event") not in seen:
+            seen.add(e.get("event"))
+            log.append(e)
+    prog["log"] = log
+    hist, last = [], {}
+    for h in prog.get("history", []):
+        key = (h.get("model"), h.get("target"))
+        if last.get(key) != h.get("mae"):
+            hist.append(h)
+        last[key] = h.get("mae")
+    prog["history"] = hist
+
+
 def update_progress(summary: dict, scores: dict) -> None:
     prog = json.loads(PROGRESS.read_text(encoding="utf-8"))
     stamp = now_iso()
@@ -287,18 +318,17 @@ def update_progress(summary: dict, scores: dict) -> None:
         {"tag": "baseline-eph", "model": "Gradient boosting (composition + structure)", "target": "omega_log",
          "mae": round(scores["wlog"]["mae"], 1), "unit": "K", "note": f"{N_FOLDS}-fold composition-grouped CV on Alexandria"},
     ]
-    prog.setdefault("history", []).append({
-        "at": stamp, "model": "Gradient-boosting baseline", "target": "Tc", "split": "val",
-        "mae": round(tc["mae"], 3)})
-    prog["log"] += [
-        {"at": stamp, "event": (f"Downloaded {alex['raw']:,} Alexandria and {jar['raw']:,} JARVIS electron-phonon "
-                                f"entries; kept {alex['non_magnetic']:,} for training")},
-        {"at": stamp, "event": (f"Gradient-boosting baseline: Tc MAE {tc['mae']:.2f} K, lambda MAE "
-                                f"{scores['lambda']['mae']:.3f}, omega_log MAE {scores['wlog']['mae']:.1f} K "
-                                f"({N_FOLDS}-fold composition-grouped CV)")},
-    ]
+    tidy(prog)
+    add_history(prog, {"at": stamp, "model": "Gradient-boosting baseline", "target": "Tc", "split": "val",
+                       "mae": round(tc["mae"], 3)})
+    add_log(prog, stamp, f"Downloaded {alex['raw']:,} Alexandria and {jar['raw']:,} JARVIS electron-phonon "
+                         f"entries; kept {alex['non_magnetic']:,} for training")
+    add_log(prog, stamp, f"Gradient-boosting baseline: Tc MAE {tc['mae']:.2f} K, lambda MAE "
+                         f"{scores['lambda']['mae']:.3f}, omega_log MAE {scores['wlog']['mae']:.1f} K "
+                         f"({N_FOLDS}-fold composition-grouped CV)")
     done = sum(1 for s in prog["stages"] if s["status"] == "done")
-    prog["badge"] = f"{done}/{len(prog['stages'])} done · now: baselines"
+    current = next((s for s in prog["stages"] if s["status"] == "active"), None)
+    prog["badge"] = f"{done}/{len(prog['stages'])} done · now: " + (current["short"].lower() if current else "baselines")
     prog["updated"] = stamp
     PROGRESS.write_text(json.dumps(prog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     log(f"progress updated: {prog['badge']}")
@@ -384,16 +414,16 @@ def update_progress_foundation(scores: dict, base: dict | None) -> None:
         {"tag": "foundation-eph", "model": "MACE-MP-0 descriptors + gradient boosting", "target": "omega_log",
          "mae": round(scores["wlog"]["mae"], 1), "unit": "K", "note": note},
     ]
-    prog.setdefault("history", []).append({
-        "at": stamp, "model": "MACE-MP-0 descriptors + gradient boosting", "target": "Tc", "split": "val",
-        "mae": round(tc["mae"], 3)})
+    tidy(prog)
+    add_history(prog, {"at": stamp, "model": "MACE-MP-0 descriptors + gradient boosting", "target": "Tc",
+                       "split": "val", "mae": round(tc["mae"], 3)})
     change = ""
     if base:
         change = f" (baseline {base['tc_direct']['mae']:.2f} K)"
-    prog["log"].append({"at": stamp, "event": (
+    add_log(prog, stamp, (
         f"MACE-MP-0 descriptors + gradient boosting: Tc MAE {tc['mae']:.2f} K{change}, lambda MAE "
         f"{scores['lambda']['mae']:.3f}, omega_log MAE {scores['wlog']['mae']:.1f} K; uncertainty vs error "
-        f"Spearman {scores['tc_direct'].get('uncertainty_spearman', float('nan')):.2f}")})
+        f"Spearman {scores['tc_direct'].get('uncertainty_spearman', float('nan')):.2f}"))
     done = sum(1 for s in prog["stages"] if s["status"] == "done")
     prog["badge"] = f"{done}/{len(prog['stages'])} done · now: foundation model"
     prog["updated"] = stamp
