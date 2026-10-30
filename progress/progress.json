@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "repo": "diracmagic/supercon-ml",
+  "updated": "2026-10-30T14:17:00-05:00",
+  "badge": "1/10 done · now: compute setup",
+  "project": "Finding high-Tc superconductors with materials foundation models",
+  "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
+  "target": {
+    "date": "2026-11-23",
+    "label": "Public v0.1"
+  },
+  "stages": [
+    {
+      "id": "plan",
+      "status": "done",
+      "date": "2026-10-28",
+      "name": "Direction and plan",
+      "short": "Plan",
+      "detail": "Machine learning for superconductors with open materials foundation models"
+    },
+    {
+      "id": "compute",
+      "status": "active",
+      "date": "2026-10-30",
+      "name": "Compute environment",
+      "short": "Compute",
+      "detail": "Training runs on GitHub Actions; setting up this repository and the desktop app"
+    },
+    {
+      "id": "data-eph",
+      "status": "pending",
+      "name": "Electron–phonon data",
+      "short": "E–ph data",
+      "detail": "About 8,250 Alexandria electron–phonon calculations and 1,058 from JARVIS; one μ*, composition-grouped splits"
+    },
+    {
+      "id": "data-measured",
+      "status": "pending",
+      "name": "Measured-Tc data, including unconventional",
+      "short": "Measured Tc",
+      "detail": "Experimental Tc for cuprates, iron-based, heavy-fermion and other families from SuperCon-derived datasets with crystal structures"
+    },
+    {
+      "id": "baseline",
+      "status": "pending",
+      "name": "Baseline models",
+      "short": "Baselines",
+      "detail": "Composition and structure features with gradient boosting, for both tracks"
+    },
+    {
+      "id": "foundation",
+      "status": "pending",
+      "name": "Foundation-model descriptors + prediction heads",
+      "short": "Foundation model",
+      "detail": "Frozen MACE-MP-0 descriptors, one head per track, ensembles for uncertainty"
+    },
+    {
+      "id": "test",
+      "status": "pending",
+      "name": "Locked evaluation",
+      "short": "Locked test",
+      "detail": "626 dynamically stable JARVIS materials for electron–phonon; leave-one-family-out tests for unconventional families"
+    },
+    {
+      "id": "screen",
+      "status": "pending",
+      "name": "High-Tc screening",
+      "short": "High-Tc screen",
+      "detail": "Score candidate structures from open databases; shortlist high predicted Tc with low uncertainty for DFT or experimental follow-up"
+    },
+    {
+      "id": "release",
+      "status": "pending",
+      "date": "2026-11-23",
+      "name": "Public v0.1",
+      "short": "v0.1",
+      "detail": "Code, models, results and the candidate shortlist published on GitHub"
+    },
+    {
+      "id": "mechanism",
+      "status": "pending",
+      "name": "Mechanism analysis",
+      "short": "Mechanism",
+      "detail": "Compare electron–phonon Tc with measured Tc to flag materials phonons can't explain, and test known structure–Tc correlations within families"
+    }
+  ],
+  "log": [
+    {
+      "at": "2026-10-28T12:00:00-05:00",
+      "event": "Picked the project: electron–phonon superconductivity with open materials foundation models"
+    },
+    {
+      "at": "2026-10-30T13:29:00-05:00",
+      "event": "The cloud workspace can't reach figshare, Hugging Face or GitHub, or install Python packages"
+    },
+    {
+      "at": "2026-10-30T13:31:00-05:00",
+      "event": "The local workspace has no internet access either"
+    },
+    {
+      "at": "2026-10-30T13:34:00-05:00",
+      "event": "Moved training to GitHub Actions"
+    },
+    {
+      "at": "2026-10-30T13:45:00-05:00",
+      "event": "GitHub account diracmagic connected"
+    },
+    {
+      "at": "2026-10-30T14:00:00-05:00",
+      "event": "Started the project repository and the desktop progress app for Windows and macOS"
+    },
+    {
+      "at": "2026-10-30T14:12:00-05:00",
+      "event": "Created the GitHub repository diracmagic/supercon-ml (private until the first release)"
+    },
+    {
+      "at": "2026-10-30T14:17:00-05:00",
+      "event": "Widened the scope: unconventional superconductors, high-Tc screening and a mechanism analysis"
+    }
+  ],
+  "baselines": [
+    {
+      "model": "ALIGNN 2.0",
+      "target": "Tc",
+      "mae": 0.864,
+      "unit": "K",
+      "inputs": "structure",
+      "note": "Structure only",
+      "source": "arXiv 2609.19487",
+      "link": "https://arxiv.org/abs/2609.19487"
+    },
+    {
+      "model": "ALIGNN 2.0",
+      "target": "lambda",
+      "mae": 0.068,
+      "unit": "",
+      "inputs": "structure",
+      "note": "Structure only",
+      "source": "arXiv 2609.19487",
+      "link": "https://arxiv.org/abs/2609.19487"
+    },
+    {
+      "model": "ALIGNN 2.0",
+      "target": "omega_log",
+      "mae": 20.1,
+      "unit": "K",
+      "inputs": "structure",
+      "note": "Structure only",
+      "source": "arXiv 2609.19487",
+      "link": "https://arxiv.org/abs/2609.19487"
+    },
+    {
+      "model": "BEE-NET",
+      "target": "Tc",
+      "mae": 1.2,
+      "unit": "K",
+      "inputs": "structure",
+      "note": "Structure only",
+      "source": "arXiv 2503.20005",
+      "link": "https://arxiv.org/abs/2503.20005"
+    },
+    {
+      "model": "BEE-NET + DFT phonon DOS",
+      "target": "Tc",
+      "mae": 0.87,
+      "unit": "K",
+      "inputs": "structure+phonons",
+      "note": "Needs DFT phonon input",
+      "source": "arXiv 2503.20005",
+      "link": "https://arxiv.org/abs/2503.20005"
+    }
+  ],
+  "results": [],
+  "history": []
+}
