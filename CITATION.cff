@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use our models, predictions, candidate list or code, please cite the project as below. To cite one of our candidate superconductors, also give its name, the screening round that first listed it, its JARVIS ID and the date."
+title: "supercon-ml: finding superconductors with AI-designed models"
+type: software
+authors:
+  - name: "The supercon-ml project"
+repository-code: "https://github.com/diracmagic/supercon-ml"
+url: "https://diracmagic.github.io/supercon-ml/"
+license: MIT
+abstract: "AI-designed models, Storm for conventional and Hurricane for unconventional superconductors with Radar to route between them, that predict the critical temperature from crystal structure, and a public list of candidate superconductors that these models found."
+keywords:
+  - superconductivity
+  - machine learning
+  - materials discovery
+  - electron-phonon coupling
