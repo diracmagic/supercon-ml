@@ -1,4 +1,4 @@
-{
+{ "contact": {"service": "web3forms", "key": "faf83c4e-b4d7-4414-9bce-30a992bf46e8"},
   "schema": 1,
   "updated": "2026-10-31",
   "about": "Curated recent advances for the Supercon Progress app. Each entry needs a reference in refs (a DOI, or an https link for preprints and project pages). Entries are merged with the ones built into the app: an entry with the same ref replaces the built-in one, and refs listed in hide are removed. cards: the Theory & materials cards it belongs to (their animation ids, e.g. zr, mott, stripes, dwave, phase), or ai for the AI × superconductors view. kind: experiment, theory, computation or news. Texts are summaries in our own words.",
