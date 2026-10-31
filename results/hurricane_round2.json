@@ -1,6 +1,6 @@
 {
-  "run_at": "2026-10-31T07:01:37-05:00",
-  "commit": "81c873b",
+  "run_at": "2026-10-31T08:10:16-05:00",
+  "commit": "9bec547",
   "round": 2,
   "model": "Hurricane",
   "version": "2.0",
@@ -457,7 +457,7 @@
         }
       },
       "n_features": 148,
-      "seconds": 84,
+      "seconds": 86,
       "folds_better": 5,
       "folds_better_previous": 4
     },
@@ -1010,7 +1010,17 @@
         "family": "heavy-fermion",
         "source": "rosa2022",
         "note": "found in 2019 at 1.6 K (ran2019); cleaner crystals reach 2.0 K",
-        "pred": 0.06
+        "pred": 0.06,
+        "p_sc": 0.06,
+        "tc_sc": 1.05,
+        "rule": "mean",
+        "physics": {
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.333,
+          "nonint": 0.0
+        },
+        "types": []
       },
       {
         "name": "CeRh2As2",
@@ -1020,7 +1030,18 @@
         "family": "heavy-fermion",
         "source": "khim2021",
         "note": "two superconducting phases in a magnetic field",
-        "pred": 3.61
+        "pred": 3.61,
+        "p_sc": 0.665,
+        "tc_sc": 5.43,
+        "rule": "mean",
+        "physics": {
+          "tm_d": 7.5,
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.2,
+          "nonint": 0.0
+        },
+        "types": []
       },
       {
         "name": "La3Ni2O7, bulk at ambient pressure",
@@ -1030,7 +1051,20 @@
         "family": "other oxide",
         "source": "sun2023",
         "note": "not superconducting at ambient pressure; about 80 K above 14 GPa",
-        "pred": 0.13
+        "pred": 0.13,
+        "p_sc": 0.057,
+        "tc_sc": 2.35,
+        "rule": "mean",
+        "physics": {
+          "tm_d": 7.5,
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.0
+        },
+        "types": [
+          "nickelate_oxide"
+        ]
       },
       {
         "name": "Nd0.8Sr0.2NiO2, bulk",
@@ -1040,7 +1074,20 @@
         "family": "other oxide",
         "source": "li2020",
         "note": "bulk samples do not superconduct, unlike thin films",
-        "pred": 1.03
+        "pred": 1.03,
+        "p_sc": 0.216,
+        "tc_sc": 4.79,
+        "rule": "mean",
+        "physics": {
+          "tm_d": 8.8,
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.2,
+          "nonint": 0.1
+        },
+        "types": [
+          "nickelate_oxide"
+        ]
       },
       {
         "name": "HgBa2Ca2Cu3O8+\u03b4 (Hg-1223)",
@@ -1050,7 +1097,23 @@
         "family": "cuprate",
         "source": "schilling1993",
         "note": "the ambient-pressure record since 1993; \u03b4 \u2248 0.25 assumed (near optimal doping); absent from the 3DSC training data",
-        "pred": 90.96
+        "pred": 90.96,
+        "p_sc": 1.0,
+        "tc_sc": 91.0,
+        "rule": "mean",
+        "physics": {
+          "p_cu": 0.167,
+          "dome": 0.996,
+          "cu_layers": 3.0,
+          "tm_d": 8.833,
+          "heavy_block": 0.062,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.015
+        },
+        "types": [
+          "Hg_cuprate"
+        ]
       },
       {
         "name": "Nd0.8Sr0.2NiO2, thin film",
@@ -1060,7 +1123,20 @@
         "family": "other oxide",
         "source": "li2019",
         "note": "films on SrTiO3 superconduct at 9 to 15 K; films are outside Hurricane's bulk training data",
-        "pred": 1.01
+        "pred": 1.01,
+        "p_sc": 0.216,
+        "tc_sc": 4.7,
+        "rule": "mean",
+        "physics": {
+          "tm_d": 8.8,
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.2,
+          "nonint": 0.1
+        },
+        "types": [
+          "nickelate_oxide"
+        ]
       },
       {
         "name": "Hg-1223 after a pressure quench",
@@ -1070,7 +1146,23 @@
         "family": "cuprate",
         "source": "deng2026",
         "note": "a metastable state kept at ambient pressure after squeezing and a fast release; one group so far",
-        "pred": 90.96
+        "pred": 90.96,
+        "p_sc": 1.0,
+        "tc_sc": 91.0,
+        "rule": "mean",
+        "physics": {
+          "p_cu": 0.167,
+          "dome": 0.996,
+          "cu_layers": 3.0,
+          "tm_d": 8.833,
+          "heavy_block": 0.062,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.015
+        },
+        "types": [
+          "Hg_cuprate"
+        ]
       },
       {
         "name": "CsV3Sb5",
@@ -1080,7 +1172,17 @@
         "family": "kagome",
         "source": "ortiz2020",
         "note": "kagome metal, outside Hurricane's four families",
-        "pred": 3.14
+        "pred": 3.14,
+        "p_sc": 0.74,
+        "tc_sc": 4.25,
+        "rule": "mean",
+        "physics": {
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.0
+        },
+        "types": []
       },
       {
         "name": "KV3Sb5",
@@ -1090,7 +1192,17 @@
         "family": "kagome",
         "source": "ortiz2021",
         "note": "kagome metal, outside Hurricane's four families",
-        "pred": 2.64
+        "pred": 2.64,
+        "p_sc": 0.599,
+        "tc_sc": 4.4,
+        "rule": "mean",
+        "physics": {
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.0
+        },
+        "types": []
       },
       {
         "name": "LK-99 (Cu-doped lead apatite)",
@@ -1100,7 +1212,18 @@
         "family": "other oxide",
         "source": "zhu2023",
         "note": "the resistivity jumps come from Cu2S impurities",
-        "pred": 1.22
+        "pred": 1.22,
+        "p_sc": 0.897,
+        "tc_sc": 1.36,
+        "rule": "mean",
+        "physics": {
+          "cu_layers": 1.0,
+          "heavy_block": 0.22,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.0
+        },
+        "types": []
       }
     ],
     "sources": {
@@ -1117,5 +1240,14 @@
       "zhu2023": "S. Zhu et al., Matter 6, 4401 (2023), doi:10.1016/j.matt.2023.11.001"
     }
   },
-  "minutes": 6.0
+  "floor": {
+    "n_formulas": 2123,
+    "n_with_rows": 10,
+    "n_with_reports": 0,
+    "spread_mae": null,
+    "spread_median": null,
+    "model_mae": null,
+    "about": "formulas that SuperCon lists with more than one Tc; each distinct value against the mean of the others, which no model can beat on those compounds"
+  },
+  "minutes": 6.1
 }

@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-31T07:11:58-05:00",
+  "updated": "2026-10-31T08:14:07-05:00",
   "badge": "5/10 done · now: ai models",
   "project": "Finding high-Tc superconductors with AI-designed models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
@@ -177,12 +177,12 @@
       "event": "Storm round 4 (3 combinations of Storm 1.0 and the graph network 2.0 (weight averaging + Allen–Dynes head + crystal descriptors)): best Storm 1.0, the graph network and its Allen–Dynes route, averaged, DFT Tc MAE 0.898 K against 0.969 K for Storm 1.0, better in 5 of 5 folds; calibrated to measured Tc 1.56 K against 1.61 K for Storm 3.0; adopted as Storm 4.0"
     },
     {
-      "at": "2026-10-31T07:01:37-05:00",
-      "event": "Hurricane, round 2 (7 AI-designed candidates): best H12 Hurricane 1.0 + structure types, in two parts [probability times Tc], measured-Tc MAE 10.31 K against 12.70 K for Hurricane 1.0, better in 5 of 5 folds (superconductors 12.29 K against 17.76 K); released as Hurricane 2.0"
-    },
-    {
       "at": "2026-10-31T07:05:29-05:00",
       "event": "Storm round 5 (6 ways to give Storm 4.0 a 90% range): best One width on log(1 + Tc), so the range grows with Tc, interval score 7.47 K against 8.02 K for one width for every material, better in 5 of 5 folds; for held-out materials it held the computed Tc 90.0% of the time (84.1% for the tenth with the highest Tc), and half of the ranges are narrower than 1.81 K; adopted as Storm 5.0"
+    },
+    {
+      "at": "2026-10-31T08:10:16-05:00",
+      "event": "Hurricane, round 2 (7 AI-designed candidates): best H12 Hurricane 1.0 + structure types, in two parts [probability times Tc], measured-Tc MAE 10.31 K against 12.70 K for Hurricane 1.0, better in 5 of 5 folds (superconductors 12.29 K against 17.76 K); released as Hurricane 2.0"
     }
   ],
   "baselines": [
@@ -1698,6 +1698,93 @@
           "inside": true
         }
       ],
+      "worked": [
+        {
+          "name": "Nb3Sn",
+          "tc_exp": 18.3,
+          "status": "replicated",
+          "n_structures": 1,
+          "dft_tc": 13.68,
+          "trees": 7.62,
+          "gnn": 10.99,
+          "gnn_lambda": 1.164,
+          "gnn_wlog": 127.3,
+          "gnn_ad": 10.98,
+          "storm4": 9.86,
+          "lo": 4.7,
+          "hi": 19.69,
+          "calibrated": 10.38,
+          "mu_star": 0.1
+        },
+        {
+          "name": "MgB2",
+          "tc_exp": 39.0,
+          "status": "replicated",
+          "n_structures": 1,
+          "dft_tc": 8.38,
+          "trees": 0.77,
+          "gnn": 0.08,
+          "gnn_lambda": 0.24,
+          "gnn_wlog": 583.5,
+          "gnn_ad": 0.02,
+          "storm4": 0.29,
+          "lo": 0.0,
+          "hi": 1.42,
+          "calibrated": null,
+          "mu_star": 0.1
+        },
+        {
+          "name": "NbN",
+          "tc_exp": 16.0,
+          "status": "replicated",
+          "n_structures": 3,
+          "dft_tc": 0.0,
+          "trees": 5.41,
+          "gnn": 12.1,
+          "gnn_lambda": 0.798,
+          "gnn_wlog": 261.3,
+          "gnn_ad": 12.17,
+          "storm4": 9.9,
+          "lo": 4.81,
+          "hi": 19.44,
+          "calibrated": null,
+          "mu_star": 0.1
+        },
+        {
+          "name": "Pb",
+          "tc_exp": 7.2,
+          "status": "replicated",
+          "n_structures": 1,
+          "dft_tc": 5.09,
+          "trees": 3.6,
+          "gnn": 6.21,
+          "gnn_lambda": 1.244,
+          "gnn_wlog": 66.3,
+          "gnn_ad": 6.19,
+          "storm4": 5.33,
+          "lo": 2.38,
+          "hi": 10.88,
+          "calibrated": 4.6,
+          "mu_star": 0.1
+        },
+        {
+          "name": "Nb",
+          "tc_exp": 9.25,
+          "status": "replicated",
+          "n_structures": 1,
+          "dft_tc": 12.99,
+          "trees": 13.43,
+          "gnn": 11.93,
+          "gnn_lambda": 1.043,
+          "gnn_wlog": 162.1,
+          "gnn_ad": 12.02,
+          "storm4": 12.46,
+          "lo": 6.18,
+          "hi": 24.25,
+          "calibrated": 7.44,
+          "mu_star": 0.1
+        }
+      ],
       "rule": "coverage within 2 points of 90%, at least 80% for the top 10% of Tc, and an interval score better than one width for every material on average and in at least 4 of 5 folds",
       "caveat": "a range is for the computed (DFT Allen-Dynes) Tc that Storm learns; measured Tc can lie further away, see 'measured'"
     }
@@ -2728,7 +2815,17 @@
               "use": "score",
               "family": "heavy-fermion",
               "pred": 0.06,
-              "note": "found in 2019 at 1.6 K (ran2019); cleaner crystals reach 2.0 K"
+              "note": "found in 2019 at 1.6 K (ran2019); cleaner crystals reach 2.0 K",
+              "p_sc": 0.06,
+              "tc_sc": 1.05,
+              "rule": "mean",
+              "physics": {
+                "heavy_block": 0.0,
+                "fe_based": 0.0,
+                "f_share": 0.333,
+                "nonint": 0.0
+              },
+              "types": []
             },
             {
               "name": "CeRh2As2",
@@ -2737,7 +2834,18 @@
               "use": "score",
               "family": "heavy-fermion",
               "pred": 3.61,
-              "note": "two superconducting phases in a magnetic field"
+              "note": "two superconducting phases in a magnetic field",
+              "p_sc": 0.665,
+              "tc_sc": 5.43,
+              "rule": "mean",
+              "physics": {
+                "tm_d": 7.5,
+                "heavy_block": 0.0,
+                "fe_based": 0.0,
+                "f_share": 0.2,
+                "nonint": 0.0
+              },
+              "types": []
             },
             {
               "name": "La3Ni2O7, bulk at ambient pressure",
@@ -2746,7 +2854,20 @@
               "use": "score",
               "family": "other oxide",
               "pred": 0.13,
-              "note": "not superconducting at ambient pressure; about 80 K above 14 GPa"
+              "note": "not superconducting at ambient pressure; about 80 K above 14 GPa",
+              "p_sc": 0.057,
+              "tc_sc": 2.35,
+              "rule": "mean",
+              "physics": {
+                "tm_d": 7.5,
+                "heavy_block": 0.0,
+                "fe_based": 0.0,
+                "f_share": 0.0,
+                "nonint": 0.0
+              },
+              "types": [
+                "nickelate_oxide"
+              ]
             },
             {
               "name": "Nd0.8Sr0.2NiO2, bulk",
@@ -2755,7 +2876,20 @@
               "use": "score",
               "family": "other oxide",
               "pred": 1.03,
-              "note": "bulk samples do not superconduct, unlike thin films"
+              "note": "bulk samples do not superconduct, unlike thin films",
+              "p_sc": 0.216,
+              "tc_sc": 4.79,
+              "rule": "mean",
+              "physics": {
+                "tm_d": 8.8,
+                "heavy_block": 0.0,
+                "fe_based": 0.0,
+                "f_share": 0.2,
+                "nonint": 0.1
+              },
+              "types": [
+                "nickelate_oxide"
+              ]
             },
             {
               "name": "HgBa2Ca2Cu3O8+δ (Hg-1223)",
@@ -2764,7 +2898,23 @@
               "use": "score",
               "family": "cuprate",
               "pred": 90.96,
-              "note": "the ambient-pressure record since 1993; δ ≈ 0.25 assumed (near optimal doping); absent from the 3DSC training data"
+              "note": "the ambient-pressure record since 1993; δ ≈ 0.25 assumed (near optimal doping); absent from the 3DSC training data",
+              "p_sc": 1.0,
+              "tc_sc": 91.0,
+              "rule": "mean",
+              "physics": {
+                "p_cu": 0.167,
+                "dome": 0.996,
+                "cu_layers": 3.0,
+                "tm_d": 8.833,
+                "heavy_block": 0.062,
+                "fe_based": 0.0,
+                "f_share": 0.0,
+                "nonint": 0.015
+              },
+              "types": [
+                "Hg_cuprate"
+              ]
             },
             {
               "name": "Nd0.8Sr0.2NiO2, thin film",
@@ -2773,7 +2923,20 @@
               "use": "show",
               "family": "other oxide",
               "pred": 1.01,
-              "note": "films on SrTiO3 superconduct at 9 to 15 K; films are outside Hurricane's bulk training data"
+              "note": "films on SrTiO3 superconduct at 9 to 15 K; films are outside Hurricane's bulk training data",
+              "p_sc": 0.216,
+              "tc_sc": 4.7,
+              "rule": "mean",
+              "physics": {
+                "tm_d": 8.8,
+                "heavy_block": 0.0,
+                "fe_based": 0.0,
+                "f_share": 0.2,
+                "nonint": 0.1
+              },
+              "types": [
+                "nickelate_oxide"
+              ]
             },
             {
               "name": "Hg-1223 after a pressure quench",
@@ -2782,7 +2945,23 @@
               "use": "show",
               "family": "cuprate",
               "pred": 90.96,
-              "note": "a metastable state kept at ambient pressure after squeezing and a fast release; one group so far"
+              "note": "a metastable state kept at ambient pressure after squeezing and a fast release; one group so far",
+              "p_sc": 1.0,
+              "tc_sc": 91.0,
+              "rule": "mean",
+              "physics": {
+                "p_cu": 0.167,
+                "dome": 0.996,
+                "cu_layers": 3.0,
+                "tm_d": 8.833,
+                "heavy_block": 0.062,
+                "fe_based": 0.0,
+                "f_share": 0.0,
+                "nonint": 0.015
+              },
+              "types": [
+                "Hg_cuprate"
+              ]
             },
             {
               "name": "CsV3Sb5",
@@ -2791,7 +2970,17 @@
               "use": "show",
               "family": "kagome",
               "pred": 3.14,
-              "note": "kagome metal, outside Hurricane's four families"
+              "note": "kagome metal, outside Hurricane's four families",
+              "p_sc": 0.74,
+              "tc_sc": 4.25,
+              "rule": "mean",
+              "physics": {
+                "heavy_block": 0.0,
+                "fe_based": 0.0,
+                "f_share": 0.0,
+                "nonint": 0.0
+              },
+              "types": []
             },
             {
               "name": "KV3Sb5",
@@ -2800,7 +2989,17 @@
               "use": "show",
               "family": "kagome",
               "pred": 2.64,
-              "note": "kagome metal, outside Hurricane's four families"
+              "note": "kagome metal, outside Hurricane's four families",
+              "p_sc": 0.599,
+              "tc_sc": 4.4,
+              "rule": "mean",
+              "physics": {
+                "heavy_block": 0.0,
+                "fe_based": 0.0,
+                "f_share": 0.0,
+                "nonint": 0.0
+              },
+              "types": []
             },
             {
               "name": "LK-99 (Cu-doped lead apatite)",
@@ -2809,9 +3008,29 @@
               "use": "exclude",
               "family": "other oxide",
               "pred": 1.22,
-              "note": "the resistivity jumps come from Cu2S impurities"
+              "note": "the resistivity jumps come from Cu2S impurities",
+              "p_sc": 0.897,
+              "tc_sc": 1.36,
+              "rule": "mean",
+              "physics": {
+                "cu_layers": 1.0,
+                "heavy_block": 0.22,
+                "fe_based": 0.0,
+                "f_share": 0.0,
+                "nonint": 0.0
+              },
+              "types": []
             }
           ]
+        },
+        "floor": {
+          "n_formulas": 2123,
+          "n_with_rows": 10,
+          "n_with_reports": 0,
+          "spread_mae": null,
+          "spread_median": null,
+          "model_mae": null,
+          "about": "formulas that SuperCon lists with more than one Tc; each distinct value against the mean of the others, which no model can beat on those compounds"
         }
       }
     ]
