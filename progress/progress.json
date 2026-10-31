@@ -150,7 +150,7 @@
     },
     {
       "at": "2026-10-30T22:59:37-05:00",
-      "event": "Storm round 3, calibration to measured Tc (6 maps on 298 matched materials): best Gradient-boosting correction, MAE 1.61 K against 2.24 K uncalibrated (DFT labels 2.48 K), better in 5 of 5 folds; adopted as Storm 3.0"
+      "event": "Storm round 3, calibration to measured Tc (5 maps and the uncalibrated reference on 298 matched materials): best Gradient-boosting correction, MAE 1.61 K against 2.24 K uncalibrated (DFT labels 2.48 K), better in 5 of 5 folds; adopted as Storm 3.0"
     },
     {
       "at": "2026-10-30T23:03:06-05:00",
@@ -1950,7 +1950,7 @@
     "round": 2,
     "date": "2026-10-31",
     "status": "done",
-    "summary": "crystal-graph network, AI-designed: weight averaging + allen–dynes head + crystal descriptors",
+    "summary": "crystal-graph network, AI-designed: weight averaging + Allen–Dynes head + crystal descriptors",
     "tc_mae": 0.977,
     "tc_via_allen_dynes_mae": 0.969,
     "lambda_mae": 0.088,
