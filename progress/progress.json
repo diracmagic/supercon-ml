@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-30T23:03:06-05:00",
+  "updated": "2026-10-31T01:10:36-05:00",
   "badge": "5/10 done · now: ai models",
   "project": "Finding high-Tc superconductors with AI-designed models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
@@ -155,6 +155,10 @@
     {
       "at": "2026-10-30T23:03:06-05:00",
       "event": "Hurricane 1.0, the AI-designed model for unconventional superconductors (round 1, 9 candidates): measured-Tc MAE 12.70 K against 14.98 K for the composition-only baseline, better in 5 of 5 folds; adopted"
+    },
+    {
+      "at": "2026-10-31T01:10:36-05:00",
+      "event": "Graph neural network, round 1 (CGCNN-style, 86,723 parameters): Tc MAE 0.98 K on the same 5 folds as Storm (Storm 1.0 0.97 K, gradient boosting 1.05 K; better than Storm 1.0 in 2 of 5 folds); averaged with Storm 1.0: 0.92 K, better in 5 of 5 folds; via λ and ω_log with Allen-Dynes: 0.97 K"
     }
   ],
   "baselines": [
@@ -343,6 +347,13 @@
       "target": "Tc",
       "split": "val",
       "mae": 0.966
+    },
+    {
+      "at": "2026-10-31T01:10:36-05:00",
+      "model": "Graph neural network (crystal graph)",
+      "target": "Tc",
+      "split": "val",
+      "mae": 0.983
     }
   ],
   "search": {
@@ -1912,5 +1923,52 @@
         }
       }
     ]
+  },
+  "gnn": {
+    "name": "Graph neural network",
+    "round": 1,
+    "date": "2026-10-31",
+    "status": "done",
+    "summary": "CGCNN-style message passing on the crystal graph, trained end to end",
+    "tc_mae": 0.983,
+    "tc_via_allen_dynes_mae": 0.969,
+    "lambda_mae": 0.088,
+    "wlog_mae": 20.9,
+    "folds": [
+      1.087,
+      1.017,
+      0.877,
+      0.961,
+      0.974
+    ],
+    "spec": {
+      "architecture": "CGCNN-style crystal-graph network",
+      "graph": "atoms as nodes; edges to the 12 nearest neighbours within 8 Å, periodic images included",
+      "node_inputs": "a learned vector for each of 64 elements plus 8 element properties (Z, atomic_mass, X, row, group, atomic_radius, mendeleev_no, valence)",
+      "edge_inputs": "bond length in 40 Gaussians from 0 to 8 Å",
+      "layers": "3 gated message-passing layers (sigmoid gate times softplus message, averaged over neighbours, residual, layer norm), width 64",
+      "readout": "mean over atoms, then a network with 128 and 64 units (SiLU)",
+      "targets": "log(1 + Tc), log λ and log ω_log together (loss weights 1, 0.5, 0.5); Tc also via Allen-Dynes from λ and ω_log",
+      "training": "AdamW, peak learning rate 0.002, weight decay 0.0001, warm-up then cosine decay, 64 crystals per step, 200 epochs, Huber loss; the epoch with the lowest validation Tc error on 10% of the training fold's chemical systems is kept",
+      "ensemble": "average of 2 seed(s) per fold",
+      "n_params": 86723
+    },
+    "about": "A crystal-graph network learns Tc, λ and ω_log straight from the atoms and their neighbours, with no hand-made features. It is scored on the same five folds as Storm, grouped by chemical system.",
+    "storm1_mae": 0.969,
+    "baseline_mae": 1.045,
+    "folds_better_storm1": 2,
+    "folds_better_baseline": 5,
+    "blend": {
+      "name": "average of the graph network and Storm 1.0",
+      "tc_mae": 0.915,
+      "folds": [
+        0.998,
+        0.938,
+        0.819,
+        0.903,
+        0.918
+      ],
+      "folds_better_storm1": 5
+    }
   }
 }
