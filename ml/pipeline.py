@@ -10,6 +10,7 @@ Usage (from the repository root):
     python ml/pipeline.py gnn          # graph neural network on the crystal graph, same folds as Storm (ml/gnn.py)
     python ml/pipeline.py radar        # Radar, the router between Storm and Hurricane (ml/radar.py)
     python ml/pipeline.py gnn2         # graph neural network, round 2: AI-designed search (ml/gnn2.py)
+    python ml/pipeline.py gnn2final    # round 2's selected design retrained like version 1.0; releases 2.0 if better
     python ml/pipeline.py storm4       # Storm round 4: Storm 1.0 and the graph network together (ml/storm4.py)
 
 The command downloads the Alexandria and JARVIS electron-phonon datasets through
@@ -1270,7 +1271,7 @@ def run_foundation() -> None:
 
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane", "gnn", "radar", "gnn2", "storm4"])
+    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane", "gnn", "radar", "gnn2", "gnn2final", "storm4"])
     args = ap.parse_args(argv)
     if args.command == "baseline":
         run_baseline()
@@ -1295,6 +1296,9 @@ def main(argv=None) -> None:
     elif args.command == "gnn2":
         import gnn2
         gnn2.run()
+    elif args.command == "gnn2final":
+        import gnn2
+        gnn2.final()
     elif args.command == "storm4":
         import storm4
         storm4.run()
