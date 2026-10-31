@@ -3,7 +3,7 @@
 Conventional: Radar keeps the metals in the JARVIS-DFT database that look like conventional (phonon-mediated)
 superconductors, and Storm 5.0 (Storm 4.0 with its 90% range) predicts their DFT Tc.
 Unconventional (from round 2): Radar sends the materials that look like the unconventional families (cuprates, iron-
-and nickel-based, heavy-fermion compounds and other oxides) to Hurricane 2.0, which predicts the chance that each
+and nickel-based, heavy-fermion compounds and other oxides) to Hurricane, which predicts the chance that each
 superconducts and its measured Tc if it does, with a 90% range for that Tc.
 
 The lists hold only our own finds. A material is left out if
@@ -11,7 +11,9 @@ The lists hold only our own finds. A material is left out if
       extract on the UCI repository, as far as each can be downloaded),
     - it already has a computed Tc: it is in the Alexandria or JARVIS electron-phonon data (which our models learn from
       or are tested on), or JARVIS-DFT lists a Tc for it,
-    - it is in data/prior_claims.json, the superconductors reported or predicted by others that we track,
+    - it is in data/prior_claims.json, the superconductors reported or predicted by others that we track, or (from
+      round 3) among Hurricane's anchors in data/hurricane_anchors.json, the later discoveries and claims it is
+      checked against,
     - or (from round 2) it has exactly the elements of a known superconductor, so that every candidate is in a chemical
       system where no superconductor has been reported.
 Compositions match when they have the same elements and every share is within 2 at.%; a "system" entry in the prior
@@ -32,7 +34,9 @@ goes to Storm if the probability that it belongs to an unconventional family is 
 
 Hurricane is the released design (round 2's H12: the chance that a compound superconducts times its Tc if it does),
 refitted on all of its 3DSC data; its range is one width on log(1 + Tc) for the Tc if it superconducts, set from its
-out-of-fold errors on the superconducting entries (90%).
+out-of-fold errors on the superconducting entries (90%). A round-3 design also learns from Hurricane's whole pool as
+background compounds with no superconductivity record (ml/hurricane3.py); then every compound is scored by a model that
+did not learn from the background fold of its chemical system.
 
 Every candidate also carries the training material nearest to it in its model's inputs, and is marked as outside the
 training data if it is further from every training material than 95% of the training materials are from their nearest
@@ -73,7 +77,7 @@ import storm3 as S3
 import storm4 as S4
 import storm5 as S5
 
-ROUND = 2
+ROUND = 3
 SMOKE = os.environ.get("SCREEN_SMOKE") == "1"
 POOL = "dft_3d"
 GAP_MAX = 0.005          # eV (OptB88vdW): metals
@@ -220,7 +224,10 @@ def computed_known(sources: list) -> Known:
     return K
 
 
-def prior_known(sources: list) -> Known:
+def prior_known(sources: list, S: Known | None = None) -> Known:
+    """The claims by others that we track (data/prior_claims.json) and, from round 3, Hurricane's anchors
+    (data/hurricane_anchors.json: later discoveries and claims it is checked against); with S, the chemical systems of
+    the anchors that superconduct."""
     K = Known("prior")
     if PRIOR.exists():
         d = json.loads(PRIOR.read_text(encoding="utf-8"))
@@ -234,7 +241,27 @@ def prior_known(sources: list) -> Known:
                 except ValueError:
                     P.log(f"prior claim not parsed: {e['formula']}")
         sources.append({"name": "data/prior_claims.json, reported or predicted by others", "n": K.n})
+    ex = H.load_anchors()
+    n0, s0 = K.n, len(S.systems) if S is not None else 0
+    for e in ex.get("materials", []):
+        try:
+            comp = {k: float(v) for k, v in e["composition"].items()}
+        except (KeyError, TypeError, ValueError, AttributeError):
+            continue
+        K.add(comp, f"anchor: {e.get('name')}")
+        if S is not None and (e.get("tc_exp") or 0) > 0:
+            S.add_system(sorted(k for k, v in comp.items() if v > 0), f"anchor: {e.get('name')}")
+    if ex:
+        sources.append({"name": "data/hurricane_anchors.json, discoveries and claims that Hurricane is checked against",
+                        "n": K.n - n0, "systems": (len(S.systems) - s0) if S is not None else 0})
     return K
+
+
+def known_lists(sources: list) -> list:
+    """Everything a candidate must not match, in the order that gives the reason: SuperCon records, computed Tc, claims
+    by others (with our anchors), and chemical systems with a known superconductor."""
+    K, S = supercon_known(sources)
+    return [K, computed_known(sources), prior_known(sources, S), S]
 
 
 # ---------------------------------------------------------------- the pool
@@ -639,20 +666,47 @@ H4 = {"id": "H4", "name": "Composition + structure + physics + element fractions
       "X": "ABCD", "params": H.PARAMS}
 
 
-def hurricane_design() -> tuple[dict, str]:
-    """The released Hurricane design and its version: round 2's best if it was released, else Hurricane 1.0; with no
-    results file (the smoke test), Hurricane 2.0 as released (H12)."""
+def hurricane_design(upto: int = 3) -> tuple[dict, str]:
+    """The released Hurricane design and its version: the best design of the latest round (up to `upto`) that released
+    one, else Hurricane 1.0; with no results file at all (the smoke test), Hurricane 2.0 as released (H12)."""
+    found = False
+    for rnd in range(upto, 1, -1):
+        try:
+            d = json.loads((P.RESULTS / f"hurricane_round{rnd}.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        found = True
+        best = d.get("best") or {}
+        if d.get("adopted") and best.get("X"):
+            keep = ("id", "name", "settings", "X", "params", "two_part", "per_family", "bags", "background")
+            c = {k: best[k] for k in keep if best.get(k) is not None}
+            c["params"] = dict(c.get("params") or H.PARAMS)
+            return c, str(d.get("version") or f"{rnd}.0")
+    return (dict(H4), "1.0") if found else (dict(H12), "2.0")
+
+
+def hurricane_reliability(version: str) -> dict | None:
+    """Round 3's reliability check of the Hurricane version in use (false alarms against the version before), if any."""
     try:
-        d = json.loads((P.RESULTS / "hurricane_round2.json").read_text(encoding="utf-8"))
+        d = json.loads((P.RESULTS / "hurricane_round3.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return dict(H12), "2.0"
-    best = d.get("best") or {}
-    if d.get("adopted") and best.get("X"):
-        keep = ("id", "name", "settings", "X", "params", "two_part", "per_family", "bags")
-        c = {k: best[k] for k in keep if best.get(k) is not None}
-        c["params"] = dict(c.get("params") or H.PARAMS)
-        return c, str(d.get("version") or "2.0")
-    return dict(H4), "1.0"
+        return None
+    if not d.get("adopted") or str(d.get("version")) != str(version):
+        return None
+    br, pr = (d.get("best") or {}).get("reliability") or {}, (d.get("previous") or {}).get("reliability") or {}
+    return {"false_alarms": _r(br.get("false_alarms"), 3), "false_alarms_previous": _r(pr.get("false_alarms"), 3),
+            "previous": (d.get("previous") or {}).get("version"), "about": d.get("false_alarms_about"),
+            "n_background": (d.get("background") or {}).get("n"), "cite": (d.get("background") or {}).get("cite"),
+            "doi": (d.get("background") or {}).get("doi")}
+
+
+def hur_blocks(df: pd.DataFrame, table: pd.DataFrame, elements: list) -> dict:
+    """Hurricane's input blocks for JARVIS compounds, built as for its 3DSC training entries."""
+    sts = [radar_structure(a, n, s) for a, n, s in zip(df["atoms"], df["spg_number"], df["spg"])]
+    pb = H.feature_blocks(df, table, sts)
+    pb["D"] = H.element_fractions(df["comp"], elements)
+    pb["E"] = pd.DataFrame([H2.structure_types(cc) for cc in df["comp"]], columns=list(H2.TYPE_RATIONALE))
+    return pb
 
 
 def family_guess(comp: dict) -> str:
@@ -685,10 +739,13 @@ def hur_parts(d, X, fam) -> tuple[np.ndarray, np.ndarray]:
     return np.full(len(X), np.nan), tc
 
 
-def hurricane_scores(pool: pd.DataFrame) -> dict:
+def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None) -> dict:
     """The released Hurricane design, refitted on all of its 3DSC data (as hurricane2.run builds them), applied to the
     materials Radar sends it. Its range is one width on log(1 + Tc) for the Tc if a compound superconducts, from the
-    out-of-fold errors on the superconducting entries (5 folds by parent compound, as in every Hurricane round)."""
+    out-of-fold errors on the superconducting entries (5 folds by parent compound, as in every Hurricane round).
+    A design with background compounds (round 3) also learns from Hurricane's whole screening pool as non-
+    superconducting, cross-fitted as in round 3: every compound is scored by a model that did not learn from the
+    background fold of its chemical system, and the out-of-fold check never learns from a held-out entry's system."""
     from sklearn.model_selection import GroupKFold
 
     t0 = time.time()
@@ -696,7 +753,9 @@ def hurricane_scores(pool: pd.DataFrame) -> dict:
     dsc = H.load_3dsc()
     hur = H.build_frame(dsc, set(H.FAMILY_OF_CLASS))
     y, groups, fam = hur["tc"].to_numpy(float), hur["group"].to_numpy(), hur["family"].to_numpy()
-    table = P.element_table(sorted({e for cc in hur["comp"] for e in cc} | {e for cc in pool["comp"] for e in cc}))
+    bg = background if (c.get("background") and background is not None and len(background)) else None
+    extra = {e for cc in bg["comp"] for e in cc} if bg is not None else set()
+    table = P.element_table(sorted({e for cc in hur["comp"] for e in cc} | {e for cc in pool["comp"] for e in cc} | extra))
     blocks = H.feature_blocks(hur, table, [H.dsc_structure(r) for _, r in hur.iterrows()])
     counts = {}
     for cc in hur["comp"]:
@@ -706,9 +765,17 @@ def hurricane_scores(pool: pd.DataFrame) -> dict:
     blocks["D"] = H.element_fractions(hur["comp"], elements)
     blocks["E"] = pd.DataFrame([H2.structure_types(cc) for cc in hur["comp"]])
     X = np.hstack([blocks[b].to_numpy(float) for b in c["X"]])
+    if bg is not None:
+        import hurricane3 as H3   # here, not at the top: hurricane3 imports this module
+        bb = hur_blocks(bg, table, elements)
+        Xb = np.hstack([bb[b].to_numpy(float) for b in c["X"]])
+        sys_b = bg["chemsys"].to_numpy()
+        fold_b = np.array([H3.bg_fold(s) for s in sys_b])
+        sys3 = np.array([H3.chemsys_of(cc) for cc in hur["comp"]])
     o_p, o_tc = np.full(len(y), np.nan), np.zeros(len(y))
     for k, (tr, te) in enumerate(GroupKFold(n_splits=P.N_FOLDS).split(X, y, groups)):
-        d = H2.Design(c, P.SEED + k).fit(X[tr], y[tr], fam[tr])
+        xb = Xb[H3.train_mask(k, fold_b, sys_b, set(sys3[te]))] if bg is not None else None
+        d = H2.Design(c, P.SEED + k).fit(X[tr], y[tr], fam[tr], Xb=xb)
         o_p[te], o_tc[te] = hur_parts(d, X[te], fam[te])
     sc = y > 0
     width = S5.cq(np.abs(np.log1p(y[sc]) - np.log1p(o_tc[sc])), S5.ALPHA)
@@ -723,24 +790,34 @@ def hurricane_scores(pool: pd.DataFrame) -> dict:
     P.log(f"Hurricane {version} ({c['id']}) out of fold: range width {width:.4f} on log(1 + Tc), coverage {cover:.3f} on "
           f"{int(sc.sum())} superconductors; {check['share_sc_likely']} of the {check['n_likely']} entries given at least an "
           f"even chance superconduct, against {check['share_sc_unlikely']} of the others ({time.time() - t0:.0f} s)")
-    final = H2.Design(c, P.SEED + 500).fit(X, y, fam)
+    # the models for the pool: one, or with background compounds one per background fold, each without that fold
+    finals = ([H2.Design(c, P.SEED + 500).fit(X, y, fam, Xb=Xb[fold_b != k]) for k in range(P.N_FOLDS)]
+              if bg is not None else [H2.Design(c, P.SEED + 500).fit(X, y, fam)])
     n_p = len(pool)
     info = {"version": version, "id": c["id"], "name": c["name"], "settings": c.get("settings"),
             "two_part": c.get("two_part"), "n_train": int(len(y)), "n_train_sc": int(sc.sum()),
             "width_log": round(float(width), 4), "oof_coverage": round(cover, 3), "check": check}
+    if bg is not None:
+        info["background"] = {"n": int(len(bg)), "weight": float(c["background"]), "cross_fitted": True}
+    rel = hurricane_reliability(version)
+    if rel:
+        info["reliability"] = rel
     if not n_p:
         return {"tc": np.zeros(0), "p_sc": np.zeros(0), "tc_sc": np.zeros(0), "lo": np.zeros(0), "hi": np.zeros(0),
                 "family": [], "types": [], "novel": np.zeros(0), "near_formula": [], "near_tc": np.zeros(0), "info": info}
-    sts = [radar_structure(a, n, s) for a, n, s in zip(pool["atoms"], pool["spg_number"], pool["spg"])]
-    pb = H.feature_blocks(pool, table, sts)
-    pb["D"] = H.element_fractions(pool["comp"], elements)
-    pb["E"] = pd.DataFrame([H2.structure_types(cc) for cc in pool["comp"]], columns=list(H2.TYPE_RATIONALE))
+    pb = hur_blocks(pool, table, elements)
     Xp = np.hstack([pb[b].to_numpy(float) for b in c["X"]])
     if Xp.shape[1] != X.shape[1]:
         raise SystemExit(f"Hurricane's inputs for the pool ({Xp.shape[1]}) do not match its training inputs ({X.shape[1]})")
     pf = np.array([family_guess(cc) for cc in pool["comp"]])
-    tc = np.clip(final.predict(Xp, pf), 0, None)
-    p_sc, tc_sc = hur_parts(final, Xp, pf)
+    which = (np.array([H3.bg_fold(s) for s in pool["chemsys"]]) if bg is not None else np.zeros(n_p, int))
+    tc, p_sc, tc_sc = np.zeros(n_p), np.full(n_p, np.nan), np.zeros(n_p)
+    for k, model in enumerate(finals):
+        m = which == k
+        if m.any():
+            tc[m] = model.predict(Xp[m], pf[m])
+            p_sc[m], tc_sc[m] = hur_parts(model, Xp[m], pf[m])
+    tc = np.clip(tc, 0, None)
     lo, hi = np.clip(np.expm1(np.log1p(tc_sc) - width), 0, None), np.expm1(np.log1p(tc_sc) + width)
     types = [[k for k, v in H2.structure_types(cc).items() if v > 0] for cc in pool["comp"]]
     nv = novelty(X, groups, Xp)
@@ -846,8 +923,7 @@ def run() -> None:
         for name, n in steps:
             P.log(f"{tag}'s pool: {name}: {n:,}")
     sources = []
-    K, S = supercon_known(sources)
-    known = [K, computed_known(sources), prior_known(sources), S]
+    known = known_lists(sources)
     spool, s_out, s_counts = exclude(spool, known)
     hpool, h_out, h_counts = exclude(hpool, known)
     for tag, cnt in (("Storm", s_counts), ("Hurricane", h_counts)):
@@ -874,7 +950,7 @@ def run() -> None:
           f"the {len(hpool):,} in Hurricane's pool look unconventional")
     table = P.element_table(sorted(set(train_counts) | {e for els in spool["elements"] for e in els}))
     st = storm_scores(train, spool, table)
-    hu = hurricane_scores(hsel)
+    hu = hurricane_scores(hsel, hpool)   # the whole pool is the background of a round-3 design
     # Storm: every material in its pool is scored; the list takes those Radar sends to Storm
     ranked = pd.DataFrame({
         "jid": spool["id"], "formula": [S3.pretty(c) for c in spool["comp"]], "chemsys": spool["chemsys"], "nat": spool["nat"],
@@ -1005,6 +1081,9 @@ def update_progress(out: dict, progress: Path) -> None:
             "check": hd["check"], "novelty": {"level": NOVEL_LEVEL, "outside": hu["outside"], "about": NOVELTY_ABOUT},
             "caveat": hu["caveat"], "candidates": hc},
     }
+    for key in ("background", "reliability"):   # a round-3 design: its background compounds and false-alarm check
+        if hd.get(key):
+            prog["screen"]["hurricane"][key] = hd[key]
     for st in prog.get("stages", []):
         if st.get("id") == "screen":
             st.update(status="active", date=st.get("date") or stamp[:10], detail=(
