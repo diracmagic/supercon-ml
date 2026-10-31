@@ -1,10 +1,12 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.3.3 fixes:
+Version 0.3.4 adds:
 
-- **Storm 3.0 everywhere**: the model list, the *Hello Super* tour and the Storm demo now all name the version in use, Storm 3.0 (Storm 1.0 calibrated to measured T<sub>c</sub>), and give both of its errors: 0.97 K against computed T<sub>c</sub> and 1.61 K against measured T<sub>c</sub>.
-- **Hurricane in Our models**: the Progress view shows Hurricane 1.0 with its own results, and a button opens its demo, also from the AI × superconductors view.
-- **Licences**: the notices file now gives the standard licence text for every library that ships none and points to the full Apache-2.0 and MPL-2.0 texts; the data credits say how many of the Alexandria calculations Storm learns from.
+- **Radar, our third AI-designed model**: a new demo, *Our AI model: Radar*, animates how it decides whether a material goes to Storm or Hurricane, from its data and the eight designs our AI agent proposed to where new materials go, how often it picks the right model and what happens when a whole family is left out of training. Radar also appears with its own results in Our models, the AI × superconductors view and the model details.
+- **Storm 4.0 and the graph network**: Storm 1.0's boosted trees and our crystal-graph network together, off by 0.90 K against computed T<sub>c</sub> and 1.56 K against measured T<sub>c</sub>. The app names Storm 4.0 wherever it shows the Storm in use, and the model details show the graph network's AI-designed round 2 and the final check that released version 2.0.
+- **Fixes**: the model cards follow each model's own results, so an older status line can no longer name a version that is not in use; *Best Tc error so far* counts released models only; percentages near 100% keep one decimal; the Radar demo fits phone screens.
+
+Version 0.3.3 fixed the Storm version shown everywhere, Hurricane in Our models and the licence notices.
 
 Version 0.3.2 added the AI × superconductors view, the Hurricane demo and tour step, model details, live content, the data and licences card and more journals.
 
