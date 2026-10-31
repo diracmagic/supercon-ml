@@ -2,7 +2,7 @@
   "name": "supercon-progress",
   "private": true,
   "license": "MIT",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Desktop app that shows the live progress of the supercon-ml project",
   "scripts": {
     "icon": "node scripts/make-icon.mjs app-icon.png && tauri icon app-icon.png -o src-tauri/icons",
