@@ -84,10 +84,14 @@ jobs:
           name: installer-${{ matrix.label }}
           path: out/*
           if-no-files-found: error
+          retention-days: 14
 
   release:
     name: Publish release
     needs: build
+    # Every push to app/ checks that the installers still build; only a commit whose message contains
+    # [release], or a manual run, publishes them. Push the version bump last, with [release].
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
