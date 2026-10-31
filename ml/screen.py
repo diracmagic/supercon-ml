@@ -339,7 +339,9 @@ def load_rows() -> pd.DataFrame:
     k = {name: P.pick(keys, *cands) for name, cands in {
         "id": ("jid", "id"), "atoms": ("atoms",), "gap": ("optb88vdw_bandgap",), "hull": ("ehull", "e_above_hull"),
         "mag": ("magmom_oszicar", "magmom_outcar", "magmom"), "spg": ("spg_symbol",), "spgn": ("spg_number",),
-        "icsd": ("icsd",), "tc": ("Tc_supercon",)}.items()}
+        "icsd": ("icsd",), "tc": ("Tc_supercon",),
+        # round 5: what the DFT calculation says about the electrons, next to the gap and the hull distance
+        "eform": ("formation_energy_peratom", "formation_energy_per_atom")}.items()}
     missing = [n for n in ("id", "atoms", "gap", "hull", "mag") if k[n] is None]
     if missing:
         raise SystemExit(f"{POOL}: could not find fields {missing}; available: {sorted(keys)}")
@@ -353,7 +355,8 @@ def load_rows() -> pd.DataFrame:
                      "magmom": _num(r.get(k["mag"])), "spg": str(r.get(k["spg"]) or "") if k["spg"] else "",
                      "spg_number": _num(r.get(k["spgn"])) if k["spgn"] else np.nan,
                      "icsd": bool(icsd) and str(icsd).strip().lower() not in ("na", "none", "nan", "[]", ""),
-                     "jarvis_tc": _num(r.get(k["tc"])) if k["tc"] else np.nan})
+                     "jarvis_tc": _num(r.get(k["tc"])) if k["tc"] else np.nan,
+                     "e_form": _num(r.get(k["eform"])) if k["eform"] else np.nan})
     df = pd.DataFrame(recs)
     df = df.assign(comp=df["atoms"].map(lambda a: counts_of(a["elements"])))
     df = df.assign(elements=df["comp"].map(sorted), nat=df["atoms"].map(lambda a: len(a["elements"])))
@@ -668,7 +671,7 @@ H4 = {"id": "H4", "name": "Composition + structure + physics + element fractions
       "X": "ABCD", "params": H.PARAMS}
 
 
-def hurricane_design(upto: int = 4) -> tuple[dict, str]:
+def hurricane_design(upto: int = 5) -> tuple[dict, str]:
     """The released Hurricane design and its version: the best design of the latest round (up to `upto`) that released
     one, else Hurricane 1.0; with no results file at all (the smoke test), Hurricane 2.0 as released (H12)."""
     found = False
@@ -681,7 +684,7 @@ def hurricane_design(upto: int = 4) -> tuple[dict, str]:
         best = d.get("best") or {}
         if d.get("adopted") and best.get("X"):
             keep = ("id", "name", "settings", "X", "params", "two_part", "per_family", "bags", "background", "radius",
-                    "abstain")
+                    "abstain", "rows")
             c = {k: best[k] for k in keep if best.get(k) is not None}
             c["params"] = dict(c.get("params") or H.PARAMS)
             return c, str(d.get("version") or f"{rnd}.0")
@@ -691,7 +694,7 @@ def hurricane_design(upto: int = 4) -> tuple[dict, str]:
 def hurricane_reliability(version: str) -> dict | None:
     """The reliability check of the Hurricane version in use, from the round that released it (round 3: false alarms
     against the version before; round 4 also: how many superconductors of a left-out family it calls unlikely)."""
-    for rnd in (4, 3):
+    for rnd in (5, 4, 3):
         try:
             d = json.loads((P.RESULTS / f"hurricane_round{rnd}.json").read_text(encoding="utf-8"))
         except (OSError, ValueError):
@@ -704,6 +707,14 @@ def hurricane_reliability(version: str) -> dict | None:
         out = {"false_alarms": _r(br.get("false_alarms"), 3), "false_alarms_previous": _r(pr.get("false_alarms"), 3),
                "previous": prev.get("version"), "about": d.get("false_alarms_about"),
                "n_background": bg.get("n_used", bg.get("n")), "cite": bg.get("cite"), "doi": bg.get("doi")}
+        if rnd >= 5:   # round 5 also reports how much of a left-out family the design finds
+            out.update({"found": _r(br.get("found"), 3), "found_previous": _r(pr.get("found"), 3),
+                        "unknown_lofo": _r(br.get("unknown_lofo"), 3), "parent_about": d.get("parent_about"),
+                        "electronic_about": d.get("electronic_about"), "found_about": d.get("found_about"),
+                        "dismissed": _r(br.get("dismissed"), 3), "dismissed_previous": _r(pr.get("dismissed"), 3),
+                        "previous": prev.get("version"), "abstain": best.get("abstain"),
+                        "dismissed_about": d.get("dismissed_about"), "unknown_about": d.get("unknown_about")})
+            return out
         if rnd >= 4:
             ref = d.get("reference") or {}
             out.update({"dismissed": _r(br.get("dismissed"), 3), "dismissed_previous": _r(pr.get("dismissed"), 3),
@@ -754,6 +765,11 @@ def hur_parts(d, X, fam) -> tuple[np.ndarray, np.ndarray]:
     return np.full(len(X), np.nan), tc
 
 
+def H3_chemsys(comp: dict) -> str:
+    """The chemical system of a composition (hurricane3.chemsys_of, without importing it at module level)."""
+    return "-".join(sorted(e for e, v in comp.items() if v > 0))
+
+
 def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None) -> dict:
     """The released Hurricane design, refitted on all of its 3DSC data (as hurricane2.run builds them), applied to the
     materials Radar sends it. Its range is one width on log(1 + Tc) for the Tc if a compound superconducts, from the
@@ -764,29 +780,44 @@ def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None)
     from sklearn.model_selection import GroupKFold
 
     t0 = time.time()
+    import hurricane5 as H5   # here, not at the top: hurricane5 imports this module
     c, version = hurricane_design()
     dsc = H.load_3dsc()
-    hur = H.build_frame(dsc, set(H.FAMILY_OF_CLASS))
-    y, groups, fam = hur["tc"].to_numpy(float), hur["group"].to_numpy(), hur["family"].to_numpy()
+    parent = c.get("rows", "entry") == "parent"
+    if parent:   # round 5: the model learns from parent compounds, so the list is of parent compounds too
+        par = H5.parent_frame(dsc)
+        hur = par.assign(formula_sc=par["formula_sc"])
+        groups = np.array([H3_chemsys(cc) for cc in par["comp"]])
+    else:
+        hur = H.build_frame(dsc, set(H.FAMILY_OF_CLASS))
+        groups = hur["group"].to_numpy()
+    y, fam = hur["tc"].to_numpy(float), hur["family"].to_numpy()
     bg = background if (c.get("background") and background is not None and len(background)) else None
     extra = {e for cc in bg["comp"] for e in cc} if bg is not None else set()
     table = P.element_table(sorted({e for cc in hur["comp"] for e in cc} | {e for cc in pool["comp"] for e in cc} | extra))
-    blocks = H.feature_blocks(hur, table, [H.dsc_structure(r) for _, r in hur.iterrows()])
     counts = {}
     for cc in hur["comp"]:
         for e in cc:
             counts[e] = counts.get(e, 0) + 1
     elements = sorted(e for e, n in counts.items() if n >= 10)
-    blocks["D"] = H.element_fractions(hur["comp"], elements)
-    blocks["E"] = pd.DataFrame([H2.structure_types(cc) for cc in hur["comp"]])
+    if parent:
+        blocks = H5.parent_blocks(hur, table, elements)
+    else:
+        blocks = H.feature_blocks(hur, table, [H.dsc_structure(r) for _, r in hur.iterrows()])
+        blocks["D"] = H.element_fractions(hur["comp"], elements)
+        blocks["E"] = pd.DataFrame([H2.structure_types(cc) for cc in hur["comp"]])
+        ee = pd.DataFrame([H5.dsc_electronic(r) for _, r in hur.iterrows()], columns=list(H5.ELECTRONIC_RATIONALE))
+        blocks["F"], blocks["G"] = ee, ee[list(H5.FLAG_RATIONALE)]
     X = np.hstack([blocks[b].to_numpy(float) for b in c["X"]])
     if bg is not None:
         import hurricane3 as H3   # here, not at the top: hurricane3 imports this module
-        bb = hur_blocks(bg, table, elements)
+        bb = H5.pool_blocks(bg, table, elements)
         Xb = np.hstack([bb[b].to_numpy(float) for b in c["X"]])
         sys_b = bg["chemsys"].to_numpy()
         fold_b = np.array([H3.bg_fold(s) for s in sys_b])
         sys3 = np.array([H3.chemsys_of(cc) for cc in hur["comp"]])
+        if parent:
+            groups = sys3
     o_p, o_tc, o_unk = np.full(len(y), np.nan), np.zeros(len(y)), np.zeros(len(y), bool)
     radius, abstain = c.get("radius"), c.get("abstain")
     if radius or abstain:
@@ -818,16 +849,23 @@ def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None)
     P.log(f"Hurricane {version} ({c['id']}) out of fold: range width {width:.4f} on log(1 + Tc), coverage {cover:.3f} on "
           f"{int(sc.sum())} superconductors; {check['share_sc_likely']} of the {check['n_likely']} entries given at least an "
           f"even chance superconduct, against {check['share_sc_unlikely']} of the others ({time.time() - t0:.0f} s)")
-    # the models for the pool: one, or with background compounds one per background fold, each without that fold
-    if bg is not None:
-        near = H4.ratio(X, groups, Xb) <= radius if radius else np.ones(len(Xb), bool)
-        finals = [H2.Design(c, P.SEED + 500).fit(X, y, fam, Xb=Xb[(fold_b != k) & near]) for k in range(P.N_FOLDS)]
-    else:
-        finals = [H2.Design(c, P.SEED + 500).fit(X, y, fam)]
+    # The models for the pool: five, each trained without one fifth of the training compounds (whole parent compounds,
+    # the same folds the scores are measured on) and without one background fold. A candidate's chance is their mean and
+    # their spread says how much it depends on which fifth was left out; one model trained on everything can be far more
+    # confident than any of them.
+    near = (H4.ratio(X, groups, Xb) <= radius if radius else np.ones(len(Xb), bool)) if bg is not None else None
+    finals = [H2.Design(c, P.SEED + 500 + k).fit(X[tr], y[tr], fam[tr],
+                                                 Xb=Xb[(fold_b != k) & near] if bg is not None else None)
+              for k, (tr, _) in enumerate(GroupKFold(n_splits=P.N_FOLDS).split(X, y, groups))]
     n_p = len(pool)
     info = {"version": version, "id": c["id"], "name": c["name"], "settings": c.get("settings"),
             "two_part": c.get("two_part"), "n_train": int(len(y)), "n_train_sc": int(sc.sum()),
             "width_log": round(float(width), 4), "oof_coverage": round(cover, 3), "check": check}
+    info["jackknife"] = {"n": len(finals),
+                         "about": ("every candidate is scored by five models, each trained without one fifth of the "
+                                   "training compounds (whole parent compounds) and one fifth of the background; the "
+                                   "chance shown is their mean, and the spread is the range between the lowest and "
+                                   "the highest of the five")}
     if bg is not None:
         info["background"] = {"n": int(near.sum()), "weight": float(c["background"]), "cross_fitted": True,
                               "radius": radius, "pool": int(len(bg))}
@@ -839,20 +877,23 @@ def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None)
     if not n_p:
         return {"tc": np.zeros(0), "p_sc": np.zeros(0), "tc_sc": np.zeros(0), "lo": np.zeros(0), "hi": np.zeros(0),
                 "family": [], "types": [], "novel": np.zeros(0), "near_formula": [], "near_tc": np.zeros(0), "info": info,
-                "not_known": np.zeros(0, bool)}
-    pb = hur_blocks(pool, table, elements)
+                "not_known": np.zeros(0, bool), "p_lo": np.zeros(0), "p_hi": np.zeros(0)}
+    pb = H5.pool_blocks(pool, table, elements)
     Xp = np.hstack([pb[b].to_numpy(float) for b in c["X"]])
     if Xp.shape[1] != X.shape[1]:
         raise SystemExit(f"Hurricane's inputs for the pool ({Xp.shape[1]}) do not match its training inputs ({X.shape[1]})")
     pf = np.array([family_guess(cc) for cc in pool["comp"]])
-    which = (np.array([H3.bg_fold(s) for s in pool["chemsys"]]) if bg is not None else np.zeros(n_p, int))
-    tc, p_sc, tc_sc = np.zeros(n_p), np.full(n_p, np.nan), np.zeros(n_p)
-    for k, model in enumerate(finals):
-        m = which == k
-        if m.any():
-            tc[m] = model.predict(Xp[m], pf[m])
-            p_sc[m], tc_sc[m] = hur_parts(model, Xp[m], pf[m])
-    tc = np.clip(tc, 0, None)
+    each_tc = np.vstack([m.predict(Xp, pf) for m in finals])
+    parts = [hur_parts(m, Xp, pf) for m in finals]
+    each_p = np.vstack([p for p, _ in parts])
+    each_tcsc = np.vstack([t for _, t in parts])
+    tc = np.clip(each_tc.mean(axis=0), 0, None)
+    p_sc, tc_sc = each_p.mean(axis=0), each_tcsc.mean(axis=0)
+    p_lo, p_hi = each_p.min(axis=0), each_p.max(axis=0)
+    if np.isfinite(p_sc).any():
+        P.log(f"Hurricane: the five models disagree by {np.nanmedian(p_hi - p_lo):.2f} on the chance of the median "
+              f"compound; {int(np.nansum((p_hi >= 0.5) & (p_lo < 0.5))):,} of the {n_p:,} are above an even chance "
+              "for some of them and below it for others")
     lo, hi = np.clip(np.expm1(np.log1p(tc_sc) - width), 0, None), np.expm1(np.log1p(tc_sc) + width)
     types = [[k for k, v in H2.structure_types(cc).items() if v > 0] for cc in pool["comp"]]
     nv = novelty(X, groups, Xp)
@@ -866,7 +907,7 @@ def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None)
               ("outside its training data)" if abstain == 1 else f"more than {abstain:g} times as far from it as allowed)"))
     return {"tc": tc, "p_sc": p_sc, "tc_sc": tc_sc, "lo": lo, "hi": hi, "family": list(pf), "types": types, "info": info,
             "novel": nv["ratio"], "near_formula": [str(hur["formula_sc"].iloc[k]) for k in nv["nearest"]], "near_tc": y[nv["nearest"]],
-            "not_known": not_known}
+            "not_known": not_known, "p_lo": p_lo, "p_hi": p_hi}
 
 
 # ---------------------------------------------------------------- run
@@ -1023,6 +1064,7 @@ def run() -> None:
         "spg": hsel["spg"], "spg_number": hsel["spg_number"], "ehull": hsel["ehull"], "gap": hsel["gap"],
         "magmom": hsel["magmom"], "icsd": hsel["icsd"], "p_unconventional": p_h[sent], "family": hu["family"],
         "hurricane_tc": hu["tc"], "p_sc": hu["p_sc"], "tc_sc": hu["tc_sc"], "lo": hu["lo"], "hi": hu["hi"],
+        "p_lo": hu["p_lo"], "p_hi": hu["p_hi"],
         "types": [";".join(t) for t in hu["types"]], "novelty": hu["novel"], "nearest_training": hu["near_formula"],
         "nearest_training_tc": hu["near_tc"], "not_known": hu["not_known"]})
     hr = hr.sort_values(["not_known", "hurricane_tc", "tc_sc", "jid"], ascending=[True, False, False, True]).reset_index(drop=True)
@@ -1030,7 +1072,8 @@ def run() -> None:
     for rank, i in enumerate(top_rows(hr, hr.index[~hr["not_known"].astype(bool)]), 1):
         r = hr.loc[i]
         c = dict(base_record(rank, r), tc=_r(r["hurricane_tc"], 2), tc_sc=_r(r["tc_sc"], 2), lo=_r(r["lo"], 2),
-                 hi=_r(r["hi"], 2), p_sc=_r(r["p_sc"], 3), p_unconventional=_r(r["p_unconventional"], 3),
+                 hi=_r(r["hi"], 2), p_sc=_r(r["p_sc"], 3), p_lo=_r(r["p_lo"], 3), p_hi=_r(r["p_hi"], 3),
+                 p_unconventional=_r(r["p_unconventional"], 3),
                  family=r["family"] if r["family"] != "other" else None, gap=_r(r["gap"], 2),
                  magnetic=True if abs(float(r["magmom"])) > MAGMOM_MAX else None,
                  types=[t for t in str(r["types"]).split(";") if t] or None, novelty=_r(r["novelty"], 2),
