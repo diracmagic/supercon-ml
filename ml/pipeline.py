@@ -7,6 +7,7 @@ Usage (from the repository root):
     python ml/pipeline.py search1      # re-run search round 1 (Storm 1.0) for reproducibility
     python ml/pipeline.py storm3       # Storm round 3: calibration to measured Tc (ml/storm3.py)
     python ml/pipeline.py hurricane    # Hurricane, the model for unconventional superconductors (ml/hurricane.py)
+    python ml/pipeline.py gnn          # graph neural network on the crystal graph, same folds as Storm (ml/gnn.py)
 
 The command downloads the Alexandria and JARVIS electron-phonon datasets through
 jarvis-tools, cleans them, recomputes the Allen-Dynes Tc with one mu*, trains
@@ -1266,7 +1267,7 @@ def run_foundation() -> None:
 
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane"])
+    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane", "gnn"])
     args = ap.parse_args(argv)
     if args.command == "baseline":
         run_baseline()
@@ -1282,6 +1283,9 @@ def main(argv=None) -> None:
     elif args.command == "hurricane":
         import hurricane
         hurricane.run()
+    elif args.command == "gnn":
+        import gnn
+        gnn.run()
 
 
 if __name__ == "__main__":
