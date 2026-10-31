@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-10-31T04:11:07+00:00",
+ "updated": "2026-10-31T07:17:50+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,6 +47,7 @@
   ]
  },
  "sources_ok": [
+  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -2978,27 +2979,6 @@
    "kind": ""
   },
   {
-   "id": "10.1038/s41467-026-73705-w",
-   "source": "Nat. Commun.",
-   "journal": "Nature Communications",
-   "title": "Addendum: Magnetic field screening in hydrogen-rich high-temperature superconductors",
-   "authors": [
-    "V. S. Minkov",
-    "E. F. Talantsev",
-    "S. L. Bud’ko",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-06",
-   "abstract": "",
-   "url": "https://doi.org/10.1038/s41467-026-73705-w",
-   "doi": "10.1038/s41467-026-73705-w",
-   "topics": [
-    "Hydrides"
-   ],
-   "kind": ""
-  },
-  {
    "id": "10.1038/s41467-026-78385-0",
    "source": "Nat. Commun.",
    "journal": "Nature Communications",
@@ -3016,6 +2996,27 @@
    "doi": "10.1038/s41467-026-78385-0",
    "topics": [
     "Kagome"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-73705-w",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Addendum: Magnetic field screening in hydrogen-rich high-temperature superconductors",
+   "authors": [
+    "V. S. Minkov",
+    "E. F. Talantsev",
+    "S. L. Bud’ko",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-10-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-73705-w",
+   "doi": "10.1038/s41467-026-73705-w",
+   "topics": [
+    "Hydrides"
    ],
    "kind": ""
   },
