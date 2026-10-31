@@ -119,6 +119,8 @@ The training data are downloaded when the models train and are not stored in thi
 | [Crossref](https://www.crossref.org/documentation/retrieve-metadata/rest-api/rest-api-metadata-license-information/) and journal feeds | Journal papers in the feed | Bibliographic metadata; abstracts remain the publishers' or authors' copyright, so the feed keeps only their first sentence and links to the paper | |
 | News feeds: Nature News, ScienceDaily, Phys.org, Physics World, APS Physics, Quanta Magazine | The news list | Headlines and a short summary from each public feed, always linked to the story | |
 
+**Licence of this repository.** The code is under the [MIT licence](LICENSE). Our own results, that is, the models' predictions, scores and specs in `results/` and `progress/progress.json`, the curated text in `progress/content.json` and the graded compilations in `data/`, are under [CC BY 4.0](LICENSE-results.md); please cite the repository. The training data and the paper feed keep their providers' terms in the table above, and `progress/papers.json` is not covered by our licences.
+
 The desktop app is built with [Tauri](https://tauri.app/) and other open-source Rust crates under MIT, Apache-2.0, MPL-2.0 and similar licences. `app/scripts/third-party-notices.mjs` lists them with their licence texts and copyright notices; the list ships inside the installers and with every release as `THIRD-PARTY-NOTICES.txt`. The app's own interface, `app/dist/index.html`, contains no third-party code.
 
 ## Published baselines
