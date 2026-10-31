@@ -17,10 +17,10 @@ Questions, ideas and collaboration are welcome by email; bugs and feature reques
 
 The app shows every stage, the training results, our three models and the GitHub Actions runs as they happen, with the details of each model's latest round. It also has five other views:
 
-- **Physics demos**, starting with *Hello Super*, a 90-second animated tour of the project, and *Our AI model: Storm*, *Our AI model: Hurricane* and *Our AI model: Radar*, animations of the three models our AI agent designed, drawn from their own results. Demos of zero resistance, the Meissner effect, Cooper pairs and the Allen–Dynes formula follow.
+- **Physics demos**, starting with *Hello Super*, a 90-second animated tour of the project, and *Our AI model: Storm*, *Our AI model: Hurricane* and *Our AI model: Radar*, animations of the versions in use of the three models our AI agent designed, drawn from their own results. *Baselines* shows the simple model each of them must beat. *Predict T<sub>c</sub>* has the Allen–Dynes formula with sliders and, step by step, how Storm and Hurricane predict T<sub>c</sub> for real materials, with the numbers they computed. Demos of zero resistance, the Meissner effect and Cooper pairs follow.
 - **Theory & materials**: the main theories of superconductivity, the classic ideas for high-T<sub>c</sub> superconductivity in the cuprates and the materials behind today's headlines, each with an animation, the original papers and the latest results, plus the Nobel Prizes for superconductivity.
 - **News & papers**: superconductivity news, each story with a drawing of its topic, and new papers from arXiv, Nature, Science, Physical Review and the Nature-family journals, refreshed every three hours, plus a curated list of recent advances in experiment, theory and AI for superconductivity.
-- **AI × superconductors**: new papers and news on machine learning, AI agents and autonomous labs for superconductors, newest first and checked again every ten minutes while the view is open, plus our AI-designed models and a curated list of AI advances.
+- **AI × superconductors**: new papers and news on machine learning, AI agents and autonomous labs for superconductors, newest first and checked again every ten minutes while the view is open, with new AI predictions and new AI-guided experiments tagged automatically. It also lists our AI-designed models, every superconductor that an AI or machine-learning model pointed to and an experiment then confirmed, notable AI predictions still waiting for an experiment, and a curated list of AI advances, each with its paper.
 - **Authors**: who is behind the project, how to reach us, and where the data come from.
 
 New results, papers and curated advances reach the app without an update, because it reads `progress/progress.json`, `progress/papers.json` and `progress/content.json` from this repository. The desktop app tells you when a new version is out, and the phone version updates itself.
@@ -98,6 +98,22 @@ Radar decides which model a material goes to. From its composition and crystal s
 | Radar 1.0 | Composition statistics + measurable crystal structure + Hurricane's physics features + element shares, gradient-boosted classifier | 0.022, better than the baseline in 5 of 5 folds | 99.5% | 0.054 and 98.2% (composition only) |
 
 The AI agent proposed eight designs in round 1, from Hurricane's physics features and the crystal structure to balanced classes, a five-seed average and calibrated probabilities, and ranked them by the log loss, which punishes confident mistakes. Radar 1.0's probabilities are well calibrated (calibration error 0.4 percentage points), and its most important inputs are the oxygen share, the FeAs- or FeSe-type layer and the f-electron count. The harder test leaves out a whole family. Trained without any cuprate, Radar still sends every cuprate to Hurricane; trained without heavy-fermion compounds, it sends only 1% of them there, and only 33% of the iron- and nickel-based compounds, because these families look like ordinary intermetallics in their chemistry. Radar can route a new material of a known kind, but a new family needs physics, not only a classifier. Graded materials are scored by a Radar that never saw them (those also in 3DSC out of fold): UTe<sub>2</sub>, CeRh<sub>2</sub>As<sub>2</sub>, the nickelates and Hg-1223 go to Hurricane and the 36 graded conventional superconductors and hydrides to Storm, as do the kagome metals CsV<sub>3</sub>Sb<sub>5</sub> and KV<sub>3</sub>Sb<sub>5</sub>, whose pairing is still debated. Details are in `results/radar_round1.json`.
+
+## When is a model done?
+
+An AI agent can always propose another round, so each model follows the same rules:
+
+1. **Release only what wins.** A round is released only if it beats the version in use on average and in at least 4 of 5 held-out folds. Everything else stays experimental.
+2. **Two empty rounds freeze a model.** After two rounds in a row with no release, the model stays as it is until new data or a new kind of input arrive.
+3. **A gain smaller than the noise doesn't count.** An improvement smaller than the fold-to-fold scatter of the difference between two designs is not progress, even if it passes rule 1.
+4. **No model beats its labels.** Storm learns computed T<sub>c</sub>, and Hurricane learns measured T<sub>c</sub>, which scatters between repeated measurements of the same compound. 3DSC averages repeated SuperCon reports into one value per formula, so Hurricane's floor still has to be measured from another source.
+5. **Done means fit for its job.** Radar's job is routing; Storm's is ranking candidates for DFT checks, with honest uncertainty; Hurricane's is pointing to high-T<sub>c</sub> compounds in known families.
+
+| Model | Status |
+|---|---|
+| Radar 1.0 | Fit for routing materials of known families: it picks the right model for 99.5% of parent compounds it never saw (a whole family it never saw is harder, see above). Frozen; re-run only to confirm that it reproduces, or when new data arrive. |
+| Storm 5.0 | In use and still improving. Its ranges hold 90.0% overall but 84.1% for the tenth with the highest T<sub>c</sub>. The next step is screening: rank untested materials and check the top ones with DFT. |
+| Hurricane 2.0 | In use and still improving. It pulls the highest T<sub>c</sub> values down (Hg-1223: 91 K predicted, 133 K measured) and misses a family it never saw by tens of kelvin (34 K for cuprates). Round 3 works on both. |
 
 ## What the project does
 
