@@ -57,7 +57,7 @@ TOPICS = [
     ("Hydrides", r"hydride|H[_]?3S\b|LaH[_]?10|superhydride|hydrogen-rich|CeH[_]?9|YH[_]?[69]|LaBeH|LaSc[_]?2H|ternary hydride"),
     ("Moiré and 2D", r"twisted|moir[eé]|graphene|WSe[_]?2|MoTe[_]?2|rhombohedral|van der Waals|monolayer|two-dimensional"),
     ("Kagome", r"kagome|CsV[_]?3Sb[_]?5|KV[_]?3Sb[_]?5|RbV[_]?3Sb[_]?5|AV[_]?3Sb[_]?5"),
-    ("Heavy fermions", r"heavy[- ]fermion|Kondo|CeCoIn|CeRh[_]?2As|UTe[_]?2|UPt[_]?3|URhGe|UCoGe|CeCu[_]?2Si"),
+    ("Heavy fermions", r"heavy[- ]fermion|Kondo|CeCoIn|CeRh[_]?2As|UTe[_]?2|uranium ditelluride|UPt[_]?3|URhGe|UCoGe|CeCu[_]?2Si"),
     ("Triplet and ruthenates", r"Sr[_]?2RuO[_]?4|ruthenate|spin-triplet|triplet pairing|odd-parity"),
     ("Topological", r"topolog|Majorana|Kitaev"),
     ("Electron–phonon", r"electron-phonon|electron–phonon|phonon-mediated|Eliashberg|MgB[_]?2|Nb[_]?3Sn|NbTi|conventional superconduct|McMillan|Allen-Dynes"),
@@ -70,6 +70,12 @@ KINDS = {
     "experiment": r"we report|we measure|measurement|we observe|observation|ARPES|photoemission|STM\b|scanning tunnel|neutron|muon|\bμSR|\bNMR\b|resistivity|specific heat|magnetization|susceptibility|thin film|single crystal|synthes|diamond anvil|spectroscop|microscop|transport|we grow|grown",
 }
 EXCLUDE = r"qubit|transmon|fluxonium|quantum processor|quantum computer|quantum computing|error[- ]correct|quantum memory|single-photon detector|nanowire single-photon|SNSPD|resonator|readout|circuit QED|parametric amplifier|kinetic inductance detector"
+# News stories are kept but tagged "Quantum devices" when the headline is about devices or the text names one; a materials
+# story that only says it "could help build quantum computers" is not a device story.
+DEVICE_TITLE = EXCLUDE + r"|superconducting circuit|quantum information|quantum technolog"
+DEVICE_TEXT = r"qubit|transmon|fluxonium|quantum processor|quantum memory|circuit QED|single-photon detector|SNSPD|parametric amplifier|kinetic inductance detector"
+# Titles from news feeds and Crossref often carry Unicode sub- and superscripts (La₃Ni₂O₇, UTe₂); match them like plain digits.
+PLAIN_DIGITS = str.maketrans("₀₁₂₃₄₅₆₇₈₉⁰¹²³⁴⁵⁶⁷⁸⁹₊₋⁺⁻", "01234567890123456789+-+-")
 
 
 def log(msg: str) -> None:
@@ -132,6 +138,7 @@ def clean_text(s: str) -> str:
 
 
 def tags_for(text: str) -> tuple[list, str]:
+    text = text.translate(PLAIN_DIGITS)
     topics = [name for name, pat in TOPICS if re.search(pat, text, re.I)][:3]
     scores = {k: len(re.findall(p, text, re.I)) for k, p in KINDS.items()}
     kind = max(scores, key=scores.get) if max(scores.values()) > 0 else ""
@@ -268,7 +275,7 @@ def fetch_news(name: str, url: str) -> list:
             continue
         snippet = desc if len(desc) <= SNIPPET_MAX else desc[:SNIPPET_MAX].rsplit(" ", 1)[0] + "…"
         topics, _ = tags_for(title + " " + desc)
-        if re.search(EXCLUDE, title + " " + desc, re.I):
+        if re.search(DEVICE_TITLE, title, re.I) or re.search(DEVICE_TEXT, desc, re.I):
             topics = (topics + ["Quantum devices"])[:3]
         items.append({"id": link, "source": name, "title": title, "date": date, "summary": snippet, "url": link, "topics": topics})
     log(f"news, {name}: {len(items)} superconductivity items")
