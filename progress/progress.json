@@ -3,8 +3,11 @@
   "repo": "diracmagic/supercon-ml",
   "updated": "2026-10-30T20:54:08-05:00",
   "badge": "3/10 done · now: foundation model",
-  "project": "Finding high-Tc superconductors with materials foundation models",
+  "project": "Finding high-Tc superconductors with AI-designed models and materials foundation models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
+  "authors": [
+    { "name": "Yantao Li", "email": "liyant@iu.edu", "contact": true }
+  ],
   "target": {
     "date": "2026-11-23",
     "label": "Public v0.1"
