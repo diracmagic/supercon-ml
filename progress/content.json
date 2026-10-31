@@ -3,47 +3,107 @@
   "updated": "2026-10-31",
   "about": "Curated recent advances for the Supercon Progress app. Each entry needs a reference in refs (a DOI, or an https link for preprints and project pages). Entries are merged with the ones built into the app: an entry with the same ref replaces the built-in one, and refs listed in hide are removed. cards: the Theory & materials cards it belongs to (their animation ids, e.g. zr, mott, stripes, dwave, phase), or ai for the AI × superconductors view. kind: experiment, theory, computation or news. Texts are summaries in our own words.",
   "refs": {
-    "ye2026": { "t": "S. Ye et al., Nat. Phys. 22, 1401 (2026)", "d": "10.1038/s41567-026-03375-4" },
-    "luo2026": { "t": "H. Luo et al., Nature 656, 609 (2026)", "d": "10.1038/s41586-026-10857-1" },
-    "jiang2026": { "t": "H.-C. Jiang, T. P. Devereaux & S. A. Kivelson, npj Quantum Mater. 11, 80 (2026)", "d": "10.1038/s41535-026-00910-7" },
-    "chen2026": { "t": "A. Chen et al., arXiv:2610.30321 (2026), preprint", "u": "https://arxiv.org/abs/2610.30321" },
-    "yang2026": { "t": "W.-W. Yang et al., arXiv:2610.30766 (2026), preprint", "u": "https://arxiv.org/abs/2610.30766" },
-    "hurricane2026": { "t": "Hello Super: Hurricane 1.0, github.com/diracmagic/supercon-ml (2026)", "u": "https://github.com/diracmagic/supercon-ml#hurricane-the-model-for-unconventional-superconductors" },
-    "storm3_2026": { "t": "Hello Super: Storm 3.0, github.com/diracmagic/supercon-ml (2026)", "u": "https://github.com/diracmagic/supercon-ml#storm-the-model-for-conventional-superconductors" }
+    "ye2026": {
+      "t": "S. Ye et al., Nat. Phys. 22, 1401 (2026)",
+      "d": "10.1038/s41567-026-03375-4"
+    },
+    "luo2026": {
+      "t": "H. Luo et al., Nature 656, 609 (2026)",
+      "d": "10.1038/s41586-026-10857-1"
+    },
+    "jiang2026": {
+      "t": "H.-C. Jiang, T. P. Devereaux & S. A. Kivelson, npj Quantum Mater. 11, 80 (2026)",
+      "d": "10.1038/s41535-026-00910-7"
+    },
+    "chen2026": {
+      "t": "A. Chen et al., arXiv:2610.30321 (2026), preprint",
+      "u": "https://arxiv.org/abs/2610.30321"
+    },
+    "yang2026": {
+      "t": "W.-W. Yang et al., arXiv:2610.30766 (2026), preprint",
+      "u": "https://arxiv.org/abs/2610.30766"
+    },
+    "hurricane2026": {
+      "t": "Hello Super: Hurricane 1.0, github.com/diracmagic/supercon-ml (2026)",
+      "u": "https://github.com/diracmagic/supercon-ml#hurricane-the-model-for-unconventional-superconductors"
+    },
+    "storm3_2026": {
+      "t": "Hello Super: Storm 3.0, github.com/diracmagic/supercon-ml (2026)",
+      "u": "https://github.com/diracmagic/supercon-ml#storm-the-model-for-conventional-superconductors"
+    }
   },
   "recent": [
     {
-      "d": "2026-10", "k": "computation", "cards": ["ai"], "ref": "hurricane2026",
+      "d": "2026-10",
+      "k": "computation",
+      "cards": [
+        "ai"
+      ],
+      "ref": "hurricane2026",
       "h": "Hurricane 1.0: an AI-designed Tc model for unconventional superconductors",
       "x": "In this project an AI agent (Claude) proposed nine designs, trained on 2,123 measured Tc values of cuprates, iron-based, heavy-fermion and other oxide compounds from 3DSC. The winner adds physics features such as the holes per copper and the d-electron count from charge balance, and cuts the error for compounds whose parent it never saw from 15.0 K to 12.7 K, better in all five folds. A family it has never seen stays out of reach: trained without cuprates, it misses them by 35 K."
     },
     {
-      "d": "2026-10", "k": "computation", "cards": ["ai", "eliashberg"], "ref": "storm3_2026",
+      "d": "2026-10",
+      "k": "computation",
+      "cards": [
+        "ai",
+        "eliashberg"
+      ],
+      "ref": "storm3_2026",
       "h": "Storm 3.0: Storm calibrated to measured Tc",
       "x": "A small correction model, learned from 298 conventional materials with measured Tc (168 of them superconducting), maps Storm’s DFT-based prediction to experiment. The error against measurement drops from 2.2 K to 1.6 K, below the 2.5 K of the DFT labels themselves, and is lower in all five folds."
     },
     {
-      "d": "2026-10", "k": "theory", "cards": ["mott", "stripes"], "ref": "chen2026",
+      "d": "2026-10",
+      "k": "theory",
+      "cards": [
+        "mott",
+        "stripes"
+      ],
+      "ref": "chen2026",
       "h": "Neural-network wavefunctions find stripes and d-wave pairing almost tied",
       "x": "Neural tensor-network and neural backflow states, run on GPUs for Hubbard lattices of up to 1,024 sites, find that at 1/8 doping a uniform d-wave superconductor, superconducting stripes and non-superconducting stripes lie within about a thousandth of the hopping t in energy, with and without the next-nearest-neighbour hopping of hole-doped cuprates. A preprint, not yet peer reviewed."
     },
     {
-      "d": "2026-10", "k": "theory", "cards": ["zr"], "ref": "yang2026",
-      "h": "Dopants and Zhang–Rice singlets explain the 4a₀ × 2a₀ pattern",
-      "x": "Matrix-product-state calculations show that the poorly screened Coulomb pull between dopants and localized Zhang–Rice singlets in lightly doped cuprates creates dipole-like bound states inside the charge-transfer gap. With tunnelling matrix elements included they take the 4a₀ × 2a₀ shape seen in Ca₂CuO₂Cl₂. A preprint, not yet peer reviewed."
+      "d": "2026-10",
+      "k": "theory",
+      "cards": [
+        "zr"
+      ],
+      "ref": "yang2026",
+      "h": "A dopant–Zhang–Rice-singlet mechanism for the 4a₀ × 2a₀ pattern",
+      "x": "Matrix-product-state calculations of lightly doped cuprates find that the poorly screened Coulomb interaction between dopants and localized Zhang–Rice singlets favours dipole-like configurations, and that these localized holes create bound states inside the charge-transfer gap. With tunnelling matrix elements included, the bound states take the 4a₀ × 2a₀ shape seen in Ca₂CuO₂Cl₂. A preprint, not yet peer reviewed."
     },
     {
-      "d": "2026-08", "k": "experiment", "cards": ["phase"], "ref": "luo2026",
+      "d": "2026-08",
+      "k": "experiment",
+      "cards": [
+        "phase"
+      ],
+      "ref": "luo2026",
       "h": "A single CuO₂ plane still superconducts",
       "x": "A single layer of Bi₂Sr₂CuO₆₊δ (Bi-2201), which holds just one CuO₂ plane, superconducts with an optimal Tc only about 10% below that of thicker crystals. Tuning its oxygen content extends the phase diagram, and between the insulator and the superconductor an anomalous metal appears as the temperature approaches zero."
     },
     {
-      "d": "2026-07", "k": "experiment", "cards": ["zr", "dwave"], "ref": "ye2026",
-      "h": "Zhang–Rice singlets imaged hole by hole",
-      "x": "Scanning tunnelling microscopy of lightly doped Ca₂CuO₂Cl₂ shows each isolated hole as a localized Zhang–Rice singlet. With more holes they line up into rod-shaped “electronic molecules” and then gather into patches about four lattice constants across. Pairing first shows up as a U-shaped gap that turns into the V-shaped d-wave gap in larger islands."
+      "d": "2026-07",
+      "k": "experiment",
+      "cards": [
+        "zr",
+        "dwave"
+      ],
+      "ref": "ye2026",
+      "h": "Zhang–Rice singlets and the first Cooper pairs imaged in a cuprate",
+      "x": "Spectroscopic-imaging scanning tunnelling microscopy of lightly hole-doped Ca₂CuO₂Cl₂ finds that an isolated dopant binds a hole whose in-gap state has the spatial pattern of a localized Zhang–Rice singlet. With more holes, overlapping singlets form rod-shaped “electronic molecules” that gather into plaquettes about four lattice constants across. The first sign of pairing is a U-shaped gap in these molecules, which turns into the sharp V-shaped d-wave gap in extended islands."
     },
     {
-      "d": "2026-06", "k": "theory", "cards": ["mott", "stripes"], "ref": "jiang2026",
+      "d": "2026-06",
+      "k": "theory",
+      "cards": [
+        "mott",
+        "stripes"
+      ],
+      "ref": "jiang2026",
       "h": "Eight-leg Hubbard cylinders favour charge order over pairing",
       "x": "DMRG (matrix-product-state) calculations of the doped Hubbard model on eight-leg cylinders, at U = 8t and 12t and hole doping 1/12 and 1/8, find a charge-density wave with extremely short-range pairing whenever t′ ≤ 0. For t′ > 0 the result depends on the boundary conditions, so whether pairing or charge order wins in two dimensions is still open."
     }
