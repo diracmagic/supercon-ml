@@ -5305,8 +5305,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
           var nNew3 = typeof sr.candidates === 'number' ? sr.candidates - (sr.reference_id ? 1 : 0) - (sr.previous_id ? 1 : 0) : 0;
           return 'In round ' + v.round + ' an AI agent (Claude) proposed ' + (nNew3 > 0 ? nNew3 : 'several') + ' new designs built on Hurricane ' + pv.version +
             ': the same model, with compounds that have no superconductivity record added as not superconducting, at different weights. Each was scored on compounds it never learned from. ' +
-            (ok ? 'The best one cut the false alarms, compounds with no record given at least an even chance, from ' + radPct(rl.false_alarms_previous) + ' to ' + radPct(rl.false_alarms) +
-              ', with a measured-Tc error of ' + hurK(sc.tc_mae) + ' K against ' + hurK(pv.tc_mae) + ' K, and became ' + name + '.'
+            (ok ? 'The best one cut the false alarms, compounds with no record given at least an even chance, from ' + radPct(rl.false_alarms_previous) + ' to ' + (rl.false_alarms === 0 ? 'none' : radPct(rl.false_alarms)) +
+              ', with a measured-Tc error of ' + kPair(sc.tc_mae, pv.tc_mae)[0] + ' against ' + kPair(sc.tc_mae, pv.tc_mae)[1] + ', and became ' + name + '.'
               : 'None passed every test of the release rule, so Hurricane ' + pv.version + ' stays in use.');
         }
         if (pv) {   // round 2 and later: new designs built on the version in use, which is retrained on the same folds as the yardstick
