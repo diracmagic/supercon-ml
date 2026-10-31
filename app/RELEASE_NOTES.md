@@ -1,10 +1,12 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.3.4 adds:
+Version 0.3.5 adds:
 
-- **Radar, our third AI-designed model**: a new demo, *Our AI model: Radar*, animates how it decides whether a material goes to Storm or Hurricane, from its data and the eight designs our AI agent proposed to where new materials go, how often it picks the right model and what happens when a whole family is left out of training. Radar also appears with its own results in Our models, the AI × superconductors view and the model details.
-- **Storm 4.0 and the graph network**: Storm 1.0's boosted trees and our crystal-graph network together, off by 0.90 K against computed T<sub>c</sub> and 1.56 K against measured T<sub>c</sub>. The app names Storm 4.0 wherever it shows the Storm in use, and the model details show the graph network's AI-designed round 2 and the final check that released version 2.0.
-- **Fixes**: the model cards follow each model's own results, so an older status line can no longer name a version that is not in use; *Best Tc error so far* counts released models only; percentages near 100% keep one decimal; the Radar demo fits phone screens.
+- **Hurricane 2.0**: our AI agent's second round for unconventional superconductors predicts in two parts, whether a compound superconducts and its T<sub>c</sub> if it does, with 19 structure types read from the formula. It is off by 10.3 K for compounds whose parent it never saw, against 12.7 K for Hurricane 1.0 on the same folds. The model details compare it with Hurricane 1.0 and list every design of the round, and the Hurricane demo explains the two-part prediction.
+- **Storm 5.0, a 90% range for every prediction**: round 5 tells how sure Storm is. For materials it never saw, the range held the computed T<sub>c</sub> 90% of the time, and half of the ranges are narrower than 1.8 K. A new block in the model details shows the designs our AI agent proposed, the highest predictions with their ranges and how the ranges hold up against measured T<sub>c</sub>.
+- **Fixes**: clearer names for the inputs a model relies on (for example "spread of electronegativity"), the structure types by name, tables that fit phone screens, and the licences card now says that the code is under the MIT licence and our results under CC BY 4.0.
+
+Version 0.3.4 added Radar and its demo, Storm 4.0 with the graph network, and model cards that follow each model's own results.
 
 Version 0.3.3 fixed the Storm version shown everywhere, Hurricane in Our models and the licence notices.
 
