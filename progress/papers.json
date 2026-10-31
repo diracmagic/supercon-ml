@@ -1,13 +1,62 @@
 {
  "schema": 1,
- "updated": "2026-10-31T02:50:28+00:00",
- "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Science, Physical Review Letters and Physical Review X, and superconductivity news from science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
+ "updated": "2026-10-31T03:20:08+00:00",
+ "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
+ "sources": {
+  "journals": [
+   [
+    "Nature",
+    "Nature"
+   ],
+   [
+    "Science",
+    "Science"
+   ],
+   [
+    "PRL",
+    "Phys. Rev. Lett."
+   ],
+   [
+    "PRX",
+    "Phys. Rev. X"
+   ],
+   [
+    "Nat. Phys.",
+    "Nature Physics"
+   ],
+   [
+    "Nat. Mater.",
+    "Nature Materials"
+   ],
+   [
+    "Nat. Commun.",
+    "Nature Communications"
+   ],
+   [
+    "npj Quantum Mater.",
+    "npj Quantum Materials"
+   ]
+  ],
+  "news": [
+   "Nature News",
+   "ScienceDaily",
+   "Phys.org",
+   "Physics World",
+   "APS Physics",
+   "Quanta Magazine"
+  ]
+ },
  "sources_ok": [
   "arXiv",
   "Nature",
   "Science",
   "PRL",
   "PRX",
+  "Nat. Phys.",
+  "Nat. Mater.",
+  "Nat. Commun.",
+  "npj Quantum Mater.",
+  "Nature News",
   "Phys.org",
   "Physics World",
   "APS Physics",
@@ -2327,6 +2376,27 @@
    "kind": ""
   },
   {
+   "id": "10.1038/s41567-026-03504-z",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Thermodynamic demonstration of tetracriticality and multicomponent superconductivity in UTe2",
+   "authors": [
+    "Sahas Kamat",
+    "Jared Dans",
+    "Shanta Saha",
+    "et al."
+   ],
+   "n_authors": 7,
+   "date": "2026-10-30",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03504-z",
+   "doi": "10.1038/s41567-026-03504-z",
+   "topics": [
+    "Heavy fermions"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1103/vth5-lzjn",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2488,6 +2558,27 @@
    "kind": "experiment"
   },
   {
+   "id": "10.1038/s41567-026-03443-9",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Superconductivity and ferroelectric orbital magnetism in semimetallic rhombohedral hexalayer graphene",
+   "authors": [
+    "Jinghao Deng",
+    "Jiabin Xie",
+    "Hongyuan Li",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-10-21",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03443-9",
+   "doi": "10.1038/s41567-026-03443-9",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1103/6mmg-k9yp",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2549,6 +2640,28 @@
    "kind": ""
   },
   {
+   "id": "10.1038/s41567-026-03454-6",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Evidence for spin-fluctuation-mediated superconductivity in electron-doped cuprates",
+   "authors": [
+    "C. M. Duffy",
+    "S. J. Tu",
+    "Q. H. Chen",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-10-19",
+   "abstract": "In conventional, phonon-mediated superconductors, the transition temperature and the linear-in-temperature normal-state scattering rate are linked through the electron–phonon coupling strength. In cuprate high-temperature superconductors, no equivalent relationship between critical temperature and electron–boson coupling has been identified. Here we highlight such a link with electrons scattering off commensurate antiferromagnetic spin fluctuations of variable strength. We use d.c. resistivity and high-field magnetoresistance to extract the scattering rate in electron-doped La ₂− ₓ Ce ₓ CuO ₄ as a function of doping. We reveal a highly anisotropic inelastic component to the scattering rate whose magnitude diminishes markedly as doping increases. The correlation we highlight between the strength of scattering and the critical temperature then identifies low-energy spin fluctuations as the primary pairing glue in electron-doped cuprates. The contrasting magnetotransport behaviour in hole-doped cuprates suggests that the higher critical temperature in those materials cannot be attributed solely to an increase in the coupling strength to the antiferromagnetic fluctuations. The success in modelling La ₂− ₓ Ce ₓ CuO ₄ reinforces the notion that resolving the origin of high-temperature superconductivity in hole-doped cuprates may require more than a simple extension of the Bardeen–Coo",
+   "url": "https://doi.org/10.1038/s41567-026-03454-6",
+   "doi": "10.1038/s41567-026-03454-6",
+   "topics": [
+    "Cuprates",
+    "Electron–phonon"
+   ],
+   "kind": "experiment"
+  },
+  {
    "id": "10.1103/mvnb-m6fd",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2567,6 +2680,25 @@
    "topics": [
     "Moiré and 2D"
    ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-78384-1",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Orbital-driven Fulde–Ferrell–Larkin–Ovchinnikov state in a layer-locked 3D Ising superconductor",
+   "authors": [
+    "Wenliang Zhu",
+    "Qiaoyu Liu",
+    "Rui Song",
+    "et al."
+   ],
+   "n_authors": 23,
+   "date": "2026-10-16",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-78384-1",
+   "doi": "10.1038/s41467-026-78384-1",
+   "topics": [],
    "kind": ""
   },
   {
@@ -2726,6 +2858,63 @@
    "kind": ""
   },
   {
+   "id": "10.1038/s41567-026-03477-z",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Picosecond current pulses probe intrinsic limit for dissipationless transport in superconductors",
+   "authors": [],
+   "n_authors": 0,
+   "date": "2026-10-08",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03477-z",
+   "doi": "10.1038/s41567-026-03477-z",
+   "topics": [],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41467-026-78374-3",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Phase-sensitive signatures of time-reversal-symmetry-breaking superconductivity in magic-angle twisted trilayer graphene",
+   "authors": [
+    "Taehyeok Jin",
+    "Cheong-Eung Ahn",
+    "Seok Lee",
+    "et al."
+   ],
+   "n_authors": 9,
+   "date": "2026-10-07",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-78374-3",
+   "doi": "10.1038/s41467-026-78374-3",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-78020-y",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Suppression of spectral gap and flat bands on a cuprate superconductor side-surface",
+   "authors": [
+    "Gabriele Domaine",
+    "Mihir Date",
+    "Sydney K. Y. Dufresne",
+    "et al."
+   ],
+   "n_authors": 30,
+   "date": "2026-10-07",
+   "abstract": "Side surfaces of cuprate superconductors are expected to display a suppressed d -wave order parameter and zero-energy topological flat bands with a large density of states, making them susceptible to symmetry broken orders. Yet such surfaces have never been investigated with momentum-resolved, surface-sensitive probes, because high-temperature superconductors rarely cleave along them. Using focused-ion-beam milling to define a controlled breaking point, we expose pristine (110) side surfaces of overdoped La ₂− ₓ Sr ₓ CuO ₄ ( x = 0.22) suitable for angle-resolved photoemission. We do not resolve an opening or closing of a superconducting spectral gap within our energy resolution ( ~ 4 meV), in agreement with theoretical predictions. Surprisingly, the expected zero-energy flat band peak is also suppressed, despite the high topographic quality of the surface. Self-consistent Bogoliubov–de Gennes calculations show that the measured geometric roughness of the cleaved surface is too weak to eliminate these modes. The calculations further demonstrate that bulk inhomogeneities characteristic of high-temperature superconductors, modelled as moderate Anderson-type disorder, can broaden the flat-band states beyond detectability. Our results provide the first momentum-resolved view of the electronic structure on a cuprate side surface and identify disorder as a plausible mechanism obscurin",
+   "url": "https://doi.org/10.1038/s41467-026-78020-y",
+   "doi": "10.1038/s41467-026-78020-y",
+   "topics": [
+    "Cuprates",
+    "Topological"
+   ],
+   "kind": "experiment"
+  },
+  {
    "id": "10.1103/qjt6-hj2k",
    "source": "PRX",
    "journal": "Phys. Rev. X",
@@ -2745,6 +2934,90 @@
     "Heavy fermions"
    ],
    "kind": "theory"
+  },
+  {
+   "id": "10.1038/s41467-026-73360-1",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Reply to “On the Author Correction to “Magnetic field screening in hydride superconductors (Nature Comm. 13, 8144 (2024))”",
+   "authors": [
+    "V. S. Minkov",
+    "E. F. Talantsev",
+    "V. Ksenofontov",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-10-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-73360-1",
+   "doi": "10.1038/s41467-026-73360-1",
+   "topics": [
+    "Hydrides"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-73704-x",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Author Correction: Magnetic field screening in hydrogen-rich high-temperature superconductors",
+   "authors": [
+    "V. S. Minkov",
+    "E. F. Talantsev",
+    "V. Ksenofontov",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-10-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-73704-x",
+   "doi": "10.1038/s41467-026-73704-x",
+   "topics": [
+    "Hydrides"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-73705-w",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Addendum: Magnetic field screening in hydrogen-rich high-temperature superconductors",
+   "authors": [
+    "V. S. Minkov",
+    "E. F. Talantsev",
+    "S. L. Bud’ko",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-10-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-73705-w",
+   "doi": "10.1038/s41467-026-73705-w",
+   "topics": [
+    "Hydrides"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-78385-0",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Chiral-nematic Fermi liquid state as the parent state of kagome metals and superconductors",
+   "authors": [
+    "Zihao Huang",
+    "Zhan Wang",
+    "Hengxin Tan",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-10-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-78385-0",
+   "doi": "10.1038/s41467-026-78385-0",
+   "topics": [
+    "Kagome"
+   ],
+   "kind": ""
   },
   {
    "id": "10.1103/y1xf-tkm4",
@@ -2886,6 +3159,48 @@
    "kind": ""
   },
   {
+   "id": "10.1038/s41567-026-03469-z",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Probing picosecond depairing currents in type-II superconductors",
+   "authors": [
+    "E. Wang",
+    "M. Chavez-Cervantes",
+    "J. Satapathy",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-09-24",
+   "abstract": "Accessing the intrinsic critical current density in type-II superconductors can provide a means to probe microscopic superconducting properties and increase current limits in high-magnetic-field devices and electrical power systems. However, the critical current density measured using direct currents generally lies below this intrinsic limit, mainly because of vortex motion and self-heating. Here we show that picosecond electrical pulses, which act on timescales too short for vortices to move, drive supercurrents up to the intrinsic depairing limit. We probe picosecond critical currents in NbN and YBa ₂ Cu ₃ O ₇ , representative s -wave and d -wave superconductors, respectively. In NbN, we find a sharp onset of the picosecond depairing at a current density of about 2.2 times the conventional critical current density, consistent with microscopic dynamics based on Bardeen–Cooper–Schrieffer theory. By contrast, YBa ₂ Cu ₃ O ₇ exhibits a gradual suppression of superconductivity with increasing current, reflecting its d -wave symmetry. These results provide a probe of superconductors beyond the reach of conventional transport measurements. Attaining the depairing current could also support superconducting electronics operating closer to intrinsic current limits.",
+   "url": "https://doi.org/10.1038/s41567-026-03469-z",
+   "doi": "10.1038/s41567-026-03469-z",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41467-026-77988-x",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Approaching Landauer’s limit in a single superconducting vortex memory bit",
+   "authors": [
+    "Nofar Fridman",
+    "Itai Keren",
+    "Avia Noah",
+    "et al."
+   ],
+   "n_authors": 9,
+   "date": "2026-09-24",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-77988-x",
+   "doi": "10.1038/s41467-026-77988-x",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1038/s41586-026-11033-1",
    "source": "Nature",
    "journal": "Nature",
@@ -2970,6 +3285,27 @@
    "kind": "experiment"
   },
   {
+   "id": "10.1038/s41563-026-02750-z",
+   "source": "Nat. Mater.",
+   "journal": "Nature Materials",
+   "title": "Interlayer hybridization promotes superconductivity in bilayer nickelates",
+   "authors": [
+    "Shilong Zhang",
+    "Meng Zhang",
+    "Qiling Luo",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-09-23",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41563-026-02750-z",
+   "doi": "10.1038/s41563-026-02750-z",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1103/sfxm-n236",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2988,6 +3324,46 @@
    "topics": [
     "Heavy fermions",
     "Topological"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-77985-0",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Checkerboard-type Zhang-Rice states in overdoped cuprate superconductors",
+   "authors": [
+    "Xiongfang Liu",
+    "Kun Han",
+    "Yan Peng",
+    "et al."
+   ],
+   "n_authors": 16,
+   "date": "2026-09-19",
+   "abstract": "Cuprate superconductors remain central to condensed matter physics due to their technological relevance and unconventional, incompletely understood electronic behavior. While the canonical phase diagram and low-energy models have been shaped largely by studies of underdoped and moderately doped cuprates, the overdoped regime has received comparatively limited attention. Here, we track the evolution of the electronic structure from optimal to heavy overdoping in La ₂−ₓ Sr ₓ CuO ₄ (LSCO) using broadband optical spectroscopy across x = 0.15–0.60. The measured spectral changes—including the redistribution of Zhang–Rice–related spectral weight—are in qualitative agreement with determinant quantum Monte Carlo (DQMC) simulations of the three-orbital Emery model, which together indicate a pronounced reconstruction of the electronic structure beyond hole concentrations x > 0.2. Guided by these observations, we propose a spontaneous checkerboard-type Zhang–Rice electronic configuration that accounts for the coexistence of itinerant and localized carriers characteristic of the heavily overdoped state. Our results refine the doping-dependent Zhang–Rice–based framework for cuprates, illuminate how correlations persist deep into the overdoped regime, and provide new constraints on microscopic mechanisms of high-temperature superconductivity, with broader implications for correlated transitio",
+   "url": "https://doi.org/10.1038/s41467-026-77985-0",
+   "doi": "10.1038/s41467-026-77985-0",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "theory"
+  },
+  {
+   "id": "10.1038/s41467-026-76586-1",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Resonating-valence-bond superconductor from small Fermi surface in twisted bilayer graphene",
+   "authors": [
+    "Jing-Yu Zhao",
+    "Ya-Hui Zhang"
+   ],
+   "n_authors": 2,
+   "date": "2026-09-18",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-76586-1",
+   "doi": "10.1038/s41467-026-76586-1",
+   "topics": [
+    "Moiré and 2D"
    ],
    "kind": ""
   },
@@ -3077,6 +3453,47 @@
    "kind": "experiment"
   },
   {
+   "id": "10.1038/s41467-026-77618-6",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Berry curvature multipoles in Kagome superconductor CsV3Sb5",
+   "authors": [
+    "Shanshan Liu",
+    "Prasun Boyal",
+    "Enze Zhang",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-09-10",
+   "abstract": "Electronic nematic transitions in correlated systems often involve substantial reorganization of Berry curvature. Nonlinear transport measurements serve as a powerful tool for distinguishing between different types of Berry curvature multipoles that characterize nematic phases and topological changes. Herein, we systematically measured nonlinear responses up to the sixth harmonic in the Kagome superconductor CsV ₃ Sb ₅ . Our results identify the odd-order nonlinear Hall effect as the dominant signature of nematicity. During the superconducting transition, vortex dynamics induce rapid spatial variations in the phase gradient ∇ ϕ, which significantly amplify the Berry curvature quadrupole (BCQ) relative to Berry curvature dipole (BCD). The third-order nonlinear response peaks sharply near the superconducting transition, where enhanced vortex–antivortex fluctuations and nonlinear vortex dynamics amplify the BCQ-related nonlinear Hall response. First-principles calculations further support this interpretation by revealing pronounced Berry-curvature quadrupoles induced by chiral loop-current order near the Fermi level. This work establishes BCQ as a sensitive probe of electronic nematicity, particularly when enhanced by superconducting vortex dynamics.",
+   "url": "https://doi.org/10.1038/s41467-026-77618-6",
+   "doi": "10.1038/s41467-026-77618-6",
+   "topics": [
+    "Kagome",
+    "Topological",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41567-026-03462-6",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Monolayer superconductors enter the circuit",
+   "authors": [
+    "Lishu Wu"
+   ],
+   "n_authors": 1,
+   "date": "2026-09-09",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03462-6",
+   "doi": "10.1038/s41567-026-03462-6",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1103/tq9r-g727",
    "source": "PRX",
    "journal": "Phys. Rev. X",
@@ -3097,6 +3514,27 @@
     "Vortices and junctions"
    ],
    "kind": "theory"
+  },
+  {
+   "id": "10.1038/s41535-026-00937-w",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Distinct lattice and charge excitations in AV3Sb5 kagome superconductors",
+   "authors": [
+    "Dongjin Oh",
+    "Stefan Enzner",
+    "Lennart Klebl",
+    "et al."
+   ],
+   "n_authors": 15,
+   "date": "2026-08-31",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41535-026-00937-w",
+   "doi": "10.1038/s41535-026-00937-w",
+   "topics": [
+    "Kagome"
+   ],
+   "kind": ""
   },
   {
    "id": "10.1103/h5m3-qrn9",
@@ -3120,6 +3558,69 @@
    "kind": "theory"
   },
   {
+   "id": "10.1038/s41467-026-77044-8",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Higher-order electrical magnetochiral anisotropy effect in high-temperature cuprate superconductors",
+   "authors": [
+    "Jiawei Guo",
+    "Chuanshuai Huang",
+    "Jinxin Ge",
+    "et al."
+   ],
+   "n_authors": 15,
+   "date": "2026-08-25",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-77044-8",
+   "doi": "10.1038/s41467-026-77044-8",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-77045-7",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Multiple superconducting phases and order-parameter evolution in pressurized UTe2",
+   "authors": [
+    "Shuo Zou",
+    "Fengrui Shi",
+    "Zhuolun Qiu",
+    "et al."
+   ],
+   "n_authors": 27,
+   "date": "2026-08-22",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-77045-7",
+   "doi": "10.1038/s41467-026-77045-7",
+   "topics": [
+    "Heavy fermions"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-77046-6",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Confinement of superconductivity into quasi-one-dimensional channels by a super-Moiré crystal",
+   "authors": [
+    "Yingzhuo Han",
+    "Yingbo Wang",
+    "Si-yu Li",
+    "et al."
+   ],
+   "n_authors": 16,
+   "date": "2026-08-20",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-77046-6",
+   "doi": "10.1038/s41467-026-77046-6",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1038/s41586-026-11037-x",
    "source": "Nature",
    "journal": "Nature",
@@ -3135,6 +3636,46 @@
    "abstract": "",
    "url": "https://doi.org/10.1038/s41586-026-11037-x",
    "doi": "10.1038/s41586-026-11037-x",
+   "topics": [],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41563-026-02695-3",
+   "source": "Nat. Mater.",
+   "journal": "Nature Materials",
+   "title": "Bridging ambient- and high-pressure superconductivity in La2LnNi2O7 films",
+   "authors": [
+    "Motoki Osada",
+    "Chieko Terakura",
+    "Shusaku Imajo",
+    "et al."
+   ],
+   "n_authors": 12,
+   "date": "2026-08-18",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41563-026-02695-3",
+   "doi": "10.1038/s41563-026-02695-3",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-76583-4",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Gate-imprinted memory and light-induced erasure of superconductivity at KTaO3-based interfaces",
+   "authors": [
+    "Zhihao Chen",
+    "Pengxu Ran",
+    "Ming Dong Dong",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-08-18",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-76583-4",
+   "doi": "10.1038/s41467-026-76583-4",
    "topics": [],
    "kind": ""
   },
@@ -3161,6 +3702,65 @@
    "kind": "experiment"
   },
   {
+   "id": "10.1038/s41535-026-00925-0",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Superconductivity from doping symmetric mass generation insulators: application to La3Ni2O7 under pressure",
+   "authors": [
+    "Da-Chuan Lu",
+    "Miao Li",
+    "Zhao-Yi Zeng",
+    "et al."
+   ],
+   "n_authors": 7,
+   "date": "2026-08-17",
+   "abstract": "We investigate the bilayer nickelates as a platform to realize the symmetric mass generation (SMG) insulator, a featureless Mott insulator that arises due to the Lieb-Schultz-Mattis (LSM) anomaly cancellation in bilayer spin-1/2 lattice systems. Through a single-orbital bilayer square lattice model involving intralayer hopping t and interlayer superexchange interaction J , we demonstrate the emergence of high-temperature superconductivity (SC) upon doping the SMG insulator. The SC phase features s -wave interlayer spin-singlet pairing and exhibits a crossover between the Bardeen-Cooper-Schrieffer (BCS) and Bose-Einstein condensation (BEC) limits by tuning the J / t ratio. We estimate the SC transition temperature T c from both the weak and strong coupling limits at the mean-field level. Our findings offer insights into the experimentally observed decrease in T c with pressure and the strange metal behavior above T c . Additionally, we propose that both Ni 3dz² 3 d z 2 and 3dx²-y² 3 d x 2 − y 2 orbitals can exhibit superconductivity in La ₃ Ni ₂ O ₇ under pressure, but their T c should vary in opposite ways under doping. This characteristic difference suggests a potential experimental pathway to identify which electronic orbital plays the principal role in the formation of superconductivity in this system.",
+   "url": "https://doi.org/10.1038/s41535-026-00925-0",
+   "doi": "10.1038/s41535-026-00925-0",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": "theory"
+  },
+  {
+   "id": "10.1038/s41467-026-76343-4",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Orientational enhancement of surface phonon polarity in superconducting KTaO₃ interfaces",
+   "authors": [
+    "Tongying Liu",
+    "Jiashi Li",
+    "Shiyu Zhang",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-08-14",
+   "abstract": "The critical role of symmetry-breaking interfaces in mediating superconductivity has garnered increasing interest in recent years. KTaO ₃ (KTO)-based heterointerfaces present a striking example, where the superconducting transition temperature ( T c ) exhibits an intriguing dependence on KTO crystallographic orientation. Here we identify a highly anisotropic surface phonon resonance near 107 meV at KTO and KTO-based heterointerfaces using surface-specific, symmetry-sensitive nonlinear optical spectroscopy. Polarity of this phonon mode scales with crystallographic orientation as (111) > (110) ≫ (001), reaching a 35-fold enhancement over non-superconducting interfaces and tracking the superconducting T c . In addition, a softened local mode near 100 meV is observed and attributed to interfacial oxygen vacancies. Our results help build a framework linking the symmetry-breaking lattice phonons, defects, and anisotropic superconductivity for KTO and related heterointerfaces.",
+   "url": "https://doi.org/10.1038/s41467-026-76343-4",
+   "doi": "10.1038/s41467-026-76343-4",
+   "topics": [],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41467-026-76478-4",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Yu-Shiba-Rusinov-assisted Andreev transport in a molecular junction between superconductors",
+   "authors": [
+    "Cristina Mier",
+    "Alex Fétida",
+    "Roberto Robles",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-08-14",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-76478-4",
+   "doi": "10.1038/s41467-026-76478-4",
+   "topics": [],
+   "kind": "experiment"
+  },
+  {
    "id": "10.1038/s41586-026-10857-1",
    "source": "Nature",
    "journal": "Nature",
@@ -3182,6 +3782,48 @@
    "kind": ""
   },
   {
+   "id": "10.1038/s41467-026-76534-z",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "High-temperature superconductivity at 100K in La3−xNdxNi2O7",
+   "authors": [
+    "Zhengyang Qiu",
+    "Junfeng Chen",
+    "Dmitrii V. Semenok",
+    "et al."
+   ],
+   "n_authors": 15,
+   "date": "2026-08-12",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-76534-z",
+   "doi": "10.1038/s41467-026-76534-z",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-76475-7",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Long-term stability of superconducting metal superhydrides",
+   "authors": [
+    "Vasily S. Minkov",
+    "Mikhail A. Kuzovnikov",
+    "Panpan Kong",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-08-12",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-76475-7",
+   "doi": "10.1038/s41467-026-76475-7",
+   "topics": [
+    "Hydrides"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1038/s41586-026-10865-1",
    "source": "Nature",
    "journal": "Nature",
@@ -3199,6 +3841,183 @@
    "doi": "10.1038/s41586-026-10865-1",
    "topics": [],
    "kind": ""
+  },
+  {
+   "id": "10.1038/s41567-026-03430-0",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Publisher Correction: Reply to: Conductance measurements cannot distinguish crossed Andreev reflection from elastic co-tunnelling in normal–superconductor–normal junctions",
+   "authors": [
+    "Junya Feng",
+    "Henry F. Legg",
+    "Mahasweta Bagchi",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-08-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03430-0",
+   "doi": "10.1038/s41567-026-03430-0",
+   "topics": [],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41535-026-00930-3",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Robust field-free superconducting diode effect in FeTe0.55Se0.45",
+   "authors": [
+    "Peng Dong",
+    "Jinghui Wang",
+    "Yanjiang Wang",
+    "et al."
+   ],
+   "n_authors": 12,
+   "date": "2026-08-02",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41535-026-00930-3",
+   "doi": "10.1038/s41535-026-00930-3",
+   "topics": [
+    "Iron-based",
+    "Vortices and junctions"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-75922-9",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "High-field-stabilized reentrant superconductivity in infinite-layer nickelate thin films",
+   "authors": [
+    "Km Rubi",
+    "King Yau Yip",
+    "Elizabeth Krenkel",
+    "et al."
+   ],
+   "n_authors": 18,
+   "date": "2026-07-31",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-75922-9",
+   "doi": "10.1038/s41467-026-75922-9",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41467-026-75646-w",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Single-photon detection in few-layer NbSe2 superconducting nanowires",
+   "authors": [
+    "Lucio Zugliani",
+    "Alessandro Palermo",
+    "Bianca Scaparra",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-07-29",
+   "abstract": "Superconducting Nanowire Single-Photon Detectors (SNSPDs) are key building blocks for photonic quantum technologies due to their ability to detect single photons with ultra-high efficiency, low dark counts and fast temporal resolution. Superconducting materials exhibiting high uniformity, large absorption cross-section and atomic-scale thickness are desirable to extend single-photon detection from the near-infrared up to the terahertz regime, where existing material choices are especially constrained. Substrate independence would further open the way to integrating detectors onto functional materials and heterostructures, enhancing performance and enabling proximal readout of a wide range of individual excitations. Here, we pattern the prototypical two-dimensional superconductor niobium diselenide (NbSe ₂ ) into few-layer nanowires less than 100 nm wide and demonstrate single-photon detection at 780 nm and 1550 nm. At the same time, the dark-count rate remains below 1 Hz up to the switching current and we achieve a timing jitter below 50 ps. We estimate via a diffusive hot-spot model that materials and geometric parameters would allow a theoretical cut-off wavelength in the millimetre range, assuming state-of-the-art device parameters. Our results open up routes toward quantum-limited detectors integrated into quantum-photonic circuits and quantum devices, with the potential fo",
+   "url": "https://doi.org/10.1038/s41467-026-75646-w",
+   "doi": "10.1038/s41467-026-75646-w",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": "theory"
+  },
+  {
+   "id": "10.1038/s41567-026-03377-2",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Conductance measurements cannot distinguish crossed Andreev reflection from elastic co-tunnelling in normal–superconductor–normal junctions",
+   "authors": [
+    "E. S. Tikhonov",
+    "V. S. Khrapai"
+   ],
+   "n_authors": 2,
+   "date": "2026-07-28",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03377-2",
+   "doi": "10.1038/s41567-026-03377-2",
+   "topics": [],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41567-026-03393-2",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Superconductivity with a squeeze",
+   "authors": [
+    "Michael E. Ziebel"
+   ],
+   "n_authors": 1,
+   "date": "2026-07-28",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03393-2",
+   "doi": "10.1038/s41567-026-03393-2",
+   "topics": [],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41567-026-03376-3",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Reply to: Conductance measurements cannot distinguish crossed Andreev reflection from elastic co-tunnelling in normal–superconductor–normal junctions",
+   "authors": [
+    "Junya Feng",
+    "Henry F. Legg",
+    "Mahasweta Bagchi",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-07-28",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03376-3",
+   "doi": "10.1038/s41567-026-03376-3",
+   "topics": [],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41567-026-03392-3",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Superconductivity under pressure in a van der Waals heavy-fermion metal",
+   "authors": [
+    "Tong Shi",
+    "Wenhao Li",
+    "Qingxin Dong",
+    "et al."
+   ],
+   "n_authors": 13,
+   "date": "2026-07-28",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03392-3",
+   "doi": "10.1038/s41567-026-03392-3",
+   "topics": [
+    "Moiré and 2D",
+    "Heavy fermions"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-75259-3",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Nematic and chiral superconductivity emerging within the loop-current phase in kagome metals",
+   "authors": [
+    "Rina Tazai",
+    "Youichi Yamakawa",
+    "Hiroshi Kontani"
+   ],
+   "n_authors": 3,
+   "date": "2026-07-27",
+   "abstract": "The kagome metals A V ₃ Sb ₅ ( A = Cs, Rb, K) host multiple symmetry-breaking phases, including charge-density-wave and loop-current orders, and exhibit highly exotic superconductivity with pronounced nematicity and chirality. Remarkably, even dilute impurities transform this exotic superconducting state into an isotropic s -wave state. These observations pose a challenge to existing theoretical scenarios. We show that loop-current order induces nematic chiral d -wave superconductivity in kagome metals. The loop-current-induced orbital magnetization (OM) stabilizes one chiral superconducting channels. This OM-chirality coupling mechanism is generic and applies to pairing driven by either attractive or repulsive interactions. Furthermore, coexisting loop-current and bond orders give rise to pronounced nematic chiral superconductivity even for an almost C ₆ -symmetric Fermi surface. For attractive pairing, dilute impurities suppress the chiral state and restore a conventional s -wave phase, as observed experimentally. The theory further predicts a robust 2 × 2 pair-density modulation. This study provides key insights into time-reversal-symmetry-breaking exotic superconductivity in kagome metals.",
+   "url": "https://doi.org/10.1038/s41467-026-75259-3",
+   "doi": "10.1038/s41467-026-75259-3",
+   "topics": [
+    "Kagome"
+   ],
+   "kind": "theory"
   },
   {
    "id": "10.1103/466c-8sl4",
@@ -3224,6 +4043,295 @@
    "kind": "experiment"
   },
   {
+   "id": "10.1038/s41467-026-75929-2",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Synthesis of ZIF-62 Glass and Solid-state Lithium Superconductor Composite Membranes for Electrodialytic Lithium Extraction",
+   "authors": [
+    "Liang Feng",
+    "Shuhao An",
+    "Xin Wang",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-07-24",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-75929-2",
+   "doi": "10.1038/s41467-026-75929-2",
+   "topics": [],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41567-026-03372-7",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "A magnetic impurity sets off ripples in a kagome superconductor",
+   "authors": [
+    "Barun Ghosh"
+   ],
+   "n_authors": 1,
+   "date": "2026-07-22",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03372-7",
+   "doi": "10.1038/s41567-026-03372-7",
+   "topics": [
+    "Kagome"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-75635-z",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Anomalous charge density wave in a two-dimensional superatomic superconductor",
+   "authors": [
+    "Boqin Song",
+    "Shuaishuai Sun",
+    "Zhongxu Wei",
+    "et al."
+   ],
+   "n_authors": 15,
+   "date": "2026-07-22",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-75635-z",
+   "doi": "10.1038/s41467-026-75635-z",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41567-026-03396-z",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Observation of superconductivity-induced leading-edge gap in a bilayer nickelate",
+   "authors": [
+    "Wenjie Sun",
+    "Zhicheng Jiang",
+    "Bo Hao",
+    "et al."
+   ],
+   "n_authors": 15,
+   "date": "2026-07-21",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03396-z",
+   "doi": "10.1038/s41567-026-03396-z",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41467-026-75567-8",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Imaging of gate-controlled suppression of superconductivity via the Meissner effect",
+   "authors": [
+    "K. J. Knapp",
+    "U. Ognjanović",
+    "P. J. Scheidegger",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-07-18",
+   "abstract": "It was recently discovered that supercurrents flowing through thin superconducting nanowires can be quenched by applying a gate voltage to a nearby gate electrode. This gate control of supercurrents, known as the GCS effect, could enable superconducting transistor logic. Here, we report that the GCS also manifests in a suppression of Meissner screening, establishing the phenomenon as a genuine feature of superconductivity that is not restricted to transport. Using a scanning nitrogen-vacancy (NV) magnetometer at sub-Kelvin temperatures, we image the nanoscale spatial region of GCS suppression in micron-size niobium islands. Our observations are compatible with a microscopic hot-spot model of quasiparticle generation and diffusion, and in conflict with other candidate mechanisms such as Joule heating or an electric field effect. Our work introduces an alternative means for studying quasiparticle dynamics in superconducting nanostructures, and showcases the power of local imaging techniques for understanding emergent condensed matter phenomena.",
+   "url": "https://doi.org/10.1038/s41467-026-75567-8",
+   "doi": "10.1038/s41467-026-75567-8",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41467-026-75301-4",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Coexistence of high temperature superconductivity and antiferromagnetic order in a cuprate with multiple hole Fermi pockets",
+   "authors": [
+    "Xiangyu Luo",
+    "Yinghao Li",
+    "Hao Chen",
+    "et al."
+   ],
+   "n_authors": 26,
+   "date": "2026-07-17",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-75301-4",
+   "doi": "10.1038/s41467-026-75301-4",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-75566-9",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Pseudo point nodal superconducting gap in spin-triplet UTe2",
+   "authors": [
+    "S. Hosoi",
+    "K. Imamura",
+    "M. M. Bordelon",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-07-16",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-75566-9",
+   "doi": "10.1038/s41467-026-75566-9",
+   "topics": [
+    "Heavy fermions",
+    "Triplet and ruthenates"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-75261-9",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Measurement of a strong nonlinear force between superconductors compatible with the Casimir force",
+   "authors": [
+    "Matthijs H. J. de Jong",
+    "Evren Korkmazgil",
+    "Louise Banniard",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-07-16",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-75261-9",
+   "doi": "10.1038/s41467-026-75261-9",
+   "topics": [],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41467-026-75677-3",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Mixed triplet-singlet order parameter in decoupled superconducting 1H monolayers of transition-metal dichalcogenides",
+   "authors": [
+    "Avior Almoalem",
+    "Sajilesh K. P.",
+    "Roni Anna Gofman",
+    "et al."
+   ],
+   "n_authors": 12,
+   "date": "2026-07-16",
+   "abstract": "Understanding the emergence of unconventional superconductivity, where the order parameter deviates from simple isotropic s-wave pairing, is a central challenge in condensed matter physics. Some transition-metal dichalcogenides (TMDCs), though generally regarded as conventional superconductors, display signatures of unconventional pairing and thus provide a particularly intriguing platform to explore how exotic states arise. Here we investigate the misfit compound (SnS) ₁.₁₅ (TaS ₂ ), a heterostructure composed of alternating SnS and 1H-TaS ₂ layers. Using transport, photoemission, and scanning tunneling spectroscopy, we demonstrate that the SnS layers effectively decouple the TaS ₂ into electronically isolated 1H sheets. In this limit, the tunneling density of states on the 1H layer reveals a clear two-gap superconducting spectrum with T c ≃ 3.1 K. A theoretical model based on lack of inversion symmetry of the system and finite-range attraction reproduces the observed multi-gap structure as a mixed singlet-triplet state. These results establish misfit compounds as a powerful platform for studying unconventional superconductivity in isolated 1H layers and for realizing multiple uncoupled superconductors within a single crystal.",
+   "url": "https://doi.org/10.1038/s41467-026-75677-3",
+   "doi": "10.1038/s41467-026-75677-3",
+   "topics": [
+    "Moiré and 2D",
+    "Electron–phonon"
+   ],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41535-026-00923-2",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Gate-tunable polarity inversions and three-fold rotation symmetry of the superconducting diode effect",
+   "authors": [
+    "William F. Schiela",
+    "Melissa Mikalsen",
+    "Daniel Crawford",
+    "et al."
+   ],
+   "n_authors": 7,
+   "date": "2026-07-16",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41535-026-00923-2",
+   "doi": "10.1038/s41535-026-00923-2",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-75295-z",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Superconducting coherence boosted by outer-layer metallic screening in multilayered cuprates",
+   "authors": [
+    "Junhyeok Jeong",
+    "Kifu Kurokawa",
+    "Shiro Sakai",
+    "et al."
+   ],
+   "n_authors": 16,
+   "date": "2026-07-14",
+   "abstract": "In multilayered high- T c cuprates, the inner CuO ₂ planes (IPs) are spatially separated from dopant layers and thus remain cleaner than the outer planes (OPs). Here, we investigate five-layer (Cu,C)Ba ₂ Ca ₄ Cu ₅ O y (Cu1245) and three-layer Ba ₂ Ca ₂ Cu ₃ O ₆ (F,O) ₂ (F0223) using angle-resolved photoemission spectroscopy (ARPES) and uncover an unprecedented situation, in which only the IPs become superconducting while the OPs remain metallic at low temperatures. Our model calculations indicate that over 95% of the OP wavefunction remains confined to OP itself, rendering superconducting proximity negligible. This interlayer decoupling realizes an ideal configuration—a single superconducting CuO ₂ layer screened from the dopant layer-induced disorder by heavily overdoped metallic OPs. The clean CuO ₂ layer exhibits a large superconducting gap with coherent Bogoliubov peaks extending beyond the antiferromagnetic zone boundary, and a widely extended coherent flat band at the Brillouin zone edge. These findings introduce the “degree of screening” as a physical parameter for probing competition between pseudogap and superconductivity, and for bridging typically disordered real materials with the idealized theoretical models.",
+   "url": "https://doi.org/10.1038/s41467-026-75295-z",
+   "doi": "10.1038/s41467-026-75295-z",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "theory"
+  },
+  {
+   "id": "10.1038/s41535-026-00913-4",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Mirror-selective quasiparticle interference in bilayer nickelate superconductor",
+   "authors": [
+    "Zhongyi Zhang",
+    "Jun Zhan",
+    "Congcong Le",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-07-14",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41535-026-00913-4",
+   "doi": "10.1038/s41535-026-00913-4",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41567-026-03375-4",
+   "source": "Nat. Phys.",
+   "journal": "Nature Physics",
+   "title": "Visualization of the Zhang–Rice singlet, electronic molecules and Cooper pair formation in a cuprate superconductor",
+   "authors": [
+    "Shusen Ye",
+    "Jianfa Zhao",
+    "Zhiheng Yao",
+    "et al."
+   ],
+   "n_authors": 12,
+   "date": "2026-07-07",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41567-026-03375-4",
+   "doi": "10.1038/s41567-026-03375-4",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41535-026-00916-1",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Observation of ubiquitous charge correlations and hidden quantum critical point in hole-doped kagome superconductors",
+   "authors": [
+    "Ilija K. Nikolov",
+    "Giuseppe Allodi",
+    "Adrien Rosuel",
+    "et al."
+   ],
+   "n_authors": 12,
+   "date": "2026-07-04",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41535-026-00916-1",
+   "doi": "10.1038/s41535-026-00916-1",
+   "topics": [
+    "Kagome"
+   ],
+   "kind": "experiment"
+  },
+  {
    "id": "10.1126/science.ads0189",
    "source": "Science",
    "journal": "Science",
@@ -3244,6 +4352,27 @@
     "Vortices and junctions"
    ],
    "kind": "experiment"
+  },
+  {
+   "id": "10.1038/s41563-026-02647-x",
+   "source": "Nat. Mater.",
+   "journal": "Nature Materials",
+   "title": "Electron–phonon coupling and symmetry breaking in superconducting oxide interfaces near ferroelectric quantum criticality",
+   "authors": [
+    "Roger Guzman",
+    "Miguel Pruneda",
+    "Jean Paul Nery",
+    "et al."
+   ],
+   "n_authors": 13,
+   "date": "2026-06-30",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41563-026-02647-x",
+   "doi": "10.1038/s41563-026-02647-x",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": ""
   },
   {
    "id": "10.1038/s41586-026-10815-x",
@@ -3312,6 +4441,25 @@
    "kind": "experiment"
   },
   {
+   "id": "10.1038/s41535-026-00896-2",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Quantum phase transition between weak itinerant ferromagnetism and superconductivity induced by interstitial localized electrons in Li7Pb",
+   "authors": [
+    "Qing Lu",
+    "Zhongwei Zhang",
+    "Chi Ding",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-06-24",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41535-026-00896-2",
+   "doi": "10.1038/s41535-026-00896-2",
+   "topics": [],
+   "kind": ""
+  },
+  {
    "id": "10.1038/d41586-026-01801-4",
    "source": "Nature",
    "journal": "Nature",
@@ -3327,6 +4475,43 @@
    "doi": "10.1038/d41586-026-01801-4",
    "topics": [],
    "kind": ""
+  },
+  {
+   "id": "10.1038/s41535-026-00898-0",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Interplay between altermagnetism and superconductivity in two dimensions: intertwined symmetries and singlet-triplet mixing",
+   "authors": [
+    "Kinga Jasiewicz",
+    "Paweł Wójcik",
+    "Michał P. Nowak",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-06-15",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41535-026-00898-0",
+   "doi": "10.1038/s41535-026-00898-0",
+   "topics": [],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41535-026-00910-7",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Competition between charge-density-wave and superconducting orders on eight-leg square Hubbard cylinders",
+   "authors": [
+    "Hong-Chen Jiang",
+    "Thomas P. Devereaux",
+    "Steven A. Kivelson"
+   ],
+   "n_authors": 3,
+   "date": "2026-06-10",
+   "abstract": "The issue of whether d -wave superconductivity (SC) occurs in the square-lattice Hubbard model with U of order of the bandwidth has been one of the most debated issues to emerge from the study of high temperature SC. Here, we report variational results on eight-leg cylinders with next-nearest-neighbor hopping in the range -0.5t≤t′ ≤0.25t − 0.5 t ≤ t ′ ≤ 0.25 t with U = 8 t and 12 t and doped hole concentrations δ = 1/12 and 1/8. For t′ ≤0 t ′ ≤ 0 , the ground-state appears to be a charge-density wave (CDW) of one sort or another with SC correlations that are extremely short-ranged. In contrast, in some cases, the local magnetic order has a correlation length greater than half the cylinder width - suggestive that magnetic order might also arise in the 2D limit. For t′,>,0 t ′ > 0 , our results depend more strongly on boundary conditions (periodic vs antiperiodic), making it still harder to correctly guess whether SC or CDW correlations dominate in the 2D limit. These results were obtained employing matrix-product states with bond dimensions large enough that energy differences as small as 10 −³ t per site can be resolved.",
+   "url": "https://doi.org/10.1038/s41535-026-00910-7",
+   "doi": "10.1038/s41535-026-00910-7",
+   "topics": [],
+   "kind": "theory"
   }
  ],
  "news": [
@@ -3362,6 +4547,18 @@
    "url": "https://phys.org/news/2026-10-terahertz-distinguishes-groups-particles-superconducting.html",
    "topics": [
     "Vortices and junctions"
+   ]
+  },
+  {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.s134",
+   "source": "APS Physics",
+   "title": "Surprising Feature in a Topological Superconductor Candidate",
+   "date": "2026-10-22",
+   "summary": "Author(s): Michael Schirber A new hint of topological superconductivity has been identified in an iron-based superconductor. [Physics 19, s134] Published Thu Oct 22, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.s134",
+   "topics": [
+    "Iron-based",
+    "Topological"
    ]
   },
   {
@@ -3426,6 +4623,26 @@
    ]
   },
   {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.135",
+   "source": "APS Physics",
+   "title": "Hybrid Quantum Computer Could Simulate Both Fermions and Bosons",
+   "date": "2026-10-07",
+   "summary": "Author(s): Anthony Ciavarella Pairing superconducting qubits with microwave cavities could reduce the hardware requirements for quantum simulations of fundamental physics. [Physics 19, 135] Published Wed Oct 07, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.135",
+   "topics": [
+    "Quantum devices"
+   ]
+  },
+  {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.s122",
+   "source": "APS Physics",
+   "title": "Elucidating Superconductivity with Ultrasound",
+   "date": "2026-10-06",
+   "summary": "Author(s): Charles Day Researchers measured a crystal’s elastic modulus and sound attenuation to infer the properties of two superconducting states. [Physics 19, s122] Published Tue Oct 06, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.s122",
+   "topics": []
+  },
+  {
    "id": "https://phys.org/news/2026-10-cooper-pairs-superconducting-critical-temperature.html",
    "source": "Phys.org",
    "title": "Cooper pairs found above superconducting critical temperature in pair density waves",
@@ -3475,6 +4692,26 @@
    "topics": [
     "Vortices and junctions"
    ]
+  },
+  {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.s115",
+   "source": "APS Physics",
+   "title": "A Type-I Superconductor Breaks Time-Reversal Symmetry",
+   "date": "2026-09-23",
+   "summary": "Author(s): Rachel Berkowitz A hallmark property of unconventional superconductivity has been discovered in a type-I superconductor, whereas it’s normally observed only in type-II materials. [Physics 19, s115] Published Wed Sep 23, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.s115",
+   "topics": [
+    "Electron–phonon"
+   ]
+  },
+  {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.127",
+   "source": "APS Physics",
+   "title": "Collimating Positrons with Superconducting Magnets",
+   "date": "2026-09-18",
+   "summary": "Author(s): Sam Jarman A recent experiment points the way toward making the intense, energetic beams of positrons needed for next-generation electron–positron colliders. [Physics 19, 127] Published Fri Sep 18, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.127",
+   "topics": []
   },
   {
    "id": "https://phys.org/news/2026-09-chemists-overturn-year-assumption-key.html",
@@ -3559,6 +4796,15 @@
    "topics": []
   },
   {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.s109",
+   "source": "APS Physics",
+   "title": "How a Superconductor Broke the Record",
+   "date": "2026-09-01",
+   "summary": "Author(s): Marric Stephens Researchers have identified the reason a high-pressure, high-temperature superconductor outperforms other similar compounds. [Physics 19, s109] Published Tue Sep 01, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.s109",
+   "topics": []
+  },
+  {
    "id": "https://phys.org/news/2026-08-high-magnetic-fields-revive-superconductivity.html",
    "source": "Phys.org",
    "title": "High magnetic fields revive superconductivity in nickelates",
@@ -3589,6 +4835,44 @@
     "Nickelates",
     "Electron–phonon"
    ]
+  },
+  {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.s106",
+   "source": "APS Physics",
+   "title": "A New Spin on Superconductivity",
+   "date": "2026-08-19",
+   "summary": "Author(s): Marric Stephens Researchers have made the first definitive measurements of an elusive superconducting state. [Physics 19, s106] Published Wed Aug 19, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.s106",
+   "topics": []
+  },
+  {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.114",
+   "source": "APS Physics",
+   "title": "Bilayer Graphene’s Magic Revealed",
+   "date": "2026-08-17",
+   "summary": "Author(s): Efthimios Kaxiras New experiments suggest that superconductivity in twisted bilayer graphene depends on an unconventional electron-pairing mechanism. [Physics 19, 114] Published Mon Aug 17, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.114",
+   "topics": [
+    "Moiré and 2D"
+   ]
+  },
+  {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.s103",
+   "source": "APS Physics",
+   "title": "A New Window into Atom-Thin Superconductors",
+   "date": "2026-08-11",
+   "summary": "Author(s): Ryan Wilkinson A key property of superconductors called superfluid stiffness can now be measured in a wide range of 2D systems. [Physics 19, s103] Published Tue Aug 11, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.s103",
+   "topics": []
+  },
+  {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.s90",
+   "source": "APS Physics",
+   "title": "A Map to a Long-Sought Quantum Simulator",
+   "date": "2026-07-21",
+   "summary": "Author(s): Ryan Wilkinson Ultracold atoms in an optical lattice could emulate a prominent model of quantum matter linked to black holes and high-temperature superconductors. [Physics 19, s90] Published Tue Jul 21, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.s90",
+   "topics": []
   }
  ]
 }
