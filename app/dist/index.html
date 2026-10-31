@@ -576,13 +576,14 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .cand-viewer { order: 2; position: sticky; top: 12px; min-width: 0; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
 .cand-list { order: 1; list-style: none; margin: 0; padding: 0; min-width: 0; }
 @media (max-width: 1099px) { .cand-body { grid-template-columns: minmax(0, 1fr); } .cand-viewer { order: 0; position: static; } }
-.cand-row { display: grid; grid-template-columns: 22px 56px minmax(0, 1fr) 112px 84px minmax(104px, 150px); gap: 2px 12px; align-items: center; padding: 8px 6px; border-top: 1px solid var(--grid); border-radius: 8px; font-size: 13px; min-width: 0; }
+.cand-row { display: grid; grid-template-columns: 22px 56px minmax(0, 1fr) 104px 76px 64px minmax(96px, 140px); gap: 2px 12px; align-items: center; padding: 8px 6px; border-top: 1px solid var(--grid); border-radius: 8px; font-size: 13px; min-width: 0; }
 .cand-row.is-sel { background: var(--accent-wash); }
 .cand-headrow { align-items: end; border-top: 0; border-bottom: 1px solid var(--axis); border-radius: 0; padding: 4px 6px 6px; font-size: 12px; font-weight: 600; color: var(--ink-2); }
 .cand-headrow + .cand-row { border-top: 0; }
 .cand-rank { color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
 .cand-main { min-width: 0; overflow-wrap: anywhere; }
-.cand-tc, .cand-cal { text-align: right; font-variant-numeric: tabular-nums; }
+.cand-list.is-hur .cand-row { grid-template-columns: 22px 56px minmax(0, 1fr) 128px 64px minmax(96px, 140px); }
+.cand-tc, .cand-cal, .cand-p { text-align: right; font-variant-numeric: tabular-nums; }
 .cand-row .cand-label { display: none; }
 .cand-thumb { display: block; width: 56px; height: 56px; padding: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); cursor: pointer; }
 .cand-thumb:hover { border-color: var(--axis); }
@@ -592,8 +593,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 @media (max-width: 640px) {
   .cand-headrow { display: none; }
   .cand-row { grid-template-columns: 16px 52px minmax(0, 1fr) auto; align-items: start; gap: 2px 10px; padding: 8px 4px; }
-  .cand-row .cand-thumb { grid-row: span 3; width: 52px; height: 52px; }
-  .cand-row .cand-cal, .cand-row .cand-check { grid-column: 3 / 5; text-align: left; font-size: 12px; color: var(--ink-2); }
+  .cand-row .cand-thumb { grid-row: span 4; width: 52px; height: 52px; }
+  .cand-list.is-hur .cand-row { grid-template-columns: 16px 52px minmax(0, 1fr) auto; }
+  .cand-row .cand-cal, .cand-row .cand-p, .cand-row .cand-check { grid-column: 3 / 5; text-align: left; font-size: 12px; color: var(--ink-2); }
   .cand-row .cand-label { display: inline; }
   .cand-headrow + .cand-row { border-top: 0; }
 }
@@ -628,6 +630,68 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .xt-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; }
 .xt-nav .btn[disabled] { opacity: 0.45; cursor: default; }
 .xt-hint { font-size: 11.5px; color: var(--muted); text-align: center; }
+/* Cite: how to cite the project, and who cites it */
+.cite-text { margin: 0 0 10px; padding: 10px 12px; border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; background: var(--accent-wash); font-size: 13.5px; line-height: 1.55; color: var(--ink); overflow-wrap: anywhere; }
+.cite-bib { margin: 0 0 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); font-family: var(--mono); font-size: 12px; line-height: 1.5; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+.cite-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.cite-list { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.55; }
+.cite-list li + li { margin-top: 6px; }
+.cite-none { font-size: 13px; color: var(--ink-2); }
+.cite-foot { margin: 0 2px; }
+.authors { display: flex; flex-direction: column; gap: 16px; margin-bottom: 12px; }
+.authors .lic-card { margin-top: 0; }
+/* Write to us */
+.ct-form { display: grid; gap: 6px; max-width: 560px; }
+.ct-form label { margin-top: 4px; font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+.ct-opt { font-weight: 400; color: var(--muted); }
+.ct-form input[type="text"], .ct-form input[type="email"], .ct-form textarea, .ct-form select { width: 100%; min-width: 0; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; font-size: 14px; }
+.ct-form textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+.ct-form input:focus-visible, .ct-form textarea:focus-visible, .ct-form select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.ct-form textarea::placeholder { color: var(--muted); }
+#contact-card { scroll-margin-top: 12px; }
+.ct-trap { display: none; }
+.ct-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 6px; }
+.ct-actions .btn[disabled] { opacity: 0.6; cursor: default; }
+.ct-status { font-size: 12.5px; color: var(--ink-2); }
+/* the two candidate lists: conventional (Storm) and unconventional (Hurricane) */
+.cand-seg { margin: 0 0 12px; flex-wrap: wrap; }
+.cand-seg button { display: inline-flex; align-items: baseline; gap: 0.3em; padding: 6px 12px; font-size: 13px; }
+.cand-seg b { font-weight: 600; }
+.cand-seg-sub { color: var(--muted); }
+.cand-seg button[aria-pressed="true"] .cand-seg-sub { color: var(--ink-2); }
+.cand-seg-n { margin-left: 4px; padding: 0 6px; border-radius: 9px; background: var(--grid); color: var(--ink-2); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .cand-seg { display: flex; } .cand-seg button { flex: 1 1 100%; } }
+/* the McMillan limit (about 40 K): candidates predicted or found above it */
+.cand-row.is-mcm { box-shadow: inset 3px 0 0 var(--warm); }
+.cand-mcm { display: inline-block; margin-top: 4px; padding: 1px 8px; border: 1px solid var(--warm); border-radius: 10px; background: var(--accent-wash); background: color-mix(in srgb, var(--warm) 10%, transparent); color: var(--ink); font-size: 11.5px; font-weight: 600; line-height: 1.5; }
+.cand-mcm.is-done { background: var(--warm); color: #141414; }
+.cand-mcm-banner { margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--warm); border-radius: 10px; background: var(--accent-wash); background: color-mix(in srgb, var(--warm) 8%, var(--surface)); font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+.cand-mcm-banner.is-done { border-width: 2px; }
+.cand-mcm-banner p { margin: 0; }
+.cand-mcm-banner b { color: var(--ink); }
+.cand-mcm-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.cand-mcm-chip { border-color: var(--warm); }
+.cand-mcm-chip.is-done { background: var(--warm); color: #141414; }
+.cand-mcm-chip sub, .cand-mcm sub { font-size: 0.72em; }
+.xt-mcm { margin: 6px 0 0; padding: 6px 9px; border-left: 3px solid var(--warm); border-radius: 0 6px 6px 0; background: var(--accent-wash); background: color-mix(in srgb, var(--warm) 8%, transparent); font-size: 12.5px; line-height: 1.5; color: var(--ink); }
+/* the remarks that go with every candidate, folded away until clicked */
+.xt-remarks { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--grid); }
+.cand-remarks { margin-top: 2px; }
+.xt-remarks > summary, .cand-remarks > summary { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; list-style: none; font-size: 12px; font-weight: 600; color: var(--ink-2); border-radius: 4px; }
+.xt-remarks > summary::-webkit-details-marker, .cand-remarks > summary::-webkit-details-marker { display: none; }
+.xt-remarks > summary::before, .cand-remarks > summary::before { content: '▸'; display: inline-block; font-size: 10px; transition: transform 0.15s; }
+.xt-remarks[open] > summary::before, .cand-remarks[open] > summary::before { transform: rotate(90deg); }
+.xt-remarks > summary:focus-visible, .cand-remarks > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cand-remarks-n { font-weight: 400; color: var(--muted); }
+.cand-remarks .xt-notes { margin-top: 2px; }
+@media (prefers-reduced-motion: reduce) { .xt-remarks > summary::before, .cand-remarks > summary::before { transition: none; } }
+.xt-notes { list-style: none; margin: 0; padding: 0; font-size: 12px; line-height: 1.45; color: var(--ink-2); }
+.xt-notes li { position: relative; margin: 4px 0; padding-left: 14px; }
+.xt-notes li::before { content: ''; position: absolute; left: 2px; top: 0.5em; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+.xt-notes li.is-warn::before { background: var(--warm); }
+.xt-notes li.is-ok::before { background: var(--good); }
+.xt-notes li.is-date::before { background: var(--accent); }
+.xt-notes sub { font-size: 0.72em; }
 </style>
 </head>
 <body>
@@ -656,7 +720,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       <button id="view-learn" type="button" role="tab" aria-selected="false"><span class="lbl-long">Theory &amp; materials</span><span class="lbl-short">Learn</span></button>
       <button id="view-papers" type="button" role="tab" aria-selected="false"><span class="lbl-long">News &amp; papers</span><span class="lbl-short">News</span></button>
       <button id="view-ai" type="button" role="tab" aria-selected="false"><span class="lbl-long">AI × superconductors</span><span class="lbl-short">AI</span></button>
-      <button id="view-authors" type="button" role="tab" aria-selected="false">Authors</button>
+      <button id="view-authors" type="button" role="tab" aria-selected="false">Cite</button>
     </div>
     <div class="controls">
       <span class="stamp"><i id="live-dot" class="live-dot"></i><span id="stamp"></span></span>
@@ -708,7 +772,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 (function () {
   'use strict';
 
-  var APP_VERSION = '0.3.6';
+  var APP_VERSION = '0.3.7';
   var REPO = 'diracmagic/supercon-ml';
   var BRANCH = 'main';
   var REPO_URL = 'https://github.com/' + REPO;
@@ -2678,12 +2742,17 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       x: 'Open-source language models, fine-tuned on 78,203 literature records that an LLM workflow extracted, screened the GNoME database and flagged unreported materials with predicted Tc above 10 K; the authors stress that the candidates are unverified.' }
   ];
   var AI_WATCH = AI_WATCH_BUILTIN.slice();
+  // published work that cites supercon-ml, newest first (progress/content.json "cited_by"); the Cite view lists it
+  var CITED_BY = [];
+  // the message form's delivery service (progress/content.json "contact"): a Web3Forms access key or a Formspree form id;
+  // the inbox it delivers to is set up with the service and never appears in the app or the repository
+  var CONTACT = null;
   var AI_FOUND_NOTE = { x: 'All of these superconduct below 10 K; as far as we know, no higher-Tc candidate proposed by an AI model has been confirmed yet. Making the predicted compound is often the hard part: in a 2026 diffusion-model study, most of the synthesized candidates did not form the predicted structure.', ref: 'prakash2026' };
 
   function cText(s, max) { return typeof s === 'string' ? s.replace(/[\u0000-\u001f]/g, ' ').slice(0, max) : ''; }
   function applyContent(d) {
     if (!d || typeof d !== 'object' || !Array.isArray(d.recent)) return false;
-    var key = JSON.stringify([d.updated, d.recent.length, list(d.hide).length, Object.keys(d.refs || {}).length, list(d.found).length, list(d.watch).length]);
+    var key = JSON.stringify([d.updated, d.recent.length, list(d.hide).length, Object.keys(d.refs || {}).length, list(d.found).length, list(d.watch).length, list(d.cited_by).length, d.contact || null]);
     if (key === contentState.applied) return false;
     var refs = d.refs && typeof d.refs === 'object' ? d.refs : {};
     Object.keys(refs).slice(0, 200).forEach(function (k) {
@@ -2719,6 +2788,16 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     AI_FOUND.length = 0;
     Array.prototype.push.apply(AI_FOUND, found.length ? found : AI_FOUND_BUILTIN);
     if (Array.isArray(d.watch)) { AI_WATCH.length = 0; Array.prototype.push.apply(AI_WATCH, watch); }
+    CITED_BY.length = 0;
+    list(d.cited_by).slice(0, 100).forEach(function (r) {
+      if (!r || typeof r.t !== 'string' || !r.t.trim()) return;
+      var doi = typeof r.d === 'string' && /^10\.\d{4,9}\/\S+$/.test(r.d) ? r.d : '', url = isHttps(r.u) ? r.u : '';
+      CITED_BY.push({ t: cText(r.t, 300), url: doi ? 'https://doi.org/' + doi : url, y: /^\d{4}(-\d{2}){0,2}$/.test(String(r.y || '')) ? String(r.y) : '',
+        what: cText(typeof r.what === 'string' ? r.what : '', 200) });
+    });
+    var ct = d.contact && typeof d.contact === 'object' ? d.contact : {};
+    CONTACT = ct.service === 'web3forms' && typeof ct.key === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(ct.key) ? { service: 'web3forms', key: ct.key } :
+      ct.service === 'formspree' && typeof ct.form === 'string' && /^[a-z0-9]{6,16}$/i.test(ct.form) ? { service: 'formspree', form: ct.form } : null;
     contentState.applied = key;
     contentState.updated = typeof d.updated === 'string' ? d.updated : '';
     return true;
@@ -2727,6 +2806,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (paperState.built) renderAdvances();
     if (learn.built) { learn.built = false; if (view === 'learn') { buildLearn(); miniKick(); } }
     if (aiState.built) { renderAIFound(); renderAICurated(); }
+    if (view === 'authors') renderAuthors();
   }
   function loadContent(force) {
     if (contentState.busy || (!force && Date.now() - contentState.at < 10 * 60 * 1000)) return Promise.resolve();
@@ -9309,7 +9389,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   }
 
   /* ---------- Authors: the people behind the project. progress.json can list more ("authors") without a new app release ---------- */
-  var AUTHORS = [{ name: 'Yantao Li', email: 'liyant@iu.edu', contact: true }];
+  // who the authors are stays hidden for now: none are built in, and progress.json "authors" can list them again later
+  var AUTHORS = [];
   var EMAIL_OK = /^[^\s@<>()"',;:\\]+@[^\s@<>()"',;:\\]+\.[A-Za-z]{2,}$/;
   function nameSeed(name) { var h = 7; for (var i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 99991; return h; }
   function authorList(d) {
@@ -9320,7 +9401,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         contact: a.contact === true, url: isHttps(a.url) ? a.url : '',
         tree: typeof av.tree === 'number' && isFinite(av.tree) ? Math.abs(Math.round(av.tree)) % 99991 : nameSeed(name) };
     });
-    return out.length ? out : authorList({ authors: AUTHORS });
+    return out;
   }
 
   // Every author gets a pencil sketch of a tree, grown from a seed (their name unless progress.json picks one). It is drawn
@@ -9651,7 +9732,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function copyText(text, btn) {
     var label = btn.textContent;
     function done(ok) {
-      btn.textContent = ok ? 'Copied' : 'Select the address to copy it';
+      btn.textContent = ok ? 'Copied' : 'Select the text to copy it';
       setTimeout(function () { btn.textContent = label; }, 1800);
     }
     function fallback() {
@@ -9667,40 +9748,147 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     else fallback();
   }
 
+  /* ---------- Cite: how to cite the project, and the published work that cites it ----------
+     This view showed the authors until version 0.3.7; who they are stays hidden for now (AUTHORS and progress.json
+     "authors" are kept for later). The citation names the project, and every "tell us" link in the app leads to the
+     message form below, which shows neither a name nor an address. */
   var authorsState = { sig: '' };
+  var CITE_TITLE = 'supercon-ml: finding superconductors with AI-designed models';
+  function citeYear() { var m = /^(\d{4})/.exec(String((state.data && state.data.updated) || '')); return m ? m[1] : '2026'; }
+  function citeToday() { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function citeText() { return 'The supercon-ml project (' + citeYear() + '). ' + CITE_TITLE + '. GitHub repository, ' + REPO_URL + ' (accessed ' + citeToday() + ').'; }
+  function citeBib() {
+    return '@misc{supercon_ml,\n  author       = {{The supercon-ml project}},\n  title        = {{supercon-ml}: finding superconductors with {AI}-designed models},\n' +
+      '  year         = {' + citeYear() + '},\n  howpublished = {GitHub repository, \\url{' + REPO_URL + '}},\n  note         = {Accessed ' + citeToday() + '}\n}';
+  }
   function renderAuthors() {
     var el = $('#authors');
     if (!el) return;
-    var people = authorList(state.data), sig = JSON.stringify(people);
+    var ex = candRows(state.data && state.data.screen).rows[0], sc = state.data && state.data.screen;
+    var sig = JSON.stringify([citeYear(), citeToday(), CITED_BY.map(function (c) { return c.t + c.url + c.y; }).join('|'), ex ? candId(ex) : '', sc && sc.round, CONTACT]);
     if (sig === authorsState.sig && el.firstChild) return;
     authorsState.sig = sig;
     clear(el);
     miniPrune();
-    var ul = h('ul', { class: 'author-list' });
-    people.forEach(function (a) {
-      var mail = a.email ? 'mailto:' + a.email + '?subject=' + encodeURIComponent('supercon-ml') : '';
-      var copy = null;
-      if (a.email) {
-        copy = h('button', { class: 'btn small', type: 'button', 'aria-label': 'Copy the email address of ' + a.name }, 'Copy');
-        copy.addEventListener('click', function () { copyText(a.email, copy); });
-      }
-      var cv = miniCanvas(treeKind(a.tree));
-      cv.setAttribute('aria-label', 'Animated pencil sketch of a tree, the avatar of ' + a.name);
-      ul.appendChild(h('li', { class: 'author' },
-        h('div', { class: 'author-avatar' }, cv),
-        h('div', { class: 'author-body' },
-          h('div', { class: 'author-top' }, h('h3', { text: a.name }), a.contact ? h('span', { class: 'tag', text: 'Contact' }) : null),
-          a.role ? h('p', { class: 'author-role', text: a.role }) : null,
-          a.email ? h('p', { class: 'author-mail' }, glyph('mail', 'author-glyph'), h('a', { href: mail, text: a.email }), copy) : null,
-          a.url ? h('p', { class: 'author-url' }, h('a', { href: a.url, text: a.url.replace(/^https:\/\//, '').replace(/\/$/, '') })) : null)));
-    });
-    var contact = people.filter(function (a) { return a.contact && a.email; })[0];
-    append(el, [h('section', { class: 'card' },
-      cardHead('Authors', contact ? 'Questions, ideas or collaboration? Write to ' + contact.name + '.' : 'The people behind supercon-ml.'),
-      ul,
-      h('p', { class: 'note' }, 'Code, data and every training run are public on ', h('a', { href: REPO_URL, text: 'GitHub' }),
-        '. Found a problem in the app? ', h('a', { href: REPO_URL + '/issues', text: 'Open an issue' }), '.')), licencesCard()]);
-    miniKick();
+    var text = citeText(), bib = citeBib();
+    var copyCite = h('button', { class: 'btn small', type: 'button' }, 'Copy the citation');
+    copyCite.addEventListener('click', function () { copyText(text, copyCite); });
+    var copyBib = h('button', { class: 'btn small', type: 'button' }, 'Copy BibTeX');
+    copyBib.addEventListener('click', function () { copyText(bib, copyBib); });
+    var exl = ex && ex.listed && /^\d{4}-\d{2}-\d{2}$/.test(String(ex.listed.date)) ? ex.listed : null;
+    var example = ex ? ', for example: ' + ex.formula + ', Screening round ' + ((exl && exl.round) || (sc && sc.round) || 1) + (ex.id ? ', ' + ex.id : '') + (exl ? ', first listed ' + fmtDayISO(exl.date) : '') : '';
+    var cite = h('section', { class: 'card cite-card' },
+      cardHead('How to cite', 'If you use our models, predictions, candidate list or code, please cite the project.'),
+      h('p', { class: 'cite-text', id: 'cite-text' }, text),
+      h('pre', { class: 'cite-bib', id: 'cite-bib' }, bib),
+      h('div', { class: 'cite-actions' }, copyCite, copyBib),
+      richText(h('p', { class: 'note' }, ''), 'To cite one of our candidate superconductors, also give its name, the screening round that first listed it, its JARVIS ID and the date' + example +
+        '. Every screening round is dated in the repository, so its history records when each candidate was first proposed.'),
+      h('p', { class: 'note' }, 'GitHub’s “Cite this repository” button on the ', h('a', { href: REPO_URL, text: 'repository page' }), ' gives the same citation. Please also cite the data we build on, listed below.'));
+    var cited = h('section', { class: 'card cite-card', id: 'cited-by' },
+      cardHead('Cited by', CITED_BY.length ? 'Published work that cites supercon-ml, newest first.' : 'Published work that cites supercon-ml is listed here.'));
+    if (CITED_BY.length) {
+      var ol = h('ol', { class: 'cite-list' });
+      CITED_BY.forEach(function (c) {
+        ol.appendChild(h('li', null, c.url ? h('a', { href: c.url, text: c.t }) : h('span', { text: c.t }), c.y ? ' (' + c.y + ')' : '',
+          c.what ? h('div', { class: 'dt-cell-sub', text: c.what }) : null));
+      });
+      cited.appendChild(ol);
+    } else cited.appendChild(h('p', { class: 'cite-none', text: 'No published work cites supercon-ml yet.' }));
+    cited.appendChild(h('p', { class: 'note' }, 'Cited supercon-ml? ', contactLink('Tell us', 'citation'), ' and we will list your work here.'));
+    append(el, [cite, cited, contactCard(), licencesCard(),
+      h('p', { class: 'note cite-foot' }, 'Code, data and every training run are public on ', h('a', { href: REPO_URL, text: 'GitHub' }),
+        '. Questions, ideas or a problem in the app? ', contactLink('Write to us', 'question'), '.')]);
+  }
+  /* ---------- Write to us: a message form that delivers to the project's inbox without showing its address ----------
+     It sends once progress/content.json names a delivery service ("contact"); until that loads, the card says so. A draft
+     survives a re-render, and every "tell us" link in the app opens the form with its topic chosen. */
+  var CONTACT_TOPICS = [
+    ['question', 'A question or an idea', 'Your question or idea'],
+    ['candidate', 'An earlier report of a candidate', 'Which material, and where was it reported or predicted before? A DOI or a link helps.'],
+    ['citation', 'A work that cites supercon-ml', 'The title of the work, and a DOI or a link'],
+    ['problem', 'A problem in the app', 'What happened, and where: the desktop app or the web app?'],
+    ['experiment', 'Measuring one of our candidates', 'Which candidate, and what you could do: grow a sample, measure resistivity or susceptibility, ...'],
+    ['collab', 'A collaboration', 'What you have in mind'],
+    ['other', 'Something else', '']];
+  var contactState = { busy: false, draft: { topic: 'question', name: '', email: '', msg: '' }, status: '' };
+  var CONTACT_SERVICE = { web3forms: 'Web3Forms', formspree: 'Formspree' };
+  function contactTopic(k) { return CONTACT_TOPICS.filter(function (t) { return t[0] === k; })[0] || CONTACT_TOPICS[0]; }
+  // a link anywhere in the app that opens the message form on the Cite view
+  function contactLink(text, topic) {
+    return h('a', { href: '#contact-card', class: 'ct-go', onclick: function (e) { e.preventDefault(); contactGo(topic); } }, text);
+  }
+  function contactGo(topic) {
+    var dr = contactState.draft;
+    if (topic) dr.topic = contactTopic(topic)[0];
+    contactState.status = '';
+    if (view !== 'authors') setView('authors'); else renderAuthors();
+    var card = $('#contact-card'), sel = $('#ct-topic'), msg = $('#ct-msg'), st = $('#contact-card .ct-status');
+    if (sel) { sel.value = dr.topic; contactHint(); }
+    if (st) st.textContent = '';
+    if (!card) return;
+    card.scrollIntoView({ block: 'start', behavior: motionOK() ? 'smooth' : 'auto' });
+    // on a phone, focusing the box would open the keyboard before the reader has seen the form
+    if (msg && window.matchMedia && window.matchMedia('(pointer: fine)').matches) { try { msg.focus({ preventScroll: true }); } catch (err) { msg.focus(); } }
+  }
+  function contactHint() {
+    var msg = $('#ct-msg');
+    if (msg) msg.setAttribute('placeholder', contactTopic(contactState.draft.topic)[2]);
+  }
+  function contactCard() {
+    var head = cardHead('Write to us', 'Questions, ideas, a correction or a collaboration: your message goes straight to the project’s inbox.');
+    if (!CONTACT) {
+      return h('section', { class: 'card', id: 'contact-card' }, head,
+        h('p', { class: 'note' }, 'The message form loads with the app’s online content, which has not arrived yet. ',
+          h('button', { class: 'btn small', type: 'button', onclick: function () { loadContent(true); } }, 'Try again')));
+    }
+    var dr = contactState.draft;
+    var topic = h('select', { id: 'ct-topic' });
+    CONTACT_TOPICS.forEach(function (t) { topic.appendChild(h('option', { value: t[0], text: t[1] })); });
+    var name = h('input', { type: 'text', id: 'ct-name', maxlength: '100', autocomplete: 'name' });
+    var mail = h('input', { type: 'email', id: 'ct-email', maxlength: '200', autocomplete: 'email', inputmode: 'email' });
+    var msg = h('textarea', { id: 'ct-msg', rows: '5', maxlength: '4000', placeholder: contactTopic(dr.topic)[2] });
+    topic.value = contactTopic(dr.topic)[0]; name.value = dr.name; mail.value = dr.email; msg.value = dr.msg;
+    topic.addEventListener('change', function () { dr.topic = topic.value; msg.setAttribute('placeholder', contactTopic(dr.topic)[2]); });
+    [['name', name], ['email', mail], ['msg', msg]].forEach(function (p) { p[1].addEventListener('input', function () { dr[p[0]] = p[1].value; }); });
+    var trap = h('input', { type: 'checkbox', class: 'ct-trap', tabindex: '-1', autocomplete: 'off', 'aria-hidden': 'true' });
+    var status = h('p', { class: 'ct-status', role: 'status', 'aria-live': 'polite', text: contactState.status });
+    var send = h('button', { class: 'btn primary', type: 'submit', disabled: contactState.busy }, 'Send');
+    var form = h('form', { class: 'ct-form', novalidate: true },
+      h('label', { for: 'ct-topic' }, 'About'), topic,
+      h('label', { for: 'ct-name' }, 'Your name ', h('span', { class: 'ct-opt', text: '(optional)' })), name,
+      h('label', { for: 'ct-email' }, 'Your email ', h('span', { class: 'ct-opt', text: '(optional, so that we can reply)' })), mail,
+      h('label', { for: 'ct-msg' }, 'Message'), msg, trap,
+      h('div', { class: 'ct-actions' }, send, status));
+    form.addEventListener('submit', function (e) { e.preventDefault(); contactSend({ form: form, topic: topic, name: name, mail: mail, msg: msg, trap: trap, status: status, send: send }); });
+    return h('section', { class: 'card', id: 'contact-card' }, head, form,
+      h('p', { class: 'note' }, 'We use your email address only to reply. ' + CONTACT_SERVICE[CONTACT.service] + ' delivers the message; the inbox address is not shown here.'));
+  }
+  function contactSay(f, text) { contactState.status = text; f.status.textContent = text; }
+  function contactSend(f) {
+    var c = CONTACT, text = f.msg.value.trim(), email = f.mail.value.trim(), name = f.name.value.trim(), about = contactTopic(f.topic.value)[1];
+    if (!c || contactState.busy) return;
+    if (f.trap.checked) { contactSay(f, 'Sent. Thank you!'); return; }   // a robot ticked the hidden box: drop it quietly
+    if (text.length < 5) { contactSay(f, 'Please write a message first.'); f.msg.focus(); return; }
+    if (email && !EMAIL_OK.test(email)) { contactSay(f, 'That email address does not look right.'); f.mail.focus(); return; }
+    contactState.busy = true;
+    f.send.disabled = true;
+    contactSay(f, 'Sending…');
+    var subject = 'supercon-ml: ' + about.charAt(0).toLowerCase() + about.slice(1);
+    var body = 'About: ' + about + '\n\n' + text + '\n\n(sent from the supercon-ml ' + (isDesktop() ? 'desktop' : 'web') + ' app, version ' + APP_VERSION + ')';
+    var req = c.service === 'web3forms' ?
+      { url: 'https://api.web3forms.com/submit', body: { access_key: c.key, subject: subject, from_name: 'supercon-ml app', name: name || 'Anonymous', email: email || undefined, message: body, botcheck: false } } :
+      { url: 'https://formspree.io/f/' + c.form, body: { _subject: subject, name: name || 'Anonymous', email: email || undefined, message: body } };
+    fetch(req.url, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(req.body) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && (j.success === true || j.ok === true), j: j }; }); })
+      .then(function (res) {
+        if (res.ok) {
+          contactState.draft = { topic: contactState.draft.topic, name: '', email: '', msg: '' };
+          f.name.value = ''; f.mail.value = ''; f.msg.value = '';
+          contactSay(f, 'Sent. Thank you!');
+        } else contactSay(f, 'It did not go through' + (res.j && typeof res.j.message === 'string' ? ' (' + cText(res.j.message, 120) + ')' : '') + '. Please try again in a moment.');
+      }, function () { contactSay(f, 'It could not be sent: check the connection and try again.'); })
+      .then(function () { contactState.busy = false; f.send.disabled = false; });
   }
   /* ---------- where the data and software come from, and under which licences ---------- */
   var CC_BY = 'https://creativecommons.org/licenses/by/4.0/';
@@ -10262,16 +10450,30 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   }
 
   /* ---------- Candidate superconductors found by our AI models: the Candidates view ----------
-     Each screening round writes a "screen" block into progress.json: the materials our models rank highest, each with
-     Storm's 90% range and its crystal structure, published before any calculation or experiment checks them; every
-     check is added to its row, hits and misses alike. The list holds only our own finds. The screening leaves out every
-     material with a superconductivity record, in our training data or already reported or predicted by others; the app
-     also hides any row marked with an earlier report ("prior"), with a SuperCon record, or whose composition appears in
-     the advances and AI lists the app shows. The card reads only that block, so a new round updates it without a new app. */
+     Each screening round writes a "screen" block into progress.json, with two lists: the conventional candidates that
+     Storm ranks ("candidates": its DFT Tc with a 90% range) and, from round 2, the unconventional ones that Hurricane
+     ranks ("hurricane.candidates": the chance that each superconducts and its measured Tc if it does, with a 90% range).
+     Every row has its crystal structure and is published before any calculation or experiment checks it; every check is
+     added to its row, hits and misses alike. The lists hold only our own finds. The screening leaves out every material
+     with a superconductivity record, in our training data or already reported or predicted by others, and from round 2
+     every material made of exactly the elements of a known superconductor; the app also hides any row marked with an
+     earlier report ("prior"), with a SuperCon record, or whose composition appears in the advances and AI lists the app
+     shows. The card reads only that block, so a new round updates it without a new app. */
   var CAND_SHOWN = 10;
-  var candState = { all: false, sel: '', key: '' };
+  var CAND_KINDS = ['storm', 'hurricane'];
+  var candState = { all: false, sel: { storm: '', hurricane: '' }, key: '', kind: store.get('cand-kind') === 'hurricane' ? 'hurricane' : 'storm', notesOpen: false };
   var CHECK_LABEL = { dft: 'DFT check', experiment: 'Measured' };
   var SUB_DIGITS = '₀₁₂₃₄₅₆₇₈₉';
+  // what a Hurricane candidate's elements have in common with a known family (screen.py family_guess)
+  var CAND_FAMILY = { cuprate: 'copper and oxygen, as the cuprates do', 'iron-based': 'iron or nickel with a pnictogen or chalcogen, as the iron-based superconductors do',
+    'heavy-fermion': 'an f-electron element, as the heavy-fermion superconductors do', 'other oxide': 'oxygen, as the other unconventional oxides do' };
+  // Hurricane's structure types (hurricane2.TYPE_RATIONALE), read from the stoichiometry alone
+  var CAND_TYPE = { '123_cuprate': '123 cuprates (YBCO)', '214_cuprate': '214 cuprates', electron_doped_cuprate: 'electron-doped cuprates',
+    Bi_cuprate: 'Bi-based cuprates', Tl_cuprate: 'Tl-based cuprates', Hg_cuprate: 'Hg-based cuprates', infinite_layer_cuprate: 'infinite-layer cuprates',
+    '1111_pnictide': '1111 iron pnictides', '122_pnictide': '122 iron pnictides', '111_pnictide': '111 iron pnictides', '11_chalcogenide': '11 iron chalcogenides',
+    '122_chalcogenide': '122 iron chalcogenides', nickel_pnictide: 'nickel pnictides', '115_heavy_fermion': '115 heavy-fermion compounds',
+    '122_heavy_fermion': '122 heavy-fermion compounds', nickelate_oxide: 'nickelates', bismuthate_oxide: 'bismuthates', ruthenate_oxide: 'ruthenates',
+    cobaltate_oxide: 'cobaltates' };
 
   /* ---------- elements: symbols and covalent radii (pm; B. Cordero et al., Dalton Trans. 2832 (2008)) ---------- */
   var XT_EL = ('H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr ' +
@@ -10315,9 +10517,14 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     candPriorCache = { n: src.length, keys: keys };
     return keys;
   }
-  function candRows(sc) {
-    var prior = candPriorKeys(), out = { rows: [], hidden: 0 };
-    list(sc && sc.candidates).slice(0, 300).forEach(function (c) {
+  // the block that holds a list: the screen block itself for Storm's, its "hurricane" block for Hurricane's
+  function candBlock(sc, kind) {
+    if (!sc || typeof sc !== 'object') return null;
+    return kind === 'hurricane' ? (sc.hurricane && typeof sc.hurricane === 'object' ? sc.hurricane : null) : sc;
+  }
+  function candRows(sc, kind) {
+    var prior = candPriorKeys(), out = { rows: [], hidden: 0 }, b = candBlock(sc, kind);
+    list(b && b.candidates).slice(0, 300).forEach(function (c) {
       if (!c || typeof c.formula !== 'string' || typeof c.tc !== 'number' || !isFinite(c.tc)) return;
       var key = compKey(c.formula);
       if (c.prior || (typeof c.supercon === 'string' && c.supercon) || (key && prior[key])) { out.hidden++; return; }
@@ -10328,86 +10535,261 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   }
   function candId(c) { return String(c.id || c.formula); }
   function candK(v) { return typeof v === 'number' && isFinite(v) ? (v >= 100 ? Math.round(v) : v.toFixed(1)) + ' K' : '—'; }
+  function candNum(v) { return typeof v === 'number' && isFinite(v); }
+  function candPct(p) { return candNum(p) ? (p < 0.01 ? 'under 1%' : p > 0.99 ? 'over 99%' : Math.round(100 * p) + '%') : '—'; }
+  function candRange(c) { return candNum(c.lo) && candNum(c.hi) ? c.lo.toFixed(1) + '–' + candK(c.hi) : ''; }
+  // Hurricane's Tc if the compound superconducts (a one-part design gives only its Tc)
+  function candTcSc(c) { return candNum(c.tc_sc) ? c.tc_sc : c.tc; }
+  /* The McMillan limit: about 40 K, long thought to be the ceiling for conventional superconductors after McMillan's
+     1968 analysis. Two highlights, and nothing else is highlighted however high its prediction:
+     - "worth an experiment": our prediction is above the limit and passes every test we set before suggesting a
+       measurement to experimental groups: more likely than not to superconduct, inside its model's training data, made
+       before (in ICSD) or, after a full DFT calculation, on the convex hull; a Storm candidate also needs the low end of
+       its 90% range, or a full DFT calculation, above the limit. A check below the limit takes it off.
+     - "confirmed": a measurement above the limit that is published (its "ref" is in REFS) and that another group has
+       reproduced ("confirmed": true, with that report in "ref2"). */
+  var MCMILLAN_K = 40, WORTH_P = 0.5, WORTH_HULL = 0.005;
+  function candChecked(c) { var k = c.check; return k && typeof k === 'object' && CHECK_LABEL[k.kind] ? k : null; }
+  function candWorthTests(c, hur) {
+    var k = candChecked(c), dft = !!(k && k.kind === 'dft' && k.superconducts !== false && candNum(k.tc) && k.tc >= MCMILLAN_K), tc = hur ? candTcSc(c) : c.tc;
+    return {
+      above: candNum(tc) && tc >= MCMILLAN_K && (hur || dft || (candNum(c.lo) && c.lo >= MCMILLAN_K)),
+      likely: candNum(c.p_sc) && c.p_sc >= WORTH_P,
+      inside: candNum(c.novelty) && c.novelty <= 1 && c.outside !== true,
+      made: c.icsd === true || (dft && candNum(c.ehull) && c.ehull <= WORTH_HULL),
+      settled: !!(k && (k.superconducts === false || (candNum(k.tc) && k.tc < MCMILLAN_K)))
+    };
+  }
+  function candMcm(c, hur) {
+    var k = candChecked(c);
+    if (k && k.kind === 'experiment' && k.superconducts !== false && candNum(k.tc) && k.tc >= MCMILLAN_K && k.confirmed === true &&
+      typeof k.ref === 'string' && REFS[k.ref] && typeof k.ref2 === 'string' && REFS[k.ref2]) return 'confirmed';
+    var t = candWorthTests(c, hur);
+    return t.above && t.likely && t.inside && t.made && !t.settled ? 'worth' : '';
+  }
+  function candMcmAll(sc) {
+    var out = [];
+    CAND_KINDS.forEach(function (kind) {
+      candRows(sc, kind).rows.forEach(function (c) { var lv = candMcm(c, kind === 'hurricane'); if (lv) out.push({ kind: kind, c: c, level: lv }); });
+    });
+    return out;
+  }
+  function candMcmChips(list) {
+    var chips = h('div', { class: 'cand-mcm-chips' });
+    list.slice(0, 8).forEach(function (x) {
+      var c = x.c, tc = x.level === 'confirmed' ? c.check.tc : x.kind === 'hurricane' ? candTcSc(c) : c.tc;
+      chips.appendChild(h('button', { class: 'btn small cand-mcm-chip' + (x.level === 'confirmed' ? ' is-done' : ''), type: 'button', onclick: function () { candGo(x.kind, candId(c)); } },
+        hurSub(c.formula) + ' · ' + candK(tc) + (x.level === 'worth' ? ' predicted' : ' measured')));
+    });
+    return chips;
+  }
+  function candMcmBanner(sc) {
+    var all = candMcmAll(sc);
+    if (!all.length) return null;
+    var done = all.filter(function (x) { return x.level === 'confirmed'; }), worth = all.filter(function (x) { return x.level === 'worth'; }), out = [];
+    if (done.length) {
+      out.push(h('div', { class: 'cand-mcm-banner is-done', role: 'note' },
+        h('p', null, h('b', { text: done.length === 1 ? 'A new superconductor above the McMillan limit.' : done.length + ' new superconductors above the McMillan limit.' }), ' ',
+          (done.length === 1 ? 'One of our candidates superconducts' : done.length + ' of our candidates superconduct') + ' above about 40 K, long thought to be the ceiling for conventional superconductors: measured, published and reproduced by another group (',
+          h('a', { href: refUrl(REFS.mcmillan1968), text: REFS.mcmillan1968.t }), ').'), candMcmChips(done)));
+    }
+    if (worth.length) {
+      out.push(h('div', { class: 'cand-mcm-banner', role: 'note' },
+        h('p', null, h('b', { text: 'Worth an experiment.' }), ' ',
+          (worth.length === 1 ? 'One candidate passes' : worth.length + ' candidates pass') + ' every test we set before suggesting a measurement: a predicted Tc above the McMillan limit of about 40 K, long thought to be the ceiling for conventional superconductors (',
+          h('a', { href: refUrl(REFS.mcmillan1968), text: REFS.mcmillan1968.t }), '); more likely than not to superconduct; inside its model’s training data; and made before. ' +
+          (worth.length === 1 ? 'It is still a prediction, and we suggest it' : 'They are still predictions, and we suggest them') + ' to experimental groups: if you can measure ' + (worth.length === 1 ? 'it' : 'one') + ', ',
+          contactLink('write to us', 'experiment'), '.'), candMcmChips(worth)));
+    }
+    return out;
+  }
+  // open a list at one candidate (the banner's buttons)
+  function candGo(kind, id) {
+    if (CAND_KINDS.indexOf(kind) < 0) return;
+    if (kind !== candState.kind) { candState.kind = kind; candState.all = false; store.set('cand-kind', kind); }
+    candState.sel[kind] = id;
+    candState.key = '';
+    renderCandidates(state.data);
+    var v = $('#cand-viewer');
+    if (v) v.scrollIntoView({ block: 'start', behavior: motionOK() ? 'smooth' : 'auto' });
+  }
+  // the remarks that go with every candidate: whether it was ever made, how wide its range is, how far its chance can be
+  // trusted, how close it is to what the model learned from, whether anything has checked it, and when we first listed it
+  function candRemarks(c, hur, block) {
+    var out = [], model = hur ? 'Hurricane' : 'Storm', range = candRange(c), ck = (block && block.check) || {};
+    out.push(c.icsd === true ? ['ok', 'Made before: its structure is in ICSD, so the compound has been synthesized.'] :
+      ['warn', 'Hypothetical structure: computed in JARVIS-DFT and not in ICSD, so no one is known to have made it.']);
+    if (range) {
+      var wide = (c.hi + 1) / (c.lo + 1) >= 5;
+      out.push([wide ? 'warn' : 'info', (wide ? 'Very wide range: the 90% range for its ' + (hur ? 'Tc if it superconducts' : 'DFT Tc') + ' is ' + range + ', so ' + model + ' is far from sure.' :
+        'The 90% range for its ' + (hur ? 'Tc if it superconducts' : 'DFT Tc') + ' is ' + range + '.')]);
+    }
+    if (candNum(c.p_sc)) {
+      out.push(['warn', 'Chance it superconducts: ' + candPct(c.p_sc) + '. ' + (hur ?
+        'It is calibrated on compounds in 3DSC, the families Hurricane learned from' + (c.outside ? '; this compound lies outside them, so here the chance says little.' :
+          c.nearest ? ', and holds only for compounds like them.' : '; for a compound unlike them it says little.') :
+        'It is calibrated on ' + (candNum(ck.n) ? fmtInt(ck.n) + ' ' : '') + 'known materials in 3DSC, most of them measured because someone expected them to superconduct, so for a new material it is likely lower' +
+          (c.outside ? '; this one also lies outside Storm’s training data, so here it says little.' : '.'))]);
+    } else out.push(['warn', model + ' gives no chance of superconducting for this candidate yet.']);
+    if (c.nearest && typeof c.nearest.formula === 'string') {
+      var near = hurSub(cText(c.nearest.formula, 60).replace(/([A-Z][a-z]?)1(?![\d.])/g, '$1')) + (candNum(c.nearest.tc) ? ' (' + (hur ? 'measured' : 'DFT') + ' Tc ' + candK(c.nearest.tc) + ')' : '');
+      out.push([c.outside ? 'warn' : 'info', c.outside ? 'Outside the training data: even the most similar material ' + model + ' learned from, ' + near + ', is far from it, so this prediction is an extrapolation.' :
+        'The most similar material ' + model + ' learned from is ' + near + '.']);
+    } else if (hur) out.push(['warn', 'Many compounds on this list are unlike anything Hurricane learned from; this one has not been compared with its training data yet.']);
+    var k = c.check;
+    out.push(k && typeof k === 'object' && CHECK_LABEL[k.kind] ? ['info', 'Checked: ' + candCheckText(k) + '.'] : ['warn', 'Not checked: no DFT calculation or experiment has tested it yet.']);
+    if (c.listed && /^\d{4}-\d{2}-\d{2}$/.test(String(c.listed.date))) out.push(['date', c.listed]);
+    return out;
+  }
+  function candListedText(l) { return 'First listed on ' + fmtDayISO(l.date) + (candNum(l.round) ? ', in screening round ' + l.round : ''); }
+  // the remarks fold away, to save space: a click on "Remarks" opens them (the viewer remembers the choice)
+  function candRemarksEl(c, hur, block, inRow) {
+    var ul = h('ul', { class: 'xt-notes', 'aria-label': 'Remarks' });
+    candRemarks(c, hur, block).forEach(function (r) {
+      if (r[0] === 'date') {
+        var file = /^screen_round\d+\.json$/.test(String(r[1].file || '')) ? r[1].file : '';
+        ul.appendChild(h('li', { class: 'is-date' }, candListedText(r[1]) + '. ', file ? h('a', { href: REPO_URL + '/commits/main/results/' + file, text: 'The repository’s history' }) : 'The repository’s history',
+          ' records when we proposed it.'));
+      } else ul.appendChild(richText(h('li', { class: 'is-' + r[0] }), r[1]));
+    });
+    var warns = ul.querySelectorAll('li.is-warn').length;
+    var box = h('details', { class: inRow ? 'cand-remarks' : 'xt-remarks', open: !inRow && candState.notesOpen },
+      h('summary', { class: warns ? 'has-warn' : '' }, 'Remarks', warns ? h('span', { class: 'cand-remarks-n', text: warns + (warns === 1 ? ' caution' : ' cautions') }) : null), ul);
+    if (!inRow) box.addEventListener('toggle', function () { candState.notesOpen = box.open; });
+    return box;
+  }
+  function candCheckText(k) {
+    return CHECK_LABEL[k.kind] + ': ' + (k.superconducts === false ? 'not superconducting' + (typeof k.below === 'number' ? ' above ' + candK(k.below) : '') : 'Tc ' + candK(k.tc));
+  }
   // a check is a DFT calculation or a measurement on the candidate; until then the row says "not checked yet"
   function candCheck(c) {
     var k = c.check;
     if (!k || typeof k !== 'object' || !CHECK_LABEL[k.kind]) return h('span', { class: 'cand-open', text: 'not checked yet' });
-    var txt = CHECK_LABEL[k.kind] + ': ' + (k.superconducts === false ? 'not superconducting' + (typeof k.below === 'number' ? ' above ' + candK(k.below) : '') : 'Tc ' + candK(k.tc));
+    var txt = candCheckText(k);
     var ref = typeof k.ref === 'string' ? REFS[k.ref] : null, url = ref ? refUrl(ref) : '';
     var el = richText(h('span', { class: 'cand-done' + (k.superconducts === false ? ' miss' : ' hit') }), txt);
     return url ? h('a', { href: url, class: 'cand-check-link' }, el) : el;
   }
-  function candOursNote(sc) {
-    var ex = (sc && sc.excluded) || {}, parts = [];
+  function candOursNote(sc, kind) {
+    var b = candBlock(sc, kind), ex = (b && b.excluded) || {}, parts = [], sys = typeof ex.system === 'number';
     if (typeof ex.supercon === 'number') parts.push(fmtInt(ex.supercon) + ' with a SuperCon or 3DSC record');
     if (typeof ex.computed === 'number') parts.push(fmtInt(ex.computed) + ' with a computed Tc');
     if (typeof ex.prior === 'number') parts.push(fmtInt(ex.prior) + ' reported or predicted by others');
-    var txt = 'Only our own finds. A material is left out if it has a record in SuperCon or 3DSC, already has a computed Tc in the Alexandria or JARVIS electron–phonon data (which our models learn from or are tested on), or is on our list of superconductors reported or predicted by others, which includes the advances and AI finds shown in this app.';
-    if (parts.length) txt += ' Screening round ' + (sc.round || 1) + ' left out ' + (typeof ex.total === 'number' ? fmtInt(ex.total) + ' materials: ' : '') + parts.join(', ') + '.';
-    var lead = 'Only our own finds. ';
-    return h('div', { class: 'cand-ours' }, h('span', { class: 'cand-ours-mark', 'aria-hidden': 'true' }), h('p', null, h('b', { text: lead.trim() }), ' ', richText(h('span'), txt.slice(lead.length))));
+    if (sys) parts.push(fmtInt(ex.system) + ' made of the same elements as a known superconductor');
+    var txt = 'A material is left out if it has a record in SuperCon or 3DSC, already has a computed Tc in the Alexandria or JARVIS electron–phonon data (which our models learn from or are tested on), ' +
+      (sys ? 'is on our list of superconductors reported or predicted by others (which includes the advances and AI finds shown in this app), or is made of exactly the elements of a known superconductor, so that no superconductor has been reported in its chemical system.' :
+        'or is on our list of superconductors reported or predicted by others, which includes the advances and AI finds shown in this app.');
+    if (parts.length && sc) txt += ' For this list, screening round ' + (sc.round || 1) + ' left out ' + (typeof ex.total === 'number' ? fmtInt(ex.total) + ' materials: ' : '') + parts.join(', ') + '.';
+    return h('div', { class: 'cand-ours' }, h('span', { class: 'cand-ours-mark', 'aria-hidden': 'true' }), h('p', null, h('b', { text: 'Only our own finds.' }), ' ', richText(h('span'), txt)));
+  }
+  function candKind(k) {
+    if (CAND_KINDS.indexOf(k) < 0 || k === candState.kind) return;
+    candState.kind = k;
+    candState.all = false;
+    store.set('cand-kind', k);
+    renderCandidates(state.data);
+  }
+  function candModel(sc, re, fallback) {
+    var m = list(sc && sc.models).filter(function (x) { return typeof x === 'string' && re.test(x); })[0];
+    return m ? cText(m, 40) : fallback;
   }
 
   function renderCandidates(d) {
     var el = $('#candidates-card');
     if (!el) return;
-    var sc = d && d.screen, got = candRows(sc), rows = got.rows;
+    var sc = d && d.screen, kind = candState.kind === 'hurricane' ? 'hurricane' : 'storm', hur = kind === 'hurricane';
+    var gotS = candRows(sc, 'storm'), gotH = candRows(sc, 'hurricane'), got = hur ? gotH : gotS, rows = got.rows;
     // a refresh with the same list keeps the card (and its turning structures) as it is
-    var key = JSON.stringify([sc && sc.round, sc && sc.date, sc && sc.status, got.hidden, candState.all, rows.map(candId).join(','), rows.map(function (c) { return c.check ? 1 : 0; }).join('')]);
+    var key = JSON.stringify([sc && sc.round, sc && sc.date, sc && sc.status, kind, gotS.hidden, gotH.hidden, gotS.rows.length, gotH.rows.length, candState.all,
+      rows.map(candId).join(','), rows.map(function (c) { return c.check ? 1 : 0; }).join('')]);
     if (key === candState.key && el.firstChild) return;
     candState.key = key;
     xtReset();
     clear(el);
     el.appendChild(h('div', { class: 'card-head' }, h('div', null,
       h('h2', { text: 'Candidate superconductors found by our AI models' }),
-      richText(h('p'), 'Every material on this list was found by our own AI-designed models, Radar and Storm, and is published here before any calculation or experiment checks it. Every check is added to its row, hits and misses alike.'))));
-    el.appendChild(candOursNote(sc));
+      richText(h('p'), 'Every material on these lists was found by our own AI-designed models and is published here before any calculation or experiment checks it. Radar sorts the materials: Storm ranks the ones that look like conventional superconductors, which pair through phonons, and Hurricane the ones that look like the unconventional families. Every check is added to its row, hits and misses alike.'))));
+    var banner = candMcmBanner(sc);
+    if (banner) append(el, banner);
+    var seg = h('div', { class: 'seg cand-seg', role: 'group', 'aria-label': 'Which list to show' });
+    [['storm', 'Conventional', 'found by Storm', gotS.rows.length], ['hurricane', 'Unconventional', 'found by Hurricane', gotH.rows.length]].forEach(function (k) {
+      seg.appendChild(h('button', { type: 'button', 'aria-pressed': kind === k[0] ? 'true' : 'false', 'data-kind': k[0], onclick: function () { candKind(k[0]); } },
+        h('b', { text: k[1] }), h('span', { class: 'cand-seg-sub', text: '· ' + k[2] }), k[3] ? h('span', { class: 'cand-seg-n', text: String(k[3]) }) : null));
+    });
+    el.appendChild(seg);
+    el.appendChild(candOursNote(sc, kind));
+    var block = candBlock(sc, kind);
     if (!rows.length) {
-      // before the first screening round: what the list will hold
-      el.appendChild(h('ol', { class: 'cand-steps' },
+      // before the round that fills this list: what it will hold
+      el.appendChild(h('ol', { class: 'cand-steps' }, hur ? [
+        richText(h('li'), 'Sort: Radar sends the compounds in open crystal databases that look like the unconventional families (cuprates, iron-based and heavy-fermion compounds and other oxides) to Hurricane.'),
+        richText(h('li'), 'Rank: Hurricane gives the chance that each compound superconducts and its Tc if it does, with a 90% range.'),
+        richText(h('li'), 'Keep only our own finds: anything already reported or predicted as a superconductor is left out, as above.'),
+        richText(h('li'), 'Check: the top candidates are suggested to experimental groups, since a calculation cannot yet predict unconventional pairing reliably.')] : [
         richText(h('li'), 'Rank: Radar keeps the metals in open crystal databases that look like conventional superconductors, and Storm predicts their Tc, each with a 90% range.'),
         richText(h('li'), 'Keep only our own finds: anything already reported or predicted as a superconductor is left out, as above.'),
         richText(h('li'), 'Check: the top candidates go to a full DFT electron–phonon calculation.'),
-        richText(h('li'), 'Measure: the ones that pass are suggested to experimental groups.')));
-      el.appendChild(h('p', { class: 'note', text: sc && sc.status === 'running' ? 'Screening round ' + (sc.round || 1) + ' is running; the list appears here when it finishes.' :
-        got.hidden ? 'No candidates are left on the list: each one turned out to have an earlier report.' : 'The first list, with the crystal structure of every candidate turning in 3D, comes with Screening round 1, our next run.' }));
+        richText(h('li'), 'Measure: the ones that pass are suggested to experimental groups.')]));
+      var round = (sc && sc.round) || 0, empty;
+      if (sc && sc.status === 'running') empty = 'Screening round ' + (round || 1) + ' is running; the list appears here when it finishes.';
+      else if (got.hidden) empty = 'No candidates are left on this list: each one turned out to have an earlier report.';
+      else if (hur && block) empty = 'Radar sent no compound to Hurricane in screening round ' + (round || 1) + '.';
+      else if (hur) empty = 'Hurricane’s list of unconventional candidates comes with Screening round ' + Math.max(2, round + 1) + ', our next run.';
+      else empty = 'The first list, with the crystal structure of every candidate turning in 3D, comes with Screening round 1, our next run.';
+      el.appendChild(h('p', { class: 'note', text: empty }));
+      el.appendChild(candTellUs());
       return;
     }
-    var pool = sc.pool || {};
-    var models = list(sc.models).filter(function (m) { return typeof m === 'string'; }).map(function (m) { return cText(m, 40); });
-    var meta = h('p', { class: 'cand-meta' });
-    richText(meta, 'Screening round ' + (sc.round || 1) + (sc.date ? ', ' + fmtDayISO(sc.date) : '') + ': ' + (models.length ? models.join(' and ') : sc.model ? cText(sc.model, 40) : 'Storm') + ' ranked ' +
-      (typeof pool.n_screened === 'number' ? fmtInt(pool.n_screened) + ' ' : '') + cText(pool.what || 'materials', 120) + (pool.source ? ' from ' + cText(pool.source, 120) : '') +
-      (pool.rule ? ': ' + cText(pool.rule, 400) : '') + '. Storm’s Tc is the computed (DFT) Tc that it learns, and the 90% range is for that value.');
+    var pool = (block && block.pool) || {};
+    var meta = h('p', { class: 'cand-meta' }), when = 'Screening round ' + (sc.round || 1) + (sc.date ? ', ' + fmtDayISO(sc.date) : '') + ': ';
+    var rule = cText(String(pool.rule || '').split('; the list holds')[0], 400);
+    if (hur) {
+      richText(meta, when + 'of the ' + (candNum(pool.n_screened) ? fmtInt(pool.n_screened) + ' ' : '') + 'compounds in Hurricane’s pool from ' + cText(pool.source || 'JARVIS-DFT', 120) +
+        (rule ? ' (' + rule + ')' : '') + ', ' + candModel(sc, /^Radar/, 'Radar') + ' sent ' + (candNum(pool.n_sent) ? fmtInt(pool.n_sent) : 'the ones that look unconventional') + ' to ' +
+        cText(block.model || candModel(sc, /^Hurricane/, 'Hurricane'), 40) + '. Hurricane learns measured Tc: it gives the chance that a compound superconducts and its Tc if it does, and the 90% range is for that Tc. The list is ranked by the two multiplied.');
+    } else {
+      var models = list(sc.models).filter(function (m) { return typeof m === 'string' && !/^Hurricane/.test(m); }).map(function (m) { return cText(m, 40); });
+      richText(meta, when + (models.length ? models.join(' and ') : sc.model ? cText(sc.model, 40) : 'Storm') + ' ranked ' +
+        (candNum(pool.n_screened) ? fmtInt(pool.n_screened) + ' ' : '') + cText(pool.what || 'materials', 120) + (pool.source ? ' from ' + cText(pool.source, 120) : '') +
+        (rule ? ': ' + rule : '') + '. Storm’s Tc is the computed (DFT) Tc that it learns, and the 90% range is for that value.');
+    }
     el.appendChild(meta);
-    if (!rows.some(function (c) { return candId(c) === candState.sel; })) candState.sel = candId(rows[0]);
+    if (!rows.some(function (c) { return candId(c) === candState.sel[kind]; })) candState.sel[kind] = candId(rows[0]);
+    var sel = candState.sel[kind];
     var shown = candState.all ? rows : rows.slice(0, CAND_SHOWN);
-    if (!shown.some(function (c) { return candId(c) === candState.sel; })) shown = shown.concat(rows.filter(function (c) { return candId(c) === candState.sel; }));
+    if (!shown.some(function (c) { return candId(c) === sel; })) shown = shown.concat(rows.filter(function (c) { return candId(c) === sel; }));
     var body = h('div', { class: 'cand-body' });
     var viewer = h('div', { class: 'cand-viewer', id: 'cand-viewer' });
     body.appendChild(viewer);
     // a grid list rather than a table, so that phones get the same information without scrolling sideways
-    var ol = h('ol', { class: 'cand-list' });
+    var ol = h('ol', { class: 'cand-list' + (hur ? ' is-hur' : '') });
     ol.appendChild(h('li', { class: 'cand-row cand-headrow', 'aria-hidden': 'true' },
-      h('span', { class: 'cand-rank', text: '#' }), h('span'), h('span', { text: 'Material' }), richText(h('span', { class: 'cand-tc' }), 'Storm Tc, 90% range'),
-      h('span', { class: 'cand-cal', text: 'Calibrated' }), h('span', { class: 'cand-check', text: 'Check' })));
+      h('span', { class: 'cand-rank', text: '#' }), h('span'), h('span', { text: 'Material' }),
+      richText(h('span', { class: 'cand-tc' }), hur ? 'Tc if it superconducts, 90% range' : 'Storm Tc, 90% range'),
+      hur ? null : h('span', { class: 'cand-cal', text: 'Calibrated' }), h('span', { class: 'cand-p', text: 'Chance' }), h('span', { class: 'cand-check', text: 'Check' })));
     shown.forEach(function (c) {
-      var i = rows.indexOf(c), id = candId(c), M = xtModel(c), sel = id === candState.sel;
+      var i = rows.indexOf(c), id = candId(c), M = xtModel(c), on = id === sel;
       var name = isHttps(c.url) ? h('a', { href: c.url, text: hurSub(c.formula) }) : h('span', { text: hurSub(c.formula) });
-      var sub = [c.spg ? cText(c.spg, 30) : '', typeof c.ehull === 'number' ? Math.round(1000 * c.ehull) + ' meV/atom above the hull' : '', c.icsd === true ? 'made before (ICSD)' : '', c.id ? cText(String(c.id), 40) : ''].filter(Boolean).join(' · ');
+      var sub = [c.spg ? cText(c.spg, 30) : '', candNum(c.ehull) ? (Math.round(1000 * c.ehull) === 0 ? 'on the convex hull' : Math.round(1000 * c.ehull) + ' meV/atom above the hull') : '',
+        hur && candNum(c.gap) ? (c.gap > 0 ? 'band gap ' + c.gap.toFixed(1) + ' eV' : 'metallic') : '', hur && c.magnetic === true ? 'magnetic' : '',
+        c.id ? cText(String(c.id), 40) : '', c.listed && /^\d{4}-\d{2}-\d{2}$/.test(String(c.listed.date)) ? 'listed ' + fmtDayISO(c.listed.date) : ''].filter(Boolean).join(' · ');
       var thumb;
       if (M) {
         var cv = h('canvas', { class: 'xt-thumb', 'aria-hidden': 'true' });
-        thumb = h('button', { class: 'cand-thumb', type: 'button', 'aria-pressed': sel ? 'true' : 'false', 'aria-label': 'Show the crystal structure of ' + c.formula + ' in the viewer',
+        thumb = h('button', { class: 'cand-thumb', type: 'button', 'aria-pressed': on ? 'true' : 'false', 'aria-label': 'Show the crystal structure of ' + c.formula + ' in the viewer',
           onclick: function () { candSelect(id, true); } }, cv);
         xtItem(cv, M, false);
       } else thumb = h('span', { class: 'cand-thumb none', title: 'No structure stored' });
-      var li = h('li', { class: 'cand-row' + (sel ? ' is-sel' : ''), 'data-id': id },
+      var tc = hur ? candTcSc(c) : c.tc, range = candRange(c), mcm = candMcm(c, hur);
+      var li = h('li', { class: 'cand-row' + (on ? ' is-sel' : '') + (mcm ? ' is-mcm' : ''), 'data-id': id },
         h('span', { class: 'cand-rank', text: String(i + 1) }),
         thumb,
-        h('div', { class: 'cand-main' }, h('b', null, name), sub ? h('div', { class: 'dt-cell-sub', text: sub }) : null),
-        h('div', { class: 'cand-tc' }, h('b', { text: candK(c.tc) }), typeof c.lo === 'number' && typeof c.hi === 'number' ? h('div', { class: 'dt-cell-sub', text: c.lo.toFixed(1) + '–' + candK(c.hi) }) : null),
-        h('div', { class: 'cand-cal' }, h('span', { class: 'cand-label', text: 'Calibrated ' }), typeof c.tc_cal === 'number' ? candK(c.tc_cal) : '—'),
+        h('div', { class: 'cand-main' }, h('b', null, name), sub ? h('div', { class: 'dt-cell-sub', text: sub }) : null,
+          candRemarksEl(c, hur, block, true),
+          mcm ? h('span', { class: 'cand-mcm' + (mcm === 'confirmed' ? ' is-done' : ''), text: mcm === 'confirmed' ? 'Above the McMillan limit: measured and reproduced' : 'Worth an experiment: predicted above the McMillan limit' }) : null),
+        h('div', { class: 'cand-tc' }, h('b', { text: candK(tc) }), range ? h('div', { class: 'dt-cell-sub', text: range }) : null),
+        hur ? null : h('div', { class: 'cand-cal' }, h('span', { class: 'cand-label', text: 'Calibrated ' }), candNum(c.tc_cal) ? candK(c.tc_cal) : '—'),
+        h('div', { class: 'cand-p' }, h('span', { class: 'cand-label', text: 'Chance it superconducts ' }), candPct(c.p_sc)),
         h('div', { class: 'cand-check' }, candCheck(c)));
       ol.appendChild(li);
     });
@@ -10418,26 +10800,39 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         candState.all ? 'Show the top ' + CAND_SHOWN : 'Show all ' + rows.length)));
     }
     var checked = rows.filter(function (c) { return c.check && CHECK_LABEL[c.check.kind]; }).length;
-    el.appendChild(richText(h('p', { class: 'note' }), (checked ? checked + ' of ' + rows.length + ' candidates checked so far. ' : 'None of these has been checked yet. ') +
-      'They are predictions: a candidate becomes a discovery only when a calculation and then an experiment confirm it. “Calibrated” is Storm’s estimate of the measured Tc. ' +
-      (got.hidden ? got.hidden + (got.hidden === 1 ? ' material was' : ' materials were') + ' taken off the list after an earlier report came to light. ' : '')));
-    var mail = AUTHORS.filter(function (a) { return a.contact && a.email; })[0];
-    el.appendChild(h('p', { class: 'note' }, 'If you know of an earlier report of any of these materials, ',
-      mail ? h('a', { href: 'mailto:' + mail.email + '?subject=' + encodeURIComponent('supercon-ml candidate list'), text: 'tell us' }) : 'tell us', ' and we will take it off the list.'));
+    var lead = (checked ? checked + ' of ' + rows.length + ' candidates checked so far. ' : 'None of these has been checked yet. ') + 'They are predictions: a candidate becomes a discovery only when ' +
+      (hur ? 'an experiment confirms it. Many of these compounds have a band gap in DFT or are magnetic, and, like the parent compounds of the cuprates and iron-based superconductors, would need doping or pressure to superconduct. ' :
+        'a calculation and then an experiment confirm it. “Calibrated” is Storm’s estimate of the measured Tc. ');
+    var ck = block && block.check;
+    if (ck && candNum(ck.share_sc_likely) && candNum(ck.share_sc_unlikely)) {
+      lead += 'How far its chance can be trusted: on ' + (hur ? 'compounds in 3DSC' : 'known materials in 3DSC') + ' that it had not seen in training, ' + Math.round(100 * ck.share_sc_likely) +
+        '% of those it gave at least an even chance superconduct, against ' + Math.round(100 * ck.share_sc_unlikely) + '% of the others. ' +
+        (hur ? '' : 'Most of those materials were measured because someone expected them to superconduct, so for new materials the chance is likely lower. ');
+    }
+    if (hur) lead += 'But many compounds on this list are unlike anything Hurricane learned from, and for them both the chance and the Tc are far less certain than these numbers suggest; treat this list as a set of leads, not of likely superconductors. ';
+    if (got.hidden) lead += got.hidden + (got.hidden === 1 ? ' material was' : ' materials were') + ' taken off the list after an earlier report came to light. ';
+    var nWorth = rows.filter(function (c) { return candMcm(c, hur) === 'worth'; }).length;
+    lead += 'We highlight a candidate as worth an experiment only when its predicted Tc is above the McMillan limit of about 40 K and it passes every test: more likely than not to superconduct, inside its model’s training data, and made before (in ICSD)' +
+      (hur ? '' : '; a Storm candidate also needs the low end of its 90% range, or a full DFT calculation, above 40 K') + '. ' + (nWorth ? (nWorth === 1 ? 'One candidate on this list does.' : nWorth + ' candidates on this list do.') : 'None on this list does yet.') + ' ';
+    el.appendChild(richText(h('p', { class: 'note' }), lead));
+    el.appendChild(candTellUs());
     el.appendChild(h('p', { class: 'note xt-credit' }, 'Atom sizes follow covalent radii (', h('a', { href: refUrl(REFS.cordero2008), text: REFS.cordero2008.t }), '); the box is the unit cell.'));
     candViewer(rows);
     xtKick();
   }
+  function candTellUs() {
+    return h('p', { class: 'note' }, 'If you know of an earlier report of any of these materials, ', contactLink('tell us', 'candidate'), ' and we will take it off the list.');
+  }
   function candSelect(id, scroll) {
-    candState.sel = id;
+    var kind = candState.kind === 'hurricane' ? 'hurricane' : 'storm';
+    candState.sel[kind] = id;
     [].forEach.call(document.querySelectorAll('#candidates-card .cand-row[data-id]'), function (li) {
       var on = li.getAttribute('data-id') === id;
       li.classList.toggle('is-sel', on);
       var b = li.querySelector('.cand-thumb');
       if (b && b.tagName === 'BUTTON') b.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
-    var got = candRows(state.data && state.data.screen);
-    candViewer(got.rows);
+    candViewer(candRows(state.data && state.data.screen, kind).rows);
     var v = $('#cand-viewer');
     if (scroll && v && v.getBoundingClientRect().top < 0) v.scrollIntoView({ block: 'start', behavior: motionOK() ? 'smooth' : 'auto' });
     xtKick();
@@ -10447,9 +10842,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var box = $('#cand-viewer');
     if (!box) return;
     XT.items = XT.items.filter(function (it) { if (it.big) { xtForget(it); return false; } return true; });
+    var was = box.querySelector('details.xt-remarks');
+    if (was) candState.notesOpen = was.open;   // the toggle event comes a moment later, so read the state itself
     clear(box);
-    var i = 0;
-    rows.forEach(function (c, k) { if (candId(c) === candState.sel) i = k; });
+    var hur = candState.kind === 'hurricane', sel = candState.sel[hur ? 'hurricane' : 'storm'], i = 0;
+    rows.forEach(function (c, k) { if (candId(c) === sel) i = k; });
     var c = rows[i];
     if (!c) return;
     var M = xtModel(c);
@@ -10473,9 +10870,29 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     });
     box.appendChild(key);
     box.appendChild(h('p', { class: 'xt-facts', text: xtCellText(M) }));
-    var tc = h('p', { class: 'xt-tc' });
-    richText(tc, 'Storm Tc ' + candK(c.tc) + (typeof c.lo === 'number' && typeof c.hi === 'number' ? ' (90% range ' + c.lo.toFixed(1) + '–' + candK(c.hi) + ')' : '') + (typeof c.tc_cal === 'number' ? ' · calibrated ' + candK(c.tc_cal) : ''));
+    var tc = h('p', { class: 'xt-tc' }), range = candRange(c);
+    if (hur) {
+      richText(tc, 'Hurricane: Tc ' + candK(candTcSc(c)) + ' if it superconducts' + (range ? ' (90% range ' + range + ')' : '') +
+        (candNum(c.p_sc) ? '; the chance that it does is ' + candPct(c.p_sc) : '') + '. A prediction, not checked.');
+    } else {
+      richText(tc, 'Storm Tc ' + candK(c.tc) + (range ? ' (90% range ' + range + ')' : '') + (candNum(c.tc_cal) ? ' · calibrated ' + candK(c.tc_cal) : ''));
+    }
     box.appendChild(tc);
+    var mcm = candMcm(c, hur);
+    if (mcm === 'confirmed') {
+      box.appendChild(h('p', { class: 'xt-mcm is-done' }, 'Above the McMillan limit of about 40 K, long thought to be the ceiling for conventional superconductors: measured, published and reproduced by another group.'));
+    } else if (mcm === 'worth') {
+      box.appendChild(h('p', { class: 'xt-mcm' }, 'Worth an experiment: ' + (hur ? 'Hurricane puts its Tc, if it superconducts,' : 'Storm puts its Tc') +
+        ' above the McMillan limit of about 40 K, and it passes every test we set before suggesting a measurement. It is still a prediction. If you can measure it, ', contactLink('write to us', 'experiment'), '.'));
+    }
+    if (hur) {
+      var types = list(c.types).filter(function (t) { return CAND_TYPE[t]; }).map(function (t) { return CAND_TYPE[t]; });
+      var fam = CAND_FAMILY[c.family];
+      if (fam || types.length) {
+        box.appendChild(h('p', { class: 'xt-facts' }, [fam ? 'It contains ' + fam + '.' : '', types.length ? 'Its formula fits the pattern of the ' + types.join(' and the ') + '.' : ''].filter(Boolean).join(' ')));
+      }
+    }
+    box.appendChild(candRemarksEl(c, hur, candBlock(state.data && state.data.screen, hur ? 'hurricane' : 'storm')));
     var nav = h('div', { class: 'xt-nav' },
       h('button', { class: 'btn small', type: 'button', disabled: i === 0, onclick: function () { candSelect(candId(rows[i - 1]), false); } }, 'Previous'),
       h('span', { class: 'xt-hint', text: 'Drag to turn it' }),
