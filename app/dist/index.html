@@ -624,7 +624,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 (function () {
   'use strict';
 
-  var APP_VERSION = '0.3.3';
+  var APP_VERSION = '0.3.4';
   var REPO = 'diracmagic/supercon-ml';
   var BRANCH = 'main';
   var REPO_URL = 'https://github.com/' + REPO;
@@ -951,10 +951,20 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     });
     return best;
   }
+  function unreleased(d) {
+    var out = {}, am = (d && d.ai_model) || {};
+    list(am.versions).concat(am.ensemble ? [am.ensemble] : []).forEach(function (v) {
+      if (v && v.version && v.status && v.status !== 'adopted') out['Storm ' + v.version + ' (AI-designed)'] = 1;
+    });
+    list(d && d.gnn && d.gnn.versions).forEach(function (v) {
+      if (v && v.version && v.status && v.status !== 'adopted') out['Graph neural network ' + v.version + ' (AI-designed)'] = 1;
+    });
+    return out;
+  }
   function bestOurs(d, target) {
-    var best = null;
+    var best = null, skip = unreleased(d);
     list(d.results).concat(list(d.history)).forEach(function (r) {
-      if (r && r.target === target && typeof r.mae === 'number' && (!best || r.mae < best.mae)) best = r;
+      if (r && r.target === target && typeof r.mae === 'number' && !skip[String(r.model)] && (!best || r.mae < best.mae)) best = r;
     });
     return best;
   }
@@ -1479,6 +1489,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       refs: ['friedman2001', 'sklearn2011', 'matthias1955', 'allendynes1975', 'nas2017'] },
     { id: 'hurricane', label: 'Our AI model: Hurricane', hurricane: true, height: 450, narrowHeight: 580,
       refs: ['sommer2023', 'jain2013', 'presland1991', 'friedman2001', 'sklearn2011', 'schilling1993', 'deng2026'] },
+    { id: 'radar', label: 'Our AI model: Radar', radar: true, height: 440, narrowHeight: 560,
+      refs: ['sommer2023', 'jain2013', 'friedman2001', 'sklearn2011', 'steglich1979', 'kamihara2008', 'ortiz2020'] },
     { id: 'model', label: 'Baselines', model: true, height: 440, narrowHeight: 540,
       refs: ['alexandria2024', 'friedman2001', 'sklearn2011', 'mace2022', 'macemp2023', 'allendynes1975'] },
     { id: 'resistance', label: 'Zero resistance', temp: true, height: 360, refs: ['onnes1911', 'bcs1957'],
@@ -1498,6 +1510,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     scene: 0, sceneT: 0, storyPlay: true, modelStage: 0, modelT: 0, modelPlay: true, modelNodes: [],
     stormStage: 0, stormT: 0, stormPlay: true, stormVer: '', stormNodes: [],
     hurStage: 0, hurT: 0, hurPlay: true, hurNodes: [],
+    radStage: 0, radT: 0, radPlay: true, radNodes: [],
     modelVariant: store.get('model') === 'foundation' ? 'foundation' : 'baseline',
     canvas: null, ctx: null, W: 0, H: 0, dpr: 1,
     electrons: null, ions: null, e1: null, e2: null, sizeKey: '',
@@ -1593,6 +1606,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var hurRow = h('div', { class: 'demo-controls', id: 'demo-hur-row' },
       h('button', { class: 'btn', type: 'button', id: 'hur-play', onclick: function () { demo.hurPlay = !demo.hurPlay; syncControls(); kick(); } }),
       h('span', { class: 'demo-readout', id: 'hur-readout' }));
+    var radRow = h('div', { class: 'demo-controls', id: 'demo-rad-row' },
+      h('button', { class: 'btn', type: 'button', id: 'rad-play', onclick: function () { demo.radPlay = !demo.radPlay; syncControls(); kick(); } }),
+      h('span', { class: 'demo-readout', id: 'rad-readout' }));
     var caption = h('p', { class: 'demo-caption', id: 'demo-caption' });
     var zoo = h('div', { class: 'zoo', id: 'demo-zoo' });
     var refs = h('div', { class: 'demo-refs', id: 'demo-refs' });
@@ -1600,7 +1616,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       h('div', { class: 'card-head' }, h('div', null,
         h('h2', null, 'Hello ', h('span', { class: 'hs-accent', text: 'Super' })),
         h('p', { text: 'Our project in 90 seconds, how our AI models work, and the physics behind it.' }))),
-      tabs, stage, tempRow, adRow, storyRow, modelRow, stormRow, hurRow, caption, zoo, refs
+      tabs, stage, tempRow, adRow, storyRow, modelRow, stormRow, hurRow, radRow, caption, zoo, refs
     ]);
     $('#story-prev').innerHTML = G.prev;
     $('#story-next').innerHTML = G.next;
@@ -1610,7 +1626,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       var r = canvas.getBoundingClientRect(), k = demo.scale || 1;
       demo.hover = { x: (e.clientX - r.left) / k, y: (e.clientY - r.top) / k };
       var d = demoDef();
-      canvas.style.cursor = (d.story && demo.hover.y < 30) || (d.model && hitModelNode(demo.hover) >= 0) || (d.storm && hitStormNode(demo.hover) >= 0) || (d.hurricane && hitHurNode(demo.hover) >= 0) ? 'pointer' : '';
+      canvas.style.cursor = (d.story && demo.hover.y < 30) || (d.model && hitModelNode(demo.hover) >= 0) || (d.storm && hitStormNode(demo.hover) >= 0) || (d.hurricane && hitHurNode(demo.hover) >= 0) || (d.radar && hitRadNode(demo.hover) >= 0) ? 'pointer' : '';
       kick();
     });
     canvas.addEventListener('pointerdown', function (e) {
@@ -1634,12 +1650,15 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       } else if (d.hurricane) {
         var q2 = hitHurNode(p);
         if (q2 >= 0) { demo.hurStage = q2; demo.hurT = 0; if (motionOK()) demo.hurPlay = true; syncControls(); kick(); }
+      } else if (d.radar) {
+        var q3 = hitRadNode(p);
+        if (q3 >= 0) { demo.radStage = q3; demo.radT = 0; if (motionOK()) demo.radPlay = true; syncControls(); kick(); }
       }
     });
     if (window.ResizeObserver) new ResizeObserver(function () { sizeCanvas(); kick(); }).observe(stage);
     else window.addEventListener('resize', function () { sizeCanvas(); kick(); });
     demo.built = true;
-    if (!motionOK()) { demo.auto = false; demo.storyPlay = false; demo.modelPlay = false; demo.stormPlay = false; demo.hurPlay = false; }
+    if (!motionOK()) { demo.auto = false; demo.storyPlay = false; demo.modelPlay = false; demo.stormPlay = false; demo.hurPlay = false; demo.radPlay = false; }
     syncControls();
     sizeCanvas();
   }
@@ -1673,7 +1692,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       ['MACE-MP-0 + boosted ensemble', 'frozen foundation-model fingerprint, three models for error bars', fs, live.foundationMae !== null ? 'Tc error ' + live.foundationMae.toFixed(2) + ' K' : ''],
       gnnZooRow(),
       hurZooRow(ms),
-      ['Radar · router', 'decides whether a material goes to Storm or Hurricane', ['pending', 'Planned'], '']
+      radarZooRow()
     ];
     var ul = h('ul', { class: 'zoo-list' });
     rows.forEach(function (r) {
@@ -1685,7 +1704,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     append(el, [
       h('h3', { text: 'Models we are trying' }),
       ul,
-      richText(h('p', { class: 'zoo-ai' }), 'Storm and Hurricane, our AI-designed models: we let an AI agent design models itself. It proposes a new architecture or feature set, trains and scores it with the same grouped cross-validation, and keeps the design only if it beats the current best. Storm’s errors are against DFT-computed Tc and Hurricane’s against measured Tc. A locked test set is used only once, at the very end, so no design can be tuned to it. Radar will be designed the same way.')
+      richText(h('p', { class: 'zoo-ai' }), 'Storm and Hurricane, our AI-designed models: we let an AI agent design models itself. It proposes a new architecture or feature set, trains and scores it with the same grouped cross-validation, and keeps the design only if it beats the current best. Storm’s errors are against DFT-computed Tc and Hurricane’s against measured Tc. A locked test set is used only once, at the very end, so no design can be tuned to it. ' + (radInfo() ? 'Radar, which picks the model for each material, was designed the same way.' : 'Radar will be designed the same way.'))
     ]);
   }
 
@@ -1695,7 +1714,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     list(d && d.results).forEach(function (r) { if (r && r.tag === 'gnn' && r.target === 'Tc' && typeof r.mae === 'number' && (!best || r.mae < best.mae)) best = r; });
     var st = typeof g.status === 'string' && g.status ? g.status : best ? 'done' : 'planned';
     return { status: st, mae: best ? best.mae : typeof g.tc_mae === 'number' ? g.tc_mae : null,
-      name: typeof g.name === 'string' && g.name ? g.name : 'Graph neural network',
+      // the version appears once there is more than one (round 2 and later)
+      name: (typeof g.name === 'string' && g.name ? g.name : 'Graph neural network') + (list(g.versions).length > 1 && typeof g.current === 'string' ? ' ' + g.current : ''),
       desc: typeof g.summary === 'string' && g.summary ? g.summary : 'message passing on the crystal graph, trained end to end' };
   }
   function gnnZooRow() {
@@ -1709,10 +1729,19 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     return [hurTitle(info) + ' · our AI model', 'designed by an AI agent, for unconventional superconductors: ' + lcFirst(v.summary),
       ok ? ['done', 'Released'] : ['active', 'Experimental'], 'measured-Tc error ' + hurK(v.scores.tc_mae) + ' K'];
   }
+  function radarZooRow() {
+    var info = radInfo();
+    if (!info) return ['Radar · router', 'decides whether a material goes to Storm or Hurricane', ['pending', 'Planned'], ''];
+    var v = info.v, ok = v.status === 'adopted';
+    return [radTitle(info) + ' · our AI model', 'designed by an AI agent, routes each material to Storm or Hurricane: ' + lcFirst(v.summary),
+      ok ? ['done', 'Released'] : ['active', 'Experimental'], 'right model ' + radPct(v.scores.balanced_accuracy)];
+  }
   function stormZooRow() {
     var info = stormInfo();
     if (!info) return ['Storm (AI-designed)', 'an AI agent proposes, trains and tests new designs', ['active', 'Exploring'], ''];
-    var v = info.v, ok = v.status === 'adopted', cal = stormIsCurrent(info) ? stormCal() : null;
+    var v = info.v, ok = v.status === 'adopted', cal = stormIsCurrent(info) ? stormCal() : null, ens = stormIsCurrent(info) ? stormEns() : null;
+    if (ens) return ['Storm ' + ens.version + ' · our AI model', 'designed by an AI agent, for conventional superconductors: ' + lcFirst(ens.summary),
+      ['done', 'Released'], 'Tc error ' + ens.scores.tc_mae.toFixed(2) + ' K (DFT), ' + ens.calibration.mae.toFixed(2) + ' K (measured)'];
     if (cal) return ['Storm ' + cal.version + ' · our AI model', 'designed by an AI agent, for conventional superconductors: ' + lcFirst(v.summary) + ', calibrated to measured Tc',
       ['done', 'Released'], 'Tc error ' + v.scores.tc_mae.toFixed(2) + ' K (DFT), ' + cal.scores.mae.toFixed(2) + ' K (measured)'];
     return [stormTitle(info) + ' · our AI model', 'designed by an AI agent, for conventional superconductors: ' + lcFirst(v.summary),
@@ -1737,10 +1766,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     $('#demo-model-row').hidden = !d.model;
     $('#demo-storm-row').hidden = !d.storm;
     $('#demo-hur-row').hidden = !d.hurricane;
-    $('#demo-zoo').hidden = !d.model && !d.storm && !d.hurricane;
-    if (d.model || d.storm || d.hurricane) renderZoo();
+    $('#demo-rad-row').hidden = !d.radar;
+    $('#demo-zoo').hidden = !d.model && !d.storm && !d.hurricane && !d.radar;
+    if (d.model || d.storm || d.hurricane || d.radar) renderZoo();
     if (d.storm) renderStormSeg();
-    var cap = d.story ? storyCaption(demo.scene) : d.model ? MODEL_STAGES[demo.modelVariant][demo.modelStage].text : d.storm ? stormCaption(demo.stormStage) : d.hurricane ? hurCaption(demo.hurStage) : d.caption;
+    var cap = d.story ? storyCaption(demo.scene) : d.model ? MODEL_STAGES[demo.modelVariant][demo.modelStage].text : d.storm ? stormCaption(demo.stormStage) : d.hurricane ? hurCaption(demo.hurStage) : d.radar ? radCaption(demo.radStage) : d.caption;
     richText($('#demo-caption'), cap);
     renderRefs($('#demo-refs'), d.story ? STORY[demo.scene].refs : d.refs);
     var play = $('#demo-play');
@@ -1770,6 +1800,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     hp.hidden = !motionOK();
     $('#hur-readout').textContent = (motionOK() ? 'Step ' + (demo.hurStage + 1) + ' of ' + HUR_STAGES.length + ' · ' : '') + HUR_STAGES[demo.hurStage].node + (motionOK() ? '' : ' · click a step to explore');
     if (d.hurricane) demo.canvas.setAttribute('aria-label', 'Hurricane, the AI-designed model for unconventional superconductors, step ' + (demo.hurStage + 1) + ': ' + HUR_STAGES[demo.hurStage].node + '. ' + hurCaption(demo.hurStage));
+    var rp = $('#rad-play');
+    rp.innerHTML = demo.radPlay ? G.pause : G.play;
+    rp.appendChild(document.createTextNode(demo.radPlay ? 'Pause' : 'Play'));
+    rp.hidden = !motionOK();
+    $('#rad-readout').textContent = (motionOK() ? 'Step ' + (demo.radStage + 1) + ' of ' + RAD_STAGES.length + ' · ' : '') + RAD_STAGES[demo.radStage].node + (motionOK() ? '' : ' · click a step to explore');
+    if (d.radar) demo.canvas.setAttribute('aria-label', 'Radar, the AI-designed router between Storm and Hurricane, step ' + (demo.radStage + 1) + ': ' + RAD_STAGES[demo.radStage].node + '. ' + radCaption(demo.radStage));
     var ms = MODEL_STAGES[demo.modelVariant];
     $('#model-readout').textContent = motionOK() ? 'Step ' + (demo.modelStage + 1) + ' of ' + ms.length : 'Click a step in the pipeline to explore it';
     if (d.story) demo.canvas.setAttribute('aria-label', 'Hello Super tour, step ' + (demo.scene + 1) + ' of ' + STORY.length + ': ' + STORY[demo.scene].title + '. ' + storyCaption(demo.scene));
@@ -1830,6 +1866,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       demo.hurT += dt;
       if (demo.hurT >= HUR_DUR) { demo.hurStage = (demo.hurStage + 1) % HUR_STAGES.length; demo.hurT = 0; syncControls(); }
     }
+    if (d.radar && demo.radPlay && moving) {
+      demo.radT += dt;
+      if (demo.radT >= RAD_DUR) { demo.radStage = (demo.radStage + 1) % RAD_STAGES.length; demo.radT = 0; syncControls(); }
+    }
     if (d.temp && demo.auto && moving) {
       demo.t = 0.9 + 0.65 * Math.cos(2 * Math.PI * demo.clock / 14);
       $('#demo-temp').value = demo.t.toFixed(2);
@@ -1844,11 +1884,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     else if (d.model) drawModel(c, C);
     else if (d.storm) drawStorm(c, C);
     else if (d.hurricane) drawHurricane(c, C);
+    else if (d.radar) drawRadar(c, C);
     else if (d.id === 'resistance') drawResistance(c, C, dt);
     else if (d.id === 'meissner') drawMeissner(c, C, dt);
     else if (d.id === 'pairs') drawPairs(c, C, dt);
     else drawAllenDynes(c, C);
-    var paused = (d.story && !demo.storyPlay) || (d.model && !demo.modelPlay) || (d.storm && !demo.stormPlay) || (d.hurricane && !demo.hurPlay);
+    var paused = (d.story && !demo.storyPlay) || (d.model && !demo.modelPlay) || (d.storm && !demo.stormPlay) || (d.hurricane && !demo.hurPlay) || (d.radar && !demo.radPlay);
     if (moving && !paused) demo.raf = requestAnimationFrame(frame);
   }
 
@@ -2728,7 +2769,13 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       refs: ['jarvis2022', 'alexandria2024'] },
     { title: 'Beyond phonons', dur: 8, draw: drawStoryBeyond,
       sub: 'Cuprates and iron-based superconductors pair up through a different glue.',
-      caption: 'Cuprates and iron-based superconductors do not follow the phonon recipe, and what binds their electron pairs is still debated; magnetic spin fluctuations are a leading candidate. So our second AI-designed model, Hurricane, learns directly from measured Tc values, each graded by how well it has been confirmed, and a third, Radar, will decide which of the two each material goes to. Comparing what Storm and Hurricane rely on can give clues about the pairing mechanism.',
+      caption: function () {
+        var ri = radInfo();
+        return 'Cuprates and iron-based superconductors do not follow the phonon recipe, and what binds their electron pairs is still debated; magnetic spin fluctuations are a leading candidate. So our second AI-designed model, Hurricane, learns directly from measured Tc values, each graded by how well it has been confirmed, and a third, ' +
+          (ri ? radTitle(ri) + ', decides which of the two each material goes to, picking the right one ' + radPct(ri.v.scores.balanced_accuracy) + ' of the time for compounds it never saw.'
+            : 'Radar, will decide which of the two each material goes to.') +
+          ' Comparing what Storm and Hurricane rely on can give clues about the pairing mechanism.';
+      },
       refs: ['bednorz1986', 'kamihara2008', 'tsuei2000', 'scalapino2012'] },
     { title: 'Our second AI model', dur: 10, draw: drawStoryHurricane,
       sub: 'Hurricane, also designed by our AI agent, learns unconventional Tc from measurements.',
@@ -2747,12 +2794,13 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var info = stormInfo(), n = 54, np = 11;
     if (info) { n = 0; list(info.v.spec.inputs).forEach(function (i) { n += i.n || 0; if (i.group === 'physics') np = i.n; }); }
     return 'We train on about 7,600 materials whose λ and ω_log have already been computed (the Alexandria superconductivity set). ' + stormName() + ', the model our AI agent designed, describes each crystal with ' + n + ' numbers: composition statistics, the crystal structure and ' + np + ' physics features the AI proposed, such as the valence-electron count that Matthias linked to Tc and the M^−½ scale of phonon frequencies. Gradient-boosted trees turn them into Tc directly, or into λ and ω_log for the Allen–Dynes formula. We also test fingerprints from the foundation model MACE-MP-0, pre-trained on about 1.6 million DFT calculations; so far they have not beaten Storm.' +
-      (function () { var c = stormCal(); return c && stormIsCurrent(info) ? ' A calibration learned from measured Tc turns it into Storm ' + c.version + ', off by ' + c.scores.mae.toFixed(2) + ' K against experiment.' : ''; })();
+      (function () { var c = stormCal(); return c && stormIsCurrent(info) ? ' A calibration learned from measured Tc turns it into Storm ' + c.version + ', off by ' + c.scores.mae.toFixed(2) + ' K against experiment.' + stormEnsSentence() : ''; })();
   }
   function storyModelsCaption() {
     var live = stLive();
     var f = live.foundationMae !== null ? 'first run finished at ' + live.foundationMae.toFixed(2) + ' K' : live.foundation === 'active' ? 'training now' : 'up next';
-    return 'No single model is best for every material, so we compare several: gradient boosting on 43 hand-made composition and structure features (done, ' + MAE_BASELINE.toFixed(2) + ' K average Tc error), the MACE-MP-0 foundation model with a boosted head (' + f + '), graph neural networks such as ALIGNN, and Hurricane, our second AI-designed model, which learns the Tc of unconventional superconductors from measurements. We are also letting an AI agent design models itself: it proposes an architecture or feature set, trains it, scores it with the same grouped cross-validation, and refines the design, keeping only what beats the current best. A locked test set is used only once, at the very end, so no design can be tuned to it.' + stormStorySentence();
+    return 'No single model is best for every material, so we compare several: gradient boosting on 43 hand-made composition and structure features (done, ' + MAE_BASELINE.toFixed(2) + ' K average Tc error), the MACE-MP-0 foundation model with a boosted head (' + f + '), ' +
+      (function () { var gi = gnnInfo(); return gi.status === 'done' && gi.mae !== null ? 'our crystal-graph network (' + gi.name + ', ' + gi.mae.toFixed(2) + ' K)' : 'graph neural networks such as ALIGNN'; })() + ', and Hurricane, our second AI-designed model, which learns the Tc of unconventional superconductors from measurements. We are also letting an AI agent design models itself: it proposes an architecture or feature set, trains it, scores it with the same grouped cross-validation, and refines the design, keeping only what beats the current best. A locked test set is used only once, at the very end, so no design can be tuned to it.' + stormStorySentence();
   }
   function stormStorySentence() {
     var info = stormInfo();
@@ -2761,12 +2809,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var cal = stormIsCurrent(info) ? stormCal() : null;
     return ' Its designs are called Storm: ' + stormTitle(info) + ' (' + lcFirst(v.summary) + ') ' +
       (v.status === 'adopted' ? 'was released with ' : 'stays experimental at ') + v.scores.tc_mae.toFixed(2) + ' K average Tc error.' +
-      (cal ? ' Calibrated to measured Tc, it became Storm ' + cal.version + ', off by ' + cal.scores.mae.toFixed(2) + ' K against experiment.' : '');
+      (cal ? ' Calibrated to measured Tc, it became Storm ' + cal.version + ', off by ' + cal.scores.mae.toFixed(2) + ' K against experiment.' + stormEnsSentence() : '');
   }
   function storyAccuracyCaption() {
-    var live = stLive();
-    var best = live.mae !== null && Math.abs(live.mae - MAE_BASELINE) > 0.005 ? ' The best model so far is off by ' + live.mae.toFixed(2) + ' K.' : '';
-    return 'Each dot is one material the model did not see during training: across is its Tc from the full calculation, up is our prediction. The axes use a square-root scale so the many low-Tc materials stay visible. Guessing the average Tc for every material would be off by ' + MAE_GUESS.toFixed(2) + ' K on average; our AI-designed model ' + stormName() + ' is off by ' + stormMae().toFixed(2) + ' K, against ' + MAE_BASELINE.toFixed(2) + ' K for the hand-made baseline, tested on whole chemical systems held out from training.';
+    // the dots are Storm 1.0's predictions; a later Storm that adds the graph network is named with its own error
+    var e = stormEns(), later = e ? ' Storm ' + e.version + ', which adds our crystal-graph network, is off by ' + e.scores.tc_mae.toFixed(2) + ' K.' : '';
+    return 'Each dot is one material the model did not see during training: across is its Tc from the full calculation, up is our prediction. The axes use a square-root scale so the many low-Tc materials stay visible. Guessing the average Tc for every material would be off by ' + MAE_GUESS.toFixed(2) + ' K on average; our AI-designed model ' + stormName() + ' is off by ' + stormMae().toFixed(2) + ' K, against ' + MAE_BASELINE.toFixed(2) + ' K for the hand-made baseline, tested on whole chemical systems held out from training.' + later;
   }
 
   function drawStory(c, C) {
@@ -3167,9 +3215,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function stormStoryRow() {
     var info = stormInfo();
     if (!info) return { name: 'Storm (AI-designed)', desc: 'an agent proposes new designs', status: 'exploring', note: '' };
-    var cal = stormIsCurrent(info) ? stormCal() : null;
-    return { name: (cal ? 'Storm ' + cal.version : stormTitle(info)) + ' · our AI model', desc: 'AI-designed, conventional; error against DFT Tc', status: info.v.status === 'adopted' ? 'done' : 'exploring',
-      note: info.v.scores.tc_mae.toFixed(2) + ' K' };
+    var cal = stormIsCurrent(info) ? stormCal() : null, ens = stormIsCurrent(info) ? stormEns() : null;
+    return { name: (ens ? 'Storm ' + ens.version : cal ? 'Storm ' + cal.version : stormTitle(info)) + ' · our AI model', desc: 'AI-designed, conventional; error against DFT Tc', status: info.v.status === 'adopted' ? 'done' : 'exploring',
+      note: (ens ? ens.scores.tc_mae : info.v.scores.tc_mae).toFixed(2) + ' K' };
   }
 
   /* 5 · many models, and AI that designs them */
@@ -3995,7 +4043,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         ': new feature sets, physics features and settings. Each was trained and scored with the same composition-grouped cross-validation. ' +
         (v.status === 'adopted' ? 'The best one beat ' + ref + ' on average and in at least 4 of 5 folds, and became ' + name + '.'
           : 'A design is released only if it beats ' + ref + ' on average and in at least 4 of 5 folds. None did this round, so the best one, ' + name + ', stays experimental and ' + ref + ' remains in use.') +
-        ' Storm predicts Tc for conventional, phonon-mediated superconductors; cuprates, nickelates, iron-based and other unconventional superconductors go to our second AI-designed model, Hurricane, which learns from measured Tc, and a third, Radar, will decide which model each material goes to.';
+        ' Storm predicts Tc for conventional, phonon-mediated superconductors; cuprates, nickelates, iron-based and other unconventional superconductors go to our second AI-designed model, Hurricane, which learns from measured Tc, and a third, ' +
+          (radInfo() && radInfo().rd.current ? radTitle(radInfo()) + ', decides' : 'Radar, will decide') + ' which model each material goes to.' + (stormIsCurrent(info) ? stormEnsSentence() : '');
       case 1: return name + ' reads ' + n + ' numbers per material: ' + list(sp.inputs).map(function (i) {
           return i.group === 'stage' ? i.n + ' from the ' + i.label + ' (its predicted λ and ω_log and the Allen–Dynes Tc from them)' : i.n + ' ' + lcFirst(i.label);
         }).join(', ') + '. The physics features encode rules of thumb such as Matthias’s valence-electron peaks and the M^−½ scale of phonon frequencies.';
@@ -4008,7 +4057,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
           (pv ? pv.name + ' in ' + pv.folds_better + ' of ' + list(pv.folds).length : 'the baseline in ' + better) + ' folds. It was picked on these folds, so the locked JARVIS test set will check it once at the end.' + stormExpSentence(info);
       default:
         var cal = stormCal(), calTxt = cal && stormIsCurrent(info) ? ' Round 3 added a calibration to measured Tc on top of ' + name + ': that is Storm ' + cal.version + ', off by ' + fmtVal(cal.scores.mae) + ' K against experiment.' : '';
-        return name + ' (' + stormFmtDate(v.date) + ', status: ' + v.status + '): ' + prettyMath(list(v.changes).join('; ')) + '.' + calTxt + ' Every new version draws this animation from its own spec.';
+        return name + ' (' + stormFmtDate(v.date) + ', status: ' + v.status + '): ' + prettyMath(list(v.changes).join('; ')) + '.' + calTxt + (stormIsCurrent(info) ? stormEnsSentence() : '') + ' Every new version draws this animation from its own spec.';
     }
   }
   // The measured-Tc check (from round 2 on): how far the model and its own DFT training labels are from replicated experiments.
@@ -4023,6 +4072,15 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function stormCal() {
     var am = state.data && state.data.ai_model, c = am && am.calibration;
     return c && c.status === 'adopted' && c.version && c.scores && typeof c.scores.mae === 'number' ? c : null;
+  }
+  // Storm 4.0 and later: Storm 1.0's trees and the crystal-graph network together, calibrated (ai_model.ensemble), when released.
+  function stormEns() {
+    var am = state.data && state.data.ai_model, e = am && am.ensemble;
+    return e && e.status === 'adopted' && e.version && e.scores && typeof e.scores.tc_mae === 'number' && e.calibration && typeof e.calibration.mae === 'number' ? e : null;
+  }
+  function stormEnsSentence() {
+    var e = stormEns();
+    return e ? ' Round 4 combined it with a crystal-graph network: that is Storm ' + e.version + ', ' + e.scores.tc_mae.toFixed(2) + ' K off against computed Tc and ' + e.calibration.mae.toFixed(2) + ' K against experiment once calibrated.' : '';
   }
   // True when the version shown is the one in use, so the calibrated name applies to it.
   function stormIsCurrent(info) { return !!info && info.v.status === 'adopted' && info.v.version === (info.am.current || info.v.version); }
@@ -5053,6 +5111,325 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stText(c, C, hurFit(c, C, it[1], R.w, narrow ? 14 : 16, '600'), R.x, y + (narrow ? 31 : 34), { size: narrow ? 14 : 16, weight: '600', color: i === 1 ? C.accent : C.ink });
       label(c, C, hurFit(c, C, it[2], R.w, 11.5), R.x, y + (narrow ? 48 : 54), { size: 11.5, color: C.ink2 });
     });
+    c.globalAlpha = 1;
+  }
+
+  /* ---------- Radar: the AI-designed router between Storm and Hurricane, animated from its own results ----------
+     Every number and label comes from the "radar" block that each training round writes into progress.json. */
+  var RAD_STAGES = [
+    { node: 'Data', short: 'Data' },
+    { node: 'AI designs', short: 'Design' },
+    { node: 'Routing', short: 'Route' },
+    { node: 'Validation', short: 'Check' },
+    { node: 'New family?', short: 'Family' }
+  ];
+  var RAD_DUR = 8;
+  var RAD_UNCONV = ['cuprate', 'iron-based', 'heavy-fermion', 'other oxide'];
+  var RAD_CONV = ['Other', 'Chevrel', 'Carbon'];
+  var RAD_LABEL = { 'cuprate': 'Cuprates', 'iron-based': 'Iron- and nickel-based', 'heavy-fermion': 'Heavy-fermion', 'other oxide': 'Other oxides',
+    'Other': 'Other conventional', 'Chevrel': 'Chevrel phases', 'Carbon': 'Carbon-based' };
+  var RAD_SHORT = { 'cuprate': 'Cuprates', 'iron-based': 'Fe, Ni-based', 'heavy-fermion': 'Heavy-fermion', 'other oxide': 'Other oxides',
+    'Other': 'Other', 'Chevrel': 'Chevrel', 'Carbon': 'Carbon' };
+  var RAD_TEXT = { 'cuprate': 'cuprates', 'iron-based': 'iron-based compounds', 'heavy-fermion': 'heavy-fermion compounds', 'other oxide': 'other oxides',
+    'Other': 'other conventional superconductors', 'Chevrel': 'Chevrel phases', 'Carbon': 'carbon-based superconductors' };
+
+  function radInfo() {
+    var rd = state.data && state.data.radar;
+    var vs = rd ? list(rd.versions).filter(function (v) { return v && v.scores; }) : [];
+    if (!vs.length) return null;
+    var v = vs.filter(function (x) { return x.version === rd.current; })[0] || vs[vs.length - 1];
+    return { rd: rd, v: v, name: rd.name || 'Radar', data: rd.data || {}, versions: vs };
+  }
+  function radTitle(info) { return info.name + ' ' + info.v.version; }
+  // one decimal from 90% up, so 99.5% and 99.0% read as different numbers; never rounds up to 100% or down to 0%
+  function radPct(x) {
+    if (typeof x !== 'number' || !isFinite(x)) return '—';
+    if (x >= 0.9 && x < 1) { var s = (100 * x).toFixed(1); return (s === '100.0' ? '>99.9' : s) + '%'; }
+    if (x > 0 && x < 0.005) return '<1%';
+    return String(Math.round(100 * x)) + '%';
+  }
+  function radColor(C, k) { return RAD_UNCONV.indexOf(k) >= 0 ? hurColor(C, k) : k === 'Chevrel' ? mix(C.warm, C.ink2, 0.3) : k === 'Carbon' ? mix(C.warm, C.surface2, 0.4) : C.warm; }
+  function radAnd(a) { return a.length > 1 ? a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] : a.join(''); }
+
+  function radCaption(si) {
+    var info = radInfo();
+    if (!info) return 'Radar decides whether a material goes to Storm or to Hurricane. Its data and scores load with the live progress data.';
+    var v = info.v, sc = v.scores || {}, dd = info.data, name = radTitle(info), nf = list(sc.folds).length, ok = v.status === 'adopted';
+    switch (si) {
+      case 0:
+        return 'Radar decides which of our two models to ask. It learns from ' + fmtInt(dd.n) + ' SuperCon entries in 3DSC, each labelled with its chemical class: ' +
+          fmtInt(dd.n_unconventional) + ' in Hurricane’s four unconventional families (cuprates, iron- and nickel-based, heavy-fermion and other oxides) and ' +
+          fmtInt(dd.n_conventional) + ' conventional ones for Storm. It gives the probability that a material belongs to an unconventional family and sends it to Hurricane when that probability is at least one half.';
+      case 1:
+        var sr = v.search || {};
+        return 'An AI agent (Claude) proposed ' + (sr.candidates || 'several') + ' designs in round ' + v.round + ': which inputs to use (Hurricane’s physics features, the crystal structure, element shares), balanced classes, a seed average and calibrated probabilities. ' +
+          'Each was scored with five-fold cross-validation that holds out whole parent compounds, using the log loss, which punishes confident mistakes. ' +
+          (ok ? 'The best beat the composition-only baseline in ' + sc.folds_better + ' of ' + nf + ' folds and became ' + name + '.'
+            : 'A design is released only if it beats the baseline on average and in at least 4 of 5 folds; none did, so ' + name + ' stays experimental.');
+      case 2:
+        var kn = list(v.known), kag = kn.filter(function (k) { return k.family === 'kagome'; });
+        var pref = function (k) { var m = [/Hg-1223\)$/, /UTe2/, /CeRh2As2/, /thin film/].map(function (re) { return re.test(k.name); }).indexOf(true); return m < 0 ? 9 : m; };
+        var nm = function (k) { return /thin film/.test(k.name) ? 'nickelate films' : hurShortName(k.name); };
+        var toH = kn.filter(function (k) { return k.model === 'Hurricane' && pref(k) < 9; }).sort(function (a, b) { return pref(a) - pref(b); });
+        var conv = kn.filter(function (k) { return k.list === 'experiments' && k.family !== 'kagome'; });
+        var toS = conv.filter(function (k) { return k.model === 'Storm'; }), oddS = conv.filter(function (k) { return k.model !== 'Storm'; });
+        // unconventional anchors that Radar sends to Storm (the kagome metals are discussed on their own)
+        var oddH = kn.filter(function (k) { return k.list === 'anchors' && k.family !== 'kagome' && k.family !== 'conventional' && k.family !== 'hydride' && k.model === 'Storm'; });
+        var ends = ['Al', 'MgB2', 'Nb3Sn'].every(function (n) { return toS.some(function (k) { return k.name === n; }); });
+        var hyd = toS.some(function (k) { return k.family === 'hydride'; });
+        var kagM = kag.length && kag.every(function (k) { return k.model === kag[0].model; }) ? kag[0].model : '';
+        return 'Graded materials, each with its probability of an unconventional family from a Radar that never saw it' +
+          (kn.some(function (k) { return k.in_training; }) ? ' (those also in its training data are scored out of fold, with their parent compound held out)' : '') + '. ' +
+          (toH.length ? 'It sends ' + radAnd(toH.slice(0, 4).map(nm)) + ' to Hurricane' : '') +
+          (toS.length ? (toH.length ? ', and ' : 'It sends ') + toS.length + ' graded conventional superconductors' + (hyd ? ' and hydrides' : '') + (ends ? ', from aluminium to MgB₂ and Nb₃Sn,' : '') + ' to Storm' : '') + '. ' +
+          (oddS.length ? radAnd(oddS.map(nm)) + (oddS.length > 1 ? ' go' : ' goes') + ' to Hurricane instead. ' : '') +
+          (oddH.length ? radAnd(oddH.map(nm)) + (oddH.length > 1 ? ' go' : ' goes') + ' to Storm instead. ' : '') +
+          (kagM ? 'The kagome metals ' + radAnd(kag.map(function (k) { return hurShortName(k.name); })) + ' go to ' + kagM + (kagM === 'Storm' && toS.length ? ' too' : '') +
+            '; whether their pairing is unconventional is still debated, which makes them a test case for comparing what the two models predict.' :
+            kag.length ? 'The kagome metals split: ' + radAnd(kag.map(function (k) { return hurShortName(k.name) + ' to ' + k.model; })) + '; whether their pairing is unconventional is still debated.' : '');
+      case 3:
+        return 'For parent compounds it never saw, ' + name + ' picks the right model ' + radPct(sc.balanced_accuracy) + ' of the time (balanced accuracy), against ' +
+          radPct(sc.reference_balanced_accuracy) + ' for gradient boosting on the composition alone. It sends ' + radPct(sc.to_hurricane) + ' of unconventional entries to Hurricane and ' +
+          radPct(sc.to_storm) + ' of conventional ones to Storm' + (typeof sc.ece === 'number' ? ', and its probabilities are well calibrated: when it says 90%, it is right about 90% of the time (calibration error ' + (100 * sc.ece).toFixed(1) + ' points)' : '') + '.';
+      default:
+        var lo = list(v.lofo), by = {};
+        lo.forEach(function (r) { by[r.family] = r; });
+        var cu = by['cuprate'], hf = by['heavy-fermion'], fe = by['iron-based'];
+        return 'The real test is a whole family Radar has never seen. ' +
+          (cu ? 'Trained without any cuprate, it still sends ' + radPct(cu.right) + ' of cuprates to Hurricane: copper oxides look unconventional even to a model that never met one. ' : '') +
+          (hf && hf.right < 0.5 ? 'Heavy-fermion compounds are the opposite: without them in training, only ' + radPct(hf.right) + ' go to Hurricane, because f-electron intermetallics look like ordinary intermetallics' + (fe && fe.right < 0.5 ? ', and iron-based compounds (' + radPct(fe.right) + ') fall in between' : '') + '. Both families surprised physicists when they were found, in 1979 and 2008: little in their chemistry announced unconventional pairing. ' : '') +
+          'So Radar can route a new material of a known kind, but a new family needs physics, not only a classifier.';
+    }
+  }
+
+  function hitRadNode(p) {
+    var nodes = demo.radNodes || [];
+    for (var i = 0; i < nodes.length; i++) {
+      var b = nodes[i];
+      if (p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h) return i;
+    }
+    return -1;
+  }
+
+  function drawRadar(c, C) {
+    var W = demo.W, H = demo.H, narrow = W < 560;
+    var si = demo.radStage, t = motionOK() ? demo.radT : RAD_DUR;
+    var n = RAD_STAGES.length, gap = narrow ? 6 : 18, nodeW = (W - 32 - gap * (n - 1)) / n, nodeH = narrow ? 34 : 40, ny = 12;
+    demo.radNodes = [];
+    for (var i = 0; i < n; i++) {
+      var x = 16 + i * (nodeW + gap), on = i === si;
+      demo.radNodes.push({ x: x, y: ny, w: nodeW, h: nodeH });
+      stRound(c, x, ny, nodeW, nodeH, 9);
+      c.fillStyle = on ? C.accent : C.surface2; c.fill();
+      if (!on) { c.lineWidth = 1; c.strokeStyle = C.grid; c.stroke(); }
+      label(c, C, narrow ? RAD_STAGES[i].short : RAD_STAGES[i].node, x + nodeW / 2, ny + nodeH / 2 + 0.5,
+        { align: 'center', base: 'middle', size: narrow ? 10.5 : 12, weight: '600', color: on ? '#ffffff' : C.ink2 });
+      if (i < n - 1 && !narrow) stArrow(c, x + nodeW + 3, ny + nodeH / 2, x + nodeW + gap - 3, ny + nodeH / 2, C.axis, 5);
+    }
+    if (motionOK()) {
+      var px = demo.radNodes[si];
+      c.fillStyle = stAlpha(C.accent, 0.25);
+      c.fillRect(px.x + 6, ny + nodeH - 3, (px.w - 12) * Math.min(1, t / RAD_DUR), 2);
+    }
+    var B = { x: 16, y: ny + nodeH + 16, w: W - 32, h: H - ny - nodeH - 28 };
+    var info = radInfo();
+    if (!info) {
+      label(c, C, 'Radar’s results load with the live progress data.', W / 2, B.y + B.h / 2, { align: 'center', base: 'middle', size: 13, color: C.muted });
+      return;
+    }
+    [drawRadData, drawRadDesign, drawRadRoute, drawRadCheck, drawRadFamily][si](c, C, B, t, narrow, info);
+    c.globalAlpha = 1;
+    c.setLineDash([]);
+  }
+
+  /* 0 · the labelled classes, and which model each one goes to */
+  function drawRadData(c, C, B, t, narrow, info) {
+    var dd = info.data, cl = dd.classes || {};
+    stormHeader(c, C, B, fmtInt(dd.n) + ' labelled SuperCon entries', narrow ? '' : '3DSC: every class goes to one model');
+    var cols = [['Hurricane', RAD_UNCONV, C.accent, dd.n_unconventional], ['Storm', RAD_CONV, C.warm, dd.n_conventional]];
+    var mx = 1;
+    RAD_UNCONV.concat(RAD_CONV).forEach(function (k) { mx = Math.max(mx, cl[k] || 0); });
+    var colW = narrow ? B.w : (B.w - 40) / 2;
+    cols.forEach(function (col, j) {
+      var X = narrow ? B.x : B.x + j * (colW + 40), Y = narrow ? B.y + 30 + j * (B.h * 0.5) : B.y + 34;
+      var a = stSpan(t, 0.2 + 1.6 * j, 0.8 + 1.6 * j);
+      if (a <= 0) return;
+      c.globalAlpha = a;
+      stRound(c, X, Y, narrow ? 96 : 112, 28, 8); c.fillStyle = col[2]; c.fill();
+      label(c, C, 'to ' + col[0], X + (narrow ? 48 : 56), Y + 14.5, { align: 'center', base: 'middle', size: 12, weight: '600', color: '#ffffff' });
+      label(c, C, fmtInt(col[3]) + (j ? ' conventional' : ' unconventional'), X + (narrow ? 106 : 124), Y + 18, { size: 12, color: C.ink2 });
+      var rh = narrow ? 34 : 44;
+      col[1].forEach(function (k, i) {
+        var g = stSpan(t, 0.5 + 1.6 * j + 0.3 * i, 1.4 + 1.6 * j + 0.3 * i);
+        if (g <= 0 || !cl[k]) return;
+        var y = Y + 40 + i * rh, nmW = narrow ? 112 : 150, bw = Math.max(2, (colW - nmW - 56) * cl[k] / mx * g);
+        c.globalAlpha = a * Math.min(1, g * 1.5);
+        dot(c, X + 5, y + 7, 4.5, radColor(C, k));
+        label(c, C, hurFit(c, C, narrow ? RAD_SHORT[k] : RAD_LABEL[k], nmW - 16, 12, '600'), X + 15, y + 11, { size: 12, weight: '600', color: C.ink });
+        c.fillStyle = radColor(C, k); c.fillRect(X + nmW, y + 2, bw, 10);
+        label(c, C, fmtInt(Math.round(cl[k] * g)), X + nmW + bw + 6, y + 11, { size: 11, color: C.ink2 });
+      });
+    });
+    c.globalAlpha = 1;
+  }
+
+  /* 1 · the design loop and the leaderboard of the round (log loss) */
+  function drawRadDesign(c, C, B, t, narrow, info) {
+    var v = info.v, sr = v.search || {}, rows = list(sr.leaderboard);
+    var winner = rows.filter(function (r) { return stormRowName(r) === v.summary || r.name === v.summary; })[0] || rows[0];
+    stormHeader(c, C, B, 'Search round ' + v.round + ': ' + rows.length + ' designs', narrow ? '' : 'log loss in grouped CV (lower is better)');
+    if (!rows.length) return;
+    var T = { x: B.x, y: B.y + 28, w: B.w, h: B.h - 28 };
+    var rh = Math.min(30, (T.h - 50) / rows.length), lo = Infinity, hi = -Infinity;
+    rows.forEach(function (r) { lo = Math.min(lo, r.log_loss); hi = Math.max(hi, r.log_loss); });
+    var span = Math.max(0.005, hi - lo), step = niceStep(span * 1.2, 4);
+    var a0v = Math.max(0, Math.floor((lo - span * 0.1) / step) * step), a1v = Math.ceil((hi + span * 0.1) / step) * step;
+    // on a phone the names give way to the plot: the tag and the first words are enough there
+    var nameW = narrow ? Math.min(150, T.w * 0.44) : Math.min(380, T.w * 0.5), bx = T.x + nameW + 10, bw = T.w - nameW - (narrow ? 50 : 60);
+    var refId = sr.reference_id || 'R0', base = rows.filter(function (r) { return r.id === refId; })[0];
+    function BX(x) { return bx + (x - a0v) / (a1v - a0v) * bw; }
+    var axisY = T.y + rows.length * rh + 4;
+    c.lineWidth = 1;
+    // label every tick only when the labels have room (about 36 px each)
+    var every = Math.max(1, Math.ceil(36 / Math.max(1, bw / ((a1v - a0v) / step)))), ti = 0;
+    for (var tv = a0v; tv <= a1v + 1e-9; tv += step, ti++) {
+      var gx = Math.round(BX(tv)) + 0.5;
+      c.strokeStyle = C.grid; c.beginPath(); c.moveTo(gx, T.y); c.lineTo(gx, axisY); c.stroke();
+      if (ti % every === 0) label(c, C, fmtTick(tv), gx, axisY + 13, { align: 'center', size: 10.5, color: C.muted });
+    }
+    rows.forEach(function (r, i) {
+      var a = stSpan(t, 0.4 + 0.32 * i, 0.8 + 0.32 * i);
+      if (a <= 0) return;
+      var y = T.y + i * rh, isW = r === winner && t > 4.2, isB = r.id === refId, cy2 = y + rh / 2;
+      c.globalAlpha = a;
+      if (isW) { stRound(c, T.x - 6, y + 1, T.w + 6, rh - 2, 7); c.fillStyle = stAlpha(C.accent, 0.1); c.fill(); }
+      stTag(c, C, r.id, T.x + 13, cy2, { size: 10.5, bg: isW ? C.accent : C.surface, ring: C.grid, color: isW ? '#ffffff' : C.ink2 });
+      var full = (isB ? 'Composition only (baseline)' : r.name.replace(/^Composition \+ /, '+ ')) + (r.settings && r.settings !== 'default' ? ', ' + r.settings : '');
+      var size = narrow ? 11 : 12;
+      label(c, C, hurFit(c, C, full, nameW - 32, size, isW ? '600' : '400'), T.x + 30, cy2 + 4, { size: size, color: isB ? C.ink2 : C.ink, weight: isW ? '600' : '400' });
+      var x = BX(r.log_loss), col = isW ? C.accent : isB ? C.ink2 : mix(C.accent, C.surface2, 0.35);
+      dot(c, x, cy2, isW ? 5.5 : 4.5, col);
+      label(c, C, r.log_loss.toFixed(3), x + 9, cy2 + 4, { size: 11, weight: isW ? '600' : '400', color: isW ? C.accent : C.ink2 });
+      c.globalAlpha = 1;
+    });
+    if (base && t > 0.6) {
+      var xb = Math.round(BX(base.log_loss)) + 0.5;
+      c.setLineDash([3, 3]); c.strokeStyle = C.ink2; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(xb, T.y); c.lineTo(xb, axisY); c.stroke(); c.setLineDash([]);
+    }
+    if (t > 4.6) {
+      c.globalAlpha = stSpan(t, 4.6, 5.2);
+      var ok = v.status === 'adopted';
+      stTag(c, C, ok ? 'Released as ' + radTitle(info) : radTitle(info) + ' stays experimental', T.x + T.w, axisY + 32, { align: 'right', size: 12, bg: ok ? C.accent : C.surface, ring: ok ? null : C.grid, color: ok ? '#ffffff' : C.ink });
+      c.globalAlpha = 1;
+    }
+  }
+
+  /* 2 · materials it never trained on: the probability meter and where each one goes */
+  function drawRadRoute(c, C, B, t, narrow, info) {
+    var kn = list(info.v.known);
+    stormHeader(c, C, B, 'Where new materials go', narrow ? '' : 'probability of an unconventional family');
+    if (!kn.length) return;
+    var M = { x: B.x + (narrow ? 8 : 60), y: B.y + 54, w: B.w - (narrow ? 16 : 120) };
+    var a0 = stSpan(t, 0.2, 0.8);
+    c.globalAlpha = a0;
+    var grad = c.createLinearGradient(M.x, 0, M.x + M.w, 0);
+    grad.addColorStop(0, stAlpha(C.warm, 0.85)); grad.addColorStop(0.5, stAlpha(C.surface2, 1)); grad.addColorStop(1, stAlpha(C.accent, 0.85));
+    stRound(c, M.x, M.y - 5, M.w, 10, 5); c.fillStyle = grad; c.fill();
+    var mid = Math.round(M.x + M.w / 2) + 0.5;
+    c.setLineDash([3, 3]); c.strokeStyle = C.ink2; c.lineWidth = 1; c.beginPath(); c.moveTo(mid, M.y - 16); c.lineTo(mid, M.y + 16); c.stroke(); c.setLineDash([]);
+    label(c, C, '0', M.x, M.y + 22, { align: 'center', size: 10.5, color: C.muted });
+    label(c, C, '½', mid, M.y + 28, { align: 'center', size: 11, color: C.ink2 });
+    label(c, C, '1', M.x + M.w, M.y + 22, { align: 'center', size: 10.5, color: C.muted });
+    label(c, C, '← Storm', M.x, M.y - 14, { size: 12, weight: '600', color: C.warm });
+    label(c, C, 'Hurricane →', M.x + M.w, M.y - 14, { align: 'right', size: 12, weight: '600', color: C.accent });
+    // a few named materials drop onto the meter; the rest are counted
+    // each group has its own quota, so the conventional side is not crowded out on a phone
+    var pick = [], seen = {};
+    function take(f, n) { var got = 0; kn.filter(f).forEach(function (k) { if (got < n && !seen[k.name]) { seen[k.name] = 1; pick.push(k); got++; } }); }
+    take(function (k) { return k.list === 'anchors' && k.model === 'Hurricane' && /Hg-1223\)$|UTe2|CeRh2As2|thin film/.test(k.name); }, 4);
+    take(function (k) { return k.family === 'kagome'; }, 2);
+    take(function (k) { return /^(MgB2|Nb3Sn|H3S|NbSe2|Pb)$/.test(k.name); }, 3);
+    pick.sort(function (p, q) { return p.p_unconventional - q.p_unconventional; });
+    var left = pick.filter(function (k) { return k.model === 'Storm'; }), right = pick.filter(function (k) { return k.model !== 'Storm'; });
+    var LY = M.y + 50, rh = narrow ? 22 : 24, room = M.w / 2 - 14;
+    [[left, M.x, 'left'], [right, M.x + M.w, 'right']].forEach(function (grp) {
+      var y = LY;
+      grp[0].forEach(function (k, i) {
+        var o = grp[2] === 'left' ? i : i + left.length, g = stSpan(t, 1.0 + 0.35 * o, 1.6 + 0.35 * o);
+        var note = k.family === 'kagome' ? 'kagome metal' : /thin film/.test(k.name) ? 'thin film' : '';
+        var nm = /thin film/.test(k.name) ? hurSub(k.name.split(',')[0]) : hurShortName(k.name), pv = k.p_unconventional.toFixed(2);
+        // a long name keeps its probability on the second line instead of losing it to an ellipsis
+        var full = nm + ' · ' + pv, fits = hurFit(c, C, full, room, 12, '600') === full;
+        var sub = fits ? note : pv + (note ? ' · ' + note : '');
+        if (g > 0) {
+          c.globalAlpha = g;
+          var px2 = M.x + M.w * Math.max(0, Math.min(1, k.p_unconventional)), col = k.model === 'Storm' ? C.warm : C.accent;
+          dot(c, px2, M.y, 5, col, C.surface);
+          label(c, C, fits ? full : hurFit(c, C, nm, room, 12, '600'), grp[1], y, { align: grp[2], size: 12, weight: '600', color: C.ink });
+          if (sub && g > 0.9) label(c, C, sub, grp[1], y + 13, { align: grp[2], size: 10.5, color: fits ? C.muted : C.ink2 });
+        }
+        y += rh + (sub ? 12 : 0);
+      });
+    });
+    var rest = kn.length - pick.length, ca = stSpan(t, 4.6, 5.2);
+    if (ca > 0 && rest > 0) {
+      c.globalAlpha = ca;
+      var nS = kn.filter(function (k) { return k.model === 'Storm' && !seen[k.name]; }).length, nH = rest - nS;
+      label(c, C, '+ ' + nS + ' more to Storm' + (nH ? ', ' + nH + ' more to Hurricane' : ''), B.x + B.w / 2, B.y + B.h - 6, { align: 'center', size: 11.5, color: C.ink2 });
+    }
+    c.globalAlpha = 1;
+  }
+
+  /* 3 · how often each class goes to the right model */
+  function drawRadCheck(c, C, B, t, narrow, info) {
+    var sc = info.v.scores || {}, bc = sc.by_class || {};
+    stormHeader(c, C, B, 'Right model ' + radPct(sc.balanced_accuracy) + ' of the time', narrow ? '' : 'parent compounds held out; composition only: ' + radPct(sc.reference_balanced_accuracy));
+    var keys = RAD_UNCONV.concat(RAD_CONV).filter(function (k) { return bc[k]; });
+    var rh = Math.min(narrow ? 40 : 44, (B.h - 60) / Math.max(1, keys.length)), nameW = narrow ? 118 : 200, bx = B.x + nameW, bw = B.w - nameW - 70, y0 = B.y + 32;
+    keys.forEach(function (k, i) {
+      var a = stSpan(t, 0.3 + 0.4 * i, 0.9 + 0.4 * i);
+      if (a <= 0) return;
+      var e = bc[k], y = y0 + i * rh, col = radColor(C, k);
+      c.globalAlpha = a;
+      dot(c, B.x + 5, y + 8, 4.5, col);
+      label(c, C, hurFit(c, C, narrow ? RAD_SHORT[k] : RAD_LABEL[k], nameW - 20, 12, '600'), B.x + 15, y + 12, { size: 12, weight: '600', color: C.ink });
+      if (!narrow) label(c, C, fmtInt(e.n) + ' entries → ' + e.model, B.x + 15, y + 27, { size: 10.5, color: C.muted });
+      c.fillStyle = C.track || C.surface2; c.fillRect(bx, y + 3, bw, 10);
+      c.fillStyle = col; c.fillRect(bx, y + 3, bw * e.right * a, 10);
+      label(c, C, radPct(e.right), bx + bw + 8, y + 12, { size: 11.5, weight: '600', color: C.ink });
+    });
+    c.globalAlpha = 1;
+  }
+
+  /* 4 · leave one family out: how much of a never-seen family goes to the right model */
+  function drawRadFamily(c, C, B, t, narrow, info) {
+    var lo = list(info.v.lofo), bc = (info.v.scores || {}).by_class || {};
+    stormHeader(c, C, B, 'Trained without a whole family', narrow ? '' : 'share sent to the right model');
+    if (!lo.length) return;
+    var rh = Math.min(narrow ? 48 : 54, (B.h - 70) / lo.length), nameW = narrow ? 120 : 210, bx = B.x + nameW, bw = B.w - nameW - 70, y0 = B.y + 32;
+    lo.forEach(function (r, i) {
+      var a = stSpan(t, 0.3 + 0.5 * i, 0.9 + 0.5 * i);
+      if (a <= 0) return;
+      var y = y0 + i * rh, col = radColor(C, r.family), inCv = bc[r.family] ? bc[r.family].right : null;
+      c.globalAlpha = a;
+      dot(c, B.x + 5, y + 8, 4.5, col);
+      label(c, C, hurFit(c, C, narrow ? (RAD_SHORT[r.family] || r.label) : (r.label || RAD_LABEL[r.family]), nameW - 20, 12, '600'), B.x + 15, y + 12, { size: 12, weight: '600', color: C.ink });
+      label(c, C, hurFit(c, C, (narrow ? '→ ' : 'should go to ') + r.model, nameW - 22, 10.5, '400'), B.x + 15, y + 27, { size: 10.5, color: C.muted });
+      var g = stSpan(t, 0.6 + 0.5 * i, 1.4 + 0.5 * i);
+      if (typeof inCv === 'number') { c.fillStyle = stAlpha(col, 0.22); c.fillRect(bx, y + 2, bw * inCv, 8); }
+      c.fillStyle = col; c.fillRect(bx, y + 12, Math.max(2, bw * r.right * g), 10);
+      if (g > 0.85) label(c, C, radPct(r.right), bx + Math.max(2, bw * r.right) + 6, y + 21, { size: 11.5, weight: '600', color: r.right < 0.5 ? C.warm : C.ink });
+    });
+    var la = stSpan(t, 3.4, 4.0);
+    if (la > 0) {
+      c.globalAlpha = la;
+      var ly = y0 + lo.length * rh + 10;
+      c.fillStyle = stAlpha(C.ink2, 0.22); c.fillRect(B.x, ly - 8, 12, 8);
+      label(c, C, 'with the family in training', B.x + 18, ly, { size: 11, color: C.ink2 });
+      c.fillStyle = C.ink2; c.fillRect(B.x + (narrow ? 0 : 210), ly + (narrow ? 8 : -8), 12, 10);
+      label(c, C, 'family left out', B.x + (narrow ? 18 : 228), ly + (narrow ? 17 : 1), { size: 11, weight: '600', color: C.ink });
+    }
     c.globalAlpha = 1;
   }
 
@@ -7804,8 +8181,18 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     // Storm 3.0 and later: the version in use, calibrated to measured Tc (ai_model.calibration).
     var cal = sv && sv.status === 'adopted' && sv.version === ((d && d.ai_model && d.ai_model.current) || sv.version) ? stormCal() : null;
     var calN = cal && cal.data && typeof cal.data.n_matched === 'number' ? fmtInt(cal.data.n_matched) + ' ' : '';
+    var ens = cal ? stormEns() : null;
+    if (ens) return [
+      { id: 'storm', name: 'Storm', on: true, live: true, status: sname + ' ' + ens.version + ' in use', role: 'Conventional superconductors, paired by phonons',
+        text: 'Combines boosted trees that learn from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) with a crystal-graph network that learns from the atoms and their neighbours: ' +
+          ens.scores.tc_mae.toFixed(2) + ' K off on average against the computed Tc of materials it never saw' + (typeof ens.scores.reference_mae === 'number' ? ', against ' + ens.scores.reference_mae.toFixed(2) + ' K for the trees alone' : '') +
+          '. Calibrated to measured Tc, it is off by ' + ens.calibration.mae.toFixed(2) + ' K against experiment. Our AI agent designed it; a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
+        act: ['See how Storm works', function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); }] },
+      hurFamilyEntry(),
+      radFamilyEntry()
+    ];
     return [
-      { id: 'storm', name: 'Storm', on: true,
+      { id: 'storm', name: 'Storm', on: true, live: !!sv,
         status: cal ? sname + ' ' + cal.version + ' in use' : sv ? sname + ' ' + sv.version + ' in use' : 'In use',
         role: 'Conventional superconductors, paired by phonons',
         text: 'Learns from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) and predicts Tc in under a second' +
@@ -7815,32 +8202,47 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
           '. Our AI agent designed it; a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
         act: ['See how Storm works', function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); }] },
       hurFamilyEntry(),
-      { id: 'radar', name: 'Radar', status: 'Planned',
-        role: 'Decides which model to ask',
-        text: 'Reads a material’s composition and structure, estimates whether phonons can account for its pairing, and sends it to Storm or Hurricane. When the call is close it says so and shows both predictions. Comparing where the two disagree is also a clue to the pairing mechanism.' }
+      radFamilyEntry()
     ];
   }
-  // Hurricane's entry follows its own results (progress.json "hurricane"); model_family overrides still win.
+  // Radar's entry follows its own results (progress.json "radar").
+  function radFamilyEntry() {
+    var ri = radInfo(), role = 'Decides which model to ask';
+    if (!ri) return { id: 'radar', name: 'Radar', status: 'Planned', role: role,
+      text: 'Reads a material’s composition and structure, estimates whether phonons can account for its pairing, and sends it to Storm or Hurricane. When the call is close it says so and shows both predictions. Comparing where the two disagree is also a clue to the pairing mechanism.' };
+    var sc = ri.v.scores || {}, dd = ri.data || {}, inUse = !!ri.rd.current;
+    var cu = list(ri.v.lofo).filter(function (r) { return r.family === 'cuprate'; })[0];
+    return { id: 'radar', name: 'Radar', on: inUse, live: true, status: inUse ? radTitle(ri) + ' in use' : radTitle(ri) + ' experimental', role: role,
+      text: 'Reads a material’s composition and crystal structure and gives the probability that it belongs to an unconventional family, then sends it to Hurricane or Storm. It learns from ' +
+        fmtInt(dd.n) + ' SuperCon entries in 3DSC. For parent compounds it never saw it picks the right model ' + radPct(sc.balanced_accuracy) + ' of the time, against ' +
+        radPct(sc.reference_balanced_accuracy) + ' for a composition-only baseline.' + (cu ? ' Trained without any cuprate, it still sends ' + radPct(cu.right) + ' of cuprates to Hurricane.' : '') + ' Our AI agent designed it.',
+      act: ['See how Radar works', function () { setView('demos'); selectDemo('radar'); window.scrollTo(0, 0); }] };
+  }
+  // Hurricane's entry follows its own results (progress.json "hurricane").
   function hurFamilyEntry() {
     var hi = hurInfo(), role = 'Unconventional superconductors: cuprates, nickelates, iron-based, heavy-fermion and more';
     if (!hi) return { id: 'hurricane', name: 'Hurricane', status: 'Up next', role: role,
       text: 'No first-principles theory gives their Tc, so Hurricane will learn from measured Tc in the literature. Every measurement is graded as replicated, single report, preprint, retracted or refuted: unconfirmed claims count less and retracted ones not at all. Our AI agent will design it the same way as Storm.' };
     var sc = hi.v.scores || {}, dd = hi.data || {}, inUse = !!hi.hu.current;
-    return { id: 'hurricane', name: 'Hurricane', on: inUse, status: inUse ? hurTitle(hi) + ' in use' : hurTitle(hi) + ' experimental', role: role,
+    return { id: 'hurricane', name: 'Hurricane', on: inUse, live: true, status: inUse ? hurTitle(hi) + ' in use' : hurTitle(hi) + ' experimental', role: role,
       text: 'Learns from ' + fmtInt(dd.n) + ' measured Tc values (SuperCon with Materials Project structures, via 3DSC), including materials that did not superconduct. For compounds whose parent it never saw in training it is off by ' +
         hurK(sc.tc_mae) + ' K on average, against ' + hurK(sc.reference_mae) + ' K for a composition-only baseline. Our AI agent designed it.',
       act: ['See how Hurricane works', function () { setView('demos'); selectDemo('hurricane'); window.scrollTo(0, 0); }] };
+  }
+  // progress.json may update a model's status without a new app release: "model_family": [{ "id": "hurricane", "status": "In design" }].
+  // Training rounds write these for apps that cannot read a model's own results, so an entry built from those results ("live")
+  // ignores them unless the override says "force": true; otherwise an old override could name a version that is no longer in use.
+  function familyOverride(d, m) {
+    var o = list(d && d.model_family).filter(function (x) { return x && x.id === m.id; })[0];
+    return o && (!m.live || o.force === true) ? o : {};
   }
   function renderModels(d) {
     var el = $('#models-card');
     if (!el) return;
     clear(el);
-    // progress.json may update a model's status without a new app release: "model_family": [{ "id": "hurricane", "status": "In design" }]
-    var over = {};
-    list(d && d.model_family).forEach(function (m) { if (m && typeof m.id === 'string') over[m.id] = m; });
     var ul = h('ul', { class: 'model-family' });
     modelFamily(d).forEach(function (m) {
-      var o = over[m.id] || {};
+      var o = familyOverride(d, m);
       var status = typeof o.status === 'string' && o.status ? o.status : m.status;
       var on = typeof o.active === 'boolean' ? o.active : !!m.on;
       var g = h('span', { class: 'mf-glyph' });
@@ -8344,12 +8746,112 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var hu = d && d.hurricane, hvs = hu ? list(hu.versions).filter(function (v) { return v && v.scores; }) : [];
     var hv = hvs.length ? (hvs.filter(function (v) { return v.version === hu.current; })[0] || hvs[hvs.length - 1]) : null;
     var cal = d && d.ai_model && d.ai_model.calibration && d.ai_model.calibration.scores ? d.ai_model.calibration : null;
-    el.hidden = !hv && !cal;
+    var ens = d && d.ai_model && d.ai_model.ensemble && d.ai_model.ensemble.scores ? d.ai_model.ensemble : null;
+    var ri = radInfo(), gn = d && d.gnn && typeof d.gnn.tc_mae === 'number' ? d.gnn : null;
+    el.hidden = !hv && !cal && !ri && !gn && !ens;
     if (el.hidden) return;
     var parts = [cardHead('Model details', 'What the latest training rounds found, read from the live progress data.')];
     if (hv) parts.push(hurricaneDetails(hu, hv));
+    if (ri) parts.push(radarDetails(ri));
+    if (ens) parts.push(ensembleDetails(ens));
     if (cal) parts.push(calibrationDetails(cal));
+    if (gn) parts.push(gnnDetails(gn));
     append(el, parts);
+  }
+  function pct(x) { return typeof x === 'number' ? radPct(x) : '—'; }
+
+  function radarDetails(ri) {
+    var v = ri.v, sc = v.scores || {}, dd = ri.data || {}, box = h('div', { class: 'dt-block' });
+    box.appendChild(h('h3', { class: 'dt-title' }, radTitle(ri) + ' · which model to ask',
+      h('span', { class: 'mf-status', text: v.status === 'adopted' ? 'in use' : 'experimental' })));
+    box.appendChild(h('p', { class: 'dt-lead', text: 'Learns from ' + fmtInt(dd.n) + ' SuperCon entries in 3DSC labelled by their chemical class: ' + fmtInt(dd.n_unconventional) +
+      ' in Hurricane’s four unconventional families and ' + fmtInt(dd.n_conventional) + ' conventional ones for Storm. It gives the probability of an unconventional family and sends the material to Hurricane at one half or more. Cross-validation holds out whole parent compounds.' }));
+    box.appendChild(h('div', { class: 'dt-tiles' },
+      statTile('Right model', pct(sc.balanced_accuracy), 'baseline ' + pct(sc.reference_balanced_accuracy) + ' (balanced accuracy)'),
+      statTile('Unconventional to Hurricane', pct(sc.to_hurricane), 'conventional to Storm: ' + pct(sc.to_storm)),
+      statTile('Better than baseline', (sc.folds_better || 0) + ' of ' + list(sc.folds).length + ' folds', 'log loss ' + (typeof sc.log_loss === 'number' ? sc.log_loss.toFixed(3) : '—') + ' against ' + (typeof sc.reference_log_loss === 'number' ? sc.reference_log_loss.toFixed(3) : '—'))));
+    var lo = list(v.lofo), bc = sc.by_class || {};
+    if (lo.length) {
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Leave one family out: how much of a family goes to the right model when Radar is trained without it, and when the family is in training?' }));
+      box.appendChild(smallTable(['Family', 'Right model', 'Left out', 'In training'],
+        lo.map(function (r) { return [(r.label || r.family) + ' (' + fmtInt(r.n) + ')', r.model, pct(r.right), bc[r.family] ? pct(bc[r.family].right) : '—']; })));
+    }
+    var imp = list(v.importance).slice(0, 8);
+    if (imp.length) {
+      var ul = h('ul', { class: 'dt-chips' });
+      imp.forEach(function (i) { ul.appendChild(h('li', null, featLabel(i.name), h('span', { text: ' +' + (+i.gain).toFixed(3) }))); });
+      box.appendChild(h('p', { class: 'dt-sub', text: 'What it relies on most (how much the log loss grows when one input is shuffled):' }));
+      box.appendChild(ul);
+    }
+    var kn = list(v.known).filter(function (k) { return k.list === 'anchors' || /^(MgB2|Nb3Sn|NbSe2|H3S|LaH10|Pb|Nb)$/.test(k.name); });
+    if (kn.length) {
+      var seen = kn.some(function (k) { return k.in_training; });
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Graded materials, each scored by a Radar that never saw it' + (seen ? ' (those also in 3DSC out of fold, with their parent compound held out)' : '') +
+        ', with the probability that each belongs to an unconventional family:' }));
+      box.appendChild(smallTable(['Material', 'Probability', 'Goes to'], kn.map(function (k) {
+        return [hurSub(k.name) + (k.in_training ? ' (in 3DSC)' : ''), k.p_unconventional.toFixed(2), k.model];
+      })));
+    }
+    if (list(v.changes).length) box.appendChild(h('p', { class: 'note', text: 'Design: ' + prettyMath(list(v.changes).join('; ')) + '.' }));
+    box.appendChild(h('p', { class: 'note dt-data' }, 'Data: ', h('a', { href: 'https://doi.org/10.1038/s41597-023-02721-y', text: '3DSC' }),
+      ' (T. Sommer et al., Sci. Data 10, 816 (2023)), used under ', h('a', { href: 'https://creativecommons.org/licenses/by/4.0/', text: 'CC BY 4.0' }),
+      '. The labels are SuperCon’s chemical classes, a proxy for the pairing mechanism rather than a measurement of it.'));
+    return box;
+  }
+
+  function gnnDetails(g) {
+    var box = h('div', { class: 'dt-block' }), ver = g.current ? ' ' + g.current : '';
+    var vs = list(g.versions), cur = vs.filter(function (x) { return x.version === g.current; })[0];
+    box.appendChild(h('h3', { class: 'dt-title' }, (g.name || 'Graph neural network') + ver + ' · learns from the crystal graph',
+      h('span', { class: 'mf-status', text: g.status === 'done' ? 'trained' : g.status || '' })));
+    // a hybrid design (round 2 and later) adds Storm 1.0's descriptors to the readout, so it is no longer free of hand-made features
+    var hybrid = /descriptors/.test(String((g.spec || {}).readout || ''));
+    box.appendChild(h('p', { class: 'dt-lead', text: 'Atoms are the nodes and each atom is joined to its 12 nearest neighbours; gated message passing turns the graph into a prediction of Tc, λ and ω_log' +
+      (hybrid ? ', and Storm 1.0’s 54 crystal descriptors join the learned graph vector before the final layers' : ', with no hand-made features') + '. Scored on the same five folds as Storm, grouped by chemical system.' }));
+    box.appendChild(h('div', { class: 'dt-tiles' },
+      statTile('Tc error (DFT)', k2(g.tc_mae), typeof g.storm1_mae === 'number' ? 'Storm 1.0 ' + k2(g.storm1_mae) : null),
+      statTile('Averaged with Storm 1.0', g.blend ? k2(g.blend.tc_mae) : '—', g.blend ? 'better than Storm 1.0 in ' + g.blend.folds_better_storm1 + ' of 5 folds' : null),
+      statTile('λ and ω_log', typeof g.lambda_mae === 'number' ? g.lambda_mae.toFixed(3) : '—', typeof g.wlog_mae === 'number' ? 'ω_log ' + g.wlog_mae.toFixed(1) + ' K' : null)));
+    var r2 = vs.filter(function (x) { return x.round === 2 && x.search; })[0];
+    if (r2) {
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Round 2: designs the AI agent proposed (one seed each; Tc error in K):' }));
+      box.appendChild(smallTable(['Design', 'Tc error', 'Better folds', 'With Storm 1.0'], list(r2.search.leaderboard).map(function (r) {
+        return [r.id + ' ' + r.name, k2(r.tc_mae), (r.folds_better || 0) + ' of 5', typeof r.blend_mae === 'number' ? k2(r.blend_mae) : '—'];
+      })));
+      box.appendChild(h('p', { class: 'note', text: gnnRound2Note(r2) }));
+    }
+    return box;
+  }
+
+  // The search trains one seed per design; the selected one is then retrained like version 1.0 before any release.
+  function gnnRound2Note(r2) {
+    var best = String(r2.summary || '').replace(/^\+ /, '');
+    var like = 'retrained like version 1.0 (' + (r2.seeds || 2) + ' seeds averaged, ' + (r2.epochs || 200) + ' epochs)';
+    // "checked" is written by the final check; until then a selected design is only a candidate
+    if (!r2.checked && (r2.status === 'selected' || r2.status === 'adopted'))
+      return 'The best design, ' + best + ', beat the round-1 design trained the same way; it is being ' + like + ' before it can be released.';
+    if (r2.checked && r2.status === 'adopted') return 'The best design, ' + best + ', ' + like + ', is off by ' + k2(r2.tc_mae) + ' against ' + k2(r2.reference_mae) +
+      ' for version 1.0 and better in ' + r2.folds_better + ' of 5 folds, so it was released as version ' + r2.version + '.';
+    if (r2.checked) return 'The best design, ' + best + ', ' + like + ', is off by ' + k2(r2.tc_mae) + ' against ' + k2(r2.reference_mae) +
+      ' for version 1.0 and better in only ' + r2.folds_better + ' of 5 folds, so version 1.0 stays.';
+    return 'No design beat the round-1 design trained the same way on average and in at least 4 of 5 folds, so version 1.0 stays.';
+  }
+
+  function ensembleDetails(e) {
+    var sc = e.scores || {}, ca = e.calibration || {}, box = h('div', { class: 'dt-block' });
+    box.appendChild(h('h3', { class: 'dt-title' }, 'Storm round 4 · trees and a graph network together',
+      h('span', { class: 'mf-status', text: e.status === 'adopted' ? 'Storm ' + e.version + ' in use' : 'experimental' })));
+    box.appendChild(h('p', { class: 'dt-lead', text: 'Storm 1.0’s boosted trees learn from hand-made features, the graph network from the atoms and their neighbours, and their mistakes only partly overlap. Round 4 averages Storm 1.0 with the ' + (e.gnn && e.gnn.design ? e.gnn.design : 'graph network') + ', then calibrates the result to measured Tc as in round 3.' }));
+    box.appendChild(h('div', { class: 'dt-tiles' },
+      statTile('Tc error (DFT)', k2(sc.tc_mae), 'Storm 1.0 ' + k2(sc.reference_mae)),
+      statTile('Better than Storm 1.0', (sc.folds_better || 0) + ' of ' + list(sc.folds).length + ' folds', e.summary || null),
+      statTile('Against measured Tc', typeof ca.mae === 'number' ? k2(ca.mae) : '—', typeof ca.mae_storm3 === 'number' ? 'Storm 3.0 ' + k2(ca.mae_storm3) : null)));
+    if (list(e.leaderboard).length) box.appendChild(smallTable(['Combination', 'Tc error (DFT)', 'Better folds'], list(e.leaderboard).map(function (r) {
+      return [r.id + ' ' + r.name, k2(r.tc_mae), (r.folds_better || 0) + ' of 5'];
+    })));
+    box.appendChild(h('p', { class: 'note', text: e.status === 'adopted' ? 'Released as Storm ' + e.version + ': better than Storm 1.0 on the DFT labels in ' + (sc.folds_better || 0) + ' of ' + list(sc.folds).length + ' folds and, after calibration, closer to measured Tc than Storm 3.0 on average' +
+      (typeof ca.folds_better_storm3 === 'number' ? ' (in ' + ca.folds_better_storm3 + ' of ' + list(ca.folds).length + ' folds)' : '') + '.' : 'Not released, so Storm 3.0 stays in use.' + (e.rule ? ' The rule: ' + e.rule + '.' : '') }));
+    return box;
   }
 
   function hurricaneDetails(hu, v) {
@@ -8408,7 +8910,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function calibrationDetails(c) {
     var sc = c.scores, box = h('div', { class: 'dt-block' }), dd = c.data || {};
     box.appendChild(h('h3', { class: 'dt-title' }, 'Storm against measured Tc',
-      h('span', { class: 'mf-status', text: c.status === 'adopted' ? 'Storm ' + c.version + ' in use' : 'calibration experimental' })));
+      // once a later Storm is released (round 4), round 3's Storm 3.0 is no longer the one in use
+      h('span', { class: 'mf-status', text: c.status === 'adopted' ? 'Storm ' + c.version + (stormEns() ? ', replaced by ' + stormEns().version : ' in use') : 'calibration experimental' })));
     box.appendChild(h('p', { class: 'dt-lead', text: 'Storm learns from DFT-computed Tc. Round 3 checked it against ' + (dd.n_matched || '?') + ' conventional materials with measured Tc (' +
       (dd.n_sc || '?') + ' superconducting) that are also in its training set, and taught a calibration step to map its prediction to the measured value. Storm’s inputs here are its predictions for materials it never saw, never the DFT labels.' }));
     var max = Math.max(sc.dft_mae || 0, sc.mae_raw || 0, sc.mae || 0);
@@ -8549,11 +9052,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var el = $('#ai-ours');
     if (!el) return;
     clear(el);
-    var d = state.data, over = {};
-    list(d && d.model_family).forEach(function (m) { if (m && typeof m.id === 'string') over[m.id] = m; });
+    var d = state.data;
     var ul = h('ul', { class: 'ai-models' });
     modelFamily(d).forEach(function (m) {
-      var o = over[m.id] || {};
+      var o = familyOverride(d, m);
       var g = h('span', { class: 'mf-glyph' });
       g.innerHTML = MODEL_GLYPH[m.id] || '';
       ul.appendChild(h('li', null, g, h('div', null,
@@ -8566,7 +9068,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       h('p', { class: 'ai-links' },
         h('button', { class: 'btn small', type: 'button', onclick: function () { setView('progress'); var c = $('#details-card'); if (c && !c.hidden) c.scrollIntoView(); else window.scrollTo(0, 0); } }, 'Scores and details'),
         h('button', { class: 'btn small', type: 'button', onclick: function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); } }, 'See how Storm works'),
-        h('button', { class: 'btn small', type: 'button', onclick: function () { setView('demos'); selectDemo('hurricane'); window.scrollTo(0, 0); } }, 'See how Hurricane works'))
+        h('button', { class: 'btn small', type: 'button', onclick: function () { setView('demos'); selectDemo('hurricane'); window.scrollTo(0, 0); } }, 'See how Hurricane works'),
+        radInfo() ? h('button', { class: 'btn small', type: 'button', onclick: function () { setView('demos'); selectDemo('radar'); window.scrollTo(0, 0); } }, 'See how Radar works') : null)
     ]);
   }
   function renderAICurated() {
