@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-31T06:32:51-05:00",
+  "updated": "2026-10-31T07:05:29-05:00",
   "badge": "5/10 done · now: ai models",
   "project": "Finding high-Tc superconductors with AI-designed models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
@@ -62,7 +62,7 @@
       "status": "active",
       "name": "AI-designed models",
       "short": "AI models",
-      "detail": "Storm 4.0 for conventional superconductors (Storm 1.0, the graph network and its Allen–Dynes route, averaged, calibrated to measured Tc), Hurricane 2.0 for unconventional ones and Radar 1.0 to pick between them are in use",
+      "detail": "Storm 5.0 for conventional superconductors (Storm 4.0 with a 90% range for every prediction), Hurricane 2.0 for unconventional ones and Radar 1.0 to pick between them are in use",
       "date": "2026-10-30"
     },
     {
@@ -177,8 +177,12 @@
       "event": "Storm round 4 (3 combinations of Storm 1.0 and the graph network 2.0 (weight averaging + Allen–Dynes head + crystal descriptors)): best Storm 1.0, the graph network and its Allen–Dynes route, averaged, DFT Tc MAE 0.898 K against 0.969 K for Storm 1.0, better in 5 of 5 folds; calibrated to measured Tc 1.56 K against 1.61 K for Storm 3.0; adopted as Storm 4.0"
     },
     {
-      "at": "2026-10-31T06:32:51-05:00",
-      "event": "Hurricane, round 2 (7 AI-designed candidates): best H12 Hurricane 1.0 + structure types, in two parts [probability times Tc], measured-Tc MAE 10.20 K against 12.61 K for Hurricane 1.0, better in 4 of 5 folds (superconductors 12.20 K against 17.58 K); released as Hurricane 2.0"
+      "at": "2026-10-31T07:01:37-05:00",
+      "event": "Hurricane, round 2 (7 AI-designed candidates): best H12 Hurricane 1.0 + structure types, in two parts [probability times Tc], measured-Tc MAE 10.31 K against 12.70 K for Hurricane 1.0, better in 5 of 5 folds (superconductors 12.29 K against 17.76 K); released as Hurricane 2.0"
+    },
+    {
+      "at": "2026-10-31T07:05:29-05:00",
+      "event": "Storm round 5 (6 ways to give Storm 4.0 a 90% range): best One width on log(1 + Tc), so the range grows with Tc, interval score 7.47 K against 8.02 K for one width for every material, better in 5 of 5 folds; for held-out materials it held the computed Tc 90.0% of the time (84.1% for the tenth with the highest Tc), and half of the ranges are narrower than 1.81 K; adopted as Storm 5.0"
     }
   ],
   "baselines": [
@@ -326,7 +330,7 @@
       "tag": "hurricane",
       "model": "Hurricane 2.0 (AI-designed)",
       "target": "Tc_exp",
-      "mae": 10.2,
+      "mae": 10.31,
       "unit": "K",
       "note": "5-fold CV grouped by parent compound; 2,123 cuprates, iron-based, heavy-fermion and other oxides from 3DSC (SuperCon + Materials Project), 1,395 superconducting"
     },
@@ -1520,14 +1524,190 @@
         "folds_better_storm3": 3,
         "n_matched": 298
       }
+    },
+    "uncertainty": {
+      "round": 5,
+      "version": "5.0",
+      "date": "2026-10-31",
+      "status": "adopted",
+      "summary": "One width on log(1 + Tc), so the range grows with Tc",
+      "level": 0.9,
+      "scores": {
+        "interval_score": 7.47,
+        "reference_interval_score": 8.02,
+        "reference": "One width for every material",
+        "folds": [
+          8.49,
+          8.23,
+          6.43,
+          7.04,
+          7.17
+        ],
+        "reference_folds": [
+          9.2,
+          8.97,
+          6.66,
+          7.35,
+          7.93
+        ],
+        "folds_better": 5,
+        "coverage": 0.9,
+        "tail_coverage": 0.841,
+        "reference_coverage": 0.9,
+        "reference_tail_coverage": 0.538,
+        "median_width": 1.81,
+        "mean_width": 3.75,
+        "tail_median_width": 12.76,
+        "reference_median_width": 2.96,
+        "fold_coverage": [
+          0.888,
+          0.896,
+          0.916,
+          0.91,
+          0.89
+        ],
+        "tail_threshold": 7.57
+      },
+      "leaderboard": [
+        {
+          "id": "U5",
+          "name": "Gradient-boosted quantiles on log(1 + Tc), conformalised",
+          "interval_score": 6.03,
+          "coverage": 0.913,
+          "tail_coverage": 0.717,
+          "median_width": 2.62,
+          "folds_better": 5
+        },
+        {
+          "id": "U4",
+          "name": "Gradient-boosted 5% and 95% quantiles, conformalised",
+          "interval_score": 6.15,
+          "coverage": 0.912,
+          "tail_coverage": 0.689,
+          "median_width": 2.66,
+          "folds_better": 5
+        },
+        {
+          "id": "U6",
+          "name": "One width for each range of predicted Tc",
+          "interval_score": 7.26,
+          "coverage": 0.901,
+          "tail_coverage": 0.759,
+          "median_width": 2.62,
+          "folds_better": 5
+        },
+        {
+          "id": "U1",
+          "name": "Width scaled by how much the members disagree",
+          "interval_score": 7.29,
+          "coverage": 0.9,
+          "tail_coverage": 0.688,
+          "median_width": 1.84,
+          "folds_better": 5
+        },
+        {
+          "id": "U2",
+          "name": "One width on log(1 + Tc), so the range grows with Tc",
+          "interval_score": 7.47,
+          "coverage": 0.9,
+          "tail_coverage": 0.841,
+          "median_width": 1.81,
+          "folds_better": 5
+        },
+        {
+          "id": "U3",
+          "name": "Log(1 + Tc), width scaled by the members' disagreement",
+          "interval_score": 7.88,
+          "coverage": 0.9,
+          "tail_coverage": 0.842,
+          "median_width": 1.83,
+          "folds_better": 2
+        },
+        {
+          "id": "U0",
+          "name": "One width for every material",
+          "interval_score": 8.02,
+          "coverage": 0.9,
+          "tail_coverage": 0.538,
+          "median_width": 2.96,
+          "folds_better": 0
+        }
+      ],
+      "measured": {
+        "n": 298,
+        "n_sc": 168,
+        "method": "Gradient-boosting correction",
+        "mae": 1.56,
+        "one_width": {
+          "coverage": 0.906,
+          "median_width": 4.89,
+          "interval_score": 11.73,
+          "tail_coverage": 0.4
+        },
+        "log_width": {
+          "coverage": 0.899,
+          "median_width": 3.5,
+          "interval_score": 12.05,
+          "tail_coverage": 0.7
+        }
+      },
+      "examples": [
+        {
+          "name": "NaTcN2",
+          "id": "agm002861776",
+          "tc": 23.84,
+          "pred": 21.09,
+          "lo": 10.77,
+          "hi": 40.43,
+          "inside": true
+        },
+        {
+          "name": "Cr4TcMo",
+          "id": "agm003199664",
+          "tc": 22.84,
+          "pred": 20.65,
+          "lo": 10.54,
+          "hi": 39.61,
+          "inside": true
+        },
+        {
+          "name": "Cr4ReMo",
+          "id": "agm003199659",
+          "tc": 21.24,
+          "pred": 20.24,
+          "lo": 10.2,
+          "hi": 39.28,
+          "inside": true
+        },
+        {
+          "name": "Cr4TcW",
+          "id": "agm003199690",
+          "tc": 22.17,
+          "pred": 19.66,
+          "lo": 9.89,
+          "hi": 38.19,
+          "inside": true
+        },
+        {
+          "name": "Cr4ReW",
+          "id": "agm003199681",
+          "tc": 21.09,
+          "pred": 19.47,
+          "lo": 9.96,
+          "hi": 37.23,
+          "inside": true
+        }
+      ],
+      "rule": "coverage within 2 points of 90%, at least 80% for the top 10% of Tc, and an interval score better than one width for every material on average and in at least 4 of 5 folds",
+      "caveat": "a range is for the computed (DFT Allen-Dynes) Tc that Storm learns; measured Tc can lie further away, see 'measured'"
     }
   },
   "model_family": [
     {
       "id": "storm",
-      "status": "Storm 4.0 in use",
+      "status": "Storm 5.0 in use",
       "active": true,
-      "text": "Combines boosted trees that learn from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) with a crystal-graph network that learns from the atoms and their neighbours: 0.90 K off on average against the computed Tc of materials it never saw, against 0.97 K for the trees alone. Calibrated to measured Tc, it is off by 1.56 K against experiment (Storm 3.0: 1.61 K). Our AI agent designed it."
+      "text": "Combines boosted trees that learn from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) with a crystal-graph network that learns from the atoms and their neighbours: 0.90 K off on average against the computed Tc of materials it never saw, against 0.97 K for the trees alone. Calibrated to measured Tc, it is off by 1.56 K against experiment (Storm 3.0: 1.61 K). Since Storm 5.0 it also gives a 90% range for every prediction: for materials it never saw, the range held the computed Tc 90% of the time (84% for the tenth with the highest Tc), and half of the ranges are narrower than 1.8 K. Our AI agent designed it."
     },
     {
       "id": "radar",
@@ -1539,7 +1719,7 @@
       "id": "hurricane",
       "status": "Hurricane 2.0 in use",
       "active": true,
-      "text": "Learns from 2,123 measured Tc values (cuprates, iron-based, heavy-fermion and other oxides; SuperCon with Materials Project structures via 3DSC), including 728 materials that did not superconduct. For compounds whose parent it never saw in training it is off by 10.2 K on average, against 12.6 K for Hurricane 1.0 and 15.0 K for a composition-only baseline. Predicting a whole family it never saw is much harder: trained without any cuprate, it misses cuprates by 34 K. Our AI agent designed it."
+      "text": "Learns from 2,123 measured Tc values (cuprates, iron-based, heavy-fermion and other oxides; SuperCon with Materials Project structures via 3DSC), including 728 materials that did not superconduct. For compounds whose parent it never saw in training it is off by 10.3 K on average, against 12.7 K for Hurricane 1.0 and 15.0 K for a composition-only baseline. Predicting a whole family it never saw is much harder: trained without any cuprate, it misses cuprates by 34 K. Our AI agent designed it."
     }
   ],
   "hurricane": {
@@ -2280,14 +2460,14 @@
         },
         "rule": "release the lowest-error design that beats Hurricane 1.0 on average and in at least 4 of 5 folds and is not more than 0.5 K worse on the superconducting entries",
         "scores": {
-          "tc_mae": 10.2,
+          "tc_mae": 10.31,
           "reference_mae": 14.98,
           "reference": "Composition only (baseline)",
           "folds": [
-            10.63,
-            9.85,
-            8.74,
-            9.27,
+            10.8,
+            9.71,
+            9.09,
+            9.44,
             12.5
           ],
           "reference_folds": [
@@ -2298,46 +2478,46 @@
             16.83
           ],
           "folds_better": 5,
-          "sc_mae": 12.2,
-          "high_tc_mae": 23.76,
+          "sc_mae": 12.29,
+          "high_tc_mae": 23.84,
           "high_tc": 30.0,
-          "r2_log": 0.474,
+          "r2_log": 0.464,
           "by_family": {
             "cuprate": {
               "n": 874,
-              "mae": 18.24,
+              "mae": 18.37,
               "mae_ref": 29.24
             },
             "iron-based": {
               "n": 517,
-              "mae": 7.94,
+              "mae": 8.09,
               "mae_ref": 9.4
             },
             "heavy-fermion": {
               "n": 422,
-              "mae": 1.34,
+              "mae": 1.35,
               "mae_ref": 1.06
             },
             "other oxide": {
               "n": 310,
-              "mae": 3.37,
+              "mae": 3.44,
               "mae_ref": 3.03
             }
           }
         },
         "previous": {
           "version": "1.0",
-          "tc_mae": 12.61,
+          "tc_mae": 12.7,
           "folds": [
-            11.89,
-            13.12,
-            12.42,
-            9.23,
+            11.68,
+            13.76,
+            12.04,
+            9.59,
             16.41
           ],
-          "folds_better": 4,
-          "sc_mae": 17.58,
-          "high_tc_mae": 37.28
+          "folds_better": 5,
+          "sc_mae": 17.76,
+          "high_tc_mae": 37.69
         },
         "lofo": [
           {
@@ -2348,103 +2528,103 @@
             "mae_median": 34.17,
             "max_tc": 132.9,
             "max_pred": 11.24,
-            "mae_cv": 18.24,
+            "mae_cv": 18.37,
             "mae_baseline": 34.11
           },
           {
             "family": "iron-based",
             "label": "Iron- and nickel-based",
             "n": 517,
-            "mae": 13.94,
+            "mae": 14.05,
             "mae_median": 13.91,
             "max_tc": 56.5,
-            "max_pred": 7.23,
-            "mae_cv": 7.94,
+            "max_pred": 6.42,
+            "mae_cv": 8.09,
             "mae_baseline": 14.38
           },
           {
             "family": "heavy-fermion",
             "label": "Heavy-fermion",
             "n": 422,
-            "mae": 2.0,
+            "mae": 1.98,
             "mae_median": 9.56,
             "max_tc": 16.6,
-            "max_pred": 12.02,
-            "mae_cv": 1.34,
+            "max_pred": 11.43,
+            "mae_cv": 1.35,
             "mae_baseline": 2.78
           },
           {
             "family": "other oxide",
             "label": "Other oxides",
             "n": 310,
-            "mae": 5.97,
+            "mae": 6.14,
             "mae_median": 6.04,
             "max_tc": 31.5,
-            "max_pred": 35.69,
-            "mae_cv": 3.37,
+            "max_pred": 34.96,
+            "mae_cv": 3.44,
             "mae_baseline": 5.77
           }
         ],
         "importance": [
           {
             "name": "tm_d",
-            "gain": 2.814
+            "gain": 2.804
           },
           {
             "name": "aniso",
-            "gain": 1.815
+            "gain": 1.829
           },
           {
             "name": "x_Cu",
-            "gain": 1.743
-          },
-          {
-            "name": "p_cu",
-            "gain": 1.022
+            "gain": 1.726
           },
           {
             "name": "nonint",
-            "gain": 0.988
+            "gain": 1.028
+          },
+          {
+            "name": "p_cu",
+            "gain": 1.012
           },
           {
             "name": "dome",
-            "gain": 0.781
+            "gain": 0.786
           },
           {
             "name": "x_Pr",
-            "gain": 0.681
+            "gain": 0.712
           },
           {
             "name": "n_atoms_fu",
-            "gain": 0.619
+            "gain": 0.594
           },
           {
             "name": "x_Ca",
-            "gain": 0.563
+            "gain": 0.593
           },
           {
             "name": "x_Fe",
-            "gain": 0.495
+            "gain": 0.478
           },
           {
             "name": "oxide",
-            "gain": 0.441
+            "gain": 0.458
           },
           {
             "name": "X_mean",
-            "gain": 0.429
+            "gain": 0.412
           },
           {
             "name": "valence_std",
-            "gain": 0.36
+            "gain": 0.342
           },
           {
             "name": "vpa",
-            "gain": 0.33
+            "gain": 0.336
           },
           {
-            "name": "group_std",
-            "gain": 0.327
+            "name": "X_std",
+            "gain": 0.322
           }
         ],
         "search": {
@@ -2456,73 +2636,73 @@
               "id": "H12",
               "name": "Hurricane 1.0 + structure types, in two parts",
               "settings": "probability times Tc",
-              "tc_mae": 10.2,
-              "sc_mae": 12.2,
+              "tc_mae": 10.31,
+              "sc_mae": 12.29,
               "folds_better": 5,
-              "folds_better_previous": 4
-            },
-            {
-              "id": "H13",
-              "name": "Hurricane 1.0 + structure types, in two parts",
-              "settings": "median rule",
-              "tc_mae": 10.24,
-              "sc_mae": 12.58,
-              "folds_better": 5,
-              "folds_better_previous": 4
+              "folds_better_previous": 5
             },
             {
               "id": "H10",
               "name": "Hurricane 1.0 in two parts",
               "settings": "probability times Tc",
-              "tc_mae": 10.38,
-              "sc_mae": 12.47,
+              "tc_mae": 10.39,
+              "sc_mae": 12.5,
               "folds_better": 5,
-              "folds_better_previous": 4
+              "folds_better_previous": 5
+            },
+            {
+              "id": "H13",
+              "name": "Hurricane 1.0 + structure types, in two parts",
+              "settings": "median rule",
+              "tc_mae": 10.41,
+              "sc_mae": 12.67,
+              "folds_better": 5,
+              "folds_better_previous": 5
             },
             {
               "id": "H11",
               "name": "Hurricane 1.0 in two parts",
               "settings": "median rule",
-              "tc_mae": 10.4,
+              "tc_mae": 10.42,
               "sc_mae": 12.83,
               "folds_better": 5,
-              "folds_better_previous": 4
+              "folds_better_previous": 5
             },
             {
               "id": "H9",
               "name": "Hurricane 1.0 + structure types",
               "settings": "default",
-              "tc_mae": 12.59,
-              "sc_mae": 17.65,
+              "tc_mae": 12.42,
+              "sc_mae": 17.37,
               "folds_better": 5,
               "folds_better_previous": 2
-            },
-            {
-              "id": "H4",
-              "name": "Composition + structure + physics + element fractions",
-              "settings": "Hurricane 1.0",
-              "tc_mae": 12.61,
-              "sc_mae": 17.58,
-              "folds_better": 5,
-              "folds_better_previous": 0
             },
             {
               "id": "H15",
               "name": "Hurricane 1.0 + structure types",
               "settings": "average of 5 seeds",
-              "tc_mae": 12.63,
-              "sc_mae": 17.74,
+              "tc_mae": 12.57,
+              "sc_mae": 17.65,
               "folds_better": 5,
-              "folds_better_previous": 2
+              "folds_better_previous": 4
+            },
+            {
+              "id": "H4",
+              "name": "Composition + structure + physics + element fractions",
+              "settings": "Hurricane 1.0",
+              "tc_mae": 12.7,
+              "sc_mae": 17.76,
+              "folds_better": 5,
+              "folds_better_previous": 0
             },
             {
               "id": "H14",
               "name": "Hurricane 1.0, one model per family",
               "settings": "default",
-              "tc_mae": 12.91,
-              "sc_mae": 17.83,
+              "tc_mae": 12.99,
+              "sc_mae": 17.95,
               "folds_better": 5,
-              "folds_better_previous": 3
+              "folds_better_previous": 2
             },
             {
               "id": "H0",
@@ -2537,7 +2717,7 @@
         },
         "anchors": {
           "n_scored": 5,
-          "mae": 9.74,
+          "mae": 9.7,
           "scored_as_check": false,
           "rule": "reported as a score only with at least 8 scored measurements; never used for training or for choosing the design",
           "table": [
@@ -2556,7 +2736,7 @@
               "status": "replicated",
               "use": "score",
               "family": "heavy-fermion",
-              "pred": 3.5,
+              "pred": 3.61,
               "note": "two superconducting phases in a magnetic field"
             },
             {
@@ -2565,7 +2745,7 @@
               "status": "replicated",
               "use": "score",
               "family": "other oxide",
-              "pred": 0.09,
+              "pred": 0.13,
               "note": "not superconducting at ambient pressure; about 80 K above 14 GPa"
             },
             {
@@ -2574,7 +2754,7 @@
               "status": "replicated",
               "use": "score",
               "family": "other oxide",
-              "pred": 1.22,
+              "pred": 1.03,
               "note": "bulk samples do not superconduct, unlike thin films"
             },
             {
@@ -2583,7 +2763,7 @@
               "status": "replicated",
               "use": "score",
               "family": "cuprate",
-              "pred": 90.78,
+              "pred": 90.96,
               "note": "the ambient-pressure record since 1993; δ ≈ 0.25 assumed (near optimal doping); absent from the 3DSC training data"
             },
             {
@@ -2592,7 +2772,7 @@
               "status": "replicated",
               "use": "show",
               "family": "other oxide",
-              "pred": 1.17,
+              "pred": 1.01,
               "note": "films on SrTiO3 superconduct at 9 to 15 K; films are outside Hurricane's bulk training data"
             },
             {
@@ -2601,7 +2781,7 @@
               "status": "single report",
               "use": "show",
               "family": "cuprate",
-              "pred": 90.78,
+              "pred": 90.96,
               "note": "a metastable state kept at ambient pressure after squeezing and a fast release; one group so far"
             },
             {
@@ -2610,7 +2790,7 @@
               "status": "replicated",
               "use": "show",
               "family": "kagome",
-              "pred": 3.16,
+              "pred": 3.14,
               "note": "kagome metal, outside Hurricane's four families"
             },
             {
@@ -2619,7 +2799,7 @@
               "status": "replicated",
               "use": "show",
               "family": "kagome",
-              "pred": 3.36,
+              "pred": 2.64,
               "note": "kagome metal, outside Hurricane's four families"
             },
             {
@@ -2628,7 +2808,7 @@
               "status": "refuted",
               "use": "exclude",
               "family": "other oxide",
-              "pred": 1.3,
+              "pred": 1.22,
               "note": "the resistivity jumps come from Cu2S impurities"
             }
           ]

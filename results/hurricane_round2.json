@@ -1,6 +1,6 @@
 {
-  "run_at": "2026-10-31T06:32:51-05:00",
-  "commit": "b70adf4",
+  "run_at": "2026-10-31T07:01:37-05:00",
+  "commit": "81c873b",
   "round": 2,
   "model": "Hurricane",
   "version": "2.0",
@@ -128,34 +128,34 @@
     "id": "H4",
     "version": "1.0",
     "scores": {
-      "tc_mae": 12.613235044582325,
-      "tc_rmse": 22.774892984326794,
-      "sc_mae": 17.57906994036362,
-      "high_tc_mae": 37.28003513686351,
-      "r2_log": 0.44144232168748954,
+      "tc_mae": 12.697548174524227,
+      "tc_rmse": 22.948196418067113,
+      "sc_mae": 17.76493714689376,
+      "high_tc_mae": 37.69311210442236,
+      "r2_log": 0.43847392712585387,
       "fold_mae": [
-        11.889891376510109,
-        13.116050276865053,
-        12.418904902364039,
-        9.230659120814142,
+        11.681089367126466,
+        13.761564081142287,
+        12.04090376248955,
+        9.593972202143235,
         16.41164798640075
       ],
       "by_family": {
         "cuprate": {
           "n": 874,
-          "mae": 23.85686874312405
+          "mae": 24.092622922949342
         },
         "iron-based": {
           "n": 517,
-          "mae": 8.770889989874318
+          "mae": 8.630382164603988
         },
         "heavy-fermion": {
           "n": 422,
-          "mae": 1.0144242321032604
+          "mae": 1.0242255669407074
         },
         "other oxide": {
           "n": 310,
-          "mae": 3.1108308627266337
+          "mae": 3.244553456477313
         }
       }
     }
@@ -175,91 +175,41 @@
       },
       "two_part": "mean",
       "scores": {
-        "tc_mae": 10.19885443135946,
-        "tc_rmse": 17.813358552554394,
-        "sc_mae": 12.195383925852212,
-        "high_tc_mae": 23.75971974411264,
-        "r2_log": 0.4735733664121996,
+        "tc_mae": 10.306643127250513,
+        "tc_rmse": 17.867036398870482,
+        "sc_mae": 12.292694363326577,
+        "high_tc_mae": 23.8389581414671,
+        "r2_log": 0.4637112357229638,
         "fold_mae": [
-          10.628337335424641,
-          9.853327034064618,
-          8.743151227210923,
-          9.270912323472405,
+          10.796858876678705,
+          9.706198878730053,
+          9.094862097361695,
+          9.436634239856474,
           12.501779490627962
         ],
         "by_family": {
           "cuprate": {
             "n": 874,
-            "mae": 18.23578167399194
+            "mae": 18.374420642781427
           },
           "iron-based": {
             "n": 517,
-            "mae": 7.937679897543637
+            "mae": 8.092637408755627
           },
           "heavy-fermion": {
             "n": 422,
-            "mae": 1.3422025028922637
+            "mae": 1.3547098192582303
           },
           "other oxide": {
             "n": 310,
-            "mae": 3.367434875666404
+            "mae": 3.439285913897561
           }
         }
       },
       "n_features": 148,
       "seconds": 25,
       "folds_better": 5,
-      "folds_better_previous": 4
-    },
-    {
-      "id": "H13",
-      "name": "Hurricane 1.0 + structure types, in two parts",
-      "settings": "median rule",
-      "X": "ABCDE",
-      "params": {
-        "max_iter": 800,
-        "learning_rate": 0.04,
-        "max_leaf_nodes": 31,
-        "min_samples_leaf": 10,
-        "l2_regularization": 1.0
-      },
-      "two_part": "median",
-      "scores": {
-        "tc_mae": 10.236120376060539,
-        "tc_rmse": 18.517624370675946,
-        "sc_mae": 12.580806541440445,
-        "high_tc_mae": 23.09298072622711,
-        "r2_log": 0.3392033927800727,
-        "fold_mae": [
-          10.5432746234351,
-          9.195266389467266,
-          9.093654234694846,
-          9.363934817888664,
-          12.988896734346504
-        ],
-        "by_family": {
-          "cuprate": {
-            "n": 874,
-            "mae": 18.038988076017368
-          },
-          "iron-based": {
-            "n": 517,
-            "mae": 8.232285443486587
-          },
-          "heavy-fermion": {
-            "n": 422,
-            "mae": 1.4736568606489209
-          },
-          "other oxide": {
-            "n": 310,
-            "mae": 3.5072039047126884
-          }
-        }
-      },
-      "n_features": 148,
-      "seconds": 25,
-      "folds_better": 5,
-      "folds_better_previous": 4
+      "folds_better_previous": 5
     },
     {
       "id": "H10",
@@ -275,41 +225,91 @@
       },
       "two_part": "mean",
       "scores": {
-        "tc_mae": 10.38447708283901,
-        "tc_rmse": 17.926683432466877,
-        "sc_mae": 12.469073493376955,
-        "high_tc_mae": 24.5855002005689,
-        "r2_log": 0.46474253981528746,
+        "tc_mae": 10.38929186703539,
+        "tc_rmse": 17.93812888090376,
+        "sc_mae": 12.498950301496876,
+        "high_tc_mae": 24.684261149451565,
+        "r2_log": 0.47119583467948545,
         "fold_mae": [
-          10.817773309703831,
-          10.253359338273338,
-          9.018478672889172,
-          9.421104942587666,
+          10.738538293913255,
+          10.190858800400987,
+          9.241515951084374,
+          9.363719456556293,
           12.414178160004374
         ],
         "by_family": {
           "cuprate": {
             "n": 874,
-            "mae": 18.644611450142893
+            "mae": 18.690546324063963
           },
           "iron-based": {
             "n": 517,
-            "mae": 7.955570858036465
+            "mae": 7.916810518682619
           },
           "heavy-fermion": {
             "n": 422,
-            "mae": 1.3997437637229928
+            "mae": 1.34426014442011
           },
           "other oxide": {
             "n": 310,
-            "mae": 3.377846572730239
+            "mae": 3.4214849270323464
           }
         }
       },
       "n_features": 129,
       "seconds": 23,
       "folds_better": 5,
-      "folds_better_previous": 4
+      "folds_better_previous": 5
+    },
+    {
+      "id": "H13",
+      "name": "Hurricane 1.0 + structure types, in two parts",
+      "settings": "median rule",
+      "X": "ABCDE",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "two_part": "median",
+      "scores": {
+        "tc_mae": 10.41389013105436,
+        "tc_rmse": 18.75023905012136,
+        "sc_mae": 12.674135930784306,
+        "high_tc_mae": 23.264877942811776,
+        "r2_log": 0.32761491404810583,
+        "fold_mae": [
+          10.734037786805082,
+          9.387656396273462,
+          9.457451197768693,
+          9.505329589635414,
+          12.988896734346504
+        ],
+        "by_family": {
+          "cuprate": {
+            "n": 874,
+            "mae": 18.421822603037587
+          },
+          "iron-based": {
+            "n": 517,
+            "mae": 8.236755577187058
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "mae": 1.5097602157233145
+          },
+          "other oxide": {
+            "n": 310,
+            "mae": 3.5886914475245493
+          }
+        }
+      },
+      "n_features": 148,
+      "seconds": 25,
+      "folds_better": 5,
+      "folds_better_previous": 5
     },
     {
       "id": "H11",
@@ -325,41 +325,41 @@
       },
       "two_part": "median",
       "scores": {
-        "tc_mae": 10.398821270509561,
-        "tc_rmse": 18.52820980767717,
-        "sc_mae": 12.825266750736963,
-        "high_tc_mae": 23.88670667243546,
-        "r2_log": 0.3263650541779747,
+        "tc_mae": 10.420836790622898,
+        "tc_rmse": 18.515691511193065,
+        "sc_mae": 12.83415173250777,
+        "high_tc_mae": 23.80113140307118,
+        "r2_log": 0.3305792951974895,
         "fold_mae": [
-          10.813462280460074,
-          9.67436248336738,
-          9.34738313233123,
-          9.532011832246752,
+          10.580487680026742,
+          9.761316274605615,
+          9.659213665124096,
+          9.47604441873629,
           12.630097133376733
         ],
         "by_family": {
           "cuprate": {
             "n": 874,
-            "mae": 18.50240651166374
+            "mae": 18.471992245595363
           },
           "iron-based": {
             "n": 517,
-            "mae": 8.148932062274536
+            "mae": 8.156275209190516
           },
           "heavy-fermion": {
             "n": 422,
-            "mae": 1.5247092987186595
+            "mae": 1.529312356105045
           },
           "other oxide": {
             "n": 310,
-            "mae": 3.3844163414273547
+            "mae": 3.6024231819814303
           }
         }
       },
       "n_features": 129,
       "seconds": 23,
       "folds_better": 5,
-      "folds_better_previous": 4
+      "folds_better_previous": 5
     },
     {
       "id": "H9",
@@ -374,34 +374,34 @@
         "l2_regularization": 1.0
       },
       "scores": {
-        "tc_mae": 12.591041446027715,
-        "tc_rmse": 22.86203412522803,
-        "sc_mae": 17.649484777610397,
-        "high_tc_mae": 37.35183371640549,
-        "r2_log": 0.4455390867482253,
+        "tc_mae": 12.416589021268306,
+        "tc_rmse": 22.57738631955238,
+        "sc_mae": 17.368921588783248,
+        "high_tc_mae": 36.57041162105098,
+        "r2_log": 0.44712330546874135,
         "fold_mae": [
-          11.673916055358735,
-          13.588604962122888,
-          11.50955563807159,
-          9.56841881761064,
+          11.772246312121501,
+          13.694666794795594,
+          10.329525735195725,
+          9.67286120663881,
           16.61707271849011
         ],
         "by_family": {
           "cuprate": {
             "n": 874,
-            "mae": 23.881440692267354
+            "mae": 23.338016596925964
           },
           "iron-based": {
             "n": 517,
-            "mae": 8.548130425759046
+            "mae": 8.628569985914377
           },
           "heavy-fermion": {
             "n": 422,
-            "mae": 1.045129136021203
+            "mae": 1.0342618646773667
           },
           "other oxide": {
             "n": 310,
-            "mae": 3.219270643086424
+            "mae": 3.437299344605611
           }
         }
       },
@@ -409,55 +409,6 @@
       "seconds": 16,
       "folds_better": 5,
       "folds_better_previous": 2
-    },
-    {
-      "id": "H4",
-      "name": "Composition + structure + physics + element fractions",
-      "settings": "Hurricane 1.0",
-      "X": "ABCD",
-      "params": {
-        "max_iter": 800,
-        "learning_rate": 0.04,
-        "max_leaf_nodes": 31,
-        "min_samples_leaf": 10,
-        "l2_regularization": 1.0
-      },
-      "scores": {
-        "tc_mae": 12.613235044582325,
-        "tc_rmse": 22.774892984326794,
-        "sc_mae": 17.57906994036362,
-        "high_tc_mae": 37.28003513686351,
-        "r2_log": 0.44144232168748954,
-        "fold_mae": [
-          11.889891376510109,
-          13.116050276865053,
-          12.418904902364039,
-          9.230659120814142,
-          16.41164798640075
-        ],
-        "by_family": {
-          "cuprate": {
-            "n": 874,
-            "mae": 23.85686874312405
-          },
-          "iron-based": {
-            "n": 517,
-            "mae": 8.770889989874318
-          },
-          "heavy-fermion": {
-            "n": 422,
-            "mae": 1.0144242321032604
-          },
-          "other oxide": {
-            "n": 310,
-            "mae": 3.1108308627266337
-          }
-        }
-      },
-      "n_features": 129,
-      "seconds": 15,
-      "folds_better": 5,
-      "folds_better_previous": 0
     },
     {
       "id": "H15",
@@ -474,41 +425,90 @@
       },
       "bags": 5,
       "scores": {
-        "tc_mae": 12.626184528506544,
-        "tc_rmse": 22.676624334175155,
-        "sc_mae": 17.735397052838255,
-        "high_tc_mae": 37.64681256539213,
-        "r2_log": 0.4520663243335604,
+        "tc_mae": 12.571299549758693,
+        "tc_rmse": 22.576498911505123,
+        "sc_mae": 17.64701776332918,
+        "high_tc_mae": 37.38451935329407,
+        "r2_log": 0.45464099610558917,
         "fold_mae": [
-          11.990414505970506,
-          13.823650387690869,
-          11.61660196639281,
-          9.474122961632684,
+          11.976603053341298,
+          13.626176938570005,
+          11.628055809725836,
+          9.399612088862765,
           16.227189157462526
         ],
         "by_family": {
           "cuprate": {
             "n": 874,
-            "mae": 23.991010791932954
+            "mae": 23.873860278041835
           },
           "iron-based": {
             "n": 517,
-            "mae": 8.588166916241226
+            "mae": 8.546936617426347
           },
           "heavy-fermion": {
             "n": 422,
-            "mae": 1.008456846640588
+            "mae": 1.0062254019772592
           },
           "other oxide": {
             "n": 310,
-            "mae": 3.134178183519203
+            "mae": 3.1603926138236087
           }
         }
       },
       "n_features": 148,
-      "seconds": 85,
+      "seconds": 84,
       "folds_better": 5,
-      "folds_better_previous": 2
+      "folds_better_previous": 4
+    },
+    {
+      "id": "H4",
+      "name": "Composition + structure + physics + element fractions",
+      "settings": "Hurricane 1.0",
+      "X": "ABCD",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "scores": {
+        "tc_mae": 12.697548174524227,
+        "tc_rmse": 22.948196418067113,
+        "sc_mae": 17.76493714689376,
+        "high_tc_mae": 37.69311210442236,
+        "r2_log": 0.43847392712585387,
+        "fold_mae": [
+          11.681089367126466,
+          13.761564081142287,
+          12.04090376248955,
+          9.593972202143235,
+          16.41164798640075
+        ],
+        "by_family": {
+          "cuprate": {
+            "n": 874,
+            "mae": 24.092622922949342
+          },
+          "iron-based": {
+            "n": 517,
+            "mae": 8.630382164603988
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "mae": 1.0242255669407074
+          },
+          "other oxide": {
+            "n": 310,
+            "mae": 3.244553456477313
+          }
+        }
+      },
+      "n_features": 129,
+      "seconds": 15,
+      "folds_better": 5,
+      "folds_better_previous": 0
     },
     {
       "id": "H14",
@@ -524,22 +524,22 @@
       },
       "per_family": true,
       "scores": {
-        "tc_mae": 12.906515481752582,
-        "tc_rmse": 23.546437319690657,
-        "sc_mae": 17.827680717514387,
-        "high_tc_mae": 37.48559566438366,
-        "r2_log": 0.3735220718502317,
+        "tc_mae": 12.98742899859186,
+        "tc_rmse": 23.591933525732067,
+        "sc_mae": 17.95042470002271,
+        "high_tc_mae": 37.578305244566344,
+        "r2_log": 0.3594119382861627,
         "fold_mae": [
-          11.764880981131194,
-          13.669087675623981,
-          12.039584394690747,
-          10.72014986859053,
+          11.59928185453068,
+          14.371089854119342,
+          12.074465003002109,
+          10.552658926755981,
           16.341813152391108
         ],
         "by_family": {
           "cuprate": {
             "n": 874,
-            "mae": 24.49341182633143
+            "mae": 24.689955757967347
           },
           "iron-based": {
             "n": 517,
@@ -558,7 +558,7 @@
       "n_features": 129,
       "seconds": 55,
       "folds_better": 5,
-      "folds_better_previous": 3
+      "folds_better_previous": 2
     },
     {
       "id": "H0",
@@ -624,41 +624,41 @@
     },
     "two_part": "mean",
     "scores": {
-      "tc_mae": 10.19885443135946,
-      "tc_rmse": 17.813358552554394,
-      "sc_mae": 12.195383925852212,
-      "high_tc_mae": 23.75971974411264,
-      "r2_log": 0.4735733664121996,
+      "tc_mae": 10.306643127250513,
+      "tc_rmse": 17.867036398870482,
+      "sc_mae": 12.292694363326577,
+      "high_tc_mae": 23.8389581414671,
+      "r2_log": 0.4637112357229638,
       "fold_mae": [
-        10.628337335424641,
-        9.853327034064618,
-        8.743151227210923,
-        9.270912323472405,
+        10.796858876678705,
+        9.706198878730053,
+        9.094862097361695,
+        9.436634239856474,
         12.501779490627962
       ],
       "by_family": {
         "cuprate": {
           "n": 874,
-          "mae": 18.23578167399194
+          "mae": 18.374420642781427
         },
         "iron-based": {
           "n": 517,
-          "mae": 7.937679897543637
+          "mae": 8.092637408755627
         },
         "heavy-fermion": {
           "n": 422,
-          "mae": 1.3422025028922637
+          "mae": 1.3547098192582303
         },
         "other oxide": {
           "n": 310,
-          "mae": 3.367434875666404
+          "mae": 3.439285913897561
         }
       }
     },
     "n_features": 148,
     "seconds": 25,
     "folds_better": 5,
-    "folds_better_previous": 4
+    "folds_better_previous": 5
   },
   "adopted": true,
   "spec": {
@@ -887,63 +887,63 @@
   "importance": [
     {
       "name": "tm_d",
-      "gain": 2.814
+      "gain": 2.804
     },
     {
       "name": "aniso",
-      "gain": 1.815
+      "gain": 1.829
     },
     {
       "name": "x_Cu",
-      "gain": 1.743
-    },
-    {
-      "name": "p_cu",
-      "gain": 1.022
+      "gain": 1.726
     },
     {
       "name": "nonint",
-      "gain": 0.988
+      "gain": 1.028
+    },
+    {
+      "name": "p_cu",
+      "gain": 1.012
     },
     {
       "name": "dome",
-      "gain": 0.781
+      "gain": 0.786
     },
     {
       "name": "x_Pr",
-      "gain": 0.681
+      "gain": 0.712
     },
     {
       "name": "n_atoms_fu",
-      "gain": 0.619
+      "gain": 0.594
     },
     {
       "name": "x_Ca",
-      "gain": 0.563
+      "gain": 0.593
     },
     {
       "name": "x_Fe",
-      "gain": 0.495
+      "gain": 0.478
     },
     {
       "name": "oxide",
-      "gain": 0.441
+      "gain": 0.458
     },
     {
       "name": "X_mean",
-      "gain": 0.429
+      "gain": 0.412
     },
     {
       "name": "valence_std",
-      "gain": 0.36
+      "gain": 0.342
     },
     {
       "name": "vpa",
-      "gain": 0.33
+      "gain": 0.336
     },
     {
-      "name": "group_std",
-      "gain": 0.327
+      "name": "X_std",
+      "gain": 0.322
     }
   ],
   "lofo": [
@@ -955,40 +955,40 @@
       "mae_median": 34.1693695652746,
       "max_tc": 132.9,
       "max_pred": 11.236952106250307,
-      "mae_cv": 18.23578167399194,
+      "mae_cv": 18.374420642781427,
       "mae_baseline": 34.11143392063833
     },
     {
       "family": "iron-based",
       "label": "Iron- and nickel-based",
       "n": 517,
-      "mae": 13.944431432797737,
+      "mae": 14.051510244428805,
       "mae_median": 13.914832761481625,
       "max_tc": 56.5,
-      "max_pred": 7.229248759598109,
-      "mae_cv": 7.937679897543637,
+      "max_pred": 6.4195860306083805,
+      "mae_cv": 8.092637408755627,
       "mae_baseline": 14.376070455073767
     },
     {
       "family": "heavy-fermion",
       "label": "Heavy-fermion",
       "n": 422,
-      "mae": 1.9961463444393919,
+      "mae": 1.9845209858563506,
       "mae_median": 9.555238404236965,
       "max_tc": 16.6,
-      "max_pred": 12.016144509942958,
-      "mae_cv": 1.3422025028922637,
+      "max_pred": 11.430058475489467,
+      "mae_cv": 1.3547098192582303,
       "mae_baseline": 2.781133053017064
     },
     {
       "family": "other oxide",
       "label": "Other oxides",
       "n": 310,
-      "mae": 5.9671330678417,
+      "mae": 6.13738894159374,
       "mae_median": 6.040960021282258,
       "max_tc": 31.5,
-      "max_pred": 35.69068456431794,
-      "mae_cv": 3.367434875666404,
+      "max_pred": 34.96411606186958,
+      "mae_cv": 3.439285913897561,
       "mae_baseline": 5.768521424864997
     }
   ],
@@ -996,7 +996,7 @@
     "summary": {
       "n_scored": 5,
       "n_listed": 10,
-      "mae": 9.74,
+      "mae": 9.7,
       "scored_as_check": false,
       "rule": "reported as a score only with at least 8 scored measurements; never used for training or for choosing the design",
       "about": "Measured Tc of materials outside Hurricane's training data, most of them found after the 2018 SuperCon snapshot that 3DSC is built on. They are only predicted, never used for training or for choosing a design. Each entry carries a reliability grade. Only replicated, ambient-pressure, bulk measurements in Hurricane's four families are scored; thin films, high pressure, metastable states, families outside its training data and single reports are shown but not scored, and refuted claims are listed only to record why they are left out. Lattice parameters are approximate literature values for the conventional cell and serve only as model inputs."
@@ -1020,7 +1020,7 @@
         "family": "heavy-fermion",
         "source": "khim2021",
         "note": "two superconducting phases in a magnetic field",
-        "pred": 3.5
+        "pred": 3.61
       },
       {
         "name": "La3Ni2O7, bulk at ambient pressure",
@@ -1030,7 +1030,7 @@
         "family": "other oxide",
         "source": "sun2023",
         "note": "not superconducting at ambient pressure; about 80 K above 14 GPa",
-        "pred": 0.09
+        "pred": 0.13
       },
       {
         "name": "Nd0.8Sr0.2NiO2, bulk",
@@ -1040,7 +1040,7 @@
         "family": "other oxide",
         "source": "li2020",
         "note": "bulk samples do not superconduct, unlike thin films",
-        "pred": 1.22
+        "pred": 1.03
       },
       {
         "name": "HgBa2Ca2Cu3O8+\u03b4 (Hg-1223)",
@@ -1050,7 +1050,7 @@
         "family": "cuprate",
         "source": "schilling1993",
         "note": "the ambient-pressure record since 1993; \u03b4 \u2248 0.25 assumed (near optimal doping); absent from the 3DSC training data",
-        "pred": 90.78
+        "pred": 90.96
       },
       {
         "name": "Nd0.8Sr0.2NiO2, thin film",
@@ -1060,7 +1060,7 @@
         "family": "other oxide",
         "source": "li2019",
         "note": "films on SrTiO3 superconduct at 9 to 15 K; films are outside Hurricane's bulk training data",
-        "pred": 1.17
+        "pred": 1.01
       },
       {
         "name": "Hg-1223 after a pressure quench",
@@ -1070,7 +1070,7 @@
         "family": "cuprate",
         "source": "deng2026",
         "note": "a metastable state kept at ambient pressure after squeezing and a fast release; one group so far",
-        "pred": 90.78
+        "pred": 90.96
       },
       {
         "name": "CsV3Sb5",
@@ -1080,7 +1080,7 @@
         "family": "kagome",
         "source": "ortiz2020",
         "note": "kagome metal, outside Hurricane's four families",
-        "pred": 3.16
+        "pred": 3.14
       },
       {
         "name": "KV3Sb5",
@@ -1090,7 +1090,7 @@
         "family": "kagome",
         "source": "ortiz2021",
         "note": "kagome metal, outside Hurricane's four families",
-        "pred": 3.36
+        "pred": 2.64
       },
       {
         "name": "LK-99 (Cu-doped lead apatite)",
@@ -1100,7 +1100,7 @@
         "family": "other oxide",
         "source": "zhu2023",
         "note": "the resistivity jumps come from Cu2S impurities",
-        "pred": 1.3
+        "pred": 1.22
       }
     ],
     "sources": {

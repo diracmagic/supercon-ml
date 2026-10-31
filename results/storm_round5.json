@@ -1,0 +1,293 @@
+{
+  "run_at": "2026-10-31T07:05:29-05:00",
+  "commit": "81c873b",
+  "round": 5,
+  "model": "Storm",
+  "version": "5.0",
+  "level": 0.9,
+  "designer": "AI agent (Claude) proposed seven ways to give Storm 4.0 a 90% range: one width for all, widths set by how much its members disagree, widths on log(1 + Tc), conformalised gradient-boosted quantiles and one width for each range of predicted Tc",
+  "selection": "5-fold GroupKFold by chemical system on Alexandria (7,582 materials), the same folds as every Storm round; widths set by conformal prediction from the other folds' out-of-fold errors; graph network: saved out-of-fold predictions of version 2.0 (gnn_round2_final_predictions.csv), 2 seeds averaged",
+  "rule": "coverage within 2 points of 90%, at least 80% for the top 10% of Tc, and an interval score better than one width for every material on average and in at least 4 of 5 folds",
+  "caveat": "a range is for the computed (DFT Allen-Dynes) Tc that Storm learns; measured Tc can lie further away, see 'measured'",
+  "storm4": {
+    "design": "S3",
+    "members": 3,
+    "tc_mae": 0.8979120870333629,
+    "gnn": "graph network 2.0 (weight averaging + Allen\u2013Dynes head + crystal descriptors)"
+  },
+  "tail_threshold": 7.571265198345577,
+  "leaderboard": [
+    {
+      "id": "U5",
+      "name": "Gradient-boosted quantiles on log(1 + Tc), conformalised",
+      "kind": "cqr",
+      "log": true,
+      "coverage": 0.9128198364547613,
+      "tail_coverage": 0.7167325428194994,
+      "predicted_top_coverage": 0.836627140974967,
+      "mean_width": 3.4087349787107724,
+      "median_width": 2.619642926565085,
+      "tail_median_width": 7.351677807444324,
+      "interval_score": 6.032912637174876,
+      "fold_interval_score": [
+        7.0582349534919135,
+        6.379135313732856,
+        5.081476074783821,
+        6.209146444301423,
+        5.435665686508381
+      ],
+      "fold_coverage": [
+        0.9024390243902439,
+        0.9011206328279499,
+        0.9327176781002638,
+        0.9135883905013192,
+        0.9142480211081794
+      ],
+      "seconds": 79.0,
+      "folds_better": 5
+    },
+    {
+      "id": "U4",
+      "name": "Gradient-boosted 5% and 95% quantiles, conformalised",
+      "kind": "cqr",
+      "log": false,
+      "coverage": 0.912028488525455,
+      "tail_coverage": 0.689064558629776,
+      "predicted_top_coverage": 0.8102766798418972,
+      "mean_width": 3.451352513364154,
+      "median_width": 2.6629903117263263,
+      "tail_median_width": 6.970257005383248,
+      "interval_score": 6.147974145784554,
+      "fold_interval_score": [
+        6.960353873966274,
+        6.612521125064924,
+        5.152978288118037,
+        6.445783103540417,
+        5.5673920382941535
+      ],
+      "fold_coverage": [
+        0.9057350032959789,
+        0.8965062623599209,
+        0.933377308707124,
+        0.9076517150395779,
+        0.91688654353562
+      ],
+      "seconds": 78.4,
+      "folds_better": 5
+    },
+    {
+      "id": "U6",
+      "name": "One width for each range of predicted Tc",
+      "kind": "mondrian",
+      "log": false,
+      "coverage": 0.9008177261936164,
+      "tail_coverage": 0.758893280632411,
+      "predicted_top_coverage": 0.8959156785243741,
+      "mean_width": 3.2156321466293147,
+      "median_width": 2.6246535263890634,
+      "tail_median_width": 9.567404269860084,
+      "interval_score": 7.256169273012503,
+      "fold_interval_score": [
+        8.51045578573856,
+        8.103130538311586,
+        6.119465569663042,
+        6.693450683059837,
+        6.852957740942507
+      ],
+      "fold_coverage": [
+        0.8800263678312459,
+        0.8773895847066578,
+        0.9261213720316622,
+        0.9135883905013192,
+        0.9069920844327177
+      ],
+      "seconds": 0.0,
+      "folds_better": 5
+    },
+    {
+      "id": "U1",
+      "name": "Width scaled by how much the members disagree",
+      "kind": "spread",
+      "log": false,
+      "coverage": 0.9000263782643102,
+      "tail_coverage": 0.6877470355731226,
+      "predicted_top_coverage": 0.8234519104084321,
+      "mean_width": 3.411757092692529,
+      "median_width": 1.8350273942192978,
+      "tail_median_width": 7.348454651982493,
+      "interval_score": 7.290122317688263,
+      "fold_interval_score": [
+        8.327171080536033,
+        8.083746940219289,
+        6.127671216760594,
+        7.195794792235213,
+        6.715019990494028
+      ],
+      "fold_coverage": [
+        0.8932102834541858,
+        0.8760711931443639,
+        0.912269129287599,
+        0.9003957783641161,
+        0.9182058047493403
+      ],
+      "seconds": 0.0,
+      "folds_better": 5
+    },
+    {
+      "id": "U2",
+      "name": "One width on log(1 + Tc), so the range grows with Tc",
+      "kind": "constant",
+      "log": true,
+      "coverage": 0.8998944869427592,
+      "tail_coverage": 0.8405797101449275,
+      "predicted_top_coverage": 0.9446640316205533,
+      "mean_width": 3.746814098455722,
+      "median_width": 1.8103619447985078,
+      "tail_median_width": 12.755193696550874,
+      "interval_score": 7.472632540557649,
+      "fold_interval_score": [
+        8.493602719645608,
+        8.232089004166385,
+        6.4261863436240425,
+        7.043562116629118,
+        7.166548094816305
+      ],
+      "fold_coverage": [
+        0.8879367172050099,
+        0.8958470665787739,
+        0.9162269129287599,
+        0.9096306068601583,
+        0.8898416886543535
+      ],
+      "seconds": 0.0,
+      "folds_better": 5
+    },
+    {
+      "id": "U3",
+      "name": "Log(1 + Tc), width scaled by the members' disagreement",
+      "kind": "spread",
+      "log": true,
+      "coverage": 0.9001582695858612,
+      "tail_coverage": 0.841897233201581,
+      "predicted_top_coverage": 0.927536231884058,
+      "mean_width": 4.833564651613833,
+      "median_width": 1.8337384396166196,
+      "tail_median_width": 10.415365096714863,
+      "interval_score": 7.879464189652888,
+      "fold_interval_score": [
+        8.513370874745702,
+        8.013711998165851,
+        6.996689663631316,
+        7.838370566661883,
+        8.034671146844909
+      ],
+      "fold_coverage": [
+        0.8899143045484509,
+        0.8806855636123929,
+        0.9162269129287599,
+        0.9043535620052771,
+        0.9096306068601583
+      ],
+      "seconds": 0.0,
+      "folds_better": 2
+    },
+    {
+      "id": "U0",
+      "name": "One width for every material",
+      "kind": "constant",
+      "log": false,
+      "coverage": 0.9002901609074123,
+      "tail_coverage": 0.5375494071146245,
+      "predicted_top_coverage": 0.6772068511198946,
+      "mean_width": 3.4444436334069852,
+      "median_width": 2.9604679817836157,
+      "tail_median_width": 4.900985234344791,
+      "interval_score": 8.023077891365498,
+      "fold_interval_score": [
+        9.203624021826686,
+        8.966870617921355,
+        6.6621526202772445,
+        7.3514065261354595,
+        7.9299343917373095
+      ],
+      "fold_coverage": [
+        0.8912326961107448,
+        0.8905735003295979,
+        0.9142480211081794,
+        0.9069920844327177,
+        0.8984168865435356
+      ],
+      "seconds": 0.0,
+      "folds_better": 0
+    }
+  ],
+  "best": "U2",
+  "adopted": true,
+  "measured": {
+    "n": 298,
+    "n_sc": 168,
+    "method": "Gradient-boosting correction",
+    "mae": 1.56,
+    "one_width": {
+      "coverage": 0.906,
+      "median_width": 4.89,
+      "interval_score": 11.73,
+      "tail_coverage": 0.4
+    },
+    "log_width": {
+      "coverage": 0.899,
+      "median_width": 3.5,
+      "interval_score": 12.05,
+      "tail_coverage": 0.7
+    }
+  },
+  "examples": [
+    {
+      "name": "NaTcN2",
+      "id": "agm002861776",
+      "tc": 23.84,
+      "pred": 21.09,
+      "lo": 10.77,
+      "hi": 40.43,
+      "inside": true
+    },
+    {
+      "name": "Cr4TcMo",
+      "id": "agm003199664",
+      "tc": 22.84,
+      "pred": 20.65,
+      "lo": 10.54,
+      "hi": 39.61,
+      "inside": true
+    },
+    {
+      "name": "Cr4ReMo",
+      "id": "agm003199659",
+      "tc": 21.24,
+      "pred": 20.24,
+      "lo": 10.2,
+      "hi": 39.28,
+      "inside": true
+    },
+    {
+      "name": "Cr4TcW",
+      "id": "agm003199690",
+      "tc": 22.17,
+      "pred": 19.66,
+      "lo": 9.89,
+      "hi": 38.19,
+      "inside": true
+    },
+    {
+      "name": "Cr4ReW",
+      "id": "agm003199681",
+      "tc": 21.09,
+      "pred": 19.47,
+      "lo": 9.96,
+      "hi": 37.23,
+      "inside": true
+    }
+  ],
+  "scikit_learn": "1.9.1",
+  "minutes": 3.8
+}
