@@ -9,8 +9,10 @@ Base candidates (DFT Allen-Dynes Tc on Alexandria, the same 5-fold GroupKFold by
     S1  the average of Storm 1.0 and the graph network
     S2  the same average taken on log(1 + Tc)
     S3  Storm 1.0, the graph network and the network's Allen-Dynes route (from its λ and ω_log), averaged
-The graph network is retrained here with two seeds in the design that graph-network round 2 released (the round-1
-design if none was), so every prediction is out of fold. The weights are fixed, not fitted.
+The graph network is the version in use (2.0 if round 2's final check released it, else 1.0): its saved out-of-fold
+predictions, two seeds averaged on the same folds (results/gnn_round2_final_predictions.csv or
+results/gnn_round1_predictions.csv), are reused, and it is retrained here only if they are missing or were made on
+other folds. The weights are fixed, not fitted.
 
 The lowest-error base that beats Storm 1.0 on average and in at least 4 of the 5 folds, and is not more than 0.5 K
 worse on the graded measured Tc (data/experiments.json), is then calibrated to measured Tc with round 3's maps on the
@@ -47,16 +49,39 @@ def _mae(a, b) -> float:
     return float(np.mean(np.abs(np.asarray(a) - np.asarray(b))))
 
 
-def gnn_design() -> tuple[dict, str]:
-    """The graph-network design to use: the one round 2 released, else the round-1 design."""
-    path = P.RESULTS / "gnn_round2.json"
-    if path.exists():
-        r = json.loads(path.read_text())
+def gnn_design() -> tuple[dict, str, str, Path, int]:
+    """The graph-network version in use: its design, a label, its version, its saved out-of-fold predictions and the
+    number of seeds they average."""
+    gb = (json.loads(P.PROGRESS.read_text(encoding="utf-8")).get("gnn") or {}) if P.PROGRESS.exists() else {}
+    fin = P.RESULTS / "gnn_round2_final.json"
+    if str(gb.get("current")) == "2.0" and fin.exists():
+        r = json.loads(fin.read_text())
         if r.get("adopted"):
-            best = next(x for x in r["leaderboard"] if x["id"] == r["best"])
-            cfg = dict(best["config"], id=best["id"], name=best["name"])
-            return cfg, f"graph network {r.get('version')} ({best['name'].lstrip('+ ')})"
-    return dict(G2.BASE, id="G0", name="Round-1 design"), "graph network 1.0 (round-1 design)"
+            d = r["design"]
+            return (dict(d["config"], id=d["id"], name=d["name"]), f"graph network 2.0 ({d['name'].lstrip('+ ')})", "2.0",
+                    P.RESULTS / "gnn_round2_final_predictions.csv", int(r["training"]["seeds"]))
+    r1 = P.RESULTS / "gnn_round1.json"
+    seeds = int((json.loads(r1.read_text()).get("training") or {}).get("seeds", 2)) if r1.exists() else 2
+    return (dict(G2.BASE, id="G0", name="Round-1 design"), "graph network 1.0 (round-1 design)", "1.0",
+            P.RESULTS / "gnn_round1_predictions.csv", seeds)
+
+
+def saved_gnn(path: Path, train: pd.DataFrame, fold_of: np.ndarray) -> dict | None:
+    """Saved out-of-fold predictions of the graph network, if they cover every material on these same folds."""
+    if SMOKE or not path.exists():
+        return None
+    sp = pd.read_csv(path).drop_duplicates("id").set_index("id")
+    sp.index = sp.index.astype(str)
+    ids = train["id"].astype(str)
+    if not {"tc_pred", "lambda_pred", "wlog_pred", "fold"} <= set(sp.columns) or not ids.isin(sp.index).all():
+        P.log(f"{path.name} does not cover every material; the graph network is retrained")
+        return None
+    sp = sp.loc[ids]
+    if not (sp["fold"].to_numpy(int) == fold_of).all():
+        P.log(f"{path.name} was made on other folds; the graph network is retrained")
+        return None
+    return {"tc": sp["tc_pred"].to_numpy(float), "lambda": sp["lambda_pred"].to_numpy(float),
+            "wlog": sp["wlog_pred"].to_numpy(float)}
 
 
 def calibrate(m: pd.DataFrame) -> dict:
@@ -106,16 +131,26 @@ def run() -> None:
     s_lam = P.cv_predict_stage(D, y_lam, splits, P.STORM1_PARAMS, log_target=False)
     s_wlog = P.cv_predict_stage(D, y_wlog, splits, P.STORM1_PARAMS, log_target=False)
     P.log(f"Storm 1.0 out of fold: Tc MAE {_mae(s_tc, y_tc):.3f} K ({time.time() - t_start:.0f} s)")
-    cfg, design = gnn_design()
-    g = G1.build_graphs(train, table)
-    glob = G2.descriptors(train, table)[0] if cfg.get("hybrid") else None
-    Ttrans = np.column_stack([np.log1p(y_tc), np.log(y_lam), np.log(y_wlog)]).astype(np.float32)
-    outs = []
-    for s in range(SEEDS):
-        o, rec = G2.train_all(g, Ttrans, y_tc, groups, splits, cfg, glob, seed=s + 1)
-        outs.append(o)
-        P.log(f"graph network seed {s + 1}: Tc MAE {_mae(o['tc'], y_tc):.3f} K ({rec['seconds']} s)")
-    gn = {k: np.mean([o[k] for o in outs], axis=0) for k in ("tc", "lambda", "wlog")}
+    fold_of = np.zeros(len(y_tc), int)
+    for k, te in enumerate(folds):
+        fold_of[te] = k + 1
+    cfg, design, gnn_version, saved, seeds = gnn_design()
+    gn = saved_gnn(saved, train, fold_of)
+    if gn is not None:
+        source = f"saved out-of-fold predictions of version {gnn_version} ({saved.name}), {seeds} seeds averaged"
+    else:
+        seeds = SEEDS
+        g = G1.build_graphs(train, table)
+        glob = G2.descriptors(train, table)[0] if cfg.get("hybrid") else None
+        Ttrans = np.column_stack([np.log1p(y_tc), np.log(y_lam), np.log(y_wlog)]).astype(np.float32)
+        outs = []
+        for s in range(SEEDS):
+            o, rec = G2.train_all(g, Ttrans, y_tc, groups, splits, cfg, glob, seed=s + 1, epochs=G1.EPOCHS)
+            outs.append(o)
+            P.log(f"graph network seed {s + 1}: Tc MAE {_mae(o['tc'], y_tc):.3f} K ({rec['seconds']} s)")
+        gn = {k: np.mean([o[k] for o in outs], axis=0) for k in ("tc", "lambda", "wlog")}
+        source = f"retrained here with {SEEDS} seed(s) and {G1.EPOCHS} epochs, out of fold"
+    P.log(f"{design}: Tc MAE {_mae(gn['tc'], y_tc):.3f} K, from {source}")
     gn_ad = P.allen_dynes(np.clip(gn["lambda"], 0, None), np.clip(gn["wlog"], 0, None))
     lam_mix, wlog_mix = 0.5 * (s_lam + gn["lambda"]), 0.5 * (s_wlog + gn["wlog"])
     cands = [
@@ -173,12 +208,13 @@ def run() -> None:
         "designer": ("AI agent (Claude) proposed combining Storm 1.0's trees with the crystal-graph network: a plain "
                      "average, an average on log(1 + Tc) and a three-way average with the network's Allen-Dynes route"),
         "selection": (f"{P.N_FOLDS}-fold GroupKFold by chemical system on Alexandria ({len(y_tc):,} materials), the "
-                      f"same folds as every Storm round; graph network retrained with {SEEDS} seed(s), out of fold"),
+                      f"same folds as every Storm round; graph network: {source}"),
         "rule": (f"the base must beat Storm 1.0 on average and in at least {P.ADOPT_FOLDS} of {P.N_FOLDS} folds and not be "
                  f"more than {P.EXP_TOLERANCE} K worse on the graded measured Tc; calibrated with round 3's maps on the "
                  "same matched materials and folds, it must also be closer to measured Tc than Storm 3.0"),
         "caveat": "picking the best of several candidates on the same folds makes its score slightly optimistic",
-        "gnn": {"design": design, "config": {k: v for k, v in cfg.items() if k not in ("id", "name")}, "seeds": SEEDS,
+        "gnn": {"design": design, "version": gnn_version, "source": source,
+                "config": {k: v for k, v in cfg.items() if k not in ("id", "name")}, "seeds": seeds,
                 "tc_mae": _mae(gn["tc"], y_tc), "lambda_mae": _mae(gn["lambda"], y_lam), "wlog_mae": _mae(gn["wlog"], y_wlog)},
         "leaderboard": sorted(board, key=lambda r: r["tc_mae"]), "best": best["id"], "adopted": adopted,
         "experiments": {"summary": es} if es else None, "scikit_learn": sklearn.__version__,
