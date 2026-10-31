@@ -1,6 +1,7 @@
 {
   "name": "supercon-progress",
   "private": true,
+  "license": "MIT",
   "version": "0.3.4",
   "description": "Desktop app that shows the live progress of the supercon-ml project",
   "scripts": {
