@@ -482,6 +482,73 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .views { max-width: 100%; }
 @media (max-width: 360px) { .views button { padding: 5px 6px; font-size: 12.5px; } }
 .models-card { margin-bottom: 16px; }
+/* v0.3.2: six views; the switch scrolls sideways on the smallest phones instead of wrapping */
+.views { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.views::-webkit-scrollbar { display: none; }
+.views button { flex: 0 0 auto; white-space: nowrap; }
+@media (max-width: 360px) { .views button { padding: 5px 5px; font-size: 12px; } }
+
+/* AI × superconductors */
+.ai .card { margin-bottom: 12px; }
+.ai-status { display: flex; align-items: center; gap: 8px; margin: 2px 0 10px; font-size: 12.5px; color: var(--ink-2); }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); flex: 0 0 auto; box-shadow: 0 0 0 0 rgba(12, 163, 12, 0.5); animation: live-pulse 2.4s ease-out infinite; }
+.live-dot.off { background: var(--muted); animation: none; }
+@keyframes live-pulse { 0% { box-shadow: 0 0 0 0 rgba(12, 163, 12, 0.45); } 70% { box-shadow: 0 0 0 7px rgba(12, 163, 12, 0); } 100% { box-shadow: 0 0 0 0 rgba(12, 163, 12, 0); } }
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+.ai-ticker { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0 0 12px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--accent-wash); transition: opacity 0.26s ease; min-height: 40px; }
+.ai-ticker.fade { opacity: 0; }
+.ai-tick-label { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent); }
+.ai-tick { flex: 1 1 260px; font-weight: 600; color: var(--ink); text-decoration: none; }
+.ai-tick:hover { text-decoration: underline; }
+.ai-tick-meta { font-size: 12px; color: var(--muted); }
+.new-badge { padding: 0 7px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; line-height: 18px; }
+.feed-list li.is-new { border-left: 3px solid var(--accent); padding-left: 10px; }
+.ai-models { list-style: none; margin: 4px 0 8px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 900px) { .ai-models { grid-template-columns: 1fr; } }
+.ai-models li { display: flex; gap: 10px; align-items: flex-start; }
+.ai-models .mf-glyph { flex: 0 0 auto; }
+.ai-model-head { display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; margin: 0 0 2px; }
+.ai-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; }
+
+/* model details on the Progress view */
+.details-card { margin-bottom: 16px; }
+.dt-block + .dt-block { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); }
+.dt-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin: 0 0 6px; font-size: 15px; }
+.dt-lead { margin: 0 0 12px; color: var(--ink-2); font-size: 13px; line-height: 1.5; }
+.dt-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+@media (max-width: 560px) { .dt-tiles { grid-template-columns: 1fr; } }
+.dt-tile { padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.dt-tile-label { margin: 0; font-size: 12px; color: var(--muted); }
+.dt-tile-value { margin: 2px 0 0; font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.dt-tile-sub { margin: 2px 0 0; font-size: 12px; color: var(--ink-2); }
+.dt-sub { margin: 12px 0 6px; font-size: 13px; color: var(--ink-2); }
+.dt-key { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; }
+.dt-key::before { content: ''; width: 10px; height: 10px; border-radius: 2px; }
+.dt-key.k-a::before, .dt-bar.a .dt-fill { background: var(--accent); }
+.dt-key.k-b::before, .dt-bar.b .dt-fill { background: var(--axis); }
+.dt-row { display: grid; grid-template-columns: minmax(120px, 190px) 1fr; gap: 10px; align-items: center; margin: 6px 0; }
+@media (max-width: 480px) { .dt-row { grid-template-columns: 1fr; gap: 3px; } }
+.dt-label b { display: block; font-size: 13px; font-weight: 600; }
+.dt-label span { font-size: 11.5px; color: var(--muted); }
+.dt-bars { display: grid; gap: 3px; }
+.dt-bar { position: relative; display: flex; align-items: center; gap: 8px; height: 16px; }
+.dt-fill { display: block; height: 12px; border-radius: 3px; }
+.dt-val { font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dt-tbl td, .dt-tbl th { font-size: 12.5px; }
+.dt-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.dt-chips li { padding: 3px 9px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); font-size: 12px; }
+.dt-chips li span { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* Data and licences (Authors view) */
+.lic-card { margin-top: 16px; }
+.lic-list { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 10px; }
+.lic-list li { font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+.lic-list li > a b, .lic-list li > b { color: var(--ink); }
+.lic-tag { display: inline-block; margin-left: 8px; padding: 0 8px; border: 1px solid var(--border); border-radius: 999px; font-size: 11.5px; line-height: 18px; white-space: nowrap; }
+.lic-cite { display: block; font-size: 12px; color: var(--muted); }
+.lic-cite a { color: inherit; }
+.dt-data { font-size: 12px; }
+.paper-more { margin: 4px 0 0; font-size: 12.5px; }
 </style>
 </head>
 <body>
@@ -505,6 +572,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     </div>
     <div class="views" role="tablist" aria-label="View">
       <button id="view-progress" type="button" role="tab" aria-selected="true">Progress</button>
+      <button id="view-ai" type="button" role="tab" aria-selected="false"><span class="lbl-long">AI × superconductors</span><span class="lbl-short">AI</span></button>
       <button id="view-demos" type="button" role="tab" aria-selected="false"><span class="lbl-long">Physics demos</span><span class="lbl-short">Demos</span></button>
       <button id="view-learn" type="button" role="tab" aria-selected="false"><span class="lbl-long">Theory &amp; materials</span><span class="lbl-short">Learn</span></button>
       <button id="view-papers" type="button" role="tab" aria-selected="false"><span class="lbl-long">News &amp; papers</span><span class="lbl-short">News</span></button>
@@ -535,7 +603,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         <section id="phone-card" class="card phone-card"></section>
       </div>
     </div>
+    <section id="details-card" class="card details-card" hidden></section>
   </main>
+
+  <section id="ai" class="ai" hidden></section>
 
   <section id="demos" class="card demos" hidden></section>
 
@@ -553,7 +624,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 (function () {
   'use strict';
 
-  var APP_VERSION = '0.3.1';
+  var APP_VERSION = '0.3.2';
   var REPO = 'diracmagic/supercon-ml';
   var BRANCH = 'main';
   var REPO_URL = 'https://github.com/' + REPO;
@@ -1406,6 +1477,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     { id: 'story', label: 'Project tour', story: true, height: 430, narrowHeight: 480 },
     { id: 'storm', label: 'Our AI model: Storm', storm: true, height: 440, narrowHeight: 540,
       refs: ['friedman2001', 'sklearn2011', 'matthias1955', 'allendynes1975', 'nas2017'] },
+    { id: 'hurricane', label: 'Our AI model: Hurricane', hurricane: true, height: 450, narrowHeight: 580,
+      refs: ['sommer2023', 'jain2013', 'presland1991', 'friedman2001', 'sklearn2011', 'schilling1993', 'deng2026'] },
     { id: 'model', label: 'Baselines', model: true, height: 440, narrowHeight: 540,
       refs: ['alexandria2024', 'friedman2001', 'sklearn2011', 'mace2022', 'macemp2023', 'allendynes1975'] },
     { id: 'resistance', label: 'Zero resistance', temp: true, height: 360, refs: ['onnes1911', 'bcs1957'],
@@ -1419,11 +1492,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   ];
   var RAMP_LIGHT = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b'];
   var TC_MAX = 80;
-  var view = ['demos', 'learn', 'papers'].indexOf(store.get('view')) >= 0 ? store.get('view') : 'progress';
+  var view = ['ai', 'demos', 'learn', 'papers'].indexOf(store.get('view')) >= 0 ? store.get('view') : 'progress';
   var demo = {
     id: 'story', t: 1.4, auto: true, clock: 0, raf: 0, last: 0, built: false,
     scene: 0, sceneT: 0, storyPlay: true, modelStage: 0, modelT: 0, modelPlay: true, modelNodes: [],
     stormStage: 0, stormT: 0, stormPlay: true, stormVer: '', stormNodes: [],
+    hurStage: 0, hurT: 0, hurPlay: true, hurNodes: [],
     modelVariant: store.get('model') === 'foundation' ? 'foundation' : 'baseline',
     canvas: null, ctx: null, W: 0, H: 0, dpr: 1,
     electrons: null, ions: null, e1: null, e2: null, sizeKey: '',
@@ -1516,35 +1590,38 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       h('div', { class: 'seg', role: 'group', 'aria-label': 'Storm version', id: 'storm-seg' }),
       h('button', { class: 'btn', type: 'button', id: 'storm-play', onclick: function () { demo.stormPlay = !demo.stormPlay; syncControls(); kick(); } }),
       h('span', { class: 'demo-readout', id: 'storm-readout' }));
+    var hurRow = h('div', { class: 'demo-controls', id: 'demo-hur-row' },
+      h('button', { class: 'btn', type: 'button', id: 'hur-play', onclick: function () { demo.hurPlay = !demo.hurPlay; syncControls(); kick(); } }),
+      h('span', { class: 'demo-readout', id: 'hur-readout' }));
     var caption = h('p', { class: 'demo-caption', id: 'demo-caption' });
     var zoo = h('div', { class: 'zoo', id: 'demo-zoo' });
     var refs = h('div', { class: 'demo-refs', id: 'demo-refs' });
     append(el, [
       h('div', { class: 'card-head' }, h('div', null,
         h('h2', null, 'Hello ', h('span', { class: 'hs-accent', text: 'Super' })),
-        h('p', { text: 'Our project in 90 seconds, how our AI model works, and the physics behind it.' }))),
-      tabs, stage, tempRow, adRow, storyRow, modelRow, stormRow, caption, zoo, refs
+        h('p', { text: 'Our project in 90 seconds, how our AI models work, and the physics behind it.' }))),
+      tabs, stage, tempRow, adRow, storyRow, modelRow, stormRow, hurRow, caption, zoo, refs
     ]);
     $('#story-prev').innerHTML = G.prev;
     $('#story-next').innerHTML = G.next;
     demo.canvas = canvas;
     demo.ctx = canvas.getContext('2d');
     canvas.addEventListener('pointermove', function (e) {
-      var r = canvas.getBoundingClientRect();
-      demo.hover = { x: e.clientX - r.left, y: e.clientY - r.top };
+      var r = canvas.getBoundingClientRect(), k = demo.scale || 1;
+      demo.hover = { x: (e.clientX - r.left) / k, y: (e.clientY - r.top) / k };
       var d = demoDef();
-      canvas.style.cursor = (d.story && demo.hover.y < 30) || (d.model && hitModelNode(demo.hover) >= 0) || (d.storm && hitStormNode(demo.hover) >= 0) ? 'pointer' : '';
+      canvas.style.cursor = (d.story && demo.hover.y < 30) || (d.model && hitModelNode(demo.hover) >= 0) || (d.storm && hitStormNode(demo.hover) >= 0) || (d.hurricane && hitHurNode(demo.hover) >= 0) ? 'pointer' : '';
       kick();
     });
     canvas.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse') return;
-      var r = canvas.getBoundingClientRect();
-      demo.hover = { x: e.clientX - r.left, y: e.clientY - r.top };
+      var r = canvas.getBoundingClientRect(), k = demo.scale || 1;
+      demo.hover = { x: (e.clientX - r.left) / k, y: (e.clientY - r.top) / k };
       kick();
     });
     canvas.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') { demo.hover = null; kick(); } });
     canvas.addEventListener('click', function (e) {
-      var d = demoDef(), r = canvas.getBoundingClientRect(), p = { x: e.clientX - r.left, y: e.clientY - r.top };
+      var d = demoDef(), r = canvas.getBoundingClientRect(), k = demo.scale || 1, p = { x: (e.clientX - r.left) / k, y: (e.clientY - r.top) / k };
       if (d.story && p.y < 30) {
         var n = STORY.length, segW = (demo.W - 32) / n, i = Math.floor((p.x - 16) / segW);
         if (i >= 0 && i < n) goScene(i);
@@ -1554,12 +1631,15 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       } else if (d.storm) {
         var q = hitStormNode(p);
         if (q >= 0) { demo.stormStage = q; demo.stormT = 0; if (motionOK()) demo.stormPlay = true; syncControls(); kick(); }
+      } else if (d.hurricane) {
+        var q2 = hitHurNode(p);
+        if (q2 >= 0) { demo.hurStage = q2; demo.hurT = 0; if (motionOK()) demo.hurPlay = true; syncControls(); kick(); }
       }
     });
     if (window.ResizeObserver) new ResizeObserver(function () { sizeCanvas(); kick(); }).observe(stage);
     else window.addEventListener('resize', function () { sizeCanvas(); kick(); });
     demo.built = true;
-    if (!motionOK()) { demo.auto = false; demo.storyPlay = false; demo.modelPlay = false; demo.stormPlay = false; }
+    if (!motionOK()) { demo.auto = false; demo.storyPlay = false; demo.modelPlay = false; demo.stormPlay = false; demo.hurPlay = false; }
     syncControls();
     sizeCanvas();
   }
@@ -1591,8 +1671,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stormZooRow(),
       ['Gradient boosting', '43 hand-made composition and structure features', ['done', 'Done'], 'Tc error ' + MAE_BASELINE.toFixed(2) + ' K'],
       ['MACE-MP-0 + boosted ensemble', 'frozen foundation-model fingerprint, three models for error bars', fs, live.foundationMae !== null ? 'Tc error ' + live.foundationMae.toFixed(2) + ' K' : ''],
-      ['Graph neural network', 'ALIGNN-style network trained end to end on the crystal graph', ['pending', 'Planned'], ''],
-      ['Hurricane · our AI model', 'for unconventional superconductors (cuprates, nickelates, iron-based, heavy-fermion), learns from graded measured Tc', ms, ''],
+      gnnZooRow(),
+      hurZooRow(ms),
       ['Radar · router', 'decides whether a material goes to Storm or Hurricane', ['pending', 'Planned'], '']
     ];
     var ul = h('ul', { class: 'zoo-list' });
@@ -1605,10 +1685,30 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     append(el, [
       h('h3', { text: 'Models we are trying' }),
       ul,
-      richText(h('p', { class: 'zoo-ai' }), 'Storm, our AI-designed model: we also let an AI agent design models itself. It proposes a new architecture or feature set, trains and scores it with the same grouped cross-validation, and keeps the design only if it beats the current best. A locked test set is used only once, at the very end, so no design can be tuned to it. Hurricane and Radar will be designed the same way.')
+      richText(h('p', { class: 'zoo-ai' }), 'Storm and Hurricane, our AI-designed models: we let an AI agent design models itself. It proposes a new architecture or feature set, trains and scores it with the same grouped cross-validation, and keeps the design only if it beats the current best. Storm’s errors are against DFT-computed Tc and Hurricane’s against measured Tc. A locked test set is used only once, at the very end, so no design can be tuned to it. Radar will be designed the same way.')
     ]);
   }
 
+  // The graph neural network baseline: progress.json "gnn" block and results tagged "gnn", so its scores appear without an app update.
+  function gnnInfo() {
+    var d = state.data, g = (d && d.gnn) || {}, best = null;
+    list(d && d.results).forEach(function (r) { if (r && r.tag === 'gnn' && r.target === 'Tc' && typeof r.mae === 'number' && (!best || r.mae < best.mae)) best = r; });
+    var st = typeof g.status === 'string' && g.status ? g.status : best ? 'done' : 'planned';
+    return { status: st, mae: best ? best.mae : typeof g.tc_mae === 'number' ? g.tc_mae : null,
+      name: typeof g.name === 'string' && g.name ? g.name : 'Graph neural network',
+      desc: typeof g.summary === 'string' && g.summary ? g.summary : 'message passing on the crystal graph, trained end to end' };
+  }
+  function gnnZooRow() {
+    var gi = gnnInfo(), chip = gi.status === 'done' ? ['done', 'Done'] : gi.status === 'training' || gi.status === 'active' ? ['running', 'Training now'] : gi.status === 'experimental' ? ['active', 'Experimental'] : ['pending', 'Planned'];
+    return [gi.name, gi.desc, chip, gi.mae !== null ? 'Tc error ' + gi.mae.toFixed(2) + ' K' : ''];
+  }
+  function hurZooRow(ms) {
+    var info = hurInfo();
+    if (!info) return ['Hurricane · our AI model', 'for unconventional superconductors (cuprates, nickelates, iron-based, heavy-fermion), learns from graded measured Tc', ms, ''];
+    var v = info.v, ok = v.status === 'adopted';
+    return [hurTitle(info) + ' · our AI model', 'designed by an AI agent, for unconventional superconductors: ' + lcFirst(v.summary),
+      ok ? ['done', 'Released'] : ['active', 'Experimental'], 'measured-Tc error ' + hurK(v.scores.tc_mae) + ' K'];
+  }
   function stormZooRow() {
     var info = stormInfo();
     if (!info) return ['Storm (AI-designed)', 'an AI agent proposes, trains and tests new designs', ['active', 'Exploring'], ''];
@@ -1634,10 +1734,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     $('#demo-story-row').hidden = !d.story;
     $('#demo-model-row').hidden = !d.model;
     $('#demo-storm-row').hidden = !d.storm;
-    $('#demo-zoo').hidden = !d.model && !d.storm;
-    if (d.model || d.storm) renderZoo();
+    $('#demo-hur-row').hidden = !d.hurricane;
+    $('#demo-zoo').hidden = !d.model && !d.storm && !d.hurricane;
+    if (d.model || d.storm || d.hurricane) renderZoo();
     if (d.storm) renderStormSeg();
-    var cap = d.story ? storyCaption(demo.scene) : d.model ? MODEL_STAGES[demo.modelVariant][demo.modelStage].text : d.storm ? stormCaption(demo.stormStage) : d.caption;
+    var cap = d.story ? storyCaption(demo.scene) : d.model ? MODEL_STAGES[demo.modelVariant][demo.modelStage].text : d.storm ? stormCaption(demo.stormStage) : d.hurricane ? hurCaption(demo.hurStage) : d.caption;
     richText($('#demo-caption'), cap);
     renderRefs($('#demo-refs'), d.story ? STORY[demo.scene].refs : d.refs);
     var play = $('#demo-play');
@@ -1661,6 +1762,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     sp2.hidden = !motionOK();
     $('#storm-readout').textContent = (motionOK() ? 'Step ' + (demo.stormStage + 1) + ' of ' + STORM_STAGES.length + ' · ' : '') + STORM_STAGES[demo.stormStage].node + (motionOK() ? '' : ' · click a step to explore');
     if (d.storm) demo.canvas.setAttribute('aria-label', 'Storm, the AI-designed model, step ' + (demo.stormStage + 1) + ': ' + STORM_STAGES[demo.stormStage].node + '. ' + stormCaption(demo.stormStage));
+    var hp = $('#hur-play');
+    hp.innerHTML = demo.hurPlay ? G.pause : G.play;
+    hp.appendChild(document.createTextNode(demo.hurPlay ? 'Pause' : 'Play'));
+    hp.hidden = !motionOK();
+    $('#hur-readout').textContent = (motionOK() ? 'Step ' + (demo.hurStage + 1) + ' of ' + HUR_STAGES.length + ' · ' : '') + HUR_STAGES[demo.hurStage].node + (motionOK() ? '' : ' · click a step to explore');
+    if (d.hurricane) demo.canvas.setAttribute('aria-label', 'Hurricane, the AI-designed model for unconventional superconductors, step ' + (demo.hurStage + 1) + ': ' + HUR_STAGES[demo.hurStage].node + '. ' + hurCaption(demo.hurStage));
     var ms = MODEL_STAGES[demo.modelVariant];
     $('#model-readout').textContent = motionOK() ? 'Step ' + (demo.modelStage + 1) + ' of ' + ms.length : 'Click a step in the pipeline to explore it';
     if (d.story) demo.canvas.setAttribute('aria-label', 'Hello Super tour, step ' + (demo.scene + 1) + ' of ' + STORY.length + ': ' + STORY[demo.scene].title + '. ' + storyCaption(demo.scene));
@@ -1677,15 +1784,16 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function sizeCanvas() {
     if (!demo.canvas) return;
     var stage = demo.canvas.parentNode;
-    var W = Math.max(280, Math.floor(stage.getBoundingClientRect().width));
+    // Below 280 px the drawing keeps its 280 px layout and is scaled down evenly, so it never squeezes sideways.
+    var stageW = Math.floor(stage.getBoundingClientRect().width), W = Math.max(280, stageW);
     var d = demoDef();
     var H = W < 560 ? (d.narrowHeight || Math.round(d.height * 0.85)) : d.height;
-    var dpr = Math.min(2, window.devicePixelRatio || 1);
-    if (W === demo.W && H === demo.H && dpr === demo.dpr) return;
-    demo.W = W; demo.H = H; demo.dpr = dpr;
+    var dpr = Math.min(2, window.devicePixelRatio || 1), scale = stageW > 0 && stageW < W ? stageW / W : 1;
+    if (W === demo.W && H === demo.H && dpr === demo.dpr && scale === demo.scale) return;
+    demo.W = W; demo.H = H; demo.dpr = dpr; demo.scale = scale;
     demo.canvas.width = Math.round(W * dpr);
     demo.canvas.height = Math.round(H * dpr);
-    demo.canvas.style.height = H + 'px';
+    demo.canvas.style.height = Math.round(H * scale) + 'px';
     demo.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     demo.electrons = null; demo.ions = null; demo.fieldKey = ''; demo.heatKey = '';
   }
@@ -1716,6 +1824,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       demo.stormT += dt;
       if (demo.stormT >= STORM_DUR) { demo.stormStage = (demo.stormStage + 1) % STORM_STAGES.length; demo.stormT = 0; syncControls(); }
     }
+    if (d.hurricane && demo.hurPlay && moving) {
+      demo.hurT += dt;
+      if (demo.hurT >= HUR_DUR) { demo.hurStage = (demo.hurStage + 1) % HUR_STAGES.length; demo.hurT = 0; syncControls(); }
+    }
     if (d.temp && demo.auto && moving) {
       demo.t = 0.9 + 0.65 * Math.cos(2 * Math.PI * demo.clock / 14);
       $('#demo-temp').value = demo.t.toFixed(2);
@@ -1729,11 +1841,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (d.story) drawStory(c, C);
     else if (d.model) drawModel(c, C);
     else if (d.storm) drawStorm(c, C);
+    else if (d.hurricane) drawHurricane(c, C);
     else if (d.id === 'resistance') drawResistance(c, C, dt);
     else if (d.id === 'meissner') drawMeissner(c, C, dt);
     else if (d.id === 'pairs') drawPairs(c, C, dt);
     else drawAllenDynes(c, C);
-    var paused = (d.story && !demo.storyPlay) || (d.model && !demo.modelPlay) || (d.storm && !demo.stormPlay);
+    var paused = (d.story && !demo.storyPlay) || (d.model && !demo.modelPlay) || (d.storm && !demo.stormPlay) || (d.hurricane && !demo.hurPlay);
     if (moving && !paused) demo.raf = requestAnimationFrame(frame);
   }
 
@@ -2131,7 +2244,15 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     alignn2021: { t: 'K. Choudhary & B. DeCost, npj Comput. Mater. 7, 185 (2021)', d: '10.1038/s41524-021-00650-1' },
     jarvis2022: { t: 'K. Choudhary & K. Garrity, npj Comput. Mater. 8, 244 (2022)', d: '10.1038/s41524-022-00933-1' },
     alexandria2024: { t: 'T. F. T. Cerqueira et al., Adv. Mater. 36, 2307085 (2024)', d: '10.1002/adma.202307085' },
-    nas2017: { t: 'B. Zoph & Q. V. Le, Neural architecture search with reinforcement learning, ICLR (2017)', u: 'https://arxiv.org/abs/1611.01578' }
+    nas2017: { t: 'B. Zoph & Q. V. Le, Neural architecture search with reinforcement learning, ICLR (2017)', u: 'https://arxiv.org/abs/1611.01578' },
+    sommer2023: { t: 'T. Sommer et al., 3DSC, a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023)', d: '10.1038/s41597-023-02721-y' },
+    jain2013: { t: 'A. Jain et al., The Materials Project, APL Mater. 1, 011002 (2013)', d: '10.1063/1.4812323' },
+    presland1991: { t: 'M. R. Presland et al., Physica C 176, 95 (1991)', d: '10.1016/0921-4534(91)90700-9' },
+    cavignac2026: { t: 'T. Cavignac et al., J. Phys. Mater. 9, 025014 (2026)', d: '10.1088/2515-7639/ae6620' },
+    khim2021: { t: 'S. Khim et al., Science 373, 1012 (2021)', d: '10.1126/science.abe7518' },
+    rosa2022: { t: 'P. F. S. Rosa et al., Commun. Mater. 3, 33 (2022)', d: '10.1038/s43246-022-00254-2' },
+    li2020: { t: 'Q. Li et al., Commun. Mater. 1, 16 (2020)', d: '10.1038/s43246-020-0018-1' },
+    ortiz2021: { t: 'B. R. Ortiz et al., Phys. Rev. Materials 5, 034801 (2021)', d: '10.1103/PhysRevMaterials.5.034801' }
   };
   function refUrl(r) { return r.u || (r.d ? 'https://doi.org/' + r.d : ''); }
   function refList(keys, cls) {
@@ -2359,6 +2480,63 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     return url ? h('a', { href: url, text: ref.t }) : h('span', { text: ref.t });
   }
 
+  /* ---------- Live curated content ----------
+     progress/content.json adds recent advances (with their references) or hides built-in ones, so new results
+     reach the Theory & materials cards, the News & papers view and the AI view without an app release.
+     Everything in it is treated as data: strings are length-limited and rendered as text, links must be https. */
+  var CONTENT_URL = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/progress/content.json';
+  var RECENT_BUILTIN = RECENT.slice();
+  var contentState = { at: 0, busy: false, applied: '', updated: '' };
+  var CONTENT_KINDS = { experiment: 1, theory: 1, computation: 1, news: 1 };
+
+  function cText(s, max) { return typeof s === 'string' ? s.replace(/[\u0000-\u001f]/g, ' ').slice(0, max) : ''; }
+  function applyContent(d) {
+    if (!d || typeof d !== 'object' || !Array.isArray(d.recent)) return false;
+    var key = JSON.stringify([d.updated, d.recent.length, list(d.hide).length, Object.keys(d.refs || {}).length]);
+    if (key === contentState.applied) return false;
+    var refs = d.refs && typeof d.refs === 'object' ? d.refs : {};
+    Object.keys(refs).slice(0, 200).forEach(function (k) {
+      var r = refs[k];
+      if (!/^[a-z0-9_-]{2,40}$/i.test(k) || !r || typeof r.t !== 'string') return;
+      var doi = typeof r.d === 'string' && /^10\.\d{4,9}\/\S+$/.test(r.d) ? r.d : '';
+      var url = isHttps(r.u) ? r.u : '';
+      if (doi || url) REFS[k] = doi ? { t: cText(r.t, 220), d: doi } : { t: cText(r.t, 220), u: url };
+    });
+    var hide = {};
+    list(d.hide).forEach(function (h) { if (typeof h === 'string') hide[h] = 1; });
+    var extra = d.recent.slice(0, 120).filter(function (r) {
+      return r && typeof r.h === 'string' && typeof r.x === 'string' && /^\d{4}(-\d{2})?$/.test(String(r.d || '')) &&
+        CONTENT_KINDS[r.k] && Array.isArray(r.cards) && typeof r.ref === 'string' && REFS[r.ref];
+    }).map(function (r) {
+      return { d: r.d, k: r.k, ref: r.ref, h: cText(r.h, 180), x: cText(r.x, 900), live: true,
+        cards: r.cards.filter(function (c) { return typeof c === 'string' && c.length < 30; }).slice(0, 5) };
+    });
+    var seen = {};
+    extra.forEach(function (r) { seen[r.ref] = 1; });
+    var merged = extra.concat(RECENT_BUILTIN.filter(function (r) { return !hide[r.ref] && !seen[r.ref]; }));
+    RECENT.length = 0;
+    Array.prototype.push.apply(RECENT, merged);
+    contentState.applied = key;
+    contentState.updated = typeof d.updated === 'string' ? d.updated : '';
+    return true;
+  }
+  function contentChanged() {
+    if (paperState.built) renderAdvances();
+    if (learn.built) { learn.built = false; if (view === 'learn') { buildLearn(); miniKick(); } }
+    if (aiState.built) renderAICurated();
+  }
+  function loadContent(force) {
+    if (contentState.busy || (!force && Date.now() - contentState.at < 10 * 60 * 1000)) return Promise.resolve();
+    contentState.busy = true;
+    return getJSON(CONTENT_URL).then(function (d) {
+      contentState.at = Date.now();
+      if (applyContent(d)) { store.set('content', JSON.stringify(d)); contentChanged(); }
+    }, function () { /* keep the built-in and cached content */ }).then(function () { contentState.busy = false; });
+  }
+  (function startContent() {
+    try { var cached = store.get('content'); if (cached) applyContent(JSON.parse(cached)); } catch (e) { /* ignore a bad cache */ }
+  })();
+
   /* ---------- Hello Super: animated tour of the project ---------- */
   // 200 materials held out by 5-fold grouped CV, as [computed Tc, predicted Tc] pairs in K,
   // sampled from results/model_search_predictions.csv (out-of-fold predictions of Storm 1.0, the AI-designed model).
@@ -2516,13 +2694,13 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 
   var STORY = [
     { title: 'Hello Super', bare: true, dur: 6, draw: drawStoryIntro,
-      caption: 'Hello Super is an open project that uses machine learning to predict the critical temperature Tc of superconductors from their crystal structure, to screen materials databases for high-Tc candidates, and to look for clues about what drives superconductivity. This 90-second tour walks through the idea in nine steps.',
+      caption: 'Hello Super is an open project that uses machine learning to predict the critical temperature Tc of superconductors from their crystal structure, to screen materials databases for high-Tc candidates, and to look for clues about what drives superconductivity. This 90-second tour walks through the idea in ten steps.',
       refs: [] },
-    { title: 'Why it matters', dur: 10, draw: drawStoryWhy,
+    { title: 'Why it matters', dur: 9, draw: drawStoryWhy,
       sub: 'Zero resistance, but only when cold enough. Can we find warmer superconductors?',
       caption: 'A superconductor carries electric current with no resistance at all, but only below its critical temperature Tc. Most need liquid helium (4.2 K). Copper-oxide "cuprates" work in liquid nitrogen (77 K); their ambient-pressure record of 133 K stood from 1993 until 2026, when a pressure-quenched Hg-1223 sample kept superconductivity up to 151 K. Hydrides reach about 250 K, but only when squeezed to 1.7 million atmospheres, and a 2025 preprint reports signs of superconductivity near room temperature in LaSc₂H₂₄ at over 2 million atmospheres. A superconductor that works warm, at everyday pressure, could carry power without loss and make MRI scanners and strong magnets far cheaper to run.',
       refs: ['onnes1911', 'bednorz1986', 'schilling1993', 'deng2026', 'drozdov2019', 'song2025'] },
-    { title: 'What sets Tc', dur: 9, draw: drawStoryPhysics,
+    { title: 'What sets Tc', dur: 8, draw: drawStoryPhysics,
       sub: 'Electrons pair up through lattice vibrations; λ and ω_log decide how high Tc goes.',
       caption: 'In conventional superconductors a moving electron pulls the positive ions toward it and leaves a wake that attracts a second electron, binding the two into a Cooper pair (BCS theory). The strength of this electron–phonon coupling is λ, and ω_log is a typical vibration energy of the lattice. Eliashberg theory and the Allen–Dynes formula turn the two into Tc: here, raising λ from 0.3 to 1.0 at ω_log = 300 K lifts Tc from about 0.1 K to about 21 K.',
       refs: ['bcs1957', 'eliashberg1960', 'allendynes1975'] },
@@ -2530,27 +2708,31 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       sub: 'Computing λ and ω_log from quantum mechanics takes hours to days per material.',
       caption: 'λ and ω_log can be computed from first principles with density-functional theory (DFT) and density-functional perturbation theory for the phonons. The results are reliable, but every material costs hours to days of supercomputer time, and open databases list millions of known and predicted crystals: far too many to compute one by one.',
       refs: ['baroni2001', 'giustino2017'] },
-    { title: 'Our AI model', dur: 10, draw: drawStoryShortcut,
+    { title: 'Our AI model', dur: 9, draw: drawStoryShortcut,
       sub: 'Storm, the model our AI agent designed, predicts Tc from the crystal in under a second.',
       caption: storyShortcutCaption,
       refs: ['alexandria2024', 'matthias1955', 'friedman2001', 'allendynes1975', 'macemp2023'] },
-    { title: 'Many models', dur: 10, draw: drawStoryModels,
+    { title: 'Many models', dur: 8, draw: drawStoryModels,
       sub: 'We try many kinds of AI models, and let an AI agent design new ones.',
       caption: storyModelsCaption,
       refs: ['friedman2001', 'alignn2021', 'macemp2023', 'nas2017'] },
-    { title: 'How accurate?', dur: 9, draw: drawStoryAccuracy,
+    { title: 'How accurate?', dur: 8, draw: drawStoryAccuracy,
       sub: 'We test predictions on materials the model never saw during training.',
       caption: storyAccuracyCaption,
       refs: ['sklearn2011', 'jarvis2022'] },
-    { title: 'Screening', dur: 10, draw: drawStoryScreen,
+    { title: 'Screening', dur: 8, draw: drawStoryScreen,
       sub: 'Rank thousands of candidates by predicted Tc, then verify only the best few.',
       caption: 'With a fast model we can scan large crystal databases, rank every candidate by its predicted Tc, and spend supercomputer time only on the most promising few, where the full calculation confirms or rejects the prediction. The squares here are an illustration, not real candidates.',
       refs: ['jarvis2022', 'alexandria2024'] },
-    { title: 'Beyond phonons', dur: 9, draw: drawStoryBeyond,
+    { title: 'Beyond phonons', dur: 8, draw: drawStoryBeyond,
       sub: 'Cuprates and iron-based superconductors pair up through a different glue.',
-      caption: 'Cuprates and iron-based superconductors do not follow the phonon recipe, and what binds their electron pairs is still debated; magnetic spin fluctuations are a leading candidate. A second AI-designed model, Hurricane, will learn directly from measured Tc values, each graded by how well it has been confirmed, and a third, Radar, will decide which of the two each material goes to. Comparing what Storm and Hurricane rely on can give clues about the pairing mechanism.',
+      caption: 'Cuprates and iron-based superconductors do not follow the phonon recipe, and what binds their electron pairs is still debated; magnetic spin fluctuations are a leading candidate. So our second AI-designed model, Hurricane, learns directly from measured Tc values, each graded by how well it has been confirmed, and a third, Radar, will decide which of the two each material goes to. Comparing what Storm and Hurricane rely on can give clues about the pairing mechanism.',
       refs: ['bednorz1986', 'kamihara2008', 'tsuei2000', 'scalapino2012'] },
-    { title: 'The loop', dur: 8, draw: drawStoryLoop,
+    { title: 'Our second AI model', dur: 10, draw: drawStoryHurricane,
+      sub: 'Hurricane, also designed by our AI agent, learns unconventional Tc from measurements.',
+      caption: hurStoryCaption,
+      refs: ['sommer2023', 'presland1991', 'friedman2001'] },
+    { title: 'The loop', dur: 7, draw: drawStoryLoop,
       sub: 'Predict, screen, verify, learn: every confirmed result makes the next round better.',
       caption: 'Each confirmed calculation becomes new training data, so the models improve with every round. All code and data are public on GitHub, and every training run updates the Progress page of this app.',
       refs: [] }
@@ -2567,7 +2749,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function storyModelsCaption() {
     var live = stLive();
     var f = live.foundationMae !== null ? 'first run finished at ' + live.foundationMae.toFixed(2) + ' K' : live.foundation === 'active' ? 'training now' : 'up next';
-    return 'No single model is best for every material, so we compare several: gradient boosting on 43 hand-made composition and structure features (done, ' + MAE_BASELINE.toFixed(2) + ' K average Tc error), the MACE-MP-0 foundation model with a boosted head (' + f + '), graph neural networks such as ALIGNN, and Hurricane, a model for unconventional superconductors trained on graded measured Tc. We are also letting an AI agent design models itself: it proposes an architecture or feature set, trains it, scores it with the same grouped cross-validation, and refines the design, keeping only what beats the current best. A locked test set is used only once, at the very end, so no design can be tuned to it.' + stormStorySentence();
+    return 'No single model is best for every material, so we compare several: gradient boosting on 43 hand-made composition and structure features (done, ' + MAE_BASELINE.toFixed(2) + ' K average Tc error), the MACE-MP-0 foundation model with a boosted head (' + f + '), graph neural networks such as ALIGNN, and Hurricane, our second AI-designed model, which learns the Tc of unconventional superconductors from measurements. We are also letting an AI agent design models itself: it proposes an architecture or feature set, trains it, scores it with the same grouped cross-validation, and refines the design, keeping only what beats the current best. A locked test set is used only once, at the very end, so no design can be tuned to it.' + stormStorySentence();
   }
   function stormStorySentence() {
     var info = stormInfo();
@@ -2971,6 +3153,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     }
   }
 
+  function hurStoryRow(narrow, live) {
+    var info = hurInfo();
+    if (!info) return { name: narrow ? 'Hurricane · unconventional' : 'Hurricane · our AI model', desc: 'for unconventional superconductors, from measured Tc', status: live.measured === 'done' ? 'done' : live.measured === 'active' ? 'running' : 'planned', note: '' };
+    return { name: hurTitle(info) + (narrow ? '' : ' · our AI model'), desc: 'AI-designed, unconventional; error against measured Tc', status: info.v.status === 'adopted' ? 'done' : 'exploring',
+      note: hurK(info.v.scores.tc_mae) + ' K' };
+  }
   function stormStoryRow() {
     var info = stormInfo();
     if (!info) return { name: 'Storm (AI-designed)', desc: 'an agent proposes new designs', status: 'exploring', note: '' };
@@ -2987,8 +3175,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stormStoryRow(),
       { name: 'Gradient boosting', desc: '43 hand-made features', status: 'done', note: MAE_BASELINE.toFixed(2) + ' K' },
       { name: 'MACE-MP-0 + boosting', desc: 'foundation-model fingerprint', status: fStatus, note: live.foundationMae !== null ? live.foundationMae.toFixed(2) + ' K' : '' },
-      { name: 'Graph neural network', desc: 'ALIGNN-style', status: 'planned', note: '' },
-      { name: narrow ? 'Hurricane · unconventional' : 'Hurricane · our AI model', desc: 'for unconventional superconductors, from measured Tc', status: live.measured === 'done' ? 'done' : live.measured === 'active' ? 'running' : 'planned', note: '' }
+      (function () { var gi = gnnInfo(); return { name: gi.name, desc: 'crystal-graph network', status: gi.status === 'done' ? 'done' : gi.status === 'training' || gi.status === 'active' ? 'running' : gi.status === 'experimental' ? 'exploring' : 'planned', note: gi.mae !== null ? gi.mae.toFixed(2) + ' K' : '' }; })(),
+      hurStoryRow(narrow, live)
     ];
     var Z = narrow ? { x: B.x, y: B.y + 4, w: B.w } : { x: B.x, y: B.y + 10, w: Math.round(B.w * 0.5) };
     var rh = narrow ? 27 : 36;
@@ -3038,7 +3226,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var blink = motionOK() && (t % 3.1) < 0.12;
     if (blink) { c.fillStyle = C.accent; c.fillRect(hx - 9, hy - 1, 6, 2); c.fillRect(hx + 3, hy - 1, 6, 2); }
     else { dot(c, hx - 6, hy, 3, C.accent); dot(c, hx + 6, hy, 3, C.accent); }
-    label(c, C, 'AI designer · Storm', hx, hy + hh / 2 + 16, { align: 'center', size: 11.5, weight: '600', color: C.ink2 });
+    label(c, C, narrow ? 'AI designer' : 'AI designer · Storm and Hurricane', hx, hy + hh / 2 + 16, { align: 'center', size: 11.5, weight: '600', color: C.ink2 });
     if (!narrow) {
       c.globalAlpha = a0 * stSpan(t, 3.2, 3.8);
       stPara(c, C, 'Keeps a design only if it beats the current best on held-out materials in at least 4 of 5 folds.', Lp.cx, Lp.cy + Lp.R + 40, Math.min(300, B.w * 0.36), 16, { size: 11.5, color: C.muted, align: 'center' });
@@ -3230,7 +3418,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stElectron(c, C, ex - 34, ey, 5.5); stElectron(c, C, ex, ey, 5.5);
       c.restore();
     }
-    panel(P2, a2, 'Unconventional: cuprates, iron-based', 'Glue: still debated (spin fluctuations?)', 'Hurricane will learn from measured Tc');
+    panel(P2, a2, 'Unconventional: cuprates, iron-based', 'Glue: still debated (spin fluctuations?)', 'Hurricane learns from measured Tc');
     if (a2 > 0) {
       var top2 = P2.y + 56, bot2 = P2.y + P2.h - 30;
       var a = Math.max(30, Math.min(56, (bot2 - top2) / 2.2));
@@ -3801,7 +3989,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         ': new feature sets, physics features and settings. Each was trained and scored with the same composition-grouped cross-validation. ' +
         (v.status === 'adopted' ? 'The best one beat ' + ref + ' on average and in at least 4 of 5 folds, and became ' + name + '.'
           : 'A design is released only if it beats ' + ref + ' on average and in at least 4 of 5 folds. None did this round, so the best one, ' + name + ', stays experimental and ' + ref + ' remains in use.') +
-        ' Storm predicts Tc for conventional, phonon-mediated superconductors; cuprates, nickelates, iron-based and other unconventional superconductors are for a separate model in planning, Hurricane, trained on curated experimental data, and a third, Radar, will decide which model each material goes to.';
+        ' Storm predicts Tc for conventional, phonon-mediated superconductors; cuprates, nickelates, iron-based and other unconventional superconductors go to our second AI-designed model, Hurricane, which learns from measured Tc, and a third, Radar, will decide which model each material goes to.';
       case 1: return name + ' reads ' + n + ' numbers per material: ' + list(sp.inputs).map(function (i) {
           return i.group === 'stage' ? i.n + ' from the ' + i.label + ' (its predicted λ and ω_log and the Allen–Dynes Tc from them)' : i.n + ' ' + lcFirst(i.label);
         }).join(', ') + '. The physics features encode rules of thumb such as Matthias’s valence-electron peaks and the M^−½ scale of phonon frequencies.';
@@ -3821,7 +4009,15 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (!ex || !ex.n_scored || typeof ex.mae !== 'number') return '';
     return ' Against ' + ex.n_scored + ' replicated Tc measurements, ' + stormTitle(info) + ' is off by ' + fmtVal(ex.mae) + ' K on average' +
       (pv && typeof ex.mae_previous === 'number' ? ' (' + pv.name + ': ' + fmtVal(ex.mae_previous) + ' K)' : '') +
-      (typeof ex.dft_mae === 'number' ? ', and the DFT labels it learns from miss by ' + fmtVal(ex.dft_mae) + ' K: most of the gap to experiment comes from the labels, not the model, so the next round calibrates Storm against graded measurements.' : '.');
+      (typeof ex.dft_mae === 'number' ? ', and the DFT labels it learns from miss by ' + fmtVal(ex.dft_mae) + ' K: most of the gap to experiment comes from the labels, not the model' + stormCalSentence() : '.');
+  }
+  // Round 3: Storm calibrated to measured Tc (ai_model.calibration), if it has run.
+  function stormCalSentence() {
+    var cal = state.data && state.data.ai_model && state.data.ai_model.calibration, sc = cal && cal.scores, dd = (cal && cal.data) || {};
+    if (!sc || typeof sc.mae !== 'number') return ', so the next round calibrates Storm against graded measurements.';
+    return '. Round 3 therefore calibrated Storm against measured Tc: on ' + (dd.n_matched || 'the') + ' conventional materials from 3DSC, ' +
+      (cal.status === 'adopted' ? 'Storm ' + cal.version + ' is off by ' + fmtVal(sc.mae) + ' K against ' + fmtVal(sc.mae_raw) + ' K uncalibrated.'
+        : 'the best calibration is off by ' + fmtVal(sc.mae) + ' K against ' + fmtVal(sc.mae_raw) + ' K uncalibrated, but it was not released.');
   }
   // Lower-case the first letter of a label for use mid-sentence, but keep acronyms and names (AI, MACE, Storm, Allen–Dynes).
   function lcFirst(str) {
@@ -4194,6 +4390,655 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stParaRich(c, C, 'This animation is drawn from the model’s own spec, so the next version of ' + info.name + ' will explain itself here.', B.x, Math.min(B.y + B.h - 8, y + 8), B.w, 16, { size: 11.5, color: C.muted });
       c.globalAlpha = 1;
     }
+  }
+
+  /* ---------- Hurricane: the AI-designed model for unconventional superconductors, animated from its own results ----------
+     Like Storm's demo, every number and label here comes from the "hurricane" block that each training round writes
+     into progress.json, so a new version of Hurricane explains itself without new drawing code. */
+  var HUR_STAGES = [
+    { node: 'Data', short: 'Data' },
+    { node: 'AI designs', short: 'Design' },
+    { node: 'Physics', short: 'Physics' },
+    { node: 'Validation', short: 'Check' },
+    { node: 'New family?', short: 'Family' },
+    { node: 'Later finds', short: 'Later' }
+  ];
+  var HUR_DUR = 8;
+  var HUR_FAMS = ['cuprate', 'iron-based', 'heavy-fermion', 'other oxide'];
+  var HUR_FAM_SHORT = { 'cuprate': 'Cuprates', 'iron-based': 'Fe, Ni-based', 'heavy-fermion': 'Heavy-fermion', 'other oxide': 'Other oxides' };
+  var HUR_FAM_TEXT = { 'cuprate': 'cuprates', 'iron-based': 'iron-based compounds', 'heavy-fermion': 'heavy-fermion compounds', 'other oxide': 'other oxides' };
+  function hurFamText(f) { return HUR_FAM_TEXT[f] || lcFirst(famLabel(f)); }
+  var HUR_FEAT = {
+    p_cu: 'holes per Cu, p', tm_d: 'd count of the metal layer', nonint: 'doping (non-integer formula)', aniso: 'layering',
+    oxide: 'oxygen share', mag3d: 'magnetic 3d share', cu_layers: 'CuO₂ planes', dome: 'cuprate dome at p',
+    heavy_block: 'Hg, Tl, Bi, Pb share', fe_based: 'FeAs/FeSe layer', f_share: 'f-electron share', f_count: 'f-electron count',
+    f_spacing: 'f–f spacing', n_atoms_fu: 'atoms per formula', c_over_a: 'c/a', vpa: 'volume per atom'
+  };
+
+  function hurInfo() {
+    var hu = state.data && state.data.hurricane;
+    var vs = hu ? list(hu.versions).filter(function (v) { return v && v.scores && v.spec; }) : [];
+    if (!vs.length) return null;
+    var v = vs.filter(function (x) { return x.version === hu.current; })[0] || vs[vs.length - 1];
+    return { hu: hu, v: v, name: hu.name || 'Hurricane', data: hu.data || {}, versions: vs };
+  }
+  function hurTitle(info) { return info.name + ' ' + info.v.version; }
+  function hurColor(C, f) { return { 'cuprate': C.accent, 'iron-based': C.warm, 'heavy-fermion': C.aqua || C.accent, 'other oxide': C.gold || C.ink2 }[f] || C.muted; }
+  function hurFamilies(info) {
+    var fam = info.data.families || {}, out = [];
+    HUR_FAMS.concat(Object.keys(fam).filter(function (k) { return HUR_FAMS.indexOf(k) < 0; })).forEach(function (k) {
+      var f = fam[k];
+      if (f && typeof f.n === 'number') out.push({ id: k, label: f.label || famLabel(k), n: f.n, n_sc: f.n_sc || 0, max_tc: f.max_tc || 0 });
+    });
+    return out;
+  }
+  function hurK(v) { return typeof v === 'number' ? (Math.abs(v) >= 10 ? v.toFixed(1) : v.toFixed(2)) : '—'; }
+  function hurSub(s) {
+    return String(s || '').replace(/([A-Za-z\)])(\d+(?:\.\d+)?)/g, function (m, a, d) {
+      return a + d.replace(/[0-9]/g, function (ch) { return '₀₁₂₃₄₅₆₇₈₉'.charAt(+ch); });
+    });
+  }
+  // "HgBa2Ca2Cu3O8+δ (Hg-1223)" → "Hg-1223"; "LK-99 (Cu-doped lead apatite)" → "LK-99"
+  function hurShortName(name) {
+    var m = /^(.*\S)\s*\(([^()]+)\)$/.exec(String(name || ''));
+    var s = m ? (m[2].length < m[1].length ? m[2] : m[1]) : String(name || '');
+    return hurSub(s);
+  }
+  function hurFit(c, C, text, maxW, size, weight) {
+    stFont(c, C, size, weight);
+    if (c.measureText(text).width <= maxW) return text;
+    while (text.length > 4 && c.measureText(text + '…').width > maxW) text = text.slice(0, -1);
+    return text.replace(/[ ,]+$/, '') + '…';
+  }
+  function hurGroupOf(info) {
+    var map = {};
+    list(info.v.spec.inputs).forEach(function (g) { list(g.items).forEach(function (it) { map[it.name] = g.group; }); });
+    return function (name) {
+      if (map[name]) return map[name];
+      if (/^x_[A-Z]/.test(name)) return 'elements';
+      if (/^(cs|ct)_/.test(name)) return 'structure';
+      return 'composition';
+    };
+  }
+  function hurGroupColor(C, g) { return g === 'physics' ? C.warm : g === 'structure' ? (C.aqua || C.accent) : g === 'elements' ? (C.gold || C.ink2) : C.accent; }
+  function hurFeatName(n) { return HUR_FEAT[n] || featLabel(n); }
+
+  function hurCaption(si) {
+    var info = hurInfo();
+    if (!info) return 'Hurricane is our AI-designed model for unconventional superconductors. Its data and scores load with the live progress data.';
+    var v = info.v, sc = v.scores || {}, dd = info.data, name = hurTitle(info), nf = list(sc.folds).length, ok = v.status === 'adopted';
+    var non = (dd.n || 0) - (dd.n_sc || 0);
+    switch (si) {
+      case 0:
+        return 'No first-principles theory gives Tc for cuprates, iron-based or heavy-fermion superconductors, so Hurricane learns from measurements: ' +
+          fmtInt(dd.n) + ' measured Tc values from 3DSC, which pairs the SuperCon database of measured Tc with Materials Project crystal structures' +
+          (dd.n_groups ? ', from ' + fmtInt(dd.n_groups) + ' parent compounds' : '') + '. ' + fmtInt(non) +
+          ' of them were reported as not superconducting down to the lowest temperature measured; they teach the model where Tc falls to zero.';
+      case 1:
+        var sr = v.search || {};
+        return 'An AI agent (Claude) proposed ' + (sr.candidates || 'several') + ' designs in round ' + v.round +
+          ': which inputs to use, physics features, the objective and how to weight noisy entries. Each was trained and scored with five-fold cross-validation that holds out whole parent compounds, so no test compound has a close relative in training. ' +
+          (ok ? 'The best one beat the composition-only baseline on average and in ' + sc.folds_better + ' of ' + nf + ' folds and became ' + name + '.'
+            : 'A design is released only if it beats the baseline on average and in at least 4 of 5 folds; none did this round, so ' + name + ' stays experimental.');
+      case 2:
+        var ins = list(v.spec.inputs), total = 0, top = list(v.importance).slice(0, 3).map(function (i) { return hurFeatName(i.name); });
+        ins.forEach(function (g) { total += g.n || 0; });
+        return name + ' reads ' + total + ' numbers per compound: ' + ins.map(function (g) { return g.n + ' ' + lcFirst(g.label); }).join(', ') +
+          '. The physics features carry what is known about these families. Charge balance gives the holes per copper, p, and cuprate Tc rises and falls with p along the empirical dome 1 − 82.6 (p − 0.16)², highest at p = 0.16; it also gives the d-electron count of the metal layer (Cu²⁺ is d⁹, Fe²⁺ d⁶).' +
+          (top.length ? ' Shuffling one input at a time and measuring how much the error grows shows what the model relies on most: ' + top.join(', ') + '.' : '');
+      case 3:
+        var fam = sc.by_family || {}, parts = [];
+        HUR_FAMS.forEach(function (k) { if (fam[k]) parts.push(hurFamText(k) + ' ' + hurK(fam[k].mae) + ' K'); });
+        return name + ' is off by ' + hurK(sc.tc_mae) + ' K on average for compounds whose parent it never saw, against ' + hurK(sc.reference_mae) +
+          ' K for gradient boosting on the composition alone, and better in ' + sc.folds_better + ' of ' + nf + ' folds.' +
+          (typeof sc.sc_mae === 'number' ? ' For superconductors alone the error is ' + hurK(sc.sc_mae) + ' K.' : '') +
+          (parts.length ? ' By family: ' + parts.join(', ') + '. Cuprate Tc spans 0 to over 130 K, so their errors are the largest.' : '');
+      case 4:
+        var lo = list(v.lofo), cu = lo.filter(function (r) { return r.family === 'cuprate'; })[0];
+        var flat = lo.filter(function (r) { return r.mae >= 0.9 * r.mae_median; }).map(function (r) { return hurFamText(r.family); });
+        var good = lo.filter(function (r) { return r.mae < 0.5 * r.mae_median; });
+        return 'Leaving out a whole family is a much harder test. ' +
+          (cu ? 'Trained without any cuprate, ' + name + ' never predicts more than ' + hurK(cu.max_pred) + ' K for one, while cuprates reach ' + Math.round(cu.max_tc) + ' K. ' : '') +
+          (flat.length ? 'For ' + flat.join(', ').replace(/, ([^,]*)$/, ' and $1') + ', the error is no better than always guessing the median Tc of the other families. ' : '') +
+          (good.length ? good.map(function (r) { var x = hurFamText(r.family); return x.charAt(0).toUpperCase() + x.slice(1); }).join(' and ') + (good.length > 1 ? ' are' : ' are') + ' the exception: their Tc is low across the board, and a model that predicts low values does well (' + good.map(function (r) { return hurK(r.mae) + ' K'; }).join(', ') + '). ' : '') +
+          'A model that has only seen other families does not discover a new one; finding a new high-Tc family needs physics that these correlations do not contain.';
+      default:
+        var an = v.anchors || {}, rows = list(an.table), hg = rows.filter(function (r) { return /Hg-1223\)?$/.test(r.name) && r.use === 'score'; })[0];
+        var shown = rows.filter(function (r) { return r.use === 'show'; }).length, out = rows.filter(function (r) { return r.use === 'exclude'; });
+        return 'Compounds Hurricane never trained on, most reported after the 2018 SuperCon snapshot that 3DSC is built on, each graded by reliability. Only replicated, ambient-pressure, bulk measurements in its four families are scored' +
+          (typeof an.mae === 'number' ? ': ' + an.n_scored + ' so far, off by ' + hurK(an.mae) + ' K on average' + (an.scored_as_check ? '' : ', too few to count as a check yet') : '') + '. ' +
+          (hg && typeof hg.pred === 'number' ? 'Hg-1223, the ambient-pressure record of ' + hg.tc_exp + ' K since 1993, is predicted at ' + Math.round(hg.pred) + ' K. ' : '') +
+          (shown ? shown + ' more, such as thin films, pressure-quenched samples and kagome metals, are shown but not scored' : '') +
+          (out.length ? (shown ? ', and ' : '') + out.map(function (r) { return hurShortName(r.name); }).join(', ') + ' is left out because it was ' + (out[0].status || 'refuted') : '') + '.';
+    }
+  }
+
+  function hitHurNode(p) {
+    var nodes = demo.hurNodes || [];
+    for (var i = 0; i < nodes.length; i++) {
+      var b = nodes[i];
+      if (p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h) return i;
+    }
+    return -1;
+  }
+
+  function drawHurricane(c, C) {
+    var W = demo.W, H = demo.H, narrow = W < 560;
+    var si = demo.hurStage, t = motionOK() ? demo.hurT : HUR_DUR;
+    var n = HUR_STAGES.length, gap = narrow ? 6 : 18, nodeW = (W - 32 - gap * (n - 1)) / n, nodeH = narrow ? 34 : 40, ny = 12;
+    demo.hurNodes = [];
+    for (var i = 0; i < n; i++) {
+      var x = 16 + i * (nodeW + gap), on = i === si;
+      demo.hurNodes.push({ x: x, y: ny, w: nodeW, h: nodeH });
+      stRound(c, x, ny, nodeW, nodeH, 9);
+      c.fillStyle = on ? C.accent : C.surface2; c.fill();
+      if (!on) { c.lineWidth = 1; c.strokeStyle = C.grid; c.stroke(); }
+      label(c, C, narrow ? HUR_STAGES[i].short : HUR_STAGES[i].node, x + nodeW / 2, ny + nodeH / 2 + 0.5,
+        { align: 'center', base: 'middle', size: narrow ? 10.5 : 12, weight: '600', color: on ? '#ffffff' : C.ink2 });
+      if (i < n - 1 && !narrow) stArrow(c, x + nodeW + 3, ny + nodeH / 2, x + nodeW + gap - 3, ny + nodeH / 2, C.axis, 5);
+    }
+    if (motionOK()) {
+      var px = demo.hurNodes[si];
+      c.fillStyle = stAlpha(C.accent, 0.25);
+      c.fillRect(px.x + 6, ny + nodeH - 3, (px.w - 12) * Math.min(1, t / HUR_DUR), 2);
+    }
+    var B = { x: 16, y: ny + nodeH + 16, w: W - 32, h: H - ny - nodeH - 28 };
+    var info = hurInfo();
+    if (!info) {
+      label(c, C, 'Hurricane’s results load with the live progress data.', W / 2, B.y + B.h / 2, { align: 'center', base: 'middle', size: 13, color: C.muted });
+      return;
+    }
+    [drawHurData, drawHurDesign, drawHurPhysics, drawHurCheck, drawHurFamily, drawHurLater][si](c, C, B, t, narrow, info);
+    c.globalAlpha = 1;
+    c.setLineDash([]);
+  }
+
+  /* 0 · the measured data, family by family */
+  function drawHurData(c, C, B, t, narrow, info) {
+    var dd = info.data, fams = hurFamilies(info);
+    stormHeader(c, C, B, fmtInt(dd.n) + ' measured Tc values', narrow ? '' : '3DSC: SuperCon Tc with Materials Project structures');
+    if (!fams.length) return;
+    var L = narrow ? { x: B.x, y: B.y + 30, w: B.w, h: Math.min(190, B.h * 0.48) } : { x: B.x, y: B.y + 34, w: Math.round(B.w * 0.55), h: B.h - 34 };
+    var R = narrow ? { x: B.x, y: L.y + L.h + 10, w: B.w, h: B.y + B.h - (L.y + L.h + 10) } : { x: L.x + L.w + 34, y: B.y + 34, w: B.w - L.w - 34, h: B.h - 34 };
+    var maxN = 1;
+    fams.forEach(function (f) { maxN = Math.max(maxN, f.n); });
+    var rh = Math.min(narrow ? 46 : 64, L.h / fams.length);
+    fams.forEach(function (f, i) {
+      var a = stSpan(t, 0.2 + 0.4 * i, 0.8 + 0.4 * i);
+      if (a <= 0) return;
+      var y = L.y + i * rh, col = hurColor(C, f.id), g = stSpan(t, 0.4 + 0.4 * i, 1.6 + 0.4 * i);
+      c.globalAlpha = a;
+      dot(c, L.x + 5, y + 9, 5, col);
+      label(c, C, f.label, L.x + 16, y + 13, { size: narrow ? 12 : 12.5, weight: '600', color: C.ink });
+      label(c, C, fmtInt(Math.round(f.n * g)), L.x + L.w, y + 13, { align: 'right', size: 12, weight: '600', color: C.ink2 });
+      var bw = (L.w - 16) * f.n / maxN, sw = f.n ? bw * f.n_sc / f.n : 0;
+      c.fillStyle = stAlpha(col, 0.22); c.fillRect(L.x + 16, y + 20, bw * g, 10);
+      c.fillStyle = col; c.fillRect(L.x + 16, y + 20, sw * g, 10);
+      if (g > 0.85) {
+        c.globalAlpha = a * stSpan(g, 0.85, 1);
+        label(c, C, fmtInt(f.n_sc) + ' superconducting, up to ' + (f.max_tc >= 10 ? Math.round(f.max_tc) : f.max_tc.toFixed(1)) + ' K', L.x + 16, y + 43, { size: 11, color: C.muted });
+      }
+    });
+    c.globalAlpha = 1;
+    // the highest Tc in each family, against liquid nitrogen
+    var ra = stSpan(t, 2.2, 2.8);
+    if (ra <= 0) return;
+    c.globalAlpha = ra;
+    stText(c, C, 'Highest Tc in each family', R.x, R.y + 4, { size: 12, weight: '600', color: C.ink });
+    var P = { x: R.x + 30, y: R.y + 22, w: R.w - 34, h: R.h - 22 - (narrow ? 28 : 34) };
+    var topV = 0;
+    fams.forEach(function (f) { topV = Math.max(topV, f.max_tc); });
+    topV = Math.max(topV, 80);
+    var step = niceStep(topV * 1.05, 3);
+    topV = Math.ceil(topV * 1.05 / step) * step;
+    function Y(v) { return P.y + P.h - v / topV * P.h; }
+    c.lineWidth = 1;
+    for (var gv = 0; gv <= topV + 1e-9; gv += step) {
+      var yy = Math.round(Y(gv)) + 0.5;
+      c.strokeStyle = gv ? C.grid : C.axis; c.beginPath(); c.moveTo(P.x, yy); c.lineTo(P.x + P.w, yy); c.stroke();
+      label(c, C, fmtTick(gv), P.x - 6, yy + 4, { align: 'right', size: 10.5, color: C.muted });
+    }
+    var y77 = Math.round(Y(77)) + 0.5;
+    c.setLineDash([4, 4]); c.strokeStyle = C.ink2; c.beginPath(); c.moveTo(P.x, y77); c.lineTo(P.x + P.w, y77); c.stroke(); c.setLineDash([]);
+    label(c, C, 'liquid nitrogen, 77 K', P.x + P.w, y77 - 5, { align: 'right', size: 10.5, color: C.ink2 });
+    var cw = P.w / fams.length, bwid = Math.min(34, cw * 0.46);
+    fams.forEach(function (f, i) {
+      var g = stSpan(t, 2.5 + 0.3 * i, 3.5 + 0.3 * i), x = P.x + cw * (i + 0.5), hgt = (P.y + P.h - Y(f.max_tc)) * g;
+      c.fillStyle = hurColor(C, f.id); c.fillRect(x - bwid / 2, P.y + P.h - hgt, bwid, hgt);
+      if (g > 0.9) label(c, C, (f.max_tc >= 10 ? Math.round(f.max_tc) : f.max_tc.toFixed(1)) + ' K', x, P.y + P.h - hgt - 6, { align: 'center', size: 11, weight: '600', color: C.ink });
+      var short = cw < 80 ? ({ 'cuprate': 'Cuprates', 'iron-based': 'Fe, Ni', 'heavy-fermion': 'Heavy f.', 'other oxide': 'Oxides' }[f.id]) : HUR_FAM_SHORT[f.id];
+      label(c, C, hurFit(c, C, short || f.label, cw - 4, 10.5), x, P.y + P.h + 14, { align: 'center', size: 10.5, color: C.ink2 });
+    });
+    if (!narrow && t > 4) {
+      c.globalAlpha = stSpan(t, 4, 4.6);
+      stParaRich(c, C, 'Pale: compounds reported as not superconducting. They show the model where Tc falls to zero.', L.x, L.y + fams.length * rh + 6, L.w, 16, { size: 11.5, color: C.muted });
+    }
+    c.globalAlpha = 1;
+  }
+
+  /* 1 · the design loop and the leaderboard of the round */
+  function drawHurDesign(c, C, B, t, narrow, info) {
+    var v = info.v, sr = v.search || {}, rows = list(sr.leaderboard);
+    var winner = rows.filter(function (r) { return stormRowName(r) === v.summary; })[0] || rows[0];
+    stormHeader(c, C, B, 'Search round ' + v.round + ': ' + rows.length + ' designs', narrow ? '' : 'Tc error in grouped CV (K)');
+    var L = narrow ? { x: B.x, y: B.y + 26, w: B.w, h: 64 } : { x: B.x, y: B.y + 30, w: Math.round(B.w * 0.28), h: B.h - 36 };
+    var steps = ['propose', 'train', 'score'], k = Math.floor(t * 1.4) % 3;
+    if (narrow) {
+      stRound(c, L.x, L.y, 104, 34, 8); c.fillStyle = C.accent; c.fill();
+      label(c, C, 'AI agent', L.x + 52, L.y + 17.5, { align: 'center', base: 'middle', size: 12, weight: '600', color: '#ffffff' });
+      var sx = L.x + 116, room = L.x + L.w - sx, ws = [], tot = 0, fs = 11;
+      stFont(c, C, fs, '600');
+      steps.forEach(function (s) { var w = c.measureText(s).width + 14; ws.push(w); tot += w; });
+      var gapA = Math.max(4, (room - tot) / 2);
+      steps.forEach(function (s, i) {
+        stTag(c, C, s, sx, L.y + 17, { align: 'left', size: fs, bg: i === k ? C.track : C.surface, ring: C.grid, color: C.ink });
+        if (i < 2 && gapA >= 14) stArrow(c, sx + ws[i] + 3, L.y + 17, sx + ws[i] + gapA - 3, L.y + 17, C.axis, 5);
+        sx += ws[i] + gapA;
+      });
+      label(c, C, '(Claude)', L.x + 52, L.y + 48, { align: 'center', size: 10.5, color: C.muted });
+    } else {
+      var cx = L.x + L.w / 2, cy = L.y + L.h / 2 - 6, r = Math.min(L.w, L.h) * 0.3;
+      c.lineWidth = 1.5; c.strokeStyle = C.grid;
+      c.beginPath(); c.arc(cx, cy, r, 0, Math.PI * 2); c.stroke();
+      steps.forEach(function (s, i) {
+        var a = -Math.PI / 2 + i * 2 * Math.PI / 3;
+        stTag(c, C, s, cx + Math.cos(a) * r, cy + Math.sin(a) * r, { size: 11.5, bg: i === k ? C.track : C.surface, ring: C.grid, color: C.ink });
+      });
+      var a2 = -Math.PI / 2 + (t * 1.4 % 3) * 2 * Math.PI / 3;
+      dot(c, cx + Math.cos(a2) * r, cy + Math.sin(a2) * r, 3.5, C.warm);
+      stRound(c, cx - 46, cy - 15, 92, 30, 8); c.fillStyle = C.accent; c.fill();
+      label(c, C, 'AI agent', cx, cy + 0.5, { align: 'center', base: 'middle', size: 12, weight: '600', color: '#ffffff' });
+      label(c, C, 'Claude proposes each design', cx, L.y + L.h - 4, { align: 'center', size: 11, color: C.muted });
+    }
+    var T = narrow ? { x: B.x, y: L.y + L.h + 6, w: B.w, h: B.y + B.h - (L.y + L.h + 6) } : { x: L.x + L.w + 24, y: B.y + 26, w: B.w - L.w - 24, h: B.h - 26 };
+    if (!rows.length) return;
+    var rh = Math.min(30, (T.h - 40) / rows.length), lo = Infinity, hi = -Infinity;
+    rows.forEach(function (r) { lo = Math.min(lo, r.tc_mae); hi = Math.max(hi, r.tc_mae); });
+    var span = Math.max(0.1, hi - lo), step = niceStep(span * 1.2, 4);
+    var a0v = Math.floor((lo - span * 0.08) / step) * step, a1v = Math.ceil((hi + span * 0.08) / step) * step;
+    var nameW = narrow ? Math.min(170, T.w * 0.56) : Math.min(300, T.w * 0.55), bx = T.x + nameW + 10, bw = T.w - nameW - 52;
+    var refId = sr.reference_id || 'H0', base = rows.filter(function (r) { return r.id === refId; })[0];
+    function BX(x) { return bx + (x - a0v) / (a1v - a0v) * bw; }
+    var axisY = T.y + rows.length * rh + 4;
+    c.lineWidth = 1;
+    var every = bw / ((a1v - a0v) / step) < 24 ? 2 : 1, ti = 0;
+    for (var tv = a0v; tv <= a1v + 1e-9; tv += step, ti++) {
+      var gx = Math.round(BX(tv)) + 0.5;
+      c.strokeStyle = C.grid; c.beginPath(); c.moveTo(gx, T.y); c.lineTo(gx, axisY); c.stroke();
+      if (ti % every === 0) label(c, C, fmtTick(tv), gx, axisY + 13, { align: 'center', size: 10.5, color: C.muted });
+    }
+    rows.forEach(function (r, i) {
+      var a = stSpan(t, 0.4 + 0.32 * i, 0.8 + 0.32 * i);
+      if (a <= 0) return;
+      var y = T.y + i * rh, isW = r === winner && t > 4.2, isB = r.id === refId, cy2 = y + rh / 2;
+      c.globalAlpha = a;
+      if (isW) { stRound(c, T.x - 6, y + 1, T.w + 6, rh - 2, 7); c.fillStyle = stAlpha(C.accent, 0.1); c.fill(); }
+      stTag(c, C, r.id, T.x + 13, cy2, { size: 10.5, bg: isW ? C.accent : C.surface, ring: C.grid, color: isW ? '#ffffff' : C.ink2 });
+      var full = (isB ? 'Composition only (baseline)' : r.name.replace(/^Composition \+ /, '+ ')) + (r.settings && r.settings !== 'default' ? ', ' + r.settings : '');
+      var size = narrow ? 11 : 12;
+      label(c, C, hurFit(c, C, full, nameW - 32, size, isW ? '600' : '400'), T.x + 30, cy2 + 4, { size: size, color: isB ? C.ink2 : C.ink, weight: isW ? '600' : '400' });
+      var x = BX(r.tc_mae), col = isW ? C.accent : isB ? C.ink2 : mix(C.accent, C.surface2, 0.35);
+      dot(c, x, cy2, isW ? 5.5 : 4.5, col);
+      label(c, C, fmtVal(r.tc_mae), x + 9, cy2 + 4, { size: 11, weight: isW ? '600' : '400', color: isW ? C.accent : C.ink2 });
+      c.globalAlpha = 1;
+    });
+    if (base && t > 0.6) {
+      var xb = Math.round(BX(base.tc_mae)) + 0.5;
+      c.setLineDash([3, 3]); c.strokeStyle = C.ink2; c.lineWidth = 1;
+      c.beginPath(); c.moveTo(xb, T.y); c.lineTo(xb, axisY); c.stroke(); c.setLineDash([]);
+    }
+    if (t > 4.6) {
+      c.globalAlpha = stSpan(t, 4.6, 5.2);
+      var ok = v.status === 'adopted';
+      stTag(c, C, ok ? 'Released as ' + hurTitle(info) : hurTitle(info) + ' stays experimental', T.x + T.w, axisY + 32, { align: 'right', size: 12, bg: ok ? C.accent : C.surface, ring: ok ? null : C.grid, color: ok ? '#ffffff' : C.ink });
+      c.globalAlpha = 1;
+    }
+  }
+
+  /* 2 · what goes in, the cuprate dome behind the most useful input, and what the model relies on */
+  function hurDome(p) { return Math.max(0, 1 - 82.6 * (p - 0.16) * (p - 0.16)); }
+  function drawHurPhysics(c, C, B, t, narrow, info) {
+    var ins = list(info.v.spec.inputs), total = 0;
+    ins.forEach(function (g) { total += g.n || 0; });
+    stormHeader(c, C, B, total + ' numbers describe each compound', narrow ? '' : 'orange: physics features the AI proposed');
+    var sy = B.y + 26, x = B.x;
+    ins.forEach(function (g, i) {
+      var a = stSpan(t, 0.2 + 0.3 * i, 0.7 + 0.3 * i);
+      var w = B.w * (g.n || 0) / (total || 1), col = hurGroupColor(C, g.group);
+      if (a > 0) {
+        c.globalAlpha = a;
+        c.fillStyle = g.group === 'physics' ? col : stAlpha(col, 0.5);
+        c.fillRect(x + 1, sy, Math.max(0, w - 2), 12);
+        var names = { composition: 'composition', structure: 'structure', physics: 'physics', elements: 'element shares' };
+        var txt = g.n + ' ' + (names[g.group] || lcFirst(g.label));
+        stFont(c, C, 11, '600');
+        if (c.measureText(txt).width > w - 4) txt = String(g.n);
+        label(c, C, txt, x + 2, sy + 27, { size: 11, weight: '600', color: g.group === 'physics' ? C.warm : C.ink2 });
+      }
+      x += w;
+    });
+    c.globalAlpha = 1;
+    var top = sy + 44;
+    var D = narrow ? { x: B.x, y: top, w: B.w, h: Math.min(176, (B.y + B.h - top) * 0.47) } : { x: B.x, y: top, w: Math.round(B.w * 0.47), h: B.y + B.h - top };
+    var I = narrow ? { x: B.x, y: D.y + D.h + 16, w: B.w, h: B.y + B.h - (D.y + D.h + 16) } : { x: D.x + D.w + 34, y: top, w: B.w - D.w - 34, h: B.y + B.h - top };
+    drawHurDomePanel(c, C, D, t, 1.2, narrow);
+    drawHurImportance(c, C, I, t, narrow, info);
+  }
+  // The empirical cuprate dome (Presland and Tallon): Tc / Tc,max = 1 − 82.6 (p − 0.16)²
+  function drawHurDomePanel(c, C, D, t, s0, narrow) {
+    var a = stSpan(t, s0, s0 + 0.6);
+    if (a <= 0) return;
+    c.globalAlpha = a;
+    stText(c, C, 'Cuprate Tc against holes per Cu', D.x, D.y + 4, { size: 12, weight: '600', color: C.ink });
+    var P = { x: D.x + 30, y: D.y + 20, w: D.w - 40, h: D.h - 20 - 44 };
+    if (P.h < 40 || P.w < 80) return;
+    var PMAX = 0.3;
+    function X(p) { return P.x + p / PMAX * P.w; }
+    function Y(v) { return P.y + P.h - v * P.h * 0.92; }
+    c.lineWidth = 1;
+    [0, 0.1, 0.2, 0.3].forEach(function (p) {
+      var gx = Math.round(X(p)) + 0.5;
+      c.strokeStyle = p ? C.grid : C.axis; c.beginPath(); c.moveTo(gx, P.y); c.lineTo(gx, P.y + P.h); c.stroke();
+      label(c, C, p ? p.toFixed(1) : '0', gx, P.y + P.h + 13, { align: 'center', size: 10.5, color: C.muted });
+    });
+    c.strokeStyle = C.axis; c.beginPath(); c.moveTo(P.x, Math.round(P.y + P.h) + 0.5); c.lineTo(P.x + P.w, Math.round(P.y + P.h) + 0.5); c.stroke();
+    stText(c, C, 'Tc', P.x - 6, Y(1) + 4, { align: 'right', size: 11, color: C.muted });
+    var g = stSpan(t, s0 + 0.3, s0 + 1.7), p0 = 0.05, p1 = 0.05 + (0.27 - 0.05) * g;
+    if (g > 0) {
+      c.beginPath(); c.moveTo(X(p0), Y(0));
+      for (var p = p0; p <= p1 + 1e-9; p += 0.0025) c.lineTo(X(p), Y(hurDome(p)));
+      c.lineTo(X(p1), Y(0)); c.closePath();
+      c.fillStyle = stAlpha(C.accent, 0.14); c.fill();
+      c.beginPath();
+      for (var q = p0; q <= p1 + 1e-9; q += 0.0025) { if (q === p0) c.moveTo(X(q), Y(hurDome(q))); else c.lineTo(X(q), Y(hurDome(q))); }
+      c.lineWidth = 2; c.strokeStyle = C.accent; c.stroke();
+    }
+    if (g >= 1) {
+      var xo = Math.round(X(0.16)) + 0.5;
+      c.setLineDash([3, 3]); c.lineWidth = 1; c.strokeStyle = C.ink2;
+      c.beginPath(); c.moveTo(xo, Y(1) - 4); c.lineTo(xo, P.y + P.h); c.stroke(); c.setLineDash([]);
+      if (!narrow || D.w > 260) {
+        label(c, C, 'underdoped', X(0.085), Y(0.18), { align: 'center', size: 10.5, color: C.muted });
+        label(c, C, 'overdoped', X(0.24), Y(0.18), { align: 'center', size: 10.5, color: C.muted });
+      }
+      // a sample sweeping the doping: Tc follows the dome
+      var ph = motionOK() ? (t - s0 - 1.7) : 1.2, pp = 0.16 + 0.095 * Math.sin(ph * 0.9 - Math.PI / 2), tv = hurDome(pp);
+      dot(c, X(pp), Y(tv), 5.5, C.warm, C.surface);
+      label(c, C, 'p = ' + pp.toFixed(2) + (Math.abs(pp - 0.16) < 0.012 ? ', optimal' : ''), X(0.16), Y(1) - 10, { align: 'center', size: 11, weight: '600', color: C.ink });
+    }
+    var na = stSpan(t, s0 + 1.8, s0 + 2.4);
+    if (na > 0) {
+      c.globalAlpha = a * na;
+      stParaRich(c, C, 'p comes from charge balance: in La₂₋ₓSrₓCuO₄ each Sr²⁺ for La³⁺ adds one hole, so p = x.', D.x, P.y + P.h + 30, D.w, 15, { size: 11, color: C.ink2 });
+    }
+    c.globalAlpha = 1;
+  }
+  function drawHurImportance(c, C, I, t, narrow, info) {
+    var imp = list(info.v.importance).slice(0, narrow ? 6 : 8);
+    var a = stSpan(t, 2.4, 3.0);
+    if (!imp.length || a <= 0) return;
+    c.globalAlpha = a;
+    label(c, C, 'What it relies on most', I.x, I.y + 4, { size: 12, weight: '600', color: C.ink });
+    if (!narrow) label(c, C, 'error growth when shuffled', I.x + I.w, I.y + 4, { align: 'right', size: 11, color: C.muted });
+    var groupOf = hurGroupOf(info), maxG = 0, used = {};
+    imp.forEach(function (f) { maxG = Math.max(maxG, +f.gain || 0); });
+    var rh = Math.min(28, (I.h - 46) / imp.length), nameW = Math.min(narrow ? 140 : 180, I.w * 0.52), bx = I.x + nameW + 8, bwMax = I.w - nameW - 62;
+    imp.forEach(function (f, i) {
+      var b = stSpan(t, 2.7 + 0.22 * i, 3.3 + 0.22 * i);
+      if (b <= 0) return;
+      var y = I.y + 16 + i * rh, grp = groupOf(f.name), col = hurGroupColor(C, grp), cy2 = y + rh / 2;
+      used[grp] = 1;
+      c.globalAlpha = a * b;
+      label(c, C, hurFit(c, C, hurFeatName(f.name), nameW, 11.5, grp === 'physics' ? '600' : '400'), I.x, cy2 + 4, { size: 11.5, weight: grp === 'physics' ? '600' : '400', color: grp === 'physics' ? C.ink : C.ink2 });
+      var w = Math.max(2, bwMax * (+f.gain || 0) / (maxG || 1) * b);
+      c.fillStyle = col; c.fillRect(bx, cy2 - 5, w, 10);
+      label(c, C, '+' + (+f.gain).toFixed(2) + ' K', bx + w + 6, cy2 + 4, { size: 11, color: C.ink2 });
+    });
+    var la = stSpan(t, 4.6, 5.2);
+    if (la > 0) {
+      c.globalAlpha = a * la;
+      var lx = I.x, ly = I.y + 16 + imp.length * rh + 14;
+      [['physics', 'physics (AI)'], ['structure', 'structure'], ['elements', 'element share'], ['composition', 'composition']].forEach(function (k) {
+        if (!used[k[0]]) return;
+        stFont(c, C, 11);
+        var w = c.measureText(k[1]).width + 26;
+        if (lx + w > I.x + I.w) { lx = I.x; ly += 17; }
+        c.fillStyle = hurGroupColor(C, k[0]); c.fillRect(lx, ly - 8, 10, 10);
+        label(c, C, k[1], lx + 14, ly + 1, { size: 11, color: C.ink2 });
+        lx += w;
+      });
+    }
+    c.globalAlpha = 1;
+  }
+
+  /* 3 · fold by fold against the composition-only baseline, and family by family */
+  function drawHurCheck(c, C, B, t, narrow, info) {
+    var sc = info.v.scores, f = list(sc.folds), r = list(sc.reference_folds), n = f.length;
+    stormHeader(c, C, B, (narrow ? 'Better in ' : 'Better than composition only in ') + sc.folds_better + ' of ' + n + ' folds', narrow ? '' : 'error for compounds whose parent it never saw');
+    var F = narrow ? { x: B.x, y: B.y + 28, w: B.w, h: Math.min(200, B.h * 0.47) } : { x: B.x, y: B.y + 30, w: Math.round(B.w * 0.5), h: B.h - 30 };
+    var G = narrow ? { x: B.x, y: F.y + F.h + 18, w: B.w, h: B.y + B.h - (F.y + F.h + 18) } : { x: F.x + F.w + 36, y: B.y + 30, w: B.w - F.w - 36, h: B.h - 30 };
+    var P = { x: F.x + 30, y: F.y + 8, w: F.w - 34, h: F.h - 8 - 46 };
+    var top = 0;
+    f.concat(r).forEach(function (v) { top = Math.max(top, v); });
+    var tstep = niceStep(top * 1.1 || 1, 3);
+    top = Math.ceil(top * 1.1 / tstep) * tstep;
+    function Y(v) { return P.y + P.h - v / top * P.h; }
+    c.lineWidth = 1;
+    for (var g = 0; g <= top + 1e-9; g += tstep) {
+      var yy = Math.round(Y(g)) + 0.5;
+      c.strokeStyle = g ? C.grid : C.axis; c.beginPath(); c.moveTo(P.x, yy); c.lineTo(P.x + P.w, yy); c.stroke();
+      label(c, C, fmtTick(g), P.x - 6, yy + 4, { align: 'right', size: 10.5, color: C.muted });
+    }
+    var gw = P.w / Math.max(1, n), bw = Math.min(24, gw * 0.3);
+    for (var i = 0; i < n; i++) {
+      var a = stSpan(t, 0.3 + 0.45 * i, 0.9 + 0.45 * i), gx = P.x + gw * (i + 0.5);
+      var hr = (P.y + P.h - Y(r[i])) * a, hf = (P.y + P.h - Y(f[i])) * stSpan(t, 0.6 + 0.45 * i, 1.2 + 0.45 * i);
+      c.fillStyle = C.axis; c.fillRect(gx - bw - 1, P.y + P.h - hr, bw, hr);
+      c.fillStyle = C.accent; c.fillRect(gx + 1, P.y + P.h - hf, bw, hf);
+      label(c, C, 'fold ' + (i + 1), gx, P.y + P.h + 15, { align: 'center', size: 10.5, color: C.muted });
+      if (t > 1.2 + 0.45 * i && f[i] < r[i]) label(c, C, '✓', gx + 1 + bw / 2, P.y + P.h - hf - 6, { align: 'center', size: 11, weight: '600', color: C.accent });
+    }
+    var ky = P.y + P.h + 36, t1 = 'composition only ' + hurK(sc.reference_mae) + ' K', t2 = hurTitle(info) + ' ' + hurK(sc.tc_mae) + ' K';
+    stFont(c, C, 11);
+    var w1 = c.measureText(t1).width, w2 = c.measureText(t2).width, two = 14 + w1 + 18 + 14 + w2 > F.w;
+    c.fillStyle = C.axis; c.fillRect(F.x, ky - 8, 10, 10);
+    label(c, C, t1, F.x + 14, ky + 1, { size: 11, color: C.ink2 });
+    var kx = two ? F.x : F.x + 14 + w1 + 18, ky2 = two ? ky + 16 : ky;
+    c.fillStyle = C.accent; c.fillRect(kx, ky2 - 8, 10, 10);
+    label(c, C, t2, kx + 14, ky2 + 1, { size: 11, weight: '600', color: C.accent });
+    // by family
+    var fam = sc.by_family || {}, keys = HUR_FAMS.filter(function (k) { return fam[k]; });
+    var ga = stSpan(t, 3.0, 3.6);
+    if (!keys.length || ga <= 0) return;
+    c.globalAlpha = ga;
+    label(c, C, 'By family', G.x, G.y + 4, { size: 12, weight: '600', color: C.ink });
+    var mx = 0;
+    keys.forEach(function (k) { mx = Math.max(mx, fam[k].mae || 0, fam[k].mae_ref || 0); });
+    var rh = Math.min(narrow ? 44 : 60, (G.h - 20) / keys.length), nameW = narrow ? 0 : Math.min(176, G.w * 0.42), bx = G.x + nameW, bwMax = G.w - nameW - 58;
+    keys.forEach(function (k, j) {
+      var b = stSpan(t, 3.3 + 0.35 * j, 4.0 + 0.35 * j);
+      if (b <= 0) return;
+      var y = G.y + 18 + j * rh, e = fam[k];
+      c.globalAlpha = ga * b;
+      if (narrow) label(c, C, famLabel(k) + ' · ' + fmtInt(e.n), G.x, y + 10, { size: 11.5, weight: '600', color: C.ink });
+      else {
+        label(c, C, hurFit(c, C, famLabel(k), nameW - 8, 12, '600'), G.x, y + 14, { size: 12, weight: '600', color: C.ink });
+        label(c, C, fmtInt(e.n) + ' compounds', G.x, y + 29, { size: 10.5, color: C.muted });
+      }
+      var by = narrow ? y + 16 : y + 6;
+      var w1 = Math.max(2, bwMax * (e.mae || 0) / (mx || 1) * b), w2 = Math.max(2, bwMax * (e.mae_ref || 0) / (mx || 1) * b);
+      c.fillStyle = C.accent; c.fillRect(bx, by, w1, 9);
+      label(c, C, hurK(e.mae) + ' K', bx + w1 + 6, by + 8, { size: 11, weight: '600', color: C.accent });
+      c.fillStyle = C.axis; c.fillRect(bx, by + 12, w2, 9);
+      label(c, C, hurK(e.mae_ref) + ' K', bx + w2 + 6, by + 20, { size: 11, color: C.ink2 });
+    });
+    c.globalAlpha = 1;
+  }
+
+  /* 4 · leave one family out */
+  function drawHurFamily(c, C, B, t, narrow, info) {
+    var lo = list(info.v.lofo);
+    stormHeader(c, C, B, 'Trained without a whole family', narrow ? '' : 'error for the family left out (K)');
+    if (!lo.length) return;
+    var Rw = narrow ? 0 : Math.min(230, Math.round(B.w * 0.3));
+    var L = narrow ? { x: B.x, y: B.y + 30, w: B.w, h: Math.min(268, B.h * 0.62) } : { x: B.x, y: B.y + 30, w: B.w - Rw - 36, h: B.h - 30 - 30 };
+    var mx = 0;
+    lo.forEach(function (r) { mx = Math.max(mx, r.mae || 0, r.mae_median || 0, r.mae_cv || 0); });
+    var rh = Math.min(narrow ? 58 : 70, L.h / lo.length), nameW = narrow ? 0 : Math.min(176, L.w * 0.33), bx = L.x + nameW, bwMax = L.w - nameW - 60;
+    var kinds = [['mae_cv', 'with the family in training', C.accent], ['mae', 'family left out', C.warm], ['mae_median', 'guessing the median of the rest', C.axis]];
+    lo.forEach(function (r, i) {
+      var a = stSpan(t, 0.3 + 0.5 * i, 0.9 + 0.5 * i);
+      if (a <= 0) return;
+      var y = L.y + i * rh, col = hurColor(C, r.family);
+      c.globalAlpha = a;
+      dot(c, L.x + 5, y + 9, 4.5, col);
+      label(c, C, narrow ? famLabel(r.family) : hurFit(c, C, famLabel(r.family), nameW - 22, 12, '600'), L.x + 15, y + 13, { size: 12, weight: '600', color: C.ink });
+      var by = narrow ? y + 20 : y + 4;
+      if (!narrow) label(c, C, fmtInt(r.n) + ' compounds', L.x + 15, y + 28, { size: 10.5, color: C.muted });
+      kinds.forEach(function (kd, j) {
+        var g = stSpan(t, 0.6 + 0.5 * i + 0.15 * j, 1.3 + 0.5 * i + 0.15 * j), val = r[kd[0]];
+        if (typeof val !== 'number') return;
+        var w = Math.max(2, bwMax * val / (mx || 1) * g);
+        c.fillStyle = kd[2]; c.fillRect(bx, by + j * 12, w, 9);
+        if (g > 0.8) label(c, C, hurK(val) + ' K', bx + w + 6, by + j * 12 + 8, { size: 10.5, weight: j === 1 ? '600' : '400', color: j === 1 ? C.warm : C.ink2 });
+      });
+    });
+    c.globalAlpha = 1;
+    var la = stSpan(t, 2.6, 3.2), lx = L.x, ly = L.y + lo.length * rh + 12;
+    c.globalAlpha = la;
+    kinds.forEach(function (kd) {
+      stFont(c, C, 11);
+      var w = c.measureText(kd[1]).width + 28;
+      if (lx + w > L.x + L.w) { lx = L.x; ly += 17; }
+      if (la > 0) { c.fillStyle = kd[2]; c.fillRect(lx, ly - 8, 10, 10); label(c, C, kd[1], lx + 14, ly + 1, { size: 11, color: C.ink2 }); }
+      lx += w;
+    });
+    c.globalAlpha = 1;
+    // the highest family: what it is, and what a model trained without it predicts
+    var hi = lo.slice().sort(function (p, q) { return (q.max_tc || 0) - (p.max_tc || 0); })[0];
+    var ca = stSpan(t, 3.6, 4.2);
+    if (!hi || ca <= 0) return;
+    c.globalAlpha = ca;
+    var R = narrow ? { x: B.x, y: ly + 18, w: B.w, h: B.y + B.h - (ly + 18) } : { x: B.x + B.w - Rw, y: B.y + 30, w: Rw, h: B.h - 30 };
+    if (R.h < 70) { c.globalAlpha = 1; return; }
+    stParaRich(c, C, 'Trained without ' + hurFamText(hi.family), R.x, R.y + 6, R.w, 16, { size: 12, weight: '600', color: C.ink });
+    var P = narrow ? { x: R.x + 8, y: R.y + 20, w: R.w - 16, h: R.h - 24 } : { x: R.x + 10, y: R.y + 46, w: R.w - 20, h: R.h - 78 };
+    if (narrow) {
+      // horizontal: measured range against the highest prediction
+      var X = function (v) { return P.x + 92 + v / (hi.max_tc || 1) * (P.w - 150); };
+      var g1 = stSpan(t, 3.9, 4.9), g2 = stSpan(t, 4.6, 5.4), y1 = P.y + 12, y2 = P.y + 34;
+      label(c, C, 'measured', P.x, y1 + 4, { size: 11, color: C.ink2 });
+      c.fillStyle = hurColor(C, hi.family); c.fillRect(X(0), y1 - 5, (X(hi.max_tc) - X(0)) * g1, 10);
+      if (g1 > 0.9) label(c, C, 'up to ' + Math.round(hi.max_tc) + ' K', X(hi.max_tc) + 6, y1 + 4, { size: 11, weight: '600', color: C.ink });
+      label(c, C, 'predicted', P.x, y2 + 4, { size: 11, color: C.ink2 });
+      c.fillStyle = C.warm; c.fillRect(X(0), y2 - 5, Math.max(2, (X(hi.max_pred) - X(0)) * g2), 10);
+      if (g2 > 0.9) label(c, C, 'at most ' + hurK(hi.max_pred) + ' K', X(hi.max_pred) + 6, y2 + 4, { size: 11, weight: '600', color: C.warm });
+    } else {
+      var Yv = function (v) { return P.y + P.h - v / (hi.max_tc || 1) * P.h; };
+      var cw = P.w / 2, bw2 = Math.min(40, cw * 0.45), h1 = (P.y + P.h - Yv(hi.max_tc)) * stSpan(t, 3.9, 5.0), h2 = (P.y + P.h - Yv(hi.max_pred)) * stSpan(t, 4.8, 5.6);
+      c.strokeStyle = C.axis; c.lineWidth = 1; c.beginPath(); c.moveTo(P.x, Math.round(P.y + P.h) + 0.5); c.lineTo(P.x + P.w, Math.round(P.y + P.h) + 0.5); c.stroke();
+      c.fillStyle = hurColor(C, hi.family); c.fillRect(P.x + cw * 0.5 - bw2 / 2, P.y + P.h - h1, bw2, h1);
+      c.fillStyle = C.warm; c.fillRect(P.x + cw * 1.5 - bw2 / 2, P.y + P.h - h2, bw2, Math.max(2, h2));
+      if (t > 5) label(c, C, Math.round(hi.max_tc) + ' K', P.x + cw * 0.5, P.y + P.h - h1 - 6, { align: 'center', size: 12, weight: '600', color: C.ink });
+      if (t > 5.6) label(c, C, hurK(hi.max_pred) + ' K', P.x + cw * 1.5, P.y + P.h - h2 - 6, { align: 'center', size: 12, weight: '600', color: C.warm });
+      label(c, C, 'highest measured', P.x + cw * 0.5, P.y + P.h + 15, { align: 'center', size: 10.5, color: C.ink2 });
+      label(c, C, 'highest predicted', P.x + cw * 1.5, P.y + P.h + 15, { align: 'center', size: 10.5, color: C.ink2 });
+    }
+    c.globalAlpha = 1;
+  }
+
+  /* 5 · materials it never trained on, mostly found after its data were collected */
+  function drawHurLater(c, C, B, t, narrow, info) {
+    var an = info.v.anchors || {}, rows = list(an.table);
+    stormHeader(c, C, B, 'Materials it never trained on', narrow ? '' : 'measured and predicted Tc, square-root scale');
+    if (!rows.length) return;
+    var nameW = narrow ? Math.min(112, B.w * 0.36) : Math.min(240, B.w * 0.3), gradeW = narrow ? 56 : 104;
+    var P = { x: B.x + nameW + 10, y: B.y + 34, w: B.w - nameW - 10 - gradeW - 12, h: B.h - 34 - (narrow ? 66 : 48) };
+    var vmax = 0;
+    rows.forEach(function (r) { vmax = Math.max(vmax, typeof r.tc_exp === 'number' ? r.tc_exp : 0, typeof r.pred === 'number' ? r.pred : 0); });
+    vmax = Math.max(20, Math.ceil(vmax * 1.05 / 20) * 20);
+    function X(v) { return P.x + Math.sqrt(Math.max(0, Math.min(v, vmax)) / vmax) * P.w; }
+    var rh = Math.min(30, P.h / rows.length), axisY = P.y + rows.length * rh + 2;
+    c.lineWidth = 1;
+    [0, 1, 5, 20, 50, 100, 150, 200].filter(function (v) { return v <= vmax; }).forEach(function (v) {
+      var gx = Math.round(X(v)) + 0.5;
+      c.strokeStyle = v ? C.grid : C.axis; c.beginPath(); c.moveTo(gx, P.y - 4); c.lineTo(gx, axisY); c.stroke();
+      if (!narrow || v === 0 || v === 5 || v === 50 || v === 150) label(c, C, String(v), gx, axisY + 13, { align: 'center', size: 10.5, color: C.muted });
+    });
+    label(c, C, 'K', P.x + P.w + 4, axisY + 13, { size: 10.5, color: C.muted });
+    rows.forEach(function (r, i) {
+      var a = stSpan(t, 0.3 + 0.35 * i, 0.8 + 0.35 * i);
+      if (a <= 0) return;
+      var cy2 = P.y + i * rh + rh / 2, scored = r.use === 'score', col = hurColor(C, r.family);
+      c.globalAlpha = a * (scored ? 1 : 0.85);
+      var nm = hurFit(c, C, hurShortName(r.name), nameW - 4, narrow ? 11 : 12, scored ? '600' : '400');
+      label(c, C, nm, B.x, cy2 + 4, { size: narrow ? 11 : 12, weight: scored ? '600' : '400', color: scored ? C.ink : C.ink2 });
+      var hasM = typeof r.tc_exp === 'number', hasP = typeof r.pred === 'number', g = stSpan(t, 0.6 + 0.35 * i, 1.3 + 0.35 * i);
+      if (hasM && hasP && g > 0) {
+        var xm = X(r.tc_exp), xp = xm + (X(r.pred) - xm) * g;
+        c.strokeStyle = stAlpha(C.ink2, 0.5); c.lineWidth = 2; c.beginPath(); c.moveTo(xm, cy2); c.lineTo(xp, cy2); c.stroke();
+        dot(c, xp, cy2, 4.5, C.surface, C.accent);
+      }
+      if (hasM) dot(c, X(r.tc_exp), cy2, 4.5, HUR_FAMS.indexOf(r.family) >= 0 ? col : C.ink2);
+      else {
+        if (hasP && g > 0) dot(c, X(r.pred), cy2, 4.5, C.surface, C.accent);
+        label(c, C, r.status || 'no Tc', P.x + (hasP && X(r.pred) < P.x + 70 ? 16 + (X(r.pred) - P.x) : 4), cy2 + 4, { size: 11, color: C.warm, weight: '600' });
+      }
+      var use = scored ? 'scored' : r.use === 'exclude' ? 'left out' : 'shown';
+      stTag(c, C, narrow ? use : use + ' · ' + (r.status === 'single report' ? 'single' : r.status), B.x + B.w, cy2, { align: 'right', size: 10.5, bg: scored ? C.track : C.surface, ring: scored ? null : C.grid, color: scored ? C.ink : C.ink2 });
+    });
+    c.globalAlpha = 1;
+    var la = stSpan(t, 0.6 + 0.35 * rows.length, 1.2 + 0.35 * rows.length);
+    if (la > 0) {
+      c.globalAlpha = la;
+      var ly = axisY + 34;
+      dot(c, B.x + 5, ly - 4, 4.5, C.ink2);
+      label(c, C, 'measured', B.x + 14, ly, { size: 11, color: C.ink2 });
+      dot(c, B.x + 86, ly - 4, 4.5, C.surface, C.accent);
+      label(c, C, hurTitle(info), B.x + 95, ly, { size: 11, color: C.ink2 });
+      if (typeof an.mae === 'number') {
+        var msg = an.n_scored + ' scored · average error ' + hurK(an.mae) + ' K' + (an.scored_as_check ? '' : (narrow ? '' : ' · too few for a check yet'));
+        if (narrow) label(c, C, msg, B.x, ly + 18, { size: 11, weight: '600', color: C.ink });
+        else label(c, C, msg, B.x + B.w, ly, { align: 'right', size: 11, weight: '600', color: C.ink });
+      }
+      c.globalAlpha = 1;
+    }
+  }
+
+  /* ---------- Hurricane in the Hello Super tour ---------- */
+  function hurStoryCaption() {
+    var info = hurInfo();
+    if (!info) return 'Hurricane, our second AI-designed model, learns the Tc of unconventional superconductors from measurements, each graded by how well it has been confirmed.';
+    var v = info.v, sc = v.scores || {}, dd = info.data, top = list(v.importance).slice(0, 2).map(function (i) { return hurFeatName(i.name); });
+    return 'Hurricane, our second AI-designed model, learns the Tc of cuprates, iron- and nickel-based, heavy-fermion and other oxide superconductors directly from ' + fmtInt(dd.n) +
+      ' measurements. Its AI agent added physics features such as the number of holes per copper, which sets where a cuprate sits on its Tc dome' +
+      (top.length ? '; these turned out to be what the model relies on most (' + top.join(', ') + ')' : '') + '. ' + hurTitle(info) + ' is off by ' + hurK(sc.tc_mae) +
+      ' K for compounds whose parent it never saw, against ' + hurK(sc.reference_mae) + ' K for a composition-only model. It cannot yet predict a family it has never seen, which is where the search for new high-Tc families has to go beyond data.';
+  }
+  function drawStoryHurricane(c, C, B, t, narrow) {
+    var info = hurInfo(), a0 = stSpan(t, 0, 0.5);
+    c.globalAlpha = a0;
+    var D = narrow ? { x: B.x, y: B.y + 4, w: B.w, h: Math.min(200, B.h * 0.5) } : { x: B.x, y: B.y + 6, w: Math.round(B.w * 0.5), h: B.h - 6 };
+    drawHurDomePanel(c, C, D, t, 0.2, narrow);
+    var R = narrow ? { x: B.x, y: D.y + D.h + 14, w: B.w, h: B.y + B.h - (D.y + D.h + 14) } : { x: D.x + D.w + 40, y: B.y + 6, w: B.w - D.w - 40, h: B.h - 6 };
+    if (!info) { c.globalAlpha = 1; return; }
+    var v = info.v, sc = v.scores || {}, dd = info.data;
+    var items = [
+      ['Learns from', fmtInt(dd.n) + ' measured Tc values', '4 families · SuperCon via 3DSC'],
+      ['Error, unseen parents', hurK(sc.tc_mae) + ' K', 'composition only: ' + hurK(sc.reference_mae) + ' K'],
+      ['Relies most on', list(v.importance).slice(0, 2).map(function (i) { return hurFeatName(i.name); }).join(' · '), 'physics features the AI proposed']
+    ];
+    var rowH = narrow ? Math.min(58, R.h / 3) : Math.min(78, R.h / 3.3);
+    items.forEach(function (it, i) {
+      var a = stSpan(t, 2.4 + 0.9 * i, 3.0 + 0.9 * i);
+      if (a <= 0) return;
+      c.globalAlpha = a0 * a;
+      var y = R.y + i * rowH;
+      label(c, C, it[0], R.x, y + 12, { size: 11.5, color: C.muted });
+      stText(c, C, hurFit(c, C, it[1], R.w, narrow ? 14 : 16, '600'), R.x, y + (narrow ? 31 : 34), { size: narrow ? 14 : 16, weight: '600', color: i === 1 ? C.accent : C.ink });
+      label(c, C, hurFit(c, C, it[2], R.w, 11.5), R.x, y + (narrow ? 48 : 54), { size: 11.5, color: C.ink2 });
+    });
+    c.globalAlpha = 1;
   }
 
   /* ---------- Theory & materials: mini card animations ----------
@@ -6725,17 +7570,33 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   var PAPERS_URL = 'https://raw.githubusercontent.com/' + REPO + '/' + BRANCH + '/progress/papers.json';
   var paperState = { data: null, at: 0, busy: false, failed: false, src: 'all', topic: 'all', shown: 20, kind: 'all', advAll: false, built: false, newsSrc: 'all', newsShown: 10 };
   var PAPER_SOURCES = [['all', 'All'], ['arXiv', 'arXiv'], ['Nature', 'Nature'], ['Science', 'Science'], ['PRL', 'PRL'], ['PRX', 'PRX']];
+  // The feed lists its own sources (papers.json "sources"), so journals and news sites added later need no app update.
+  function feedSources() {
+    var d = paperState.data, js = d && d.sources && Array.isArray(d.sources.journals) ? d.sources.journals : null;
+    if (!js) return { short: PAPER_SOURCES, journals: ['Nature', 'Science', 'PRL', 'PRX'], news: ['ScienceDaily', 'Phys.org', 'Physics World', 'APS Physics', 'Quanta Magazine'] };
+    var short = [['all', 'All'], ['arXiv', 'arXiv']], names = [];
+    js.forEach(function (j) {
+      if (!Array.isArray(j) || typeof j[0] !== 'string') return;
+      short.push([j[0], j[0]]);
+      names.push(typeof j[1] === 'string' && j[1] ? j[1] : j[0]);
+    });
+    var news = d.sources && Array.isArray(d.sources.news) ? d.sources.news.filter(function (x) { return typeof x === 'string'; }) : [];
+    return { short: short, journals: names, news: news };
+  }
+  function andList(a) { return a.length > 1 ? a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] : a.join(''); }
 
   function loadPapers(force) {
     if (paperState.busy || (!force && paperState.data && Date.now() - paperState.at < 10 * 60 * 1000)) return Promise.resolve();
     paperState.busy = true;
     if (paperState.built) renderFeed();
+    if (aiState.built) renderAIList();
     return getJSON(PAPERS_URL).then(function (d) {
       if (d && (Array.isArray(d.arxiv) || Array.isArray(d.journals))) { paperState.data = d; paperState.failed = false; }
       paperState.at = Date.now();
     }, function () { paperState.failed = true; }).then(function () {
       paperState.busy = false;
       if (paperState.built) renderFeed();
+      if (aiState.built) renderAIList();
     });
   }
 
@@ -6764,7 +7625,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         h('label', { class: 'feed-topic' }, h('span', { text: 'Topic' }), h('select', { id: 'feed-topic', onchange: function (e) { paperState.topic = e.target.value; paperState.shown = 20; renderFeed(); } }))),
       h('ol', { class: 'feed-list', id: 'feed-list' }),
       h('div', { class: 'feed-more', id: 'feed-more' }),
-      h('p', { class: 'note', text: 'Updated automatically every three hours by a GitHub Actions workflow. Abstracts come from arXiv, or from the publisher when it shares one through Crossref. Topic and type tags are assigned from keywords, so treat them as a rough guide.' }));
+      h('p', { class: 'note', text: 'Updated automatically every three hours by a GitHub Actions workflow. arXiv abstracts are shown in full; for journal papers we show only the first sentence of the abstract the publisher shares through Crossref, and the rest is on the publisher’s page. Topic and type tags are assigned from keywords, so treat them as a rough guide.' }));
     append(el, [newsCard, feedCard, advCard]);
     paperState.built = true;
     renderAdvances();
@@ -6810,7 +7671,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (!ol) return;
     clear(bar); clear(ol); clear(more);
     miniPrune();
-    var d = paperState.data, items = d ? list(d.news).filter(function (n) { return n && n.title && n.url; }) : [];
+    var d = paperState.data, items = d ? list(d.news).filter(function (n) { return n && n.title && isHttps(n.url); }) : [];
+    var ns = feedSources().news, nsub = $('#news-sub');
+    if (nsub && ns.length) nsub.textContent = 'Recent stories from ' + andList(ns) + '.';
     if (!d || !items.length) {
       ol.appendChild(h('li', { class: 'empty', text: !d ? (paperState.busy ? 'Loading the latest news…' : paperState.failed ? 'Couldn’t reach the news feed. Check the connection and press Refresh below.' : 'The news loads when you open this view.') : 'No superconductivity news in the feeds yet; the next check runs within three hours.' }));
       return;
@@ -6848,7 +7711,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     clear(srcBar); clear(ol); clear(more); clear(sel);
     var all = feedItems(), counts = { all: all.length };
     all.forEach(function (p) { counts[p.source] = (counts[p.source] || 0) + 1; });
-    PAPER_SOURCES.forEach(function (s) {
+    var fs = feedSources();
+    if (paperState.src !== 'all' && !counts[paperState.src]) paperState.src = 'all';
+    fs.short.filter(function (s) { return s[0] === 'all' || s[0] === 'arXiv' || counts[s[0]]; }).forEach(function (s) {
       srcBar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'aria-pressed': paperState.src === s[0] ? 'true' : 'false',
         text: s[1] + (counts[s[0]] ? ' ' + counts[s[0]] : ''), onclick: function () { paperState.src = s[0]; paperState.shown = 20; renderFeed(); } }));
     });
@@ -6859,8 +7724,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     sel.value = topics[paperState.topic] ? paperState.topic : 'all';
     if (sel.value === 'all') paperState.topic = 'all';
     var d = paperState.data;
-    sub.textContent = d && d.updated ? 'Superconductivity papers on arXiv and in Nature, Science, PRL and PRX · updated ' + fmtStamp(parseDate(d.updated))
-      : 'Superconductivity papers on arXiv and in Nature, Science, PRL and PRX.';
+    var where = 'Superconductivity papers on arXiv and in ' + andList(fs.journals.length ? fs.journals : ['Nature', 'Science', 'PRL', 'PRX']);
+    sub.textContent = d && d.updated ? where + ' · updated ' + fmtStamp(parseDate(d.updated)) : where + '.';
     if (!d) {
       ol.appendChild(h('li', { class: 'empty' }, paperState.busy ? 'Loading the latest papers…' : paperState.failed ? 'Couldn’t reach the paper feed. Check the connection and press Refresh.' : 'The paper feed loads when you open this view.'));
       return;
@@ -6888,11 +7753,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     list(p.topics).forEach(function (t) { meta.appendChild(h('span', { class: 'topic', text: t })); });
     var intro = firstSentence(p.abstract);
     var body = [meta,
-      h('h3', null, h('a', { href: p.url, text: p.title })),
+      h('h3', null, isHttps(p.url) ? h('a', { href: p.url, text: p.title }) : p.title),
       h('p', { class: 'paper-authors', text: list(p.authors).join(', ') })];
     if (intro) {
       body.push(h('p', { class: 'paper-intro', text: intro }));
-      if (p.abstract && p.abstract.length > intro.length + 20) body.push(h('details', { class: 'paper-abs' }, h('summary', { text: 'Full abstract' }), h('p', { text: p.abstract })));
+      if (isArxiv && p.abstract && p.abstract.length > intro.length + 20) body.push(h('details', { class: 'paper-abs' }, h('summary', { text: 'Full abstract' }), h('p', { text: p.abstract })));
+      else if (!isArxiv && isHttps(p.url)) body.push(h('p', { class: 'paper-more' }, h('a', { href: p.url, text: 'Full abstract on the publisher’s page' })));
     } else {
       body.push(h('p', { class: 'paper-intro muted', text: 'Published in ' + (p.journal || p.source) + '. The abstract is on the publisher’s page.' }));
     }
@@ -7354,8 +8220,348 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       cardHead('Authors', contact ? 'Questions, ideas or collaboration? Write to ' + contact.name + '.' : 'The people behind supercon-ml.'),
       ul,
       h('p', { class: 'note' }, 'Code, data and every training run are public on ', h('a', { href: REPO_URL, text: 'GitHub' }),
-        '. Found a problem in the app? ', h('a', { href: REPO_URL + '/issues', text: 'Open an issue' }), '.'))]);
+        '. Found a problem in the app? ', h('a', { href: REPO_URL + '/issues', text: 'Open an issue' }), '.')), licencesCard()]);
     miniKick();
+  }
+  /* ---------- where the data and software come from, and under which licences ---------- */
+  var CC_BY = 'https://creativecommons.org/licenses/by/4.0/';
+  var LICENCES = [
+    { name: 'Alexandria', url: 'https://alexandria.icams.rub.de/', use: 'about 8,250 DFT electron–phonon calculations that Storm learns from',
+      lic: 'CC BY 4.0', licUrl: CC_BY, cite: [['T. F. T. Cerqueira et al., Adv. Mater. 36, 2307085 (2024)', '10.1002/adma.202307085'], ['T. Cavignac et al., J. Phys. Mater. 9, 025014 (2026)', '10.1088/2515-7639/ae6620']] },
+    { name: 'JARVIS-DFT', url: 'https://jarvis.nist.gov/', use: 'about 1,000 electron–phonon calculations kept aside as Storm’s locked test set',
+      lic: 'NIST open licence', licUrl: 'https://www.nist.gov/open/license', cite: [['K. Choudhary & K. Garrity, npj Comput. Mater. 8, 244 (2022)', '10.1038/s41524-022-00933-1']] },
+    { name: '3DSC', url: 'https://github.com/aimat-lab/3DSC', use: 'measured Tc for Hurricane and Storm 3.0: the SuperCon database (NIMS) matched to Materials Project crystal structures',
+      lic: 'CC BY 4.0', licUrl: CC_BY, cite: [['T. Sommer et al., Sci. Data 10, 816 (2023)', '10.1038/s41597-023-02721-y'], ['A. Jain et al., APL Mater. 1, 011002 (2013)', '10.1063/1.4812323']] },
+    { name: 'arXiv', url: 'https://arxiv.org/', use: 'titles, authors and abstracts of new preprints, through the arXiv API',
+      lic: 'CC0 metadata', licUrl: 'https://info.arxiv.org/help/api/tou.html' },
+    { name: 'Crossref and journal feeds', url: 'https://www.crossref.org/', use: 'titles, authors and links of journal papers; abstracts stay with their publishers, so we show only their first sentence',
+      lic: 'metadata terms', licUrl: 'https://www.crossref.org/documentation/retrieve-metadata/rest-api/rest-api-metadata-license-information/' },
+    { name: 'News sites', use: 'headlines and a short summary from each site’s public feed, always linking to the full story' }
+  ];
+  function licencesCard() {
+    var ul = h('ul', { class: 'lic-list' });
+    LICENCES.forEach(function (d) {
+      var li = h('li', null, d.url ? h('a', { href: d.url }, h('b', { text: d.name })) : h('b', { text: d.name }), ': ' + d.use);
+      if (d.lic) li.appendChild(h('span', { class: 'lic-tag' }, d.licUrl ? h('a', { href: d.licUrl, text: d.lic }) : d.lic));
+      if (d.cite) {
+        var cs = h('span', { class: 'lic-cite' });
+        d.cite.forEach(function (c, i) { if (i) cs.appendChild(document.createTextNode('; ')); cs.appendChild(h('a', { href: 'https://doi.org/' + c[1], text: c[0] })); });
+        li.appendChild(cs);
+      }
+      ul.appendChild(li);
+    });
+    return h('section', { class: 'card lic-card' },
+      cardHead('Data and licences', 'Where everything in this app comes from. None of these sources endorses the project.'),
+      ul,
+      h('p', { class: 'note' }, 'We download, filter and match these data and compute features from them; the models, predictions and scores are our own. The drawings and animations in this app are ours too, and research results are summarized in our own words with a link to each paper.'),
+      h('p', { class: 'note' }, 'The desktop app is built with ', h('a', { href: 'https://tauri.app/', text: 'Tauri' }),
+        ' and other open-source libraries under MIT, Apache-2.0 and similar licences. Their notices ship with the app and are also in ',
+        h('a', { href: REPO_URL + '/releases/latest/download/THIRD-PARTY-NOTICES.txt', text: 'THIRD-PARTY-NOTICES.txt' }), '.'));
+  }
+
+  /* ---------- Model details on the Progress view: Hurricane, and Storm calibrated to measured Tc ----------
+     Both read only progress.json (the "hurricane" block and ai_model.calibration), so later training rounds
+     appear here without an app update. */
+  var FEAT_LABEL = {
+    tm_d: 'd electrons per transition-metal atom', p_cu: 'holes per Cu (doping p)', dome: 'cuprate Tc dome at p',
+    cu_layers: 'CuO₂ planes (Cu per formula unit)', heavy_block: 'Hg, Tl, Bi, Pb share', fe_based: 'FeAs/FeSe-type layer',
+    f_share: 'f-electron atom share', f_count: 'f-electron count', mag3d: 'magnetic 3d share', nonint: 'doping (non-integer stoichiometry)',
+    n_atoms_fu: 'atoms per formula unit', oxide: 'oxygen share', chalcogenide: 'S, Se, Te share', pnictide: 'P, As, Sb share',
+    halide: 'halogen share', vpa: 'volume per atom', density: 'density', aniso: 'layering (cell anisotropy)', c_over_a: 'c/a',
+    f_spacing: 'f–f spacing (Hill limit)', pg_order: 'point-group order', n_elements: 'number of elements', context_flag: 'context flag'
+  };
+  var PROP_LABEL = { Z: 'atomic number', atomic_mass: 'atomic mass', X: 'electronegativity', row: 'period', group: 'group',
+    atomic_radius: 'atomic radius', mendeleev_no: 'Mendeleev number', valence: 'valence' };
+  var STAT_LABEL = { mean: 'mean', std: 'spread', min: 'smallest', max: 'largest' };
+  function featLabel(n) {
+    n = String(n || '');
+    if (FEAT_LABEL[n]) return FEAT_LABEL[n];
+    var m = /^x_([A-Z][a-z]?)$/.exec(n);
+    if (m) return m[1] + ' share';
+    m = /^cs_(.+)$/.exec(n);
+    if (m) return m[1] + ' crystal';
+    m = /^ct_(.+)$/.exec(n);
+    if (m) return m[1] + ' lattice';
+    m = /^(.+)_(mean|std|min|max)$/.exec(n);
+    if (m && PROP_LABEL[m[1]]) return STAT_LABEL[m[2]] + ' ' + PROP_LABEL[m[1]];
+    return n.replace(/_/g, ' ');
+  }
+  function famLabel(f) { return { 'cuprate': 'Cuprates', 'iron-based': 'Iron- and nickel-based', 'heavy-fermion': 'Heavy-fermion', 'other oxide': 'Other oxides' }[f] || f; }
+  function k1(x) { return typeof x === 'number' ? (Math.abs(x) >= 10 ? x.toFixed(0) : x.toFixed(1)) + ' K' : '—'; }
+  function k2(x) { return typeof x === 'number' ? x.toFixed(x >= 10 ? 1 : 2) + ' K' : '—'; }
+  function barRow(label, sub, vals, max) {
+    var bars = h('div', { class: 'dt-bars' });
+    vals.forEach(function (v) {
+      bars.appendChild(h('div', { class: 'dt-bar ' + v.cls },
+        h('span', { class: 'dt-fill', style: 'width:' + Math.max(2, Math.min(100, 100 * v.val / (max || 1))).toFixed(1) + '%' }),
+        h('span', { class: 'dt-val', text: v.text })));
+    });
+    return h('div', { class: 'dt-row' }, h('div', { class: 'dt-label' }, h('b', { text: label }), sub ? h('span', { text: sub }) : null), bars);
+  }
+  function statTile(label, value, sub) {
+    return h('div', { class: 'dt-tile' }, h('p', { class: 'dt-tile-label', text: label }), h('p', { class: 'dt-tile-value', text: value }), sub ? h('p', { class: 'dt-tile-sub', text: sub }) : null);
+  }
+  function smallTable(head, rows) {
+    var tb = h('tbody');
+    rows.forEach(function (r) { tb.appendChild(h('tr', null, r.map(function (c, i) { return h('td', { class: i ? 'num' : null }, c); }))); });
+    return h('div', { class: 'tbl-wrap' }, h('table', { class: 'tbl dt-tbl' },
+      h('thead', null, h('tr', null, head.map(function (c, i) { return h('th', { class: i ? 'num' : null, text: c }); }))), tb));
+  }
+
+  function renderDetails(d) {
+    var el = $('#details-card');
+    if (!el) return;
+    clear(el);
+    var hu = d && d.hurricane, hvs = hu ? list(hu.versions).filter(function (v) { return v && v.scores; }) : [];
+    var hv = hvs.length ? (hvs.filter(function (v) { return v.version === hu.current; })[0] || hvs[hvs.length - 1]) : null;
+    var cal = d && d.ai_model && d.ai_model.calibration && d.ai_model.calibration.scores ? d.ai_model.calibration : null;
+    el.hidden = !hv && !cal;
+    if (el.hidden) return;
+    var parts = [cardHead('Model details', 'What the latest training rounds found, read from the live progress data.')];
+    if (hv) parts.push(hurricaneDetails(hu, hv));
+    if (cal) parts.push(calibrationDetails(cal));
+    append(el, parts);
+  }
+
+  function hurricaneDetails(hu, v) {
+    var sc = v.scores, data = hu.data || {}, box = h('div', { class: 'dt-block' });
+    box.appendChild(h('h3', { class: 'dt-title' }, 'Hurricane ' + v.version + ' · unconventional superconductors',
+      h('span', { class: 'mf-status', text: v.status === 'adopted' ? 'in use' : 'experimental' })));
+    box.appendChild(h('p', { class: 'dt-lead', text: 'Trained on measured Tc of ' + (data.n || '?').toLocaleString('en-US') + ' cuprates, iron- and nickel-based, heavy-fermion compounds and other oxides (' +
+      (data.n_sc || '?').toLocaleString('en-US') + ' of them superconducting) from 3DSC, which matches the SuperCon database to Materials Project structures. Cross-validation holds out whole parent compounds, so every score is for compounds the model never saw.' }));
+    box.appendChild(h('div', { class: 'dt-tiles' },
+      statTile('Average error', k2(sc.tc_mae), 'baseline ' + k2(sc.reference_mae)),
+      statTile('Superconductors only', k2(sc.sc_mae), sc.high_tc ? 'Tc ≥ ' + sc.high_tc + ' K: ' + k2(sc.high_tc_mae) : null),
+      statTile('Better than baseline', (sc.folds_better || 0) + ' of ' + list(sc.folds).length + ' folds', 'composition-only model')));
+    var fam = sc.by_family || {}, keys = Object.keys(fam), max = 0;
+    keys.forEach(function (f) { max = Math.max(max, fam[f].mae || 0, fam[f].mae_ref || 0); });
+    if (keys.length) {
+      var fb = h('div', { class: 'dt-chart', role: 'img', 'aria-label': 'Average error by family, Hurricane against the baseline' },
+        h('p', { class: 'dt-sub' }, 'Average error by family: ', h('span', { class: 'dt-key k-a', text: 'Hurricane' }), ' ', h('span', { class: 'dt-key k-b', text: 'baseline' })));
+      keys.forEach(function (f) {
+        fb.appendChild(barRow(famLabel(f), fam[f].n + ' entries', [{ cls: 'a', val: fam[f].mae, text: k1(fam[f].mae) }, { cls: 'b', val: fam[f].mae_ref, text: k1(fam[f].mae_ref) }], max));
+      });
+      box.appendChild(fb);
+    }
+    var lofo = list(v.lofo);
+    if (lofo.length) {
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Leave one family out: trained without a whole family, then asked to predict it.' }));
+      box.appendChild(smallTable(['Family left out', 'Error', 'Guessing the median', 'With the family in training'],
+        lofo.map(function (r) { return [famLabel(r.family) + ' (' + r.n + ')', k1(r.mae), k1(r.mae_median), k1(r.mae_cv)]; })));
+      var flat = lofo.filter(function (r) { return r.mae >= 0.9 * r.mae_median; }).map(function (r) { return hurFamText(r.family); });
+      if (flat.length) box.appendChild(h('p', { class: 'note', text: 'For ' + flat.join(', ').replace(/, ([^,]*)$/, ' and $1') +
+        ', the error without any member of the family in training is about that of always guessing the median Tc of the other families: a model that has only seen other families does not predict a new one. Finding new high-Tc families needs physics and experiments, not more of the same data.' }));
+    }
+    var imp = list(v.importance).slice(0, 8);
+    if (imp.length) {
+      var ul = h('ul', { class: 'dt-chips' });
+      imp.forEach(function (i) { ul.appendChild(h('li', null, featLabel(i.name), h('span', { text: ' +' + (+i.gain).toFixed(2) + ' K' }))); });
+      box.appendChild(h('p', { class: 'dt-sub', text: 'What it relies on most (how much the error grows when one input is shuffled):' }));
+      box.appendChild(ul);
+    }
+    var an = v.anchors;
+    if (an && list(an.table).length) {
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Later measurements it never trained on, graded by reliability:' }));
+      box.appendChild(smallTable(['Material', 'Measured', 'Predicted', 'Grade'], list(an.table).map(function (r) {
+        var use = r.use === 'score' ? 'scored' : r.use === 'exclude' ? 'left out' : 'shown';
+        return [h('span', { title: r.note || '', text: hurSub(r.name) }), r.tc_exp === null || r.tc_exp === undefined ? '—' : r.tc_exp + ' K',
+          typeof r.pred === 'number' ? r.pred.toFixed(r.pred >= 10 ? 0 : 1) + ' K' : '—', r.status + ', ' + use];
+      })));
+      if (typeof an.mae === 'number') box.appendChild(h('p', { class: 'note', text: an.n_scored + ' scored measurements, average error ' + k2(an.mae) + (an.scored_as_check ? '.' : '; too few to count as a check yet, so they are shown, not used to choose a design.') }));
+    }
+    if (list(v.changes).length) box.appendChild(h('p', { class: 'note', text: 'Design: ' + prettyMath(list(v.changes).join('; ')) + '.' }));
+    box.appendChild(h('p', { class: 'note dt-data' }, 'Data: ', h('a', { href: 'https://doi.org/10.1038/s41597-023-02721-y', text: '3DSC' }),
+      ' (T. Sommer et al., Sci. Data 10, 816 (2023)), which matches the SuperCon database (NIMS) to Materials Project structures, used under ',
+      h('a', { href: 'https://creativecommons.org/licenses/by/4.0/', text: 'CC BY 4.0' }), '. We filter it, group it by parent compound and add features; the models and predictions are ours.'));
+    return box;
+  }
+
+  function calibrationDetails(c) {
+    var sc = c.scores, box = h('div', { class: 'dt-block' }), dd = c.data || {};
+    box.appendChild(h('h3', { class: 'dt-title' }, 'Storm against measured Tc',
+      h('span', { class: 'mf-status', text: c.status === 'adopted' ? 'Storm ' + c.version + ' in use' : 'calibration experimental' })));
+    box.appendChild(h('p', { class: 'dt-lead', text: 'Storm learns from DFT-computed Tc. Round 3 checked it against ' + (dd.n_matched || '?') + ' conventional materials with measured Tc (' +
+      (dd.n_sc || '?') + ' superconducting) that are also in its training set, and taught a calibration step to map its prediction to the measured value. Storm’s inputs here are its predictions for materials it never saw, never the DFT labels.' }));
+    var max = Math.max(sc.dft_mae || 0, sc.mae_raw || 0, sc.mae || 0);
+    var fb = h('div', { class: 'dt-chart', role: 'img', 'aria-label': 'Average error against measured Tc' }, h('p', { class: 'dt-sub', text: 'Average error against measured Tc:' }));
+    fb.appendChild(barRow('DFT labels', 'what Storm learns from', [{ cls: 'b', val: sc.dft_mae, text: k2(sc.dft_mae) }], max));
+    fb.appendChild(barRow('Storm 1.0', 'uncalibrated', [{ cls: 'b', val: sc.mae_raw, text: k2(sc.mae_raw) }], max));
+    fb.appendChild(barRow('Calibrated', c.method ? c.method.name : '', [{ cls: 'a', val: sc.mae, text: k2(sc.mae) }], max));
+    box.appendChild(fb);
+    box.appendChild(h('p', { class: 'note', text: (c.status === 'adopted' ? 'Better than uncalibrated in ' + sc.folds_better + ' of ' + list(sc.folds).length + ' folds, so it was released as Storm ' + c.version + '.'
+      : 'Better in ' + sc.folds_better + ' of ' + list(sc.folds).length + ' folds; a calibration is released only with at least 4 of 5, so Storm 1.0 stays in use.') }));
+    var ph = c.physics && (c.physics.K4 || c.physics.K3);
+    if (ph) box.appendChild(h('p', { class: 'note', text: 'Physics fit on all matched materials: λ scaled by ' + ph.alpha + ', effective μ* = ' + ph.mu_star +
+      (ph.gamma ? ', raised by ' + ph.gamma + ' times the share of magnetic 3d atoms' : '') + '.' }));
+    var sf = list(c.shortfalls).slice(0, 6);
+    if (sf.length) {
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Largest shortfalls, where measured Tc is far above the calibrated prediction:' }));
+      box.appendChild(smallTable(['Material', 'Measured', 'Calibrated', 'DFT label'], sf.map(function (r) {
+        return [hurSub(r.name), k1(r.tc_exp), k1(r.calibrated), k1(r.dft)];
+      })));
+      box.appendChild(h('p', { class: 'note', text: 'Causes include pairing that isotropic Allen–Dynes misses (MgB₂’s two gaps), a different polymorph in the DFT set, or pairing that phonons alone may not explain; these are the leads for the mechanism stage.' }));
+    }
+    box.appendChild(h('p', { class: 'note dt-data' }, 'Data: DFT electron–phonon calculations from ', h('a', { href: 'https://alexandria.icams.rub.de/', text: 'Alexandria' }),
+      ' and measured Tc from ', h('a', { href: 'https://doi.org/10.1038/s41597-023-02721-y', text: '3DSC' }), ', both under ',
+      h('a', { href: 'https://creativecommons.org/licenses/by/4.0/', text: 'CC BY 4.0' }), '; we match the two by composition.'));
+    return box;
+  }
+
+  /* ---------- AI × superconductors: a live list of AI and machine-learning papers and news, our models, curated advances ----------
+     The list comes from the paper feed's "ai" section (refreshed every three hours by GitHub Actions); while this view is open
+     it checks for a newer feed every ten minutes, rolls the newest headlines and marks what arrived since the last visit. */
+  var AI_POLL_MS = 10 * 60 * 1000;
+  var aiState = { built: false, kind: 'all', shown: 12, timer: 0, tick: 0, tickTimer: 0,
+    seen: store.get('aiSeen') || '', newest: '' };
+
+  function aiItems() {
+    var d = paperState.data;
+    return d ? list(d.ai).filter(function (x) { return x && x.title && isHttps(x.url); })
+      .sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; }) : [];
+  }
+  function buildAI() {
+    var el = $('#ai');
+    clear(el);
+    var live = h('section', { class: 'card ai-live' },
+      h('div', { class: 'card-head' },
+        h('div', null, h('h2', { text: 'AI for superconductivity' }),
+          h('p', { text: 'Machine learning, AI agents and autonomous labs for superconductors: new papers and news, newest first.' })),
+        h('button', { class: 'btn small', type: 'button', id: 'ai-refresh', onclick: function () { loadPapers(true); loadContent(true); } }, 'Refresh')),
+      h('p', { class: 'ai-status', id: 'ai-status' }),
+      h('div', { class: 'ai-ticker', id: 'ai-ticker' }),
+      h('div', { class: 'fam-filter', role: 'group', 'aria-label': 'Filter by kind', id: 'ai-filter' }),
+      h('ol', { class: 'feed-list', id: 'ai-list' }),
+      h('div', { class: 'feed-more', id: 'ai-more' }),
+      h('p', { class: 'note', text: 'Collected every three hours from arXiv (all categories), Nature, Science, Physical Review and Nature-family journals, and science-news sites. An item is kept when it names an AI or machine-learning method and is about superconducting materials or their theory; quantum-computing and superconducting-electronics papers are left out. Tags are assigned automatically, so treat them as a rough guide.' }));
+    var ours = h('section', { class: 'card', id: 'ai-ours' });
+    var cur = h('section', { class: 'card' },
+      h('div', { class: 'card-head' }, h('div', null, h('h2', { text: 'Selected AI advances' }),
+        h('p', { text: 'Results we checked by hand, each with its paper. New ones are added to the app without an update.' }))),
+      h('ol', { class: 'adv-list', id: 'ai-curated' }));
+    append(el, [live, ours, cur]);
+    aiState.built = true;
+    renderAI();
+  }
+  function renderAI() {
+    if (!aiState.built) return;
+    renderAIList();
+    renderAIOurs();
+    renderAICurated();
+  }
+  function renderAIList() {
+    var st = $('#ai-status'), bar = $('#ai-filter'), ol = $('#ai-list'), more = $('#ai-more');
+    if (!ol) return;
+    clear(st); clear(bar); clear(ol); clear(more);
+    var d = paperState.data, items = aiItems();
+    st.appendChild(h('span', { class: 'live-dot' + (d && !paperState.failed ? '' : ' off'), 'aria-hidden': 'true' }));
+    st.appendChild(document.createTextNode(paperState.busy ? 'Checking for new items…' :
+      d && d.updated ? 'Live · feed updated ' + rel(parseDate(d.updated)) + ' · this page checks again every 10 minutes' :
+      paperState.failed ? 'Couldn’t reach the feed. Check the connection and press Refresh.' : 'Loading the feed…'));
+    if (d && !Array.isArray(d.ai)) {
+      ol.appendChild(h('li', { class: 'empty', text: 'The AI list starts with the next feed update, within three hours.' }));
+      renderTicker([]);
+      return;
+    }
+    aiState.newest = items.length ? items[0].date : '';
+    var counts = { all: items.length, paper: 0, news: 0 };
+    items.forEach(function (x) { counts[x.kind_of === 'news' ? 'news' : 'paper']++; });
+    [['all', 'All'], ['paper', 'Papers'], ['news', 'News']].forEach(function (f) {
+      bar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'aria-pressed': aiState.kind === f[0] ? 'true' : 'false',
+        text: f[1] + (counts[f[0]] ? ' ' + counts[f[0]] : ''), onclick: function () { aiState.kind = f[0]; aiState.shown = 12; renderAIList(); } }));
+    });
+    var rows = items.filter(function (x) { return aiState.kind === 'all' || (aiState.kind === 'news') === (x.kind_of === 'news'); });
+    if (d && !rows.length) ol.appendChild(h('li', { class: 'empty', text: 'Nothing here yet; the next check runs within three hours.' }));
+    rows.slice(0, aiState.shown).forEach(function (x) {
+      var li = x.kind_of === 'news' ? aiNewsItem(x) : paperItem(x);
+      if (aiState.seen && x.date > aiState.seen) {
+        li.classList.add('is-new');
+        var meta = li.querySelector('.paper-meta');
+        if (meta) meta.insertBefore(h('span', { class: 'new-badge', text: 'New' }), meta.firstChild);
+      }
+      ol.appendChild(li);
+    });
+    if (rows.length > aiState.shown) {
+      more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { aiState.shown += 12; renderAIList(); } },
+        'Show more (' + (rows.length - aiState.shown) + ' left)'));
+    }
+    renderTicker(items.slice(0, 6));
+  }
+  function aiNewsItem(n) {
+    var meta = h('p', { class: 'paper-meta' }, h('span', { class: 'src src-news', text: n.source }), h('span', { text: fmtDayISO(n.date) }));
+    list(n.topics).forEach(function (t) { meta.appendChild(h('span', { class: 'topic', text: t })); });
+    return h('li', null, meta, h('h3', null, h('a', { href: n.url, text: n.title })), n.summary ? h('p', { class: 'paper-intro', text: n.summary }) : null);
+  }
+  // The newest headlines roll past one at a time; with reduced motion the newest one stays put.
+  function renderTicker(items) {
+    var el = $('#ai-ticker');
+    if (!el) return;
+    clearInterval(aiState.tickTimer);
+    aiState.tickTimer = 0;
+    clear(el);
+    el.hidden = !items.length;
+    if (!items.length) return;
+    function show() {
+      var x = items[aiState.tick % items.length];
+      clear(el);
+      el.appendChild(h('span', { class: 'ai-tick-label', text: 'Latest' }));
+      el.appendChild(h('a', { class: 'ai-tick', href: x.url, text: x.title }));
+      el.appendChild(h('span', { class: 'ai-tick-meta', text: x.source + ' · ' + fmtDayISO(x.date) }));
+    }
+    show();
+    if (!motionOK() || items.length < 2) return;
+    aiState.tickTimer = setInterval(function () {
+      if (view !== 'ai' || document.hidden) return;
+      aiState.tick++;
+      el.classList.add('fade');
+      setTimeout(function () { show(); el.classList.remove('fade'); }, 260);
+    }, 5000);
+  }
+  function renderAIOurs() {
+    var el = $('#ai-ours');
+    if (!el) return;
+    clear(el);
+    var d = state.data, over = {};
+    list(d && d.model_family).forEach(function (m) { if (m && typeof m.id === 'string') over[m.id] = m; });
+    var ul = h('ul', { class: 'ai-models' });
+    modelFamily(d).forEach(function (m) {
+      var o = over[m.id] || {};
+      var g = h('span', { class: 'mf-glyph' });
+      g.innerHTML = MODEL_GLYPH[m.id] || '';
+      ul.appendChild(h('li', null, g, h('div', null,
+        h('p', { class: 'ai-model-head' }, h('b', { text: m.name }), h('span', { class: 'mf-status', text: typeof o.status === 'string' && o.status ? o.status : m.status })),
+        richText(h('p', { class: 'mf-role' }), m.role))));
+    });
+    append(el, [
+      cardHead('Our AI-designed models', 'An AI agent (Claude) designs each model; every version is scored on materials it never saw and is released only if it beats the current one in at least 4 of 5 folds.'),
+      ul,
+      h('p', { class: 'ai-links' },
+        h('button', { class: 'btn small', type: 'button', onclick: function () { setView('progress'); var c = $('#details-card'); if (c && !c.hidden) c.scrollIntoView(); else window.scrollTo(0, 0); } }, 'Scores and details'),
+        h('button', { class: 'btn small', type: 'button', onclick: function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); } }, 'See how Storm works'))
+    ]);
+  }
+  function renderAICurated() {
+    var ol = $('#ai-curated');
+    if (!ol) return;
+    clear(ol);
+    RECENT.filter(function (r) { return r.cards.indexOf('ai') >= 0; })
+      .slice().sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; })
+      .forEach(function (r) {
+        ol.appendChild(h('li', null,
+          h('p', { class: 'adv-meta' }, h('span', { text: fmtMonth(r.d) }), h('span', { class: 'kind kind-' + r.k, text: KIND_LABEL[r.k] || r.k })),
+          richText(h('h3'), r.h),
+          richText(h('p', { class: 'adv-text' }), r.x),
+          h('p', { class: 'adv-ref' }, recentLink(r))));
+      });
+  }
+  function aiStart() {
+    if (!aiState.timer) aiState.timer = setInterval(function () { if (view === 'ai' && !document.hidden) loadPapers(true); }, AI_POLL_MS);
+  }
+  function aiStop() {
+    clearInterval(aiState.timer);
+    aiState.timer = 0;
+    clearInterval(aiState.tickTimer);
+    aiState.tickTimer = 0;
+    if (aiState.newest && aiState.newest > (store.get('aiSeen') || '')) store.set('aiSeen', aiState.newest);
   }
 
   /* ---------- phone link and installable web app ---------- */
@@ -7386,18 +8592,26 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   }
 
   function setView(v) {
+    var prev = view;
     view = v;
     store.set('view', v);
-    $('#view-progress').setAttribute('aria-selected', v === 'progress' ? 'true' : 'false');
-    $('#view-demos').setAttribute('aria-selected', v === 'demos' ? 'true' : 'false');
-    $('#view-learn').setAttribute('aria-selected', v === 'learn' ? 'true' : 'false');
-    $('#view-papers').setAttribute('aria-selected', v === 'papers' ? 'true' : 'false');
-    $('#view-authors').setAttribute('aria-selected', v === 'authors' ? 'true' : 'false');
+    ['progress', 'ai', 'demos', 'learn', 'papers', 'authors'].forEach(function (k) {
+      var b = $('#view-' + k);
+      if (b) b.setAttribute('aria-selected', v === k ? 'true' : 'false');
+    });
+    $('#ai').hidden = v !== 'ai';
     $('#demos').hidden = v !== 'demos';
     $('#learn').hidden = v !== 'learn';
     $('#papers').hidden = v !== 'papers';
     $('#authors').hidden = v !== 'authors';
     $('#main').hidden = v !== 'progress' || !state.data;
+    if (prev === 'ai' && v !== 'ai') aiStop();
+    if (v === 'ai') {
+      if (!aiState.built) buildAI(); else renderAI();
+      loadPapers(false);
+      loadContent(false);
+      aiStart();
+    }
     if (v === 'demos') {
       if (!demo.built) buildDemos();
       else syncControls();
@@ -7405,8 +8619,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       kick();
     }
     if (v === 'learn' && !learn.built) buildLearn();
-    if (v === 'learn') miniKick();
-    if (v === 'papers') { if (!paperState.built) buildPapers(); loadPapers(false); miniKick(); }
+    if (v === 'learn') { miniKick(); loadContent(false); }
+    if (v === 'papers') { if (!paperState.built) buildPapers(); loadPapers(false); loadContent(false); miniKick(); }
     if (v === 'authors') { renderAuthors(); miniKick(); }
   }
 
@@ -7561,8 +8775,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     renderResults(d);
     renderActivity(d);
     renderGitHub();
+    renderDetails(d);
     if (demo.built && view === 'demos') { syncControls(); kick(); }
     if (view === 'authors') renderAuthors();
+    if (aiState.built) renderAIOurs();
   }
 
   function applyTheme() {
@@ -7584,6 +8800,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   });
 
   $('#view-progress').addEventListener('click', function () { setView('progress'); });
+  $('#view-ai').addEventListener('click', function () { setView('ai'); });
   $('#view-demos').addEventListener('click', function () { setView('demos'); });
   $('#view-learn').addEventListener('click', function () { setView('learn'); });
   $('#view-papers').addEventListener('click', function () { setView('papers'); });
@@ -7594,6 +8811,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   render();
   renderPhoneCard();
   setView(view);
+  loadContent(false);
   loadBundled().then(function () { render(); return refreshAll(); });
   setInterval(refreshAll, REFRESH_MS);
   setInterval(function () { if (!state.busy) renderChrome(); }, 60 * 1000);
