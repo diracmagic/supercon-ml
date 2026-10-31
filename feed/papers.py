@@ -12,6 +12,9 @@ Sources:
   - News: the RSS feeds of Nature (news and comment only), ScienceDaily, Phys.org, Physics World,
     APS Physics and Quanta Magazine, keeping items that mention superconductivity. Only the headline,
     a short snippet and the link are kept.
+  - AI for superconductivity: a second arXiv query across all categories for papers that mention
+    superconductivity together with machine learning, neural networks, language models, generative
+    models, active learning or autonomous labs; matching journal papers and news are added too.
 Topic and type tags are assigned automatically from keywords, so they are a rough guide.
 """
 from __future__ import annotations
@@ -53,6 +56,20 @@ NEWS_FEEDS = [
     ("APS Physics", "https://feeds.aps.org/rss/recent/physics.xml"),
     ("Quanta Magazine", "https://www.quantamagazine.org/feed/"),
 ]
+AI_ARXIV_MAX = 60
+AI_MAX = 80
+# AI-for-superconductivity items: a paper or story qualifies when it mentions superconductivity and one of these
+AI_PATTERN = (r"machine[- ]learn|deep[- ]learn|neural[- ]network|graph neural|neural (?:quantum state|operator|tensor)|"
+              r"language model|generative (?:model|AI|design)|diffusion model|active learning|Bayesian optimi[sz]|"
+              r"autonomous (?:lab|laborator|experiment|discovery|agent)|self-driving lab|foundation model|"
+              r"artificial intelligence")
+AI_CAPS = r"\bAI\b|\bLLMs?\b|\bAI-(?:driven|guided|designed|assisted|based)"   # matched case-sensitively
+AI_QUERY = ('(ti:superconductor OR ti:superconductors OR ti:superconductivity OR ti:superconducting OR '
+            'abs:superconductor OR abs:superconductors OR abs:superconductivity OR abs:superconducting) AND '
+            '(abs:"machine learning" OR abs:"deep learning" OR abs:"neural network" OR abs:"neural networks" OR '
+            'abs:"language model" OR abs:"language models" OR abs:"generative model" OR abs:"active learning" OR '
+            'abs:"graph neural" OR abs:"foundation model" OR abs:"autonomous" OR abs:"artificial intelligence" OR '
+            'abs:"Bayesian optimization" OR abs:"machine-learned")')
 NEWS_DAYS = 180
 NEWS_MAX = 40
 SNIPPET_MAX = 280
@@ -156,9 +173,14 @@ def short_authors(names: list) -> list:
     return names[:3] + (["et al."] if len(names) > 3 else [])
 
 
-def fetch_arxiv() -> list:
-    q = urllib.parse.urlencode({"search_query": "cat:cond-mat.supr-con", "sortBy": "submittedDate",
-                                "sortOrder": "descending", "start": 0, "max_results": ARXIV_MAX})
+def is_ai(text: str) -> bool:
+    """True when a title and abstract (or a story) mention superconductivity together with AI or machine learning."""
+    return bool(re.search(r"supercond", text, re.I) and (re.search(AI_PATTERN, text, re.I) or re.search(AI_CAPS, text)))
+
+
+def fetch_arxiv(query: str = "cat:cond-mat.supr-con", max_results: int = ARXIV_MAX) -> list:
+    q = urllib.parse.urlencode({"search_query": query, "sortBy": "submittedDate",
+                                "sortOrder": "descending", "start": 0, "max_results": max_results})
     root = ET.fromstring(get("https://export.arxiv.org/api/query?" + q))
     ns = {"a": "http://www.w3.org/2005/Atom", "x": "http://arxiv.org/schemas/atom"}
     items = []
@@ -193,7 +215,7 @@ def fetch_arxiv() -> list:
             "kind": kind,
             "categories": cats[:6],
         })
-    log(f"arXiv: {len(items)} entries")
+    log(f"arXiv ({query[:40]}): {len(items)} entries")
     return items
 
 
@@ -306,7 +328,8 @@ def main() -> int:
             old = json.loads(OUT.read_text(encoding="utf-8"))
         except ValueError:
             old = {}
-    feed = {"arxiv": old.get("arxiv", []), "journals": old.get("journals", []), "news": old.get("news", [])}
+    feed = {"arxiv": old.get("arxiv", []), "journals": old.get("journals", []), "news": old.get("news", []),
+            "ai": old.get("ai", [])}
     ok = []
     try:
         feed["arxiv"] = fetch_arxiv() or feed["arxiv"]
@@ -348,10 +371,32 @@ def main() -> int:
             seen_n.update([x["url"], key])
             uniq_n.append(x)
     feed["news"] = uniq_n[:NEWS_MAX]
+    # AI for superconductivity: its own arXiv query across categories, plus matching items from the other lists
+    ai_arxiv = None
+    try:
+        time.sleep(3)   # arXiv asks for a pause between API calls
+        ai_arxiv = fetch_arxiv(AI_QUERY, AI_ARXIV_MAX)
+        ok.append("arXiv AI")
+    except Exception as err:
+        log(f"arXiv AI query skipped: {err}")
+    pool = [dict(x, kind_of="paper") for x in (ai_arxiv if ai_arxiv is not None else
+                                               [y for y in feed["ai"] if y.get("source") == "arXiv"])]
+    pool += [dict(x, kind_of="paper") for x in feed["arxiv"] + feed["journals"]]
+    pool += [dict(x, kind_of="news") for x in feed["news"]]
+    seen_ai, ai = set(), []
+    for x in sorted(pool, key=lambda x: x.get("date", ""), reverse=True):
+        text = x.get("title", "") + " " + x.get("abstract", x.get("summary", ""))
+        key = x.get("doi") or x.get("id") or x.get("url")
+        if key in seen_ai or not is_ai(text) or re.search(EXCLUDE, x.get("title", ""), re.I):
+            continue
+        seen_ai.add(key)
+        ai.append(x)
+    feed["ai"] = ai[:AI_MAX]
+    log(f"AI for superconductivity: {len(feed['ai'])} items")
     if not ok:
         log("no source could be fetched; leaving the feed unchanged")
         return 0
-    same = old.get("arxiv") == feed["arxiv"] and old.get("journals") == feed["journals"] and old.get("news") == feed["news"]
+    same = all(old.get(k) == feed[k] for k in ("arxiv", "journals", "news", "ai"))
     if same:
         log("no change")
         return 0
@@ -368,10 +413,12 @@ def main() -> int:
         "arxiv": feed["arxiv"],
         "journals": feed["journals"],
         "news": feed["news"],
+        "ai": feed["ai"],
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    log(f"wrote {OUT.relative_to(ROOT)}: {len(out['arxiv'])} arXiv and {len(out['journals'])} journal papers, {len(out['news'])} news items")
+    log(f"wrote {OUT.relative_to(ROOT)}: {len(out['arxiv'])} arXiv and {len(out['journals'])} journal papers, "
+        f"{len(out['news'])} news items, {len(out['ai'])} AI-for-superconductivity items")
     return 0
 
 
