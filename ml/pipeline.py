@@ -8,13 +8,14 @@ Usage (from the repository root):
     python ml/pipeline.py storm3       # Storm round 3: calibration to measured Tc (ml/storm3.py)
     python ml/pipeline.py hurricane    # Hurricane, the model for unconventional superconductors (ml/hurricane.py)
     python ml/pipeline.py hurricane2   # Hurricane, round 2: new designs against Hurricane 1.0 (ml/hurricane2.py)
+    python ml/pipeline.py hurricane3   # Hurricane, round 3: fewer false alarms outside the training data (ml/hurricane3.py)
     python ml/pipeline.py gnn          # graph neural network on the crystal graph, same folds as Storm (ml/gnn.py)
     python ml/pipeline.py radar        # Radar, the router between Storm and Hurricane (ml/radar.py)
     python ml/pipeline.py gnn2         # graph neural network, round 2: AI-designed search (ml/gnn2.py)
     python ml/pipeline.py gnn2final    # round 2's selected design retrained like version 1.0; releases 2.0 if better
     python ml/pipeline.py storm4       # Storm round 4: Storm 1.0 and the graph network together (ml/storm4.py)
     python ml/pipeline.py storm5       # Storm round 5: a 90% range around every Storm 4.0 prediction (ml/storm5.py)
-    python ml/pipeline.py screen       # Screening round 1: candidates found by our models, only our own finds (ml/screen.py)
+    python ml/pipeline.py screen       # Screening, the current round: candidates found by our models, only our own finds (ml/screen.py)
 
 The command downloads the Alexandria and JARVIS electron-phonon datasets through
 jarvis-tools, cleans them, recomputes the Allen-Dynes Tc with one mu*, trains
@@ -1274,7 +1275,7 @@ def run_foundation() -> None:
 
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane", "hurricane2", "gnn", "radar", "gnn2", "gnn2final", "storm4", "storm5", "screen"])
+    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane", "hurricane2", "hurricane3", "gnn", "radar", "gnn2", "gnn2final", "storm4", "storm5", "screen"])
     args = ap.parse_args(argv)
     if args.command == "baseline":
         run_baseline()
@@ -1293,6 +1294,9 @@ def main(argv=None) -> None:
     elif args.command == "hurricane2":
         import hurricane2
         hurricane2.run()
+    elif args.command == "hurricane3":
+        import hurricane3
+        hurricane3.run()
     elif args.command == "gnn":
         import gnn
         gnn.run()
