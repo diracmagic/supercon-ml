@@ -38,9 +38,37 @@
     "storm4_2026": {
       "t": "Hello Super: Storm 4.0, github.com/diracmagic/supercon-ml (2026)",
       "u": "https://github.com/diracmagic/supercon-ml#storm-the-model-for-conventional-superconductors"
+    },
+    "hurricane2_2026": {
+      "t": "Hello Super: Hurricane 2.0, github.com/diracmagic/supercon-ml (2026)",
+      "u": "https://github.com/diracmagic/supercon-ml#hurricane-the-model-for-unconventional-superconductors"
+    },
+    "storm5_2026": {
+      "t": "Hello Super: Storm 5.0, github.com/diracmagic/supercon-ml (2026)",
+      "u": "https://github.com/diracmagic/supercon-ml#storm-the-model-for-conventional-superconductors"
     }
   },
   "recent": [
+    {
+      "d": "2026-10",
+      "k": "computation",
+      "cards": [
+        "ai"
+      ],
+      "ref": "storm5_2026",
+      "h": "Storm 5.0: a 90% range for every prediction",
+      "x": "Our AI agent proposed six ways to say how sure Storm is, each calibrated by conformal prediction on materials Storm never saw. The winner uses one width on log(1 + Tc), so the range grows with Tc: it held the computed Tc 90% of the time overall and 84% of the time for the tenth with the highest Tc, where a single width for all materials managed only 54%. Half of the ranges are narrower than 1.8 K, so a screen can now look for materials whose whole range is high."
+    },
+    {
+      "d": "2026-10",
+      "k": "computation",
+      "cards": [
+        "ai"
+      ],
+      "ref": "hurricane2_2026",
+      "h": "Hurricane 2.0: predicting unconventional Tc in two parts",
+      "x": "Our AI agent’s second round for Hurricane splits the prediction in two: the probability that a compound superconducts at all, times its Tc if it does, with 19 structure types read from the stoichiometry. For compounds whose parent it never saw it is off by 10.3 K, against 12.7 K for Hurricane 1.0 on the same folds, better in all five; on the superconducting entries the error falls from 17.8 K to 12.3 K. The product shrinks the highest predictions, though: Hg-1223, the 133 K record, comes out at 91 K."
+    },
     {
       "d": "2026-10",
       "k": "computation",
