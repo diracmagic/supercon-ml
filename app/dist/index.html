@@ -413,6 +413,75 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .feed-more { margin-top: 8px; }
 .feed-list .empty { color: var(--muted); font-size: 13px; }
 @media (max-width: 420px) { .views button { padding: 5px 9px; } }
+/* v0.3.1: classic high-Tc mechanisms, new-version prompt */
+.mech-overview { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 14px 20px; align-items: center; margin-bottom: 14px; }
+@media (max-width: 760px) { .mech-overview { grid-template-columns: minmax(0, 1fr); } }
+.mech-overview canvas.mini { display: block; width: 100%; height: 240px; border-radius: 8px; }
+.mech-intro { display: flex; flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.6; color: var(--ink-2); max-width: 560px; }
+.mech-intro sub { font-size: 0.72em; }
+.lcard > p.open-q { font-size: 12.5px; line-height: 1.5; padding: 7px 9px; border-radius: 8px; background: var(--surface-2); }
+.lcard .open-q b { color: var(--ink); font-weight: 600; }
+.update {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-bottom: 16px; padding: 12px 14px;
+  border: 1px solid var(--accent); border-radius: 12px; background: var(--accent-wash);
+}
+.update .upd-glyph { display: inline-flex; flex: none; margin-top: 1px; color: var(--accent); }
+.update .upd-glyph svg { width: 18px; height: 18px; }
+.upd-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; flex: 1; }
+.upd-title { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.upd-news { font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+.upd-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.upd-hint { font-size: 12px; line-height: 1.5; color: var(--ink-2); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: var(--accent); filter: brightness(1.08); }
+.btn .btn-glyph { display: inline-flex; }
+.linklike { border: 0; padding: 0; background: none; font: inherit; color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--axis); text-underline-offset: 2px; cursor: pointer; }
+.linklike:hover { text-decoration-color: currentColor; }
+/* v0.3.1: a drawing for every news story */
+.feed-list li.news-item { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 4px 14px; align-items: start; }
+.news-art canvas.mini { display: block; width: 112px; height: 84px; border-radius: 8px; }
+.news-body { min-width: 0; }
+@media (max-width: 480px) {
+  .feed-list li.news-item { grid-template-columns: 88px minmax(0, 1fr); gap: 4px 12px; }
+  .news-art canvas.mini { width: 88px; height: 66px; }
+}
+/* v0.3.1: our models */
+.model-family { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 900px) { .model-family { grid-template-columns: minmax(0, 1fr); } }
+.model-family li { display: flex; flex-direction: column; gap: 6px; min-width: 0; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.mf-head { display: flex; align-items: center; gap: 10px; }
+.mf-glyph { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: var(--surface-2); color: var(--ink-2); }
+.model-family li.on .mf-glyph { background: var(--accent-wash); color: var(--accent); }
+.mf-glyph svg { width: 22px; height: 22px; }
+.mf-title { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; min-width: 0; }
+.mf-title h3 { font-size: 15px; font-weight: 600; }
+.mf-status { padding: 0 8px; border: 1px solid var(--border); border-radius: 999px; font-size: 11.5px; line-height: 19px; color: var(--ink-2); white-space: nowrap; }
+.model-family li.on .mf-status { border-color: var(--accent); color: var(--accent); }
+.mf-role { font-size: 12.5px; font-weight: 600; line-height: 1.45; color: var(--ink); }
+.mf-text { font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+.mf-role sub, .mf-text sub { font-size: 0.72em; }
+.mf-act { align-self: flex-start; margin-top: auto; }
+/* v0.3.1: authors */
+.author-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; }
+.author { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.author-avatar { flex: none; }
+.author-avatar canvas.mini { display: block; width: 96px; height: 96px; border-radius: 50%; border: 1px solid var(--border); }
+.author-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.author-top { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.author-top h3 { font-size: 16px; font-weight: 600; }
+.author-top .tag { margin-left: 0; }
+.author-role { font-size: 12.5px; color: var(--ink-2); }
+.author-mail { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13.5px; overflow-wrap: anywhere; }
+.author-mail a { color: var(--ink); }
+.author-glyph { display: inline-flex; color: var(--muted); }
+.author-glyph svg { width: 16px; height: 16px; }
+.author-url { font-size: 12.5px; overflow-wrap: anywhere; }
+@media (max-width: 480px) { .author { gap: 12px; } .author-avatar canvas.mini { width: 80px; height: 80px; } }
+/* five views in the switch: keep it on one line on small phones */
+.views { max-width: 100%; }
+@media (max-width: 360px) { .views button { padding: 5px 6px; font-size: 12.5px; } }
+.models-card { margin-bottom: 16px; }
 </style>
 </head>
 <body>
@@ -439,6 +508,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       <button id="view-demos" type="button" role="tab" aria-selected="false"><span class="lbl-long">Physics demos</span><span class="lbl-short">Demos</span></button>
       <button id="view-learn" type="button" role="tab" aria-selected="false"><span class="lbl-long">Theory &amp; materials</span><span class="lbl-short">Learn</span></button>
       <button id="view-papers" type="button" role="tab" aria-selected="false"><span class="lbl-long">News &amp; papers</span><span class="lbl-short">News</span></button>
+      <button id="view-authors" type="button" role="tab" aria-selected="false">Authors</button>
     </div>
     <div class="controls">
       <span class="stamp"><i id="live-dot" class="live-dot"></i><span id="stamp"></span></span>
@@ -447,11 +517,13 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     </div>
   </header>
 
+  <div id="update" class="update" role="status" hidden></div>
   <div id="notice" class="notice" role="status" hidden></div>
 
   <main id="main" hidden>
     <section id="pipeline" class="card pipeline"></section>
     <section id="kpis" class="kpis"></section>
+    <section id="models-card" class="card models-card"></section>
     <div class="grid">
       <div class="col">
         <section id="stages-card" class="card"></section>
@@ -471,6 +543,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 
   <section id="papers" class="papers" hidden></section>
 
+  <section id="authors" class="authors" hidden></section>
+
   <footer id="foot" class="foot"></footer>
 </div>
 
@@ -479,7 +553,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 (function () {
   'use strict';
 
-  var APP_VERSION = '0.3.0';
+  var APP_VERSION = '0.3.1';
   var REPO = 'diracmagic/supercon-ml';
   var BRANCH = 'main';
   var REPO_URL = 'https://github.com/' + REPO;
@@ -578,6 +652,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     pause: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><rect x="7" y="5.5" width="3.5" height="13" rx="1"/><rect x="13.5" y="5.5" width="3.5" height="13" rx="1"/></svg>',
     prev: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6l-6 6 6 6"/></svg>',
     next: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"/></svg>',
+    mail: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2.2"/><path d="M4.5 7.5l7.5 5.6 7.5-5.6"/></svg>',
+    download: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19.5h14"/></svg>',
     chart: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5h16"/><path d="M5 15l4-4 3 3 7-8"/></svg>'
   };
   var RUN_GLYPH = { running: 'running', queued: 'queued', success: 'done', failure: 'failure', cancelled: 'cancelled', attention: 'blocked' };
@@ -690,7 +766,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   }
 
   function openExternal(url) {
-    if (!isHttps(url)) return;
+    if (!isHttps(url) && !/^mailto:[^\s]+$/i.test(url)) return;
     var T = window.__TAURI__;
     var I = window.__TAURI_INTERNALS__;
     try {
@@ -705,6 +781,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (!a) return;
     var href = a.getAttribute('href');
     if (/^https?:/i.test(href)) { e.preventDefault(); openExternal(href); }
+    else if (/^mailto:/i.test(href) && (window.__TAURI__ || window.__TAURI_INTERNALS__)) { e.preventDefault(); openExternal(href); }
   });
 
   /* ---------- data ---------- */
@@ -870,9 +947,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var foot = $('#foot');
     clear(foot);
     append(foot, [
-      h('span', { text: t('appName') + ' ' + APP_VERSION }),
+      h('span', null, t('appName') + ' ' + APP_VERSION, h('span', { id: 'upd-foot', class: 'upd-foot' })),
       h('span', null, h('a', { href: REPO_URL, text: 'github.com/' + REPO }), ' · ' + t('footData'))
     ]);
+    renderUpdateFoot();
   }
 
   function reducedMotion() {
@@ -1199,7 +1277,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (!info) return [];
     var v = info.v, sc = v.scores;
     return [{ ours: true, r: { model: stormTitle(info) + ' (AI-designed)', target: 'Tc', mae: sc.tc_mae, unit: 'K',
-      note: 'Best of ' + (v.search ? v.search.candidates : 'several') + ' AI-designed candidates; same 5-fold composition-grouped CV; better than the baseline in ' + sc.folds_better + ' of ' + list(sc.folds).length + ' folds' } }];
+      note: 'Best of ' + (v.search ? v.search.candidates : 'several') + ' AI-designed candidates; same 5-fold composition-grouped CV; better than ' + (sc.previous ? sc.previous.name + ' in ' + sc.previous.folds_better : 'the baseline in ' + sc.folds_better) + ' of ' + list(sc.folds).length + ' folds' + (v.status === 'adopted' ? '' : '; experimental') } }];
   }
   function resultsTable(d) {
     var rows = stormResultRows().concat(list(d.results).map(function (r) { return { r: r, ours: true }; }))
@@ -1514,7 +1592,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       ['Gradient boosting', '43 hand-made composition and structure features', ['done', 'Done'], 'Tc error ' + MAE_BASELINE.toFixed(2) + ' K'],
       ['MACE-MP-0 + boosted ensemble', 'frozen foundation-model fingerprint, three models for error bars', fs, live.foundationMae !== null ? 'Tc error ' + live.foundationMae.toFixed(2) + ' K' : ''],
       ['Graph neural network', 'ALIGNN-style network trained end to end on the crystal graph', ['pending', 'Planned'], ''],
-      ['Measured-Tc model', 'learns from experiments, including unconventional superconductors', ms, '']
+      ['Hurricane · our AI model', 'for unconventional superconductors (cuprates, nickelates, iron-based, heavy-fermion), learns from graded measured Tc', ms, ''],
+      ['Radar · router', 'decides whether a material goes to Storm or Hurricane', ['pending', 'Planned'], '']
     ];
     var ul = h('ul', { class: 'zoo-list' });
     rows.forEach(function (r) {
@@ -1526,7 +1605,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     append(el, [
       h('h3', { text: 'Models we are trying' }),
       ul,
-      richText(h('p', { class: 'zoo-ai' }), 'Storm, our AI-designed model: we also let an AI agent design models itself. It proposes a new architecture or feature set, trains and scores it with the same grouped cross-validation, and keeps the design only if it beats the current best. A locked test set is used only once, at the very end, so no design can be tuned to it.')
+      richText(h('p', { class: 'zoo-ai' }), 'Storm, our AI-designed model: we also let an AI agent design models itself. It proposes a new architecture or feature set, trains and scores it with the same grouped cross-validation, and keeps the design only if it beats the current best. A locked test set is used only once, at the very end, so no design can be tuned to it. Hurricane and Radar will be designed the same way.')
     ]);
   }
 
@@ -1534,7 +1613,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var info = stormInfo();
     if (!info) return ['Storm (AI-designed)', 'an AI agent proposes, trains and tests new designs', ['active', 'Exploring'], ''];
     var v = info.v, ok = v.status === 'adopted';
-    return [stormTitle(info) + ' · our AI model', 'designed by an AI agent: ' + v.summary.charAt(0).toLowerCase() + v.summary.slice(1),
+    return [stormTitle(info) + ' · our AI model', 'designed by an AI agent, for conventional superconductors: ' + lcFirst(v.summary),
       ok ? ['done', 'Released'] : ['active', 'Experimental'], 'Tc error ' + v.scores.tc_mae.toFixed(2) + ' K'];
   }
 
@@ -2039,7 +2118,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     sun2023: { t: 'H. Sun et al., Nature 621, 493 (2023)', d: '10.1038/s41586-023-06408-7' },
     ko2025: { t: 'E. K. Ko et al., Nature 638, 935 (2025)', d: '10.1038/s41586-024-08525-3' },
     zhou2025: { t: 'G. Zhou et al., Nature 640, 641 (2025)', d: '10.1038/s41586-025-08755-z' },
-    zhou2026: { t: 'G. Zhou et al., Natl. Sci. Rev. (2026)', d: '10.1093/nsr/nwag151' },
+    zhou2026: { t: 'G. Zhou et al., Natl. Sci. Rev. 13, nwag151 (2026)', d: '10.1093/nsr/nwag151' },
     song2025: { t: 'Y. Song et al., arXiv:2510.01273 (2025), preprint', u: 'https://arxiv.org/abs/2510.01273' },
     deng2026: { t: 'L. Deng et al., PNAS 123, e2536178123 (2026)', d: '10.1073/pnas.2536178123' },
     baroni2001: { t: 'S. Baroni et al., Rev. Mod. Phys. 73, 515 (2001)', d: '10.1103/RevModPhys.73.515' },
@@ -2095,7 +2174,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     ['boulant2024', 'N. Boulant et al., Nat. Methods 21, 2013 (2024)', '10.1038/s41592-024-02472-7'],
     ['ballarino2025', 'A. Ballarino et al., Sci. Rep. 15, 20428 (2025)', '10.1038/s41598-025-08543-9'],
     ['yuan2025', 'J. Yuan et al., Phys. Rev. Lett. 135, 166002 (2025)', '10.1103/b5h4-ppdf'],
-    ['hartwig2024', 'Z. S. Hartwig et al., IEEE Trans. Appl. Supercond. 34 (2024)', '10.1109/TASC.2023.3332613'],
+    ['hartwig2024', 'Z. S. Hartwig et al., IEEE Trans. Appl. Supercond. 34(2), 1 (2024)', '10.1109/TASC.2023.3332613'],
     ['fava2024', 'S. Fava et al., Nature 632, 75 (2024)', '10.1038/s41586-024-07635-2'],
     ['horio2025', 'M. Horio et al., Phys. Rev. Lett. 135, 046501 (2025)', '10.1103/p4c3-t34b'],
     ['wen2025', 'C. Wen et al., npj Quantum Mater. 10, 20 (2025)', '10.1038/s41535-025-00735-w'],
@@ -2113,10 +2192,35 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     ['retraction2023', 'Retraction note: N. Dasenbrock-Gammon et al., Nature 624, 460 (2023)', '10.1038/s41586-023-06774-2'],
     ['matthias1955', 'B. T. Matthias, Phys. Rev. 97, 74 (1955)', '10.1103/PhysRev.97.74'],
     ['zeni2025', 'C. Zeni et al., Nature 639, 624 (2025)', '10.1038/s41586-025-08628-5'],
-    ['pogue2023', 'E. A. Pogue et al., npj Comput. Mater. 9, 181 (2023)', '10.1038/s41524-023-01131-3']
+    ['pogue2023', 'E. A. Pogue et al., npj Comput. Mater. 9, 181 (2023)', '10.1038/s41524-023-01131-3'],
+    ['anderson1973', 'P. W. Anderson, Mater. Res. Bull. 8, 153 (1973)', '10.1016/0025-5408(73)90167-0'],
+    ['chao1977', 'K. A. Chao, J. Spałek & A. M. Oleś, J. Phys. C 10, L271 (1977)', '10.1088/0022-3719/10/10/002'],
+    ['alexandrov1981b', 'A. Alexandrov & J. Ranninger, Phys. Rev. B 24, 1164 (1981)', '10.1103/PhysRevB.24.1164'],
+    ['hubbard1963', 'J. Hubbard, Proc. R. Soc. Lond. A 276, 238 (1963)', '10.1098/rspa.1963.0204'],
+    ['baskaran1987', 'G. Baskaran, Z. Zou & P. W. Anderson, Solid State Commun. 63, 973 (1987)', '10.1016/0038-1098(87)90642-9'],
+    ['kotliar1988', 'G. Kotliar & J. Liu, Phys. Rev. B 38, 5142 (1988)', '10.1103/PhysRevB.38.5142'],
+    ['lee2006', 'P. A. Lee, N. Nagaosa & X.-G. Wen, Rev. Mod. Phys. 78, 17 (2006)', '10.1103/RevModPhys.78.17'],
+    ['qin2020', 'M. Qin et al., Phys. Rev. X 10, 031016 (2020)', '10.1103/PhysRevX.10.031016'],
+    ['emery1987', 'V. J. Emery, Phys. Rev. Lett. 58, 2794 (1987)', '10.1103/PhysRevLett.58.2794'],
+    ['zhangrice1988', 'F. C. Zhang & T. M. Rice, Phys. Rev. B 37, 3759 (1988)', '10.1103/PhysRevB.37.3759'],
+    ['scalapino1986', 'D. J. Scalapino, E. Loh & J. E. Hirsch, Phys. Rev. B 34, 8190 (1986)', '10.1103/PhysRevB.34.8190'],
+    ['miyake1986', 'K. Miyake, S. Schmitt-Rink & C. M. Varma, Phys. Rev. B 34, 6554 (1986)', '10.1103/PhysRevB.34.6554'],
+    ['monthoux1991', 'P. Monthoux, A. V. Balatsky & D. Pines, Phys. Rev. Lett. 67, 3448 (1991)', '10.1103/PhysRevLett.67.3448'],
+    ['zaanen1989', 'J. Zaanen & O. Gunnarsson, Phys. Rev. B 40, 7391 (1989)', '10.1103/PhysRevB.40.7391'],
+    ['tranquada1995', 'J. M. Tranquada et al., Nature 375, 561 (1995)', '10.1038/375561a0'],
+    ['fradkin2015', 'E. Fradkin, S. A. Kivelson & J. M. Tranquada, Rev. Mod. Phys. 87, 457 (2015)', '10.1103/RevModPhys.87.457'],
+    ['uemura1989', 'Y. J. Uemura et al., Phys. Rev. Lett. 62, 2317 (1989)', '10.1103/PhysRevLett.62.2317'],
+    ['emery1995', 'V. J. Emery & S. A. Kivelson, Nature 374, 434 (1995)', '10.1038/374434a0'],
+    ['wang2006', 'Y. Wang, L. Li & N. P. Ong, Phys. Rev. B 73, 024510 (2006)', '10.1103/PhysRevB.73.024510'],
+    ['keimer2015', 'B. Keimer et al., Nature 518, 179 (2015)', '10.1038/nature14165'],
+    ['alexandrov1981', 'A. Alexandrov & J. Ranninger, Phys. Rev. B 23, 1796 (1981)', '10.1103/PhysRevB.23.1796'],
+    ['zhang2023', 'C. Zhang et al., Phys. Rev. X 13, 011010 (2023)', '10.1103/PhysRevX.13.011010'],
+    ['varma1989', 'C. M. Varma et al., Phys. Rev. Lett. 63, 1996 (1989)', '10.1103/PhysRevLett.63.1996'],
+    ['legros2019', 'A. Legros et al., Nat. Phys. 15, 142 (2019)', '10.1038/s41567-018-0334-2'],
+    ['chen2023', 'L. Chen et al., Science 382, 907 (2023)', '10.1126/science.abq6100']
   ].forEach(function (r) { REFS[r[0]] = { t: r[1], d: r[2] }; });
-  REFS.kagomeml2025 = { t: 'Machine-learning-guided discovery of kagome superconductors YRu₃B₂ and LuRu₃B₂, arXiv:2512.16945 (2025), preprint', u: 'https://arxiv.org/abs/2512.16945' };
-  REFS.beenet2025 = { t: 'Developing a complete AI-accelerated workflow for superconductor discovery, arXiv:2503.20005 (2025), preprint', u: 'https://arxiv.org/abs/2503.20005' };
+  REFS.kagomeml2025 = { t: 'R. Albu Mustaf et al., Phys. Rev. Research 8, 023308 (2026)', d: '10.1103/lpqj-7hyg' };
+  REFS.beenet2025 = { t: 'J. B. Gibson et al., npj Comput. Mater. 12, 95 (2026)', d: '10.1038/s41524-026-01964-8' };
   REFS.alignn2026 = { t: 'ALIGNN 2.0, arXiv:2609.19487 (2026), preprint', u: 'https://arxiv.org/abs/2609.19487' };
   REFS.periodic2025 = { t: 'TechCrunch, 30 Sep 2025; periodic.com', u: 'https://techcrunch.com/2025/09/30/former-openai-and-deepmind-researchers-raise-whopping-300m-seed-to-automate-science' };
   REFS.storm2026 = { t: 'Hello Super, github.com/diracmagic/supercon-ml (2026)', u: 'https://github.com/diracmagic/supercon-ml' };
@@ -2125,25 +2229,25 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   // One entry per result. cards: the Theory & materials cards (by animation kind) it belongs to; 'field' = field-wide.
   var RECENT = [
     { d: '2026-10', k: 'computation', cards: ['ai'], ref: 'storm2026', h: 'Storm 1.0: an AI agent designs a better Tc model',
-      x: 'In this project an AI agent (Claude) proposed nine model designs; the winner, Storm 1.0, adds eleven physics features and deeper trees and cuts the cross-validated Tc error from 1.05 K to 0.97 K, better in all five folds.' },
+      x: 'In this project an AI agent (Claude) proposed nine model designs; the winner, Storm 1.0, adds eleven physics features and deeper trees and cuts the cross-validated error against DFT-computed Tc from 1.05 K to 0.97 K, better in all five folds.' },
     { d: '2026-09', k: 'computation', cards: ['ai'], ref: 'alignn2026', h: 'ALIGNN 2.0 brings superconductor screening into a unified graph network',
-      x: 'A line-graph neural-network framework for screening, force fields and inverse design reports a Tc error of about 0.86 K for electron–phonon superconductors from the structure alone (preprint).' },
-    { d: '2025-12', k: 'experiment', cards: ['ai', 'triplet'], ref: 'kagomeml2025', h: 'Machine learning points to two new kagome superconductors',
-      x: 'Machine-learning screening flagged the kagome borides YRu₃B₂ and LuRu₃B₂, and measurements then found superconductivity in both (preprint).' },
+      x: 'A line-graph neural-network framework for screening, force fields and inverse design reports a Tc error of about 0.86 K against DFT-computed Tc for electron–phonon superconductors from the structure alone, on its own test split, so the number is not directly comparable with Storm’s (preprint).' },
+    { d: '2025-12', k: 'experiment', cards: ['ai'], ref: 'kagomeml2025', h: 'Machine learning points to two new kagome superconductors',
+      x: 'Machine-learning screening flagged the kagome borides YRu₃B₂ and LuRu₃B₂, and measurements then found bulk superconductivity in both, at 0.81 K and 0.95 K, confirmed by magnetization, specific heat and transport.' },
     { d: '2025-09', k: 'news', cards: ['ai'], ref: 'periodic2025', h: 'Periodic Labs launches to build AI scientists',
       x: 'A start-up founded by former OpenAI and Google researchers came out of stealth with a $300 million seed round to pair AI models with autonomous labs; finding superconductors that work at higher temperatures is one of its stated goals.' },
     { d: '2025-03', k: 'computation', cards: ['ai', 'eliashberg'], ref: 'beenet2025', h: 'An AI workflow for finding conventional superconductors',
-      x: 'BEE-NET, a deep network that predicts the electron–phonon spectral function α²F(ω) and Tc from structure, is combined with screening and first-principles checks into a complete discovery workflow (preprint).' },
+      x: 'BEE-NET, a deep network that predicts the electron–phonon spectral function α²F(ω) and Tc from structure, is combined with screening and first-principles checks into a complete discovery workflow; two of its predictions, Be₂HfNb₂ and Be₂Hf₂Nb, were then made and found to superconduct.' },
     { d: '2025-01', k: 'computation', cards: ['ai'], ref: 'zeni2025', h: 'MatterGen generates new inorganic materials on request',
       x: 'A diffusion model generates stable crystal structures with requested chemistry and properties; one generated compound was made, and its measured property came close to the target.' },
     { d: '2023-10', k: 'experiment', cards: ['ai'], ref: 'pogue2023', h: 'A closed machine-learning loop finds a new superconductor',
       x: 'Feeding each round of laboratory measurements back into a Tc model, the team found a previously unreported superconductor in the Zr–In–Ni system and re-discovered known superconductors missing from the training data.' },
     { d: '2026-07', k: 'experiment', cards: ['gl'], ref: 'zheng2026', h: 'Vortices split into fractional vortices',
-      x: 'Scanning tunnelling microscopy on KFe₂As₂ showed single flux-quantum vortices splitting into two or three fractional cores, a hallmark of several coexisting condensates; chains of them behave as chiral skyrmions.' },
+      x: 'Scanning tunnelling microscopy on KFe₂As₂ showed single flux-quantum vortices splitting into two or three fractional cores, a hallmark of several coexisting condensates. The fractional vortices often line up in chains, which calculations identify as a new topological defect, the chiral skyrmion.' },
     { d: '2026-07', k: 'experiment', cards: ['heavy'], ref: 'shi2026', h: 'Pressure makes a van der Waals heavy-fermion metal superconduct',
       x: 'Suppressing the magnetic order of layered CeSiI under pressure gives a superconducting dome up to about 0.24 K, with signs of quantum-critical, probably unconventional pairing.' },
     { d: '2026-06', k: 'experiment', cards: ['spm', 'nickelate'], ref: 'shen2026', h: 'A nodeless gap in ambient-pressure nickelate films',
-      x: 'Photoemission on superconducting (La,Pr,Sm)₃Ni₂O₇ films found an 18 meV gap open all around the Fermi surface. That fits s± rather than d-wave pairing, although photoemission cannot see the sign of the gap.' },
+      x: 'Photoemission on superconducting (La,Pr,Sm)₃Ni₂O₇ films found a gap of about 18 meV along the zone diagonal, where a d-wave gap would vanish, and a finite gap everywhere else, so no nodes. That argues against cuprate-like d-wave pairing and is consistent with the s± state many theories favour, though photoemission cannot see the sign of the gap.' },
     { d: '2026-03', k: 'experiment', cards: ['hg1223'], ref: 'deng2026', h: 'A pressure quench keeps 151 K at ambient pressure',
       x: 'Squeezing Hg-1223 and releasing the pressure quickly at low temperature kept a metastable state with a 151 K onset, above the 133 K ambient-pressure record that stood since 1993.' },
     { d: '2026-03', k: 'experiment', cards: ['nickelate'], ref: 'zhou2026', h: 'Nickelate films pass 60 K at ambient pressure',
@@ -2156,19 +2260,19 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       x: 'Tuned terahertz pulses excited an amplitude (Higgs) mode of MgB₂’s π-band gap and a damped oscillation assigned to the Leggett mode, where the two gaps’ phases swing against each other. The assignments are still debated.' },
     { d: '2025-10', k: 'experiment', cards: ['hydride'], ref: 'song2025', h: 'Possible superconductivity near room temperature in LaSc₂H₂₄',
       x: 'A preprint reports onsets of 271–298 K at 195–266 GPa in a ternary hydride. It has not been peer reviewed yet.' },
-    { d: '2025-07', k: 'experiment', cards: ['mgb2', 'magnet'], ref: 'ballarino2025', h: 'An MgB₂ line carries 94 kA for the High-Luminosity LHC',
+    { d: '2025-07', k: 'experiment', cards: ['mgb2'], ref: 'ballarino2025', h: 'An MgB₂ line carries 94 kA for the High-Luminosity LHC',
       x: 'CERN’s cold-powering link uses MgB₂ cables from 4.5 K to about 20 K and REBCO leads above that. Designed for 117 kA, it carried 94 kA, the limit of the test supplies.' },
-    { d: '2025-07', k: 'experiment', cards: ['hg1223'], ref: 'horio2025', h: 'The outer CuO₂ planes carry the strongest pairing in Hg-1223',
-      x: 'Micro-focused photoemission resolved the inner and outer planes of the trilayer cuprate separately and found a larger gap on the outer planes, which the authors argue is key to its record Tc.' },
+    { d: '2025-07', k: 'experiment', cards: ['hg1223'], ref: 'horio2025', h: 'Hg-1223’s outer CuO₂ planes pair far more strongly than Bi-2223’s',
+      x: 'Micro-focused photoemission resolved the inner and outer planes of trilayer (Hg,Re)-1223 separately. The outer-plane gap, about 57 meV, is much larger than in lower-Tc Bi-2223 (about 43 meV), while the inner planes of the two are similar (about 60 meV); the authors argue that this stronger outer-plane pairing is key to the record Tc.' },
     { d: '2025-05', k: 'experiment', cards: ['bcs'], ref: 'yao2025', h: 'Fermion pairs photographed atom by atom',
       x: 'A quantum gas microscope imaged individual lithium-6 atoms in a strongly interacting two-dimensional Fermi gas and saw opposite-spin atoms bound into extended pairs across the BCS–BEC crossover.' },
     { d: '2025-05', k: 'experiment', cards: ['moire'], ref: 'han2025', h: 'Signs of chiral superconductivity in rhombohedral graphene',
-      x: 'In four- and five-layer rhombohedral graphene with no moiré pattern, superconductivity grows out of a spin- and valley-polarised metal and shows magnetic hysteresis, consistent with broken time-reversal symmetry.' },
+      x: 'In four- and five-layer rhombohedral graphene, whose bands are flat near their edges even without a moiré pattern, superconductivity grows out of a spin- and valley-polarised metal and shows magnetic hysteresis, consistent with broken time-reversal symmetry.' },
     { d: '2025-04', k: 'experiment', cards: ['eliashberg', 'hydride'], ref: 'du2025', h: 'Tunnelling measures the gap of H₃S',
       x: 'Planar tunnelling at about 160 GPa found a fully open s-wave gap, 2Δ ≈ 60 meV, that shrinks to about 44 meV in D₃S: the isotope shift expected for phonon-mediated pairing.' },
     { d: '2025-03', k: 'experiment', cards: ['iron'], ref: 'kong2025', h: 'A gap that varies with the lattice in FeTeSe flakes',
       x: 'Scanning tunnelling microscopy on thin FeTe₀.₅₅Se₀.₄₅ found the gap varying by more than 30% with the lattice period, a “pair density modulation” traced to different gaps on the two iron sublattices.' },
-    { d: '2025-02', k: 'experiment', cards: ['london', 'magic'], ref: 'tanaka2025', h: 'Magic-angle graphene’s superfluid is unexpectedly stiff',
+    { d: '2025-02', k: 'experiment', cards: ['magic'], ref: 'tanaka2025', h: 'Magic-angle graphene’s superfluid is unexpectedly stiff',
       x: 'A superconducting microwave circuit measured the kinetic inductance of twisted bilayer graphene. The superfluid stiffness is far above what conventional theory allows, pointing to the quantum geometry of the flat bands.' },
     { d: '2025-02', k: 'experiment', cards: ['magic'], ref: 'banerjee2025', h: 'Trilayer graphene’s stiffness points to nodal pairing',
       x: 'Microwave measurements on twisted trilayer graphene found a superfluid stiffness that grows linearly as temperature falls, a sign of nodes in the gap, and that scales with Tc across doping, as in the cuprates.' },
@@ -2176,8 +2280,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       x: 'Microsoft read the fermion parity of nanowire devices in one shot with about 1% error. The authors say this alone does not prove Majorana modes, and the protocol used to qualify the devices is disputed.' },
     { d: '2025-02', k: 'experiment', cards: ['nickelate'], ref: 'zhou2025', h: 'Nickelate films superconduct above 40 K without pressure',
       x: 'Compressively strained (La,Pr)₃Ni₂O₇ films showed a superconducting onset above 40 K at ambient pressure, following signatures in La₃Ni₂O₇ films (Ko et al., 2024).' },
-    { d: '2025-01', k: 'experiment', cards: ['dwave'], ref: 'bourgund2025', h: 'Cold atoms show the first fragments of charge stripes',
-      x: 'In a mixed-dimensional Fermi–Hubbard simulator, dopant holes attracted each other through the spin background and lined up into short stripes, precursors of the stripes predicted for cuprate models.' },
+    { d: '2025-01', k: 'experiment', cards: ['stripes', 'mott'], ref: 'bourgund2025', h: 'Cold atoms show the first fragments of charge stripes',
+      x: 'In a mixed-dimensional Fermi–Hubbard simulator, dopant holes attracted each other through the spin background, and the authors report the first signatures of individual stripes, precursors of the stripes predicted for cuprate models.' },
     { d: '2024-11', k: 'theory', cards: ['triplet'], ref: 'maeno2024', h: 'Sr₂RuO₄ after thirty years',
       x: 'A Perspective reviews how the textbook spin-triplet candidate now looks singlet-like, and lists the conflicting experiments that a final answer must reconcile.' },
     { d: '2024-10', k: 'experiment', cards: ['moire'], ref: 'xia2025', h: 'Superconductivity in twisted bilayer WSe₂',
@@ -2186,11 +2290,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       x: 'The Iseult scanner, whose 132-tonne NbTi magnet runs in superfluid helium at about 1.8 K, produced in vivo brain images at 11.7 tesla, above the 10.5 T used before.' },
     { d: '2024-10', k: 'experiment', cards: ['nickelate'], ref: 'wang2024', h: 'Bulk superconductivity near 80 K in La₂PrNi₂O₇',
       x: 'Replacing some lanthanum with praseodymium gave a nearly pure bilayer nickelate that superconducts in bulk at 18–20 GPa, with an 82.5 K onset and zero resistance at 60 K.' },
-    { d: '2024-07', k: 'experiment', cards: ['rebco'], ref: 'fava2024', h: 'Light makes YBCO expel magnetic field above Tc',
+    { d: '2024-07', k: 'experiment', cards: ['rebco', 'london'], ref: 'fava2024', h: 'Light makes YBCO expel magnetic field above Tc',
       x: 'Mid-infrared pulses on YBa₂Cu₃O₆.₄₈ expelled an applied field for about a picosecond at 100 K and above. The authors link it to light-enhanced superconducting correlations; what the state is remains open.' },
     { d: '2024-05', k: 'experiment', cards: ['gl', 'triplet'], ref: 'ge2024', h: 'Possible charge-4e and charge-6e superconductivity in a kagome metal',
-      x: 'Rings of CsV₃Sb₅ showed flux periods of h/4e and h/6e besides the usual h/2e, read as condensates of four- and six-electron bound states; the authors call it possible, not proven.' },
-    { d: '2024-05', k: 'computation', cards: ['dwave'], ref: 'xu2024', h: 'Hubbard-model numerics find d-wave pairing with stripes',
+      x: 'Rings of CsV₃Sb₅ showed the usual flux period h/2e at low temperature, giving way to h/4e and then h/6e as the temperature rises. The authors read this as evidence of charge-4e and charge-6e superconductivity in a fluctuating regime above the paired state; the interpretation is not settled.' },
+    { d: '2024-05', k: 'computation', cards: ['dwave', 'mott', 'stripes'], ref: 'xu2024', h: 'Hubbard-model numerics find d-wave pairing with stripes',
       x: 'Two leading numerical methods agree that the 2D Hubbard model with next-nearest-neighbour hopping hosts d-wave superconductivity, coexisting with partially filled stripes when hole doped.' },
     { d: '2024-05', k: 'experiment', cards: ['triplet'], ref: 'theuss2024', h: 'Ultrasound favours single-component pairing in UTe₂',
       x: 'No jumps in the shear moduli at Tc point to a single-component, odd-parity order parameter, against the two-component chiral states proposed earlier.' },
@@ -2199,25 +2303,29 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     { d: '2024-04', k: 'theory', cards: ['nickelate'], ref: 'lu2024', h: 'Interlayer coupling could drive nickelate pairing',
       x: 'A bilayer t–J model shows strong interlayer coupling turning d-wave into interlayer s-wave pairing and raising Tc. Competing proposals are not yet settled by experiment.' },
     { d: '2024-03', k: 'theory', cards: ['spm'], ref: 'sakakibara2024', h: 'Theory predicts s± pairing in pressurised La₃Ni₂O₇',
-      x: 'Fluctuation-exchange calculations give an s± state whose sign flips between the bonding and antibonding d(3z²−r²) bands, a bilayer analogue of the iron pnictides.' },
+      x: 'Fluctuation-exchange calculations give an s± state whose sign flips between the bonding and antibonding d(3z²−r²) bands, the sign-changing idea known from the iron pnictides.' },
     { d: '2024-03', k: 'experiment', cards: ['rebco'], ref: 'hartwig2024', h: 'A REBCO fusion magnet reaches 20 tesla',
       x: 'The SPARC toroidal-field model coil, wound from 270 km of REBCO tape and cooled to about 20 K, reached 20 T; a deliberate quench test is guiding fusion-magnet design.' },
-    { d: '2024-02', k: 'experiment', cards: ['hydride'], ref: 'bhattacharyya2024', h: 'Quantum sensors image the Meissner effect in CeH₉',
+    { d: '2024-02', k: 'experiment', cards: ['hydride', 'london'], ref: 'bhattacharyya2024', h: 'Quantum sensors image the Meissner effect in CeH₉',
       x: 'Nitrogen-vacancy centres built into a diamond anvil mapped field expulsion and trapped flux in cerium hydride at megabar pressure, direct local evidence of superconductivity, with patchy superconducting regions.' },
-    { d: '2024-02', k: 'experiment', cards: ['bcs'], ref: 'li2024', h: 'A pairing gap survives above the superfluid transition',
+    { d: '2024-02', k: 'experiment', cards: ['bcs', 'phase'], ref: 'li2024', h: 'A pairing gap survives above the superfluid transition',
       x: 'Spectroscopy of a uniform, strongly interacting Fermi gas found a pairing gap above Tc. Simple BCS theory has pairs form and condense together, so this supports preformed pairs.' },
     { d: '2024-02', k: 'experiment', cards: ['josephson'], ref: 'ghosh2024', h: 'A Josephson diode that works up to 77 K',
       x: 'Stacked, twisted Bi₂Sr₂CaCu₂O₈₊δ flakes carry supercurrent more easily one way than the other up to liquid-nitrogen temperature; earlier Josephson diodes worked only near 4 K.' },
     { d: '2023-12', k: 'experiment', cards: ['field'], ref: 'zhu2023', h: 'LK-99’s jumps traced to Cu₂S impurities',
       x: 'The viral 2023 claim of room-temperature superconductivity in copper-doped lead apatite unravelled: the sharp features come from a structural transition of Cu₂S impurities, with no zero resistance.' },
-    { d: '2023-11', k: 'computation', cards: ['field', 'ai'], ref: 'merchant2023', h: 'Graph networks propose 2.2 million stable crystals',
+    { d: '2023-11', k: 'experiment', cards: ['strange'], ref: 'chen2023', h: 'Shot noise suggests a strange metal has no quasiparticles',
+      x: 'In nanowires of the heavy-fermion strange metal YbRh₂Si₂, current noise is strongly suppressed compared with ordinary metals, which Fermi-liquid scattering cannot explain. The current may not be carried by well-defined quasiparticles.' },
+    { d: '2023-11', k: 'computation', cards: ['ai'], ref: 'merchant2023', h: 'Graph networks propose 2.2 million stable crystals',
       x: 'Google’s GNoME models predicted 2.2 million crystal structures stable against known phases. How many are both new and useful is still debated.' },
     { d: '2023-11', k: 'experiment', cards: ['field', 'hydride'], ref: 'retraction2023', h: 'The lutetium hydride room-temperature claim is retracted',
-      x: 'Nature retracted the March 2023 report of near-ambient superconductivity in nitrogen-doped lutetium hydride after most of its authors said the paper misrepresented its data.' },
+      x: 'Nature retracted the March 2023 report of near-ambient superconductivity in nitrogen-doped lutetium hydride after eight of its eleven authors said the paper did not accurately reflect where the samples came from, how they were measured or how the data were processed.' },
     { d: '2023-07', k: 'experiment', cards: ['field'], ref: 'sun2023', h: 'Superconductivity near 80 K in pressurised La₃Ni₂O₇',
-      x: 'A bilayer nickelate superconducted near 80 K at about 14 GPa, opening the newest high-Tc family.' },
+      x: 'A bilayer nickelate showed signs of superconductivity near 80 K at about 14–44 GPa, opening the newest high-Tc family.' },
     { d: '2023-04', k: 'experiment', cards: ['heavy'], ref: 'ogata2023', h: 'NMR backs a parity switch in CeRh₂As₂',
-      x: 'Knight-shift measurements show both field-separated superconducting phases are spin-singlet, supporting a field-induced switch from even to odd parity.' }
+      x: 'Knight-shift measurements show that both field-separated superconducting phases are spin-singlet. That supports a field-induced switch to odd parity in which the singlet gap changes sign between the two cerium layers of the unit cell, possible because each layer lacks inversion symmetry.' },
+    { d: '2023-01', k: 'computation', cards: ['bipolaron'], ref: 'zhang2023', h: 'Light bipolarons could superconduct at high temperature',
+      x: 'Quantum Monte Carlo simulations of electrons coupled to phonons that modulate their hopping between sites find small but light bipolarons, whose condensation temperature is high for phonon-driven pairing.' }
   ];
 
   var NOBEL = [
@@ -2238,7 +2346,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   function fmtMonth(d) { var p = String(d).split('-'); return (p[1] ? MONTHS[+p[1] - 1] + ' ' : '') + p[0]; }
   var KIND_LABEL = { experiment: 'Experiment', theory: 'Theory', computation: 'Computation', news: 'News' };
-  function recentFor(card) { return RECENT.filter(function (r) { return r.cards.indexOf(card) >= 0; }); }
+  function recentFor(card) {   // newest first
+    return RECENT.map(function (r, i) { return [r, i]; })
+      .filter(function (p) { return p[0].cards.indexOf(card) >= 0; })
+      .sort(function (a, b) { return a[0].d < b[0].d ? 1 : a[0].d > b[0].d ? -1 : a[1] - b[1]; })
+      .map(function (p) { return p[0]; });
+  }
   function recentLink(r) {
     var ref = REFS[r.ref];
     if (!ref) return null;
@@ -2435,7 +2548,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       refs: ['jarvis2022', 'alexandria2024'] },
     { title: 'Beyond phonons', dur: 9, draw: drawStoryBeyond,
       sub: 'Cuprates and iron-based superconductors pair up through a different glue.',
-      caption: 'Cuprates and iron-based superconductors do not follow the phonon recipe, and what binds their electron pairs is still debated; magnetic spin fluctuations are a leading candidate. A second model will learn directly from measured Tc values, and comparing what the two models rely on can give clues about the pairing mechanism.',
+      caption: 'Cuprates and iron-based superconductors do not follow the phonon recipe, and what binds their electron pairs is still debated; magnetic spin fluctuations are a leading candidate. A second AI-designed model, Hurricane, will learn directly from measured Tc values, each graded by how well it has been confirmed, and a third, Radar, will decide which of the two each material goes to. Comparing what Storm and Hurricane rely on can give clues about the pairing mechanism.',
       refs: ['bednorz1986', 'kamihara2008', 'tsuei2000', 'scalapino2012'] },
     { title: 'The loop', dur: 8, draw: drawStoryLoop,
       sub: 'Predict, screen, verify, learn: every confirmed result makes the next round better.',
@@ -2454,13 +2567,13 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function storyModelsCaption() {
     var live = stLive();
     var f = live.foundationMae !== null ? 'first run finished at ' + live.foundationMae.toFixed(2) + ' K' : live.foundation === 'active' ? 'training now' : 'up next';
-    return 'No single model is best for every material, so we compare several: gradient boosting on 43 hand-made composition and structure features (done, ' + MAE_BASELINE.toFixed(2) + ' K average Tc error), the MACE-MP-0 foundation model with a boosted head (' + f + '), graph neural networks such as ALIGNN, and a model trained on measured Tc for unconventional superconductors. We are also letting an AI agent design models itself: it proposes an architecture or feature set, trains it, scores it with the same grouped cross-validation, and refines the design, keeping only what beats the current best. A locked test set is used only once, at the very end, so no design can be tuned to it.' + stormStorySentence();
+    return 'No single model is best for every material, so we compare several: gradient boosting on 43 hand-made composition and structure features (done, ' + MAE_BASELINE.toFixed(2) + ' K average Tc error), the MACE-MP-0 foundation model with a boosted head (' + f + '), graph neural networks such as ALIGNN, and Hurricane, a model for unconventional superconductors trained on graded measured Tc. We are also letting an AI agent design models itself: it proposes an architecture or feature set, trains it, scores it with the same grouped cross-validation, and refines the design, keeping only what beats the current best. A locked test set is used only once, at the very end, so no design can be tuned to it.' + stormStorySentence();
   }
   function stormStorySentence() {
     var info = stormInfo();
     if (!info) return '';
     var v = info.v;
-    return ' Its designs are called Storm: ' + stormTitle(info) + ' (' + v.summary.charAt(0).toLowerCase() + v.summary.slice(1) + ') ' +
+    return ' Its designs are called Storm: ' + stormTitle(info) + ' (' + lcFirst(v.summary) + ') ' +
       (v.status === 'adopted' ? 'was released with ' : 'stays experimental at ') + v.scores.tc_mae.toFixed(2) + ' K average Tc error.';
   }
   function storyAccuracyCaption() {
@@ -2861,7 +2974,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function stormStoryRow() {
     var info = stormInfo();
     if (!info) return { name: 'Storm (AI-designed)', desc: 'an agent proposes new designs', status: 'exploring', note: '' };
-    return { name: stormTitle(info) + ' · our AI model', desc: 'designed by an AI agent', status: info.v.status === 'adopted' ? 'done' : 'exploring',
+    return { name: stormTitle(info) + ' · our AI model', desc: 'AI-designed, for conventional superconductors', status: info.v.status === 'adopted' ? 'done' : 'exploring',
       note: info.v.scores.tc_mae.toFixed(2) + ' K' };
   }
 
@@ -2875,7 +2988,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       { name: 'Gradient boosting', desc: '43 hand-made features', status: 'done', note: MAE_BASELINE.toFixed(2) + ' K' },
       { name: 'MACE-MP-0 + boosting', desc: 'foundation-model fingerprint', status: fStatus, note: live.foundationMae !== null ? live.foundationMae.toFixed(2) + ' K' : '' },
       { name: 'Graph neural network', desc: 'ALIGNN-style', status: 'planned', note: '' },
-      { name: 'Measured-Tc model', desc: 'for unconventional superconductors', status: live.measured === 'done' ? 'done' : live.measured === 'active' ? 'running' : 'planned', note: '' }
+      { name: narrow ? 'Hurricane · unconventional' : 'Hurricane · our AI model', desc: 'for unconventional superconductors, from measured Tc', status: live.measured === 'done' ? 'done' : live.measured === 'active' ? 'running' : 'planned', note: '' }
     ];
     var Z = narrow ? { x: B.x, y: B.y + 4, w: B.w } : { x: B.x, y: B.y + 10, w: Math.round(B.w * 0.5) };
     var rh = narrow ? 27 : 36;
@@ -3096,7 +3209,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stText(c, C, foot, P.x + 14, P.y + P.h - 12, { size: 11.5, color: C.muted });
     }
     var a1 = stSpan(t, 0.2, 0.8), a2 = stSpan(t, 1.6, 2.2);
-    panel(P1, a1, 'Conventional', 'Glue: lattice vibrations (phonons)', 'Model 1 predicts λ and ω_log');
+    panel(P1, a1, 'Conventional', 'Glue: lattice vibrations (phonons)', 'Storm learns from computed λ and ω_log');
     if (a1 > 0) {
       var top1 = P1.y + 54, bot1 = P1.y + P1.h - 28, cyv = (top1 + bot1) / 2;
       var n1 = Math.max(6, Math.floor((P1.w - 28) / 28)), dxx = (P1.w - 28) / n1;
@@ -3117,7 +3230,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stElectron(c, C, ex - 34, ey, 5.5); stElectron(c, C, ex, ey, 5.5);
       c.restore();
     }
-    panel(P2, a2, 'Unconventional: cuprates, iron-based', 'Glue: still debated (spin fluctuations?)', 'Model 2 will learn from measured Tc');
+    panel(P2, a2, 'Unconventional: cuprates, iron-based', 'Glue: still debated (spin fluctuations?)', 'Hurricane will learn from measured Tc');
     if (a2 > 0) {
       var top2 = P2.y + 56, bot2 = P2.y + P2.h - 30;
       var a = Math.max(30, Math.min(56, (bot2 - top2) / 2.2));
@@ -3637,7 +3750,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     vec: 'valence electrons per atom', matthias_d47: 'distance to Matthias peak 4.7', matthias_d65: 'distance to Matthias peak 6.5',
     d_fraction: 'd-block share', p_fraction: 'p-block share', light_fraction: 'light-atom share',
     inv_sqrt_mass: 'M^−½ phonon scale', omega_proxy: 'stiffness over mass', mass_ratio: 'heaviest / lightest mass',
-    x_diff: 'electronegativity spread', packing_fraction: 'packing fraction'
+    x_diff: 'electronegativity spread', packing_fraction: 'packing fraction',
+    theta_lindemann: 'Lindemann Debye scale', theta_lindemann_min: 'softest-atom Debye scale', sound_omega: 'sound-speed frequency',
+    bulk_mean: 'mean bulk modulus', omega_bulk: 'stiffness-over-mass frequency'
   };
   var STORM_BASE = { trees: 800, leaves: 31, learning_rate: 0.04, min_leaf: 20, l2: 1, features_per_split: 1 };
 
@@ -3656,6 +3771,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     return { inputs: [{ group: 'composition' }, { group: 'structure' }], learner: STORM_BASE, label: 'the baseline' };
   }
   function stormTitle(info) { return info.name + ' ' + info.v.version; }
+  // From round 2 on, a version must beat the current release (scores.previous); the baseline stays as a second yardstick.
+  function stormPrevScores(info) { var p = info.v.scores && info.v.scores.previous; return p && list(p.folds).length ? p : null; }
   function stormRowName(r) { return r.name + (r.settings && r.settings !== 'default' ? ', ' + r.settings : ''); }
   // Short label for the leaderboard: what the design adds to the baseline, plus its setting.
   function stormShortName(r) {
@@ -3678,14 +3795,38 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var name = stormTitle(info);
     var better = sc.folds_better + ' of ' + list(sc.folds).length;
     switch (si) {
-      case 0: return 'An AI agent (Claude) proposed ' + (v.search ? v.search.candidates : 'several') + ' designs in search round ' + v.round +
-        ': new feature sets, physics features and settings. Each was trained and scored with the same composition-grouped cross-validation, and the best one that beats the baseline in at least 4 of 5 folds became ' + name + '.';
-      case 1: return name + ' reads ' + n + ' numbers per material: ' + list(sp.inputs).map(function (i) { return i.n + ' ' + i.label.toLowerCase(); }).join(', ') + '. The physics features encode rules of thumb such as Matthias’s valence-electron peaks and the M^−½ scale of phonon frequencies.';
+      case 0:
+        var ref = stormPrevScores(info) ? stormPrevScores(info).name : 'the baseline';
+        return 'An AI agent (Claude) proposed ' + (v.search ? v.search.candidates : 'several') + ' designs in search round ' + v.round +
+        ': new feature sets, physics features and settings. Each was trained and scored with the same composition-grouped cross-validation. ' +
+        (v.status === 'adopted' ? 'The best one beat ' + ref + ' on average and in at least 4 of 5 folds, and became ' + name + '.'
+          : 'A design is released only if it beats ' + ref + ' on average and in at least 4 of 5 folds. None did this round, so the best one, ' + name + ', stays experimental and ' + ref + ' remains in use.') +
+        ' Storm predicts Tc for conventional, phonon-mediated superconductors; cuprates, nickelates, iron-based and other unconventional superconductors are for a separate model in planning, Hurricane, trained on curated experimental data, and a third, Radar, will decide which model each material goes to.';
+      case 1: return name + ' reads ' + n + ' numbers per material: ' + list(sp.inputs).map(function (i) {
+          return i.group === 'stage' ? i.n + ' from the ' + i.label + ' (its predicted λ and ω_log and the Allen–Dynes Tc from them)' : i.n + ' ' + lcFirst(i.label);
+        }).join(', ') + '. The physics features encode rules of thumb such as Matthias’s valence-electron peaks and the M^−½ scale of phonon frequencies.';
       case 2: return 'Gradient-boosted decision trees: ' + fmtInt(L0.trees) + ' small trees, each fixing what the previous ones got wrong, with up to ' + L0.leaves + ' leaves per tree and learning rate ' + L0.learning_rate + '. It predicts log(1 + Tc), which keeps the many low-Tc materials from dominating.';
       case 3: return 'Two routes to Tc: directly (error ' + fmtVal(sc.tc_mae) + ' K), or by predicting λ (error ' + fmtVal(sc.lambda_mae) + ') and ω_log (error ' + fmtVal(sc.omega_log_mae) + ' K) and putting them into the Allen–Dynes formula (error ' + fmtVal(sc.tc_via_lambda_wlog_mae) + ' K).';
-      case 4: return 'Five-fold cross-validation grouped by chemical system, so no test material shares its elements with training data. ' + name + ' averages ' + fmtVal(sc.tc_mae) + ' K against ' + fmtVal(sc.reference_mae) + ' K for the baseline and is better in ' + better + ' folds. It was picked on these folds, so the locked JARVIS test set will check it once at the end.';
+      case 4:
+        var pv = stormPrevScores(info);
+        return 'Five-fold cross-validation grouped by chemical system, so no test material shares its elements with training data. ' + name + ' averages ' + fmtVal(sc.tc_mae) + ' K against ' +
+          (pv ? fmtVal(pv.tc_mae) + ' K for ' + pv.name + ' and ' : '') + fmtVal(sc.reference_mae) + ' K for the baseline, and is better than ' +
+          (pv ? pv.name + ' in ' + pv.folds_better + ' of ' + list(pv.folds).length : 'the baseline in ' + better) + ' folds. It was picked on these folds, so the locked JARVIS test set will check it once at the end.' + stormExpSentence(info);
       default: return name + ' (' + stormFmtDate(v.date) + ', status: ' + v.status + '): ' + prettyMath(list(v.changes).join('; ')) + '. Every new version draws this animation from its own spec.';
     }
+  }
+  // The measured-Tc check (from round 2 on): how far the model and its own DFT training labels are from replicated experiments.
+  function stormExpSentence(info) {
+    var ex = info.v.experiments, pv = stormPrevScores(info);
+    if (!ex || !ex.n_scored || typeof ex.mae !== 'number') return '';
+    return ' Against ' + ex.n_scored + ' replicated Tc measurements, ' + stormTitle(info) + ' is off by ' + fmtVal(ex.mae) + ' K on average' +
+      (pv && typeof ex.mae_previous === 'number' ? ' (' + pv.name + ': ' + fmtVal(ex.mae_previous) + ' K)' : '') +
+      (typeof ex.dft_mae === 'number' ? ', and the DFT labels it learns from miss by ' + fmtVal(ex.dft_mae) + ' K: most of the gap to experiment comes from the labels, not the model, so the next round calibrates Storm against graded measurements.' : '.');
+  }
+  // Lower-case the first letter of a label for use mid-sentence, but keep acronyms and names (AI, MACE, Storm, Allen–Dynes).
+  function lcFirst(str) {
+    str = String(str || '');
+    return /^[A-Z][a-z]/.test(str) && !/^(Storm|Hurricane|Radar|Allen|Matthias|MACE|Alexandria|JARVIS|Debye|McMillan|Eliashberg)\b/.test(str) ? str.charAt(0).toLowerCase() + str.slice(1) : str;
   }
   function fmtInt(n) { return typeof n === 'number' ? n.toLocaleString('en-US') : String(n || ''); }
 
@@ -3784,7 +3925,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     rows.forEach(function (r) { lo = Math.min(lo, r.tc_mae); hi = Math.max(hi, r.tc_mae); });
     var step = 0.05, a0v = Math.floor((lo - 0.01) / step) * step, a1v = Math.ceil((hi + 0.01) / step) * step;
     var nameW = narrow ? Math.min(170, T.w * 0.56) : Math.min(290, T.w * 0.52), bx = T.x + nameW + 10, bw = T.w - nameW - 50;
-    var base = rows.filter(function (r) { return r.id === 'A'; })[0];
+    var refId = (v.search && v.search.reference_id) || 'A', base = rows.filter(function (r) { return r.id === refId; })[0];
     function BX(v) { return bx + (v - a0v) / (a1v - a0v) * bw; }
     var axisY = T.y + rows.length * rh + 4;
     c.lineWidth = 1;
@@ -3796,7 +3937,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     rows.forEach(function (r, i) {
       var a = stSpan(t, 0.4 + 0.35 * i, 0.8 + 0.35 * i);
       if (a <= 0) return;
-      var y = T.y + i * rh, isW = r === winner && t > 4.2, isB = r.id === 'A', cy = y + rh / 2;
+      var y = T.y + i * rh, isW = r === winner && t > 4.2, isB = r.id === refId, cy = y + rh / 2;
       c.globalAlpha = a;
       if (isW) { stRound(c, T.x - 6, y + 1, T.w + 6, rh - 2, 7); c.fillStyle = stAlpha(C.accent, 0.1); c.fill(); }
       stTag(c, C, r.id, T.x + 13, cy, { size: 10.5, bg: isW ? C.accent : C.surface, ring: C.grid, color: isW ? '#ffffff' : C.ink2 });
@@ -3853,10 +3994,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       }
       c.globalAlpha = 1;
     });
-    var phys = ins.filter(function (g) { return g.group === 'physics'; })[0];
+    var withItems = ins.filter(function (g) { return list(g.items).length; });
+    var phys = withItems.filter(function (g) { return !had[g.group]; })[0] || withItems.filter(function (g) { return g.group === 'physics'; })[0];
     if (!phys) return;
     var P = narrow ? { x: B.x, y: y0 + ins.length * rowH + 6, w: B.w } : { x: B.x + colW + 16, y: y0 - 4, w: B.w - colW - 16 };
-    label(c, C, 'Physics features proposed by the AI', P.x, P.y + 10, { size: 12, weight: '600', color: had.physics ? C.ink : C.warm });
+    label(c, C, phys.group === 'physics' ? 'Physics features proposed by the AI' : phys.label, P.x, P.y + 10, { size: 12, weight: '600', color: had[phys.group] ? C.ink : C.warm });
     var items = list(phys.items), cols = narrow ? 2 : (P.w > 360 ? 2 : 1), cw = P.w / cols, lh = narrow ? 21 : 23;
     items.forEach(function (it, j) {
       var a = stSpan(t, 1.2 + 0.25 * j, 1.6 + 0.25 * j);
@@ -3894,6 +4036,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       ['learning rate', String(Lr.learning_rate), Lr.learning_rate !== Lb.learning_rate ? String(Lb.learning_rate) : null],
       ['features per split', Lr.features_per_split >= 1 ? 'all' : Math.round(Lr.features_per_split * 100) + '%', Lr.features_per_split !== Lb.features_per_split ? (Lb.features_per_split >= 1 ? 'all' : Math.round(Lb.features_per_split * 100) + '%') : null]
     ];
+    var lossA = Lr.loss || 'squared error', lossB = Lb.loss || 'squared error', ensA = Lr.ensemble || 1, ensB = Lb.ensemble || 1;
+    if (Lr.loss || Lb.loss) items.push(['objective', lossA === 'absolute error' ? 'median (absolute error)' : 'mean (squared error)', lossA !== lossB ? (lossB === 'absolute error' ? 'median' : 'mean') : null]);
+    if (ensA > 1 || ensB > 1) items.push(['models averaged', String(ensA), ensA !== ensB ? String(ensB) : null]);
+    var stg = info.v.spec.stage;
+    if (stg && t > 0.8) stTag(c, C, stg.label || 'Allen–Dynes stage', B.x + B.w, B.y + 8, { align: 'right', size: 11, bg: stAlpha(C.warm, 0.16), ring: C.warm, color: C.ink });
     var cols = narrow ? 2 : 5, cw = B.w / cols;
     items.forEach(function (it, j) {
       var x = B.x + (j % cols) * cw, y = sy + Math.floor(j / cols) * 42;
@@ -3968,11 +4115,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 
   /* 4 · fold-by-fold check against the baseline */
   function drawStormCheck(c, C, B, t, narrow, info) {
-    var sc = info.v.scores, f = list(sc.folds), r = list(sc.reference_folds), n = f.length;
-    stormHeader(c, C, B, 'Better in ' + sc.folds_better + ' of ' + n + ' folds', narrow ? '' : 'Tc error per test fold (K)');
+    var sc = info.v.scores, f = list(sc.folds), r = list(sc.reference_folds), n = f.length, pv = stormPrevScores(info), q = pv ? list(pv.folds) : [];
+    stormHeader(c, C, B, pv ? 'Better than ' + pv.name + ' in ' + pv.folds_better + ' of ' + n + ' folds' : 'Better in ' + sc.folds_better + ' of ' + n + ' folds', narrow ? '' : 'Tc error per test fold (K)');
     var P = { x: B.x + 34, y: B.y + 34, w: B.w - 34 - (narrow ? 4 : 190), h: B.h - 74 };
     var top = 0;
-    f.concat(r).forEach(function (v) { top = Math.max(top, v); });
+    f.concat(r, q).forEach(function (v) { top = Math.max(top, v); });
     var tstep = niceStep(top * 1.1 || 1, 3);
     top = Math.ceil(top * 1.1 / tstep) * tstep;
     function Y(v) { return P.y + P.h - v / top * P.h; }
@@ -3982,19 +4129,37 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       c.strokeStyle = g ? C.grid : C.axis; c.beginPath(); c.moveTo(P.x, yy); c.lineTo(P.x + P.w, yy); c.stroke();
       label(c, C, fmtTick(g), P.x - 6, yy + 4, { align: 'right', size: 10.5, color: C.muted });
     }
-    var gw = P.w / n, bw = Math.min(26, gw * 0.3);
+    var gw = P.w / n, bw = Math.min(pv ? 18 : 26, gw * (pv ? 0.24 : 0.3));
     for (var i = 0; i < n; i++) {
       var a = stSpan(t, 0.3 + 0.5 * i, 0.9 + 0.5 * i), gx = P.x + gw * (i + 0.5);
       var hr = (P.y + P.h - Y(r[i])) * a, hf = (P.y + P.h - Y(f[i])) * stSpan(t, 0.6 + 0.5 * i, 1.2 + 0.5 * i);
-      c.fillStyle = C.axis; c.fillRect(gx - bw - 1, P.y + P.h - hr, bw, hr);
-      c.fillStyle = C.accent; c.fillRect(gx + 1, P.y + P.h - hf, bw, hf);
+      var x0 = pv ? gx - 1.5 * bw - 2 : gx - bw - 1, xf = pv ? gx + 0.5 * bw + 2 : gx + 1;
+      c.fillStyle = C.axis; c.fillRect(x0, P.y + P.h - hr, bw, hr);
+      if (pv) { var hq = (P.y + P.h - Y(q[i])) * stSpan(t, 0.45 + 0.5 * i, 1.05 + 0.5 * i); c.fillStyle = stAlpha(C.accent, 0.4); c.fillRect(gx - 0.5 * bw, P.y + P.h - hq, bw, hq); }
+      c.fillStyle = C.accent; c.fillRect(xf, P.y + P.h - hf, bw, hf);
       label(c, C, 'fold ' + (i + 1), gx, P.y + P.h + 15, { align: 'center', size: 10.5, color: C.muted });
-      if (t > 1.2 + 0.5 * i && f[i] < r[i]) label(c, C, '✓', gx + 1 + bw / 2, P.y + P.h - hf - 6, { align: 'center', size: 11, weight: '600', color: C.accent });
+      if (t > 1.2 + 0.5 * i && f[i] < (pv ? q[i] : r[i])) label(c, C, '✓', xf + bw / 2, P.y + P.h - hf - 6, { align: 'center', size: 11, weight: '600', color: C.accent });
     }
     var kx = narrow ? B.x : P.x + P.w + 26, ky = narrow ? B.y + B.h - 6 : P.y + 10;
-    if (narrow) {
+    if (narrow && pv) {
+      var w3 = B.w / 3;
+      c.fillStyle = C.axis; c.fillRect(kx, ky - 8, 10, 10); label(c, C, 'baseline ' + fmtVal(sc.reference_mae), kx + 14, ky + 1, { size: 11, color: C.ink2 });
+      c.fillStyle = stAlpha(C.accent, 0.4); c.fillRect(kx + w3, ky - 8, 10, 10); label(c, C, pv.name.replace(info.name + ' ', 'v') + ' ' + fmtVal(pv.tc_mae), kx + w3 + 14, ky + 1, { size: 11, color: C.ink2 });
+      c.fillStyle = C.accent; c.fillRect(kx + 2 * w3, ky - 8, 10, 10); label(c, C, 'v' + info.v.version + ' ' + fmtVal(sc.tc_mae) + ' K', kx + 2 * w3 + 14, ky + 1, { size: 11, weight: '600', color: C.accent });
+    } else if (narrow) {
       c.fillStyle = C.axis; c.fillRect(kx, ky - 8, 10, 10); label(c, C, 'baseline ' + fmtVal(sc.reference_mae) + ' K', kx + 14, ky + 1, { size: 11, color: C.ink2 });
       c.fillStyle = C.accent; c.fillRect(kx + B.w / 2, ky - 8, 10, 10); label(c, C, info.name + ' ' + fmtVal(sc.tc_mae) + ' K', kx + B.w / 2 + 14, ky + 1, { size: 11, weight: '600', color: C.accent });
+    } else if (pv) {
+      c.fillStyle = C.axis; c.fillRect(kx, ky - 8, 10, 10); label(c, C, 'baseline', kx + 16, ky + 1, { size: 11.5, color: C.ink2 });
+      label(c, C, fmtVal(sc.reference_mae) + ' K', kx + 16, ky + 19, { size: 13, weight: '600', color: C.ink2 });
+      c.fillStyle = stAlpha(C.accent, 0.4); c.fillRect(kx, ky + 34, 10, 10); label(c, C, pv.name, kx + 16, ky + 43, { size: 11.5, color: C.ink2 });
+      label(c, C, fmtVal(pv.tc_mae) + ' K', kx + 16, ky + 61, { size: 13, weight: '600', color: C.ink2 });
+      c.fillStyle = C.accent; c.fillRect(kx, ky + 76, 10, 10); label(c, C, stormTitle(info), kx + 16, ky + 85, { size: 11.5, color: C.accent });
+      label(c, C, fmtVal(sc.tc_mae) + ' K', kx + 16, ky + 103, { size: 13, weight: '600', color: C.accent });
+      if (pv.tc_mae > 0) {
+        var g2 = Math.round((1 - sc.tc_mae / pv.tc_mae) * 100);
+        if (g2 > 0 && t > 3) stTag(c, C, g2 + '% lower than ' + pv.name.replace(info.name + ' ', 'v'), kx, ky + 128, { align: 'left', size: 11.5, bg: C.track, color: C.ink });
+      }
     } else {
       c.fillStyle = C.axis; c.fillRect(kx, ky - 8, 10, 10); label(c, C, 'baseline', kx + 16, ky + 1, { size: 11.5, color: C.ink2 });
       label(c, C, fmtVal(sc.reference_mae) + ' K', kx + 16, ky + 19, { size: 13, weight: '600', color: C.ink2 });
@@ -5291,8 +5456,822 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     MINI_ALT.bkt = 'Vortices and antivortices in a thin film stay bound in pairs at low temperature and unbind above the BKT transition.';
   })();
 
-  /* ---------- mini animations on the Theory & materials cards ----------
-     One requestAnimationFrame loop draws only the canvases on screen, and only while the view is open. */
+  /* ---------- classic high-Tc mechanisms: card animations (original drawings, same engine as the other cards) ---------- */
+  (function () {
+    var TAU = Math.PI * 2, UP = -Math.PI / 2, DOWN = Math.PI / 2;
+    function md(t, p) { t = t % p; return t < 0 ? t + p : t; }
+    function textW(c, C, text, size, weight) { c.font = (weight || '400') + ' ' + size + 'px ' + C.font; return c.measureText(text).width; }
+    function seg(c, x0, y0, x1, y1) { c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke(); }
+    function ring(c, x, y, r, stroke, lw, fill) {
+      c.beginPath(); c.arc(x, y, r, 0, TAU);
+      if (fill) { c.fillStyle = fill; c.fill(); }
+      if (stroke) { c.lineWidth = lw || 1; c.strokeStyle = stroke; c.stroke(); }
+    }
+    function arrow(c, x0, y0, x1, y1, color, head, lw) {
+      var a = Math.atan2(y1 - y0, x1 - x0), hd = head || 5;
+      c.strokeStyle = color; c.fillStyle = color; c.lineWidth = lw || 1.25;
+      c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1 - Math.cos(a) * hd * 0.8, y1 - Math.sin(a) * hd * 0.8); c.stroke();
+      c.beginPath(); c.moveTo(x1, y1);
+      c.lineTo(x1 - hd * Math.cos(a - 0.42), y1 - hd * Math.sin(a - 0.42));
+      c.lineTo(x1 - hd * Math.cos(a + 0.42), y1 - hd * Math.sin(a + 0.42));
+      c.closePath(); c.fill();
+    }
+    // Spin arrow of length L centred on (x, y).
+    function spin(c, x, y, ang, L, color, lw) {
+      if (L < 1.5) return;
+      var dx = Math.cos(ang) * L / 2, dy = Math.sin(ang) * L / 2;
+      arrow(c, x - dx, y - dy, x + dx, y + dy, color, Math.max(3, Math.min(5, L * 0.4)), lw || 1.3);
+    }
+    function glow(c, x, y, r, color, a) {
+      for (var i = 3; i >= 1; i--) { c.beginPath(); c.arc(x, y, r * i / 3, 0, TAU); c.fillStyle = stAlpha(color, a * 0.3); c.fill(); }
+    }
+    function guard(fn) {
+      return function (c, C, W, H, t) {
+        c.save();
+        c.lineCap = 'butt'; c.lineJoin = 'round'; c.setLineDash([]); c.globalAlpha = 1;
+        try { fn(c, C, W, H, t || 0); } finally { c.restore(); }
+      };
+    }
+    // Legend column on the right: rows of { text, sw(x, y), on (0..1) }.
+    function legendWidth(c, C, rows) {
+      var w = 0;
+      rows.forEach(function (r) { w = Math.max(w, textW(c, C, r.text, 11)); });
+      return Math.ceil(w) + 20;
+    }
+    function legendDraw(c, C, x, yMid, rows, gap) {
+      var y0 = yMid - (rows.length - 1) * gap / 2;
+      rows.forEach(function (r, i) {
+        var y = y0 + i * gap, on = r.on === undefined ? 1 : r.on;
+        c.globalAlpha = 0.45 + 0.55 * on;
+        if (r.sw) r.sw(x + 6, y);
+        var o = { size: 11, base: 'middle', color: on > 0.5 ? C.ink : C.ink2, weight: on > 0.5 ? '600' : '400' };
+        if (r.parts) stSym(c, C, r.parts, x + 18, y + 0.5, o); else label(c, C, r.text, x + 18, y + 0.5, o);
+        c.globalAlpha = 1;
+      });
+    }
+    // Square-lattice window: n columns that fit between x0 and x1 with spacing s, rows centred on yMid.
+    function grid(x0, x1, s, nr, yMid, minC, maxC) {
+      var nc = Math.max(minC || 4, Math.min(maxC || 12, Math.floor((x1 - x0) / s) + 1));
+      return { nc: nc, nr: nr, s: s, ox: x0 + (x1 - x0 - (nc - 1) * s) / 2, oy: yMid - (nr - 1) * s / 2,
+        x: function (i) { return this.ox + i * s; }, y: function (j) { return this.oy + j * s; } };
+    }
+    function neel(i, j) { return (i + j) % 2 ? DOWN : UP; }
+    function warmTag(c, C, text, x, y, a) {
+      c.globalAlpha = a;
+      stTag(c, C, text, x, y, { size: 10, pad: 4, bg: stAlpha(C.warm, 0.16), ring: C.warm, color: C.ink });
+      c.globalAlpha = 1;
+    }
+
+    /* 1. Mott insulator and the Hubbard model: hopping onto an occupied site costs U; a doped hole
+       moves and leaves the spins it shifts on the wrong sublattice (a string of frustrated bonds). */
+    function mottState(G, tt) {
+      // hole path (column, row) inside the window, five hops out, then the same five hops back
+      var nc = G.nc, path = [[nc - 2, 1], [nc - 3, 1], [nc - 3, 2], [nc - 4, 2], [nc - 4, 1], [nc - 5, 1]];
+      var hops = [];
+      for (var k = 0; k < 5; k++) hops.push({ a: path[k], b: path[k + 1], t0: 4.8 + 0.8 * k, d: 0.55 });
+      for (k = 0; k < 5; k++) hops.push({ a: path[5 - k], b: path[4 - k], t0: 9.4 + 0.5 * k, d: 0.38 });
+      var sp = [], i, j;
+      for (i = 0; i < G.nc; i++) { sp.push([]); for (j = 0; j < G.nr; j++) sp[i].push(neel(i, j)); }
+      var hole = tt >= 4.0 && tt < 12.6 ? path[0] : null, moving = null;
+      if (hole) {
+        for (k = 0; k < hops.length; k++) {
+          var hp = hops[k];
+          if (tt < hp.t0) break;
+          var f = stSpan(tt, hp.t0, hp.t0 + hp.d);
+          if (f >= 1) { sp[hp.a[0]][hp.a[1]] = sp[hp.b[0]][hp.b[1]]; hole = hp.b; }
+          else { moving = { from: hp.b, to: hp.a, f: f, ang: sp[hp.b[0]][hp.b[1]] }; break; }
+        }
+      }
+      return { sp: sp, hole: hole, moving: moving, appear: stSpan(tt, 4.0, 4.6) * (1 - stSpan(tt, 12.0, 12.6)) };
+    }
+    function drawMott(c, C, W, H, t) {
+      var P = 13, tt = md(t, P), m = 10;
+      var tryOn = 0, a;
+      for (a = 0; a < 2; a++) tryOn = Math.max(tryOn, Math.sin(Math.PI * stClamp((tt - 0.5 - 1.8 * a) / 1.3)));
+      var rows = [
+        { text: 'one electron per site', sw: function (x, y) { spin(c, x, y, UP, 12, C.accent, 1.4); }, on: tt < 4 ? 1 : 0 },
+        { text: 'U: no double occupancy', sw: function (x, y) { label(c, C, 'U', x, y + 0.5, { size: 11, weight: '700', align: 'center', base: 'middle', color: C.warm }); }, on: tryOn > 0.3 ? 1 : 0 },
+        { text: 'hole and its spin trail', sw: function (x, y) { ring(c, x, y, 4, C.warm, 1.5); }, on: tt >= 4 ? 1 : 0 }
+      ];
+      var lw = legendWidth(c, C, rows), G = grid(m + 4, W - m - lw - 12, 20, 4, H / 2, 5, 9);
+      var S = mottState(G, tt), i, j;
+      // frustrated bonds: neighbours whose spins are parallel
+      c.setLineDash([3, 2]); c.lineWidth = 1.6; c.strokeStyle = stAlpha(C.warm, 0.85);
+      for (i = 0; i < G.nc; i++) for (j = 0; j < G.nr; j++) {
+        var here = !(S.hole && S.hole[0] === i && S.hole[1] === j) && !(S.moving && ((S.moving.from[0] === i && S.moving.from[1] === j) || (S.moving.to[0] === i && S.moving.to[1] === j)));
+        if (!here) continue;
+        [[1, 0], [0, 1]].forEach(function (d) {
+          var i2 = i + d[0], j2 = j + d[1];
+          if (i2 >= G.nc || j2 >= G.nr) return;
+          if (S.hole && S.hole[0] === i2 && S.hole[1] === j2) return;
+          if (S.moving && ((S.moving.from[0] === i2 && S.moving.from[1] === j2) || (S.moving.to[0] === i2 && S.moving.to[1] === j2))) return;
+          if (S.sp[i][j] === S.sp[i2][j2]) seg(c, G.x(i) + d[0] * 6, G.y(j) + d[1] * 6, G.x(i2) - d[0] * 6, G.y(j2) - d[1] * 6);
+        });
+      }
+      c.setLineDash([]);
+      // sites and spins
+      c.beginPath();
+      for (i = 0; i < G.nc; i++) for (j = 0; j < G.nr; j++) { c.moveTo(G.x(i) + 1.6, G.y(j)); c.arc(G.x(i), G.y(j), 1.6, 0, TAU); }
+      c.fillStyle = stAlpha(C.muted, 0.6); c.fill();
+      var tryI = 1, tryJ = 1, push = tryOn * 0.42 * G.s;
+      for (i = 0; i < G.nc; i++) for (j = 0; j < G.nr; j++) {
+        if (S.moving && ((S.moving.from[0] === i && S.moving.from[1] === j) || (S.moving.to[0] === i && S.moving.to[1] === j))) continue;
+        if (S.hole && S.hole[0] === i && S.hole[1] === j) {
+          if (S.appear < 1) { c.globalAlpha = 1 - S.appear; spin(c, G.x(i), G.y(j), S.sp[i][j], 13, C.accent, 1.4); c.globalAlpha = 1; }
+          continue;
+        }
+        var dx = tt < 4 && i === tryI && j === tryJ ? push : 0;
+        spin(c, G.x(i) + dx, G.y(j), S.sp[i][j], 13, C.accent, 1.4);
+      }
+      if (S.moving) {
+        var mx = G.x(S.moving.from[0]) + (G.x(S.moving.to[0]) - G.x(S.moving.from[0])) * S.moving.f;
+        var my = G.y(S.moving.from[1]) + (G.y(S.moving.to[1]) - G.y(S.moving.from[1])) * S.moving.f;
+        spin(c, mx, my, S.moving.ang, 13, C.accent, 1.4);
+      }
+      // the hole
+      if (S.hole && S.appear > 0) {
+        var hx = G.x(S.hole[0]), hy = G.y(S.hole[1]);
+        if (S.moving) { hx = G.x(S.moving.to[0]) + (G.x(S.moving.from[0]) - G.x(S.moving.to[0])) * S.moving.f; hy = G.y(S.moving.to[1]) + (G.y(S.moving.from[1]) - G.y(S.moving.to[1])) * S.moving.f; }
+        c.globalAlpha = S.appear; glow(c, hx, hy, 9, C.warm, 0.5); ring(c, hx, hy, 5, C.warm, 1.8, C.surface2); c.globalAlpha = 1;
+      }
+      // the blocked hop
+      if (tt < 4 && tryOn > 0.55) warmTag(c, C, 'U', G.x(tryI) + G.s * 0.62, G.y(tryJ) - 12, stClamp((tryOn - 0.55) / 0.3));
+      legendDraw(c, C, W - m - lw, H / 2, rows, 24);
+    }
+
+    /* 2. Resonating valence bonds: singlet bonds flip between horizontal and vertical pairs in each
+       plaquette (resonance); doped holes then move as a pair as the singlets hop two sites into them. */
+    var RVB_PH = (function () { var r = stRng(23), a = []; for (var i = 0; i < 40; i++) a.push(r()); return a; })();
+    function drawRvb(c, C, W, H, t) {
+      var P = 13, tt = md(t, P), m = 10;
+      var doped = stSpan(tt, 6.2, 6.8) * (1 - stSpan(tt, 12.2, 12.8));
+      function bond(x0, y0, x1, y1, a, color) {
+        if (a <= 0.01) return;
+        c.lineCap = 'round';
+        c.lineWidth = 10; c.strokeStyle = stAlpha(color || C.accent, 0.2 * a); seg(c, x0, y0, x1, y1);
+        c.lineWidth = 2; c.strokeStyle = stAlpha(color || C.accent, 0.85 * a); seg(c, x0, y0, x1, y1);
+        c.lineCap = 'butt';
+      }
+      var rows = [
+        { text: 'singlet (valence bond)', sw: function (x, y) { bond(x - 3, y, x + 3, y, 1); } },
+        { text: 'bonds resonate', sw: function (x, y) { bond(x - 4, y - 3, x - 4, y + 3, 0.6); bond(x + 1, y, x + 6, y, 0.6); }, on: doped < 0.5 ? 1 : 0.4 },
+        { text: 'holes move as a pair', sw: function (x, y) { ring(c, x - 3, y, 3, C.warm, 1.4); ring(c, x + 5, y, 3, C.warm, 1.4); }, on: doped }
+      ];
+      var lw = legendWidth(c, C, rows), right = W - m - lw - 14;
+      var G = grid(m + 6, right, 20, 4, H / 2, 4, 10);
+      if (G.nc % 2) G = grid(m + 6, right - 20, 20, 4, H / 2, 4, 10);
+      var nPairs = G.nc / 2, i, j, b;
+      // resonance weight per 2 x 2 plaquette: 0 = horizontal pair of bonds, 1 = vertical pair
+      var top = stSpan(tt, 0.6, 1.2) * (1 - stSpan(tt, 5.6, 6.2));   // the top plaquette row stops flipping while the holes move in it
+      function wOf(bi, bj) {
+        var u = md(tt / 3.2 + RVB_PH[(bi * 5 + bj * 3) % RVB_PH.length], 1);
+        var w = stSpan(u, 0.25, 0.4) - stSpan(u, 0.75, 0.9);
+        return bj === 0 ? w * top : w;
+      }
+      // the hole pair in row 1 starts at the right end; singlets hop right into it one after another
+      var hops = nPairs - 1, step = hops ? 4.2 / hops : 1, holeAt = nPairs - 1, mover = -1, f = 0, k;
+      if (doped > 0) {
+        for (k = 0; k < hops; k++) {
+          var t0 = 7.0 + k * step, t1 = t0 + Math.min(0.7, step * 0.6);
+          if (tt >= t1) holeAt = nPairs - 2 - k;
+          else if (tt >= t0) { mover = nPairs - 2 - k; f = stSpan(tt, t0, t1); break; }
+          else break;
+        }
+      }
+      for (var bj = 0; bj < G.nr / 2; bj++) for (var bi = 0; bi < nPairs; bi++) {
+        var w = wOf(bi, bj), x0 = G.x(2 * bi), x1 = G.x(2 * bi + 1), ya = G.y(2 * bj), yb = G.y(2 * bj + 1);
+        // vertical bonds
+        bond(x0, ya, x0, yb, w); bond(x1, ya, x1, yb, w);
+        // horizontal bonds (the lower one in the top row takes part in the hole motion)
+        bond(x0, ya, x1, ya, 1 - w);
+        if (bj === 0 && tt >= 6.2 && tt < 12.8) {
+          if (bi === mover) bond(x0 + f * 2 * G.s, yb, x1 + f * 2 * G.s, yb, 1, C.warm);
+          else if (bi === holeAt) bond(x0, yb, x1, yb, 1 - doped);
+          else if (!(mover >= 0 && bi === mover + 1)) bond(x0, yb, x1, yb, 1);
+        } else bond(x0, yb, x1, yb, 1 - w);
+      }
+      // sites
+      c.beginPath();
+      for (i = 0; i < G.nc; i++) for (j = 0; j < G.nr; j++) { c.moveTo(G.x(i) + 2.6, G.y(j)); c.arc(G.x(i), G.y(j), 2.6, 0, TAU); }
+      c.fillStyle = C.accent; c.fill();
+      if (doped > 0) {
+        // while a singlet slides into the hole pair, the holes fade out there and fade in where it left
+        var spots = mover >= 0 ? [[mover + 1, 1 - f], [mover, f]] : [[holeAt, 1]];
+        spots.forEach(function (sp) {
+          c.globalAlpha = doped * sp[1];
+          for (var q = 0; q < 2; q++) ring(c, G.x(sp[0] * 2) + q * G.s, G.y(1), 4.6, C.warm, 1.8, C.surface2);
+        });
+        c.globalAlpha = 1;
+        if (mover < 0 && holeAt === nPairs - 1 && tt < 7.0) warmTag(c, C, '2 holes', G.x(holeAt * 2) + G.s / 2, G.y(1) - 14, stSpan(tt, 6.4, 6.8));
+      }
+      legendDraw(c, C, W - m - lw, H / 2, rows, 24);
+    }
+
+    /* 3. Zhang–Rice singlet: a hole on the four oxygens around a copper binds with the copper spin
+       into a singlet, which then hops like a single vacancy (the t–J model). */
+    function drawZr(c, C, W, H, t) {
+      var P = 11, tt = md(t, P), m = 10;
+      var rows = [
+        { text: 'Cu spin', sw: function (x, y) { spin(c, x, y, UP, 12, C.accent, 1.4); } },
+        { text: 'O site', sw: function (x, y) { ring(c, x, y, 3, C.muted, 1.2, C.surface); } },
+        { text: 'Zhang–Rice singlet', sw: function (x, y) { stRound(c, x - 5, y - 5, 10, 10, 3); c.fillStyle = stAlpha(C.warm, 0.25); c.fill(); c.lineWidth = 1.4; c.strokeStyle = C.warm; c.stroke(); } },
+        { text: 'hops like one hole', sw: function (x, y) { arrow(c, x + 6, y, x - 6, y, C.warm, 4.5, 1.4); } }
+      ];
+      var lw = legendWidth(c, C, rows), G = grid(m + 10, W - m - lw - 18, 30, 3, H / 2, 3, 8);
+      var appear = stSpan(tt, 0.4, 1.4) * (1 - stSpan(tt, 10.0, 10.8));
+      var nh = Math.max(1, G.nc - 2), hopD = 0.7, gap = nh > 1 ? Math.min(2.0, 7.2 / nh) : 2;
+      var at = G.nc - 2, f = 0, k;
+      for (k = 0; k < nh - 1; k++) {
+        var t0 = 2.0 + k * gap;
+        if (tt >= t0 + hopD) at = G.nc - 3 - k;
+        else if (tt >= t0) { f = stSpan(tt, t0, t0 + hopD); break; }
+        else break;
+      }
+      rows[2].on = appear; rows[3].on = f > 0 ? 1 : 0.3;
+      var row = 1, i, j;
+      // Cu–O bonds
+      c.strokeStyle = C.grid; c.lineWidth = 1.2;
+      for (j = 0; j < G.nr; j++) seg(c, G.x(0) - G.s / 2, G.y(j), G.x(G.nc - 1) + G.s / 2, G.y(j));
+      for (i = 0; i < G.nc; i++) seg(c, G.x(i), G.y(0) - G.s / 2, G.x(i), G.y(G.nr - 1) + G.s / 2);
+      // singlet position (between plaquettes while hopping)
+      var sx = G.x(at) - f * G.s, sy = G.y(row), hs = G.s / 2;
+      if (appear > 0) {
+        c.globalAlpha = appear;
+        c.beginPath(); c.moveTo(sx - hs, sy); c.lineTo(sx, sy - hs); c.lineTo(sx + hs, sy); c.lineTo(sx, sy + hs); c.closePath();
+        c.fillStyle = stAlpha(C.warm, 0.2); c.fill(); c.lineWidth = 1.6; c.strokeStyle = C.warm; c.stroke();
+        c.globalAlpha = 1;
+      }
+      // O sites; the four around the singlet carry the hole
+      for (i = -1; i < G.nc; i++) for (j = 0; j < G.nr; j++) {
+        var ox = G.x(i) + G.s / 2, oy = G.y(j);
+        if (i >= 0 || true) {
+          var near = appear > 0 && Math.abs(ox - sx) + Math.abs(oy - sy) < hs + 2;
+          ring(c, ox, oy, 3.2, near ? C.warm : C.muted, 1.2, near ? stAlpha(C.warm, 0.55 * appear + 0.0) : C.surface);
+        }
+      }
+      for (i = 0; i < G.nc; i++) for (j = -1; j < G.nr; j++) {
+        var px = G.x(i), py = G.y(j) + G.s / 2;
+        var near2 = appear > 0 && Math.abs(px - sx) + Math.abs(py - sy) < hs + 2;
+        ring(c, px, py, 3.2, near2 ? C.warm : C.muted, 1.2, near2 ? stAlpha(C.warm, 0.55 * appear) : C.surface);
+      }
+      // Cu spins: the singlet site has none; while hopping, the neighbour's spin slides the other way
+      for (i = 0; i < G.nc; i++) for (j = 0; j < G.nr; j++) {
+        var ang = neel(i, j), x = G.x(i), y = G.y(j), L = 14;
+        if (j === row && appear > 0) {
+          if (i === at) { if (f > 0) continue; L = 14 * (1 - appear); }
+          if (f > 0 && i === at - 1) { x = G.x(at - 1) + f * G.s; }
+          if (i > at && i <= G.nc - 2) ang = neel(i - 1, j);   // spins the singlet has passed moved one site right
+          if (f > 0 && i === at - 1) ang = neel(i, j);
+        }
+        dot(c, x, y, 4.2, stAlpha(C.accent, 0.18));
+        spin(c, x, y, ang, L, C.accent, 1.4);
+      }
+      if (appear > 0.6 && f === 0 && tt < 2.0) warmTag(c, C, 'spin 0', sx, sy - hs - 9, stSpan(tt, 1.0, 1.4));
+      legendDraw(c, C, W - m - lw, H / 2, rows, 22);
+    }
+
+    /* 4. Spin-fluctuation pairing: repulsive on one site, attractive on neighbouring sites, so the pair
+       amplitude sits on the four neighbours with + along x and − along y (d-wave). */
+    var SG_PH = (function () { var r = stRng(41), a = []; for (var i = 0; i < 64; i++) a.push(r() * TAU); return a; })();
+    function drawSpinglue(c, C, W, H, t) {
+      var P = 10, tt = md(t, P), m = 10;
+      var lobes = stSpan(tt, 1.8, 2.8) * (1 - stSpan(tt, 9.2, 9.9));
+      var rows = [
+        { text: 'pair amplitude +', sw: function (x, y) { dot(c, x, y, 4, stAlpha(C.accent, 0.75)); } },
+        { text: 'pair amplitude −', sw: function (x, y) { dot(c, x, y, 4, stAlpha(C.warm, 0.75)); } },
+        { text: 'spin-fluctuation glue', sw: function (x, y) { c.beginPath(); c.arc(x - 5, y, 7, -0.8, 0.8); c.strokeStyle = C.muted; c.lineWidth = 1.2; c.stroke(); c.beginPath(); c.arc(x - 5, y, 11, -0.6, 0.6); c.stroke(); } }
+      ];
+      var lw = legendWidth(c, C, rows), G = grid(m + 4, W - m - lw - 12, 20, 5, H / 2, 5, 11);
+      var ci = Math.floor(G.nc / 2), cj = 2, cx = G.x(ci), cy = G.y(cj), i, j;
+      // spin-fluctuation ripples from the pair
+      for (var r = 0; r < 3; r++) {
+        var ph = md(tt / 2.4 + r / 3, 1), rad = 10 + ph * 46;
+        c.beginPath(); c.arc(cx, cy, rad, 0, TAU);
+        c.strokeStyle = stAlpha(C.muted, 0.35 * (1 - ph) * lobes); c.lineWidth = 1.2; c.stroke();
+      }
+      // antiferromagnetic background with a travelling spin wave
+      for (i = 0; i < G.nc; i++) for (j = 0; j < G.nr; j++) {
+        if (i === ci && j === cj) continue;
+        var nb = Math.abs(i - ci) + Math.abs(j - cj) === 1;
+        var ang = neel(i, j) + 0.32 * Math.sin(TAU * (tt / 2.4) - 0.55 * Math.hypot(i - ci, j - cj) + SG_PH[(i * 7 + j * 3) % 64] * 0.2);
+        c.globalAlpha = nb ? 0.35 : 0.75;
+        spin(c, G.x(i), G.y(j), ang, 11, C.ink2, 1.2);
+        c.globalAlpha = 1;
+      }
+      // d-wave lobes on the four neighbours
+      var nbs = [[1, 0, 1], [0, -1, -1], [-1, 0, 1], [0, 1, -1]], hopT = Math.max(0, tt - 3.0), cur = Math.floor(hopT / 0.9) % 4;
+      nbs.forEach(function (n, k) {
+        var x = G.x(ci + n[0]), y = G.y(cj + n[1]), col = n[2] > 0 ? C.accent : C.warm;
+        var hot = tt > 3.0 && tt < 9.2 && k === cur ? 1 : 0;
+        if (lobes > 0) {
+          c.beginPath(); c.ellipse(x, y, (n[0] ? 8.5 : 6.5) * lobes, (n[0] ? 6.5 : 8.5) * lobes, 0, 0, TAU);
+          c.fillStyle = stAlpha(col, 0.28 + 0.3 * hot); c.fill();
+          label(c, C, n[2] > 0 ? '+' : '−', x + n[0] * 0 + (n[1] ? 10 : 0), y + (n[0] ? -9 : 0) + 0.5, { size: 11, weight: '700', align: 'center', base: 'middle', color: col });
+        }
+        if (hot) { dot(c, x, y, 3.6, C.ink); }
+      });
+      // the electron in the middle, and the empty same-site slot (on-site repulsion U)
+      glow(c, cx, cy, 9, C.ink2, 0.25);
+      dot(c, cx, cy, 3.6, C.ink);
+      if (tt > 0.3 && tt < 1.9) warmTag(c, C, 'not on one site', cx, cy - 17, stSpan(tt, 0.3, 0.7) * (1 - stSpan(tt, 1.5, 1.9)));
+      legendDraw(c, C, W - m - lw, H / 2, rows, 24);
+    }
+
+    /* 5. Stripes: rivers of holes separate antiferromagnetic domains whose spin pattern flips across each
+       river; the rivers meander and slide. */
+    function drawStripes(c, C, W, H, t) {
+      var P = 16, tt = md(t, P), m = 10;
+      var rows = [
+        { text: 'charge stripe (holes)', sw: function (x, y) { c.fillStyle = stAlpha(C.warm, 0.22); c.fillRect(x - 3, y - 7, 6, 14); dot(c, x, y, 2.6, C.warm); } },
+        { text: 'spins flip across it', sw: function (x, y) { spin(c, x - 3, y, UP, 10, C.accent, 1.3); spin(c, x + 4, y, UP, 10, C.accent, 1.3); } },
+        { text: 'strongest near p = 1/8', sw: null }
+      ];
+      var lw = legendWidth(c, C, rows), s = 17;
+      var G = grid(m + 4, W - m - lw - 18, s, 5, H / 2, 7, 18), i, j;
+      var period = 4, drift = tt / P * period;   // slide by one period per loop
+      function stripeX(k, y) { return G.ox + (k * period + 1.5 + drift) * s + 0.28 * s * Math.sin(TAU * (y / 70 + tt / 4 + k * 0.37)); }
+      var nk = Math.ceil(G.nc / period) + 2;
+      // bands and holes
+      for (var k = -1; k < nk; k++) {
+        var pts = [];
+        for (j = -1; j <= G.nr; j += 0.25) pts.push([stripeX(k, G.y(j)), G.y(j)]);
+        c.save(); c.beginPath(); c.rect(G.ox - s * 0.45, G.oy - s * 0.7, (G.nc - 1) * s + s * 0.9, (G.nr - 1) * s + s * 1.4); c.clip();
+        c.beginPath(); pts.forEach(function (p, q) { if (q) c.lineTo(p[0], p[1]); else c.moveTo(p[0], p[1]); });
+        c.lineWidth = s * 0.8; c.strokeStyle = stAlpha(C.warm, 0.16); c.stroke();
+        for (j = 0; j < G.nr; j++) {
+          var hx = stripeX(k, G.y(j));
+          if (hx > G.ox - s * 0.4 && hx < G.ox + (G.nc - 1) * s + s * 0.4) dot(c, hx, G.y(j), 2.8, stAlpha(C.warm, 0.9));
+        }
+        c.restore();
+      }
+      // spins: staggered pattern times a sign that flips across every stripe, shrinking near a stripe
+      for (i = 0; i < G.nc; i++) for (j = 0; j < G.nr; j++) {
+        var x = G.x(i), y = G.y(j), mag = 1;
+        for (var k2 = -1; k2 < nk; k2++) mag *= Math.tanh((x - stripeX(k2, y)) / (0.42 * s));
+        var sgn = mag >= 0 ? 1 : -1, L = 13 * Math.pow(Math.abs(mag), 0.8);
+        var ang = neel(i, j) === UP ? (sgn > 0 ? UP : DOWN) : (sgn > 0 ? DOWN : UP);
+        spin(c, x, y, ang, L, C.accent, 1.3);
+      }
+      legendDraw(c, C, W - m - lw, H / 2, rows, 24);
+    }
+
+    /* 6. Phase fluctuations: as the sample cools, pairs form below T* with random phases, and the phases
+       lock together only below Tc. */
+    var PH = (function () { var r = stRng(77), a = []; for (var i = 0; i < 48; i++) a.push({ th: r() * TAU, w: (r() - 0.5) * 2.4, ex: r() * TAU, ey: r() * TAU, sp: 0.6 + r() }); return a; })();
+    function phaseTemp(tt) {   // temperature in units where Tc = 1 and T* = 2.4
+      var k = [[0, 3.4], [2.2, 3.4], [3.6, 1.7], [6.6, 1.7], [7.8, 0.45], [11.2, 0.45], [13.6, 3.4], [14, 3.4]];
+      for (var i = 0; i < k.length - 1; i++) if (tt <= k[i + 1][0]) return k[i][1] + (k[i + 1][1] - k[i][1]) * stEase((tt - k[i][0]) / (k[i + 1][0] - k[i][0]));
+      return 3.4;
+    }
+    function drawPhase(c, C, W, H, t) {
+      var P = 14, tt = md(t, P), m = 10, T = phaseTemp(tt);
+      var paired = stClamp((2.4 - T) / 0.35 + 0.5), order = stClamp((1 - T) / 0.25 + 0.5);
+      var state = T > 2.4 ? 'no pairs yet' : T > 1 ? 'pairs, random phases' : 'phases lock: superconductor';
+      // thermometer column
+      var tw = 52, tx = W - m - tw + 10, ty0 = 16, ty1 = H - 16;
+      function TY(v) { return ty1 - v / 3.6 * (ty1 - ty0); }
+      stRound(c, tx - 3, ty0, 6, ty1 - ty0, 3); c.fillStyle = C.surface; c.fill(); c.lineWidth = 1; c.strokeStyle = C.axis; c.stroke();
+      c.fillStyle = stAlpha(T > 1 ? C.warm : C.accent, 0.7); c.fillRect(tx - 1.5, TY(T), 3, ty1 - TY(T));
+      [[2.4, 'pair'], [1, 'c']].forEach(function (q) {
+        c.strokeStyle = C.ink2; c.lineWidth = 1; seg(c, tx + 4, TY(q[0]), tx + 8, TY(q[0]));
+        stSym(c, C, [['T'], [q[1], 1]], tx + 11, TY(q[0]) + 4, { size: 11, color: C.ink2 });
+      });
+      dot(c, tx, TY(T), 4, T > 1 ? C.warm : C.accent, C.surface2);
+      // pairs on a grid
+      var x0 = m + 6, x1 = tx - 22, s = 30, nr = 3;
+      var nc = Math.max(3, Math.min(10, Math.floor((x1 - x0) / s) + 1)), ox = x0 + (x1 - x0 - (nc - 1) * s) / 2, oy = 22;
+      for (var i = 0; i < nc; i++) for (var j = 0; j < nr; j++) {
+        var p = PH[(i * 5 + j * 11) % PH.length], cx = ox + i * s, cy = oy + j * 28;
+        // two electrons: wander apart when unpaired, bind into a dumbbell when paired
+        var wob = 1 - paired, jx = 7 * wob * Math.sin(tt * 2.1 * p.sp + p.ex), jy = 6 * wob * Math.cos(tt * 1.7 * p.sp + p.ey);
+        var th = p.th + p.w * tt, ux = Math.cos(th), uy = Math.sin(th);
+        var vx = (1 - order) * ux, vy = (1 - order) * uy - order, vl = Math.hypot(vx, vy) || 1;
+        vx /= vl; vy /= vl;
+        var ax = -vy * 4.2, ay = vx * 4.2;   // dumbbell perpendicular to the phase arrow
+        var e1x = cx + ax * paired + (1 - paired) * (-6 + jx), e1y = cy + ay * paired + (1 - paired) * (jy - 3);
+        var e2x = cx - ax * paired + (1 - paired) * (6 - jy), e2y = cy - ay * paired + (1 - paired) * (jx * 0.6 + 3);
+        if (paired > 0.05) { c.globalAlpha = paired; c.strokeStyle = stAlpha(C.ink2, 0.6); c.lineWidth = 1.2; seg(c, e1x, e1y, e2x, e2y); c.globalAlpha = 1; }
+        dot(c, e1x, e1y, 2.6, C.ink2); dot(c, e2x, e2y, 2.6, C.ink2);
+        if (paired > 0.05) { c.globalAlpha = paired; arrow(c, cx - vx * 2, cy - vy * 2, cx + vx * 11, cy + vy * 11, order > 0.5 ? C.accent : C.warm, 4.5, 1.5); c.globalAlpha = 1; }
+      }
+      stTag(c, C, state, (x0 + x1) / 2, H - 12, { size: 10.5, pad: 6, bg: C.surface, ring: order > 0.5 ? C.accent : paired > 0.5 ? C.warm : C.axis, color: C.ink });
+    }
+
+    /* 7. Bipolarons: each electron pulls the nearby ions in (a polaron); two electrons then share one
+       distortion and travel together as a bound pair. */
+    function drawBipolaron(c, C, W, H, t) {
+      var P = 12, tt = md(t, P), m = 10;
+      var bind = stSpan(tt, 3.6, 5.6) * (1 - stSpan(tt, 11.0, 11.9));
+      var rows = [
+        { text: 'ions pulled in', sw: function (x, y) { dot(c, x - 4, y, 2.4, C.muted); arrow(c, x - 1, y, x + 7, y, C.ink2, 3.5, 1.1); } },
+        { text: 'polaron: e + its dent', sw: function (x, y) { glow(c, x, y, 7, C.accent, 0.5); dot(c, x, y, 2.8, C.accent); }, on: 1 - bind },
+        { text: 'bipolaron: one dent', sw: function (x, y) { ring(c, x, y, 7, C.warm, 1.4); dot(c, x - 3, y, 2.4, C.accent); dot(c, x + 3, y, 2.4, C.accent); }, on: bind }
+      ];
+      var lw = legendWidth(c, C, rows), x0 = m + 6, x1 = W - m - lw - 12, s = 17;
+      var G = grid(x0, x1, s, 5, H / 2, 6, 16), wide = (G.nc - 1) * s;
+      // electron paths: slow and apart, then together, then moving as one
+      var mid = G.ox + wide * (0.5 + 0.18 * Math.sin(TAU * tt / P)), apart = wide * 0.34 * (1 - bind) + 5.5 * bind;
+      var cy = G.y(2) + 0.5 * s * Math.sin(TAU * tt / 6);
+      var drift = bind > 0.99 ? wide * 0.12 * Math.sin(TAU * (tt - 5.6) / 5.4) : 0;
+      var es = [[mid - apart + drift, cy + (1 - bind) * 0.6 * s * Math.sin(tt * 1.3)], [mid + apart + drift, cy - (1 - bind) * 0.6 * s * Math.sin(tt * 1.1 + 1)]];
+      // dents
+      es.forEach(function (e) { glow(c, e[0], e[1], 15, C.accent, 0.32 * (1 - 0.7 * bind)); });
+      var close = stClamp((bind - 0.55) / 0.35);
+      if (close > 0) glow(c, (es[0][0] + es[1][0]) / 2, (es[0][1] + es[1][1]) / 2, 22, C.accent, 0.38 * close);
+      // ions, displaced toward the electrons
+      c.beginPath();
+      for (var i = 0; i < G.nc; i++) for (var j = 0; j < G.nr; j++) {
+        var x = G.x(i), y = G.y(j), dx = 0, dy = 0;
+        es.forEach(function (e) {
+          var rx = e[0] - x, ry = e[1] - y, r2 = rx * rx + ry * ry, r = Math.sqrt(r2) || 1, pull = (3.4 + 1.6 * bind) * Math.exp(-r2 / (2 * 15 * 15)) * stClamp((r - 5) / 9);
+          dx += rx / r * pull; dy += ry / r * pull;
+        });
+        c.moveTo(x + dx + 2.4, y + dy); c.arc(x + dx, y + dy, 2.4, 0, TAU);
+      }
+      c.fillStyle = C.muted; c.fill();
+      if (close > 0) { c.globalAlpha = close; ring(c, (es[0][0] + es[1][0]) / 2, (es[0][1] + es[1][1]) / 2, 12, C.warm, 1.6); c.globalAlpha = 1; }
+      es.forEach(function (e) { dot(c, e[0], e[1], 3.4, C.accent); });
+      legendDraw(c, C, W - m - lw, H / 2, rows, 24);
+    }
+
+    /* 8. Strange metal: resistivity linear in T down to Tc (and extrapolating to zero at T = 0), against
+       the T² of an ordinary metal; superconductivity takes over below Tc. */
+    function drawStrange(c, C, W, H, t) {
+      var P = 10, tt = md(t, P), m = 10;
+      var rows = [
+        { text: 'strange metal: ρ ∝ T', sw: function (x, y) { c.strokeStyle = C.warm; c.lineWidth = 2; seg(c, x - 6, y + 3, x + 6, y - 3); } },
+        { text: 'Fermi liquid: ρ ∝ T²', sw: function (x, y) { c.strokeStyle = C.ink2; c.lineWidth = 1.4; c.setLineDash([3, 2]); c.beginPath(); c.moveTo(x - 6, y + 3); c.quadraticCurveTo(x + 2, y + 3, x + 6, y - 4); c.stroke(); c.setLineDash([]); } },
+        { text: 'scattering ħ/τ ≈ kT', parts: [['scattering ħ/τ ≈ k'], ['B', 1], [' T']], sw: null }
+      ];
+      var lw = legendWidth(c, C, rows), px0 = m + 16, px1 = W - m - lw - 12, py0 = 14, py1 = H - 22, Tc = 90;
+      function X(T) { return px0 + T / 300 * (px1 - px0); }
+      function Y(r) { return py1 - r * (py1 - py0); }
+      c.strokeStyle = C.axis; c.lineWidth = 1; seg(c, px0, py0, px0, py1); seg(c, px0, py1, px1, py1);
+      label(c, C, 'ρ', px0 - 6, py0 + 6, { size: 11, align: 'right', color: C.muted });
+      label(c, C, 'T', px1, py1 + 14, { size: 11, align: 'right', color: C.muted });
+      stSym(c, C, [['T'], ['c', 1]], X(Tc), py1 + 14, { size: 11, align: 'center', color: C.ink2 });
+      c.setLineDash([2, 3]); c.strokeStyle = C.grid; seg(c, X(Tc), py0 + 6, X(Tc), py1); c.setLineDash([]);
+      // ordinary metal for comparison
+      c.beginPath();
+      for (var i = 0; i <= 40; i++) { var T1 = 300 * i / 40, r1 = 0.05 + 0.85 * Math.pow(T1 / 300, 2); if (i) c.lineTo(X(T1), Y(r1)); else c.moveTo(X(T1), Y(r1)); }
+      c.strokeStyle = C.ink2; c.lineWidth = 1.3; c.setLineDash([3, 2]); c.stroke(); c.setLineDash([]);
+      // strange metal: linear, with the extrapolation to zero below Tc dotted
+      c.strokeStyle = stAlpha(C.warm, 0.5); c.lineWidth = 1.2; c.setLineDash([1.5, 3]); seg(c, X(0), Y(0), X(Tc), Y(0.9 * Tc / 300)); c.setLineDash([]);
+      c.strokeStyle = C.warm; c.lineWidth = 2;
+      c.beginPath(); c.moveTo(X(0), Y(0)); c.lineTo(X(Tc - 4), Y(0)); c.lineTo(X(Tc + 2), Y(0.9 * (Tc + 2) / 300)); c.lineTo(X(300), Y(0.9)); c.stroke();
+      // a probe sweeping down in temperature and back
+      var T = 300 - 280 * (0.5 - 0.5 * Math.cos(TAU * tt / P)), r = T < Tc - 2 ? 0 : 0.9 * T / 300;
+      dot(c, X(T), Y(r), 4.2, C.warm, C.surface2);
+      if (T < Tc - 2) stTag(c, C, 'ρ = 0', X(T), Y(0) - 15, { size: 10, pad: 4, bg: stAlpha(C.accent, 0.16), ring: C.accent, color: C.ink });
+      legendDraw(c, C, W - m - lw, H / 2, rows, 24);
+    }
+
+    /* 9. Overview: the cuprate phase diagram (schematic), with a doping probe that names the idea
+       that addresses each region. Drawn on a taller canvas. */
+    var CU = [
+      [0.03, 'Mott insulator', 'Hubbard model, t–J'],
+      [0.10, 'Pseudogap', 'RVB, preformed pairs'],
+      [0.14, 'Stripes near p = 1/8', 'intertwined orders'],
+      [0.20, 'd-wave dome', 'spin fluctuations'],
+      [0.25, 'Strange metal', 'quantum criticality'],
+      [0.31, 'Fermi liquid', 'ordinary metal']
+    ];
+    function cuTc(p) { var v = 95 * (1 - 82.6 * (p - 0.16) * (p - 0.16)); return v > 0 ? v : 0; }
+    function cuTN(p) { var v = 330 * (1 - Math.pow(p / 0.027, 2)); return v > 0 ? v : 0; }
+    function cuTs(p) { return p < 0.19 ? 360 * (1 - p / 0.19) : 0; }
+    function cuCO(p) { var v = 150 * (1 - Math.pow((p - 0.12) / 0.045, 2)); return v > 0 ? Math.min(v, cuTs(p)) : 0; }
+    function cuFL(p) { return p > 0.19 ? 1500 * (p - 0.19) : 0; }
+    function drawCuprate(c, C, W, H, t) {
+      var P = 26, tt = md(t, P), m = 10;
+      var x0 = m + 30, x1 = W - m - 6, y0 = 46, y1 = H - 38;
+      function X(p) { return x0 + p / 0.3 * (x1 - x0); }
+      function Y(T) { return y1 - T / 400 * (y1 - y0); }
+      function area(f, color, a, from, to) {
+        c.beginPath(); c.moveTo(X(from), Y(0));
+        for (var i = 0; i <= 120; i++) { var p = from + (to - from) * i / 120; c.lineTo(X(p), Y(f(p))); }
+        c.lineTo(X(to), Y(0)); c.closePath(); c.fillStyle = stAlpha(color, a); c.fill();
+      }
+      // probe position: dwell at the centre of each region
+      var stops = [0.012, 0.07, 0.12, 0.165, 0.225, 0.28], dwell = P / stops.length, k = Math.floor(tt / dwell), f = stSpan(tt - k * dwell, dwell * 0.72, dwell);
+      var pm = stops[k] + (stops[(k + 1) % stops.length] - stops[k]) * f, reg = 0;
+      while (reg < CU.length - 1 && pm > CU[reg][0]) reg++;
+      c.save(); c.beginPath(); c.rect(x0, y0 - 4, x1 - x0, y1 - y0 + 4); c.clip();
+      // strange metal: the fan above T* and the Fermi-liquid crossover, narrowing to the critical point
+      c.beginPath(); c.moveTo(X(0.19), Y(0)); c.lineTo(X(0), Y(360)); c.lineTo(X(0), Y(420)); c.lineTo(X(0.3), Y(420)); c.lineTo(X(0.3), Y(cuFL(0.3)));
+      c.closePath(); c.fillStyle = stAlpha(C.warm, reg === 4 ? 0.2 : 0.09); c.fill();
+      // pseudogap: under T* and above the other phases
+      area(cuTs, C.muted, reg === 1 ? 0.26 : 0.13, 0, 0.19);
+      area(cuTN, C.ink2, reg === 0 ? 0.5 : 0.3, 0, 0.027);
+      area(cuCO, C.gold || C.warm, reg === 2 ? 0.5 : 0.28, 0.075, 0.165);
+      area(cuTc, C.accent, reg === 3 ? 0.55 : 0.36, 0.05, 0.27);
+      // lines: T* and the Fermi-liquid crossover
+      c.setLineDash([4, 3]); c.lineWidth = 1.2; c.strokeStyle = C.ink2;
+      c.beginPath(); c.moveTo(X(0.0), Y(360)); c.lineTo(X(0.19), Y(0)); c.stroke();
+      c.beginPath(); c.moveTo(X(0.19), Y(0)); c.lineTo(X(0.3), Y(cuFL(0.3))); c.stroke();
+      c.setLineDash([]);
+      c.restore();
+      dot(c, X(0.19), Y(0), 3, C.ink2);
+      // axes
+      c.strokeStyle = C.axis; c.lineWidth = 1; seg(c, x0, y0, x0, y1); seg(c, x0, y1, x1, y1);
+      [0, 0.1, 0.2, 0.3].forEach(function (p) { seg(c, X(p), y1, X(p), y1 + 3); label(c, C, String(p), X(p), y1 + 14, { size: 10.5, align: 'center', color: C.muted }); });
+      [100, 200, 300].forEach(function (T) { seg(c, x0 - 3, Y(T), x0, Y(T)); label(c, C, String(T), x0 - 5, Y(T) + 3.5, { size: 10.5, align: 'right', color: C.muted }); });
+      label(c, C, 'T (K)', x0 - 5, y0 - 8, { size: 10.5, align: 'right', color: C.muted });
+      label(c, C, 'holes per Cu, p', x1, y1 + 28, { size: 10.5, align: 'right', color: C.muted });
+      // region labels (only where they fit)
+      var narrow = W < 380;
+      function rl(text, p, T, align, on) { label(c, C, text, X(p), Y(T), { size: 10.5, align: align || 'center', weight: on ? '600' : '400', color: on ? C.ink : C.ink2 }); }
+      rl('AF', 0.012, 215, 'center', reg === 0);
+      rl('pseudogap', narrow ? 0.085 : 0.09, 205, 'center', reg === 1);
+      rl(narrow ? 'stripes' : 'stripes, charge order', 0.12, 110, 'center', reg === 2);
+      rl('d-wave SC', 0.16, 36, 'center', reg === 3);
+      rl('strange metal', 0.2, 330, 'center', reg === 4);
+      rl(narrow ? 'Fermi liq.' : 'Fermi liquid', 0.298, 50, 'right', reg === 5);
+      label(c, C, 'QCP?', X(0.19) + 5, Y(0) - 5, { size: 10, color: C.muted });
+      // the probe
+      c.strokeStyle = stAlpha(C.ink, 0.55); c.lineWidth = 1.2; c.setLineDash([2, 2]); seg(c, X(pm), y0 + 2, X(pm), y1); c.setLineDash([]);
+      dot(c, X(pm), y1, 4, C.ink, C.surface2);
+      var cap = CU[reg][1] + ' · ' + CU[reg][2];
+      if (textW(c, C, cap, 11.5, '600') > W - 2 * m - 16) cap = CU[reg][1];
+      stTag(c, C, cap, m + 2, 14, { align: 'left', size: 11.5, pad: 7, bg: C.surface, ring: C.axis, color: C.ink });
+    }
+
+    MINI_DRAW.mott = guard(drawMott); MINI_DRAW.rvb = guard(drawRvb); MINI_DRAW.zr = guard(drawZr);
+    MINI_DRAW.spinglue = guard(drawSpinglue); MINI_DRAW.stripes = guard(drawStripes); MINI_DRAW.phase = guard(drawPhase);
+    MINI_DRAW.bipolaron = guard(drawBipolaron); MINI_DRAW.strange = guard(drawStrange); MINI_DRAW.cupratepd = guard(drawCuprate);
+    MINI_STATIC.mott = 7.1; MINI_STATIC.rvb = 1.0; MINI_STATIC.zr = 1.9; MINI_STATIC.spinglue = 3.4; MINI_STATIC.stripes = 2.0;
+    MINI_STATIC.phase = 5.5; MINI_STATIC.bipolaron = 7.0; MINI_STATIC.strange = 3.0; MINI_STATIC.cupratepd = 13.5;
+    MINI_ALT.mott = 'A square lattice of alternating up and down spins, one electron per site. An electron tries to hop onto an occupied neighbour and is pushed back by the repulsion U. Then a doped hole moves through the lattice, and the spins it shifts end up on the wrong sublattice, leaving a trail of frustrated bonds that heals as the hole retraces its path.';
+    MINI_ALT.rvb = 'Neighbouring spins form singlet bonds that flip between a horizontal and a vertical arrangement, a resonating valence bond state. Two doped holes then appear in one row, and the singlets hop two sites at a time into them, so the hole pair moves along the row as a charged pair.';
+    MINI_ALT.zr = 'A copper–oxygen plane with copper spins on a square lattice and oxygen sites between them. A doped hole spreads over the four oxygens around one copper and binds with its spin into a Zhang–Rice singlet of spin zero, which then hops from plaquette to plaquette while the neighbouring copper spin moves the other way, like a single hole in the t–J model.';
+    MINI_ALT.spinglue = 'An electron sits on one site of a fluctuating antiferromagnet, with ripples of spin fluctuations spreading out. Its partner cannot share the site; instead the pair amplitude sits on the four neighbours, positive to the left and right and negative above and below, and the partner visits them in turn: d-wave pairing.';
+    MINI_ALT.stripes = 'Vertical rivers of holes meander and slide through a square lattice of antiferromagnetic spins. Across each river the spin pattern flips, and spins next to a river shrink, the stripe order strongest near one-eighth doping.';
+    MINI_ALT.phase = 'The preformed-pair picture: a thermometer cools and warms a grid of electrons. Above a pairing temperature the electrons wander alone. Between Tc and that temperature they bind into pairs whose phase arrows point every which way. Below Tc all the phase arrows line up and the sample superconducts.';
+    MINI_ALT.bipolaron = 'Two electrons move through a lattice of ions, each pulling nearby ions inward into a dent of its own. They then fall into one shared dent and travel together as a bound pair, a bipolaron.';
+    MINI_ALT.strange = 'Resistivity against temperature: the strange metal is a straight line all the way down to Tc that would extrapolate to zero at zero temperature, while a Fermi-liquid metal bends over as T squared at low temperature. A probe sweeps down in temperature and the resistivity drops to zero at Tc.';
+    MINI_ALT.cupratepd = 'A schematic cuprate phase diagram of temperature against hole doping, with the antiferromagnetic Mott insulator near zero doping, the pseudogap under the T* line, a small charge-stripe dome near one-eighth, the d-wave superconducting dome, a strange-metal fan above a possible quantum critical point near p = 0.19, and the Fermi liquid at high doping. A probe moves across and names the idea that addresses each region.';
+  })();
+
+  /* ---------- news illustrations: one original drawing per news topic (same engine as the card animations) ---------- */
+  (function () {
+    var TAU = Math.PI * 2;
+    function md(t, p) { t = t % p; return t < 0 ? t + p : t; }
+    function seg(c, x0, y0, x1, y1) { c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke(); }
+    function disc(c, x, y, r, fill) { c.beginPath(); c.arc(x, y, r, 0, TAU); c.fillStyle = fill; c.fill(); }
+    function halo(c, x, y, r, color, a) { for (var i = 3; i >= 1; i--) disc(c, x, y, r * i / 3, stAlpha(color, a * 0.28)); }
+    function arrowHead(c, x0, y0, x1, y1, color, hd, lw) {
+      var a = Math.atan2(y1 - y0, x1 - x0);
+      c.strokeStyle = color; c.fillStyle = color; c.lineWidth = lw || 1.3;
+      c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1 - Math.cos(a) * hd * 0.8, y1 - Math.sin(a) * hd * 0.8); c.stroke();
+      c.beginPath(); c.moveTo(x1, y1); c.lineTo(x1 - hd * Math.cos(a - 0.45), y1 - hd * Math.sin(a - 0.45));
+      c.lineTo(x1 - hd * Math.cos(a + 0.45), y1 - hd * Math.sin(a + 0.45)); c.closePath(); c.fill();
+    }
+    function spinAt(c, x, y, ang, L, color) {
+      var dx = Math.cos(ang) * L / 2, dy = Math.sin(ang) * L / 2;
+      arrowHead(c, x - dx, y - dy, x + dx, y + dy, color, Math.max(2.6, L * 0.4), 1.2);
+    }
+    function guard(fn) {
+      return function (c, C, W, H, t) {
+        c.save(); c.lineCap = 'round'; c.lineJoin = 'round'; c.setLineDash([]); c.globalAlpha = 1;
+        try { fn(c, C, W, H, t || 0, Math.min(W / 112, H / 84)); } finally { c.restore(); }
+      };
+    }
+    var D = {};
+
+    // Cuprates: a CuO2 plane and the four-lobed d-wave pair state on it
+    D.cuprate = function (c, C, W, H, t, k) {
+      var s = 22 * k, nx = Math.ceil(W / s) + 1, ny = Math.ceil(H / s) + 1, ox = (W - (nx - 1) * s) / 2, oy = (H - (ny - 1) * s) / 2;
+      c.strokeStyle = C.grid; c.lineWidth = 1;
+      for (var i = 0; i < nx; i++) seg(c, ox + i * s, 0, ox + i * s, H);
+      for (var j = 0; j < ny; j++) seg(c, 0, oy + j * s, W, oy + j * s);
+      for (i = 0; i < nx; i++) for (j = 0; j < ny; j++) {
+        disc(c, ox + i * s + s / 2, oy + j * s, 1.6 * k, C.muted); disc(c, ox + i * s, oy + j * s + s / 2, 1.6 * k, C.muted);
+        disc(c, ox + i * s, oy + j * s, 2.8 * k, C.accent);
+      }
+      var cx = W / 2, cy = H / 2, a = 0.75 + 0.25 * Math.sin(TAU * t / 3);
+      [[1, 0, C.accent], [0, 1, C.warm], [-1, 0, C.accent], [0, -1, C.warm]].forEach(function (q) {
+        c.beginPath(); c.ellipse(cx + q[0] * 13 * k * a, cy + q[1] * 13 * k * a, (q[0] ? 11 : 6) * k * a, (q[0] ? 6 : 11) * k * a, 0, 0, TAU);
+        c.fillStyle = stAlpha(q[2], 0.42); c.fill();
+      });
+      disc(c, cx, cy, 3.2 * k, C.ink);
+    };
+    // Nickelates: two NiO2 layers joined by apical oxygens, with a pair spanning the layers
+    D.nickelate = function (c, C, W, H, t, k) {
+      var n = 5, dx = W * 0.16, x0 = W * 0.18, skew = 10 * k, ys = [H * 0.3, H * 0.7];
+      ys.forEach(function (y) {
+        c.beginPath(); c.moveTo(x0 - 8 * k, y + 6 * k); c.lineTo(x0 + (n - 1) * dx + 4 * k, y + 6 * k); c.lineTo(x0 + (n - 1) * dx + skew + 12 * k, y - 6 * k); c.lineTo(x0 + skew, y - 6 * k); c.closePath();
+        c.fillStyle = stAlpha(C.accent, 0.12); c.fill();
+      });
+      for (var i = 0; i < n; i++) {
+        var x = x0 + i * dx + skew / 2;
+        c.strokeStyle = C.axis; c.lineWidth = 1.4; seg(c, x, ys[0], x, ys[1]);
+        disc(c, x, (ys[0] + ys[1]) / 2, 2 * k, C.muted);
+        disc(c, x, ys[0], 3.2 * k, C.accent); disc(c, x, ys[1], 3.2 * k, C.accent);
+      }
+      var px = x0 + skew / 2 + md(t * 0.35, 1) * (n - 1) * dx;
+      halo(c, px, ys[0], 9 * k, C.warm, 0.7); halo(c, px, ys[1], 9 * k, C.warm, 0.7);
+      c.strokeStyle = stAlpha(C.warm, 0.8); c.lineWidth = 1.6; c.setLineDash([2 * k, 2 * k]); seg(c, px, ys[0] + 4 * k, px, ys[1] - 4 * k); c.setLineDash([]);
+      disc(c, px, ys[0], 2.6 * k, C.warm); disc(c, px, ys[1], 2.6 * k, C.warm);
+    };
+    // Iron-based: iron square lattice, arsenic above and below, fluctuating stripe spins
+    D.iron = function (c, C, W, H, t, k) {
+      var s = 24 * k, nx = Math.floor(W / s) + 1, ny = Math.floor(H / s) + 1, ox = (W - (nx - 1) * s) / 2, oy = (H - (ny - 1) * s) / 2;
+      for (var i = 0; i < nx - 1; i++) for (var j = 0; j < ny - 1; j++) disc(c, ox + (i + 0.5) * s, oy + (j + 0.5) * s, ((i + j) % 2 ? 2.2 : 3.8) * k, stAlpha(C.muted, (i + j) % 2 ? 0.45 : 0.7));
+      for (i = 0; i < nx; i++) for (j = 0; j < ny; j++) {
+        var x = ox + i * s, y = oy + j * s, ang = (j % 2 ? 1 : -1) * Math.PI / 2 + 0.35 * Math.sin(TAU * t / 2.6 + i * 0.9 + j * 0.4), L = 13 * k;
+        disc(c, x, y, 2.6 * k, C.accent);
+        arrowHead(c, x - Math.cos(ang) * L / 2, y - Math.sin(ang) * L / 2, x + Math.cos(ang) * L / 2, y + Math.sin(ang) * L / 2, C.warm, 3.6 * k, 1.4);
+      }
+    };
+    // Hydrides: a hydrogen cage around a metal atom, squeezed between two diamond anvils
+    D.hydride = function (c, C, W, H, t, k) {
+      var sq = 0.5 + 0.5 * Math.sin(TAU * t / 4), cx = W / 2, cy = H / 2, gap = (16 + 6 * (1 - sq)) * k;
+      c.fillStyle = stAlpha(C.accent, 0.16); c.strokeStyle = stAlpha(C.accent, 0.6); c.lineWidth = 1.2;
+      [-1, 1].forEach(function (sd) {
+        c.beginPath(); c.moveTo(cx - 26 * k, cy + sd * (gap + 22 * k)); c.lineTo(cx + 26 * k, cy + sd * (gap + 22 * k)); c.lineTo(cx + 8 * k, cy + sd * gap); c.lineTo(cx - 8 * k, cy + sd * gap); c.closePath(); c.fill(); c.stroke();
+      });
+      var r = (13 - 2.5 * sq) * k;
+      for (var i = 0; i < 12; i++) {
+        var a = TAU * i / 12 + t * 0.4, ring = i % 2, rr = r * (ring ? 0.75 : 1);
+        var x = cx + Math.cos(a) * rr * 1.3 + 0.8 * k * Math.sin(t * 17 + i), y = cy + Math.sin(a) * rr * 0.75 + (ring ? -2 : 2) * k + 0.8 * k * Math.cos(t * 19 + i);
+        disc(c, x, y, 1.9 * k, C.accent);
+      }
+      disc(c, cx, cy, 4.6 * k, C.gold || C.warm);
+      c.strokeStyle = stAlpha(C.warm, 0.6 * sq); c.lineWidth = 1.4;
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (d) { arrowHead(c, cx + d[0] * 40 * k, cy + d[1] * (gap + 14 * k), cx + d[0] * 32 * k, cy + d[1] * (gap + 6 * k), stAlpha(C.warm, 0.7 * sq), 3.2 * k, 1.2); });
+    };
+    // Moiré and 2D: two triangular lattices twisted by a small, slowly changing angle
+    D.moire = function (c, C, W, H, t, k) {
+      var a = 7 * k, th = (3 + 2 * Math.sin(TAU * t / 9)) * Math.PI / 180, cx = W / 2, cy = H / 2, R = Math.hypot(W, H) / 2 + a;
+      [[0, C.accent], [th, C.warm]].forEach(function (L) {
+        var cs = Math.cos(L[0]), sn = Math.sin(L[0]), n = Math.ceil(R / a) + 1;
+        c.beginPath();
+        for (var i = -n; i <= n; i++) for (var j = -n; j <= n; j++) {
+          var u = (i + j / 2) * a, v = j * a * 0.866, x = cx + u * cs - v * sn, y = cy + u * sn + v * cs;
+          if (x < -2 || x > W + 2 || y < -2 || y > H + 2) continue;
+          c.moveTo(x + 1.3 * k, y); c.arc(x, y, 1.3 * k, 0, TAU);
+        }
+        c.fillStyle = stAlpha(L[1], 0.55); c.fill();
+      });
+    };
+    // Kagome: corner-sharing triangles with a breathing charge-density wave
+    D.kagome = function (c, C, W, H, t, k) {
+      var a = 22 * k, b = 0.5 + 0.5 * Math.sin(TAU * t / 3.5), cx = W / 2, cy = H / 2;
+      for (var i = -3; i <= 3; i++) for (var j = -2; j <= 2; j++) {
+        var x0 = cx + (i + j / 2) * a, y0 = cy + j * a * 0.866;
+        var up = [[x0, y0], [x0 + a / 2, y0], [x0 + a / 4, y0 - a * 0.433]];
+        var big = (i + 2 * j) % 2 === 0, sc = 1 + (big ? 0.12 : -0.12) * b, gx = (up[0][0] + up[1][0] + up[2][0]) / 3, gy = (up[0][1] + up[1][1] + up[2][1]) / 3;
+        var p = up.map(function (q) { return [gx + (q[0] - gx) * sc, gy + (q[1] - gy) * sc]; });
+        c.beginPath(); c.moveTo(p[0][0], p[0][1]); c.lineTo(p[1][0], p[1][1]); c.lineTo(p[2][0], p[2][1]); c.closePath();
+        c.fillStyle = stAlpha(big ? C.warm : C.accent, 0.12 + 0.12 * b * (big ? 1 : 0)); c.fill();
+        c.strokeStyle = stAlpha(C.accent, 0.7); c.lineWidth = 1.2; c.stroke();
+        p.forEach(function (q) { disc(c, q[0], q[1], 2 * k, C.accent); });
+      }
+    };
+    // Heavy fermions: light electrons slow down and dress up as they pass large f-moments
+    var HEAVY = (function () { var r = stRng(13), a = []; for (var i = 0; i < 9; i++) a.push([r(), r(), r() * TAU]); return a; })();
+    D.heavy = function (c, C, W, H, t, k) {
+      var mom = [[0.25, 0.32], [0.62, 0.28], [0.42, 0.72], [0.82, 0.68]];
+      mom.forEach(function (m, i) {
+        halo(c, m[0] * W, m[1] * H, 14 * k, C.warm, 0.45);
+        spinAt(c, m[0] * W, m[1] * H, -Math.PI / 2 + 0.6 * Math.sin(t * 0.9 + i * 1.7), 16 * k, C.warm);
+      });
+      HEAVY.forEach(function (e, i) {
+        var x = md(e[0] * W + t * 14 * k * (0.6 + 0.4 * Math.sin(t + e[2])), W), y = e[1] * H + 4 * k * Math.sin(t * 1.5 + e[2]);
+        var near = 0;
+        mom.forEach(function (m) { near = Math.max(near, 1 - Math.hypot(x - m[0] * W, y - m[1] * H) / (22 * k)); });
+        if (near > 0) halo(c, x, y, 7 * k, C.accent, 0.5 * near);
+        disc(c, x, y, 2.2 * k, C.accent);
+      });
+    };
+    // Triplet pairing: a rotating p-wave orbital carrying two parallel spins
+    D.triplet = function (c, C, W, H, t, k) {
+      var cx = W / 2, cy = H / 2, a = t * 0.7, L = 18 * k;
+      [[1, C.accent], [-1, C.warm]].forEach(function (q) {
+        var x = cx + q[0] * Math.cos(a) * L, y = cy + q[0] * Math.sin(a) * L * 0.8;
+        c.beginPath(); c.ellipse(x, y, 15 * k, 9 * k, a, 0, TAU); c.fillStyle = stAlpha(q[1], 0.3); c.fill();
+        spinAt(c, x, y, -Math.PI / 2, 14 * k, q[1]);
+      });
+      c.strokeStyle = stAlpha(C.ink2, 0.35); c.lineWidth = 1; c.setLineDash([2 * k, 3 * k]);
+      c.beginPath(); c.ellipse(cx, cy, L, L * 0.8, 0, 0, TAU); c.stroke(); c.setLineDash([]);
+      disc(c, cx, cy, 2 * k, C.ink2);
+    };
+    // Topological: a nanowire on a superconductor with Majorana modes glowing at its ends
+    D.topo = function (c, C, W, H, t, k) {
+      var y = H * 0.48, x0 = W * 0.14, x1 = W * 0.86, g = 0.6 + 0.4 * Math.sin(TAU * t / 2.4);
+      c.fillStyle = stAlpha(C.accent, 0.18); c.fillRect(W * 0.06, y + 7 * k, W * 0.88, 14 * k);
+      stRound(c, x0, y - 5 * k, x1 - x0, 10 * k, 5 * k); c.fillStyle = C.surface; c.fill(); c.strokeStyle = C.axis; c.lineWidth = 1.2; c.stroke();
+      c.beginPath();
+      for (var i = 0; i <= 60; i++) {
+        var u = i / 60, x = x0 + u * (x1 - x0), env = Math.exp(-u * 7) + Math.exp(-(1 - u) * 7), yy = y - 14 * k * env * g * (0.6 + 0.4 * Math.cos(u * 40));
+        if (i) c.lineTo(x, yy); else c.moveTo(x, yy);
+      }
+      c.strokeStyle = stAlpha(C.gold || C.warm, 0.8); c.lineWidth = 1.4; c.stroke();
+      halo(c, x0 + 4 * k, y, 10 * k * g, C.gold || C.warm, 0.8); halo(c, x1 - 4 * k, y, 10 * k * g, C.gold || C.warm, 0.8);
+    };
+    // Electron–phonon: an electron pulls the ions together behind it; a partner rides the wake
+    D.eph = function (c, C, W, H, t, k) {
+      var s = 14 * k, nx = Math.ceil(W / s) + 1, rows = [H * 0.3, H * 0.7], ex = md(t * 22 * k, W + 40 * k) - 20 * k, ey = H / 2;
+      rows.forEach(function (ry, ri) {
+        for (var i = 0; i < nx; i++) {
+          var x = i * s, d = x - ex, pull = d < 0 ? Math.exp(d / (26 * k)) : Math.exp(-d / (6 * k));
+          disc(c, x, ry + (ri ? -1 : 1) * 5 * k * pull, 3 * k, C.muted);
+        }
+      });
+      c.fillStyle = stAlpha(C.warm, 0.12); c.fillRect(ex - 40 * k, rows[0], 40 * k, rows[1] - rows[0]);
+      halo(c, ex, ey, 8 * k, C.accent, 0.6); disc(c, ex, ey, 3 * k, C.accent);
+      var px = ex - 26 * k; halo(c, px, ey, 7 * k, C.accent, 0.4); disc(c, px, ey, 2.6 * k, C.accent);
+    };
+    // Vortices and junctions: a lattice of swirling flux vortices
+    D.vortex = function (c, C, W, H, t, k) {
+      var a = 30 * k, cx = W / 2, cy = H / 2;
+      for (var i = -2; i <= 2; i++) for (var j = -1; j <= 1; j++) {
+        var x = cx + (i + (j % 2 ? 0.5 : 0)) * a, y = cy + j * a * 0.866;
+        if (x < -10 || x > W + 10) continue;
+        disc(c, x, y, 3 * k, stAlpha(C.accent, 0.8));
+        for (var r = 1; r <= 2; r++) {
+          var rr = r * 6 * k, a0 = t * (3 - r) + i + j;
+          c.beginPath(); c.arc(x, y, rr, a0, a0 + TAU * 0.7); c.strokeStyle = stAlpha(C.accent, 0.55 - r * 0.15); c.lineWidth = 1.2; c.stroke();
+          arrowHead(c, x + Math.cos(a0 + TAU * 0.68) * rr, y + Math.sin(a0 + TAU * 0.68) * rr, x + Math.cos(a0 + TAU * 0.7) * rr, y + Math.sin(a0 + TAU * 0.7) * rr, stAlpha(C.accent, 0.55 - r * 0.15), 3 * k, 1.2);
+        }
+      }
+    };
+    // AI and data: a crystal feeds a small network whose output lights up
+    D.ai = function (c, C, W, H, t, k) {
+      var cols = [W * 0.42, W * 0.62, W * 0.84], n = [4, 3, 1], pts = cols.map(function (x, ci) { var a = []; for (var i = 0; i < n[ci]; i++) a.push([x, H * (n[ci] === 1 ? 0.5 : 0.2 + 0.6 * i / (n[ci] - 1))]); return a; });
+      for (var i = 0; i < 3; i++) for (var j = 0; j < 3; j++) disc(c, W * 0.08 + i * 9 * k, H * 0.32 + j * 10 * k, 2.4 * k, (i + j) % 2 ? C.muted : C.accent);
+      c.strokeStyle = C.axis; c.lineWidth = 1; arrowHead(c, W * 0.29, H / 2, W * 0.36, H / 2, C.axis, 3 * k, 1);
+      var ph = md(t / 2.2, 1);
+      for (var l = 0; l < 2; l++) pts[l].forEach(function (p) { pts[l + 1].forEach(function (q) {
+        var on = Math.max(0, 1 - Math.abs(ph * 3 - (l + 0.5)) * 1.6);
+        c.strokeStyle = stAlpha(on > 0.05 ? C.warm : C.grid, on > 0.05 ? 0.3 + 0.6 * on : 1); c.lineWidth = 1; seg(c, p[0], p[1], q[0], q[1]);
+      }); });
+      pts.forEach(function (col, ci) { col.forEach(function (p) {
+        var on = Math.max(0, 1 - Math.abs(ph * 3 - ci) * 1.6);
+        if (on > 0.05) halo(c, p[0], p[1], 8 * k, C.warm, 0.6 * on);
+        disc(c, p[0], p[1], 3 * k, C.accent);
+      }); });
+    };
+    // Quantum devices: a transmon qubit and its state swinging around a Bloch circle
+    D.qubit = function (c, C, W, H, t, k) {
+      var cx = W * 0.32, cy = H / 2, s = 9 * k;
+      c.fillStyle = stAlpha(C.accent, 0.35); c.strokeStyle = C.accent; c.lineWidth = 1.2;
+      [[0, -1], [1, 0], [0, 1], [-1, 0]].forEach(function (d) { c.fillRect(cx + d[0] * 2 * s - (d[0] ? s * 0.6 : s * 0.5), cy + d[1] * 2 * s - (d[1] ? s * 0.6 : s * 0.5), d[0] ? s * 1.2 : s, d[1] ? s * 1.2 : s); });
+      c.fillRect(cx - s * 0.5, cy - s * 0.5, s, s);
+      c.fillStyle = C.warm; c.fillRect(cx + s * 0.5, cy - 1.5 * k, s * 0.9, 3 * k);
+      var bx = W * 0.74, by = H / 2, R = Math.min(W * 0.18, H * 0.34), a = TAU * t / 3;
+      c.strokeStyle = C.axis; c.lineWidth = 1; c.beginPath(); c.arc(bx, by, R, 0, TAU); c.stroke();
+      c.beginPath(); c.ellipse(bx, by, R, R * 0.3, 0, 0, TAU); c.strokeStyle = C.grid; c.stroke();
+      arrowHead(c, bx, by, bx + Math.sin(a) * R * 0.9, by - Math.cos(a) * R * 0.9, C.warm, 4 * k, 1.6);
+    };
+    // Anything else: a magnet floating above a cold superconductor (the Meissner effect)
+    D.general = function (c, C, W, H, t, k) {
+      var cx = W / 2, by = H * 0.72, f = 3 * k * Math.sin(TAU * t / 3);
+      c.beginPath(); c.ellipse(cx, by + 6 * k, W * 0.34, 9 * k, 0, 0, TAU); c.fillStyle = stAlpha(C.accent, 0.35); c.fill();
+      c.beginPath(); c.ellipse(cx, by, W * 0.34, 9 * k, 0, 0, TAU); c.fillStyle = C.surface; c.fill(); c.strokeStyle = C.axis; c.lineWidth = 1; c.stroke();
+      halo(c, cx, by, 16 * k, C.aqua || C.accent, 0.55);
+      var my = H * 0.36 + f, w = 15 * k;
+      c.beginPath(); c.moveTo(cx - w, my); c.lineTo(cx, my - w * 0.32); c.lineTo(cx + w, my); c.lineTo(cx, my + w * 0.32); c.closePath(); c.fillStyle = mix(C.warm, '#ffffff', 0.45); c.fill();
+      c.beginPath(); c.moveTo(cx - w, my); c.lineTo(cx, my + w * 0.32); c.lineTo(cx, my + w * 1.6); c.lineTo(cx - w, my + w * 1.28); c.closePath(); c.fillStyle = C.warm; c.fill();
+      c.beginPath(); c.moveTo(cx + w, my); c.lineTo(cx, my + w * 0.32); c.lineTo(cx, my + w * 1.6); c.lineTo(cx + w, my + w * 1.28); c.closePath(); c.fillStyle = mix(C.warm, '#000000', 0.2); c.fill();
+    };
+
+    var ALT = {
+      cuprate: 'A copper-oxide plane with a four-lobed d-wave pair state pulsing on it.',
+      nickelate: 'Two nickel-oxide layers joined by oxygen bridges, with a pair of electrons spanning the layers.',
+      iron: 'An iron square lattice with arsenic above and below and fluctuating stripe-ordered spins.',
+      hydride: 'A cage of hydrogen atoms around a metal atom, squeezed between two diamond anvils.',
+      moire: 'Two atomic lattices twisted by a small angle, forming a slowly changing moiré pattern.',
+      kagome: 'A kagome lattice of corner-sharing triangles with a breathing charge-density wave.',
+      heavy: 'Light electrons slow down and gather clouds around large f-electron moments.',
+      triplet: 'A rotating p-wave orbital carrying two parallel spins.',
+      topo: 'A nanowire on a superconductor with Majorana modes glowing at its two ends.',
+      eph: 'An electron pulls the ions together behind it and a second electron rides in the wake.',
+      vortex: 'A triangular lattice of swirling magnetic-flux vortices.',
+      ai: 'A crystal structure feeds a small neural network whose layers light up in turn.',
+      qubit: 'A cross-shaped superconducting qubit beside a Bloch circle whose arrow swings back and forth.',
+      general: 'A magnet floating above a cold superconductor, the Meissner effect.'
+    };
+    Object.keys(D).forEach(function (kind) {
+      MINI_DRAW['news-' + kind] = guard(D[kind]);
+      MINI_STATIC['news-' + kind] = 1.2;
+      MINI_ALT['news-' + kind] = ALT[kind];
+    });
+  })();
+  // Which drawing goes with a news item: its first material or physics topic in this order; a qubit for device stories; else the floating magnet.
+  var NEWS_ART = [['Hydrides', 'hydride'], ['Cuprates', 'cuprate'], ['Nickelates', 'nickelate'], ['Iron-based', 'iron'],
+    ['Moiré and 2D', 'moire'], ['Kagome', 'kagome'], ['Heavy fermions', 'heavy'], ['Triplet and ruthenates', 'triplet'],
+    ['Topological', 'topo'], ['Electron–phonon', 'eph'], ['Vortices and junctions', 'vortex'], ['AI and data', 'ai']];
+  function newsArt(n) {
+    var tp = list(n.topics), head = String(n.title || ''), body = head + ' ' + String(n.summary || '');
+    for (var i = 0; i < NEWS_ART.length; i++) if (tp.indexOf(NEWS_ART[i][0]) >= 0) return 'news-' + NEWS_ART[i][1];
+    // older feed entries carry "Quantum devices" for any story that mentions quantum computers, so look for a device word too
+    if (/qubit|transmon|fluxonium|quantum (processor|computer|computing|information|memory|technolog)|superconducting circuit|circuit QED|single-photon/i.test(head) ||
+        /qubit|transmon|fluxonium|circuit QED/i.test(body)) return 'news-qubit';
+    return 'news-general';
+  }
+
+  /* ---------- mini animations on the Theory & materials cards and the news ----------
+     One requestAnimationFrame loop draws only the canvases on screen, and only while their view is open. */
   var MINI = { items: [], raf: 0, last: 0, obs: null };
   function miniCanvas(kind) {
     var cv = h('canvas', { class: 'mini', role: 'img', 'aria-label': MINI_ALT[kind] || '' });
@@ -5316,14 +6295,15 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       return false;
     });
   }
+  function miniOn() { return (view === 'learn' || view === 'papers' || view === 'authors') && !document.hidden; }
   function miniKick() {
-    if (MINI.raf || view !== 'learn' || document.hidden) return;
+    if (MINI.raf || !miniOn()) return;
     MINI.last = 0;
     MINI.raf = requestAnimationFrame(miniFrame);
   }
   function miniFrame(ts) {
     MINI.raf = 0;
-    if (view !== 'learn' || document.hidden) return;
+    if (!miniOn()) return;
     var moving = motionOK(), dt = moving && MINI.last ? Math.min(0.05, (ts - MINI.last) / 1000) : 0, any = false;
     MINI.last = ts;
     var C = colors();
@@ -5348,7 +6328,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     });
     if (moving && any) MINI.raf = requestAnimationFrame(miniFrame);
   }
-  window.addEventListener('resize', function () { if (view === 'learn') { MINI.items.forEach(function (it) { it.W = 0; }); miniKick(); } });
+  window.addEventListener('resize', function () { if (miniOn()) { MINI.items.forEach(function (it) { it.W = 0; }); miniKick(); } });
   document.addEventListener('visibilitychange', function () { if (!document.hidden) miniKick(); });
 
   /* ---------- Theory & materials view ---------- */
@@ -5413,7 +6393,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       text: 'Cooper pairs tunnel through a thin barrier between two superconductors, carrying a current set by the phase difference. It underlies SQUID magnetometers, voltage standards and superconducting qubits. Nobel Prize 1973.',
       refs: ['josephson1962'] },
     { anim: 'dwave', name: 'd-wave pairing and spin fluctuations', year: '1986–', who: 'Cuprate superconductors',
-      text: 'In the cuprates the gap changes sign around the Fermi surface (d-wave symmetry), which phonons alone cannot easily produce. Leading proposals put the pairing glue in antiferromagnetic spin fluctuations or in Anderson’s resonating-valence-bond picture; there is still no consensus.',
+      text: 'In the cuprates the gap changes sign around the Fermi surface (d-wave symmetry), which phonons alone cannot easily produce. Leading proposals put the pairing glue in antiferromagnetic spin fluctuations or in Anderson’s resonating-valence-bond picture; there is still no consensus. The main ideas are compared under Classic mechanisms of high-Tc superconductivity.',
       refs: ['bednorz1986', 'anderson1987', 'tsuei2000', 'scalapino2012'] },
     { anim: 'spm', name: 's± pairing', year: '2008', who: 'Iron-based superconductors',
       text: 'In iron pnictides the gap is thought to take opposite signs on the hole and electron pockets of the Fermi surface, a state favoured by spin fluctuations that connect the pockets.',
@@ -5422,8 +6402,44 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       text: 'Some superconductors are predicted to host Majorana modes at edges or in vortices: quasiparticles that are their own antiparticles and a candidate building block for fault-tolerant quantum computers. Experimental confirmation is still debated.',
       refs: ['kitaev2001', 'fukane2008'] },
     { anim: 'moire', name: 'Flat bands and moiré superconductivity', year: '2011–', who: 'Twisted bilayer graphene',
-      text: 'Twisting two graphene sheets by about 1.1° flattens the electronic bands, so interactions dominate. The result shows correlated insulating states and superconductivity: a tunable playground for strongly correlated pairing.',
+      text: 'Twisting two graphene sheets by about 1.1° flattens the electronic bands, so interactions dominate. The result shows correlated insulating states and superconductivity: a tunable playground for strongly correlated pairing. Flat bands also appear without a twist: in rhombohedral (ABC-stacked) multilayer graphene the bands are flat near their edges, and it superconducts too, with no moiré pattern.',
       refs: ['bistritzer2011', 'cao2018'] }
+  ];
+
+  // Classic ideas for the cuprates (and other high-Tc superconductors); open: what is still unsettled.
+  var MECHANISMS = [
+    { anim: 'mott', name: 'Mott insulator and the Hubbard model', year: '1963 · 1987', who: 'John Hubbard; Philip W. Anderson',
+      text: 'Band theory says undoped cuprates should be metals, yet they insulate: the repulsion U between two electrons on one copper site stops charge from moving, and the spins order antiferromagnetically through superexchange J ≈ 4t²/U. Strictly, the cuprates are charge-transfer insulators, with the gap between oxygen and copper states, but the low-energy physics is similar. Removing electrons melts the order and superconductivity appears. The Hubbard model, hopping t plus on-site U, is the minimal model of all this.',
+      open: 'Whether the plain Hubbard model superconducts is debated: large simulations find stripes and d-wave pairing nearly tied in energy, and adding next-nearest-neighbour hopping tips the balance.',
+      refs: ['hubbard1963', 'anderson1987', 'lee2006', 'qin2020'] },
+    { anim: 'rvb', name: 'Resonating valence bonds (RVB)', year: '1987', who: 'Philip W. Anderson; G. Baskaran, Z. Zou & P. W. Anderson; G. Kotliar & J. Liu',
+      text: 'Anderson proposed that neighbouring copper spins pair into singlets, or valence bonds, that resonate among many arrangements like the bonds in benzene, instead of ordering. The singlets are pairs already: once doped holes let them move, they become charged Cooper pairs. Mean-field versions of the idea predicted d-wave pairing and a spin gap above Tc akin to the pseudogap. Anderson had first proposed RVB in 1973 as a new kind of insulator, and the cuprates revived the search for such quantum spin liquids.',
+      open: 'Undoped cuprates order antiferromagnetically rather than forming a spin liquid, and how much RVB physics survives near optimal doping is disputed.',
+      refs: ['anderson1973', 'anderson1987', 'baskaran1987', 'kotliar1988', 'lee2006'] },
+    { anim: 'zr', name: 't–J model and Zhang–Rice singlets', year: '1977 · 1988', who: 'K. A. Chao, J. Spałek & A. M. Oleś; Victor Emery; Fu-Chun Zhang & T. Maurice Rice',
+      text: 'In the CuO₂ plane a doped hole sits mostly on the four oxygens around a copper and locks with the copper spin into a singlet, the Zhang–Rice singlet. It moves through the antiferromagnet like a vacancy, which reduces Emery’s three-band model of copper and oxygen orbitals to the one-band t–J model, first derived from the Hubbard model at large U in 1977: hopping t with no double occupancy, plus the exchange J between neighbouring spins.',
+      open: 'How much of the cuprates one band can capture, and whether these models reach the observed Tc, is tested with ever larger simulations.',
+      refs: ['chao1977', 'emery1987', 'zhangrice1988', 'lee2006'] },
+    { anim: 'spinglue', name: 'Spin-fluctuation pairing', year: '1986–', who: 'D. Scalapino, E. Loh & J. Hirsch; K. Miyake, S. Schmitt-Rink & C. Varma; P. Monthoux, A. Balatsky & D. Pines',
+      text: 'Near an antiferromagnet, electrons can pair by exchanging spin fluctuations, a magnetic stand-in for phonons. The interaction repels two electrons on the same site but attracts them on neighbouring sites, so the pair spreads onto the neighbours with a plus sign along x and a minus sign along y. That is d-wave symmetry, later confirmed by phase-sensitive experiments.',
+      open: 'Strong spin fluctuations are seen with neutrons and X-rays, but whether they alone can account for a Tc near 100 K is still argued.',
+      refs: ['scalapino1986', 'miyake1986', 'monthoux1991', 'scalapino2012', 'tsuei2000'] },
+    { anim: 'stripes', name: 'Stripes and intertwined orders', year: '1989–1995', who: 'Jan Zaanen & Olle Gunnarsson; John Tranquada and colleagues; Eduardo Fradkin & Steven Kivelson',
+      text: 'Doped holes can gather into rivers of charge that separate antiferromagnetic domains, with the spin pattern flipping across each river. Predicted by mean-field theory in 1989 and seen with neutrons in 1995, static stripes are strongest near 1/8 doping, where Tc dips in La₂₋ₓBaₓCuO₄. Charge order has since been found in most cuprate families.',
+      open: 'Whether fluctuating stripes help pairing or compete with it, and how they intertwine with a pair-density wave, is still open.',
+      refs: ['zaanen1989', 'tranquada1995', 'fradkin2015'] },
+    { anim: 'phase', name: 'Phase fluctuations and preformed pairs', year: '1989–1995', who: 'Yasutomo Uemura and colleagues; Victor Emery & Steven Kivelson',
+      text: 'In underdoped cuprates the superfluid density is small, so the phase of the pair wave function is floppy. Emery and Kivelson argued that Tc is then set by when the phases line up rather than when pairs form, in line with Uemura’s finding that Tc tracks the superfluid density. Pairs that survive above Tc would explain part of the pseudogap and the large Nernst signal above Tc.',
+      open: 'Pairing is seen above Tc only over a limited range; how far it extends, and how it relates to the pseudogap at higher temperatures, is still debated.',
+      refs: ['uemura1989', 'emery1995', 'wang2006', 'keimer2015'] },
+    { anim: 'bipolaron', name: 'Bipolarons', year: '1981–', who: 'Alexandre Alexandrov & Julius Ranninger; J. Georg Bednorz & K. Alex Müller',
+      text: 'With strong electron–lattice coupling, an electron drags a local distortion of the lattice with it, a polaron, and two electrons can share one distortion as a bound pair, a bipolaron. Light enough bipolarons would Bose-condense at high temperature. Bednorz and Müller searched copper oxides with Jahn–Teller polarons in mind. For the cuprates the picture is disputed, but recent simulations show that phonons modulating the electrons’ hopping between sites can make light bipolarons.',
+      open: 'Bipolarons are usually heavy, which keeps their condensation temperature low; whether a real material hosts light ones is open.',
+      refs: ['alexandrov1981', 'alexandrov1981b', 'bednorz1986', 'zhang2023'] },
+    { anim: 'strange', name: 'Strange metal and quantum criticality', year: '1989–', who: 'Chandra Varma and colleagues',
+      text: 'Near optimal doping, and over a range around p* on the overdoped side, the cuprates are strange metals: the resistivity stays linear in temperature from just above Tc (down to the lowest temperatures when a magnetic field removes superconductivity) up to hundreds of kelvin, with a scattering rate near the Planckian limit ħ/τ ≈ k_B T. An ordinary metal would bend over to T² at low temperature. The marginal Fermi liquid describes this phenomenologically, and many think a quantum critical point hidden under the superconducting dome organizes both the strange metal and the pairing.',
+      open: 'There is no accepted microscopic theory of the strange metal, nor of how it connects to superconductivity.',
+      refs: ['varma1989', 'legros2019', 'keimer2015'] }
   ];
 
   var MATERIALS = [
@@ -5505,7 +6521,15 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       nobelList(NOBEL, 'nobel'),
       h('p', { class: 'nobel-sub', text: 'Related prizes' }),
       nobelList(NOBEL_RELATED, 'nobel related'));
-    append(el, [chartCard, nobelCard, theoryCard, matCard,
+    var mechCard = h('section', { class: 'card' },
+      h('div', { class: 'card-head' }, h('div', null, richText(h('h2'), 'Classic mechanisms of high-Tc superconductivity'),
+        h('p', { text: 'Forty years after the cuprates were found, these are the main ideas for how they superconduct. Each explains part of the phase diagram; none is settled.' }))),
+      h('div', { class: 'mech-overview' }, miniCanvas('cupratepd'),
+        h('div', { class: 'mech-intro' },
+          richText(h('p'), 'The copper-oxide phase diagram, drawn schematically. Undoped, the CuO₂ planes are antiferromagnetic Mott insulators. Adding holes (p per copper) melts the magnetism and opens a dome of d-wave superconductivity peaking near p ≈ 0.16, with a pseudogap and charge stripes on the underdoped side and a strange metal above the dome.'),
+          h('p', { text: 'The probe moving along the doping axis names the idea that addresses each region; the cards below explain them one by one.' }))),
+      h('div', { class: 'learn-grid', id: 'mech-grid' }));
+    append(el, [chartCard, nobelCard, theoryCard, mechCard, matCard,
       h('p', { class: 'note learn-note', text: 'Tc values are as reported in the cited papers; onsets are marked. Links open the papers through their DOI. “Latest” lists results from 2023 to 2026; the New papers view has the full list and a live feed.' })]);
     var grid = $('#theory-grid');
     THEORIES.forEach(function (th) {
@@ -5520,6 +6544,17 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         card.appendChild(h('button', { class: 'btn small go', type: 'button', onclick: function () { setView('demos'); selectDemo(th.demo); window.scrollTo(0, 0); } }, 'See the animation'));
       }
       grid.appendChild(card);
+    });
+    var mgrid = $('#mech-grid');
+    MECHANISMS.forEach(function (mc) {
+      mgrid.appendChild(h('article', { class: 'lcard' },
+        miniCanvas(mc.anim),
+        h('div', { class: 'lcard-top' }, h('h3', { text: mc.name }), h('span', { class: 'tag', text: mc.year })),
+        h('p', { class: 'meta', text: mc.who }),
+        richText(h('p'), mc.text),
+        h('p', { class: 'open-q' }, h('b', { text: 'Still open: ' }), richText(h('span'), mc.open)),
+        refList(mc.refs),
+        latestList(mc.anim)));
     });
     learn.built = true;
     renderMaterials();
@@ -5774,6 +6809,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var bar = $('#news-src'), ol = $('#news-list'), more = $('#news-more');
     if (!ol) return;
     clear(bar); clear(ol); clear(more);
+    miniPrune();
     var d = paperState.data, items = d ? list(d.news).filter(function (n) { return n && n.title && n.url; }) : [];
     if (!d || !items.length) {
       ol.appendChild(h('li', { class: 'empty', text: !d ? (paperState.busy ? 'Loading the latest news…' : paperState.failed ? 'Couldn’t reach the news feed. Check the connection and press Refresh below.' : 'The news loads when you open this view.') : 'No superconductivity news in the feeds yet; the next check runs within three hours.' }));
@@ -5789,8 +6825,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     rows.slice(0, paperState.newsShown).forEach(function (n) {
       var meta = h('p', { class: 'paper-meta' }, h('span', { class: 'src src-news', text: n.source }), h('span', { text: fmtDayISO(n.date) }));
       list(n.topics).forEach(function (t) { meta.appendChild(h('span', { class: 'topic', text: t })); });
-      ol.appendChild(h('li', null, meta, h('h3', null, h('a', { href: n.url, text: n.title })), n.summary ? h('p', { class: 'paper-intro', text: n.summary }) : null));
+      ol.appendChild(h('li', { class: 'news-item' },
+        h('div', { class: 'news-art' }, miniCanvas(newsArt(n))),
+        h('div', { class: 'news-body' }, meta, h('h3', null, h('a', { href: n.url, text: n.title })), n.summary ? h('p', { class: 'paper-intro', text: n.summary }) : null)));
     });
+    miniKick();
     if (rows.length > paperState.newsShown) {
       more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.newsShown += 10; renderNews(); } }, 'Show more (' + (rows.length - paperState.newsShown) + ' left)'));
     }
@@ -5865,6 +6904,460 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     return p.length >= 3 ? (+p[2]) + ' ' + MONTHS[(+p[1] || 1) - 1] + ' ' + p[0] : s || '';
   }
 
+  /* ---------- Our models: Storm for conventional superconductors, Hurricane for unconventional ones, Radar to choose ---------- */
+  var MODEL_GLYPH = {
+    storm: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14.5h9.6a3.6 3.6 0 0 0 .5-7.15A5.2 5.2 0 0 0 7.2 6.4 4.1 4.1 0 0 0 7 14.5z"/><path d="M12.8 14.5l-2.3 3.6h3.3l-2.3 3.6"/></svg>',
+    hurricane: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.4"/><path d="M8.2 9.6A5 5 0 0 1 17 12c0 2.9-1.6 5.9-5.6 8.2"/><path d="M15.8 14.4A5 5 0 0 1 7 12c0-2.9 1.6-5.9 5.6-8.2"/></svg>',
+    radar: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="4.6"/><path d="M12 12l6.1-6.1"/><circle cx="15.3" cy="8.2" r="1.15" fill="currentColor" stroke="none"/></svg>'
+  };
+  // The version of Storm in use: the latest adopted one (ai_model.current), never the one picked in the demo.
+  function stormInUse(d) {
+    var am = d && d.ai_model;
+    var vs = am ? list(am.versions).filter(function (v) { return v && v.spec && v.scores; }) : [];
+    if (!vs.length) return null;
+    return vs.filter(function (v) { return v.version === am.current; })[0] || vs[vs.length - 1];
+  }
+  function modelFamily(d) {
+    var sv = stormInUse(d), sname = (d && d.ai_model && d.ai_model.name) || 'Storm';
+    var mae = sv && typeof sv.scores.tc_mae === 'number' ? sv.scores.tc_mae.toFixed(2) + ' K' : '';
+    return [
+      { id: 'storm', name: 'Storm', on: true,
+        status: sv ? sname + ' ' + sv.version + ' in use' : 'In use',
+        role: 'Conventional superconductors, paired by phonons',
+        text: 'Learns from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) and predicts Tc in under a second' +
+          (mae ? ', ' + mae + ' off on average for materials it never saw' : '') +
+          '. Our AI agent designed it; a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
+        act: ['See how Storm works', function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); }] },
+      { id: 'hurricane', name: 'Hurricane', status: 'Up next',
+        role: 'Unconventional superconductors: cuprates, nickelates, iron-based, heavy-fermion and more',
+        text: 'No first-principles theory gives their Tc, so Hurricane will learn from measured Tc in the literature. Every measurement is graded as replicated, single report, preprint, retracted or refuted: unconfirmed claims count less and retracted ones not at all. Our AI agent will design it the same way as Storm.' },
+      { id: 'radar', name: 'Radar', status: 'Planned',
+        role: 'Decides which model to ask',
+        text: 'Reads a material’s composition and structure, estimates whether phonons can account for its pairing, and sends it to Storm or Hurricane. When the call is close it says so and shows both predictions. Comparing where the two disagree is also a clue to the pairing mechanism.' }
+    ];
+  }
+  function renderModels(d) {
+    var el = $('#models-card');
+    if (!el) return;
+    clear(el);
+    // progress.json may update a model's status without a new app release: "model_family": [{ "id": "hurricane", "status": "In design" }]
+    var over = {};
+    list(d && d.model_family).forEach(function (m) { if (m && typeof m.id === 'string') over[m.id] = m; });
+    var ul = h('ul', { class: 'model-family' });
+    modelFamily(d).forEach(function (m) {
+      var o = over[m.id] || {};
+      var status = typeof o.status === 'string' && o.status ? o.status : m.status;
+      var on = typeof o.active === 'boolean' ? o.active : !!m.on;
+      var g = h('span', { class: 'mf-glyph' });
+      g.innerHTML = MODEL_GLYPH[m.id] || '';
+      ul.appendChild(h('li', { class: on ? 'on' : null },
+        h('div', { class: 'mf-head' }, g,
+          h('div', { class: 'mf-title' }, h('h3', { text: m.name }), h('span', { class: 'mf-status', text: status }))),
+        richText(h('p', { class: 'mf-role' }), m.role),
+        richText(h('p', { class: 'mf-text' }), typeof o.text === 'string' && o.text ? o.text : m.text),
+        m.act ? h('button', { class: 'btn small mf-act', type: 'button', onclick: m.act[1] }, m.act[0]) : null));
+    });
+    append(el, [
+      cardHead('Our models', 'Conventional and unconventional superconductors follow different physics and come with different data, so each gets its own model, and a third decides which one to ask.'),
+      ul
+    ]);
+  }
+
+  /* ---------- Authors: the people behind the project. progress.json can list more ("authors") without a new app release ---------- */
+  var AUTHORS = [{ name: 'Yantao Li', email: 'liyant@iu.edu', contact: true }];
+  var EMAIL_OK = /^[^\s@<>()"',;:\\]+@[^\s@<>()"',;:\\]+\.[A-Za-z]{2,}$/;
+  function nameSeed(name) { var h = 7; for (var i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 99991; return h; }
+  function authorList(d) {
+    var src = d && Array.isArray(d.authors) && d.authors.length ? d.authors : AUTHORS;
+    var out = src.filter(function (a) { return a && typeof a.name === 'string' && a.name.trim(); }).map(function (a) {
+      var email = typeof a.email === 'string' ? a.email.trim() : '', name = a.name.trim(), av = a.avatar || {};
+      return { name: name, email: EMAIL_OK.test(email) ? email : '', role: typeof a.role === 'string' ? a.role.trim() : '',
+        contact: a.contact === true, url: isHttps(a.url) ? a.url : '',
+        tree: typeof av.tree === 'number' && isFinite(av.tree) ? Math.abs(Math.round(av.tree)) % 99991 : nameSeed(name) };
+    });
+    return out.length ? out : authorList({ authors: AUTHORS });
+  }
+
+  // Every author gets a pencil sketch of a tree, grown from a seed (their name unless progress.json picks one). It is drawn
+  // stroke by stroke: construction lines, ground, trunk, branches, canopy and shading. Then the tree sways in a breeze and an
+  // autumn leaf falls now and then. Coordinates are on a 100 × 100 sheet.
+  var makeTree = (function () {
+    function plen(P) { var L = 0; for (var i = 1; i < P.length; i++) L += Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]); return L; }
+    function mk(pts, a, w) { var L = plen(pts); return { pts: pts, len: L, a: a, w: w, ph: (pts.length * 0.37 + L) % 6.28 }; }
+    function quad(x0, y0, cx, cy, x1, y1, n) {
+      var P = [];
+      for (var k = 0; k <= n; k++) { var u = k / n, v = 1 - u; P.push([v * v * x0 + 2 * v * u * cx + u * u * x1, v * v * y0 + 2 * v * u * cy + u * u * y1]); }
+      return P;
+    }
+    function wob(st, i, pass) {
+      return [0.26 * Math.sin(i * 0.83 + st.ph + pass * 2.3) + pass * 0.36, 0.26 * Math.cos(i * 0.61 + st.ph * 1.7 + pass * 1.1) + pass * 0.24];
+    }
+    // Draw the first `prog` (0–1) of a stroke in two pencil passes through the map M(x, y) -> [px, py]; returns the pencil tip.
+    function draw(c, st, prog, M, S, ink, alpha) {
+      if (prog <= 0 || st.len <= 0) return null;
+      var P = st.pts, target = Math.min(1, prog) * st.len, tip = null;
+      for (var pass = 0; pass < 2; pass++) {
+        var acc = 0;
+        c.beginPath();
+        for (var i = 0; i < P.length; i++) {
+          var p = P[i];
+          if (i) {
+            var q = P[i - 1], seg = Math.hypot(p[0] - q[0], p[1] - q[1]);
+            if (acc + seg >= target) { var f = seg ? (target - acc) / seg : 0; p = [q[0] + (p[0] - q[0]) * f, q[1] + (p[1] - q[1]) * f]; acc = target; }
+            else acc += seg;
+          }
+          var o = wob(st, i, pass), m = M(p[0] + o[0], p[1] + o[1]);
+          if (i) c.lineTo(m[0], m[1]); else c.moveTo(m[0], m[1]);
+          if (!pass) tip = m;
+          if (i && acc >= target) break;
+        }
+        c.strokeStyle = stAlpha(ink, st.a * alpha * (pass ? 0.38 : 0.92));
+        c.lineWidth = S * st.w * (pass ? 0.7 : 1.05);
+        c.stroke();
+      }
+      return tip;
+    }
+    function pencil(c, C, x, y, S, a) {
+      if (a <= 0) return;
+      c.save();
+      c.globalAlpha *= a;
+      c.translate(x, y); c.rotate(-0.95);
+      var u = S * 1.15;
+      c.beginPath(); c.moveTo(0, 0); c.lineTo(3.4 * u, -1.35 * u); c.lineTo(3.4 * u, 1.35 * u); c.closePath(); c.fillStyle = mix(C.warm, '#ffffff', 0.6); c.fill();
+      c.beginPath(); c.moveTo(0, 0); c.lineTo(1.2 * u, -0.48 * u); c.lineTo(1.2 * u, 0.48 * u); c.closePath(); c.fillStyle = C.ink; c.fill();
+      c.fillStyle = C.warm; c.fillRect(3.4 * u, -1.35 * u, 11 * u, 2.7 * u);
+      c.fillStyle = C.muted; c.fillRect(14.4 * u, -1.35 * u, 2 * u, 2.7 * u);
+      c.fillStyle = mix(C.warm, '#ffffff', 0.35); c.fillRect(16.4 * u, -1.35 * u, 1.6 * u, 2.7 * u);
+      c.restore();
+    }
+    function inside(P, x, y) {
+      var a = false;
+      for (var i = 0, j = P.length - 1; i < P.length; j = i++) {
+        if ((P[i][1] > y) !== (P[j][1] > y) && x < (P[j][0] - P[i][0]) * (y - P[i][1]) / (P[j][1] - P[i][1]) + P[i][0]) a = !a;
+      }
+      return a;
+    }
+    function path(c, P, M) { P.forEach(function (p, k) { var m = M(p[0], p[1]); if (k) c.lineTo(m[0], m[1]); else c.moveTo(m[0], m[1]); }); c.closePath(); }
+
+    return function (seed) {
+      var rng = stRng(seed * 7919 + 13), i, j;
+      var GROUND = 87, base = [50 + (rng() - 0.5) * 2.4, GROUND], fork = [base[0] + (rng() - 0.5) * 3, 65 + rng() * 2];
+      // canopy: a rounded crown of leaf masses
+      var ccx = 50 + (rng() - 0.5) * 3, ccy = 33 + (rng() - 0.5) * 2, rx = 25 + rng() * 3, ry = 20.5 + rng() * 2.5;
+      var CL = [[ccx, ccy + 1, 12.5]], nRing = 11, a0 = rng() * 6.28;
+      for (i = 0; i < nRing; i++) {
+        var aa = a0 + i / nRing * Math.PI * 2 + (rng() - 0.5) * 0.25, rr = 0.7 + rng() * 0.1;
+        CL.push([ccx + Math.cos(aa) * rx * rr, ccy + Math.sin(aa) * ry * rr, 7.2 + rng() * 2.6]);
+      }
+      for (i = 0; i < 4; i++) { var ai = rng() * 6.28, ri = 0.35 + rng() * 0.2; CL.push([ccx + Math.cos(ai) * rx * ri, ccy + Math.sin(ai) * ry * ri, 8 + rng() * 2]); }
+      function inCanopy(x, y) { for (var k = 0; k < CL.length; k++) { var dx = x - CL[k][0], dy = y - CL[k][1]; if (dx * dx + dy * dy < CL[k][2] * CL[k][2]) return true; } return false; }
+      var CAN = [], R0 = [], TH = [], ph = rng() * 6.28;
+      for (i = 0; i < 180; i++) {
+        var th = -Math.PI / 2 + i / 180 * Math.PI * 2, r = 46;
+        while (r > 2 && !inCanopy(ccx + Math.cos(th) * r, ccy + Math.sin(th) * r)) r -= 0.2;
+        TH.push(th); R0.push(r);
+        r += 0.45 * Math.abs(Math.sin(th * 17 + ph)) - 0.2;
+        CAN.push([ccx + Math.cos(th) * r, ccy + Math.sin(th) * r]);
+      }
+      CAN.push(CAN[0].slice());
+      var CANOPY = mk(CAN, 0.9, 1.05);
+      // the leafy edge as the wind passes: the small scallops shift a little
+      function rustle(w) {
+        for (var k = 0; k < 180; k++) {
+          var r1 = R0[k] + 0.45 * Math.abs(Math.sin(TH[k] * 17 + ph + w * Math.sin(TH[k] * 3 + w))) - 0.2;
+          CANOPY.pts[k][0] = ccx + Math.cos(TH[k]) * r1; CANOPY.pts[k][1] = ccy + Math.sin(TH[k]) * r1;
+        }
+        CANOPY.pts[180][0] = CANOPY.pts[0][0]; CANOPY.pts[180][1] = CANOPY.pts[0][1];
+      }
+      var bottom = 0; CAN.forEach(function (q) { if (Math.abs(q[0] - ccx) < 6) bottom = Math.max(bottom, q[1]); });
+      // trunk: two tapering edges, a little root flare and some bark
+      var bend = (rng() - 0.5) * 2.6, cx0 = (base[0] + fork[0]) / 2 + bend, cy0 = (GROUND + fork[1]) / 2;
+      var TRUNK = [
+        mk(quad(base[0] - 3.4, GROUND, cx0 - 2.6, cy0, fork[0] - 2.1, fork[1], 10), 0.92, 1.1),
+        mk(quad(base[0] + 3.4, GROUND, cx0 + 2.6, cy0, fork[0] + 2.1, fork[1], 10), 0.92, 1.1),
+        mk(quad(base[0] - 3.4, GROUND, base[0] - 4.6, GROUND - 0.2, base[0] - 6.4, GROUND + 0.6, 6), 0.8, 1),
+        mk(quad(base[0] + 3.4, GROUND, base[0] + 4.6, GROUND - 0.2, base[0] + 6.6, GROUND + 0.6, 6), 0.8, 1)
+      ];
+      var BARK = [];
+      for (i = 0; i < 4; i++) {
+        var bx = base[0] - 1.5 + i * 1.05 + (rng() - 0.5) * 0.5, by0 = GROUND - 2.5 - rng() * 6, by1 = by0 - 4 - rng() * 6;
+        BARK.push(mk(quad(bx, by0, bx + (rng() - 0.5) * 1.2, (by0 + by1) / 2, bx + (rng() - 0.5) * 0.7, by1, 6), 0.32, 0.8));
+      }
+      // limbs: from the fork into the crown, with a twig or two; most of them end up behind the leaves
+      var BR = [];
+      [[-0.62, 1.9], [0.05, 2.1], [0.6, 1.8]].forEach(function (L) {
+        var ang = -Math.PI / 2 + L[0] + (rng() - 0.5) * 0.2, len = (fork[1] - ccy) * (L[0] ? 0.78 : 0.9) + rng() * 3;
+        var x1 = fork[0] + Math.cos(ang) * len, y1 = fork[1] + Math.sin(ang) * len, bb = (rng() - 0.5) * 3;
+        var st = mk(quad(fork[0] + L[0] * 1.6, fork[1], (fork[0] + x1) / 2 + bb, (fork[1] + y1) / 2, x1, y1, 10), 0.9, L[1]); st.d = 0; BR.push(st);
+        for (var k = 0; k < 2; k++) {
+          var f = 0.45 + k * 0.25, sx = fork[0] + (x1 - fork[0]) * f, sy = fork[1] + (y1 - fork[1]) * f, sa = ang + (k ? 1 : -1) * (0.55 + rng() * 0.3), sl = len * (0.32 + rng() * 0.12);
+          // twigs end inside the crown, never as bare sticks beside it
+          while (sl > 1.5 && !inside(CAN, sx + Math.cos(sa) * sl, sy + Math.sin(sa) * sl)) sl *= 0.85;
+          if (sl <= 1.5) continue;
+          var tw = mk(quad(sx, sy, sx + Math.cos(sa) * sl * 0.5 + (rng() - 0.5), sy + Math.sin(sa) * sl * 0.5, sx + Math.cos(sa) * sl, sy + Math.sin(sa) * sl, 6), 0.8, L[1] * 0.55); tw.d = 1; BR.push(tw);
+        }
+      });
+      BR.sort(function (p1, p2) { return p1.d - p2.d; });
+      var bTotal = 0;
+      BR.forEach(function (st) { st.t0 = bTotal; bTotal += st.len; });
+      // a few inner contours that separate leaf masses, on the shaded lower right
+      var CLUMPS = [];
+      CL.slice(1, 1 + nRing).filter(function (q) { return q[1] > ccy - 4 || q[0] > ccx + 4; }).slice(0, 4).forEach(function (q) {
+        var P = [];
+        for (var k = 0; k <= 12; k++) {
+          var an = 0.15 + k / 12 * 2.2, x = q[0] + Math.cos(an) * q[2] * 0.78, y = q[1] + Math.sin(an) * q[2] * 0.78;
+          if (inside(CAN, x, y)) P.push([x + 0.3 * Math.sin(k * 2.1), y]); else if (P.length) break;
+        }
+        if (P.length > 5) CLUMPS.push(mk(P, 0.4, 0.85));
+      });
+      // shading, light from the upper left: hatching that gets denser toward the lower right of the crown
+      var HATCH = [];
+      for (j = 0; j * 2.1 < 2 * ry + 12; j++) {
+        for (i = 0; i * 1.5 < 2 * rx + 14; i++) {
+          var x0 = ccx - rx - 7 + i * 1.5 + (j % 2) * 0.75 + (rng() - 0.5) * 0.5, y0 = ccy - ry - 6 + j * 2.1 + (rng() - 0.5) * 0.5;
+          var sh = (x0 - ccx) / rx * 0.5 + (y0 - ccy) / ry * 0.75;
+          if (sh < 0.08 || rng() > Math.min(0.95, 0.25 + sh * 0.9) || !inside(CAN, x0, y0)) continue;
+          var L2 = 1.3 + 2.2 * Math.min(1, sh);
+          if (inside(CAN, x0 - 0.55 * L2, y0 + 0.8 * L2)) HATCH.push(mk([[x0, y0], [x0 - 0.55 * L2, y0 + 0.8 * L2]], 0.14 + 0.14 * Math.min(1, sh), 0.72));
+        }
+      }
+      HATCH.sort(function (h1, h2) { return (h1.pts[0][1] - h2.pts[0][1]) || (h1.pts[0][0] - h2.pts[0][0]); });
+      var NH = HATCH.length;
+      for (i = 0; i < 5; i++) HATCH.push(mk([[fork[0] + 0.5 + i * 0.4, fork[1] + 2.5 + i * 4.6], [fork[0] + 2 + i * 0.35, fork[1] + 5.9 + i * 4.6]], 0.26, 0.8));
+      for (i = 0; i < 7; i++) HATCH.push(mk([[base[0] + 4 + i * 2.6, GROUND + 2.4], [base[0] + 6.6 + i * 2.6, GROUND - 0.2]], 0.18, 0.8));
+      // ground and grass
+      var GR = [mk(quad(8, GROUND + 0.4, 50, GROUND - 1.2, 92, GROUND + 0.6, 18), 0.6, 0.95)];
+      for (i = 0; i < 11; i++) {
+        var gx = 12 + i * 7.6 + (rng() - 0.5) * 3;
+        if (Math.abs(gx - base[0]) < 7) continue;
+        GR.push(mk([[gx - 1.1, GROUND], [gx - 0.2, GROUND - 2.4 - rng() * 1.2]], 0.45, 0.8));
+        GR.push(mk([[gx + 0.2, GROUND], [gx + 1.2, GROUND - 1.8 - rng() * 1.2]], 0.45, 0.8));
+      }
+      var GUIDE = [
+        mk(quad(ccx - rx - 3, ccy, ccx, ccy - 2 * ry - 6, ccx + rx + 3, ccy, 16).concat(quad(ccx + rx + 3, ccy, ccx, ccy + 2 * ry + 6, ccx - rx - 3, ccy, 16).slice(1)), 0.1, 0.8),
+        mk([[fork[0], fork[1] - 4], [base[0], GROUND + 3]], 0.09, 0.8), mk([[6, GROUND], [94, GROUND]], 0.09, 0.8)
+      ];
+      // the storm: two low clouds (union of puffs, flat underneath), rain, wind and now and then lightning
+      var CLOUDS = [], CSH = [];
+      [[33 + (rng() - 0.5) * 3, 15.5, 16], [67 + (rng() - 0.5) * 3, 13.5, 14.5]].forEach(function (cd) {
+        var puffs = [];
+        for (var k = 0; k < 6; k++) puffs.push([cd[0] - cd[2] * 0.8 + k * cd[2] * 0.32 + (rng() - 0.5) * 2, cd[1] + (rng() - 0.5) * 1.5 - (k > 0 && k < 5 ? 2 : 0), 4 + rng() * 2.4 + (k > 1 && k < 4 ? 2 : 0)]);
+        var P = [];
+        for (var q = 0; q < 90; q++) {
+          var th = -Math.PI / 2 + q / 90 * Math.PI * 2, r = 30;
+          while (r > 1) {
+            var x = cd[0] + Math.cos(th) * r, y = cd[1] + Math.sin(th) * r * 0.62, hit = false;
+            for (var m = 0; m < puffs.length && !hit; m++) { var dx = x - puffs[m][0], dy = y - puffs[m][1]; hit = dx * dx + dy * dy < puffs[m][2] * puffs[m][2]; }
+            if (hit) break;
+            r -= 0.3;
+          }
+          P.push([cd[0] + Math.cos(th) * r, Math.min(cd[1] + 3.6, cd[1] + Math.sin(th) * r * 0.62)]);
+        }
+        P.push(P[0].slice());
+        var cl = mk(P, 0.85, 1); cl.cx = cd[0]; cl.cy = cd[1]; CLOUDS.push(cl);
+        for (k = 0; k < 9; k++) CSH.push(mk([[cd[0] - cd[2] * 0.6 + k * cd[2] * 0.15, cd[1] - 0.6], [cd[0] - cd[2] * 0.6 + k * cd[2] * 0.15 - 1.8, cd[1] + 3]], 0.32, 0.75));
+      });
+      var DROPS = [];
+      for (i = 0; i < 46; i++) DROPS.push([rng() * 120 - 10, rng(), 0.75 + rng() * 0.5]);
+      var LOW = CAN.filter(function (p) { return p[1] > ccy + 4; });
+      var T0 = 0.5, T1 = 0.6, T2 = 1.3, T3 = 1.2, T4 = 0.9, T5 = 0.9, TT = T0 + T1 + T2 + T3 + T4, TD = TT + T5;
+      var REST = CSH[CSH.length - 1].pts[1], K = 0.78;
+
+      return function (c, C, W, H, t) {
+        var side = Math.min(W, H), S = side / 100, ox = (W - side) / 2, oy = (H - side) / 2, ink = C.ink;
+        // wind from the left: the tree leans with it, shakes, and bends further in the gusts
+        var on = stClamp((t - TD) / 1.5), gust = Math.pow(Math.max(0, Math.sin(Math.PI * 2 * (t + seed % 7) / 6.5)), 3);
+        var sw = on * (2.2 + 3.2 * gust + (1.1 + 0.9 * gust) * Math.sin(2.3 * t + seed) + 0.4 * Math.sin(5.7 * t));
+        if (on > 0) rustle(on * (1.6 * t + 3 * gust));
+        function M(x, y) { var hgt = stClamp((fork[1] + 8 - y) / 56); return [ox + (50 + (x + sw * hgt * hgt - 50) * K) * S, oy + (GROUND + (y - GROUND) * K) * S]; }
+        function N(x, y) { return [ox + x * S, oy + y * S]; }
+        var dark = C.dark ? '#000000' : ink;
+        if (on > 0) { c.fillStyle = stAlpha(dark, 0.05 * on); c.fillRect(0, 0, W, H); }
+        c.lineCap = 'round'; c.lineJoin = 'round';
+        var tip = null;
+        function run(list, from, dur, alpha) {
+          var tot = 0; list.forEach(function (st) { tot += st.len; });
+          var reach = stClamp((t - from) / dur) * tot, acc = 0;
+          list.forEach(function (st) {
+            var p = (reach - acc) / st.len; acc += st.len;
+            if (p <= 0) return;
+            var tp = draw(c, st, p, M, S, ink, alpha);
+            if (p < 1 && tp) tip = tp;
+          });
+        }
+        var erase = 1 - 0.6 * stClamp((t - T0 - T1 - T2 - T3) / T4);
+        run(GUIDE, 0, T0, erase);
+        run([GR[0]].concat(TRUNK), T0, T1, 1);
+        var reach = stClamp((t - T0 - T1) / T2) * bTotal;
+        BR.forEach(function (st) {
+          var p = (reach - st.t0) / st.len;
+          if (p <= 0) return;
+          var tp = draw(c, st, p, M, S, ink, 1);
+          if (p < 1 && tp) tip = tp;
+        });
+        // the leaves cover the inner branches as the canopy is drawn
+        var cp = stClamp((t - T0 - T1 - T2) / T3);
+        if (cp > 0) {
+          c.beginPath(); path(c, CAN, M); c.fillStyle = stAlpha(C.surface2, 0.93 * stClamp(cp * 1.6)); c.fill();
+          var tp = draw(c, CANOPY, cp, M, S, ink, 1);
+          if (cp < 1 && tp) tip = tp;
+        }
+        var hp = (t - T0 - T1 - T2 - T3) / T4;
+        if (hp > 0) {
+          c.save(); c.beginPath(); path(c, CAN, M); c.clip();
+          CLUMPS.concat(HATCH.slice(0, NH)).forEach(function (st, k, all) {
+            var p = stClamp((hp - k * 0.45 / all.length) / 0.12), tp = draw(c, st, p, M, S, ink, 1);
+            if (p > 0 && p < 1 && tp) tip = tp;
+          });
+          c.restore();
+          BARK.concat(HATCH.slice(NH), GR.slice(1)).forEach(function (st, k, all) {
+            var p = stClamp((hp - 0.5 - k * 0.42 / all.length) / 0.08), tp = draw(c, st, p, M, S, ink, 1);
+            if (p > 0 && p < 1 && tp) tip = tp;
+          });
+        }
+        // storm clouds roll in
+        var kp = stClamp((t - TT) / T5);
+        if (kp > 0) {
+          var drift = on * 1.5 * Math.sin(t * 0.4);
+          var NC = function (x, y) { return N(x + drift, y); };
+          CLOUDS.forEach(function (cl, k) {
+            var p = stClamp(kp * 2 - k * 0.6);
+            if (p <= 0) return;
+            c.beginPath(); path(c, cl.pts, NC); c.fillStyle = stAlpha(C.surface2, 0.95 * stClamp(p * 2)); c.fill();
+            var tp = draw(c, cl, p, NC, S, ink, 1);
+            if (p < 1 && tp) tip = tp;
+          });
+          CSH.forEach(function (st, k) {
+            var p = stClamp((kp - 0.5 - k * 0.025) / 0.06), tp = draw(c, st, p, NC, S, ink, 1);
+            if (p > 0 && p < 1 && tp) tip = tp;
+          });
+        }
+        // rain, slanted by the wind, with splashes on the ground
+        var rain = stClamp((t - TD - 0.2) / 1.2);
+        if (rain > 0) {
+          var slant = 0.38 + 0.3 * gust, L = 4.2;
+          c.lineWidth = S * 0.62;
+          DROPS.forEach(function (d) {
+            var y = 20 + ((d[1] * 77 + t * 62 * d[2]) % 77), x = ((d[0] + (y - 20) * slant) % 120 + 120) % 120 - 10;
+            if (y > GROUND) {
+              var sa = rain * (1 - (y - GROUND) / 9);
+              if (sa > 0) {
+                c.strokeStyle = stAlpha(ink, 0.35 * sa);
+                c.beginPath(); var s0 = N(x - 1.1, GROUND - 0.9), s1 = N(x, GROUND), s2 = N(x + 1.1, GROUND - 0.9);
+                c.moveTo(s0[0], s0[1]); c.lineTo(s1[0], s1[1]); c.lineTo(s2[0], s2[1]); c.stroke();
+              }
+              return;
+            }
+            var a1 = N(x - L * slant, y - L), a2 = N(x, y);
+            c.strokeStyle = stAlpha(ink, 0.3 * rain); c.beginPath(); c.moveTo(a1[0], a1[1]); c.lineTo(a2[0], a2[1]); c.stroke();
+          });
+        }
+        // lightning every few seconds, beside the tree; a brief flash only while animating
+        var lt = t - TD - 2.4;
+        if (lt > 0) {
+          var bk = Math.floor(lt / 7), age = lt - bk * 7;
+          if (age < 0.42) {
+            var left = (bk + seed) % 2 === 0, bx = left ? 23 : 78, by = CLOUDS[left ? 0 : 1].cy + 3.4, pts = [[bx, by]];
+            for (var q = 1; q <= 6; q++) pts.push([bx + (q % 2 ? 1 : -1) * (2 + ((bk * 3 + q) % 3) * 0.7) + (left ? -q * 0.5 : q * 0.4), by + q * 6.6]);
+            var la = age < 0.3 ? 1 : 1 - (age - 0.3) / 0.12;
+            [[2.4, stAlpha('#ffd84a', 0.9 * la)], [0.9, stAlpha('#ffffff', la)]].forEach(function (pen) {
+              c.beginPath(); pts.forEach(function (q, k) { var m = N(q[0], q[1]); if (k) c.lineTo(m[0], m[1]); else c.moveTo(m[0], m[1]); });
+              c.strokeStyle = pen[1]; c.lineWidth = S * pen[0]; c.stroke();
+            });
+            if (age < 0.09) { c.fillStyle = stAlpha('#ffffff', C.dark ? 0.16 : 0.24); c.fillRect(0, 0, W, H); }
+          }
+        }
+        // leaves torn off by the wind
+        if (t > TD + 0.6 && LOW.length) {
+          for (var lf = 0; lf < 3; lf++) {
+            var per = 2.4, tt = t - TD - 0.6 - lf * 0.8;
+            if (tt < 0) continue;
+            var k = Math.floor(tt / per), u = (tt - k * per) / 2.2;
+            if (u > 1.4) continue;
+            var rr = Math.abs(Math.sin((k + 1) * 12.9898 + lf * 7.1 + seed) * 43758.5453) % 1, st0 = LOW[Math.floor(rr * LOW.length)];
+            var fall = Math.min(1, u), y = st0[1] + (GROUND - 1.2 - st0[1]) * (1 - (1 - fall) * (1 - fall)), x = st0[0] + 2 * Math.sin(7 * fall + rr * 6) * fall + (12 + 10 * gust) * fall;
+            var a = stClamp(u / 0.15) * (u > 1 ? 1 - (u - 1) / 0.45 : 1), m = M(x, y);
+            c.save(); c.translate(m[0], m[1]); c.rotate(u > 1 ? 0.3 : 2.2 * Math.sin(5 * fall + rr * 3));
+            c.beginPath(); c.moveTo(-2.1 * S, 0); c.quadraticCurveTo(0, -1.5 * S, 2.1 * S, 0); c.quadraticCurveTo(0, 1.5 * S, -2.1 * S, 0);
+            c.fillStyle = stAlpha(C.warm, 0.88 * a); c.fill();
+            c.beginPath(); c.moveTo(-2.1 * S, 0); c.lineTo(1.8 * S, 0); c.strokeStyle = stAlpha(mix(C.warm, '#000000', 0.35), 0.7 * a); c.lineWidth = S * 0.35; c.stroke();
+            c.restore();
+          }
+        }
+        // the pencil follows the line while drawing, then lifts off where it finished
+        var done = t - TD;
+        if (done > 0 && done < 0.45) {
+          var lift = done / 0.45, mr = N(REST[0] + 7 * lift, REST[1] - 7 * lift);
+          pencil(c, C, mr[0], mr[1], S, 1 - lift);
+        } else if (tip && done <= 0) pencil(c, C, tip[0], tip[1], S, 1);
+      };
+    };
+  })();
+  function treeKind(seed) {
+    var k = 'author-tree-' + seed;
+    if (!MINI_DRAW[k]) {
+      MINI_DRAW[k] = makeTree(seed);
+      MINI_STATIC[k] = 14.95;
+      MINI_ALT[k] = 'An animated pencil sketch of a tree in a storm: it is drawn line by line, then bends in the wind under rain and lightning while leaves blow away.';
+    }
+    return k;
+  }
+
+  function copyText(text, btn) {
+    var label = btn.textContent;
+    function done(ok) {
+      btn.textContent = ok ? 'Copied' : 'Select the address to copy it';
+      setTimeout(function () { btn.textContent = label; }, 1800);
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      done(ok);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
+    else fallback();
+  }
+
+  var authorsState = { sig: '' };
+  function renderAuthors() {
+    var el = $('#authors');
+    if (!el) return;
+    var people = authorList(state.data), sig = JSON.stringify(people);
+    if (sig === authorsState.sig && el.firstChild) return;
+    authorsState.sig = sig;
+    clear(el);
+    miniPrune();
+    var ul = h('ul', { class: 'author-list' });
+    people.forEach(function (a) {
+      var mail = a.email ? 'mailto:' + a.email + '?subject=' + encodeURIComponent('supercon-ml') : '';
+      var copy = null;
+      if (a.email) {
+        copy = h('button', { class: 'btn small', type: 'button', 'aria-label': 'Copy the email address of ' + a.name }, 'Copy');
+        copy.addEventListener('click', function () { copyText(a.email, copy); });
+      }
+      var cv = miniCanvas(treeKind(a.tree));
+      cv.setAttribute('aria-label', 'Animated pencil sketch of a tree, the avatar of ' + a.name);
+      ul.appendChild(h('li', { class: 'author' },
+        h('div', { class: 'author-avatar' }, cv),
+        h('div', { class: 'author-body' },
+          h('div', { class: 'author-top' }, h('h3', { text: a.name }), a.contact ? h('span', { class: 'tag', text: 'Contact' }) : null),
+          a.role ? h('p', { class: 'author-role', text: a.role }) : null,
+          a.email ? h('p', { class: 'author-mail' }, glyph('mail', 'author-glyph'), h('a', { href: mail, text: a.email }), copy) : null,
+          a.url ? h('p', { class: 'author-url' }, h('a', { href: a.url, text: a.url.replace(/^https:\/\//, '').replace(/\/$/, '') })) : null)));
+    });
+    var contact = people.filter(function (a) { return a.contact && a.email; })[0];
+    append(el, [h('section', { class: 'card' },
+      cardHead('Authors', contact ? 'Questions, ideas or collaboration? Write to ' + contact.name + '.' : 'The people behind supercon-ml.'),
+      ul,
+      h('p', { class: 'note' }, 'Code, data and every training run are public on ', h('a', { href: REPO_URL, text: 'GitHub' }),
+        '. Found a problem in the app? ', h('a', { href: REPO_URL + '/issues', text: 'Open an issue' }), '.'))]);
+    miniKick();
+  }
+
   /* ---------- phone link and installable web app ---------- */
   var PHONE_URL = 'https://diracmagic.github.io/supercon-ml/';
   var QR = { n: 29, hex: 'feca23fc1445d06eb70ebb74ef85dbac6d2ec1292507faaaafe00aa3009fcbc4bac0b98db4d649297b87fb91ab13b0e62df1fe7c9d40ac2046d5765f1846a4a985b3b87db3920818cf25d5ff0043b463fb766b10578b13bac53fd5d7ff606e94576f04330ddfe999a80' };
@@ -5891,10 +7384,6 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
           h('p', { class: 'note', text: 'iPhone and iPad: Share → Add to Home Screen. Android: menu → Install app. It opens full screen like an app and refreshes on its own.' })))
     ]);
   }
-  (function registerWorker() {
-    if (!('serviceWorker' in navigator) || location.protocol !== 'https:' || window.__TAURI_INTERNALS__ || window.__TAURI__) return;
-    navigator.serviceWorker.register('sw.js').catch(function () { /* offline support is optional */ });
-  })();
 
   function setView(v) {
     view = v;
@@ -5903,9 +7392,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     $('#view-demos').setAttribute('aria-selected', v === 'demos' ? 'true' : 'false');
     $('#view-learn').setAttribute('aria-selected', v === 'learn' ? 'true' : 'false');
     $('#view-papers').setAttribute('aria-selected', v === 'papers' ? 'true' : 'false');
+    $('#view-authors').setAttribute('aria-selected', v === 'authors' ? 'true' : 'false');
     $('#demos').hidden = v !== 'demos';
     $('#learn').hidden = v !== 'learn';
     $('#papers').hidden = v !== 'papers';
+    $('#authors').hidden = v !== 'authors';
     $('#main').hidden = v !== 'progress' || !state.data;
     if (v === 'demos') {
       if (!demo.built) buildDemos();
@@ -5915,8 +7406,148 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     }
     if (v === 'learn' && !learn.built) buildLearn();
     if (v === 'learn') miniKick();
-    if (v === 'papers') { if (!paperState.built) buildPapers(); loadPapers(false); }
+    if (v === 'papers') { if (!paperState.built) buildPapers(); loadPapers(false); miniKick(); }
+    if (v === 'authors') { renderAuthors(); miniKick(); }
   }
+
+  /* ---------- new-version prompt ----------
+     Desktop app: asks GitHub at most every 6 hours for the latest release (tag app-vX.Y.Z). When it is newer
+     than this build and already has the installer for this computer, a banner offers the download.
+     Phone and web app: the service worker fetches new versions by itself; once a new one has taken over,
+     the banner offers a reload. */
+  var UPD = { info: null, busy: false, note: '', noteTimer: 0, web: '', dismissed: false, downloaded: false };
+  var UPD_EVERY = 6 * 3600 * 1000, UPD_LATER = 3 * 24 * 3600 * 1000;
+  function isDesktop() { return !!(window.__TAURI__ || window.__TAURI_INTERNALS__); }
+  function verParts(s) { var m = /(\d+)\.(\d+)\.(\d+)/.exec(String(s || '')); return m ? [+m[1], +m[2], +m[3]] : null; }
+  function verNewer(a, b) {
+    a = verParts(a); b = verParts(b);
+    if (!a || !b) return false;
+    for (var i = 0; i < 3; i++) if (a[i] !== b[i]) return a[i] > b[i];
+    return false;
+  }
+  function installerName() {
+    var ua = navigator.userAgent || '', pf = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+    if (/win/i.test(pf) || /Windows/.test(ua)) return 'SuperconProgress-windows-x64-setup.exe';
+    if (/mac/i.test(pf) || /Mac OS X|Macintosh/.test(ua)) return 'SuperconProgress-macos-universal.dmg';
+    return '';
+  }
+  // The bold titles of the "Version X adds:" bullets in the release notes.
+  function releaseHighlights(body, v) {
+    var lines = String(body || '').split(/\r?\n/), out = [], on = false;
+    for (var i = 0; i < lines.length; i++) {
+      var ln = lines[i].trim();
+      if (!on) { if (ln.indexOf('Version ' + v) === 0) on = true; continue; }
+      if (!ln) { if (out.length) break; continue; }
+      if (ln.charAt(0) !== '-') { if (out.length) break; continue; }
+      var m = /\*\*(.+?)\*\*/.exec(ln);
+      if (m) out.push(m[1].replace(/<[^>]+>/g, ''));
+    }
+    return out.slice(0, 4);
+  }
+  function updRead(key) { try { return JSON.parse(store.get(key) || 'null'); } catch (e) { return null; } }
+  function updAvailable() {
+    var info = UPD.info;
+    return !!(isDesktop() && info && info.url && verNewer(info.v, APP_VERSION));
+  }
+  function checkUpdate(manual) {
+    if (!isDesktop() || UPD.busy) return;
+    var cached = updRead('update');
+    if (!manual && cached && cached.t && Date.now() - cached.t < UPD_EVERY) { UPD.info = cached; renderUpdate(); return; }
+    UPD.busy = true;
+    if (manual) { store.set('updateLater', ''); UPD.dismissed = false; flashNote('Checking for updates…', 0); }
+    getJSON(API + '/releases/latest', { headers: { Accept: 'application/vnd.github+json' }, timeout: 12000 })
+      .then(function (rel) {
+        var v = (verParts(rel && rel.tag_name) || []).join('.'), want = installerName(), url = '';
+        (rel && rel.assets || []).forEach(function (a) { if (a && a.name === want && /^https:\/\//.test(a.browser_download_url || '')) url = a.browser_download_url; });
+        var page = rel && /^https:\/\//.test(rel.html_url || '') ? rel.html_url : REPO_URL + '/releases/latest';
+        // An unknown computer gets the release page; a known one waits until its installer is uploaded.
+        UPD.info = { t: Date.now(), v: v, page: page, url: want ? url : page, news: releaseHighlights(rel && rel.body, v) };
+        store.set('update', JSON.stringify(UPD.info));
+        if (manual) flashNote(updAvailable() ? '' : 'You have the latest version.', 6000);
+      }, function () {
+        if (manual) flashNote('Couldn’t reach GitHub to check for updates. Try again later.', 8000);
+      })
+      .then(function () { UPD.busy = false; renderUpdate(); });
+  }
+  function flashNote(msg, ms) {
+    UPD.note = msg;
+    clearTimeout(UPD.noteTimer);
+    renderUpdateFoot();
+    if (msg && ms) UPD.noteTimer = setTimeout(function () { UPD.note = ''; renderUpdateFoot(); }, ms);
+  }
+  function renderUpdate() {
+    var el = $('#update');
+    if (!el) return;
+    clear(el);
+    var info = UPD.info, kind = '';
+    if (UPD.web && !UPD.dismissed) kind = 'web';
+    else if (updAvailable() && !UPD.dismissed) {
+      var later = updRead('updateLater');
+      if (!(later && later.v === info.v && Date.now() < later.until)) kind = 'desktop';
+    }
+    el.hidden = !kind;
+    if (kind === 'web') {
+      append(el, [glyph('refresh', 'upd-glyph'), h('div', { class: 'upd-body' },
+        h('p', { class: 'upd-title', text: UPD.web === 'new' ? 'A new version of Supercon Progress is ready.' : 'Supercon Progress ' + UPD.web + ' is ready.' }),
+        h('div', { class: 'upd-actions' },
+          h('button', { class: 'btn primary', type: 'button', onclick: function () { window.location.reload(); } }, 'Reload now'),
+          h('button', { class: 'btn', type: 'button', onclick: function () { UPD.dismissed = true; renderUpdate(); } }, 'Later')))]);
+    } else if (kind === 'desktop') {
+      var mac = /\.dmg$/.test(info.url), how = mac
+        ? 'When the download finishes, quit Supercon Progress, open the .dmg and drag the app into Applications to replace this version.'
+        : /\.exe$/.test(info.url) ? 'When the download finishes, quit Supercon Progress and run the installer. It replaces this version and keeps your settings.'
+          : 'Download the installer for your computer from the release page.';
+      append(el, [glyph('download', 'upd-glyph'), h('div', { class: 'upd-body' },
+        h('p', { class: 'upd-title', text: 'Supercon Progress ' + info.v + ' is available. You have ' + APP_VERSION + '.' }),
+        info.news && info.news.length ? h('p', { class: 'upd-news', text: 'New: ' + info.news.join(' · ') }) : null,
+        h('div', { class: 'upd-actions' },
+          h('button', { class: 'btn primary', type: 'button', onclick: function () { openExternal(info.url); UPD.downloaded = true; renderUpdate(); } }, glyph('download', 'btn-glyph'), 'Download ' + info.v),
+          h('button', { class: 'btn', type: 'button', onclick: function () { openExternal(info.page); } }, 'What’s new'),
+          h('button', { class: 'btn', type: 'button', onclick: function () { store.set('updateLater', JSON.stringify({ v: info.v, until: Date.now() + UPD_LATER })); renderUpdate(); } }, 'Later')),
+        h('p', { class: 'upd-hint', text: UPD.downloaded ? 'Downloading in your browser. ' + how : how }))]);
+    }
+    renderUpdateFoot();
+  }
+  function renderUpdateFoot() {
+    var el = $('#upd-foot');
+    if (!el) return;
+    clear(el);
+    if (!isDesktop()) return;
+    el.appendChild(document.createTextNode(' · '));
+    if (UPD.note) { el.appendChild(h('span', { class: 'upd-note', role: 'status', text: UPD.note })); return; }
+    if (updAvailable()) {
+      el.appendChild(h('button', { class: 'linklike', type: 'button', onclick: function () {
+        store.set('updateLater', ''); UPD.dismissed = false; renderUpdate(); window.scrollTo(0, 0);
+      } }, 'Update to ' + UPD.info.v));
+      return;
+    }
+    el.appendChild(h('button', { class: 'linklike', type: 'button', onclick: function () { checkUpdate(true); } }, 'Check for updates'));
+  }
+  if (isDesktop()) {
+    setTimeout(function () { checkUpdate(false); }, 3000);
+    setInterval(function () { checkUpdate(false); }, 3600 * 1000);
+  }
+  (function registerWorker() {
+    if (!('serviceWorker' in navigator) || location.protocol !== 'https:' || isDesktop()) return;
+    var sw = navigator.serviceWorker, had = !!sw.controller, last = Date.now();
+    sw.register('sw.js').then(function (reg) {
+      function poll() {
+        if (document.visibilityState !== 'visible' || Date.now() - last < 10 * 60 * 1000) return;
+        last = Date.now();
+        reg.update().catch(function () { /* offline */ });
+      }
+      setInterval(poll, 15 * 60 * 1000);
+      document.addEventListener('visibilitychange', poll);
+    }).catch(function () { /* offline support is optional */ });
+    sw.addEventListener('controllerchange', function () {
+      if (!had) { had = true; return; }   // the first install, not an update
+      fetch('sw.js', { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (txt) {
+        var m = /supercon-(\d+\.\d+\.\d+)/.exec(txt);
+        if (m && !verNewer(m[1], APP_VERSION)) return;   // the same version deployed again
+        UPD.web = m ? m[1] : 'new'; UPD.dismissed = false; renderUpdate();
+      }).catch(function () { UPD.web = 'new'; renderUpdate(); });
+    });
+  })();
 
   function render() {
     renderChrome();
@@ -5925,11 +7556,13 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (!d) return;
     renderPipeline(d);
     renderKpis(d);
+    renderModels(d);
     renderStages(d);
     renderResults(d);
     renderActivity(d);
     renderGitHub();
     if (demo.built && view === 'demos') { syncControls(); kick(); }
+    if (view === 'authors') renderAuthors();
   }
 
   function applyTheme() {
@@ -5954,6 +7587,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   $('#view-demos').addEventListener('click', function () { setView('demos'); });
   $('#view-learn').addEventListener('click', function () { setView('learn'); });
   $('#view-papers').addEventListener('click', function () { setView('papers'); });
+  $('#view-authors').addEventListener('click', function () { setView('authors'); });
   document.addEventListener('visibilitychange', function () { if (!document.hidden) kick(); });
 
   applyTheme();
