@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-10-31T03:20:08+00:00",
+ "updated": "2026-10-31T03:27:27+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -60,7 +60,8 @@
   "Phys.org",
   "Physics World",
   "APS Physics",
-  "Quanta Magazine"
+  "Quanta Magazine",
+  "arXiv AI"
  ],
  "arxiv": [
   {
@@ -4539,6 +4540,17 @@
    ]
   },
   {
+   "id": "http://link.aps.org/doi/10.1103/Physics.19.s140",
+   "source": "APS Physics",
+   "title": "Talking to Superconducting Qubits with Millimeter Waves",
+   "date": "2026-10-30",
+   "summary": "Author(s): Sophia Chen A new device uses millimeter-wave radiation to accurately read the states of superconducting qubits without altering them. [Physics 19, s140] Published Fri Oct 30, 2026",
+   "url": "http://link.aps.org/doi/10.1103/Physics.19.s140",
+   "topics": [
+    "Quantum devices"
+   ]
+  },
+  {
    "id": "https://phys.org/news/2026-10-terahertz-distinguishes-groups-particles-superconducting.html",
    "source": "Phys.org",
    "title": "Terahertz light distinguishes two groups of particles trapped inside superconducting vortices",
@@ -4873,6 +4885,1227 @@
    "summary": "Author(s): Ryan Wilkinson Ultracold atoms in an optical lattice could emulate a prominent model of quantum matter linked to black holes and high-temperature superconductors. [Physics 19, s90] Published Tue Jul 21, 2026",
    "url": "http://link.aps.org/doi/10.1103/Physics.19.s90",
    "topics": []
+  }
+ ],
+ "ai": [
+  {
+   "id": "2610.40657",
+   "source": "arXiv",
+   "title": "Variational wavefunctions for ideal anyon gas: superfluid and skyrmion Hall crystal",
+   "authors": [
+    "Ya-Hui Zhang"
+   ],
+   "n_authors": 1,
+   "date": "2026-10-29",
+   "updated": "2026-10-29",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "The ground state of an ideal gas of anyons with statistical angle θin(0,π) is a long-standing open problem, with renewed interest from the recent observations of fractional Chern insulators. In this work we construct variational wavefunctions that build in the exact anyon statistics and combine theory-guided composite-boson, composite-fermion and parton wavefunctions with neural-network correlations on the sphere. For spinless and SU(2) semions we confirm the paired anyon superfluid, well below the best crystal states. At θ=π/3 liquids and crystals are closer in energy for the spinless case. For θ=π/3 anyons with SU(3) flavor, we find two candidates. One is a skyrmion Hall crystal, in which the anyons form an integer quantum Hall state in the effective magnetic field from the spin texture. The other is a chiral color superconductor of six-anyon clusters, the color-flavor-locked pairing descendant of a holon metal with SU(3) color gauge symmetry and SU(3) flavor symmetry; its wavefunction is a hyperdeterminant rather than a product of parton determinants. Within our variational ansatz the color superconductor has better energy than both crystals and the color-flavor locked phases with U(1)² and Z₃ gauge groups. For twisted MoTe₂ this suggests that the reentrant integer quantum anomalous Hall phase is the skyrmion Hall crystal of the doped anyons, and that the observed supercondu",
+   "url": "https://arxiv.org/abs/2610.40657",
+   "pdf": "https://arxiv.org/pdf/2610.40657",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.mes-hall"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.39074",
+   "source": "arXiv",
+   "title": "HERA: Assessing an Autonomous Agent for Quantum Device Measurement",
+   "authors": [
+    "Zachary W. Gomez",
+    "Nathan Bittner",
+    "Jordan T. McCourt",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-10-29",
+   "updated": "2026-10-29",
+   "category": "cond-mat.mes-hall",
+   "cross_list": true,
+   "abstract": "Large language model agents have begun to carry out laboratory measurements, but their scientific conclusions are useful only if they hold up under scrutiny. Demonstrating this requires controlled studies because models are stochastic and the context a model is given steers its conclusions. Here we introduce HERA, an autonomous agent designed to carry out cryogenic transport measurements of quantum devices. HERA draws on a knowledge base curated by lab members that holds measurement protocols, software tools, and literature references. We assessed HERA with a blinded trial against an expert on the stacking order of two multilayer graphene devices, an ablation of its knowledge base, and hundreds of offline replays in which models designed the trial's central measurement without running it. HERA's conclusions matched the expert's sealed conclusions on both tested devices. The ablation and the replay studies measured the impact of the knowledge base across different models, showing that with it every model designed better measurements and reasoned more soundly. To test how readily HERA extends to a new problem, we tasked it with finding and characterizing superconductivity in a different material system. This required a few hours of expert time to develop a new experimental protocol, after which HERA did both autonomously. These results show that, with a knowledge base designed fo",
+   "url": "https://arxiv.org/abs/2610.39074",
+   "pdf": "https://arxiv.org/pdf/2610.39074",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.mes-hall",
+    "cs.AI"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.34391",
+   "source": "arXiv",
+   "title": "A Domain-Aware Pipeline for Structured Extraction and Retrieval-Augmented Question Answering over arXiv Superconductivity Literature",
+   "authors": [
+    "Ivan Iorsh",
+    "Aleksandr Kapitonov",
+    "Ivan Filianin",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-10-25",
+   "updated": "2026-10-25",
+   "category": "cs.IR",
+   "cross_list": true,
+   "abstract": "Scientific literature in materials physics is growing faster than researchers can manually inspect it, yet most retrieval tools rely on keyword matching or generic question answering that ignores domain-specific structure in PDF files. This paper presents an end-to-end pipeline that transforms arXiv superconductivity publications into a searchable corpus with structured metadata and retrieval-augmented question answering. The system combines thematic corpus construction, domain-aware extraction of materials and superconducting transition temperatures, and hybrid retrieval that merges dense chunk embeddings with structured publication fields. We test whether normalized domain attributes improve evidence retrieval and answer groundedness relative to lexical-only and dense text-only methods. Extraction is evaluated on a manually verified gold set of 59 superconducting materials, 46 of which have confirmed experimental critical temperatures. On the 33-material primary positive subset, domain-aware pair accuracy reaches 45.5% versus 9.1% for a regex baseline. Retrieval and generation are compared under a fixed language model (qwen2.5:7b-instruct) on a 100-question benchmark, varying only the retrieval mechanism: BM25, dense, hybrid, and hybrid with domain metadata. BM25 gives the highest source recall (Recall@5 of 47%), and adding extracted metadata to hybrid retrieval does not impr",
+   "url": "https://arxiv.org/abs/2610.34391",
+   "pdf": "https://arxiv.org/pdf/2610.34391",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "theory",
+   "categories": [
+    "cs.IR",
+    "cs.CL"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.34055",
+   "source": "arXiv",
+   "title": "Quantum neuroplastic learning for time-series processing",
+   "authors": [
+    "Mostafizur Rahaman Laskar"
+   ],
+   "n_authors": 1,
+   "date": "2026-10-25",
+   "updated": "2026-10-25",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "Quantum machine learning uses quantum states and dynamics to represent and process data. In quantum reservoir computing, the physical system is typically fixed and a classical readout is trained. Inspired by the formation, strengthening and pruning of synapses during biological learning, we propose quantum neuroplastic learning (QNL), which reorganizes the couplings among the qubits of a quantum reservoir, much as experience rewires connections among neurons. Eligibility traces guide local edits to couplings, fields, gate angles and evolution time, and an edit is retained when a statistical bound on its improvement exceeds a complexity cost. We evaluate QNL under restarting and online monitored protocols on short- and long-term memory, nonlinear autoregressive processing and forecasting, and channel equalization tasks. In simulation, QNL enhances memory capacity, develops long-term recall and sustains adaptation across multiple tasks, with the largest benefit for tasks that require extended memory. On the IBM superconducting processor \\texttt{ibm\\_fez}, with six seven-qubit reservoirs running in parallel on 42 qubits (1.28 million shots in total), configurations learned in simulation and frozen before execution reduced the channel-equalization symbol error rate from 9.7% to 2.2% and achieved a lower error rate than a matched-budget tuned baseline.",
+   "url": "https://arxiv.org/abs/2610.34055",
+   "pdf": "https://arxiv.org/pdf/2610.34055",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.32762",
+   "source": "arXiv",
+   "title": "Quantum Machine Learning in Medical Imaging: A Primer for Radiologists",
+   "authors": [
+    "Ruben Ortiz Cordero",
+    "Gaven K. Smart",
+    "Harshada Gothankar",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-10-23",
+   "updated": "2026-10-23",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "Deep learning has transformed radiology, but the computational cost of training and deploying modern models is outpacing what classical hardware can support. Quantum computing has been proposed as one response to this bottleneck: an n-qubit system can represent 2ⁿ states simultaneously, although practical speedups require efficient algorithms, data encoding, and measurement strategies rather than superposition alone. This review introduces radiologists to five core quantum concepts, qubits, superposition, entanglement, quantum gates, and quantum circuits, and to the superconducting, trapped-ion, and photonic hardware platforms that define the current noisy intermediate-scale quantum (NISQ) era. We then summarize the quantum machine learning architectures most often applied to medical imaging (quantum support vector machines, quantum neural networks, variational quantum circuits, and quantum convolutional neural networks) and quantum image representations such as the flexible representation of quantum images (FRQI) and the novel enhanced quantum representation (NEQR). Reported applications include brain tumor classification and segmentation on MRI, pneumonia detection on chest radiographs, skin and breast lesion classification, CT and PET reconstruction, and ultrasound denoising. Nearly all published systems are hybrid quantum-classical pipelines evaluated on small, downsampled ",
+   "url": "https://arxiv.org/abs/2610.32762",
+   "pdf": "https://arxiv.org/pdf/2610.32762",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Iron-based",
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.30321",
+   "source": "arXiv",
+   "title": "Extreme competition between stripes and superconductivity in the hole-doped Hubbard model",
+   "authors": [
+    "Ao Chen",
+    "Johnnie Gray",
+    "Si-Jing Du",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-10-21",
+   "updated": "2026-10-26",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "The two-dimensional Hubbard model was originally proposed as the minimal model of uniform d-wave superconductivity in the cuprate high-temperature superconductors, but recent calculations with relevant parameters in a realistic doping regime have often found other ground states. Further, uncertainty remains over such results due to the intrinsic bias of different computational methods. Here we address this uncertainty through state-of-the-art neural tensor network and neural backflow state simulations, enabled by large-scale GPU computation, that together reach an unprecedented variational accuracy on lattices with up to 1024 sites. At 1/8 doping in the pure Hubbard model, as well as with next-nearest-neighbor hopping relevant to the hole-doped cuprates, we reveal a near degeneracy among a low-energy uniform d-wave state, superconducting stripes, and non-superconducting stripe states on the milli-t energy scale. Our work rebalances the narrative that the Hubbard model supports a single dominant order in relevant parameter regimes towards a picture of extreme competition between stripes and superconductivity.",
+   "url": "https://arxiv.org/abs/2610.30321",
+   "pdf": "https://arxiv.org/pdf/2610.30321",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "Moiré and 2D"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.dis-nn",
+    "cond-mat.supr-con",
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.27412",
+   "source": "arXiv",
+   "title": "Learning the Geometry of Materials Space with Trained Neural Tangent Kernels",
+   "authors": [
+    "Daniel Kaplan",
+    "Gabriel Kotliar",
+    "Anirvan M Sengupta"
+   ],
+   "n_authors": 3,
+   "date": "2026-10-20",
+   "updated": "2026-10-20",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "Neural networks trained to predict materials properties learn representations whose physical content can be difficult to extract. We use the neural tangent kernel (NTK), evaluated at trained parameters, to recover the geometry learned by a network that predicts superconducting transition temperatures from elemental composition alone. Kernel ridge regression with the trained NTK closely reproduces the network's predictive performance and substantially outperforms regression with the initial kernel. Spectral analysis and multidimensional scaling reveal a geometry dominated by a small number of directions. Clustering and local neighborhood analysis organize compounds into recognizable superconducting families and connect materials with related chemical and correlated-electron properties despite substantial differences in Tc. These results establish trained tangent kernels as practical probes of learned materials representations, connecting property prediction with the exploration of materials space.",
+   "url": "https://arxiv.org/abs/2610.27412",
+   "pdf": "https://arxiv.org/pdf/2610.27412",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.supr-con",
+    "cs.LG"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.24799",
+   "source": "arXiv",
+   "title": "Strain-Tunable High-Tc Superconductivity in Layered R3m B₂CN",
+   "authors": [
+    "Durjay Dhali",
+    "Arafat Rahman",
+    "Tareq Mahmud",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-10-17",
+   "updated": "2026-10-17",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Using DFPT and Wannier-interpolated matrix elements in EPW, we find that isotropic tensile strain of 0–6% narrows the B:2p/C:2p bands at the Fermi level while softening the phonon branches most strongly coupled to them, driving the coupling constant λ from 0.967 to 2.620. All four strained configurations remain mechanically and dynamically stable, satisfying the Born–Huang criteria with no imaginary phonon modes at any strain level. The fully anisotropic Migdal–Eliashberg equations give a Tc that rises monotonically from 53.5~K to 84.5~K across the strain series, crossing the liquid-nitrogen boiling point at 6% strain. The SISSO-based machine-learning model in EPW agrees with the anisotropic Migdal–Eliashberg Tc values to within 10~K across the strain series.",
+   "url": "https://arxiv.org/abs/2610.24799",
+   "pdf": "https://arxiv.org/pdf/2610.24799",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon",
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.18482",
+   "source": "arXiv",
+   "title": "Lifting: Quantum State Discrimination Framework for Mid-Circuit Measurements",
+   "authors": [
+    "Chi Zhang",
+    "Neel Vora",
+    "Yilun Xu",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-10-13",
+   "updated": "2026-10-13",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "Quantum computing promises new capabilities beyond classical computation. Mid-circuit measurements (MCMs) enable error correction and outcome-dependent control, but their reliability is limited by noise on superconducting hardware. These operations depend on accurate quantum state discrimination (QSD), which assigns measured signals to state labels. Neural network-based (NN-based) QSD improves this assignment, yet its error remains bounded below by the Bayes risk of the available readout distributions. A complementary challenge is state deterioration as successive measurements accumulate and circuit execution advances, making static calibration less representative of the workload. We present Lifting, a QSD framework that addresses both challenges through repetition encoding, neural decoding, and in situ calibration. Encoding supplies joint in-phase and quadrature (I-Q) readout signals from the target and auxiliary qubits, while contextual calibration trains the decoder for the conditions encountered during execution. Our theoretical analysis shows that retaining additional channels from a fixed joint distribution cannot increase Bayes risk and establishes sufficient conditions for contraction of an overlap-based upper bound. Experiments across three IBM processors evaluate the framework on repeated stabilizer measurement, parity-check, and teleportation workloads.",
+   "url": "https://arxiv.org/abs/2610.18482",
+   "pdf": "https://arxiv.org/pdf/2610.18482",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "quant-ph",
+    "cs.ET",
+    "cs.LG"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.15392",
+   "source": "arXiv",
+   "title": "Stateless Stochastic Computing for Generative AI on Superconducting Logic: A Model-Hardware Co-Design",
+   "authors": [
+    "Mehdi Kamal",
+    "Massoud Pedram"
+   ],
+   "n_authors": 2,
+   "date": "2026-10-11",
+   "updated": "2026-10-11",
+   "category": "cs.AR",
+   "cross_list": true,
+   "abstract": "Thermodynamic computing lets stochastic physical dynamics carry out a computation and reads out the result as a time average. Recently, thermodynamic computing has been demonstrated on several hardware platforms, including digital CMOS circuits based on stochastic computing. Superconducting single-flux-quantum (SFQ) logic offers very high clock rates and very low switching energy, but it heavily penalizes state, memory, fan-out, and feedback, i.e., exactly the per-neuron accumulators on which such designs rely. We therefore realize thermodynamic computing in SFQ logic through a co-design of a generative model and its circuit in which the datapath holds no state at all. The model is a class-conditional flow-matching image generator, which transforms Gaussian noise into an image of the requested class along a short, deterministic path of four Euler steps; in hardware, these steps are unrolled into a feed-forward pipeline of stochastic bitstream operators, whose output is read out as a time average, as in thermodynamic computing, without any relaxation phase. Each layer of the model is a butterfly-factorized linear map built exclusively from multiplexers that operate on split-unipolar bitstreams. The ReLU activation, which in stochastic computing requires a per-neuron up/down counter (accounting for 60-70% of the JJs in a counter-based design), is replaced by a stateless AND-NOT g",
+   "url": "https://arxiv.org/abs/2610.15392",
+   "pdf": "https://arxiv.org/pdf/2610.15392",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions",
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cs.AR",
+    "cs.ET"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2610.00243",
+   "source": "arXiv",
+   "title": "Fusing Global Diagnostic Signals and Spectral Data for Electron and Ion Temperature Profile Prediction on EAST via Attention-based Neural Networks",
+   "authors": [
+    "Xiao Wang",
+    "Jiangtao Yu",
+    "Zichao Lin",
+    "et al."
+   ],
+   "n_authors": 9,
+   "date": "2026-09-23",
+   "updated": "2026-09-23",
+   "category": "physics.plasm-ph",
+   "cross_list": true,
+   "abstract": "Ion temperature Ti and electron temperature Te are fundamental kinetic parameters for evaluating tokamak plasma confinement, turbulent transport and magnetohydrodynamic stability. Reliable prediction of their spatiotemporal profiles is essential for long-pulse steady-state operation on the Experimental Advanced Superconducting Tokamak (EAST). However, existing EAST diagnostic systems have obvious measurement limitations, including narrow applicable conditions of charge exchange recombination spectroscopy and severe signal degradation of edge temperature diagnostics during long discharges. Classical physics-based transport codes suffer from high computational cost and error accumulation, while existing data-driven models only separately predict Ti or Te relying on spectral data, lacking joint Ti/Te modeling and failing under missing spectral measurements. In this work, we propose a multi-modal (i.e., global macroscopic diagnostic signals and spectral data) fusion attention neural network for simultaneous reconstruction of Ti/Te profiles on EAST. It leverages an adaptive attention module to weight global diagnostic features and suppress noise interference, employs convolutional layers to extract deep spectral representations, and utilizes multi-head self-attention to facilitate cross-modal feature interaction. Two separate prediction heads are constructed to output full radial di",
+   "url": "https://arxiv.org/abs/2610.00243",
+   "pdf": "https://arxiv.org/pdf/2610.00243",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "physics.plasm-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2609.23016",
+   "source": "arXiv",
+   "title": "Watching Quantum Models Think: Hilbert-Space Interpretability in Quantum Transformer Blocks",
+   "authors": [
+    "Diego Iacopetta",
+    "Andrea Gasparini"
+   ],
+   "n_authors": 2,
+   "date": "2026-09-19",
+   "updated": "2026-09-19",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "Deep learning models are powerful but opaque. As quantum machine learning matures, the field faces a defining choice: build quantum models that are equally opaque, or exploit the mathematical structure of quantum mechanics to make them inherently interpretable. We show that the latter is possible. By tracking quantum mutual information~(MI), entanglement entropy, and state fidelity through the layers of a Quantum Transformer Block (\\qtb{}), a fully-coherent variational circuit with quantum analogues of both attention and feedforward, we gain direct insight into how the model processes information: which tokens it attends to, when correlations form, and why predictions fail. On four tasks with known dependency structure we show that (i)~learned MI matrices align with ground-truth task structure (AUC,=,0.69 on lookup), (ii)~disabling entangling gates collapses accuracy from 100% to 15% while MI→0, proving entanglement is the mechanism, (iii)~accuracy and MI co-evolve during training (ρ,=,0.92 on lookup), and (iv)~per-sample MI predicts prediction correctness on the conditional task with ROC AUC,=,0.84. All results are validated on IBM Quantum hardware (ibm\\_kingston, Heron~r2): the circuit's reasoning process, from product state through structured entanglement, is directly observable on a superconducting processor. These proof-of-concept results, obtained on small synthetic tasks",
+   "url": "https://arxiv.org/abs/2609.23016",
+   "pdf": "https://arxiv.org/pdf/2609.23016",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "quant-ph",
+    "cs.AI",
+    "cs.LG"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2609.21613",
+   "source": "arXiv",
+   "title": "Digital-analog concept for superconducting perceptron-like neural networks",
+   "authors": [
+    "Andrey E. Schegolev",
+    "Vsevolod I. Ruzhickiy",
+    "Georgy I. Gubochkin",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-09-18",
+   "updated": "2026-09-18",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "A promising route to superconducting artificial neural networks is a hybrid digital-Analog architecture that combines digital single-flux-quantum (SFQ) communication with compact Analog nonlinear processing. The study focused on the dynamic conversion of a discrete signal passing through a digital-to-Analog-to-digital (DAD) converter, in which the role of the Analog cell was performed by a Σ-neuron with a nonlinear transfer function – the basic cell of perceptron-like neural networks. Furthermore, the DAD converter, the elementary functional block of the hybrid architecture, combines a digital-to-analog converter (DAC) and an Analog-to-digital converter (ADC), and re-encodes the Analog Σ-neuron waveforms as an SFQ pulse sequence. Circuit-level simulations demonstrate how input values encoded by SFQ pulse trains are converted into analog signal levels, transformed by the Σ-neuron, and mapped back to pulse-based outputs. As a key experimental step, we fabricated and characterised a redesigned Σ-neuron and measured a sigmoid-like transfer characteristic suitable for activation-function implementation. The extracted response was incorporated into system-level simulations to assess the influence of realistic device parameters on the conversion process. We delineate the operating-range matching requirements for the DAC, neuron, and ADC blocks, supporting the feasibility of the propos",
+   "url": "https://arxiv.org/abs/2609.21613",
+   "pdf": "https://arxiv.org/pdf/2609.21613",
+   "journal_ref": "",
+   "doi": "10.1103/y84t-zzch",
+   "topics": [
+    "Iron-based",
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.dis-nn"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2609.19487",
+   "source": "arXiv",
+   "title": "ALIGNN 2.0: A Unified Line-Graph Neural Network Framework for Materials Screening, Force Fields, Inverse Design, Spectroscopy, and Microscopy",
+   "authors": [
+    "Jaehyung Lee",
+    "Charles Rhys Campbell",
+    "Akshaya Ajith",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-09-16",
+   "updated": "2026-09-16",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "Graph neural networks are central to materials property prediction and machine-learning interatomic potentials, yet their reliance on specialized graph libraries hampers portability and reproducibility, and property and force-field models have historically required separate graph pipelines. We present ALIGNN 2.0, a dependency-free, pure-PyTorch reimplementation of the Atomistic Line Graph Neural Network, with the line graph and its batching built from scratch, running on current-generation accelerators and unifying scalar, spectral, tensorial, per-atom, and force-field prediction behind a single graph, a combination that to our knowledge no existing framework provides. Comparing radius and k-nearest-neighbor (kNN) graphs, the wider kNN graph is more accurate for properties while the smoothly varying radius graph is required for energy-conserving molecular dynamics. On the JARVIS-Leaderboard, ALIGNN 2.0 leads on 26 of 30 single-property benchmarks against the original ALIGNN, with large gains for piezoelectric and dielectric maxima, exfoliation energy, moduli, and superconducting Tc. The LAMMPS- and OpenMM-compatible ALIGNN-FF matches leading universal potentials on the Matbench-Discovery and CHIPS-FF benchmarks at a small fraction of their parameters while scaling to hundred-thousand-atom cells. We further use ALIGNN 2.0 as the denoiser in a conditional crystal-diffusion model,",
+   "url": "https://arxiv.org/abs/2609.19487",
+   "pdf": "https://arxiv.org/pdf/2609.19487",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.mtrl-sci"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2609.17063",
+   "source": "arXiv",
+   "title": "Development of a Physics-Informed Neural Framework, MEOWN, for Rapid Prediction of Muon Stopping Sites in Crystalline Materials, for understanding Quantum Magnet employing Muon Spectroscopy",
+   "authors": [
+    "A. Pandey",
+    "K. Sharma",
+    "S. Ghosh",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-09-15",
+   "updated": "2026-09-15",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "Muon-spin rotation/relaxation is one of the most powerful microscopic probes for understanding magnetic order, spin dynamics, superconductivity, and complex magnetic phases in emerging quantum materials. Quantitative interpretation depends critically on the accurate identification of the muon stopping site, a problem traditionally addressed using density functional theory-based structural relaxation. However, conventional DFT approaches are computationally demanding, time-consuming, and require extensive calculations. Here, we develop MEOWN (Muon Engine for Optimized Weighted Networks), a machine-learning-based, physics-informed computational framework that combines a Polarizable Unperturbed Electrostatic Potential (P-UEP) model with machine-learning-guided optimization and symmetry-driven relaxation to predict energetically favorable muon stopping sites in crystalline solids. MEOWN explicitly incorporates electrostatic interactions, electronic screening, polarization effects, and zero-point motion into the learning workflow, providing physically interpretable predictions with substantially reduced computational cost while maintaining physical consistency and scientific rigor. To validate the framework, we investigated several well-established benchmark materials, including MnSi, CoF2, CaF2, LiF, and NaF. The predicted muon stopping sites and dipolar fields are in close agreeme",
+   "url": "https://arxiv.org/abs/2609.17063",
+   "pdf": "https://arxiv.org/pdf/2609.17063",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el",
+    "math-ph",
+    "physics.data-an",
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2609.10614",
+   "source": "arXiv",
+   "title": "Generating is not discovering: a pre-registered physics judge for AI-proposed superconductors, calibrated on six known superconductors and one negative control",
+   "authors": [
+    "Reinaldo Inácio"
+   ],
+   "n_authors": 1,
+   "date": "2026-09-08",
+   "updated": "2026-09-08",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Generative models now propose millions of \"stable\" crystal structures, and their own referees have shown that stability is not discovery; no public benchmark asks whether a candidate has the physics to do a job. For superconductors the job is twofold: to pair, with a definite gap symmetry, and to become wire. We present a physics judge that answers both from a structure alone (DFT+U, a gated Wannier model, the full rank-4 RPA susceptibility on a 24³ mesh, the linearized gap equation, an irreducible-representation classifier, a manufacturability funnel) and measure what it says about what generators propose. With answer keys pre-registered before computing, the judge was calibrated on six known superconductors (Nb, Nb₃Sn, MgB₂, BaFe₂As₂, La₂₋ₓSrₓCuO₄, YBa₂Cu₃O₇), recovering the expected class in all six after two dated corrections. On the ruthenium analogue of the iron pnictide, with two runs and their criterion pre-registered the day before, it returns a null verdict at the same physical interaction where iron gives s± (λ₁ ≤0.0007 versus 0.096; critical U 4.17 versus 0.97 eV); the pre-registered equal-alpha run fails the letter of the criterion, and we declare the resolution in favour of absolute U as post-hoc. The funnel reproduces the industrial map with thresholds fixed before running. Three generation audits follow: a descriptor sweep over 150 Materials Project metals re-fi",
+   "url": "https://arxiv.org/abs/2609.10614",
+   "pdf": "https://arxiv.org/pdf/2609.10614",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "Iron-based",
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2609.08727",
+   "source": "arXiv",
+   "title": "Adaptive AI for Pulse-Level Quantum Control",
+   "authors": [
+    "Sanjeev Shapkota",
+    "Yayu Mo",
+    "Sanjaya Lohani"
+   ],
+   "n_authors": 3,
+   "date": "2026-09-08",
+   "updated": "2026-09-08",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "The Control Variational Quantum Eigensolver (ctrl-VQE) directly optimizes microwave pulses to enable faster and lower-error quantum-state preparation, but its continuous control landscape re- quires efficient search strategies. We demonstrate that a reinforcement-learning agent based on a deep Q learning network can autonomously discover high-performance pulse sequences using only system parameters and a reward function. The approach is fully general for superconducting qubit platforms, requires no ansatz, and operates at nanosecond resolution compatible with hardware con- straints. As a proof of concept, we apply the method to ground-state preparation of the Hydrogen molecule on a simulated superconducting device. The agent consistently identifies optimized control sequences that achieve high fidelity and outperform random-search baselines. These results highlight adaptive learning as a promising hardware-ready framework for pulse-level quantum control.",
+   "url": "https://arxiv.org/abs/2609.08727",
+   "pdf": "https://arxiv.org/pdf/2609.08727",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "",
+   "categories": [
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2608.30588",
+   "source": "arXiv",
+   "title": "Machine learning reveals common features of unconventional superconductors with high transition temperatures",
+   "authors": [
+    "Haosheng Xu",
+    "Dongheng Qian",
+    "Yijun Yu",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-08-31",
+   "updated": "2026-08-31",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Superconductors with high critical temperatures that emerges beyond the phonon-mediated regime are usually considered unconventional in nature, yet unlike conventional superconductors, no broadly applicable predictive theory currently guides their discovery. Here, we use interpretable machine learning to uncover a common materials-space signature of high-Tc unconventional superconductors and develop a data-driven strategy for materials discovery. We construct a unified feature representation for each material by integrating compositional statistics, structural information, and latent representations from trained property-prediction models, followed by structure-aware filtering of an experimentally established superconducting dataset. Without using transition-temperature information, unsupervised analysis shows that cuprate and iron-based superconductors occupy a common region of materials space, characterized primarily by large electronegativity deviation and intermediate mean valence-electron number. A supervised Tc model independently identifies the same descriptors as dominant features, providing complementary evidence for their relevance. Using this empirical materials-space prior together with the Tc model, we prioritize candidate materials, recover recently discovered nickelate superconductors, and identify chemically distinct candidates for future investigation.",
+   "url": "https://arxiv.org/abs/2608.30588",
+   "pdf": "https://arxiv.org/pdf/2608.30588",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "Nickelates",
+    "Iron-based"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2608.28168",
+   "source": "arXiv",
+   "title": "A quantum generative model for in silico clinical trials using scarce training datasets",
+   "authors": [
+    "Olatz Sanz Larrarte",
+    "Reza Dastbasteh",
+    "Roberto Sanchez-Navarro",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-08-28",
+   "updated": "2026-08-28",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "In silico methods have emerged as a strategy to complement clinical trials. These are particularly relevant for rare or heterogeneous diseases for which traditional methods are costly or difficult to apply. While classical generative models have shown an extremely good ability to generate high fidelity data when trained using extensive databases, they often struggle when the available samples for training are scarce. In this work, we leverage the potential of quantum computers to represent complex probability distributions to generate high fidelity in silico patients. We propose a pipeline able to combine asymmetric databases into a quantum circuit that serves as a quantum generative model. We evaluate the efficacy of our proposal using a database of Myelodysplastic Syndrome (MDS) patients with 7 clinical variables as a proof-of-concept. We executed our quantum generative model in the IBM Heron r2 “ibm\\_basquecountry” superconducting quantum computer and compare our method with well known classical baselines. Our results show that the quantum generative model surpasses the classical generative models in generalization and expressivity metrics, indicating its potential validity to generate high fidelity in silico patients for clinical trials.",
+   "url": "https://arxiv.org/abs/2608.28168",
+   "pdf": "https://arxiv.org/pdf/2608.28168",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "10.1103/h5m3-qrn9",
+   "source": "PRX",
+   "journal": "Phys. Rev. X",
+   "title": "Demonstrating Coherent Quantum Routers for Bucket-Brigade Quantum Random Access Memory on a Superconducting Processor",
+   "authors": [
+    "Sheng Zhang",
+    "Yun-Jie Wang",
+    "Peng Wang",
+    "et al."
+   ],
+   "n_authors": 22,
+   "date": "2026-08-25",
+   "abstract": "Quantum routers (QRouters) are essential components of bucket-brigade quantum random access memory (QRAM), enabling quantum applications such as Grover’s search and quantum machine learning. Despite significant theoretical advances, achieving scalable and coherent QRouters experimentally remains challenging. Here, we demonstrate coherent quantum routers using a superconducting quantum processor, laying a practical foundation for scalable QRAM systems. The quantum router at the core of our implementation utilizes the transition composite gate scheme, wherein auxiliary energy levels temporarily mediate conditional interactions. By leveraging two-qubit primitives in its construction, the quantum router preserves straightforward initialization and calibration while significantly reducing circuit depth and duration relative to traditional gate-based decompositions. Moreover, by encoding routing addresses in the nonadjacent qutrit states | 0 ⟩ and | 2 ⟩ , our design inherently enables erasure-detection capability, providing efficient postselection to mitigate routing errors. Experimentally, we achieve an average fidelity of 94.8% across three individual QRouters, and we validate scalability through a two-layer quantum routing network achieving a fidelity of 82.4%. Our results represent a significant advancement in quantum routing technology, providing enhanced fidelity, built-in erro",
+   "url": "https://doi.org/10.1103/h5m3-qrn9",
+   "doi": "10.1103/h5m3-qrn9",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "theory",
+   "kind_of": "paper"
+  },
+  {
+   "id": "2608.23333",
+   "source": "arXiv",
+   "title": "First-Principles Electron-Magnon Coupling with Machine-Learning Hamiltonians: From Band Renormalization to Transport",
+   "authors": [
+    "Shixu Liu",
+    "Xingding Li",
+    "Haozhe Li",
+    "et al."
+   ],
+   "n_authors": 7,
+   "date": "2026-08-24",
+   "updated": "2026-08-24",
+   "category": "physics.comp-ph",
+   "cross_list": true,
+   "abstract": "In analogy to electron-phonon coupling (EPC), electron-magnon coupling (EMC) is expected to shape electronic structure, transport, and possibly unconventional superconductivity in magnetic materials. However, unlike EPC, which is now routinely treated within first-principles frameworks, a quantitative description of EMC, especially for transport, remains elusive because of the lack of theoretical formalism. Consequently, even for elemental iron, EPC-only calculations miss both the magnitude and the T² component of resistivity. This discrepancy has long been attributed to EMC, although direct computational evidence has been lacking and the underlying transport mechanism remains unresolved. Here we develop a unified first-principles formalism for EMC in collinear magnetic systems within many-body perturbation theory, complemented by machine-learning spinful Hamiltonians that supply quantities not directly accessible from conventional first-principles methods. Our framework enables ab initio transport calculations including EMC effects for the first time. Applied to ferromagnetic α-Fe, our approach yields electron spectral functions consistent with previous studies. More importantly, we recover the full T² component of resistivity with a coefficient in quantitative agreement with measurement and reveal that the T² component cannot be attributed solely to EMC, as has long been assu",
+   "url": "https://arxiv.org/abs/2608.23333",
+   "pdf": "https://arxiv.org/pdf/2608.23333",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon",
+    "AI and data"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "physics.comp-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2608.13731",
+   "source": "arXiv",
+   "title": "Properties of holographic superconductors from Machine Learning",
+   "authors": [
+    "Aliou Togo",
+    "Yang Yu",
+    "Kaniba Mady Keita",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-08-13",
+   "updated": "2026-08-13",
+   "category": "hep-th",
+   "cross_list": true,
+   "abstract": "We investigate holographic superconductors using modern optimisation techniques inspired by machine learning. The critical temperature is obtained by minimising the variational functional for the eigenvalue λ² with two complementary trial functions: a simple cosine ansatz F(z)=cos(a z) and a flexible exponential polynomial F(z)=exp(sumn₌₂N an zⁿ), both of which automatically satisfy the standard boundary conditions. For the cosine ansatz, we perform a one-parameter minimisation and obtain λ²(Δ) and Tc/√ρ over a wide range of Δ, including the exact values at Δ=1 and Δ=2 to high accuracy. The exponential polynomial ansatz, with up to 19 coefficients, is optimised using a multi-start L-BFGS-B algorithm with warm-starting, yielding even better agreement with known exact results. Our numerical data for λ²(Δ) and Tc/√ρ match the analytical predictions from the literature, confirming the robustness of the variational approach. This work; therefore, demonstrates that a combination of analytic trial functions and modern numerical optimisation provides a powerful, flexible, and efficient tool for exploring holographic superconductors, and can be readily extended to include backreaction or other sectors in this field.",
+   "url": "https://arxiv.org/abs/2608.13731",
+   "pdf": "https://arxiv.org/pdf/2608.13731",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "hep-th",
+    "cond-mat.supr-con"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2608.12465",
+   "source": "arXiv",
+   "title": "Superconductivity in the t-t' Hubbard Model from Symmetry-Preserving Neural-Network Quantum States",
+   "authors": [
+    "Riccardo Rende",
+    "Luciano Loris Viteritti",
+    "Antoine Georges"
+   ],
+   "n_authors": 3,
+   "date": "2026-08-12",
+   "updated": "2026-08-12",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "Despite its fundamental importance in the theory of strongly correlated electrons, the nature of the ground state of the two-dimensional doped Hubbard model remains intensely debated. Variational approaches provide a powerful route to this problem, but their conclusions can depend sensitively on the chosen wave-function parameterization, the mean-field initialization, or the pinning fields used to guide the optimization, as well as on boundary conditions. This can favor one type of symmetry breaking over another, making it difficult to distinguish the genuine interplay of intertwined or competing orders from biases induced by the variational parameterization. Here, we introduce the Symmetry-Preserving Backflow Pairing (SBP) ansatz, a neural-network wave function that respects translational symmetry by construction and thereby avoids these broken-symmetry minima. The SBP ansatz reaches state-of-the-art variational energies for the t-t' Hubbard model on lattices up to 24×24 with 504 electrons, below those of competing pure stripe solutions. By extrapolating to the thermodynamic limit, we find robust evidence for d-wave superconducting order, resolving a long-standing question about the 1/8-doped model at t'/t=-0.2 and U/t=8.0. Built on general principles of symmetry and locality, the SBP wave function provides a broadly applicable variational representation for challenging intera",
+   "url": "https://arxiv.org/abs/2608.12465",
+   "pdf": "https://arxiv.org/pdf/2608.12465",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.dis-nn",
+    "cond-mat.supr-con",
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2608.10428",
+   "source": "arXiv",
+   "title": "Quadrupolar phase transition in superconducting lanthanum hydride",
+   "authors": [
+    "Abhishek Raghav",
+    "Kousuke Nakano",
+    "Marco Cherubini",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-08-11",
+   "updated": "2026-08-11",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Lanthanum hydride (LaH₁₀) has been widely studied for its high superconducting critical temperature of 250 K at about 170 GPa pressure. Although the structural Rbar3m-to-Fmbar3m transition under pressure connected to the emergence of the superconducting phase in this material is broadly understood, the detailed characterization of its nature and its order parameter are still missing. By applying the cluster multipole moment analysis to the hydrogen sublattice, we reveal that this transition is triggered by a quadrupolar T₂g order parameter, and we provide evidence for its weak first-order nature. By performing path integral molecular dynamics coupled to a message-passing atomic cluster expansion (MACE) neural network potential, trained on Perdew-Burke-Ernzerhof (PBE) density functional theory configurations, we show that the collapse of the order parameter at the transition is simultaneously associated with the discontinuous softening of the optical T₂g phonons. Their symmetry lets them carry a non-negligible electron-phonon coupling in LaH₁₀, while the weak first-order nature of the transition makes them soft. The presence of structural instabilities with low-frequency quadrupolar distortions can be a key ingredient to enhance superconductivity in superhydrides and provides guidance for the discovery of new high-Tc superconductors in hydrogen-rich compounds.",
+   "url": "https://arxiv.org/abs/2608.10428",
+   "pdf": "https://arxiv.org/pdf/2608.10428",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Hydrides",
+    "Electron–phonon",
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.supr-con"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2608.08917",
+   "source": "arXiv",
+   "title": "Relaxation-driven flat bands and topology in moiré transition metal dichalcogenide heterobilayers",
+   "authors": [
+    "Mitchell Luskin",
+    "Max Geier",
+    "Liang Fu",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-08-09",
+   "updated": "2026-10-03",
+   "category": "cond-mat.mes-hall",
+   "cross_list": true,
+   "abstract": "Moiré transition metal dichalcogenide (TMD) heterobilayers are commonly modeled by a continuum theory that yields topologically trivial bands, in contrast to their homobilayer counterparts which host topological bands and fractional Chern insulators (FCI). We show this conclusion is an artifact of neglecting the pseudomagnetic field generated by lattice relaxation, an effect intrinsic to every moiré material. We develop a continuum model that resolves relaxation into three channels: a modified moiré potential with higher Fourier harmonics, a pseudoelectric (scalar deformation) potential, and a pseudomagnetic (vector) potential. Using WSe₂/WS₂ as a prototype, we find that the pseudomagnetic field alone gaps the third and fourth valence bands with Chern numbers ±1 over a broad range of twist angle and lattice mismatch, while the moiré potential correction and pseudoelectric potential narrow the bandwidth and enhance the bandgaps, which survive many-body interactions using neural-network variational Monte Carlo calculations. Relaxation also smoothens the Berry curvature and quantum metric relative to the rigid model, moving the band closer to the ideal Chern limit, beneficial for the quantum anomalous Hall effect, FCI states, and flat-band superconductivity when filled to higher bands. Our work establishes a new framework that connects first-principles calculations, through the co",
+   "url": "https://arxiv.org/abs/2608.08917",
+   "pdf": "https://arxiv.org/pdf/2608.08917",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Topological"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.mes-hall",
+    "cond-mat.str-el"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2608.05405",
+   "source": "arXiv",
+   "title": "Interferometric Quantum Polynomial Chaos Expansion as a Generative Model for Calorimeter Shower Simulation",
+   "authors": [
+    "Jamal Slim",
+    "Saverio Monaco",
+    "Florian Rehm",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-08-05",
+   "updated": "2026-08-25",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "We present the quantum polynomial chaos expansion, a generative algorithm in which a single circuit is the entire model, and we use it to learn calorimeter images. In a classical chaos expansion the randomness is the input and the coefficients are fitted. Here the randomness is still the only input, entering the circuit as rotation angles and re-uploaded at every block, so that each measured observable is a chaos expansion of the latent variables whose order equals the circuit depth, and what is fitted are the gate angles themselves. Expressivity therefore grows with depth rather than with classical coefficients, correlations between outputs arise only from entangling gates, and a single latent wire read by all qubits carries the collective mode of the data. Nothing fitted stands between the circuit and the sample, so switching the entanglers off is a setting of the model itself and provably yields independent outputs, and attribution of the learned correlations to individual gates becomes a measurement. Choosing between two measurement bases shot by shot sharpens attribution into certification, and the trained model violates the Bell bound obeyed by every classical generative model with local response, whatever its size. We train the model on Geant4 shower data, execute the identical circuit on a superconducting processor with its accuracy loss predicted in advance, prove a no",
+   "url": "https://arxiv.org/abs/2608.05405",
+   "pdf": "https://arxiv.org/pdf/2608.05405",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2608.00167",
+   "source": "arXiv",
+   "title": "Rhombohedral Graphene: A Tale of Many Crystals",
+   "authors": [
+    "Ahmed Abouelkomsan",
+    "Filippo Gaggioli",
+    "Daniele Guerci",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-07-31",
+   "updated": "2026-07-31",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "Experiments on rhombohedral graphene have uncovered an extraordinary wealth of correlated quantum phases - from chiral superconductors to electronic crystals - all within a single family of atomically thin materials. Here, we introduce a simple indicator, derived from the noninteracting band dispersion, that identifies strongly correlated regions in the phase diagram of rhombohedral graphene as a function of carrier density and displacement field. We develop a neural-network variational Monte Carlo method, combined with Hartree-Fock theory, to solve the interacting ground states. Our calculation reveals a variety of electron crystals with no classical analog. These include, at increasing density: Wigner crystal, self-doped Wiger crystal, as well as ”anticrystal”, a lattice of holes in an electron liquid. We discuss their experimental manifestations and possible connection to superconductivity.",
+   "url": "https://arxiv.org/abs/2608.00167",
+   "pdf": "https://arxiv.org/pdf/2608.00167",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.22704",
+   "source": "arXiv",
+   "title": "Visible-Light Imaging Diagnosis of Neutral Particle Emission Tomography in the Tokamak Divertor: An Efficient Transformer-based Surrogate Model",
+   "authors": [
+    "Xiao Wang",
+    "Hao Si",
+    "Qiang Chen",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-07-19",
+   "updated": "2026-07-19",
+   "category": "cs.CV",
+   "cross_list": true,
+   "abstract": "Nuclear fusion has made significant progress in recent years and is expected to become one of the most important pathways to addressing global energy challenges. This paper focuses on observing plasma using visible-light cameras, analyzing its spatio-temporal motion cues, and predicting the two-dimensional spatial distribution of light intensity, aiming to provide a foundational basis for future scientific experiments using deep neural networks. Specifically, we propose Delta-InvFormer, a novel backbone network centered on a differential Transformer. The key insight is that by taking consecutive video frames as input, we can better capture the dynamics of the plasma. Moreover, spatial and temporal differential self-attention effectively mitigates interference from noisy signals, ensuring high-quality feature extraction. These features are then fused into a compact and informative representation, which is fed into a decoder network to predict the distribution. Based on real experimental data collected from the Experimental Advanced Superconducting Tokamak (EAST) large-scale scientific facility, our results demonstrate that the proposed model not only significantly accelerates traditional methods for distribution prediction but also achieves competitive reconstruction accuracy. The source code of this paper will be released on https://github.com/Event-AHU/OpenFusion",
+   "url": "https://arxiv.org/abs/2607.22704",
+   "pdf": "https://arxiv.org/pdf/2607.22704",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cs.CV",
+    "cs.AI",
+    "cs.LG"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.16183",
+   "source": "arXiv",
+   "title": "A Blueprint for Equilibrium-Based Differentiable Continuous-Variable Thermodynamic Computing",
+   "authors": [
+    "Owen Lockwood",
+    "Jérémy Béjanin",
+    "Joost Bus",
+    "et al."
+   ],
+   "n_authors": 7,
+   "date": "2026-07-17",
+   "updated": "2026-08-14",
+   "category": "cs.LG",
+   "cross_list": true,
+   "abstract": "To help address the escalating energy and latency demands of machine-learning workloads, we introduce a blueprint for an energy-efficient and fast thermodynamic computing stack that leverages stochastic analog processes in physical hardware. In this work, we focus on energy-based thermodynamic computing where the stochastic process is well described by Langevin dynamics with tunable energy potentials. The implementation of such potentials in physical hardware enables us to generate and sample from basic parameterized energy-based models. We demonstrate how to construct and train popular classes of machine learning models based on these hardware-native energy-based models, using the framework of probabilistic graphical models. We analyze the runtime and energy consumption of different models in this thermodynamic paradigm based on theoretical considerations and numerical studies. As a preliminary experimental realization of such hardware, we present our stochastic analog superconducting circuits driven by thermal noise. Together, these results outline a path toward energy-efficient thermodynamic hardware for probabilistic machine learning.",
+   "url": "https://arxiv.org/abs/2607.16183",
+   "pdf": "https://arxiv.org/pdf/2607.16183",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cs.LG",
+    "cs.ET",
+    "physics.app-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.14949",
+   "source": "arXiv",
+   "title": "Avoiding Dilution: Using Diffusion and Vision Transformers to resolve Majorana Features in Nanowires at High Temperature",
+   "authors": [
+    "Jacob R. Taylor",
+    "Haining Pan",
+    "Jay D. Sau",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-07-16",
+   "updated": "2026-07-16",
+   "category": "cond-mat.mes-hall",
+   "cross_list": true,
+   "abstract": "Identifying Majorana zero modes in semiconductor–superconductor nanowires requires ultra-low temperature transport measurements in dilution refrigerators, making device screening slow and resource-intensive. Here, we investigate whether high-temperature conductance data can be used to infer low-temperature Majorana nanowire properties before committing devices to dilution-refrigerator characterization. We generate paired high- and low-temperature conductance simulations for disordered Majorana nanowires and train neural networks to perform two related tasks. First, we use a Shifted Window U-Net Transformer diffusion-inspired architecture to reconstruct low-temperature conductance from thermally broadened high-temperature measurements, achieving high-fidelity recovery with R² ≈0.95 for local conductance and R² ≈0.91 for nonlocal conductance. Second, we train a Video Vision Transformer-based network to predict the low-temperature topological visibility directly from high-temperature conductance, obtaining R² ≈0.80. These results demonstrate that machine-learning models can recover and infer low-temperature Majorana features from experimentally easier high-temperature data, providing a practical route for rejecting poor devices early thus avoiding slow and resource-intensive dilution refrigeration for non-promising devices. This high-temperature screening approach could substantia",
+   "url": "https://arxiv.org/abs/2607.14949",
+   "pdf": "https://arxiv.org/pdf/2607.14949",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Topological",
+    "AI and data"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.mes-hall",
+    "cond-mat.dis-nn"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.12996",
+   "source": "arXiv",
+   "title": "Expressibility and trainability of a two-dimensional pairwise quantum-circuit ansatz",
+   "authors": [
+    "Shuai Zhang",
+    "Wei Liu",
+    "Ji-Chong Yang"
+   ],
+   "n_authors": 3,
+   "date": "2026-07-14",
+   "updated": "2026-07-14",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "Parameterized quantum circuits~(PQCs) constitute a central building block of variational quantum algorithms~(VQAs) and quantum machine learning~(QML) methods. Existing ansatz designs often adopt hardware-agnostic or simplified 1D chain/ring entanglement patterns. However, as quantum hardware continues to develop, native 2D connectivity patterns, such as planar superconducting-qubit architectures, are becoming increasingly important. Inspired by this hardware structure, we construct a native 2D pairwise ansatz and compare its expressibility and trainability with representative 1D ansatze at identical layer depths, despite their different circuit depths. For the fixed 16-qubit system, the 2D ansatz has the smallest KL divergence at L=1 and 2, and its second-order frame potential approaches the theoretical lower bound more rapidly at shallow layer counts than the frame potentials of the three 1D ansatze. We also evaluate the gradient variance of the Pauli-Z-string expectation value ⟨Z₀otimescdotsotimesZ₁₅⟩ with respect to the first Ry angle. For this Pauli-Z string and fixed parameter, the gradient variance is smaller for the 2D circuit at L=1–4. The differences narrow at L=5, and the four ansatze yield statistically compatible variances at L=6.",
+   "url": "https://arxiv.org/abs/2607.12996",
+   "pdf": "https://arxiv.org/pdf/2607.12996",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.11425",
+   "source": "arXiv",
+   "title": "Interference-Enhanced Large Electron-Phonon Coupling from Raman-active Breathing Modes in Moiré Semiconductors",
+   "authors": [
+    "Ning Mao",
+    "Shaozheng Wang",
+    "Cheng Xu",
+    "et al."
+   ],
+   "n_authors": 9,
+   "date": "2026-07-13",
+   "updated": "2026-07-13",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Superconductivity was recently observed in twisted WSe2 and MoTe2, raising a central question: is the pairing driven by electronic correlations, by phonons, or by both? Answering it requires determining the electron-phonon coupling (EPC) in these moiré semiconductors, whose calculation in realistic supercells of thousands of atoms lies beyond the reach of direct first-principles methods. Here we combine filling-dependent Raman spectroscopy with machine-learning first-principles calculations to obtain the EPC mode by mode in supercells of up to tens of thousands of atoms. Raman reveals only a few moiré phonons whose frequencies shift strongly with filling; we trace this to an interference selection rule: a phonon couples strongly only when its displacement texture matches the static lattice-reconstruction pattern, and is otherwise suppressed by destructive interference. The rule selects the low- and high-frequency breathing modes seen in Raman and makes the coupling peak at large twist angles, near those at which superconductivity appears. Lattice-reconstruction interference thus emerges as an organizing principle for moiré EPC, pointing to a substantial, potentially dominant, phonon contribution to large-angle pairing.",
+   "url": "https://arxiv.org/abs/2607.11425",
+   "pdf": "https://arxiv.org/pdf/2607.11425",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Electron–phonon",
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.supr-con"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.07339",
+   "source": "arXiv",
+   "title": "Machine Learning Materials Properties by Encoding Orbital-Projected Density of States",
+   "authors": [
+    "Paulo Pires",
+    "Pierre-Paul De Breuck",
+    "Mauro Fava",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-07-08",
+   "updated": "2026-07-08",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "Graph neural networks have become the dominant machine-learning architecture for predicting materials properties from crystal structures. Yet the initialization of atomic node features has received comparatively little attention, and conventional approaches rely on static elemental descriptors that carry no information about the quantum-mechanical electronic environment of each atom in its crystalline host. Here we show that augmenting atomic node representations with site-projected orbital density of states (pDOS) fingerprints, computed directly from density functional theory calculations, yields systematic and substantial improvements in predictive performance.These representations are fused with Pettifor elemental embeddings at each atomic site before message passing. For the superconducting critical temperature Tc and the optical dielectric constant ε∞,the pDOS augmentation reduces prediction errors by 22.9% and 27.9%, respectively, relative to the elemental-descriptor baseline. These improvements are comparable to those achieved by doubling the training-set size. The gains are, however, contingent on training-set size. For the magnetic exchange energies of Heusler compounds, a substantially smaller dataset, the improvement is reduced,indicating that pDOS augmentation is most effective when the training data exceeds the length of the pDOS feature vector. We introduce an int",
+   "url": "https://arxiv.org/abs/2607.07339",
+   "pdf": "https://arxiv.org/pdf/2607.07339",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.mtrl-sci"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.06488",
+   "source": "arXiv",
+   "title": "Design and Benchmarking of a Quantum Photonic Chip",
+   "authors": [
+    "Gabriele De Angelis",
+    "Nicolò Leone",
+    "Alessandro Luongo",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-07-07",
+   "updated": "2026-07-08",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "We present the design and benchmarking of RP000, a quantum photonic processor capable of encoding a quantum system in the degrees of freedom of single photons, based on standard CMOS-compatible manufacturing processes, and working at room temperature. We benchmark it against machine learning tasks, evaluating three quantum-classical architectures of increasing complexity. Our experimental results and simulations show that RP000 achieves higher accuracy than classical networks of comparable size in multiple use cases. Compared to a superconducting quantum processor, RP000 exhibits superior noise tolerance. These findings demonstrate that RP000 can provide a scalable route toward efficient quantum applications.",
+   "url": "https://arxiv.org/abs/2607.06488",
+   "pdf": "https://arxiv.org/pdf/2607.06488",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.09761",
+   "source": "arXiv",
+   "title": "SlaKoNet-VQD: A universal Slater-Koster tight-binding Hamiltonian for variational quantum band-structure calculations on near-term hardware",
+   "authors": [
+    "Akshaya Ajith",
+    "Jaehyung Lee",
+    "Charles Rhys Campbell",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-07-06",
+   "updated": "2026-07-06",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "Variational quantum algorithms such as VQE and VQD are promising for near-term electronic structure calculations, but for periodic solids their reach is limited by the cost of building a faithful second-quantized Hamiltonian, typically via DFT plus Wannierization or hand-fit tight-binding parameters. SlaKoNet addresses this by combining deep learning with the Slater-Koster tight-binding formalism to fit hopping and overlap parameters across 65 elements, enabling deterministic Hamiltonian construction for any crystal built from these elements. Here we couple a SlaKoNet model trained on JARVIS-TBmBJ with a Qiskit-based VQD algorithm, replacing costly Hamiltonian construction with a universal neural Hamiltonian generator. The resulting SlaKoNet-VQD workflow is structure-agnostic, differentiable, and suited to high-throughput bandstructure screening. We benchmark on silicon, recovering the full eight-band structure along the standard k-path with mean absolute deviation of 1.78 meV from exact diagonalization on a 3-qubit simulator, and extend to five conventional superconductors (Al, Ta, Nb, V, ZrN) with similar accuracy. We demonstrate execution on IBM Quantum hardware for a k-point ground-state calculation on aluminum (MAE ~0.37 eV). We further promote the Hamiltonian to a correlated Hubbard model solved via dynamical mean-field theory, recovering weakening correlations across gro",
+   "url": "https://arxiv.org/abs/2607.09761",
+   "pdf": "https://arxiv.org/pdf/2607.09761",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon",
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.04135",
+   "source": "arXiv",
+   "title": "Broken Ergodicity and the Violation of the Fluctuation-Dissipation Theorem Lead to Generalization Beyond Overfitting in Machine Learning",
+   "authors": [
+    "Chan Li",
+    "Nigel Goldenfeld"
+   ],
+   "n_authors": 2,
+   "date": "2026-07-05",
+   "updated": "2026-07-05",
+   "category": "cond-mat.dis-nn",
+   "cross_list": true,
+   "abstract": "The remarkable ability of modern neural networks to generalize improves with increasing network capacity, even when the number of model parameters or effective degrees of freedom exceeds the number of training data points. This phenomenon is all the more surprising given that generalization error diverges when the number of model parameters approaches a critical value from below. Here we use dynamical mean field theory to show that this so-called \"double descent\" behavior is the outcome of a phase transition in the stochastic field theory describing the training process. We calculate the critical exponents and scaling function of the double descent phase transition, and show that it is marked by a breakdown of the fluctuation-dissipation theorem associated with broken ergodicity. The corresponding response function has the same functional form as the simple London model of the superconducting transition, with the rigidity of the wave function corresponding to the neural network's ability to generalize accurately.",
+   "url": "https://arxiv.org/abs/2607.04135",
+   "pdf": "https://arxiv.org/pdf/2607.04135",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.dis-nn",
+    "cond-mat.stat-mech",
+    "cs.LG"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2607.03337",
+   "source": "arXiv",
+   "title": "An End-to-End Multi-Stage Kill-Chain Attack on Quantum Neural Networks: Demonstration on Trapped-Ion Hardware",
+   "authors": [
+    "Cedric Brügmann",
+    "Daniel Herr",
+    "Daniel Ohl de Mello",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-07-03",
+   "updated": "2026-07-03",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "We demonstrate an end-to-end, multi-stage attack against a quantum neural network (QNN) model that is executed on a trapped-ion quantum computer. Our chain combines side-channel reconnaissance, crosstalk characterization, adversarial example generation, and a physical crosstalk attack that realizes the adversarial perturbation on the device. We cover the full attack chain on ion traps and report the corresponding superconducting-hardware experiments in the appendix. We discuss implications for QaaS providers and hardware mitigations.",
+   "url": "https://arxiv.org/abs/2607.03337",
+   "pdf": "https://arxiv.org/pdf/2607.03337",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2606.28201",
+   "source": "arXiv",
+   "title": "Hybrid Quantum-Classical Neural Networks for Recognizing Quantum Phases",
+   "authors": [
+    "Colin Scarato",
+    "Johannes Knörzer",
+    "Markus K. Hoffmann",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-06-26",
+   "updated": "2026-06-26",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "Identifying quantum phases of matter is key to understanding strongly correlated materials, but remains a challenging task for both conventional computers and current quantum processors. Here, we introduce and implement a hybrid quantum-classical neural network for quantum phase recognition by combining a hardware-efficient parameterized quantum circuit and a feedforward neural network. We jointly train both components with superconducting quantum hardware in the optimization loop, to experimentally demonstrate a classifier for the quantum phases of surface code lattices with up to 4x4 sites in a magnetic field. To learn nonlocal features of the topological phase, we train the hybrid neural network to distinguish topological ground states of the surface code from a featureless ensemble of product states. This allows the trained classifier to distinguish topological ground states from randomly chosen product states, even when subjected to any single-qubit Pauli error. The classifier reaches accuracies above 85% in single-shot measurements, and above 99% when averaging over ten measurements. We expect hybrid neural networks such as the one presented here to be a promising approach for characterizing quantum states in scenarios where classical methods exhibit an unfavorable scaling of sample complexity.",
+   "url": "https://arxiv.org/abs/2606.28201",
+   "pdf": "https://arxiv.org/pdf/2606.28201",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Topological",
+    "AI and data"
+   ],
+   "kind": "computation",
+   "categories": [
+    "quant-ph"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2606.26258",
+   "source": "arXiv",
+   "title": "New Superconductors in the PtPb₃Bi Structure Type",
+   "authors": [
+    "Lior Verbitsky",
+    "Amira Merino",
+    "Scott B. Lee",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-06-24",
+   "updated": "2026-06-24",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "The quest for new superconductors is of both fundamental and technological importance. Recently, an artificial intelligence method correctly predicted PtPb₃Bi to be a superconductor. In this work, we find superconductivity in the newly synthesized MPb₄₋ₓBiₓ (M = Au, Pd, and Rh), of which PtPb₃Bi is a member. When M = Ni, whose radius is considerably smaller, the structure instead collapses into the different, Pb-substituted NiBi₃ type. Interestingly, the stoichiometric parameter x shifts across the three compounds to keep the total valence electron count close to 20 per formula unit. The superconducting transitions occur at 4.9, 4.2, and 3.4 K, for M = Au, Pd, and Rh, respectively. Using electrical resistivity, magnetization, and specific heat measurements, we establish the bulk nature of the superconducting state and determine the critical fields, characteristic length scales, and anisotropy ratios. All three compounds are moderately anisotropic type-II superconductors, with modest upper critical field anisotropies of Hc₂∥c/Hc₂⊥c ≈1.2 to 1.5. These results establish MPb₄₋ₓBiₓ as a family of anisotropic superconductors and a platform for studying how site disorder and Pb-Bi mixing govern superconductivity in heavy-element intermetallics.",
+   "url": "https://arxiv.org/abs/2606.26258",
+   "pdf": "https://arxiv.org/pdf/2606.26258",
+   "journal_ref": "",
+   "doi": "10.1021/acs.chemmater.6c01826",
+   "topics": [],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2606.25795",
+   "source": "arXiv",
+   "title": "Benchmarking Dark Matter Search using a Parity-Check Protocol with Machine-Learning Optimized Pulses",
+   "authors": [
+    "Yu-Han Chang",
+    "Ilya Moskalenko",
+    "Marko Kuzmanović",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-06-24",
+   "updated": "2026-06-24",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "We report on an improved microwave detection protocol for dark matter candidates such as the axion and the dark photon. We employ a superconducting transmon qubit dispersively coupled to a double-cavity system, enabling quantum non-demolition measurements of the photon occupation in a relatively short-lived storage cavity. To reduce the experimental cycle time and enhance sensitivity for axion and dark-photon searches, we operate this detector in a regime of increased qubit-cavity coupling, resulting in Stark shifts of 4.6 MHz. In this regime, conventional control pulses suffer from strong frequency-detuning sensitivity and photon-number-dependent errors. We address this limitation by implementing frequency-detuning-robust π/2 pulses (obtained by machine-learning optimization) that preserve high-fidelity qubit control over a bandwidth of approximately 20 MHz. We experimentally validate this protocol and demonstrate single-photon detection performance comparable to previous implementations, despite significantly reduced qubit coherence times and storage-cavity lifetimes. Using parity-based measurement sequences combined with a Hidden Markov Model (HMM) analysis, we achieve background rates on the order of O(20) Hz. In the absence of a magnetic field, we derive exclusion limits on the dark photon model for dark matter, reaching a sensitivity to the kinetic mixing angle of ε₉₅% ∼1",
+   "url": "https://arxiv.org/abs/2606.25795",
+   "pdf": "https://arxiv.org/pdf/2606.25795",
+   "journal_ref": "",
+   "doi": "10.1103/m92t-xwgt",
+   "topics": [
+    "AI and data"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "quant-ph",
+    "cond-mat.supr-con",
+    "gr-qc",
+    "hep-ex"
+   ],
+   "kind_of": "paper"
+  },
+  {
+   "id": "2606.23799",
+   "source": "arXiv",
+   "title": "Fermi surface change and d-wave superconductivity in the square lattice Kondo-Heisenberg model",
+   "authors": [
+    "Alexander Nikolaenko",
+    "Riccardo Rende",
+    "Luciano Loris Viteritti",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-06-22",
+   "updated": "2026-06-22",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "We study the two-dimensional Kondo-Heisenberg model on a square lattice, with the conduction electrons away from half-filling, using neural network quantum states. Mapping the ground-state phase diagram as a function of the Kondo and Heisenberg couplings, we identify (i) at weak Kondo coupling, antiferromagnetic Néel order with a Fermi surface whose enclosed area counts only the conduction electrons and is insensitive to the Néel order, and (ii) at strong coupling, a heavy Fermi liquid with a Fermi surface whose enclosed area counts both the conduction electrons and the spins. In the crossover between these regimes, we find dₓ₂₋y₂ superconductivity, evidenced by off-diagonal long-range order in the pair-pair correlations and a pairing-amplitude dome that coexists with the underlying magnetic phase. Our results establish Fermi volume change and unconventional superconductivity as intrinsic features of the two-dimensional Kondo-Heisenberg model.",
+   "url": "https://arxiv.org/abs/2606.23799",
+   "pdf": "https://arxiv.org/pdf/2606.23799",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Heavy fermions",
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.dis-nn",
+    "cond-mat.supr-con",
+    "quant-ph"
+   ],
+   "kind_of": "paper"
   }
  ]
 }
