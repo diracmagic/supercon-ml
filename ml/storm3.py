@@ -366,10 +366,12 @@ def update_progress(out: dict) -> None:
         fam.insert(0, {"id": "storm", "status": f"Storm {VERSION} in use", "active": True,
                        "text": ("Learns from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log "
                                 "have been computed (the Alexandria set), then a calibration learned from "
-                                f"{d['n_matched']} measured superconductors maps its prediction to measured Tc: off by "
+                                f"{d['n_matched']} materials with measured Tc ({d['n_sc']} superconducting) maps its "
+                                f"prediction to measured Tc: off by "
                                 f"{best['mae']:.1f} K on average against {out['reference_mae']:.1f} K uncalibrated and "
                                 f"{out['dft_mae']:.1f} K for the DFT labels themselves. Our AI agent designed it.")})
         prog["model_family"] = fam
+    H.ai_stage(prog)
     P.tidy(prog)
     P.add_log(prog, stamp, (f"Storm round 3, calibration to measured Tc ({len(out['leaderboard'])} maps on "
                             f"{d['n_matched']} matched materials): best {best['name']}, MAE {best['mae']:.2f} K against "
