@@ -373,8 +373,9 @@ def update_progress(out: dict) -> None:
         prog["model_family"] = fam
     H.ai_stage(prog)
     P.tidy(prog)
-    P.add_log(prog, stamp, (f"Storm round 3, calibration to measured Tc ({len(out['leaderboard'])} maps on "
-                            f"{d['n_matched']} matched materials): best {best['name']}, MAE {best['mae']:.2f} K against "
+    P.add_log(prog, stamp, (f"Storm round 3, calibration to measured Tc ({len(out['leaderboard']) - 1} maps and the "
+                            f"uncalibrated reference on {d['n_matched']} matched materials): best {best['name']}, MAE "
+                            f"{best['mae']:.2f} K against "
                             f"{out['reference_mae']:.2f} K uncalibrated (DFT labels {out['dft_mae']:.2f} K), better in "
                             f"{best['folds_better']} of {len(best['fold_mae'])} folds; " +
                             (f"adopted as Storm {VERSION}" if adopted else "not adopted, so Storm 1.0 stays in use")))
