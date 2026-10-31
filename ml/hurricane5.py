@@ -49,6 +49,11 @@ whose chance moves by at most 0.05 more than Hurricane 4.0's in the database swa
 then to the lower Tc error. Finding more of a new family is the point of this round; the other tests keep round 3's
 and round 4's gains.
 
+Amended after the first run, and applied to it: "more" now means a margin. The first run's best design found 9 of the
+290 superconducting parents where Hurricane 4.0 found 7, which passed the rule as written and means nothing, so a
+release must now find at least 5 points and at least 10 superconducting parents more than the version in use. The
+first run is recorded as not released, with its numbers kept as they were measured.
+
 Run from the repository root:  python ml/pipeline.py hurricane5
 (HURRICANE5_SMOKE=1: a quick check on small data that writes into a temporary folder)
 """
@@ -79,6 +84,13 @@ MAE_TOL = 1.0         # K, on the parents, against Hurricane 4.0 ...
 BRIER_TOL = 0.01      # ... a Brier score at most this much worse ...
 SHIFT_MAX = 0.10      # ... and the database swap moves the chance by at most this much, on average
 MIN_FAMILY = 10       # a family is left out only with at least this many parents
+# Amendment, written after the first round-5 run and applied to it: the rule below asked only that a release find
+# MORE of a left-out family than the version in use, with no margin. The first run passed that test on 9 of the 290
+# superconducting parents against 7, a difference of two compounds, which is noise. A rule that admits noise is a
+# broken rule, so it now asks for a margin, and the margin is written here before any further round is run. The first
+# run's own numbers are in results/hurricane_round5.json; it is recorded as not released.
+MARGIN_FOUND = 0.05   # at least 5 points more of a left-out family found than the version in use ...
+MARGIN_COUNT = 10     # ... and at least this many more of its superconducting parents, counted
 
 RULE = (f"release the design that finds the most superconductors of a left-out family (gives them at least an even "
         f"chance), among those that raise false alarms on at most {FA_MAX:.0%} of the held-out compounds with no "
@@ -513,9 +525,16 @@ def run() -> None:
                        r["reliability"]["false_alarms"], r["scores"]["tc_mae"])
     best = min(eligible or new, key=order)
     br = best["reliability"]
-    # a release must also actually find more than Hurricane 4.0 does; otherwise the round changes nothing
-    better = (br["found"] is not None and rr["found"] is not None and br["found"] > rr["found"])
+    # a release must find enough more of a left-out family to be worth the name (see the amendment at the top)
+    gain = (br["found"] - rr["found"]) if (br["found"] is not None and rr["found"] is not None) else None
+    n_found = int(sum(round((r.get("found") or 0) * r["n_sc"]) for r in best["lofo"]))
+    n_found_prev = int(sum(round((r.get("found") or 0) * r["n_sc"]) for r in ref["lofo"]))
+    better = gain is not None and gain >= MARGIN_FOUND and (n_found - n_found_prev) >= MARGIN_COUNT
     adopted = bool(eligible) and better
+    P.log(f"finds {n_found} of the {sum(r['n_sc'] for r in best['lofo'])} superconducting parents of a left-out "
+          f"family, against {n_found_prev} for Hurricane {cur_ver}: a gain of "
+          f"{(gain or 0):.3f} and {n_found - n_found_prev} compounds, against the {MARGIN_FOUND:g} and "
+          f"{MARGIN_COUNT} the rule asks for")
     cb = next(c for c in cands if c["id"] == best["id"])
     P.log(f"best {best['id']}: found {br['found']:.3f} (Hurricane {cur_ver} {rr['found']:.3f}), called unlikely "
           f"{br['dismissed']:.3f} (bar {bar:.3f}), false alarms {br['false_alarms']:.3f}, coverage "
@@ -580,6 +599,16 @@ def run() -> None:
         "leaderboard": sorted(board, key=lambda r: (-(r["reliability"].get("found") if r["reliability"].get("found")
                                                       is not None else -1), r["scores"]["tc_mae"])),
         "best": best, "adopted": adopted, "finds_more": better,
+        "found_counts": {"best": n_found, "previous": n_found_prev,
+                         "of": int(sum(r["n_sc"] for r in best["lofo"])),
+                         "margin_found": MARGIN_FOUND, "margin_count": MARGIN_COUNT,
+                         "about": ("how many superconducting parents of a left-out family the design finds, counted "
+                                   "rather than averaged, next to the margin the rule asks for")},
+        "amendment": ("The rule first asked only that a release find more of a left-out family than the version in "
+                      "use, with no margin. The first run passed that on 9 of the 290 superconducting parents "
+                      "against 7, a difference of two compounds, which is noise; the rule now asks for a margin of "
+                      f"{MARGIN_FOUND:.0%} and {MARGIN_COUNT} compounds, fixed before any further round, and the "
+                      "first run is recorded as not released."),
         "spec": model_spec(cb, n_cols, int(use_final.sum())),
         "changes": spec_changes(cb, cands[0], int(use_final.sum())),
         "importance": imp, "lofo": lofo_rows, "anchors": anchors_out or None,
