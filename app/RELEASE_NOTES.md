@@ -1,10 +1,12 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.2.0 adds:
+Version 0.3.0 adds:
 
-- **Physics demos**: *Hello Super*, a 90-second animated tour of the project; *Our model*, an animation of the baseline and foundation-model pipelines; and demos of zero resistance, the Meissner effect, Cooper pairs and an Allen–Dynes T<sub>c</sub> explorer.
-- **Theory & materials**: an interactive T<sub>c</sub>-by-year chart, the main theories of superconductivity and the materials to know, each with links to the original papers.
-- **Phone and iPad version**: the same app at [diracmagic.github.io/supercon-ml](https://diracmagic.github.io/supercon-ml/), installable to the home screen on iPhone, iPad and Android.
+- **Storm, our AI-designed model**: an AI agent (Claude) designs the models, and Storm 1.0 is its first release, with an average T<sub>c</sub> error of 0.97 K against 1.05 K for the hand-made baseline, better in all five test folds. The new *Our AI model: Storm* demo animates the design round, inputs, learner, predictions, fold-by-fold check and what changed. It is drawn from the model's own spec, so every new version explains itself.
+- **News & papers**: superconductivity news, new arXiv papers and new papers in Nature, Science, PRL and PRX, refreshed every three hours. It also has a curated list of recent advances in experiment, theory and AI for superconductivity.
+- **Theory & materials**: an animation and the latest results on every theory and material card, plus the Nobel Prizes for superconductivity, each illustrated and linked to NobelPrize.org.
+
+Version 0.2.0 added the *Hello Super* tour, the physics demos, the Theory & materials view and the phone and iPad version.
 
 ### Download
 
