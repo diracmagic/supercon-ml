@@ -8,7 +8,8 @@ Sources:
   - arXiv API, category cond-mat.supr-con (primary and cross-listed). arXiv metadata, including
     abstracts, is offered under CC0.
   - Crossref REST API, filtered by journal ISSN and publication date; titles are matched for
-    superconductivity. Abstracts are shown only when the publisher deposited one with Crossref.
+    superconductivity. Abstracts stay under the publisher's or authors' copyright, so only their first
+    sentence is kept, with the link to the full paper.
   - News: the RSS feeds of Nature (news and comment only), ScienceDaily, Phys.org, Physics World,
     APS Physics and Quanta Magazine, keeping items that mention superconductivity. Only the headline,
     a short snippet and the link are kept.
@@ -48,6 +49,7 @@ JOURNALS = [
     ("npj Quantum Mater.", "npj Quantum Materials", ["2397-4648"]),
 ]
 ABSTRACT_MAX = 1400
+JOURNAL_SNIPPET = 240   # characters of a journal abstract that are kept (its first sentence at most)
 NEWS_FEEDS = [
     ("Nature News", "https://www.nature.com/nature.rss"),   # RSS 1.0; research papers there come from Crossref instead
     ("ScienceDaily", "https://www.sciencedaily.com/rss/matter_energy/superconductors.xml"),
@@ -178,6 +180,15 @@ def tags_for(text: str) -> tuple[list, str]:
     return topics, kind
 
 
+def first_sentence(s: str, limit: int = JOURNAL_SNIPPET) -> str:
+    """The first sentence of a journal abstract, at most `limit` characters (cut at a word, with an ellipsis)."""
+    s = (s or "").strip()
+    m = re.match(r"(.{30,}?[.!?])\s+[A-Z(]", s)
+    if m and len(m.group(1)) <= limit:
+        return m.group(1)
+    return s if len(s) <= limit else s[:limit].rsplit(" ", 1)[0].rstrip(",;:") + "…"
+
+
 def short_authors(names: list) -> list:
     return names[:3] + (["et al."] if len(names) > 3 else [])
 
@@ -280,7 +291,7 @@ def fetch_journal(short: str, name: str, issns: list) -> list:
             "authors": short_authors(names),
             "n_authors": len(names),
             "date": crossref_date(w),
-            "abstract": abstract[:ABSTRACT_MAX],
+            "abstract": first_sentence(abstract),
             "url": f"https://doi.org/{doi}",
             "doi": doi,
             "topics": topics,
@@ -375,7 +386,7 @@ def main() -> int:
         if x["id"] not in seen:
             seen.add(x["id"])
             unique.append(x)
-    feed["journals"] = unique
+    feed["journals"] = [dict(x, abstract=first_sentence(x.get("abstract", ""))) for x in unique]
     news, kept_news = [], {}
     for x in feed["news"]:
         kept_news.setdefault(x.get("source"), []).append(x)
