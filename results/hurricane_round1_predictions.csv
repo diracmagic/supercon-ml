@@ -1,0 +1,2124 @@
+formula,family,group,tc,tc_pred_best,tc_pred_baseline
+Ag1Ce1Sb2,heavy-fermion,Ag-Ce-Sb,0.0,0.438,0.357
+Ag2O1,other oxide,Ag-O,0.0,0.618,0.0
+Ag5Pb2O6,other oxide,Ag-Pb-O,0.05,0.734,0.325
+Ag7N1O11,other oxide,Ag-N-O,1.036,0.46,1.947
+Al0.3Ba2Cu2La2Ti1.7O10.86,cuprate,Ba-Cu-La-Ti-O,0.0,4.592,0.771
+Al0.3Ga2.7Pd2U1,heavy-fermion,Ga-Pd-U,0.0,1.789,2.088
+Al1B4Yb1,heavy-fermion,Al-B-Yb,0.08,0.336,0.334
+Al1Ce1Rh1,heavy-fermion,Al-Ce-Rh,0.0,0.005,0.132
+Al1Pr1Rh1,heavy-fermion,Al-Pr-Rh,0.0,0.0,0.16
+Al2.7Ga0.3Pd2U1,heavy-fermion,Al-Pd-U,0.52,1.516,0.954
+Al2.85Ga0.15Pd2U1,heavy-fermion,Al-Pd-U,1.15,1.099,0.929
+Al2.94Ga0.06Pd2U1,heavy-fermion,Al-Pd-U,1.51,0.603,0.956
+Al2.97Ga0.03Pd2U1,heavy-fermion,Al-Pd-U,1.64,0.819,0.956
+Al2.97Pd2U1,heavy-fermion,Al-Pd-U,0.0,0.546,0.205
+Al2.98Ni2U1,heavy-fermion,Al-Ni-U,1.155,0.397,0.508
+Al20Pr1Ti2,heavy-fermion,Al-Pr-Ti,0.19,0.0,0.031
+Al20Pr1V2,heavy-fermion,Al-Pr-V,0.03,1.059,0.413
+Al28Ca24O66,other oxide,Al-Ca-O,0.195,0.0,0.027
+Al2Ce1,heavy-fermion,Al-Ce,0.0,0.135,0.047
+Al2Ce1Pd5,heavy-fermion,Al-Ce-Pd,0.735,0.819,0.819
+Al2Np1Pd5,heavy-fermion,Al-Np-Pd,4.95,0.0,0.052
+Al2Pd5Pu1,heavy-fermion,Al-Pd-Pu,0.0,3.823,3.845
+Al2Si2U1,heavy-fermion,Al-Si-U,1.34,0.197,0.441
+Al2U1,heavy-fermion,Al-U,0.0,0.174,0.0
+Al2Yb1,heavy-fermion,Al-Yb,0.0,0.091,0.429
+Al3.05Ni1.95U1,heavy-fermion,Al-Ni-U,0.16,0.705,0.441
+Al3Gd0.01Pd2U0.99,heavy-fermion,Al-Pd-U,1.16,0.683,0.992
+Al3Gd0.05Pd2U0.95,heavy-fermion,Al-Pd-U,0.0,1.096,0.992
+Al3La0.15Pd2U0.85,heavy-fermion,Al-Pd-U,1.2,0.68,0.697
+Al3La0.1Pd2U0.9,heavy-fermion,Al-Pd-U,0.0,0.755,0.881
+Al3La0.3Pd2U0.7,heavy-fermion,Al-Pd-U,1.2,0.649,0.779
+Al3Ni1.98U1,heavy-fermion,Al-Ni-U,1.13,0.406,0.498
+Al3Ni2U0.98,heavy-fermion,Al-Ni-U,1.145,0.389,0.396
+Al3Ni2U1,heavy-fermion,Al-Ni-U,1.021,0.253,0.466
+Al3Pd1.98U1,heavy-fermion,Al-Pd-U,1.2,0.54,0.205
+Al3Pd2Th0.02U0.98,heavy-fermion,Al-Pd-U,1.97,0.776,0.976
+Al3Pd2Th0.1U0.9,heavy-fermion,Al-Pd-U,1.28,1.071,0.962
+Al3Pd2U0.8Y0.2,heavy-fermion,Al-Pd-U,0.0,1.231,0.945
+Al3Pd2U0.98Y0.02,heavy-fermion,Al-Pd-U,0.0,0.776,1.005
+Al3Pd2U0.99,heavy-fermion,Al-Pd-U,1.94,0.525,0.21
+Al3Pd2U0.99Y0.01,heavy-fermion,Al-Pd-U,1.11,0.553,1.005
+Al3Pd2U1,heavy-fermion,Al-Pd-U,1.864,0.194,0.26
+Al3U1,heavy-fermion,Al-U,0.0,0.137,0.0
+Al3Yb1,heavy-fermion,Al-Yb,0.94,0.049,0.242
+Al4Np1,heavy-fermion,Al-Np,0.0,0.583,0.164
+Al4U1,heavy-fermion,Al-U,0.0,0.639,0.292
+As0.15Fe1La1P0.85O1,iron-based,Fe-La-P-O,11.67,2.513,1.403
+As0.1Fe1La1P0.9O1,iron-based,Fe-La-P-O,5.96,2.597,1.403
+As0.25Fe1La1P0.75O1,iron-based,Fe-La-P-O,7.52,2.095,1.541
+As0.2Ba1Fe2P1.8,iron-based,Ba-Fe-P,0.0,9.671,8.278
+As0.2Ba1Sb1.8Ti2O1,other oxide,Ba-Sb-Ti-O,0.48,4.95,0.864
+As0.2Fe1La1P0.8O1,iron-based,Fe-La-P-O,11.42,2.389,1.266
+As0.3Fe1La1P0.7O1,iron-based,Fe-La-P-O,0.0,3.772,1.597
+As0.7Ce1Fe1P0.3O1,iron-based,As-Ce-Fe-O,4.0,4.597,3.747
+As0.8Fe2P1.2Sr1,iron-based,As-Fe-P-Sr,3.13,2.815,2.427
+As0.9Ce1Fe1P0.1O1,iron-based,As-Ce-Fe-O,0.0,6.634,3.159
+As1.22Fe2P0.78Sr1,iron-based,As-Fe-P-Sr,27.35,4.6,3.642
+As1.2Fe2P0.8Sr1,iron-based,As-Fe-P-Sr,27.0,4.263,3.224
+As1.3Fe2P0.7Sr1,iron-based,As-Fe-P-Sr,28.475,5.879,3.753
+As1.74Eu1Fe2P0.26,iron-based,As-Eu-Fe,0.0,4.97,1.588
+As1.792Ba1Ni2P0.208,iron-based,As-Ba-Ni,3.24,2.389,4.063
+As1.7Eu1Fe2P0.3,iron-based,As-Eu-Fe,23.0,4.532,1.663
+As1.816Ba1Ni2P0.184,iron-based,As-Ba-Ni,3.27,2.529,4.063
+As1.846Ba1Ni2P0.154,iron-based,As-Ba-Ni,3.28,2.052,4.247
+As1.89Eu1Fe2P0.11,iron-based,As-Eu-Fe,0.0,4.765,1.541
+As1.8Fe2P0.2Sr1,iron-based,As-Fe-Sr,0.0,6.452,2.708
+As1.902Ba1Ni2P0.098,iron-based,As-Ba-Ni,0.763,0.952,4.403
+As1.972Ba1Ni2P0.028,iron-based,As-Ba-Ni,0.634,1.186,3.176
+As12Fe4La1,iron-based,As-Fe-La,0.0,1.451,1.932
+As12Pr1Ru4,heavy-fermion,As-Pr-Ru,2.382,0.0,0.569
+As1Ca1Co0.15F1Fe0.85,iron-based,As-Ca-F-Fe,20.8,9.168,5.548
+As1Ca1Co0.1F1Fe0.9,iron-based,As-Ca-F-Fe,22.933,13.0,4.881
+As1Ca1Co0.26F1Fe0.74,iron-based,As-Ca-F-Fe,3.49,5.053,4.917
+As1Ca1Co0.2F1Fe0.8,iron-based,As-Ca-F-Fe,16.5,4.745,5.546
+As1Ca1Cr0.1F1Fe0.9,iron-based,As-Ca-F-Fe,0.0,12.53,3.247
+As1Ca1Cu0.05F1Fe0.95,iron-based,As-Ca-F-Fe,0.0,8.022,5.021
+As1Ca1F1Fe0.85Ni0.15,iron-based,As-Ca-F-Fe,8.72,9.944,4.458
+As1Ca1F1Fe0.85Rh0.15,iron-based,As-Ca-F-Fe,18.4,10.642,1.527
+As1Ca1F1Fe0.8Ni0.2,iron-based,As-Ca-F-Fe,3.92,9.704,3.409
+As1Ca1F1Fe0.92Rh0.08,iron-based,As-Ca-F-Fe,22.2,12.523,3.146
+As1Ca1F1Fe0.95Ni0.05,iron-based,As-Ca-F-Fe,0.0,6.924,4.545
+As1Ca1F1Fe0.95Rh0.05,iron-based,As-Ca-F-Fe,3.81,6.175,2.736
+As1Ca1F1Fe0.9Mn0.1,iron-based,As-Ca-F-Fe,0.0,5.87,2.68
+As1Ca1F1Fe0.9Ni0.1,iron-based,As-Ca-F-Fe,15.4,10.072,4.718
+As1Ce1Co0.15Fe0.85O1,iron-based,As-Ce-Fe-O,5.0,8.528,7.848
+As1Ce1Co0.1Fe0.9O1,iron-based,As-Ce-Fe-O,10.0,10.82,10.702
+As1Ce1F0.02Fe1O0.98,iron-based,As-Ce-Fe-O,0.0,1.303,3.414
+As1Ce1F0.04Fe1O0.96,iron-based,As-Ce-Fe-O,0.0,1.332,2.899
+As1Ce1F0.05Fe1O0.95,iron-based,As-Ce-Fe-O,11.8,2.244,3.192
+As1Ce1F0.06Fe1O0.94,iron-based,As-Ce-Fe-O,0.0,18.927,14.765
+As1Ce1F0.08Fe1O0.92,iron-based,As-Ce-Fe-O,27.6,17.53,20.614
+As1Ce1F0.11Fe1O0.89,iron-based,As-Ce-Fe-O,47.0,27.229,29.803
+As1Ce1F0.12Fe1O0.88,iron-based,As-Ce-Fe-O,43.5,26.247,29.432
+As1Ce1F0.16Fe1O0.84,iron-based,As-Ce-Fe-O,40.85,27.999,28.747
+As1Ce1F0.1Fe1O0.9,iron-based,As-Ce-Fe-O,36.333,26.654,29.803
+As1Ce1F0.2Fe1O0.8,iron-based,As-Ce-Fe-O,40.4,26.208,25.836
+As1Ce1F0.3Fe1O0.7,iron-based,As-Ce-Fe-O,46.0,16.687,24.275
+As1Ce1Fe1O0.7,iron-based,As-Ce-Fe-O,40.2,36.593,32.782
+As1Ce1Fe1O0.85,iron-based,As-Ce-Fe-O,42.6,31.503,46.629
+As1Ce1Fe1O1,iron-based,As-Ce-Fe-O,0.0,0.575,3.793
+As1Co0.005Fe0.995Na1,iron-based,As-Fe-Na,9.81,3.375,8.18
+As1Co0.019Fe0.981Na1,iron-based,As-Fe-Na,19.3,3.727,8.287
+As1Co0.021Fe0.979Na1,iron-based,As-Fe-Na,19.4,3.743,8.287
+As1Co0.023Fe0.977Na1,iron-based,As-Fe-Na,15.7,4.075,8.287
+As1Co0.025Fe0.975Li1,iron-based,As-Fe-Li,13.4,9.634,5.03
+As1Co0.025Fe0.975Na1,iron-based,As-Fe-Na,21.05,4.0,8.287
+As1Co0.025Fe0.975Pr1O1,iron-based,As-Fe-Pr-O,0.0,0.0,0.162
+As1Co0.025Fe0.975Sm1O1,iron-based,As-Fe-Sm-O,0.0,0.0,0.0
+As1Co0.028Fe0.972Na1,iron-based,As-Fe-Na,20.1,3.512,8.508
+As1Co0.02Fe0.98Na1,iron-based,As-Fe-Na,18.8,4.109,8.287
+As1Co0.03Fe0.97Na1,iron-based,As-Fe-Na,21.133,2.195,8.508
+As1Co0.05Fe0.95Li1,iron-based,As-Fe-Li,10.29,6.539,5.201
+As1Co0.05Fe0.95Na1,iron-based,As-Fe-Na,16.3,4.878,8.604
+As1Co0.05Fe0.95Pr1O1,iron-based,As-Fe-Pr-O,6.14,0.226,3.169
+As1Co0.05Fe0.95Sm1O1,iron-based,As-Fe-Sm-O,2.565,0.493,1.183
+As1Co0.061Fe0.939Na1,iron-based,As-Fe-Na,13.4,5.3,8.099
+As1Co0.075Fe0.925Li1,iron-based,As-Fe-Li,7.66,4.244,3.22
+As1Co0.075Fe0.925Na1,iron-based,As-Fe-Na,10.6,7.102,8.099
+As1Co0.075Fe0.925Pr1O1,iron-based,As-Fe-Pr-O,15.033,1.381,6.273
+As1Co0.075Fe0.925Sm1O1,iron-based,As-Fe-Sm-O,13.3,3.606,1.837
+As1Co0.07Fe0.93Na1,iron-based,As-Fe-Na,14.0,7.389,8.099
+As1Co0.08Fe0.92Na1,iron-based,As-Fe-Na,7.53,8.922,6.37
+As1Co0.109Fe0.891Na1,iron-based,As-Fe-Na,0.0,9.858,6.3
+As1Co0.125Fe0.875Sm1O1,iron-based,As-Fe-Sm-O,14.3,9.003,1.633
+As1Co0.15Fe0.85Pr1O1,iron-based,As-Fe-Pr-O,7.485,1.083,7.334
+As1Co0.15Fe0.85Sm1O1,iron-based,As-Fe-Sm-O,10.875,8.114,1.57
+As1Co0.175Fe0.825Sm1O1,iron-based,As-Fe-Sm-O,5.8,7.578,1.258
+As1Co0.1Fe0.9Na1,iron-based,As-Fe-Na,0.0,10.18,6.37
+As1Co0.1Fe0.9Pr1O1,iron-based,As-Fe-Pr-O,14.9,1.765,7.601
+As1Co0.1Fe0.9Sm1O1,iron-based,As-Fe-Sm-O,15.967,9.14,1.944
+As1Co0.225Fe0.775Sm1O1,iron-based,As-Fe-Sm-O,0.0,4.895,0.311
+As1Co0.25Fe0.75Sm1O1,iron-based,As-Co-Fe-Sm-O,0.0,0.258,0.022
+As1Co0.2Fe0.8Pr1O1,iron-based,As-Fe-Pr-O,2.0,0.61,6.322
+As1Co0.2Fe0.8Sm1O1,iron-based,As-Fe-Sm-O,1.895,6.457,1.075
+As1Co0.3Fe0.7Pr1O1,iron-based,As-Fe-Pr-O,4.0,0.359,5.365
+As1Co0.3Fe0.7Sm1O1,iron-based,As-Fe-Sm-O,0.0,3.423,0.305
+As1Co1La1O1,other oxide,As-Co-La-O,0.0,1.231,3.479
+As1Co1Sm1O1,other oxide,As-Co-Sm-O,0.0,0.0,1.843
+As1Cu0.02Fe0.98Li1,iron-based,As-Fe-Li,9.3,6.396,4.003
+As1F0.044Fe1Pr1O0.956,iron-based,As-Fe-Pr-O,0.0,0.395,4.744
+As1F0.04Fe1Nd1O0.96,iron-based,As-Fe-Nd-O,0.0,2.275,2.693
+As1F0.06Fe1Nd1O0.94,iron-based,As-Fe-Nd-O,47.5,26.417,18.828
+As1F0.06Fe1Sm1O0.94,iron-based,As-Fe-Sm-O,36.4,2.892,5.807
+As1F0.06La1Ni1O0.94,iron-based,As-La-Ni-O,3.64,3.554,3.868
+As1F0.075Fe1Sm1O0.925,iron-based,As-Fe-Sm-O,33.0,7.45,14.975
+As1F0.07Fe1Sm1O0.93,iron-based,As-Fe-Sm-O,33.0,6.365,14.975
+As1F0.082Fe1Pr1O0.918,iron-based,As-Fe-Pr-O,14.6,2.168,25.422
+As1F0.085Fe1Sm1O0.915,iron-based,As-Fe-Sm-O,14.0,19.741,21.4
+As1F0.08Fe1Nd1O0.92,iron-based,As-Fe-Nd-O,35.0,24.265,20.061
+As1F0.09Fe1Sm1O0.91,iron-based,As-Fe-Sm-O,42.0,20.671,21.4
+As1F0.11Fe1Nd1O0.89,iron-based,As-Fe-Nd-O,49.05,34.043,25.633
+As1F0.11Fe1Pr1O0.89,iron-based,As-Fe-Pr-O,45.0,3.227,39.334
+As1F0.12Fe1Nd1O0.88,iron-based,As-Fe-Nd-O,50.0,34.878,29.326
+As1F0.12La1Ni1O0.88,iron-based,As-La-Ni-O,3.59,6.0,4.868
+As1F0.13Fe1Sm1O0.87,iron-based,As-Fe-Sm-O,24.7,26.972,19.293
+As1F0.14Fe1Sm1O0.86,iron-based,As-Fe-Sm-O,26.9,27.146,19.293
+As1F0.154Fe1Pr1O0.846,iron-based,As-Fe-Pr-O,46.4,3.21,36.726
+As1F0.15Fe1La0.5Y0.5O0.85,iron-based,As-Fe-La-Y-O,40.2,13.963,13.215
+As1F0.15Fe1Sm1O0.85,iron-based,As-Fe-Sm-O,44.489,27.146,20.734
+As1F0.16Fe1Nd1O0.84,iron-based,As-Fe-Nd-O,46.0,35.268,29.583
+As1F0.175Fe1Nd1O0.825,iron-based,As-Fe-Nd-O,53.0,33.22,29.288
+As1F0.17Fe1Gd1O0.83,iron-based,As-Fe-Gd-O,22.0,43.17,36.021
+As1F0.18Fe1Nd1O0.82,iron-based,As-Fe-Nd-O,49.667,40.037,29.288
+As1F0.18Fe1Sm1O0.82,iron-based,As-Fe-Sm-O,45.0,31.632,22.455
+As1F0.1Fe1La0.5Y0.5O0.9,iron-based,As-Fe-La-Y-O,31.4,10.81,10.957
+As1F0.1Fe1La0.7Y0.3O0.9,iron-based,As-Fe-La-Y-O,34.8,18.011,11.631
+As1F0.1Fe1Nd1O0.9,iron-based,As-Fe-Nd-O,50.525,33.096,25.633
+As1F0.1Fe1Pr1O0.9,iron-based,As-Fe-Pr-O,43.5,3.083,32.923
+As1F0.1Fe1Tb1O0.9,iron-based,As-Fe-Tb-O,50.5,10.427,4.161
+As1F0.1La1Ni1O0.9,iron-based,As-La-Ni-O,3.9,5.993,4.698
+As1F0.225Fe1Pr1O0.775,iron-based,As-Fe-Pr-O,50.0,2.633,33.9
+As1F0.2Fe1Gd1O0.8,iron-based,As-Fe-Gd-O,48.35,37.678,39.764
+As1F0.2Fe1Nd1O0.8,iron-based,As-F-Fe-Nd-O,32.6,29.858,26.937
+As1F0.3Fe1Nd1O0.7,iron-based,As-Fe-Nd-O,46.0,19.338,25.699
+As1F1Fe1La0.2Sr0.8,iron-based,As-F-Fe-Sr,24.4,15.87,2.146
+As1F1Fe1Sm0.2Sr0.8,iron-based,As-F-Fe-Sr,0.0,22.599,2.936
+As1F1Fe1Sr1,iron-based,As-F-Fe-Sr,0.0,1.732,0.886
+As1Fe0.725Ir0.275Sm1O1,iron-based,As-Fe-Sm-O,0.0,10.623,5.959
+As1Fe0.7Gd1Ir0.3O1,iron-based,As-Fe-Gd-O,11.6,4.601,3.504
+As1Fe0.84Ir0.16Sm1O1,iron-based,As-Fe-Sm-O,17.3,11.281,9.591
+As1Fe0.85Ir0.15Sm1O1,iron-based,As-Fe-Sm-O,16.0,10.727,8.84
+As1Fe0.85Nd1Rh0.15O1,iron-based,As-Fe-Nd-O,14.7,10.603,13.839
+As1Fe0.875Ir0.125Sm1O1,iron-based,As-Fe-Sm-O,16.5,11.853,7.87
+As1Fe0.89Ir0.11Sm1O1,iron-based,As-Fe-Sm-O,18.3,13.357,9.714
+As1Fe0.8Gd1Ir0.2O1,iron-based,As-Fe-Gd-O,17.6,7.822,9.154
+As1Fe0.8Nd1Rh0.2O1,iron-based,As-Fe-Nd-O,10.0,5.926,11.394
+As1Fe0.92Ni0.08Sm1O1,iron-based,As-Fe-Sm-O,6.0,8.73,1.567
+As1Fe0.93Sr2V1.07O3,other oxide,As-Fe-Sr-V-O,0.0,12.48,3.549
+As1Fe0.94Ir0.06Sm1O1,iron-based,As-Fe-Sm-O,18.0,2.083,2.435
+As1Fe0.94Ni0.06Sm1O1,iron-based,As-Fe-Sm-O,9.0,6.786,1.695
+As1Fe0.95Gd1Ir0.05O1,iron-based,As-Fe-Gd-O,0.0,4.516,19.048
+As1Fe0.95Nd1Rh0.05O1,iron-based,As-Fe-Nd-O,7.1,1.908,16.96
+As1Fe0.96Ir0.04Sm1O1,iron-based,As-Fe-Sm-O,0.0,0.0,0.548
+As1Fe0.96Ni0.04Sm1O1,iron-based,As-Fe-Sm-O,7.5,2.594,1.506
+As1Fe0.975Na1Ni0.025,iron-based,As-Fe-Na,15.4,3.115,8.016
+As1Fe0.97Ir0.03Sm1O1,iron-based,As-Fe-Sm-O,0.0,0.0,0.195
+As1Fe0.98Li1Ni0.02,iron-based,As-Fe-Li,10.58,7.355,3.99
+As1Fe0.98Ni0.02Sm1O1,iron-based,As-Fe-Sm-O,0.0,0.0,0.0
+As1Fe0.99Li1Ni0.01,iron-based,As-Fe-Li,13.35,1.696,3.748
+As1Fe0.99Ni0.01Sm1O1,iron-based,As-Fe-Sm-O,0.0,0.0,0.0
+As1Fe0.9Nd1Rh0.1O1,iron-based,As-Fe-Nd-O,15.8,11.644,17.108
+As1Fe0.9Ni0.1Sm1O1,iron-based,As-Fe-Sm-O,0.0,7.625,1.414
+As1Fe0.9Rh0.1Sm1O1,iron-based,As-Fe-Sm-O,9.6,13.724,5.76
+As1Fe1.01Li0.99,iron-based,As-Fe-Li,14.0,1.543,4.944
+As1Fe1.02Li0.98,iron-based,As-Fe-Li,4.61,6.708,4.069
+As1Fe1.03Li0.97,iron-based,As-Fe-Li,0.0,8.088,6.233
+As1Fe1Gd0.8Th0.2O1,iron-based,As-Fe-Gd-O,56.5,41.134,46.215
+As1Fe1Gd1O0.7,iron-based,As-Fe-Gd-O,53.6,34.426,32.232
+As1Fe1Gd1O0.85,iron-based,As-Fe-Gd-O,53.5,37.784,47.262
+As1Fe1Gd1O1,iron-based,As-Fe-Gd-O,0.0,0.389,5.657
+As1Fe1La0.3Y0.7O1,iron-based,As-Fe-La-Y-O,0.0,4.953,3.849
+As1Fe1La0.5Y0.5O1,iron-based,As-Fe-La-Y-O,0.0,4.512,2.517
+As1Fe1La0.7Y0.3O1,iron-based,As-Fe-La-Y-O,0.0,8.058,3.136
+As1Fe1La1O1,iron-based,As-Fe-La-O,10.2,0.489,1.051
+As1Fe1Li0.8,iron-based,As-Fe-Li,17.6,8.405,5.219
+As1Fe1Li1,iron-based,As-Fe-Li,16.475,2.448,3.994
+As1Fe1Mg0.1Sr2V0.9O3,iron-based,As-Fe-Sr-V-O,30.0,12.385,4.668
+As1Fe1Na0.86,iron-based,As-Fe-Na,26.0,6.844,3.178
+As1Fe1Nd0.8Sr0.2O1,iron-based,As-Fe-Nd-O,13.5,12.985,12.191
+As1Fe1Nd0.8Th0.2O1,iron-based,As-Fe-Nd-O,43.0,45.32,20.259
+As1Fe1Nd0.95Sr0.05O1,iron-based,As-Fe-Nd-O,0.0,2.685,4.986
+As1Fe1Nd0.9Sr0.1O1,iron-based,As-Fe-Nd-O,0.0,8.189,5.53
+As1Fe1Nd1O0.7,iron-based,As-Fe-Nd-O,53.7,38.222,42.347
+As1Fe1Nd1O0.85,iron-based,As-Fe-Nd-O,51.45,36.6,35.739
+As1Fe1Nd1O0.9,iron-based,As-Fe-Nd-O,46.9,25.913,27.669
+As1Fe1Nd1O1,iron-based,As-Fe-Nd-O,0.0,0.868,1.727
+As1Fe1Pr0.75Sr0.25O1,iron-based,As-Fe-Pr-O,16.25,1.382,5.013
+As1Fe1Pr0.85Sr0.15O1,iron-based,As-Fe-Pr-O,15.5,1.609,3.405
+As1Fe1Pr0.8Sr0.2O1,iron-based,As-Fe-Pr-O,14.6,2.204,4.986
+As1Fe1Pr0.95Sr0.05O1,iron-based,As-Fe-Pr-O,4.86,0.0,0.61
+As1Fe1Pr0.9Sr0.1O1,iron-based,As-Fe-Pr-O,12.8,0.424,3.154
+As1Fe1Pr1O0.7,iron-based,As-Fe-Pr-O,46.25,2.231,18.879
+As1Fe1Pr1O0.85,iron-based,As-Fe-Pr-O,48.2,2.331,34.776
+As1Fe1Pr1O0.896,iron-based,As-Fe-Pr-O,44.4,1.984,36.545
+As1Fe1Pr1O1,iron-based,As-Fe-Pr-O,0.0,0.0,0.032
+As1Fe1Sm0.89Th0.11O1,iron-based,As-Fe-Sm-O,48.9,24.274,5.173
+As1Fe1Sm0.8U0.2O1,iron-based,As-Fe-Sm-O,46.0,21.794,32.378
+As1Fe1Sm0.9Th0.1O1,iron-based,As-Fe-Sm-O,51.4,17.613,4.501
+As1Fe1Sm0.9U0.1O1,iron-based,As-Fe-Sm-O,47.0,14.481,4.931
+As1Fe1Sm1O0.67,iron-based,As-Fe-Sm-O,55.0,37.094,26.983
+As1Fe1Sm1O0.7,iron-based,As-Fe-Sm-O,52.1,37.548,23.608
+As1Fe1Sm1O0.8,iron-based,As-Fe-Sm-O,40.1,35.005,39.366
+As1Fe1Sm1O0.85,iron-based,As-Fe-Sm-O,53.233,17.05,36.648
+As1Fe1Sm1O1,iron-based,As-Fe-Sm-O,0.0,0.0,0.206
+As1Fe1Tb0.8Th0.2O1,iron-based,As-Fe-Tb-O,52.0,15.712,16.083
+As1Fe1Tb0.9Th0.1O1,iron-based,As-Fe-Tb-O,45.0,8.841,5.786
+As1Fe1Tb1O0.75,iron-based,As-Fe-Tb-O,34.8,14.67,9.325
+As1Fe1Tb1O0.8,iron-based,As-Fe-Tb-O,33.85,14.786,8.278
+As1Fe1Tb1O0.82,iron-based,As-Fe-Tb-O,43.8,15.368,8.088
+As1Fe1Tb1O0.85,iron-based,As-Fe-Tb-O,44.4,15.75,7.259
+As1Fe1Tb1O0.9,iron-based,As-Fe-Tb-O,22.8,11.006,5.117
+As1Fe1Tb1O1,iron-based,As-Fe-Tb-O,0.0,0.114,1.089
+As1La0.8Ni1Sr0.2O1,iron-based,As-La-Ni-O,3.5,2.176,2.034
+As1La0.9Ni1Sr0.1O1,iron-based,As-La-Ni-O,3.7,2.258,3.24
+As1La1Ni1O1,iron-based,As-La-Ni-O,2.71,1.159,3.636
+As1Ni1,iron-based,As-Ni,0.0,0.775,0.251
+As2Ba0.1Fe2K0.9,iron-based,As-Fe-K,6.93,7.46,31.15
+As2Ba0.2Fe2K0.8,iron-based,As-Fe-K,12.8,7.47,28.99
+As2Ba0.2Fe2Na0.8,iron-based,As-Ba-Fe-Na,19.2,9.126,1.427
+As2Ba0.39Fe2K0.61,iron-based,As-Ba-Fe-K,24.5,24.45,16.895
+As2Ba0.3Fe2K0.7,iron-based,As-Fe-K,19.7,13.327,19.074
+As2Ba0.3Fe2Na0.7,iron-based,As-Ba-Fe-Na,24.2,16.328,1.493
+As2Ba0.49Co0.21Fe1.79K0.51,iron-based,As-Ba-Fe-K,15.0,15.278,12.071
+As2Ba0.4Fe2K0.6,iron-based,As-Ba-Fe-K,31.2,24.45,16.724
+As2Ba0.4Fe2Na0.6,iron-based,As-Ba-Fe-Na,28.7,17.656,6.21
+As2Ba0.511Co0.228Fe1.772K0.489,iron-based,As-Ba-Fe-K,22.0,14.735,12.6
+As2Ba0.55Co0.05Fe1.95K0.45,iron-based,As-Ba-Fe-K,32.5,25.881,12.64
+As2Ba0.55Fe2K0.45,iron-based,As-Ba-Fe-K,30.162,21.21,15.357
+As2Ba0.59Fe2K0.41,iron-based,As-Ba-Fe-K,36.9,22.172,14.99
+As2Ba0.5Co0.1Fe1.9K0.5,iron-based,As-Ba-Fe-K,30.31,26.858,12.92
+As2Ba0.5Co0.2Fe1.8K0.5,iron-based,As-Ba-Fe-K,19.95,15.278,11.977
+As2Ba0.5Co0.3Fe1.7K0.5,iron-based,As-Ba-Fe-K,13.56,14.386,11.114
+As2Ba0.5Cu0.1Fe1.9K0.5,iron-based,As-Ba-Fe-K,22.29,26.265,16.227
+As2Ba0.5Cu0.2Fe1.8K0.5,iron-based,As-Ba-Fe-K,11.83,25.47,17.79
+As2Ba0.5Fe1.7K0.5Ni0.3,iron-based,As-Ba-Fe-K,5.1,11.639,10.203
+As2Ba0.5Fe1.7K0.5Zn0.3,iron-based,As-Ba-Fe-K,7.86,20.396,9.672
+As2Ba0.5Fe1.84K0.5Mn0.16,iron-based,As-Ba-Fe-K,0.0,27.399,16.544
+As2Ba0.5Fe1.84K0.5Zn0.16,iron-based,As-Ba-Fe-K,34.2,20.454,10.347
+As2Ba0.5Fe1.88K0.5Zn0.12,iron-based,As-Ba-Fe-K,33.5,20.412,9.186
+As2Ba0.5Fe1.8K0.5Ni0.2,iron-based,As-Ba-Fe-K,11.1,11.458,9.832
+As2Ba0.5Fe1.8K0.5Ru0.2,iron-based,As-Ba-Fe-K,36.5,28.357,19.433
+As2Ba0.5Fe1.92K0.5Mn0.08,iron-based,As-Ba-Fe-K,15.0,27.399,16.409
+As2Ba0.5Fe1.92K0.5Zn0.08,iron-based,As-Ba-Fe-K,34.3,20.412,11.085
+As2Ba0.5Fe1.96K0.5Mn0.04,iron-based,As-Ba-Fe-K,25.85,27.409,18.811
+As2Ba0.5Fe1.9K0.5Mn0.1,iron-based,As-Ba-Fe-K,9.53,27.399,16.409
+As2Ba0.5Fe1.9K0.5Ni0.1,iron-based,As-Ba-Fe-K,26.75,21.987,12.199
+As2Ba0.5Fe1.9K0.5Ru0.1,iron-based,As-Ba-Fe-K,37.14,27.747,18.776
+As2Ba0.5Fe1.9K0.5Zn0.1,iron-based,As-Ba-Fe-K,30.15,20.412,9.186
+As2Ba0.5Fe2K0.5,iron-based,As-Ba-Fe-K,35.28,20.815,18.067
+As2Ba0.5Fe2Na0.5,iron-based,As-Ba-Fe-Na,32.8,28.989,9.634
+As2Ba0.63Fe2K0.37,iron-based,As-Ba-Fe-K,39.0,21.981,14.99
+As2Ba0.64Fe2K0.36,iron-based,As-Ba-Fe-K,25.6,28.29,14.99
+As2Ba0.64Fe2Na0.36,iron-based,As-Ba-Fe-Na,31.0,28.508,11.884
+As2Ba0.65Fe2K0.35,iron-based,As-Ba-Fe-K,38.0,28.185,14.99
+As2Ba0.65Fe2Na0.35,iron-based,As-Ba-Fe-Na,31.25,29.714,9.872
+As2Ba0.663Fe2K0.337,iron-based,As-Ba-Fe-K,38.0,25.64,14.749
+As2Ba0.66Co0.2Fe1.8K0.34,iron-based,As-Ba-Fe-K,19.0,12.616,10.712
+As2Ba0.677Fe2K0.323,iron-based,As-Ba-Fe-K,37.0,25.284,14.749
+As2Ba0.68Co0.046Fe1.954K0.32,iron-based,As-Ba-Fe-K,35.0,25.894,10.704
+As2Ba0.68Fe2K0.32,iron-based,As-Ba-Fe-K,37.75,24.836,14.749
+As2Ba0.68Fe2Na0.32,iron-based,As-Ba-Fe-Na,23.8,29.675,9.73
+As2Ba0.694Co0.174Fe1.826K0.306,iron-based,As-Ba-Fe-K,18.0,12.772,9.857
+As2Ba0.698Fe2Na0.302,iron-based,As-Ba-Fe-Na,18.0,29.985,10.682
+As2Ba0.6Fe2K0.4,iron-based,As-Ba-Fe-K,35.66,22.254,14.99
+As2Ba0.6Fe2Na0.4,iron-based,As-Ba-Fe-Na,33.85,30.697,9.266
+As2Ba0.72Fe2K0.28,iron-based,As-Ba-Fe-K,33.45,18.719,13.599
+As2Ba0.737Fe2K0.263,iron-based,As-Ba-Fe-K,24.0,14.556,13.725
+As2Ba0.74Fe2K0.26,iron-based,As-Ba-Fe-K,32.0,14.29,13.537
+As2Ba0.75Fe2K0.25,iron-based,As-Ba-Fe-K,28.45,19.671,13.537
+As2Ba0.76Fe2K0.24,iron-based,As-Ba-Fe-K,26.0,19.953,13.537
+As2Ba0.76Fe2Na0.24,iron-based,As-Ba-Fe-Na,15.9,19.363,7.912
+As2Ba0.779Fe2Na0.221,iron-based,As-Ba-Fe-Na,8.0,18.721,7.386
+As2Ba0.788Fe2K0.212,iron-based,As-Ba-Fe-K,19.0,15.901,11.085
+As2Ba0.78Fe2K0.22,iron-based,As-Ba-Fe-K,23.5,17.414,11.309
+As2Ba0.797Fe2K0.203,iron-based,As-Ba-Fe-K,17.0,15.901,11.065
+As2Ba0.79Fe2K0.21,iron-based,As-Ba-Fe-K,18.0,15.901,11.085
+As2Ba0.7Fe2K0.3,iron-based,As-Ba-Fe-K,36.85,24.624,14.749
+As2Ba0.7Fe2Na0.3,iron-based,As-Ba-Fe-Na,23.8,29.087,9.898
+As2Ba0.805Fe2K0.195,iron-based,As-Ba-Fe-K,15.0,9.442,9.257
+As2Ba0.812Fe2K0.188,iron-based,As-Ba-Fe-K,13.0,9.775,6.94
+As2Ba0.816Fe2K0.184,iron-based,As-Ba-Fe-K,12.0,10.119,6.609
+As2Ba0.818Fe2Na0.182,iron-based,As-Ba-Fe-Na,6.4,15.17,7.13
+As2Ba0.81Fe2K0.19,iron-based,As-Ba-Fe-K,12.733,10.052,9.257
+As2Ba0.823Fe2K0.177,iron-based,As-Ba-Fe-K,10.0,10.988,6.431
+As2Ba0.825Fe2K0.175,iron-based,As-Ba-Fe-K,10.0,10.988,6.431
+As2Ba0.82Fe2K0.18,iron-based,As-Ba-Fe-K,10.5,10.988,6.431
+As2Ba0.833Fe2K0.167,iron-based,As-Ba-Fe-K,7.0,10.712,6.431
+As2Ba0.83Fe2K0.17,iron-based,As-Ba-Fe-K,8.0,10.712,6.431
+As2Ba0.84Fe2K0.16,iron-based,As-Ba-Fe-K,6.42,10.803,5.771
+As2Ba0.85Fe2Na0.15,iron-based,As-Ba-Fe-Na,5.3,5.618,4.916
+As2Ba0.875Fe2K0.125,iron-based,As-Ba-Fe-K,0.0,7.346,2.597
+As2Ba0.88Fe2K0.12,iron-based,As-Ba-Fe-K,10.0,7.205,2.498
+As2Ba0.8Fe2Na0.2,iron-based,As-Ba-Fe-Na,11.8,11.243,6.832
+As2Ba0.907Fe2Na0.093,iron-based,As-Ba-Fe-Na,0.0,2.982,2.059
+As2Ba0.9Fe2K0.1,iron-based,As-Ba-Fe-K,3.5,2.368,2.633
+As2Ba1Fe1.125Ru0.875,iron-based,As-Ba-Fe-Ru,22.5,1.227,1.813
+As2Ba1Fe1.24Ru0.76,iron-based,As-Ba-Fe-Ru,7.1,1.966,1.723
+As2Ba1Fe1.25Ru0.75,iron-based,As-Ba-Fe-Ru,21.0,1.886,1.723
+As2Ba1Fe1.28Ru0.72,iron-based,As-Ba-Fe-Ru,8.95,2.162,1.723
+As2Ba1Fe1.2Ru0.8,iron-based,As-Ba-Fe-Ru,5.02,1.804,1.723
+As2Ba1Fe1.3Ru0.7,iron-based,As-Ba-Fe-Ru,19.7,2.162,1.709
+As2Ba1Ni2,iron-based,As-Ba-Ni,0.783,1.847,1.339
+As2Ba1Ti2O1,other oxide,As-Ba-Ti-O,0.0,1.613,1.074
+As2Ca0.67Fe2Sr0.33,iron-based,As-Ca-Fe-Sr,22.0,7.115,2.732
+As2Co0.068Fe1.932K1,iron-based,As-Fe-K,1.845,7.586,10.883
+As2Co0.084Fe1.916Sr1,iron-based,As-Fe-Sr,2.0,4.205,1.469
+As2Co0.112Fe1.888Sr1,iron-based,As-Fe-Sr,2.0,6.774,1.469
+As2Co0.14Fe1.86Sr1,iron-based,As-Fe-Sr,7.2,5.22,1.532
+As2Co0.15Fe1.85Sr1,iron-based,As-Fe-Sr,0.0,5.211,1.532
+As2Co0.174Fe1.826Sr1,iron-based,As-Fe-Sr,9.5,3.999,1.597
+As2Co0.184Fe1.816Sr1,iron-based,As-Fe-Sr,13.4,3.999,1.597
+As2Co0.1Fe1.9Mg1Sr4Ti1O6,iron-based,As-Fe-Mg-Sr-Ti-O,24.1,3.748,7.05
+As2Co0.1Fe1.9Sr1,iron-based,As-Fe-Sr,0.0,5.323,1.469
+As2Co0.208Fe1.792Sr1,iron-based,As-Fe-Sr,13.9,3.767,1.597
+As2Co0.22Eu1Fe1.78,iron-based,As-Eu-Fe,21.0,5.836,1.358
+As2Co0.234Fe1.766Sr1,iron-based,As-Fe-Sr,14.4,3.507,1.597
+As2Co0.248Fe1.752Sr1,iron-based,As-Fe-Sr,13.2,3.471,1.597
+As2Co0.24Eu1Fe1.76,iron-based,As-Eu-Fe,2.0,5.576,1.358
+As2Co0.24Fe1.76Sr1,iron-based,As-Fe-Sr,13.5,3.449,1.597
+As2Co0.25Fe1.75Sr1,iron-based,As-Fe-Sr,15.7,3.551,1.597
+As2Co0.268Fe1.732Sr1,iron-based,As-Fe-Sr,11.0,3.441,1.526
+As2Co0.2Fe1.8Mg1Sr4Ti1O6,iron-based,As-Fe-Mg-Sr-Ti-O,24.0,4.682,6.993
+As2Co0.2Fe1.8Sr1,iron-based,As-Fe-Sr,18.365,3.691,1.597
+As2Co0.3Fe1.7Mg1Sr4Ti1O6,iron-based,As-Fe-Mg-Sr-Ti-O,16.0,3.743,6.993
+As2Co0.3Fe1.7Sr1,iron-based,As-Fe-Sr,13.2,3.24,1.581
+As2Cr2Fe2Sr4O6,iron-based,As-Cr-Fe-Sr-O,0.0,5.945,9.81
+As2Cs1Fe2,iron-based,As-Cs-Fe,2.08,3.031,3.239
+As2Eu0.73Fe2La0.27,iron-based,As-Eu-Fe,0.0,5.264,1.214
+As2Eu0.784Fe2K0.216,iron-based,As-Eu-Fe,0.0,11.283,2.347
+As2Eu0.78Fe2La0.22,iron-based,As-Eu-Fe,0.0,5.793,1.066
+As2Eu0.7Fe2Na0.3,iron-based,As-Eu-Fe,32.0,8.757,1.556
+As2Eu0.887Fe2K0.113,iron-based,As-Eu-Fe,0.0,11.12,1.233
+As2Eu0.92Fe2La0.08,iron-based,As-Eu-Fe,0.0,3.306,0.532
+As2Eu1Fe1.72Ir0.28,iron-based,As-Eu-Fe,21.667,5.735,1.77
+As2Eu1Fe1.78Ir0.22,iron-based,As-Eu-Fe,21.0,6.124,1.71
+As2Eu1Fe1.8Ni0.2,iron-based,As-Eu-Fe,0.0,3.604,1.569
+As2Eu1Fe1.8P0.2,iron-based,As-Eu-Fe,0.0,5.555,1.554
+As2Eu1Fe1.91Ni0.09,iron-based,As-Eu-Fe,0.0,3.956,1.424
+As2Eu1Fe1.9Ir0.1,iron-based,As-Eu-Fe,0.0,4.601,1.42
+As2Eu1Ni2,iron-based,As-Eu-Ni,0.0,0.33,0.447
+As2F2Sr2Ti2O1,other oxide,As-F-Sr-Ti-O,0.0,3.754,2.106
+As2Fe1.75Pt0.25Sr1,iron-based,As-Fe-Sr,16.3,10.6,6.314
+As2Fe1.75Rh0.25Sr1,iron-based,As-Fe-Sr,21.9,7.495,4.496
+As2Fe1.78Ni0.22Sr1,iron-based,As-Fe-Sr,2.305,3.451,2.287
+As2Fe1.7Mn0.3Sr1,iron-based,As-Fe-Sr,0.0,8.971,5.769
+As2Fe1.7Ni0.3Sr1,iron-based,As-Fe-Sr,0.0,3.237,2.277
+As2Fe1.7Pt0.3Sr1,iron-based,As-Fe-Sr,12.6,10.199,6.088
+As2Fe1.7Ru0.3Sr1,iron-based,As-Fe-Sr,0.0,7.837,4.124
+As2Fe1.82Ni0.18Sr1,iron-based,As-Fe-Sr,9.6,3.701,1.686
+As2Fe1.84Ni0.16Sr1,iron-based,As-Fe-Sr,8.65,3.69,1.686
+As2Fe1.84Pt0.16Sr1,iron-based,As-Fe-Sr,16.0,10.899,6.25
+As2Fe1.85Ni0.15Sr1,iron-based,As-Fe-Sr,8.93,3.696,1.686
+As2Fe1.85Pd0.15Sr1,iron-based,As-Fe-Sr,8.7,6.504,2.507
+As2Fe1.85Pt0.15Sr1,iron-based,As-Fe-Sr,11.7,11.057,6.188
+As2Fe1.88Ni0.12Sr1,iron-based,As-Fe-Sr,5.92,4.727,1.704
+As2Fe1.8Mn0.2Sr1,iron-based,As-Fe-Sr,0.0,8.304,5.821
+As2Fe1.8Ni0.2Sr1,iron-based,As-Fe-Sr,7.4,3.391,2.168
+As2Fe1.8Pt0.2Sr1,iron-based,As-Fe-Sr,15.8,10.198,6.913
+As2Fe1.8Ru0.2Sr1,iron-based,As-Fe-Sr,0.0,7.862,3.945
+As2Fe1.92Ni0.08Sr1,iron-based,As-Fe-Sr,0.0,3.289,1.704
+As2Fe1.9Mn0.1Sr1,iron-based,As-Fe-Sr,0.0,4.937,2.926
+As2Fe1.9Ni0.1Sr1,iron-based,As-Fe-Sr,5.5,4.341,1.704
+As2Fe1.9Pt0.1Sr1,iron-based,As-Fe-Sr,1.6,8.097,7.016
+As2Fe1.9Ru0.1Sr1,iron-based,As-Fe-Sr,0.0,6.561,4.1
+As2Fe2K0.1Sr0.9,iron-based,As-Fe-Sr,5.11,9.138,4.502
+As2Fe2K0.2Sr0.8,iron-based,As-Fe-Sr,13.3,15.028,11.313
+As2Fe2K0.7Sr0.3,iron-based,As-Fe-K,12.2,13.78,37.188
+As2Fe2K0.9Na0.1,iron-based,As-Fe-K,2.9,5.698,14.103
+As2Fe2K1,iron-based,As-Fe-K,2.996,4.341,8.415
+As2Fe2Mg0.8Sr4Ti1.2O6,iron-based,As-Fe-Mg-Sr-Ti-O,26.0,4.47,4.666
+As2Fe2Mg0.9Sr4Ti1.1O6,iron-based,As-Fe-Mg-Sr-Ti-O,23.5,4.11,4.288
+As2Fe2Mg1Sr4Ti1O6,iron-based,As-Fe-Mg-Sr-Ti-O,6.0,3.766,4.471
+As2Fe2Rb1,iron-based,As-Fe-Rb,1.983,4.02,4.519
+As2Fe2Sc2Sr3O5,iron-based,As-Fe-Sc-Sr-O,0.0,2.386,6.911
+As2Fe2Sc2Sr4O6,iron-based,As-Fe-Sc-Sr-O,0.0,4.996,8.702
+As2Fe2Sr4V2O6,iron-based,As-Fe-Sr-V-O,29.25,1.973,2.969
+As2Ni2Sr1,iron-based,As-Ni-Sr,0.66,0.437,0.552
+As4Ba2Fe2Ti2O1,iron-based,As-Ba-Fe-Ti-O,20.125,1.024,7.922
+As4Ca1Fe4Rb1,iron-based,As-Ca-Fe-Rb,35.0,5.427,12.785
+Au1Pt4U1,heavy-fermion,Au-Pt-U,0.0,0.013,0.049
+Au2Ce1Si2,heavy-fermion,Au-Ce-Si,2.052,0.563,1.13
+Au2In1Yb1,heavy-fermion,Au-In-Yb,0.0,0.886,1.934
+B0.015C0.985Cu1Sr2O5,cuprate,C-Cu-Sr-O,0.0,0.755,4.395
+B0.027C0.973Cu1Sr2O5,cuprate,C-Cu-Sr-O,0.0,0.817,4.395
+B0.04C0.96Cu1Sr2O5,cuprate,C-Cu-Sr-O,7.0,0.821,4.192
+B0.05C0.95Cu1Sr2O5,cuprate,C-Cu-Sr-O,12.5,2.036,4.092
+B0.06C0.94Cu1Sr2O5,cuprate,C-Cu-Sr-O,21.0,2.072,3.637
+B0.07C0.93Cu1Sr2O5,cuprate,C-Cu-Sr-O,23.0,2.457,3.637
+B0.08C0.92Cu1Sr2O5,cuprate,C-Cu-Sr-O,25.0,1.138,4.039
+B0.09C0.91Cu1Sr2O5,cuprate,C-Cu-Sr-O,26.5,3.476,4.045
+B0.14C0.86Cu1Sr2O5,cuprate,C-Cu-Sr-O,31.0,2.961,3.968
+B0.15C0.85Cu1Sr2O5,cuprate,C-Cu-Sr-O,32.0,2.62,3.968
+B1Ba1Cu1Gd1O5,cuprate,B-Ba-Cu-Gd-O,0.0,0.223,1.476
+B1Ba1Cu1La1O5,cuprate,B-Ba-Cu-La-O,0.0,0.529,0.644
+B1Ba1Cu1Nd1O5,cuprate,B-Ba-Cu-Nd-O,0.0,0.309,0.0
+B1Ba1Cu1Sm1O5,cuprate,B-Ba-Cu-Sm-O,0.0,0.08,0.0
+B1Ba1Cu1Tb1O5,cuprate,B-Ba-Cu-Tb-O,0.0,0.0,0.736
+B1Ca1N1Ni1,iron-based,B-Ca-N-Ni,2.08,4.338,7.37
+B1Ce1Pt3,heavy-fermion,B-Ce-Pt,0.0,0.388,0.182
+B1La1N1Ni1,iron-based,B-La-N-Ni,1.96,0.341,0.101
+B2C1Ce1Co2,heavy-fermion,B-C-Ce-Co,0.0,0.0,0.168
+B2C1Ce1Ir2,heavy-fermion,B-C-Ce-Ir,0.0,0.181,0.357
+B2C1Ce1Ni2,heavy-fermion,B-C-Ce-Ni,0.05,0.04,0.0
+B2C1Ce1Pd2,heavy-fermion,B-C-Ce-Pd,0.0,0.015,0.143
+B2C1Ce1Pt2,heavy-fermion,B-C-Ce-Pt,0.0,0.096,0.081
+B2C1Ce1Rh2,heavy-fermion,B-C-Ce-Rh,0.0,0.0,0.252
+B2C1Co2Pr1,heavy-fermion,B-C-Co-Pr,0.0,0.0,0.226
+B2C1Ni2Pr0.8Y0.2,heavy-fermion,B-C-Ni-Pr,0.0,0.0,0.035
+B2C1Ni2Pr1,heavy-fermion,B-C-Ni-Pr,0.0,0.001,0.052
+B2C1Ni2U1,heavy-fermion,B-C-Ni-U,0.0,0.487,0.689
+B2C1Ni2Yb1,heavy-fermion,B-C-Ni-Yb,0.0,0.057,0.711
+B2C1Pr1Pt2,heavy-fermion,B-C-Pr-Pt,6.0,0.036,0.048
+B2C1Pr1Rh2,heavy-fermion,B-C-Pr-Rh,0.0,0.386,0.262
+B2C1Rh2U1,heavy-fermion,B-C-Rh-U,0.0,0.117,0.637
+B2Ce1Co3,heavy-fermion,B-Ce-Co,0.0,0.263,0.219
+B2Ce1Ir3,heavy-fermion,B-Ce-Ir,0.0,0.024,0.0
+B2Ce1Rh3,heavy-fermion,B-Ce-Rh,0.0,0.117,0.091
+B2Ce1Ru3,heavy-fermion,B-Ce-Ru,0.55,0.023,0.08
+B2Co3U1,heavy-fermion,B-Co-U,0.0,0.245,0.779
+B2Co3Yb1,heavy-fermion,B-Co-Yb,0.0,0.0,0.0
+B2Ir3U1,heavy-fermion,B-Ir-U,0.0,0.049,0.0
+B2Ir3Yb1,heavy-fermion,B-Ir-Yb,0.0,0.0,0.0
+B2La3N3Ni2,iron-based,B-La-N-Ni,13.032,0.0,1.752
+B2Os3U1,heavy-fermion,B-Os-U,0.0,0.051,0.203
+B2Pr1Rh3,heavy-fermion,B-Pr-Rh,0.0,0.037,0.141
+B2Pr1Ru3,heavy-fermion,B-Pr-Ru,0.0,0.175,0.292
+B2Rh3Yb1,heavy-fermion,B-Rh-Yb,0.0,0.0,0.0
+B2Ru3U1,heavy-fermion,B-Ru-U,0.0,0.278,0.169
+B2Ru3Yb1,heavy-fermion,B-Ru-Yb,0.0,0.0,0.026
+B4Ce1Co4,heavy-fermion,B-Ce-Co,0.0,0.0,0.0
+B4Ce1Ru4,heavy-fermion,B-Ce-Ru,0.0,0.046,0.094
+B4Pr1Ru4,heavy-fermion,B-Pr-Ru,0.0,0.157,0.118
+B4Rh4Yb1,heavy-fermion,B-Rh-Yb,0.0,0.0,0.041
+B4Ru4U1,heavy-fermion,B-Ru-U,0.0,0.211,0.206
+B4Ru4Yb1,heavy-fermion,B-Ru-Yb,0.0,0.0,0.133
+B6Ce1,heavy-fermion,B-Ce,0.0,0.0,0.05
+B6Pr1,heavy-fermion,B-Pr,0.0,0.083,0.0
+B6Yb1,heavy-fermion,B-Yb,0.0,0.266,0.356
+Ba0.004Cu1La1.996O4,cuprate,Cu-La-O,0.0,3.13,2.549
+Ba0.014Cu1La1.986O4,cuprate,Cu-La-O,0.0,2.719,2.698
+Ba0.016Cu1La1.984O4,cuprate,Cu-La-O,0.0,1.885,2.698
+Ba0.01Cu1La1.99O4,cuprate,Cu-La-O,0.0,2.938,2.608
+Ba0.024Cu1La1.976O4,cuprate,Cu-La-O,0.0,2.469,2.656
+Ba0.02Cu1La1.98O4,cuprate,Cu-La-O,0.0,2.214,2.698
+Ba0.035Cu1La1.965O4,cuprate,Cu-La-O,0.0,2.422,3.467
+Ba0.03Cu1La1.97O4,cuprate,Cu-La-O,0.0,2.375,2.713
+Ba0.045Cu1La1.955O4,cuprate,Cu-La-O,0.0,2.47,2.745
+Ba0.054Cu1La1.946O4,cuprate,Cu-La-O,0.0,2.532,3.543
+Ba0.05Sr0.95Ti1O3,other oxide,Sr-Ti-O,0.525,0.045,0.424
+Ba0.066Cu1La1.934O4,cuprate,Cu-La-O,22.6,1.738,2.923
+Ba0.074Cu1La1.926O4,cuprate,Cu-La-O,0.0,1.856,2.624
+Ba0.075Cu1La1.925O4,cuprate,Cu-La-O,24.0,1.856,2.624
+Ba0.075Sr0.925Ti1O3,other oxide,Sr-Ti-O,0.5,0.0,0.501
+Ba0.078Cu1La1.922O4,cuprate,Cu-La-O,24.95,1.973,2.496
+Ba0.094Cu1La1.906O4,cuprate,Cu-La-O,32.0,2.572,2.514
+Ba0.095Cu1La1.905O4,cuprate,Cu-La-O,29.0,2.352,2.514
+Ba0.097Cu1La1.903O4,cuprate,Cu-La-O,26.0,2.403,2.514
+Ba0.099Cu1La1.901O4,cuprate,Cu-La-O,12.3,2.127,2.514
+Ba0.102Cu1La1.898O4,cuprate,Cu-La-O,29.0,2.173,3.546
+Ba0.103Cu1La1.897O4,cuprate,Cu-La-O,14.5,2.244,3.333
+Ba0.105Cu1La1.895O4,cuprate,Cu-La-O,33.1,3.121,3.283
+Ba0.115Cu1La1.885O4,cuprate,Cu-La-O,13.9,2.981,2.951
+Ba0.116Cu1La1.884O4,cuprate,Cu-La-O,21.8,2.981,2.951
+Ba0.118Cu1La1.882O4,cuprate,Cu-La-O,9.0,2.996,2.951
+Ba0.119Cu1La1.881O4,cuprate,Cu-La-O,9.3,2.996,2.906
+Ba0.123Cu1La1.877O4,cuprate,Cu-La-O,23.6,3.009,2.951
+Ba0.135Cu1La1.865O4,cuprate,Cu-La-O,2.99,4.283,5.386
+Ba0.13Cu1La1.87O4,cuprate,Cu-La-O,4.96,2.896,4.393
+Ba0.13W1O3,other oxide,Ba-W-O,1.9,0.244,1.412
+Ba0.142Cu1La1.858O4,cuprate,Cu-La-O,29.0,4.644,9.127
+Ba0.14W1O3,other oxide,Ba-W-O,1.725,0.291,1.596
+Ba0.155Cu1La1.845O4,cuprate,Cu-La-O,26.0,4.932,9.127
+Ba0.157Cu1La1.843O4,cuprate,Cu-La-O,25.3,4.73,9.127
+Ba0.158Cu1La1.842O4,cuprate,Cu-La-O,0.0,3.566,12.368
+Ba0.15Cu1La1.85O4,cuprate,Cu-La-O,28.0,5.115,9.127
+Ba0.174Cu1La1.826O4,cuprate,Cu-La-O,0.0,3.292,5.744
+Ba0.175Cu1La1.825O4,cuprate,Cu-La-O,26.2,3.235,5.666
+Ba0.177Cu1La1.823O4,cuprate,Cu-La-O,25.5,3.118,6.73
+Ba0.17Cu1La1.83O4,cuprate,Cu-La-O,26.9,3.263,6.214
+Ba0.18Cu1La1.82O4,cuprate,Cu-La-O,23.1,2.658,5.513
+Ba0.199Cu1La1.801O4,cuprate,Cu-La-O,23.5,2.776,5.513
+Ba0.19Bi1K0.81O3,other oxide,Ba-Bi-K-O,8.4,12.426,8.572
+Ba0.1Cu1F2Sr1.9O2,cuprate,Cu-F-Sr-O,54.0,0.0,0.0
+Ba0.1Sr0.9Ti1O3,other oxide,Sr-Ti-O,0.1,0.0,0.304
+Ba0.218Cu1La1.782O4,cuprate,Cu-La-O,21.6,2.605,5.867
+Ba0.241Bi1K0.759O3,other oxide,Ba-Bi-K-O,0.0,18.605,9.548
+Ba0.249Cu1La1.751O4,cuprate,Cu-La-O,13.7,1.799,9.506
+Ba0.24Cu1La1.76O4,cuprate,Cu-La-O,14.0,1.872,9.391
+Ba0.257Bi1K0.743O3,other oxide,Ba-Bi-K-O,0.0,18.585,12.606
+Ba0.25Cu1F2Sr1.75O2,cuprate,Cu-F-Sr-O,58.0,0.0,0.143
+Ba0.25Cu1La1.75O4,cuprate,Cu-La-O,0.0,1.412,9.506
+Ba0.275Cu1La1.725O4,cuprate,Cu-La-O,0.0,1.406,6.726
+Ba0.33Bi1K0.67O3,other oxide,Ba-Bi-K-O,0.77,15.338,9.941
+Ba0.34Bi1K0.66O3,other oxide,Ba-Bi-K-O,7.0,12.316,10.369
+Ba0.35Bi1K0.65O3,other oxide,Ba-Bi-K-O,1.88,14.293,8.648
+Ba0.3Cu1La1.7O4,cuprate,Cu-La-O,9.7,1.698,6.794
+Ba0.3Cu1La1Sr0.7Tl1O5,cuprate,Cu-La-Sr-Tl-O,30.0,4.695,4.851
+Ba0.445Bi1K0.555O3,other oxide,Ba-Bi-K-O,15.5,20.267,11.436
+Ba0.45Bi1K0.55O3,other oxide,Ba-Bi-K-O,12.7,20.267,11.436
+Ba0.47Bi1K0.53O3,other oxide,Ba-Bi-K-O,11.0,19.957,9.5
+Ba0.4Bi1K0.6O3,other oxide,Ba-Bi-K-O,7.2,23.924,9.906
+Ba0.51Bi1K0.49O3,other oxide,Ba-Bi-K-O,17.2,22.077,15.623
+Ba0.52Bi1K0.48O3,other oxide,Ba-Bi-K-O,18.7,22.497,16.361
+Ba0.542Bi1K0.458O3,other oxide,Ba-Bi-K-O,23.1,21.619,18.62
+Ba0.54Bi1K0.46O3,other oxide,Ba-Bi-K-O,20.0,22.036,18.636
+Ba0.553Bi1K0.447O3,other oxide,Ba-Bi-K-O,25.5,23.326,19.821
+Ba0.557Bi1K0.443O3,other oxide,Ba-Bi-K-O,25.0,21.136,19.819
+Ba0.55Bi1K0.45O3,other oxide,Ba-Bi-K-O,24.525,23.108,19.616
+Ba0.575Bi1K0.425O3,other oxide,Ba-Bi-K-O,27.3,20.925,15.346
+Ba0.57Bi1K0.43O3,other oxide,Ba-Bi-K-O,21.2,20.925,15.943
+Ba0.584Bi1K0.416O3,other oxide,Ba-Bi-K-O,28.8,23.245,16.815
+Ba0.595Bi1K0.405O3,other oxide,Ba-Bi-K-O,31.2,23.216,16.984
+Ba0.59Bi1K0.41O3,other oxide,Ba-Bi-K-O,31.0,23.245,16.815
+Ba0.5Bi1K0.5O3,other oxide,Ba-Bi-K-O,19.664,22.366,11.134
+Ba0.613Bi1K0.387O3,other oxide,Ba-Bi-K-O,30.7,22.535,22.083
+Ba0.61Bi1K0.39O3,other oxide,Ba-Bi-K-O,31.5,23.195,21.991
+Ba0.625Bi1K0.375O3,other oxide,Ba-Bi-K-O,28.967,16.15,22.083
+Ba0.635Bi1K0.365O3,other oxide,Ba-Bi-K-O,30.4,16.32,23.743
+Ba0.63Bi1K0.37O3,other oxide,Ba-Bi-K-O,29.586,16.15,22.083
+Ba0.644Bi1K0.356O3,other oxide,Ba-Bi-K-O,29.0,16.39,23.743
+Ba0.64Bi1K0.36O3,other oxide,Ba-Bi-K-O,28.5,16.32,23.743
+Ba0.65Bi1K0.35O3,other oxide,Ba-Bi-K-O,28.2,16.39,23.6
+Ba0.66Bi1K0.34O3,other oxide,Ba-Bi-K-O,28.1,13.542,18.043
+Ba0.75Bi1K0.25O3,other oxide,Ba-Bi-K-O,0.0,15.01,23.261
+Ba0.75Na0.25Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,5.015,7.723,0.838
+Ba0.77Bi1K0.23O3,other oxide,Ba-Bi-O,28.0,1.119,0.49
+Ba0.7Bi1K0.3O3,other oxide,Ba-Bi-O,29.9,2.881,7.814
+Ba0.7Cu3Pr1Sr1.3O7,cuprate,Ba-Cu-Pr-Sr-O,0.0,0.0,3.401
+Ba0.7K0.3Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,0.0,9.356,1.128
+Ba0.7Rb0.3Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,5.93,9.712,1.824
+Ba0.85K0.15Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,5.86,11.373,1.297
+Ba0.85Na0.15Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,5.11,7.479,0.897
+Ba0.87Bi1K0.13O3,other oxide,Ba-Bi-O,0.0,1.173,1.524
+Ba0.88K0.12Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,6.1,8.43,1.297
+Ba0.8Bi1K0.2O3,other oxide,Ba-Bi-O,0.0,1.135,0.651
+Ba0.8K0.2Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,3.0,12.006,1.265
+Ba0.8Rb0.2Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,6.19,10.394,1.275
+Ba0.95K0.05Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,4.25,5.864,1.294
+Ba0.95Na0.05Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,3.14,3.412,0.914
+Ba0.95Rb0.05Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,4.25,5.897,1.321
+Ba0.96K0.04Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,3.88,5.584,1.294
+Ba0.9Bi1K0.1O3,other oxide,Ba-Bi-O,0.0,3.534,1.734
+Ba0.9K0.1Pb1O3,other oxide,Ba-Pb-O,30.0,3.196,9.496
+Ba0.9K0.1Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,5.13,7.695,1.326
+Ba0.9Na0.1Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,4.24,4.298,0.921
+Ba0.9Rb0.1Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,5.33,7.27,1.326
+Ba1.5Cu3La0.5Y1O7,cuprate,Ba-Cu-La-Y-O,0.3,25.61,24.671
+Ba1.72Cu4La0.28Y1O8,cuprate,Ba-Cu-Y-O,18.9,11.036,6.016
+Ba1.75Cu4Sr0.25Y1O8,cuprate,Ba-Cu-Y-O,0.0,19.741,16.068
+Ba1.76Cu4Sr0.24Y1O8,cuprate,Ba-Cu-Y-O,76.0,25.224,16.068
+Ba1.78Cu4La0.22Y1O8,cuprate,Ba-Cu-Y-O,37.9,11.695,6.549
+Ba1.78Cu4Sr0.22Y1O8,cuprate,Ba-Cu-Y-O,0.0,23.077,16.068
+Ba1.7Cu2La2.3Ti2O11.15,cuprate,Ba-Cu-La-Ti-O,0.0,2.628,0.001
+Ba1.7Cu3La0.3Y1O7,cuprate,Ba-Cu-Y-O,57.45,18.329,3.99
+Ba1.7Cu3Nd1.3O7,cuprate,Ba-Cu-Nd-O,69.0,16.007,3.07
+Ba1.7Cu4La0.3Y1O8,cuprate,Ba-Cu-Y-O,52.6,8.926,4.701
+Ba1.85Cu2La2Ti2O10.7,cuprate,Ba-Cu-La-Ti-O,0.0,3.045,0.0
+Ba1.85Cu3Sm1.15O7,cuprate,Ba-Cu-Sm-O,83.0,41.373,41.434
+Ba1.87Cu4La0.13Y1O8,cuprate,Ba-Cu-Y-O,61.0,8.083,14.98
+Ba1.8Cu1La0.2Tl1O5,cuprate,Ba-Cu-Tl-O,0.0,19.432,10.777
+Ba1.8Cu3La0.2Y1O7,cuprate,Ba-Cu-Y-O,79.05,14.235,6.01
+Ba1.8Cu3La1.2O8,cuprate,Ba-Cu-La-O,0.0,12.158,2.416
+Ba1.8Cu3Pr1.2O7,cuprate,Ba-Cu-Pr-O,0.0,0.269,2.301
+Ba1.8Cu4Ho1Sr0.2O8,cuprate,Ba-Cu-Ho-O,68.8,44.9,50.063
+Ba1.8Cu4La0.2Y1O8,cuprate,Ba-Cu-Y-O,44.0,11.734,6.702
+Ba1.8Cu4Sr0.2Y1O8,cuprate,Ba-Cu-Y-O,77.7,25.953,15.745
+Ba1.8Cu4Sr0.2Yb1O8,cuprate,Ba-Cu-Yb-O,81.0,60.244,35.863
+Ba1.926Ca0.074Cu4Y1O8,cuprate,Ba-Cu-Y-O,83.3,31.703,16.082
+Ba1.972Ca0.028Cu4Y1O8,cuprate,Ba-Cu-Y-O,79.7,59.358,14.863
+Ba1.98Cu4La0.02Y1O8,cuprate,Ba-Cu-Y-O,74.3,61.791,18.443
+Ba1.9Ca0.1Cu4Y1O8,cuprate,Ba-Cu-Y-O,85.4,32.581,16.173
+Ba1.9Cu3Gd1.1O7,cuprate,Ba-Cu-Gd-O,93.0,70.714,17.133
+Ba1.9Cu3La0.1Y1O6.5,cuprate,Ba-Cu-Y-O,32.9,23.329,7.978
+Ba1.9Cu3La0.1Y1O8,cuprate,Ba-Cu-Y-O,64.0,2.76,7.248
+Ba1.9Cu4Gd1Sr0.1O8,cuprate,Ba-Cu-Gd-O,73.5,78.759,39.119
+Ba1.9Cu4La0.1Y1O8,cuprate,Ba-Cu-Y-O,61.0,29.646,18.714
+Ba1Bi0.15Pb0.85O3,other oxide,Ba-Pb-O,8.7,9.387,11.779
+Ba1Bi0.17Pb0.83O3,other oxide,Ba-Pb-O,7.6,9.475,11.779
+Ba1Bi0.1Pb0.9O3,other oxide,Ba-Pb-O,2.91,5.897,11.621
+Ba1Bi0.22Pb0.78O3,other oxide,Ba-Pb-O,10.3,9.58,11.507
+Ba1Bi0.25Pb0.75O3,other oxide,Ba-Bi-Pb-O,9.9,6.513,10.101
+Ba1Bi0.2Pb0.8O3,other oxide,Ba-Pb-O,9.875,8.909,11.744
+Ba1Bi0.3Pb0.7O3,other oxide,Ba-Pb-O,11.23,14.557,10.042
+Ba1Bi1O3,other oxide,Ba-Bi-O,0.0,0.356,1.188
+Ba1Bi2Ti2O1,other oxide,Ba-Bi-Ti-O,4.6,0.0,1.04
+Ba1Cu1Gd2O5,cuprate,Ba-Cu-Gd-O,0.0,0.139,0.0
+Ba1Cu1Tl0.76O4.5,cuprate,Ba-Cu-Tl-O,86.0,2.248,1.332
+Ba1Cu1Y2O5,cuprate,Ba-Cu-Y-O,0.0,0.705,1.97
+Ba1Fe1.9Se3,iron-based,Ba-Fe-Se,11.0,3.99,7.157
+Ba1Fe2P2,iron-based,Ba-Fe-P,0.0,3.887,2.509
+Ba1Fe2Se3,iron-based,Ba-Fe-Se,11.0,0.92,7.479
+Ba1Ge0.2Ni2P1.8,iron-based,Ba-Ni-P,2.59,1.051,1.289
+Ba1Nb2O5,other oxide,Ba-Nb-O,0.0,0.304,0.0
+Ba1Ni2P2,iron-based,Ba-Ni-P,2.687,0.803,0.257
+Ba1Pb0.75Sb0.25O3,other oxide,Ba-Pb-O,3.5,5.502,3.537
+Ba1Pb0.85Sb0.15O3,other oxide,Ba-Pb-O,1.4,6.128,8.136
+Ba1Pb0.8Sb0.2O3,other oxide,Ba-Pb-O,1.7,6.627,8.2
+Ba1Sb1.7Sn0.3Ti2O1,other oxide,Ba-Sb-Ti-O,2.2,4.161,1.057
+Ba1Sb1.8Sn0.2Ti2O1,other oxide,Ba-Sb-Ti-O,2.2,4.281,1.401
+Ba1Sb1.9Sn0.1Ti2O1,other oxide,Ba-Sb-Ti-O,0.0,3.598,0.85
+Ba1Sb2Ti2O1,other oxide,Ba-Sb-Ti-O,0.964,0.0,0.397
+Ba1Ti1O3,other oxide,Ba-Ti-O,0.0,0.0,0.304
+Ba2.02Cu1.01Tl1.97O6.16,cuprate,Ba-Cu-Tl-O,0.0,15.292,2.346
+Ba2.2Cu4Y1O8,cuprate,Ba-Cu-Y-O,80.0,25.052,7.678
+Ba2Bi2K1O7,other oxide,Ba-Bi-K-O,0.0,5.214,10.277
+Ba2Ca0.01Cu4Er0.99O8,cuprate,Ba-Cu-Er-O,79.3,63.322,37.178
+Ba2Ca0.01Cu4Ho0.99O8,cuprate,Ba-Cu-Ho-O,76.8,68.024,51.532
+Ba2Ca0.01Cu4Tm0.99O8,cuprate,Ba-Cu-Tm-O,79.2,82.836,66.282
+Ba2Ca0.01Cu4Y0.99O8,cuprate,Ba-Cu-Y-O,78.7,61.476,20.522
+Ba2Ca0.025Cu4Y0.975O8,cuprate,Ba-Cu-Y-O,80.75,49.962,20.522
+Ba2Ca0.02Cu4Y0.98O8,cuprate,Ba-Cu-Y-O,87.0,55.854,20.522
+Ba2Ca0.03Cu3Y0.97O6,cuprate,Ba-Cu-Y-O,0.0,1.444,14.1
+Ba2Ca0.03Cu4Er0.97O8,cuprate,Ba-Cu-Er-O,80.0,74.545,39.201
+Ba2Ca0.03Cu4Ho0.97O8,cuprate,Ba-Cu-Ho-O,77.4,75.747,47.208
+Ba2Ca0.03Cu4Tm0.97O8,cuprate,Ba-Cu-Tm-O,81.2,89.926,63.092
+Ba2Ca0.03Cu4Y0.97O8,cuprate,Ba-Cu-Y-O,81.9,49.827,18.865
+Ba2Ca0.05Cu4Er0.95O8,cuprate,Ba-Cu-Er-O,83.2,71.823,53.986
+Ba2Ca0.05Cu4Ho0.95O8,cuprate,Ba-Cu-Ho-O,81.0,59.737,52.189
+Ba2Ca0.05Cu4Tm0.95O8,cuprate,Ba-Cu-Tm-O,84.8,78.138,65.81
+Ba2Ca0.05Cu4Y0.95O8,cuprate,Ba-Cu-Y-O,85.16,45.395,19.537
+Ba2Ca0.075Cu4Y0.925O8,cuprate,Ba-Cu-Y-O,83.8,35.75,23.713
+Ba2Ca0.07Cu4Tm0.93O8,cuprate,Ba-Cu-Tm-O,83.3,89.466,54.922
+Ba2Ca0.07Cu4Y0.93O8,cuprate,Ba-Cu-Y-O,86.25,41.92,23.713
+Ba2Ca0.12Cu3Y0.88O6,cuprate,Ba-Cu-Y-O,0.0,10.283,26.567
+Ba2Ca0.12Cu4Y0.88O8,cuprate,Ba-Cu-Y-O,88.5,37.096,22.218
+Ba2Ca0.15Cu4Ho0.85O8,cuprate,Ba-Cu-Ho-O,87.0,72.637,51.78
+Ba2Ca0.15Cu4Y0.85O8,cuprate,Ba-Cu-Y-O,88.9,34.153,23.771
+Ba2Ca0.1Cu3Y0.9O7,cuprate,Ba-Cu-Y-O,81.8,41.382,15.09
+Ba2Ca0.1Cu4Ho0.9O8,cuprate,Ba-Cu-Ho-O,87.0,68.852,52.562
+Ba2Ca0.1Cu4Y0.9O8,cuprate,Ba-Cu-Y-O,87.357,35.307,20.805
+Ba2Ca0.25Cu4Y0.75O8,cuprate,Ba-Cu-Y-O,82.9,28.486,23.145
+Ba2Ca0.26Cu3Y0.74O6,cuprate,Ba-Cu-Y-O,44.7,22.081,35.474
+Ba2Ca0.28Cu3Y0.72O6,cuprate,Ba-Cu-Y-O,47.5,20.355,32.097
+Ba2Ca0.2Cu2Nd0.8Tl1O7,cuprate,Ba-Cu-Nd-Tl-O,0.0,20.404,18.259
+Ba2Ca0.2Cu2Tl1Y0.8O7,cuprate,Ba-Cu-Tl-Y-O,0.0,43.606,37.797
+Ba2Ca0.2Cu3Y0.8O6,cuprate,Ba-Cu-Y-O,24.0,24.495,43.513
+Ba2Ca0.2Cu3Y0.8O7,cuprate,Ba-Cu-Y-O,71.6,32.923,15.759
+Ba2Ca0.2Cu4Ho0.8O8,cuprate,Ba-Cu-Ho-O,87.0,74.899,41.641
+Ba2Ca0.2Cu4Y0.8O8,cuprate,Ba-Cu-Y-O,87.8,31.336,23.121
+Ba2Ca0.2Fe3Y0.8O8,other oxide,Ba-Fe-Y-O,0.0,3.248,2.116
+Ba2Ca0.3Cu3Pr0.7O7,cuprate,Ba-Cu-Pr-O,0.0,0.489,0.0
+Ba2Ca0.3Cu4Ho0.7O8,cuprate,Ba-Cu-Ho-O,87.0,47.028,26.849
+Ba2Ca0.7Ce0.3Cu2Tl2O8,cuprate,Ba-Ca-Cu-Tl-O,0.0,4.829,3.942
+Ba2Ca0.7Cu2Gd0.3Tl1O7,cuprate,Ba-Ca-Cu-Tl-O,81.25,12.602,4.479
+Ba2Ca0.7Cu2Nd0.3Tl1O7,cuprate,Ba-Ca-Cu-Tl-O,95.5,8.363,1.572
+Ba2Ca0.85Cu2.2Tl1.8O8,cuprate,Ba-Ca-Cu-Tl-O,104.0,86.66,6.929
+Ba2Ca0.8Ce0.2Cu2Tl2O8,cuprate,Ba-Ca-Cu-Tl-O,103.0,24.391,3.515
+Ba2Ca0.8Cu2Gd0.2Tl1O7,cuprate,Ba-Ca-Cu-Tl-O,93.6,18.352,3.791
+Ba2Ca0.8Cu2Nd0.2Tl1O7,cuprate,Ba-Ca-Cu-Tl-O,96.3,16.823,4.551
+Ba2Ca0.8Cu2Tl1Y0.2O7,cuprate,Ba-Ca-Cu-Tl-O,97.6,27.397,6.471
+Ba2Ca0.9Ce0.1Cu2Tl2O8,cuprate,Ba-Ca-Cu-Tl-O,100.0,48.326,2.913
+Ba2Ca0.9Cu2Gd0.1Tl1O7,cuprate,Ba-Ca-Cu-Tl-O,91.8,13.873,4.294
+Ba2Ca0.9Cu2Nd0.1Tl1O7,cuprate,Ba-Ca-Cu-Tl-O,90.8,12.417,3.796
+Ba2Ca0.9Cu2Tl1Y0.1O7,cuprate,Ba-Ca-Cu-Tl-O,86.1,18.741,4.262
+Ba2Ca1Cu1.98Fe0.02Tl2O8,cuprate,Ba-Ca-Cu-Tl-O,106.0,54.557,1.908
+Ba2Ca1Cu2Hg1O6.08,cuprate,Ba-Ca-Cu-Hg-O,92.0,12.415,22.099
+Ba2Ca1Cu2Hg1O6.1,cuprate,Ba-Ca-Cu-Hg-O,92.5,68.466,22.845
+Ba2Ca1Cu2Hg1O6.13,cuprate,Ba-Ca-Cu-Hg-O,102.0,60.879,21.342
+Ba2Ca1Cu2Hg1O6.14,cuprate,Ba-Ca-Cu-Hg-O,105.0,67.568,21.342
+Ba2Ca1Cu2Hg1O6.16,cuprate,Ba-Ca-Cu-Hg-O,121.0,74.354,21.524
+Ba2Ca1Cu2Hg1O6.19,cuprate,Ba-Ca-Cu-Hg-O,122.0,59.833,21.505
+Ba2Ca1Cu2Hg1O6.21,cuprate,Ba-Ca-Cu-Hg-O,127.0,38.065,29.452
+Ba2Ca1Cu2Hg1O6.22,cuprate,Ba-Ca-Cu-Hg-O,127.0,100.668,28.931
+Ba2Ca1Cu2Hg1O6.24,cuprate,Ba-Ca-Cu-Hg-O,123.0,96.067,32.054
+Ba2Ca1Cu2Hg1O6.27,cuprate,Ba-Ca-Cu-Hg-O,110.0,39.692,31.363
+Ba2Ca1Cu2Hg1O6.3,cuprate,Ba-Ca-Cu-Hg-O,100.0,66.947,31.363
+Ba2Ca1Cu2Hg1O6.31,cuprate,Ba-Ca-Cu-Hg-O,98.0,67.194,31.211
+Ba2Ca1Cu2Tl1O7,cuprate,Ba-Ca-Cu-Tl-O,80.8,21.904,6.272
+Ba2Ca1Cu2Tl1O8,cuprate,Ba-Ca-Cu-Tl-O,105.982,9.511,2.556
+Ba2Ca2Cu3Hg0.85Re0.15O8,cuprate,Ba-Ca-Cu-Hg-O,132.9,46.333,24.985
+Ba2Ca2Cu3Hg0.8Pb0.2O8,cuprate,Ba-Ca-Cu-Hg-O,132.0,39.693,37.74
+Ba2Ca2Cu3Hg0.9Pb0.1O8,cuprate,Ba-Ca-Cu-Hg-O,130.0,54.886,28.365
+Ba2Ca2Cu3Tl2O10,cuprate,Ba-Ca-Cu-Tl-O,118.975,5.166,21.899
+Ba2Cd0.1Cu3Y0.9O7,cuprate,Ba-Cu-Y-O,89.9,28.887,10.95
+Ba2Cd0.25Cu1Tl1.75O6,cuprate,Ba-Cu-Tl-O,88.0,7.649,4.842
+Ba2Cd0.2Cu3Y0.8O7,cuprate,Ba-Cu-Y-O,92.8,20.132,30.422
+Ba2Cd0.3Cu3Y0.7O7,cuprate,Ba-Cu-Y-O,92.8,14.105,17.623
+Ba2Ce0.1Cu4Dy0.9O8,cuprate,Ba-Cu-Dy-O,44.0,89.247,124.541
+Ba2Cl1Cu2Nb1Pb2O8,cuprate,Ba-Cl-Cu-Nb-Pb-O,0.0,0.18,0.969
+Ba2Cl1Cu2Pb2Ta1O8,cuprate,Ba-Cl-Cu-Pb-Ta-O,0.0,0.0,1.037
+Ba2Co0.3Cu2La2Ti1.7O10.82,cuprate,Ba-Cu-La-Ti-O,0.0,0.645,1.05
+Ba2Co0.9Cu2Eu1O7.29,cuprate,Ba-Co-Cu-Eu-O,0.0,3.58,19.705
+Ba2Co1Cu2Er1O7.07,cuprate,Ba-Co-Cu-Er-O,0.0,0.466,25.179
+Ba2Co1Cu2Eu1O7.31,cuprate,Ba-Co-Cu-Eu-O,0.0,0.484,11.264
+Ba2Co1Cu2Gd1O7.16,cuprate,Ba-Co-Cu-Gd-O,0.0,0.278,1.863
+Ba2Co1Cu2La1O7.01,cuprate,Ba-Co-Cu-La-O,0.0,27.665,1.238
+Ba2Co1Cu2La1O7.39,cuprate,Ba-Co-Cu-La-O,0.0,0.571,0.159
+Ba2Co1Cu2Nd1O7.24,cuprate,Ba-Co-Cu-Nd-O,0.0,0.111,0.0
+Ba2Co1Cu2Pr1O7.02,cuprate,Ba-Co-Cu-Pr-O,0.0,0.0,0.0
+Ba2Co1Cu2Pr1O7.29,cuprate,Ba-Co-Cu-Pr-O,0.0,0.0,0.0
+Ba2Co1Cu2Pr1O7.33,cuprate,Ba-Co-Cu-Pr-O,0.0,0.0,0.0
+Ba2Co1Cu2Sm1O7.12,cuprate,Ba-Co-Cu-Sm-O,0.0,0.0,0.217
+Ba2Co1Cu2Y1O7.2,cuprate,Ba-Co-Cu-Y-O,0.0,0.0,4.654
+Ba2Co1Cu2Y1O7.33,cuprate,Ba-Co-Cu-Y-O,0.0,0.0,10.29
+Ba2Cs0.15Cu3Y0.85O6.5,cuprate,Ba-Cu-Y-O,90.4,43.49,29.613
+Ba2Cu1Hg0.9O4,cuprate,Ba-Cu-Hg-O,73.0,7.161,2.849
+Ba2Cu1Hg1O4.01,cuprate,Ba-Cu-Hg-O,64.5,6.206,10.405
+Ba2Cu1Hg1O4.02,cuprate,Ba-Cu-Hg-O,72.0,5.691,10.873
+Ba2Cu1Hg1O4.025,cuprate,Ba-Cu-Hg-O,20.0,9.578,10.873
+Ba2Cu1Hg1O4.032,cuprate,Ba-Cu-Hg-O,36.0,7.957,11.431
+Ba2Cu1Hg1O4.033,cuprate,Ba-Cu-Hg-O,48.0,7.698,11.431
+Ba2Cu1Hg1O4.04,cuprate,Ba-Cu-Hg-O,0.0,11.696,14.027
+Ba2Cu1Hg1O4.045,cuprate,Ba-Cu-Hg-O,73.0,14.45,14.027
+Ba2Cu1Hg1O4.047,cuprate,Ba-Cu-Hg-O,95.0,14.887,15.198
+Ba2Cu1Hg1O4.049,cuprate,Ba-Cu-Hg-O,70.0,15.763,15.169
+Ba2Cu1Hg1O4.05,cuprate,Ba-Cu-Hg-O,73.5,15.799,15.169
+Ba2Cu1Hg1O4.052,cuprate,Ba-Cu-Hg-O,82.0,9.117,15.169
+Ba2Cu1Hg1O4.055,cuprate,Ba-Cu-Hg-O,79.1,10.718,15.203
+Ba2Cu1Hg1O4.058,cuprate,Ba-Cu-Hg-O,89.0,8.278,15.203
+Ba2Cu1Hg1O4.06,cuprate,Ba-Cu-Hg-O,73.0,8.54,15.203
+Ba2Cu1Hg1O4.066,cuprate,Ba-Cu-Hg-O,88.5,8.996,15.32
+Ba2Cu1Hg1O4.081,cuprate,Ba-Cu-Hg-O,98.0,7.019,15.32
+Ba2Cu1Hg1O4.085,cuprate,Ba-Cu-Hg-O,92.0,10.24,15.168
+Ba2Cu1Hg1O4.096,cuprate,Ba-Cu-Hg-O,95.6,9.41,14.758
+Ba2Cu1Hg1O4.097,cuprate,Ba-Cu-Hg-O,95.3,9.41,14.758
+Ba2Cu1Hg1O4.101,cuprate,Ba-Cu-Hg-O,93.4,6.541,14.758
+Ba2Cu1Hg1O4.103,cuprate,Ba-Cu-Hg-O,92.5,4.745,14.758
+Ba2Cu1Hg1O4.105,cuprate,Ba-Cu-Hg-O,90.9,8.224,14.956
+Ba2Cu1Hg1O4.108,cuprate,Ba-Cu-Hg-O,89.1,6.048,14.956
+Ba2Cu1Hg1O4.117,cuprate,Ba-Cu-Hg-O,82.0,9.283,14.965
+Ba2Cu1Hg1O4.14,cuprate,Ba-Cu-Hg-O,0.0,11.101,16.586
+Ba2Cu1Hg1O4.15,cuprate,Ba-Cu-Hg-O,97.0,10.405,18.617
+Ba2Cu1Hg1O4.16,cuprate,Ba-Cu-Hg-O,88.0,8.009,18.956
+Ba2Cu1Hg1O4.162,cuprate,Ba-Cu-Hg-O,97.4,8.009,18.956
+Ba2Cu1Hg1O4.17,cuprate,Ba-Cu-Hg-O,78.0,7.481,18.956
+Ba2Cu1Hg1O4.18,cuprate,Ba-Cu-Hg-O,95.16,9.355,18.826
+Ba2Cu1Hg1O4.2,cuprate,Ba-Cu-Hg-O,94.2,13.16,18.826
+Ba2Cu1Hg1O4.21,cuprate,Ba-Cu-Hg-O,80.0,11.145,18.593
+Ba2Cu1Hg1O4.22,cuprate,Ba-Cu-Hg-O,97.0,4.422,13.201
+Ba2Cu1Hg1O4.28,cuprate,Ba-Cu-Hg-O,85.0,7.2,12.968
+Ba2Cu1Hg1O4.3,cuprate,Ba-Cu-Hg-O,81.0,7.503,13.108
+Ba2Cu1Hg1O4.31,cuprate,Ba-Cu-Hg-O,78.0,7.673,13.682
+Ba2Cu1Hg1O4.32,cuprate,Ba-Cu-Hg-O,0.0,7.673,13.827
+Ba2Cu1Hg1O4.34,cuprate,Ba-Cu-Hg-O,59.0,4.952,10.653
+Ba2Cu1Hg1O4.37,cuprate,Ba-Cu-Hg-O,37.5,4.08,8.679
+Ba2Cu1Hg1O4.39,cuprate,Ba-Cu-Hg-O,24.2,5.744,9.106
+Ba2Cu1Hg1Tl1O6,cuprate,Ba-Cu-Hg-Tl-O,0.0,3.432,5.723
+Ba2Cu1Tl1.7O6,cuprate,Ba-Cu-Tl-O,24.0,9.004,18.538
+Ba2Cu1Tl1O5,cuprate,Ba-Cu-Tl-O,95.0,15.189,24.622
+Ba2Cu1Tl2O6.01,cuprate,Ba-Cu-Tl-O,81.0,8.301,2.774
+Ba2Cu1Tl2O6.03,cuprate,Ba-Cu-Tl-O,62.0,15.337,2.995
+Ba2Cu1Tl2O6.05,cuprate,Ba-Cu-Tl-O,47.0,15.437,2.215
+Ba2Cu1Tl2O6.056,cuprate,Ba-Cu-Tl-O,40.0,14.812,2.23
+Ba2Cu1Tl2O6.08,cuprate,Ba-Cu-Tl-O,16.0,21.377,2.435
+Ba2Cu1Tl2O6.12,cuprate,Ba-Cu-Tl-O,87.8,17.553,2.394
+Ba2Cu1Tl2O6.16,cuprate,Ba-Cu-Tl-O,64.9,19.408,1.329
+Ba2Cu1Tl2O6.164,cuprate,Ba-Cu-Tl-O,0.0,15.037,1.505
+Ba2Cu1Tl2O6.19,cuprate,Ba-Cu-Tl-O,45.3,5.816,1.209
+Ba2Cu1Tl2O6.23,cuprate,Ba-Cu-Tl-O,0.0,7.495,1.854
+Ba2Cu2.1Nd2Ti1.9O11,cuprate,Ba-Cu-Nd-Ti-O,0.0,2.275,0.941
+Ba2Cu2Eu2Ti2O11,cuprate,Ba-Cu-Eu-Ti-O,0.0,0.0,0.092
+Ba2Cu2La0.1Nb1Pr0.9O8,cuprate,Ba-Cu-Nb-Pr-O,0.0,0.0,0.716
+Ba2Cu2La1Nb1O8,cuprate,Ba-Cu-La-Nb-O,0.0,1.685,7.547
+Ba2Cu2La2Sc0.3Ti1.7O10.81,cuprate,Ba-Cu-La-Ti-O,0.0,0.624,1.472
+Ba2Cu2La2Ti1.85Zn0.15O10.86,cuprate,Ba-Cu-La-Ti-O,0.0,0.838,0.453
+Ba2Cu2La2Ti2O11,cuprate,Ba-Cu-La-Ti-O,0.0,0.0,0.0
+Ba2Cu2Nb1Pr1O8,cuprate,Ba-Cu-Nb-Pr-O,0.0,0.33,0.631
+Ba2Cu2Nd1Tl1O7,cuprate,Ba-Cu-Nd-Tl-O,0.0,5.389,12.633
+Ba2Cu2Nd2Ti2O11,cuprate,Ba-Cu-Nd-Ti-O,0.0,1.234,1.152
+Ba2Cu2Tl1Y1O7,cuprate,Ba-Cu-Tl-Y-O,0.0,25.851,45.71
+Ba2Cu3Dy0.1Pr0.9O7,cuprate,Ba-Cu-Pr-O,0.0,0.821,0.02
+Ba2Cu3Dy0.2Pr0.8O7,cuprate,Ba-Cu-Pr-O,0.0,0.397,1.096
+Ba2Cu3Dy0.3Pr0.7O7,cuprate,Ba-Cu-Pr-O,0.0,0.567,3.362
+Ba2Cu3Er0.1Pr0.9O7,cuprate,Ba-Cu-Pr-O,0.0,15.816,4.706
+Ba2Cu3Er0.2Pr0.8O7,cuprate,Ba-Cu-Pr-O,0.0,14.103,6.028
+Ba2Cu3Er0.5Pr0.5O7,cuprate,Ba-Cu-Er-Pr-O,28.6,2.773,19.062
+Ba2Cu3Er0.6Pr0.4O7,cuprate,Ba-Cu-Er-Pr-O,45.8,68.831,27.828
+Ba2Cu3Er0.7Pr0.3O7,cuprate,Ba-Cu-Er-O,61.1,57.719,33.1
+Ba2Cu3Er0.85Pr0.15O7,cuprate,Ba-Cu-Er-O,82.9,78.487,47.218
+Ba2Cu3Er0.8Pr0.2O7,cuprate,Ba-Cu-Er-O,76.4,74.363,56.376
+Ba2Cu3Er0.924Pr0.076O7,cuprate,Ba-Cu-Er-O,91.1,86.342,28.705
+Ba2Cu3Er0.97Pr0.03O7,cuprate,Ba-Cu-Er-O,93.9,79.161,31.069
+Ba2Cu3Er1O7,cuprate,Ba-Cu-Er-O,92.033,61.782,55.462
+Ba2Cu3Eu0.1Pr0.9O7,cuprate,Ba-Cu-Pr-O,0.0,0.0,0.0
+Ba2Cu3Eu0.2Pr0.8O7,cuprate,Ba-Cu-Eu-Pr-O,0.0,0.0,0.273
+Ba2Cu3Eu0.2Y0.8O7,cuprate,Ba-Cu-Y-O,0.0,53.459,10.957
+Ba2Cu3Eu0.3Pr0.7O7,cuprate,Ba-Cu-Eu-Pr-O,0.0,0.0,0.639
+Ba2Cu3Eu0.4Pr0.6O7,cuprate,Ba-Cu-Eu-Pr-O,0.0,0.0,0.372
+Ba2Cu3Eu0.6Pr0.4O7,cuprate,Ba-Cu-Eu-Pr-O,37.8,12.54,2.248
+Ba2Cu3Eu0.7Pr0.3O7,cuprate,Ba-Cu-Eu-Pr-O,53.8,29.213,2.148
+Ba2Cu3Eu0.8Pr0.2O7,cuprate,Ba-Cu-Eu-Pr-O,63.0,42.102,5.231
+Ba2Cu3Eu0.8Y0.2O7,cuprate,Ba-Cu-Eu-O,93.8,38.963,2.704
+Ba2Cu3Eu0.9Pr0.1O7,cuprate,Ba-Cu-Eu-O,68.3,57.981,5.112
+Ba2Cu3Eu1O6.5,cuprate,Ba-Cu-Eu-O,92.0,38.139,2.773
+Ba2Cu3F0.76Y1O6,cuprate,Ba-Cu-F-Y-O,35.0,2.476,16.376
+Ba2Cu3Gd0.1Pr0.9O7,cuprate,Ba-Cu-Pr-O,0.0,0.259,0.0
+Ba2Cu3Gd0.2Pr0.8O7,cuprate,Ba-Cu-Pr-O,0.0,0.01,0.0
+Ba2Cu3Gd0.3Pr0.7O7,cuprate,Ba-Cu-Pr-O,0.0,0.017,0.0
+Ba2Cu3Gd0.4Pr0.6O7,cuprate,Ba-Cu-Gd-Pr-O,0.0,0.0,0.649
+Ba2Cu3Gd0.5Pr0.5O7,cuprate,Ba-Cu-Gd-Pr-O,0.0,3.639,4.624
+Ba2Cu3Gd0.6Pr0.4O7,cuprate,Ba-Cu-Gd-Pr-O,20.9,13.464,7.674
+Ba2Cu3Gd0.7Pr0.3O7,cuprate,Ba-Cu-Gd-O,39.6,27.146,11.409
+Ba2Cu3Gd0.85Pr0.15O7,cuprate,Ba-Cu-Gd-O,67.9,32.156,7.038
+Ba2Cu3Gd0.8Pr0.2O7,cuprate,Ba-Cu-Gd-O,57.7,26.645,7.746
+Ba2Cu3Gd0.922Pr0.078O7,cuprate,Ba-Cu-Gd-O,84.0,36.136,8.196
+Ba2Cu3Gd0.97Pr0.03O7,cuprate,Ba-Cu-Gd-O,93.1,33.177,18.416
+Ba2Cu3Ho0.1Pr0.9O7,cuprate,Ba-Cu-Pr-O,0.0,15.791,2.261
+Ba2Cu3Ho0.2Pr0.8O7,cuprate,Ba-Cu-Pr-O,0.0,13.662,5.127
+Ba2Cu3Ho1O7,cuprate,Ba-Cu-Ho-O,92.475,66.125,60.493
+Ba2Cu3La0.1Pr0.9O7,cuprate,Ba-Cu-Pr-O,0.0,0.113,0.304
+Ba2Cu3La0.2Pr0.8O7,cuprate,Ba-Cu-Pr-O,0.0,0.0,0.333
+Ba2Cu3La0.3Pr0.7O7,cuprate,Ba-Cu-Pr-O,0.0,0.0,0.196
+Ba2Cu3La0.4Pr0.6O7,cuprate,Ba-Cu-La-Pr-O,0.0,0.0,0.034
+Ba2Cu3La0.5Pr0.5O7,cuprate,Ba-Cu-La-Pr-O,51.7,2.51,4.703
+Ba2Cu3La0.6Pr0.4O7,cuprate,Ba-Cu-La-Pr-O,54.8,22.994,7.432
+Ba2Cu3La0.7Pr0.3O7,cuprate,Ba-Cu-La-O,57.1,29.112,8.65
+Ba2Cu3La0.8Pr0.2O7,cuprate,Ba-Cu-La-O,59.8,30.813,23.258
+Ba2Cu3La0.8Y0.2O7,cuprate,Ba-Cu-La-O,81.0,27.468,15.237
+Ba2Cu3La0.9Pr0.1O7,cuprate,Ba-Cu-La-O,68.3,50.947,7.682
+Ba2Cu3La1O7,cuprate,Ba-Cu-La-O,89.6,39.562,17.982
+Ba2Cu3Lu0.6Pr0.4O7,cuprate,Ba-Cu-Lu-Pr-O,56.55,54.447,75.063
+Ba2Cu3Lu0.7Pr0.3O7,cuprate,Ba-Cu-Lu-O,73.5,52.414,73.133
+Ba2Cu3Lu0.85Pr0.15O7,cuprate,Ba-Cu-Lu-O,89.7,59.572,54.468
+Ba2Cu3Lu0.8Pr0.2O7,cuprate,Ba-Cu-Lu-O,86.8,58.743,70.511
+Ba2Cu3Lu1O7,cuprate,Ba-Cu-Lu-O,88.24,65.756,19.664
+Ba2Cu3Nd0.1Pr0.9O7,cuprate,Ba-Cu-Pr-O,0.0,0.358,0.089
+Ba2Cu3Nd0.2Pr0.8O7,cuprate,Ba-Cu-Nd-Pr-O,0.0,0.0,0.25
+Ba2Cu3Nd0.3Pr0.7O7,cuprate,Ba-Cu-Nd-Pr-O,0.0,0.0,0.529
+Ba2Cu3Nd0.4Pr0.6O7,cuprate,Ba-Cu-Nd-Pr-O,0.0,0.0,1.11
+Ba2Cu3Nd0.5Pr0.5O7,cuprate,Ba-Cu-Nd-Pr-O,0.0,0.917,0.528
+Ba2Cu3Nd0.7Pr0.3O7,cuprate,Ba-Cu-Nd-O,5.6,7.082,0.0
+Ba2Cu3Nd0.85Pr0.15O7,cuprate,Ba-Cu-Nd-O,40.7,8.321,0.0
+Ba2Cu3Nd0.8Pr0.2O7,cuprate,Ba-Cu-Nd-O,31.4,6.618,0.0
+Ba2Cu3Nd0.92Pr0.08O7,cuprate,Ba-Cu-Nd-O,68.2,9.1,0.0
+Ba2Cu3Nd0.97Pr0.03O7,cuprate,Ba-Cu-Nd-O,85.1,12.556,0.0
+Ba2Cu3Pr0.13Y0.87O7,cuprate,Ba-Cu-Y-O,78.35,34.359,20.103
+Ba2Cu3Pr0.15Y0.85O6.5,cuprate,Ba-Cu-Y-O,35.8,60.389,32.697
+Ba2Cu3Pr0.1Y0.9O7,cuprate,Ba-Cu-Y-O,84.1,37.705,19.293
+Ba2Cu3Pr0.3Y0.7O7,cuprate,Ba-Cu-Pr-Y-O,56.892,21.902,28.118
+Ba2Cu3Pr0.43Y0.57O7,cuprate,Ba-Cu-Pr-Y-O,22.0,4.407,11.108
+Ba2Cu3Pr0.55Y0.45O7,cuprate,Ba-Cu-Pr-Y-O,0.0,0.434,13.96
+Ba2Cu3Pr0.5Sm0.5O7,cuprate,Ba-Cu-Pr-Sm-O,0.0,3.693,0.959
+Ba2Cu3Pr0.5Y0.5O7,cuprate,Ba-Cu-Pr-Y-O,25.93,6.02,11.937
+Ba2Cu3Pr0.6Sm0.4O7,cuprate,Ba-Cu-Pr-Sm-O,0.0,0.0,1.842
+Ba2Cu3Pr0.6Y0.4O7,cuprate,Ba-Cu-Pr-Y-O,0.0,0.275,1.829
+Ba2Cu3Pr0.7Sm0.3O7,cuprate,Ba-Cu-Pr-O,0.0,0.5,0.288
+Ba2Cu3Pr0.8Sm0.2O7,cuprate,Ba-Cu-Pr-O,0.0,0.639,0.468
+Ba2Cu3Pr0.8Y0.2O7,cuprate,Ba-Cu-Pr-Y-O,0.0,0.341,0.507
+Ba2Cu3Pr0.9Sm0.1O7,cuprate,Ba-Cu-Pr-O,0.0,0.281,0.011
+Ba2Cu3Pr0.9Yb0.1O7,cuprate,Ba-Cu-Pr-O,0.0,16.097,5.425
+Ba2Cu3Pr1O6,cuprate,Ba-Cu-Pr-O,0.0,0.324,11.097
+Ba2Cu3S1Y1O6,cuprate,Ba-Cu-S-Y-O,89.5,11.721,14.993
+Ba2Cu3Tb0.1Y0.9O7,cuprate,Ba-Cu-Y-O,91.0,77.288,23.389
+Ba2Cu3Tm1O7,cuprate,Ba-Cu-Tm-O,90.833,79.413,39.18
+Ba2Cu3Y0.7Zn0.3O7,cuprate,Ba-Cu-Y-O,23.5,11.653,22.04
+Ba2Cu3Y0.8Zn0.2O7,cuprate,Ba-Cu-Y-O,43.0,15.815,17.734
+Ba2Cu3Y0.9Zn0.1O7,cuprate,Ba-Cu-Y-O,54.9,22.422,10.254
+Ba2Cu3Y1O6,cuprate,Ba-Cu-Y-O,0.0,2.638,14.247
+Ba2Cu4Dy1O8,cuprate,Ba-Cu-Dy-O,74.467,83.663,87.463
+Ba2Cu4Eu0.25Y0.75O8,cuprate,Ba-Cu-Y-O,78.0,65.677,37.782
+Ba2Cu4Eu0.3Pr0.7O8,cuprate,Ba-Cu-Pr-O,0.0,3.488,33.552
+Ba2Cu4Eu0.75Y0.25O8,cuprate,Ba-Cu-Eu-O,75.0,30.978,32.393
+Ba2Cu4Eu0.8Pr0.2O8,cuprate,Ba-Cu-Eu-O,63.5,43.418,19.588
+Ba2Cu4Ga0.05Y0.95O8,cuprate,Ba-Cu-Y-O,75.0,60.798,14.918
+Ba2Cu4Ga0.1Y0.9O8,cuprate,Ba-Cu-Y-O,74.0,56.351,10.558
+Ba2Cu4Ga0.2Y0.8O8,cuprate,Ba-Cu-Y-O,69.0,43.993,5.932
+Ba2Cu4Gd1O8,cuprate,Ba-Cu-Gd-O,72.667,63.82,43.782
+Ba2Cu4Ho1O8,cuprate,Ba-Cu-Ho-O,76.2,64.982,58.603
+Ba2Cu4Lu0.24Y0.76O8,cuprate,Ba-Cu-Y-O,0.0,82.64,22.662
+Ba2Cu4Pr0.05Y0.95O8,cuprate,Ba-Cu-Y-O,77.0,60.702,21.143
+Ba2Cu4Pr0.15Y0.85O8,cuprate,Ba-Cu-Y-O,72.3,39.185,25.184
+Ba2Cu4Pr0.1Y0.9O8,cuprate,Ba-Cu-Y-O,72.025,50.968,21.323
+Ba2Cu4Pr0.2Y0.8O8,cuprate,Ba-Cu-Y-O,66.786,40.538,24.3
+Ba2Cu4Pr0.3Y0.7O8,cuprate,Ba-Cu-Y-O,63.667,37.518,39.081
+Ba2Cu4Pr0.4Y0.6O8,cuprate,Ba-Cu-Pr-Y-O,55.25,45.227,27.794
+Ba2Cu4Pr0.5Y0.5O8,cuprate,Ba-Cu-Pr-Y-O,50.5,5.959,18.106
+Ba2Cu4Pr0.6Y0.4O8,cuprate,Ba-Cu-Pr-Y-O,37.875,0.559,12.152
+Ba2Cu4Pr0.8Y0.2O8,cuprate,Ba-Cu-Pr-O,0.0,6.302,40.336
+Ba2Cu4Pr0.9Y0.1O8,cuprate,Ba-Cu-Pr-O,0.0,2.08,20.995
+Ba2Cu4Pr1O8,cuprate,Ba-Cu-Pr-O,0.0,11.517,23.13
+Ba2Cu4Sc0.05Y0.95O8,cuprate,Ba-Cu-Y-O,79.0,50.552,13.619
+Ba2Cu4Sc0.1Y0.9O8,cuprate,Ba-Cu-Y-O,81.0,40.709,13.642
+Ba2Cu4Sc0.2Y0.8O8,cuprate,Ba-Cu-Y-O,87.0,31.382,15.242
+Ba2Cu4Sm1O8,cuprate,Ba-Cu-Sm-O,69.3,30.129,16.832
+Ba2Cu4Tb0.1Y0.9O8,cuprate,Ba-Cu-Y-O,78.0,90.027,27.537
+Ba2Cu4Tm1O8,cuprate,Ba-Cu-Tm-O,79.42,77.803,61.764
+Ba2Cu4Yb1O8,cuprate,Ba-Cu-Yb-O,78.8,65.326,29.78
+Ba2Ho1Sb1O6,other oxide,Ba-Ho-Sb-O,0.0,6.469,5.292
+Ba4Pb3O10,other oxide,Ba-Pb-O,0.0,3.138,4.896
+Ba6Nb10O30,other oxide,Ba-Nb-O,1.625,0.32,0.0
+Be13Ce1,heavy-fermion,Be-Ce,0.0,0.207,0.0
+Be13Th0.007U0.993,heavy-fermion,Be-U,0.67,0.0,0.293
+Be13Th0.009U0.991,heavy-fermion,Be-U,0.66,0.0,0.293
+Be13Th0.017U0.983,heavy-fermion,Be-U,0.525,0.006,0.0
+Be13Th0.018U0.982,heavy-fermion,Be-U,0.519,0.006,0.0
+Be13Th0.019U0.981,heavy-fermion,Be-U,0.48,0.062,0.0
+Be13Th0.01U0.99,heavy-fermion,Be-U,0.637,0.0,0.293
+Be13Th0.022U0.978,heavy-fermion,Be-U,0.539,0.088,0.0
+Be13Th0.026U0.974,heavy-fermion,Be-U,0.58,0.102,0.0
+Be13Th0.035U0.965,heavy-fermion,Be-U,0.55,0.243,0.0
+Be13Th0.038U0.962,heavy-fermion,Be-U,0.552,0.302,0.0
+Be13Th0.03U0.97,heavy-fermion,Be-U,0.603,0.102,0.0
+Be13Th0.043U0.957,heavy-fermion,Be-U,0.532,0.314,0.0
+Be13Th0.045U0.955,heavy-fermion,Be-U,0.46,0.325,0.0
+Be13Th0.046U0.954,heavy-fermion,Be-U,0.415,0.325,0.0
+Be13Th0.052U0.948,heavy-fermion,Be-U,0.38,0.325,0.0
+Be13Th0.06U0.94,heavy-fermion,Be-U,0.344,0.325,0.0
+Be13U1,heavy-fermion,Be-U,0.918,0.141,0.111
+Bi1.05K0.95O3,other oxide,Bi-K-O,8.1,3.522,7.141
+Bi1.085K0.915O3,other oxide,Bi-K-O,9.0,3.755,4.093
+Bi1.08K0.92O3,other oxide,Bi-K-O,0.0,3.817,4.321
+Bi1.15K0.85O3,other oxide,Bi-K-O,7.4,3.716,3.176
+Bi1.1K0.9O3,other oxide,Bi-K-O,8.35,3.345,2.056
+Bi1.1Rb0.9O3,other oxide,Bi-Rb-O,11.0,6.72,5.136
+Bi1.2K0.8O3,other oxide,Bi-K-O,9.45,3.254,3.981
+Bi1.3K0.7O3,other oxide,Bi-K-O,0.0,2.504,6.843
+Bi1.3Rb0.7O3,other oxide,Bi-Rb-O,11.0,10.966,2.41
+Bi1.7Ca1Cu2Pb0.3Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,80.5,46.013,11.463
+Bi1.7Ca2Cu3Pb0.3Sr2O10,cuprate,Bi-Ca-Cu-Sr-O,107.25,30.366,21.176
+Bi10Fe10Sr15O46,iron-based,Bi-Fe-Sr-O,0.0,0.344,46.169
+Bi1Ca0.25K0.75O3,other oxide,Bi-K-O,8.7,1.271,9.705
+Bi1Ca0.35Cu2Pb1Sr2Y0.65O8,cuprate,Bi-Ca-Cu-Pb-Sr-Y-O,76.0,41.43,8.269
+Bi1Ca0.4Cu2Pb1Sr2Y0.6O8,cuprate,Bi-Ca-Cu-Pb-Sr-Y-O,83.0,38.77,8.264
+Bi1Ca0.5Cu2Pb1Sr2Y0.5O8,cuprate,Bi-Ca-Cu-Pb-Sr-Y-O,85.0,17.195,15.016
+Bi1Ca0.6Cu2Pb1Sr2Y0.4O8,cuprate,Bi-Ca-Cu-Pb-Sr-Y-O,79.5,26.848,25.874
+Bi1Ca0.7Cu2Pb1Sr2Y0.3O8,cuprate,Bi-Ca-Cu-Pb-Sr-Y-O,75.0,43.706,25.444
+Bi1Ce1,heavy-fermion,Bi-Ce,0.0,0.399,0.219
+Bi1Ce1F0.25S2O0.75,heavy-fermion,Bi-Ce-S-O,0.0,3.586,3.367
+Bi1Ce1Pd1,heavy-fermion,Bi-Ce-Pd,1.3,0.153,0.419
+Bi1Ce1S2O1,heavy-fermion,Bi-Ce-S-O,1.533,0.77,2.258
+Bi1F0.2La1S2O0.8,other oxide,Bi-La-S-O,7.11,3.532,3.888
+Bi1F0.4La1S2O0.6,other oxide,Bi-F-La-S-O,10.26,4.145,3.847
+Bi1F0.5La0.75S2Y0.25O0.5,other oxide,Bi-F-La-S-O,3.1,3.314,4.348
+Bi1F0.5La0.7S2Sm0.3O0.5,other oxide,Bi-F-La-S-O,3.11,3.153,4.471
+Bi1F0.5La0.95S2Y0.05O0.5,other oxide,Bi-F-La-S-O,2.5,4.501,4.166
+Bi1F0.5La0.9S2Sm0.1O0.5,other oxide,Bi-F-La-S-O,2.93,3.465,4.408
+Bi1F0.5La1S2O0.5,other oxide,Bi-F-La-S-O,7.034,3.821,4.158
+Bi1F0.6La1S2O0.4,other oxide,Bi-F-La-S-O,9.5,3.722,4.727
+Bi1F0.7La1S2O0.3,other oxide,Bi-F-La-S-O,7.86,4.142,5.475
+Bi1Hf0.2La0.8S2O1,other oxide,Bi-La-S-O,2.36,2.636,3.894
+Bi1Hf0.3La0.7S2O1,other oxide,Bi-La-S-O,1.74,2.479,4.182
+Bi1K0.6Sr0.4O3,other oxide,Bi-K-Sr-O,11.422,5.717,6.243
+Bi1K0.75La0.25O3,other oxide,Bi-K-O,12.2,2.16,0.756
+Bi1K0.85La0.15O3,other oxide,Bi-K-O,10.25,5.94,5.175
+Bi1K0.8La0.2O3,other oxide,Bi-K-O,12.2,3.689,1.733
+Bi1K0.9La0.1O3,other oxide,Bi-K-O,5.74,3.836,10.74
+Bi1K1O3,other oxide,Bi-K-O,9.6,2.88,9.151
+Bi1La0.7S2Th0.3O1,other oxide,Bi-La-S-O,2.04,2.233,3.164
+Bi1La0.7S2Ti0.3O1,other oxide,Bi-La-S-O,2.22,1.939,4.054
+Bi1La0.85S2Th0.15O1,other oxide,Bi-La-S-O,2.85,2.563,2.922
+Bi1La0.8S2Sr0.2O1,other oxide,Bi-La-S-O,0.0,2.191,4.251
+Bi1La0.8S2Th0.2O1,other oxide,Bi-La-S-O,2.046,2.641,4.23
+Bi1La0.8S2Ti0.2O1,other oxide,Bi-La-S-O,2.35,1.818,3.759
+Bi1La0.8S2Zr0.2O1,other oxide,Bi-La-S-O,1.66,2.22,3.786
+Bi1La1S2O1,other oxide,Bi-La-S-O,0.0,1.724,3.095
+Bi1Ni1,iron-based,Bi-Ni,4.25,0.648,0.286
+Bi1Pr1,heavy-fermion,Bi-Pr,0.0,0.234,0.061
+Bi1Rb1O3,other oxide,Bi-Rb-O,11.0,3.546,3.403
+Bi2Ca0.1Cu2Pr0.9Sr2O8,cuprate,Bi-Cu-Pr-Sr-O,0.0,0.0,0.307
+Bi2Ca0.1Cu2Sr2Y0.9O8,cuprate,Bi-Cu-Sr-Y-O,0.0,1.398,9.826
+Bi2Ca0.2Cu2Pr0.8Sr2O8,cuprate,Bi-Cu-Pr-Sr-O,0.0,0.47,0.578
+Bi2Ca0.2Cu2Sr2Y0.8O8,cuprate,Bi-Cu-Sr-Y-O,0.0,1.619,15.4
+Bi2Ca0.3Cu2Pr0.7Sr2O8,cuprate,Bi-Cu-Pr-Sr-O,0.0,1.333,1.261
+Bi2Ca0.75Cu2Pr0.25Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,88.0,6.458,3.297
+Bi2Ca0.75Cu2Sr2Y0.25O8,cuprate,Bi-Ca-Cu-Sr-O,89.4,2.481,8.097
+Bi2Ca0.7Ce0.3Cu2Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,0.0,0.556,1.913
+Bi2Ca0.7Cu2Gd0.3Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,48.0,3.969,1.691
+Bi2Ca0.7Cu2I1Sr2Y0.3O8,cuprate,Bi-Ca-Cu-I-Sr-O,79.0,44.909,2.403
+Bi2Ca0.85Cu2Pr0.15Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,68.35,4.437,10.755
+Bi2Ca0.8Ce0.2Cu2Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,17.0,5.978,4.785
+Bi2Ca0.8Cu2Gd0.2Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,73.0,5.032,8.21
+Bi2Ca0.8Cu2I1Sr2Y0.2O8,cuprate,Bi-Ca-Cu-I-Sr-O,75.0,48.858,2.765
+Bi2Ca0.8Cu2Sr2.2O8,cuprate,Bi-Ca-Cu-Sr-O,89.9,1.846,13.755
+Bi2Ca0.92Cu2Sr2.08O8,cuprate,Bi-Ca-Cu-Sr-O,95.3,3.966,11.824
+Bi2Ca0.95Ce0.05Cu2Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,80.0,7.543,13.932
+Bi2Ca0.95Cu2Pr0.05Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,83.15,7.782,14.059
+Bi2Ca0.9Ce0.1Cu2Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,75.455,4.372,10.02
+Bi2Ca0.9Cu2Er0.1Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,87.0,4.958,12.911
+Bi2Ca0.9Cu2Gd0.1Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,80.0,4.667,11.412
+Bi2Ca0.9Cu2I1Sr2Y0.1O8,cuprate,Bi-Ca-Cu-I-Sr-O,67.0,19.192,1.914
+Bi2Ca0.9Cu2Sr2Y0.1O8,cuprate,Bi-Ca-Cu-Sr-O,76.5,5.456,11.466
+Bi2Ca1Cu1.952Ni0.048Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,74.0,4.408,6.294
+Bi2Ca1Cu1.96Fe0.04Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,65.7,8.839,7.641
+Bi2Ca1Cu1.97Ni0.03Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,77.0,5.577,6.213
+Bi2Ca1Cu1.988Ni0.012Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,92.55,5.394,6.17
+Bi2Ca1Cu1.98Fe0.02Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,71.5,4.542,7.769
+Bi2Ca1Cu1.98Ni0.02Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,78.0,5.881,6.17
+Bi2Ca1Cu1.99Fe0.01Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,74.1,5.345,7.641
+Bi2Ca1Cu2I0.95Sr2O8.28,cuprate,Bi-Ca-Cu-I-Sr-O,0.0,11.779,2.404
+Bi2Ca1Cu2I0.98Sr2O8.21,cuprate,Bi-Ca-Cu-I-Sr-O,49.3,12.712,2.143
+Bi2Ca1Cu2I1Sr2O8,cuprate,Bi-Ca-Cu-I-Sr-O,58.0,3.257,2.499
+Bi2Ca1Cu2Sr2O8,cuprate,Bi-Ca-Cu-Sr-O,88.25,2.875,7.526
+Bi2Ca1Cu2Sr2O8.01,cuprate,Bi-Ca-Cu-Sr-O,0.0,6.122,7.449
+Bi2Ca1Cu2Sr2O8.051,cuprate,Bi-Ca-Cu-Sr-O,0.0,6.554,8.064
+Bi2Ca1Cu2Sr2O8.077,cuprate,Bi-Ca-Cu-Sr-O,0.0,18.174,7.84
+Bi2Ca1Cu2Sr2O8.1,cuprate,Bi-Ca-Cu-Sr-O,90.0,24.852,7.081
+Bi2Ca1Cu2Sr2O8.11,cuprate,Bi-Ca-Cu-Sr-O,86.45,39.476,6.972
+Bi2Ca1Cu2Sr2O8.118,cuprate,Bi-Ca-Cu-Sr-O,91.0,21.437,6.978
+Bi2Ca1Cu2Sr2O8.12,cuprate,Bi-Ca-Cu-Sr-O,81.3,21.437,6.978
+Bi2Ca1Cu2Sr2O8.14,cuprate,Bi-Ca-Cu-Sr-O,81.0,35.513,2.487
+Bi2Ca1Cu2Sr2O8.16,cuprate,Bi-Ca-Cu-Sr-O,89.125,35.955,3.563
+Bi2Ca1Cu2Sr2O8.17,cuprate,Bi-Ca-Cu-Sr-O,85.5,44.871,3.577
+Bi2Ca1Cu2Sr2O8.19,cuprate,Bi-Ca-Cu-Sr-O,89.267,47.766,3.408
+Bi2Ca1Cu2Sr2O8.194,cuprate,Bi-Ca-Cu-Sr-O,92.0,49.93,3.294
+Bi2Ca1Cu2Sr2O8.195,cuprate,Bi-Ca-Cu-Sr-O,91.0,49.369,3.294
+Bi2Ca1Cu2Sr2O8.196,cuprate,Bi-Ca-Cu-Sr-O,85.0,49.369,3.294
+Bi2Ca1Cu2Sr2O8.197,cuprate,Bi-Ca-Cu-Sr-O,74.0,47.52,3.294
+Bi2Ca1Cu2Sr2O8.198,cuprate,Bi-Ca-Cu-Sr-O,78.0,47.52,3.294
+Bi2Ca1Cu2Sr2O8.199,cuprate,Bi-Ca-Cu-Sr-O,70.0,44.675,3.294
+Bi2Ca1Cu2Sr2O8.21,cuprate,Bi-Ca-Cu-Sr-O,90.6,65.881,3.302
+Bi2Ca1Cu2Sr2O8.212,cuprate,Bi-Ca-Cu-Sr-O,73.0,66.62,3.302
+Bi2Ca1Cu2Sr2O8.2135,cuprate,Bi-Ca-Cu-Sr-O,70.0,66.62,3.302
+Bi2Ca1Cu2Sr2O8.214,cuprate,Bi-Ca-Cu-Sr-O,70.0,66.62,3.302
+Bi2Ca1Cu2Sr2O8.216,cuprate,Bi-Ca-Cu-Sr-O,78.0,61.72,3.302
+Bi2Ca1Cu2Sr2O8.217,cuprate,Bi-Ca-Cu-Sr-O,0.0,51.407,2.224
+Bi2Ca1Cu2Sr2O8.218,cuprate,Bi-Ca-Cu-Sr-O,70.0,56.326,2.224
+Bi2Ca1Cu2Sr2O8.224,cuprate,Bi-Ca-Cu-Sr-O,89.0,54.632,2.224
+Bi2Ca1Cu2Sr2O8.231,cuprate,Bi-Ca-Cu-Sr-O,83.7,47.386,1.459
+Bi2Ca1Cu2Sr2O8.234,cuprate,Bi-Ca-Cu-Sr-O,84.0,45.706,1.459
+Bi2Ca1Cu2Sr2O8.245,cuprate,Bi-Ca-Cu-Sr-O,90.0,55.523,1.459
+Bi2Ca1Cu2Sr2O8.248,cuprate,Bi-Ca-Cu-Sr-O,86.0,47.177,1.847
+Bi2Ca1Cu2Sr2O8.255,cuprate,Bi-Ca-Cu-Sr-O,0.0,39.49,1.847
+Bi2Ca1Cu2Sr2O8.256,cuprate,Bi-Ca-Cu-Sr-O,67.2,39.49,1.847
+Bi2Ca1Cu2Sr2O8.27,cuprate,Bi-Ca-Cu-Sr-O,85.5,28.694,1.759
+Bi2Ca1Cu2Sr2O8.272,cuprate,Bi-Ca-Cu-Sr-O,92.2,28.694,1.759
+Bi2Ca1Cu2Sr2O8.288,cuprate,Bi-Ca-Cu-Sr-O,90.2,33.748,1.766
+Bi2Ca1Cu2Sr2O8.291,cuprate,Bi-Ca-Cu-Sr-O,89.1,33.748,1.766
+Bi2Ca1Cu2Sr2O8.293,cuprate,Bi-Ca-Cu-Sr-O,87.5,32.4,1.608
+Bi2Ca1Cu2Sr2O8.3,cuprate,Bi-Ca-Cu-Sr-O,70.0,25.902,1.608
+Bi2Ca1Cu2Sr2O8.329,cuprate,Bi-Ca-Cu-Sr-O,47.3,11.253,1.326
+Bi2Ca1Cu2Sr2O8.373,cuprate,Bi-Ca-Cu-Sr-O,47.2,14.815,0.924
+Bi2Ca1Cu2Sr2O8.428,cuprate,Bi-Ca-Cu-Sr-O,42.1,12.298,0.805
+Bi2Ca2Cu2Sr1O8.229,cuprate,Bi-Ca-Cu-Sr-O,76.4,43.402,3.117
+Bi2Cu1La0.24Sr1.76O6,cuprate,Bi-Cu-Sr-O,24.0,2.513,2.511
+Bi2Cu1La0.3Sr1.7O6,cuprate,Bi-Cu-Sr-O,30.0,0.223,2.781
+Bi2Cu1O4,cuprate,Bi-Cu-O,0.0,1.719,1.268
+Bi2Cu1Sr2O6,cuprate,Bi-Cu-Sr-O,7.38,1.005,2.125
+Bi2Cu1Sr2O6.09,cuprate,Bi-Cu-Sr-O,10.0,3.81,1.33
+Bi2Cu1Sr2O6.13,cuprate,Bi-Cu-Sr-O,16.0,9.783,1.765
+Bi2Cu1Sr2O6.14,cuprate,Bi-Cu-Sr-O,14.0,3.254,1.362
+Bi2Cu1Sr2O6.16,cuprate,Bi-Cu-Sr-O,10.0,3.133,1.442
+Bi2Cu1Sr2O6.17,cuprate,Bi-Cu-Sr-O,0.0,1.861,1.577
+Bi2Cu1Sr2O6.175,cuprate,Bi-Cu-Sr-O,7.0,1.835,1.631
+Bi2Cu1Sr2O6.18,cuprate,Bi-Cu-Sr-O,3.0,1.847,1.646
+Bi2Cu1Sr2O6.36,cuprate,Bi-Cu-Sr-O,8.0,0.663,1.685
+Bi2Cu2Er1Sr2O8,cuprate,Bi-Cu-Er-Sr-O,0.0,6.463,4.696
+Bi2Cu2Pr1Sr2O8,cuprate,Bi-Cu-Pr-Sr-O,0.0,0.565,0.298
+Bi2Cu2Sr2Y1O8,cuprate,Bi-Cu-Sr-Y-O,0.0,0.718,6.846
+Bi2Cu2Sr2Y1O8.51,cuprate,Bi-Cu-Sr-Y-O,0.0,33.937,15.668
+Bi2Cu2Sr2Y1O8.53,cuprate,Bi-Cu-Sr-Y-O,0.0,31.311,14.347
+Bi2F0.1S2O0.9,other oxide,Bi-S-O,3.675,1.45,0.267
+Bi2F0.2S2O0.8,other oxide,Bi-S-O,3.0,1.836,0.3
+Bi2Ni3S2,iron-based,Bi-Ni-S,0.79,0.939,1.147
+Bi2Ni3Se2,iron-based,Bi-Ni-Se,0.73,2.655,2.479
+Bi2S2O1,other oxide,Bi-S-O,0.0,0.499,0.3
+Bi3Fe0.05Ni0.95,iron-based,Bi-Ni,4.08,0.991,0.76
+Bi3Fe0.1Ni0.9,iron-based,Bi-Ni,4.06,1.02,0.738
+Bi3Ni1,iron-based,Bi-Ni,3.935,0.209,0.441
+Bi4Ca2Cu4Sr4O16.25,cuprate,Bi-Ca-Cu-Sr-O,82.4,23.586,6.394
+Bi4Cu4Sr4Tm2O17.14,cuprate,Bi-Cu-Sr-Tm-O,0.0,10.838,0.867
+Br2Ca1.75Cu1Na0.25O2,cuprate,Br-Ca-Cu-O,18.0,21.39,14.577
+Br2Ca1.7Cu1Na0.3O2,cuprate,Br-Ca-Cu-O,16.5,19.819,14.132
+Br2Ca1.825Cu1Na0.175O2,cuprate,Br-Ca-Cu-O,10.5,24.157,11.381
+Br2Ca1.85Cu1Na0.15O2,cuprate,Br-Ca-Cu-O,10.0,26.002,8.664
+Br2Ca1.875Cu1Na0.125O2,cuprate,Br-Ca-Cu-O,0.0,22.888,8.664
+Br2Ca1.8Cu1Na0.2O2,cuprate,Br-Ca-Cu-O,11.0,23.069,13.925
+C1Cu11Sr8Y4O28,cuprate,C-Cu-Sr-Y-O,0.0,16.945,2.266
+C1Cu1K0.1Sr1.9O5,cuprate,C-Cu-Sr-O,0.0,7.429,4.609
+C1Cu1K0.25Sr1.75O5,cuprate,C-Cu-Sr-O,13.0,9.406,3.961
+C1Cu1K0.2Sr1.8O5,cuprate,C-Cu-Sr-O,0.0,7.852,4.722
+C1Cu1K0.3Sr1.7O5,cuprate,C-Cu-Sr-O,16.0,3.419,3.112
+C1Cu1Na0.15Sr1.85O5,cuprate,C-Cu-Sr-O,0.0,3.706,4.842
+C1Cu1Na0.3Sr1.7O5,cuprate,C-Cu-Sr-O,0.0,2.32,3.59
+C1Cu1Sr2O5,cuprate,C-Cu-Sr-O,0.0,0.195,2.654
+C1Cu1Sr2O5.35,cuprate,C-Cu-Sr-O,0.0,2.196,1.396
+C1U1,heavy-fermion,C-U,0.0,0.0,0.411
+C2Ce1Ni1,heavy-fermion,C-Ce-Ni,0.0,0.044,0.697
+C2Ir1U2,heavy-fermion,C-Ir-U,0.0,0.291,0.0
+C2Os1U2,heavy-fermion,C-Os-U,0.0,0.115,0.225
+C2Pt0.1Rh0.9U2,heavy-fermion,C-Rh-U,0.0,0.26,0.194
+C2Pt0.2Rh0.8U2,heavy-fermion,C-Rh-U,0.0,0.108,0.194
+C2Pt0.3Rh0.7U2,heavy-fermion,C-Rh-U,0.0,0.009,0.194
+C2Pt0.7Rh0.3U2,heavy-fermion,C-Pt-U,0.0,0.105,0.0
+C2Pt0.8Rh0.2U2,heavy-fermion,C-Pt-U,0.0,0.0,0.0
+C2Pt0.95Rh0.05U2,heavy-fermion,C-Pt-U,1.41,0.033,0.0
+C2Pt0.9Rh0.1U2,heavy-fermion,C-Pt-U,1.09,0.047,0.0
+C2Pt1U2,heavy-fermion,C-Pt-U,1.465,0.0,0.066
+C2Rh1U2,heavy-fermion,C-Rh-U,0.0,0.132,0.032
+C2Ru1U2,heavy-fermion,C-Ru-U,0.0,0.041,0.017
+Ca0.01Cu1Y0.99O2.5,cuprate,Cu-Y-O,0.0,1.722,3.807
+Ca0.01Cu1Y0.99O2.58,cuprate,Cu-Y-O,0.0,2.02,1.326
+Ca0.01Cu1Y0.99O2.65,cuprate,Cu-Y-O,0.0,0.818,1.232
+Ca0.01Nd0.99Ni1O3,other oxide,Nd-Ni-O,0.0,0.0,0.0
+Ca0.02Nd0.98Ni1O3,other oxide,Nd-Ni-O,0.0,0.0,0.0
+Ca0.03Nd0.97Ni1O3,other oxide,Nd-Ni-O,0.0,0.409,0.0
+Ca0.05Nd0.95Ni1O3,other oxide,Nd-Ni-O,0.0,0.28,0.0
+Ca0.065Cu1La1.935O4,cuprate,Cu-La-O,5.55,1.731,2.167
+Ca0.075Cu1La1.925O4,cuprate,Cu-La-O,9.2,2.384,3.807
+Ca0.075Sr0.925Ti1O3,other oxide,Sr-Ti-O,0.5,0.0,0.107
+Ca0.08Cu1La1.92O4,cuprate,Cu-La-O,15.0,2.492,3.807
+Ca0.09Cu1La1.91O4,cuprate,Cu-La-O,20.0,3.22,2.933
+Ca0.113Cu1La1.887O4,cuprate,Cu-La-O,20.1,3.968,2.974
+Ca0.115Cu1La1.885O4,cuprate,Cu-La-O,23.0,3.968,3.935
+Ca0.11Cu1La1.89O4,cuprate,Cu-La-O,23.0,3.876,2.877
+Ca0.125Cu1La1.875O4,cuprate,Cu-La-O,23.85,4.354,4.385
+Ca0.12Cu1La1.88O4,cuprate,Cu-La-O,24.0,4.284,3.935
+Ca0.13Cu1La1.87O4,cuprate,Cu-La-O,28.0,4.234,3.343
+Ca0.14Cu1La1.86O4,cuprate,Cu-La-O,32.0,6.306,3.729
+Ca0.15Cu1La0.85Nd1O4,cuprate,Cu-La-Nd-O,23.0,14.063,1.258
+Ca0.15Cu3Pb2Sr2Y0.85O8,cuprate,Cu-Pb-Sr-Y-O,47.0,0.995,62.311
+Ca0.16Cu1La1.84O4,cuprate,Cu-La-O,34.0,8.536,4.144
+Ca0.17Cu1Dy1.83O4,cuprate,Cu-Dy-O,0.0,7.212,5.957
+Ca0.17Cu1La1.83O4,cuprate,Cu-La-O,34.0,8.353,2.998
+Ca0.17Cu1Tm1.83O4,cuprate,Cu-Tm-O,30.0,0.426,1.668
+Ca0.18Cu1La1.82O4,cuprate,Cu-La-O,33.0,7.097,3.123
+Ca0.19Cu1La1.81O4,cuprate,Cu-La-O,32.0,6.452,3.123
+Ca0.1Cu1La1.9O4,cuprate,Cu-La-O,20.5,2.703,3.241
+Ca0.1Cu2Ga1Sr2Y0.9O7,cuprate,Cu-Ga-Sr-Y-O,0.0,10.261,15.298
+Ca0.1Cu2Gd0.9Ru1Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,61.0,7.464,3.412
+Ca0.1Fe1La0.9P1O1,iron-based,Fe-La-P-O,5.67,2.615,5.422
+Ca0.1Nd0.9Ni1O3,other oxide,Nd-Ni-O,0.0,0.717,0.0
+Ca0.1Ti1Y0.9O3,other oxide,Ti-Y-O,0.0,0.084,0.785
+Ca0.21La0.79Mn1O3,other oxide,Ca-La-Mn-O,0.0,0.325,1.623
+Ca0.25Cu2Ga1Sr2Tm0.75O7,cuprate,Cu-Ga-Sr-Tm-O,28.0,19.287,14.566
+Ca0.2Cu1La1.8O4,cuprate,Cu-La-O,30.0,6.707,2.332
+Ca0.2Cu2Pr0.8Sr2Tl1O7,cuprate,Cu-Pr-Sr-Tl-O,38.0,1.312,6.463
+Ca0.2Cu2Sr2Tl1Y0.8O7,cuprate,Cu-Sr-Tl-Y-O,0.0,44.135,39.748
+Ca0.2La0.8Rh1O3,other oxide,La-Rh-O,0.0,0.334,0.0
+Ca0.33La0.67Mn1O3,other oxide,Ca-La-Mn-O,0.0,0.274,1.834
+Ca0.35Cu2Ga1Sr2Y0.65O7,cuprate,Ca-Cu-Ga-Sr-Y-O,27.0,12.819,0.267
+Ca0.36Cu3Pb2Sr2Y0.64O8,cuprate,Ca-Cu-Pb-Sr-Y-O,65.0,32.448,40.325
+Ca0.39Cu3Pb2Sr2Y0.61O8,cuprate,Ca-Cu-Pb-Sr-Y-O,77.0,31.968,35.272
+Ca0.3Cu1La1Sr0.7Tl1O5,cuprate,Cu-La-Sr-Tl-O,32.0,6.078,9.022
+Ca0.3Cu2Ga1Sr2Tm0.7O7,cuprate,Cu-Ga-Sr-Tm-O,40.0,24.441,15.6
+Ca0.3Sr0.7Ti1O3,other oxide,Sr-Ti-O,0.525,0.0,0.193
+Ca0.3Ti1Y0.7O3,other oxide,Ca-Ti-Y-O,0.0,0.652,1.812
+Ca0.47Cu3Pb2Sr2Y0.53O8,cuprate,Ca-Cu-Pb-Sr-Y-O,76.0,96.925,55.849
+Ca0.4Cu2Ga1Sr2Y0.6O7,cuprate,Ca-Cu-Ga-Sr-Y-O,39.5,10.761,0.267
+Ca0.4La0.6Mn1O3,other oxide,Ca-La-Mn-O,0.0,0.416,0.829
+Ca0.5Cu2Ga1Sr2Y0.5O7,cuprate,Ca-Cu-Ga-Sr-Y-O,35.0,10.541,0.887
+Ca0.5Cu3Ho0.5Pb2Sr2O8,cuprate,Ca-Cu-Ho-Pb-Sr-O,75.567,44.638,21.624
+Ca0.5Ti1Y0.5O3,other oxide,Ca-Ti-Y-O,0.0,0.623,1.057
+Ca0.75Cu2Sr2Th0.25Tl1O7,cuprate,Ca-Cu-Sr-Tl-O,52.5,40.257,8.097
+Ca0.78Cl1Cu1Sm1Sr0.22O3,cuprate,Ca-Cl-Cu-Sm-O,0.0,35.679,8.573
+Ca0.7Cu2Pb0.5Sr2Tl0.5Y0.3O7,cuprate,Ca-Cu-Pb-Sr-Tl-O,0.0,21.159,42.158
+Ca0.86Cu1Sr0.14O2,cuprate,Ca-Cu-O,0.0,4.231,13.914
+Ca0.8Cu2Pb0.5Sr2Tl0.5Y0.2O7,cuprate,Ca-Cu-Pb-Sr-Tl-O,105.2,20.353,38.528
+Ca0.8Cu2Pr0.2Sr2Tl1O7,cuprate,Ca-Cu-Sr-Tl-O,58.0,34.718,6.65
+Ca0.8Cu2Sr2Tl1Y0.2O7,cuprate,Ca-Cu-Sr-Tl-O,52.75,39.919,20.042
+Ca0.9Cu2Pb0.5Sr2Tl0.5Y0.1O7,cuprate,Ca-Cu-Pb-Sr-Tl-O,99.3,19.617,51.737
+Ca1.5Ru1Sr0.5O4,other oxide,Ca-Ru-Sr-O,0.0,2.155,0.95
+Ca1.75Cl2Cu1Na0.25O2,cuprate,Ca-Cl-Cu-O,26.5,11.946,5.692
+Ca1.76Cl2Cu1Na0.24O2,cuprate,Ca-Cl-Cu-O,26.9,13.919,4.665
+Ca1.7Cl2Cu1K0.3O2,cuprate,Ca-Cl-Cu-O,24.0,14.893,6.477
+Ca1.7Cl2Cu1Na0.3O2,cuprate,Ca-Cl-Cu-O,27.6,12.432,5.692
+Ca1.81Cl2Cu1Na0.19O2,cuprate,Ca-Cl-Cu-O,27.7,6.007,4.665
+Ca1.825Cl2Cu1Na0.175O2,cuprate,Ca-Cl-Cu-O,26.0,8.493,4.665
+Ca1.82Cl2Cu1Na0.18O2,cuprate,Ca-Cl-Cu-O,27.055,5.551,4.665
+Ca1.843Cl2Cu1Na0.157O2,cuprate,Ca-Cl-Cu-O,25.0,5.694,4.754
+Ca1.84Cl2Cu1Na0.16O2,cuprate,Ca-Cl-Cu-O,19.7,7.525,4.793
+Ca1.85Cl2Cu1Na0.15O2,cuprate,Ca-Cl-Cu-O,24.225,6.161,4.501
+Ca1.85Cl2Cu1O2,cuprate,Ca-Cl-Cu-O,30.0,11.536,7.726
+Ca1.867Cl2Cu1Na0.133O2,cuprate,Ca-Cl-Cu-O,20.0,1.487,2.546
+Ca1.89Cl2Cu1Na0.11O2,cuprate,Ca-Cl-Cu-O,15.14,1.757,2.12
+Ca1.8Cl2Cu1K0.2O2,cuprate,Ca-Cl-Cu-O,24.0,10.586,6.049
+Ca1.8Cl2Cu1Na0.2O2,cuprate,Ca-Cl-Cu-O,26.95,6.784,4.665
+Ca1.8Cl2Cu1O2,cuprate,Ca-Cl-Cu-O,41.0,6.898,8.449
+Ca1.92Cl2Cu1Na0.08O2,cuprate,Ca-Cl-Cu-O,0.0,2.795,2.226
+Ca1.94Cl2Cu1Na0.06O2,cuprate,Ca-Cl-Cu-O,0.0,4.072,2.486
+Ca1.998Cl2Cu1Na0.002O2,cuprate,Ca-Cl-Cu-O,0.0,1.186,2.978
+Ca1.9Cl2Cu1K0.1O2,cuprate,Ca-Cl-Cu-O,18.0,4.299,2.317
+Ca1.9Cl2Cu1O2,cuprate,Ca-Cl-Cu-O,15.0,6.148,6.855
+Ca1Cl1Cu1Sm1O3,cuprate,Ca-Cl-Cu-Sm-O,0.0,1.917,1.43
+Ca1Cu1O2,cuprate,Ca-Cu-O,0.0,1.863,2.29
+Ca1Cu2Nd0.16Pb0.5Sr1.84Tl0.5O7,cuprate,Ca-Cu-Pb-Sr-Tl-O,102.0,16.608,45.052
+Ca1Cu2Pb0.3Sr2Tl0.7O7,cuprate,Ca-Cu-Sr-Tl-O,31.0,76.502,45.203
+Ca1Cu2Pb0.5Sr2Tl0.5O7,cuprate,Ca-Cu-Pb-Sr-Tl-O,83.15,16.2,50.283
+Ca1Cu2Sr1.75Th0.25Tl1O7,cuprate,Ca-Cu-Sr-Tl-O,51.6,42.569,7.978
+Ca1Ti1O3,other oxide,Ca-Ti-O,0.0,0.0,0.0
+Ca2Cl2Cu1O2,cuprate,Ca-Cl-Cu-O,0.0,1.031,3.103
+Ca2Cu1O3,cuprate,Ca-Cu-O,0.0,0.778,1.534
+Ca2Cu3Ga1Sr2O9,cuprate,Ca-Cu-Ga-Sr-O,71.5,24.191,4.642
+Ca2K1Nb3O10,other oxide,Ca-K-Nb-O,1.0,0.0,0.471
+Ca2Ru2O7,other oxide,Ca-Ru-O,0.0,0.62,0.015
+Ca4Cl4Cu3Sm2O8,cuprate,Ca-Cl-Cu-Sm-O,0.0,3.146,2.65
+Cd1O1,other oxide,Cd-O,0.0,0.292,1.232
+Cd2Os2O7,other oxide,Cd-Os-O,0.0,0.892,1.237
+Cd2Re2O7,other oxide,Cd-Re-O,1.103,0.113,0.187
+Cd2Re2O7.1,other oxide,Cd-Re-O,1.0,0.769,0.188
+Ce0.01Cu1Nd1.99O4,cuprate,Cu-Nd-O,0.0,2.463,2.295
+Ce0.025Cu1Nd1.975O4,cuprate,Cu-Nd-O,0.0,1.812,1.923
+Ce0.025Ru2Si2U0.975,heavy-fermion,Ru-Si-U,0.0,0.828,1.376
+Ce0.02Cu2Gd0.98Ru1Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,13.0,1.211,2.066
+Ce0.04Cu1Nd1.96O4,cuprate,Cu-Nd-O,0.0,3.108,1.923
+Ce0.04Cu1Pr1.96O4,cuprate,Cu-Pr-O,23.6,0.1,0.743
+Ce0.05Cu1Pr1.95O4,cuprate,Cu-Pr-O,0.0,0.172,0.713
+Ce0.05Cu2Gd0.95Ru1Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,0.0,2.156,2.024
+Ce0.05Ge12Pr0.95Pt4,heavy-fermion,Ge-Pr-Pt,5.75,0.695,0.0
+Ce0.064Cu1La1.936O4,cuprate,Cu-La-O,13.8,1.904,1.671
+Ce0.06Cu1La1.94O4,cuprate,Cu-La-O,0.0,1.012,1.671
+Ce0.06Cu1Sm1.94O4,cuprate,Cu-Sm-O,0.0,0.0,1.446
+Ce0.06Ge12Pr0.94Pt4,heavy-fermion,Ge-Pr-Pt,0.0,0.734,0.0
+Ce0.07Cu1Nd1.93O4,cuprate,Cu-Nd-O,0.0,1.798,1.923
+Ce0.07Ge12Pr0.93Pt4,heavy-fermion,Ge-Pr-Pt,5.52,0.733,0.0
+Ce0.085Ge12Pr0.915Pt4,heavy-fermion,Ge-Pr-Pt,4.61,0.802,0.0
+Ce0.091Cu1La1.909O4,cuprate,Cu-La-O,30.3,1.616,1.766
+Ce0.09Cu1La1.91O4,cuprate,Cu-La-O,20.35,1.705,1.798
+Ce0.09Cu1Pr1.91O4,cuprate,Cu-Pr-O,21.5,0.605,0.743
+Ce0.09Cu1Sm1.91O4,cuprate,Cu-Sm-O,0.0,1.009,1.454
+Ce0.105Cu1La1.895O4,cuprate,Cu-La-O,24.3,1.381,1.788
+Ce0.109Cu1La1.891O4,cuprate,Cu-La-O,28.5,1.402,1.82
+Ce0.11Cu1La1.89O4,cuprate,Cu-La-O,27.162,1.27,2.995
+Ce0.11Cu1Sm1.89O4,cuprate,Cu-Sm-O,0.0,0.682,1.474
+Ce0.12Cu1La1.88O4,cuprate,Cu-La-O,24.3,0.971,1.708
+Ce0.12Cu1Nd1.88O4,cuprate,Cu-Nd-O,0.0,3.028,2.241
+Ce0.12Cu1Sm1.88O4,cuprate,Cu-Sm-O,3.9,0.834,1.167
+Ce0.135Cu1La1.865O4,cuprate,Cu-La-O,21.2,1.284,1.708
+Ce0.13Cu1La1.87O4,cuprate,Cu-La-O,21.833,0.569,1.678
+Ce0.13Cu1Nd1.87O4,cuprate,Cu-Nd-O,0.0,5.544,2.653
+Ce0.13Cu1Pr1.87O4,cuprate,Cu-Pr-O,9.4,0.618,0.622
+Ce0.13Cu1Sm1.87O4,cuprate,Cu-Sm-O,0.0,1.137,1.461
+Ce0.143Cu1Sm1.857O4,cuprate,Cu-Sm-O,22.3,3.689,1.715
+Ce0.14Cu1Nd1.86O4,cuprate,Cu-Nd-O,22.9,7.329,2.241
+Ce0.14Cu1Pr1.86O4,cuprate,Cu-Pr-O,19.35,3.434,1.25
+Ce0.14Cu1Sm1.86O4,cuprate,Cu-Sm-O,22.7,4.923,1.548
+Ce0.14Ge12Pr0.86Pt4,heavy-fermion,Ge-Pr-Pt,3.43,0.662,0.0
+Ce0.153Cu1Nd1.847O4,cuprate,Cu-Nd-O,22.5,5.7,2.241
+Ce0.156Cu1Sm1.844O4,cuprate,Cu-Sm-O,16.4,2.938,1.461
+Ce0.15Cu1Eu1.85O4,cuprate,Cu-Eu-O,7.75,2.453,0.815
+Ce0.15Cu1Gd1.85O4,cuprate,Cu-Gd-O,0.0,2.674,6.285
+Ce0.15Cu1La1.85O4,cuprate,Cu-La-O,9.25,5.886,1.708
+Ce0.15Cu1La1Nd0.85O4,cuprate,Cu-La-Nd-O,11.9,12.571,1.615
+Ce0.15Cu1Nd1.85O4,cuprate,Cu-Nd-O,21.232,6.143,2.241
+Ce0.15Cu1Sm1.85O4,cuprate,Cu-Sm-O,18.057,3.983,1.461
+Ce0.16Cu1La1.84O4,cuprate,Cu-La-O,1.5,4.503,1.708
+Ce0.179Cu1La1.821O4,cuprate,Cu-La-O,7.225,1.334,1.62
+Ce0.17Cu1Nd1.83O4,cuprate,Cu-Nd-O,12.8,2.802,2.241
+Ce0.17Cu1Pr1.83O4,cuprate,Cu-Pr-O,15.425,0.897,0.713
+Ce0.17Cu1Sm1.83O4,cuprate,Cu-Sm-O,0.0,2.68,1.499
+Ce0.18Cu1Nd1.82O4,cuprate,Cu-Nd-O,0.0,2.236,2.225
+Ce0.18Cu1Pr1.82O4,cuprate,Cu-Pr-O,0.0,0.213,0.749
+Ce0.19Cu1Sm1.81O4,cuprate,Cu-Sm-O,0.0,0.575,1.587
+Ce0.1Cu1Nd1.9O4,cuprate,Cu-Nd-O,0.0,1.383,1.923
+Ce0.1Cu1Pr1.9O4,cuprate,Cu-Pr-O,0.0,0.511,0.743
+Ce0.1Cu2Gd0.9Ru1Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,0.0,2.851,1.53
+Ce0.1Ge12Pr0.9Pt4,heavy-fermion,Ge-Pr-Pt,4.11,0.737,0.0
+Ce0.21Cu1Sm1.79O4,cuprate,Cu-Sm-O,0.0,0.033,1.758
+Ce0.225Co1In5Yb0.775,heavy-fermion,Co-In-Yb,0.0,2.284,1.201
+Ce0.22Cu1Nd1.78O4,cuprate,Cu-Nd-O,0.0,1.065,2.318
+Ce0.25Cu1Pr1.75O4,cuprate,Cu-Pr-O,0.0,0.0,0.831
+Ce0.25Ge12Pr0.75Pt4,heavy-fermion,Ge-Pr-Pt,1.015,0.755,0.0
+Ce0.2Cu1Pr1.8O4,cuprate,Cu-Pr-O,3.0,1.301,1.343
+Ce0.2Cu1Sm1.8O4,cuprate,Cu-Sm-O,14.7,0.308,1.553
+Ce0.2Cu2Gd0.8Ru1Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,0.0,8.167,0.318
+Ce0.2Ge12Pr0.8Pt4,heavy-fermion,Ge-Pr-Pt,1.767,0.771,0.0
+Ce0.3Ge12Pr0.7Pt4,heavy-fermion,Ge-Pr-Pt,0.0,0.784,0.0
+Ce0.4La0.6Ru2,heavy-fermion,Ce-La-Ru,0.727,4.482,4.628
+Ce0.54La0.46Ru2,heavy-fermion,Ce-La-Ru,0.668,4.518,4.628
+Ce0.5Cu2Nb1Nd1.5Sr2O10,cuprate,Ce-Cu-Nb-Nd-Sr-O,25.05,0.0,0.0
+Ce0.5Cu2Ru1Sr2Y1.5O10,cuprate,Ce-Cu-Ru-Sr-Y-O,0.0,8.499,0.984
+Ce0.5La0.5Ru2,heavy-fermion,Ce-La-Ru,0.449,4.566,4.628
+Ce0.65La0.35Ru2,heavy-fermion,Ce-La-Ru,1.647,4.599,4.628
+Ce0.6La0.4Ru2,heavy-fermion,Ce-La-Ru,1.3,4.599,4.628
+Ce0.75Ge12Pr0.25Pt4,heavy-fermion,Ce-Ge-Pt,0.0,0.415,0.731
+Ce0.7Cu2Eu1.3Ru1Sr2O10,cuprate,Ce-Cu-Eu-Ru-Sr-O,33.0,0.529,0.458
+Ce0.7La0.3Ru2,heavy-fermion,Ce-La-Ru,2.134,4.586,4.628
+Ce0.805Ru0.195,heavy-fermion,Ce-Ru,0.0,0.842,0.569
+Ce0.825Co1In5La0.175,heavy-fermion,Ce-Co-In,0.0,0.556,1.771
+Ce0.837Co1In5Yb0.163,heavy-fermion,Ce-Co-In,1.4,0.617,1.836
+Ce0.84Ru2Y0.16,heavy-fermion,Ce-Ru,4.92,0.43,0.51
+Ce0.85Co1In5La0.15,heavy-fermion,Ce-Co-In,0.78,0.585,1.781
+Ce0.85Co1In5Yb0.15,heavy-fermion,Ce-Co-In,1.19,0.722,1.719
+Ce0.85La0.15Ru2,heavy-fermion,Ce-Ru,5.611,0.657,1.327
+Ce0.86Ru2Tb0.14,heavy-fermion,Ce-Ru,4.51,0.536,0.121
+Ce0.875Co1In5La0.125,heavy-fermion,Ce-Co-In,0.86,0.535,1.781
+Ce0.875Co1In5Yb0.125,heavy-fermion,Ce-Co-In,1.97,0.675,1.719
+Ce0.875Ge12Pr0.125Pt4,heavy-fermion,Ce-Ge-Pt,0.0,1.001,0.809
+Ce0.88La0.12Ru2,heavy-fermion,Ce-Ru,6.14,0.519,1.279
+Ce0.8Co1In5Yb0.2,heavy-fermion,Ce-Co-In,0.92,0.817,1.762
+Ce0.8Cu2Eu1.2Ru1Sr2O10,cuprate,Ce-Cu-Eu-Ru-Sr-O,30.0,0.313,0.487
+Ce0.8La0.2Ru2,heavy-fermion,Ce-Ru,4.498,0.774,1.327
+Ce0.8Pr0.2Ru2,heavy-fermion,Ce-Ru,5.82,0.818,0.393
+Ce0.8Ru2Tb0.2,heavy-fermion,Ce-Ru,2.56,0.551,0.003
+Ce0.916Co1In5Yb0.084,heavy-fermion,Ce-Co-In,1.84,0.778,2.008
+Ce0.91La0.09Ru2,heavy-fermion,Ce-Ru,5.91,0.482,1.279
+Ce0.925Co1In5La0.075,heavy-fermion,Ce-Co-In,1.31,0.593,1.757
+Ce0.93Gd0.07Ru2,heavy-fermion,Ce-Ru,3.38,0.663,0.224
+Ce0.94La0.06Ru2,heavy-fermion,Ce-Ru,6.55,0.514,1.279
+Ce0.95Co1In5La0.05,heavy-fermion,Ce-Co-In,1.68,0.274,1.767
+Ce0.95Co1In5Nd0.05,heavy-fermion,Ce-Co-In,1.95,0.279,1.733
+Ce0.95Co1In5Yb0.05,heavy-fermion,Ce-Co-In,1.945,0.481,2.179
+Ce0.95La0.05Ru2,heavy-fermion,Ce-Ru,7.181,0.485,1.279
+Ce0.965Co1In5La0.035,heavy-fermion,Ce-Co-In,1.84,0.584,1.767
+Ce0.96Pt3Si1Th0.04,heavy-fermion,Ce-Pt-Si,0.0,0.402,1.122
+Ce0.975Cu2Si2,heavy-fermion,Ce-Cu-Si,0.0,0.224,0.568
+Ce0.97Gd0.03Ru2,heavy-fermion,Ce-Ru,4.69,0.265,0.255
+Ce0.97La0.03Pt3Si1,heavy-fermion,Ce-Pt-Si,0.0,0.383,1.136
+Ce0.97La0.03Ru2,heavy-fermion,Ce-Ru,6.17,0.26,1.279
+Ce0.985La0.015Pt3Si1,heavy-fermion,Ce-Pt-Si,0.15,0.516,1.136
+Ce0.987Co1In5Yb0.013,heavy-fermion,Ce-Co-In,2.13,0.48,1.737
+Ce0.98Co1In5La0.02,heavy-fermion,Ce-Co-In,2.0,0.536,1.757
+Ce0.98Co1In5Yb0.02,heavy-fermion,Ce-Co-In,1.89,0.435,1.798
+Ce0.98La0.02Pt3Si1,heavy-fermion,Ce-Pt-Si,0.03,0.357,1.136
+Ce0.98Pt3Si1Th0.02,heavy-fermion,Ce-Pt-Si,0.4,0.337,1.086
+Ce0.99La0.01Pt3Si1,heavy-fermion,Ce-Pt-Si,0.57,0.495,1.136
+Ce0.9Co1In5La0.1,heavy-fermion,Ce-Co-In,1.22,0.568,1.766
+Ce0.9Co1In5Yb0.1,heavy-fermion,Ce-Co-In,1.78,0.702,1.843
+Ce0.9Cu2Eu1.1Ru1Sr2O10,cuprate,Ce-Cu-Eu-Ru-Sr-O,0.0,0.139,0.843
+Ce0.9In5La0.1Rh1,heavy-fermion,Ce-In-Rh,1.6,0.527,0.341
+Ce0.9La0.1Ru2,heavy-fermion,Ce-Ru,7.194,0.482,1.279
+Ce0.9Pr0.1Ru2,heavy-fermion,Ce-Ru,6.55,0.486,0.393
+Ce1,heavy-fermion,Ce,0.85,0.171,0.551
+Ce1Co0.01Ru1.99,heavy-fermion,Ce-Ru,4.74,0.476,0.587
+Ce1Co0.03Ru1.97,heavy-fermion,Ce-Ru,3.5,0.276,0.653
+Ce1Co0.05Ru1.95,heavy-fermion,Ce-Ru,2.4,0.6,0.367
+Ce1Co0.07Ru1.93,heavy-fermion,Ce-Ru,1.93,0.717,0.385
+Ce1Co0.1In5Rh0.9,heavy-fermion,Ce-In-Rh,0.0,0.755,0.637
+Ce1Co0.25In5Ir0.75,heavy-fermion,Ce-In-Ir,1.52,1.317,2.053
+Ce1Co0.2In5Rh0.8,heavy-fermion,Ce-In-Rh,0.0,1.161,0.473
+Ce1Co0.2Ir0.8Si3,heavy-fermion,Ce-Ir-Si,0.62,0.474,0.878
+Ce1Co0.71In5Rh0.29,heavy-fermion,Ce-Co-In,1.56,1.038,0.099
+Ce1Co0.75In5Ni0.25,heavy-fermion,Ce-Co-In,0.0,0.645,1.781
+Ce1Co0.77In5Rh0.23,heavy-fermion,Ce-Co-In,1.38,0.767,0.197
+Ce1Co0.7In5Ir0.3,heavy-fermion,Ce-Co-In,2.0,1.323,0.768
+Ce1Co0.7In5Ni0.3,heavy-fermion,Ce-Co-In,0.0,0.665,1.781
+Ce1Co0.7In5Rh0.3,heavy-fermion,Ce-Co-In,1.42,1.045,0.13
+Ce1Co0.7In5Ru0.3,heavy-fermion,Ce-Co-In,2.13,0.827,0.044
+Ce1Co0.875In5Ni0.125,heavy-fermion,Ce-Co-In,1.41,0.755,1.871
+Ce1Co0.87In5Rh0.13,heavy-fermion,Ce-Co-In,1.73,1.093,0.361
+Ce1Co0.8In5Ni0.2,heavy-fermion,Ce-Co-In,0.88,0.761,1.776
+Ce1Co0.8In5Rh0.2,heavy-fermion,Ce-Co-In,1.57,1.176,0.177
+Ce1Co0.8In5Ru0.2,heavy-fermion,Ce-Co-In,2.18,0.955,0.128
+Ce1Co0.925In5Ni0.075,heavy-fermion,Ce-Co-In,1.69,0.612,1.798
+Ce1Co0.93In5Rh0.07,heavy-fermion,Ce-Co-In,1.89,0.798,1.895
+Ce1Co0.95In5Ni0.05,heavy-fermion,Ce-Co-In,1.86,0.289,1.816
+Ce1Co0.9In5Ru0.1,heavy-fermion,Ce-Co-In,2.25,0.841,1.502
+Ce1Co1.85,heavy-fermion,Ce-Co,0.86,0.494,0.415
+Ce1Co1.8Ru0.2,heavy-fermion,Ce-Co,0.35,0.559,0.771
+Ce1Co1.95,heavy-fermion,Ce-Co,0.87,0.22,0.424
+Ce1Co1.9Ru0.1,heavy-fermion,Ce-Co,0.47,0.561,0.792
+Ce1Co1Ge3,heavy-fermion,Ce-Co-Ge,0.677,0.604,0.443
+Ce1Co1In5,heavy-fermion,Ce-Co-In,2.037,0.338,0.45
+Ce1Co2,heavy-fermion,Ce-Co,1.112,0.45,0.406
+Ce1Cu1Sb2,heavy-fermion,Ce-Cu-Sb,0.0,0.651,0.524
+Ce1Cu2Eu1Ru1Sr2O10,cuprate,Ce-Cu-Eu-Ru-Sr-O,0.0,0.598,0.307
+Ce1Cu2Ge0.02Si1.98,heavy-fermion,Ce-Cu-Si,0.52,0.503,0.499
+Ce1Cu2Ge0.04Si1.96,heavy-fermion,Ce-Cu-Si,0.385,0.469,0.51
+Ce1Cu2Ge0.08Si1.92,heavy-fermion,Ce-Cu-Si,0.27,0.457,0.542
+Ce1Cu2Ge0.12Si1.88,heavy-fermion,Ce-Cu-Si,0.2,0.589,0.542
+Ce1Cu2Ge0.1Si1.9,heavy-fermion,Ce-Cu-Si,0.2,0.591,0.542
+Ce1Cu2Ge0.2Si1.8,heavy-fermion,Ce-Cu-Si,0.168,0.547,0.542
+Ce1Cu2Ge0.3Si1.7,heavy-fermion,Ce-Cu-Si,0.1,0.559,0.472
+Ce1Cu2Ge2,heavy-fermion,Ce-Cu-Ge,1.32,0.233,0.333
+Ce1Cu2Si2,heavy-fermion,Ce-Cu-Si,0.65,0.439,0.483
+Ce1Cu6,heavy-fermion,Ce-Cu,0.0,0.0,0.315
+Ce1Ga6,heavy-fermion,Ce-Ga,0.0,0.052,0.101
+Ce1Ge0.03Pt3Si0.97,heavy-fermion,Ce-Pt-Si,0.63,0.398,1.1
+Ce1Ge0.06Pt3Si0.94,heavy-fermion,Ce-Pt-Si,0.505,0.253,1.186
+Ce1Ge0.1Pt3Si0.9,heavy-fermion,Ce-Pt-Si,0.31,0.297,1.046
+Ce1Ge12Pt4,heavy-fermion,Ce-Ge-Pt,0.0,0.557,0.545
+Ce1Ge1Pd2,heavy-fermion,Ce-Ge-Pd,0.0,0.209,0.673
+Ce1Ge2Ni2,heavy-fermion,Ce-Ge-Ni,0.217,0.135,0.009
+Ce1Ge3Ir1,heavy-fermion,Ce-Ge-Ir,0.805,0.376,0.382
+Ce1Ge3Ni1,heavy-fermion,Ce-Ge-Ni,0.455,0.413,0.093
+Ce1In3,heavy-fermion,Ce-In,0.13,0.0,0.188
+Ce1In5Ir0.1Rh0.9,heavy-fermion,Ce-In-Rh,2.04,0.728,1.018
+Ce1In5Ir0.25Rh0.75,heavy-fermion,Ce-In-Rh,0.92,0.809,0.572
+Ce1In5Ir0.736Pt0.264,heavy-fermion,Ce-In-Ir,0.0,1.636,2.087
+Ce1In5Ir0.75Rh0.25,heavy-fermion,Ce-In-Ir,0.63,1.608,2.564
+Ce1In5Ir0.7Rh0.3,heavy-fermion,Ce-In-Ir,1.2,1.683,2.648
+Ce1In5Ir0.828Pt0.172,heavy-fermion,Ce-In-Ir,0.0,1.72,2.69
+Ce1In5Ir0.8Rh0.2,heavy-fermion,Ce-In-Ir,0.67,1.669,2.667
+Ce1In5Ir0.932Pt0.068,heavy-fermion,Ce-In-Ir,0.0,2.494,2.721
+Ce1In5Ir0.956Pt0.044,heavy-fermion,Ce-In-Ir,0.429,2.458,2.711
+Ce1In5Ir0.978Pt0.022,heavy-fermion,Ce-In-Ir,0.734,2.287,2.838
+Ce1In5Ir0.987Pt0.013,heavy-fermion,Ce-In-Ir,0.897,2.701,2.81
+Ce1In5Ir0.9Rh0.1,heavy-fermion,Ce-In-Ir,0.35,2.327,2.66
+Ce1In5Ir1,heavy-fermion,Ce-In-Ir,0.77,2.296,2.032
+Ce1In5Rh1,heavy-fermion,Ce-In-Rh,1.652,0.414,0.707
+Ce1In7Pt2,heavy-fermion,Ce-In-Pt,2.1,0.0,0.58
+Ce1Ir1Si3,heavy-fermion,Ce-Ir-Si,1.53,0.704,0.294
+Ce1Ir2,heavy-fermion,Ce-Ir,0.0,0.0,0.0
+Ce1Ir3,heavy-fermion,Ce-Ir,3.34,0.0,0.0
+Ce1Ir5,heavy-fermion,Ce-Ir,1.82,0.06,0.0
+Ce1N0.87,heavy-fermion,Ce-N,0.0,0.523,0.0
+Ce1Ni1Sb2,iron-based,Ce-Ni-Sb,0.0,0.221,0.15
+Ce1Ni2,heavy-fermion,Ce-Ni,0.0,0.808,0.34
+Ce1Os2,heavy-fermion,Ce-Os,0.0,0.443,0.708
+Ce1P12Ru4,heavy-fermion,Ce-P-Ru,0.0,1.162,1.576
+Ce1P2Pd2,heavy-fermion,Ce-P-Pd,0.0,0.37,0.087
+Ce1Pd1Sb2,heavy-fermion,Ce-Pd-Sb,0.0,0.227,0.159
+Ce1Pd2Si2,heavy-fermion,Ce-Pd-Si,0.421,0.465,0.473
+Ce1Pt0.1Ru1.9,heavy-fermion,Ce-Ru,4.08,0.303,0.136
+Ce1Pt0.2Ru1.8,heavy-fermion,Ce-Ru,3.4,0.557,0.231
+Ce1Pt1Si1,heavy-fermion,Ce-Pt-Si,0.0,0.271,0.128
+Ce1Pt1Si2,heavy-fermion,Ce-Pt-Si,0.14,0.182,0.157
+Ce1Pt2,heavy-fermion,Ce-Pt,0.0,0.162,0.345
+Ce1Pt3,heavy-fermion,Ce-Pt,0.0,0.363,0.408
+Ce1Pt3Si1,heavy-fermion,Ce-Pt-Si,0.669,0.53,0.711
+Ce1Pt5,heavy-fermion,Ce-Pt,0.0,0.978,0.814
+Ce1Rh1Si3,heavy-fermion,Ce-Rh-Si,0.914,0.491,0.225
+Ce1Rh1Sn1,heavy-fermion,Ce-Rh-Sn,0.0,0.308,0.677
+Ce1Rh2,heavy-fermion,Ce-Rh,0.0,0.109,0.51
+Ce1Rh2Si2,heavy-fermion,Ce-Rh-Si,0.357,0.285,0.263
+Ce1Ru2,heavy-fermion,Ce-Ru,5.998,0.261,0.677
+Ce1Ru3Si2,heavy-fermion,Ce-Ru-Si,1.25,0.454,0.371
+Ce1Ru4Sb12,heavy-fermion,Ce-Ru-Sb,0.0,0.454,1.451
+Ce1S1,heavy-fermion,Ce-S,0.0,0.477,0.331
+Ce1Si2,heavy-fermion,Ce-Si,0.0,0.218,0.402
+Ce1Sn3,heavy-fermion,Ce-Sn,0.0,0.261,0.0
+Ce2Co1In8,heavy-fermion,Ce-Co-In,0.4,0.73,0.0
+Ce2Ge5Ni3,heavy-fermion,Ce-Ge-Ni,0.22,0.183,0.022
+Ce2In8Ir1,heavy-fermion,Ce-In-Ir,0.0,1.643,1.219
+Ce2In8Pd1,heavy-fermion,Ce-In-Pd,0.69,0.705,0.859
+Ce2In8Rh1,heavy-fermion,Ce-In-Rh,0.812,0.469,0.437
+Ce2Ir3Si5,heavy-fermion,Ce-Ir-Si,0.0,0.277,0.345
+Ce2Pd3Si5,heavy-fermion,Ce-Pd-Si,0.0,0.097,0.294
+Ce2Rh3Si5,heavy-fermion,Ce-Rh-Si,0.0,0.123,0.215
+Ce2S3,heavy-fermion,Ce-S,0.0,0.338,0.004
+Ce3Ge13Ru4,heavy-fermion,Ce-Ge-Ru,0.0,0.261,0.21
+Ce3Ge2Rh2,heavy-fermion,Ce-Ge-Rh,0.0,0.064,0.314
+Ce3Pd4Si4,heavy-fermion,Ce-Pd-Si,0.0,0.126,0.41
+Ce3Ru4Sn13,heavy-fermion,Ce-Ru-Sn,0.0,0.926,0.562
+Ce3S4,heavy-fermion,Ce-S,0.0,0.513,0.537
+Ce4Sb3,heavy-fermion,Ce-Sb,0.0,0.0,0.0
+Cl1Cu2Pb2Ru1Sr2O8,cuprate,Cl-Cu-Pb-Ru-Sr-O,0.0,3.744,2.058
+Cl1Cu2Sr3O5,cuprate,Cl-Cu-Sr-O,70.0,5.747,1.434
+Cl1Cu3Pb3Sr3O8,cuprate,Cl-Cu-Pb-Sr-O,0.0,4.207,7.064
+Co0.004Fe1.996K0.8Se2,iron-based,Fe-K-Se,22.0,9.117,4.323
+Co0.008Fe1.992K0.8Se2,iron-based,Fe-K-Se,17.0,9.441,4.323
+Co0.012Fe1.988K0.8Se2,iron-based,Fe-K-Se,11.0,10.572,4.323
+Co0.01Cu2Gd1Ru0.99Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,25.5,1.294,1.497
+Co0.05Fe0.95Se1,iron-based,Fe-Se,10.0,7.777,4.823
+Co0.1Fe0.9Se1,iron-based,Fe-Se,5.0,13.057,4.943
+Co0.7Cu0.3La1.15Sr0.85O4,cuprate,Co-La-Sr-O,0.0,0.438,0.798
+Co0.8Cu0.2La1.05Sr0.95O4,cuprate,Co-La-Sr-O,0.0,0.568,0.531
+Co0.8Fe0.2Ga5Pu1,heavy-fermion,Co-Ga-Pu,10.0,1.859,0.486
+Co0.92Mn0.08U6,heavy-fermion,Co-U,2.2,3.076,3.599
+Co0.94Rh0.06U6,heavy-fermion,Co-U,2.0,2.627,1.684
+Co0.96Mo0.04U6,heavy-fermion,Co-U,1.5,2.792,2.386
+Co0.975Mo0.025U1,heavy-fermion,Co-U,0.0,0.811,0.177
+Co0.97Rh0.03U1,heavy-fermion,Co-U,0.0,0.786,0.148
+Co0.98Cr0.02U1,heavy-fermion,Co-U,0.0,0.754,0.205
+Co0.98Fe0.02U1,heavy-fermion,Co-U,0.0,1.023,0.191
+Co0.98Mn0.02U1,heavy-fermion,Co-U,0.0,0.883,0.191
+Co0.98Ni0.02U1,heavy-fermion,Co-U,0.0,1.125,0.0
+Co0.9Cu0.1La0.95Sr1.05O4,cuprate,Co-La-Sr-O,0.0,0.294,0.456
+Co0.9Fe0.1Ga5Pu1,heavy-fermion,Co-Ga-Pu,13.5,2.323,0.486
+Co0.9Ga5Ni0.1Pu1,heavy-fermion,Co-Ga-Pu,16.6,2.132,0.123
+Co1Ga5Np0.1U0.9,heavy-fermion,Co-Ga-U,7.2,1.336,1.635
+Co1Ga5Np1,heavy-fermion,Co-Ga-Np,0.0,2.418,3.56
+Co1Ga5Pu0.9U0.1,heavy-fermion,Co-Ga-Pu,8.4,3.232,1.77
+Co1Ge0.92Si0.08U1,heavy-fermion,Co-Ge-U,0.288,0.691,0.422
+Co1Ge0.94Si0.06U1,heavy-fermion,Co-Ge-U,0.423,0.68,0.422
+Co1Ge0.96Si0.04U1,heavy-fermion,Co-Ge-U,0.541,0.587,0.422
+Co1Ge0.98Si0.02U1,heavy-fermion,Co-Ge-U,0.667,0.704,0.422
+Co1Ge0.9Si0.1U1,heavy-fermion,Co-Ge-U,0.153,0.65,0.422
+Co1Ge1U1,heavy-fermion,Co-Ge-U,0.6,0.026,0.099
+Co1Ge3Pr1,heavy-fermion,Co-Ge-Pr,0.0,0.58,0.834
+Co1La0.85Sr1.15O4,other oxide,Co-La-Sr-O,0.0,0.0,1.45
+Co1La1O3,other oxide,Co-La-O,0.0,0.007,0.0
+Co1La2O4,other oxide,Co-La-O,0.0,0.0,0.441
+Co1Na0.35O2,other oxide,Co-Na-O,0.0,2.553,0.442
+Co1Na0.48O2,other oxide,Co-Na-O,0.0,1.959,1.147
+Co1Na0.6O2,other oxide,Co-Na-O,0.0,2.906,0.232
+Co1Na0.72O2,other oxide,Co-Na-O,0.0,1.664,1.125
+Co1Na0.74O2,other oxide,Co-Na-O,0.0,2.125,1.151
+Co1O1,other oxide,Co-O,0.0,0.174,1.147
+Co1O2,other oxide,Co-O,0.0,0.0,0.0
+Co1Si1U1,heavy-fermion,Co-Si-U,0.0,0.427,0.024
+Co1U1,heavy-fermion,Co-U,1.7,0.197,0.109
+Co1U6,heavy-fermion,Co-U,2.358,1.022,2.024
+Co4Ge13Yb3,heavy-fermion,Co-Ge-Yb,0.0,0.203,1.07
+Co4Ge7U3,heavy-fermion,Co-Ge-U,0.0,1.647,0.275
+Co4Sn13Yb3,heavy-fermion,Co-Sn-Yb,2.5,1.511,1.418
+Cr0.004Fe1.996K0.8Se2,iron-based,Fe-K-Se,20.0,9.791,4.742
+Cr0.007Fe1.993K0.8Se2,iron-based,Fe-K-Se,11.0,10.136,4.742
+Cr0.1Cu1Sr1.9Tl1O5,cuprate,Cu-Sr-Tl-O,37.5,28.526,29.557
+Cr0.2Cu1Sr1.8Tl1O5,cuprate,Cu-Sr-Tl-O,43.0,56.114,61.866
+Cr0.2Fe0.8U6,heavy-fermion,Fe-U,3.3,3.24,2.012
+Cr0.95Cu1Fe0.05O2,cuprate,Cr-Cu-O,117.5,1.643,4.098
+Cr0.9Cu1Fe0.1O2,cuprate,Cr-Cu-O,98.0,1.369,3.602
+Cr1Cu1O2,cuprate,Cr-Cu-O,132.0,1.704,3.123
+Cr1Cu4Sr8Tl3O20,cuprate,Cr-Cu-Sr-Tl-O,25.0,2.821,35.023
+Cr3O1,other oxide,Cr-O,0.0,0.146,1.225
+Cs0.19W1O3,other oxide,Cs-W-O,6.7,3.804,3.591
+Cs0.23W1O3,other oxide,Cs-W-O,6.0,2.449,3.055
+Cs0.25W1O3,other oxide,Cs-W-O,4.0,1.944,1.984
+Cs0.32W1O3,other oxide,Cs-W-O,1.12,2.584,4.5
+Cs0.33W1O3,other oxide,Cs-W-O,0.0,2.099,4.011
+Cs0.3W1O3,other oxide,Cs-W-O,2.0,2.314,4.399
+Cs1Os2O6,other oxide,Cs-Os-O,3.27,1.919,2.248
+Cu0.03Ru0.97Sr2Y1O6,cuprate,Ru-Sr-Y-O,0.0,0.555,1.427
+Cu0.04Ru0.96Sr2Y1O6,cuprate,Ru-Sr-Y-O,5.1,0.615,1.364
+Cu0.05Ru0.95Sr2Y1O6,cuprate,Ru-Sr-Y-O,11.9,0.75,1.364
+Cu0.08Ru0.92Sr2Y1O6,cuprate,Ru-Sr-Y-O,17.6,0.897,1.56
+Cu0.09Li1Ti1.91O4,cuprate,Li-Ti-O,14.4,0.936,1.046
+Cu0.1Ho1Ru0.9Sr2O6,cuprate,Ho-Ru-Sr-O,30.0,1.993,0.0
+Cu0.2Fe0.8La1.05Sr0.95O4,cuprate,Fe-La-Sr-O,0.0,2.532,0.0
+Cu0.2Ru0.8Sr2Y1O6,cuprate,Ru-Sr-Y-O,23.0,1.165,1.721
+Cu0.5La2Li0.5O4,cuprate,Cu-La-Li-O,0.0,0.0,0.823
+Cu0.6La2Li0.4O4,cuprate,Cu-La-Li-O,0.0,0.0,1.263
+Cu0.75La2Zn0.25O4,cuprate,Cu-La-O,0.0,1.397,1.479
+Cu0.7La2Li0.3O4,cuprate,Cu-La-O,0.0,1.187,0.191
+Cu0.85La2Zn0.15O4,cuprate,Cu-La-O,0.0,2.316,0.61
+Cu0.8La2Li0.2O4,cuprate,Cu-La-O,0.0,1.688,0.808
+Cu0.8La2Zn0.2O4,cuprate,Cu-La-O,0.0,1.551,0.867
+Cu0.92La2Zn0.08O4,cuprate,Cu-La-O,0.0,1.138,1.032
+Cu0.95La2Li0.05O4,cuprate,Cu-La-O,0.0,2.077,3.587
+Cu0.95La2Zn0.05O4,cuprate,Cu-La-O,0.0,0.607,1.079
+Cu0.96La2Zn0.04O4,cuprate,Cu-La-O,0.0,0.651,1.155
+Cu0.975La2Li0.025O4,cuprate,Cu-La-O,0.0,2.468,5.022
+Cu0.97La2Li0.03O4,cuprate,Cu-La-O,0.0,2.507,4.093
+Cu0.985La2Li0.015O4,cuprate,Cu-La-O,0.0,2.691,4.844
+Cu0.98La2Li0.02O4,cuprate,Cu-La-O,0.0,2.406,4.557
+Cu0.98La2Zn0.02O4,cuprate,Cu-La-O,0.0,0.88,0.567
+Cu0.995La2Li0.005O4,cuprate,Cu-La-O,0.0,3.062,4.077
+Cu0.99La2Li0.01O4,cuprate,Cu-La-O,0.0,2.824,3.883
+Cu0.99La2Zn0.01O4,cuprate,Cu-La-O,0.0,1.04,0.475
+Cu0.9La2Li0.1O4,cuprate,Cu-La-O,0.0,2.536,2.842
+Cu0.9La2Zn0.1O4,cuprate,Cu-La-O,0.0,1.134,1.484
+Cu1.2La1Sr1Tl0.8O5,cuprate,Cu-La-Sr-Tl-O,37.0,6.809,18.887
+Cu1.9Gd1Li0.1Ru1Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,19.0,6.616,7.524
+Cu1Dy0.75La1.25O4,cuprate,Cu-Dy-La-O,0.0,4.021,0.578
+Cu1Dy2O4,cuprate,Cu-Dy-O,0.0,0.0,0.0
+Cu1Er2O4,cuprate,Cu-Er-O,0.0,0.323,0.323
+Cu1Eu0.02La1.98O4,cuprate,Cu-La-O,0.0,5.205,0.346
+Cu1Eu0.2La1.8O4,cuprate,Cu-La-O,0.0,2.973,1.358
+Cu1F2Sr2O2,cuprate,Cu-F-Sr-O,44.333,0.001,0.919
+Cu1Gd0.1Sr0.9O2,cuprate,Cu-Sr-O,43.5,8.424,20.09
+Cu1Gd2O4,cuprate,Cu-Gd-O,0.0,0.0,4.913
+Cu1Ho2O4,cuprate,Cu-Ho-O,0.0,0.0,0.165
+Cu1K0.065La1.935O4,cuprate,Cu-La-O,20.0,3.403,3.094
+Cu1K0.08La1.92O4,cuprate,Cu-La-O,21.0,3.93,3.367
+Cu1K0.2La1.8O4,cuprate,Cu-La-O,41.0,3.433,3.815
+Cu1La0.125Sr0.875O2,cuprate,Cu-Sr-O,36.9,9.366,16.421
+Cu1La0.12Sr0.88O1.97,cuprate,Cu-Sr-O,42.4,5.242,13.424
+Cu1La0.15Sr0.85O2,cuprate,Cu-Sr-O,31.9,13.078,11.632
+Cu1La0.1Sr0.9O1.96,cuprate,Cu-Sr-O,42.5,4.997,13.425
+Cu1La0.1Sr0.9O2,cuprate,Cu-Sr-O,41.45,8.567,16.607
+Cu1La0.8Sr1.2Tl1O5,cuprate,Cu-La-Sr-Tl-O,27.0,6.036,7.782
+Cu1La1.5Sr0.5O4,cuprate,Cu-La-Sr-O,0.0,0.68,4.062
+Cu1La1.72Sr0.28O4,cuprate,Cu-La-O,4.98,1.875,3.63
+Cu1La1.737Sr0.263O4,cuprate,Cu-La-O,8.0,2.088,3.603
+Cu1La1.74Sr0.26O4,cuprate,Cu-La-O,9.588,2.088,4.927
+Cu1La1.762Sr0.238O4,cuprate,Cu-La-O,19.5,2.58,5.606
+Cu1La1.763Sr0.237O4,cuprate,Cu-La-O,13.0,3.79,5.606
+Cu1La1.76Sr0.24O4,cuprate,Cu-La-O,17.7,2.58,5.606
+Cu1La1.774Sr0.226O4,cuprate,Cu-La-O,19.8,3.396,5.606
+Cu1La1.775Sr0.225O4,cuprate,Cu-La-O,21.5,3.226,5.606
+Cu1La1.77Sr0.23O4,cuprate,Cu-La-O,21.15,3.739,5.606
+Cu1La1.782Sr0.218O4,cuprate,Cu-La-O,25.0,3.086,5.635
+Cu1La1.795Sr0.205O4,cuprate,Cu-La-O,0.0,3.067,6.025
+Cu1La1.798Sr0.202O4,cuprate,Cu-La-O,30.5,2.986,4.81
+Cu1La1.7Na0.3O4,cuprate,Cu-La-O,0.0,0.937,0.0
+Cu1La1.7Sm0.3O4,cuprate,Cu-La-O,25.0,2.439,1.051
+Cu1La1.812Sr0.188O4,cuprate,Cu-La-O,33.7,2.871,4.745
+Cu1La1.822Sr0.178O4,cuprate,Cu-La-O,36.0,2.847,5.199
+Cu1La1.828Sr0.172O4,cuprate,Cu-La-O,39.35,3.464,5.366
+Cu1La1.834Sr0.166O4,cuprate,Cu-La-O,35.0,3.43,4.646
+Cu1La1.836Sr0.164O4,cuprate,Cu-La-O,36.9,3.43,4.622
+Cu1La1.847Sr0.153O4,cuprate,Cu-La-O,39.25,4.836,6.152
+Cu1La1.84Rb0.16O4,cuprate,Cu-La-O,0.0,4.324,9.765
+Cu1La1.855Sr0.145O4,cuprate,Cu-La-O,33.55,4.922,6.542
+Cu1La1.85Na0.15O4,cuprate,Cu-La-O,0.0,3.175,1.379
+Cu1La1.85Sr0.15O4,cuprate,Cu-La-O,34.7,4.922,6.152
+Cu1La1.862Sr0.138O4,cuprate,Cu-La-O,33.0,4.466,6.542
+Cu1La1.865Sr0.135O4,cuprate,Cu-La-O,33.0,4.424,6.403
+Cu1La1.868Sr0.132O4,cuprate,Cu-La-O,35.5,4.081,5.313
+Cu1La1.875Sr0.125O4,cuprate,Cu-La-O,30.04,3.206,5.348
+Cu1La1.883Sr0.117O4,cuprate,Cu-La-O,33.0,3.17,4.818
+Cu1La1.885Sr0.115O4,cuprate,Cu-La-O,28.414,3.155,4.818
+Cu1La1.887Sr0.113O4,cuprate,Cu-La-O,29.7,3.182,4.818
+Cu1La1.888Sr0.112O4,cuprate,Cu-La-O,27.0,3.238,4.818
+Cu1La1.889Sr0.111O4,cuprate,Cu-La-O,29.2,3.071,3.384
+Cu1La1.895Sr0.105O4,cuprate,Cu-La-O,26.3,3.105,2.829
+Cu1La1.89Na0.11O4,cuprate,Cu-La-O,16.0,3.269,3.28
+Cu1La1.913Sr0.087O4,cuprate,Cu-La-O,25.0,3.232,2.802
+Cu1La1.914Sr0.086O4,cuprate,Cu-La-O,22.25,3.191,2.802
+Cu1La1.925Sr0.075O4,cuprate,Cu-La-O,18.267,1.755,3.741
+Cu1La1.929Na0.071O4,cuprate,Cu-La-O,28.0,2.853,2.35
+Cu1La1.931Sr0.069O4,cuprate,Cu-La-O,12.0,1.689,3.187
+Cu1La1.937Sr0.063O4,cuprate,Cu-La-O,11.7,2.318,3.193
+Cu1La1.93Sr0.07O4,cuprate,Cu-La-O,17.2,1.587,3.187
+Cu1La1.943Sr0.057O4,cuprate,Cu-La-O,4.51,2.808,3.267
+Cu1La1.945Rb0.055O4,cuprate,Cu-La-O,22.0,5.793,5.266
+Cu1La1.945Sr0.055O4,cuprate,Cu-La-O,0.0,2.779,3.342
+Cu1La1.955Sr0.045O4,cuprate,Cu-La-O,0.0,2.427,3.348
+Cu1La1.95Na0.05O4,cuprate,Cu-La-O,0.0,3.665,2.49
+Cu1La1.962Sr0.038O4,cuprate,Cu-La-O,0.0,2.4,3.135
+Cu1La1.964Sr0.036O4,cuprate,Cu-La-O,0.0,2.532,3.183
+Cu1La1.975Sr0.025O4,cuprate,Cu-La-O,0.0,2.441,3.292
+Cu1La1.983Sr0.017O4,cuprate,Cu-La-O,0.0,1.892,2.942
+Cu1La1.98Na0.02O4,cuprate,Cu-La-O,0.0,2.237,1.897
+Cu1La1.98Sr0.02O4,cuprate,Cu-La-O,0.0,2.188,3.292
+Cu1La1.99Sr0.01O4,cuprate,Cu-La-O,0.0,2.906,2.891
+Cu1La1.9Na0.1O4,cuprate,Cu-La-O,0.0,2.485,3.584
+Cu1La1.9Sm0.1O4,cuprate,Cu-La-O,25.0,4.006,0.967
+Cu1La1Nd0.85Th0.15O4,cuprate,Cu-La-Nd-O,16.0,19.889,7.596
+Cu1La1O2.54,cuprate,Cu-La-O,0.0,0.0,0.929
+Cu1La1O2.64,cuprate,Cu-La-O,0.0,0.142,0.583
+Cu1La1Sr1Tl0.7O5,cuprate,Cu-La-Sr-Tl-O,38.5,6.179,16.274
+Cu1La1Sr1Tl1O5,cuprate,Cu-La-Sr-Tl-O,33.0,2.025,8.073
+Cu1La1Sr1Tl1O5.09,cuprate,Cu-La-Sr-Tl-O,30.0,11.937,8.976
+Cu1La2O4,cuprate,Cu-La-O,0.0,0.98,0.67
+Cu1La2O4.003,cuprate,Cu-La-O,0.0,0.674,0.955
+Cu1La2O4.005,cuprate,Cu-La-O,32.0,0.633,0.963
+Cu1La2O4.011,cuprate,Cu-La-O,0.0,2.22,0.963
+Cu1La2O4.012,cuprate,Cu-La-O,32.0,2.201,0.954
+Cu1La2O4.015,cuprate,Cu-La-O,0.0,2.201,0.954
+Cu1La2O4.017,cuprate,Cu-La-O,34.7,2.201,0.954
+Cu1La2O4.02,cuprate,Cu-La-O,0.0,2.2,0.955
+Cu1La2O4.022,cuprate,Cu-La-O,42.0,2.013,0.884
+Cu1La2O4.032,cuprate,Cu-La-O,30.0,1.399,0.859
+Cu1La2O4.034,cuprate,Cu-La-O,30.7,0.978,0.859
+Cu1La2O4.035,cuprate,Cu-La-O,35.0,1.048,0.722
+Cu1La2O4.044,cuprate,Cu-La-O,34.0,3.471,0.715
+Cu1La2O4.047,cuprate,Cu-La-O,29.7,3.412,0.691
+Cu1La2O4.05,cuprate,Cu-La-O,32.0,3.129,0.691
+Cu1La2O4.052,cuprate,Cu-La-O,0.0,2.781,0.691
+Cu1La2O4.054,cuprate,Cu-La-O,29.1,3.14,0.691
+Cu1La2O4.056,cuprate,Cu-La-O,0.0,3.097,0.691
+Cu1La2O4.0625,cuprate,Cu-La-O,17.0,3.043,0.552
+Cu1La2O4.066,cuprate,Cu-La-O,38.0,2.954,0.552
+Cu1La2O4.068,cuprate,Cu-La-O,36.0,2.954,0.69
+Cu1La2O4.07,cuprate,Cu-La-O,40.4,2.964,0.678
+Cu1La2O4.075,cuprate,Cu-La-O,45.0,3.358,0.77
+Cu1La2O4.086,cuprate,Cu-La-O,45.2,3.346,0.761
+Cu1La2O4.093,cuprate,Cu-La-O,45.0,2.977,0.858
+Cu1La2O4.095,cuprate,Cu-La-O,37.8,2.964,0.858
+Cu1La2O4.1,cuprate,Cu-La-O,0.0,2.82,0.897
+Cu1La2O4.11,cuprate,Cu-La-O,43.5,4.616,1.171
+Cu1La2O4.12,cuprate,Cu-La-O,43.0,1.358,1.247
+Cu1La2O4.13,cuprate,Cu-La-O,31.0,2.11,1.645
+Cu1La2O4.18,cuprate,Cu-La-O,0.0,2.493,1.713
+Cu1La2O4.2,cuprate,Cu-La-O,0.0,2.131,4.4
+Cu1La2O4.32,cuprate,Cu-La-O,37.5,3.748,2.702
+Cu1La2O4.33,cuprate,Cu-La-O,0.0,6.714,2.348
+Cu1Nd0.09Sr0.91O1.98,cuprate,Cu-Sr-O,0.0,4.905,15.624
+Cu1Nd0.13Sr0.87O1.95,cuprate,Cu-Sr-O,0.0,4.627,19.895
+Cu1Nd0.14Sr0.86O2,cuprate,Cu-Sr-O,37.5,8.386,22.222
+Cu1Nd0.17Sr0.83O2,cuprate,Cu-Sr-O,35.0,12.101,17.409
+Cu1Nd0.19Sr0.81O2,cuprate,Cu-Sr-O,18.0,8.129,18.322
+Cu1Nd1.7O4,cuprate,Cu-Nd-O,30.7,2.623,0.417
+Cu1Nd1.85Th0.15O4,cuprate,Cu-Nd-O,22.5,8.585,5.16
+Cu1Nd1.85Y0.15O4,cuprate,Cu-Nd-O,21.0,2.736,0.492
+Cu1Nd1.8O4,cuprate,Cu-Nd-O,31.3,2.028,0.224
+Cu1Nd2O3.5,cuprate,Cu-Nd-O,0.0,1.256,0.221
+Cu1O1,other oxide,Cu-O,0.0,2.116,1.286
+Cu1Pr0.15Sr0.85O2,cuprate,Cu-Sr-O,39.0,11.919,13.952
+Cu1Pr0.1Sr0.9O2,cuprate,Cu-Sr-O,41.5,6.159,15.297
+Cu1Pr1.85Sr0.15O4,cuprate,Cu-Pr-O,0.0,2.87,3.811
+Cu1Pr2O4,cuprate,Cu-Pr-O,0.0,0.236,0.24
+Cu1Sm0.08Sr0.92O2,cuprate,Cu-Sr-O,43.0,6.755,11.071
+Cu1Sm0.1Sr0.9O2,cuprate,Cu-Sr-O,44.0,5.871,11.646
+Cu1Sm2O4,cuprate,Cu-Sm-O,0.0,0.0,0.34
+Cu1Sr0.75Y0.25O2,cuprate,Cu-Sr-O,38.6,2.239,6.631
+Cu1Sr0.7Y0.3O2,cuprate,Cu-Sr-O,32.6,0.183,2.019
+Cu1Sr0.85O2,cuprate,Cu-Sr-O,0.0,33.972,16.333
+Cu1Sr0.85Y0.15O2,cuprate,Cu-Sr-O,36.6,10.237,8.83
+Cu1Sr0.8Y0.2O2,cuprate,Cu-Sr-O,38.6,6.875,8.441
+Cu1Sr0.95Y0.05O2,cuprate,Cu-Sr-O,38.6,3.645,20.756
+Cu1Sr0.9Y0.1O2,cuprate,Cu-Sr-O,36.6,9.365,19.692
+Cu1Sr1O2,cuprate,Cu-Sr-O,0.0,0.902,6.363
+Cu1Sr1O2.97,cuprate,Cu-Sr-O,0.0,2.722,1.695
+Cu1Sr1O2.99,cuprate,Cu-Sr-O,0.0,2.849,1.024
+Cu1Sr2O3,cuprate,Cu-Sr-O,0.0,0.196,0.336
+Cu1Sr2O3.01,cuprate,Cu-Sr-O,0.0,0.379,0.334
+Cu1Sr2O3.02,cuprate,Cu-Sr-O,0.0,0.641,1.474
+Cu1Sr2O3.1,cuprate,Cu-Sr-O,70.0,8.568,1.521
+Cu1Sr2O3.2,cuprate,Cu-Sr-O,0.0,17.826,1.241
+Cu1Sr2Tl1O5,cuprate,Cu-Sr-Tl-O,0.0,24.67,69.214
+Cu1Tm2O4,cuprate,Cu-Tm-O,0.0,0.307,0.151
+Cu1Y1O2.55,cuprate,Cu-Y-O,0.0,2.096,1.6
+Cu2.05Gd1Ru0.95Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,26.05,2.328,0.285
+Cu2.1Gd1Ru0.9Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,37.75,7.359,2.474
+Cu2.2Gd1Ru0.8Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,28.4,11.472,1.037
+Cu2Er2O5,cuprate,Cu-Er-O,0.0,0.017,0.151
+Cu2Eu1Nb1Sr2O8,cuprate,Cu-Eu-Nb-Sr-O,0.0,0.3,0.631
+Cu2Fe1Sr2Y1O7.32,cuprate,Cu-Fe-Sr-Y-O,0.0,0.344,5.212
+Cu2Fe1Sr2Y1O7.36,cuprate,Cu-Fe-Sr-Y-O,0.0,0.395,3.683
+Cu2Fe1Sr2Y1O7.51,cuprate,Cu-Fe-Sr-Y-O,53.5,0.624,2.986
+Cu2Fe1Sr2Y1O7.6,cuprate,Cu-Fe-Sr-Y-O,0.0,0.489,2.782
+Cu2Fe1Sr2Y1O7.66,cuprate,Cu-Fe-Sr-Y-O,43.5,0.479,2.844
+Cu2Fe1Sr2Y1O7.68,cuprate,Cu-Fe-Sr-Y-O,53.0,0.479,2.733
+Cu2Ga1Sr2Y1O7,cuprate,Cu-Ga-Sr-Y-O,0.0,0.145,13.308
+Cu2Gd0.82Nd0.18Ru1Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,21.0,9.17,1.083
+Cu2Gd0.91Nd0.09Ru1Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,23.5,3.222,1.518
+Cu2Gd0.9Ru1Sr2Y0.1O8,cuprate,Cu-Gd-Ru-Sr-O,32.2,3.737,1.421
+Cu2Gd1Ir0.02Ru0.98Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,38.0,1.101,1.745
+Cu2Gd1Ir0.05Ru0.95Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,32.5,2.25,1.555
+Cu2Gd1Ir0.1Ru0.9Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,22.0,2.914,0.962
+Cu2Gd1La0.06Ru1Sr1.94O8,cuprate,Cu-Gd-Ru-Sr-O,0.0,3.032,1.78
+Cu2Gd1La0.1Ru1Sr1.9O8,cuprate,Cu-Gd-Ru-Sr-O,0.0,5.135,2.459
+Cu2Gd1La0.2Ru1Sr1.8O8,cuprate,Cu-Gd-Ru-Sr-O,0.0,7.193,2.482
+Cu2Gd1Nb0.1Ru0.9Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,11.65,6.12,3.651
+Cu2Gd1Nb0.2Ru0.8Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,0.0,11.324,7.103
+Cu2Gd1Rh0.05Ru0.95Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,34.575,2.316,2.082
+Cu2Gd1Rh0.075Ru0.925Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,29.8,3.491,2.082
+Cu2Gd1Rh0.2Ru0.8Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,12.9,9.499,3.025
+Cu2Gd1Ru0.925Sn0.075Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,37.8,3.412,2.677
+Cu2Gd1Ru0.925Sr2Ti0.075O8,cuprate,Cu-Gd-Ru-Sr-O,29.2,5.651,3.428
+Cu2Gd1Ru0.95Sn0.05Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,30.0,2.38,2.527
+Cu2Gd1Ru0.95Sr2Ti0.05O8,cuprate,Cu-Gd-Ru-Sr-O,32.2,3.815,2.119
+Cu2Gd1Ru0.975Sn0.025Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,36.9,1.489,2.117
+Cu2Gd1Ru0.97Sr2Ti0.03O8,cuprate,Cu-Gd-Ru-Sr-O,40.3,2.359,3.899
+Cu2Gd1Ru0.99Sr2Ti0.01O8,cuprate,Cu-Gd-Ru-Sr-O,36.3,1.733,2.166
+Cu2Gd1Ru0.9Sr2Ti0.1O8,cuprate,Cu-Gd-Ru-Sr-O,0.0,6.016,5.449
+Cu2Gd1Ru1Sr2O8,cuprate,Cu-Gd-Ru-Sr-O,16.45,1.168,0.513
+Cu2Ge2Yb1,heavy-fermion,Cu-Ge-Yb,0.0,0.344,0.29
+Cu2Ho1Ru1Sr2O8,cuprate,Cu-Ho-Ru-Sr-O,0.0,5.577,9.371
+Cu2Ho2O5,cuprate,Cu-Ho-O,0.0,0.007,0.092
+Cu2La2Sr1O6,cuprate,Cu-La-Sr-O,0.0,0.391,13.828
+Cu2La2Sr1O6.2,cuprate,Cu-La-Sr-O,0.0,1.161,6.659
+Cu2La2Sr1O6.315,cuprate,Cu-La-Sr-O,0.0,1.249,6.142
+Cu2Nb1Sm1Sr2O8,cuprate,Cu-Nb-Sm-Sr-O,0.0,0.231,0.227
+Cu2O1,other oxide,Cu-O,0.0,1.313,0.189
+Cu2S2Sr2Zn1O2,cuprate,Cu-S-Sr-Zn-O,0.0,1.93,13.443
+Cu2Sr2Tl1Y1O7,cuprate,Cu-Sr-Tl-Y-O,0.0,9.174,34.121
+Cu2Tm2O5,cuprate,Cu-Tm-O,0.0,0.081,0.0
+Cu2Y2O5,cuprate,Cu-Y-O,0.0,0.693,1.485
+Cu2Yb2O5,cuprate,Cu-Yb-O,0.0,0.0,0.0
+Cu3Dy1Pb2Sr2O8,cuprate,Cu-Dy-Pb-Sr-O,76.5,0.0,0.891
+Cu3Pb2Pr1Sr2O8,cuprate,Cu-Pb-Pr-Sr-O,0.0,0.0,3.604
+Cu3Pb2Sm1Sr2O8,cuprate,Cu-Pb-Sm-Sr-O,0.0,9.513,13.853
+Cu3Pb2Sr2Tb0.02Y0.98O8,cuprate,Cu-Pb-Sr-Y-O,0.0,2.298,54.365
+Cu3Pb2Sr2Tb0.05Y0.95O8,cuprate,Cu-Pb-Sr-Y-O,0.0,2.4,36.603
+Cu3Pb2Sr2Tb0.1Y0.9O8,cuprate,Cu-Pb-Sr-Y-O,0.0,1.996,55.012
+Cu5U1,heavy-fermion,Cu-U,0.0,0.015,0.131
+Cu6Sr4O10,cuprate,Cu-Sr-O,0.0,0.65,8.298
+Cu8La2Sr6O16,cuprate,Cu-La-Sr-O,0.0,1.305,6.363
+F0.03Fe1La1P1O0.97,iron-based,Fe-La-P-O,7.8,1.328,1.458
+F0.05Fe1La1P1O0.95,iron-based,Fe-La-P-O,7.21,6.466,7.153
+F0.06Fe1La1P1O0.94,iron-based,Fe-La-P-O,6.8,15.843,7.996
+F0.08Fe1La1P1O0.92,iron-based,Fe-La-P-O,7.8,38.188,11.358
+F0.1Fe1P1Pr1O0.9,iron-based,Fe-P-Pr-O,2.34,3.787,34.26
+F2Sb2Sr2Ti2O1,other oxide,F-Sb-Sr-Ti-O,0.0,0.833,1.304
+Fe0.05S2Ta1,iron-based,Fe-S-Ta,3.0,2.296,1.735
+Fe0.25Ni0.75U6,heavy-fermion,Fe-Ni-U,3.0,1.058,1.323
+Fe0.5Ni0.5U6,heavy-fermion,Fe-Ni-U,2.1,0.909,1.714
+Fe0.75Ni0.25U6,heavy-fermion,Fe-U,1.4,2.107,2.239
+Fe0.95Ni0.05Se1,iron-based,Fe-Se,10.0,5.587,2.787
+Fe0.98Mn0.02Se0.5Te0.5,iron-based,Fe-Se-Te,14.4,7.388,10.031
+Fe0.98Se0.15Te0.9,iron-based,Fe-Se-Te,8.8,6.039,7.68
+Fe0.9Ni0.1Se1,iron-based,Fe-Se,0.0,5.096,2.515
+Fe1.06Se0.14Te0.83,iron-based,Fe-Se-Te,7.85,5.044,7.081
+Fe1.5K0.8Se2,iron-based,Fe-K-Se,32.4,2.822,1.29
+Fe1.5K1S2,iron-based,Fe-K-S,0.0,5.722,2.753
+Fe1.63K0.82Se2,iron-based,Fe-K-Se,32.0,3.247,1.833
+Fe1.64K0.79Se2,iron-based,Fe-K-Se,30.4,5.089,1.928
+Fe1.66K0.74Se2,iron-based,Fe-K-Se,31.0,6.526,1.312
+Fe1.66K0.86Se2,iron-based,Fe-K-Se,32.0,3.601,0.967
+Fe1.68K0.75Se2,iron-based,Fe-K-Se,31.0,9.961,1.327
+Fe1.6K0.8Se2,iron-based,Fe-K-Se,0.0,5.191,1.831
+Fe1.76K0.8Se2,iron-based,Fe-K-Se,31.15,7.434,1.317
+Fe1.78K0.8Se2,iron-based,Fe-K-Se,32.0,8.405,1.196
+Fe1.79K0.68Se2,iron-based,Fe-K-Se,32.0,12.15,2.109
+Fe1.7K0.8S2,iron-based,Fe-K-S,0.0,15.753,8.672
+Fe1.7K0.8Se2,iron-based,Fe-K-Se,31.5,7.861,2.142
+Fe1.7Se2Tl1,iron-based,Fe-Se-Tl,22.4,14.204,0.653
+Fe1.83K0.83Se2,iron-based,Fe-K-Se,32.5,8.702,1.264
+Fe1.84K0.25Se2Tl0.75,iron-based,Fe-Se-Tl,29.8,14.72,9.239
+Fe1.933K0.8Mn0.067Se2,iron-based,Fe-K-Se,32.0,10.864,4.742
+Fe1.951K0.8Mn0.049Se2,iron-based,Fe-K-Se,31.9,11.006,4.742
+Fe1.979K0.8Mn0.021Se2,iron-based,Fe-K-Se,31.0,10.919,4.518
+Fe1.995K0.8Se2Zn0.005,iron-based,Fe-K-Se,0.0,8.681,4.362
+Fe1.99K0.8Mn0.01Se2,iron-based,Fe-K-Se,31.0,11.343,4.742
+Fe1La0.85Sr1.15O4,other oxide,Fe-La-Sr-O,0.0,1.206,0.362
+Fe1La1P1O1,iron-based,Fe-La-P-O,5.459,2.429,1.493
+Fe1Li1P1,iron-based,Fe-Li-P,4.965,1.214,1.991
+Fe1P1,iron-based,Fe-P,0.0,0.0,0.069
+Fe1P1Pr1O1,iron-based,Fe-P-Pr-O,3.587,0.07,0.561
+Fe1P1Sm1O1,iron-based,Fe-P-Sm-O,2.5,0.843,0.545
+Fe1P1Zr1,iron-based,Fe-P-Zr,0.0,2.567,0.826
+Fe1S0.04Se0.96,iron-based,Fe-Se,9.58,3.004,5.244
+Fe1S0.09Se0.91,iron-based,Fe-Se,10.1,8.357,5.986
+Fe1S0.11Se0.89,iron-based,Fe-Se,10.7,8.009,6.671
+Fe1S0.12Te0.88,iron-based,Fe-Te,6.8,11.302,7.704
+Fe1S0.1Se0.9,iron-based,Fe-Se,10.27,8.384,6.671
+Fe1S0.1Te0.9,iron-based,Fe-Te,10.0,8.658,7.264
+Fe1S0.25Te0.75,iron-based,Fe-S-Te,7.28,7.905,5.91
+Fe1S0.4Se0.6,iron-based,Fe-S-Se,3.73,11.319,5.375
+Fe1S0.5Se0.5,iron-based,Fe-S-Se,2.75,12.278,5.461
+Fe1S1,iron-based,Fe-S,0.0,0.584,1.441
+Fe1Sb1,iron-based,Fe-Sb,0.0,0.0,0.129
+Fe1Sb2,iron-based,Fe-Sb,0.0,0.134,0.0
+Fe1Sb3,iron-based,Fe-Sb,0.0,0.175,0.0
+Fe1Se0.025Te0.975,iron-based,Fe-Te,0.0,6.1,6.196
+Fe1Se0.02Te0.98,iron-based,Fe-Te,0.0,4.321,6.196
+Fe1Se0.05Te0.95,iron-based,Fe-Te,3.35,8.051,6.001
+Fe1Se0.075Te0.925,iron-based,Fe-Te,11.5,7.336,6.137
+Fe1Se0.07Te0.93,iron-based,Fe-Te,8.2,7.336,6.137
+Fe1Se0.13Te0.87,iron-based,Fe-Te,6.0,10.488,8.571
+Fe1Se0.1Te0.9,iron-based,Fe-Te,9.817,8.139,6.17
+Fe1Se0.25Te0.75,iron-based,Fe-Se-Te,13.225,6.541,9.01
+Fe1Se0.328Te0.492,iron-based,Fe-Se-Te,13.8,4.86,7.542
+Fe1Se0.35Te0.65,iron-based,Fe-Se-Te,15.0,5.909,10.337
+Fe1Se0.38Te0.62,iron-based,Fe-Se-Te,13.5,6.052,10.337
+Fe1Se0.39Te0.61,iron-based,Fe-Se-Te,14.0,6.052,10.426
+Fe1Se0.41Te0.41,iron-based,Fe-Se-Te,13.2,5.066,7.525
+Fe1Se0.42Te0.58,iron-based,Fe-Se-Te,14.8,6.093,10.764
+Fe1Se0.43Te0.57,iron-based,Fe-Se-Te,15.0,6.136,10.239
+Fe1Se0.45Te0.55,iron-based,Fe-Se-Te,12.6,6.428,10.198
+Fe1Se0.492Te0.328,iron-based,Fe-Se-Te,12.7,5.12,9.535
+Fe1Se0.4Te0.4,iron-based,Fe-Se-Te,14.4,5.118,7.164
+Fe1Se0.4Te0.6,iron-based,Fe-Se-Te,13.733,6.052,10.725
+Fe1Se0.5Te0.5,iron-based,Fe-Se-Te,13.676,7.406,9.968
+Fe1Se0.75Te0.25,iron-based,Fe-Se-Te,13.3,5.74,11.215
+Fe1Se0.8,iron-based,Fe-Se,8.65,8.021,1.1
+Fe1Se0.82,iron-based,Fe-Se,7.83,8.111,1.093
+Fe1Se0.85,iron-based,Fe-Se,9.62,7.591,0.79
+Fe1Se0.88,iron-based,Fe-Se,8.843,7.389,0.761
+Fe1Se0.92,iron-based,Fe-Se,7.4,3.595,0.843
+Fe1Se0.93,iron-based,Fe-Se,7.0,3.59,0.866
+Fe1Se0.94,iron-based,Fe-Se,8.545,3.317,0.87
+Fe1Se0.98,iron-based,Fe-Se,8.105,2.098,0.866
+Fe1Se0.99,iron-based,Fe-Se,6.99,1.016,0.866
+Fe1Te0.82,iron-based,Fe-Te,0.0,7.536,1.972
+Fe1Te0.92,iron-based,Fe-Te,0.0,5.229,2.402
+Fe1Te1,iron-based,Fe-Te,1.5,0.269,1.33
+Fe1U6,heavy-fermion,Fe-U,3.889,2.443,1.732
+Fe22U78,heavy-fermion,Fe-U,0.98,0.817,1.541
+Fe2Ge2Pr1,heavy-fermion,Fe-Ge-Pr,0.0,0.07,0.476
+Fe2K0.85Se1.8,iron-based,Fe-K-Se,32.6,8.273,1.242
+Fe2K0.86Se1.82,iron-based,Fe-K-Se,30.05,5.843,1.132
+Fe2K0.8Se1.96,iron-based,Fe-K-Se,29.5,10.686,1.467
+Fe2K0.8Se2,iron-based,Fe-K-Se,31.364,6.448,1.704
+Fe2P1,iron-based,Fe-P,0.0,0.0,0.371
+Fe2P2Sc2Sr4O6,iron-based,Fe-P-Sc-Sr-O,15.25,1.081,1.267
+Fe2Te3,iron-based,Fe-Te,0.0,0.071,1.074
+Fe2U1,heavy-fermion,Fe-U,0.0,0.229,0.207
+Fe3Si5Yb2,heavy-fermion,Fe-Si-Yb,0.0,0.513,0.581
+Fe3Te3Tl1,iron-based,Fe-Te-Tl,0.0,0.962,8.295
+Fe4La1P12,iron-based,Fe-La-P,3.075,0.0,0.0
+Fe4Nd1P12,iron-based,Fe-Nd-P,0.0,0.224,0.196
+Fe4P12Pr1,iron-based,Fe-P-Pr,0.0,0.84,0.205
+Fe4P12Sm1,iron-based,Fe-P-Sm,0.0,0.036,0.01
+Fe4P12Tb1,iron-based,Fe-P-Tb,0.0,0.322,0.389
+Fe4P12Yb1,iron-based,Fe-P-Yb,0.0,0.203,0.148
+Ga3Pd2U1,heavy-fermion,Ga-Pd-U,0.0,0.304,0.87
+Ga3U1,heavy-fermion,Ga-U,0.0,0.117,0.24
+Ga5Rh1U1,heavy-fermion,Ga-Rh-U,0.0,0.437,0.101
+Ga6Pr1,heavy-fermion,Ga-Pr,0.0,0.46,0.075
+Ga6Yb1,heavy-fermion,Ga-Yb,0.0,0.315,0.0
+Ge0.5La1Ni2P1.5,iron-based,Ge-La-Ni-P,0.0,3.329,1.519
+Ge12Pr1Pt4,heavy-fermion,Ge-Pr-Pt,7.876,0.149,0.0
+Ge12Pt4U1,heavy-fermion,Ge-Pt-U,0.0,0.596,0.663
+Ge13Pr3Ru4,heavy-fermion,Ge-Pr-Ru,0.0,0.747,0.315
+Ge13Ru4Yb3,heavy-fermion,Ge-Ru-Yb,0.0,0.076,0.226
+Ge1La1Ni2P1,iron-based,Ge-La-Ni-P,0.0,2.081,1.377
+Ge1Rh1U1,heavy-fermion,Ge-Rh-U,0.244,0.329,0.639
+Ge2Ir2U1,heavy-fermion,Ge-Ir-U,1.1,0.94,0.881
+Ge2Pd2Yb1,heavy-fermion,Ge-Pd-Yb,1.17,0.341,0.354
+Ge2Rh2U1,heavy-fermion,Ge-Rh-U,1.1,0.431,0.609
+Ge2U1,heavy-fermion,Ge-U,0.55,0.259,0.288
+Ge3U1,heavy-fermion,Ge-U,0.0,0.146,0.217
+Ge3U5,heavy-fermion,Ge-U,0.99,0.0,0.0
+Ge4Ru3Yb2,heavy-fermion,Ge-Ru-Yb,0.0,0.0,0.298
+Hg2Os2O7,other oxide,Hg-Os-O,0.0,0.0,0.0
+In1Pr3,heavy-fermion,In-Pr,0.0,0.141,0.44
+In2O3,other oxide,In-O,3.3,0.0,1.827
+In3U1,heavy-fermion,In-U,0.0,0.04,0.132
+In3Yb1,heavy-fermion,In-Yb,0.0,1.067,1.137
+Ir1U1,heavy-fermion,Ir-U,0.14,0.579,0.53
+Ir2Si2U1,heavy-fermion,Ir-Si-U,1.1,0.726,0.293
+Ir2U1,heavy-fermion,Ir-U,0.0,0.267,0.472
+Ir2Yb1,heavy-fermion,Ir-Yb,0.0,0.678,0.831
+Ir3U1,heavy-fermion,Ir-U,0.0,0.309,0.734
+Ir4Si10Yb5,heavy-fermion,Ir-Si-Yb,0.0,0.403,0.353
+K0.18W1O3,other oxide,K-W-O,3.9,3.536,3.115
+K0.27W1O3,other oxide,K-W-O,0.5,1.792,1.537
+K0.3Mo1O3,other oxide,K-Mo-O,0.0,1.091,1.797
+K0.45W1O3,other oxide,K-W-O,0.885,0.933,3.589
+K0.9Mo1O3,other oxide,K-Mo-O,0.0,0.456,1.213
+K0.9Re1O3,other oxide,K-Re-O,0.0,2.086,3.215
+K1La1Nb2O7,other oxide,K-La-Nb-O,0.0,1.311,0.482
+K1Nb0.008Ta0.992O3,other oxide,K-Ta-O,0.0,0.655,0.0
+K1Nb0.012Ta0.988O3,other oxide,K-Ta-O,0.0,0.48,0.0
+K1Nb0.02Ta0.98O3,other oxide,K-Ta-O,0.0,0.514,0.021
+K1Nb0.09Ta0.91O3,other oxide,K-Ta-O,0.0,0.055,0.104
+K1Nb0.21Ta0.79O3,other oxide,K-Ta-O,0.0,0.732,0.221
+K1Nb0.36Ta0.64O3,other oxide,K-Nb-Ta-O,0.0,0.473,1.35
+K1Ni2S2,iron-based,K-Ni-S,0.46,0.243,0.275
+K1Ni2Se2,iron-based,K-Ni-Se,0.8,2.32,1.655
+K1Os2O6,other oxide,K-Os-O,9.604,0.947,1.906
+La0.02Os4Pr0.98Sb12,heavy-fermion,Os-Pr-Sb,1.8,2.092,1.502
+La0.05Os4Pr0.95Sb12,heavy-fermion,Os-Pr-Sb,1.815,1.594,1.502
+La0.1Os4Pr0.9Sb12,heavy-fermion,Os-Pr-Sb,1.7,1.557,1.504
+La0.1Sr0.9Ti1O3,other oxide,La-Sr-Ti-O,0.0,0.651,0.0
+La0.22Sr1.78Ti1O4,other oxide,Sr-Ti-O,0.0,0.034,0.41
+La0.2Os4Pr0.8Sb12,heavy-fermion,Os-Pr-Sb,1.722,1.57,1.181
+La0.3Os4Pr0.7Sb12,heavy-fermion,Os-Pr-Sb,1.528,1.638,1.342
+La0.3Sr0.7Ti1O3,other oxide,Sr-Ti-O,0.0,0.083,0.288
+La0.5Sr0.5Ti1O3,other oxide,La-Sr-Ti-O,0.0,0.0,0.0
+La0.7Sr0.3Ti1O3,other oxide,La-Sr-Ti-O,0.0,0.0,0.0
+La0.9Ni1Sr0.1O3,other oxide,La-Ni-O,0.0,0.236,0.0
+La0.9Ni1Th0.1O3,other oxide,La-Ni-O,0.0,3.667,8.093
+La0.9Rh1Sr0.1O3,other oxide,La-Rh-O,0.0,0.379,0.0
+La0.9Sr0.1Ti1O3,other oxide,La-Sr-Ti-O,0.0,0.287,0.0
+La1.8Ni1Sr0.2O4,other oxide,La-Ni-O,0.0,1.416,0.145
+La1Ni1O3,other oxide,La-Ni-O,0.0,0.196,0.0
+La1Ni1P1O1,iron-based,La-Ni-P-O,3.0,3.229,1.954
+La1Ni1Sb2,iron-based,La-Ni-Sb,1.0,0.484,0.342
+La1Ni2P2,iron-based,La-Ni-P,2.6,1.195,0.279
+La1Rh1O3,other oxide,La-Rh-O,0.0,0.108,0.874
+La2Ni1O4,other oxide,La-Ni-O,0.0,0.27,1.939
+La2Ni1O4.067,other oxide,La-Ni-O,0.0,0.934,2.821
+La2Ni1O4.077,other oxide,La-Ni-O,0.0,0.801,2.574
+La2Ni1O4.18,other oxide,La-Ni-O,0.0,0.308,0.298
+La2O4,other oxide,La-O,0.0,0.252,1.839
+La2Sr1O4.003,other oxide,La-Sr-O,0.0,0.929,0.986
+La3Ni4P4O2,iron-based,La-Ni-P-O,2.2,2.352,6.056
+Li0.33V2O5,other oxide,Li-V-O,8.5,3.934,6.714
+Li0.3W1O3,other oxide,Li-W-O,2.2,0.612,0.174
+Li0.45Nb1O2,other oxide,Li-Nb-O,5.5,2.245,0.855
+Li0.68Nb1O2,other oxide,Li-Nb-O,5.15,0.643,0.0
+Li0.98Mg0.02Ti2O4,other oxide,Li-Ti-O,11.9,0.661,0.874
+Li1.035Ti1.965O4,other oxide,Li-Ti-O,11.75,0.789,1.018
+Li1.04Ti1.96O4,other oxide,Li-Ti-O,12.1,0.792,0.978
+Li1.05Ti1.95O4,other oxide,Li-Ti-O,11.25,0.882,1.191
+Li1.07Ti1.93O4,other oxide,Li-Ti-O,11.05,0.496,1.342
+Li1.08Ti1.92O4,other oxide,Li-Ti-O,11.8,0.743,1.315
+Li1.12Ti1.88O4,other oxide,Li-Ti-O,9.9,0.891,0.889
+Li1.15Ti1.85O4,other oxide,Li-Ti-O,0.0,1.177,1.08
+Li1.16Ti1.84O4,other oxide,Li-Ti-O,8.3,1.114,1.192
+Li1.18Ti1.82O4,other oxide,Li-Ti-O,0.0,1.472,1.785
+Li1.1Ti1.9O4,other oxide,Li-Ti-O,10.05,0.719,1.189
+Li1.22Ti1.78O4,other oxide,Li-Ti-O,0.0,1.506,2.171
+Li1.25Ti1.75O4,other oxide,Li-Ti-O,0.0,1.694,1.8
+Li1.2Ti1.8O4,other oxide,Li-Ti-O,0.0,1.516,2.005
+Li1Nb1O2,other oxide,Li-Nb-O,0.0,0.83,1.291
+Li1Ti2O4,other oxide,Li-Ti-O,11.873,0.428,0.845
+Li1V2O4,other oxide,Li-V-O,0.0,8.63,8.383
+Mn1U6,heavy-fermion,Mn-U,2.452,0.789,1.345
+Mn2O3,other oxide,Mn-O,0.0,0.097,1.069
+Mo0.28O0.72,other oxide,Mo-O,0.0,0.586,0.0
+Mo0.3U0.7,heavy-fermion,Mo-U,1.97,0.725,1.036
+Mo1Ni1P1,iron-based,Mo-Ni-P,15.5,0.209,0.232
+Mo1Ni1P2,iron-based,Mo-Ni-P,0.0,0.883,0.238
+Mo1O2,other oxide,Mo-O,0.0,0.0,0.0
+Mo2O5,other oxide,Mo-O,0.0,0.0,0.0
+Mo5O2,other oxide,Mo-O,0.0,0.918,0.706
+N0.87Nb1O0.13,other oxide,N-Nb,17.2,1.179,2.888
+N0.98Nb1O0.02,other oxide,N-Nb,17.7,1.061,3.322
+N0.98Pr1,heavy-fermion,N-Pr,0.0,1.644,0.0
+N0.998Nb1O0.002,other oxide,N-Nb,17.3,1.23,3.591
+N1Ni3Zn1,iron-based,N-Ni-Zn,3.0,0.38,0.7
+N1Pr1,heavy-fermion,N-Pr,0.0,0.505,0.0
+N1U1,heavy-fermion,N-U,0.0,0.0,0.417
+Na0.1W1O3,other oxide,Na-W-O,0.0,3.889,3.425
+Na0.23W1O3,other oxide,Na-W-O,2.16,2.733,3.386
+Na0.28W1O3,other oxide,Na-W-O,0.56,2.462,2.264
+Na0.2W1O3,other oxide,Na-W-O,1.8,3.943,3.066
+Na0.33V2O5,other oxide,Na-V-O,7.667,1.438,1.378
+Na0.3W1O3,other oxide,Na-W-O,0.0,2.524,1.224
+Na2Sb2Ti2O1,other oxide,Na-Sb-Ti-O,0.0,2.506,2.333
+Nb0.18U0.82,heavy-fermion,Nb-U,2.011,1.814,1.892
+Nb0.222U0.778,heavy-fermion,Nb-U,1.98,1.893,2.01
+Nb0.22U0.78,heavy-fermion,Nb-U,2.01,1.893,2.01
+Nb0.26U0.74,heavy-fermion,Nb-U,1.85,1.726,1.616
+Nb0.2U0.8,heavy-fermion,Nb-U,2.009,1.814,1.865
+Nb1O1,other oxide,Nb-O,1.38,1.104,1.91
+Nb1O2,other oxide,Nb-O,0.0,0.804,1.435
+Nb1Sr0.75O3,other oxide,Nb-Sr-O,0.0,0.608,0.343
+Nb1Sr0.9O3,other oxide,Nb-Sr-O,0.0,0.571,0.588
+Nd0.1Os4Pr0.9Sb12,heavy-fermion,Os-Pr-Sb,1.73,1.45,2.297
+Nd0.25Os4Pr0.75Sb12,heavy-fermion,Os-Pr-Sb,1.48,1.184,2.297
+Nd0.2Os4Pr0.8Sb12,heavy-fermion,Os-Pr-Sb,1.52,1.489,2.297
+Nd0.3Os4Pr0.7Sb12,heavy-fermion,Os-Pr-Sb,1.27,1.148,2.288
+Nd0.92Ni1Th0.08O3,other oxide,Nd-Ni-O,0.0,2.986,6.861
+Nd0.95Ni1Sr0.05O3,other oxide,Nd-Ni-O,0.0,0.196,0.0
+Nd0.95Ni1Th0.05O3,other oxide,Nd-Ni-O,0.0,2.702,7.73
+Nd0.97Ni1Sr0.03O3,other oxide,Nd-Ni-O,0.0,0.317,0.0
+Nd0.97Ni1Th0.03O3,other oxide,Nd-Ni-O,0.0,3.048,7.344
+Nd0.98Ni1Sr0.02O3,other oxide,Nd-Ni-O,0.0,0.0,0.0
+Nd0.99Ni1Sr0.01O3,other oxide,Nd-Ni-O,0.0,0.0,0.0
+Nd0.9Ni1Sr0.1O3,other oxide,Nd-Ni-O,0.0,0.622,0.0
+Nd0.9Ni1Th0.1O3,other oxide,Nd-Ni-O,0.0,3.175,9.51
+Nd1Ni1O3,other oxide,Nd-Ni-O,0.0,0.0,0.0
+Nd2Ni1O4,other oxide,Nd-Ni-O,0.0,0.265,0.321
+Ni0.02S2Ta1,iron-based,Ni-S-Ta,3.325,3.329,2.655
+Ni0.04S2Ta1,iron-based,Ni-S-Ta,4.095,3.038,2.517
+Ni0.05S2Ta1,iron-based,Ni-S-Ta,2.678,3.308,2.565
+Ni0.06S2Ta1,iron-based,Ni-S-Ta,1.9,2.747,2.512
+Ni0.08S2Ta1,iron-based,Ni-S-Ta,0.0,3.85,2.448
+Ni1O1,other oxide,Ni-O,0.0,0.292,0.007
+Ni1P1,iron-based,Ni-P,0.0,0.568,0.486
+Ni1P3,iron-based,Ni-P,0.0,0.115,0.356
+Ni1Pr2O4,heavy-fermion,Ni-Pr-O,0.0,0.0,1.442
+Ni1Pr3,heavy-fermion,Ni-Pr,0.0,0.264,0.0
+Ni1S1,iron-based,Ni-S,0.0,0.256,0.009
+Ni1Sb1,iron-based,Ni-Sb,0.0,0.67,0.903
+Ni1Sb3,iron-based,Ni-Sb,0.0,0.478,0.15
+Ni1Te1,iron-based,Ni-Te,0.0,0.0,0.0
+Ni1Te2,iron-based,Ni-Te,0.0,0.0,0.0
+Ni1U6,heavy-fermion,Ni-U,0.54,2.271,1.695
+Ni2P1,iron-based,Ni-P,0.0,1.148,0.737
+Ni2P2Sc2Sr4O6,iron-based,Ni-P-Sc-Sr-O,3.525,7.566,7.678
+Ni2P2Sr1,iron-based,Ni-P-Sr,1.415,1.656,0.954
+Ni2Se2Tl1,iron-based,Ni-Se-Tl,3.7,1.53,4.114
+Ni3P1,iron-based,Ni-P,0.0,0.403,0.338
+Ni4P2Zr1,iron-based,Ni-P-Zr,0.0,0.784,0.525
+O2,other oxide,O,0.65,0.0,0.098
+Os2Rb1O6,other oxide,Os-Rb-O,6.318,3.183,4.172
+Os2U1,heavy-fermion,Os-U,0.0,0.192,0.199
+Os3.8Pr1Ru0.2Sb12,heavy-fermion,Os-Pr-Sb,1.655,1.852,2.058
+Os4Pr1Sb12,heavy-fermion,Os-Pr-Sb,1.601,1.167,1.804
+P12Pr1Ru4,heavy-fermion,P-Pr-Ru,1.8,0.0,0.045
+P2Pd2Pr1,heavy-fermion,P-Pd-Pr,0.0,0.29,0.036
+P2Pd2Yb1,heavy-fermion,P-Pd-Yb,0.0,1.418,1.334
+P4W14O50,other oxide,P-W-O,0.39,0.85,0.645
+Pb1O2,other oxide,Pb-O,0.0,0.066,0.328
+Pb1Pd2U1,heavy-fermion,Pb-Pd-U,0.0,1.132,1.353
+Pb1Pd2Yb1,heavy-fermion,Pb-Pd-Yb,2.65,0.531,0.588
+Pb3Yb1,heavy-fermion,Pb-Yb,0.23,0.848,1.304
+Pd0.003Pt2.997U1,heavy-fermion,Pt-U,0.478,0.89,0.855
+Pd0.006Pt2.994U1,heavy-fermion,Pt-U,0.41,0.995,0.855
+Pd0.009Pt2.991U1,heavy-fermion,Pt-U,0.345,0.878,0.833
+Pd0.012Pt2.988U1,heavy-fermion,Pt-U,0.24,1.041,0.843
+Pd0.03Pt2.97U1,heavy-fermion,Pt-U,0.0,1.236,1.023
+Pd0.06Pt2.94U1,heavy-fermion,Pt-U,0.0,1.571,1.032
+Pd0.15Pt2.85U1,heavy-fermion,Pt-U,0.0,1.521,0.996
+Pd2Sn1Yb1,heavy-fermion,Pd-Sn-Yb,2.225,1.368,1.414
+Pr1,heavy-fermion,Pr,0.0,0.086,0.214
+Pr1Ru2,heavy-fermion,Pr-Ru,0.0,1.627,2.402
+Pr2S3,heavy-fermion,Pr-S,0.0,0.0,0.101
+Pt3U1,heavy-fermion,Pt-U,0.523,0.0,0.0
+Pu1,heavy-fermion,Pu,0.0,0.315,0.53
+Rb0.14W1O3,other oxide,Rb-W-O,5.1,2.157,3.943
+Rb0.16W1O3,other oxide,Rb-W-O,4.95,2.157,4.243
+Rb0.18W1O3,other oxide,Rb-W-O,4.24,3.744,5.216
+Rb0.19W1O3,other oxide,Rb-W-O,5.5,3.755,5.752
+Rb0.19W1O3.001,other oxide,Rb-W-O,5.02,3.755,5.752
+Rb0.23W1O3,other oxide,Rb-W-O,3.25,3.863,4.175
+Rb0.23W1O3.05,other oxide,Rb-W-O,5.01,3.023,3.847
+Rb0.25W1O3,other oxide,Rb-W-O,0.0,2.311,3.401
+Rb0.27W1O2.93,other oxide,Rb-W-O,3.0,2.155,2.209
+Rb0.27W1O3,other oxide,Rb-W-O,1.94,2.129,2.092
+Rb0.2W1O3,other oxide,Rb-W-O,4.127,3.798,5.433
+Rb0.33W1O3,other oxide,Rb-W-O,4.985,1.639,0.756
+Re0.01Ru1.99Si2U1,heavy-fermion,Ru-Si-U,0.23,0.594,1.474
+Re1O2,other oxide,Re-O,0.0,0.0,0.0
+Re1O3,other oxide,Re-O,0.0,0.033,0.0
+Re2U1,heavy-fermion,Re-U,0.0,0.439,0.481
+Rh1Ru2U1,heavy-fermion,Rh-Ru-U,0.0,0.019,0.511
+Rh2O3,other oxide,Rh-O,0.0,0.0,0.0
+Rh2Si2U1,heavy-fermion,Rh-Si-U,1.1,1.007,0.698
+Rh3U1,heavy-fermion,Rh-U,0.0,0.132,0.249
+Rh4Sn13Yb3,heavy-fermion,Rh-Sn-Yb,7.833,0.895,0.957
+Ru0.8Sr2Ti0.2O4,other oxide,Ru-Sr-O,0.0,1.529,1.938
+Ru0.995Sr2Ti0.005O4,other oxide,Ru-Sr-O,0.0,0.52,0.985
+Ru0.999Sr2Ti0.001O4,other oxide,Ru-Sr-O,0.53,0.04,1.026
+Ru0.9Sr2Ti0.1O4,other oxide,Ru-Sr-O,0.0,1.929,0.924
+Ru1Sr2O4,other oxide,Ru-Sr-O,1.29,0.0,0.483
+Ru2Si2U1,heavy-fermion,Ru-Si-U,1.232,0.749,0.743
+Ru3U1,heavy-fermion,Ru-U,0.072,0.673,0.0
+Sb2Yb1,heavy-fermion,Sb-Yb,1.3,0.129,1.604
+Si1U1,heavy-fermion,Si-U,0.0,0.163,0.133
+Si1U3,heavy-fermion,Si-U,0.0,0.336,0.173
+Si2U1,heavy-fermion,Si-U,0.0,0.143,0.08
+Si2U3,heavy-fermion,Si-U,0.0,0.257,0.179
+Si3U1,heavy-fermion,Si-U,0.0,0.106,0.238
+Sn0.19W1O3,other oxide,Sn-W-O,0.0,2.839,0.958
+Sn0.21W1O3,other oxide,Sn-W-O,0.0,2.813,1.246
+Sn1O1,other oxide,Sn-O,2.605,0.222,0.492
+Sn2O3,other oxide,Sn-O,0.0,0.814,0.758
+Sn3U1,heavy-fermion,Sn-U,0.0,0.443,0.197
+Sn3Yb1,heavy-fermion,Sn-Yb,3.6,0.248,0.527
+Sr1Ti0.97Zr0.03O3,other oxide,Sr-Ti-O,0.3,0.003,0.437
+Sr1Ti1O3,other oxide,Sr-Ti-O,0.504,0.026,0.0
+Sr4V3O9.44,other oxide,Sr-V-O,0.0,1.013,0.196
+Sr4V3O9.49,other oxide,Sr-V-O,0.0,1.317,0.196
+Sr4V3O9.51,other oxide,Sr-V-O,0.0,1.317,0.163
+Sr4V3O9.73,other oxide,Sr-V-O,0.0,1.455,0.431
+Sr4V3O9.8,other oxide,Sr-V-O,0.0,1.296,0.116
+Ti1O0.86,other oxide,Ti-O,0.47,4.834,0.398
+Ti1O0.91,other oxide,Ti-O,0.7,6.198,0.535
+Ti1O0.92,other oxide,Ti-O,0.72,5.243,0.535
+Ti1O0.95,other oxide,Ti-O,0.8,5.742,0.819
+Ti1O1,other oxide,Ti-O,0.72,2.131,0.819
+Ti1U2,heavy-fermion,Ti-U,0.0,0.868,1.181
+Ti2O3,other oxide,Ti-O,0.0,0.921,0.344
+Tl0.03W1O3,other oxide,Tl-W-O,2.07,0.88,1.288
+Tl0.3W1O3,other oxide,Tl-W-O,2.0,0.397,0.985
+Tl2O3,other oxide,Tl-O,0.0,0.938,0.485
+U1,heavy-fermion,U,0.582,0.414,0.332
+U1O2,heavy-fermion,U-O,0.0,0.0,0.055
+V2O3,other oxide,V-O,0.0,0.844,0.834
+V3Zr3O1,other oxide,V-Zr-O,7.5,0.681,1.79
+W1O2,other oxide,W-O,0.0,0.202,0.0
+W1O3,other oxide,W-O,0.0,0.035,0.0
+W3O1,other oxide,W-O,1.675,0.327,0.43
+Yb1,heavy-fermion,Yb,0.0,0.186,0.154

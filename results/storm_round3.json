@@ -1,0 +1,362 @@
+{
+  "run_at": "2026-10-30T22:59:37-05:00",
+  "commit": "5392471",
+  "round": 3,
+  "model": "Storm",
+  "version": "3.0",
+  "base": "Storm 1.0",
+  "designer": "AI agent (Claude) proposed the calibration maps: linear and monotone maps on log(1 + Tc), an Allen-Dynes physics map with a rescaled \u03bb and an effective \u03bc*, a spin-fluctuation term and a gradient-boosting correction",
+  "data": {
+    "source": "3DSC_MP conventional classes (Other, Chevrel, Carbon), not synthetically doped, matched to Alexandria by composition; polymorphs pooled (median)",
+    "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+    "n_matched": 298,
+    "n_sc": 168,
+    "n_groups": 269,
+    "inputs": "Storm 1.0 out-of-fold predictions of Tc, \u03bb and \u03c9_log (never the DFT labels)"
+  },
+  "selection": "5-fold GroupKFold by chemical system on the matched set",
+  "rule": "release the lowest-error map that beats uncalibrated Storm 1.0 on average and in at least 4 of 5 folds, with at least 25 matched materials",
+  "caveat": "SuperCon Tc is averaged over reports, a composition can stand for several polymorphs, and non-superconducting entries are only as good as the lowest temperature measured",
+  "scikit_learn": "1.9.1",
+  "leaderboard": [
+    {
+      "id": "K5",
+      "name": "Gradient-boosting correction",
+      "about": "small trees learn log(1 + Tc_measured) - log(1 + Tc_Storm) from Storm's outputs and composition",
+      "mae": 1.6087417045499912,
+      "mae_sc": 2.5009795361525065,
+      "mae_log": 0.4781137995576168,
+      "fold_mae": [
+        1.5154057800316356,
+        1.399375703727688,
+        2.102643169347963,
+        1.512421529747112,
+        1.5106216697352632
+      ],
+      "folds_better": 5
+    },
+    {
+      "id": "K4",
+      "name": "Physics map + spin-fluctuation term",
+      "about": "as the physics map, with \u03bc* raised by \u03b3 times the share of magnetic 3d atoms (paramagnons)",
+      "mae": 1.8365321780978403,
+      "mae_sc": 2.8956232659805106,
+      "mae_log": 0.5363370920808386,
+      "fold_mae": [
+        1.7328576250737038,
+        1.5647091953900387,
+        2.3863300303279718,
+        1.848179523069826,
+        1.6476302739751483
+      ],
+      "folds_better": 5
+    },
+    {
+      "id": "K3",
+      "name": "Physics map: rescaled \u03bb and an effective \u03bc*",
+      "about": "Tc = Allen-Dynes(\u03b1 \u03bb, \u03c9_log, \u03bc*) with Storm's predicted \u03bb and \u03c9_log; \u03b1 and \u03bc* are fitted",
+      "mae": 1.8781431644409132,
+      "mae_sc": 3.030997861313407,
+      "mae_log": 0.5638669077558677,
+      "fold_mae": [
+        1.7610795101466437,
+        1.6038299786650034,
+        2.5106301019612194,
+        1.6791618868161684,
+        1.8319277327943408
+      ],
+      "folds_better": 5
+    },
+    {
+      "id": "K2",
+      "name": "Monotone map (isotonic regression)",
+      "about": "any increasing map from Storm's Tc to measured Tc, so a higher prediction never means a lower Tc",
+      "mae": 1.8950568565400383,
+      "mae_sc": 2.742298652618924,
+      "mae_log": 0.5906063113709834,
+      "fold_mae": [
+        1.6456892171242172,
+        1.694428493072316,
+        2.3717724687788073,
+        1.7472318429891467,
+        2.01570938600087
+      ],
+      "folds_better": 5
+    },
+    {
+      "id": "K1",
+      "name": "Linear map on log(1 + Tc)",
+      "about": "log(1 + Tc_measured) = a + b log(1 + Tc_Storm): corrects a systematic over- or underestimate",
+      "mae": 1.89982901552253,
+      "mae_sc": 2.738033360083006,
+      "mae_log": 0.5860845988501707,
+      "fold_mae": [
+        1.6553857588344998,
+        1.7609505545142,
+        2.336405905719658,
+        1.8328302107753651,
+        1.91267001772654
+      ],
+      "folds_better": 5
+    },
+    {
+      "id": "K0",
+      "name": "Storm 1.0, uncalibrated (reference)",
+      "about": "Storm's prediction of the DFT Allen-Dynes Tc, taken as the measured Tc",
+      "mae": 2.236834654764162,
+      "mae_sc": 2.985048051175499,
+      "mae_log": 0.6366529829329932,
+      "fold_mae": [
+        1.9354170156174006,
+        2.0687836342239736,
+        2.631037501029287,
+        2.120201425095017,
+        2.4300093896080455
+      ],
+      "folds_better": 0
+    }
+  ],
+  "best": {
+    "id": "K5",
+    "name": "Gradient-boosting correction",
+    "about": "small trees learn log(1 + Tc_measured) - log(1 + Tc_Storm) from Storm's outputs and composition",
+    "mae": 1.6087417045499912,
+    "mae_sc": 2.5009795361525065,
+    "mae_log": 0.4781137995576168,
+    "fold_mae": [
+      1.5154057800316356,
+      1.399375703727688,
+      2.102643169347963,
+      1.512421529747112,
+      1.5106216697352632
+    ],
+    "folds_better": 5
+  },
+  "adopted": true,
+  "params": {},
+  "physics_fits": {
+    "K3": {
+      "alpha": 0.52,
+      "mu_star": 0.04,
+      "gamma": 0.0
+    },
+    "K4": {
+      "alpha": 0.62,
+      "mu_star": 0.05,
+      "gamma": 0.2
+    }
+  },
+  "dft_mae": 2.476304697516538,
+  "reference_mae": 2.236834654764162,
+  "reference_fold_mae": [
+    1.9354170156174006,
+    2.0687836342239736,
+    2.631037501029287,
+    2.120201425095017,
+    2.4300093896080455
+  ],
+  "shortfalls": [
+    {
+      "name": "AlV3",
+      "tc_exp": 16.9,
+      "storm": 1.29,
+      "calibrated": 0.48,
+      "dft": 9.75,
+      "dft_lambda": 0.77,
+      "reports": 1,
+      "polymorphs": 2
+    },
+    {
+      "name": "V3Ga",
+      "tc_exp": 14.32,
+      "storm": 1.89,
+      "calibrated": 0.38,
+      "dft": 2.82,
+      "dft_lambda": 0.514,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "LuNi2B2C",
+      "tc_exp": 15.88,
+      "storm": 2.51,
+      "calibrated": 2.01,
+      "dft": 6.19,
+      "dft_lambda": 0.603,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "YNi2B2C",
+      "tc_exp": 14.18,
+      "storm": 3.22,
+      "calibrated": 1.16,
+      "dft": 4.0,
+      "dft_lambda": 0.508,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "Li2Ca",
+      "tc_exp": 13.0,
+      "storm": 0.23,
+      "calibrated": 0.01,
+      "dft": 0.0,
+      "dft_lambda": 0.212,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "MoC",
+      "tc_exp": 10.15,
+      "storm": 0.55,
+      "calibrated": 0.1,
+      "dft": 0.0,
+      "dft_lambda": 0.188,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "Zr2Rh",
+      "tc_exp": 11.18,
+      "storm": 2.09,
+      "calibrated": 1.35,
+      "dft": 11.1,
+      "dft_lambda": 1.25,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "NbRu3",
+      "tc_exp": 13.5,
+      "storm": 7.37,
+      "calibrated": 3.73,
+      "dft": 8.83,
+      "dft_lambda": 0.759,
+      "reports": 1,
+      "polymorphs": 2
+    },
+    {
+      "name": "Nb3Sn",
+      "tc_exp": 16.71,
+      "storm": 7.62,
+      "calibrated": 8.17,
+      "dft": 13.68,
+      "dft_lambda": 1.374,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "NbSiAs",
+      "tc_exp": 8.2,
+      "storm": 0.51,
+      "calibrated": 0.43,
+      "dft": 0.01,
+      "dft_lambda": 0.239,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "NbC",
+      "tc_exp": 10.03,
+      "storm": 2.88,
+      "calibrated": 2.95,
+      "dft": 13.1,
+      "dft_lambda": 0.723,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "Nb3Au",
+      "tc_exp": 10.16,
+      "storm": 6.48,
+      "calibrated": 3.32,
+      "dft": 4.17,
+      "dft_lambda": 0.612,
+      "reports": 1,
+      "polymorphs": 2
+    }
+  ],
+  "overshoots": [
+    {
+      "name": "YB2Ru3",
+      "tc_exp": 0.0,
+      "storm": 6.82,
+      "calibrated": 3.89,
+      "dft": 6.53,
+      "dft_lambda": 0.739,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "LaAsRh",
+      "tc_exp": 0.0,
+      "storm": 1.19,
+      "calibrated": 2.28,
+      "dft": 6.82,
+      "dft_lambda": 0.968,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "La3SnC",
+      "tc_exp": 0.0,
+      "storm": 2.78,
+      "calibrated": 2.22,
+      "dft": 9.37,
+      "dft_lambda": 0.989,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "VRu",
+      "tc_exp": 0.0,
+      "storm": 8.29,
+      "calibrated": 2.2,
+      "dft": 6.46,
+      "dft_lambda": 0.683,
+      "reports": 1,
+      "polymorphs": 1
+    },
+    {
+      "name": "Ti2GaMo",
+      "tc_exp": 0.0,
+      "storm": 3.53,
+      "calibrated": 2.16,
+      "dft": 0.75,
+      "dft_lambda": 0.377,
+      "reports": 1,
+      "polymorphs": 3
+    },
+    {
+      "name": "Zr3Sc",
+      "tc_exp": 0.0,
+      "storm": 7.61,
+      "calibrated": 1.96,
+      "dft": 11.23,
+      "dft_lambda": 1.033,
+      "reports": 1,
+      "polymorphs": 4
+    },
+    {
+      "name": "Zr3In",
+      "tc_exp": 0.0,
+      "storm": 3.13,
+      "calibrated": 1.72,
+      "dft": 2.43,
+      "dft_lambda": 0.522,
+      "reports": 1,
+      "polymorphs": 3
+    },
+    {
+      "name": "CrRh",
+      "tc_exp": 0.0,
+      "storm": 7.1,
+      "calibrated": 1.66,
+      "dft": 5.17,
+      "dft_lambda": 0.574,
+      "reports": 1,
+      "polymorphs": 1
+    }
+  ]
+}
