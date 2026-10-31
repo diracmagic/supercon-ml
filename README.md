@@ -17,10 +17,10 @@ Questions, ideas and collaboration are welcome by email; bugs and feature reques
 
 The app shows every stage, the training results, our three models and the GitHub Actions runs as they happen, with the details of each model's latest round. It also has five other views:
 
-- **AI × superconductors**: new papers and news on machine learning, AI agents and autonomous labs for superconductors, newest first and checked again every ten minutes while the view is open, plus our AI-designed models and a curated list of AI advances.
 - **Physics demos**, starting with *Hello Super*, a 90-second animated tour of the project, and *Our AI model: Storm* and *Our AI model: Hurricane*, animations of the two models our AI agent designed, drawn from their own results. Demos of zero resistance, the Meissner effect, Cooper pairs and the Allen–Dynes formula follow.
 - **Theory & materials**: the main theories of superconductivity, the classic ideas for high-T<sub>c</sub> superconductivity in the cuprates and the materials behind today's headlines, each with an animation, the original papers and the latest results, plus the Nobel Prizes for superconductivity.
 - **News & papers**: superconductivity news, each story with a drawing of its topic, and new papers from arXiv, Nature, Science, Physical Review and the Nature-family journals, refreshed every three hours, plus a curated list of recent advances in experiment, theory and AI for superconductivity.
+- **AI × superconductors**: new papers and news on machine learning, AI agents and autonomous labs for superconductors, newest first and checked again every ten minutes while the view is open, plus our AI-designed models and a curated list of AI advances.
 - **Authors**: who is behind the project, how to reach us, and where the data come from.
 
 New results, papers and curated advances reach the app without an update, because it reads `progress/progress.json`, `progress/papers.json` and `progress/content.json` from this repository. The desktop app tells you when a new version is out, and the phone version updates itself.
@@ -70,7 +70,7 @@ The AI agent proposed nine designs in round 1. The physics features come from wh
 
 ## What the project does
 
-**Conventional superconductors (electron–phonon).** The models predict the electron–phonon coupling λ, the logarithmic phonon frequency ω<sub>log</sub> and the Allen–Dynes T<sub>c</sub>, recomputed with a single μ* = 0.10. Training data are about 8,250 Alexandria electron–phonon calculations and 1,058 from JARVIS, split by composition so that near-duplicates never straddle train and test. The 626 dynamically stable JARVIS materials form a locked test set that is evaluated once.
+**Conventional superconductors (electron–phonon).** The models predict the electron–phonon coupling λ, the logarithmic phonon frequency ω<sub>log</sub> and the Allen–Dynes T<sub>c</sub>, recomputed with a single μ* = 0.10. They learn from about 8,250 Alexandria electron–phonon calculations (7,582 after cleaning), and cross-validation holds out whole chemical systems so that near-duplicates never straddle train and test. The 1,058 JARVIS calculations are kept out of training: the 626 dynamically stable ones form a locked test set that is evaluated once.
 
 **Unconventional superconductors (measured T<sub>c</sub>): Hurricane.** Experimental T<sub>c</sub> for cuprates, nickelates, iron-based, heavy-fermion and other families comes from 3DSC, a SuperCon-derived dataset that includes crystal structures, and later discoveries are graded for reliability. No first-principles theory supplies labels here, so Hurricane learns empirical trends, and leave-one-family-out tests measure how far it transfers to families it hasn't seen.
 
@@ -94,7 +94,7 @@ The training data are downloaded when the models train and are not stored in thi
 | [Crossref](https://www.crossref.org/documentation/retrieve-metadata/rest-api/rest-api-metadata-license-information/) and journal feeds | Journal papers in the feed | Bibliographic metadata; abstracts remain the publishers' or authors' copyright, so the feed keeps only their first sentence and links to the paper | |
 | News feeds: Nature News, ScienceDaily, Phys.org, Physics World, APS Physics, Quanta Magazine | The news list | Headlines and a short summary from each public feed, always linked to the story | |
 
-The desktop app is built with [Tauri](https://tauri.app/) and other open-source Rust crates under MIT, Apache-2.0 and similar licences. `app/scripts/third-party-notices.mjs` lists them with their licence texts and copyright notices; the list ships inside the installers and with every release as `THIRD-PARTY-NOTICES.txt`. The app's own interface, `app/dist/index.html`, contains no third-party code.
+The desktop app is built with [Tauri](https://tauri.app/) and other open-source Rust crates under MIT, Apache-2.0, MPL-2.0 and similar licences. `app/scripts/third-party-notices.mjs` lists them with their licence texts and copyright notices; the list ships inside the installers and with every release as `THIRD-PARTY-NOTICES.txt`. The app's own interface, `app/dist/index.html`, contains no third-party code.
 
 ## Published baselines
 
@@ -112,7 +112,7 @@ Each paper uses its own data split, so these numbers are a reference point rathe
 
 - `progress/progress.json`: stages, activity log and results. The desktop app and the progress badge read this file.
 - `progress/content.json`: curated recent advances with their papers, which the app adds to its own list without an update.
-- `ml/pipeline.py`: downloads the data, trains the models and updates the progress file; `ml/storm3.py` is Storm's calibration round and `ml/hurricane.py` is Hurricane. `.github/workflows/train.yml` runs them on GitHub Actions.
+- `ml/pipeline.py`: downloads the data, trains the models and updates the progress file; `ml/storm3.py` is Storm's calibration round, `ml/hurricane.py` is Hurricane and `ml/gnn.py` is the graph neural network. `.github/workflows/train.yml` runs them on GitHub Actions.
 - `data/`: graded measured T<sub>c</sub> used only for checks (`experiments.json` for Storm, `hurricane_anchors.json` for Hurricane).
 - `feed/papers.py`: collects new superconductivity papers and news, and the AI × superconductors list, into `progress/papers.json`; `.github/workflows/papers.yml` runs it every three hours.
 - `results/`: metrics and predictions from the latest training run.
