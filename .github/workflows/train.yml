@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       stages:
-        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane radar gnn gnn2 storm4 gnnsmoke)
+        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane radar gnn gnn2 gnn2final storm4 gnnsmoke)
         default: storm3 hurricane
   push:
     branches: [main]
@@ -28,7 +28,7 @@ jobs:
     name: AI-designed models
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[train]')
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
 
@@ -46,7 +46,7 @@ jobs:
           else
             pip install -r ml/requirements.txt
           fi
-          if [[ " $STAGES " == *" gnn "* || " $STAGES " == *" gnn2 "* || " $STAGES " == *" storm4 "* || " $STAGES " == *" gnnsmoke "* ]]; then
+          if [[ " $STAGES " == *" gnn "* || " $STAGES " == *" gnn2 "* || " $STAGES " == *" gnn2final "* || " $STAGES " == *" storm4 "* || " $STAGES " == *" gnnsmoke "* ]]; then
             pip install "jax[cpu]" optax
           fi
 
@@ -98,6 +98,10 @@ jobs:
       - name: Graph neural network, round 2 (AI-designed search, same folds)
         if: always() && contains(format(' {0} ', env.STAGES), ' gnn2 ')
         run: python ml/pipeline.py gnn2
+
+      - name: Graph neural network, round 2 final check (the selected design trained like version 1.0)
+        if: always() && contains(format(' {0} ', env.STAGES), ' gnn2final ')
+        run: python ml/pipeline.py gnn2final
 
       - name: Storm, round 4 (Storm 1.0 and the graph network together)
         if: always() && contains(format(' {0} ', env.STAGES), ' storm4 ')
