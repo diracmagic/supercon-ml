@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       stages:
-        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane hurricane2 hurricane3 radar gnn gnn2 gnn2final storm4 storm5 screen gnnsmoke)
-        default: hurricane3 screen
+        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane hurricane2 hurricane3 hurricane4 radar gnn gnn2 gnn2final storm4 storm5 screen gnnsmoke)
+        default: hurricane4 screen
   push:
     branches: [main]
     paths:
@@ -21,7 +21,7 @@ concurrency:
 env:
   # A push to ml/ trains only when its commit message contains [train], so a change spread over several commits
   # runs once; it then runs the current rounds. Earlier stages can be re-run by hand.
-  STAGES: ${{ inputs.stages || 'hurricane3 screen' }}
+  STAGES: ${{ inputs.stages || 'hurricane4 screen' }}
   # Fixed string hashing, so that the order of a set can never change the results from one run to the next.
   PYTHONHASHSEED: '0'
 
@@ -92,6 +92,10 @@ jobs:
       - name: Hurricane, round 3 (fewer false alarms outside the training data)
         if: always() && contains(format(' {0} ', env.STAGES), ' hurricane3 ')
         run: python ml/pipeline.py hurricane3
+
+      - name: Hurricane, round 4 (not known instead of unlikely outside the training data)
+        if: always() && contains(format(' {0} ', env.STAGES), ' hurricane4 ')
+        run: python ml/pipeline.py hurricane4
 
       - name: Radar, the router between Storm and Hurricane (round 1)
         if: always() && contains(format(' {0} ', env.STAGES), ' radar ')
