@@ -603,6 +603,25 @@ def anchor_check(models, c: dict, table: pd.DataFrame, elements: list, n_cols: d
 # ---------------------------------------------------------------- progress
 
 
+def ai_stage(prog: dict) -> None:
+    """Keep the "AI-designed models" stage in step with the models in use (also called by Storm round 3)."""
+    am = prog.get("ai_model") or {}
+    cal = am.get("calibration") or {}
+    cur = am.get("current", "1.0")
+    parts = [f"Storm {cal['version']} for conventional superconductors (Storm {cur} calibrated to measured Tc)"
+             if cal.get("status") == "adopted" and cal.get("version") else f"Storm {cur} for conventional superconductors"]
+    hu = prog.get("hurricane") or {}
+    if hu.get("current"):
+        parts.append(f"Hurricane {hu['current']} for unconventional ones")
+    detail = " and ".join(parts) + (" are" if len(parts) > 1 else " is") + " in use"
+    if hu and not hu.get("current"):
+        detail += "; Hurricane, for unconventional superconductors, is experimental"
+    detail += "; Radar, which picks the model for each material, comes next"
+    for st in prog.get("stages", []):
+        if st.get("id") == "ai-models":
+            st["detail"] = detail
+
+
 def update_progress(out: dict) -> None:
     prog = json.loads(P.PROGRESS.read_text(encoding="utf-8"))
     stamp = P.now_iso()
@@ -692,6 +711,7 @@ def update_progress(out: dict) -> None:
     fam.append({"id": "hurricane", "status": f"{MODEL} {ver} in use" if out["adopted"] else f"{MODEL} {ver}, experimental",
                 "active": bool(out["adopted"]), "text": text})
     prog["model_family"] = fam
+    ai_stage(prog)
     P.tidy(prog)
     P.add_log(prog, stamp, f"{MODEL} {ver}, the AI-designed model for unconventional superconductors (round {ROUND}, "
                            f"{len(out['leaderboard'])} candidates): measured-Tc MAE {sc['tc_mae']:.2f} K against "
