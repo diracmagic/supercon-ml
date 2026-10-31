@@ -1,6 +1,12 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.3.8 adds:
+Version 0.3.9 adds:
+
+- **Hurricane 4.0, “not known” instead of “unlikely”**: far from everything it learned from, Hurricane now answers “not known” and gives no chance, and its classifier keeps only the 218 compounds with no superconductivity record that lie near its training data. Trained without a whole family, Hurricane 3.0 called 88% of that family’s superconductors unlikely and Hurricane 4.0 calls 28% unlikely, still with no false alarms and an error on measured T<sub>c</sub> of 10.4 K (Hurricane 3.0: 10.3 K). It does not find a new family either: it answers “not known” for most of one (64%) and gives at least an even chance to 8% (Hurricane 2.0: 47%). The model details show, for every family left out, how much it found, left open and called unlikely, and where the distance falls short: most cuprates look like the families it learned from, so a model that never saw one still calls 69% of them unlikely, and the refuted LK-99 now gets a 94% chance (Hurricane 3.0: 78%).
+- **Screening round 4**: Hurricane judges only the compounds near its training data, 75 of the 354 that Radar sends it; the other 279 get no chance and are counted, not listed. The list says which numbers come from cross-validation and which from the model trained on all of its data: in cross-validation none of the held-out compounds with no record reached an even chance, while on the list one compound does (61%). It is a prediction that nothing has checked.
+- **Model details on phones**: the tables fit the screen, with column heads that wrap instead of scrolling sideways, and a chance just under one half reads 49.9% instead of 50%.
+
+Version 0.3.8 added:
 
 - **Hurricane 3.0, fewer false alarms**: Hurricane now also learns from 1,714 compounds that nobody has reported as superconducting, counted as probably not superconducting, as Konno et al. did in 2021 (Phys. Rev. B 103, 014509). Of the compounds of that kind that it never saw, Hurricane 2.0 gave 39% at least an even chance of superconducting and Hurricane 3.0 gives none, with the same error on measured T<sub>c</sub> (10.3 K). The model details show the price as well: it is now slow to recognize a family of superconductors it has never seen.
 - **Screening round 3**: the unconventional list is ranked by Hurricane 3.0, and no compound on it is more likely than not to superconduct. The materials Hurricane is checked against, such as UTe<sub>2</sub> and CsV<sub>3</sub>Sb<sub>5</sub>, now count as known too, so they can never appear among our finds.
