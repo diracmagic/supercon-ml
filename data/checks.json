@@ -1,0 +1,67 @@
+{
+  "about": "Checks on the candidates our models proposed: measurements and calculations that someone has already done, hits and misses alike. A candidate stays on the list with its check attached, so that a wrong prediction is visible next to the prediction. This is the opposite of data/prior_claims.json, which holds superconductors reported by others and takes a material off the list altogether. A \"formula\" matches a material with the same elements and every share within 2 at.%. Each entry says only what its source says: where a paper reports a measurement but never uses the words \"not superconducting\", the note says what was measured and that no transition is reported.",
+  "updated": "2026-10-31",
+  "sources": {
+    "asaba2024": {
+      "cite": "T. Asaba et al., Nat. Commun. 15, 3861 (2024)",
+      "doi": "10.1038/s41467-024-47875-4",
+      "quote": "In this configuration, YbCoIn5 and YbRhIn5 act as conventional non-superconducting metals"
+    },
+    "shimozawa2012": {
+      "cite": "M. Shimozawa et al., Phys. Rev. B 86, 144526 (2012)",
+      "doi": "10.1103/PhysRevB.86.144526",
+      "quote": "YbCoIn5 is a conventional nonmagnetic metal with no superconducting transition down to 20 mK"
+    },
+    "cho2008": {
+      "cite": "J. Y. Cho et al., Chem. Mater. 20, 6116 (2008)",
+      "doi": "10.1021/cm801693t",
+      "quote": "Ce2NiGa12 orders antiferromagnetically at 10 K"
+    },
+    "karaki1996": {
+      "cite": "Y. Karaki et al., Czech. J. Phys. 46, 2209 (1996)",
+      "doi": "10.1007/BF02571096",
+      "quote": "has been measured in the temperature range between 0.07 mK and 10 mK"
+    }
+  },
+  "materials": [
+    {
+      "formula": "YbRhIn5",
+      "kind": "experiment",
+      "superconducts": false,
+      "ref": "asaba2024",
+      "note": "Grown as single crystals and used as the non-superconducting layers of a CeCoIn5 superlattice, which is the strongest statement an experiment can make about it: the paper calls YbRhIn5 a conventional non-superconducting metal. Ytterbium is divalent here, so the compound has none of the local moments that CeRhIn5 superconducts with."
+    },
+    {
+      "formula": "YbCoIn5",
+      "kind": "experiment",
+      "superconducts": false,
+      "below": 0.02,
+      "ref": "asaba2024",
+      "note": "The same superlattice work calls YbCoIn5 a conventional non-superconducting metal; no superconducting transition down to 20 mK has been reported (Phys. Rev. B 86, 144526 (2012), doi:10.1103/PhysRevB.86.144526)."
+    },
+    {
+      "formula": "Ce2CuGa12",
+      "kind": "experiment",
+      "superconducts": false,
+      "below": 0.35,
+      "ref": "cho2008",
+      "note": "Single crystals measured by susceptibility, resistivity and specific heat from 0.35 K: a sharp specific-heat peak near 1.8 K marks antiferromagnetic order, and no superconducting transition is reported in that range."
+    },
+    {
+      "formula": "Ce2NiGa12",
+      "kind": "experiment",
+      "superconducts": false,
+      "below": 0.35,
+      "ref": "cho2008",
+      "note": "The same work: antiferromagnetic order at 10 K, specific heat measured from 0.35 K, and no superconducting transition reported in that range."
+    },
+    {
+      "formula": "PrIn3",
+      "kind": "experiment",
+      "superconducts": false,
+      "below": 0.0001,
+      "ref": "karaki1996",
+      "note": "Specific heat measured from 0.07 mK to 10 mK, with a nuclear magnetic ordering anomaly at 0.13 mK and no superconducting transition reported; PrIn3 is a van Vleck paramagnet with a non-magnetic crystal-field ground state."
+    }
+  ]
+}
