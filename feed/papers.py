@@ -64,6 +64,15 @@ AI_PATTERN = (r"machine[- ]learn|deep[- ]learn|neural[- ]network|graph neural|ne
               r"autonomous (?:lab|laborator|experiment|discovery|agent)|self-driving lab|foundation model|"
               r"artificial intelligence")
 AI_CAPS = r"\bAI\b|\bLLMs?\b|\bAI-(?:driven|guided|designed|assisted|based)"   # matched case-sensitively
+# quantum-computing and superconducting-electronics papers that mention machine learning are not about materials
+AI_DEVICE = (r"qubit|transmon|fluxonium|quantum (?:processor|computer|computing|circuit|device|error|state discrimination|"
+             r"memory|router|neural network|generative)|circuit QED|readout|superconducting (?:logic|circuit|electronics|"
+             r"detector|nanowire|resonator|cavit|digital|qubit|perceptron|neural)|SNSPD|single-photon|"
+             r"cryogenic (?:computing|electronics)|neuromorphic|perceptron|spiking")
+AI_TITLE = AI_PATTERN + r"|\bneural\b|\blearning\b|transformer|data-driven|\bagents?\b"
+SC_TITLE = r"supercond|electron-phonon|electron–phonon|\bpairing\b|Cooper|Eliashberg"
+AI_CATS = ("cond-mat", "physics.comp-ph", "physics.chem-ph", "physics.app-ph", "cs.LG", "cs.AI", "cs.CL", "cs.IR",
+           "stat.ML", "hep-th")
 AI_QUERY = ('(ti:superconductor OR ti:superconductors OR ti:superconductivity OR ti:superconducting OR '
             'abs:superconductor OR abs:superconductors OR abs:superconductivity OR abs:superconducting) AND '
             '(abs:"machine learning" OR abs:"deep learning" OR abs:"neural network" OR abs:"neural networks" OR '
@@ -173,9 +182,23 @@ def short_authors(names: list) -> list:
     return names[:3] + (["et al."] if len(names) > 3 else [])
 
 
-def is_ai(text: str) -> bool:
-    """True when a title and abstract (or a story) mention superconductivity together with AI or machine learning."""
-    return bool(re.search(r"supercond", text, re.I) and (re.search(AI_PATTERN, text, re.I) or re.search(AI_CAPS, text)))
+def is_ai(x: dict) -> bool:
+    """True for a paper or story about AI or machine learning for superconductivity: it names an AI method, is not
+    about quantum devices, and has superconductivity in the title, or in the text with AI or pairing in the title."""
+    title = x.get("title", "")
+    text = title + " " + x.get("abstract", x.get("summary", ""))
+    if not (re.search(AI_PATTERN, text, re.I) or re.search(AI_CAPS, text)):
+        return False
+    if re.search(AI_DEVICE, text, re.I) or re.search(EXCLUDE, title, re.I):
+        return False
+    cat = x.get("category", "")
+    if x.get("source") == "arXiv" and cat and not cat.startswith(AI_CATS):
+        return False
+    if re.search(r"supercond", title, re.I):
+        return True
+    if not (re.search(r"superconductors?\b|superconductivity|critical temperatures?", text, re.I) or re.search(r"\bT_?c\b", text)):
+        return False
+    return bool(re.search(AI_TITLE, title, re.I) or re.search(AI_CAPS, title) or re.search(SC_TITLE, title, re.I))
 
 
 def fetch_arxiv(query: str = "cat:cond-mat.supr-con", max_results: int = ARXIV_MAX) -> list:
@@ -385,9 +408,8 @@ def main() -> int:
     pool += [dict(x, kind_of="news") for x in feed["news"]]
     seen_ai, ai = set(), []
     for x in sorted(pool, key=lambda x: x.get("date", ""), reverse=True):
-        text = x.get("title", "") + " " + x.get("abstract", x.get("summary", ""))
         key = x.get("doi") or x.get("id") or x.get("url")
-        if key in seen_ai or not is_ai(text) or re.search(EXCLUDE, x.get("title", ""), re.I):
+        if key in seen_ai or not is_ai(x):
             continue
         seen_ai.add(key)
         ai.append(x)
