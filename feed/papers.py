@@ -1,5 +1,6 @@
 """Live paper and news feed for the app: new superconductivity papers from arXiv and from Nature,
-Science, Physical Review Letters and Physical Review X, plus superconductivity news from science-news sites.
+Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review
+Letters and Physical Review X, plus superconductivity news from Nature and science-news sites.
 
 Run from the repository root:  python feed/papers.py
 It writes progress/papers.json, which the app reads. Only the standard library is used.
@@ -8,8 +9,9 @@ Sources:
     abstracts, is offered under CC0.
   - Crossref REST API, filtered by journal ISSN and publication date; titles are matched for
     superconductivity. Abstracts are shown only when the publisher deposited one with Crossref.
-  - News: the RSS feeds of ScienceDaily, Phys.org, Physics World, APS Physics and Quanta Magazine,
-    keeping items that mention superconductivity. Only the headline, a short snippet and the link are kept.
+  - News: the RSS feeds of Nature (news and comment only), ScienceDaily, Phys.org, Physics World,
+    APS Physics and Quanta Magazine, keeping items that mention superconductivity. Only the headline,
+    a short snippet and the link are kept.
 Topic and type tags are assigned automatically from keywords, so they are a rough guide.
 """
 from __future__ import annotations
@@ -37,9 +39,14 @@ JOURNALS = [
     ("Science", "Science", ["0036-8075", "1095-9203"]),
     ("PRL", "Phys. Rev. Lett.", ["0031-9007", "1079-7114"]),
     ("PRX", "Phys. Rev. X", ["2160-3308"]),
+    ("Nat. Phys.", "Nature Physics", ["1745-2473", "1745-2481"]),
+    ("Nat. Mater.", "Nature Materials", ["1476-1122", "1476-4660"]),
+    ("Nat. Commun.", "Nature Communications", ["2041-1723"]),
+    ("npj Quantum Mater.", "npj Quantum Materials", ["2397-4648"]),
 ]
 ABSTRACT_MAX = 1400
 NEWS_FEEDS = [
+    ("Nature News", "https://www.nature.com/nature.rss"),   # RSS 1.0; research papers there come from Crossref instead
     ("ScienceDaily", "https://www.sciencedaily.com/rss/matter_energy/superconductors.xml"),
     ("Phys.org", "https://phys.org/rss-feed/physics-news/superconductivity/"),
     ("Physics World", "https://physicsworld.com/feed/"),
@@ -250,26 +257,36 @@ def parse_date(s: str) -> str:
         return m.group(1) if m else ""
 
 
+RSS1 = "{http://purl.org/rss/1.0/}"
+CONTENT = "{http://purl.org/rss/1.0/modules/content/}"
+DC = "{http://purl.org/dc/elements/1.1/}"
+
+
 def fetch_news(name: str, url: str) -> list:
     root = ET.fromstring(get(url))
     atom = "{http://www.w3.org/2005/Atom}"
-    entries = root.findall(".//item") or root.findall(f".//{atom}entry")
+    entries = root.findall(".//item") or root.findall(f".//{RSS1}item") or root.findall(f".//{atom}entry")
     since = (dt.date.today() - dt.timedelta(days=NEWS_DAYS)).isoformat()
     items = []
     for e in entries:
         def text(tag):
-            el = e.find(tag)
-            if el is None:
-                el = e.find(atom + tag)
-            return el.text if el is not None and el.text else ""
+            for t in (tag, RSS1 + tag, atom + tag):
+                el = e.find(t)
+                if el is not None and el.text:
+                    return el.text
+            return ""
         title = clean_text(text("title"))
-        desc = clean_text(text("description") or text("summary") or text("content"))
+        desc = clean_text(text("description") or text("summary") or text(CONTENT + "encoded") or text("content"))
+        # Nature's feed starts each item with "Nature, Published online: <date>; doi:<doi>"
+        desc = re.sub(r"^Nature, Published online:[^;]*;\s*doi:\S+\s*", "", desc)
         link = text("link").strip()
         if not link:
             el = e.find(atom + "link")
             link = el.get("href", "") if el is not None else ""
-        date = parse_date(text("pubDate") or text("published") or text("updated") or text("{http://purl.org/dc/elements/1.1/}date"))
+        date = parse_date(text("pubDate") or text("published") or text("updated") or text(DC + "date"))
         if not title or not link.startswith("http") or not re.search(r"supercond", title + " " + desc, re.I):
+            continue
+        if name == "Nature News" and "/d41586-" not in link:   # keep news and comment, not research papers
             continue
         if date and date < since:
             continue
@@ -343,8 +360,10 @@ def main() -> int:
         "schema": 1,
         "updated": now,
         "about": ("New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from "
-                  "Nature, Science, Physical Review Letters and Physical Review X, and superconductivity news from "
+                  "Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, "
+                  "Physical Review Letters and Physical Review X, and superconductivity news from Nature and "
                   "science-news sites, refreshed every three hours. Topic and type tags are assigned automatically."),
+        "sources": {"journals": [[s, n] for s, n, _ in JOURNALS], "news": [n for n, _ in NEWS_FEEDS]},
         "sources_ok": ok,
         "arxiv": feed["arxiv"],
         "journals": feed["journals"],
