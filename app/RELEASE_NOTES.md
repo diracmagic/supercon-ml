@@ -1,15 +1,16 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.3.1 adds:
+Version 0.3.2 adds:
 
-- **Authors**: a new view next to Progress with the people behind the project and how to reach them. The project contact is Yantao Li (liyant@iu.edu). Each author has an animated pencil-sketch portrait.
-- **Our models**: Storm for conventional superconductors, Hurricane for unconventional ones (cuprates, nickelates, iron-based, heavy-fermion and more) and Radar, which decides which model a material goes to. Hurricane will learn from measured T<sub>c</sub>, with every measurement graded from replicated to retracted.
-- **Classic high-T<sub>c</sub> mechanisms**: eight ideas for how the cuprates superconduct, from the Mott insulator, RVB and the t–J model to stripes, phase fluctuations, bipolarons and the strange metal. Each one is animated on the copper-oxide phase diagram, with the original papers and what is still open.
-- **A drawing for every news story**, matched to its topic.
-- **New-version prompt**: the desktop app tells you when a new version is out and opens the right installer; the phone version refreshes itself.
-- **Installer icon**: the Windows installer now shows the app's icon instead of a generic one.
-- **Storm 2.0, experimental**: in its second design round the AI agent tried eight designs. The best one, which adds an Allen–Dynes stage, is not better than Storm 1.0 in enough test folds, so Storm 1.0 stays in use. A new check against replicated T<sub>c</sub> measurements shows that most of Storm's remaining error comes from its DFT training labels, which sets the goal for round 3.
-- **Corrections**: references and wording checked against the papers, and each card's *Latest* list now holds results on that card's topic.
+- **AI × superconductors**: a new view with the latest papers and news on machine learning, AI agents and autonomous labs for superconductors, newest first. It checks for new items every ten minutes while it is open and marks what arrived since your last visit.
+- **Hurricane in the demos**: *Our AI model: Hurricane* animates our second AI-designed model from its own results: its 2,123 measured T<sub>c</sub> values, the nine designs the AI agent tried, the physics inside it (the cuprate doping dome), how it scores, what happens when a whole family is left out, and how it does on materials found later. The *Hello Super* tour now has a step about Hurricane too.
+- **Model details**: the Progress view shows what the latest rounds found, for Hurricane 1.0 and for Storm 3.0, Storm calibrated to measured T<sub>c</sub>.
+- **Live content**: new results, such as the Zhang–Rice singlets imaged in Ca<sub>2</sub>CuO<sub>2</sub>Cl<sub>2</sub>, a single superconducting CuO<sub>2</sub> plane and new Hubbard-model calculations, now reach the app without an update.
+- **Data and licences**: the Authors view lists where every dataset comes from and its licence, journal abstracts are cut to their first sentence with a link to the publisher, and the installers include the licences of the open-source software inside (THIRD-PARTY-NOTICES.txt).
+- **More journals**: the paper feed now also follows Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials and Nature News.
+- **Small screens**: the demos scale evenly on the narrowest phones, and taps land on the right step.
+
+Version 0.3.1 added the Authors view, our three models, the classic high-T<sub>c</sub> mechanisms, a drawing for every news story and the new-version prompt.
 
 Version 0.3.0 added Storm, the News & papers view, an animation on every Theory & materials card and the Nobel Prizes for superconductivity.
 
