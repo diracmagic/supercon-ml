@@ -64,6 +64,9 @@ CANDIDATES = [
     ("U6", "One width for each range of predicted Tc", "mondrian", False),
 ]
 BINS = (0.5, 0.75, 0.9, 0.97)   # U6: predicted-Tc quantiles that split the materials into five ranges
+# Short-lived or man-made elements are left out of the examples: nobody would make such a superconductor, and "Tc"
+# (technetium) would read as the critical temperature. Thorium and uranium, which occur in nature, stay.
+RADIOACTIVE = {"Tc", "Pm", "Po", "At", "Rn", "Fr", "Ra", "Ac", "Pa", "Np", "Pu", "Am", "Cm"}
 
 
 def cq(scores, alpha: float = ALPHA) -> float:
@@ -298,7 +301,9 @@ def run() -> None:
               f"{measured['log_width']['median_width']} K")
 
     examples, seen = [], set()
-    for i in np.argsort(-yhat):   # the five highest predictions, one per composition
+    for i in np.argsort(-yhat):   # the five highest predictions, one per composition, without short-lived elements
+        if set(train["atoms"].iloc[i]["elements"]) & RADIOACTIVE:
+            continue
         name = _name(train["atoms"].iloc[i])
         if name in seen:
             continue
