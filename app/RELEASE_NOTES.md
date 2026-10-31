@@ -1,14 +1,12 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.3.2 adds:
+Version 0.3.3 fixes:
 
-- **AI × superconductors**: a new view with the latest papers and news on machine learning, AI agents and autonomous labs for superconductors, newest first. It checks for new items every ten minutes while it is open and marks what arrived since your last visit.
-- **Hurricane in the demos**: *Our AI model: Hurricane* animates our second AI-designed model from its own results: its 2,123 measured T<sub>c</sub> values, the nine designs the AI agent tried, the physics inside it (the cuprate doping dome), how it scores, what happens when a whole family is left out, and how it does on materials found later. The *Hello Super* tour now has a step about Hurricane too.
-- **Model details**: the Progress view shows what the latest rounds found, for Hurricane 1.0 and for Storm 3.0, Storm calibrated to measured T<sub>c</sub>.
-- **Live content**: new results, such as the Zhang–Rice singlets imaged in Ca<sub>2</sub>CuO<sub>2</sub>Cl<sub>2</sub>, a single superconducting CuO<sub>2</sub> plane and new Hubbard-model calculations, now reach the app without an update.
-- **Data and licences**: the Authors view lists where every dataset comes from and its licence, journal abstracts are cut to their first sentence with a link to the publisher, and the installers include the licences of the open-source software inside (THIRD-PARTY-NOTICES.txt).
-- **More journals**: the paper feed now also follows Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials and Nature News.
-- **Small screens**: the demos scale evenly on the narrowest phones, and taps land on the right step.
+- **Storm 3.0 everywhere**: the model list, the *Hello Super* tour and the Storm demo now all name the version in use, Storm 3.0 (Storm 1.0 calibrated to measured T<sub>c</sub>), and give both of its errors: 0.97 K against computed T<sub>c</sub> and 1.61 K against measured T<sub>c</sub>.
+- **Hurricane in Our models**: the Progress view shows Hurricane 1.0 with its own results, and a button opens its demo, also from the AI × superconductors view.
+- **Licences**: the notices file now gives the standard licence text for every library that ships none and points to the full Apache-2.0 and MPL-2.0 texts; the data credits say how many of the Alexandria calculations Storm learns from.
+
+Version 0.3.2 added the AI × superconductors view, the Hurricane demo and tour step, model details, live content, the data and licences card and more journals.
 
 Version 0.3.1 added the Authors view, our three models, the classic high-T<sub>c</sub> mechanisms, a drawing for every news story and the new-version prompt.
 
