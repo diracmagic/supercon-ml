@@ -535,6 +535,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .dt-fill { display: block; height: 12px; border-radius: 3px; }
 .dt-val { font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .dt-tbl td, .dt-tbl th { font-size: 12.5px; }
+.dt-cell-sub { font-size: 11.5px; color: var(--muted); }
 .dt-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .dt-chips li { padding: 3px 9px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); font-size: 12px; }
 .dt-chips li span { color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -624,7 +625,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 (function () {
   'use strict';
 
-  var APP_VERSION = '0.3.4';
+  var APP_VERSION = '0.3.5';
   var REPO = 'diracmagic/supercon-ml';
   var BRANCH = 'main';
   var REPO_URL = 'https://github.com/' + REPO;
@@ -1740,7 +1741,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var info = stormInfo();
     if (!info) return ['Storm (AI-designed)', 'an AI agent proposes, trains and tests new designs', ['active', 'Exploring'], ''];
     var v = info.v, ok = v.status === 'adopted', cal = stormIsCurrent(info) ? stormCal() : null, ens = stormIsCurrent(info) ? stormEns() : null;
-    if (ens) return ['Storm ' + ens.version + ' · our AI model', 'designed by an AI agent, for conventional superconductors: ' + lcFirst(ens.summary),
+    var unc = ens ? stormUnc() : null;
+    if (ens) return ['Storm ' + (unc ? unc.version : ens.version) + ' · our AI model', 'designed by an AI agent, for conventional superconductors: ' + lcFirst(ens.summary) + (unc ? ', with a 90% range for every prediction' : ''),
       ['done', 'Released'], 'Tc error ' + ens.scores.tc_mae.toFixed(2) + ' K (DFT), ' + ens.calibration.mae.toFixed(2) + ' K (measured)'];
     if (cal) return ['Storm ' + cal.version + ' · our AI model', 'designed by an AI agent, for conventional superconductors: ' + lcFirst(v.summary) + ', calibrated to measured Tc',
       ['done', 'Released'], 'Tc error ' + v.scores.tc_mae.toFixed(2) + ' K (DFT), ' + cal.scores.mae.toFixed(2) + ' K (measured)'];
@@ -3216,7 +3218,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var info = stormInfo();
     if (!info) return { name: 'Storm (AI-designed)', desc: 'an agent proposes new designs', status: 'exploring', note: '' };
     var cal = stormIsCurrent(info) ? stormCal() : null, ens = stormIsCurrent(info) ? stormEns() : null;
-    return { name: (ens ? 'Storm ' + ens.version : cal ? 'Storm ' + cal.version : stormTitle(info)) + ' · our AI model', desc: 'AI-designed, conventional; error against DFT Tc', status: info.v.status === 'adopted' ? 'done' : 'exploring',
+    var unc = ens ? stormUnc() : null;
+    return { name: (unc ? 'Storm ' + unc.version : ens ? 'Storm ' + ens.version : cal ? 'Storm ' + cal.version : stormTitle(info)) + ' · our AI model', desc: 'AI-designed, conventional; error against DFT Tc', status: info.v.status === 'adopted' ? 'done' : 'exploring',
       note: (ens ? ens.scores.tc_mae : info.v.scores.tc_mae).toFixed(2) + ' K' };
   }
 
@@ -4080,8 +4083,19 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   }
   function stormEnsSentence() {
     var e = stormEns();
-    return e ? ' Round 4 combined it with a crystal-graph network: that is Storm ' + e.version + ', ' + e.scores.tc_mae.toFixed(2) + ' K off against computed Tc and ' + e.calibration.mae.toFixed(2) + ' K against experiment once calibrated.' : '';
+    return e ? ' Round 4 combined it with a crystal-graph network: that is Storm ' + e.version + ', ' + e.scores.tc_mae.toFixed(2) + ' K off against computed Tc and ' + e.calibration.mae.toFixed(2) + ' K against experiment once calibrated.' + stormUncSentence() : '';
   }
+  // Storm 5.0 and later: a 90% range around Storm 4.0's prediction (ai_model.uncertainty), when released.
+  function stormUnc() {
+    var am = state.data && state.data.ai_model, u = am && am.uncertainty;
+    return stormEns() && u && u.status === 'adopted' && u.version && u.scores && typeof u.scores.coverage === 'number' ? u : null;
+  }
+  function stormUncSentence() {
+    var u = stormUnc();
+    return u ? ' Round 5 gave every prediction a 90% range, which makes it Storm ' + u.version + ': for materials it never saw, the range held the computed Tc ' + Math.round(100 * u.scores.coverage) + '% of the time.' : '';
+  }
+  // The name of the Storm in use, from the newest release round.
+  function stormVersionInUse() { var u = stormUnc(), e = stormEns(), c = stormCal(); return u ? u.version : e ? e.version : c ? c.version : null; }
   // True when the version shown is the one in use, so the calibrated name applies to it.
   function stormIsCurrent(info) { return !!info && info.v.status === 'adopted' && info.v.version === (info.am.current || info.v.version); }
   // Round 3: Storm calibrated to measured Tc (ai_model.calibration), if it has run.
@@ -4548,7 +4562,14 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
           (dd.n_groups ? ', from ' + fmtInt(dd.n_groups) + ' parent compounds' : '') + '. ' + fmtInt(non) +
           ' of them were reported as not superconducting down to the lowest temperature measured; they teach the model where Tc falls to zero.';
       case 1:
-        var sr = v.search || {};
+        var sr = v.search || {}, pv = v.previous && typeof v.previous.tc_mae === 'number' ? v.previous : null;
+        if (pv) {   // round 2 and later: new designs built on the version in use, which is retrained on the same folds as the yardstick
+          var nNew = typeof sr.candidates === 'number' ? sr.candidates - (sr.reference_id ? 1 : 0) - (sr.previous_id ? 1 : 0) : 0;
+          return 'In round ' + v.round + ' an AI agent (Claude) proposed ' + (nNew > 0 ? nNew : 'several') + ' new designs built on Hurricane ' + pv.version +
+            ', which was retrained on the same folds as the yardstick; Model details on the Progress view lists them. ' +
+            (ok ? 'The best one beat Hurricane ' + pv.version + ' on average and in ' + pv.folds_better + ' of ' + list(pv.folds).length + ' folds and became ' + name + '.'
+              : 'A design is released only if it beats Hurricane ' + pv.version + ' on average and in at least 4 of 5 folds; none did this round, so Hurricane ' + pv.version + ' stays in use.');
+        }
         return 'An AI agent (Claude) proposed ' + (sr.candidates || 'several') + ' designs in round ' + v.round +
           ': which inputs to use, physics features, the objective and how to weight noisy entries. Each was trained and scored with five-fold cross-validation that holds out whole parent compounds, so no test compound has a close relative in training. ' +
           (ok ? 'The best one beat the composition-only baseline on average and in ' + sc.folds_better + ' of ' + nf + ' folds and became ' + name + '.'
@@ -4556,14 +4577,18 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       case 2:
         var ins = list(v.spec.inputs), total = 0, top = list(v.importance).slice(0, 3).map(function (i) { return hurFeatName(i.name); });
         ins.forEach(function (g) { total += g.n || 0; });
-        return name + ' reads ' + total + ' numbers per compound: ' + ins.map(function (g) { return g.n + ' ' + lcFirst(g.label); }).join(', ') +
+        return name + ' reads ' + total + ' numbers per compound: ' + ins.map(function (g) { return g.n + ' ' + lcFirst(g.label); }).join(', ').replace(/, ([^,]*)$/, ' and $1') +
           '. The physics features carry what is known about these families. Charge balance gives the holes per copper, p, and cuprate Tc rises and falls with p along the empirical dome 1 − 82.6 (p − 0.16)², highest at p = 0.16; it also gives the d-electron count of the metal layer (Cu²⁺ is d⁹, Fe²⁺ d⁶).' +
-          (top.length ? ' Shuffling one input at a time and measuring how much the error grows shows what the model relies on most: ' + top.join(', ') + '.' : '');
+          (top.length ? ' Shuffling one input at a time and measuring how much the error grows shows what the model relies on most: ' + top.join(', ') + '.' : '') +
+          // Hurricane 2.0 and later can predict in two parts (spec.learner.two_part says how)
+          (v.spec.learner && typeof v.spec.learner.two_part === 'string' ? ' It predicts in two parts: ' + v.spec.learner.two_part.replace(/\.$/, '') + '.' : '');
       case 3:
         var fam = sc.by_family || {}, parts = [];
         HUR_FAMS.forEach(function (k) { if (fam[k]) parts.push(hurFamText(k) + ' ' + hurK(fam[k].mae) + ' K'); });
+        var pv3 = v.previous && typeof v.previous.tc_mae === 'number' ? v.previous : null;
         return name + ' is off by ' + hurK(sc.tc_mae) + ' K on average for compounds whose parent it never saw, against ' + hurK(sc.reference_mae) +
           ' K for gradient boosting on the composition alone, and better in ' + sc.folds_better + ' of ' + nf + ' folds.' +
+          (pv3 ? ' Hurricane ' + pv3.version + ', retrained on the same folds, is off by ' + hurK(pv3.tc_mae) + ' K.' : '') +
           (typeof sc.sc_mae === 'number' ? ' For superconductors alone the error is ' + hurK(sc.sc_mae) + ' K.' : '') +
           (parts.length ? ' By family: ' + parts.join(', ') + '. Cuprate Tc spans 0 to over 130 K, so their errors are the largest.' : '');
       case 4:
@@ -8181,12 +8206,14 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     // Storm 3.0 and later: the version in use, calibrated to measured Tc (ai_model.calibration).
     var cal = sv && sv.status === 'adopted' && sv.version === ((d && d.ai_model && d.ai_model.current) || sv.version) ? stormCal() : null;
     var calN = cal && cal.data && typeof cal.data.n_matched === 'number' ? fmtInt(cal.data.n_matched) + ' ' : '';
-    var ens = cal ? stormEns() : null;
+    var ens = cal ? stormEns() : null, unc = ens ? stormUnc() : null;
     if (ens) return [
-      { id: 'storm', name: 'Storm', on: true, live: true, status: sname + ' ' + ens.version + ' in use', role: 'Conventional superconductors, paired by phonons',
+      { id: 'storm', name: 'Storm', on: true, live: true, status: sname + ' ' + (unc ? unc.version : ens.version) + ' in use', role: 'Conventional superconductors, paired by phonons',
         text: 'Combines boosted trees that learn from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) with a crystal-graph network that learns from the atoms and their neighbours: ' +
           ens.scores.tc_mae.toFixed(2) + ' K off on average against the computed Tc of materials it never saw' + (typeof ens.scores.reference_mae === 'number' ? ', against ' + ens.scores.reference_mae.toFixed(2) + ' K for the trees alone' : '') +
-          '. Calibrated to measured Tc, it is off by ' + ens.calibration.mae.toFixed(2) + ' K against experiment. Our AI agent designed it; a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
+          '. Calibrated to measured Tc, it is off by ' + ens.calibration.mae.toFixed(2) + ' K against experiment.' +
+          (unc ? ' Every prediction comes with a 90% range: for materials it never saw, the range held the computed Tc ' + Math.round(100 * unc.scores.coverage) + '% of the time, and half of the ranges are narrower than ' + unc.scores.median_width.toFixed(1) + ' K.' : '') +
+          ' Our AI agent designed it; a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
         act: ['See how Storm works', function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); }] },
       hurFamilyEntry(),
       radFamilyEntry()
@@ -8226,7 +8253,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var sc = hi.v.scores || {}, dd = hi.data || {}, inUse = !!hi.hu.current;
     return { id: 'hurricane', name: 'Hurricane', on: inUse, live: true, status: inUse ? hurTitle(hi) + ' in use' : hurTitle(hi) + ' experimental', role: role,
       text: 'Learns from ' + fmtInt(dd.n) + ' measured Tc values (SuperCon with Materials Project structures, via 3DSC), including materials that did not superconduct. For compounds whose parent it never saw in training it is off by ' +
-        hurK(sc.tc_mae) + ' K on average, against ' + hurK(sc.reference_mae) + ' K for a composition-only baseline. Our AI agent designed it.',
+        hurK(sc.tc_mae) + ' K on average, against ' + (hi.v.previous && typeof hi.v.previous.tc_mae === 'number' ? hurK(hi.v.previous.tc_mae) + ' K for Hurricane ' + hi.v.previous.version + ' and ' : '') +
+        hurK(sc.reference_mae) + ' K for a composition-only baseline. Our AI agent designed it.',
       act: ['See how Hurricane works', function () { setView('demos'); selectDemo('hurricane'); window.scrollTo(0, 0); }] };
   }
   // progress.json may update a model's status without a new app release: "model_family": [{ "id": "hurricane", "status": "In design" }].
@@ -8685,6 +8713,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       cardHead('Data and licences', 'Where everything in this app comes from. None of these sources endorses the project.'),
       ul,
       h('p', { class: 'note' }, 'We download, filter and match these data and compute features from them; the models, predictions and scores are our own. The drawings and animations in this app are ours too, and research results are summarized in our own words with a link to each paper.'),
+      h('p', { class: 'note' }, 'The project’s code is under the ', h('a', { href: REPO_URL + '/blob/main/LICENSE', text: 'MIT licence' }),
+        ', and our results, that is the models’ predictions, scores and specs and the curated text, are under ', h('a', { href: REPO_URL + '/blob/main/LICENSE-results.md', text: 'CC BY 4.0' }),
+        '; please cite the repository if you use them.'),
       h('p', { class: 'note' }, 'The desktop app is built with ', h('a', { href: 'https://tauri.app/', text: 'Tauri' }),
         ' and other open-source libraries under MIT, Apache-2.0, MPL-2.0 and similar licences. Their notices ship with the app and are also in ',
         h('a', { href: REPO_URL + '/releases/latest/download/THIRD-PARTY-NOTICES.txt', text: 'THIRD-PARTY-NOTICES.txt' }), '.'));
@@ -8699,11 +8730,18 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     f_share: 'f-electron atom share', f_count: 'f-electron count', mag3d: 'magnetic 3d share', nonint: 'doping (non-integer stoichiometry)',
     n_atoms_fu: 'atoms per formula unit', oxide: 'oxygen share', chalcogenide: 'S, Se, Te share', pnictide: 'P, As, Sb share',
     halide: 'halogen share', vpa: 'volume per atom', density: 'density', aniso: 'layering (cell anisotropy)', c_over_a: 'c/a',
-    f_spacing: 'f–f spacing (Hill limit)', pg_order: 'point-group order', n_elements: 'number of elements', context_flag: 'context flag'
+    f_spacing: 'f–f spacing (Hill limit)', pg_order: 'point-group order', n_elements: 'number of elements', context_flag: 'context flag',
+    // Hurricane 2.0's structure types, read from the stoichiometry
+    '123_cuprate': '123-type cuprate (YBCO)', '214_cuprate': '214-type cuprate (LSCO)', electron_doped_cuprate: 'electron-doped cuprate',
+    Bi_cuprate: 'Bi-based cuprate', Tl_cuprate: 'Tl-based cuprate', Hg_cuprate: 'Hg-based cuprate', infinite_layer_cuprate: 'infinite-layer cuprate',
+    '1111_pnictide': '1111 iron pnictide', '122_pnictide': '122 iron pnictide', '111_pnictide': '111 iron pnictide',
+    '11_chalcogenide': '11 iron chalcogenide (FeSe)', '122_chalcogenide': '122 iron chalcogenide', nickel_pnictide: 'nickel pnictide',
+    '115_heavy_fermion': '115 heavy fermion (CeCoIn₅)', '122_heavy_fermion': '122 heavy fermion (CeCu₂Si₂)',
+    nickelate_oxide: 'nickelate', bismuthate_oxide: 'bismuthate', ruthenate_oxide: 'ruthenate', cobaltate_oxide: 'cobaltate'
   };
-  var PROP_LABEL = { Z: 'atomic number', atomic_mass: 'atomic mass', X: 'electronegativity', row: 'period', group: 'group',
+  var PROP_LABEL = { Z: 'atomic number', atomic_mass: 'atomic mass', X: 'electronegativity', row: 'periodic-table row', group: 'periodic-table group',
     atomic_radius: 'atomic radius', mendeleev_no: 'Mendeleev number', valence: 'valence' };
-  var STAT_LABEL = { mean: 'mean', std: 'spread', min: 'smallest', max: 'largest' };
+  var STAT_LABEL = { mean: 'mean', std: 'spread of', min: 'smallest', max: 'largest' };
   function featLabel(n) {
     n = String(n || '');
     if (FEAT_LABEL[n]) return FEAT_LABEL[n];
@@ -8747,12 +8785,14 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var hv = hvs.length ? (hvs.filter(function (v) { return v.version === hu.current; })[0] || hvs[hvs.length - 1]) : null;
     var cal = d && d.ai_model && d.ai_model.calibration && d.ai_model.calibration.scores ? d.ai_model.calibration : null;
     var ens = d && d.ai_model && d.ai_model.ensemble && d.ai_model.ensemble.scores ? d.ai_model.ensemble : null;
+    var unc = d && d.ai_model && d.ai_model.uncertainty && d.ai_model.uncertainty.scores ? d.ai_model.uncertainty : null;
     var ri = radInfo(), gn = d && d.gnn && typeof d.gnn.tc_mae === 'number' ? d.gnn : null;
-    el.hidden = !hv && !cal && !ri && !gn && !ens;
+    el.hidden = !hv && !cal && !ri && !gn && !ens && !unc;
     if (el.hidden) return;
     var parts = [cardHead('Model details', 'What the latest training rounds found, read from the live progress data.')];
     if (hv) parts.push(hurricaneDetails(hu, hv));
     if (ri) parts.push(radarDetails(ri));
+    if (unc) parts.push(uncertaintyDetails(unc));
     if (ens) parts.push(ensembleDetails(ens));
     if (cal) parts.push(calibrationDetails(cal));
     if (gn) parts.push(gnnDetails(gn));
@@ -8840,7 +8880,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function ensembleDetails(e) {
     var sc = e.scores || {}, ca = e.calibration || {}, box = h('div', { class: 'dt-block' });
     box.appendChild(h('h3', { class: 'dt-title' }, 'Storm round 4 · trees and a graph network together',
-      h('span', { class: 'mf-status', text: e.status === 'adopted' ? 'Storm ' + e.version + ' in use' : 'experimental' })));
+      h('span', { class: 'mf-status', text: e.status === 'adopted' ? 'Storm ' + e.version + (stormUnc() ? ', now with ranges (' + stormUnc().version + ')' : ' in use') : 'experimental' })));
     box.appendChild(h('p', { class: 'dt-lead', text: 'Storm 1.0’s boosted trees learn from hand-made features, the graph network from the atoms and their neighbours, and their mistakes only partly overlap. Round 4 averages Storm 1.0 with the ' + (e.gnn && e.gnn.design ? e.gnn.design : 'graph network') + ', then calibrates the result to measured Tc as in round 3.' }));
     box.appendChild(h('div', { class: 'dt-tiles' },
       statTile('Tc error (DFT)', k2(sc.tc_mae), 'Storm 1.0 ' + k2(sc.reference_mae)),
@@ -8854,16 +8894,60 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     return box;
   }
 
+  // Storm round 5: a 90% range around every Storm 4.0 prediction (ai_model.uncertainty).
+  function uncertaintyDetails(u) {
+    var sc = u.scores || {}, box = h('div', { class: 'dt-block' }), on = u.status === 'adopted' && stormUnc();
+    var pct = function (x) { return typeof x === 'number' ? (100 * x).toFixed(1) + '%' : '—'; };   // coverages with one decimal throughout
+    box.appendChild(h('h3', { class: 'dt-title' }, 'Storm round 5 · how sure is Storm?',
+      h('span', { class: 'mf-status', text: on ? 'Storm ' + u.version + ' in use' : 'experimental' })));
+    box.appendChild(h('p', { class: 'dt-lead', text: 'To pick materials for a calculation or an experiment, the range matters as much as the number. Round 5 puts a 90% range around every Storm 4.0 prediction; the prediction itself does not change. Each range is set by conformal prediction from the errors in the other four folds, so it never uses its own fold’s answers.' }));
+    box.appendChild(h('div', { class: 'dt-tiles' },
+      statTile('Range holds the computed Tc', pct(sc.coverage), '90% wanted, for materials it never saw'),
+      statTile('For the highest-Tc tenth', pct(sc.tail_coverage), typeof sc.reference_tail_coverage === 'number' ? 'one width for all: ' + pct(sc.reference_tail_coverage) : null),
+      statTile('Half the ranges narrower than', k2(sc.median_width), typeof sc.interval_score === 'number' ? 'interval score ' + k2(sc.interval_score) + ' against ' + k2(sc.reference_interval_score) : null)));
+    if (list(u.leaderboard).length) {
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Designs the AI agent proposed. Score: the interval score, the width plus 20 times any miss, lower is better; held: how often the range held the computed Tc, for all materials and for the highest-Tc tenth; width: half of the ranges are narrower.' }));
+      var rel = on ? list(u.leaderboard).filter(function (r) { return r.name === u.summary; })[0] : null;
+      box.appendChild(smallTable(['Design', 'Score', 'Held', 'Width'], list(u.leaderboard).map(function (r) {
+        return [r.id + ' ' + r.name + (r === rel ? ' (released)' : ''), k2(r.interval_score),
+          h('span', null, pct(r.coverage), h('br'), h('span', { class: 'dt-cell-sub', text: 'top tenth ' + pct(r.tail_coverage) })), k2(r.median_width)];
+      })));
+      // in round 5 a design also had to hold at least 80% of the highest-Tc tenth; say why a better interval score lost
+      var beat = rel && u.round === 5 ? list(u.leaderboard).filter(function (r) { return r.id !== 'U0' && r.interval_score < rel.interval_score && r.tail_coverage < 0.8; }) : [];
+      if (beat.length) box.appendChild(h('p', { class: 'note', text: beat.map(function (r) { return r.id; }).join(', ').replace(/, ([^,]*)$/, ' and $1') + (beat.length > 1 ? ' have' : ' has') +
+        ' a better interval score but holds less than 80% of the highest-Tc tenth, where screening looks, so ' + rel.id + ' was released.' }));
+    }
+    var ex = list(u.examples);
+    if (ex.length) {
+      box.appendChild(h('p', { class: 'dt-sub', text: 'The highest predictions, with their ranges (computed Tc, out of fold):' }));
+      box.appendChild(smallTable(['Material', 'Computed Tc', 'Storm', '90% range'], ex.map(function (r) {
+        return [hurSub(r.name), k1(r.tc), k1(r.pred), r.lo.toFixed(1) + '–' + r.hi.toFixed(1) + ' K'];
+      })));
+    }
+    var m = u.measured;
+    if (m && m.one_width) box.appendChild(h('p', { class: 'note', text: 'Against measured Tc (' + fmtInt(m.n) + ' matched materials, after round 3’s calibration): one width for all holds ' + pct(m.one_width.coverage) +
+      ' of them with a median width of ' + k2(m.one_width.median_width) + (m.log_width ? '; a width on log(1 + Tc) holds ' + pct(m.log_width.coverage) + ' with ' + k2(m.log_width.median_width) : '') + '. Reported, not used to choose.' }));
+    box.appendChild(h('p', { class: 'note', text: on ? 'Released as Storm ' + u.version + ': ' + lcFirst(u.summary) + '. ' + (u.rule ? 'The rule: ' + u.rule + '.' : '')
+      : 'Not released, so Storm 4.0 gives no range yet.' + (u.rule ? ' The rule: ' + u.rule + '.' : '') }));
+    if (u.caveat) box.appendChild(h('p', { class: 'note', text: 'A range is for the computed Tc that Storm learns; measured Tc can lie further away.' }));
+    return box;
+  }
+
   function hurricaneDetails(hu, v) {
     var sc = v.scores, data = hu.data || {}, box = h('div', { class: 'dt-block' });
     box.appendChild(h('h3', { class: 'dt-title' }, 'Hurricane ' + v.version + ' · unconventional superconductors',
       h('span', { class: 'mf-status', text: v.status === 'adopted' ? 'in use' : 'experimental' })));
     box.appendChild(h('p', { class: 'dt-lead', text: 'Trained on measured Tc of ' + (data.n || '?').toLocaleString('en-US') + ' cuprates, iron- and nickel-based, heavy-fermion compounds and other oxides (' +
       (data.n_sc || '?').toLocaleString('en-US') + ' of them superconducting) from 3DSC, which matches the SuperCon database to Materials Project structures. Cross-validation holds out whole parent compounds, so every score is for compounds the model never saw.' }));
+    // from round 2 on, a version is compared with the previous one retrained on the same folds (v.previous)
+    var pv = v.previous && typeof v.previous.tc_mae === 'number' ? v.previous : null, pvName = pv ? 'Hurricane ' + pv.version : '';
     box.appendChild(h('div', { class: 'dt-tiles' },
-      statTile('Average error', k2(sc.tc_mae), 'baseline ' + k2(sc.reference_mae)),
-      statTile('Superconductors only', k2(sc.sc_mae), sc.high_tc ? 'Tc ≥ ' + sc.high_tc + ' K: ' + k2(sc.high_tc_mae) : null),
-      statTile('Better than baseline', (sc.folds_better || 0) + ' of ' + list(sc.folds).length + ' folds', 'composition-only model')));
+      statTile('Average error', k2(sc.tc_mae), (pv ? pvName + ' ' + k2(pv.tc_mae) + ', ' : '') + 'baseline ' + k2(sc.reference_mae)),
+      statTile('Superconductors only', k2(sc.sc_mae), pv && typeof pv.sc_mae === 'number' ? pvName + ' ' + k2(pv.sc_mae) : sc.high_tc ? 'Tc ≥ ' + sc.high_tc + ' K: ' + k2(sc.high_tc_mae) : null),
+      pv ? statTile('Better than ' + pvName, (pv.folds_better || 0) + ' of ' + list(pv.folds).length + ' folds', 'retrained on the same folds')
+        : statTile('Better than baseline', (sc.folds_better || 0) + ' of ' + list(sc.folds).length + ' folds', 'composition-only model')));
+    if (pv && sc.high_tc && typeof sc.high_tc_mae === 'number' && typeof pv.high_tc_mae === 'number')
+      box.appendChild(h('p', { class: 'note', text: 'For Tc ≥ ' + sc.high_tc + ' K the average error is ' + k2(sc.high_tc_mae) + ', against ' + k2(pv.high_tc_mae) + ' for ' + pvName + '.' }));
     var fam = sc.by_family || {}, keys = Object.keys(fam), max = 0;
     keys.forEach(function (f) { max = Math.max(max, fam[f].mae || 0, fam[f].mae_ref || 0); });
     if (keys.length) {
@@ -8874,10 +8958,22 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       });
       box.appendChild(fb);
     }
+    var srch = v.search && list(v.search.leaderboard).length && v.search.previous_id ? v.search : null;
+    if (srch) {
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Round ' + v.round + ': designs the AI agent proposed, next to ' + pvName + ' and the baseline retrained on the same folds. Tc error for all compounds, and for the superconducting ones below it; better folds: against ' + pvName + '.' }));
+      box.appendChild(smallTable(['Design', 'Tc error', 'Better folds'], list(srch.leaderboard).map(function (r) {
+        var nm = r.id === srch.previous_id ? r.id + ' ' + pvName + ', retrained' : r.id + ' ' + r.name + (r.settings && r.settings !== 'default' ? ', ' + r.settings : '');
+        return [nm, h('span', null, k2(r.tc_mae), h('br'), h('span', { class: 'dt-cell-sub', text: 'SC ' + k2(r.sc_mae) })),
+          r.id === srch.previous_id || r.id === srch.reference_id ? '—' : (r.folds_better_previous || 0) + ' of 5'];
+      })));
+      box.appendChild(h('p', { class: 'note', text: v.status === 'adopted' ? 'Released as Hurricane ' + v.version + ': better than ' + pvName + ' on average and in ' + (pv ? pv.folds_better : '?') + ' of 5 folds' +
+        (pv && typeof pv.sc_mae === 'number' && sc.sc_mae <= pv.sc_mae ? ', and on the superconducting entries too.' : '.')
+        : 'Not released, so ' + (pvName || 'the previous version') + ' stays in use.' + (v.rule ? ' The rule: ' + v.rule + '.' : '') }));
+    }
     var lofo = list(v.lofo);
     if (lofo.length) {
-      box.appendChild(h('p', { class: 'dt-sub', text: 'Leave one family out: trained without a whole family, then asked to predict it.' }));
-      box.appendChild(smallTable(['Family left out', 'Error', 'Guessing the median', 'With the family in training'],
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Leave one family out: trained without a whole family, then asked to predict it. Median guess: always guessing the median Tc of the other families; in training: the error with the family in training.' }));
+      box.appendChild(smallTable(['Family left out', 'Error', 'Median guess', 'In training'],
         lofo.map(function (r) { return [famLabel(r.family) + ' (' + r.n + ')', k1(r.mae), k1(r.mae_median), k1(r.mae_cv)]; })));
       var flat = lofo.filter(function (r) { return r.mae >= 0.9 * r.mae_median; }).map(function (r) { return hurFamText(r.family); });
       if (flat.length) box.appendChild(h('p', { class: 'note', text: 'For ' + flat.join(', ').replace(/, ([^,]*)$/, ' and $1') +
@@ -8911,7 +9007,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var sc = c.scores, box = h('div', { class: 'dt-block' }), dd = c.data || {};
     box.appendChild(h('h3', { class: 'dt-title' }, 'Storm against measured Tc',
       // once a later Storm is released (round 4), round 3's Storm 3.0 is no longer the one in use
-      h('span', { class: 'mf-status', text: c.status === 'adopted' ? 'Storm ' + c.version + (stormEns() ? ', replaced by ' + stormEns().version : ' in use') : 'calibration experimental' })));
+      h('span', { class: 'mf-status', text: c.status === 'adopted' ? 'Storm ' + c.version + (stormEns() ? ', replaced by ' + stormVersionInUse() : ' in use') : 'calibration experimental' })));
     box.appendChild(h('p', { class: 'dt-lead', text: 'Storm learns from DFT-computed Tc. Round 3 checked it against ' + (dd.n_matched || '?') + ' conventional materials with measured Tc (' +
       (dd.n_sc || '?') + ' superconducting) that are also in its training set, and taught a calibration step to map its prediction to the measured value. Storm’s inputs here are its predictions for materials it never saw, never the DFT labels.' }));
     var max = Math.max(sc.dft_mae || 0, sc.mae_raw || 0, sc.mae || 0);
