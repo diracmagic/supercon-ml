@@ -73,7 +73,7 @@ def _near(x: float, target: float, tol: float) -> bool:
 def structure_types(comp: dict) -> dict:
     """Indicators of known structure families, read from the stoichiometry alone (1 if the formula fits)."""
     n = {e: float(v) for e, v in comp.items() if v > 0}
-    g = lambda s: sum(n.get(e, 0.0) for e in s)   # noqa: E731
+    g = lambda s: sum(n.get(e, 0.0) for e in sorted(s))   # noqa: E731  (sorted: a set's order depends on hashing)
     cu, o, fe, ni = n.get("Cu", 0.0), n.get("O", 0.0), n.get("Fe", 0.0), n.get("Ni", 0.0)
     re_, ae, alk, pn, ch = g(RE), g(AE), g(ALK), g(PNICTOGEN), g(CHALCOGEN)
     out = {k: 0.0 for k in TYPE_RATIONALE}
@@ -488,6 +488,8 @@ def update_progress(out: dict) -> None:
         prog["model_family"] = fam
     H.ai_stage(prog)
     P.tidy(prog)
+    prefix = f"{H.MODEL}, round {ROUND} ("
+    prog["log"] = [e for e in prog.get("log", []) if not str(e.get("event", "")).startswith(prefix)]   # a re-run replaces it
     P.add_log(prog, stamp, f"{H.MODEL}, round {ROUND} ({len(out['leaderboard']) - 2} AI-designed candidates): best "
                            f"{best['id']} {best['name']} [{best['settings']}], measured-Tc MAE {sc['tc_mae']:.2f} K against "
                            f"{prev['scores']['tc_mae']:.2f} K for Hurricane 1.0, better in {best['folds_better_previous']} of "
