@@ -181,6 +181,15 @@ class Design:
             return np.where(p >= 0.5, tc, 0.0) if c["two_part"] == "median" else p * tc
         return tc
 
+    def explain(self, X, fam) -> dict:
+        """The parts of one prediction (the first row of X): the probability that the compound superconducts and the
+        regressor's Tc if it does (for a one-part design only the Tc). The app animates these."""
+        if self.c.get("per_family"):
+            return self.parts.get(fam[0], self.pooled).explain(X, fam)
+        tc = float(np.clip(np.expm1(H._predict(self.reg, X[:1])), 0, None)[0])
+        p = float(self.clf.predict_proba(X[:1])[:, 1][0]) if self.c.get("two_part") and self.clf is not None else None
+        return {"p_sc": None if p is None else round(p, 3), "tc_sc": round(tc, 2), "rule": self.c.get("two_part")}
+
 
 def run_design(c: dict, mats: dict, y, fam, splits):
     X = mats[c["X"]]
@@ -224,6 +233,36 @@ def lofo(c: dict, X, y, fam) -> list:
     return out
 
 
+# physics inputs shown with each anchor in the app (the holes per Cu and its dome, CuO2 planes, the d count, ...)
+EXPLAIN_PHYSICS = ("p_cu", "dome", "cu_layers", "tm_d", "heavy_block", "fe_based", "f_share", "nonint")
+
+
+def report_spread(dsc: pd.DataFrame, formulas, y, preds: dict) -> dict:
+    """How far repeated reports of the same formula in SuperCon (via 3DSC) disagree: for every formula listed with more
+    than one Tc, each distinct value against the mean of the others. No model can be expected to beat this on those
+    compounds, so it is a floor for Hurricane's error. Also: each model's error on the same formulas."""
+    df = dsc[dsc["sc_class"].isin(set(H.FAMILY_OF_CLASS))].copy()
+    df["tc"] = pd.to_numeric(df["tc"], errors="coerce")
+    df = df[np.isfinite(df["tc"]) & (df["tc"] >= 0)]
+    devs, multi = [], set()
+    n_rows = df.groupby("formula_sc").size()
+    for f, g in df.groupby("formula_sc"):
+        vals = np.unique(np.round(g["tc"].to_numpy(float), 2))   # rows repeated for several matched structures count once
+        if len(vals) < 2:
+            continue
+        multi.add(f)
+        for i in range(len(vals)):
+            devs.append(abs(vals[i] - np.delete(vals, i).mean()))
+    m = np.array([f in multi for f in formulas])
+    out = {"n_formulas": int(len(n_rows)), "n_with_rows": int((n_rows > 1).sum()), "n_with_reports": int(len(multi)),
+           "spread_mae": round(float(np.mean(devs)), 2) if devs else None,
+           "spread_median": round(float(np.median(devs)), 2) if devs else None,
+           "model_mae": {k: round(float(np.abs(v[m] - y[m]).mean()), 2) for k, v in preds.items()} if m.any() else None,
+           "about": ("formulas that SuperCon lists with more than one Tc; each distinct value against the mean of the "
+                     "others, which no model can beat on those compounds")}
+    return out
+
+
 def anchors(final: Design, c: dict, table, elements: list) -> dict:
     """Hurricane's graded anchors (later discoveries), predicted by the final design; never used for selection."""
     ex = H.load_anchors()
@@ -243,7 +282,10 @@ def anchors(final: Design, c: dict, table, elements: list) -> dict:
                   "E": pd.DataFrame([structure_types(comp)])}
         X = np.hstack([blocks[b].to_numpy(float) for b in c["X"]])
         fam = np.array([e.get("family") or "unknown"])
-        row = dict(base, pred=round(float(final.predict(X, fam)[0]), 2))
+        row = dict(base, pred=round(float(final.predict(X, fam)[0]), 2), **final.explain(X, fam))
+        ph = blocks["C"].iloc[0]
+        row["physics"] = {k: round(float(ph[k]), 3) for k in EXPLAIN_PHYSICS if k in ph and np.isfinite(ph[k])}
+        row["types"] = [k for k, v in structure_types(comp).items() if v > 0]
         listed.append(row)
         if e["use"] == "score" and e.get("tc_exp") is not None:
             rows.append(row)
@@ -376,6 +418,15 @@ def run() -> None:
         r["mae_baseline"] = lofo_ref[r["family"]]["mae"] if r["family"] in lofo_ref else None
         P.log(f"leave one family out, {r['family']}: MAE {r['mae']:.2f} K (baseline design {r['mae_baseline']:.2f} K, "
               f"training median {r['mae_median']:.2f} K)")
+    floor = report_spread(dsc, hur["formula_sc"].tolist(), y, {"best": preds[best["id"]], "previous": preds["H4"]})
+    if floor["spread_mae"] is not None:
+        P.log(f"repeated reports: {floor['n_with_reports']} of {floor['n_formulas']} formulas have more than one Tc; they "
+              f"differ from the mean of the others by {floor['spread_mae']:.2f} K on average (median "
+              f"{floor['spread_median']:.2f} K); on those formulas {best['id']} is off by {floor['model_mae']['best']:.2f} K "
+              f"and Hurricane 1.0 by {floor['model_mae']['previous']:.2f} K")
+    else:
+        P.log(f"repeated reports: none of the {floor['n_formulas']} formulas has more than one distinct Tc in 3DSC "
+              f"({floor['n_with_rows']} appear in several rows with the same Tc)")
     final = Design(cb, P.SEED + 500).fit(mats[cb["X"]], y, fam)
     anchors_out = anchors(final, cb, table, elements)
     if anchors_out:
@@ -410,7 +461,7 @@ def run() -> None:
         "previous": {"id": prev["id"], "version": "1.0", "scores": prev["scores"]},
         "leaderboard": sorted(board, key=lambda r: r["scores"]["tc_mae"]), "best": best, "adopted": adopted,
         "spec": model_spec(cb, n_cols), "changes": spec_changes(cb, cands[0]), "importance": imp, "lofo": lofo_rows,
-        "anchors": anchors_out or None, "minutes": round((time.time() - t_start) / 60, 1),
+        "anchors": anchors_out or None, "floor": floor, "minutes": round((time.time() - t_start) / 60, 1),
     }
     for r in out["leaderboard"]:
         r["params"] = dict(r["params"])
@@ -454,9 +505,12 @@ def update_progress(out: dict) -> None:
         a = out["anchors"]
         entry["anchors"] = {"n_scored": a["summary"]["n_scored"], "mae": a["summary"]["mae"],
                             "scored_as_check": a["summary"]["scored_as_check"], "rule": a["summary"]["rule"],
-                            "table": [{"name": r["name"], "tc_exp": r["tc_exp"], "status": r["status"], "use": r["use"],
-                                       "family": r.get("family"), "pred": r.get("pred"), "note": r.get("note", "")}
+                            "table": [dict({"name": r["name"], "tc_exp": r["tc_exp"], "status": r["status"], "use": r["use"],
+                                            "family": r.get("family"), "pred": r.get("pred"), "note": r.get("note", "")},
+                                           **{k: r[k] for k in ("p_sc", "tc_sc", "rule", "physics", "types") if k in r})
                                       for r in a["table"]]}
+    if out.get("floor"):
+        entry["floor"] = out["floor"]
     reg = prog.get("hurricane") or {}
     versions = sorted([v for v in reg.get("versions", []) if v.get("round") != ROUND] + [entry], key=lambda v: v["round"])
     released = [v for v in versions if v.get("status") == "adopted"]
