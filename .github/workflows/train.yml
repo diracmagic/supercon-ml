@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       stages:
-        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane gnn gnnsmoke)
+        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane radar gnn gnnsmoke)
         default: storm3 hurricane
   push:
     branches: [main]
@@ -82,6 +82,10 @@ jobs:
       - name: Hurricane, unconventional superconductors (round 1)
         if: always() && contains(format(' {0} ', env.STAGES), ' hurricane ')
         run: python ml/pipeline.py hurricane
+
+      - name: Radar, the router between Storm and Hurricane (round 1)
+        if: always() && contains(format(' {0} ', env.STAGES), ' radar ')
+        run: python ml/pipeline.py radar
 
       - name: Graph neural network, quick check on a small subset (writes nothing)
         if: contains(format(' {0} ', env.STAGES), ' gnnsmoke ')
