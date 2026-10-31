@@ -1,8 +1,8 @@
 [package]
 name = "supercon-progress"
-version = "0.3.6"
+version = "0.3.7"
 description = "Live progress of the supercon-ml project"
-authors = ["diracmagic"]
+authors = ["The supercon-ml project"]
 license = "MIT"
 repository = "https://github.com/diracmagic/supercon-ml"
 edition = "2021"
