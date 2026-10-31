@@ -134,14 +134,14 @@ def structure_types(comp: dict) -> dict:
 # ---------------------------------------------------------------- designs
 
 
-def _fit_clf(X, labels, seed):
+def _fit_clf(X, labels, seed, weights=None):
     from sklearn.ensemble import HistGradientBoostingClassifier
     empty = ~np.isfinite(X).any(axis=0)   # as in hurricane._fit: a feature with no value in this training set
     if empty.any():
         X = X.copy()
         X[:, empty] = 0.0
     m = HistGradientBoostingClassifier(random_state=seed, **CLF_PARAMS)
-    m.fit(X, labels)
+    m.fit(X, labels, sample_weight=weights)
     return m
 
 
@@ -152,7 +152,9 @@ class Design:
     def __init__(self, c: dict, seed: int):
         self.c, self.seed = c, seed
 
-    def fit(self, X, y, fam):
+    def fit(self, X, y, fam, Xb=None):
+        """Xb: background compounds with no superconductivity record (round 3). A design with a "background" weight
+        adds them to the classifier as non-superconducting, at that weight; the regressor never sees them."""
         c = self.c
         if c.get("per_family"):
             base = dict(c, per_family=False)
@@ -160,8 +162,14 @@ class Design:
             self.pooled = Design(base, self.seed).fit(X, y, fam)   # for a family with no training rows (leave one out)
             return self
         sc = y > 0
+        wb = float(c.get("background") or 0)
         if c.get("two_part"):
-            self.clf = _fit_clf(X, sc.astype(int), self.seed) if 0 < sc.sum() < len(y) else None
+            if wb > 0 and Xb is not None and len(Xb):
+                lab = np.concatenate([sc.astype(int), np.zeros(len(Xb), int)])
+                w = np.concatenate([np.ones(len(y)), np.full(len(Xb), wb)])
+                self.clf = _fit_clf(np.vstack([X, Xb]), lab, self.seed, w) if sc.any() else None
+            else:
+                self.clf = _fit_clf(X, sc.astype(int), self.seed) if 0 < sc.sum() < len(y) else None
             self.reg = H._fit(X[sc], np.log1p(y[sc]), c["params"], self.seed, n_bags=c.get("bags", 1))
         else:
             self.reg = H._fit(X, np.log1p(y), c["params"], self.seed, n_bags=c.get("bags", 1))
@@ -509,7 +517,9 @@ def update_progress(out: dict) -> None:
                                             "family": r.get("family"), "pred": r.get("pred"), "note": r.get("note", "")},
                                            **{k: r[k] for k in ("p_sc", "tc_sc", "rule", "physics", "types") if k in r})
                                       for r in a["table"]]}
-    if out.get("floor"):
+    # the floor needs formulas with more than one distinct Tc; 3DSC averages repeated SuperCon reports into one value,
+    # so it is written only when the data can measure it (results/hurricane_round2.json keeps the record either way)
+    if (out.get("floor") or {}).get("spread_mae") is not None:
         entry["floor"] = out["floor"]
     reg = prog.get("hurricane") or {}
     versions = sorted([v for v in reg.get("versions", []) if v.get("round") != ROUND] + [entry], key=lambda v: v["round"])
