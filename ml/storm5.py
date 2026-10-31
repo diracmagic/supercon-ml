@@ -197,12 +197,55 @@ def measured_ranges(train, feats, yhat, lam, wlog) -> dict | None:
     y = m["tc_exp"].to_numpy(float)
     folds = [te for _, te in cal["folds"]]
     out = {"n": int(len(m)), "n_sc": cal["n_sc"], "method": cal["best"]["name"], "mae": round(cal["best"]["mae"], 2)}
+    by_key = {}
+    for f, v in zip(m["formula"], p):   # composition -> calibrated out-of-fold prediction, for the worked examples
+        try:
+            by_key[P._composition_key(H.parse_formula(f))] = float(v)
+        except ValueError:
+            pass
+    out["_by_key"] = by_key
     for key, log in (("one_width", False), ("log_width", True)):
         lo, hi = ranges_simple(y, p, [p], folds, "constant", log)
         s = score(y, lo, hi, p, folds, float(np.quantile(y, 0.9)))
         out[key] = {"coverage": round(s["coverage"], 3), "median_width": round(s["median_width"], 2),
                     "interval_score": round(s["interval_score"], 2),
                     "tail_coverage": None if s["tail_coverage"] is None else round(s["tail_coverage"], 3)}
+    return out
+
+
+# Well-known conventional superconductors that the app's Predict Tc animation walks through, in this order
+WORKED = ("Nb3Sn", "MgB2", "NbN", "V3Si", "Pb", "Nb")
+
+
+def worked_examples(train, y, s_tc, gn: dict, gn_ad, yhat, lo, hi, cal_by_key: dict) -> list:
+    """Each step of Storm's prediction for a few graded materials (data/experiments.json), for the app's animation:
+    the trees, the graph network and its lambda, omega_log and Allen-Dynes Tc, their average (Storm 4.0), the 90% range
+    and the calibrated measured-Tc estimate. Out-of-fold throughout. Where Alexandria holds several structures of the
+    same composition, the one whose computed Tc is the median is shown, so that every number belongs to one structure."""
+    if not P.EXPERIMENTS.exists():
+        return []
+    ex = {e["name"]: e for e in json.loads(P.EXPERIMENTS.read_text(encoding="utf-8"))["materials"]}
+    index = {}
+    for i, atoms in enumerate(train["atoms"]):
+        u, c = np.unique(list(atoms["elements"]), return_counts=True)
+        index.setdefault(P._composition_key(dict(zip(u, c))), []).append(i)
+    out = []
+    for name in WORKED:
+        e = ex.get(name)
+        if not e or e.get("tc_exp") is None:
+            continue
+        key = P._composition_key(e["composition"])
+        idx = index.get(key, [])
+        if not idx:
+            continue
+        i = sorted(idx, key=lambda j: y[j])[len(idx) // 2]
+        cal = cal_by_key.get(key)
+        out.append({"name": name, "tc_exp": e["tc_exp"], "status": e["status"], "n_structures": len(idx),
+                    "dft_tc": round(float(y[i]), 2), "trees": round(float(s_tc[i]), 2), "gnn": round(float(gn["tc"][i]), 2),
+                    "gnn_lambda": round(float(gn["lambda"][i]), 3), "gnn_wlog": round(float(gn["wlog"][i]), 1),
+                    "gnn_ad": round(float(gn_ad[i]), 2), "storm4": round(float(yhat[i]), 2),
+                    "lo": round(float(lo[i]), 2), "hi": round(float(hi[i]), 2),
+                    "calibrated": None if cal is None else round(cal, 2), "mu_star": P.MU_STAR})
     return out
 
 
@@ -300,6 +343,13 @@ def run() -> None:
               f"{measured['one_width']['median_width']} K; on log(1 + Tc) {measured['log_width']['coverage']:.1%} and "
               f"{measured['log_width']['median_width']} K")
 
+    cal_by_key = measured.pop("_by_key", {}) if measured else {}
+    gn_ad = P.allen_dynes(np.clip(gn["lambda"], 0, None), np.clip(gn["wlog"], 0, None))
+    worked = worked_examples(train, y, s_tc, gn, gn_ad, yhat, lo, hi, cal_by_key)
+    for w in worked:
+        P.log(f"worked example {w['name']}: computed {w['dft_tc']} K; trees {w['trees']} K, network {w['gnn']} K, network "
+              f"lambda {w['gnn_lambda']} and omega_log {w['gnn_wlog']} K -> Allen-Dynes {w['gnn_ad']} K; Storm 4.0 "
+              f"{w['storm4']} K, 90% range {w['lo']}-{w['hi']} K; calibrated {w['calibrated']} K; measured {w['tc_exp']} K")
     examples, seen = [], set()
     for i in np.argsort(-yhat):   # the five highest predictions, one per composition, without short-lived elements
         if set(train["atoms"].iloc[i]["elements"]) & RADIOACTIVE:
@@ -331,7 +381,7 @@ def run() -> None:
                    "see 'measured'"),
         "storm4": {"design": design4, "members": len(members), "tc_mae": float(np.mean(np.abs(yhat - y))), "gnn": design},
         "tail_threshold": tail, "leaderboard": sorted(board, key=lambda r: r["interval_score"]), "best": best["id"],
-        "adopted": adopted, "measured": measured, "examples": examples, "scikit_learn": sklearn.__version__,
+        "adopted": adopted, "measured": measured, "examples": examples, "worked": worked, "scikit_learn": sklearn.__version__,
         "minutes": round((time.time() - t_start) / 60, 1),
     }
     P.RESULTS.mkdir(parents=True, exist_ok=True)
@@ -361,7 +411,8 @@ def update_progress(out: dict, best: dict, ref: dict) -> None:
                          "coverage": r3(r["coverage"]), "tail_coverage": r3(r["tail_coverage"]),
                          "median_width": r2(r["median_width"]), "folds_better": r["folds_better"]}
                         for r in out["leaderboard"]],
-        "measured": out["measured"], "examples": out["examples"], "rule": out["rule"], "caveat": out["caveat"],
+        "measured": out["measured"], "examples": out["examples"], "worked": out["worked"], "rule": out["rule"],
+        "caveat": out["caveat"],
     }
     am = prog.setdefault("ai_model", {})
     am["uncertainty"] = entry   # app versions that know Storm 5.0 read this
