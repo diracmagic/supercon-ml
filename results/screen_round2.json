@@ -1,6 +1,6 @@
 {
- "run_at": "2026-10-31T11:36:54-05:00",
- "commit": "948da13",
+ "run_at": "2026-10-31T12:17:31-05:00",
+ "commit": "2d74120",
  "round": 2,
  "models": [
   "Radar 1.0",
@@ -106,7 +106,19 @@
   "calibration": "Gradient-boosting correction",
   "calibration_id": "K5",
   "n_matched": 298,
-  "n_train": 7582
+  "n_train": 7582,
+  "novelty_limit": 3.656,
+  "check": {
+   "n": 298,
+   "n_sc": 168,
+   "share_sc": 0.564,
+   "n_likely": 198,
+   "share_sc_likely": 0.707,
+   "share_sc_unlikely": 0.28,
+   "brier": 0.2,
+   "brier_base": 0.246,
+   "about": "out of fold on the conventional 3DSC materials that Alexandria also has: of those given at least an even chance, the share that superconduct, against the share among the others"
+  }
  },
  "rule": "only our own finds: nothing that SuperCon, 3DSC, the Alexandria or JARVIS electron-phonon data or our list of others' claims already has, and nothing made of exactly the elements of a known superconductor",
  "caveat": "Storm predicts the DFT (Allen-Dynes, μ* = 0.10) Tc of a structure that DFT says is stable or nearly so; a candidate is a prediction until a full electron-phonon calculation and then an experiment check it",
@@ -130,7 +142,8 @@
     "share_sc_likely": 0.82,
     "share_sc_unlikely": 0.379,
     "about": "out of fold on the 3DSC entries: of the compounds Hurricane gave at least an even chance, the share that superconduct, against the share among the others"
-   }
+   },
+   "novelty_limit": 10.682
   },
   "pool": {
    "source": "JARVIS-DFT",
@@ -190,6 +203,17 @@
     "family": "cuprate",
     "gap": 0.0,
     "magnetic": true,
+    "novelty": 1.62,
+    "outside": true,
+    "nearest": {
+     "formula": "Cu1F2Sr2O2",
+     "tc": 44.33
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -339,6 +363,17 @@
     "family": "cuprate",
     "gap": 0.0,
     "magnetic": true,
+    "novelty": 1.38,
+    "outside": true,
+    "nearest": {
+     "formula": "Cu1F2Sr2O2",
+     "tc": 44.33
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -494,6 +529,17 @@
     "family": "cuprate",
     "gap": 0.0,
     "magnetic": true,
+    "novelty": 1.28,
+    "outside": true,
+    "nearest": {
+     "formula": "Ca1.7Cl2Cu1K0.3O2",
+     "tc": 24.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -762,6 +808,17 @@
     "p_unconventional": 0.999,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 1.33,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Rb1O3",
+     "tc": 11.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -832,6 +889,17 @@
     "p_unconventional": 0.999,
     "family": "other oxide",
     "gap": 0.23,
+    "novelty": 1.3,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Rb1O3",
+     "tc": 11.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -902,6 +970,17 @@
     "p_unconventional": 0.999,
     "family": "cuprate",
     "gap": 0.36,
+    "novelty": 1.16,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Rb1O3",
+     "tc": 11.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -972,6 +1051,17 @@
     "p_unconventional": 0.999,
     "family": "other oxide",
     "gap": 0.95,
+    "novelty": 1.08,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Rb1O3",
+     "tc": 11.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1049,6 +1139,17 @@
     "family": "other oxide",
     "gap": 0.0,
     "magnetic": true,
+    "novelty": 1.19,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Rb1O3",
+     "tc": 11.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1119,6 +1220,17 @@
     "p_unconventional": 0.998,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 1.32,
+    "outside": true,
+    "nearest": {
+     "formula": "As4Ca1Fe4Rb1",
+     "tc": 35.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1177,6 +1289,17 @@
     "p_unconventional": 1.0,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 1.51,
+    "outside": true,
+    "nearest": {
+     "formula": "As2Fe2Rb1",
+     "tc": 1.98
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1248,6 +1371,17 @@
     "family": "heavy-fermion",
     "gap": 0.38,
     "magnetic": true,
+    "novelty": 1.35,
+    "outside": true,
+    "nearest": {
+     "formula": "Ba0.25Cu1F2Sr1.75O2",
+     "tc": 58.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1348,6 +1482,17 @@
     "p_unconventional": 0.999,
     "family": "other oxide",
     "gap": 0.49,
+    "novelty": 1.29,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Rb1O3",
+     "tc": 11.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1418,6 +1563,17 @@
     "p_unconventional": 0.998,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.95,
+    "outside": true,
+    "nearest": {
+     "formula": "Al2Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1482,6 +1638,17 @@
     "p_unconventional": 0.997,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.92,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1549,6 +1716,16 @@
     "types": [
      "115_heavy_fermion"
     ],
+    "novelty": 0.5,
+    "nearest": {
+     "formula": "Ce0.225Co1In5Yb0.775",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1632,6 +1809,17 @@
     "family": "heavy-fermion",
     "gap": 0.0,
     "magnetic": true,
+    "novelty": 1.23,
+    "outside": true,
+    "nearest": {
+     "formula": "Ba0.25Cu1F2Sr1.75O2",
+     "tc": 58.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1733,6 +1921,17 @@
     "family": "heavy-fermion",
     "gap": 0.0,
     "magnetic": true,
+    "novelty": 1.7,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Ce1Pd1",
+     "tc": 1.3
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1797,6 +1996,17 @@
     "p_unconventional": 0.999,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 1.29,
+    "outside": true,
+    "nearest": {
+     "formula": "Cu0.75La2Zn0.25O4",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1861,6 +2071,17 @@
     "p_unconventional": 0.999,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 1.12,
+    "outside": true,
+    "nearest": {
+     "formula": "Cu1Sr2Tl1O5",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1919,6 +2140,17 @@
     "p_unconventional": 0.998,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.79,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -1983,6 +2215,17 @@
     "p_unconventional": 0.999,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 1.55,
+    "outside": true,
+    "nearest": {
+     "formula": "As2Fe2Rb1",
+     "tc": 1.98
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2191,6 +2434,17 @@
     "p_unconventional": 0.998,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.88,
+    "outside": true,
+    "nearest": {
+     "formula": "In3Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2279,6 +2533,17 @@
     "p_unconventional": 0.989,
     "gap": 0.27,
     "magnetic": true,
+    "novelty": 1.5,
+    "outside": true,
+    "nearest": {
+     "formula": "Ba0.25Cu1F2Sr1.75O2",
+     "tc": 58.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2349,6 +2614,17 @@
     "p_unconventional": 0.995,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.35,
+    "outside": true,
+    "nearest": {
+     "formula": "Pb3Yb1",
+     "tc": 0.23
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2413,6 +2689,17 @@
     "p_unconventional": 0.996,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.61,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Ce1Pd1",
+     "tc": 1.3
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2478,6 +2765,17 @@
     "family": "heavy-fermion",
     "gap": 0.12,
     "magnetic": true,
+    "novelty": 1.25,
+    "outside": true,
+    "nearest": {
+     "formula": "Ba0.25Cu1F2Sr1.75O2",
+     "tc": 58.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2584,6 +2882,16 @@
     "p_unconventional": 0.999,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 0.98,
+    "nearest": {
+     "formula": "Na2Sb2Ti2O1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2660,6 +2968,17 @@
     "p_unconventional": 0.998,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 1.14,
+    "outside": true,
+    "nearest": {
+     "formula": "Ba2Cu1Tl2O6.03",
+     "tc": 62.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2718,6 +3037,17 @@
     "p_unconventional": 0.999,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 1.13,
+    "outside": true,
+    "nearest": {
+     "formula": "Na2Sb2Ti2O1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2776,6 +3106,17 @@
     "p_unconventional": 0.996,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.77,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2840,6 +3181,17 @@
     "p_unconventional": 0.646,
     "gap": 0.59,
     "magnetic": true,
+    "novelty": 1.66,
+    "outside": true,
+    "nearest": {
+     "formula": "Tl2O3",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -2940,6 +3292,17 @@
     "p_unconventional": 0.996,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.58,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3004,6 +3367,17 @@
     "p_unconventional": 0.999,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.68,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3069,6 +3443,17 @@
     "family": "heavy-fermion",
     "gap": 0.0,
     "magnetic": true,
+    "novelty": 1.27,
+    "outside": true,
+    "nearest": {
+     "formula": "Ba0.25Cu1F2Sr1.75O2",
+     "tc": 58.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3253,6 +3638,17 @@
     "p_unconventional": 1.0,
     "family": "other oxide",
     "gap": 0.0,
+    "novelty": 1.35,
+    "outside": true,
+    "nearest": {
+     "formula": "Cu2S2Sr2Zn1O2",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3311,6 +3707,17 @@
     "p_unconventional": 0.998,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.45,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3375,6 +3782,17 @@
     "p_unconventional": 0.993,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.72,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Ce1Pd1",
+     "tc": 1.3
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3439,6 +3857,17 @@
     "p_unconventional": 0.998,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.71,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3503,6 +3932,17 @@
     "p_unconventional": 0.999,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.66,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3567,6 +4007,17 @@
     "p_unconventional": 0.994,
     "gap": 0.35,
     "magnetic": true,
+    "novelty": 1.3,
+    "outside": true,
+    "nearest": {
+     "formula": "Cu1F2Sr2O2",
+     "tc": 44.33
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3637,6 +4088,17 @@
     "p_unconventional": 0.917,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.83,
+    "outside": true,
+    "nearest": {
+     "formula": "As2Ba0.5Fe1.7K0.5Zn0.3",
+     "tc": 7.86
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3749,6 +4211,17 @@
     "p_unconventional": 0.964,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.84,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3813,6 +4286,17 @@
     "p_unconventional": 1.0,
     "family": "other oxide",
     "gap": 0.85,
+    "novelty": 1.82,
+    "outside": true,
+    "nearest": {
+     "formula": "Hg2Os2O7",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -3985,6 +4469,17 @@
     "p_unconventional": 0.996,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.48,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -4050,6 +4545,16 @@
     "family": "other oxide",
     "gap": 0.0,
     "magnetic": true,
+    "novelty": 0.56,
+    "nearest": {
+     "formula": "Cu1F2Sr2O2",
+     "tc": 44.33
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -4114,6 +4619,16 @@
     "p_unconventional": 1.0,
     "family": "other oxide",
     "gap": 0.9,
+    "novelty": 0.89,
+    "nearest": {
+     "formula": "Cu2S2Sr2Zn1O2",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -4172,6 +4687,16 @@
     "p_unconventional": 0.999,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 0.75,
+    "nearest": {
+     "formula": "In3Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -4284,6 +4809,17 @@
     "p_unconventional": 0.793,
     "gap": 0.79,
     "magnetic": true,
+    "novelty": 1.42,
+    "outside": true,
+    "nearest": {
+     "formula": "Ca1.7Cl2Cu1K0.3O2",
+     "tc": 24.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -4384,6 +4920,17 @@
     "p_unconventional": 0.997,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.8,
+    "outside": true,
+    "nearest": {
+     "formula": "Au2In1Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -4448,6 +4995,17 @@
     "p_unconventional": 0.993,
     "family": "heavy-fermion",
     "gap": 0.0,
+    "novelty": 1.6,
+    "outside": true,
+    "nearest": {
+     "formula": "Bi1Ce1Pd1",
+     "tc": 1.3
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
     "atoms": {
      "lattice": [
       [
@@ -4497,89 +5055,39 @@
     }
    }
   ],
+  "outside": 45,
   "caveat": "Hurricane learned measured Tc from cuprates, iron-based, heavy-fermion compounds and other oxides; it gives the chance that a compound superconducts and its Tc if it does. Many of these compounds would need doping or pressure, and a candidate is a prediction until an experiment checks it"
  },
  "scikit_learn": "1.9.1",
- "minutes": 8.4,
+ "minutes": 10.9,
  "candidates": [
   {
    "rank": 1,
-   "formula": "Ga3Bi",
-   "id": "JVASP-37780",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-37780.html",
-   "spg": "Pm-3m (221)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 5.85,
-   "lo": 2.63,
-   "hi": 11.93,
-   "tc_cal": 5.62,
-   "lambda": 1.137,
-   "wlog": 88.3,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      4.5677,
-      0.0,
-      0.0
-     ],
-     [
-      0.0,
-      4.5677,
-      -0.0
-     ],
-     [
-      0.0,
-      -0.0,
-      4.5677
-     ]
-    ],
-    "elements": [
-     "Ga",
-     "Ga",
-     "Ga",
-     "Bi"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.5,
-      0.5
-     ],
-     [
-      0.5,
-      0.0,
-      0.5
-     ],
-     [
-      0.5,
-      0.5,
-      0.0
-     ],
-     [
-      0.0,
-      0.0,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 2,
    "formula": "InGa3",
    "id": "JVASP-104848",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-104848.html",
    "spg": "Pm-3m (221)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 5.62,
-   "lo": 2.51,
-   "hi": 11.48,
-   "tc_cal": 3.72,
-   "lambda": 1.043,
-   "wlog": 114.8,
+   "tc": 6.25,
+   "lo": 2.84,
+   "hi": 12.68,
+   "tc_cal": 4.13,
+   "p_sc": 0.829,
+   "lambda": 1.086,
+   "wlog": 116.0,
    "p_conventional": 1.0,
+   "novelty": 1.24,
+   "outside": true,
+   "nearest": {
+    "formula": "AlGa",
+    "tc": 6.44
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -4629,7 +5137,7 @@
    }
   },
   {
-   "rank": 3,
+   "rank": 2,
    "formula": "In2SnPb",
    "id": "JVASP-101186",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-101186.html",
@@ -4637,12 +5145,24 @@
    "ehull": 0.0,
    "icsd": false,
    "tc": 5.54,
-   "lo": 2.47,
-   "hi": 11.34,
-   "tc_cal": 6.35,
-   "lambda": 1.453,
-   "wlog": 52.7,
+   "lo": 2.46,
+   "hi": 11.33,
+   "tc_cal": 6.34,
+   "p_sc": 0.829,
+   "lambda": 1.475,
+   "wlog": 52.1,
    "p_conventional": 1.0,
+   "novelty": 1.08,
+   "outside": true,
+   "nearest": {
+    "formula": "SnPb",
+    "tc": 6.65
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -4692,20 +5212,32 @@
    }
   },
   {
-   "rank": 4,
+   "rank": 3,
    "formula": "InGa2Sn2",
    "id": "JVASP-155738",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155738.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 5.3,
-   "lo": 2.34,
-   "hi": 10.88,
-   "tc_cal": 6.18,
-   "lambda": 0.986,
-   "wlog": 97.6,
+   "tc": 5.43,
+   "lo": 2.41,
+   "hi": 11.13,
+   "tc_cal": 6.05,
+   "p_sc": 0.829,
+   "lambda": 1.002,
+   "wlog": 97.9,
    "p_conventional": 1.0,
+   "novelty": 1.9,
+   "outside": true,
+   "nearest": {
+    "formula": "GaSnBi",
+    "tc": 7.2
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -4761,6 +5293,80 @@
    }
   },
   {
+   "rank": 4,
+   "formula": "Ga3Bi",
+   "id": "JVASP-37780",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-37780.html",
+   "spg": "Pm-3m (221)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 5.27,
+   "lo": 2.32,
+   "hi": 10.83,
+   "tc_cal": 5.27,
+   "p_sc": 0.829,
+   "lambda": 1.058,
+   "wlog": 90.8,
+   "p_conventional": 1.0,
+   "novelty": 0.96,
+   "nearest": {
+    "formula": "GaSnBi",
+    "tc": 7.2
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      4.5677,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      4.5677,
+      -0.0
+     ],
+     [
+      0.0,
+      -0.0,
+      4.5677
+     ]
+    ],
+    "elements": [
+     "Ga",
+     "Ga",
+     "Ga",
+     "Bi"
+    ],
+    "frac": [
+     [
+      0.0,
+      0.5,
+      0.5
+     ],
+     [
+      0.5,
+      0.0,
+      0.5
+     ],
+     [
+      0.5,
+      0.5,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
    "rank": 5,
    "formula": "ZnGa3",
    "id": "JVASP-39538",
@@ -4768,13 +5374,25 @@
    "spg": "Pm-3m (221)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 5.17,
-   "lo": 2.27,
-   "hi": 10.63,
-   "tc_cal": 4.68,
-   "lambda": 0.806,
-   "wlog": 138.4,
+   "tc": 5.12,
+   "lo": 2.24,
+   "hi": 10.54,
+   "tc_cal": 4.63,
+   "p_sc": 0.829,
+   "lambda": 0.781,
+   "wlog": 145.8,
    "p_conventional": 1.0,
+   "novelty": 1.02,
+   "outside": true,
+   "nearest": {
+    "formula": "Al3Zn",
+    "tc": 1.6
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -4825,69 +5443,81 @@
   },
   {
    "rank": 6,
-   "formula": "TlGa2Ge2",
-   "id": "JVASP-155743",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155743.html",
+   "formula": "Zn2InGa2",
+   "id": "JVASP-155749",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155749.html",
    "spg": "I4/mmm (139)",
-   "ehull": 0.036,
+   "ehull": 0.0,
    "icsd": false,
-   "tc": 5.06,
-   "lo": 2.21,
-   "hi": 10.43,
-   "tc_cal": 4.97,
-   "lambda": 1.034,
-   "wlog": 99.7,
+   "tc": 4.68,
+   "lo": 2.01,
+   "hi": 9.71,
+   "tc_cal": 4.35,
+   "p_sc": 0.829,
+   "lambda": 0.891,
+   "wlog": 115.9,
    "p_conventional": 1.0,
+   "novelty": 1.25,
+   "outside": true,
+   "nearest": {
+    "formula": "AlZnGa",
+    "tc": 5.27
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
-      3.246,
-      -3.2471,
-      0.0002
+      2.9204,
+      -2.9204,
+      -0.0016
      ],
      [
-      3.246,
-      3.2471,
-      0.0002
+      2.9204,
+      2.9204,
+      -0.0016
      ],
      [
-      -3.2458,
+      -2.9236,
       0.0,
-      5.3548
+      5.8306
      ]
     ],
     "elements": [
-     "Tl",
+     "Zn",
+     "Zn",
+     "In",
      "Ga",
-     "Ga",
-     "Ge",
-     "Ge"
+     "Ga"
     ],
     "frac": [
+     [
+      0.74965,
+      0.25035,
+      0.5
+     ],
+     [
+      0.25035,
+      0.74965,
+      0.5
+     ],
      [
       0.0,
       0.0,
       0.0
      ],
      [
-      0.61768,
-      0.61768,
-      0.23574
+      0.60981,
+      0.60981,
+      0.21912
      ],
      [
-      0.38232,
-      0.38232,
-      0.76427
-     ],
-     [
-      0.75014,
-      0.24986,
-      0.5
-     ],
-     [
-      0.24986,
-      0.75014,
-      0.5
+      0.39019,
+      0.39019,
+      0.78088
      ]
     ]
    }
@@ -4900,13 +5530,25 @@
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 4.95,
-   "lo": 2.15,
-   "hi": 10.22,
-   "tc_cal": 7.16,
-   "lambda": 1.042,
-   "wlog": 77.4,
+   "tc": 4.66,
+   "lo": 2.0,
+   "hi": 9.68,
+   "tc_cal": 6.39,
+   "p_sc": 0.829,
+   "lambda": 0.987,
+   "wlog": 80.9,
    "p_conventional": 1.0,
+   "novelty": 1.31,
+   "outside": true,
+   "nearest": {
+    "formula": "GaSnBi",
+    "tc": 7.2
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -4963,19 +5605,181 @@
   },
   {
    "rank": 8,
+   "formula": "TlGa2Ge2",
+   "id": "JVASP-155743",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155743.html",
+   "spg": "I4/mmm (139)",
+   "ehull": 0.036,
+   "icsd": false,
+   "tc": 4.49,
+   "lo": 1.91,
+   "hi": 9.36,
+   "tc_cal": 4.04,
+   "p_sc": 0.829,
+   "lambda": 0.995,
+   "wlog": 100.3,
+   "p_conventional": 1.0,
+   "novelty": 1.27,
+   "outside": true,
+   "nearest": {
+    "formula": "GaSnBi",
+    "tc": 7.2
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      3.246,
+      -3.2471,
+      0.0002
+     ],
+     [
+      3.246,
+      3.2471,
+      0.0002
+     ],
+     [
+      -3.2458,
+      0.0,
+      5.3548
+     ]
+    ],
+    "elements": [
+     "Tl",
+     "Ga",
+     "Ga",
+     "Ge",
+     "Ge"
+    ],
+    "frac": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.61768,
+      0.61768,
+      0.23574
+     ],
+     [
+      0.38232,
+      0.38232,
+      0.76427
+     ],
+     [
+      0.75014,
+      0.24986,
+      0.5
+     ],
+     [
+      0.24986,
+      0.75014,
+      0.5
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 9,
+   "formula": "SnHgPb",
+   "id": "JVASP-160802",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-160802.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 4.46,
+   "lo": 1.9,
+   "hi": 9.3,
+   "tc_cal": 5.98,
+   "p_sc": 0.829,
+   "lambda": 0.986,
+   "wlog": 56.5,
+   "p_conventional": 1.0,
+   "novelty": 1.66,
+   "outside": true,
+   "nearest": {
+    "formula": "InBi2",
+    "tc": 5.43
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      0.0,
+      3.6326,
+      3.6326
+     ],
+     [
+      3.6326,
+      0.0,
+      3.6326
+     ],
+     [
+      3.6326,
+      3.6326,
+      0.0
+     ]
+    ],
+    "elements": [
+     "Sn",
+     "Hg",
+     "Pb"
+    ],
+    "frac": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.25,
+      0.25,
+      0.25
+     ],
+     [
+      0.75,
+      0.75,
+      0.75
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 10,
    "formula": "TlGa2Sn2",
    "id": "JVASP-155736",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155736.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 4.93,
-   "lo": 2.14,
-   "hi": 10.18,
-   "tc_cal": 6.08,
-   "lambda": 1.103,
-   "wlog": 67.9,
+   "tc": 4.46,
+   "lo": 1.89,
+   "hi": 9.3,
+   "tc_cal": 5.82,
+   "p_sc": 0.829,
+   "lambda": 1.031,
+   "wlog": 70.6,
    "p_conventional": 1.0,
+   "novelty": 1.54,
+   "outside": true,
+   "nearest": {
+    "formula": "InPb",
+    "tc": 4.44
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -5031,146 +5835,113 @@
    }
   },
   {
-   "rank": 9,
-   "formula": "SnHgPb",
-   "id": "JVASP-160802",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-160802.html",
-   "spg": "F-43m (216)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 4.47,
-   "lo": 1.9,
-   "hi": 9.32,
-   "tc_cal": 5.99,
-   "lambda": 0.96,
-   "wlog": 57.4,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      0.0,
-      3.6326,
-      3.6326
-     ],
-     [
-      3.6326,
-      0.0,
-      3.6326
-     ],
-     [
-      3.6326,
-      3.6326,
-      0.0
-     ]
-    ],
-    "elements": [
-     "Sn",
-     "Hg",
-     "Pb"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.25,
-      0.25,
-      0.25
-     ],
-     [
-      0.75,
-      0.75,
-      0.75
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 10,
-   "formula": "Zn2InGa2",
-   "id": "JVASP-155749",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155749.html",
+   "rank": 11,
+   "formula": "CdGa2Sn2",
+   "id": "JVASP-156096",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-156096.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 4.45,
-   "lo": 1.89,
-   "hi": 9.28,
-   "tc_cal": 4.43,
-   "lambda": 0.871,
-   "wlog": 116.5,
+   "tc": 4.42,
+   "lo": 1.87,
+   "hi": 9.22,
+   "tc_cal": 6.27,
+   "p_sc": 0.829,
+   "lambda": 0.993,
+   "wlog": 97.9,
    "p_conventional": 1.0,
+   "novelty": 1.82,
+   "outside": true,
+   "nearest": {
+    "formula": "CoSn2",
+    "tc": 0.14
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
-      2.9204,
-      -2.9204,
-      -0.0016
+      -2.4286,
+      2.4286,
+      5.5263
      ],
      [
-      2.9204,
-      2.9204,
-      -0.0016
+      2.4286,
+      -2.4286,
+      5.5263
      ],
      [
-      -2.9236,
-      0.0,
-      5.8306
+      2.4286,
+      2.4286,
+      -5.5263
      ]
     ],
     "elements": [
-     "Zn",
-     "Zn",
-     "In",
+     "Cd",
      "Ga",
-     "Ga"
+     "Ga",
+     "Sn",
+     "Sn"
     ],
     "frac": [
-     [
-      0.74965,
-      0.25035,
-      0.5
-     ],
-     [
-      0.25035,
-      0.74965,
-      0.5
-     ],
      [
       0.0,
       0.0,
       0.0
      ],
      [
-      0.60981,
-      0.60981,
-      0.21912
+      0.38878,
+      0.38878,
+      0.0
      ],
      [
-      0.39019,
-      0.39019,
-      0.78088
+      0.61122,
+      0.61122,
+      0.0
+     ],
+     [
+      0.75,
+      0.25,
+      0.5
+     ],
+     [
+      0.25,
+      0.75,
+      0.5
      ]
     ]
    }
   },
   {
-   "rank": 11,
+   "rank": 12,
    "formula": "SnHgBi",
    "id": "JVASP-158496",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-158496.html",
    "spg": "F-43m (216)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 4.24,
-   "lo": 1.78,
-   "hi": 8.89,
+   "tc": 4.26,
+   "lo": 1.79,
+   "hi": 8.92,
    "tc_cal": 5.03,
-   "lambda": 1.116,
-   "wlog": 56.8,
+   "p_sc": 0.714,
+   "lambda": 1.225,
+   "wlog": 52.9,
    "p_conventional": 1.0,
+   "novelty": 1.61,
+   "outside": true,
+   "nearest": {
+    "formula": "InBi2",
+    "tc": 5.43
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -5214,45 +5985,123 @@
    }
   },
   {
-   "rank": 12,
-   "formula": "BeInGa4",
-   "id": "JVASP-65235",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-65235.html",
+   "rank": 13,
+   "formula": "CdBiPb",
+   "id": "JVASP-161079",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161079.html",
    "spg": "F-43m (216)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 4.19,
-   "lo": 1.75,
-   "hi": 8.79,
-   "tc_cal": 1.79,
-   "lambda": 0.623,
-   "wlog": 139.2,
+   "tc": 3.94,
+   "lo": 1.62,
+   "hi": 8.32,
+   "tc_cal": 4.14,
+   "p_sc": 0.714,
+   "lambda": 1.009,
+   "wlog": 46.4,
    "p_conventional": 1.0,
+   "novelty": 1.66,
+   "outside": true,
+   "nearest": {
+    "formula": "InBi2",
+    "tc": 5.43
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
-      -0.0,
-      3.9159,
-      3.9159
+      0.0,
+      3.7511,
+      3.7511
      ],
      [
-      3.9159,
-      -0.0,
-      3.9159
+      3.7511,
+      0.0,
+      3.7511
      ],
      [
-      3.9159,
-      3.9159,
+      3.7511,
+      3.7511,
       0.0
      ]
     ],
     "elements": [
-     "Be",
-     "In",
+     "Cd",
+     "Bi",
+     "Pb"
+    ],
+    "frac": [
+     [
+      0.25,
+      0.25,
+      0.25
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.75,
+      0.75,
+      0.75
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 14,
+   "formula": "GaSnHg",
+   "id": "JVASP-161010",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161010.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.93,
+   "lo": 1.61,
+   "hi": 8.3,
+   "tc_cal": 4.76,
+   "p_sc": 0.714,
+   "lambda": 0.889,
+   "wlog": 88.2,
+   "p_conventional": 1.0,
+   "novelty": 1.55,
+   "outside": true,
+   "nearest": {
+    "formula": "CoSn2",
+    "tc": 0.14
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      0.0,
+      3.3986,
+      3.3986
+     ],
+     [
+      3.3986,
+      0.0,
+      3.3986
+     ],
+     [
+      3.3986,
+      3.3986,
+      0.0
+     ]
+    ],
+    "elements": [
      "Ga",
-     "Ga",
-     "Ga",
-     "Ga"
+     "Sn",
+     "Hg"
     ],
     "frac": [
      [
@@ -5261,48 +6110,45 @@
       0.0
      ],
      [
+      0.75,
+      0.75,
+      0.75
+     ],
+     [
       0.25,
       0.25,
       0.25
-     ],
-     [
-      0.12293,
-      0.62569,
-      0.62569
-     ],
-     [
-      0.62569,
-      0.62569,
-      0.62569
-     ],
-     [
-      0.62569,
-      0.12293,
-      0.62569
-     ],
-     [
-      0.62569,
-      0.62569,
-      0.12293
      ]
     ]
    }
   },
   {
-   "rank": 13,
+   "rank": 15,
    "formula": "BeTlGa4",
    "id": "JVASP-65134",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-65134.html",
    "spg": "F-43m (216)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 4.01,
-   "lo": 1.66,
-   "hi": 8.45,
-   "tc_cal": 2.47,
-   "lambda": 0.714,
-   "wlog": 120.7,
+   "tc": 3.88,
+   "lo": 1.59,
+   "hi": 8.2,
+   "tc_cal": 1.74,
+   "p_sc": 0.677,
+   "lambda": 0.695,
+   "wlog": 122.1,
    "p_conventional": 1.0,
+   "novelty": 1.5,
+   "outside": true,
+   "nearest": {
+    "formula": "HfZrAl4",
+    "tc": 0.0
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -5364,132 +6210,6 @@
    }
   },
   {
-   "rank": 14,
-   "formula": "InGaBi",
-   "id": "JVASP-160993",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-160993.html",
-   "spg": "F-43m (216)",
-   "ehull": 0.019,
-   "icsd": false,
-   "tc": 3.9,
-   "lo": 1.6,
-   "hi": 8.24,
-   "tc_cal": 4.08,
-   "lambda": 0.954,
-   "wlog": 74.4,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      0.0,
-      3.5478,
-      3.5478
-     ],
-     [
-      3.5478,
-      0.0,
-      3.5478
-     ],
-     [
-      3.5478,
-      3.5478,
-      0.0
-     ]
-    ],
-    "elements": [
-     "In",
-     "Ga",
-     "Bi"
-    ],
-    "frac": [
-     [
-      0.75,
-      0.75,
-      0.75
-     ],
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.25,
-      0.25,
-      0.25
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 15,
-   "formula": "CdGa2Sn2",
-   "id": "JVASP-156096",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-156096.html",
-   "spg": "I4/mmm (139)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.82,
-   "lo": 1.56,
-   "hi": 8.09,
-   "tc_cal": 4.95,
-   "lambda": 0.907,
-   "wlog": 105.5,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      -2.4286,
-      2.4286,
-      5.5263
-     ],
-     [
-      2.4286,
-      -2.4286,
-      5.5263
-     ],
-     [
-      2.4286,
-      2.4286,
-      -5.5263
-     ]
-    ],
-    "elements": [
-     "Cd",
-     "Ga",
-     "Ga",
-     "Sn",
-     "Sn"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.38878,
-      0.38878,
-      0.0
-     ],
-     [
-      0.61122,
-      0.61122,
-      0.0
-     ],
-     [
-      0.75,
-      0.25,
-      0.5
-     ],
-     [
-      0.25,
-      0.75,
-      0.5
-     ]
-    ]
-   }
-  },
-  {
    "rank": 16,
    "formula": "TlZn2Ga2",
    "id": "JVASP-155733",
@@ -5497,13 +6217,25 @@
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 3.82,
-   "lo": 1.56,
-   "hi": 8.09,
-   "tc_cal": 3.74,
-   "lambda": 0.881,
-   "wlog": 102.9,
+   "tc": 3.87,
+   "lo": 1.58,
+   "hi": 8.19,
+   "tc_cal": 3.8,
+   "p_sc": 0.661,
+   "lambda": 0.885,
+   "wlog": 102.4,
    "p_conventional": 1.0,
+   "novelty": 1.63,
+   "outside": true,
+   "nearest": {
+    "formula": "Al2PdPt",
+    "tc": 2.83
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -5560,145 +6292,31 @@
   },
   {
    "rank": 17,
-   "formula": "BaHg2Pb2",
-   "id": "JVASP-156056",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-156056.html",
-   "spg": "C2/m (12)",
-   "ehull": 0.04,
-   "icsd": false,
-   "tc": 3.79,
-   "lo": 1.54,
-   "hi": 8.04,
-   "tc_cal": 3.88,
-   "lambda": 0.898,
-   "wlog": 65.8,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      5.7299,
-      -3.7167,
-      -0.0427
-     ],
-     [
-      5.7299,
-      3.7167,
-      -0.0427
-     ],
-     [
-      -5.7519,
-      0.0,
-      3.8996
-     ]
-    ],
-    "elements": [
-     "Ba",
-     "Hg",
-     "Hg",
-     "Pb",
-     "Pb"
-    ],
-    "frac": [
-     [
-      0.99982,
-      0.99982,
-      1e-05
-     ],
-     [
-      0.7893,
-      0.21029,
-      0.50005
-     ],
-     [
-      0.21029,
-      0.7893,
-      0.50005
-     ],
-     [
-      0.42099,
-      0.42099,
-      0.09808
-     ],
-     [
-      0.5786,
-      0.5786,
-      0.90209
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 18,
-   "formula": "CdBiPb",
-   "id": "JVASP-161079",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161079.html",
-   "spg": "F-43m (216)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.77,
-   "lo": 1.53,
-   "hi": 8.0,
-   "tc_cal": 3.97,
-   "lambda": 1.004,
-   "wlog": 44.7,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      0.0,
-      3.7511,
-      3.7511
-     ],
-     [
-      3.7511,
-      0.0,
-      3.7511
-     ],
-     [
-      3.7511,
-      3.7511,
-      0.0
-     ]
-    ],
-    "elements": [
-     "Cd",
-     "Bi",
-     "Pb"
-    ],
-    "frac": [
-     [
-      0.25,
-      0.25,
-      0.25
-     ],
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.75,
-      0.75,
-      0.75
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 19,
    "formula": "Tl3Ga",
    "id": "JVASP-102993",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-102993.html",
    "spg": "Fm-3m (225)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 3.73,
-   "lo": 1.51,
-   "hi": 7.91,
-   "tc_cal": 3.55,
-   "lambda": 0.982,
-   "wlog": 61.4,
+   "tc": 3.83,
+   "lo": 1.56,
+   "hi": 8.11,
+   "tc_cal": 3.66,
+   "p_sc": 0.632,
+   "lambda": 0.988,
+   "wlog": 62.0,
    "p_conventional": 1.0,
+   "novelty": 1.26,
+   "outside": true,
+   "nearest": {
+    "formula": "InPb",
+    "tc": 4.44
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -5748,374 +6366,32 @@
    }
   },
   {
-   "rank": 20,
-   "formula": "BeZn2Bi",
-   "id": "JVASP-71116",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-71116.html",
-   "spg": "P4mm (99)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.59,
-   "lo": 1.43,
-   "hi": 7.66,
-   "tc_cal": 1.84,
-   "lambda": 0.635,
-   "wlog": 116.2,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      3.2959,
-      -0.0,
-      -0.0
-     ],
-     [
-      -0.0,
-      3.2959,
-      -0.0
-     ],
-     [
-      0.0,
-      0.0,
-      6.9124
-     ]
-    ],
-    "elements": [
-     "Be",
-     "Zn",
-     "Zn",
-     "Bi"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.0,
-      0.41029
-     ],
-     [
-      0.0,
-      0.0,
-      0.06482
-     ],
-     [
-      0.5,
-      0.5,
-      0.28835
-     ],
-     [
-      0.5,
-      0.5,
-      0.73654
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 21,
-   "formula": "GaSnHg",
-   "id": "JVASP-161010",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161010.html",
-   "spg": "F-43m (216)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.55,
-   "lo": 1.41,
-   "hi": 7.58,
-   "tc_cal": 4.31,
-   "lambda": 0.828,
-   "wlog": 99.8,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      0.0,
-      3.3986,
-      3.3986
-     ],
-     [
-      3.3986,
-      0.0,
-      3.3986
-     ],
-     [
-      3.3986,
-      3.3986,
-      0.0
-     ]
-    ],
-    "elements": [
-     "Ga",
-     "Sn",
-     "Hg"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.75,
-      0.75,
-      0.75
-     ],
-     [
-      0.25,
-      0.25,
-      0.25
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 22,
-   "formula": "HgBiPb",
-   "id": "JVASP-156414",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-156414.html",
-   "spg": "F-43m (216)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.52,
-   "lo": 1.39,
-   "hi": 7.52,
-   "tc_cal": 3.71,
-   "lambda": 0.941,
-   "wlog": 54.2,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      0.0,
-      3.6611,
-      3.6611
-     ],
-     [
-      3.6611,
-      0.0,
-      3.6611
-     ],
-     [
-      3.6611,
-      3.6611,
-      -0.0
-     ]
-    ],
-    "elements": [
-     "Hg",
-     "Bi",
-     "Pb"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.25,
-      0.25,
-      0.25
-     ],
-     [
-      0.75,
-      0.75,
-      0.75
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 23,
-   "formula": "Tl3Ge",
-   "id": "JVASP-107227",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-107227.html",
-   "spg": "Fm-3m (225)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.46,
-   "lo": 1.36,
-   "hi": 7.41,
-   "tc_cal": 3.25,
-   "lambda": 0.972,
-   "wlog": 60.3,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      4.6541,
-      -0.1015,
-      -2.7675
-     ],
-     [
-      -1.5552,
-      4.3877,
-      -2.7675
-     ],
-     [
-      0.0734,
-      0.1015,
-      5.4142
-     ]
-    ],
-    "elements": [
-     "Tl",
-     "Tl",
-     "Tl",
-     "Ge"
-    ],
-    "frac": [
-     [
-      0.75,
-      0.25,
-      0.5
-     ],
-     [
-      0.25,
-      0.75,
-      0.5
-     ],
-     [
-      0.5,
-      0.5,
-      0.0
-     ],
-     [
-      0.0,
-      0.0,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 24,
-   "formula": "TlCdBi",
-   "id": "JVASP-161081",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161081.html",
-   "spg": "F-43m (216)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.43,
-   "lo": 1.35,
-   "hi": 7.35,
-   "tc_cal": 3.58,
-   "lambda": 0.976,
-   "wlog": 51.2,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      0.0,
-      3.7293,
-      3.7293
-     ],
-     [
-      3.7293,
-      0.0,
-      3.7293
-     ],
-     [
-      3.7293,
-      3.7293,
-      0.0
-     ]
-    ],
-    "elements": [
-     "Tl",
-     "Cd",
-     "Bi"
-    ],
-    "frac": [
-     [
-      0.75,
-      0.75,
-      0.75
-     ],
-     [
-      0.25,
-      0.25,
-      0.25
-     ],
-     [
-      0.0,
-      0.0,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 25,
-   "formula": "TlInSn",
-   "id": "JVASP-160803",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-160803.html",
-   "spg": "F-43m (216)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.38,
-   "lo": 1.32,
-   "hi": 7.25,
-   "tc_cal": 3.31,
-   "lambda": 0.915,
-   "wlog": 66.9,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      -0.0,
-      3.6628,
-      3.6628
-     ],
-     [
-      3.6628,
-      -0.0,
-      3.6628
-     ],
-     [
-      3.6628,
-      3.6628,
-      -0.0
-     ]
-    ],
-    "elements": [
-     "Tl",
-     "In",
-     "Sn"
-    ],
-    "frac": [
-     [
-      0.75,
-      0.75,
-      0.75
-     ],
-     [
-      0.25,
-      0.25,
-      0.25
-     ],
-     [
-      0.0,
-      0.0,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 26,
+   "rank": 18,
    "formula": "Cd2InSn2",
    "id": "JVASP-156103",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-156103.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 3.35,
-   "lo": 1.3,
-   "hi": 7.2,
-   "tc_cal": 3.78,
-   "lambda": 0.742,
-   "wlog": 71.1,
+   "tc": 3.75,
+   "lo": 1.52,
+   "hi": 7.96,
+   "tc_cal": 4.4,
+   "p_sc": 0.632,
+   "lambda": 0.841,
+   "wlog": 61.9,
    "p_conventional": 1.0,
+   "novelty": 1.93,
+   "outside": true,
+   "nearest": {
+    "formula": "CdSnRh2",
+    "tc": 0.06
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -6171,44 +6447,573 @@
    }
   },
   {
-   "rank": 27,
-   "formula": "InGaPb",
-   "id": "JVASP-160989",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-160989.html",
+   "rank": 19,
+   "formula": "BeInGa4",
+   "id": "JVASP-65235",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-65235.html",
    "spg": "F-43m (216)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 3.33,
-   "lo": 1.29,
-   "hi": 7.16,
-   "tc_cal": 3.7,
-   "lambda": 0.81,
-   "wlog": 78.8,
+   "tc": 3.65,
+   "lo": 1.47,
+   "hi": 7.77,
+   "tc_cal": 1.18,
+   "p_sc": 0.632,
+   "lambda": 0.609,
+   "wlog": 134.6,
    "p_conventional": 1.0,
+   "novelty": 1.34,
+   "outside": true,
+   "nearest": {
+    "formula": "Mg2AlIn",
+    "tc": 0.63
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      -0.0,
+      3.9159,
+      3.9159
+     ],
+     [
+      3.9159,
+      -0.0,
+      3.9159
+     ],
+     [
+      3.9159,
+      3.9159,
+      0.0
+     ]
+    ],
+    "elements": [
+     "Be",
+     "In",
+     "Ga",
+     "Ga",
+     "Ga",
+     "Ga"
+    ],
+    "frac": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.25,
+      0.25,
+      0.25
+     ],
+     [
+      0.12293,
+      0.62569,
+      0.62569
+     ],
+     [
+      0.62569,
+      0.62569,
+      0.62569
+     ],
+     [
+      0.62569,
+      0.12293,
+      0.62569
+     ],
+     [
+      0.62569,
+      0.62569,
+      0.12293
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 20,
+   "formula": "Tl3Ge",
+   "id": "JVASP-107227",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-107227.html",
+   "spg": "Fm-3m (225)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.63,
+   "lo": 1.46,
+   "hi": 7.73,
+   "tc_cal": 3.42,
+   "p_sc": 0.632,
+   "lambda": 1.003,
+   "wlog": 58.2,
+   "p_conventional": 1.0,
+   "novelty": 1.15,
+   "outside": true,
+   "nearest": {
+    "formula": "InPb",
+    "tc": 4.44
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      4.6541,
+      -0.1015,
+      -2.7675
+     ],
+     [
+      -1.5552,
+      4.3877,
+      -2.7675
+     ],
+     [
+      0.0734,
+      0.1015,
+      5.4142
+     ]
+    ],
+    "elements": [
+     "Tl",
+     "Tl",
+     "Tl",
+     "Ge"
+    ],
+    "frac": [
+     [
+      0.75,
+      0.25,
+      0.5
+     ],
+     [
+      0.25,
+      0.75,
+      0.5
+     ],
+     [
+      0.5,
+      0.5,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 21,
+   "formula": "HgBiPb",
+   "id": "JVASP-156414",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-156414.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.61,
+   "lo": 1.44,
+   "hi": 7.69,
+   "tc_cal": 3.82,
+   "p_sc": 0.632,
+   "lambda": 0.971,
+   "wlog": 52.6,
+   "p_conventional": 1.0,
+   "novelty": 1.72,
+   "outside": true,
+   "nearest": {
+    "formula": "TlBiPb",
+    "tc": 4.41
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
       0.0,
-      3.5008,
-      3.5008
+      3.6611,
+      3.6611
      ],
      [
-      3.5008,
+      3.6611,
       0.0,
-      3.5008
+      3.6611
      ],
      [
-      3.5008,
-      3.5008,
+      3.6611,
+      3.6611,
+      -0.0
+     ]
+    ],
+    "elements": [
+     "Hg",
+     "Bi",
+     "Pb"
+    ],
+    "frac": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.25,
+      0.25,
+      0.25
+     ],
+     [
+      0.75,
+      0.75,
+      0.75
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 22,
+   "formula": "InGaBi",
+   "id": "JVASP-160993",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-160993.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.019,
+   "icsd": false,
+   "tc": 3.6,
+   "lo": 1.44,
+   "hi": 7.68,
+   "tc_cal": 3.77,
+   "p_sc": 0.632,
+   "lambda": 0.922,
+   "wlog": 75.9,
+   "p_conventional": 1.0,
+   "novelty": 0.8,
+   "nearest": {
+    "formula": "GaSnBi",
+    "tc": 7.2
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      0.0,
+      3.5478,
+      3.5478
+     ],
+     [
+      3.5478,
+      0.0,
+      3.5478
+     ],
+     [
+      3.5478,
+      3.5478,
       0.0
      ]
     ],
     "elements": [
      "In",
      "Ga",
-     "Pb"
+     "Bi"
     ],
     "frac": [
+     [
+      0.75,
+      0.75,
+      0.75
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.25,
+      0.25,
+      0.25
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 23,
+   "formula": "TlCdBi",
+   "id": "JVASP-161081",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161081.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.56,
+   "lo": 1.42,
+   "hi": 7.59,
+   "tc_cal": 3.74,
+   "p_sc": 0.632,
+   "lambda": 0.982,
+   "wlog": 52.4,
+   "p_conventional": 1.0,
+   "novelty": 1.57,
+   "outside": true,
+   "nearest": {
+    "formula": "TlInBi",
+    "tc": 5.59
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      0.0,
+      3.7293,
+      3.7293
+     ],
+     [
+      3.7293,
+      0.0,
+      3.7293
+     ],
+     [
+      3.7293,
+      3.7293,
+      0.0
+     ]
+    ],
+    "elements": [
+     "Tl",
+     "Cd",
+     "Bi"
+    ],
+    "frac": [
+     [
+      0.75,
+      0.75,
+      0.75
+     ],
+     [
+      0.25,
+      0.25,
+      0.25
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 24,
+   "formula": "TlInSn",
+   "id": "JVASP-160803",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-160803.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.49,
+   "lo": 1.38,
+   "hi": 7.47,
+   "tc_cal": 3.43,
+   "p_sc": 0.632,
+   "lambda": 0.919,
+   "wlog": 68.7,
+   "p_conventional": 1.0,
+   "novelty": 0.88,
+   "nearest": {
+    "formula": "TlInBi",
+    "tc": 5.59
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      -0.0,
+      3.6628,
+      3.6628
+     ],
+     [
+      3.6628,
+      -0.0,
+      3.6628
+     ],
+     [
+      3.6628,
+      3.6628,
+      -0.0
+     ]
+    ],
+    "elements": [
+     "Tl",
+     "In",
+     "Sn"
+    ],
+    "frac": [
+     [
+      0.75,
+      0.75,
+      0.75
+     ],
+     [
+      0.25,
+      0.25,
+      0.25
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 25,
+   "formula": "BeZn2Bi",
+   "id": "JVASP-71116",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-71116.html",
+   "spg": "P4mm (99)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.45,
+   "lo": 1.36,
+   "hi": 7.39,
+   "tc_cal": 2.53,
+   "p_sc": 0.632,
+   "lambda": 0.644,
+   "wlog": 111.5,
+   "p_conventional": 1.0,
+   "novelty": 1.33,
+   "outside": true,
+   "nearest": {
+    "formula": "BePd2Pt",
+    "tc": 0.03
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      3.2959,
+      -0.0,
+      -0.0
+     ],
+     [
+      -0.0,
+      3.2959,
+      -0.0
+     ],
+     [
+      0.0,
+      0.0,
+      6.9124
+     ]
+    ],
+    "elements": [
+     "Be",
+     "Zn",
+     "Zn",
+     "Bi"
+    ],
+    "frac": [
+     [
+      0.0,
+      0.0,
+      0.41029
+     ],
+     [
+      0.0,
+      0.0,
+      0.06482
+     ],
+     [
+      0.5,
+      0.5,
+      0.28835
+     ],
+     [
+      0.5,
+      0.5,
+      0.73654
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 26,
+   "formula": "LiLaZn2",
+   "id": "JVASP-156920",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-156920.html",
+   "spg": "Fm-3m (225)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.43,
+   "lo": 1.35,
+   "hi": 7.36,
+   "tc_cal": 0.81,
+   "p_sc": 0.632,
+   "lambda": 0.647,
+   "wlog": 113.5,
+   "p_conventional": 1.0,
+   "novelty": 1.2,
+   "outside": true,
+   "nearest": {
+    "formula": "LiYZnIn",
+    "tc": 0.52
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      0.0,
+      3.5213,
+      3.5213
+     ],
+     [
+      3.5213,
+      0.0,
+      3.5213
+     ],
+     [
+      3.5213,
+      3.5213,
+      -0.0
+     ]
+    ],
+    "elements": [
+     "Li",
+     "La",
+     "Zn",
+     "Zn"
+    ],
+    "frac": [
+     [
+      0.75,
+      0.75,
+      0.75
+     ],
      [
       0.25,
       0.25,
@@ -6220,9 +7025,78 @@
       0.0
      ],
      [
+      0.5,
+      0.5,
+      0.5
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 27,
+   "formula": "CdGaBi",
+   "id": "JVASP-161004",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161004.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.36,
+   "lo": 1.31,
+   "hi": 7.22,
+   "tc_cal": 3.98,
+   "p_sc": 0.632,
+   "lambda": 0.833,
+   "wlog": 60.6,
+   "p_conventional": 1.0,
+   "novelty": 1.56,
+   "outside": true,
+   "nearest": {
+    "formula": "GaSnBi",
+    "tc": 7.2
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      -0.0,
+      3.4742,
+      3.4742
+     ],
+     [
+      3.4742,
+      0.0,
+      3.4742
+     ],
+     [
+      3.4742,
+      3.4742,
+      -0.0
+     ]
+    ],
+    "elements": [
+     "Cd",
+     "Ga",
+     "Bi"
+    ],
+    "frac": [
+     [
       0.75,
       0.75,
       0.75
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.25,
+      0.25,
+      0.25
      ]
     ]
    }
@@ -6235,13 +7109,25 @@
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 3.28,
-   "lo": 1.27,
-   "hi": 7.07,
-   "tc_cal": 3.68,
-   "lambda": 0.739,
-   "wlog": 72.3,
+   "tc": 3.26,
+   "lo": 1.26,
+   "hi": 7.04,
+   "tc_cal": 3.91,
+   "p_sc": 0.632,
+   "lambda": 0.783,
+   "wlog": 64.9,
    "p_conventional": 1.0,
+   "novelty": 2.07,
+   "outside": true,
+   "nearest": {
+    "formula": "Al2ZnAg",
+    "tc": 0.1
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -6298,19 +7184,274 @@
   },
   {
    "rank": 29,
+   "formula": "BaSrGa4",
+   "id": "JVASP-110282",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-110282.html",
+   "spg": "P6/mmm (191)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.19,
+   "lo": 1.22,
+   "hi": 6.91,
+   "tc_cal": 1.66,
+   "p_sc": 0.632,
+   "lambda": 0.757,
+   "wlog": 123.2,
+   "p_conventional": 1.0,
+   "novelty": 1.15,
+   "outside": true,
+   "nearest": {
+    "formula": "LaAlGa",
+    "tc": 2.5
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      4.4007,
+      0.0,
+      0.0
+     ],
+     [
+      -2.2004,
+      3.8111,
+      0.0
+     ],
+     [
+      0.0,
+      -0.0,
+      9.8152
+     ]
+    ],
+    "elements": [
+     "Ba",
+     "Sr",
+     "Ga",
+     "Ga",
+     "Ga",
+     "Ga"
+    ],
+    "frac": [
+     [
+      0.0,
+      0.0,
+      0.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.66667,
+      0.33333,
+      0.76117
+     ],
+     [
+      0.66667,
+      0.33333,
+      0.23883
+     ],
+     [
+      0.33333,
+      0.66667,
+      0.76117
+     ],
+     [
+      0.33333,
+      0.66667,
+      0.23883
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 30,
+   "formula": "Ba4BeZn",
+   "id": "JVASP-64216",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-64216.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.13,
+   "lo": 1.19,
+   "hi": 6.78,
+   "tc_cal": 0.99,
+   "p_sc": 0.632,
+   "lambda": 0.74,
+   "wlog": 81.4,
+   "p_conventional": 1.0,
+   "novelty": 2.05,
+   "outside": true,
+   "nearest": {
+    "formula": "KBa3Pt",
+    "tc": 0.0
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      0.0,
+      5.0245,
+      5.0245
+     ],
+     [
+      5.0245,
+      -0.0,
+      5.0245
+     ],
+     [
+      5.0245,
+      5.0245,
+      0.0
+     ]
+    ],
+    "elements": [
+     "Ba",
+     "Ba",
+     "Ba",
+     "Ba",
+     "Be",
+     "Zn"
+    ],
+    "frac": [
+     [
+      0.12551,
+      0.62483,
+      0.62483
+     ],
+     [
+      0.62483,
+      0.62483,
+      0.62483
+     ],
+     [
+      0.62483,
+      0.12551,
+      0.62483
+     ],
+     [
+      0.62483,
+      0.62483,
+      0.12551
+     ],
+     [
+      0.25,
+      0.25,
+      0.25
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 31,
+   "formula": "InGaPb",
+   "id": "JVASP-160989",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-160989.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.12,
+   "lo": 1.18,
+   "hi": 6.77,
+   "tc_cal": 3.41,
+   "p_sc": 0.632,
+   "lambda": 0.801,
+   "wlog": 77.1,
+   "p_conventional": 1.0,
+   "novelty": 1.03,
+   "outside": true,
+   "nearest": {
+    "formula": "GaSnBi",
+    "tc": 7.2
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      0.0,
+      3.5008,
+      3.5008
+     ],
+     [
+      3.5008,
+      0.0,
+      3.5008
+     ],
+     [
+      3.5008,
+      3.5008,
+      0.0
+     ]
+    ],
+    "elements": [
+     "In",
+     "Ga",
+     "Pb"
+    ],
+    "frac": [
+     [
+      0.25,
+      0.25,
+      0.25
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.75,
+      0.75,
+      0.75
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 32,
    "formula": "TlZn2In2",
    "id": "JVASP-155761",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155761.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 3.27,
-   "lo": 1.26,
-   "hi": 7.05,
-   "tc_cal": 3.91,
-   "lambda": 0.837,
-   "wlog": 89.7,
+   "tc": 3.12,
+   "lo": 1.18,
+   "hi": 6.77,
+   "tc_cal": 3.74,
+   "p_sc": 0.632,
+   "lambda": 0.844,
+   "wlog": 82.1,
    "p_conventional": 1.0,
+   "novelty": 2.0,
+   "outside": true,
+   "nearest": {
+    "formula": "Al2ZnAg",
+    "tc": 0.1
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -6366,40 +7507,51 @@
    }
   },
   {
-   "rank": 30,
-   "formula": "BaGa4",
-   "id": "JVASP-14661",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-14661.html",
+   "rank": 33,
+   "formula": "SrGa4",
+   "id": "JVASP-20206",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-20206.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": true,
-   "tc": 3.27,
-   "lo": 1.26,
-   "hi": 7.05,
-   "tc_cal": 1.65,
-   "lambda": 0.788,
-   "wlog": 112.3,
+   "tc": 3.1,
+   "lo": 1.18,
+   "hi": 6.74,
+   "tc_cal": 1.47,
+   "p_sc": 0.632,
+   "lambda": 0.732,
+   "wlog": 119.9,
    "p_conventional": 1.0,
+   "novelty": 0.93,
+   "nearest": {
+    "formula": "SrMgGa4",
+    "tc": 6.69
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
    "atoms": {
     "lattice": [
      [
-      4.3224,
-      -0.0,
-      -1.6861
+      4.2004,
+      0.0,
+      -1.6083
      ],
      [
-      -0.6577,
-      4.2721,
-      -1.6861
+      -0.6158,
+      4.155,
+      -1.6083
      ],
      [
-      -0.0359,
-      -0.0418,
-      6.2914
+      -0.0291,
+      -0.0337,
+      6.2133
      ]
     ],
     "elements": [
-     "Ba",
+     "Sr",
      "Ga",
      "Ga",
      "Ga",
@@ -6412,14 +7564,9 @@
       0.0
      ],
      [
-      0.6222,
-      0.6222,
-      0.2444
-     ],
-     [
-      0.75,
-      0.25,
-      0.5
+      0.61831,
+      0.61831,
+      0.23663
      ],
      [
       0.25,
@@ -6427,210 +7574,14 @@
       0.5
      ],
      [
-      0.3778,
-      0.3778,
-      0.7556
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 31,
-   "formula": "LiSnHg2",
-   "id": "JVASP-80996",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-80996.html",
-   "spg": "Immm (71)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.14,
-   "lo": 1.19,
-   "hi": 6.8,
-   "tc_cal": 2.5,
-   "lambda": 0.744,
-   "wlog": 71.3,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      -11.5083,
-      1.7447,
-      -3.7953
-     ],
-     [
-      -7.646,
-      -0.413,
-      0.299
-     ],
-     [
-      -6.0906,
-      3.9861,
-      -2.395
-     ]
-    ],
-    "elements": [
-     "Li",
-     "Sn",
-     "Hg",
-     "Hg"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.5,
-      0.0,
-      0.0
-     ],
-     [
-      0.86156,
-      0.92563,
-      0.92564
-     ],
-     [
-      0.13844,
-      0.07436,
-      0.07436
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 32,
-   "formula": "LiGaHg2",
-   "id": "JVASP-81846",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-81846.html",
-   "spg": "Immm (71)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.14,
-   "lo": 1.19,
-   "hi": 6.8,
-   "tc_cal": 2.25,
-   "lambda": 0.699,
-   "wlog": 87.2,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      -9.9248,
-      0.0,
-      -5.7301
-     ],
-     [
-      -3.3856,
-      -0.4681,
-      -5.5962
-     ],
-     [
-      -4.2161,
-      -2.8172,
-      -4.1576
-     ]
-    ],
-    "elements": [
-     "Li",
-     "Ga",
-     "Hg",
-     "Hg"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.5,
-      0.0,
-      0.0
-     ],
-     [
-      0.76083,
-      1.0,
-      0.0
-     ],
-     [
-      0.23917,
-      0.0,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 33,
-   "formula": "LiBeHg4",
-   "id": "JVASP-64930",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-64930.html",
-   "spg": "F-43m (216)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 3.08,
-   "lo": 1.16,
-   "hi": 6.7,
-   "tc_cal": 1.09,
-   "lambda": 0.681,
-   "wlog": 94.2,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      0.0,
-      4.192,
-      4.192
-     ],
-     [
-      4.192,
-      -0.0,
-      4.192
-     ],
-     [
-      4.192,
-      4.192,
-      -0.0
-     ]
-    ],
-    "elements": [
-     "Li",
-     "Be",
-     "Hg",
-     "Hg",
-     "Hg",
-     "Hg"
-    ],
-    "frac": [
-     [
+      0.75,
       0.25,
-      0.25,
-      0.25
+      0.5
      ],
      [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.62494,
-      0.12517,
-      0.62494
-     ],
-     [
-      0.12517,
-      0.62494,
-      0.62494
-     ],
-     [
-      0.62494,
-      0.62494,
-      0.62494
-     ],
-     [
-      0.62494,
-      0.62494,
-      0.12517
+      0.38169,
+      0.38169,
+      0.76337
      ]
     ]
    }
@@ -6643,13 +7594,25 @@
    "spg": "P-62m (189)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 3.08,
-   "lo": 1.16,
-   "hi": 6.69,
-   "tc_cal": 0.63,
-   "lambda": 0.575,
-   "wlog": 141.3,
+   "tc": 3.04,
+   "lo": 1.14,
+   "hi": 6.62,
+   "tc_cal": 0.62,
+   "p_sc": 0.6,
+   "lambda": 0.571,
+   "wlog": 142.5,
    "p_conventional": 1.0,
+   "novelty": 1.14,
+   "outside": true,
+   "nearest": {
+    "formula": "MgAlGa",
+    "tc": 0.15
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -6712,19 +7675,106 @@
   },
   {
    "rank": 35,
+   "formula": "Tl3Zn",
+   "id": "JVASP-110876",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-110876.html",
+   "spg": "I4/mmm (139)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 3.0,
+   "lo": 1.12,
+   "hi": 6.54,
+   "tc_cal": 3.28,
+   "p_sc": 0.6,
+   "lambda": 1.002,
+   "wlog": 62.7,
+   "p_conventional": 1.0,
+   "novelty": 1.83,
+   "outside": true,
+   "nearest": {
+    "formula": "InPb",
+    "tc": 4.44
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      4.3415,
+      -0.0904,
+      -3.9672
+     ],
+     [
+      -0.9038,
+      4.2473,
+      -3.9672
+     ],
+     [
+      0.0748,
+      0.0904,
+      5.8806
+     ]
+    ],
+    "elements": [
+     "Tl",
+     "Tl",
+     "Tl",
+     "Zn"
+    ],
+    "frac": [
+     [
+      0.75,
+      0.25,
+      0.5
+     ],
+     [
+      0.25,
+      0.75,
+      0.5
+     ],
+     [
+      0.5,
+      0.5,
+      1.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 36,
    "formula": "TlGaPb",
    "id": "JVASP-160990",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-160990.html",
    "spg": "F-43m (216)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 2.94,
-   "lo": 1.09,
-   "hi": 6.43,
-   "tc_cal": 2.83,
-   "lambda": 0.839,
-   "wlog": 69.6,
+   "tc": 2.83,
+   "lo": 1.03,
+   "hi": 6.23,
+   "tc_cal": 2.7,
+   "p_sc": 0.6,
+   "lambda": 0.847,
+   "wlog": 65.6,
    "p_conventional": 1.0,
+   "novelty": 1.24,
+   "outside": true,
+   "nearest": {
+    "formula": "TlInBi",
+    "tc": 5.59
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -6768,42 +7818,54 @@
    }
   },
   {
-   "rank": 36,
-   "formula": "CdGaBi",
-   "id": "JVASP-161004",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161004.html",
+   "rank": 37,
+   "formula": "TlHgSb",
+   "id": "JVASP-155993",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155993.html",
    "spg": "F-43m (216)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 2.91,
-   "lo": 1.07,
-   "hi": 6.38,
-   "tc_cal": 3.56,
-   "lambda": 0.775,
-   "wlog": 65.2,
+   "tc": 2.82,
+   "lo": 1.02,
+   "hi": 6.2,
+   "tc_cal": 2.96,
+   "p_sc": 0.6,
+   "lambda": 0.88,
+   "wlog": 58.2,
    "p_conventional": 1.0,
+   "novelty": 1.6,
+   "outside": true,
+   "nearest": {
+    "formula": "TlInBi",
+    "tc": 5.59
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
    "atoms": {
     "lattice": [
      [
-      -0.0,
-      3.4742,
-      3.4742
+      2.584,
+      1.4919,
+      4.2196
      ],
      [
-      3.4742,
+      -2.584,
+      1.4919,
+      4.2196
+     ],
+     [
       0.0,
-      3.4742
-     ],
-     [
-      3.4742,
-      3.4742,
-      -0.0
+      -2.9837,
+      4.2196
      ]
     ],
     "elements": [
-     "Cd",
-     "Ga",
-     "Bi"
+     "Tl",
+     "Hg",
+     "Sb"
     ],
     "frac": [
      [
@@ -6812,54 +7874,146 @@
       0.75
      ],
      [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
       0.25,
       0.25,
       0.25
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
      ]
     ]
    }
   },
   {
-   "rank": 37,
-   "formula": "LiInHg2",
-   "id": "JVASP-77465",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-77465.html",
+   "rank": 38,
+   "formula": "BaGa4",
+   "id": "JVASP-14661",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-14661.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
-   "icsd": false,
-   "tc": 2.86,
-   "lo": 1.05,
-   "hi": 6.29,
-   "tc_cal": 2.29,
-   "lambda": 0.683,
-   "wlog": 74.7,
+   "icsd": true,
+   "tc": 2.79,
+   "lo": 1.01,
+   "hi": 6.16,
+   "tc_cal": 1.28,
+   "p_sc": 0.6,
+   "lambda": 0.735,
+   "wlog": 118.7,
    "p_conventional": 1.0,
+   "novelty": 0.9,
+   "nearest": {
+    "formula": "LaGa2",
+    "tc": 4.99
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
    "atoms": {
     "lattice": [
      [
-      -11.8605,
-      2.9825,
-      -1.9604
+      4.3224,
+      -0.0,
+      -1.6861
      ],
      [
-      -8.4746,
-      0.7541,
-      1.2153
+      -0.6577,
+      4.2721,
+      -1.6861
      ],
      [
-      -7.0744,
-      4.7283,
-      -1.2173
+      -0.0359,
+      -0.0418,
+      6.2914
+     ]
+    ],
+    "elements": [
+     "Ba",
+     "Ga",
+     "Ga",
+     "Ga",
+     "Ga"
+    ],
+    "frac": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.6222,
+      0.6222,
+      0.2444
+     ],
+     [
+      0.75,
+      0.25,
+      0.5
+     ],
+     [
+      0.25,
+      0.75,
+      0.5
+     ],
+     [
+      0.3778,
+      0.3778,
+      0.7556
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 39,
+   "formula": "LiSnHg2",
+   "id": "JVASP-80996",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-80996.html",
+   "spg": "Immm (71)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 2.77,
+   "lo": 1.0,
+   "hi": 6.11,
+   "tc_cal": 2.21,
+   "p_sc": 0.6,
+   "lambda": 0.696,
+   "wlog": 70.4,
+   "p_conventional": 1.0,
+   "novelty": 2.61,
+   "outside": true,
+   "nearest": {
+    "formula": "LiHg2Pd",
+    "tc": 0.26
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      -11.5083,
+      1.7447,
+      -3.7953
+     ],
+     [
+      -7.646,
+      -0.413,
+      0.299
+     ],
+     [
+      -6.0906,
+      3.9861,
+      -2.395
      ]
     ],
     "elements": [
      "Li",
-     "In",
+     "Sn",
      "Hg",
      "Hg"
     ],
@@ -6875,33 +8029,207 @@
       0.0
      ],
      [
-      0.74999,
-      4e-05,
-      2e-05
+      0.86156,
+      0.92563,
+      0.92564
      ],
      [
-      0.25001,
-      0.99996,
-      0.99998
+      0.13844,
+      0.07436,
+      0.07436
      ]
     ]
    }
   },
   {
-   "rank": 38,
+   "rank": 40,
+   "formula": "Ba4BeCd",
+   "id": "JVASP-64779",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-64779.html",
+   "spg": "F-43m (216)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 2.71,
+   "lo": 0.97,
+   "hi": 6.0,
+   "tc_cal": 0.86,
+   "p_sc": 0.6,
+   "lambda": 0.645,
+   "wlog": 80.4,
+   "p_conventional": 1.0,
+   "novelty": 1.99,
+   "outside": true,
+   "nearest": {
+    "formula": "KBa3Pt",
+    "tc": 0.0
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      0.0,
+      5.0384,
+      5.0384
+     ],
+     [
+      5.0384,
+      0.0,
+      5.0384
+     ],
+     [
+      5.0384,
+      5.0384,
+      0.0
+     ]
+    ],
+    "elements": [
+     "Ba",
+     "Ba",
+     "Ba",
+     "Ba",
+     "Be",
+     "Cd"
+    ],
+    "frac": [
+     [
+      0.1256,
+      0.6248,
+      0.6248
+     ],
+     [
+      0.6248,
+      0.6248,
+      0.6248
+     ],
+     [
+      0.6248,
+      0.1256,
+      0.6248
+     ],
+     [
+      0.6248,
+      0.6248,
+      0.1256
+     ],
+     [
+      0.25,
+      0.25,
+      0.25
+     ],
+     [
+      0.0,
+      0.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 41,
+   "formula": "CaGa3",
+   "id": "JVASP-122651",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-122651.html",
+   "spg": "Cm (8)",
+   "ehull": 0.034,
+   "icsd": false,
+   "tc": 2.58,
+   "lo": 0.9,
+   "hi": 5.75,
+   "tc_cal": 1.07,
+   "p_sc": 0.595,
+   "lambda": 0.569,
+   "wlog": 115.1,
+   "p_conventional": 1.0,
+   "novelty": 1.03,
+   "outside": true,
+   "nearest": {
+    "formula": "CaSi2",
+    "tc": 0.0
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      5.6692,
+      -0.8359,
+      -0.8046
+     ],
+     [
+      -3.4756,
+      4.5562,
+      0.8046
+     ],
+     [
+      -0.8681,
+      0.5119,
+      4.1941
+     ]
+    ],
+    "elements": [
+     "Ca",
+     "Ga",
+     "Ga",
+     "Ga"
+    ],
+    "frac": [
+     [
+      0.06297,
+      0.93703,
+      0.93713
+     ],
+     [
+      0.43611,
+      0.5639,
+      0.31926
+     ],
+     [
+      0.81253,
+      0.18747,
+      0.18062
+     ],
+     [
+      0.6884,
+      0.31161,
+      0.56299
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 42,
    "formula": "BeTlIn4",
    "id": "JVASP-65245",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-65245.html",
    "spg": "F-43m (216)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 2.77,
-   "lo": 1.0,
-   "hi": 6.11,
-   "tc_cal": 2.42,
-   "lambda": 0.625,
-   "wlog": 90.8,
+   "tc": 2.55,
+   "lo": 0.88,
+   "hi": 5.7,
+   "tc_cal": 2.33,
+   "p_sc": 0.595,
+   "lambda": 0.598,
+   "wlog": 91.8,
    "p_conventional": 1.0,
+   "novelty": 2.0,
+   "outside": true,
+   "nearest": {
+    "formula": "HfZrAl4",
+    "tc": 0.0
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -6963,46 +8291,64 @@
    }
   },
   {
-   "rank": 39,
-   "formula": "Tl3Zn",
-   "id": "JVASP-110876",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-110876.html",
+   "rank": 43,
+   "formula": "LiZn2Ge2",
+   "id": "JVASP-158170",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-158170.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 2.76,
-   "lo": 0.99,
-   "hi": 6.09,
-   "tc_cal": 3.03,
-   "lambda": 1.005,
-   "wlog": 59.2,
+   "tc": 2.54,
+   "lo": 0.87,
+   "hi": 5.67,
+   "tc_cal": 1.16,
+   "p_sc": 0.595,
+   "lambda": 0.544,
+   "wlog": 130.4,
    "p_conventional": 1.0,
+   "novelty": 1.18,
+   "outside": true,
+   "nearest": {
+    "formula": "LiAlZn2",
+    "tc": 0.52
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
    "atoms": {
     "lattice": [
      [
-      4.3415,
-      -0.0904,
-      -3.9672
+      -2.0775,
+      2.0775,
+      5.4433
      ],
      [
-      -0.9038,
-      4.2473,
-      -3.9672
+      2.0775,
+      -2.0775,
+      5.4433
      ],
      [
-      0.0748,
-      0.0904,
-      5.8806
+      2.0775,
+      2.0775,
+      -5.4433
      ]
     ],
     "elements": [
-     "Tl",
-     "Tl",
-     "Tl",
-     "Zn"
+     "Li",
+     "Zn",
+     "Zn",
+     "Ge",
+     "Ge"
     ],
     "frac": [
      [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
       0.75,
       0.25,
       0.5
@@ -7013,228 +8359,219 @@
       0.5
      ],
      [
-      0.5,
-      0.5,
-      1.0
+      0.38831,
+      0.38831,
+      0.0
      ],
      [
-      0.0,
-      0.0,
+      0.61169,
+      0.61169,
       0.0
      ]
     ]
    }
   },
   {
-   "rank": 40,
-   "formula": "BaHfHg4",
-   "id": "JVASP-69041",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-69041.html",
-   "spg": "F-43m (216)",
-   "ehull": 0.0,
+   "rank": 44,
+   "formula": "BaHg2Pb2",
+   "id": "JVASP-156056",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-156056.html",
+   "spg": "C2/m (12)",
+   "ehull": 0.04,
    "icsd": false,
-   "tc": 2.75,
-   "lo": 0.99,
-   "hi": 6.08,
-   "tc_cal": 2.14,
-   "lambda": 0.841,
-   "wlog": 72.1,
+   "tc": 2.52,
+   "lo": 0.86,
+   "hi": 5.63,
+   "tc_cal": 2.58,
+   "p_sc": 0.595,
+   "lambda": 0.769,
+   "wlog": 64.5,
    "p_conventional": 1.0,
+   "novelty": 1.65,
+   "outside": true,
+   "nearest": {
+    "formula": "BaSrHg2",
+    "tc": 0.53
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
    "atoms": {
     "lattice": [
      [
-      -0.0,
-      4.2868,
-      4.2868
+      5.7299,
+      -3.7167,
+      -0.0427
      ],
      [
-      4.2868,
-      -0.0,
-      4.2868
+      5.7299,
+      3.7167,
+      -0.0427
      ],
      [
-      4.2868,
-      4.2868,
-      -0.0
+      -5.7519,
+      0.0,
+      3.8996
      ]
     ],
     "elements": [
      "Ba",
-     "Hf",
      "Hg",
      "Hg",
-     "Hg",
-     "Hg"
+     "Pb",
+     "Pb"
     ],
     "frac": [
      [
-      0.25,
-      0.25,
-      0.25
+      0.99982,
+      0.99982,
+      1e-05
      ],
      [
-      0.0,
-      0.0,
-      0.0
+      0.7893,
+      0.21029,
+      0.50005
      ],
      [
-      0.12218,
-      0.62594,
-      0.62594
+      0.21029,
+      0.7893,
+      0.50005
      ],
      [
-      0.62594,
-      0.62594,
-      0.62594
+      0.42099,
+      0.42099,
+      0.09808
      ],
      [
-      0.62594,
-      0.12218,
-      0.62594
-     ],
-     [
-      0.62594,
-      0.62594,
-      0.12218
+      0.5786,
+      0.5786,
+      0.90209
      ]
     ]
    }
   },
   {
-   "rank": 41,
-   "formula": "TlHgSb",
-   "id": "JVASP-155993",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155993.html",
-   "spg": "F-43m (216)",
+   "rank": 45,
+   "formula": "Tl6S",
+   "id": "JVASP-50057",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-50057.html",
+   "spg": "P31m (157)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 2.74,
-   "lo": 0.98,
-   "hi": 6.05,
-   "tc_cal": 2.88,
-   "lambda": 0.86,
-   "wlog": 61.0,
+   "tc": 2.52,
+   "lo": 0.86,
+   "hi": 5.63,
+   "tc_cal": 1.94,
+   "p_sc": 0.595,
+   "lambda": 0.701,
+   "wlog": 73.2,
    "p_conventional": 1.0,
+   "novelty": 1.96,
+   "outside": true,
+   "nearest": {
+    "formula": "InPb",
+    "tc": 4.44
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
    "atoms": {
     "lattice": [
      [
-      2.584,
-      1.4919,
-      4.2196
+      -6.0161,
+      0.0002,
+      0.0012
      ],
      [
-      -2.584,
-      1.4919,
-      4.2196
+      -0.0013,
+      -6.4799,
+      -0.0077
      ],
      [
-      0.0,
-      -2.9837,
-      4.2196
+      0.0028,
+      3.234,
+      5.6161
      ]
     ],
     "elements": [
      "Tl",
-     "Hg",
-     "Sb"
+     "Tl",
+     "Tl",
+     "Tl",
+     "Tl",
+     "Tl",
+     "S"
     ],
     "frac": [
      [
-      0.75,
-      0.75,
-      0.75
+      0.9897,
+      0.33319,
+      0.03641
      ],
      [
-      0.25,
-      0.25,
-      0.25
+      0.46815,
+      0.3334,
+      0.29627
      ],
      [
-      0.0,
-      0.0,
-      0.0
+      0.46743,
+      0.70307,
+      0.03536
+     ],
+     [
+      0.98958,
+      0.70372,
+      0.66575
+     ],
+     [
+      0.4678,
+      0.96376,
+      0.66562
+     ],
+     [
+      0.98901,
+      0.96285,
+      0.2954
+     ],
+     [
+      0.72961,
+      0.33362,
+      0.66627
      ]
     ]
    }
   },
   {
-   "rank": 42,
-   "formula": "SrGa3",
-   "id": "JVASP-122712",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-122712.html",
-   "spg": "Cm (8)",
-   "ehull": 0.027,
-   "icsd": false,
-   "tc": 2.69,
-   "lo": 0.95,
-   "hi": 5.95,
-   "tc_cal": 1.23,
-   "lambda": 0.665,
-   "wlog": 115.7,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      5.7112,
-      -0.7622,
-      -0.8783
-     ],
-     [
-      -3.4314,
-      4.6286,
-      0.8783
-     ],
-     [
-      -0.9125,
-      0.538,
-      4.3488
-     ]
-    ],
-    "elements": [
-     "Sr",
-     "Ga",
-     "Ga",
-     "Ga"
-    ],
-    "frac": [
-     [
-      0.06289,
-      0.93711,
-      0.93553
-     ],
-     [
-      0.43302,
-      0.56698,
-      0.31374
-     ],
-     [
-      0.81249,
-      0.18751,
-      0.18359
-     ],
-     [
-      0.6916,
-      0.3084,
-      0.56714
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 43,
+   "rank": 46,
    "formula": "MgBeGa4",
    "id": "JVASP-64894",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-64894.html",
    "spg": "F-43m (216)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 2.63,
-   "lo": 0.93,
-   "hi": 5.85,
-   "tc_cal": 0.88,
-   "lambda": 0.495,
-   "wlog": 167.1,
+   "tc": 2.51,
+   "lo": 0.86,
+   "hi": 5.63,
+   "tc_cal": 0.81,
+   "p_sc": 0.595,
+   "lambda": 0.5,
+   "wlog": 160.4,
    "p_conventional": 1.0,
+   "novelty": 1.07,
+   "outside": true,
+   "nearest": {
+    "formula": "MgAlGa",
+    "tc": 0.15
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -7296,248 +8633,53 @@
    }
   },
   {
-   "rank": 44,
-   "formula": "LaTlHg2",
-   "id": "JVASP-172889",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-172889.html",
-   "spg": "Fm-3m (225)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 2.61,
-   "lo": 0.91,
-   "hi": 5.8,
-   "tc_cal": 2.61,
-   "lambda": 0.816,
-   "wlog": 67.9,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      4.6321,
-      0.0017,
-      2.67
-     ],
-     [
-      1.5435,
-      4.3673,
-      2.67
-     ],
-     [
-      0.0024,
-      0.0017,
-      5.3465
-     ]
-    ],
-    "elements": [
-     "La",
-     "Tl",
-     "Hg",
-     "Hg"
-    ],
-    "frac": [
-     [
-      0.25,
-      0.25,
-      0.25
-     ],
-     [
-      0.75,
-      0.75,
-      0.75
-     ],
-     [
-      0.99997,
-      0.99997,
-      0.99997
-     ],
-     [
-      0.50003,
-      0.50003,
-      0.50003
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 45,
-   "formula": "BaSrGa4",
-   "id": "JVASP-110282",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-110282.html",
-   "spg": "P6/mmm (191)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 2.54,
-   "lo": 0.88,
-   "hi": 5.69,
-   "tc_cal": 1.39,
-   "lambda": 0.728,
-   "wlog": 118.9,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      4.4007,
-      0.0,
-      0.0
-     ],
-     [
-      -2.2004,
-      3.8111,
-      0.0
-     ],
-     [
-      0.0,
-      -0.0,
-      9.8152
-     ]
-    ],
-    "elements": [
-     "Ba",
-     "Sr",
-     "Ga",
-     "Ga",
-     "Ga",
-     "Ga"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.0,
-      0.5
-     ],
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.66667,
-      0.33333,
-      0.76117
-     ],
-     [
-      0.66667,
-      0.33333,
-      0.23883
-     ],
-     [
-      0.33333,
-      0.66667,
-      0.76117
-     ],
-     [
-      0.33333,
-      0.66667,
-      0.23883
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 46,
-   "formula": "LiZn2Ge2",
-   "id": "JVASP-158170",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-158170.html",
+   "rank": 47,
+   "formula": "LiInHg2",
+   "id": "JVASP-77465",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-77465.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 2.52,
-   "lo": 0.87,
-   "hi": 5.64,
-   "tc_cal": 0.94,
-   "lambda": 0.532,
-   "wlog": 133.8,
+   "tc": 2.51,
+   "lo": 0.86,
+   "hi": 5.63,
+   "tc_cal": 2.01,
+   "p_sc": 0.595,
+   "lambda": 0.665,
+   "wlog": 70.4,
    "p_conventional": 1.0,
+   "novelty": 2.74,
+   "outside": true,
+   "nearest": {
+    "formula": "CaMgHg2",
+    "tc": 0.66
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
    "atoms": {
     "lattice": [
      [
-      -2.0775,
-      2.0775,
-      5.4433
+      -11.8605,
+      2.9825,
+      -1.9604
      ],
      [
-      2.0775,
-      -2.0775,
-      5.4433
+      -8.4746,
+      0.7541,
+      1.2153
      ],
      [
-      2.0775,
-      2.0775,
-      -5.4433
+      -7.0744,
+      4.7283,
+      -1.2173
      ]
     ],
     "elements": [
      "Li",
-     "Zn",
-     "Zn",
-     "Ge",
-     "Ge"
-    ],
-    "frac": [
-     [
-      0.0,
-      0.0,
-      0.0
-     ],
-     [
-      0.75,
-      0.25,
-      0.5
-     ],
-     [
-      0.25,
-      0.75,
-      0.5
-     ],
-     [
-      0.38831,
-      0.38831,
-      0.0
-     ],
-     [
-      0.61169,
-      0.61169,
-      0.0
-     ]
-    ]
-   }
-  },
-  {
-   "rank": 47,
-   "formula": "LiTlHg2",
-   "id": "JVASP-81569",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-81569.html",
-   "spg": "Immm (71)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 2.52,
-   "lo": 0.87,
-   "hi": 5.64,
-   "tc_cal": 1.8,
-   "lambda": 0.709,
-   "wlog": 70.9,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      -11.664,
-      -2.7152,
-      -4.5173
-     ],
-     [
-      -7.7504,
-      -1.0813,
-      0.2067
-     ],
-     [
-      -6.1067,
-      1.4676,
-      -0.9255
-     ]
-    ],
-    "elements": [
-     "Li",
-     "Tl",
+     "In",
      "Hg",
      "Hg"
     ],
@@ -7553,33 +8695,120 @@
       0.0
      ],
      [
-      0.79798,
-      0.90452,
-      0.09548
+      0.74999,
+      4e-05,
+      2e-05
      ],
      [
-      0.20203,
-      0.09547,
-      0.90452
+      0.25001,
+      0.99996,
+      0.99998
      ]
     ]
    }
   },
   {
    "rank": 48,
+   "formula": "LiGaHg2",
+   "id": "JVASP-81846",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-81846.html",
+   "spg": "Immm (71)",
+   "ehull": 0.0,
+   "icsd": false,
+   "tc": 2.47,
+   "lo": 0.84,
+   "hi": 5.55,
+   "tc_cal": 1.85,
+   "p_sc": 0.595,
+   "lambda": 0.636,
+   "wlog": 87.6,
+   "p_conventional": 1.0,
+   "novelty": 2.37,
+   "outside": true,
+   "nearest": {
+    "formula": "LiHg2Pd",
+    "tc": 0.26
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
+   "atoms": {
+    "lattice": [
+     [
+      -9.9248,
+      0.0,
+      -5.7301
+     ],
+     [
+      -3.3856,
+      -0.4681,
+      -5.5962
+     ],
+     [
+      -4.2161,
+      -2.8172,
+      -4.1576
+     ]
+    ],
+    "elements": [
+     "Li",
+     "Ga",
+     "Hg",
+     "Hg"
+    ],
+    "frac": [
+     [
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.5,
+      0.0,
+      0.0
+     ],
+     [
+      0.76083,
+      1.0,
+      0.0
+     ],
+     [
+      0.23917,
+      0.0,
+      0.0
+     ]
+    ]
+   }
+  },
+  {
+   "rank": 49,
    "formula": "BaLi2Zn2",
    "id": "JVASP-158256",
    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-158256.html",
    "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 2.52,
-   "lo": 0.86,
-   "hi": 5.64,
-   "tc_cal": 0.5,
-   "lambda": 0.55,
-   "wlog": 135.9,
+   "tc": 2.45,
+   "lo": 0.83,
+   "hi": 5.5,
+   "tc_cal": 0.51,
+   "p_sc": 0.595,
+   "lambda": 0.562,
+   "wlog": 128.2,
    "p_conventional": 1.0,
+   "novelty": 1.59,
+   "outside": true,
+   "nearest": {
+    "formula": "LiY2Cd",
+    "tc": 0.7
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 2,
+    "file": "screen_round2.json"
+   },
    "atoms": {
     "lattice": [
      [
@@ -7635,130 +8864,80 @@
    }
   },
   {
-   "rank": 49,
-   "formula": "BaGa2Bi",
-   "id": "JVASP-182407",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-182407.html",
-   "spg": "P4mm (99)",
-   "ehull": 0.0,
-   "icsd": false,
-   "tc": 2.52,
-   "lo": 0.86,
-   "hi": 5.63,
-   "tc_cal": 2.92,
-   "lambda": 0.768,
-   "wlog": 87.2,
-   "p_conventional": 1.0,
-   "atoms": {
-    "lattice": [
-     [
-      4.0061,
-      0.0,
-      0.0
-     ],
-     [
-      0.0,
-      4.0061,
-      0.0
-     ],
-     [
-      0.0,
-      0.0,
-      7.3254
-     ]
-    ],
-    "elements": [
-     "Ba",
-     "Ga",
-     "Ga",
-     "Bi"
-    ],
-    "frac": [
-     [
-      0.5,
-      0.5,
-      0.76513
-     ],
-     [
-      0.0,
-      0.0,
-      0.05867
-     ],
-     [
-      0.5,
-      0.5,
-      0.23227
-     ],
-     [
-      0.0,
-      0.0,
-      0.44392
-     ]
-    ]
-   }
-  },
-  {
    "rank": 50,
-   "formula": "BaHg2Bi",
-   "id": "JVASP-171301",
-   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-171301.html",
-   "spg": "Fm-3m (225)",
+   "formula": "ZnIn3",
+   "id": "JVASP-78991",
+   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-78991.html",
+   "spg": "I4/mmm (139)",
    "ehull": 0.0,
    "icsd": false,
-   "tc": 2.51,
-   "lo": 0.86,
-   "hi": 5.63,
-   "tc_cal": 2.55,
-   "lambda": 0.666,
-   "wlog": 62.0,
+   "tc": 2.44,
+   "lo": 0.82,
+   "hi": 5.48,
+   "tc_cal": 3.18,
+   "p_sc": 0.595,
+   "lambda": 0.774,
+   "wlog": 101.8,
    "p_conventional": 1.0,
+   "novelty": 1.52,
+   "outside": true,
+   "nearest": {
+    "formula": "CoSn2",
+    "tc": 0.14
+   },
+   "listed": {
+    "date": "2026-10-31",
+    "round": 1,
+    "file": "screen_round1.json"
+   },
    "atoms": {
     "lattice": [
      [
-      4.8794,
-      0.0,
-      2.8171
+      -2.3174,
+      2.3174,
+      4.6328
      ],
      [
-      1.6265,
-      4.6003,
-      2.8171
+      2.3174,
+      -2.3174,
+      4.6328
      ],
      [
-      0.0,
-      -0.0,
-      5.6342
+      2.3174,
+      2.3174,
+      -4.6328
      ]
     ],
     "elements": [
-     "Ba",
-     "Hg",
-     "Hg",
-     "Bi"
+     "Zn",
+     "In",
+     "In",
+     "In"
     ],
     "frac": [
-     [
-      0.25,
-      0.25,
-      0.25
-     ],
      [
       0.0,
       0.0,
       0.0
      ],
      [
-      0.5,
-      0.5,
+      0.75,
+      0.25,
       0.5
      ],
      [
+      0.25,
       0.75,
-      0.75,
-      0.75
+      0.5
+     ],
+     [
+      0.5,
+      0.5,
+      0.0
      ]
     ]
    }
   }
- ]
+ ],
+ "outside": 45
 }
