@@ -269,10 +269,23 @@ def update_progress(out: dict, best: dict, progress: Path) -> None:
                                 "folds_storm3": [round(x, 2) for x in cal["storm3"]["folds"]],
                                 "folds_better_storm3": cal["best"]["folds_better_storm3"], "n_matched": cal["n_matched"]}
     am = prog.setdefault("ai_model", {})
-    am["ensemble"] = entry   # read by app versions that know Storm 4.0; older ones keep showing Storm 3.0
+    am["ensemble"] = entry   # app versions that know Storm 4.0 read this; older ones read the model_family line below
     if out["adopted"]:
         P.add_history(prog, {"at": stamp, "model": f"Storm {VERSION} (AI-designed)", "target": "Tc", "split": "val",
                              "mae": r3(best["tc_mae"])})
+        # the status line older apps show for Storm (they cannot read ai_model.ensemble)
+        text = (f"Combines boosted trees that learn from about 7,600 materials whose electron–phonon coupling λ and phonon "
+                f"scale ω_log have been computed (the Alexandria set) with a crystal-graph network that learns from the "
+                f"atoms and their neighbours: {best['tc_mae']:.2f} K off on average against the computed Tc of materials "
+                f"it never saw, against {ref['tc_mae']:.2f} K for the trees alone.")
+        if cal:
+            text += (f" Calibrated to measured Tc, it is off by {cal['best']['mae']:.2f} K against experiment "
+                     f"(Storm 3.0: {cal['storm3']['mae']:.2f} K).")
+        text += " Our AI agent designed it."
+        fam = [m for m in prog.get("model_family", []) if m.get("id") != "storm"]
+        fam.insert(0, {"id": "storm", "status": f"Storm {VERSION} in use", "active": True, "text": text})
+        prog["model_family"] = fam
+    H.ai_stage(prog)
     msg = (f"Storm round 4 ({len(out['leaderboard']) - 1} combinations of Storm 1.0 and the {out['gnn']['design']}): best "
            f"{best['name']}, DFT Tc MAE {best['tc_mae']:.3f} K against {ref['tc_mae']:.3f} K for Storm 1.0, better in "
            f"{best['folds_better']} of {P.N_FOLDS} folds")
