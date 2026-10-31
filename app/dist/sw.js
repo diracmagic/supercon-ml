@@ -1,6 +1,6 @@
 // Offline support for the phone web app. Pages from this site load network-first and
 // fall back to the last copy; live data from GitHub always goes straight to the network.
-const CACHE = 'supercon-0.3.0';
+const CACHE = 'supercon-0.3.1';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './progress.json', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', (event) => {
