@@ -604,12 +604,16 @@ def anchor_check(models, c: dict, table: pd.DataFrame, elements: list, n_cols: d
 
 
 def ai_stage(prog: dict) -> None:
-    """Keep the "AI-designed models" stage in step with the models in use (also called by Storm round 3)."""
+    """Keep the "AI-designed models" stage in step with the models in use (also called by Storm rounds 3 and 4 and Radar)."""
     am = prog.get("ai_model") or {}
-    cal = am.get("calibration") or {}
+    cal, ens = am.get("calibration") or {}, am.get("ensemble") or {}
     cur = am.get("current", "1.0")
-    parts = [f"Storm {cal['version']} for conventional superconductors (Storm {cur} calibrated to measured Tc)"
-             if cal.get("status") == "adopted" and cal.get("version") else f"Storm {cur} for conventional superconductors"]
+    if ens.get("status") == "adopted" and ens.get("version"):
+        parts = [f"Storm {ens['version']} for conventional superconductors ({ens.get('summary') or 'Storm ' + cur + ' and the graph network'})"]
+    elif cal.get("status") == "adopted" and cal.get("version"):
+        parts = [f"Storm {cal['version']} for conventional superconductors (Storm {cur} calibrated to measured Tc)"]
+    else:
+        parts = [f"Storm {cur} for conventional superconductors"]
     hu = prog.get("hurricane") or {}
     if hu.get("current"):
         parts.append(f"Hurricane {hu['current']} for unconventional ones")
