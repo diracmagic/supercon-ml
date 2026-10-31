@@ -3,7 +3,8 @@
 Usage (from the repository root):
     python ml/pipeline.py baseline     # composition + structure features, gradient boosting
     python ml/pipeline.py foundation   # adds frozen MACE-MP-0 descriptors and bagged heads
-    python ml/pipeline.py search       # AI-designed model search; releases the Storm model, same CV
+    python ml/pipeline.py search       # AI-designed model search (current round); releases Storm, same CV
+    python ml/pipeline.py search1      # re-run search round 1 (Storm 1.0) for reproducibility
 
 The command downloads the Alexandria and JARVIS electron-phonon datasets through
 jarvis-tools, cleans them, recomputes the Allen-Dynes Tc with one mu*, trains
@@ -534,11 +535,14 @@ def cv_predict(X: np.ndarray, y: np.ndarray, groups: np.ndarray, params: dict, l
 
 
 MODEL_NAME = "Storm"
-MODEL_ABOUT = ("Storm is the project's AI-designed Tc model. An AI agent (Claude) proposes each design; every "
-               "candidate is trained and scored with the same composition-grouped cross-validation, and a new version "
-               "is released only if it beats the current best on average and in at least 4 of the 5 folds.")
+MODEL_ABOUT = ("Storm is the project's AI-designed Tc model for conventional, phonon-mediated superconductors; it is "
+               "trained on DFT electron-phonon data, so it does not cover cuprates, nickelates, iron-based or other "
+               "unconventional superconductors, which are planned for a separate model, Hurricane. An AI agent (Claude) "
+               "proposes each design; every candidate is trained and scored with the same composition-grouped "
+               "cross-validation, and a new version is released only if it beats the current best on average and in at "
+               "least 4 of the 5 folds, and does not do clearly worse on replicated measured Tc.")
 STRUCTURE_COLS = {"volume_per_atom", "density", "a", "b", "c", "c_over_a", "nn_min", "nn_mean", "nn_max"}
-SEARCH_ROUND = 1
+SEARCH_ROUND = 2
 ADOPT_FOLDS = 4  # adopt a design only if it beats the reference on average and in at least 4 of the 5 folds
 
 
@@ -617,6 +621,7 @@ def update_progress_search(out: dict) -> None:
         "selection": out["selection"],
         "rule": out["rule"],
         "baseline": {"name": ref["name"], "tc_mae": round(ref["tc_mae"], 3)},
+        "reference": out.get("reference_name", ref["name"]),
         "best": {"id": best["id"], "name": best["name"], "settings": best["settings"],
                  "tc_mae": round(best["tc_mae"], 3), "folds_better": best["folds_better"]},
         "adopted": out["adopted"],
@@ -640,19 +645,29 @@ def update_progress_search(out: dict) -> None:
                    "tail_mae": round(best["tc_tail_mae"], 3),
                    "tc_via_lambda_wlog_mae": round(sc["tc_via_lambda_wlog"]["mae"], 3),
                    "lambda_mae": round(sc["lambda"]["mae"], 3), "omega_log_mae": round(sc["wlog"]["mae"], 1)},
-        "search": {"candidates": len(out["leaderboard"]),
+        "search": {"candidates": len(out["leaderboard"]), "reference_id": out.get("reference_id", "A"),
                    "leaderboard": [{"id": r["id"], "name": r["name"], "settings": r["settings"],
                                     "tc_mae": round(r["tc_mae"], 3), "folds_better": r["folds_better"]}
                                    for r in out["leaderboard"]]},
     }
+    if out.get("previous"):
+        entry["scores"]["previous"] = out["previous"]
+    if out.get("experiments"):
+        entry["experiments"] = out["experiments"]
     reg = prog.get("ai_model") or {}
     versions = [v for v in reg.get("versions", []) if v.get("round") != rnd] + [entry]
     versions.sort(key=lambda v: v["round"])
-    prog["ai_model"] = {"name": MODEL_NAME, "about": MODEL_ABOUT, "current": versions[-1]["version"], "versions": versions}
+    released = [v for v in versions if v.get("status") == "adopted"] or versions
+    prog["ai_model"] = {"name": MODEL_NAME, "about": MODEL_ABOUT, "current": released[-1]["version"], "versions": versions}
     tidy(prog)
     add_history(prog, {"at": stamp, "model": f"{MODEL_NAME} {ver} (AI-designed)", "target": "Tc", "split": "val",
                        "mae": round(best["tc_mae"], 3)})
-    if out["adopted"]:
+    pv = out.get("previous")
+    if pv:
+        verdict = (f"Tc MAE {best['tc_mae']:.3f} K against {pv['tc_mae']:.3f} K for {pv['name']}, better in "
+                   f"{pv['folds_better']} of {N_FOLDS} folds; " + ("adopted" if out["adopted"] else
+                   "not adopted, so it stays experimental" + (f" ({out['reason']})" if out.get("reason") else "")))
+    elif out["adopted"]:
         verdict = (f"Tc MAE {best['tc_mae']:.2f} K against {ref['tc_mae']:.2f} K for the baseline, better in "
                    f"{best['folds_better']} of {N_FOLDS} folds; adopted")
     else:
@@ -743,14 +758,14 @@ def run_search() -> None:
     cols = list(base.columns)
     spec = model_spec(best["set"], best["params"], cols, M.shape[1])
     changes = spec_changes(spec, model_spec("A", BASE_PARAMS, cols, M.shape[1]))
-    version = f"{SEARCH_ROUND}.0"
+    version = "1.0"
     log(f"{MODEL_NAME} {version} = {best['id']} {best['name']} [{best['settings']}]: Tc MAE {best['tc_mae']:.3f} K "
         f"(baseline {ref['tc_mae']:.3f} K, better in {best['folds_better']}/{N_FOLDS} folds, adopted: {adopted}); "
         f"via lambda/omega_log {extra['tc_via_lambda_wlog']['mae']:.3f} K")
     out = {
         "run_at": now_iso(),
         "commit": os.environ.get("GITHUB_SHA", "local")[:7],
-        "round": SEARCH_ROUND,
+        "round": 1,
         "model": MODEL_NAME,
         "version": version,
         "designer": "AI agent (Claude) proposed the candidate feature sets, the physics features and the settings",
@@ -773,6 +788,358 @@ def run_search() -> None:
     pd.DataFrame({"id": train["id"], "chemsys": groups, "tc": y_tc, "tc_pred_storm": preds[best["id"]],
                   "tc_pred_baseline": preds["A"]}).round(5).to_csv(RESULTS / "model_search_predictions.csv", index=False)
     update_progress_search(out)
+
+
+# ---------------------------------------------------------------- search round 2 (Storm 2.0 candidates)
+
+STORM1_PARAMS = dict(BASE_PARAMS, max_leaf_nodes=63, min_samples_leaf=10)   # Storm 1.0 = D1 of round 1
+PHONON_RATIONALE = {
+    "theta_lindemann": "Lindemann estimate of the Debye temperature, sqrt(Tm / (M V^2/3)) from each element's melting "
+                       "point, mass and the crystal's volume per atom, averaged over the composition",
+    "theta_lindemann_min": "the same Lindemann scale for the softest element, which sets the low-frequency phonons",
+    "sound_omega": "composition-averaged elemental speed of sound over the mean nearest-neighbour distance, a "
+                   "Debye-frequency proxy",
+    "bulk_mean": "composition-averaged elemental bulk modulus, a lattice-stiffness proxy",
+    "omega_bulk": "sqrt(bulk modulus x nearest-neighbour distance / mass), a stiffness-over-mass frequency",
+}
+ROUND2_DESIGN = ("Round 2 builds on Storm 1.0. The latest experiments still support phonon-mediated pairing in the "
+                 "light-element, high-frequency materials (the 2025 H3S tunnelling gap and its isotope shift), so the "
+                 "agent added phonon-frequency scales from measured element data (melting point, speed of sound, bulk "
+                 "modulus), an Allen-Dynes stage that feeds predicted lambda and omega_log into the Tc model, and a "
+                 "median objective that matches the reported absolute error. Every candidate is also checked against "
+                 "measured Tc graded by reliability: only replicated, ambient-pressure, phonon-mediated "
+                 "superconductors are scored, single reports and preprints are shown but not scored, and retracted "
+                 "or refuted claims are left out. DFT is not assumed right either: the check also reports how far "
+                 "the DFT training labels themselves are from experiment.")
+EXPERIMENTS = ROOT / "data" / "experiments.json"   # outside ml/, so editing it does not start a training run
+EXP_TOLERANCE = 0.5   # K: a new version may not be worse than the current one on scored measurements by more
+EXP_MIN_N = 8         # the experimental guard applies only with at least this many scored matches
+
+
+def phonon_features(df: pd.DataFrame, base: pd.DataFrame) -> pd.DataFrame:
+    """Phonon-frequency scales from measured element properties (see PHONON_RATIONALE); NaN where pymatgen
+    has no value, which the gradient-boosting learner handles natively."""
+    from pymatgen.core.periodic_table import Element
+
+    info = {}
+
+    def element(sym):
+        if sym not in info:
+            e = Element(sym)
+
+            def num(attr):
+                try:
+                    v = getattr(e, attr)
+                    return float(v) if v is not None else np.nan
+                except Exception:
+                    return np.nan
+            info[sym] = (float(e.atomic_mass), num("melting_point"), num("velocity_of_sound"), num("bulk_modulus"))
+        return info[sym]
+
+    rows = []
+    for atoms, vpa, nn in zip(df["atoms"], base["volume_per_atom"], base["nn_mean"]):
+        uniq, counts = np.unique(list(atoms["elements"]), return_counts=True)
+        x = counts / counts.sum()
+        p = np.array([element(s) for s in uniq], float)
+        mass, tm, vs, bm = p[:, 0], p[:, 1], p[:, 2], p[:, 3]
+        with np.errstate(invalid="ignore", divide="ignore"):
+            theta = np.sqrt(tm / (mass * vpa ** (2.0 / 3.0))) if vpa > 0 else np.full(len(mass), np.nan)
+
+        def wmean(v):
+            ok = np.isfinite(v)
+            return float(np.sum(x[ok] * v[ok]) / np.sum(x[ok])) if ok.any() else np.nan
+        bmean = wmean(bm)
+        rows.append({
+            "theta_lindemann": wmean(theta),
+            "theta_lindemann_min": float(np.nanmin(theta)) if np.isfinite(theta).any() else np.nan,
+            "sound_omega": wmean(vs) / nn if nn > 0 else np.nan,
+            "bulk_mean": bmean,
+            "omega_bulk": float(np.sqrt(bmean * nn / np.sum(x * mass))) if np.isfinite(bmean) and nn > 0 else np.nan,
+        })
+    return pd.DataFrame(rows)
+
+
+def ad_stage(X: np.ndarray, y_lam: np.ndarray, y_wlog: np.ndarray, groups: np.ndarray, params: dict, splits) -> list:
+    """Allen-Dynes stage, leakage-safe. For each outer fold, first-stage models predict lambda and omega_log:
+    out of fold (inner grouped CV) for the training rows, and from models fitted on the whole training fold for
+    the test rows. Returns per fold (train, test) arrays of [lambda, omega_log, Allen-Dynes Tc]."""
+    from sklearn.ensemble import HistGradientBoostingRegressor
+    from sklearn.model_selection import GroupKFold
+
+    def pack(f):
+        lam, w = np.clip(f[:, 0], 0, None), np.clip(f[:, 1], 1, None)
+        return np.column_stack([lam, w, allen_dynes(lam, w)])
+
+    out = []
+    for k, (tr, te) in enumerate(splits):
+        f_tr, f_te = np.zeros((len(tr), 2)), np.zeros((len(te), 2))
+        for j, y in enumerate((y_lam, y_wlog)):
+            for kk, (a, b) in enumerate(GroupKFold(n_splits=N_FOLDS).split(X[tr], y[tr], groups[tr])):
+                m = HistGradientBoostingRegressor(random_state=SEED + 50 + 10 * k + kk, **params)
+                f_tr[b, j] = m.fit(X[tr][a], y[tr][a]).predict(X[tr][b])
+            m = HistGradientBoostingRegressor(random_state=SEED + 90 + k, **params)
+            f_te[:, j] = m.fit(X[tr], y[tr]).predict(X[te])
+        out.append((pack(f_tr), pack(f_te)))
+    return out
+
+
+def cv_predict_stage(X: np.ndarray, y: np.ndarray, splits, params: dict, stage=None, n_bags=1, log_target=True):
+    """Grouped-CV predictions with optional Allen-Dynes stage columns and an average over n_bags seeds."""
+    from sklearn.ensemble import HistGradientBoostingRegressor
+
+    pred = np.zeros(len(y))
+    for k, (tr, te) in enumerate(splits):
+        xtr, xte = X[tr], X[te]
+        if stage is not None:
+            xtr, xte = np.hstack([xtr, stage[k][0]]), np.hstack([xte, stage[k][1]])
+        target = np.log1p(y[tr]) if log_target else y[tr]
+        p = np.zeros(len(te))
+        for b in range(n_bags):
+            m = HistGradientBoostingRegressor(random_state=SEED + k + 1000 * b, **params)
+            p += m.fit(xtr, target).predict(xte) / n_bags
+        pred[te] = np.expm1(p) if log_target else p
+    return pred
+
+
+def _composition_key(counts: dict) -> tuple:
+    tot = float(sum(counts.values()))
+    return tuple(sorted((str(el), round(float(n) / tot, 4)) for el, n in counts.items()))
+
+
+def experimental_check(train: pd.DataFrame, preds: dict, ids: list) -> dict:
+    """Match graded measurements to training materials by composition and compare, per candidate, the median
+    out-of-fold prediction with the measured Tc. Also reports the DFT labels' own distance from experiment."""
+    if not EXPERIMENTS.exists():
+        return {}
+    ex = json.loads(EXPERIMENTS.read_text(encoding="utf-8"))
+    index = {}
+    for i, atoms in enumerate(train["atoms"]):
+        u, c = np.unique(list(atoms["elements"]), return_counts=True)
+        index.setdefault(_composition_key(dict(zip(u, c))), []).append(i)
+    tc = train["tc"].to_numpy()
+    table, scored = [], []
+    for e in ex["materials"]:
+        idx = index.get(_composition_key(e["composition"]), [])
+        row = {"name": e["name"], "tc_exp": e.get("tc_exp"), "status": e["status"], "use": e["use"],
+               "source": e.get("source"), "note": e.get("note", ""), "n_matches": len(idx)}
+        if idx:
+            row["dft_tc"] = round(float(np.median(tc[idx])), 2)
+            row["pred"] = {cid: round(float(np.median(preds[cid][idx])), 2) for cid in ids}
+        table.append(row)
+        if idx and e["use"] == "score" and e.get("tc_exp") is not None:
+            scored.append(row)
+    summary = {"n_scored": len(scored), "n_listed": len(table),
+               "dft_mae": round(float(np.mean([abs(r["dft_tc"] - r["tc_exp"]) for r in scored])), 2) if scored else None,
+               "mae": {cid: round(float(np.mean([abs(r["pred"][cid] - r["tc_exp"]) for r in scored])), 2) if scored else None
+                       for cid in ids},
+               "rule": f"a new version may not be more than {EXP_TOLERANCE} K worse than the current one on the scored "
+                       f"measurements (applies with at least {EXP_MIN_N} scored matches)",
+               "about": ex.get("about", "")}
+    return {"summary": summary, "table": table}
+
+
+def model_spec2(cand: dict, base_cols: list) -> dict:
+    """Spec of a round-2 design, in the same machine-readable form the app animates."""
+    spec = model_spec("D", cand["params"], base_cols, 0)
+    if cand["phonon"]:
+        spec["inputs"].append({"group": "phonon", "label": "Phonon-scale features proposed by the AI",
+                               "n": len(PHONON_RATIONALE),
+                               "items": [{"name": k, "why": v} for k, v in PHONON_RATIONALE.items()]})
+    if cand["stage"]:
+        spec["inputs"].append({"group": "stage", "label": "Allen–Dynes stage", "n": 3,
+                               "detail": "λ and ω_log from first-stage models (out of fold) and the Allen–Dynes Tc "
+                                         "they imply"})
+        spec["stage"] = {"kind": "allen-dynes", "label": "Allen–Dynes stage", "first": ["lambda", "omega_log"],
+                         "mu_star": MU_STAR}
+    spec["learner"]["loss"] = "absolute error" if cand["params"].get("loss") == "absolute_error" else "squared error"
+    spec["learner"]["ensemble"] = cand["bags"]
+    return spec
+
+
+def spec_changes2(spec: dict, ref: dict) -> list:
+    """What a round-2 design changes relative to Storm 1.0, in plain language."""
+    out = []
+    have = {i["group"] for i in ref["inputs"]}
+    for i in spec["inputs"]:
+        if i["group"] in have:
+            continue
+        if i["group"] == "phonon":
+            out.append(f"Adds {i['n']} phonon-scale features from measured element data: a Lindemann estimate of the "
+                       "Debye temperature (average and softest element), a speed-of-sound frequency, the mean bulk "
+                       "modulus and a stiffness-over-mass frequency")
+        elif i["group"] == "stage":
+            out.append("Adds an Allen–Dynes stage: first-stage models predict λ and ω_log, and they and the Tc the "
+                       "Allen–Dynes formula gives from them become three extra inputs")
+    a, b = spec["learner"], ref["learner"]
+    if a.get("loss", "squared error") != b.get("loss", "squared error"):
+        out.append("Fits the median instead of the mean (absolute-error loss), which matches the Tc error the "
+                   "project reports")
+    if a.get("ensemble", 1) != b.get("ensemble", 1):
+        out.append(f"Averages {a['ensemble']} models trained with different seeds, each split looking at a random "
+                   f"{a['features_per_split']:.0%} of the features")
+    rest = [c for c in spec_changes(dict(spec, inputs=ref["inputs"]), ref)
+            if not c.startswith("Same structure") and not c.startswith("Each split looks")]
+    return out + rest or ["Same structure as Storm 1.0; different random seed or data"]
+
+
+def run_search2() -> None:
+    """Round 2 of the AI-designed model search. Reference: Storm 1.0, re-scored on the same folds. Candidates
+    (proposed by the AI agent): phonon-scale features, an Allen-Dynes stage, a median objective, their
+    combinations and a seed average. Adoption needs a lower mean error than Storm 1.0, at least ADOPT_FOLDS of
+    the folds better, and no clear loss on replicated measured Tc. The locked JARVIS test set is not touched."""
+    import sklearn
+    from sklearn.model_selection import GroupKFold
+
+    RESULTS.mkdir(exist_ok=True)
+    _, frames = load_clean()
+    train = frames["alexandria"]
+    table = element_table(sorted({e for els in train["elements"] for e in els}))
+    base = featurize(train, table)
+    phys = physics_features(train, base)
+    phon = phonon_features(train, base)
+    groups = train["chemsys"].to_numpy()
+    y_lam, y_wlog, y_tc = (train[c].to_numpy() for c in ("lambda", "wlog", "tc"))
+    tail = float(np.quantile(y_tc, 0.9))
+    A = base.to_numpy(float)
+    D = np.hstack([A, phys.to_numpy(float)])
+    DP = np.hstack([D, phon.to_numpy(float)])
+    splits = list(GroupKFold(n_splits=N_FOLDS).split(A, y_tc, groups))
+    folds = [te for _, te in splits]
+    log(f"search round 2: {len(y_tc)} materials; {A.shape[1]} hand-made, {phys.shape[1]} physics and "
+        f"{phon.shape[1]} phonon-scale features; phonon features missing in "
+        f"{float(np.mean(~np.isfinite(phon.to_numpy(float)))):.1%} of cells")
+    med = dict(STORM1_PARAMS, loss="absolute_error")
+    cands = [
+        {"id": "S0", "name": "Storm 1.0 (reference)", "settings": "default", "X": "D", "phonon": False, "stage": False, "params": STORM1_PARAMS, "bags": 1},
+        {"id": "R1", "name": "Storm 1.0 + phonon-scale features", "settings": "default", "X": "DP", "phonon": True, "stage": False, "params": STORM1_PARAMS, "bags": 1},
+        {"id": "R2", "name": "Storm 1.0, median objective", "settings": "default", "X": "D", "phonon": False, "stage": False, "params": med, "bags": 1},
+        {"id": "R3", "name": "Storm 1.0 + Allen–Dynes stage", "settings": "default", "X": "D", "phonon": False, "stage": True, "params": STORM1_PARAMS, "bags": 1},
+        {"id": "R4", "name": "+ phonon-scale features, median objective", "settings": "default", "X": "DP", "phonon": True, "stage": False, "params": med, "bags": 1},
+        {"id": "R5", "name": "+ phonon-scale features + Allen–Dynes stage", "settings": "default", "X": "DP", "phonon": True, "stage": True, "params": STORM1_PARAMS, "bags": 1},
+        {"id": "R6", "name": "+ phonon-scale features + Allen–Dynes stage, median objective", "settings": "default", "X": "DP", "phonon": True, "stage": True, "params": med, "bags": 1},
+        {"id": "R7", "name": "+ phonon-scale features + Allen–Dynes stage, median objective", "settings": "average of 5 seeds", "X": "DP", "phonon": True, "stage": True, "params": dict(med, max_features=0.8), "bags": 5},
+    ]
+    mats = {"D": D, "DP": DP}
+    stages = {}
+    board, preds = [], {}
+    for cnd in cands:
+        X = mats[cnd["X"]]
+        t0 = time.time()
+        stage = None
+        if cnd["stage"]:
+            if cnd["X"] not in stages:
+                stages[cnd["X"]] = ad_stage(X, y_lam, y_wlog, groups, STORM1_PARAMS, splits)
+                log(f"Allen-Dynes stage for {cnd['X']}: {time.time() - t0:.0f} s")
+            stage = stages[cnd["X"]]
+        try:
+            p = np.clip(cv_predict_stage(X, y_tc, splits, cnd["params"], stage=stage, n_bags=cnd["bags"]), 0, None)
+        except (TypeError, ValueError) as err:   # e.g. an option this scikit-learn version lacks
+            log(f"{cnd['id']} skipped: {err}")
+            continue
+        m = metrics(y_tc, p, tail=tail)
+        row = {"id": cnd["id"], "set": cnd["X"], "name": cnd["name"], "settings": cnd["settings"],
+               "params": dict(cnd["params"]), "n_features": int(X.shape[1] + (3 if cnd["stage"] else 0)),
+               "tc_mae": m["mae"], "tc_rmse": m["rmse"], "tc_r2": m["r2"], "tc_tail_mae": m["tail_mae"],
+               "fold_mae": [float(np.mean(np.abs(p[te] - y_tc[te]))) for te in folds],
+               "seconds": round(time.time() - t0)}
+        board.append(row)
+        preds[cnd["id"]] = p
+        log(f"{cnd['id']} {cnd['name']} [{cnd['settings']}]: Tc MAE {m['mae']:.3f} K, tail {m['tail_mae']:.2f} K, "
+            f"{row['seconds']} s")
+    # the hand-made baseline, so older app versions keep a correct baseline comparison
+    pa = np.clip(cv_predict_stage(A, y_tc, splits, BASE_PARAMS), 0, None)
+    base_row = {"id": "A", "name": "Hand-made features (baseline)", "tc_mae": float(np.mean(np.abs(pa - y_tc))),
+                "fold_mae": [float(np.mean(np.abs(pa[te] - y_tc[te]))) for te in folds]}
+    ref = next(r for r in board if r["id"] == "S0")
+    for r in board:
+        r["folds_better"] = int(sum(a < b for a, b in zip(r["fold_mae"], base_row["fold_mae"])))
+        r["folds_better_prev"] = int(sum(a < b for a, b in zip(r["fold_mae"], ref["fold_mae"])))
+    ids = [r["id"] for r in board]
+    exp = experimental_check(train, preds, ids)
+    es = exp.get("summary", {})
+    guard_on = bool(es) and es.get("n_scored", 0) >= EXP_MIN_N
+
+    def exp_ok(r):
+        return not guard_on or es["mae"][r["id"]] <= es["mae"]["S0"] + EXP_TOLERANCE
+    eligible = [r for r in board if r["id"] != "S0" and r["tc_mae"] < ref["tc_mae"] and r["folds_better_prev"] >= ADOPT_FOLDS]
+    passing = [r for r in eligible if exp_ok(r)]
+    adopted = bool(passing)
+    best = min(passing or eligible or [r for r in board if r["id"] != "S0"], key=lambda r: r["tc_mae"])
+    reason = ""
+    if not adopted:
+        reason = ("it fails the measured-Tc check" if eligible else
+                  f"no candidate beat Storm 1.0 on average and in at least {ADOPT_FOLDS} of {N_FOLDS} folds")
+    cb = next(c for c in cands if c["id"] == best["id"])
+    X = mats[cb["X"]]
+    lam_params = {k: v for k, v in cb["params"].items() if k != "loss"}
+    p_lam = cv_predict_stage(X, y_lam, splits, lam_params, stage=stages.get(cb["X"]) if cb["stage"] else None, log_target=False)
+    p_wlog = cv_predict_stage(X, y_wlog, splits, lam_params, stage=stages.get(cb["X"]) if cb["stage"] else None, log_target=False)
+    extra = {
+        "lambda": metrics(y_lam, p_lam),
+        "wlog": metrics(y_wlog, p_wlog),
+        "tc_via_lambda_wlog": metrics(y_tc, allen_dynes(np.clip(p_lam, 0, None), np.clip(p_wlog, 0, None)), tail=tail),
+    }
+    cols = list(base.columns)
+    spec = model_spec2(cb, cols)
+    ref_spec = model_spec2(cands[0], cols)
+    ref_spec["learner"].pop("loss", None); ref_spec["learner"].pop("ensemble", None)   # as recorded for Storm 1.0
+    changes = spec_changes2(spec, ref_spec)
+    version = f"{SEARCH_ROUND}.0"
+    prev = {"name": f"{MODEL_NAME} 1.0", "version": "1.0", "tc_mae": round(ref["tc_mae"], 3),
+            "folds": [round(x, 3) for x in ref["fold_mae"]], "folds_better": best["folds_better_prev"]}
+    log(f"{MODEL_NAME} {version} = {best['id']} {best['name']} [{best['settings']}]: Tc MAE {best['tc_mae']:.3f} K "
+        f"(Storm 1.0 {ref['tc_mae']:.3f} K, better in {best['folds_better_prev']}/{N_FOLDS} folds; baseline "
+        f"{base_row['tc_mae']:.3f} K; adopted: {adopted}{'; ' + reason if reason else ''}); measured-Tc check: "
+        f"{es.get('n_scored', 0)} scored, MAE {es.get('mae', {}).get(best['id'])} K vs {es.get('mae', {}).get('S0')} K "
+        f"for Storm 1.0, DFT labels {es.get('dft_mae')} K")
+    leader = sorted(board, key=lambda r: r["tc_mae"])
+    out = {
+        "run_at": now_iso(),
+        "commit": os.environ.get("GITHUB_SHA", "local")[:7],
+        "round": SEARCH_ROUND,
+        "model": MODEL_NAME,
+        "version": version,
+        "designer": "AI agent (Claude) proposed the candidates: phonon-scale features, an Allen-Dynes stage, a median "
+                    "objective and a seed average, with a measured-Tc check graded by reliability",
+        "design": ROUND2_DESIGN,
+        "selection": (f"{N_FOLDS}-fold GroupKFold by chemical system on Alexandria ({len(y_tc):,} materials); "
+                      "the locked JARVIS test set is not used"),
+        "rule": (f"release the lowest-error design that beats Storm 1.0 on average and in at least {ADOPT_FOLDS} of "
+                 f"{N_FOLDS} folds and is not more than {EXP_TOLERANCE} K worse on replicated measured Tc; otherwise "
+                 "the best design stays experimental"),
+        "caveat": ("picking the best of several candidates on the same folds makes its score slightly optimistic; "
+                   "the locked JARVIS test set will check the final model once"),
+        "scikit_learn": sklearn.__version__,
+        "physics_features": PHYSICS_RATIONALE,
+        "phonon_features": PHONON_RATIONALE,
+        "baseline": {k: base_row[k] for k in ("id", "name", "tc_mae", "fold_mae")},
+        "reference_id": "S0",
+        "reference_name": "Storm 1.0",
+        "previous": prev,
+        "leaderboard": leader,
+        "best": dict(best, scores=extra),
+        "adopted": adopted,
+        "reason": reason,
+        "spec": spec,
+        "changes": changes,
+        "experiments": {"summary": es, "best": best["id"],
+                        "table": [dict(r, pred_best=r.get("pred", {}).get(best["id"]), pred_storm1=r.get("pred", {}).get("S0"))
+                                  for r in exp.get("table", [])]} if exp else None,
+    }
+    (RESULTS / "model_search_round2.json").write_text(json.dumps(out, indent=2, default=float) + "\n")
+    pd.DataFrame({"id": train["id"], "chemsys": groups, "tc": y_tc, "tc_pred_best": preds[best["id"]],
+                  "tc_pred_storm1": preds["S0"], "tc_pred_baseline": pa}).round(5).to_csv(
+        RESULTS / "model_search_round2_predictions.csv", index=False)
+    # for the progress file: the baseline row stays the backward-compatible reference
+    out_p = dict(out, baseline=dict(out["baseline"]))
+    out_p["experiments"] = ({"n_scored": es.get("n_scored"), "mae": es.get("mae", {}).get(best["id"]),
+                             "mae_previous": es.get("mae", {}).get("S0"), "dft_mae": es.get("dft_mae"),
+                             "rule": es.get("rule"),
+                             "table": [{"name": r["name"], "tc_exp": r["tc_exp"], "status": r["status"], "use": r["use"],
+                                        "n": r["n_matches"], "dft": r.get("dft_tc"),
+                                        "pred": r.get("pred", {}).get(best["id"]), "prev": r.get("pred", {}).get("S0")}
+                                       for r in exp.get("table", [])]} if exp else None)
+    update_progress_search(out_p)
 
 
 # ---------------------------------------------------------------- commands
@@ -896,14 +1263,16 @@ def run_foundation() -> None:
 
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["baseline", "foundation", "search"])
+    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1"])
     args = ap.parse_args(argv)
     if args.command == "baseline":
         run_baseline()
     elif args.command == "foundation":
         run_foundation()
-    elif args.command == "search":
+    elif args.command == "search1":
         run_search()
+    elif args.command == "search":
+        run_search2()
 
 
 if __name__ == "__main__":
