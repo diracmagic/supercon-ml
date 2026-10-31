@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-10-31T04:02:29+00:00",
+ "updated": "2026-10-31T04:11:07+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -59,7 +59,8 @@
   "Phys.org",
   "Physics World",
   "APS Physics",
-  "Quanta Magazine"
+  "Quanta Magazine",
+  "arXiv AI"
  ],
  "arxiv": [
   {
@@ -2486,7 +2487,7 @@
    ],
    "n_authors": 2,
    "date": "2026-10-23",
-   "abstract": "The past decade has witnessed significant progress in topological materials investigation. Symmetry-indicator theory and topological quantum chemistry provide an efficient scheme to diagnose topological phases from only partial information of wave functions without full knowledge of topological invariants, which has resulted in a recent comprehensive materials search. However, not all topological phases can be captured by this framework, and topological invariants are needed for a more refined diagnosis of topological phases. In this study, we present a systematic framework to construct topological invariants for a large part of symmetry classes, which should be contrasted with the existing invariants discovered through one-by-one approaches. Our method is based on the recently developed Atiyah-Hirzebruch spectral sequence in momentum space. As a demonstration, we construct topological invariants for time-reversal-symmetric spinful superconductors with conventional pairing symmetries of all space groups, for which symmetry indicators are silent. We also validate that the obtained quantities work as topological invariants by computing them for randomly generated symmetric Hamiltonians. Remarkably, the constructed topological invariants completely characterize K groups in 159 space groups. Our topological invariants for normal conducting phases are defined under some gauge condit",
+   "abstract": "The past decade has witnessed significant progress in topological materials investigation.",
    "url": "https://doi.org/10.1103/2rw7-bzl4",
    "doi": "10.1103/2rw7-bzl4",
    "topics": [
@@ -2547,7 +2548,7 @@
    ],
    "n_authors": 26,
    "date": "2026-10-22",
-   "abstract": "The interplay of superconductivity, band topology, and spontaneous time-reversal-symmetry breaking (TRSB) is expected to enable topological superconducting boundary states. Intriguingly, the iron-chalcogenide superconductor FeTe 0.55 Se 0.45 exhibits spontaneous magnetization in the superconducting state, motivating its use as a single-material platform in which three ingredients coexist. Here, we report evidence for a nontrivial, boundary-mediated superconducting transport response in exfoliated Fe(Te,Se) devices, exhibiting long-range nonlocality and strongly suppressed thermal broadening. Polar Kerr measurements establish that TRSB emerges below T Kerr < T c and coexists with superconductivity across multiple Fe(Te,Se) compositions studied here, providing an independent symmetry-breaking scale that can be directly compared with transport. To reliably access boundary transport, we engineer crystallographically sharp, continuous edges and implement side-surface-dominant contacts, as validated by contact-size analysis and cross-sectional imaging. Under these conditions, topological FeTe 0.55 Se 0.45 exhibits an anomalous conductance plateau that is absent in topologically trivial FeTe 0.40 Se 0.60 and Fe 1.02 Te 0.55 Se 0.45 under comparable measurements. This plateau requires both the source and drain to be attached to uninterrupted sharp edges, persists over micrometer-scale ",
+   "abstract": "The interplay of superconductivity, band topology, and spontaneous time-reversal-symmetry breaking (TRSB) is expected to enable topological superconducting boundary states.",
    "url": "https://doi.org/10.1103/8vgt-twh5",
    "doi": "10.1103/8vgt-twh5",
    "topics": [
@@ -2651,7 +2652,7 @@
    ],
    "n_authors": 10,
    "date": "2026-10-19",
-   "abstract": "In conventional, phonon-mediated superconductors, the transition temperature and the linear-in-temperature normal-state scattering rate are linked through the electron–phonon coupling strength. In cuprate high-temperature superconductors, no equivalent relationship between critical temperature and electron–boson coupling has been identified. Here we highlight such a link with electrons scattering off commensurate antiferromagnetic spin fluctuations of variable strength. We use d.c. resistivity and high-field magnetoresistance to extract the scattering rate in electron-doped La ₂− ₓ Ce ₓ CuO ₄ as a function of doping. We reveal a highly anisotropic inelastic component to the scattering rate whose magnitude diminishes markedly as doping increases. The correlation we highlight between the strength of scattering and the critical temperature then identifies low-energy spin fluctuations as the primary pairing glue in electron-doped cuprates. The contrasting magnetotransport behaviour in hole-doped cuprates suggests that the higher critical temperature in those materials cannot be attributed solely to an increase in the coupling strength to the antiferromagnetic fluctuations. The success in modelling La ₂− ₓ Ce ₓ CuO ₄ reinforces the notion that resolving the origin of high-temperature superconductivity in hole-doped cuprates may require more than a simple extension of the Bardeen–Coo",
+   "abstract": "In conventional, phonon-mediated superconductors, the transition temperature and the linear-in-temperature normal-state scattering rate are linked through the electron–phonon coupling strength.",
    "url": "https://doi.org/10.1038/s41567-026-03454-6",
    "doi": "10.1038/s41567-026-03454-6",
    "topics": [
@@ -2904,7 +2905,7 @@
    ],
    "n_authors": 30,
    "date": "2026-10-07",
-   "abstract": "Side surfaces of cuprate superconductors are expected to display a suppressed d -wave order parameter and zero-energy topological flat bands with a large density of states, making them susceptible to symmetry broken orders. Yet such surfaces have never been investigated with momentum-resolved, surface-sensitive probes, because high-temperature superconductors rarely cleave along them. Using focused-ion-beam milling to define a controlled breaking point, we expose pristine (110) side surfaces of overdoped La ₂− ₓ Sr ₓ CuO ₄ ( x = 0.22) suitable for angle-resolved photoemission. We do not resolve an opening or closing of a superconducting spectral gap within our energy resolution ( ~ 4 meV), in agreement with theoretical predictions. Surprisingly, the expected zero-energy flat band peak is also suppressed, despite the high topographic quality of the surface. Self-consistent Bogoliubov–de Gennes calculations show that the measured geometric roughness of the cleaved surface is too weak to eliminate these modes. The calculations further demonstrate that bulk inhomogeneities characteristic of high-temperature superconductors, modelled as moderate Anderson-type disorder, can broaden the flat-band states beyond detectability. Our results provide the first momentum-resolved view of the electronic structure on a cuprate side surface and identify disorder as a plausible mechanism obscurin",
+   "abstract": "Side surfaces of cuprate superconductors are expected to display a suppressed d -wave order parameter and zero-energy topological flat bands with a large density of states, making them susceptible to symmetry broken orders.",
    "url": "https://doi.org/10.1038/s41467-026-78020-y",
    "doi": "10.1038/s41467-026-78020-y",
    "topics": [
@@ -2926,7 +2927,7 @@
    ],
    "n_authors": 6,
    "date": "2026-10-06",
-   "abstract": "Superconductivity in three dimensions is almost universally governed by Ginzburg-Landau mean-field theory, with critical fluctuations typically confined to within a few percent of the transition temperature ( T c ). We report that the heavy-fermion superconductor UTe 2 exhibits superconducting fluctuations that extend over a temperature range as wide as T c itself—the largest observed for any three-dimensional superconductor. Through ultrasound measurements of the elastic moduli and sound attenuation, we find that UTe 2 transitions from a mean-field-like state at ambient pressure to a fluctuation-dominated state at higher pressures. This regime is marked by elastic softening and an increase in sound attenuation that onsets well above T c , with the attenuation remaining anomalously high deep in the superconducting state. Our analysis suggests that these features stem from an extremely low superfluid phase stiffness. This results in a kinetic inductance as high as that of granular aluminum, but achieved in the clean limit. We propose a model where this exotic state is driven by dominant interband pairing mediated by ferromagnetic fluctuations, leading to “local” Cooper pairs with a coherence length of only a few lattice constants.",
+   "abstract": "Superconductivity in three dimensions is almost universally governed by Ginzburg-Landau mean-field theory, with critical fluctuations typically confined to within a few percent of the transition temperature ( T c ).",
    "url": "https://doi.org/10.1103/qjt6-hj2k",
    "doi": "10.1103/qjt6-hj2k",
    "topics": [
@@ -3170,7 +3171,7 @@
    ],
    "n_authors": 11,
    "date": "2026-09-24",
-   "abstract": "Accessing the intrinsic critical current density in type-II superconductors can provide a means to probe microscopic superconducting properties and increase current limits in high-magnetic-field devices and electrical power systems. However, the critical current density measured using direct currents generally lies below this intrinsic limit, mainly because of vortex motion and self-heating. Here we show that picosecond electrical pulses, which act on timescales too short for vortices to move, drive supercurrents up to the intrinsic depairing limit. We probe picosecond critical currents in NbN and YBa ₂ Cu ₃ O ₇ , representative s -wave and d -wave superconductors, respectively. In NbN, we find a sharp onset of the picosecond depairing at a current density of about 2.2 times the conventional critical current density, consistent with microscopic dynamics based on Bardeen–Cooper–Schrieffer theory. By contrast, YBa ₂ Cu ₃ O ₇ exhibits a gradual suppression of superconductivity with increasing current, reflecting its d -wave symmetry. These results provide a probe of superconductors beyond the reach of conventional transport measurements. Attaining the depairing current could also support superconducting electronics operating closer to intrinsic current limits.",
+   "abstract": "Accessing the intrinsic critical current density in type-II superconductors can provide a means to probe microscopic superconducting properties and increase current limits in high-magnetic-field devices and electrical power systems.",
    "url": "https://doi.org/10.1038/s41567-026-03469-z",
    "doi": "10.1038/s41567-026-03469-z",
    "topics": [
@@ -3339,7 +3340,7 @@
    ],
    "n_authors": 16,
    "date": "2026-09-19",
-   "abstract": "Cuprate superconductors remain central to condensed matter physics due to their technological relevance and unconventional, incompletely understood electronic behavior. While the canonical phase diagram and low-energy models have been shaped largely by studies of underdoped and moderately doped cuprates, the overdoped regime has received comparatively limited attention. Here, we track the evolution of the electronic structure from optimal to heavy overdoping in La ₂−ₓ Sr ₓ CuO ₄ (LSCO) using broadband optical spectroscopy across x = 0.15–0.60. The measured spectral changes—including the redistribution of Zhang–Rice–related spectral weight—are in qualitative agreement with determinant quantum Monte Carlo (DQMC) simulations of the three-orbital Emery model, which together indicate a pronounced reconstruction of the electronic structure beyond hole concentrations x > 0.2. Guided by these observations, we propose a spontaneous checkerboard-type Zhang–Rice electronic configuration that accounts for the coexistence of itinerant and localized carriers characteristic of the heavily overdoped state. Our results refine the doping-dependent Zhang–Rice–based framework for cuprates, illuminate how correlations persist deep into the overdoped regime, and provide new constraints on microscopic mechanisms of high-temperature superconductivity, with broader implications for correlated transitio",
+   "abstract": "Cuprate superconductors remain central to condensed matter physics due to their technological relevance and unconventional, incompletely understood electronic behavior.",
    "url": "https://doi.org/10.1038/s41467-026-77985-0",
    "doi": "10.1038/s41467-026-77985-0",
    "topics": [
@@ -3378,7 +3379,7 @@
    ],
    "n_authors": 3,
    "date": "2026-09-17",
-   "abstract": "Structural phase transitions generate complex microstructures that often govern material functionality, yet directly resolving their three-dimensional organization in bulk samples remains challenging. Here we employ scanning three-dimensional x-ray diffraction (3DXRD) to resolve the bulk microstructure of La 1.675 Eu 0.2 Sr 0.125 CuO 4 , a prototypical 1 / 8 -doped cuprate in which structural and electronic heterogeneity is well established. We reveal remarkably broad tetragonallike domain wall regions within the nominally orthorhombic crystal structure, and, upon cooling to 100 K, a fine microstructure of orthorhombiclike stripes embedded within the tetragonal matrix that has significant consequences for interpreting the interplay between structural and electronic heterogeneity in this class of materials. More broadly, this work establishes 3DXRD as a powerful approach for resolving bulk microstructures and understanding their role in emergent functionality.",
+   "abstract": "Structural phase transitions generate complex microstructures that often govern material functionality, yet directly resolving their three-dimensional organization in bulk samples remains challenging.",
    "url": "https://doi.org/10.1103/r62x-kt5j",
    "doi": "10.1103/r62x-kt5j",
    "topics": [
@@ -3399,7 +3400,7 @@
    ],
    "n_authors": 10,
    "date": "2026-09-17",
-   "abstract": "The discovery of 80 K superconductivity in pressurized bilayer Ruddlesden-Popper (RP) nickelate La 3 Ni 2 O 7 has established a new high-temperature superconductor family [1]. The quest to understand the governing principles of RP nickelate superconductivity has become a central focus in condensed matter physics. Here, we report a critical advance by synthesizing and investigating a distinct structural polymorph of the same compound: the monolayer-trilayer (1313) phase of La 3 Ni 2 O 7 . Under high pressure, synchrotron x-ray diffraction and Raman spectroscopy reveal a structural transition from the orthorhombic C m m m to the tetragonal P 4 / m m m space group at 13 GPa. Above 19 GPa, the phase shows a clear superconducting transition, confirmed by a zero-resistance state, albeit at a much lower temperature of 3.6 K. The stark contrast with the 80 K transition in the bilayer phase provides a uniquely clean experimental comparison. Our results not only expand the family of RP nickelate superconductors but also deepen the understanding of the superconducting mechanism that governs the transition temperature in these materials.",
+   "abstract": "The discovery of 80 K superconductivity in pressurized bilayer Ruddlesden-Popper (RP) nickelate La 3 Ni 2 O 7 has established a new high-temperature superconductor family [1].",
    "url": "https://doi.org/10.1103/jc35-gj2l",
    "doi": "10.1103/jc35-gj2l",
    "topics": [
@@ -3421,7 +3422,7 @@
    ],
    "n_authors": 16,
    "date": "2026-09-16",
-   "abstract": "Multiphase superconductors—materials that host two or more distinct superconductive phases—are exceptionally rare. Examples include heavy-fermion CeRh ₂ As ₂ alongside some uranium compounds such as UPt ₃ and URhGe (refs. ¹,²,³ ). In the multiphase p -wave superfluid ³ He, complex vortex dynamics can occur at the phase boundary between the A and B phases ⁴,⁵ . Here we study the p -wave superconductor candidate UTe ₂ (refs. ⁶–⁸ ). On applying a magnetic field to access an intermediate regime straddling two distinct superconducting phases ⁹,¹⁰ , we find that direct current pulses can push the material in and out of a metastable state that has an enhanced critical current density J c . This switching is controllable by the strength and duration of the stimuli, with the system ‘remembering’ whether it is in the high or low J c state for extended periods. We interpret this phenomenology to be due to the quenching of a disordered out-of-equilibrium glassy vortex state under perturbation, which has stronger pinning forces and thus higher J c . The equilibrium vortex lattice is reattained by annealing the system with a gradual current ramp, returning it to the original state. Rather than requiring proximate magnetic or semiconducting interfaces ¹¹–¹⁴ , this memory functionality seems to be an intrinsic property of UTe ₂ rooted in the superconducting order itself. Our findings underscor",
+   "abstract": "Multiphase superconductors—materials that host two or more distinct superconductive phases—are exceptionally rare.",
    "url": "https://doi.org/10.1038/s41586-026-11015-3",
    "doi": "10.1038/s41586-026-11015-3",
    "topics": [
@@ -3443,7 +3444,7 @@
    ],
    "n_authors": 14,
    "date": "2026-09-10",
-   "abstract": "In order to understand the unexpected similarity and the correlated behavior in kagome superconductor families A V 3 Sb 5 ( A = K , Rb , Cs ) and A Ti 3 Bi 5 ( A = Rb , Cs ), we investigate the Hartree-scale local electronic structure of these systems. Our result indicates that V and Ti ions are both of 2 + valence such that the corresponding itinerant carrier densities are similar, and the difference in electron count is instead reflected in their quantum fluctuating ionic magnetic moments. However, due to the frustrated lattice geometry of these materials, such local moments are difficult to experimentally observe via standard probes. For verification, we systematically introduce nonmagnetic Sn impurities to locally relieve the geometric frustration and experimentally demonstrate the existence of well-defined local magnetic moments via magnetic susceptibility and muon spin rotation or relaxation ( μ SR ) measurements. All experiments discover a systematic increase of magnetic susceptibility upon increasing nonmagnetic impurity level. Our discovered ionic moments suggest a paradigm shift from the existing itinerant carrier-only picture to one incorporating strong correlation from local ionic spins. The associated interatomic and local-itinerant correlations offer a solid ground for the emergence of the observed rich correlated behavior in this new family of superconducting mat",
+   "abstract": "In order to understand the unexpected similarity and the correlated behavior in kagome superconductor families A V 3 Sb 5 ( A = K , Rb , Cs ) and A Ti 3 Bi 5 ( A = Rb , Cs ), we investigate the Hartree-scale local electronic structure of…",
    "url": "https://doi.org/10.1103/t5nf-jksr",
    "doi": "10.1103/t5nf-jksr",
    "topics": [
@@ -3464,7 +3465,7 @@
    ],
    "n_authors": 6,
    "date": "2026-09-10",
-   "abstract": "Electronic nematic transitions in correlated systems often involve substantial reorganization of Berry curvature. Nonlinear transport measurements serve as a powerful tool for distinguishing between different types of Berry curvature multipoles that characterize nematic phases and topological changes. Herein, we systematically measured nonlinear responses up to the sixth harmonic in the Kagome superconductor CsV ₃ Sb ₅ . Our results identify the odd-order nonlinear Hall effect as the dominant signature of nematicity. During the superconducting transition, vortex dynamics induce rapid spatial variations in the phase gradient ∇ ϕ, which significantly amplify the Berry curvature quadrupole (BCQ) relative to Berry curvature dipole (BCD). The third-order nonlinear response peaks sharply near the superconducting transition, where enhanced vortex–antivortex fluctuations and nonlinear vortex dynamics amplify the BCQ-related nonlinear Hall response. First-principles calculations further support this interpretation by revealing pronounced Berry-curvature quadrupoles induced by chiral loop-current order near the Fermi level. This work establishes BCQ as a sensitive probe of electronic nematicity, particularly when enhanced by superconducting vortex dynamics.",
+   "abstract": "Electronic nematic transitions in correlated systems often involve substantial reorganization of Berry curvature.",
    "url": "https://doi.org/10.1038/s41467-026-77618-6",
    "doi": "10.1038/s41467-026-77618-6",
    "topics": [
@@ -3505,7 +3506,7 @@
    ],
    "n_authors": 4,
    "date": "2026-08-31",
-   "abstract": "In the past decade, photoinduced superconductinglike behaviors have been reported in a number of materials driven by intense pump fields. Of particular interest is the high- T c cuprate YBa 2 C u 3 O 6 + x (YBCO), where such effect has been reported up to the so-called pseudogap temperature T * ∼ 300 – 400 K . In a recent tour-de-force experiment, a transient magnetic field which is proportional to and in the same direction of an applied field has been observed outside the sample, suggestive of flux exclusion due to the Meissner effect. In this paper, we present an alternative interpretation of these experiments based on a mechanism that we term the flux-Floquet instability of the sine-Gordon (SG) model. We take as our premise the model of preformed Cooper pairs in the pseudogap phase. Starting from the local superconducting order parameter in equilibrium, we introduce an extended SG model to describe the dynamics of the relative phase between the layers of a bilayer. We demonstrate that a combination of external magnetic field and strong terahertz drive used in experiments by Fava results in a novel Floquet instability in the model. This instability leads to currents at the edges of the bilayer formed by defects or grain boundaries, with the current flowing in the opposite direction of the equilibrium screening current, producing a giant paramagnetic magnetization in the same ",
+   "abstract": "In the past decade, photoinduced superconductinglike behaviors have been reported in a number of materials driven by intense pump fields.",
    "url": "https://doi.org/10.1103/tq9r-g727",
    "doi": "10.1103/tq9r-g727",
    "topics": [
@@ -3548,7 +3549,7 @@
    ],
    "n_authors": 22,
    "date": "2026-08-25",
-   "abstract": "Quantum routers (QRouters) are essential components of bucket-brigade quantum random access memory (QRAM), enabling quantum applications such as Grover’s search and quantum machine learning. Despite significant theoretical advances, achieving scalable and coherent QRouters experimentally remains challenging. Here, we demonstrate coherent quantum routers using a superconducting quantum processor, laying a practical foundation for scalable QRAM systems. The quantum router at the core of our implementation utilizes the transition composite gate scheme, wherein auxiliary energy levels temporarily mediate conditional interactions. By leveraging two-qubit primitives in its construction, the quantum router preserves straightforward initialization and calibration while significantly reducing circuit depth and duration relative to traditional gate-based decompositions. Moreover, by encoding routing addresses in the nonadjacent qutrit states | 0 ⟩ and | 2 ⟩ , our design inherently enables erasure-detection capability, providing efficient postselection to mitigate routing errors. Experimentally, we achieve an average fidelity of 94.8% across three individual QRouters, and we validate scalability through a two-layer quantum routing network achieving a fidelity of 82.4%. Our results represent a significant advancement in quantum routing technology, providing enhanced fidelity, built-in erro",
+   "abstract": "Quantum routers (QRouters) are essential components of bucket-brigade quantum random access memory (QRAM), enabling quantum applications such as Grover’s search and quantum machine learning.",
    "url": "https://doi.org/10.1103/h5m3-qrn9",
    "doi": "10.1103/h5m3-qrn9",
    "topics": [
@@ -3691,7 +3692,7 @@
    ],
    "n_authors": 10,
    "date": "2026-08-17",
-   "abstract": "The origin of superconductivity in magic-angle twisted bilayer graphene has been a subject of intense debate. While some experimental evidence indicated an unconventional pairing mechanism which should be sensitive to Coulomb screening, experimental attempts to tune the critical temperature by screening Coulomb interactions so far have remained unsuccessful, possibly indicating a conventional phonon-mediated pairing. Here we study a double-layer electronic system consisting of two twisted graphene bilayers in immediate proximity of each other but remaining electronically decoupled. By increasing the carrier density in one bilayer, we completely suppressed both the superconductivity and the correlated-insulator state in the adjacent magic-angle graphene. The observation of such an effect from screening offers support for an unconventional mechanism of Cooper pairing in magic-angle twisted bilayer graphene, shedding new light on the underlying physics governing their properties.",
+   "abstract": "The origin of superconductivity in magic-angle twisted bilayer graphene has been a subject of intense debate.",
    "url": "https://doi.org/10.1103/z9qg-287y",
    "doi": "10.1103/z9qg-287y",
    "topics": [
@@ -3713,7 +3714,7 @@
    ],
    "n_authors": 7,
    "date": "2026-08-17",
-   "abstract": "We investigate the bilayer nickelates as a platform to realize the symmetric mass generation (SMG) insulator, a featureless Mott insulator that arises due to the Lieb-Schultz-Mattis (LSM) anomaly cancellation in bilayer spin-1/2 lattice systems. Through a single-orbital bilayer square lattice model involving intralayer hopping t and interlayer superexchange interaction J , we demonstrate the emergence of high-temperature superconductivity (SC) upon doping the SMG insulator. The SC phase features s -wave interlayer spin-singlet pairing and exhibits a crossover between the Bardeen-Cooper-Schrieffer (BCS) and Bose-Einstein condensation (BEC) limits by tuning the J / t ratio. We estimate the SC transition temperature T c from both the weak and strong coupling limits at the mean-field level. Our findings offer insights into the experimentally observed decrease in T c with pressure and the strange metal behavior above T c . Additionally, we propose that both Ni 3dz² 3 d z 2 and 3dx²-y² 3 d x 2 − y 2 orbitals can exhibit superconductivity in La ₃ Ni ₂ O ₇ under pressure, but their T c should vary in opposite ways under doping. This characteristic difference suggests a potential experimental pathway to identify which electronic orbital plays the principal role in the formation of superconductivity in this system.",
+   "abstract": "We investigate the bilayer nickelates as a platform to realize the symmetric mass generation (SMG) insulator, a featureless Mott insulator that arises due to the Lieb-Schultz-Mattis (LSM) anomaly cancellation in bilayer spin-1/2 lattice…",
    "url": "https://doi.org/10.1038/s41535-026-00925-0",
    "doi": "10.1038/s41535-026-00925-0",
    "topics": [
@@ -3734,7 +3735,7 @@
    ],
    "n_authors": 14,
    "date": "2026-08-14",
-   "abstract": "The critical role of symmetry-breaking interfaces in mediating superconductivity has garnered increasing interest in recent years. KTaO ₃ (KTO)-based heterointerfaces present a striking example, where the superconducting transition temperature ( T c ) exhibits an intriguing dependence on KTO crystallographic orientation. Here we identify a highly anisotropic surface phonon resonance near 107 meV at KTO and KTO-based heterointerfaces using surface-specific, symmetry-sensitive nonlinear optical spectroscopy. Polarity of this phonon mode scales with crystallographic orientation as (111) > (110) ≫ (001), reaching a 35-fold enhancement over non-superconducting interfaces and tracking the superconducting T c . In addition, a softened local mode near 100 meV is observed and attributed to interfacial oxygen vacancies. Our results help build a framework linking the symmetry-breaking lattice phonons, defects, and anisotropic superconductivity for KTO and related heterointerfaces.",
+   "abstract": "The critical role of symmetry-breaking interfaces in mediating superconductivity has garnered increasing interest in recent years.",
    "url": "https://doi.org/10.1038/s41467-026-76343-4",
    "doi": "10.1038/s41467-026-76343-4",
    "topics": [],
@@ -3916,7 +3917,7 @@
    ],
    "n_authors": 14,
    "date": "2026-07-29",
-   "abstract": "Superconducting Nanowire Single-Photon Detectors (SNSPDs) are key building blocks for photonic quantum technologies due to their ability to detect single photons with ultra-high efficiency, low dark counts and fast temporal resolution. Superconducting materials exhibiting high uniformity, large absorption cross-section and atomic-scale thickness are desirable to extend single-photon detection from the near-infrared up to the terahertz regime, where existing material choices are especially constrained. Substrate independence would further open the way to integrating detectors onto functional materials and heterostructures, enhancing performance and enabling proximal readout of a wide range of individual excitations. Here, we pattern the prototypical two-dimensional superconductor niobium diselenide (NbSe ₂ ) into few-layer nanowires less than 100 nm wide and demonstrate single-photon detection at 780 nm and 1550 nm. At the same time, the dark-count rate remains below 1 Hz up to the switching current and we achieve a timing jitter below 50 ps. We estimate via a diffusive hot-spot model that materials and geometric parameters would allow a theoretical cut-off wavelength in the millimetre range, assuming state-of-the-art device parameters. Our results open up routes toward quantum-limited detectors integrated into quantum-photonic circuits and quantum devices, with the potential fo",
+   "abstract": "Superconducting Nanowire Single-Photon Detectors (SNSPDs) are key building blocks for photonic quantum technologies due to their ability to detect single photons with ultra-high efficiency, low dark counts and fast temporal resolution.",
    "url": "https://doi.org/10.1038/s41467-026-75646-w",
    "doi": "10.1038/s41467-026-75646-w",
    "topics": [
@@ -4010,7 +4011,7 @@
    ],
    "n_authors": 3,
    "date": "2026-07-27",
-   "abstract": "The kagome metals A V ₃ Sb ₅ ( A = Cs, Rb, K) host multiple symmetry-breaking phases, including charge-density-wave and loop-current orders, and exhibit highly exotic superconductivity with pronounced nematicity and chirality. Remarkably, even dilute impurities transform this exotic superconducting state into an isotropic s -wave state. These observations pose a challenge to existing theoretical scenarios. We show that loop-current order induces nematic chiral d -wave superconductivity in kagome metals. The loop-current-induced orbital magnetization (OM) stabilizes one chiral superconducting channels. This OM-chirality coupling mechanism is generic and applies to pairing driven by either attractive or repulsive interactions. Furthermore, coexisting loop-current and bond orders give rise to pronounced nematic chiral superconductivity even for an almost C ₆ -symmetric Fermi surface. For attractive pairing, dilute impurities suppress the chiral state and restore a conventional s -wave phase, as observed experimentally. The theory further predicts a robust 2 × 2 pair-density modulation. This study provides key insights into time-reversal-symmetry-breaking exotic superconductivity in kagome metals.",
+   "abstract": "The kagome metals A V ₃ Sb ₅ ( A = Cs, Rb, K) host multiple symmetry-breaking phases, including charge-density-wave and loop-current orders, and exhibit highly exotic superconductivity with pronounced nematicity and chirality.",
    "url": "https://doi.org/10.1038/s41467-026-75259-3",
    "doi": "10.1038/s41467-026-75259-3",
    "topics": [
@@ -4031,7 +4032,7 @@
    ],
    "n_authors": 16,
    "date": "2026-07-24",
-   "abstract": "Beyond the quasi-two-dimensional (2D) paradigm of cuprates, the role of the third dimension of the Ruddlesden-Popper bilayer nickelates is essential to decoding their superconducting mechanism. Here, using angle-resolved photoemission spectroscopy (ARPES) with varied photon energies, we systematically investigate the electronic band structures in three dimensions for superconducting ( La , Pr , Sm ) 3 Ni 2 O 7 / SrLaAlO 4 thin films (superconducting onset temperature T c onset ∼ 48 K ) transferred via a cryogenic ultrahigh vacuum (UHV) suitcase. We reveal an orbital-dependent dimensionality: While the d x 2 − y 2 -dominant bands exhibit a quasi-2D character, the d z 2 -dominant band displays a finite k z dispersion. Finite energy gaps are identified on all observed bands across multiple high-symmetry directions. Systematic temperature-dependent analysis characterizes the superconducting nature of the gap on the d z 2 -derived band, revealing a large gap Δ ∼ 18 meV and a ratio 2 Δ / k B T c ∼ 8 exceeding the weak-coupling BCS limit. The suppression of spectral weight near the Fermi level persists above the superconducting transition temperature. Ubiquitous vertical spectral features evidence the presence of electron interactions. These results underscore the role of the d z 2 orbital and correlations, placing constraints on theoretical models for nickelate superconductivity.",
+   "abstract": "Beyond the quasi-two-dimensional (2D) paradigm of cuprates, the role of the third dimension of the Ruddlesden-Popper bilayer nickelates is essential to decoding their superconducting mechanism.",
    "url": "https://doi.org/10.1103/466c-8sl4",
    "doi": "10.1103/466c-8sl4",
    "topics": [
@@ -4133,7 +4134,7 @@
    ],
    "n_authors": 8,
    "date": "2026-07-18",
-   "abstract": "It was recently discovered that supercurrents flowing through thin superconducting nanowires can be quenched by applying a gate voltage to a nearby gate electrode. This gate control of supercurrents, known as the GCS effect, could enable superconducting transistor logic. Here, we report that the GCS also manifests in a suppression of Meissner screening, establishing the phenomenon as a genuine feature of superconductivity that is not restricted to transport. Using a scanning nitrogen-vacancy (NV) magnetometer at sub-Kelvin temperatures, we image the nanoscale spatial region of GCS suppression in micron-size niobium islands. Our observations are compatible with a microscopic hot-spot model of quasiparticle generation and diffusion, and in conflict with other candidate mechanisms such as Joule heating or an electric field effect. Our work introduces an alternative means for studying quasiparticle dynamics in superconducting nanostructures, and showcases the power of local imaging techniques for understanding emergent condensed matter phenomena.",
+   "abstract": "It was recently discovered that supercurrents flowing through thin superconducting nanowires can be quenched by applying a gate voltage to a nearby gate electrode.",
    "url": "https://doi.org/10.1038/s41467-026-75567-8",
    "doi": "10.1038/s41467-026-75567-8",
    "topics": [
@@ -4216,7 +4217,7 @@
    ],
    "n_authors": 12,
    "date": "2026-07-16",
-   "abstract": "Understanding the emergence of unconventional superconductivity, where the order parameter deviates from simple isotropic s-wave pairing, is a central challenge in condensed matter physics. Some transition-metal dichalcogenides (TMDCs), though generally regarded as conventional superconductors, display signatures of unconventional pairing and thus provide a particularly intriguing platform to explore how exotic states arise. Here we investigate the misfit compound (SnS) ₁.₁₅ (TaS ₂ ), a heterostructure composed of alternating SnS and 1H-TaS ₂ layers. Using transport, photoemission, and scanning tunneling spectroscopy, we demonstrate that the SnS layers effectively decouple the TaS ₂ into electronically isolated 1H sheets. In this limit, the tunneling density of states on the 1H layer reveals a clear two-gap superconducting spectrum with T c ≃ 3.1 K. A theoretical model based on lack of inversion symmetry of the system and finite-range attraction reproduces the observed multi-gap structure as a mixed singlet-triplet state. These results establish misfit compounds as a powerful platform for studying unconventional superconductivity in isolated 1H layers and for realizing multiple uncoupled superconductors within a single crystal.",
+   "abstract": "Understanding the emergence of unconventional superconductivity, where the order parameter deviates from simple isotropic s-wave pairing, is a central challenge in condensed matter physics.",
    "url": "https://doi.org/10.1038/s41467-026-75677-3",
    "doi": "10.1038/s41467-026-75677-3",
    "topics": [
@@ -4259,7 +4260,7 @@
    ],
    "n_authors": 16,
    "date": "2026-07-14",
-   "abstract": "In multilayered high- T c cuprates, the inner CuO ₂ planes (IPs) are spatially separated from dopant layers and thus remain cleaner than the outer planes (OPs). Here, we investigate five-layer (Cu,C)Ba ₂ Ca ₄ Cu ₅ O y (Cu1245) and three-layer Ba ₂ Ca ₂ Cu ₃ O ₆ (F,O) ₂ (F0223) using angle-resolved photoemission spectroscopy (ARPES) and uncover an unprecedented situation, in which only the IPs become superconducting while the OPs remain metallic at low temperatures. Our model calculations indicate that over 95% of the OP wavefunction remains confined to OP itself, rendering superconducting proximity negligible. This interlayer decoupling realizes an ideal configuration—a single superconducting CuO ₂ layer screened from the dopant layer-induced disorder by heavily overdoped metallic OPs. The clean CuO ₂ layer exhibits a large superconducting gap with coherent Bogoliubov peaks extending beyond the antiferromagnetic zone boundary, and a widely extended coherent flat band at the Brillouin zone edge. These findings introduce the “degree of screening” as a physical parameter for probing competition between pseudogap and superconductivity, and for bridging typically disordered real materials with the idealized theoretical models.",
+   "abstract": "In multilayered high- T c cuprates, the inner CuO ₂ planes (IPs) are spatially separated from dopant layers and thus remain cleaner than the outer planes (OPs).",
    "url": "https://doi.org/10.1038/s41467-026-75295-z",
    "doi": "10.1038/s41467-026-75295-z",
    "topics": [
@@ -4343,7 +4344,7 @@
    ],
    "n_authors": 17,
    "date": "2026-07-02",
-   "abstract": "Magnetic fields can penetrate a superconductor in the form of quantum vortices, which consist of a core singularity with circulating currents. London’s quantization implies that there is one core singularity per quantum of magnetic flux in single-component superconductors. In this study, we report signatures of quantum vortex core fractionalization on the potassium-terminated surface of a multiband superconductor, KFe ₂ As ₂ . The observed splitting of single integer–flux vortices into several fractional vortices results in a disparity between the numbers of flux quanta and vortex cores. These fractional vortices often arrange in chains, which calculations show are characterized by a ℂP ² skyrmionic topological invariant; this constitutes a different type of topological defect: the chiral skyrmion. The disparate natures of integer and fractional vortices comprising skyrmions lead to distinct spectroscopic signatures.",
+   "abstract": "Magnetic fields can penetrate a superconductor in the form of quantum vortices, which consist of a core singularity with circulating currents.",
    "url": "https://doi.org/10.1126/science.ads0189",
    "doi": "10.1126/science.ads0189",
    "topics": [
@@ -4386,7 +4387,7 @@
    ],
    "n_authors": 21,
    "date": "2026-06-29",
-   "abstract": "In some unconventional superconductors, time-reversal symmetry can be broken apart from the gauge symmetry ¹ , resulting in superconductivity that can be enhanced or induced by magnetic fields ² . However, field-enhanced superconductors are more vulnerable to impurities than their Bardeen–Cooper–Schrieffer counterparts ³ . Crystalline rhombohedral multilayer graphene is a promising platform to explore them because of its superior material quality and gate-tunable strong correlation effects ⁴,⁵ . Here we report transport measurements of rhombohedral tetralayer and pentalayer graphene, demonstrating a spectrum of clean-limit superconductivities. We found three different types of field-enhanced and field-induced superconductivities in the pentalayer. They are all robust against an in-plane field up to 8.5 T, exceeding the Pauli limit by tens of times. Compared with Bernal bilayer graphene showing only in-plane field-enhancement ⁶ , pentalayer graphene features superconductors enhanced by out-of-plane as well as in-plane fields. They also reside at much lower gate electric fields owing to the intrinsically flatter band dispersion—facilitating their study and further engineering. Moreover, we observed that proximitized spin–orbit coupling generates multiple new superconductors without introducing additional disorder effects. Our work establishes a new family of magnetic field-booste",
+   "abstract": "In some unconventional superconductors, time-reversal symmetry can be broken apart from the gauge symmetry ¹ , resulting in superconductivity that can be enhanced or induced by magnetic fields ² .",
    "url": "https://doi.org/10.1038/s41586-026-10815-x",
    "doi": "10.1038/s41586-026-10815-x",
    "topics": [
@@ -4409,7 +4410,7 @@
    ],
    "n_authors": 24,
    "date": "2026-06-25",
-   "abstract": "The discovery of superconductivity in square-planar nickelates has offered a rich materials platform to explore the origins of high-temperature superconductivity. However, experimental investigations have largely been limited to the infinite-layer R NiO ₂ ( R , rare earth) nickelates. We constructed a phase diagram of multilayer square-planar Nd n ₊₁ Ni n O ₂ n ₊₂ compounds and found signatures of superconductivity for dimensionality n = 4 to 8. Upon decreasing n , the superconducting anisotropy evolves owing to 4 f electron effects, and electronic structure characteristics approach cuprate-like behavior. Magnetic fluctuations persist from within the superconducting regime and into the overdoped, nonsuperconducting regime. The superconducting regime overlaps with that of chemically doped infinite-layer nickelates, demonstrating underlying commonalities as well as differences across varying structural realizations of square-planar nickelates. Our work establishes this layered template for creating new nickel-based superconductors.",
+   "abstract": "The discovery of superconductivity in square-planar nickelates has offered a rich materials platform to explore the origins of high-temperature superconductivity.",
    "url": "https://doi.org/10.1126/science.adp4440",
    "doi": "10.1126/science.adp4440",
    "topics": [
@@ -4431,7 +4432,7 @@
    ],
    "n_authors": 21,
    "date": "2026-06-25",
-   "abstract": "The discovery of superconductivity in Ruddlesden-Popper bilayer nickelate films under ambient pressure provides an opportunity to directly investigate electronic energy scales of the superconducting state and the pairing mechanism. We report angle-resolved photoemission spectroscopy measurements of superconducting (La,Pr,Sm) ₃ Ni ₂ O ₇ thin films by developing an ultrahigh-vacuum cryogenic sample quenching and transfer technique. A superconducting gap of ~18 milli–electron volts with coherence peaks is observed along the Brillouin zone diagonal. The finite gap persists across the entire Brillouin zone, revealing the absence of gap nodes. A kink is observed in the energy-momentum dispersion at ~70 milli–electron volts below the Fermi level, indicating an electron-boson coupling. The simultaneous observation of a nodeless superconducting gap and electron-boson coupling provides insight into the pairing symmetry and gluing mechanism in Ruddlesden-Popper bilayer nickelates.",
+   "abstract": "The discovery of superconductivity in Ruddlesden-Popper bilayer nickelate films under ambient pressure provides an opportunity to directly investigate electronic energy scales of the superconducting state and the pairing mechanism.",
    "url": "https://doi.org/10.1126/science.adw8329",
    "doi": "10.1126/science.adw8329",
    "topics": [
@@ -4506,7 +4507,7 @@
    ],
    "n_authors": 3,
    "date": "2026-06-10",
-   "abstract": "The issue of whether d -wave superconductivity (SC) occurs in the square-lattice Hubbard model with U of order of the bandwidth has been one of the most debated issues to emerge from the study of high temperature SC. Here, we report variational results on eight-leg cylinders with next-nearest-neighbor hopping in the range -0.5t≤t′ ≤0.25t − 0.5 t ≤ t ′ ≤ 0.25 t with U = 8 t and 12 t and doped hole concentrations δ = 1/12 and 1/8. For t′ ≤0 t ′ ≤ 0 , the ground-state appears to be a charge-density wave (CDW) of one sort or another with SC correlations that are extremely short-ranged. In contrast, in some cases, the local magnetic order has a correlation length greater than half the cylinder width - suggestive that magnetic order might also arise in the 2D limit. For t′,>,0 t ′ > 0 , our results depend more strongly on boundary conditions (periodic vs antiperiodic), making it still harder to correctly guess whether SC or CDW correlations dominate in the 2D limit. These results were obtained employing matrix-product states with bond dimensions large enough that energy differences as small as 10 −³ t per site can be resolved.",
+   "abstract": "The issue of whether d -wave superconductivity (SC) occurs in the square-lattice Hubbard model with U of order of the bandwidth has been one of the most debated issues to emerge from the study of high temperature SC.",
    "url": "https://doi.org/10.1038/s41535-026-00910-7",
    "doi": "10.1038/s41535-026-00910-7",
    "topics": [],
