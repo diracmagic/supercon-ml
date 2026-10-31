@@ -613,10 +613,15 @@ def ai_stage(prog: dict) -> None:
     hu = prog.get("hurricane") or {}
     if hu.get("current"):
         parts.append(f"Hurricane {hu['current']} for unconventional ones")
-    detail = " and ".join(parts) + (" are" if len(parts) > 1 else " is") + " in use"
+    rd = prog.get("radar") or {}
+    if rd.get("current"):
+        parts.append(f"Radar {rd['current']} to pick between them")
+    detail = (", ".join(parts[:-1]) + " and " + parts[-1] if len(parts) > 1 else parts[0]) + \
+        (" are" if len(parts) > 1 else " is") + " in use"
     if hu and not hu.get("current"):
         detail += "; Hurricane, for unconventional superconductors, is experimental"
-    detail += "; Radar, which picks the model for each material, comes next"
+    if not rd.get("current"):
+        detail += "; Radar, which picks the model for each material, " + ("is experimental" if rd else "comes next")
     for st in prog.get("stages", []):
         if st.get("id") == "ai-models":
             st["detail"] = detail
