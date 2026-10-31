@@ -1,6 +1,12 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.3.7 adds:
+Version 0.3.8 adds:
+
+- **Hurricane 3.0, fewer false alarms**: Hurricane now also learns from 1,714 compounds that nobody has reported as superconducting, counted as probably not superconducting, as Konno et al. did in 2021 (Phys. Rev. B 103, 014509). Of the compounds of that kind that it never saw, Hurricane 2.0 gave 39% at least an even chance of superconducting and Hurricane 3.0 gives none, with the same error on measured T<sub>c</sub> (10.3 K). The model details show the price as well: it is now slow to recognize a family of superconductors it has never seen.
+- **Screening round 3**: the unconventional list is ranked by Hurricane 3.0, and no compound on it is more likely than not to superconduct. The materials Hurricane is checked against, such as UTe<sub>2</sub> and CsV<sub>3</sub>Sb<sub>5</sub>, now count as known too, so they can never appear among our finds.
+- **What decided the release**: for Hurricane 3.0 the model details list the false alarms of every design the AI agent proposed, whether each passed the release rule fixed before the run, what the new caution costs on a family left out of training, and how the chance of each later discovery changed. The Hurricane demo compares the designs by their false alarms.
+
+Version 0.3.7 added:
 
 - **Two candidate lists**: conventional candidates ranked by Storm and unconventional ones ranked by Hurricane, which gives the chance that a compound superconducts and its T<sub>c</sub> if it does. A candidate made of exactly the elements of a known superconductor is now left out too, so every one is in a chemical system where no superconductor has been reported.
 - **What to make of each candidate**: every candidate shows the chance that it superconducts and, in the viewer, remarks on how far to trust it: whether its structure has ever been made or is hypothetical, how wide its 90% range is, how its chance was calibrated, the most similar material its model learned from and whether it lies outside the training data, whether anything has checked it, and the date we first listed it, which the repository's history records. All candidates are predictions that no calculation or experiment has checked yet.
