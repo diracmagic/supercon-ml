@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       stages:
-        description: Stages to run, in order (any of baseline foundation search)
-        default: search
+        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane)
+        default: storm3 hurricane
   push:
     branches: [main]
     paths:
@@ -19,12 +19,14 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  # pushes to ml/ run the AI-designed model search; earlier stages can be re-run by hand
-  STAGES: ${{ inputs.stages || 'search' }}
+  # A push to ml/ trains only when its commit message contains [train], so a change spread over several commits
+  # runs once; it then runs the current rounds. Earlier stages can be re-run by hand.
+  STAGES: ${{ inputs.stages || 'storm3 hurricane' }}
 
 jobs:
-  electron-phonon:
-    name: Electron-phonon models
+  models:
+    name: AI-designed models
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[train]')
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:
@@ -38,8 +40,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install -r ml/requirements.txt mace-torch
+          if [[ " $STAGES " == *" foundation "* ]]; then
+            pip install torch --index-url https://download.pytorch.org/whl/cpu
+            pip install -r ml/requirements.txt mace-torch
+          else
+            pip install -r ml/requirements.txt
+          fi
 
       - name: Restore datasets and descriptors
         uses: actions/cache@v4
@@ -51,16 +57,28 @@ jobs:
           restore-keys: supercon-cache-
 
       - name: Baseline (composition and structure features)
-        if: contains(env.STAGES, 'baseline')
+        if: contains(format(' {0} ', env.STAGES), ' baseline ')
         run: python ml/pipeline.py baseline
 
       - name: Foundation model (MACE-MP-0 descriptors)
-        if: contains(env.STAGES, 'foundation')
+        if: contains(format(' {0} ', env.STAGES), ' foundation ')
         run: python ml/pipeline.py foundation
 
-      - name: Storm, the AI-designed model (search round)
-        if: contains(env.STAGES, 'search')
+      - name: Storm, search round 1
+        if: contains(format(' {0} ', env.STAGES), ' search1 ')
+        run: python ml/pipeline.py search1
+
+      - name: Storm, search round 2
+        if: contains(format(' {0} ', env.STAGES), ' search ')
         run: python ml/pipeline.py search
+
+      - name: Storm, round 3 (calibration to measured Tc)
+        if: contains(format(' {0} ', env.STAGES), ' storm3 ')
+        run: python ml/pipeline.py storm3
+
+      - name: Hurricane, unconventional superconductors (round 1)
+        if: always() && contains(format(' {0} ', env.STAGES), ' hurricane ')
+        run: python ml/pipeline.py hurricane
 
       - name: Commit results and progress
         if: always()
