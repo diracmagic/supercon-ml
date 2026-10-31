@@ -1,0 +1,1102 @@
+{
+  "run_at": "2026-10-30T20:54:08-05:00",
+  "commit": "3a8ffb2",
+  "round": 2,
+  "model": "Storm",
+  "version": "2.0",
+  "designer": "AI agent (Claude) proposed the candidates: phonon-scale features, an Allen-Dynes stage, a median objective and a seed average, with a measured-Tc check graded by reliability",
+  "design": "Round 2 builds on Storm 1.0. The latest experiments still support phonon-mediated pairing in the light-element, high-frequency materials (the 2025 H3S tunnelling gap and its isotope shift), so the agent added phonon-frequency scales from measured element data (melting point, speed of sound, bulk modulus), an Allen-Dynes stage that feeds predicted lambda and omega_log into the Tc model, and a median objective that matches the reported absolute error. Every candidate is also checked against measured Tc graded by reliability: only replicated, ambient-pressure, phonon-mediated superconductors are scored, single reports and preprints are shown but not scored, and retracted or refuted claims are left out. DFT is not assumed right either: the check also reports how far the DFT training labels themselves are from experiment.",
+  "selection": "5-fold GroupKFold by chemical system on Alexandria (7,582 materials); the locked JARVIS test set is not used",
+  "rule": "release the lowest-error design that beats Storm 1.0 on average and in at least 4 of 5 folds and is not more than 0.5 K worse on replicated measured Tc; otherwise the best design stays experimental",
+  "caveat": "picking the best of several candidates on the same folds makes its score slightly optimistic; the locked JARVIS test set will check the final model once",
+  "scikit_learn": "1.9.1",
+  "physics_features": {
+    "vec": "valence electrons per atom; Matthias found Tc peaks near 4.7 and 6.5 in transition-metal compounds",
+    "matthias_d47": "distance of the valence-electron count from the first Matthias peak (4.7)",
+    "matthias_d65": "distance from the second Matthias peak (6.5)",
+    "d_fraction": "share of d-block atoms, a proxy for a high density of states at the Fermi level",
+    "p_fraction": "share of p-block atoms (covalent bonding, as in MgB2 and the A15 compounds)",
+    "light_fraction": "share of light atoms (Z <= 9), which vibrate at high frequency",
+    "inv_sqrt_mass": "composition average of M^-1/2; phonon frequencies scale like M^-1/2 (isotope effect)",
+    "omega_proxy": "M^-1/2 divided by the mean nearest-neighbour distance, a crude stiffness-over-mass frequency scale",
+    "mass_ratio": "heaviest over lightest atomic mass; light atoms in a heavy matrix give separate optical modes",
+    "x_diff": "electronegativity difference, a proxy for ionicity and charge transfer",
+    "packing_fraction": "atomic-sphere volume over volume per atom, a proxy for how compressed the lattice is"
+  },
+  "phonon_features": {
+    "theta_lindemann": "Lindemann estimate of the Debye temperature, sqrt(Tm / (M V^2/3)) from each element's melting point, mass and the crystal's volume per atom, averaged over the composition",
+    "theta_lindemann_min": "the same Lindemann scale for the softest element, which sets the low-frequency phonons",
+    "sound_omega": "composition-averaged elemental speed of sound over the mean nearest-neighbour distance, a Debye-frequency proxy",
+    "bulk_mean": "composition-averaged elemental bulk modulus, a lattice-stiffness proxy",
+    "omega_bulk": "sqrt(bulk modulus x nearest-neighbour distance / mass), a stiffness-over-mass frequency"
+  },
+  "baseline": {
+    "id": "A",
+    "name": "Hand-made features (baseline)",
+    "tc_mae": 1.0454738804890746,
+    "fold_mae": [
+      1.1104625137703033,
+      1.057417417696244,
+      0.9374199590096807,
+      1.078520254795788,
+      1.0434985103590522
+    ]
+  },
+  "reference_id": "S0",
+  "reference_name": "Storm 1.0",
+  "previous": {
+    "name": "Storm 1.0",
+    "version": "1.0",
+    "tc_mae": 0.969,
+    "folds": [
+      1.019,
+      0.985,
+      0.874,
+      0.985,
+      0.981
+    ],
+    "folds_better": 2
+  },
+  "leaderboard": [
+    {
+      "id": "R3",
+      "set": "D",
+      "name": "Storm 1.0 + Allen\u2013Dynes stage",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "n_features": 57,
+      "tc_mae": 0.9656087566639903,
+      "tc_rmse": 1.9967733858774153,
+      "tc_r2": 0.70778322308595,
+      "tc_tail_mae": 3.4815968222379725,
+      "fold_mae": [
+        1.019823715202131,
+        0.9928730659433765,
+        0.8541300375342588,
+        0.9659312650941742,
+        0.9952319533271335
+      ],
+      "seconds": 254,
+      "folds_better": 5,
+      "folds_better_prev": 2
+    },
+    {
+      "id": "S0",
+      "set": "D",
+      "name": "Storm 1.0 (reference)",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "n_features": 54,
+      "tc_mae": 0.9687274184455797,
+      "tc_rmse": 2.0155528648448127,
+      "tc_r2": 0.702260829383683,
+      "tc_tail_mae": 3.7348654895707334,
+      "fold_mae": [
+        1.0190205845206133,
+        0.9849558253095789,
+        0.8737968748689737,
+        0.9847094226782664,
+        0.9811105051849394
+      ],
+      "seconds": 20,
+      "folds_better": 5,
+      "folds_better_prev": 0
+    },
+    {
+      "id": "R7",
+      "set": "DP",
+      "name": "+ phonon-scale features + Allen\u2013Dynes stage, median objective",
+      "settings": "average of 5 seeds",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0,
+        "loss": "absolute_error",
+        "max_features": 0.8
+      },
+      "n_features": 62,
+      "tc_mae": 0.9730944737906274,
+      "tc_rmse": 2.0426798593009643,
+      "tc_r2": 0.6941924517945303,
+      "tc_tail_mae": 3.583989494340429,
+      "fold_mae": [
+        1.033868077880087,
+        1.0278195685994853,
+        0.8498181509633814,
+        0.9679465843700262,
+        0.9859438006633111
+      ],
+      "seconds": 172,
+      "folds_better": 5,
+      "folds_better_prev": 2
+    },
+    {
+      "id": "R6",
+      "set": "DP",
+      "name": "+ phonon-scale features + Allen\u2013Dynes stage, median objective",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0,
+        "loss": "absolute_error"
+      },
+      "n_features": 62,
+      "tc_mae": 0.9837093039848519,
+      "tc_rmse": 2.062721819296439,
+      "tc_r2": 0.6881620890963245,
+      "tc_tail_mae": 3.604500316908875,
+      "fold_mae": [
+        1.0450909601276954,
+        1.0367717084175705,
+        0.8573614489388486,
+        0.9775656181843094,
+        1.0016812934507064
+      ],
+      "seconds": 33,
+      "folds_better": 5,
+      "folds_better_prev": 2
+    },
+    {
+      "id": "R1",
+      "set": "DP",
+      "name": "Storm 1.0 + phonon-scale features",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "n_features": 59,
+      "tc_mae": 0.9897044742172999,
+      "tc_rmse": 2.0475483953429423,
+      "tc_r2": 0.6927329873434545,
+      "tc_tail_mae": 3.8294215615136435,
+      "fold_mae": [
+        1.0387198107167313,
+        1.0245840843745384,
+        0.8880838593863265,
+        1.0059188400647883,
+        0.9911604368695391
+      ],
+      "seconds": 22,
+      "folds_better": 5,
+      "folds_better_prev": 0
+    },
+    {
+      "id": "R5",
+      "set": "DP",
+      "name": "+ phonon-scale features + Allen\u2013Dynes stage",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "n_features": 62,
+      "tc_mae": 1.0002841968357632,
+      "tc_rmse": 2.0389823121677617,
+      "tc_r2": 0.6952985619059273,
+      "tc_tail_mae": 3.578226245969788,
+      "fold_mae": [
+        1.0506378038141189,
+        1.0541150886056718,
+        0.8743379737272072,
+        1.0101119624086257,
+        1.012149432339058
+      ],
+      "seconds": 284,
+      "folds_better": 5,
+      "folds_better_prev": 0
+    },
+    {
+      "id": "R2",
+      "set": "D",
+      "name": "Storm 1.0, median objective",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0,
+        "loss": "absolute_error"
+      },
+      "n_features": 54,
+      "tc_mae": 1.0394642597722898,
+      "tc_rmse": 2.1977927807832027,
+      "tc_r2": 0.6459854823337896,
+      "tc_tail_mae": 4.281629609808628,
+      "fold_mae": [
+        1.1000040131361428,
+        1.0544996065833259,
+        0.928042363432168,
+        1.0352087382651496,
+        1.0795167257954708
+      ],
+      "seconds": 30,
+      "folds_better": 4,
+      "folds_better_prev": 0
+    },
+    {
+      "id": "R4",
+      "set": "DP",
+      "name": "+ phonon-scale features, median objective",
+      "settings": "default",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 63,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0,
+        "loss": "absolute_error"
+      },
+      "n_features": 59,
+      "tc_mae": 1.067078632028077,
+      "tc_rmse": 2.246728867116159,
+      "tc_r2": 0.6300449857425687,
+      "tc_tail_mae": 4.4964240585320185,
+      "fold_mae": [
+        1.128795630681157,
+        1.1065981640323532,
+        0.9336268272512193,
+        1.065536992955854,
+        1.100768766505648
+      ],
+      "seconds": 33,
+      "folds_better": 2,
+      "folds_better_prev": 0
+    }
+  ],
+  "best": {
+    "id": "R3",
+    "set": "D",
+    "name": "Storm 1.0 + Allen\u2013Dynes stage",
+    "settings": "default",
+    "params": {
+      "max_iter": 800,
+      "learning_rate": 0.04,
+      "max_leaf_nodes": 63,
+      "min_samples_leaf": 10,
+      "l2_regularization": 1.0
+    },
+    "n_features": 57,
+    "tc_mae": 0.9656087566639903,
+    "tc_rmse": 1.9967733858774153,
+    "tc_r2": 0.70778322308595,
+    "tc_tail_mae": 3.4815968222379725,
+    "fold_mae": [
+      1.019823715202131,
+      0.9928730659433765,
+      0.8541300375342588,
+      0.9659312650941742,
+      0.9952319533271335
+    ],
+    "seconds": 254,
+    "folds_better": 5,
+    "folds_better_prev": 2,
+    "scores": {
+      "lambda": {
+        "mae": 0.0924011280113895,
+        "rmse": 0.15359089979214424,
+        "r2": 0.6835613707597991,
+        "n": 7582
+      },
+      "wlog": {
+        "mae": 20.980594802813478,
+        "rmse": 32.62218321369619,
+        "r2": 0.7973472720333074,
+        "n": 7582
+      },
+      "tc_via_lambda_wlog": {
+        "mae": 1.0560428841227107,
+        "rmse": 2.2175587856843566,
+        "r2": 0.6395891388789325,
+        "n": 7582,
+        "tail_threshold": 7.571265198345577,
+        "tail_n": 759,
+        "tail_mae": 3.182799450693689
+      }
+    }
+  },
+  "adopted": false,
+  "reason": "no candidate beat Storm 1.0 on average and in at least 4 of 5 folds",
+  "spec": {
+    "inputs": [
+      {
+        "group": "composition",
+        "label": "Composition statistics",
+        "n": 34,
+        "detail": "mean, spread, min and max of 8 element properties, plus element and site counts"
+      },
+      {
+        "group": "structure",
+        "label": "Crystal structure",
+        "n": 9,
+        "detail": "volume and density, lattice lengths, nearest-neighbour distances"
+      },
+      {
+        "group": "physics",
+        "label": "Physics features proposed by the AI",
+        "n": 11,
+        "items": [
+          {
+            "name": "vec",
+            "why": "valence electrons per atom; Matthias found Tc peaks near 4.7 and 6.5 in transition-metal compounds"
+          },
+          {
+            "name": "matthias_d47",
+            "why": "distance of the valence-electron count from the first Matthias peak (4.7)"
+          },
+          {
+            "name": "matthias_d65",
+            "why": "distance from the second Matthias peak (6.5)"
+          },
+          {
+            "name": "d_fraction",
+            "why": "share of d-block atoms, a proxy for a high density of states at the Fermi level"
+          },
+          {
+            "name": "p_fraction",
+            "why": "share of p-block atoms (covalent bonding, as in MgB2 and the A15 compounds)"
+          },
+          {
+            "name": "light_fraction",
+            "why": "share of light atoms (Z <= 9), which vibrate at high frequency"
+          },
+          {
+            "name": "inv_sqrt_mass",
+            "why": "composition average of M^-1/2; phonon frequencies scale like M^-1/2 (isotope effect)"
+          },
+          {
+            "name": "omega_proxy",
+            "why": "M^-1/2 divided by the mean nearest-neighbour distance, a crude stiffness-over-mass frequency scale"
+          },
+          {
+            "name": "mass_ratio",
+            "why": "heaviest over lightest atomic mass; light atoms in a heavy matrix give separate optical modes"
+          },
+          {
+            "name": "x_diff",
+            "why": "electronegativity difference, a proxy for ionicity and charge transfer"
+          },
+          {
+            "name": "packing_fraction",
+            "why": "atomic-sphere volume over volume per atom, a proxy for how compressed the lattice is"
+          }
+        ]
+      },
+      {
+        "group": "stage",
+        "label": "Allen\u2013Dynes stage",
+        "n": 3,
+        "detail": "\u03bb and \u03c9_log from first-stage models (out of fold) and the Allen\u2013Dynes Tc they imply"
+      }
+    ],
+    "learner": {
+      "kind": "gradient-boosting",
+      "trees": 800,
+      "leaves": 63,
+      "learning_rate": 0.04,
+      "min_leaf": 10,
+      "l2": 1.0,
+      "features_per_split": 1.0,
+      "loss": "squared error",
+      "ensemble": 1
+    },
+    "target": "log(1 + Tc)",
+    "cv": "5-fold, grouped by chemical system",
+    "stage": {
+      "kind": "allen-dynes",
+      "label": "Allen\u2013Dynes stage",
+      "first": [
+        "lambda",
+        "omega_log"
+      ],
+      "mu_star": 0.1
+    }
+  },
+  "changes": [
+    "Adds an Allen\u2013Dynes stage: first-stage models predict \u03bb and \u03c9_log, and they and the Tc the Allen\u2013Dynes formula gives from them become three extra inputs"
+  ],
+  "experiments": {
+    "summary": {
+      "n_scored": 18,
+      "n_listed": 38,
+      "dft_mae": 6.95,
+      "mae": {
+        "S0": 7.56,
+        "R1": 7.22,
+        "R2": 7.26,
+        "R3": 6.9,
+        "R4": 6.92,
+        "R5": 7.43,
+        "R6": 7.67,
+        "R7": 7.63
+      },
+      "rule": "a new version may not be more than 0.5 K worse than the current one on the scored measurements (applies with at least 8 scored matches)",
+      "about": "Measured Tc used to sanity-check Storm, the conventional (electron-phonon) model. Each entry carries a reliability grade, because experiments can be wrong too. Only entries with use = score enter the check score: replicated, ambient-pressure, phonon-mediated superconductors. Single reports, preprints and materials outside the training domain are shown but not scored; retracted or refuted claims are listed only to record why they are left out. Materials are matched to the training set by composition, so polymorphs of one composition are pooled (median). The check never feeds back into training."
+    },
+    "best": "R3",
+    "table": [
+      {
+        "name": "Al",
+        "tc_exp": 1.18,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 2.16,
+        "pred": {
+          "S0": 2.16,
+          "R1": 2.27,
+          "R2": 2.59,
+          "R3": 1.3,
+          "R4": 2.63,
+          "R5": 1.48,
+          "R6": 0.75,
+          "R7": 0.83
+        },
+        "pred_best": 1.3,
+        "pred_storm1": 2.16
+      },
+      {
+        "name": "Ga",
+        "tc_exp": 1.08,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "In",
+        "tc_exp": 3.41,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 4.38,
+        "pred": {
+          "S0": 3.73,
+          "R1": 3.6,
+          "R2": 4.46,
+          "R3": 4.94,
+          "R4": 4.14,
+          "R5": 4.23,
+          "R6": 3.89,
+          "R7": 4.21
+        },
+        "pred_best": 4.94,
+        "pred_storm1": 3.73
+      },
+      {
+        "name": "Sn (white tin)",
+        "tc_exp": 3.72,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "only the metallic beta phase superconducts",
+        "n_matches": 2,
+        "dft_tc": 6.4,
+        "pred": {
+          "S0": 4.33,
+          "R1": 2.67,
+          "R2": 4.68,
+          "R3": 4.88,
+          "R4": 4.43,
+          "R5": 3.64,
+          "R6": 6.0,
+          "R7": 6.67
+        },
+        "pred_best": 4.88,
+        "pred_storm1": 4.33
+      },
+      {
+        "name": "Pb",
+        "tc_exp": 7.2,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 5.09,
+        "pred": {
+          "S0": 3.6,
+          "R1": 3.78,
+          "R2": 3.47,
+          "R3": 4.1,
+          "R4": 5.05,
+          "R5": 2.31,
+          "R6": 5.39,
+          "R7": 5.01
+        },
+        "pred_best": 4.1,
+        "pred_storm1": 3.6
+      },
+      {
+        "name": "Tl",
+        "tc_exp": 2.38,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "Hg",
+        "tc_exp": 4.15,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "Zn",
+        "tc_exp": 0.85,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "Cd",
+        "tc_exp": 0.52,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "Nb",
+        "tc_exp": 9.25,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 12.99,
+        "pred": {
+          "S0": 13.43,
+          "R1": 13.01,
+          "R2": 11.18,
+          "R3": 13.45,
+          "R4": 11.02,
+          "R5": 15.73,
+          "R6": 15.65,
+          "R7": 15.05
+        },
+        "pred_best": 13.45,
+        "pred_storm1": 13.43
+      },
+      {
+        "name": "V",
+        "tc_exp": 5.4,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 21.1,
+        "pred": {
+          "S0": 16.38,
+          "R1": 14.92,
+          "R2": 11.89,
+          "R3": 10.76,
+          "R4": 11.38,
+          "R5": 14.41,
+          "R6": 19.56,
+          "R7": 17.51
+        },
+        "pred_best": 10.76,
+        "pred_storm1": 16.38
+      },
+      {
+        "name": "Ta",
+        "tc_exp": 4.47,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 9.64,
+        "pred": {
+          "S0": 10.11,
+          "R1": 8.98,
+          "R2": 10.74,
+          "R3": 8.67,
+          "R4": 10.53,
+          "R5": 8.81,
+          "R6": 9.99,
+          "R7": 10.13
+        },
+        "pred_best": 8.67,
+        "pred_storm1": 10.11
+      },
+      {
+        "name": "Mo",
+        "tc_exp": 0.92,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 1.88,
+        "pred": {
+          "S0": 1.62,
+          "R1": 1.57,
+          "R2": 2.26,
+          "R3": 1.53,
+          "R4": 1.66,
+          "R5": 2.17,
+          "R6": 2.51,
+          "R7": 2.03
+        },
+        "pred_best": 1.53,
+        "pred_storm1": 1.62
+      },
+      {
+        "name": "Re",
+        "tc_exp": 1.7,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 4,
+        "dft_tc": 8.53,
+        "pred": {
+          "S0": 7.4,
+          "R1": 8.07,
+          "R2": 7.61,
+          "R3": 7.19,
+          "R4": 6.96,
+          "R5": 8.67,
+          "R6": 7.78,
+          "R7": 8.07
+        },
+        "pred_best": 7.19,
+        "pred_storm1": 7.4
+      },
+      {
+        "name": "Ti",
+        "tc_exp": 0.4,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 3,
+        "dft_tc": 8.31,
+        "pred": {
+          "S0": 10.61,
+          "R1": 9.35,
+          "R2": 11.26,
+          "R3": 11.07,
+          "R4": 9.14,
+          "R5": 9.99,
+          "R6": 11.71,
+          "R7": 12.1
+        },
+        "pred_best": 11.07,
+        "pred_storm1": 10.61
+      },
+      {
+        "name": "Ru",
+        "tc_exp": 0.49,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 2,
+        "dft_tc": 8.42,
+        "pred": {
+          "S0": 2.33,
+          "R1": 2.48,
+          "R2": 2.29,
+          "R3": 3.19,
+          "R4": 2.34,
+          "R5": 1.84,
+          "R6": 1.48,
+          "R7": 1.61
+        },
+        "pred_best": 3.19,
+        "pred_storm1": 2.33
+      },
+      {
+        "name": "Os",
+        "tc_exp": 0.66,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 2.27,
+        "pred": {
+          "S0": 1.43,
+          "R1": 1.44,
+          "R2": 1.67,
+          "R3": 1.44,
+          "R4": 1.89,
+          "R5": 0.71,
+          "R6": 0.63,
+          "R7": 0.71
+        },
+        "pred_best": 1.44,
+        "pred_storm1": 1.43
+      },
+      {
+        "name": "Ir",
+        "tc_exp": 0.11,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "Th",
+        "tc_exp": 1.38,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "MgB2",
+        "tc_exp": 39.0,
+        "status": "replicated",
+        "use": "score",
+        "source": "nagamatsu2001",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 8.38,
+        "pred": {
+          "S0": 0.77,
+          "R1": 0.7,
+          "R2": 0.77,
+          "R3": 0.52,
+          "R4": 0.95,
+          "R5": 1.64,
+          "R6": 0.38,
+          "R7": 0.36
+        },
+        "pred_best": 0.52,
+        "pred_storm1": 0.77
+      },
+      {
+        "name": "Nb3Sn",
+        "tc_exp": 18.3,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 13.68,
+        "pred": {
+          "S0": 7.62,
+          "R1": 9.18,
+          "R2": 6.92,
+          "R3": 11.69,
+          "R4": 7.73,
+          "R5": 8.77,
+          "R6": 9.62,
+          "R7": 8.47
+        },
+        "pred_best": 11.69,
+        "pred_storm1": 7.62
+      },
+      {
+        "name": "Nb3Al",
+        "tc_exp": 18.8,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "Nb3Ga",
+        "tc_exp": 20.3,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "V3Si",
+        "tc_exp": 17.1,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "V3Ga",
+        "tc_exp": 15.9,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 2.82,
+        "pred": {
+          "S0": 1.89,
+          "R1": 2.17,
+          "R2": 2.18,
+          "R3": 2.25,
+          "R4": 2.36,
+          "R5": 2.38,
+          "R6": 2.71,
+          "R7": 3.06
+        },
+        "pred_best": 2.25,
+        "pred_storm1": 1.89
+      },
+      {
+        "name": "NbN",
+        "tc_exp": 16.0,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "depends on stoichiometry",
+        "n_matches": 3,
+        "dft_tc": 0.0,
+        "pred": {
+          "S0": 3.38,
+          "R1": 5.85,
+          "R2": 5.23,
+          "R3": 5.0,
+          "R4": 6.37,
+          "R5": 3.73,
+          "R6": 5.52,
+          "R7": 5.71
+        },
+        "pred_best": 5.0,
+        "pred_storm1": 3.38
+      },
+      {
+        "name": "NbC",
+        "tc_exp": 11.1,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 13.1,
+        "pred": {
+          "S0": 2.88,
+          "R1": 2.42,
+          "R2": 3.47,
+          "R3": 3.85,
+          "R4": 2.88,
+          "R5": 2.61,
+          "R6": 2.39,
+          "R7": 2.53
+        },
+        "pred_best": 3.85,
+        "pred_storm1": 2.88
+      },
+      {
+        "name": "TaC",
+        "tc_exp": 10.3,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 8.15,
+        "pred": {
+          "S0": 3.49,
+          "R1": 2.57,
+          "R2": 4.05,
+          "R3": 3.05,
+          "R4": 2.5,
+          "R5": 2.79,
+          "R6": 2.91,
+          "R7": 3.41
+        },
+        "pred_best": 3.05,
+        "pred_storm1": 3.49
+      },
+      {
+        "name": "NbSe2",
+        "tc_exp": 7.2,
+        "status": "replicated",
+        "use": "score",
+        "source": "roberts1976",
+        "note": "coexists with a charge-density wave",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "CaC6",
+        "tc_exp": 11.5,
+        "status": "replicated",
+        "use": "score",
+        "source": "weller2005",
+        "note": "also emery2005",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "Nb3Ge",
+        "tc_exp": 23.2,
+        "status": "replicated",
+        "use": "show",
+        "source": "roberts1976",
+        "note": "the 23 K phase is metastable (films); bulk samples are lower, so not scored",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "YRu3B2",
+        "tc_exp": 0.81,
+        "status": "single report",
+        "use": "show",
+        "source": "albumustaf2026",
+        "note": "predicted by machine learning, then measured; bulk superconductivity from magnetization, specific heat and transport",
+        "n_matches": 1,
+        "dft_tc": 6.53,
+        "pred": {
+          "S0": 6.82,
+          "R1": 7.58,
+          "R2": 3.43,
+          "R3": 8.36,
+          "R4": 5.0,
+          "R5": 6.25,
+          "R6": 7.09,
+          "R7": 6.71
+        },
+        "pred_best": 8.36,
+        "pred_storm1": 6.82
+      },
+      {
+        "name": "LuRu3B2",
+        "tc_exp": 0.95,
+        "status": "single report",
+        "use": "show",
+        "source": "albumustaf2026",
+        "note": "",
+        "n_matches": 1,
+        "dft_tc": 6.86,
+        "pred": {
+          "S0": 2.13,
+          "R1": 1.92,
+          "R2": 3.3,
+          "R3": 2.84,
+          "R4": 2.34,
+          "R5": 1.74,
+          "R6": 1.79,
+          "R7": 2.15
+        },
+        "pred_best": 2.84,
+        "pred_storm1": 2.13
+      },
+      {
+        "name": "H3S",
+        "tc_exp": 203,
+        "status": "replicated",
+        "use": "show",
+        "source": "drozdov2015",
+        "note": "about 155 GPa; hydrides and high pressure are outside Storm's training data",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "LaH10",
+        "tc_exp": 250,
+        "status": "replicated",
+        "use": "show",
+        "source": "drozdov2019",
+        "note": "about 170 GPa; outside the training data",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "LaSc2H24",
+        "tc_exp": 298,
+        "status": "preprint",
+        "use": "show",
+        "source": "song2025",
+        "note": "onset 271-298 K at 195-266 GPa; not yet peer reviewed",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "N-doped lutetium hydride",
+        "tc_exp": null,
+        "status": "retracted",
+        "use": "exclude",
+        "source": "retraction2023",
+        "note": "near-ambient superconductivity claim retracted in 2023",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      },
+      {
+        "name": "LK-99 (Cu-doped lead apatite)",
+        "tc_exp": null,
+        "status": "refuted",
+        "use": "exclude",
+        "source": "zhu2023",
+        "note": "the resistivity jumps come from Cu2S impurities",
+        "n_matches": 0,
+        "pred_best": null,
+        "pred_storm1": null
+      }
+    ]
+  }
+}

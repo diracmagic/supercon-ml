@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-30T17:31:09-05:00",
+  "updated": "2026-10-30T20:54:08-05:00",
   "badge": "3/10 done · now: foundation model",
   "project": "Finding high-Tc superconductors with materials foundation models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
@@ -135,6 +135,10 @@
     {
       "at": "2026-10-30T17:31:09-05:00",
       "event": "Storm 1.0, the AI-designed model from search round 1 (9 candidates): Tc MAE 0.97 K against 1.05 K for the baseline, better in 5 of 5 folds; adopted"
+    },
+    {
+      "at": "2026-10-30T20:54:08-05:00",
+      "event": "Storm 2.0, the AI-designed model from search round 2 (8 candidates): Tc MAE 0.966 K against 0.969 K for Storm 1.0, better in 2 of 5 folds; not adopted, so it stays experimental (no candidate beat Storm 1.0 on average and in at least 4 of 5 folds)"
     }
   ],
   "baselines": [
@@ -276,98 +280,98 @@
       "target": "Tc",
       "split": "val",
       "mae": 0.969
+    },
+    {
+      "at": "2026-10-30T20:54:08-05:00",
+      "model": "Storm 2.0 (AI-designed)",
+      "target": "Tc",
+      "split": "val",
+      "mae": 0.966
     }
   ],
   "search": {
-    "round": 1,
-    "at": "2026-10-30T17:31:09-05:00",
-    "designer": "AI agent (Claude) proposed the candidate feature sets, the physics features and the settings",
+    "round": 2,
+    "at": "2026-10-30T20:54:08-05:00",
+    "designer": "AI agent (Claude) proposed the candidates: phonon-scale features, an Allen-Dynes stage, a median objective and a seed average, with a measured-Tc check graded by reliability",
     "selection": "5-fold GroupKFold by chemical system on Alexandria (7,582 materials); the locked JARVIS test set is not used",
-    "rule": "release the lowest-error design among those that beat the baseline on average and in at least 4 of 5 folds; otherwise the best design stays experimental",
+    "rule": "release the lowest-error design that beats Storm 1.0 on average and in at least 4 of 5 folds and is not more than 0.5 K worse on replicated measured Tc; otherwise the best design stays experimental",
     "baseline": {
       "name": "Hand-made features (baseline)",
       "tc_mae": 1.045
     },
+    "reference": "Storm 1.0",
     "best": {
-      "id": "D1",
-      "name": "Hand-made + physics features",
-      "settings": "deeper trees",
-      "tc_mae": 0.969,
+      "id": "R3",
+      "name": "Storm 1.0 + Allen–Dynes stage",
+      "settings": "default",
+      "tc_mae": 0.966,
       "folds_better": 5
     },
-    "adopted": true,
+    "adopted": false,
     "candidates": [
       {
-        "id": "D1",
-        "name": "Hand-made + physics features",
-        "settings": "deeper trees",
+        "id": "R3",
+        "name": "Storm 1.0 + Allen–Dynes stage",
+        "settings": "default",
+        "n_features": 57,
+        "tc_mae": 0.966,
+        "folds_better": 5
+      },
+      {
+        "id": "S0",
+        "name": "Storm 1.0 (reference)",
+        "settings": "default",
         "n_features": 54,
         "tc_mae": 0.969,
         "folds_better": 5
       },
       {
-        "id": "D4",
-        "name": "Hand-made + physics features",
-        "settings": "half the features per split",
-        "n_features": 54,
-        "tc_mae": 1.012,
+        "id": "R7",
+        "name": "+ phonon-scale features + Allen–Dynes stage, median objective",
+        "settings": "average of 5 seeds",
+        "n_features": 62,
+        "tc_mae": 0.973,
         "folds_better": 5
       },
       {
-        "id": "D3",
-        "name": "Hand-made + physics features",
-        "settings": "slower learning",
-        "n_features": 54,
-        "tc_mae": 1.019,
+        "id": "R6",
+        "name": "+ phonon-scale features + Allen–Dynes stage, median objective",
+        "settings": "default",
+        "n_features": 62,
+        "tc_mae": 0.984,
         "folds_better": 5
       },
       {
-        "id": "D",
-        "name": "Hand-made + physics features",
+        "id": "R1",
+        "name": "Storm 1.0 + phonon-scale features",
         "settings": "default",
-        "n_features": 54,
-        "tc_mae": 1.021,
+        "n_features": 59,
+        "tc_mae": 0.99,
         "folds_better": 5
       },
       {
-        "id": "A",
-        "name": "Hand-made features (baseline)",
+        "id": "R5",
+        "name": "+ phonon-scale features + Allen–Dynes stage",
         "settings": "default",
-        "n_features": 43,
-        "tc_mae": 1.045,
-        "folds_better": 0
+        "n_features": 62,
+        "tc_mae": 1.0,
+        "folds_better": 5
       },
       {
-        "id": "E",
-        "name": "Hand-made + physics + 32 MACE components",
+        "id": "R2",
+        "name": "Storm 1.0, median objective",
         "settings": "default",
-        "n_features": 86,
-        "tc_mae": 1.059,
+        "n_features": 54,
+        "tc_mae": 1.039,
+        "folds_better": 4
+      },
+      {
+        "id": "R4",
+        "name": "+ phonon-scale features, median objective",
+        "settings": "default",
+        "n_features": 59,
+        "tc_mae": 1.067,
         "folds_better": 2
-      },
-      {
-        "id": "C",
-        "name": "Hand-made + 32 MACE principal components",
-        "settings": "default",
-        "n_features": 75,
-        "tc_mae": 1.08,
-        "folds_better": 0
-      },
-      {
-        "id": "B",
-        "name": "Hand-made + full MACE-MP-0 descriptors",
-        "settings": "default",
-        "n_features": 811,
-        "tc_mae": 1.089,
-        "folds_better": 0
-      },
-      {
-        "id": "D2",
-        "name": "Hand-made + physics features",
-        "settings": "stronger regularization",
-        "n_features": 54,
-        "tc_mae": 1.099,
-        "folds_better": 0
       }
     ],
     "caveat": "picking the best of several candidates on the same folds makes its score slightly optimistic; the locked JARVIS test set will check the final model once",
@@ -375,7 +379,7 @@
   },
   "ai_model": {
     "name": "Storm",
-    "about": "Storm is the project's AI-designed Tc model. An AI agent (Claude) proposes each design; every candidate is trained and scored with the same composition-grouped cross-validation, and a new version is released only if it beats the current best on average and in at least 4 of the 5 folds.",
+    "about": "Storm is the project's AI-designed Tc model for conventional, phonon-mediated superconductors; it is trained on DFT electron-phonon data, so it does not cover cuprates, nickelates, iron-based or other unconventional superconductors, which are planned for a separate model, Hurricane. An AI agent (Claude) proposes each design; every candidate is trained and scored with the same composition-grouped cross-validation, and a new version is released only if it beats the current best on average and in at least 4 of the 5 folds, and does not do clearly worse on replicated measured Tc.",
     "current": "1.0",
     "versions": [
       {
@@ -555,6 +559,599 @@
               "settings": "stronger regularization",
               "tc_mae": 1.099,
               "folds_better": 0
+            }
+          ]
+        }
+      },
+      {
+        "version": "2.0",
+        "round": 2,
+        "date": "2026-10-30",
+        "status": "experimental",
+        "summary": "Storm 1.0 + Allen–Dynes stage",
+        "changes": [
+          "Adds an Allen–Dynes stage: first-stage models predict λ and ω_log, and they and the Tc the Allen–Dynes formula gives from them become three extra inputs"
+        ],
+        "spec": {
+          "inputs": [
+            {
+              "group": "composition",
+              "label": "Composition statistics",
+              "n": 34,
+              "detail": "mean, spread, min and max of 8 element properties, plus element and site counts"
+            },
+            {
+              "group": "structure",
+              "label": "Crystal structure",
+              "n": 9,
+              "detail": "volume and density, lattice lengths, nearest-neighbour distances"
+            },
+            {
+              "group": "physics",
+              "label": "Physics features proposed by the AI",
+              "n": 11,
+              "items": [
+                {
+                  "name": "vec",
+                  "why": "valence electrons per atom; Matthias found Tc peaks near 4.7 and 6.5 in transition-metal compounds"
+                },
+                {
+                  "name": "matthias_d47",
+                  "why": "distance of the valence-electron count from the first Matthias peak (4.7)"
+                },
+                {
+                  "name": "matthias_d65",
+                  "why": "distance from the second Matthias peak (6.5)"
+                },
+                {
+                  "name": "d_fraction",
+                  "why": "share of d-block atoms, a proxy for a high density of states at the Fermi level"
+                },
+                {
+                  "name": "p_fraction",
+                  "why": "share of p-block atoms (covalent bonding, as in MgB2 and the A15 compounds)"
+                },
+                {
+                  "name": "light_fraction",
+                  "why": "share of light atoms (Z <= 9), which vibrate at high frequency"
+                },
+                {
+                  "name": "inv_sqrt_mass",
+                  "why": "composition average of M^-1/2; phonon frequencies scale like M^-1/2 (isotope effect)"
+                },
+                {
+                  "name": "omega_proxy",
+                  "why": "M^-1/2 divided by the mean nearest-neighbour distance, a crude stiffness-over-mass frequency scale"
+                },
+                {
+                  "name": "mass_ratio",
+                  "why": "heaviest over lightest atomic mass; light atoms in a heavy matrix give separate optical modes"
+                },
+                {
+                  "name": "x_diff",
+                  "why": "electronegativity difference, a proxy for ionicity and charge transfer"
+                },
+                {
+                  "name": "packing_fraction",
+                  "why": "atomic-sphere volume over volume per atom, a proxy for how compressed the lattice is"
+                }
+              ]
+            },
+            {
+              "group": "stage",
+              "label": "Allen–Dynes stage",
+              "n": 3,
+              "detail": "λ and ω_log from first-stage models (out of fold) and the Allen–Dynes Tc they imply"
+            }
+          ],
+          "learner": {
+            "kind": "gradient-boosting",
+            "trees": 800,
+            "leaves": 63,
+            "learning_rate": 0.04,
+            "min_leaf": 10,
+            "l2": 1.0,
+            "features_per_split": 1.0,
+            "loss": "squared error",
+            "ensemble": 1
+          },
+          "target": "log(1 + Tc)",
+          "cv": "5-fold, grouped by chemical system",
+          "stage": {
+            "kind": "allen-dynes",
+            "label": "Allen–Dynes stage",
+            "first": [
+              "lambda",
+              "omega_log"
+            ],
+            "mu_star": 0.1
+          }
+        },
+        "scores": {
+          "tc_mae": 0.966,
+          "reference_mae": 1.045,
+          "reference": "Hand-made features (baseline)",
+          "folds": [
+            1.02,
+            0.993,
+            0.854,
+            0.966,
+            0.995
+          ],
+          "reference_folds": [
+            1.11,
+            1.057,
+            0.937,
+            1.079,
+            1.043
+          ],
+          "folds_better": 5,
+          "tail_mae": 3.482,
+          "tc_via_lambda_wlog_mae": 1.056,
+          "lambda_mae": 0.092,
+          "omega_log_mae": 21.0,
+          "previous": {
+            "name": "Storm 1.0",
+            "version": "1.0",
+            "tc_mae": 0.969,
+            "folds": [
+              1.019,
+              0.985,
+              0.874,
+              0.985,
+              0.981
+            ],
+            "folds_better": 2
+          }
+        },
+        "search": {
+          "candidates": 8,
+          "reference_id": "S0",
+          "leaderboard": [
+            {
+              "id": "R3",
+              "name": "Storm 1.0 + Allen–Dynes stage",
+              "settings": "default",
+              "tc_mae": 0.966,
+              "folds_better": 5
+            },
+            {
+              "id": "S0",
+              "name": "Storm 1.0 (reference)",
+              "settings": "default",
+              "tc_mae": 0.969,
+              "folds_better": 5
+            },
+            {
+              "id": "R7",
+              "name": "+ phonon-scale features + Allen–Dynes stage, median objective",
+              "settings": "average of 5 seeds",
+              "tc_mae": 0.973,
+              "folds_better": 5
+            },
+            {
+              "id": "R6",
+              "name": "+ phonon-scale features + Allen–Dynes stage, median objective",
+              "settings": "default",
+              "tc_mae": 0.984,
+              "folds_better": 5
+            },
+            {
+              "id": "R1",
+              "name": "Storm 1.0 + phonon-scale features",
+              "settings": "default",
+              "tc_mae": 0.99,
+              "folds_better": 5
+            },
+            {
+              "id": "R5",
+              "name": "+ phonon-scale features + Allen–Dynes stage",
+              "settings": "default",
+              "tc_mae": 1.0,
+              "folds_better": 5
+            },
+            {
+              "id": "R2",
+              "name": "Storm 1.0, median objective",
+              "settings": "default",
+              "tc_mae": 1.039,
+              "folds_better": 4
+            },
+            {
+              "id": "R4",
+              "name": "+ phonon-scale features, median objective",
+              "settings": "default",
+              "tc_mae": 1.067,
+              "folds_better": 2
+            }
+          ]
+        },
+        "experiments": {
+          "n_scored": 18,
+          "mae": 6.9,
+          "mae_previous": 7.56,
+          "dft_mae": 6.95,
+          "rule": "a new version may not be more than 0.5 K worse than the current one on the scored measurements (applies with at least 8 scored matches)",
+          "table": [
+            {
+              "name": "Al",
+              "tc_exp": 1.18,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 2.16,
+              "pred": 1.3,
+              "prev": 2.16
+            },
+            {
+              "name": "Ga",
+              "tc_exp": 1.08,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "In",
+              "tc_exp": 3.41,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 4.38,
+              "pred": 4.94,
+              "prev": 3.73
+            },
+            {
+              "name": "Sn (white tin)",
+              "tc_exp": 3.72,
+              "status": "replicated",
+              "use": "score",
+              "n": 2,
+              "dft": 6.4,
+              "pred": 4.88,
+              "prev": 4.33
+            },
+            {
+              "name": "Pb",
+              "tc_exp": 7.2,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 5.09,
+              "pred": 4.1,
+              "prev": 3.6
+            },
+            {
+              "name": "Tl",
+              "tc_exp": 2.38,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "Hg",
+              "tc_exp": 4.15,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "Zn",
+              "tc_exp": 0.85,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "Cd",
+              "tc_exp": 0.52,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "Nb",
+              "tc_exp": 9.25,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 12.99,
+              "pred": 13.45,
+              "prev": 13.43
+            },
+            {
+              "name": "V",
+              "tc_exp": 5.4,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 21.1,
+              "pred": 10.76,
+              "prev": 16.38
+            },
+            {
+              "name": "Ta",
+              "tc_exp": 4.47,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 9.64,
+              "pred": 8.67,
+              "prev": 10.11
+            },
+            {
+              "name": "Mo",
+              "tc_exp": 0.92,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 1.88,
+              "pred": 1.53,
+              "prev": 1.62
+            },
+            {
+              "name": "Re",
+              "tc_exp": 1.7,
+              "status": "replicated",
+              "use": "score",
+              "n": 4,
+              "dft": 8.53,
+              "pred": 7.19,
+              "prev": 7.4
+            },
+            {
+              "name": "Ti",
+              "tc_exp": 0.4,
+              "status": "replicated",
+              "use": "score",
+              "n": 3,
+              "dft": 8.31,
+              "pred": 11.07,
+              "prev": 10.61
+            },
+            {
+              "name": "Ru",
+              "tc_exp": 0.49,
+              "status": "replicated",
+              "use": "score",
+              "n": 2,
+              "dft": 8.42,
+              "pred": 3.19,
+              "prev": 2.33
+            },
+            {
+              "name": "Os",
+              "tc_exp": 0.66,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 2.27,
+              "pred": 1.44,
+              "prev": 1.43
+            },
+            {
+              "name": "Ir",
+              "tc_exp": 0.11,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "Th",
+              "tc_exp": 1.38,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "MgB2",
+              "tc_exp": 39.0,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 8.38,
+              "pred": 0.52,
+              "prev": 0.77
+            },
+            {
+              "name": "Nb3Sn",
+              "tc_exp": 18.3,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 13.68,
+              "pred": 11.69,
+              "prev": 7.62
+            },
+            {
+              "name": "Nb3Al",
+              "tc_exp": 18.8,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "Nb3Ga",
+              "tc_exp": 20.3,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "V3Si",
+              "tc_exp": 17.1,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "V3Ga",
+              "tc_exp": 15.9,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 2.82,
+              "pred": 2.25,
+              "prev": 1.89
+            },
+            {
+              "name": "NbN",
+              "tc_exp": 16.0,
+              "status": "replicated",
+              "use": "score",
+              "n": 3,
+              "dft": 0.0,
+              "pred": 5.0,
+              "prev": 3.38
+            },
+            {
+              "name": "NbC",
+              "tc_exp": 11.1,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 13.1,
+              "pred": 3.85,
+              "prev": 2.88
+            },
+            {
+              "name": "TaC",
+              "tc_exp": 10.3,
+              "status": "replicated",
+              "use": "score",
+              "n": 1,
+              "dft": 8.15,
+              "pred": 3.05,
+              "prev": 3.49
+            },
+            {
+              "name": "NbSe2",
+              "tc_exp": 7.2,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "CaC6",
+              "tc_exp": 11.5,
+              "status": "replicated",
+              "use": "score",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "Nb3Ge",
+              "tc_exp": 23.2,
+              "status": "replicated",
+              "use": "show",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "YRu3B2",
+              "tc_exp": 0.81,
+              "status": "single report",
+              "use": "show",
+              "n": 1,
+              "dft": 6.53,
+              "pred": 8.36,
+              "prev": 6.82
+            },
+            {
+              "name": "LuRu3B2",
+              "tc_exp": 0.95,
+              "status": "single report",
+              "use": "show",
+              "n": 1,
+              "dft": 6.86,
+              "pred": 2.84,
+              "prev": 2.13
+            },
+            {
+              "name": "H3S",
+              "tc_exp": 203,
+              "status": "replicated",
+              "use": "show",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "LaH10",
+              "tc_exp": 250,
+              "status": "replicated",
+              "use": "show",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "LaSc2H24",
+              "tc_exp": 298,
+              "status": "preprint",
+              "use": "show",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "N-doped lutetium hydride",
+              "tc_exp": null,
+              "status": "retracted",
+              "use": "exclude",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
+            },
+            {
+              "name": "LK-99 (Cu-doped lead apatite)",
+              "tc_exp": null,
+              "status": "refuted",
+              "use": "exclude",
+              "n": 0,
+              "dft": null,
+              "pred": null,
+              "prev": null
             }
           ]
         }
