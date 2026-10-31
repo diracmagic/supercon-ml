@@ -61,6 +61,9 @@ jobs:
       - name: Bundle the latest progress data
         run: cp ../progress/progress.json dist/progress.json
 
+      - name: List the third-party licences
+        run: node scripts/third-party-notices.mjs
+
       - name: Build installers
         run: npx tauri build ${{ matrix.build-args }}
 
@@ -70,6 +73,7 @@ jobs:
           if [ "${{ matrix.label }}" = "windows" ]; then
             cp src-tauri/target/release/bundle/nsis/*-setup.exe ../out/SuperconProgress-windows-x64-setup.exe
             cp src-tauri/target/release/bundle/msi/*.msi ../out/SuperconProgress-windows-x64.msi
+            cp src-tauri/THIRD-PARTY-NOTICES.txt ../out/THIRD-PARTY-NOTICES.txt
           else
             cp src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg ../out/SuperconProgress-macos-universal.dmg
           fi
