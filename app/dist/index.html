@@ -10164,10 +10164,15 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function hurRelNote(v, rl, pv, pvName) {
     var sc = v.scores || {};
     if (v.status === 'adopted') return 'Released as Hurricane ' + v.version + ': ' + (rl.false_alarms === 0 ? 'no false alarms' : pct(rl.false_alarms) + ' false alarms') + ' against ' + pct(rl.false_alarms_previous) + ' for ' + pvName +
-      (typeof rl.folds_fewer === 'number' ? ', fewer in ' + rl.folds_fewer + ' of ' + list(rl.folds).length + ' folds' : '') + ', with a measured-Tc error of ' + k2(sc.tc_mae) +
-      (pv ? ' against ' + k2(pv.tc_mae) : '') + '. The rule: ' + v.rule + '.';
+      (typeof rl.folds_fewer === 'number' ? ', fewer in ' + rl.folds_fewer + ' of ' + list(rl.folds).length + ' folds' : '') + ', with a measured-Tc error of ' + kPair(sc.tc_mae, pv && pv.tc_mae)[0] +
+      (pv ? ' against ' + kPair(sc.tc_mae, pv.tc_mae)[1] : '') + '. The rule: ' + v.rule + '.';
     var ck = rl.checks || {}, fail = Object.keys(HUR_CHECKS).filter(function (k) { return ck[k] === false; }).map(function (k) { return HUR_CHECKS[k]; });
     return 'Not released, so ' + (pvName || 'the previous version') + ' stays in use' + (fail.length ? ': the design with the fewest false alarms failed ' + (fail.length > 1 ? 'these tests: ' : 'the test of ') + fail.join(', ').replace(/, ([^,]*)$/, ' and $1') : '') + '. The rule: ' + v.rule + '.';
+  }
+  // two errors in K, with a second decimal when one decimal would show them as equal
+  function kPair(a, b) {
+    if (typeof a !== 'number' || typeof b !== 'number' || k2(a) !== k2(b) || a === b) return [k2(a), k2(b)];
+    return [a.toFixed(2) + ' K', b.toFixed(2) + ' K'];
   }
   function hurSigned(x) { return typeof x === 'number' ? (x > 0 ? '+' : x < 0 ? '−' : '') + Math.abs(x).toFixed(2) : '—'; }
 
@@ -10182,7 +10187,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     // from round 2 on, a version is compared with the previous one retrained on the same folds (v.previous)
     var pv = v.previous && typeof v.previous.tc_mae === 'number' ? v.previous : null, pvName = pv ? 'Hurricane ' + pv.version : '';
     box.appendChild(h('div', { class: 'dt-tiles' },
-      statTile('Average error', k2(sc.tc_mae), (pv ? pvName + ' ' + k2(pv.tc_mae) + ', ' : '') + 'baseline ' + k2(sc.reference_mae)),
+      statTile('Average error', kPair(sc.tc_mae, pv && pv.tc_mae)[0], (pv ? pvName + ' ' + kPair(sc.tc_mae, pv.tc_mae)[1] + ', ' : '') + 'baseline ' + k2(sc.reference_mae)),
       statTile('Superconductors only', k2(sc.sc_mae), pv && typeof pv.sc_mae === 'number' ? pvName + ' ' + k2(pv.sc_mae) : sc.high_tc ? 'Tc ≥ ' + sc.high_tc + ' K: ' + k2(sc.high_tc_mae) : null),
       rl ? statTile('False alarms', pct(rl.false_alarms), (pvName ? pvName + ' ' + pct(rl.false_alarms_previous) + ', ' : '') + 'on compounds with no record')
         : pv ? statTile('Better than ' + pvName, (pv.folds_better || 0) + ' of ' + list(pv.folds).length + ' folds', 'retrained on the same folds')
