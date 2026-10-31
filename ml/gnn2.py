@@ -147,7 +147,7 @@ def network(props: np.ndarray, cfg: dict, n_glob: int):
 
 
 def train_all(g: dict, Ttrans: np.ndarray, y_tc: np.ndarray, groups: np.ndarray, splits: list, cfg: dict,
-              glob: np.ndarray | None) -> tuple[dict, dict]:
+              glob: np.ndarray | None, seed: int = 0) -> tuple[dict, dict]:
     import jax
     import jax.numpy as jnp
     import optax
@@ -217,10 +217,10 @@ def train_all(g: dict, Ttrans: np.ndarray, y_tc: np.ndarray, groups: np.ndarray,
         fit, val = fit_val(tr, k)
         mu, sd = Ttrans[fit].mean(0), Ttrans[fit].std(0)
         Ys = ((Ttrans - mu) / sd).astype(np.float32)
-        p = init(new_key(2000 * (k + 1)), n_el)
+        p = init(new_key(2000 * (k + 1) + 97 * seed), n_el)
         s = opt.init(p)
         ema = p
-        rng = np.random.default_rng(P.SEED + 2000 * (k + 1))
+        rng = np.random.default_rng(P.SEED + 2000 * (k + 1) + 97 * seed)
         best = (np.inf, p, -1)
         t0 = time.time()
         for ep in range(EPOCHS):
@@ -344,6 +344,8 @@ def write(out: dict, train: pd.DataFrame, preds: dict, folds: list, best: dict, 
         cols["fold"][te] = k + 1
     for cid, pr in preds.items():
         cols[f"tc_pred_{cid}"] = pr["tc"]
+        cols[f"lambda_pred_{cid}"] = pr["lambda"]
+        cols[f"wlog_pred_{cid}"] = pr["wlog"]
     pd.DataFrame(cols).round(5).to_csv(results / f"gnn_round{ROUND}_predictions.csv", index=False)
     prog = json.loads(progress.read_text(encoding="utf-8"))
     stamp = out["run_at"]
