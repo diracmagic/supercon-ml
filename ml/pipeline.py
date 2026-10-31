@@ -5,6 +5,8 @@ Usage (from the repository root):
     python ml/pipeline.py foundation   # adds frozen MACE-MP-0 descriptors and bagged heads
     python ml/pipeline.py search       # AI-designed model search (current round); releases Storm, same CV
     python ml/pipeline.py search1      # re-run search round 1 (Storm 1.0) for reproducibility
+    python ml/pipeline.py storm3       # Storm round 3: calibration to measured Tc (ml/storm3.py)
+    python ml/pipeline.py hurricane    # Hurricane, the model for unconventional superconductors (ml/hurricane.py)
 
 The command downloads the Alexandria and JARVIS electron-phonon datasets through
 jarvis-tools, cleans them, recomputes the Allen-Dynes Tc with one mu*, trains
@@ -427,7 +429,8 @@ def update_progress_foundation(scores: dict, base: dict | None) -> None:
         f"{scores['lambda']['mae']:.3f}, omega_log MAE {scores['wlog']['mae']:.1f} K; uncertainty vs error "
         f"Spearman {scores['tc_direct'].get('uncertainty_spearman', float('nan')):.2f}"))
     done = sum(1 for s in prog["stages"] if s["status"] == "done")
-    prog["badge"] = f"{done}/{len(prog['stages'])} done · now: foundation model"
+    current = next((s for s in prog["stages"] if s["status"] == "active"), None)
+    prog["badge"] = f"{done}/{len(prog['stages'])} done · now: " + (current["short"].lower() if current else "models")
     prog["updated"] = stamp
     PROGRESS.write_text(json.dumps(prog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     log(f"progress updated: {prog['badge']}")
@@ -1263,7 +1266,7 @@ def run_foundation() -> None:
 
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1"])
+    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane"])
     args = ap.parse_args(argv)
     if args.command == "baseline":
         run_baseline()
@@ -1273,6 +1276,12 @@ def main(argv=None) -> None:
         run_search()
     elif args.command == "search":
         run_search2()
+    elif args.command == "storm3":
+        import storm3
+        storm3.run()
+    elif args.command == "hurricane":
+        import hurricane
+        hurricane.run()
 
 
 if __name__ == "__main__":
