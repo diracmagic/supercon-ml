@@ -30,9 +30,38 @@
     "storm3_2026": {
       "t": "Hello Super: Storm 3.0, github.com/diracmagic/supercon-ml (2026)",
       "u": "https://github.com/diracmagic/supercon-ml#storm-the-model-for-conventional-superconductors"
+    },
+    "radar2026": {
+      "t": "Hello Super: Radar 1.0, github.com/diracmagic/supercon-ml (2026)",
+      "u": "https://github.com/diracmagic/supercon-ml#radar-the-router-between-storm-and-hurricane"
+    },
+    "storm4_2026": {
+      "t": "Hello Super: Storm 4.0, github.com/diracmagic/supercon-ml (2026)",
+      "u": "https://github.com/diracmagic/supercon-ml#storm-the-model-for-conventional-superconductors"
     }
   },
   "recent": [
+    {
+      "d": "2026-10",
+      "k": "computation",
+      "cards": [
+        "ai",
+        "eliashberg"
+      ],
+      "ref": "storm4_2026",
+      "h": "Storm 4.0: boosted trees and a crystal-graph network together",
+      "x": "Our AI agent’s second round of crystal-graph networks combined weight averaging, an Allen–Dynes head and Storm’s crystal descriptors. Retrained with two seeds, the network is off by 0.94 K on the computed Tc of materials it never saw, against 0.98 K for the first network and 0.97 K for Storm 1.0. Averaged with Storm 1.0’s trees it reaches 0.90 K, better in all five folds, and calibrated to measured Tc it is off by 1.56 K, against 1.61 K for Storm 3.0."
+    },
+    {
+      "d": "2026-10",
+      "k": "computation",
+      "cards": [
+        "ai"
+      ],
+      "ref": "radar2026",
+      "h": "Radar 1.0: an AI-designed router between Storm and Hurricane",
+      "x": "Radar reads a material’s composition and crystal structure and decides which of our two models to ask. Trained on 5,751 SuperCon entries in 3DSC, it picks the right model 99.5% of the time for parent compounds it never saw, against 98.2% for a composition-only baseline. Left out of training, cuprates still all go to Hurricane, but only 1% of heavy-fermion compounds and a third of the iron-based ones do: a new family needs physics, not only a classifier."
+    },
     {
       "d": "2026-10",
       "k": "computation",
