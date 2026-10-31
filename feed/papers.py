@@ -72,6 +72,15 @@ AI_DEVICE = (r"qubit|transmon|fluxonium|quantum (?:processor|computer|computing|
              r"detector|nanowire|resonator|cavit|digital|qubit|perceptron|neural)|SNSPD|single-photon|"
              r"cryogenic (?:computing|electronics)|neuromorphic|perceptron|spiking")
 AI_TITLE = AI_PATTERN + r"|\bneural\b|\blearning\b|transformer|data-driven|\bagents?\b"
+# What an AI item reports, for the AI view's "Predictions" and "Experiments" filters (assigned automatically, a rough
+# guide): "experiment" when materials an AI or machine-learning model pointed to were made and measured, "prediction"
+# when it proposes new candidate superconductors or Tc values that have not been measured yet.
+AI_PRED = (r"(?:new|novel|candidate|promising|unreported|unexplored|hypothetical|potential|undiscovered)\s+(?:[\w-]+\s+){0,2}superconduct\w*|"
+           r"superconduct\w*\s+(?:candidates?|discovery|design|search)|candidates?\s+(?:[\w-]+\s+){0,4}(?:superconduct\w*|T_?c\b)|"
+           r"(?:screen\w*|inverse[- ]design\w*|generat\w*|discover\w*|search\w*)\s+(?:[\w-]+\s+){0,5}(?:for|of)\s+(?:[\w-]+\s+){0,3}superconduct\w*")
+AI_EXP = (r"synthesi[sz]\w*|experimentally (?:confirm|verif|validat|test|realiz)\w*|confirm\w* (?:the )?(?:bulk )?superconductivity|"
+          r"we report (?:the )?(?:discovery|observation) of (?:bulk )?superconductivity|discovery of (?:bulk )?superconductivity|"
+          r"found to (?:be )?supercond\w*|superconduct\w* (?:below|at|with an onset at) [0-9.]+ ?K")
 SC_TITLE = r"supercond|electron-phonon|electron–phonon|\bpairing\b|Cooper|Eliashberg"
 AI_CATS = ("cond-mat", "physics.comp-ph", "physics.chem-ph", "physics.app-ph", "cs.LG", "cs.AI", "cs.CL", "cs.IR",
            "stat.ML", "hep-th")
@@ -210,6 +219,14 @@ def is_ai(x: dict) -> bool:
     if not (re.search(r"superconductors?\b|superconductivity|critical temperatures?", text, re.I) or re.search(r"\bT_?c\b", text)):
         return False
     return bool(re.search(AI_TITLE, title, re.I) or re.search(AI_CAPS, title) or re.search(SC_TITLE, title, re.I))
+
+
+def ai_kind(x: dict) -> str:
+    """'experiment', 'prediction' or '' for an AI item (see AI_PRED and AI_EXP)."""
+    text = (x.get("title", "") + " " + x.get("abstract", x.get("summary", ""))).translate(PLAIN_DIGITS)
+    if not re.search(AI_PRED, text, re.I):
+        return ""
+    return "experiment" if re.search(AI_EXP, text, re.I) else "prediction"
 
 
 def fetch_arxiv(query: str = "cat:cond-mat.supr-con", max_results: int = ARXIV_MAX) -> list:
@@ -423,7 +440,8 @@ def main() -> int:
         if key in seen_ai or not is_ai(x):
             continue
         seen_ai.add(key)
-        ai.append(x)
+        kind = ai_kind(x)
+        ai.append(dict(x, ai_kind=kind) if kind else {k: v for k, v in x.items() if k != "ai_kind"})
     feed["ai"] = ai[:AI_MAX]
     log(f"AI for superconductivity: {len(feed['ai'])} items")
     if not ok:
