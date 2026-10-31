@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       stages:
-        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane hurricane2 radar gnn gnn2 gnn2final storm4 storm5 gnnsmoke)
-        default: storm3 hurricane
+        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane hurricane2 radar gnn gnn2 gnn2final storm4 storm5 screen gnnsmoke)
+        default: screen
   push:
     branches: [main]
     paths:
@@ -21,7 +21,7 @@ concurrency:
 env:
   # A push to ml/ trains only when its commit message contains [train], so a change spread over several commits
   # runs once; it then runs the current rounds. Earlier stages can be re-run by hand.
-  STAGES: ${{ inputs.stages || 'storm3 hurricane' }}
+  STAGES: ${{ inputs.stages || 'screen' }}
   # Fixed string hashing, so that the order of a set can never change the results from one run to the next.
   PYTHONHASHSEED: '0'
 
@@ -48,7 +48,7 @@ jobs:
           else
             pip install -r ml/requirements.txt
           fi
-          if [[ " $STAGES " == *" gnn "* || " $STAGES " == *" gnn2 "* || " $STAGES " == *" gnn2final "* || " $STAGES " == *" storm4 "* || " $STAGES " == *" gnnsmoke "* ]]; then
+          if [[ " $STAGES " == *" gnn "* || " $STAGES " == *" gnn2 "* || " $STAGES " == *" gnn2final "* || " $STAGES " == *" storm4 "* || " $STAGES " == *" screen "* || " $STAGES " == *" gnnsmoke "* ]]; then
             pip install "jax[cpu]" optax
           fi
 
@@ -116,6 +116,10 @@ jobs:
       - name: Storm, round 5 (a 90% range around every Storm 4.0 prediction)
         if: always() && contains(format(' {0} ', env.STAGES), ' storm5 ')
         run: python ml/pipeline.py storm5
+
+      - name: Screening, round 1 (candidates found by our models, only our own finds, with their structures)
+        if: always() && contains(format(' {0} ', env.STAGES), ' screen ')
+        run: python ml/pipeline.py screen
 
       - name: Commit results and progress
         if: always()
