@@ -12,7 +12,10 @@ Scoring: 5-fold cross-validation grouped by parent compound, as for Hurricane. T
 calibration error are reported alongside. A harder test leaves out one family at a time: trained without any
 cuprate, how many cuprates does Radar still send to Hurricane? An AI agent (Claude) proposed the candidates; a
 design is released as a new version only if it beats the composition-only baseline on average and in at least
-4 of the 5 folds. The graded anchors are predicted for information and never used for training or selection.
+4 of the 5 folds. The graded anchors and Storm's graded conventional superconductors are predicted for information
+and never used for selection. Each is scored by a Radar that never saw it: one whose composition is also a 3DSC entry
+(most of the conventional list, from aluminium to Nb3Sn) gets its out-of-fold probability, from the fold that held out
+its parent compound; the others get the final model's.
 
 Run from the repository root:  python ml/pipeline.py radar
 """
@@ -183,8 +186,16 @@ def permutation_importance(c: dict, mats: dict, y, groups, splits, names, n_repe
 # ---------------------------------------------------------------- checks on known materials
 
 
-def known_materials(final, c: dict, table, elements: list) -> list:
-    """Radar's call for the graded anchors (Hurricane) and the graded conventional superconductors (Storm)."""
+def comp_key(comp: dict) -> tuple:
+    """A composition as element shares, for matching a graded material to 3DSC entries."""
+    tot = float(sum(v for v in comp.values() if v > 0))
+    return tuple(sorted((el, round(float(v) / tot, 3)) for el, v in comp.items() if v > 0))
+
+
+def known_materials(final, c: dict, table, elements: list, oof: dict | None = None) -> list:
+    """Radar's call for the graded anchors (Hurricane) and the graded conventional superconductors (Storm). A material
+    that is also in the training data gets its out-of-fold probability (oof: composition key -> probabilities of the
+    matching entries), so every call comes from a model that never saw the material."""
     rows = []
     sets = [(H.load_anchors().get("materials", []), True)]
     if EXPERIMENTS.exists():
@@ -200,10 +211,13 @@ def known_materials(final, c: dict, table, elements: list) -> list:
             blocks = {"A": pd.DataFrame([H.composition_row(comp, table)]), "C": pd.DataFrame([H.physics_row(comp)]),
                       "B": pd.DataFrame([H.structure_row(st, comp, table)]), "D": H.element_fractions([comp], elements)}
             X = np.hstack([blocks[b].to_numpy(float) for b in c["X"]])
-            p = float(predict_design(final, X)[0])
+            seen = (oof or {}).get(comp_key(comp))
+            p = float(np.mean(seen)) if seen else float(predict_design(final, X)[0])
             fam = e.get("family") or ("hydride" if "H" in comp else "conventional")
             rows.append({"name": e["name"], "family": fam, "p_unconventional": round(p, 3),
-                         "model": "Hurricane" if p >= 0.5 else "Storm", "structure": bool(st), "list": "anchors" if is_anchor else "experiments"})
+                         "model": "Hurricane" if p >= 0.5 else "Storm", "structure": bool(st),
+                         "list": "anchors" if is_anchor else "experiments", "in_training": bool(seen),
+                         "scored": "out of fold" if seen else "final model"})
     return rows
 
 
@@ -267,8 +281,8 @@ def update_progress(out: dict) -> None:
     text = (f"Reads a material’s composition and crystal structure and gives the probability that it belongs to an "
             f"unconventional family, then sends it to Hurricane or Storm. It learns from {data['n']:,} SuperCon entries "
             f"in 3DSC ({data['n_unconventional']:,} unconventional, {data['n_conventional']:,} conventional). For parent "
-            f"compounds it never saw it picks the right model {sc['balanced_accuracy']:.0%} of the time (balanced "
-            f"accuracy), against {rs['balanced_accuracy']:.0%} for a composition-only baseline.")
+            f"compounds it never saw it picks the right model {sc['balanced_accuracy']:.1%} of the time (balanced "
+            f"accuracy), against {rs['balanced_accuracy']:.1%} for a composition-only baseline.")
     cup = lof.get("cuprate")
     if cup:
         text += (f" Trained without any cuprate, it still sends {cup['right']:.0%} of cuprates to Hurricane.")
@@ -372,8 +386,12 @@ def run() -> None:
         P.log(f"leave one family out, {r['family']}: {r['right']:.1%} sent to {r['model']} (baseline design "
               f"{r['right_baseline']:.1%}), mean probability of unconventional {r['mean_p']:.3f}")
     final = fit_design(cb, mats[cb["X"]], y, groups, P.SEED + 500)
-    known = known_materials(final, cb, table, elements)
-    P.log("known materials: " + "; ".join(f"{k['name']} {k['p_unconventional']:.2f} -> {k['model']}" for k in known))
+    oof = {}
+    for comp, pr in zip(df["comp"], preds[best["id"]]):
+        oof.setdefault(comp_key(comp), []).append(float(pr))
+    known = known_materials(final, cb, table, elements, oof)
+    P.log("known materials: " + "; ".join(f"{k['name']} {k['p_unconventional']:.2f} -> {k['model']}" +
+                                          (" (in 3DSC, out of fold)" if k["in_training"] else "") for k in known))
     version = f"{ROUND}.0"
     data = {"source": "3DSC_MP (SuperCon classes, with Materials Project structures)", "cite": H.DSC_CITE,
             "doi": "10.1038/s41597-023-02721-y", "licence": "CC BY 4.0", "commit": H.DSC_COMMIT[:7],
@@ -394,7 +412,8 @@ def run() -> None:
         "designer": ("AI agent (Claude) proposed the candidates: Hurricane's physics features, measurable structure, "
                      "element fractions, balanced classes, a seed bag and calibrated probabilities"),
         "selection": (f"{P.N_FOLDS}-fold GroupKFold by parent compound on {len(y):,} 3DSC entries; leave-one-family-out "
-                      "reported separately; graded materials never used for training or selection"),
+                      "reported separately; graded materials never used for selection, and those also in 3DSC scored out "
+                      "of fold"),
         "rule": (f"release the design with the lowest log loss that beats the composition-only baseline on average and "
                  f"in at least {P.ADOPT_FOLDS} of {P.N_FOLDS} folds; otherwise the best design stays experimental"),
         "caveat": ("the labels are SuperCon's chemical classes, a proxy for the pairing mechanism rather than a measurement "
