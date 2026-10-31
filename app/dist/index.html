@@ -624,7 +624,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 (function () {
   'use strict';
 
-  var APP_VERSION = '0.3.2';
+  var APP_VERSION = '0.3.3';
   var REPO = 'diracmagic/supercon-ml';
   var BRANCH = 'main';
   var REPO_URL = 'https://github.com/' + REPO;
@@ -1712,7 +1712,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function stormZooRow() {
     var info = stormInfo();
     if (!info) return ['Storm (AI-designed)', 'an AI agent proposes, trains and tests new designs', ['active', 'Exploring'], ''];
-    var v = info.v, ok = v.status === 'adopted';
+    var v = info.v, ok = v.status === 'adopted', cal = stormIsCurrent(info) ? stormCal() : null;
+    if (cal) return ['Storm ' + cal.version + ' · our AI model', 'designed by an AI agent, for conventional superconductors: ' + lcFirst(v.summary) + ', calibrated to measured Tc',
+      ['done', 'Released'], 'Tc error ' + v.scores.tc_mae.toFixed(2) + ' K (DFT), ' + cal.scores.mae.toFixed(2) + ' K (measured)'];
     return [stormTitle(info) + ' · our AI model', 'designed by an AI agent, for conventional superconductors: ' + lcFirst(v.summary),
       ok ? ['done', 'Released'] : ['active', 'Experimental'], 'Tc error ' + v.scores.tc_mae.toFixed(2) + ' K'];
   }
@@ -2744,7 +2746,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function storyShortcutCaption() {
     var info = stormInfo(), n = 54, np = 11;
     if (info) { n = 0; list(info.v.spec.inputs).forEach(function (i) { n += i.n || 0; if (i.group === 'physics') np = i.n; }); }
-    return 'We train on about 7,600 materials whose λ and ω_log have already been computed (the Alexandria superconductivity set). ' + stormName() + ', the model our AI agent designed, describes each crystal with ' + n + ' numbers: composition statistics, the crystal structure and ' + np + ' physics features the AI proposed, such as the valence-electron count that Matthias linked to Tc and the M^−½ scale of phonon frequencies. Gradient-boosted trees turn them into Tc directly, or into λ and ω_log for the Allen–Dynes formula. We also test fingerprints from the foundation model MACE-MP-0, pre-trained on about 1.6 million DFT calculations; so far they have not beaten Storm.';
+    return 'We train on about 7,600 materials whose λ and ω_log have already been computed (the Alexandria superconductivity set). ' + stormName() + ', the model our AI agent designed, describes each crystal with ' + n + ' numbers: composition statistics, the crystal structure and ' + np + ' physics features the AI proposed, such as the valence-electron count that Matthias linked to Tc and the M^−½ scale of phonon frequencies. Gradient-boosted trees turn them into Tc directly, or into λ and ω_log for the Allen–Dynes formula. We also test fingerprints from the foundation model MACE-MP-0, pre-trained on about 1.6 million DFT calculations; so far they have not beaten Storm.' +
+      (function () { var c = stormCal(); return c && stormIsCurrent(info) ? ' A calibration learned from measured Tc turns it into Storm ' + c.version + ', off by ' + c.scores.mae.toFixed(2) + ' K against experiment.' : ''; })();
   }
   function storyModelsCaption() {
     var live = stLive();
@@ -2755,8 +2758,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var info = stormInfo();
     if (!info) return '';
     var v = info.v;
+    var cal = stormIsCurrent(info) ? stormCal() : null;
     return ' Its designs are called Storm: ' + stormTitle(info) + ' (' + lcFirst(v.summary) + ') ' +
-      (v.status === 'adopted' ? 'was released with ' : 'stays experimental at ') + v.scores.tc_mae.toFixed(2) + ' K average Tc error.';
+      (v.status === 'adopted' ? 'was released with ' : 'stays experimental at ') + v.scores.tc_mae.toFixed(2) + ' K average Tc error.' +
+      (cal ? ' Calibrated to measured Tc, it became Storm ' + cal.version + ', off by ' + cal.scores.mae.toFixed(2) + ' K against experiment.' : '');
   }
   function storyAccuracyCaption() {
     var live = stLive();
@@ -3162,7 +3167,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function stormStoryRow() {
     var info = stormInfo();
     if (!info) return { name: 'Storm (AI-designed)', desc: 'an agent proposes new designs', status: 'exploring', note: '' };
-    return { name: stormTitle(info) + ' · our AI model', desc: 'AI-designed, for conventional superconductors', status: info.v.status === 'adopted' ? 'done' : 'exploring',
+    var cal = stormIsCurrent(info) ? stormCal() : null;
+    return { name: (cal ? 'Storm ' + cal.version : stormTitle(info)) + ' · our AI model', desc: 'AI-designed, conventional; error against DFT Tc', status: info.v.status === 'adopted' ? 'done' : 'exploring',
       note: info.v.scores.tc_mae.toFixed(2) + ' K' };
   }
 
@@ -4000,7 +4006,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         return 'Five-fold cross-validation grouped by chemical system, so no test material shares its elements with training data. ' + name + ' averages ' + fmtVal(sc.tc_mae) + ' K against ' +
           (pv ? fmtVal(pv.tc_mae) + ' K for ' + pv.name + ' and ' : '') + fmtVal(sc.reference_mae) + ' K for the baseline, and is better than ' +
           (pv ? pv.name + ' in ' + pv.folds_better + ' of ' + list(pv.folds).length : 'the baseline in ' + better) + ' folds. It was picked on these folds, so the locked JARVIS test set will check it once at the end.' + stormExpSentence(info);
-      default: return name + ' (' + stormFmtDate(v.date) + ', status: ' + v.status + '): ' + prettyMath(list(v.changes).join('; ')) + '. Every new version draws this animation from its own spec.';
+      default:
+        var cal = stormCal(), calTxt = cal && stormIsCurrent(info) ? ' Round 3 added a calibration to measured Tc on top of ' + name + ': that is Storm ' + cal.version + ', off by ' + fmtVal(cal.scores.mae) + ' K against experiment.' : '';
+        return name + ' (' + stormFmtDate(v.date) + ', status: ' + v.status + '): ' + prettyMath(list(v.changes).join('; ')) + '.' + calTxt + ' Every new version draws this animation from its own spec.';
     }
   }
   // The measured-Tc check (from round 2 on): how far the model and its own DFT training labels are from replicated experiments.
@@ -4011,6 +4019,13 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       (pv && typeof ex.mae_previous === 'number' ? ' (' + pv.name + ': ' + fmtVal(ex.mae_previous) + ' K)' : '') +
       (typeof ex.dft_mae === 'number' ? ', and the DFT labels it learns from miss by ' + fmtVal(ex.dft_mae) + ' K: most of the gap to experiment comes from the labels, not the model' + stormCalSentence() : '.');
   }
+  // Storm 3.0 and later: the version in use calibrated to measured Tc (ai_model.calibration), when released.
+  function stormCal() {
+    var am = state.data && state.data.ai_model, c = am && am.calibration;
+    return c && c.status === 'adopted' && c.version && c.scores && typeof c.scores.mae === 'number' ? c : null;
+  }
+  // True when the version shown is the one in use, so the calibrated name applies to it.
+  function stormIsCurrent(info) { return !!info && info.v.status === 'adopted' && info.v.version === (info.am.current || info.v.version); }
   // Round 3: Storm calibrated to measured Tc (ai_model.calibration), if it has run.
   function stormCalSentence() {
     var cal = state.data && state.data.ai_model && state.data.ai_model.calibration, sc = cal && cal.scores, dd = (cal && cal.data) || {};
@@ -5011,7 +5026,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (!info) return 'Hurricane, our second AI-designed model, learns the Tc of unconventional superconductors from measurements, each graded by how well it has been confirmed.';
     var v = info.v, sc = v.scores || {}, dd = info.data, top = list(v.importance).slice(0, 2).map(function (i) { return hurFeatName(i.name); });
     return 'Hurricane, our second AI-designed model, learns the Tc of cuprates, iron- and nickel-based, heavy-fermion and other oxide superconductors directly from ' + fmtInt(dd.n) +
-      ' measurements. Its AI agent added physics features such as the number of holes per copper, which sets where a cuprate sits on its Tc dome' +
+      ' measurements. Our AI agent gave it physics features such as the number of holes per copper, which sets where a cuprate sits on its Tc dome' +
       (top.length ? '; these turned out to be what the model relies on most (' + top.join(', ') + ')' : '') + '. ' + hurTitle(info) + ' is off by ' + hurK(sc.tc_mae) +
       ' K for compounds whose parent it never saw, against ' + hurK(sc.reference_mae) + ' K for a composition-only model. It cannot yet predict a family it has never seen, which is where the search for new high-Tc families has to go beyond data.';
   }
@@ -7786,21 +7801,35 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function modelFamily(d) {
     var sv = stormInUse(d), sname = (d && d.ai_model && d.ai_model.name) || 'Storm';
     var mae = sv && typeof sv.scores.tc_mae === 'number' ? sv.scores.tc_mae.toFixed(2) + ' K' : '';
+    // Storm 3.0 and later: the version in use, calibrated to measured Tc (ai_model.calibration).
+    var cal = sv && sv.status === 'adopted' && sv.version === ((d && d.ai_model && d.ai_model.current) || sv.version) ? stormCal() : null;
+    var calN = cal && cal.data && typeof cal.data.n_matched === 'number' ? fmtInt(cal.data.n_matched) + ' ' : '';
     return [
       { id: 'storm', name: 'Storm', on: true,
-        status: sv ? sname + ' ' + sv.version + ' in use' : 'In use',
+        status: cal ? sname + ' ' + cal.version + ' in use' : sv ? sname + ' ' + sv.version + ' in use' : 'In use',
         role: 'Conventional superconductors, paired by phonons',
         text: 'Learns from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) and predicts Tc in under a second' +
-          (mae ? ', ' + mae + ' off on average for materials it never saw' : '') +
+          (mae ? ', ' + mae + ' off on average against the computed Tc of materials it never saw' : '') +
+          (cal ? '. A calibration learned from ' + calN + 'materials with measured Tc then maps its prediction to experiment: off by ' + cal.scores.mae.toFixed(2) + ' K' +
+            (typeof cal.scores.mae_raw === 'number' ? ', against ' + cal.scores.mae_raw.toFixed(2) + ' K uncalibrated' : '') : '') +
           '. Our AI agent designed it; a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
         act: ['See how Storm works', function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); }] },
-      { id: 'hurricane', name: 'Hurricane', status: 'Up next',
-        role: 'Unconventional superconductors: cuprates, nickelates, iron-based, heavy-fermion and more',
-        text: 'No first-principles theory gives their Tc, so Hurricane will learn from measured Tc in the literature. Every measurement is graded as replicated, single report, preprint, retracted or refuted: unconfirmed claims count less and retracted ones not at all. Our AI agent will design it the same way as Storm.' },
+      hurFamilyEntry(),
       { id: 'radar', name: 'Radar', status: 'Planned',
         role: 'Decides which model to ask',
         text: 'Reads a material’s composition and structure, estimates whether phonons can account for its pairing, and sends it to Storm or Hurricane. When the call is close it says so and shows both predictions. Comparing where the two disagree is also a clue to the pairing mechanism.' }
     ];
+  }
+  // Hurricane's entry follows its own results (progress.json "hurricane"); model_family overrides still win.
+  function hurFamilyEntry() {
+    var hi = hurInfo(), role = 'Unconventional superconductors: cuprates, nickelates, iron-based, heavy-fermion and more';
+    if (!hi) return { id: 'hurricane', name: 'Hurricane', status: 'Up next', role: role,
+      text: 'No first-principles theory gives their Tc, so Hurricane will learn from measured Tc in the literature. Every measurement is graded as replicated, single report, preprint, retracted or refuted: unconfirmed claims count less and retracted ones not at all. Our AI agent will design it the same way as Storm.' };
+    var sc = hi.v.scores || {}, dd = hi.data || {}, inUse = !!hi.hu.current;
+    return { id: 'hurricane', name: 'Hurricane', on: inUse, status: inUse ? hurTitle(hi) + ' in use' : hurTitle(hi) + ' experimental', role: role,
+      text: 'Learns from ' + fmtInt(dd.n) + ' measured Tc values (SuperCon with Materials Project structures, via 3DSC), including materials that did not superconduct. For compounds whose parent it never saw in training it is off by ' +
+        hurK(sc.tc_mae) + ' K on average, against ' + hurK(sc.reference_mae) + ' K for a composition-only baseline. Our AI agent designed it.',
+      act: ['See how Hurricane works', function () { setView('demos'); selectDemo('hurricane'); window.scrollTo(0, 0); }] };
   }
   function renderModels(d) {
     var el = $('#models-card');
@@ -8226,7 +8255,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   /* ---------- where the data and software come from, and under which licences ---------- */
   var CC_BY = 'https://creativecommons.org/licenses/by/4.0/';
   var LICENCES = [
-    { name: 'Alexandria', url: 'https://alexandria.icams.rub.de/', use: 'about 8,250 DFT electron–phonon calculations that Storm learns from',
+    { name: 'Alexandria', url: 'https://alexandria.icams.rub.de/', use: 'about 8,250 DFT electron–phonon calculations; Storm learns from the 7,600 that pass our checks',
       lic: 'CC BY 4.0', licUrl: CC_BY, cite: [['T. F. T. Cerqueira et al., Adv. Mater. 36, 2307085 (2024)', '10.1002/adma.202307085'], ['T. Cavignac et al., J. Phys. Mater. 9, 025014 (2026)', '10.1088/2515-7639/ae6620']] },
     { name: 'JARVIS-DFT', url: 'https://jarvis.nist.gov/', use: 'about 1,000 electron–phonon calculations kept aside as Storm’s locked test set',
       lic: 'NIST open licence', licUrl: 'https://www.nist.gov/open/license', cite: [['K. Choudhary & K. Garrity, npj Comput. Mater. 8, 244 (2022)', '10.1038/s41524-022-00933-1']] },
@@ -8255,7 +8284,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       ul,
       h('p', { class: 'note' }, 'We download, filter and match these data and compute features from them; the models, predictions and scores are our own. The drawings and animations in this app are ours too, and research results are summarized in our own words with a link to each paper.'),
       h('p', { class: 'note' }, 'The desktop app is built with ', h('a', { href: 'https://tauri.app/', text: 'Tauri' }),
-        ' and other open-source libraries under MIT, Apache-2.0 and similar licences. Their notices ship with the app and are also in ',
+        ' and other open-source libraries under MIT, Apache-2.0, MPL-2.0 and similar licences. Their notices ship with the app and are also in ',
         h('a', { href: REPO_URL + '/releases/latest/download/THIRD-PARTY-NOTICES.txt', text: 'THIRD-PARTY-NOTICES.txt' }), '.'));
   }
 
@@ -8536,7 +8565,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       ul,
       h('p', { class: 'ai-links' },
         h('button', { class: 'btn small', type: 'button', onclick: function () { setView('progress'); var c = $('#details-card'); if (c && !c.hidden) c.scrollIntoView(); else window.scrollTo(0, 0); } }, 'Scores and details'),
-        h('button', { class: 'btn small', type: 'button', onclick: function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); } }, 'See how Storm works'))
+        h('button', { class: 'btn small', type: 'button', onclick: function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); } }, 'See how Storm works'),
+        h('button', { class: 'btn small', type: 'button', onclick: function () { setView('demos'); selectDemo('hurricane'); window.scrollTo(0, 0); } }, 'See how Hurricane works'))
     ]);
   }
   function renderAICurated() {
