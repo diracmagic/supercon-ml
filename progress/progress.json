@@ -2,11 +2,15 @@
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
   "updated": "2026-10-30T20:54:08-05:00",
-  "badge": "3/10 done · now: foundation model",
-  "project": "Finding high-Tc superconductors with AI-designed models and materials foundation models",
+  "badge": "3/10 done · now: baselines",
+  "project": "Finding high-Tc superconductors with AI-designed models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
   "authors": [
-    { "name": "Yantao Li", "email": "liyant@iu.edu", "contact": true }
+    {
+      "name": "Yantao Li",
+      "email": "liyant@iu.edu",
+      "contact": true
+    }
   ],
   "target": {
     "date": "2026-11-23",
@@ -53,11 +57,11 @@
       "date": "2026-10-30"
     },
     {
-      "id": "foundation",
+      "id": "ai-models",
       "status": "active",
-      "name": "Foundation-model descriptors + prediction heads",
-      "short": "Foundation model",
-      "detail": "Electron-phonon head done: frozen MACE-MP-0 (medium) descriptors with 3-model bagged gradient boosting for uncertainty; measured-Tc head next",
+      "name": "AI-designed models",
+      "short": "AI models",
+      "detail": "Storm 1.0 for conventional superconductors is in use; Storm round 3 (calibration to measured Tc) and Hurricane for unconventional superconductors are training; Radar, which picks the model, comes next",
       "date": "2026-10-30"
     },
     {
