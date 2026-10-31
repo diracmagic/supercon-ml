@@ -126,7 +126,7 @@ def charge_balance_d(comp: dict) -> float:
     """Average d-electron count of the transition-metal sublattice from nominal ionic charges, or NaN where
     charge balance is not meaningful (intermetallics, no transition metal, unknown valence)."""
     els = set(comp)
-    tms = [e for e in els if e in ACTIVE]
+    tms = [e for e in sorted(comp) if e in ACTIVE]   # a fixed order: sums over a set would depend on string hashing
     if not tms:
         return float("nan")
     ionic = els & {"O", "F", "Cl", "Br", "I"} or (els & {"S", "Se", "Te", "P", "As"})
@@ -162,7 +162,7 @@ def physics_row(comp: dict) -> dict:
     x = {el: n / tot for el, n in comp.items()}
     els = set(comp)
     d = charge_balance_d(comp)
-    tms = [e for e in els if e in ACTIVE]
+    tms = [e for e in sorted(comp) if e in ACTIVE]
     cu_major = "Cu" in els and "O" in els and comp["Cu"] >= 0.5 * sum(comp[e] for e in tms)
     p = 9.0 - d if cu_major and np.isfinite(d) else float("nan")
     f_atoms = {el: n for el, n in comp.items() if el in F_ELECTRONS}
@@ -173,11 +173,11 @@ def physics_row(comp: dict) -> dict:
         "p_cu": p,
         "dome": max(0.0, 1.0 - 82.6 * (p - 0.16) ** 2) if np.isfinite(p) and p >= 0 else (0.0 if np.isfinite(p) else float("nan")),
         "cu_layers": min(float(comp["Cu"]), 6.0) if cu_major else float("nan"),
-        "heavy_block": sum(x.get(e, 0.0) for e in HEAVY_BLOCK),
+        "heavy_block": sum(x.get(e, 0.0) for e in sorted(HEAVY_BLOCK)),
         "fe_based": float(bool(els & {"Fe", "Ni"}) and bool(els & PNICTOGEN_CHALCOGEN)),
         "f_share": f_tot / tot,
         "f_count": sum(F_ELECTRONS[e] * n for e, n in f_atoms.items()) / f_tot if f_tot else float("nan"),
-        "mag3d": sum(x.get(e, 0.0) for e in MAG3D),
+        "mag3d": sum(x.get(e, 0.0) for e in sorted(MAG3D)),
         "nonint": float(np.sum(np.abs(amounts - np.round(amounts))) / tot),
         "n_atoms_fu": min(float(tot), 60.0),
         "oxide": x.get("O", 0.0),
@@ -606,9 +606,12 @@ def anchor_check(models, c: dict, table: pd.DataFrame, elements: list, n_cols: d
 def ai_stage(prog: dict) -> None:
     """Keep the "AI-designed models" stage in step with the models in use (also called by Storm rounds 3 and 4 and Radar)."""
     am = prog.get("ai_model") or {}
-    cal, ens = am.get("calibration") or {}, am.get("ensemble") or {}
+    cal, ens, unc = am.get("calibration") or {}, am.get("ensemble") or {}, am.get("uncertainty") or {}
     cur = am.get("current", "1.0")
-    if ens.get("status") == "adopted" and ens.get("version"):
+    if unc.get("status") == "adopted" and unc.get("version") and ens.get("status") == "adopted" and ens.get("version"):
+        parts = [f"Storm {unc['version']} for conventional superconductors (Storm {ens['version']} with a 90% range for "
+                 "every prediction)"]
+    elif ens.get("status") == "adopted" and ens.get("version"):
         parts = [f"Storm {ens['version']} for conventional superconductors ({ens.get('summary') or 'Storm ' + cur + ' and the graph network'})"]
     elif cal.get("status") == "adopted" and cal.get("version"):
         parts = [f"Storm {cal['version']} for conventional superconductors (Storm {cur} calibrated to measured Tc)"]
