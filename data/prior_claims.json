@@ -1,0 +1,134 @@
+{
+  "about": "Superconductors that others have reported or predicted, which the screening (ml/screen.py) must never list as ours. SuperCon, 3DSC and the Alexandria and JARVIS electron-phonon data are checked separately; this file adds the finds and predictions we track, as in the app's AI view and recent advances. A \"formula\" matches a material with the same elements and every share within 2 at.%; a \"system\" matches every material made of exactly those elements, for families whose exact compositions vary. Add an entry whenever anyone tells us of an earlier report: the next screening round leaves it out, and the app hides a listed candidate marked with \"prior\" in progress.json.",
+  "updated": "2026-10-31",
+  "materials": [
+    {
+      "formula": "YRu3B2",
+      "kind": "discovery",
+      "ref": "10.1103/lpqj-7hyg",
+      "note": "kagome boride, ML screening then DFT; Tc 0.81 K"
+    },
+    {
+      "formula": "LuRu3B2",
+      "kind": "discovery",
+      "ref": "10.1103/lpqj-7hyg",
+      "note": "kagome boride, ML screening then DFT; Tc 0.95 K"
+    },
+    {
+      "formula": "Be2Hf2Nb",
+      "kind": "discovery",
+      "ref": "10.1038/s41524-026-01964-8",
+      "note": "BEE-NET; superconducting from 3.2 K"
+    },
+    {
+      "formula": "Be2HfNb2",
+      "kind": "discovery",
+      "ref": "10.1038/s41524-026-01964-8",
+      "note": "BEE-NET; superconducting from 4.2 K"
+    },
+    {
+      "formula": "Be2Nb3",
+      "kind": "known",
+      "ref": "10.1038/s41524-026-01964-8",
+      "note": "parent of the BEE-NET finds"
+    },
+    {
+      "formula": "PtPb3Bi",
+      "kind": "discovery",
+      "ref": "https://arxiv.org/abs/2510.07373",
+      "note": "GP-Tc prediction, made; Tc about 3 K"
+    },
+    {
+      "formula": "Mo20Re6Si4",
+      "kind": "discovery",
+      "ref": "10.1140/epjp/s13360-024-05947-w",
+      "note": "deep learning on composition; Tc 5.4 K"
+    },
+    {
+      "formula": "Mo4Re2Ge",
+      "kind": "tested",
+      "ref": "10.1140/epjp/s13360-024-05947-w",
+      "note": "proposed by the same model; no superconductivity above 1.8 K"
+    },
+    {
+      "formula": "Pu2Co17",
+      "kind": "prediction",
+      "ref": "10.1038/s41598-026-76977-w",
+      "note": "neural networks on composition; predicted about 89 K"
+    },
+    {
+      "formula": "Ca5B3N6",
+      "kind": "prediction",
+      "ref": "10.1038/s41524-026-01962-w",
+      "note": "ML-guided DFPT; predicted 35 K"
+    },
+    {
+      "formula": "TaNbC2",
+      "kind": "prediction",
+      "ref": "10.1038/s41524-026-01962-w",
+      "note": "ML-guided DFPT; predicted 28.4 K"
+    },
+    {
+      "formula": "Nb3B3C",
+      "kind": "prediction",
+      "ref": "10.1038/s41524-026-01962-w",
+      "note": "ML-guided DFPT; predicted 16.4 K"
+    },
+    {
+      "formula": "MoRuB2",
+      "kind": "prediction",
+      "ref": "10.1038/s41524-026-01962-w",
+      "note": "ML-guided DFPT; predicted 15.6 K"
+    },
+    {
+      "system": [
+        "Pt",
+        "Pb",
+        "Bi"
+      ],
+      "kind": "discovery",
+      "ref": "https://arxiv.org/abs/2510.07373",
+      "note": "the PtPb3Bi structure type: every Pt-Pb-Bi compound"
+    },
+    {
+      "system": [
+        "Au",
+        "Pb",
+        "Bi"
+      ],
+      "kind": "discovery",
+      "ref": "10.1021/acs.chemmater.6c01826",
+      "note": "AuPb4-xBix, Tc 4.9 K: every Au-Pb-Bi compound"
+    },
+    {
+      "system": [
+        "Pd",
+        "Pb",
+        "Bi"
+      ],
+      "kind": "discovery",
+      "ref": "10.1021/acs.chemmater.6c01826",
+      "note": "PdPb4-xBix, Tc 4.2 K: every Pd-Pb-Bi compound"
+    },
+    {
+      "system": [
+        "Rh",
+        "Pb",
+        "Bi"
+      ],
+      "kind": "discovery",
+      "ref": "10.1021/acs.chemmater.6c01826",
+      "note": "RhPb4-xBix, Tc 3.4 K: every Rh-Pb-Bi compound"
+    },
+    {
+      "system": [
+        "Zr",
+        "Ni",
+        "In"
+      ],
+      "kind": "discovery",
+      "ref": "10.1038/s41524-023-01131-3",
+      "note": "closed-loop discovery of a metastable phase near ZrNiIn4, about 9 K: every Zr-Ni-In compound"
+    }
+  ]
+}
