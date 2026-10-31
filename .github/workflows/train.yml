@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       stages:
-        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane hurricane2 radar gnn gnn2 gnn2final storm4 gnnsmoke)
+        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane hurricane2 radar gnn gnn2 gnn2final storm4 storm5 gnnsmoke)
         default: storm3 hurricane
   push:
     branches: [main]
@@ -22,6 +22,8 @@ env:
   # A push to ml/ trains only when its commit message contains [train], so a change spread over several commits
   # runs once; it then runs the current rounds. Earlier stages can be re-run by hand.
   STAGES: ${{ inputs.stages || 'storm3 hurricane' }}
+  # Fixed string hashing, so that the order of a set can never change the results from one run to the next.
+  PYTHONHASHSEED: '0'
 
 jobs:
   models:
@@ -110,6 +112,10 @@ jobs:
       - name: Storm, round 4 (Storm 1.0 and the graph network together)
         if: always() && contains(format(' {0} ', env.STAGES), ' storm4 ')
         run: python ml/pipeline.py storm4
+
+      - name: Storm, round 5 (a 90% range around every Storm 4.0 prediction)
+        if: always() && contains(format(' {0} ', env.STAGES), ' storm5 ')
+        run: python ml/pipeline.py storm5
 
       - name: Commit results and progress
         if: always()
