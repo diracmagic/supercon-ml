@@ -34,6 +34,12 @@ Hurricane is the released design (round 2's H12: the chance that a compound supe
 refitted on all of its 3DSC data; its range is one width on log(1 + Tc) for the Tc if it superconducts, set from its
 out-of-fold errors on the superconducting entries (90%).
 
+Every candidate also carries the training material nearest to it in its model's inputs, and is marked as outside the
+training data if it is further from every training material than 95% of the training materials are from their nearest
+neighbour in another chemical system or parent compound: there the prediction is an extrapolation.
+And every candidate carries the date it was first listed: the earliest screening round in results/ that had it (by
+JARVIS ID or composition), so that the repository's history shows when we proposed it.
+
 The top 50 of each list go into progress.json with their crystal structures, for the app's Candidates view; every
 material Storm scored is in results/screen_roundN_ranked.csv, every one Hurricane scored in
 results/screen_roundN_hurricane.csv, and every excluded one, with the reason, in results/screen_roundN_excluded.csv.
@@ -326,6 +332,9 @@ def load_rows() -> pd.DataFrame:
 
 
 BAD = {"H"} | NOBLE | S5.RADIOACTIVE
+NOVELTY_ABOUT = ("each candidate's distance, in its model's standardized inputs, to the nearest material the model learned "
+                 "from; beyond the distance that separates 95% of the training materials from their nearest neighbour in "
+                 "another chemical system or parent compound, it lies outside the training data")
 
 
 def storm_pool(df: pd.DataFrame, train_counts: dict, nat_max: int) -> tuple[pd.DataFrame, list]:
@@ -385,6 +394,41 @@ def exclude(df: pd.DataFrame, known: list) -> tuple[pd.DataFrame, pd.DataFrame, 
     counts = {name: int((out["reason"] == name).sum()) for name in ("supercon", "computed", "prior", "system")}
     counts["total"] = int(len(out))
     return df[df["reason"].isna()].drop(columns=["reason", "source"]).reset_index(drop=True), out.reset_index(drop=True), counts
+
+
+# ---------------------------------------------------------------- how unlike the training data
+
+
+NOVEL_LEVEL = 0.95   # outside the training data: further from it than 95% of training materials are from each other
+
+
+def novelty(X_train: np.ndarray, groups: np.ndarray, X_pool: np.ndarray) -> dict:
+    """How unlike its model's training data each pool material is, in the model's own (standardized) inputs: the
+    distance to the nearest training material, and the same distance for every training material to the nearest one
+    of another group (another chemical system or parent compound). A pool material further away than 95% of those is
+    outside the training data, where a prediction is an extrapolation."""
+    mu = np.nanmean(X_train, axis=0)
+    sd = np.nanstd(X_train, axis=0)
+    mu[~np.isfinite(mu)] = 0.0
+    sd[~(np.isfinite(sd) & (sd > 0))] = 1.0
+    z = lambda X: np.clip(np.nan_to_num((np.asarray(X, float) - mu) / sd, nan=0.0, posinf=0.0, neginf=0.0), -10, 10)   # noqa: E731
+    zt, zp = z(X_train), z(X_pool)
+    nt = (zt * zt).sum(axis=1)
+    d_train = np.full(len(zt), np.inf)
+    for i in range(0, len(zt), 512):
+        blk = zt[i:i + 512]
+        d2 = (blk * blk).sum(axis=1)[:, None] + nt[None, :] - 2.0 * blk @ zt.T
+        d2[groups[i:i + 512, None] == groups[None, :]] = np.inf
+        d_train[i:i + 512] = np.sqrt(np.clip(d2.min(axis=1), 0, None))
+    ok = np.isfinite(d_train)
+    limit = float(np.quantile(d_train[ok], NOVEL_LEVEL)) if ok.any() else float("inf")
+    d_pool, near = np.zeros(len(zp)), np.zeros(len(zp), int)
+    for i in range(0, len(zp), 512):
+        blk = zp[i:i + 512]
+        d2 = (blk * blk).sum(axis=1)[:, None] + nt[None, :] - 2.0 * blk @ zt.T
+        near[i:i + 512] = d2.argmin(axis=1)
+        d_pool[i:i + 512] = np.sqrt(np.clip(d2.min(axis=1), 0, None))
+    return {"distance": d_pool, "nearest": near, "limit": limit, "ratio": d_pool / limit if limit > 0 else np.zeros(len(zp))}
 
 
 # ---------------------------------------------------------------- the models
@@ -468,6 +512,35 @@ def radar_scores(pool: pd.DataFrame) -> tuple[np.ndarray, dict]:
     return RD.predict_design(final, Xp), {"design": c.get("name"), "id": c.get("id"), "n_train": int(len(y))}
 
 
+def storm_chance(m: pd.DataFrame, tc_pool: np.ndarray) -> tuple[np.ndarray, dict]:
+    """The chance that a material superconducts in an experiment (3DSC lists a Tc above 0 K), from Storm's Tc: how
+    often the matched 3DSC materials with the same out-of-fold Storm Tc do, as an increasing (isotonic) fit; checked out
+    of fold by chemical system, in the same form as Hurricane's check."""
+    from sklearn.isotonic import IsotonicRegression
+    from sklearn.model_selection import GroupKFold
+
+    none = np.full(len(tc_pool), np.nan)
+    if len(m) < 30:
+        return none, {"n": int(len(m))}
+    x = np.log1p(np.clip(m["storm"].to_numpy(float), 0, None))
+    yy = (m["tc_exp"].to_numpy(float) > 0).astype(float)
+    if yy.min() == yy.max():
+        return none, {"n": int(len(m)), "share_sc": round(float(yy.mean()), 3)}
+    fit = lambda a, b: IsotonicRegression(y_min=0.02, y_max=0.98, out_of_bounds="clip").fit(a, b)   # noqa: E731
+    oof = np.zeros(len(x))
+    groups = m["chemsys"].to_numpy()
+    for tr, te in GroupKFold(n_splits=min(P.N_FOLDS, len(set(groups)))).split(x, yy, groups):
+        oof[te] = fit(x[tr], yy[tr]).predict(x[te]) if 0 < yy[tr].mean() < 1 else yy[tr].mean()
+    likely = oof >= 0.5
+    info = {"n": int(len(m)), "n_sc": int(yy.sum()), "share_sc": round(float(yy.mean()), 3), "n_likely": int(likely.sum()),
+            "share_sc_likely": round(float(yy[likely].mean()), 3) if likely.any() else None,
+            "share_sc_unlikely": round(float(yy[~likely].mean()), 3) if (~likely).any() else None,
+            "brier": round(float(np.mean((oof - yy) ** 2)), 3), "brier_base": round(float(np.mean((yy.mean() - yy) ** 2)), 3),
+            "about": ("out of fold on the conventional 3DSC materials that Alexandria also has: of those given at least an even "
+                      "chance, the share that superconduct, against the share among the others")}
+    return fit(x, yy).predict(np.log1p(np.clip(tc_pool, 0, None))), info
+
+
 def storm_scores(train: pd.DataFrame, pool: pd.DataFrame, table: pd.DataFrame) -> dict:
     from sklearn.model_selection import GroupKFold
 
@@ -544,13 +617,20 @@ def storm_scores(train: pd.DataFrame, pool: pd.DataFrame, table: pd.DataFrame) -
     lo, hi = np.clip(back(fwd(tc) - width), 0, None), back(fwd(tc) + width)
     feats_p = phys_p.assign(n_elements=base_p["n_elements"])
     tc_cal = cal["pred"](cal_fit, cal_frame(tc, lam, wlog, list(pool["comp"]), feats_p)) if cal_fit is not None else np.full(n_p, np.nan)
+    nv = novelty(D_t, groups, D_p)
+    t_formula = [S3.pretty(counts_of(a["elements"])) for a in train["atoms"]]
+    p_sc, chance = storm_chance(m, tc)
+    P.log(f"Storm's chance of superconducting: {chance}")
+    P.log(f"Storm: {int((nv['ratio'] > 1).sum()):,} of {n_p:,} pool materials lie outside its training data")
     return {"tc": tc, "lo": lo, "hi": hi, "tc_cal": np.asarray(tc_cal, float), "lambda": lam, "wlog": wlog,
+            "novel": nv["ratio"], "near_formula": [t_formula[k] for k in nv["nearest"]], "near_tc": y_tc[nv["nearest"]], "p_sc": p_sc,
             "storm1": s_tc, "gnn": gp["tc"], "gnn_ad": P.allen_dynes(np.clip(gp["lambda"], 0, None), np.clip(gp["wlog"], 0, None)),
             "info": {"combination": kind, "combination_name": kind_name, "gnn": design, "gnn_version": gver, "seeds": seeds,
                      "gnn_oof": gsource, "range_design": "U2" if on_log else "U0", "width_log": round(float(width), 4) if on_log else None,
                      "width_k": None if on_log else round(float(width), 3), "oof_coverage": round(cover, 3),
                      "oof_mae": round(float(np.mean(np.abs(oof - y_tc))), 3), "calibration": cal["name"],
-                     "calibration_id": cal["id"], "n_matched": int(len(m)), "n_train": int(n_t)}}
+                     "calibration_id": cal["id"], "n_matched": int(len(m)), "n_train": int(n_t),
+                     "novelty_limit": round(nv["limit"], 3), "check": chance}}
 
 
 H12 = {"id": "H12", "name": "Hurricane 1.0 + structure types, in two parts", "settings": "probability times Tc",
@@ -650,7 +730,7 @@ def hurricane_scores(pool: pd.DataFrame) -> dict:
             "width_log": round(float(width), 4), "oof_coverage": round(cover, 3), "check": check}
     if not n_p:
         return {"tc": np.zeros(0), "p_sc": np.zeros(0), "tc_sc": np.zeros(0), "lo": np.zeros(0), "hi": np.zeros(0),
-                "family": [], "types": [], "info": info}
+                "family": [], "types": [], "novel": np.zeros(0), "near_formula": [], "near_tc": np.zeros(0), "info": info}
     sts = [radar_structure(a, n, s) for a, n, s in zip(pool["atoms"], pool["spg_number"], pool["spg"])]
     pb = H.feature_blocks(pool, table, sts)
     pb["D"] = H.element_fractions(pool["comp"], elements)
@@ -663,7 +743,11 @@ def hurricane_scores(pool: pd.DataFrame) -> dict:
     p_sc, tc_sc = hur_parts(final, Xp, pf)
     lo, hi = np.clip(np.expm1(np.log1p(tc_sc) - width), 0, None), np.expm1(np.log1p(tc_sc) + width)
     types = [[k for k, v in H2.structure_types(cc).items() if v > 0] for cc in pool["comp"]]
-    return {"tc": tc, "p_sc": p_sc, "tc_sc": tc_sc, "lo": lo, "hi": hi, "family": list(pf), "types": types, "info": info}
+    nv = novelty(X, groups, Xp)
+    info["novelty_limit"] = round(nv["limit"], 3)
+    P.log(f"Hurricane: {int((nv['ratio'] > 1).sum()):,} of the {n_p:,} compounds Radar sent it lie outside its training data")
+    return {"tc": tc, "p_sc": p_sc, "tc_sc": tc_sc, "lo": lo, "hi": hi, "family": list(pf), "types": types, "info": info,
+            "novel": nv["ratio"], "near_formula": [str(hur["formula_sc"].iloc[k]) for k in nv["nearest"]], "near_tc": y[nv["nearest"]]}
 
 
 # ---------------------------------------------------------------- run
@@ -702,6 +786,40 @@ def base_record(rank: int, r: pd.Series) -> dict:
     return {"rank": rank, "formula": r["formula"], "id": r["jid"],
             "url": JARVIS_PAGE.format(r["jid"]) if str(r["jid"]).startswith("JVASP-") else None, "spg": spg,
             "ehull": _r(r["ehull"], 3), "icsd": bool(r["icsd"])}
+
+
+def first_listed(results: Path) -> tuple[dict, dict]:
+    """When each candidate was first published: the earliest screening round in results/ that listed it, by JARVIS ID
+    and by composition (another polymorph of the same composition counts). Read before this run writes its own file,
+    so a re-run of a round keeps the dates of its first run. The repository's history of these files is the record."""
+    by_id, by_comp = {}, {}
+    for path in sorted(results.glob("screen_round*.json")):
+        try:
+            d = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        rnd, at = d.get("round"), str(d.get("run_at") or "")
+        if not isinstance(rnd, int) or rnd > ROUND or len(at) < 10:
+            continue
+        rec = {"date": at[:10], "at": at, "round": rnd, "file": path.name}
+        lists = [d.get("candidates") or [], (d.get("hurricane") or {}).get("candidates") or []]
+        for c in (c for lst in lists for c in lst if isinstance(c, dict)):
+            try:
+                key = P._composition_key(H.parse_formula(str(c.get("formula", ""))))
+            except ValueError:
+                key = None
+            for table, k in ((by_id, c.get("id")), (by_comp, key)):
+                if k and (k not in table or (rec["at"], rnd) < (table[k]["at"], table[k]["round"])):
+                    table[k] = rec
+    return by_id, by_comp
+
+
+def listed_for(jid: str, comp: dict, seen: tuple, now: dict) -> dict:
+    """The first listing of one candidate: the earliest of its JARVIS ID's and its composition's, else this run."""
+    by_id, by_comp = seen
+    hits = [r for r in (by_id.get(jid), by_comp.get(P._composition_key(comp))) if r]
+    first = min(hits, key=lambda r: (r["at"], r["round"])) if hits else now
+    return {"date": first["date"], "round": first["round"], "file": first.get("file") or now["file"]}
 
 
 def run() -> None:
@@ -763,15 +881,23 @@ def run() -> None:
         "spg": spool["spg"], "spg_number": spool["spg_number"], "ehull": spool["ehull"], "icsd": spool["icsd"],
         "p_unconventional": p_s, "model": np.where(to_storm, "Storm", "Hurricane"), "storm_tc": st["tc"],
         "lo": st["lo"], "hi": st["hi"], "tc_calibrated": st["tc_cal"], "lambda": st["lambda"], "wlog": st["wlog"],
-        "storm1_tc": st["storm1"], "gnn_tc": st["gnn"], "gnn_allen_dynes_tc": st["gnn_ad"]})
+        "storm1_tc": st["storm1"], "gnn_tc": st["gnn"], "gnn_allen_dynes_tc": st["gnn_ad"], "p_sc": st["p_sc"], "novelty": st["novel"],
+        "nearest_training": st["near_formula"], "nearest_training_tc": st["near_tc"]})
     ranked = ranked.sort_values(["model", "storm_tc"], ascending=[False, False]).reset_index(drop=True)
     by_id = dict(zip(rows["id"], rows["atoms"]))
+    comp_of = dict(zip(rows["id"], rows["comp"]))
+    stamp = P.now_iso()
+    seen = first_listed(P.RESULTS if not SMOKE else Path(tempfile.mkdtemp(prefix="screen-smoke-none-")))
+    now = {"date": stamp[:10], "at": stamp, "round": ROUND, "file": f"screen_round{ROUND}.json"}
     cands = []
     for rank, i in enumerate(top_rows(ranked, ranked.index[ranked["model"] == "Storm"]), 1):
         r = ranked.loc[i]
         c = dict(base_record(rank, r), tc=_r(r["storm_tc"], 2), lo=_r(r["lo"], 2), hi=_r(r["hi"], 2),
-                 tc_cal=_r(r["tc_calibrated"], 2), **{"lambda": _r(r["lambda"], 3)}, wlog=_r(r["wlog"], 1),
-                 p_conventional=_r(1 - float(r["p_unconventional"]), 3), atoms=crystal(by_id[r["jid"]]))
+                 tc_cal=_r(r["tc_calibrated"], 2), p_sc=_r(r["p_sc"], 3), **{"lambda": _r(r["lambda"], 3)}, wlog=_r(r["wlog"], 1),
+                 p_conventional=_r(1 - float(r["p_unconventional"]), 3), novelty=_r(r["novelty"], 2),
+                 outside=True if float(r["novelty"]) > 1 else None,
+                 nearest={"formula": r["nearest_training"], "tc": _r(r["nearest_training_tc"], 2)},
+                 listed=listed_for(r["jid"], comp_of[r["jid"]], seen, now), atoms=crystal(by_id[r["jid"]]))
         cands.append({k: v for k, v in c.items() if v is not None})
     # Hurricane: the materials Radar sends it, highest predicted Tc (the chance times the Tc if it superconducts) first
     hr = pd.DataFrame({
@@ -779,7 +905,8 @@ def run() -> None:
         "spg": hsel["spg"], "spg_number": hsel["spg_number"], "ehull": hsel["ehull"], "gap": hsel["gap"],
         "magmom": hsel["magmom"], "icsd": hsel["icsd"], "p_unconventional": p_h[sent], "family": hu["family"],
         "hurricane_tc": hu["tc"], "p_sc": hu["p_sc"], "tc_sc": hu["tc_sc"], "lo": hu["lo"], "hi": hu["hi"],
-        "types": [";".join(t) for t in hu["types"]]})
+        "types": [";".join(t) for t in hu["types"]], "novelty": hu["novel"], "nearest_training": hu["near_formula"],
+        "nearest_training_tc": hu["near_tc"]})
     hr = hr.sort_values(["hurricane_tc", "tc_sc", "jid"], ascending=[False, False, True]).reset_index(drop=True)
     hcands = []
     for rank, i in enumerate(top_rows(hr, hr.index), 1):
@@ -788,9 +915,11 @@ def run() -> None:
                  hi=_r(r["hi"], 2), p_sc=_r(r["p_sc"], 3), p_unconventional=_r(r["p_unconventional"], 3),
                  family=r["family"] if r["family"] != "other" else None, gap=_r(r["gap"], 2),
                  magnetic=True if abs(float(r["magmom"])) > MAGMOM_MAX else None,
-                 types=[t for t in str(r["types"]).split(";") if t] or None, atoms=crystal(by_id[r["jid"]]))
+                 types=[t for t in str(r["types"]).split(";") if t] or None, novelty=_r(r["novelty"], 2),
+                 outside=True if float(r["novelty"]) > 1 else None,
+                 nearest={"formula": r["nearest_training"], "tc": _r(r["nearest_training_tc"], 2)},
+                 listed=listed_for(r["jid"], comp_of[r["jid"]], seen, now), atoms=crystal(by_id[r["jid"]]))
         hcands.append({k: v for k, v in c.items() if v is not None})
-    stamp = P.now_iso()
     s_rule = (f"metals within {int(EHULL_MAX * 1000)} meV/atom of the convex hull, non-magnetic, {N_ELEMENTS[0]} to "
               f"{N_ELEMENTS[1]} elements, up to {nat_max} atoms in the cell, elements our training data covers; the list "
               f"holds the {int(to_storm.sum()):,} that Radar sends to Storm, one per chemical system")
@@ -815,10 +944,12 @@ def run() -> None:
             "pool": {"source": "JARVIS-DFT", "dataset": POOL, "steps": [{"step": s, "n": n} for s, n in h_steps],
                      "n_screened": int(len(hpool)), "n_sent": int(sent.sum()), "rule": h_rule},
             "excluded": h_counts, "candidates": hcands,
+            "outside": int(sum(1 for c in hcands if c.get("outside"))),
             "caveat": ("Hurricane learned measured Tc from cuprates, iron-based, heavy-fermion compounds and other oxides; it "
                        "gives the chance that a compound superconducts and its Tc if it does. Many of these compounds would "
                        "need doping or pressure, and a candidate is a prediction until an experiment checks it")},
         "scikit_learn": sklearn.__version__, "minutes": round((time.time() - t_start) / 60, 1), "candidates": cands,
+        "outside": int(sum(1 for c in cands if c.get("outside"))),
     }
     results, progress = P.RESULTS, P.PROGRESS
     if SMOKE:
@@ -862,6 +993,7 @@ def update_progress(out: dict, progress: Path) -> None:
         "excluded": out["excluded"], "rule": out["rule"], "caveat": out["caveat"],
         "range": {"level": 0.9, "design": out["storm"]["range_design"], "width_log": out["storm"]["width_log"],
                   "width_k": out["storm"]["width_k"], "oof_coverage": out["storm"]["oof_coverage"]},
+        "novelty": {"level": NOVEL_LEVEL, "outside": out["outside"], "about": NOVELTY_ABOUT}, "check": out["storm"].get("check"),
         "candidates": c,
         "hurricane": {
             "model": hu["model"], "design": hd["id"], "two_part": hd.get("two_part"),
@@ -870,14 +1002,15 @@ def update_progress(out: dict, progress: Path) -> None:
             "excluded": hu["excluded"],
             "range": {"level": 0.9, "design": "U2", "width_log": hd["width_log"], "oof_coverage": hd["oof_coverage"],
                       "of": "the Tc if it superconducts"},
-            "check": hd["check"], "caveat": hu["caveat"], "candidates": hc},
+            "check": hd["check"], "novelty": {"level": NOVEL_LEVEL, "outside": hu["outside"], "about": NOVELTY_ABOUT},
+            "caveat": hu["caveat"], "candidates": hc},
     }
     for st in prog.get("stages", []):
         if st.get("id") == "screen":
             st.update(status="active", date=st.get("date") or stamp[:10], detail=(
-                f"Round {ROUND}: {len(c)} conventional candidates (Storm) and {len(hc)} unconventional ones (Hurricane) found "
-                f"by our AI models in JARVIS-DFT, none of them reported or predicted before and none made of the elements of "
-                f"a known superconductor; next: full DFT checks of the top ones"))
+                f"Round {ROUND}: {len(c)} conventional candidates (Storm) and {len(hc)} unconventional ones (Hurricane) "
+                f"proposed by our AI models from JARVIS-DFT, none reported or predicted before and none made of the elements "
+                f"of a known superconductor. All are unchecked predictions; next: full DFT checks of the top conventional ones"))
     done = sum(1 for s in prog.get("stages", []) if s.get("status") == "done")
     current = next((s for s in prog.get("stages", []) if s.get("status") == "active"), None)
     if prog.get("stages"):
@@ -886,16 +1019,14 @@ def update_progress(out: dict, progress: Path) -> None:
            f"{hu['pool']['n_sent']:,} compounds that {out['models'][0]} sent it, from JARVIS-DFT, after leaving out "
            f"{out['excluded']['total'] + hu['excluded']['total']:,} entries that others have reported, computed or predicted "
            f"or that share the elements of a known superconductor; {len(c)} conventional and {len(hc)} unconventional "
-           f"candidates published")
-    tops = []
+           f"candidates published. All are predictions that no calculation or experiment has checked")
     if c:
-        tops.append(f"{c[0]['formula']} at {c[0]['tc']:.1f} K (Storm, 90% range {c[0]['lo']:.1f}–{c[0]['hi']:.1f} K)")
-    if hc and hc[0].get("tc_sc") is not None:
-        h0 = hc[0]
-        tops.append(f"{h0['formula']} (Hurricane: {h0['tc_sc']:.1f} K if it superconducts" +
-                    (f", a {100 * h0['p_sc']:.0f}% chance that it does)" if h0.get("p_sc") is not None else ")"))
-    if tops:
-        msg += ", led by " + " and ".join(tops)
+        msg += f"; Storm's highest is {c[0]['formula']} at {c[0]['tc']:.1f} K (90% range {c[0]['lo']:.1f}–{c[0]['hi']:.1f} K)"
+    if hc:
+        msg += (f"; Hurricane's are far less certain: its 90% ranges span a factor of about "
+                f"{math.exp(2 * hd['width_log']):.0f} in Tc, and {hu['outside']} of its {len(hc)} lie outside its training data")
+    prefix = f"Screening round {ROUND}:"
+    prog["log"] = [e for e in prog.get("log", []) if not str(e.get("event", "")).startswith(prefix)]   # a re-run replaces it
     P.add_log(prog, stamp, msg)
     P.tidy(prog)
     prog["updated"] = stamp
