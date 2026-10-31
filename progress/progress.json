@@ -23,7 +23,7 @@
       "date": "2026-10-28",
       "name": "Direction and plan",
       "short": "Plan",
-      "detail": "Machine learning for superconductors with open materials foundation models"
+      "detail": "Machine learning for superconductors with AI-designed models"
     },
     {
       "id": "compute",
@@ -62,7 +62,7 @@
       "status": "active",
       "name": "AI-designed models",
       "short": "AI models",
-      "detail": "Storm 1.0 for conventional superconductors is in use; Storm round 3 (calibration to measured Tc) and Hurricane for unconventional superconductors are training; Radar, which picks the model, comes next",
+      "detail": "Storm 3.0 for conventional superconductors (Storm 1.0 calibrated to measured Tc) and Hurricane 1.0 for unconventional ones are in use; Radar, which picks the model for each material, comes next",
       "date": "2026-10-30"
     },
     {
@@ -1395,7 +1395,7 @@
       "id": "storm",
       "status": "Storm 3.0 in use",
       "active": true,
-      "text": "Learns from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set), then a calibration learned from 298 measured superconductors maps its prediction to measured Tc: off by 1.6 K on average against 2.2 K uncalibrated and 2.5 K for the DFT labels themselves. Our AI agent designed it."
+      "text": "Learns from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set), then a calibration learned from 298 materials with measured Tc (168 superconducting) maps its prediction to measured Tc: off by 1.6 K on average against 2.2 K uncalibrated and 2.5 K for the DFT labels themselves. Our AI agent designed it."
     },
     {
       "id": "hurricane",
