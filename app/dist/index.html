@@ -692,6 +692,18 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .xt-notes li.is-ok::before { background: var(--good); }
 .xt-notes li.is-date::before { background: var(--accent); }
 .xt-notes sub { font-size: 0.72em; }
+/* phone: the model-details tables fit the screen (headers wrap, tighter cells) instead of scrolling sideways */
+@media (max-width: 480px) {
+  .tbl.dt-tbl th, .tbl.dt-tbl th.num { white-space: normal; padding: 6px 4px; vertical-align: bottom; }
+  .tbl.dt-tbl td { padding: 7px 4px; }
+  .tbl.dt-tbl td.num .dt-wrap { white-space: normal; }
+  .tbl.dt-tbl .dt-formula { overflow-wrap: anywhere; }
+  .dt-hide-narrow { display: none; }
+}
+@media (max-width: 340px) {
+  .tbl.dt-tbl td, .tbl.dt-tbl th { font-size: 11.5px; padding-left: 3px; padding-right: 3px; }
+  .tbl.dt-tbl .dt-cell-sub { font-size: 10.5px; }
+}
 </style>
 </head>
 <body>
@@ -772,7 +784,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 (function () {
   'use strict';
 
-  var APP_VERSION = '0.3.8';
+  var APP_VERSION = '0.3.9';
   var REPO = 'diracmagic/supercon-ml';
   var BRANCH = 'main';
   var REPO_URL = 'https://github.com/' + REPO;
@@ -5307,7 +5319,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
           return 'In round ' + v.round + ' an AI agent (Claude) proposed ' + (nNew4 > 0 ? nNew4 : 'several') + ' new designs built on Hurricane ' + pv.version +
             ': each gives a chance only near its training data and answers “not known” further away, some of them also keeping only the background compounds nearby. Each was asked about whole families it never learned from. ' +
             (ok ? 'The best one calls ' + radPct(rl.dismissed) + ' of such a family’s superconductors unlikely, against ' + radPct(rl.dismissed_previous) + ' for Hurricane ' + pv.version +
-              (rl.reference_version ? ' and ' + radPct(rl.dismissed_reference) + ' for Hurricane ' + rl.reference_version : '') + ', with ' + (rl.false_alarms === 0 ? 'no false alarms' : radPct(rl.false_alarms) + ' false alarms') + ', and became ' + name + '.'
+              (rl.reference_version ? ' and ' + radPct(rl.dismissed_reference) + ' for Hurricane ' + rl.reference_version : '') + ', with ' + (rl.false_alarms === 0 ? 'no false alarms' : radPct(rl.false_alarms) + ' false alarms') + ', and became ' + name + '.' +
+              (typeof hurLofoAvg(v, 'unknown') === 'number' && typeof hurLofoAvg(v, 'found') === 'number' ? ' For ' + radPct(hurLofoAvg(v, 'unknown')) + ' of them it answers “not known”, and it gives ' + radPct(hurLofoAvg(v, 'found')) +
+                ' at least an even chance' + (typeof hurLofoAvg(v, 'found_reference') === 'number' && rl.reference_version ? ' (Hurricane ' + rl.reference_version + ': ' + radPct(hurLofoAvg(v, 'found_reference')) + ')' : '') +
+                (hurLofoAvg(v, 'found') <= 0.2 ? ': it would not recognize a new family either.' : '.') : '')
               : 'None passed every test of the release rule, so Hurricane ' + pv.version + ' stays in use.');
         }
         if (pv && rl) {   // round 3: the same model with background compounds, released for fewer false alarms outside the training data
@@ -9380,9 +9395,12 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         hurK(sc.tc_mae) + ' K on average, against ' + (hi.v.previous && typeof hi.v.previous.tc_mae === 'number' ? hurK(hi.v.previous.tc_mae) + ' K for Hurricane ' + hi.v.previous.version + ' and ' : '') +
         hurK(sc.reference_mae) + ' K for a composition-only baseline.' +
         // round 3 on: fewer false alarms outside the training data (hurRel in details.js)
-        (hur4(hurRel(hi.v)) ? ' It gives a chance only to compounds near its training data and answers “not known” further away: of the compounds like those it screens it gives ' +
-          (hurRel(hi.v).false_alarms === 0 ? 'none' : radPct(hurRel(hi.v).false_alarms)) + ' at least an even chance, and trained without a whole family it calls ' + radPct(hurRel(hi.v).dismissed) +
-          ' of that family’s superconductors unlikely, against ' + radPct(hurRel(hi.v).dismissed_previous) + ' for Hurricane ' + ((hi.v.previous && hi.v.previous.version) || 'before') + '.' :
+        (hur4(hurRel(hi.v)) ? ' It gives a chance only to compounds near its training data and answers “not known” further away. In cross-validation it gives ' +
+          (hurRel(hi.v).false_alarms === 0 ? 'none' : radPct(hurRel(hi.v).false_alarms)) + ' of the held-out compounds with no superconductivity record at least an even chance, and trained without a whole family it calls ' + radPct(hurRel(hi.v).dismissed) +
+          ' of that family’s superconductors unlikely, against ' + radPct(hurRel(hi.v).dismissed_previous) + ' for Hurricane ' + ((hi.v.previous && hi.v.previous.version) || 'before') +
+          (typeof hurLofoAvg(hi.v, 'unknown') === 'number' && typeof hurLofoAvg(hi.v, 'found') === 'number' ? '; for ' + radPct(hurLofoAvg(hi.v, 'unknown')) + ' of them it answers “not known”, and it gives ' +
+            radPct(hurLofoAvg(hi.v, 'found')) + ' at least an even chance' + (typeof hurLofoAvg(hi.v, 'found_reference') === 'number' && hurRel(hi.v).reference_version ?
+              ', against ' + radPct(hurLofoAvg(hi.v, 'found_reference')) + ' for Hurricane ' + hurRel(hi.v).reference_version : '') : '') + '.' :
           hurRel(hi.v) ? ' It also learns from compounds with no superconductivity record, so of the compounds like those it screens it gives ' +
           (hurRel(hi.v).false_alarms === 0 ? 'none' : radPct(hurRel(hi.v).false_alarms)) + ' at least an even chance of superconducting, against ' + radPct(hurRel(hi.v).false_alarms_previous) + ' for Hurricane ' + ((hi.v.previous && hi.v.previous.version) || 'before') + '.' : '') + ' Our AI agent designed it.',
       act: ['See how Hurricane works', function () { setView('demos'); selectDemo('hurricane'); window.scrollTo(0, 0); }] };
@@ -10012,7 +10030,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var tb = h('tbody');
     rows.forEach(function (r) { tb.appendChild(h('tr', null, r.map(function (c, i) { return h('td', { class: i ? 'num' : null }, c); }))); });
     return h('div', { class: 'tbl-wrap' }, h('table', { class: 'tbl dt-tbl' },
-      h('thead', null, h('tr', null, head.map(function (c, i) { return h('th', { class: i ? 'num' : null, text: c }); }))), tb));
+      h('thead', null, h('tr', null, head.map(function (c, i) { return h('th', { class: i ? 'num' : null }, c); }))), tb));
   }
 
   function renderDetails(d) {
@@ -10185,6 +10203,17 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   }
   // round 4 on: "not known" far from the training data, and how many superconductors of a left-out family are called unlikely
   function hur4(rl) { return !!(rl && typeof rl.dismissed === 'number'); }
+  // round 4 on: a share averaged over the left-out families ("found", "unknown", "found_reference", ...), or null if any is missing
+  function hurLofoAvg(v, k) {
+    var xs = list(v && v.lofo).map(function (r) { return r && r[k]; });
+    return xs.length && xs.every(function (x) { return typeof x === 'number'; }) ? xs.reduce(function (a, b) { return a + b; }, 0) / xs.length : null;
+  }
+  var HUR_FAM_SC = { 'cuprate': 'cuprate superconductors', 'iron-based': 'iron- and nickel-based superconductors', 'heavy-fermion': 'heavy-fermion superconductors', 'other oxide': 'superconducting other oxides' };
+  // the left-out family that is still called unlikely most often, when the distance misses much of it
+  function hurWorstLofo(v) {
+    return list(v && v.lofo).filter(function (r) { return r && typeof r.dismissed === 'number' && r.dismissed >= 0.25; })
+      .sort(function (a, b) { return b.dismissed - a.dismissed; })[0] || null;
+  }
   var HUR_CHECKS4 = { false_alarms: 'false alarms on at most 5%', called_unlikely: 'no more of a left-out family called unlikely than Hurricane 2.0',
     coverage: 'a chance for at least 85% of the held-out entries', tc: 'the measured-Tc error', superconductors: 'the error on the superconductors',
     brier: 'the Brier score', database_swap: 'the database swap' };
@@ -10238,7 +10267,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var srch = v.search && list(v.search.leaderboard).length && v.search.previous_id ? v.search : null;
     if (srch) {
       var dName = function (r) { return r.id === srch.previous_id ? r.id + ' ' + pvName + ', retrained' : r.id === srch.version_reference_id ? r.id + ' ' + r.name + ', retrained' : r.id + ' ' + r.name + (r.settings && r.settings !== 'default' ? ', ' + r.settings : ''); };
-      var tcCell = function (r) { return h('span', null, k2(r.tc_mae), h('br'), h('span', { class: 'dt-cell-sub', text: 'SC ' + k2(r.sc_mae) })); };
+      var tcCell = function (r) { return h('span', null, k2(r.tc_mae), h('br'), h('span', { class: 'dt-cell-sub dt-wrap', text: 'SC ' + k2(r.sc_mae).replace(' ', '\u00a0') })); };
       if (r4) {
         box.appendChild(h('p', { class: 'dt-sub', text: 'Round ' + v.round + ': designs the AI agent proposed, next to ' + pvName + (rl.reference_version ? ', Hurricane ' + rl.reference_version : '') + ' and the baseline retrained on the same folds. Called unlikely: trained without a whole family, the share of its superconductors given a chance under one half, averaged over the four families (not known is not counted); false alarms: held-out compounds with no superconductivity record, sent to Hurricane by Radar, given at least an even chance; rule: whether the design passed every test of the release rule.' }));
         box.appendChild(smallTable(['Design', 'Tc error', 'False alarms', 'Called unlikely', 'Rule'], list(srch.leaderboard).map(function (r) {
@@ -10264,7 +10293,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (r4) {
       var pvC = pvName || 'Before', refC = rl.reference_version ? 'Hurricane ' + rl.reference_version : '—', f3 = function (x) { return typeof x === 'number' ? x.toFixed(3) : '—'; };
       box.appendChild(h('p', { class: 'dt-sub', text: 'Outside the training data: false alarms, and what happens to a family it has never seen.' }));
-      box.appendChild(smallTable(['Test', 'Hurricane ' + v.version, pvC, refC], [
+      var verHead = function (t) { var m = /^Hurricane (\S+)$/.exec(t); return m ? h('span', null, h('span', { class: 'dt-hide-narrow', text: 'Hurricane ' }), m[1]) : t; };
+      box.appendChild(smallTable(['Test', verHead('Hurricane ' + v.version), verHead(pvC), verHead(refC)], [
         ['A left-out family’s superconductors called unlikely', pct(rl.dismissed), pct(rl.dismissed_previous), pct(rl.dismissed_reference)],
         ['False alarms: compounds with no record, sent by Radar, given an even chance or more', pct(rl.false_alarms), pct(rl.false_alarms_previous), pct(rl.false_alarms_reference)],
         ['Compounds with no record, sent by Radar, given no chance (not known)', pct(rl.unknown_sent), pct(0), pct(0)],
@@ -10294,13 +10324,24 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     }
     var lofo = list(v.lofo), found = rl && lofo.some(function (r) { return typeof r.recall === 'number'; });
     var lofo4 = r4 && lofo.some(function (r) { return typeof r.dismissed === 'number'; });
-    var sub2 = function (a, b) { return h('span', null, a, b !== null && b !== undefined ? h('br') : null, b !== null && b !== undefined ? h('span', { class: 'dt-cell-sub', text: b }) : null); };
+    var sub2 = function (a, b, wrap) { return h('span', null, a, b !== null && b !== undefined ? h('br') : null, b !== null && b !== undefined ? h('span', { class: 'dt-cell-sub' + (wrap ? ' dt-wrap' : ''), text: b }) : null); };
     if (lofo.length && lofo4) {
       box.appendChild(h('p', { class: 'dt-sub', text: 'Leave one family out: trained without a whole family, then asked about it. Of the family’s superconductors: found, given at least an even chance; not known, too far from the training data for a chance; called unlikely, given a chance under one half' + (pvName ? ', with ' + pvName + '’s below it' : '') + '.' }));
       box.appendChild(smallTable(['Family left out', 'Error', 'Found', 'Not known', 'Called unlikely'],
-        lofo.map(function (r) { return [famLabel(r.family) + ' (' + r.n + ')', sub2(k1(r.mae), 'in training ' + k1(r.mae_cv)), sub2(pct(r.found), typeof r.found_previous === 'number' ? pct(r.found_previous) : null),
+        lofo.map(function (r) { return [famLabel(r.family) + ' (' + r.n + ')', sub2(k1(r.mae), 'in training ' + k1(r.mae_cv).replace(' ', '\u00a0'), true), sub2(pct(r.found), typeof r.found_previous === 'number' ? pct(r.found_previous) : null),
           pct(r.unknown), sub2(pct(r.dismissed), typeof r.dismissed_previous === 'number' ? pct(r.dismissed_previous) : null)]; })));
-      box.appendChild(h('p', { class: 'note', text: 'Not known is not a hint that a compound superconducts: the model cannot tell. It no longer tells you that a family it has never seen is unlikely to superconduct; finding such a family still needs physics and experiments.' }));
+      var fA = hurLofoAvg(v, 'found'), fP = hurLofoAvg(v, 'found_previous'), fR = hurLofoAvg(v, 'found_reference'), uA = hurLofoAvg(v, 'unknown'), worst = hurWorstLofo(v);
+      var note4 = 'Not known is not a hint that a compound superconducts: the model cannot tell.';
+      if (typeof fA === 'number' && typeof uA === 'number') {
+        var cmp4 = [typeof fP === 'number' && pvName ? pvName + ': ' + pct(fP) : null, typeof fR === 'number' && rl.reference_version ? 'Hurricane ' + rl.reference_version + ': ' + pct(fR) : null].filter(Boolean);
+        var fewer4 = typeof rl.dismissed_previous === 'number' && rl.dismissed < rl.dismissed_previous,
+          noMore4 = fA <= Math.max(typeof fP === 'number' ? fP : 0, typeof fR === 'number' ? fR : 0);
+        note4 += ' Trained without a whole family, it finds ' + pct(fA) + ' of that family’s superconductors on average' + (cmp4.length ? ' (' + cmp4.join(', ') + ')' : '') +
+          ' and answers “not known” for ' + pct(uA) + (fewer4 && noMore4 ? ': it calls fewer of them unlikely, but it does not find more of them.' : fewer4 ? ': it calls fewer of them unlikely.' : noMore4 ? ': it does not find more of them.' : '.');
+      }
+      if (worst) note4 += ' The distance does not catch every new family: ' + pct(worst.dismissed) + ' of the ' + (HUR_FAM_SC[worst.family] || famLabel(worst.family)) +
+        ' are still called unlikely, because to its inputs ' + (typeof worst.unknown === 'number' && worst.unknown < 0.5 ? 'most' : 'many') + ' of them look like the families it learned from.';
+      box.appendChild(h('p', { class: 'note', text: note4 + ' Finding a new family still needs physics and experiments.' }));
     } else if (lofo.length && found) {
       box.appendChild(h('p', { class: 'dt-sub', text: 'Leave one family out: trained without a whole family, then asked to predict it. Median guess: always guessing the median Tc of the other families; found: the share of the family’s superconductors given at least an even chance' + (pvName ? ', with ' + pvName + '’s below it' : '') + '.' }));
       box.appendChild(smallTable(['Family left out', 'Error', 'Median guess', 'Found'],
@@ -10332,10 +10373,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
         var use = r.use === 'score' ? 'scored' : r.use === 'exclude' ? 'left out' : 'shown';
         var pr = typeof r.pred === 'number' ? r.pred.toFixed(r.pred >= 10 ? 0 : 1) + ' K' : '—';
         // with round 3, the chance that it superconducts at all, and the version before's
-        var ch = r4 && r.unknown ? 'not known: outside the training data' + (typeof r.p_sc_previous === 'number' ? ' (was ' + pct(r.p_sc_previous) + ')' : '') :
+        var ch = r4 && r.unknown ? 'chance not known: outside the training data' + (typeof r.p_sc_previous === 'number' ? ', was ' + pct(r.p_sc_previous) : '') :
           rl && typeof r.p_sc === 'number' ? 'chance ' + pct(r.p_sc) + (typeof r.p_sc_previous === 'number' ? ', was ' + pct(r.p_sc_previous) : '') : '';
-        return [h('span', { title: r.note || '', text: hurSub(r.name) }), r.tc_exp === null || r.tc_exp === undefined ? '—' : r.tc_exp + ' K',
-          ch ? h('span', null, pr, h('br'), h('span', { class: 'dt-cell-sub', text: ch })) : pr, r.status + ', ' + use];
+        return [h('span', { class: 'dt-formula', title: r.note || '', text: hurSub(r.name) }), r.tc_exp === null || r.tc_exp === undefined ? '—' : r.tc_exp + ' K',
+          ch ? h('span', null, pr, h('br'), h('span', { class: 'dt-cell-sub dt-wrap', text: ch })) : pr, h('span', { class: 'dt-wrap', text: r.status + ', ' + use })];
       })));
       if (typeof an.mae === 'number') box.appendChild(h('p', { class: 'note', text: an.n_scored + ' scored measurements, average error ' + k2(an.mae) + (an.scored_as_check ? '.' : '; too few to count as a check yet, so they are shown, not used to choose a design.') }));
     }
@@ -10671,7 +10712,13 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function candId(c) { return String(c.id || c.formula); }
   function candK(v) { return typeof v === 'number' && isFinite(v) ? (v >= 100 ? Math.round(v) : v.toFixed(1)) + ' K' : '—'; }
   function candNum(v) { return typeof v === 'number' && isFinite(v); }
-  function candPct(p) { return candNum(p) ? (p < 0.01 ? 'under 1%' : p > 0.99 ? 'over 99%' : Math.round(100 * p) + '%') : '—'; }
+  // just under one half shows a decimal, so that a chance below an even chance never reads as 50%
+  function candPct(p) { return candNum(p) ? (p < 0.01 ? 'under 1%' : p > 0.99 ? 'over 99%' : p < 0.5 && p >= 0.495 ? (100 * p).toFixed(1) + '%' : Math.round(100 * p) + '%') : '—'; }
+  // the Hurricane version that screened this list (its leave-one-family-out shares), if the live data has it
+  function candHurVersion(block) {
+    var hi = hurInfo(), want = block && String(block.model || '').replace(/^Hurricane\s*/, '');
+    return hi && want ? list(hi.versions).filter(function (x) { return x.version === want; })[0] || null : null;
+  }
   function candRange(c) { return candNum(c.lo) && candNum(c.hi) ? c.lo.toFixed(1) + '–' + candK(c.hi) : ''; }
   // Hurricane's Tc if the compound superconducts (a one-part design gives only its Tc)
   function candTcSc(c) { return candNum(c.tc_sc) ? c.tc_sc : c.tc; }
@@ -10950,9 +10997,14 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (rel && candNum(rel.dismissed) && candNum(rel.false_alarms)) {   // round 4 on: "not known" far from the training data
       lead += (block.model || 'Hurricane') + ' gives a chance only to compounds near its training data' +
         (nk && candNum(nk.n) && candNum(nk.of) ? ': ' + fmtInt(nk.n) + ' of the ' + fmtInt(nk.of) + ' compounds Radar sent it lie too far, so it does not judge them and they are not on this list' : '') +
-        '. It learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted as probably not superconducting: of the held-out compounds of that kind it gives ' +
-        (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' at least an even chance' + (candNum(rel.false_alarms_reference) && rel.reference ? ' (Hurricane ' + rel.reference + ': ' + candPct(rel.false_alarms_reference) + ')' : '') +
-        ', and trained without a whole family it calls ' + candPct(rel.dismissed) + ' of that family’s superconductors unlikely' + (candNum(rel.dismissed_previous) && rel.previous ? ' (Hurricane ' + rel.previous + ': ' + candPct(rel.dismissed_previous) + ')' : '') + '. ';
+        '. It learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted as probably not superconducting. In cross-validation it gave ' +
+        (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' of the held-out compounds of that kind at least an even chance' + (candNum(rel.false_alarms_reference) && rel.reference ? ' (Hurricane ' + rel.reference + ': ' + candPct(rel.false_alarms_reference) + ')' : '');
+      // the list itself comes from the model trained on all of its data, so say how many on it have an even chance or more
+      var nLik = rows.filter(function (c) { return candNum(c.p_sc) && c.p_sc >= 0.5; }).length;
+      lead += '; trained on all of its data, it gives ' + (nLik === 0 ? 'none' : nLik === 1 ? 'one' : fmtInt(nLik)) + ' of the ' + fmtInt(rows.length) + ' on this list at least an even chance. ';
+      var hv = candHurVersion(block), fA = hv ? hurLofoAvg(hv, 'found') : null, uA = hv ? hurLofoAvg(hv, 'unknown') : null, fR = hv ? hurLofoAvg(hv, 'found_reference') : null;
+      lead += 'Trained without a whole family, it calls ' + candPct(rel.dismissed) + ' of that family’s superconductors unlikely' + (candNum(rel.dismissed_previous) && rel.previous ? ' (Hurricane ' + rel.previous + ': ' + candPct(rel.dismissed_previous) + ')' : '') +
+        (candNum(fA) && candNum(uA) ? ', answers “not known” for ' + candPct(uA) + ' and gives ' + candPct(fA) + ' at least an even chance' + (candNum(fR) && rel.reference ? ' (Hurricane ' + rel.reference + ': ' + candPct(fR) + ')' : '') : '') + '. ';
     } else if (rel && candNum(rel.false_alarms) && candNum(rel.false_alarms_previous)) {
       lead += (block.model || 'Hurricane') + ' also learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted as probably not superconducting, so it is more cautious with compounds unlike its training data: of the held-out compounds of that kind, it gives ' +
         (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' at least an even chance, against ' + candPct(rel.false_alarms_previous) + ' for Hurricane ' + (rel.previous || 'before') + '. The price: it would also be slow to recognize a family of superconductors that no one has found yet. ';
