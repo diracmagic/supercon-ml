@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       stages:
-        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane)
+        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane gnn gnnsmoke)
         default: storm3 hurricane
   push:
     branches: [main]
@@ -46,6 +46,9 @@ jobs:
           else
             pip install -r ml/requirements.txt
           fi
+          if [[ " $STAGES " == *" gnn "* || " $STAGES " == *" gnnsmoke "* ]]; then
+            pip install "jax[cpu]" optax
+          fi
 
       - name: Restore datasets and descriptors
         uses: actions/cache@v4
@@ -79,6 +82,14 @@ jobs:
       - name: Hurricane, unconventional superconductors (round 1)
         if: always() && contains(format(' {0} ', env.STAGES), ' hurricane ')
         run: python ml/pipeline.py hurricane
+
+      - name: Graph neural network, quick check on a small subset (writes nothing)
+        if: contains(format(' {0} ', env.STAGES), ' gnnsmoke ')
+        run: GNN_SMOKE=1 python ml/pipeline.py gnn
+
+      - name: Graph neural network (round 1, same folds as Storm)
+        if: always() && contains(format(' {0} ', env.STAGES), ' gnn ')
+        run: python ml/pipeline.py gnn
 
       - name: Commit results and progress
         if: always()
