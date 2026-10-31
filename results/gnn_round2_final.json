@@ -1,0 +1,208 @@
+{
+  "run_at": "2026-10-31T03:23:48-05:00",
+  "commit": "1b22e9d",
+  "round": 2,
+  "model": "Graph neural network",
+  "design": {
+    "id": "G6",
+    "name": "+ weight averaging + Allen\u2013Dynes head + crystal descriptors",
+    "config": {
+      "hidden": 64,
+      "n_conv": 3,
+      "head": [
+        128,
+        64
+      ],
+      "lr": 0.002,
+      "wd": 0.0001,
+      "ema": true,
+      "ad_head": true,
+      "hybrid": true
+    }
+  },
+  "training": {
+    "seeds": 2,
+    "epochs": 200,
+    "runs": [
+      {
+        "epochs": 200,
+        "seed": 1,
+        "folds": [
+          {
+            "fold": 1,
+            "best_epoch": 166,
+            "val_tc_mae": 1.0229,
+            "seconds": 163
+          },
+          {
+            "fold": 2,
+            "best_epoch": 56,
+            "val_tc_mae": 1.0926,
+            "seconds": 158
+          },
+          {
+            "fold": 3,
+            "best_epoch": 104,
+            "val_tc_mae": 0.9968,
+            "seconds": 158
+          },
+          {
+            "fold": 4,
+            "best_epoch": 60,
+            "val_tc_mae": 0.9429,
+            "seconds": 157
+          },
+          {
+            "fold": 5,
+            "best_epoch": 54,
+            "val_tc_mae": 1.0833,
+            "seconds": 162
+          }
+        ],
+        "seconds": 801,
+        "n_params": 98435
+      },
+      {
+        "epochs": 200,
+        "seed": 2,
+        "folds": [
+          {
+            "fold": 1,
+            "best_epoch": 136,
+            "val_tc_mae": 1.0264,
+            "seconds": 161
+          },
+          {
+            "fold": 2,
+            "best_epoch": 98,
+            "val_tc_mae": 1.008,
+            "seconds": 161
+          },
+          {
+            "fold": 3,
+            "best_epoch": 92,
+            "val_tc_mae": 0.9611,
+            "seconds": 156
+          },
+          {
+            "fold": 4,
+            "best_epoch": 40,
+            "val_tc_mae": 0.8731,
+            "seconds": 157
+          },
+          {
+            "fold": 5,
+            "best_epoch": 114,
+            "val_tc_mae": 1.0907,
+            "seconds": 160
+          }
+        ],
+        "seconds": 795,
+        "n_params": 98435
+      }
+    ]
+  },
+  "search": {
+    "tc_mae": 0.9766668328856628,
+    "fold_mae": [
+      1.039180704437656,
+      1.0217228648033256,
+      0.878253217885531,
+      0.9543030112476556,
+      0.9898034096534399
+    ],
+    "folds_better": 5,
+    "epochs": 150,
+    "reference_mae": 1.0526628795684405
+  },
+  "scores": {
+    "tc": {
+      "mae": 0.9357458378391652,
+      "rmse": 2.0158372635309836,
+      "r2": 0.7021768002277669,
+      "n": 7582
+    },
+    "tc_via_lambda_wlog": {
+      "mae": 0.9342839403381421,
+      "rmse": 2.02286482198967,
+      "r2": 0.7000966539650991,
+      "n": 7582
+    },
+    "lambda": {
+      "mae": 0.0880947187176728,
+      "rmse": 0.1514608367798759,
+      "r2": 0.6922775163919008,
+      "n": 7582
+    },
+    "wlog": {
+      "mae": 21.186865023148993,
+      "rmse": 33.37533905198637,
+      "r2": 0.7878818738667027,
+      "n": 7582
+    }
+  },
+  "fold_mae": [
+    1.0122608944856584,
+    1.026655950805572,
+    0.8223081578977302,
+    0.9033895297519102,
+    0.9140042174887192
+  ],
+  "reference": {
+    "version": "1.0",
+    "tc_mae": 0.9831882235244797,
+    "fold_mae": [
+      1.0874724764398958,
+      1.0168139577468656,
+      0.8768503432486284,
+      0.9606654107541269,
+      0.9740479597843736
+    ],
+    "same_folds": true
+  },
+  "folds_better": 4,
+  "adopted": true,
+  "version": "2.0",
+  "rule": "released as version 2.0 only if it beats version 1.0 on average and in at least 4 of 5 folds, trained the same way on the same folds",
+  "comparison": {
+    "storm1": {
+      "tc_mae": 0.9687274191514905,
+      "folds": [
+        1.0190205514684698,
+        0.9849558518186773,
+        0.8737968728140335,
+        0.9847093942560124,
+        0.9811105457399796
+      ]
+    },
+    "baseline": {
+      "tc_mae": 1.0454739088364944,
+      "folds": [
+        1.1104625506121488,
+        1.0574174567699177,
+        0.9374199316820668,
+        1.0785202715598632,
+        1.0434985867314894
+      ]
+    },
+    "blend": {
+      "name": "average of the graph network and Storm 1.0",
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "tc_mae": 0.8981639381883209,
+      "folds": [
+        0.9678813843937574,
+        0.9596250598203797,
+        0.7879952437470479,
+        0.8805666027236578,
+        0.894664870858452
+      ],
+      "folds_better_storm1": 5
+    },
+    "folds_better_storm1": 4,
+    "folds_better_baseline": 5
+  },
+  "minutes": 26.9
+}

@@ -1,11 +1,11 @@
 {
-  "run_at": "2026-10-31T01:16:20-05:00",
-  "commit": "9c8afd6",
+  "run_at": "2026-10-31T02:56:53-05:00",
+  "commit": "1b22e9d",
   "round": 1,
   "model": "Radar",
   "version": "1.0",
   "designer": "AI agent (Claude) proposed the candidates: Hurricane's physics features, measurable structure, element fractions, balanced classes, a seed bag and calibrated probabilities",
-  "selection": "5-fold GroupKFold by parent compound on 5,751 3DSC entries; leave-one-family-out reported separately; graded materials never used for training or selection",
+  "selection": "5-fold GroupKFold by parent compound on 5,751 3DSC entries; leave-one-family-out reported separately; graded materials never used for selection, and those also in 3DSC scored out of fold",
   "rule": "release the design with the lowest log loss that beats the composition-only baseline on average and in at least 4 of 5 folds; otherwise the best design stays experimental",
   "caveat": "the labels are SuperCon's chemical classes, a proxy for the pairing mechanism rather than a measurement of it, and picking the best of several designs on the same folds makes its score slightly optimistic",
   "scikit_learn": "1.9.1",
@@ -115,18 +115,18 @@
         "l2_regularization": 1.0
       },
       "scores": {
-        "log_loss": 0.022377677107009792,
+        "log_loss": 0.022377305096457908,
         "balanced_accuracy": 0.994537825599916,
         "to_hurricane": 0.9929345266132831,
         "to_storm": 0.996141124586549,
         "accuracy": 0.9949573987132673,
         "auc": 0.9997211202345706,
-        "brier": 0.004639025293389105,
-        "ece": 0.0042878364289217225,
+        "brier": 0.004638985323668954,
+        "ece": 0.004287821587009908,
         "fold_log_loss": [
           0.01191890507829199,
           0.026695052739543063,
-          0.016334751831572708,
+          0.016332891455325852,
           0.028842761795813562,
           0.028106008674200433
         ],
@@ -141,43 +141,43 @@
           "Carbon": {
             "n": 30,
             "right": 0.9,
-            "mean_p": 0.08877078653201474,
+            "mean_p": 0.08877078653250546,
             "model": "Storm"
           },
           "Chevrel": {
             "n": 74,
             "right": 1.0,
-            "mean_p": 0.00017918929918795637,
+            "mean_p": 0.0001791893042122272,
             "model": "Storm"
           },
           "Other": {
             "n": 3524,
             "right": 0.9968785471055619,
-            "mean_p": 0.004013379014456484,
+            "mean_p": 0.004013344685693663,
             "model": "Storm"
           },
           "cuprate": {
             "n": 874,
             "right": 1.0,
-            "mean_p": 0.9999434408853348,
+            "mean_p": 0.9999434408998349,
             "model": "Hurricane"
           },
           "heavy-fermion": {
             "n": 422,
             "right": 0.981042654028436,
-            "mean_p": 0.9706408617846548,
+            "mean_p": 0.9706408617574608,
             "model": "Hurricane"
           },
           "iron-based": {
             "n": 517,
             "right": 0.9864603481624759,
-            "mean_p": 0.9849093667077085,
+            "mean_p": 0.9849094392214358,
             "model": "Hurricane"
           },
           "other oxide": {
             "n": 310,
             "right": 1.0,
-            "mean_p": 0.9997382061709613,
+            "mean_p": 0.9997382062971928,
             "model": "Hurricane"
           }
         }
@@ -200,19 +200,19 @@
       },
       "calibrate": true,
       "scores": {
-        "log_loss": 0.02281514270241393,
+        "log_loss": 0.022815142664381092,
         "balanced_accuracy": 0.9929467957649745,
         "to_hurricane": 0.9905793688177108,
         "to_storm": 0.9953142227122381,
         "accuracy": 0.993566336289341,
         "auc": 0.999454055207807,
-        "brier": 0.005130892604453709,
-        "ece": 0.0025960703005481894,
+        "brier": 0.005130892598100743,
+        "ece": 0.002596070358028189,
         "fold_log_loss": [
           0.012051702579124229,
           0.027230474247550648,
           0.01917764448464883,
-          0.027764542710463302,
+          0.02776454252026606,
           0.027860709003433317
         ],
         "fold_balanced_accuracy": [
@@ -226,43 +226,43 @@
           "Carbon": {
             "n": 30,
             "right": 0.8666666666666667,
-            "mean_p": 0.10123664634473656,
+            "mean_p": 0.10123664628090906,
             "model": "Storm"
           },
           "Chevrel": {
             "n": 74,
             "right": 1.0,
-            "mean_p": 0.004143074022804295,
+            "mean_p": 0.004143073951803501,
             "model": "Storm"
           },
           "Other": {
             "n": 3524,
             "right": 0.996311010215664,
-            "mean_p": 0.008127011166840998,
+            "mean_p": 0.008127011166030486,
             "model": "Storm"
           },
           "cuprate": {
             "n": 874,
             "right": 1.0,
-            "mean_p": 0.9994856543534554,
+            "mean_p": 0.99948565442131,
             "model": "Hurricane"
           },
           "heavy-fermion": {
             "n": 422,
             "right": 0.9691943127962085,
-            "mean_p": 0.9615221013677094,
+            "mean_p": 0.9615221026007932,
             "model": "Hurricane"
           },
           "iron-based": {
             "n": 517,
             "right": 0.9864603481624759,
-            "mean_p": 0.9858612438659311,
+            "mean_p": 0.985861244024529,
             "model": "Hurricane"
           },
           "other oxide": {
             "n": 310,
             "right": 1.0,
-            "mean_p": 0.9990313596244386,
+            "mean_p": 0.9990313598353088,
             "model": "Hurricane"
           }
         }
@@ -370,18 +370,18 @@
       },
       "bags": 5,
       "scores": {
-        "log_loss": 0.025245752773956742,
+        "log_loss": 0.025211432368090966,
         "balanced_accuracy": 0.9925560005629528,
         "to_hurricane": 0.988695242581253,
         "to_storm": 0.9964167585446527,
         "accuracy": 0.993566336289341,
-        "auc": 0.9996064783198246,
-        "brier": 0.00557986890505974,
-        "ece": 0.0049186262824283174,
+        "auc": 0.999607776642755,
+        "brier": 0.005575631524149805,
+        "ece": 0.004917292277421951,
         "fold_log_loss": [
           0.010632593237496954,
-          0.040124835775391686,
-          0.016391409010559917,
+          0.03999374784879411,
+          0.016350865063997425,
           0.03391197262319457,
           0.025180660318389676
         ],
@@ -396,49 +396,49 @@
           "Carbon": {
             "n": 30,
             "right": 0.9333333333333333,
-            "mean_p": 0.08263691463364152,
+            "mean_p": 0.08263702371349528,
             "model": "Storm"
           },
           "Chevrel": {
             "n": 74,
             "right": 1.0,
-            "mean_p": 0.000341120615734043,
+            "mean_p": 0.00034255299862834005,
             "model": "Storm"
           },
           "Other": {
             "n": 3524,
             "right": 0.9968785471055619,
-            "mean_p": 0.0039230291630737305,
+            "mean_p": 0.00392350171607755,
             "model": "Storm"
           },
           "cuprate": {
             "n": 874,
             "right": 1.0,
-            "mean_p": 0.9999320232369637,
+            "mean_p": 0.9999320902193075,
             "model": "Hurricane"
           },
           "heavy-fermion": {
             "n": 422,
             "right": 0.9597156398104265,
-            "mean_p": 0.9549027564786566,
+            "mean_p": 0.9549386360979699,
             "model": "Hurricane"
           },
           "iron-based": {
             "n": 517,
             "right": 0.9864603481624759,
-            "mean_p": 0.9841605189862733,
+            "mean_p": 0.9841573856927858,
             "model": "Hurricane"
           },
           "other oxide": {
             "n": 310,
             "right": 1.0,
-            "mean_p": 0.9997263228991701,
+            "mean_p": 0.9997263854599242,
             "model": "Hurricane"
           }
         }
       },
       "n_features": 65,
-      "seconds": 33,
+      "seconds": 34,
       "folds_better": 5
     },
     {
@@ -792,18 +792,18 @@
       "l2_regularization": 1.0
     },
     "scores": {
-      "log_loss": 0.022377677107009792,
+      "log_loss": 0.022377305096457908,
       "balanced_accuracy": 0.994537825599916,
       "to_hurricane": 0.9929345266132831,
       "to_storm": 0.996141124586549,
       "accuracy": 0.9949573987132673,
       "auc": 0.9997211202345706,
-      "brier": 0.004639025293389105,
-      "ece": 0.0042878364289217225,
+      "brier": 0.004638985323668954,
+      "ece": 0.004287821587009908,
       "fold_log_loss": [
         0.01191890507829199,
         0.026695052739543063,
-        0.016334751831572708,
+        0.016332891455325852,
         0.028842761795813562,
         0.028106008674200433
       ],
@@ -818,43 +818,43 @@
         "Carbon": {
           "n": 30,
           "right": 0.9,
-          "mean_p": 0.08877078653201474,
+          "mean_p": 0.08877078653250546,
           "model": "Storm"
         },
         "Chevrel": {
           "n": 74,
           "right": 1.0,
-          "mean_p": 0.00017918929918795637,
+          "mean_p": 0.0001791893042122272,
           "model": "Storm"
         },
         "Other": {
           "n": 3524,
           "right": 0.9968785471055619,
-          "mean_p": 0.004013379014456484,
+          "mean_p": 0.004013344685693663,
           "model": "Storm"
         },
         "cuprate": {
           "n": 874,
           "right": 1.0,
-          "mean_p": 0.9999434408853348,
+          "mean_p": 0.9999434408998349,
           "model": "Hurricane"
         },
         "heavy-fermion": {
           "n": 422,
           "right": 0.981042654028436,
-          "mean_p": 0.9706408617846548,
+          "mean_p": 0.9706408617574608,
           "model": "Hurricane"
         },
         "iron-based": {
           "n": 517,
           "right": 0.9864603481624759,
-          "mean_p": 0.9849093667077085,
+          "mean_p": 0.9849094392214358,
           "model": "Hurricane"
         },
         "other oxide": {
           "n": 310,
           "right": 1.0,
-          "mean_p": 0.9997382061709613,
+          "mean_p": 0.9997382062971928,
           "model": "Hurricane"
         }
       }
@@ -1116,7 +1116,9 @@
       "p_unconventional": 1.0,
       "model": "Hurricane",
       "structure": true,
-      "list": "anchors"
+      "list": "anchors",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "CeRh2As2",
@@ -1124,7 +1126,9 @@
       "p_unconventional": 1.0,
       "model": "Hurricane",
       "structure": true,
-      "list": "anchors"
+      "list": "anchors",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "La3Ni2O7, bulk at ambient pressure",
@@ -1132,7 +1136,9 @@
       "p_unconventional": 1.0,
       "model": "Hurricane",
       "structure": true,
-      "list": "anchors"
+      "list": "anchors",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "Nd0.8Sr0.2NiO2, bulk",
@@ -1140,7 +1146,9 @@
       "p_unconventional": 1.0,
       "model": "Hurricane",
       "structure": true,
-      "list": "anchors"
+      "list": "anchors",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "HgBa2Ca2Cu3O8+\u03b4 (Hg-1223)",
@@ -1148,7 +1156,9 @@
       "p_unconventional": 1.0,
       "model": "Hurricane",
       "structure": true,
-      "list": "anchors"
+      "list": "anchors",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "Nd0.8Sr0.2NiO2, thin film",
@@ -1156,7 +1166,9 @@
       "p_unconventional": 1.0,
       "model": "Hurricane",
       "structure": true,
-      "list": "anchors"
+      "list": "anchors",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "Hg-1223 after a pressure quench",
@@ -1164,7 +1176,9 @@
       "p_unconventional": 1.0,
       "model": "Hurricane",
       "structure": true,
-      "list": "anchors"
+      "list": "anchors",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "CsV3Sb5",
@@ -1172,7 +1186,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": true,
-      "list": "anchors"
+      "list": "anchors",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "KV3Sb5",
@@ -1180,7 +1196,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": true,
-      "list": "anchors"
+      "list": "anchors",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "Al",
@@ -1188,7 +1206,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Ga",
@@ -1196,7 +1216,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "In",
@@ -1204,7 +1226,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Sn (white tin)",
@@ -1212,7 +1236,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Pb",
@@ -1220,7 +1246,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Tl",
@@ -1228,7 +1256,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Hg",
@@ -1236,7 +1266,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Zn",
@@ -1244,7 +1276,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Cd",
@@ -1252,7 +1286,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Nb",
@@ -1260,7 +1296,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "V",
@@ -1268,7 +1306,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "Ta",
@@ -1276,7 +1316,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Mo",
@@ -1284,7 +1326,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Re",
@@ -1292,7 +1336,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Ti",
@@ -1300,7 +1346,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Ru",
@@ -1308,7 +1356,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Os",
@@ -1316,7 +1366,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Ir",
@@ -1324,7 +1376,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Th",
@@ -1332,7 +1386,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "MgB2",
@@ -1340,7 +1396,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "Nb3Sn",
@@ -1348,7 +1406,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Nb3Al",
@@ -1356,7 +1416,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "Nb3Ga",
@@ -1364,7 +1426,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "V3Si",
@@ -1372,7 +1436,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "V3Ga",
@@ -1380,7 +1446,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "NbN",
@@ -1388,7 +1456,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "NbC",
@@ -1396,7 +1466,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "TaC",
@@ -1404,7 +1476,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "NbSe2",
@@ -1412,7 +1486,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "CaC6",
@@ -1420,7 +1496,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "Nb3Ge",
@@ -1428,7 +1506,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "YRu3B2",
@@ -1436,7 +1516,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "LuRu3B2",
@@ -1444,7 +1526,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": true,
+      "scored": "out of fold"
     },
     {
       "name": "H3S",
@@ -1452,7 +1536,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "LaH10",
@@ -1460,7 +1546,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": false,
+      "scored": "final model"
     },
     {
       "name": "LaSc2H24",
@@ -1468,7 +1556,9 @@
       "p_unconventional": 0.0,
       "model": "Storm",
       "structure": false,
-      "list": "experiments"
+      "list": "experiments",
+      "in_training": false,
+      "scored": "final model"
     }
   ]
 }

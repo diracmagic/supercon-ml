@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-31T02:51:31-05:00",
+  "updated": "2026-10-31T03:25:05-05:00",
   "badge": "5/10 done · now: ai models",
   "project": "Finding high-Tc superconductors with AI-designed models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
@@ -62,7 +62,7 @@
       "status": "active",
       "name": "AI-designed models",
       "short": "AI models",
-      "detail": "Storm 3.0 for conventional superconductors (Storm 1.0 calibrated to measured Tc), Hurricane 1.0 for unconventional ones and Radar 1.0 to pick between them are in use",
+      "detail": "Storm 4.0 for conventional superconductors (Storm 1.0, the graph network and its Allen–Dynes route, averaged, calibrated to measured Tc), Hurricane 1.0 for unconventional ones and Radar 1.0 to pick between them are in use",
       "date": "2026-10-30"
     },
     {
@@ -166,7 +166,15 @@
     },
     {
       "at": "2026-10-31T02:51:31-05:00",
-      "event": "Graph neural network, round 2 (7 AI-designed candidates): best G6 weight averaging + Allen–Dynes head + crystal descriptors, Tc MAE 0.98 K against 1.05 K for the round-1 design, better in 5 of 5 folds; released as version 2.0; Storm 1.0 0.97 K on the same folds, the two averaged 0.91 K (better than Storm 1.0 in 5 of 5)"
+      "event": "Graph neural network, round 2 (7 AI-designed candidates): best G6 weight averaging + Allen–Dynes head + crystal descriptors, Tc MAE 0.98 K against 1.05 K for the round-1 design, better in 5 of 5 folds; selected for the final check with two seeds; Storm 1.0 0.97 K on the same folds, the two averaged 0.91 K (better than Storm 1.0 in 5 of 5)"
+    },
+    {
+      "at": "2026-10-31T03:23:48-05:00",
+      "event": "Graph neural network, round 2 final check: G6 weight averaging + Allen–Dynes head + crystal descriptors, retrained like version 1.0 (2 seeds averaged, 200 epochs): Tc MAE 0.936 K against 0.983 K for version 1.0, better in 4 of 5 folds; released as version 2.0; averaged with Storm 1.0 0.898 K (Storm 1.0 alone 0.969 K, better in 5 of 5 folds)"
+    },
+    {
+      "at": "2026-10-31T03:25:05-05:00",
+      "event": "Storm round 4 (3 combinations of Storm 1.0 and the graph network 2.0 (weight averaging + Allen–Dynes head + crystal descriptors)): best Storm 1.0, the graph network and its Allen–Dynes route, averaged, DFT Tc MAE 0.898 K against 0.969 K for Storm 1.0, better in 5 of 5 folds; calibrated to measured Tc 1.56 K against 1.61 K for Storm 3.0; adopted as Storm 4.0"
     }
   ],
   "baselines": [
@@ -364,11 +372,18 @@
       "mae": 0.983
     },
     {
-      "at": "2026-10-31T02:51:31-05:00",
+      "at": "2026-10-31T03:23:48-05:00",
       "model": "Graph neural network 2.0 (AI-designed)",
       "target": "Tc",
       "split": "val",
-      "mae": 0.977
+      "mae": 0.936
+    },
+    {
+      "at": "2026-10-31T03:25:05-05:00",
+      "model": "Storm 4.0 (AI-designed)",
+      "target": "Tc",
+      "split": "val",
+      "mae": 0.898
     }
   ],
   "search": {
@@ -1414,14 +1429,101 @@
       ],
       "rule": "release the lowest-error map that beats uncalibrated Storm 1.0 on average and in at least 4 of 5 folds, with at least 25 matched materials",
       "caveat": "SuperCon Tc is averaged over reports, a composition can stand for several polymorphs, and non-superconducting entries are only as good as the lowest temperature measured"
+    },
+    "ensemble": {
+      "round": 4,
+      "version": "4.0",
+      "date": "2026-10-31",
+      "status": "adopted",
+      "summary": "Storm 1.0, the graph network and its Allen–Dynes route, averaged, calibrated to measured Tc",
+      "gnn": {
+        "design": "graph network 2.0 (weight averaging + Allen–Dynes head + crystal descriptors)",
+        "seeds": 2,
+        "tc_mae": 0.936
+      },
+      "scores": {
+        "tc_mae": 0.898,
+        "reference_mae": 0.969,
+        "reference": "Storm 1.0",
+        "folds": [
+          0.971,
+          0.973,
+          0.785,
+          0.874,
+          0.887
+        ],
+        "reference_folds": [
+          1.019,
+          0.985,
+          0.874,
+          0.985,
+          0.981
+        ],
+        "folds_better": 5,
+        "lambda_mae": 0.084,
+        "wlog_mae": 19.5,
+        "measured_check_mae": 6.66,
+        "measured_check_reference": 7.56
+      },
+      "leaderboard": [
+        {
+          "id": "S3",
+          "name": "Storm 1.0, the graph network and its Allen–Dynes route, averaged",
+          "tc_mae": 0.898,
+          "folds_better": 5
+        },
+        {
+          "id": "S1",
+          "name": "Storm 1.0 and the graph network, averaged",
+          "tc_mae": 0.898,
+          "folds_better": 5
+        },
+        {
+          "id": "S2",
+          "name": "Storm 1.0 and the graph network, averaged on log(1 + Tc)",
+          "tc_mae": 0.899,
+          "folds_better": 5
+        },
+        {
+          "id": "S0",
+          "name": "Storm 1.0 (reference)",
+          "tc_mae": 0.969,
+          "folds_better": 0
+        }
+      ],
+      "rule": "the base must beat Storm 1.0 on average and in at least 4 of 5 folds and not be more than 0.5 K worse on the graded measured Tc; calibrated with round 3's maps on the same matched materials and folds, it must also be closer to measured Tc than Storm 3.0",
+      "caveat": "picking the best of several candidates on the same folds makes its score slightly optimistic",
+      "calibration": {
+        "method": "Gradient-boosting correction",
+        "mae": 1.56,
+        "mae_storm3": 1.61,
+        "mae_raw": 2.31,
+        "dft_mae": 2.48,
+        "folds": [
+          1.55,
+          1.41,
+          2.06,
+          1.33,
+          1.42
+        ],
+        "folds_storm3": [
+          1.52,
+          1.4,
+          2.1,
+          1.51,
+          1.51
+        ],
+        "folds_better_storm3": 3,
+        "n_matched": 298
+      }
     }
   },
   "model_family": [
     {
       "id": "storm",
-      "status": "Storm 3.0 in use",
+      "status": "Storm 4.0 in use",
       "active": true,
-      "text": "Learns from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set), then a calibration learned from 298 materials with measured Tc (168 superconducting) maps its prediction to measured Tc: off by 1.6 K on average against 2.2 K uncalibrated and 2.5 K for the DFT labels themselves. Our AI agent designed it."
+      "text": "Combines boosted trees that learn from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) with a crystal-graph network that learns from the atoms and their neighbours: 0.90 K off on average against the computed Tc of materials it never saw, against 0.97 K for the trees alone. Calibrated to measured Tc, it is off by 1.56 K against experiment (Storm 3.0: 1.61 K). Our AI agent designed it."
     },
     {
       "id": "hurricane",
@@ -1433,7 +1535,7 @@
       "id": "radar",
       "status": "Radar 1.0 in use",
       "active": true,
-      "text": "Reads a material’s composition and crystal structure and gives the probability that it belongs to an unconventional family, then sends it to Hurricane or Storm. It learns from 5,751 SuperCon entries in 3DSC (2,123 unconventional, 3,628 conventional). For parent compounds it never saw it picks the right model 99% of the time (balanced accuracy), against 98% for a composition-only baseline. Trained without any cuprate, it still sends 100% of cuprates to Hurricane. Our AI agent designed it."
+      "text": "Reads a material’s composition and crystal structure and gives the probability that it belongs to an unconventional family, then sends it to Hurricane or Storm. It learns from 5,751 SuperCon entries in 3DSC (2,123 unconventional, 3,628 conventional). For parent compounds it never saw it picks the right model 99.5% of the time (balanced accuracy), against 98.2% for a composition-only baseline. Trained without any cuprate, it still sends 100% of cuprates to Hurricane. Our AI agent designed it."
     }
   ],
   "hurricane": {
@@ -1951,46 +2053,7 @@
     "date": "2026-10-31",
     "status": "done",
     "summary": "crystal-graph network, AI-designed: weight averaging + Allen–Dynes head + crystal descriptors",
-    "tc_mae": 0.977,
-    "tc_via_allen_dynes_mae": 0.969,
-    "lambda_mae": 0.088,
-    "wlog_mae": 20.9,
-    "folds": [
-      1.039,
-      1.022,
-      0.878,
-      0.954,
-      0.99
-    ],
-    "spec": {
-      "architecture": "CGCNN-style crystal-graph network",
-      "graph": "atoms as nodes; edges to the 12 nearest neighbours within 8 Å, periodic images included",
-      "node_inputs": "a learned vector for each of 64 elements plus 8 element properties (Z, atomic_mass, X, row, group, atomic_radius, mendeleev_no, valence)",
-      "edge_inputs": "bond length in 40 Gaussians from 0 to 8 Å",
-      "layers": "3 gated message-passing layers (sigmoid gate times softplus message, averaged over neighbours, residual, layer norm), width 64",
-      "readout": "mean over atoms, then a network with 128 and 64 units (SiLU)",
-      "targets": "log(1 + Tc), log λ and log ω_log together (loss weights 1, 0.5, 0.5); Tc also via Allen-Dynes from λ and ω_log",
-      "training": "AdamW, peak learning rate 0.002, weight decay 0.0001, warm-up then cosine decay, 64 crystals per step, 200 epochs, Huber loss; the epoch with the lowest validation Tc error on 10% of the training fold's chemical systems is kept",
-      "ensemble": "average of 2 seed(s) per fold",
-      "n_params": 86723
-    },
     "about": "A crystal-graph network learns Tc, λ and ω_log straight from the atoms and their neighbours, with no hand-made features. It is scored on the same five folds as Storm, grouped by chemical system.",
-    "storm1_mae": 0.969,
-    "baseline_mae": 1.045,
-    "folds_better_storm1": 1,
-    "folds_better_baseline": 5,
-    "blend": {
-      "name": "average of the graph network and Storm 1.0",
-      "tc_mae": 0.911,
-      "folds": [
-        0.971,
-        0.956,
-        0.81,
-        0.902,
-        0.916
-      ],
-      "folds_better_storm1": 5
-    },
     "current": "2.0",
     "versions": [
       {
@@ -2018,6 +2081,25 @@
           "training": "AdamW, peak learning rate 0.002, weight decay 0.0001, warm-up then cosine decay, 64 crystals per step, 200 epochs, Huber loss; the epoch with the lowest validation Tc error on 10% of the training fold's chemical systems is kept",
           "ensemble": "average of 2 seed(s) per fold",
           "n_params": 86723
+        },
+        "tc_via_allen_dynes_mae": 0.969,
+        "lambda_mae": 0.088,
+        "wlog_mae": 20.9,
+        "storm1_mae": 0.969,
+        "baseline_mae": 1.045,
+        "folds_better_storm1": 2,
+        "folds_better_baseline": 5,
+        "blend": {
+          "name": "average of the graph network and Storm 1.0",
+          "tc_mae": 0.915,
+          "folds": [
+            0.998,
+            0.938,
+            0.819,
+            0.903,
+            0.918
+          ],
+          "folds_better_storm1": 5
         }
       },
       {
@@ -2026,16 +2108,16 @@
         "date": "2026-10-31",
         "status": "adopted",
         "summary": "+ weight averaging + Allen–Dynes head + crystal descriptors",
-        "tc_mae": 0.977,
+        "tc_mae": 0.936,
         "folds": [
-          1.039,
-          1.022,
-          0.878,
-          0.954,
-          0.99
+          1.012,
+          1.027,
+          0.822,
+          0.903,
+          0.914
         ],
-        "folds_better": 5,
-        "reference_mae": 1.053,
+        "folds_better": 4,
+        "reference_mae": 0.983,
         "search": {
           "candidates": 7,
           "reference_id": "G0",
@@ -2089,24 +2171,87 @@
               "folds_better": 0,
               "blend_mae": 0.936
             }
-          ]
+          ],
+          "best": "G6",
+          "tc_mae": 0.977,
+          "folds_better": 5,
+          "reference_mae": 1.053,
+          "seeds": 1,
+          "epochs": 150
         },
         "storm1_mae": 0.969,
-        "folds_better_storm1": 1,
+        "folds_better_storm1": 4,
         "blend": {
           "name": "average of the graph network and Storm 1.0",
-          "tc_mae": 0.911,
+          "tc_mae": 0.898,
           "folds": [
-            0.971,
-            0.956,
-            0.81,
-            0.902,
-            0.916
+            0.968,
+            0.96,
+            0.788,
+            0.881,
+            0.895
           ],
           "folds_better_storm1": 5
-        }
+        },
+        "checked": "2026-10-31",
+        "seeds": 2,
+        "epochs": 200,
+        "tc_via_allen_dynes_mae": 0.934,
+        "lambda_mae": 0.088,
+        "wlog_mae": 21.2,
+        "spec": {
+          "architecture": "CGCNN-style crystal-graph network",
+          "graph": "atoms as nodes; edges to the 12 nearest neighbours within 8 Å, periodic images included",
+          "node_inputs": "a learned vector for each of 64 elements plus 8 element properties (Z, atomic_mass, X, row, group, atomic_radius, mendeleev_no, valence)",
+          "edge_inputs": "bond length in 40 Gaussians from 0 to 8 Å",
+          "layers": "3 gated message-passing layers (sigmoid gate times softplus message, averaged over neighbours, residual, layer norm), width 64",
+          "readout": "mean over atoms, joined by Storm 1.0's 54 crystal descriptors, then a network with 128 and 64 units (SiLU)",
+          "targets": "log(1 + Tc), log λ and log ω_log together; Tc is computed inside the network from λ and ω_log with the Allen-Dynes formula",
+          "training": "AdamW, peak learning rate 0.002, weight decay 0.0001, warm-up then cosine decay, 64 crystals per step, 200 epochs, Huber loss; the epoch with the lowest validation Tc error on 10% of the training fold's chemical systems is kept; the network is evaluated with an exponential moving average of its weights",
+          "ensemble": "average of 2 seed(s) per fold"
+        },
+        "baseline_mae": 1.045,
+        "folds_better_baseline": 5
       }
-    ]
+    ],
+    "tc_mae": 0.936,
+    "folds": [
+      1.012,
+      1.027,
+      0.822,
+      0.903,
+      0.914
+    ],
+    "tc_via_allen_dynes_mae": 0.934,
+    "lambda_mae": 0.088,
+    "wlog_mae": 21.2,
+    "storm1_mae": 0.969,
+    "baseline_mae": 1.045,
+    "folds_better_storm1": 4,
+    "folds_better_baseline": 5,
+    "blend": {
+      "name": "average of the graph network and Storm 1.0",
+      "tc_mae": 0.898,
+      "folds": [
+        0.968,
+        0.96,
+        0.788,
+        0.881,
+        0.895
+      ],
+      "folds_better_storm1": 5
+    },
+    "spec": {
+      "architecture": "CGCNN-style crystal-graph network",
+      "graph": "atoms as nodes; edges to the 12 nearest neighbours within 8 Å, periodic images included",
+      "node_inputs": "a learned vector for each of 64 elements plus 8 element properties (Z, atomic_mass, X, row, group, atomic_radius, mendeleev_no, valence)",
+      "edge_inputs": "bond length in 40 Gaussians from 0 to 8 Å",
+      "layers": "3 gated message-passing layers (sigmoid gate times softplus message, averaged over neighbours, residual, layer norm), width 64",
+      "readout": "mean over atoms, joined by Storm 1.0's 54 crystal descriptors, then a network with 128 and 64 units (SiLU)",
+      "targets": "log(1 + Tc), log λ and log ω_log together; Tc is computed inside the network from λ and ω_log with the Allen-Dynes formula",
+      "training": "AdamW, peak learning rate 0.002, weight decay 0.0001, warm-up then cosine decay, 64 crystals per step, 200 epochs, Huber loss; the epoch with the lowest validation Tc error on 10% of the training fold's chemical systems is kept; the network is evaluated with an exponential moving average of its weights",
+      "ensemble": "average of 2 seed(s) per fold"
+    }
   },
   "radar": {
     "name": "Radar",
@@ -2462,7 +2607,9 @@
             "p_unconventional": 1.0,
             "model": "Hurricane",
             "structure": true,
-            "list": "anchors"
+            "list": "anchors",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "CeRh2As2",
@@ -2470,7 +2617,9 @@
             "p_unconventional": 1.0,
             "model": "Hurricane",
             "structure": true,
-            "list": "anchors"
+            "list": "anchors",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "La3Ni2O7, bulk at ambient pressure",
@@ -2478,7 +2627,9 @@
             "p_unconventional": 1.0,
             "model": "Hurricane",
             "structure": true,
-            "list": "anchors"
+            "list": "anchors",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "Nd0.8Sr0.2NiO2, bulk",
@@ -2486,7 +2637,9 @@
             "p_unconventional": 1.0,
             "model": "Hurricane",
             "structure": true,
-            "list": "anchors"
+            "list": "anchors",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "HgBa2Ca2Cu3O8+δ (Hg-1223)",
@@ -2494,7 +2647,9 @@
             "p_unconventional": 1.0,
             "model": "Hurricane",
             "structure": true,
-            "list": "anchors"
+            "list": "anchors",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "Nd0.8Sr0.2NiO2, thin film",
@@ -2502,7 +2657,9 @@
             "p_unconventional": 1.0,
             "model": "Hurricane",
             "structure": true,
-            "list": "anchors"
+            "list": "anchors",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "Hg-1223 after a pressure quench",
@@ -2510,7 +2667,9 @@
             "p_unconventional": 1.0,
             "model": "Hurricane",
             "structure": true,
-            "list": "anchors"
+            "list": "anchors",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "CsV3Sb5",
@@ -2518,7 +2677,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": true,
-            "list": "anchors"
+            "list": "anchors",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "KV3Sb5",
@@ -2526,7 +2687,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": true,
-            "list": "anchors"
+            "list": "anchors",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "Al",
@@ -2534,7 +2697,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Ga",
@@ -2542,7 +2707,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "In",
@@ -2550,7 +2717,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Sn (white tin)",
@@ -2558,7 +2727,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Pb",
@@ -2566,7 +2737,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Tl",
@@ -2574,7 +2747,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Hg",
@@ -2582,7 +2757,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Zn",
@@ -2590,7 +2767,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Cd",
@@ -2598,7 +2777,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Nb",
@@ -2606,7 +2787,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "V",
@@ -2614,7 +2797,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "Ta",
@@ -2622,7 +2807,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Mo",
@@ -2630,7 +2817,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Re",
@@ -2638,7 +2827,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Ti",
@@ -2646,7 +2837,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Ru",
@@ -2654,7 +2847,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Os",
@@ -2662,7 +2857,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Ir",
@@ -2670,7 +2867,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Th",
@@ -2678,7 +2877,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "MgB2",
@@ -2686,7 +2887,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "Nb3Sn",
@@ -2694,7 +2897,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Nb3Al",
@@ -2702,7 +2907,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "Nb3Ga",
@@ -2710,7 +2917,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "V3Si",
@@ -2718,7 +2927,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "V3Ga",
@@ -2726,7 +2937,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "NbN",
@@ -2734,7 +2947,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "NbC",
@@ -2742,7 +2957,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "TaC",
@@ -2750,7 +2967,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "NbSe2",
@@ -2758,7 +2977,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "CaC6",
@@ -2766,7 +2987,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "Nb3Ge",
@@ -2774,7 +2997,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "YRu3B2",
@@ -2782,7 +3007,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "LuRu3B2",
@@ -2790,7 +3017,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": true,
+            "scored": "out of fold"
           },
           {
             "name": "H3S",
@@ -2798,7 +3027,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "LaH10",
@@ -2806,7 +3037,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": false,
+            "scored": "final model"
           },
           {
             "name": "LaSc2H24",
@@ -2814,7 +3047,9 @@
             "p_unconventional": 0.0,
             "model": "Storm",
             "structure": false,
-            "list": "experiments"
+            "list": "experiments",
+            "in_training": false,
+            "scored": "final model"
           }
         ],
         "search": {

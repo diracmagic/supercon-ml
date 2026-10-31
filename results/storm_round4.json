@@ -1,0 +1,191 @@
+{
+  "run_at": "2026-10-31T03:25:05-05:00",
+  "commit": "1b22e9d",
+  "round": 4,
+  "model": "Storm",
+  "version": "4.0",
+  "designer": "AI agent (Claude) proposed combining Storm 1.0's trees with the crystal-graph network: a plain average, an average on log(1 + Tc) and a three-way average with the network's Allen-Dynes route",
+  "selection": "5-fold GroupKFold by chemical system on Alexandria (7,582 materials), the same folds as every Storm round; graph network: saved out-of-fold predictions of version 2.0 (gnn_round2_final_predictions.csv), 2 seeds averaged",
+  "rule": "the base must beat Storm 1.0 on average and in at least 4 of 5 folds and not be more than 0.5 K worse on the graded measured Tc; calibrated with round 3's maps on the same matched materials and folds, it must also be closer to measured Tc than Storm 3.0",
+  "caveat": "picking the best of several candidates on the same folds makes its score slightly optimistic",
+  "gnn": {
+    "design": "graph network 2.0 (weight averaging + Allen\u2013Dynes head + crystal descriptors)",
+    "version": "2.0",
+    "source": "saved out-of-fold predictions of version 2.0 (gnn_round2_final_predictions.csv), 2 seeds averaged",
+    "config": {
+      "hidden": 64,
+      "n_conv": 3,
+      "head": [
+        128,
+        64
+      ],
+      "lr": 0.002,
+      "wd": 0.0001,
+      "ema": true,
+      "ad_head": true,
+      "hybrid": true
+    },
+    "seeds": 2,
+    "tc_mae": 0.9357458472150783,
+    "lambda_mae": 0.08809469326384751,
+    "wlog_mae": 21.186864974938224
+  },
+  "leaderboard": [
+    {
+      "id": "S3",
+      "name": "Storm 1.0, the graph network and its Allen\u2013Dynes route, averaged",
+      "tc_mae": 0.8979120870333629,
+      "tc_tail_mae": 3.2954919023262623,
+      "fold_mae": [
+        0.9706527942513026,
+        0.9726445052865058,
+        0.785384976263166,
+        0.8735181810689061,
+        0.8872627005096836
+      ],
+      "lambda_mae": 0.08375718247994111,
+      "wlog_mae": 19.500185392084607,
+      "folds_better": 5,
+      "measured_mae": 6.66
+    },
+    {
+      "id": "S1",
+      "name": "Storm 1.0 and the graph network, averaged",
+      "tc_mae": 0.8981639085195509,
+      "tc_tail_mae": 3.379597237789783,
+      "fold_mae": [
+        0.9678814313953683,
+        0.9596250438768025,
+        0.7879952063778454,
+        0.8805665295685736,
+        0.8946648019212277
+      ],
+      "lambda_mae": 0.08375718247994111,
+      "wlog_mae": 19.500185392084607,
+      "folds_better": 5,
+      "measured_mae": 6.81
+    },
+    {
+      "id": "S2",
+      "name": "Storm 1.0 and the graph network, averaged on log(1 + Tc)",
+      "tc_mae": 0.8990621417028068,
+      "tc_tail_mae": 3.4661513674074365,
+      "fold_mae": [
+        0.9669571172767715,
+        0.9565601551422992,
+        0.790684624055522,
+        0.8828817220601592,
+        0.8981443769258437
+      ],
+      "lambda_mae": 0.08375718247994111,
+      "wlog_mae": 19.500185392084607,
+      "folds_better": 5,
+      "measured_mae": 6.87
+    },
+    {
+      "id": "S0",
+      "name": "Storm 1.0 (reference)",
+      "tc_mae": 0.9687274184455797,
+      "tc_tail_mae": 3.7348654895707334,
+      "fold_mae": [
+        1.0190205845206133,
+        0.9849558253095789,
+        0.8737968748689737,
+        0.9847094226782664,
+        0.9811105051849394
+      ],
+      "lambda_mae": 0.09160850936486695,
+      "wlog_mae": 20.86267162413798,
+      "folds_better": 0,
+      "measured_mae": 7.56
+    }
+  ],
+  "best": "S3",
+  "adopted": true,
+  "experiments": {
+    "summary": {
+      "n_scored": 18,
+      "n_listed": 38,
+      "dft_mae": 6.95,
+      "mae": {
+        "S0": 7.56,
+        "S1": 6.81,
+        "S2": 6.87,
+        "S3": 6.66
+      },
+      "rule": "a new version may not be more than 0.5 K worse than the current one on the scored measurements (applies with at least 8 scored matches)",
+      "about": "Measured Tc used to sanity-check Storm, the conventional (electron-phonon) model. Each entry carries a reliability grade, because experiments can be wrong too. Only entries with use = score enter the check score: replicated, ambient-pressure, phonon-mediated superconductors. Single reports, preprints and materials outside the training domain are shown but not scored; retracted or refuted claims are listed only to record why they are left out. Materials are matched to the training set by composition, so polymorphs of one composition are pooled (median). The check never feeds back into training."
+    }
+  },
+  "scikit_learn": "1.9.1",
+  "calibration": {
+    "n_matched": 298,
+    "n_sc": 168,
+    "dft_mae": 2.476304697516538,
+    "storm3": {
+      "id": "K5",
+      "name": "Gradient-boosting correction",
+      "mae": 1.608741704549991,
+      "folds": [
+        1.5154057800316356,
+        1.3993757037276882,
+        2.102643169347963,
+        1.512421529747112,
+        1.5106216697352632
+      ]
+    },
+    "best": {
+      "id": "K5",
+      "name": "Gradient-boosting correction",
+      "mae": 1.5565936911234302,
+      "folds": [
+        1.5519617181857448,
+        1.4133800763126123,
+        2.060943002886232,
+        1.3333892756993815,
+        1.417251946532938
+      ],
+      "folds_better_storm3": 3
+    },
+    "uncalibrated_mae": 2.307579281961086,
+    "leaderboard": [
+      {
+        "id": "K5",
+        "name": "Gradient-boosting correction",
+        "mae": 1.5565936911234302,
+        "folds_better": 5
+      },
+      {
+        "id": "K4",
+        "name": "Physics map + spin-fluctuation term",
+        "mae": 1.79996591999055,
+        "folds_better": 5
+      },
+      {
+        "id": "K3",
+        "name": "Physics map: rescaled \u03bb and an effective \u03bc*",
+        "mae": 1.8390433953491578,
+        "folds_better": 4
+      },
+      {
+        "id": "K2",
+        "name": "Monotone map (isotonic regression)",
+        "mae": 1.878896611367427,
+        "folds_better": 5
+      },
+      {
+        "id": "K1",
+        "name": "Linear map on log(1 + Tc)",
+        "mae": 1.933841495824574,
+        "folds_better": 5
+      },
+      {
+        "id": "K0",
+        "name": "Storm 1.0, uncalibrated (reference)",
+        "mae": 2.307579281961086,
+        "folds_better": 0
+      }
+    ]
+  },
+  "minutes": 1.3
+}
