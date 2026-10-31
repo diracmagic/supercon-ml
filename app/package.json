@@ -1,10 +1,11 @@
 {
   "name": "supercon-progress",
   "private": true,
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Desktop app that shows the live progress of the supercon-ml project",
   "scripts": {
     "icon": "node scripts/make-icon.mjs app-icon.png && tauri icon app-icon.png -o src-tauri/icons",
+    "notices": "node scripts/third-party-notices.mjs",
     "tauri": "tauri"
   },
   "devDependencies": {
