@@ -1,0 +1,2146 @@
+{
+  "run_at": "2026-10-31T15:58:59-05:00",
+  "commit": "02435b4",
+  "round": 4,
+  "model": "Hurricane",
+  "version": "4.0",
+  "designer": "AI agent (Claude) proposed four designs on Hurricane 3.0 that answer \"not known\" outside the training data, with the background compounds limited by distance in three of them",
+  "selection": "5-fold GroupKFold by parent compound on 2,123 3DSC entries, the same folds and seeds as rounds 1 to 3, round 3's background folds; every distance measured against the training part of each fold or, leaving a family out, against the other families",
+  "rule": "release the design that calls the fewest superconductors of a left-out family unlikely, among those that raise false alarms on at most 5% of the held-out compounds with no superconductivity record that Radar sends to Hurricane, call no more superconductors of a left-out family unlikely than Hurricane 2.0 does, give a chance to at least 85% of the held-out 3DSC entries, are not more than 0.3 K worse than Hurricane 3.0 on measured Tc and 0.5 K on the superconducting entries, not more than 0.01 worse in Brier score, and whose chance drops by at most 0.05 more than Hurricane 3.0's when 3DSC compounds are described with JARVIS structures; ties go to fewer false alarms, then to the lower Tc error",
+  "caveat": "A chance far from the training data was never worth much; Hurricane now says so instead of giving one. Not known is not a hint that a compound superconducts: it means the model cannot tell. The background compounds have no superconductivity record, which is not a measurement of zero.",
+  "false_alarms_about": "false alarms: the share of held-out background compounds (JARVIS-DFT compounds with no superconductivity record that Radar sends to Hurricane) given at least an even chance of superconducting; an upper bound, as a few of them may superconduct",
+  "unknown_about": "not known: a compound further from every training compound, in the model's standardized inputs, than the given multiple of the distance that separates 95% of the training compounds from their nearest neighbour in another parent compound gets no chance",
+  "dismissed_about": "called unlikely: trained without a whole family, the share of that family's superconductors given a chance under one half, averaged over the four families; a compound that gets no chance (not known) is not counted as called unlikely",
+  "shift_about": "the mean change of the chance of superconducting for 3DSC compounds that JARVIS-DFT also has, when their structure comes from JARVIS instead of the Materials Project (out of fold)",
+  "scikit_learn": "1.9.1",
+  "data": {
+    "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+    "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+    "doi": "10.1038/s41597-023-02721-y",
+    "licence": "CC BY 4.0",
+    "commit": "8d69ca9",
+    "n": 2123,
+    "n_sc": 1395,
+    "n_groups": 476,
+    "families": {
+      "cuprate": {
+        "label": "Cuprates",
+        "n": 874,
+        "n_sc": 576,
+        "max_tc": 132.9
+      },
+      "iron-based": {
+        "label": "Iron- and nickel-based",
+        "n": 517,
+        "n_sc": 406,
+        "max_tc": 56.5
+      },
+      "heavy-fermion": {
+        "label": "Heavy-fermion",
+        "n": 422,
+        "n_sc": 242,
+        "max_tc": 16.6
+      },
+      "other oxide": {
+        "label": "Other oxides",
+        "n": 310,
+        "n_sc": 171,
+        "max_tc": 31.5
+      }
+    },
+    "context": 3635
+  },
+  "background": {
+    "steps": [
+      {
+        "step": "JARVIS-DFT 3D entries",
+        "n": 93902
+      },
+      {
+        "step": "within 50 meV/atom of the convex hull",
+        "n": 9339
+      },
+      {
+        "step": "a band gap of at most 1 eV, magnetic or not",
+        "n": 6530
+      },
+      {
+        "step": "2 to 5 elements, no hydrogen, noble gases or short-lived radioactive elements",
+        "n": 5759
+      },
+      {
+        "step": "up to 40 atoms in the cell",
+        "n": 5754
+      },
+      {
+        "step": "only elements in at least 20 of Hurricane's training materials",
+        "n": 2496
+      }
+    ],
+    "excluded": {
+      "supercon": 67,
+      "computed": 140,
+      "prior": 0,
+      "system": 124,
+      "total": 331
+    },
+    "polymorphs_dropped": 451,
+    "sources": [
+      {
+        "name": "3DSC, SuperCon matched to Materials Project structures",
+        "n": 5772,
+        "doi": "10.1038/s41597-023-02721-y",
+        "commit": "8d69ca9"
+      },
+      {
+        "name": "SuperCon formulas in JARVIS (supercon_chem)",
+        "n": 16398
+      },
+      {
+        "name": "SuperCon extract of K. Hamidieh (2018), UCI Machine Learning Repository",
+        "n": 21263,
+        "doi": "10.1016/j.commatsci.2018.07.052",
+        "sha256": "87f4490d7339"
+      },
+      {
+        "name": "chemical systems with a known superconductor (from the lists above)",
+        "n": 3546
+      },
+      {
+        "name": "Alexandria electron-phonon data (alex_supercon)",
+        "n": 8253
+      },
+      {
+        "name": "JARVIS electron-phonon data (supercon_3d)",
+        "n": 1058
+      },
+      {
+        "name": "data/prior_claims.json, reported or predicted by others",
+        "n": 18
+      },
+      {
+        "name": "data/hurricane_anchors.json, discoveries and claims that Hurricane is checked against",
+        "n": 10,
+        "systems": 5
+      }
+    ],
+    "n": 1714,
+    "n_sent": 354,
+    "source": "JARVIS-DFT 3D (OptB88vdW)",
+    "folds": [
+      339,
+      328,
+      346,
+      345,
+      356
+    ],
+    "radar": {
+      "design": "Composition + structure + physics + element fractions",
+      "id": "R4",
+      "n_train": 5751
+    },
+    "within": {
+      "1.0": 218,
+      "1.5": 1085,
+      "2.0": 1694
+    },
+    "n_used": 218,
+    "about": "Hurricane's screening pool: compounds with no superconductivity record, counted as not superconducting; split into five folds by chemical system as in round 3",
+    "cite": "T. Konno et al., Phys. Rev. B 103, 014509 (2021)",
+    "doi": "10.1103/PhysRevB.103.014509"
+  },
+  "matched": {
+    "n": 668
+  },
+  "baseline": {
+    "id": "H0",
+    "name": "Composition only (baseline)",
+    "scores": {
+      "tc_mae": 14.980738134752942,
+      "tc_rmse": 27.05647043265869,
+      "sc_mae": 21.17259334891475,
+      "high_tc_mae": 46.72895603059335,
+      "r2_log": 0.3001139033072844,
+      "fold_mae": [
+        14.20946954306056,
+        16.799571643611976,
+        14.864500090104094,
+        12.200062906075782,
+        16.82788996526957
+      ],
+      "by_family": {
+        "cuprate": {
+          "n": 874,
+          "mae": 29.244109354652345
+        },
+        "iron-based": {
+          "n": 517,
+          "mae": 9.401599027994466
+        },
+        "heavy-fermion": {
+          "n": 422,
+          "mae": 1.0555407836080382
+        },
+        "other oxide": {
+          "n": 310,
+          "mae": 3.0280341159955406
+        }
+      }
+    }
+  },
+  "reference": {
+    "id": "H12",
+    "version": "2.0",
+    "scores": {
+      "tc_mae": 10.306643127250513,
+      "tc_rmse": 17.867036398870482,
+      "sc_mae": 12.292694363326577,
+      "high_tc_mae": 23.8389581414671,
+      "r2_log": 0.4637112357229638,
+      "fold_mae": [
+        10.796858876678705,
+        9.706198878730053,
+        9.094862097361695,
+        9.436634239856474,
+        12.501779490627962
+      ],
+      "by_family": {
+        "cuprate": {
+          "n": 874,
+          "mae": 18.374420642781427
+        },
+        "iron-based": {
+          "n": 517,
+          "mae": 8.092637408755627
+        },
+        "heavy-fermion": {
+          "n": 422,
+          "mae": 1.3547098192582303
+        },
+        "other oxide": {
+          "n": 310,
+          "mae": 3.439285913897561
+        }
+      }
+    },
+    "reliability": {
+      "false_alarms": 0.3898305084745763,
+      "fa_folds": [
+        0.3977272727272727,
+        0.425531914893617,
+        0.3625,
+        0.46875,
+        0.32
+      ],
+      "false_alarms_all": 0.5845974329054843,
+      "unknown_sent": 0.0,
+      "unknown_all": 0.0,
+      "coverage": 1.0,
+      "brier": 0.18613272010841939,
+      "recall": 0.7863799283154121,
+      "recall_covered": 0.7863799283154121,
+      "share_sc_likely": 0.8204936424831712,
+      "share_sc_unlikely": 0.3791348600508906,
+      "shift": -0.00589367576657149,
+      "shift_abs": 0.023085444993590186,
+      "n_matched": 668,
+      "dismissed": 0.5318799841626365
+    },
+    "lofo": [
+      {
+        "family": "cuprate",
+        "label": "Cuprates",
+        "n": 874,
+        "n_sc": 576,
+        "mae": 34.21315762647568,
+        "mae_median": 34.1693695652746,
+        "max_tc": 132.9,
+        "max_pred": 11.236952106250307,
+        "found": 0.2586805555555556,
+        "unknown": 0.0,
+        "dismissed": 0.7413194444444444
+      },
+      {
+        "family": "iron-based",
+        "label": "Iron- and nickel-based",
+        "n": 517,
+        "n_sc": 406,
+        "mae": 14.051510244428805,
+        "mae_median": 13.914832761481625,
+        "max_tc": 56.5,
+        "max_pred": 6.4195860306083805,
+        "found": 0.3916256157635468,
+        "unknown": 0.0,
+        "dismissed": 0.6083743842364532
+      },
+      {
+        "family": "heavy-fermion",
+        "label": "Heavy-fermion",
+        "n": 422,
+        "n_sc": 242,
+        "mae": 1.9845209858563506,
+        "mae_median": 9.555238404236965,
+        "max_tc": 16.6,
+        "max_pred": 11.430058475489467,
+        "found": 0.6198347107438017,
+        "unknown": 0.0,
+        "dismissed": 0.38016528925619836
+      },
+      {
+        "family": "other oxide",
+        "label": "Other oxides",
+        "n": 310,
+        "n_sc": 171,
+        "mae": 6.13738894159374,
+        "mae_median": 6.040960021282258,
+        "max_tc": 31.5,
+        "max_pred": 34.96411606186958,
+        "found": 0.6023391812865497,
+        "unknown": 0.0,
+        "dismissed": 0.39766081871345027
+      }
+    ]
+  },
+  "previous": {
+    "id": "H17",
+    "version": "3.0",
+    "scores": {
+      "tc_mae": 10.337908267073207,
+      "tc_rmse": 17.88449819754506,
+      "sc_mae": 12.355513396695358,
+      "high_tc_mae": 24.073849451564104,
+      "r2_log": 0.4605379364755293,
+      "fold_mae": [
+        10.882180261062732,
+        10.162006337326023,
+        8.474334150916372,
+        9.320930000540258,
+        12.853617010171392
+      ],
+      "by_family": {
+        "cuprate": {
+          "n": 874,
+          "mae": 18.487546462103083
+        },
+        "iron-based": {
+          "n": 517,
+          "mae": 8.18838649862082
+        },
+        "heavy-fermion": {
+          "n": 422,
+          "mae": 1.230164592575529
+        },
+        "other oxide": {
+          "n": 310,
+          "mae": 3.344317307304802
+        }
+      }
+    },
+    "reliability": {
+      "false_alarms": 0.0,
+      "fa_folds": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "false_alarms_all": 0.0,
+      "unknown_sent": 0.0,
+      "unknown_all": 0.0,
+      "coverage": 1.0,
+      "brier": 0.18364773927191286,
+      "recall": 0.8157706093189964,
+      "recall_covered": 0.8157706093189964,
+      "share_sc_likely": 0.8157706093189964,
+      "share_sc_unlikely": 0.35302197802197804,
+      "shift": -0.006253592609680665,
+      "shift_abs": 0.020837544258459434,
+      "n_matched": 668,
+      "dismissed": 0.8815812435361344
+    },
+    "lofo": [
+      {
+        "family": "cuprate",
+        "label": "Cuprates",
+        "n": 874,
+        "n_sc": 576,
+        "mae": 34.57695370698396,
+        "mae_median": 34.1693695652746,
+        "max_tc": 132.9,
+        "max_pred": 10.582082310508891,
+        "found": 0.005208333333333333,
+        "unknown": 0.0,
+        "dismissed": 0.9947916666666666
+      },
+      {
+        "family": "iron-based",
+        "label": "Iron- and nickel-based",
+        "n": 517,
+        "n_sc": 406,
+        "mae": 14.406090162863022,
+        "mae_median": 13.914832761481625,
+        "max_tc": 56.5,
+        "max_pred": 4.1581506511397635,
+        "found": 0.19704433497536947,
+        "unknown": 0.0,
+        "dismissed": 0.8029556650246306
+      },
+      {
+        "family": "heavy-fermion",
+        "label": "Heavy-fermion",
+        "n": 422,
+        "n_sc": 242,
+        "mae": 1.0661389120920777,
+        "mae_median": 9.555238404236965,
+        "max_tc": 16.6,
+        "max_pred": 5.5551958640406705,
+        "found": 0.008264462809917356,
+        "unknown": 0.0,
+        "dismissed": 0.9917355371900827
+      },
+      {
+        "family": "other oxide",
+        "label": "Other oxides",
+        "n": 310,
+        "n_sc": 171,
+        "mae": 5.553478036260095,
+        "mae_median": 6.040960021282258,
+        "max_tc": 31.5,
+        "max_pred": 35.144732070469665,
+        "found": 0.2631578947368421,
+        "unknown": 0.0,
+        "dismissed": 0.7368421052631579
+      }
+    ]
+  },
+  "leaderboard": [
+    {
+      "id": "H20",
+      "name": "Hurricane 3.0 + not known outside the training data",
+      "settings": "background compounds inside the training data only",
+      "X": "ABCDE",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "two_part": "mean",
+      "background": 0.3,
+      "radius": 1.0,
+      "abstain": 1.0,
+      "scores": {
+        "tc_mae": 10.431301832617148,
+        "tc_rmse": 18.10211977704994,
+        "sc_mae": 12.623860966898759,
+        "high_tc_mae": 24.710828924387464,
+        "r2_log": 0.47088144105326124,
+        "fold_mae": [
+          10.983511493192022,
+          10.305038076936405,
+          8.912931167091086,
+          9.314728249478794,
+          12.64287664987949
+        ],
+        "by_family": {
+          "cuprate": {
+            "n": 874,
+            "mae": 18.824703190008194
+          },
+          "iron-based": {
+            "n": 517,
+            "mae": 8.067131324174099
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "mae": 1.169107492654209
+          },
+          "other oxide": {
+            "n": 310,
+            "mae": 3.3186869228418066
+          }
+        }
+      },
+      "reliability": {
+        "false_alarms": 0.0,
+        "fa_folds": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "false_alarms_all": 0.0,
+        "unknown_sent": 0.7711864406779662,
+        "unknown_all": 0.8541423570595099,
+        "coverage": 0.93452661328309,
+        "brier": 0.1905668980244415,
+        "recall": 0.7670250896057348,
+        "recall_covered": 0.7625676720804331,
+        "share_sc_likely": 0.8182572614107884,
+        "share_sc_unlikely": 0.3940949935815148,
+        "shift": -0.006375076761205664,
+        "shift_abs": 0.018446764383168158,
+        "n_matched": 668,
+        "dismissed": 0.28011298592228406
+      },
+      "lofo": [
+        {
+          "family": "cuprate",
+          "label": "Cuprates",
+          "n": 874,
+          "n_sc": 576,
+          "mae": 34.41409762740597,
+          "mae_median": 34.1693695652746,
+          "max_tc": 132.9,
+          "max_pred": 11.139344021544053,
+          "found": 0.07291666666666667,
+          "unknown": 0.24131944444444445,
+          "dismissed": 0.6857638888888888
+        },
+        {
+          "family": "iron-based",
+          "label": "Iron- and nickel-based",
+          "n": 517,
+          "n_sc": 406,
+          "mae": 14.140966115603092,
+          "mae_median": 13.914832761481625,
+          "max_tc": 56.5,
+          "max_pred": 4.051470185368852,
+          "found": 0.0,
+          "unknown": 0.9753694581280788,
+          "dismissed": 0.024630541871921183
+        },
+        {
+          "family": "heavy-fermion",
+          "label": "Heavy-fermion",
+          "n": 422,
+          "n_sc": 242,
+          "mae": 1.9247918493787108,
+          "mae_median": 9.555238404236965,
+          "max_tc": 16.6,
+          "max_pred": 11.334081760950232,
+          "found": 0.0,
+          "unknown": 0.987603305785124,
+          "dismissed": 0.012396694214876033
+        },
+        {
+          "family": "other oxide",
+          "label": "Other oxides",
+          "n": 310,
+          "n_sc": 171,
+          "mae": 5.923373519344545,
+          "mae_median": 6.040960021282258,
+          "max_tc": 31.5,
+          "max_pred": 35.36689176429839,
+          "found": 0.24561403508771928,
+          "unknown": 0.3567251461988304,
+          "dismissed": 0.39766081871345027
+        }
+      ],
+      "n_features": 148,
+      "n_background": [
+        225,
+        194,
+        213,
+        203,
+        210
+      ],
+      "seconds": 67,
+      "folds_better": 5,
+      "folds_better_previous": 2,
+      "checks": {
+        "false_alarms": true,
+        "called_unlikely": true,
+        "coverage": true,
+        "tc": true,
+        "superconductors": true,
+        "brier": true,
+        "database_swap": true
+      },
+      "passed": true
+    },
+    {
+      "id": "H21",
+      "name": "Hurricane 3.0 + not known outside the training data",
+      "settings": "background compounds up to twice as far",
+      "X": "ABCDE",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "two_part": "mean",
+      "background": 0.3,
+      "radius": 2.0,
+      "abstain": 1.0,
+      "scores": {
+        "tc_mae": 10.256319542683817,
+        "tc_rmse": 17.793961521071086,
+        "sc_mae": 12.26331574111928,
+        "high_tc_mae": 23.96767036687508,
+        "r2_log": 0.4677151163792995,
+        "fold_mae": [
+          10.594902482628921,
+          10.027375410777314,
+          8.524554510544707,
+          9.305249931107605,
+          12.833341147757004
+        ],
+        "by_family": {
+          "cuprate": {
+            "n": 874,
+            "mae": 18.36239964109214
+          },
+          "iron-based": {
+            "n": 517,
+            "mae": 8.097642245726346
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "mae": 1.2026841433573345
+          },
+          "other oxide": {
+            "n": 310,
+            "mae": 3.3271463008577338
+          }
+        }
+      },
+      "reliability": {
+        "false_alarms": 0.0,
+        "fa_folds": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "false_alarms_all": 0.0,
+        "unknown_sent": 0.7711864406779662,
+        "unknown_all": 0.8541423570595099,
+        "coverage": 0.93452661328309,
+        "brier": 0.1830927288602253,
+        "recall": 0.7935483870967742,
+        "recall_covered": 0.8051044083526682,
+        "share_sc_likely": 0.8268467037331215,
+        "share_sc_unlikely": 0.34758620689655173,
+        "shift": -0.0070040549028742415,
+        "shift_abs": 0.021892514623137915,
+        "n_matched": 668,
+        "dismissed": 0.3116599522965531
+      },
+      "lofo": [
+        {
+          "family": "cuprate",
+          "label": "Cuprates",
+          "n": 874,
+          "n_sc": 576,
+          "mae": 34.57695370698396,
+          "mae_median": 34.1693695652746,
+          "max_tc": 132.9,
+          "max_pred": 10.582082310508891,
+          "found": 0.005208333333333333,
+          "unknown": 0.24131944444444445,
+          "dismissed": 0.7534722222222222
+        },
+        {
+          "family": "iron-based",
+          "label": "Iron- and nickel-based",
+          "n": 517,
+          "n_sc": 406,
+          "mae": 14.41227461007811,
+          "mae_median": 13.914832761481625,
+          "max_tc": 56.5,
+          "max_pred": 3.740323729114329,
+          "found": 0.0,
+          "unknown": 0.9753694581280788,
+          "dismissed": 0.024630541871921183
+        },
+        {
+          "family": "heavy-fermion",
+          "label": "Heavy-fermion",
+          "n": 422,
+          "n_sc": 242,
+          "mae": 1.1133519899462907,
+          "mae_median": 9.555238404236965,
+          "max_tc": 16.6,
+          "max_pred": 6.259127871698422,
+          "found": 0.0,
+          "unknown": 0.987603305785124,
+          "dismissed": 0.012396694214876033
+        },
+        {
+          "family": "other oxide",
+          "label": "Other oxides",
+          "n": 310,
+          "n_sc": 171,
+          "mae": 5.552347860876864,
+          "mae_median": 6.040960021282258,
+          "max_tc": 31.5,
+          "max_pred": 35.33159088490801,
+          "found": 0.1871345029239766,
+          "unknown": 0.3567251461988304,
+          "dismissed": 0.45614035087719296
+        }
+      ],
+      "n_features": 148,
+      "n_background": [
+        1374,
+        1384,
+        1365,
+        1363,
+        1355
+      ],
+      "seconds": 72,
+      "folds_better": 5,
+      "folds_better_previous": 4,
+      "checks": {
+        "false_alarms": true,
+        "called_unlikely": true,
+        "coverage": true,
+        "tc": true,
+        "superconductors": true,
+        "brier": true,
+        "database_swap": true
+      },
+      "passed": true
+    },
+    {
+      "id": "H19",
+      "name": "Hurricane 3.0 + not known outside the training data",
+      "settings": "all background compounds",
+      "X": "ABCDE",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "two_part": "mean",
+      "background": 0.3,
+      "radius": null,
+      "abstain": 1.0,
+      "scores": {
+        "tc_mae": 10.337908267073207,
+        "tc_rmse": 17.88449819754506,
+        "sc_mae": 12.355513396695358,
+        "high_tc_mae": 24.073849451564104,
+        "r2_log": 0.4605379364755293,
+        "fold_mae": [
+          10.882180261062732,
+          10.162006337326023,
+          8.474334150916372,
+          9.320930000540258,
+          12.853617010171392
+        ],
+        "by_family": {
+          "cuprate": {
+            "n": 874,
+            "mae": 18.487546462103083
+          },
+          "iron-based": {
+            "n": 517,
+            "mae": 8.18838649862082
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "mae": 1.230164592575529
+          },
+          "other oxide": {
+            "n": 310,
+            "mae": 3.344317307304802
+          }
+        }
+      },
+      "reliability": {
+        "false_alarms": 0.0,
+        "fa_folds": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "false_alarms_all": 0.0,
+        "unknown_sent": 0.7711864406779662,
+        "unknown_all": 0.8541423570595099,
+        "coverage": 0.93452661328309,
+        "brier": 0.18364773927191286,
+        "recall": 0.8157706093189964,
+        "recall_covered": 0.8167053364269141,
+        "share_sc_likely": 0.812933025404157,
+        "share_sc_unlikely": 0.345985401459854,
+        "shift": -0.006253592609680665,
+        "shift_abs": 0.020837544258459434,
+        "n_matched": 668,
+        "dismissed": 0.3145839289047402
+      },
+      "lofo": [
+        {
+          "family": "cuprate",
+          "label": "Cuprates",
+          "n": 874,
+          "n_sc": 576,
+          "mae": 34.57695370698396,
+          "mae_median": 34.1693695652746,
+          "max_tc": 132.9,
+          "max_pred": 10.582082310508891,
+          "found": 0.005208333333333333,
+          "unknown": 0.24131944444444445,
+          "dismissed": 0.7534722222222222
+        },
+        {
+          "family": "iron-based",
+          "label": "Iron- and nickel-based",
+          "n": 517,
+          "n_sc": 406,
+          "mae": 14.406090162863022,
+          "mae_median": 13.914832761481625,
+          "max_tc": 56.5,
+          "max_pred": 4.1581506511397635,
+          "found": 0.0,
+          "unknown": 0.9753694581280788,
+          "dismissed": 0.024630541871921183
+        },
+        {
+          "family": "heavy-fermion",
+          "label": "Heavy-fermion",
+          "n": 422,
+          "n_sc": 242,
+          "mae": 1.0661389120920777,
+          "mae_median": 9.555238404236965,
+          "max_tc": 16.6,
+          "max_pred": 5.5551958640406705,
+          "found": 0.0,
+          "unknown": 0.987603305785124,
+          "dismissed": 0.012396694214876033
+        },
+        {
+          "family": "other oxide",
+          "label": "Other oxides",
+          "n": 310,
+          "n_sc": 171,
+          "mae": 5.553478036260095,
+          "mae_median": 6.040960021282258,
+          "max_tc": 31.5,
+          "max_pred": 35.144732070469665,
+          "found": 0.17543859649122806,
+          "unknown": 0.3567251461988304,
+          "dismissed": 0.4678362573099415
+        }
+      ],
+      "n_features": 148,
+      "n_background": [
+        1375,
+        1385,
+        1367,
+        1367,
+        1357
+      ],
+      "seconds": 72,
+      "folds_better": 5,
+      "folds_better_previous": 0,
+      "checks": {
+        "false_alarms": true,
+        "called_unlikely": true,
+        "coverage": true,
+        "tc": true,
+        "superconductors": true,
+        "brier": true,
+        "database_swap": true
+      },
+      "passed": true
+    },
+    {
+      "id": "H12",
+      "name": "Hurricane 2.0",
+      "settings": "as released",
+      "X": "ABCDE",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "two_part": "mean",
+      "scores": {
+        "tc_mae": 10.306643127250513,
+        "tc_rmse": 17.867036398870482,
+        "sc_mae": 12.292694363326577,
+        "high_tc_mae": 23.8389581414671,
+        "r2_log": 0.4637112357229638,
+        "fold_mae": [
+          10.796858876678705,
+          9.706198878730053,
+          9.094862097361695,
+          9.436634239856474,
+          12.501779490627962
+        ],
+        "by_family": {
+          "cuprate": {
+            "n": 874,
+            "mae": 18.374420642781427
+          },
+          "iron-based": {
+            "n": 517,
+            "mae": 8.092637408755627
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "mae": 1.3547098192582303
+          },
+          "other oxide": {
+            "n": 310,
+            "mae": 3.439285913897561
+          }
+        }
+      },
+      "reliability": {
+        "false_alarms": 0.3898305084745763,
+        "fa_folds": [
+          0.3977272727272727,
+          0.425531914893617,
+          0.3625,
+          0.46875,
+          0.32
+        ],
+        "false_alarms_all": 0.5845974329054843,
+        "unknown_sent": 0.0,
+        "unknown_all": 0.0,
+        "coverage": 1.0,
+        "brier": 0.18613272010841939,
+        "recall": 0.7863799283154121,
+        "recall_covered": 0.7863799283154121,
+        "share_sc_likely": 0.8204936424831712,
+        "share_sc_unlikely": 0.3791348600508906,
+        "shift": -0.00589367576657149,
+        "shift_abs": 0.023085444993590186,
+        "n_matched": 668,
+        "dismissed": 0.5318799841626365
+      },
+      "lofo": [
+        {
+          "family": "cuprate",
+          "label": "Cuprates",
+          "n": 874,
+          "n_sc": 576,
+          "mae": 34.21315762647568,
+          "mae_median": 34.1693695652746,
+          "max_tc": 132.9,
+          "max_pred": 11.236952106250307,
+          "found": 0.2586805555555556,
+          "unknown": 0.0,
+          "dismissed": 0.7413194444444444
+        },
+        {
+          "family": "iron-based",
+          "label": "Iron- and nickel-based",
+          "n": 517,
+          "n_sc": 406,
+          "mae": 14.051510244428805,
+          "mae_median": 13.914832761481625,
+          "max_tc": 56.5,
+          "max_pred": 6.4195860306083805,
+          "found": 0.3916256157635468,
+          "unknown": 0.0,
+          "dismissed": 0.6083743842364532
+        },
+        {
+          "family": "heavy-fermion",
+          "label": "Heavy-fermion",
+          "n": 422,
+          "n_sc": 242,
+          "mae": 1.9845209858563506,
+          "mae_median": 9.555238404236965,
+          "max_tc": 16.6,
+          "max_pred": 11.430058475489467,
+          "found": 0.6198347107438017,
+          "unknown": 0.0,
+          "dismissed": 0.38016528925619836
+        },
+        {
+          "family": "other oxide",
+          "label": "Other oxides",
+          "n": 310,
+          "n_sc": 171,
+          "mae": 6.13738894159374,
+          "mae_median": 6.040960021282258,
+          "max_tc": 31.5,
+          "max_pred": 34.96411606186958,
+          "found": 0.6023391812865497,
+          "unknown": 0.0,
+          "dismissed": 0.39766081871345027
+        }
+      ],
+      "n_features": 148,
+      "n_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "seconds": 45,
+      "folds_better": 5,
+      "folds_better_previous": 3
+    },
+    {
+      "id": "H22",
+      "name": "Hurricane 3.0 + not known outside the training data",
+      "settings": "no chance beyond 1.5 times as far, background as far",
+      "X": "ABCDE",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "two_part": "mean",
+      "background": 0.3,
+      "radius": 1.5,
+      "abstain": 1.5,
+      "scores": {
+        "tc_mae": 10.452891942091835,
+        "tc_rmse": 18.058697071529632,
+        "sc_mae": 12.426676732556329,
+        "high_tc_mae": 24.344393185986032,
+        "r2_log": 0.4465208099122947,
+        "fold_mae": [
+          10.829109697394069,
+          10.299732558448955,
+          8.591017890016213,
+          9.566435023735142,
+          12.982029672186533
+        ],
+        "by_family": {
+          "cuprate": {
+            "n": 874,
+            "mae": 18.771798068011115
+          },
+          "iron-based": {
+            "n": 517,
+            "mae": 8.187550903242068
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "mae": 1.2201411738173504
+          },
+          "other oxide": {
+            "n": 310,
+            "mae": 3.34540222352317
+          }
+        }
+      },
+      "reliability": {
+        "false_alarms": 0.0,
+        "fa_folds": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "false_alarms_all": 0.0,
+        "unknown_sent": 0.20056497175141244,
+        "unknown_all": 0.28004667444574094,
+        "coverage": 0.9995289684408856,
+        "brier": 0.19010577192974676,
+        "recall": 0.8078853046594983,
+        "recall_covered": 0.8078853046594983,
+        "share_sc_likely": 0.8055754110078628,
+        "share_sc_unlikely": 0.3706777316735823,
+        "shift": -0.0050733110442191375,
+        "shift_abs": 0.020400043322368482,
+        "n_matched": 668,
+        "dismissed": 0.6241949174717334
+      },
+      "lofo": [
+        {
+          "family": "cuprate",
+          "label": "Cuprates",
+          "n": 874,
+          "n_sc": 576,
+          "mae": 34.55183688317599,
+          "mae_median": 34.1693695652746,
+          "max_tc": 132.9,
+          "max_pred": 9.504024355856203,
+          "found": 0.015625,
+          "unknown": 0.0,
+          "dismissed": 0.984375
+        },
+        {
+          "family": "iron-based",
+          "label": "Iron- and nickel-based",
+          "n": 517,
+          "n_sc": 406,
+          "mae": 14.220773689156832,
+          "mae_median": 13.914832761481625,
+          "max_tc": 56.5,
+          "max_pred": 4.326683024456391,
+          "found": 0.16009852216748768,
+          "unknown": 0.3842364532019704,
+          "dismissed": 0.45566502463054187
+        },
+        {
+          "family": "heavy-fermion",
+          "label": "Heavy-fermion",
+          "n": 422,
+          "n_sc": 242,
+          "mae": 1.2019063438830664,
+          "mae_median": 9.555238404236965,
+          "max_tc": 16.6,
+          "max_pred": 8.244397285267622,
+          "found": 0.01652892561983471,
+          "unknown": 0.6694214876033058,
+          "dismissed": 0.3140495867768595
+        },
+        {
+          "family": "other oxide",
+          "label": "Other oxides",
+          "n": 310,
+          "n_sc": 171,
+          "mae": 5.655060845762227,
+          "mae_median": 6.040960021282258,
+          "max_tc": 31.5,
+          "max_pred": 35.2199790952454,
+          "found": 0.25146198830409355,
+          "unknown": 0.005847953216374269,
+          "dismissed": 0.7426900584795322
+        }
+      ],
+      "n_features": 148,
+      "n_background": [
+        981,
+        1033,
+        990,
+        933,
+        965
+      ],
+      "seconds": 70,
+      "folds_better": 5,
+      "folds_better_previous": 1,
+      "checks": {
+        "false_alarms": true,
+        "called_unlikely": false,
+        "coverage": true,
+        "tc": true,
+        "superconductors": true,
+        "brier": true,
+        "database_swap": true
+      },
+      "passed": false
+    },
+    {
+      "id": "H17",
+      "name": "Hurricane 3.0",
+      "settings": "as released",
+      "X": "ABCDE",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "two_part": "mean",
+      "background": 0.3,
+      "scores": {
+        "tc_mae": 10.337908267073207,
+        "tc_rmse": 17.88449819754506,
+        "sc_mae": 12.355513396695358,
+        "high_tc_mae": 24.073849451564104,
+        "r2_log": 0.4605379364755293,
+        "fold_mae": [
+          10.882180261062732,
+          10.162006337326023,
+          8.474334150916372,
+          9.320930000540258,
+          12.853617010171392
+        ],
+        "by_family": {
+          "cuprate": {
+            "n": 874,
+            "mae": 18.487546462103083
+          },
+          "iron-based": {
+            "n": 517,
+            "mae": 8.18838649862082
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "mae": 1.230164592575529
+          },
+          "other oxide": {
+            "n": 310,
+            "mae": 3.344317307304802
+          }
+        }
+      },
+      "reliability": {
+        "false_alarms": 0.0,
+        "fa_folds": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "false_alarms_all": 0.0,
+        "unknown_sent": 0.0,
+        "unknown_all": 0.0,
+        "coverage": 1.0,
+        "brier": 0.18364773927191286,
+        "recall": 0.8157706093189964,
+        "recall_covered": 0.8157706093189964,
+        "share_sc_likely": 0.8157706093189964,
+        "share_sc_unlikely": 0.35302197802197804,
+        "shift": -0.006253592609680665,
+        "shift_abs": 0.020837544258459434,
+        "n_matched": 668,
+        "dismissed": 0.8815812435361344
+      },
+      "lofo": [
+        {
+          "family": "cuprate",
+          "label": "Cuprates",
+          "n": 874,
+          "n_sc": 576,
+          "mae": 34.57695370698396,
+          "mae_median": 34.1693695652746,
+          "max_tc": 132.9,
+          "max_pred": 10.582082310508891,
+          "found": 0.005208333333333333,
+          "unknown": 0.0,
+          "dismissed": 0.9947916666666666
+        },
+        {
+          "family": "iron-based",
+          "label": "Iron- and nickel-based",
+          "n": 517,
+          "n_sc": 406,
+          "mae": 14.406090162863022,
+          "mae_median": 13.914832761481625,
+          "max_tc": 56.5,
+          "max_pred": 4.1581506511397635,
+          "found": 0.19704433497536947,
+          "unknown": 0.0,
+          "dismissed": 0.8029556650246306
+        },
+        {
+          "family": "heavy-fermion",
+          "label": "Heavy-fermion",
+          "n": 422,
+          "n_sc": 242,
+          "mae": 1.0661389120920777,
+          "mae_median": 9.555238404236965,
+          "max_tc": 16.6,
+          "max_pred": 5.5551958640406705,
+          "found": 0.008264462809917356,
+          "unknown": 0.0,
+          "dismissed": 0.9917355371900827
+        },
+        {
+          "family": "other oxide",
+          "label": "Other oxides",
+          "n": 310,
+          "n_sc": 171,
+          "mae": 5.553478036260095,
+          "mae_median": 6.040960021282258,
+          "max_tc": 31.5,
+          "max_pred": 35.144732070469665,
+          "found": 0.2631578947368421,
+          "unknown": 0.0,
+          "dismissed": 0.7368421052631579
+        }
+      ],
+      "n_features": 148,
+      "n_background": [
+        1375,
+        1385,
+        1367,
+        1367,
+        1357
+      ],
+      "seconds": 72,
+      "folds_better": 5,
+      "folds_better_previous": 0
+    },
+    {
+      "id": "H0",
+      "name": "Composition only (baseline)",
+      "settings": "default",
+      "X": "A",
+      "params": {
+        "max_iter": 800,
+        "learning_rate": 0.04,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "scores": {
+        "tc_mae": 14.980738134752942,
+        "tc_rmse": 27.05647043265869,
+        "sc_mae": 21.17259334891475,
+        "high_tc_mae": 46.72895603059335,
+        "r2_log": 0.3001139033072844,
+        "fold_mae": [
+          14.20946954306056,
+          16.799571643611976,
+          14.864500090104094,
+          12.200062906075782,
+          16.82788996526957
+        ],
+        "by_family": {
+          "cuprate": {
+            "n": 874,
+            "mae": 29.244109354652345
+          },
+          "iron-based": {
+            "n": 517,
+            "mae": 9.401599027994466
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "mae": 1.0555407836080382
+          },
+          "other oxide": {
+            "n": 310,
+            "mae": 3.0280341159955406
+          }
+        }
+      },
+      "reliability": {
+        "false_alarms": null,
+        "dismissed": null
+      },
+      "lofo": [],
+      "n_features": 33,
+      "n_background": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "seconds": 8,
+      "folds_better": 0,
+      "folds_better_previous": 0
+    }
+  ],
+  "best": {
+    "id": "H20",
+    "name": "Hurricane 3.0 + not known outside the training data",
+    "settings": "background compounds inside the training data only",
+    "X": "ABCDE",
+    "params": {
+      "max_iter": 800,
+      "learning_rate": 0.04,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 10,
+      "l2_regularization": 1.0
+    },
+    "two_part": "mean",
+    "background": 0.3,
+    "radius": 1.0,
+    "abstain": 1.0,
+    "scores": {
+      "tc_mae": 10.431301832617148,
+      "tc_rmse": 18.10211977704994,
+      "sc_mae": 12.623860966898759,
+      "high_tc_mae": 24.710828924387464,
+      "r2_log": 0.47088144105326124,
+      "fold_mae": [
+        10.983511493192022,
+        10.305038076936405,
+        8.912931167091086,
+        9.314728249478794,
+        12.64287664987949
+      ],
+      "by_family": {
+        "cuprate": {
+          "n": 874,
+          "mae": 18.824703190008194
+        },
+        "iron-based": {
+          "n": 517,
+          "mae": 8.067131324174099
+        },
+        "heavy-fermion": {
+          "n": 422,
+          "mae": 1.169107492654209
+        },
+        "other oxide": {
+          "n": 310,
+          "mae": 3.3186869228418066
+        }
+      }
+    },
+    "reliability": {
+      "false_alarms": 0.0,
+      "fa_folds": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "false_alarms_all": 0.0,
+      "unknown_sent": 0.7711864406779662,
+      "unknown_all": 0.8541423570595099,
+      "coverage": 0.93452661328309,
+      "brier": 0.1905668980244415,
+      "recall": 0.7670250896057348,
+      "recall_covered": 0.7625676720804331,
+      "share_sc_likely": 0.8182572614107884,
+      "share_sc_unlikely": 0.3940949935815148,
+      "shift": -0.006375076761205664,
+      "shift_abs": 0.018446764383168158,
+      "n_matched": 668,
+      "dismissed": 0.28011298592228406
+    },
+    "lofo": [
+      {
+        "family": "cuprate",
+        "label": "Cuprates",
+        "n": 874,
+        "n_sc": 576,
+        "mae": 34.41409762740597,
+        "mae_median": 34.1693695652746,
+        "max_tc": 132.9,
+        "max_pred": 11.139344021544053,
+        "found": 0.07291666666666667,
+        "unknown": 0.24131944444444445,
+        "dismissed": 0.6857638888888888
+      },
+      {
+        "family": "iron-based",
+        "label": "Iron- and nickel-based",
+        "n": 517,
+        "n_sc": 406,
+        "mae": 14.140966115603092,
+        "mae_median": 13.914832761481625,
+        "max_tc": 56.5,
+        "max_pred": 4.051470185368852,
+        "found": 0.0,
+        "unknown": 0.9753694581280788,
+        "dismissed": 0.024630541871921183
+      },
+      {
+        "family": "heavy-fermion",
+        "label": "Heavy-fermion",
+        "n": 422,
+        "n_sc": 242,
+        "mae": 1.9247918493787108,
+        "mae_median": 9.555238404236965,
+        "max_tc": 16.6,
+        "max_pred": 11.334081760950232,
+        "found": 0.0,
+        "unknown": 0.987603305785124,
+        "dismissed": 0.012396694214876033
+      },
+      {
+        "family": "other oxide",
+        "label": "Other oxides",
+        "n": 310,
+        "n_sc": 171,
+        "mae": 5.923373519344545,
+        "mae_median": 6.040960021282258,
+        "max_tc": 31.5,
+        "max_pred": 35.36689176429839,
+        "found": 0.24561403508771928,
+        "unknown": 0.3567251461988304,
+        "dismissed": 0.39766081871345027
+      }
+    ],
+    "n_features": 148,
+    "n_background": [
+      225,
+      194,
+      213,
+      203,
+      210
+    ],
+    "seconds": 67,
+    "folds_better": 5,
+    "folds_better_previous": 2,
+    "checks": {
+      "false_alarms": true,
+      "called_unlikely": true,
+      "coverage": true,
+      "tc": true,
+      "superconductors": true,
+      "brier": true,
+      "database_swap": true
+    },
+    "passed": true
+  },
+  "adopted": true,
+  "top": {
+    "n": 50,
+    "kept": 0,
+    "kept_previous": 0,
+    "kept_reference": 43,
+    "unknown": 40,
+    "about": "of Hurricane 2.0's top 50 background compounds (sent by Radar, one per chemical system, by predicted Tc, out of fold): how many keep at least an even chance, and how many get no chance"
+  },
+  "spec": {
+    "inputs": [
+      {
+        "group": "composition",
+        "label": "Composition statistics",
+        "n": 33,
+        "detail": "mean, spread, min and max of 8 element properties, plus the number of elements"
+      },
+      {
+        "group": "structure",
+        "label": "Measurable crystal structure",
+        "n": 17,
+        "items": [
+          {
+            "name": "crystal system and lattice centring",
+            "why": "seven crystal systems and four centring types, one-hot"
+          },
+          {
+            "name": "pg_order",
+            "why": "order of the point group, a single number for how symmetric the crystal is"
+          },
+          {
+            "name": "vpa",
+            "why": "volume per atom"
+          },
+          {
+            "name": "density",
+            "why": "density from the composition and the volume per atom"
+          },
+          {
+            "name": "aniso",
+            "why": "longest over geometric mean of the two shorter reduced-cell edges, a measure of layering"
+          },
+          {
+            "name": "c_over_a",
+            "why": "c/a of the conventional cell for tetragonal and hexagonal crystals (1 for cubic)"
+          },
+          {
+            "name": "f_spacing",
+            "why": "volume per f-electron atom to the power 1/3, a proxy for the f-f distance that decides whether f electrons stay local (the Hill limit)"
+          }
+        ]
+      },
+      {
+        "group": "physics",
+        "label": "Physics features proposed by the AI",
+        "n": 15,
+        "items": [
+          {
+            "name": "tm_d",
+            "why": "d electrons per transition-metal atom from charge balance (Cu2+ is d9, Fe2+ d6, Ni+ d9); each family's parent compound sits at a characteristic filling and doping moves it away"
+          },
+          {
+            "name": "p_cu",
+            "why": "holes per Cu from charge balance (negative for electron doping); cuprate Tc rises and falls with it"
+          },
+          {
+            "name": "dome",
+            "why": "the empirical cuprate dome 1 - 82.6 (p - 0.16)^2 (Presland and Tallon), largest at p = 0.16"
+          },
+          {
+            "name": "cu_layers",
+            "why": "Cu atoms per formula unit, a proxy for the number of CuO2 planes; Tc rises from one to three planes"
+          },
+          {
+            "name": "heavy_block",
+            "why": "share of Hg, Tl, Bi and Pb, the heavy-metal charge reservoirs of the highest-Tc cuprates"
+          },
+          {
+            "name": "fe_based",
+            "why": "iron or nickel together with a pnictogen or chalcogen, the FeAs- or FeSe-type layer"
+          },
+          {
+            "name": "f_share",
+            "why": "share of atoms with a partly filled f shell (Ce, Yb, U, Pu and others), the local moments of heavy-fermion metals"
+          },
+          {
+            "name": "f_count",
+            "why": "nominal f-electron count of those atoms"
+          },
+          {
+            "name": "mag3d",
+            "why": "share of magnetic 3d atoms (V to Cu), a proxy for spin fluctuations"
+          },
+          {
+            "name": "nonint",
+            "why": "share of non-integer stoichiometry, which marks doped samples"
+          },
+          {
+            "name": "n_atoms_fu",
+            "why": "atoms per formula unit as written, a measure of chemical complexity"
+          },
+          {
+            "name": "oxide",
+            "why": "share of oxygen"
+          },
+          {
+            "name": "chalcogenide",
+            "why": "share of S, Se and Te"
+          },
+          {
+            "name": "pnictide",
+            "why": "share of P, As and Sb"
+          },
+          {
+            "name": "halide",
+            "why": "share of F, Cl, Br and I"
+          }
+        ]
+      },
+      {
+        "group": "elements",
+        "label": "Element fractions",
+        "n": 64,
+        "detail": "the share of each element seen in at least ten training compounds"
+      },
+      {
+        "group": "types",
+        "label": "Structure types proposed by the AI",
+        "n": 19,
+        "items": [
+          {
+            "name": "123_cuprate",
+            "why": "RE Ba2 Cu3 O6+x stoichiometry (YBCO and its rare-earth cousins): two CuO2 planes next to CuO chains"
+          },
+          {
+            "name": "214_cuprate",
+            "why": "A2 CuO4 stoichiometry (La2-xSrxCuO4 and relatives): single CuO2 planes in a rock-salt stack"
+          },
+          {
+            "name": "electron_doped_cuprate",
+            "why": "A2 CuO4 with cerium on the A site (Nd2-xCexCuO4, T' structure): doped with electrons"
+          },
+          {
+            "name": "Bi_cuprate",
+            "why": "bismuth with strontium, copper and oxygen: the Bi-2201, 2212 and 2223 series"
+          },
+          {
+            "name": "Tl_cuprate",
+            "why": "thallium-based cuprates, among the highest Tc at ambient pressure"
+          },
+          {
+            "name": "Hg_cuprate",
+            "why": "mercury-based cuprates, the record-holding Hg-12(n-1)n series"
+          },
+          {
+            "name": "infinite_layer_cuprate",
+            "why": "A CuO2 with no other charge reservoir: infinite-layer (Sr,Ca)CuO2"
+          },
+          {
+            "name": "1111_pnictide",
+            "why": "RE (or alkaline earth) Fe As O/F with one of each: the LaFeAsO family, Tc up to 55 K"
+          },
+          {
+            "name": "122_pnictide",
+            "why": "A Fe2 As2 with an alkaline-earth or alkali A: the BaFe2As2 family"
+          },
+          {
+            "name": "111_pnictide",
+            "why": "A Fe As with an alkali A: LiFeAs and NaFeAs"
+          },
+          {
+            "name": "11_chalcogenide",
+            "why": "Fe with Se, Te or S and no other cation: FeSe and Fe(Se,Te)"
+          },
+          {
+            "name": "122_chalcogenide",
+            "why": "an alkali with Fe2Se2: intercalated iron selenides such as KxFe2-ySe2"
+          },
+          {
+            "name": "nickel_pnictide",
+            "why": "nickel instead of iron in the pnictide or chalcogenide layer: low-Tc cousins such as LaNiAsO"
+          },
+          {
+            "name": "115_heavy_fermion",
+            "why": "an f element, a Co, Rh or Ir atom and five In or Ga atoms: the CeCoIn5 family"
+          },
+          {
+            "name": "122_heavy_fermion",
+            "why": "an f element with two transition-metal and two Si or Ge atoms: the CeCu2Si2 (ThCr2Si2) family"
+          },
+          {
+            "name": "nickelate_oxide",
+            "why": "nickel oxides without copper: the nickelate family, in 3DSC mostly non-superconducting"
+          },
+          {
+            "name": "bismuthate_oxide",
+            "why": "bismuth oxides with Ba or K and no copper: Ba1-xKxBiO3 and BaPb1-xBixO3, Tc up to about 30 K"
+          },
+          {
+            "name": "ruthenate_oxide",
+            "why": "ruthenium oxides with strontium: Sr2RuO4, a long-debated candidate for unconventional pairing"
+          },
+          {
+            "name": "cobaltate_oxide",
+            "why": "cobalt oxides with sodium: NaxCoO2, superconducting when hydrated"
+          }
+        ]
+      }
+    ],
+    "learner": {
+      "kind": "gradient-boosting",
+      "trees": 800,
+      "leaves": 31,
+      "learning_rate": 0.04,
+      "min_leaf": 10,
+      "l2": 1.0,
+      "features_per_split": 1.0,
+      "ensemble": 1,
+      "loss": "squared error",
+      "weights": null,
+      "two_part": "a gradient-boosting classifier gives the probability that the compound superconducts; the regressor, trained on superconductors only, gives its Tc; the prediction is their product",
+      "background": "218 JARVIS-DFT compounds with no superconductivity record, within 1 times the training data's spread, join the classifier as non-superconducting at weight 0.3; the Tc regressor never sees them",
+      "not_known": "no chance (not known) for a compound further from every training compound than 1 times the distance that separates 95% of the training compounds from their nearest neighbour in another parent compound"
+    },
+    "target": "log(1 + Tc)",
+    "cv": "5-fold, grouped by parent compound (the Materials Project chemical system)"
+  },
+  "changes": [
+    "Adds measurable crystal structure: crystal system, centring, point-group order, volume per atom, density, layering (anisotropy and c/a) and the f-f spacing",
+    "Adds physics features proposed by the AI: the d-electron count of the transition-metal layer from charge balance, the cuprate hole doping p and its Tc dome, the number of CuO2 planes, heavy-metal charge reservoirs, the FeAs/FeSe-type layer, f-electron share and count, magnetic 3d share and a doping indicator",
+    "Adds the share of each common element",
+    "Adds structure types proposed by the AI, read from the stoichiometry: 123, 214, electron-doped, Bi-, Tl-, Hg-based and infinite-layer cuprates; 1111, 122, 111 and 11 iron-based compounds; 115 and 122 heavy-fermion compounds; nickel pnictides; nickelate, bismuthate, ruthenate and cobaltate oxides",
+    "Splits the prediction in two: whether the compound superconducts, and its Tc if it does",
+    "Adds the compounds with no superconductivity record (Hurricane's JARVIS-DFT screening pool) that lie within 1 times the training data's spread, to the classifier as non-superconducting at weight 0.3, after Konno et al. (2021)",
+    "Gives no chance to a compound outside the training data"
+  ],
+  "importance": [
+    {
+      "name": "tm_d",
+      "gain": 2.756
+    },
+    {
+      "name": "aniso",
+      "gain": 1.703
+    },
+    {
+      "name": "x_Cu",
+      "gain": 1.681
+    },
+    {
+      "name": "p_cu",
+      "gain": 1.046
+    },
+    {
+      "name": "nonint",
+      "gain": 1.018
+    },
+    {
+      "name": "dome",
+      "gain": 0.869
+    },
+    {
+      "name": "x_Pr",
+      "gain": 0.745
+    },
+    {
+      "name": "n_atoms_fu",
+      "gain": 0.564
+    },
+    {
+      "name": "x_Fe",
+      "gain": 0.48
+    },
+    {
+      "name": "x_Ca",
+      "gain": 0.455
+    },
+    {
+      "name": "X_mean",
+      "gain": 0.441
+    },
+    {
+      "name": "oxide",
+      "gain": 0.337
+    },
+    {
+      "name": "X_std",
+      "gain": 0.333
+    },
+    {
+      "name": "x_Co",
+      "gain": 0.284
+    },
+    {
+      "name": "valence_mean",
+      "gain": 0.254
+    }
+  ],
+  "lofo": [
+    {
+      "family": "cuprate",
+      "label": "Cuprates",
+      "n": 874,
+      "n_sc": 576,
+      "mae": 34.41409762740597,
+      "mae_median": 34.1693695652746,
+      "max_tc": 132.9,
+      "max_pred": 11.139344021544053,
+      "found": 0.07291666666666667,
+      "unknown": 0.24131944444444445,
+      "dismissed": 0.6857638888888888,
+      "mae_cv": 18.824703190008194,
+      "mae_baseline": 34.11143392063833,
+      "mae_previous": 34.57695370698396,
+      "found_previous": 0.005208333333333333,
+      "dismissed_previous": 0.9947916666666666,
+      "found_reference": 0.2586805555555556,
+      "dismissed_reference": 0.7413194444444444
+    },
+    {
+      "family": "iron-based",
+      "label": "Iron- and nickel-based",
+      "n": 517,
+      "n_sc": 406,
+      "mae": 14.140966115603092,
+      "mae_median": 13.914832761481625,
+      "max_tc": 56.5,
+      "max_pred": 4.051470185368852,
+      "found": 0.0,
+      "unknown": 0.9753694581280788,
+      "dismissed": 0.024630541871921183,
+      "mae_cv": 8.067131324174099,
+      "mae_baseline": 14.376070455073767,
+      "mae_previous": 14.406090162863022,
+      "found_previous": 0.19704433497536947,
+      "dismissed_previous": 0.8029556650246306,
+      "found_reference": 0.3916256157635468,
+      "dismissed_reference": 0.6083743842364532
+    },
+    {
+      "family": "heavy-fermion",
+      "label": "Heavy-fermion",
+      "n": 422,
+      "n_sc": 242,
+      "mae": 1.9247918493787108,
+      "mae_median": 9.555238404236965,
+      "max_tc": 16.6,
+      "max_pred": 11.334081760950232,
+      "found": 0.0,
+      "unknown": 0.987603305785124,
+      "dismissed": 0.012396694214876033,
+      "mae_cv": 1.169107492654209,
+      "mae_baseline": 2.781133053017064,
+      "mae_previous": 1.0661389120920777,
+      "found_previous": 0.008264462809917356,
+      "dismissed_previous": 0.9917355371900827,
+      "found_reference": 0.6198347107438017,
+      "dismissed_reference": 0.38016528925619836
+    },
+    {
+      "family": "other oxide",
+      "label": "Other oxides",
+      "n": 310,
+      "n_sc": 171,
+      "mae": 5.923373519344545,
+      "mae_median": 6.040960021282258,
+      "max_tc": 31.5,
+      "max_pred": 35.36689176429839,
+      "found": 0.24561403508771928,
+      "unknown": 0.3567251461988304,
+      "dismissed": 0.39766081871345027,
+      "mae_cv": 3.3186869228418066,
+      "mae_baseline": 5.768521424864997,
+      "mae_previous": 5.553478036260095,
+      "found_previous": 0.2631578947368421,
+      "dismissed_previous": 0.7368421052631579,
+      "found_reference": 0.6023391812865497,
+      "dismissed_reference": 0.39766081871345027
+    }
+  ],
+  "anchors": {
+    "summary": {
+      "n_scored": 5,
+      "n_listed": 10,
+      "mae": 9.75,
+      "scored_as_check": false,
+      "rule": "reported as a score only with at least 8 scored measurements; never used for training or for choosing the design",
+      "about": "Measured Tc of materials outside Hurricane's training data, most of them found after the 2018 SuperCon snapshot that 3DSC is built on. They are only predicted, never used for training or for choosing a design. Each entry carries a reliability grade. Only replicated, ambient-pressure, bulk measurements in Hurricane's four families are scored; thin films, high pressure, metastable states, families outside its training data and single reports are shown but not scored, and refuted claims are listed only to record why they are left out. Lattice parameters are approximate literature values for the conventional cell and serve only as model inputs."
+    },
+    "table": [
+      {
+        "name": "UTe2",
+        "tc_exp": 2.0,
+        "status": "replicated",
+        "use": "score",
+        "family": "heavy-fermion",
+        "source": "rosa2022",
+        "note": "found in 2019 at 1.6 K (ran2019); cleaner crystals reach 2.0 K",
+        "pred": 0.18,
+        "p_sc": 0.175,
+        "tc_sc": 1.05,
+        "rule": "mean",
+        "physics": {
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.333,
+          "nonint": 0.0
+        },
+        "types": [],
+        "pred_previous": 0.01,
+        "p_sc_previous": 0.01,
+        "ratio": 1.03,
+        "unknown": true
+      },
+      {
+        "name": "CeRh2As2",
+        "tc_exp": 0.26,
+        "status": "replicated",
+        "use": "score",
+        "family": "heavy-fermion",
+        "source": "khim2021",
+        "note": "two superconducting phases in a magnetic field",
+        "pred": 4.31,
+        "p_sc": 0.793,
+        "tc_sc": 5.43,
+        "rule": "mean",
+        "physics": {
+          "tm_d": 7.5,
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.2,
+          "nonint": 0.0
+        },
+        "types": [],
+        "pred_previous": 4.22,
+        "p_sc_previous": 0.777,
+        "ratio": 0.77
+      },
+      {
+        "name": "La3Ni2O7, bulk at ambient pressure",
+        "tc_exp": 0.0,
+        "status": "replicated",
+        "use": "score",
+        "family": "other oxide",
+        "source": "sun2023",
+        "note": "not superconducting at ambient pressure; about 80 K above 14 GPa",
+        "pred": 0.09,
+        "p_sc": 0.037,
+        "tc_sc": 2.35,
+        "rule": "mean",
+        "physics": {
+          "tm_d": 7.5,
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.0
+        },
+        "types": [
+          "nickelate_oxide"
+        ],
+        "pred_previous": 0.13,
+        "p_sc_previous": 0.055,
+        "ratio": 0.45
+      },
+      {
+        "name": "Nd0.8Sr0.2NiO2, bulk",
+        "tc_exp": 0.0,
+        "status": "replicated",
+        "use": "score",
+        "family": "other oxide",
+        "source": "li2020",
+        "note": "bulk samples do not superconduct, unlike thin films",
+        "pred": 0.7,
+        "p_sc": 0.145,
+        "tc_sc": 4.79,
+        "rule": "mean",
+        "physics": {
+          "tm_d": 8.8,
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.2,
+          "nonint": 0.1
+        },
+        "types": [
+          "nickelate_oxide"
+        ],
+        "pred_previous": 1.65,
+        "p_sc_previous": 0.344,
+        "ratio": 0.38
+      },
+      {
+        "name": "HgBa2Ca2Cu3O8+\u03b4 (Hg-1223)",
+        "tc_exp": 133,
+        "status": "replicated",
+        "use": "score",
+        "family": "cuprate",
+        "source": "schilling1993",
+        "note": "the ambient-pressure record since 1993; \u03b4 \u2248 0.25 assumed (near optimal doping); absent from the 3DSC training data",
+        "pred": 90.89,
+        "p_sc": 0.999,
+        "tc_sc": 91.0,
+        "rule": "mean",
+        "physics": {
+          "p_cu": 0.167,
+          "dome": 0.996,
+          "cu_layers": 3.0,
+          "tm_d": 8.833,
+          "heavy_block": 0.062,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.015
+        },
+        "types": [
+          "Hg_cuprate"
+        ],
+        "pred_previous": 90.89,
+        "p_sc_previous": 0.999,
+        "ratio": 0.11
+      },
+      {
+        "name": "Nd0.8Sr0.2NiO2, thin film",
+        "tc_exp": 15,
+        "status": "replicated",
+        "use": "show",
+        "family": "other oxide",
+        "source": "li2019",
+        "note": "films on SrTiO3 superconduct at 9 to 15 K; films are outside Hurricane's bulk training data",
+        "pred": 0.68,
+        "p_sc": 0.145,
+        "tc_sc": 4.7,
+        "rule": "mean",
+        "physics": {
+          "tm_d": 8.8,
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.2,
+          "nonint": 0.1
+        },
+        "types": [
+          "nickelate_oxide"
+        ],
+        "pred_previous": 1.67,
+        "p_sc_previous": 0.355,
+        "ratio": 0.38
+      },
+      {
+        "name": "Hg-1223 after a pressure quench",
+        "tc_exp": 151,
+        "status": "single report",
+        "use": "show",
+        "family": "cuprate",
+        "source": "deng2026",
+        "note": "a metastable state kept at ambient pressure after squeezing and a fast release; one group so far",
+        "pred": 90.89,
+        "p_sc": 0.999,
+        "tc_sc": 91.0,
+        "rule": "mean",
+        "physics": {
+          "p_cu": 0.167,
+          "dome": 0.996,
+          "cu_layers": 3.0,
+          "tm_d": 8.833,
+          "heavy_block": 0.062,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.015
+        },
+        "types": [
+          "Hg_cuprate"
+        ],
+        "pred_previous": 90.89,
+        "p_sc_previous": 0.999,
+        "ratio": 0.11
+      },
+      {
+        "name": "CsV3Sb5",
+        "tc_exp": 2.5,
+        "status": "replicated",
+        "use": "show",
+        "family": "kagome",
+        "source": "ortiz2020",
+        "note": "kagome metal, outside Hurricane's four families",
+        "pred": 1.82,
+        "p_sc": 0.428,
+        "tc_sc": 4.25,
+        "rule": "mean",
+        "physics": {
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.0
+        },
+        "types": [],
+        "pred_previous": 0.84,
+        "p_sc_previous": 0.198,
+        "ratio": 1.24,
+        "unknown": true
+      },
+      {
+        "name": "KV3Sb5",
+        "tc_exp": 0.93,
+        "status": "replicated",
+        "use": "show",
+        "family": "kagome",
+        "source": "ortiz2021",
+        "note": "kagome metal, outside Hurricane's four families",
+        "pred": 1.7,
+        "p_sc": 0.386,
+        "tc_sc": 4.4,
+        "rule": "mean",
+        "physics": {
+          "heavy_block": 0.0,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.0
+        },
+        "types": [],
+        "pred_previous": 0.57,
+        "p_sc_previous": 0.129,
+        "ratio": 1.25,
+        "unknown": true
+      },
+      {
+        "name": "LK-99 (Cu-doped lead apatite)",
+        "tc_exp": null,
+        "status": "refuted",
+        "use": "exclude",
+        "family": "other oxide",
+        "source": "zhu2023",
+        "note": "the resistivity jumps come from Cu2S impurities",
+        "pred": 1.27,
+        "p_sc": 0.938,
+        "tc_sc": 1.36,
+        "rule": "mean",
+        "physics": {
+          "cu_layers": 1.0,
+          "heavy_block": 0.22,
+          "fe_based": 0.0,
+          "f_share": 0.0,
+          "nonint": 0.0
+        },
+        "types": [],
+        "pred_previous": 1.06,
+        "p_sc_previous": 0.778,
+        "ratio": 0.89
+      }
+    ],
+    "sources": {
+      "rosa2022": "P. F. S. Rosa et al., Commun. Mater. 3, 33 (2022), doi:10.1038/s43246-022-00254-2",
+      "ran2019": "S. Ran et al., Science 365, 684 (2019), doi:10.1126/science.aav8645",
+      "khim2021": "S. Khim et al., Science 373, 1012 (2021), doi:10.1126/science.abe7518",
+      "sun2023": "H. Sun et al., Nature 621, 493 (2023), doi:10.1038/s41586-023-06408-7",
+      "li2020": "Q. Li et al., Commun. Mater. 1, 16 (2020), doi:10.1038/s43246-020-0018-1",
+      "li2019": "D. Li et al., Nature 572, 624 (2019), doi:10.1038/s41586-019-1496-5",
+      "schilling1993": "A. Schilling et al., Nature 363, 56 (1993), doi:10.1038/363056a0",
+      "deng2026": "L. Deng et al., PNAS 123, e2536178123 (2026), doi:10.1073/pnas.2536178123",
+      "ortiz2020": "B. R. Ortiz et al., Phys. Rev. Lett. 125, 247002 (2020), doi:10.1103/PhysRevLett.125.247002",
+      "ortiz2021": "B. R. Ortiz et al., Phys. Rev. Materials 5, 034801 (2021), doi:10.1103/PhysRevMaterials.5.034801",
+      "zhu2023": "S. Zhu et al., Matter 6, 4401 (2023), doi:10.1016/j.matt.2023.11.001"
+    }
+  },
+  "minutes": 8.6
+}
