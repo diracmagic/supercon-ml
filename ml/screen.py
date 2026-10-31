@@ -36,7 +36,9 @@ Hurricane is the released design (round 2's H12: the chance that a compound supe
 refitted on all of its 3DSC data; its range is one width on log(1 + Tc) for the Tc if it superconducts, set from its
 out-of-fold errors on the superconducting entries (90%). A round-3 design also learns from Hurricane's whole pool as
 background compounds with no superconductivity record (ml/hurricane3.py); then every compound is scored by a model that
-did not learn from the background fold of its chemical system.
+did not learn from the background fold of its chemical system. A round-4 design (ml/hurricane4.py) may use only the
+background compounds near its training data, and gives no chance to a compound too far from it ("not known"); from round
+4 such compounds are counted but not listed.
 
 Every candidate also carries the training material nearest to it in its model's inputs, and is marked as outside the
 training data if it is further from every training material than 95% of the training materials are from their nearest
@@ -77,7 +79,7 @@ import storm3 as S3
 import storm4 as S4
 import storm5 as S5
 
-ROUND = 3
+ROUND = 4
 SMOKE = os.environ.get("SCREEN_SMOKE") == "1"
 POOL = "dft_3d"
 GAP_MAX = 0.005          # eV (OptB88vdW): metals
@@ -666,7 +668,7 @@ H4 = {"id": "H4", "name": "Composition + structure + physics + element fractions
       "X": "ABCD", "params": H.PARAMS}
 
 
-def hurricane_design(upto: int = 3) -> tuple[dict, str]:
+def hurricane_design(upto: int = 4) -> tuple[dict, str]:
     """The released Hurricane design and its version: the best design of the latest round (up to `upto`) that released
     one, else Hurricane 1.0; with no results file at all (the smoke test), Hurricane 2.0 as released (H12)."""
     found = False
@@ -678,7 +680,8 @@ def hurricane_design(upto: int = 3) -> tuple[dict, str]:
         found = True
         best = d.get("best") or {}
         if d.get("adopted") and best.get("X"):
-            keep = ("id", "name", "settings", "X", "params", "two_part", "per_family", "bags", "background")
+            keep = ("id", "name", "settings", "X", "params", "two_part", "per_family", "bags", "background", "radius",
+                    "abstain")
             c = {k: best[k] for k in keep if best.get(k) is not None}
             c["params"] = dict(c.get("params") or H.PARAMS)
             return c, str(d.get("version") or f"{rnd}.0")
@@ -686,18 +689,30 @@ def hurricane_design(upto: int = 3) -> tuple[dict, str]:
 
 
 def hurricane_reliability(version: str) -> dict | None:
-    """Round 3's reliability check of the Hurricane version in use (false alarms against the version before), if any."""
-    try:
-        d = json.loads((P.RESULTS / "hurricane_round3.json").read_text(encoding="utf-8"))
-    except (OSError, ValueError):
-        return None
-    if not d.get("adopted") or str(d.get("version")) != str(version):
-        return None
-    br, pr = (d.get("best") or {}).get("reliability") or {}, (d.get("previous") or {}).get("reliability") or {}
-    return {"false_alarms": _r(br.get("false_alarms"), 3), "false_alarms_previous": _r(pr.get("false_alarms"), 3),
-            "previous": (d.get("previous") or {}).get("version"), "about": d.get("false_alarms_about"),
-            "n_background": (d.get("background") or {}).get("n"), "cite": (d.get("background") or {}).get("cite"),
-            "doi": (d.get("background") or {}).get("doi")}
+    """The reliability check of the Hurricane version in use, from the round that released it (round 3: false alarms
+    against the version before; round 4 also: how many superconductors of a left-out family it calls unlikely)."""
+    for rnd in (4, 3):
+        try:
+            d = json.loads((P.RESULTS / f"hurricane_round{rnd}.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if not d.get("adopted") or str(d.get("version")) != str(version):
+            continue
+        best, prev = d.get("best") or {}, d.get("previous") or {}
+        br, pr = best.get("reliability") or {}, prev.get("reliability") or {}
+        bg = d.get("background") or {}
+        out = {"false_alarms": _r(br.get("false_alarms"), 3), "false_alarms_previous": _r(pr.get("false_alarms"), 3),
+               "previous": prev.get("version"), "about": d.get("false_alarms_about"),
+               "n_background": bg.get("n_used", bg.get("n")), "cite": bg.get("cite"), "doi": bg.get("doi")}
+        if rnd >= 4:
+            ref = d.get("reference") or {}
+            out.update({"dismissed": _r(br.get("dismissed"), 3), "dismissed_previous": _r(pr.get("dismissed"), 3),
+                        "dismissed_reference": _r((ref.get("reliability") or {}).get("dismissed"), 3),
+                        "reference": ref.get("version"), "false_alarms_reference": _r((ref.get("reliability") or {}).get("false_alarms"), 3),
+                        "abstain": best.get("abstain"), "dismissed_about": d.get("dismissed_about"),
+                        "unknown_about": d.get("unknown_about")})
+        return out
+    return None
 
 
 def hur_blocks(df: pd.DataFrame, table: pd.DataFrame, elements: list) -> dict:
@@ -772,39 +787,59 @@ def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None)
         sys_b = bg["chemsys"].to_numpy()
         fold_b = np.array([H3.bg_fold(s) for s in sys_b])
         sys3 = np.array([H3.chemsys_of(cc) for cc in hur["comp"]])
-    o_p, o_tc = np.full(len(y), np.nan), np.zeros(len(y))
+    o_p, o_tc, o_unk = np.full(len(y), np.nan), np.zeros(len(y)), np.zeros(len(y), bool)
+    radius, abstain = c.get("radius"), c.get("abstain")
+    if radius or abstain:
+        import hurricane4 as H4   # here, not at the top: hurricane4 imports this module
     for k, (tr, te) in enumerate(GroupKFold(n_splits=P.N_FOLDS).split(X, y, groups)):
-        xb = Xb[H3.train_mask(k, fold_b, sys_b, set(sys3[te]))] if bg is not None else None
+        xb = None
+        if bg is not None:
+            use = H3.train_mask(k, fold_b, sys_b, set(sys3[te]))
+            if radius:   # round 4: only the background compounds near this fold's training part
+                use &= H4.ratio(X[tr], groups[tr], Xb) <= radius
+            xb = Xb[use]
         d = H2.Design(c, P.SEED + k).fit(X[tr], y[tr], fam[tr], Xb=xb)
         o_p[te], o_tc[te] = hur_parts(d, X[te], fam[te])
+        if abstain:   # round 4: no chance for a held-out entry outside this fold's training part
+            o_unk[te] = H4.ratio(X[tr], groups[tr], X[te]) > abstain
     sc = y > 0
     width = S5.cq(np.abs(np.log1p(y[sc]) - np.log1p(o_tc[sc])), S5.ALPHA)
     cover = float(np.mean((y[sc] >= np.clip(np.expm1(np.log1p(o_tc[sc]) - width), 0, None)) &
                           (y[sc] <= np.expm1(np.log1p(o_tc[sc]) + width))))
-    likely = np.isfinite(o_p) & (o_p >= 0.5)
-    check = {"n": int(len(y)), "n_sc": int(sc.sum()), "share_sc": round(float(sc.mean()), 3), "n_likely": int(likely.sum()),
+    given = np.isfinite(o_p) & ~o_unk
+    likely = given & (o_p >= 0.5)
+    check = {"n": int(given.sum()), "n_sc": int(sc[given].sum()), "share_sc": round(float(sc[given].mean()), 3), "n_likely": int(likely.sum()),
              "share_sc_likely": round(float(sc[likely].mean()), 3) if likely.any() else None,
-             "share_sc_unlikely": round(float(sc[np.isfinite(o_p) & ~likely].mean()), 3) if (np.isfinite(o_p) & ~likely).any() else None,
+             "share_sc_unlikely": round(float(sc[given & ~likely].mean()), 3) if (given & ~likely).any() else None,
              "about": ("out of fold on the 3DSC entries: of the compounds Hurricane gave at least an even chance, the share that "
-                       "superconduct, against the share among the others")}
+                       "superconduct, against the share among the others" +
+                       (f"; {int(o_unk.sum())} of the {len(y):,} entries lie outside the training part of their fold and get "
+                        "no chance" if abstain else ""))}
     P.log(f"Hurricane {version} ({c['id']}) out of fold: range width {width:.4f} on log(1 + Tc), coverage {cover:.3f} on "
           f"{int(sc.sum())} superconductors; {check['share_sc_likely']} of the {check['n_likely']} entries given at least an "
           f"even chance superconduct, against {check['share_sc_unlikely']} of the others ({time.time() - t0:.0f} s)")
     # the models for the pool: one, or with background compounds one per background fold, each without that fold
-    finals = ([H2.Design(c, P.SEED + 500).fit(X, y, fam, Xb=Xb[fold_b != k]) for k in range(P.N_FOLDS)]
-              if bg is not None else [H2.Design(c, P.SEED + 500).fit(X, y, fam)])
+    if bg is not None:
+        near = H4.ratio(X, groups, Xb) <= radius if radius else np.ones(len(Xb), bool)
+        finals = [H2.Design(c, P.SEED + 500).fit(X, y, fam, Xb=Xb[(fold_b != k) & near]) for k in range(P.N_FOLDS)]
+    else:
+        finals = [H2.Design(c, P.SEED + 500).fit(X, y, fam)]
     n_p = len(pool)
     info = {"version": version, "id": c["id"], "name": c["name"], "settings": c.get("settings"),
             "two_part": c.get("two_part"), "n_train": int(len(y)), "n_train_sc": int(sc.sum()),
             "width_log": round(float(width), 4), "oof_coverage": round(cover, 3), "check": check}
     if bg is not None:
-        info["background"] = {"n": int(len(bg)), "weight": float(c["background"]), "cross_fitted": True}
+        info["background"] = {"n": int(near.sum()), "weight": float(c["background"]), "cross_fitted": True,
+                              "radius": radius, "pool": int(len(bg))}
+    if abstain:
+        info["abstain"] = float(abstain)
     rel = hurricane_reliability(version)
     if rel:
         info["reliability"] = rel
     if not n_p:
         return {"tc": np.zeros(0), "p_sc": np.zeros(0), "tc_sc": np.zeros(0), "lo": np.zeros(0), "hi": np.zeros(0),
-                "family": [], "types": [], "novel": np.zeros(0), "near_formula": [], "near_tc": np.zeros(0), "info": info}
+                "family": [], "types": [], "novel": np.zeros(0), "near_formula": [], "near_tc": np.zeros(0), "info": info,
+                "not_known": np.zeros(0, bool)}
     pb = hur_blocks(pool, table, elements)
     Xp = np.hstack([pb[b].to_numpy(float) for b in c["X"]])
     if Xp.shape[1] != X.shape[1]:
@@ -823,8 +858,15 @@ def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None)
     nv = novelty(X, groups, Xp)
     info["novelty_limit"] = round(nv["limit"], 3)
     P.log(f"Hurricane: {int((nv['ratio'] > 1).sum()):,} of the {n_p:,} compounds Radar sent it lie outside its training data")
+    # round 4: no chance for a compound too far from the training data ("not known"); it is not listed
+    not_known = nv["ratio"] > abstain if abstain else np.zeros(n_p, bool)
+    if abstain:
+        info["not_known"] = int(not_known.sum())
+        P.log(f"Hurricane {version} gives no chance to {int(not_known.sum()):,} of them (" +
+              ("outside its training data)" if abstain == 1 else f"more than {abstain:g} times as far from it as allowed)"))
     return {"tc": tc, "p_sc": p_sc, "tc_sc": tc_sc, "lo": lo, "hi": hi, "family": list(pf), "types": types, "info": info,
-            "novel": nv["ratio"], "near_formula": [str(hur["formula_sc"].iloc[k]) for k in nv["nearest"]], "near_tc": y[nv["nearest"]]}
+            "novel": nv["ratio"], "near_formula": [str(hur["formula_sc"].iloc[k]) for k in nv["nearest"]], "near_tc": y[nv["nearest"]],
+            "not_known": not_known}
 
 
 # ---------------------------------------------------------------- run
@@ -982,10 +1024,10 @@ def run() -> None:
         "magmom": hsel["magmom"], "icsd": hsel["icsd"], "p_unconventional": p_h[sent], "family": hu["family"],
         "hurricane_tc": hu["tc"], "p_sc": hu["p_sc"], "tc_sc": hu["tc_sc"], "lo": hu["lo"], "hi": hu["hi"],
         "types": [";".join(t) for t in hu["types"]], "novelty": hu["novel"], "nearest_training": hu["near_formula"],
-        "nearest_training_tc": hu["near_tc"]})
-    hr = hr.sort_values(["hurricane_tc", "tc_sc", "jid"], ascending=[False, False, True]).reset_index(drop=True)
+        "nearest_training_tc": hu["near_tc"], "not_known": hu["not_known"]})
+    hr = hr.sort_values(["not_known", "hurricane_tc", "tc_sc", "jid"], ascending=[True, False, False, True]).reset_index(drop=True)
     hcands = []
-    for rank, i in enumerate(top_rows(hr, hr.index), 1):
+    for rank, i in enumerate(top_rows(hr, hr.index[~hr["not_known"].astype(bool)]), 1):
         r = hr.loc[i]
         c = dict(base_record(rank, r), tc=_r(r["hurricane_tc"], 2), tc_sc=_r(r["tc_sc"], 2), lo=_r(r["lo"], 2),
                  hi=_r(r["hi"], 2), p_sc=_r(r["p_sc"], 3), p_unconventional=_r(r["p_unconventional"], 3),
@@ -999,10 +1041,12 @@ def run() -> None:
     s_rule = (f"metals within {int(EHULL_MAX * 1000)} meV/atom of the convex hull, non-magnetic, {N_ELEMENTS[0]} to "
               f"{N_ELEMENTS[1]} elements, up to {nat_max} atoms in the cell, elements our training data covers; the list "
               f"holds the {int(to_storm.sum()):,} that Radar sends to Storm, one per chemical system")
+    n_unknown = int(np.asarray(hu["not_known"], bool).sum())
     h_rule = (f"within {int(EHULL_MAX * 1000)} meV/atom of the convex hull, a band gap of at most {HUR_GAP_MAX:g} eV, magnetic "
               f"or not, {HUR_ELEMENTS[0]} to {HUR_ELEMENTS[1]} elements, up to {HUR_MAX_ATOMS} atoms in the cell, elements "
               f"Hurricane's training data covers; the list "
-              f"holds the {int(sent.sum()):,} that Radar sends to Hurricane, one per chemical system")
+              f"holds the {int(sent.sum()):,} that Radar sends to Hurricane, one per chemical system" +
+              (f", except the {n_unknown:,} too far from Hurricane's training data for it to give a chance" if hu["info"].get("abstain") else ""))
     rv, sv, hv = radar_version(), storm_version(), hu["info"]["version"]
     out = {
         "run_at": stamp, "commit": os.environ.get("GITHUB_SHA", "local")[:7], "round": ROUND,
@@ -1021,6 +1065,12 @@ def run() -> None:
                      "n_screened": int(len(hpool)), "n_sent": int(sent.sum()), "rule": h_rule},
             "excluded": h_counts, "candidates": hcands,
             "outside": int(sum(1 for c in hcands if c.get("outside"))),
+            "not_known": ({"n": n_unknown, "of": int(sent.sum()), "abstain": hu["info"]["abstain"],
+                           "about": ("Hurricane gives no chance to a compound further from every training compound, in its "
+                                     "standardized inputs, than " + (f"{hu['info']['abstain']:g} times " if hu["info"]["abstain"] != 1 else "")
+                                     + "the distance that separates 95% of the training compounds from their nearest "
+                                     "neighbour in another parent compound; such compounds are not listed")}
+                          if hu["info"].get("abstain") else None),
             "caveat": ("Hurricane learned measured Tc from cuprates, iron-based, heavy-fermion compounds and other oxides; it "
                        "gives the chance that a compound superconducts and its Tc if it does. Many of these compounds would "
                        "need doping or pressure, and a candidate is a prediction until an experiment checks it")},
@@ -1084,6 +1134,8 @@ def update_progress(out: dict, progress: Path) -> None:
     for key in ("background", "reliability"):   # a round-3 design: its background compounds and false-alarm check
         if hd.get(key):
             prog["screen"]["hurricane"][key] = hd[key]
+    if hu.get("not_known"):   # a round-4 design: the compounds it gives no chance
+        prog["screen"]["hurricane"]["not_known"] = hu["not_known"]
     for st in prog.get("stages", []):
         if st.get("id") == "screen":
             st.update(status="active", date=st.get("date") or stamp[:10], detail=(
@@ -1104,6 +1156,9 @@ def update_progress(out: dict, progress: Path) -> None:
     if hc:
         msg += (f"; Hurricane's are far less certain: its 90% ranges span a factor of about "
                 f"{math.exp(2 * hd['width_log']):.0f} in Tc, and {hu['outside']} of its {len(hc)} lie outside its training data")
+    if hu.get("not_known"):
+        msg += (f"; {hu['not_known']['n']:,} of the {hu['not_known']['of']:,} compounds Radar sent Hurricane are too far from "
+                "its training data for a chance and are not listed")
     prefix = f"Screening round {ROUND}:"
     prog["log"] = [e for e in prog.get("log", []) if not str(e.get("event", "")).startswith(prefix)]   # a re-run replaces it
     P.add_log(prog, stamp, msg)
