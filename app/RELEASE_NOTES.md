@@ -1,6 +1,13 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.3.6 adds:
+Version 0.3.7 adds:
+
+- **Two candidate lists**: conventional candidates ranked by Storm and unconventional ones ranked by Hurricane, which gives the chance that a compound superconducts and its T<sub>c</sub> if it does. A candidate made of exactly the elements of a known superconductor is now left out too, so every one is in a chemical system where no superconductor has been reported.
+- **What to make of each candidate**: every candidate shows the chance that it superconducts and, in the viewer, remarks on how far to trust it: whether its structure has ever been made or is hypothetical, how wide its 90% range is, how its chance was calibrated, the most similar material its model learned from and whether it lies outside the training data, whether anything has checked it, and the date we first listed it, which the repository's history records. All candidates are predictions that no calculation or experiment has checked yet.
+- **Worth an experiment**: a candidate is highlighted only when its predicted T<sub>c</sub> is above the McMillan limit of about 40 K and it passes every test we set before suggesting a measurement: more likely than not to superconduct, inside its model's training data and made before. None does yet. Highlighted candidates come with an invitation to experimental groups.
+- **Cite**: the Authors view is now Cite, with how to cite the project (as text or BibTeX, with copy buttons) and one of our candidate superconductors, and the published work that cites supercon-ml as soon as there is any. A message form sends questions, reports and offers to measure a candidate straight to the project's inbox, and every "tell us" link in the app leads to it.
+
+Version 0.3.6 added:
 
 - **Candidates**: a new view, right after Progress, for the candidate superconductors found by our AI models: Radar keeps the metals that look conventional and Storm predicts their T<sub>c</sub>, each with a 90% range, published before any calculation or experiment checks them. Only our own finds are listed: anything already in SuperCon or 3DSC, with a computed T<sub>c</sub>, or reported or predicted by others is left out. Every candidate's crystal structure turns in 3D; drag it to look from any side. Every check will be added, hits and misses alike.
 - **Superconductors found with AI**: the AI view lists every new superconductor that an AI or machine-learning model pointed to and an experiment then confirmed, each with its paper, and the AI predictions still waiting for an experiment. Its live list now tags new AI predictions and new AI-guided experiments.
