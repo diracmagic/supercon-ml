@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-31T07:05:29-05:00",
+  "updated": "2026-10-31T07:11:58-05:00",
   "badge": "5/10 done · now: ai models",
   "project": "Finding high-Tc superconductors with AI-designed models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
@@ -1653,24 +1653,6 @@
       },
       "examples": [
         {
-          "name": "NaTcN2",
-          "id": "agm002861776",
-          "tc": 23.84,
-          "pred": 21.09,
-          "lo": 10.77,
-          "hi": 40.43,
-          "inside": true
-        },
-        {
-          "name": "Cr4TcMo",
-          "id": "agm003199664",
-          "tc": 22.84,
-          "pred": 20.65,
-          "lo": 10.54,
-          "hi": 39.61,
-          "inside": true
-        },
-        {
           "name": "Cr4ReMo",
           "id": "agm003199659",
           "tc": 21.24,
@@ -1680,21 +1662,39 @@
           "inside": true
         },
         {
-          "name": "Cr4TcW",
-          "id": "agm003199690",
-          "tc": 22.17,
-          "pred": 19.66,
-          "lo": 9.89,
-          "hi": 38.19,
-          "inside": true
-        },
-        {
           "name": "Cr4ReW",
           "id": "agm003199681",
           "tc": 21.09,
           "pred": 19.47,
           "lo": 9.96,
           "hi": 37.23,
+          "inside": true
+        },
+        {
+          "name": "Cr4MoOs",
+          "id": "agm003199657",
+          "tc": 17.7,
+          "pred": 18.45,
+          "lo": 9.41,
+          "hi": 35.32,
+          "inside": true
+        },
+        {
+          "name": "Cr3Re",
+          "id": "agm002145222",
+          "tc": 12.65,
+          "pred": 17.66,
+          "lo": 8.99,
+          "hi": 33.85,
+          "inside": true
+        },
+        {
+          "name": "NbCr4Re",
+          "id": "agm001173527",
+          "tc": 20.88,
+          "pred": 17.09,
+          "lo": 8.67,
+          "hi": 32.82,
           "inside": true
         }
       ],
