@@ -550,6 +550,84 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .lic-cite a { color: inherit; }
 .dt-data { font-size: 12px; }
 .paper-more { margin: 4px 0 0; font-size: 12.5px; }
+.pred-sliders { display: contents; }
+.pred-sliders[hidden] { display: none; }
+/* the Baselines switch has four choices: let it wrap on phones */
+#demo-model-row .seg { flex-wrap: wrap; }
+#demo-model-row .seg button { white-space: nowrap; }
+/* superconductors found with AI: the Tc sits with the year and the method */
+.found-tc { font-weight: 600; color: var(--ink-2); }
+.found-tc sub { font-size: 0.72em; }
+/* predicted by AI, waiting for experiment */
+.found-sub { margin-top: 18px; font-size: 14px; font-weight: 600; }
+.found-sub-intro { margin: 2px 0 6px; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.ai-kind { padding: 0 7px; border-radius: 999px; font-weight: 600; font-size: 11px; line-height: 18px; }
+.ai-kind-prediction { background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--border); }
+.ai-kind-experiment { background: var(--accent-wash); color: var(--accent); }
+/* Candidates: the materials our AI models found, in their own view between Progress and Demos */
+.cands { display: flex; flex-direction: column; gap: 16px; margin-bottom: 12px; }
+.candidates-card { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.cand-ours { display: flex; gap: 10px; align-items: flex-start; margin: 0 0 12px; padding: 9px 12px; border-radius: 8px; background: var(--accent-wash); font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+.cand-ours p { margin: 0; }
+.cand-ours b { color: var(--ink); }
+.cand-ours-mark { flex: 0 0 auto; width: 8px; height: 8px; margin-top: 6px; border-radius: 50%; background: var(--accent); }
+.cand-meta { margin: 0 0 12px; font-size: 12.5px; color: var(--ink-2); line-height: 1.5; }
+.cand-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 330px); gap: 16px 22px; align-items: start; }
+.cand-viewer { order: 2; position: sticky; top: 12px; min-width: 0; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.cand-list { order: 1; list-style: none; margin: 0; padding: 0; min-width: 0; }
+@media (max-width: 1099px) { .cand-body { grid-template-columns: minmax(0, 1fr); } .cand-viewer { order: 0; position: static; } }
+.cand-row { display: grid; grid-template-columns: 22px 56px minmax(0, 1fr) 112px 84px minmax(104px, 150px); gap: 2px 12px; align-items: center; padding: 8px 6px; border-top: 1px solid var(--grid); border-radius: 8px; font-size: 13px; min-width: 0; }
+.cand-row.is-sel { background: var(--accent-wash); }
+.cand-headrow { align-items: end; border-top: 0; border-bottom: 1px solid var(--axis); border-radius: 0; padding: 4px 6px 6px; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.cand-headrow + .cand-row { border-top: 0; }
+.cand-rank { color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+.cand-main { min-width: 0; overflow-wrap: anywhere; }
+.cand-tc, .cand-cal { text-align: right; font-variant-numeric: tabular-nums; }
+.cand-row .cand-label { display: none; }
+.cand-thumb { display: block; width: 56px; height: 56px; padding: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); cursor: pointer; }
+.cand-thumb:hover { border-color: var(--axis); }
+.cand-thumb[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.cand-thumb.none { cursor: default; }
+.xt-thumb { display: block; width: 100%; height: 100%; }
+@media (max-width: 640px) {
+  .cand-headrow { display: none; }
+  .cand-row { grid-template-columns: 16px 52px minmax(0, 1fr) auto; align-items: start; gap: 2px 10px; padding: 8px 4px; }
+  .cand-row .cand-thumb { grid-row: span 3; width: 52px; height: 52px; }
+  .cand-row .cand-cal, .cand-row .cand-check { grid-column: 3 / 5; text-align: left; font-size: 12px; color: var(--ink-2); }
+  .cand-row .cand-label { display: inline; }
+  .cand-headrow + .cand-row { border-top: 0; }
+}
+.cand-open { font-size: 12px; color: var(--muted); }
+.cand-done { font-size: 12px; font-weight: 600; }
+.cand-done.hit { color: var(--accent); }
+.cand-done.miss { color: var(--ink-2); }
+.cand-steps { margin: 0 0 8px 18px; padding: 0; font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+.cand-steps li + li { margin-top: 4px; }
+.cand-steps sub, .cand-meta sub, .cand-list sub, .cand-ours sub, .xt-tc sub { font-size: 0.72em; }
+/* the structure viewer */
+.xt-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.xt-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-width: 0; }
+.xt-title b { font-size: 16px; }
+.xt-rank { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.xt-sub { flex-basis: 100%; font-size: 12px; color: var(--muted); }
+.xt-play { flex: 0 0 auto; }
+.xt-stage { width: 100%; max-width: 320px; height: 300px; margin: 8px auto 6px; }
+@media (max-width: 360px) { .xt-stage { height: 260px; } }
+.xt-big { display: block; width: 100%; height: 100%; border-radius: 8px; cursor: grab; touch-action: pan-y; }
+.xt-big:active { cursor: grabbing; }
+.xt-big:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.xt-key { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 2px 0 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--ink); }
+.xt-key li { display: inline-flex; align-items: center; gap: 6px; }
+.xt-dot { display: inline-block; border-radius: 50%; }
+.xt-s1 { background: var(--series-1); }
+.xt-s2 { background: var(--series-2); }
+.xt-s3 { background: var(--series-3); }
+.xt-s4 { background: var(--ink-2); }
+.xt-n { color: var(--muted); font-variant-numeric: tabular-nums; }
+.xt-facts, .xt-tc { margin: 6px 0 0; font-size: 12px; line-height: 1.5; color: var(--ink-2); }
+.xt-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; }
+.xt-nav .btn[disabled] { opacity: 0.45; cursor: default; }
+.xt-hint { font-size: 11.5px; color: var(--muted); text-align: center; }
 </style>
 </head>
 <body>
@@ -573,6 +651,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     </div>
     <div class="views" role="tablist" aria-label="View">
       <button id="view-progress" type="button" role="tab" aria-selected="true">Progress</button>
+      <button id="view-candidates" type="button" role="tab" aria-selected="false">Candidates</button>
       <button id="view-demos" type="button" role="tab" aria-selected="false"><span class="lbl-long">Physics demos</span><span class="lbl-short">Demos</span></button>
       <button id="view-learn" type="button" role="tab" aria-selected="false"><span class="lbl-long">Theory &amp; materials</span><span class="lbl-short">Learn</span></button>
       <button id="view-papers" type="button" role="tab" aria-selected="false"><span class="lbl-long">News &amp; papers</span><span class="lbl-short">News</span></button>
@@ -607,6 +686,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     <section id="details-card" class="card details-card" hidden></section>
   </main>
 
+  <section id="candidates" class="cands" hidden>
+    <section id="candidates-card" class="card candidates-card"></section>
+  </section>
+
   <section id="ai" class="ai" hidden></section>
 
   <section id="demos" class="card demos" hidden></section>
@@ -625,7 +708,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 (function () {
   'use strict';
 
-  var APP_VERSION = '0.3.5';
+  var APP_VERSION = '0.3.6';
   var REPO = 'diracmagic/supercon-ml';
   var BRANCH = 'main';
   var REPO_URL = 'https://github.com/' + REPO;
@@ -1500,19 +1583,20 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       caption: 'Below Tc a superconductor expels magnetic field from its interior. Screening currents in a thin surface layer (⊗ into the page, ⊙ out of it) cancel the field inside. This is why a magnet can levitate above a cooled superconductor.' },
     { id: 'pairs', label: 'Cooper pairs', temp: true, height: 380, refs: ['cooper1956', 'bcs1957'],
       caption: 'A passing electron pulls the positive ions toward it. The heavy ions relax slowly, so a positively charged wake lingers and attracts a second electron: an attraction carried by lattice vibrations (phonons). Its strength is λ and the typical vibration energy is ω_log, the two quantities our models predict. In BCS theory the paired electrons have opposite momenta and spins, and one pair spans many lattice spacings.' },
-    { id: 'allen-dynes', label: 'Predict Tc', temp: false, height: 380, refs: ['eliashberg1960', 'mcmillan1968', 'allendynes1975'],
-      caption: 'The Allen–Dynes formula estimates Tc from the electron–phonon coupling λ, the logarithmic phonon frequency ω_log and the Coulomb pseudopotential μ*. Stronger coupling and stiffer, higher-frequency lattice vibrations both raise Tc. Drag the sliders, or point at the map to read off Tc.' }
+    { id: 'allen-dynes', label: 'Predict Tc', temp: false, height: 400, narrowHeight: 600, refs: ['eliashberg1960', 'mcmillan1968', 'allendynes1975'], stormRefs: ['friedman2001', 'xie2018', 'allendynes1975', 'vovk2005', 'alexandria2024'], hurRefs: ['sommer2023', 'presland1991', 'friedman2001', 'schilling1993'],
+      caption: 'The Allen–Dynes formula estimates Tc from the electron–phonon coupling λ, the logarithmic phonon frequency ω_log and the Coulomb pseudopotential μ*. Stronger coupling and stiffer, higher-frequency lattice vibrations both raise Tc. Drag the sliders, or point at the map to read off Tc. Pick Storm or Hurricane above to see, step by step, how our models predict Tc for real materials.' }
   ];
   var RAMP_LIGHT = ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#256abf', '#184f95', '#0d366b'];
   var TC_MAX = 80;
-  var view = ['ai', 'demos', 'learn', 'papers'].indexOf(store.get('view')) >= 0 ? store.get('view') : 'progress';
+  var view = ['candidates', 'ai', 'demos', 'learn', 'papers'].indexOf(store.get('view')) >= 0 ? store.get('view') : 'progress';
   var demo = {
     id: 'story', t: 1.4, auto: true, clock: 0, raf: 0, last: 0, built: false,
     scene: 0, sceneT: 0, storyPlay: true, modelStage: 0, modelT: 0, modelPlay: true, modelNodes: [],
     stormStage: 0, stormT: 0, stormPlay: true, stormVer: '', stormNodes: [],
     hurStage: 0, hurT: 0, hurPlay: true, hurNodes: [],
     radStage: 0, radT: 0, radPlay: true, radNodes: [],
-    modelVariant: store.get('model') === 'foundation' ? 'foundation' : 'baseline',
+    predMode: ['storm', 'hurricane'].indexOf(store.get('pred')) >= 0 ? store.get('pred') : 'formula', predT: 0, predPlay: true, predEx: 0,
+    modelVariant: ['foundation', 'hurricane', 'radar'].indexOf(store.get('model')) >= 0 ? store.get('model') : 'baseline',
     canvas: null, ctx: null, W: 0, H: 0, dpr: 1,
     electrons: null, ions: null, e1: null, e2: null, sizeKey: '',
     lam: 1.0, wlog: 300, mu: 0.10, heat: null, heatKey: '', hover: null, fieldKey: '', field: null
@@ -1583,19 +1667,24 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       out.fmt = fmtv;
       return h('label', { class: 'slider' }, h('span', { text: labelText }), input, out);
     }
+    var predSeg = h('div', { class: 'seg', role: 'group', 'aria-label': 'What to show', id: 'pred-seg' });
+    PRED_MODES.forEach(function (m) { predSeg.appendChild(h('button', { type: 'button', 'data-pred': m[0], onclick: function () { setPredMode(m[0]); } }, m[1])); });
     var adRow = h('div', { class: 'demo-controls', id: 'demo-ad-row' },
-      slider('demo-lam', 'λ', 0.1, 2.5, 0.01, 'lam', function (v) { return v.toFixed(2); }),
-      slider('demo-wlog', 'ω_log', 20, 1000, 5, 'wlog', function (v) { return Math.round(v) + ' K'; }),
-      slider('demo-mu', 'μ*', 0.05, 0.2, 0.005, 'mu', function (v) { return v.toFixed(3); }),
+      predSeg,
+      h('button', { class: 'btn', type: 'button', id: 'pred-play', onclick: function () { demo.predPlay = !demo.predPlay; syncControls(); kick(); } }),
+      h('button', { class: 'btn', type: 'button', id: 'pred-next', onclick: function () { predNext(); } }, 'Next'),
+      h('span', { class: 'pred-sliders', id: 'pred-sliders' },
+        slider('demo-lam', 'λ', 0.1, 2.5, 0.01, 'lam', function (v) { return v.toFixed(2); }),
+        slider('demo-wlog', 'ω_log', 20, 1000, 5, 'wlog', function (v) { return Math.round(v) + ' K'; }),
+        slider('demo-mu', 'μ*', 0.05, 0.2, 0.005, 'mu', function (v) { return v.toFixed(3); })),
       h('span', { class: 'demo-readout', id: 'demo-ad-readout' }));
     var storyRow = h('div', { class: 'demo-controls', id: 'demo-story-row' },
       h('button', { class: 'btn icon-only', type: 'button', id: 'story-prev', 'aria-label': 'Previous step', title: 'Previous step', onclick: function () { goScene(demo.scene - 1); } }),
       h('button', { class: 'btn', type: 'button', id: 'story-play', onclick: function () { demo.storyPlay = !demo.storyPlay; syncControls(); kick(); } }),
       h('button', { class: 'btn icon-only', type: 'button', id: 'story-next', 'aria-label': 'Next step', title: 'Next step', onclick: function () { goScene(demo.scene + 1); } }),
       h('span', { class: 'demo-readout', id: 'story-readout' }));
-    var seg = h('div', { class: 'seg', role: 'group', 'aria-label': 'Model' },
-      h('button', { type: 'button', 'data-variant': 'baseline', onclick: function () { setModelVariant('baseline'); } }, 'Baseline'),
-      h('button', { type: 'button', 'data-variant': 'foundation', onclick: function () { setModelVariant('foundation'); } }, 'Foundation model'));
+    var seg = h('div', { class: 'seg', role: 'group', 'aria-label': 'Baseline for' });
+    MODEL_VARIANTS.forEach(function (m) { seg.appendChild(h('button', { type: 'button', 'data-variant': m[0], onclick: function () { setModelVariant(m[0]); } }, m[1])); });
     var modelRow = h('div', { class: 'demo-controls', id: 'demo-model-row' },
       seg,
       h('button', { class: 'btn', type: 'button', id: 'model-play', onclick: function () { demo.modelPlay = !demo.modelPlay; syncControls(); kick(); } }),
@@ -1659,7 +1748,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (window.ResizeObserver) new ResizeObserver(function () { sizeCanvas(); kick(); }).observe(stage);
     else window.addEventListener('resize', function () { sizeCanvas(); kick(); });
     demo.built = true;
-    if (!motionOK()) { demo.auto = false; demo.storyPlay = false; demo.modelPlay = false; demo.stormPlay = false; demo.hurPlay = false; demo.radPlay = false; }
+    if (!motionOK()) { demo.auto = false; demo.storyPlay = false; demo.modelPlay = false; demo.stormPlay = false; demo.hurPlay = false; demo.radPlay = false; demo.predPlay = false; }
     syncControls();
     sizeCanvas();
   }
@@ -1674,7 +1763,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   }
   function setModelVariant(v) {
     demo.modelVariant = v;
-    demo.modelT = 0;
+    demo.modelStage = 0; demo.modelT = 0;
     store.set('model', v);
     if (motionOK()) demo.modelPlay = true;
     syncControls();
@@ -1772,9 +1861,20 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     $('#demo-zoo').hidden = !d.model && !d.storm && !d.hurricane && !d.radar;
     if (d.model || d.storm || d.hurricane || d.radar) renderZoo();
     if (d.storm) renderStormSeg();
-    var cap = d.story ? storyCaption(demo.scene) : d.model ? MODEL_STAGES[demo.modelVariant][demo.modelStage].text : d.storm ? stormCaption(demo.stormStage) : d.hurricane ? hurCaption(demo.hurStage) : d.radar ? radCaption(demo.radStage) : d.caption;
+    var cap = d.story ? storyCaption(demo.scene) : d.model ? modelCaption(demo.modelVariant, demo.modelStage) : d.storm ? stormCaption(demo.stormStage) : d.hurricane ? hurCaption(demo.hurStage) : d.radar ? radCaption(demo.radStage) : d.id === 'allen-dynes' ? predCaption() : d.caption;
     richText($('#demo-caption'), cap);
-    renderRefs($('#demo-refs'), d.story ? STORY[demo.scene].refs : d.refs);
+    renderRefs($('#demo-refs'), d.story ? STORY[demo.scene].refs : d.model ? MODEL_REFS[demo.modelVariant] || d.refs : d.id === 'allen-dynes' && demo.predMode !== 'formula' ? (demo.predMode === 'storm' ? d.stormRefs : d.hurRefs) || d.refs : d.refs);
+    var walk = d.id === 'allen-dynes' && demo.predMode !== 'formula';
+    [].forEach.call(document.querySelectorAll('#pred-seg button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-pred') === demo.predMode ? 'true' : 'false'); });
+    $('#pred-sliders').hidden = walk;
+    var pp = $('#pred-play');
+    pp.innerHTML = demo.predPlay ? G.pause : G.play;
+    pp.appendChild(document.createTextNode(demo.predPlay ? 'Pause' : 'Play'));
+    pp.hidden = !walk || !motionOK();
+    // with motion, Next steps through the walk-through and then to the next material; without motion every step shows at once, so it moves to the next material
+    var pn = $('#pred-next');
+    pn.hidden = !walk || predExamples(demo.predMode).length < (motionOK() ? 1 : 2);
+    pn.textContent = motionOK() ? 'Next' : 'Next material';
     var play = $('#demo-play');
     play.innerHTML = demo.auto ? G.pause : G.play;
     play.appendChild(document.createTextNode(demo.auto ? 'Pause' : 'Play'));
@@ -1789,13 +1889,14 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     mp.innerHTML = demo.modelPlay ? G.pause : G.play;
     mp.appendChild(document.createTextNode(demo.modelPlay ? 'Pause' : 'Play'));
     mp.hidden = !motionOK();
-    [].forEach.call(document.querySelectorAll('.seg button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-variant') === demo.modelVariant ? 'true' : 'false'); });
+    [].forEach.call(document.querySelectorAll('#demo-model-row .seg button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-variant') === demo.modelVariant ? 'true' : 'false'); });
     var sp2 = $('#storm-play');
     sp2.innerHTML = demo.stormPlay ? G.pause : G.play;
     sp2.appendChild(document.createTextNode(demo.stormPlay ? 'Pause' : 'Play'));
     sp2.hidden = !motionOK();
-    $('#storm-readout').textContent = (motionOK() ? 'Step ' + (demo.stormStage + 1) + ' of ' + STORM_STAGES.length + ' · ' : '') + STORM_STAGES[demo.stormStage].node + (motionOK() ? '' : ' · click a step to explore');
-    if (d.storm) demo.canvas.setAttribute('aria-label', 'Storm, the AI-designed model, step ' + (demo.stormStage + 1) + ': ' + STORM_STAGES[demo.stormStage].node + '. ' + stormCaption(demo.stormStage));
+    var stSt = stormStages();
+    $('#storm-readout').textContent = (motionOK() ? 'Step ' + (demo.stormStage + 1) + ' of ' + stSt.length + ' · ' : '') + stSt[demo.stormStage].node + (motionOK() ? '' : ' · click a step to explore');
+    if (d.storm) demo.canvas.setAttribute('aria-label', 'Storm, the AI-designed model, step ' + (demo.stormStage + 1) + ': ' + stSt[demo.stormStage].node + '. ' + stormCaption(demo.stormStage));
     var hp = $('#hur-play');
     hp.innerHTML = demo.hurPlay ? G.pause : G.play;
     hp.appendChild(document.createTextNode(demo.hurPlay ? 'Pause' : 'Play'));
@@ -1811,7 +1912,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var ms = MODEL_STAGES[demo.modelVariant];
     $('#model-readout').textContent = motionOK() ? 'Step ' + (demo.modelStage + 1) + ' of ' + ms.length : 'Click a step in the pipeline to explore it';
     if (d.story) demo.canvas.setAttribute('aria-label', 'Hello Super tour, step ' + (demo.scene + 1) + ' of ' + STORY.length + ': ' + STORY[demo.scene].title + '. ' + storyCaption(demo.scene));
-    if (d.model) demo.canvas.setAttribute('aria-label', 'Model pipeline, step ' + (demo.modelStage + 1) + ': ' + ms[demo.modelStage].title + '. ' + ms[demo.modelStage].text);
+    if (d.model) demo.canvas.setAttribute('aria-label', (MODEL_LABEL[demo.modelVariant] || 'Baseline') + ', step ' + (demo.modelStage + 1) + ': ' + modelTitle(demo.modelVariant, demo.modelStage) + '. ' + modelCaption(demo.modelVariant, demo.modelStage));
     $('#demo-temp').value = String(demo.t.toFixed(2));
     $('#demo-temp-out').textContent = demo.t.toFixed(2) + ' Tc';
     ['lam', 'wlog', 'mu'].forEach(function (k) {
@@ -1862,11 +1963,17 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     }
     if (d.storm && demo.stormPlay && moving) {
       demo.stormT += dt;
-      if (demo.stormT >= STORM_DUR) { demo.stormStage = (demo.stormStage + 1) % STORM_STAGES.length; demo.stormT = 0; syncControls(); }
+      if (demo.stormT >= STORM_DUR) { demo.stormStage = (demo.stormStage + 1) % stormStages().length; demo.stormT = 0; syncControls(); }
     }
     if (d.hurricane && demo.hurPlay && moving) {
       demo.hurT += dt;
       if (demo.hurT >= HUR_DUR) { demo.hurStage = (demo.hurStage + 1) % HUR_STAGES.length; demo.hurT = 0; syncControls(); }
+    }
+    if (d.id === 'allen-dynes' && demo.predMode !== 'formula' && demo.predPlay && moving) {
+      var pst = predSteps(demo.predMode, predExample()), pat0 = predAt(pst, demo.predT).i;
+      demo.predT += dt;
+      if (pst.length && demo.predT >= predTotal(pst) + 1.5) { demo.predEx += 1; demo.predT = 0; syncControls(); }
+      else if (pst.length && predAt(pst, demo.predT).i !== pat0) syncControls();
     }
     if (d.radar && demo.radPlay && moving) {
       demo.radT += dt;
@@ -1890,8 +1997,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     else if (d.id === 'resistance') drawResistance(c, C, dt);
     else if (d.id === 'meissner') drawMeissner(c, C, dt);
     else if (d.id === 'pairs') drawPairs(c, C, dt);
-    else drawAllenDynes(c, C);
-    var paused = (d.story && !demo.storyPlay) || (d.model && !demo.modelPlay) || (d.storm && !demo.stormPlay) || (d.hurricane && !demo.hurPlay) || (d.radar && !demo.radPlay);
+    else drawPredict(c, C);
+    var paused = (d.story && !demo.storyPlay) || (d.model && !demo.modelPlay) || (d.storm && !demo.stormPlay) || (d.hurricane && !demo.hurPlay) || (d.radar && !demo.radPlay) ||
+      (d.id === 'allen-dynes' && demo.predMode !== 'formula' && !demo.predPlay);
     if (moving && !paused) demo.raf = requestAnimationFrame(frame);
   }
 
@@ -2287,6 +2395,17 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     macemp2023: { t: 'I. Batatia et al., A foundation model for atomistic materials chemistry, arXiv:2401.00096', u: 'https://arxiv.org/abs/2401.00096' },
     chgnet2023: { t: 'B. Deng et al., Nat. Mach. Intell. 5, 1031 (2023)', d: '10.1038/s42256-023-00716-3' },
     alignn2021: { t: 'K. Choudhary & B. DeCost, npj Comput. Mater. 7, 185 (2021)', d: '10.1038/s41524-021-00650-1' },
+    xie2018: { t: 'T. Xie & J. C. Grossman, Phys. Rev. Lett. 120, 145301 (2018)', d: '10.1103/PhysRevLett.120.145301' },
+    kaplan2025: { t: 'D. Kaplan et al., Eur. Phys. J. Plus 140, 58 (2025)', d: '10.1140/epjp/s13360-024-05947-w' },
+    lesser2025: { t: 'O. Lesser et al., arXiv:2510.07373 (2025), preprint', u: 'https://arxiv.org/abs/2510.07373' },
+    verbitsky2026: { t: 'L. Verbitsky et al., Chem. Mater. 38, 9080 (2026)', d: '10.1021/acs.chemmater.6c01826' },
+    gashmard2026: { t: 'H. Gashmard, H. Shakeripour & M. Alaei, Sci. Rep. (2026)', d: '10.1038/s41598-026-76977-w' },
+    nepal2026: { t: 'N. K. Nepal & L.-L. Wang, npj Comput. Mater. 12, 152 (2026)', d: '10.1038/s41524-026-01962-w' },
+    itani2025: { t: 'S. Itani et al., arXiv:2512.10847 (2025), preprint', u: 'https://arxiv.org/abs/2512.10847' },
+    prakash2026: { t: 'P. Prakash et al., npj Comput. Mater. 12, 286 (2026)', d: '10.1038/s41524-026-02117-7' },
+    cordero2008: { t: 'B. Cordero et al., Dalton Trans. 2832 (2008)', d: '10.1039/b801115j' },
+    vovk2005: { t: 'V. Vovk, A. Gammerman & G. Shafer, Algorithmic Learning in a Random World (Springer, 2005)', d: '10.1007/b106715' },
+    gneiting2007: { t: 'T. Gneiting & A. E. Raftery, J. Am. Stat. Assoc. 102, 359 (2007)', d: '10.1198/016214506000001437' },
     jarvis2022: { t: 'K. Choudhary & K. Garrity, npj Comput. Mater. 8, 244 (2022)', d: '10.1038/s41524-022-00933-1' },
     alexandria2024: { t: 'T. F. T. Cerqueira et al., Adv. Mater. 36, 2307085 (2024)', d: '10.1002/adma.202307085' },
     nas2017: { t: 'B. Zoph & Q. V. Le, Neural architecture search with reinforcement learning, ICLR (2017)', u: 'https://arxiv.org/abs/1611.01578' },
@@ -2533,11 +2652,38 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   var RECENT_BUILTIN = RECENT.slice();
   var contentState = { at: 0, busy: false, applied: '', updated: '' };
   var CONTENT_KINDS = { experiment: 1, theory: 1, computation: 1, news: 1 };
+  // Superconductors whose discovery an AI or machine-learning model guided and that experiments then confirmed, newest first
+  // (checked by hand against each paper; progress/content.json "found" replaces this list without an app update)
+  var AI_FOUND_BUILTIN = [
+    { d: '2026', ref: 'kagomeml2025', h: 'YRu₃B₂ and LuRu₃B₂', tc: 'Tc 0.81 K and 0.95 K', m: 'ML screening, then DFT',
+      x: 'Two kagome-lattice ruthenium borides. Machine learning pre-screened a large space of element combinations, first-principles calculations checked the most promising ones, and magnetization and specific heat confirmed bulk superconductivity.' },
+    { d: '2026', ref: 'beenet2025', h: 'Be₂Hf₂Nb and Be₂HfNb₂', tc: 'Tc from 3.2 K and 4.2 K', m: 'Graph networks, then DFT',
+      x: 'BEE-NET, an ensemble of graph networks that predicts the Eliashberg function, together with machine-learned potentials and DFT, narrowed 1.3 million candidate structures to 741 stable compounds with a computed Tc above 5 K. Two Hf-substituted relatives of the known superconductor Be₂Nb₃ were made: DFT predicted 9.3 K and 5.1 K, resistivity shows superconductivity from 3.2 K and 4.2 K, and specific heat shows that it is bulk in Be₂Hf₂Nb.' },
+    { d: '2025', refs: ['lesser2025', 'verbitsky2026'], h: 'PtPb₃Bi, then AuPb₄₋ₓBiₓ, PdPb₄₋ₓBiₓ and RhPb₄₋ₓBiₓ', tc: 'Tc about 3 K; 4.9, 4.2 and 3.4 K', m: 'Gaussian process on local bonding',
+      x: 'GP-Tc, a Gaussian-process model that reads local bonding (the spread of electron-affinity differences between neighbouring atoms, with bond lengths), predicted superconductivity in stoichiometric PtPb₃Bi, which was then made and superconducts near 3 K. A follow-up study of the same structure type made three new relatives; resistivity, magnetization and specific heat show bulk superconductivity at 4.9, 4.2 and 3.4 K.' },
+    { d: '2025', ref: 'kaplan2025', h: 'Mo₂₀Re₆Si₄', tc: 'Tc 5.4 K', m: 'Deep learning on composition',
+      x: 'Neural networks trained on SuperCon compositions, with chemical intuition about the Mo₂₀X₆Z₄ family, pointed to Mo–Re–Si; the new compound superconducts below 5.4 K in magnetization and specific heat. A second proposal, Mo₄Re₂Ge, showed no superconductivity above 1.8 K.' },
+    { d: '2023', ref: 'pogue2023', h: 'A Zr–In–Ni phase near ZrNiIn₄', tc: 'Tc about 9 K', m: 'Closed loop with experiments',
+      x: 'What the authors call the first closed-loop discovery: a machine-learning model proposed candidates, high-throughput synthesis and measurements tested them, and the results retrained the model, over four cycles. The superconducting phase is metastable and has not been isolated as a single phase. The loop also re-discovered five known superconductors that were missing from its training data.' }
+  ];
+  var AI_FOUND = AI_FOUND_BUILTIN.slice();
+  // AI predictions that, as far as we know, no experiment has tested yet; one moves to the list above once confirmed
+  // (progress/content.json "watch" replaces this list without an app update)
+  var AI_WATCH_BUILTIN = [
+    { d: '2026', ref: 'gashmard2026', h: '22 plutonium compounds, and hydrides', tc: 'predicted Tc above 50 K', m: 'Neural networks on composition',
+      x: 'Convolutional and LSTM networks, trained with a new set of 53,196 non-superconductors, flagged ambient-pressure plutonium compounds from existing crystal databases, such as Pu₂Co₁₇ (about 89 K), and over 40 hydrides with predicted Tc up to 100 K.' },
+    { d: '2026', ref: 'nepal2026', h: 'Ca₅B₃N₆, TaNbC₂, Nb₃B₃C, MoRuB₂ and others', tc: 'predicted Tc 15–35 K', m: 'ML-guided DFPT',
+      x: 'Machine learning steered electron–phonon calculations over 417 boron, carbon and borocarbide compounds, including ones with unstable phonons. Candidates just above the convex hull include Ca₅B₃N₆ (35 K), TaNbC₂ (28.4 K), Nb₃B₃C (16.4 K) and MoRuB₂ (15.6 K).' },
+    { d: '2025', ref: 'itani2025', h: 'Unreported materials in the GNoME database', tc: 'predicted Tc above 10 K', m: 'Fine-tuned language models',
+      x: 'Open-source language models, fine-tuned on 78,203 literature records that an LLM workflow extracted, screened the GNoME database and flagged unreported materials with predicted Tc above 10 K; the authors stress that the candidates are unverified.' }
+  ];
+  var AI_WATCH = AI_WATCH_BUILTIN.slice();
+  var AI_FOUND_NOTE = { x: 'All of these superconduct below 10 K; as far as we know, no higher-Tc candidate proposed by an AI model has been confirmed yet. Making the predicted compound is often the hard part: in a 2026 diffusion-model study, most of the synthesized candidates did not form the predicted structure.', ref: 'prakash2026' };
 
   function cText(s, max) { return typeof s === 'string' ? s.replace(/[\u0000-\u001f]/g, ' ').slice(0, max) : ''; }
   function applyContent(d) {
     if (!d || typeof d !== 'object' || !Array.isArray(d.recent)) return false;
-    var key = JSON.stringify([d.updated, d.recent.length, list(d.hide).length, Object.keys(d.refs || {}).length]);
+    var key = JSON.stringify([d.updated, d.recent.length, list(d.hide).length, Object.keys(d.refs || {}).length, list(d.found).length, list(d.watch).length]);
     if (key === contentState.applied) return false;
     var refs = d.refs && typeof d.refs === 'object' ? d.refs : {};
     Object.keys(refs).slice(0, 200).forEach(function (k) {
@@ -2561,6 +2707,18 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var merged = extra.concat(RECENT_BUILTIN.filter(function (r) { return !hide[r.ref] && !seen[r.ref]; }));
     RECENT.length = 0;
     Array.prototype.push.apply(RECENT, merged);
+    // superconductors found with AI: a valid list in content.json replaces the built-in one
+    function aiRows(rows) {
+      return list(rows).slice(0, 40).map(function (r) {
+        var refs = !r ? [] : (Array.isArray(r.refs) ? r.refs : [r.ref]).filter(function (k) { return typeof k === 'string' && REFS[k]; }).slice(0, 3);
+        if (!r || typeof r.h !== 'string' || typeof r.x !== 'string' || typeof r.tc !== 'string' || typeof r.m !== 'string' || !/^\d{4}$/.test(String(r.d || '')) || !refs.length) return null;
+        return { d: String(r.d), refs: refs, h: cText(r.h, 120), tc: cText(r.tc, 60), m: cText(r.m, 40), x: cText(r.x, 900) };
+      }).filter(Boolean);
+    }
+    var found = aiRows(d.found), watch = aiRows(d.watch);
+    AI_FOUND.length = 0;
+    Array.prototype.push.apply(AI_FOUND, found.length ? found : AI_FOUND_BUILTIN);
+    if (Array.isArray(d.watch)) { AI_WATCH.length = 0; Array.prototype.push.apply(AI_WATCH, watch); }
     contentState.applied = key;
     contentState.updated = typeof d.updated === 'string' ? d.updated : '';
     return true;
@@ -2568,7 +2726,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
   function contentChanged() {
     if (paperState.built) renderAdvances();
     if (learn.built) { learn.built = false; if (view === 'learn') { buildLearn(); miniKick(); } }
-    if (aiState.built) renderAICurated();
+    if (aiState.built) { renderAIFound(); renderAICurated(); }
   }
   function loadContent(force) {
     if (contentState.busy || (!force && Date.now() - contentState.at < 10 * 60 * 1000)) return Promise.resolve();
@@ -3647,16 +3805,18 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       dot(c, xa + (xb - xa) * k, ny + nodeH / 2, 4, C.accent);
     }
     var ty = ny + nodeH + 30;
-    stSym(c, C, symParts('Step ' + (si + 1) + ' of ' + n + ' · ' + stages[si].title), 16, ty, { size: narrow ? 14 : 16, weight: '600' });
-    label(c, C, variant === 'baseline' ? 'Baseline model' : 'Foundation model', W - 16, ty, { align: 'right', size: 12, weight: '600', color: C.accent });
+    stSym(c, C, symParts('Step ' + (si + 1) + ' of ' + n + ' · ' + modelTitle(variant, si)), 16, ty, { size: narrow ? 14 : 16, weight: '600' });
+    if (!narrow) label(c, C, MODEL_LABEL[variant] || 'Baseline', W - 16, ty, { align: 'right', size: 12, weight: '600', color: C.accent });
     var D = { x: 16, y: ty + 16, w: W - 32, h: H - ty - 30 };
     c.save();
     c.globalAlpha = stSpan(t, 0, 0.4);
-    if (si === 0) drawModelCrystal(c, C, D, t, narrow);
-    else if (si === 1) { if (variant === 'baseline') drawModelFeatures(c, C, D, t, narrow); else drawModelMace(c, C, D, t, narrow); }
-    else if (si === 2) { if (variant === 'baseline') drawModelBoost(c, C, D, t, narrow); else drawModelBags(c, C, D, t, narrow); }
-    else if (si === 3) drawModelTc(c, C, D, t, narrow, variant);
-    else drawModelScore(c, C, D, t, narrow, variant);
+    var draw = {
+      baseline: [drawModelCrystal, drawModelFeatures, drawModelBoost, drawModelTc, drawModelScore],
+      foundation: [drawModelCrystal, drawModelMace, drawModelBags, drawModelTc, drawModelScore],
+      hurricane: [drawBaseData, drawBaseFeatures, drawBaseTrees, drawBaseScore],
+      radar: [drawBaseData, drawBaseFeatures, drawBaseTrees, drawBaseScore]
+    }[variant];
+    draw[si](c, C, D, t, narrow, variant);
     c.restore();
     c.globalAlpha = 1;
   }
@@ -3718,21 +3878,25 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     }
   }
 
-  function drawModelFeatures(c, C, D, t, narrow) {
-    var rng = stRng(7), vals = [];
-    for (var i = 0; i < 43; i++) vals.push(0.15 + 0.85 * rng());
-    var groupGap = narrow ? 2 : 10, total = 43, gaps = FEATURE_GROUPS.length - 1;
+  // groups: [name, count] in order; brackets: [text, text on phones, colour] each spanning a run of groups (default: Storm's baseline)
+  function drawModelFeatures(c, C, D, t, narrow, groups, brackets) {
+    var custom = Array.isArray(groups);
+    groups = custom ? groups : FEATURE_GROUPS;
+    var rng = stRng(7), vals = [], total = 0;
+    groups.forEach(function (g) { total += g[1]; });
+    for (var i = 0; i < total; i++) vals.push(0.15 + 0.85 * rng());
+    var groupGap = narrow ? 2 : 10, gaps = groups.length - 1;
     var bx0 = D.x + 6, bw = D.w - 12, slot = (bw - gaps * groupGap) / total;
     var baseY = D.y + D.h * (narrow ? 0.6 : 0.66), maxH = D.h * (narrow ? 0.46 : 0.5);
     var k = 0, x = bx0, groupX = [];
-    FEATURE_GROUPS.forEach(function (g, gi) {
+    groups.forEach(function (g, gi) {
       var gx0 = x;
       for (var j = 0; j < g[1]; j++, k++) {
         var a = stSpan(t, 0.3 + k * 0.06, 0.6 + k * 0.06);
         if (a > 0) {
           var hh = vals[k] * maxH * a;
           stRound(c, x + slot * 0.15, baseY - hh, slot * 0.7, hh, Math.min(3, slot * 0.3));
-          c.fillStyle = gi >= 9 ? C.warm : C.accent; c.fill();
+          c.fillStyle = !custom && gi >= 9 ? C.warm : C.accent; c.fill();
         }
         x += slot;
       }
@@ -3745,14 +3909,17 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (!narrow) {
       groupX.forEach(function (g) { label(c, C, g[2], (g[0] + g[1]) / 2, baseY + 16, { align: 'center', size: 11, color: C.muted }); });
     }
-    var compEnd = groupX[8][1], strStart = groupX[9][0], by = baseY + (narrow ? 18 : 40);
+    var by = baseY + (narrow ? 18 : 40);
     function bracket(x0, x1, text, color) {
       c.strokeStyle = color; c.lineWidth = 1.5;
       c.beginPath(); c.moveTo(x0, by - 6); c.lineTo(x0, by); c.lineTo(x1, by); c.lineTo(x1, by - 6); c.stroke();
       label(c, C, text, (x0 + x1) / 2, by + 16, { align: 'center', size: 12, weight: '600', color: C.ink });
     }
-    bracket(bx0, compEnd, narrow ? 'Composition · 34' : 'Composition · 34 numbers', C.accent);
-    bracket(strStart, bx0 + bw, narrow ? 'Structure · 9' : 'Structure · 9', C.warm);
+    if (custom) (brackets || []).forEach(function (b) { bracket(bx0, bx0 + bw, narrow ? b[1] : b[0], b[2]); });
+    else {
+      bracket(bx0, groupX[8][1], narrow ? 'Composition · 34' : 'Composition · 34 numbers', C.accent);
+      bracket(groupX[9][0], bx0 + bw, narrow ? 'Structure · 9' : 'Structure · 9', C.warm);
+    }
     c.globalAlpha = 1;
     label(c, C, 'Example values, scaled', D.x + D.w, D.y + 10, { align: 'right', size: 11, color: C.muted });
   }
@@ -3976,6 +4143,210 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stSym(c, C, it[0], x, sy + 26, { size: 12.5, color: C.ink2 });
       label(c, C, it[1], x, sy + 54, { size: narrow ? 18 : 22, weight: '700', color: C.ink });
     });
+    var L = typeof stormLatest === 'function' ? stormLatest() : null;
+    if (L && sc.tc !== null && sy + 84 < D.y + D.h + 8) {
+      c.globalAlpha = stSpan(t, 5.3, 5.8);
+      stSym(c, C, symParts(stormLatestTitle(L) + ', our AI-designed model: Tc off by ' + fmtVal(L.ens.scores.tc_mae) + ' K'), D.x, sy + 84, { size: 12.5, weight: '600', color: C.accent });
+      c.globalAlpha = 1;
+    }
+  }
+
+  /* ---------- Baselines: the simple model that each of our AI models must beat ----------
+     Storm's two baselines (hand-made features, and the MACE-MP-0 foundation model) learn computed Tc; Hurricane's and
+     Radar's baselines read only the chemical formula. Scores come from progress.json, next to those of the model in use. */
+  MODEL_STAGES.hurricane = [
+    { node: 'Data', short: 'Data', title: 'Input: measured Tc' },
+    { node: '33 numbers', short: 'Features', title: '33 numbers from the formula' },
+    { node: 'Boosted trees', short: 'Trees', title: 'Gradient-boosted trees' },
+    { node: 'Score', short: 'Score', title: 'Against Hurricane in use', titleFn: function () { var hi = hurInfo(); return 'Against ' + (hi ? hurTitle(hi) : 'Hurricane'); } }
+  ];
+  MODEL_STAGES.radar = [
+    { node: 'Data', short: 'Data', title: 'Input: each material’s family' },
+    { node: '33 numbers', short: 'Features', title: '33 numbers from the formula' },
+    { node: 'Classifier', short: 'Trees', title: 'A boosted classifier' },
+    { node: 'Score', short: 'Score', title: 'Against Radar in use', titleFn: function () { var ri = radInfo(); return 'Against ' + (ri ? radTitle(ri) : 'Radar'); } }
+  ];
+  var MODEL_VARIANTS = [['baseline', 'Storm'], ['foundation', 'Foundation'], ['hurricane', 'Hurricane'], ['radar', 'Radar']];
+  var MODEL_LABEL = { baseline: 'Storm’s baseline', foundation: 'Foundation model (for Storm)', hurricane: 'Hurricane’s baseline', radar: 'Radar’s baseline' };
+  var MODEL_REFS = { hurricane: ['sommer2023', 'jain2013', 'friedman2001', 'sklearn2011'], radar: ['sommer2023', 'jain2013', 'friedman2001', 'sklearn2011'] };
+  var COMP_GROUPS = [['count', 1], ['Z', 4], ['mass', 4], ['electroneg.', 4], ['row', 4], ['group', 4], ['radius', 4], ['Mendeleev', 4], ['valence', 4]];
+  function pct1(x) { return (100 * x).toFixed(1) + '%'; }
+  function baseK1(x) { return x.toFixed(1); }
+  function modelTitle(variant, si) { var st = MODEL_STAGES[variant][si]; return st.titleFn ? st.titleFn() : st.title; }
+
+  // The Storm in use, for the comparison under Storm's two baselines
+  function baseStormLine(variant) {
+    var L = typeof stormLatest === 'function' ? stormLatest() : null, sc = modelScores(variant);
+    if (!L) return '';
+    return (sc.tc !== null ? (variant === 'foundation' ? 'The foundation model' : 'This baseline') + ' is off by ' + fmtVal(sc.tc) + ' K for Tc; ' + stormLatestTitle(L) + ', our AI-designed model, by '
+      : stormLatestTitle(L) + ', our AI-designed model, is off by ') + fmtVal(L.ens.scores.tc_mae) + ' K with the same grouped cross-validation';
+  }
+  function modelCaption(variant, si) {
+    var st = MODEL_STAGES[variant][si], hi = hurInfo(), ri = radInfo();
+    if (variant === 'baseline' || variant === 'foundation') {
+      var sl = si === MODEL_STAGES[variant].length - 1 ? baseStormLine(variant) : '';
+      return st.text + (sl ? ' ' + sl + '.' : '');
+    }
+    if (variant === 'hurricane') {
+      if (!hi) return 'Hurricane’s baseline loads with the live progress data.';
+      var dd = hi.data, sc = hi.v.scores, fam = dd.families || {}, cu = (sc.by_family || {}).cuprate;
+      switch (si) {
+        case 0: return 'Hurricane’s data: ' + fmtInt(dd.n) + ' cuprates, iron- and nickel-based compounds, heavy-fermion compounds and other oxides with measured Tc from SuperCon, matched to Materials Project crystal structures by 3DSC. ' +
+          fmtInt(dd.n_sc) + ' of them superconduct; the other ' + fmtInt(dd.n - dd.n_sc) + ' were measured and did not. The baseline sees only the chemical formula.';
+        case 1: return 'The baseline describes each compound by 33 numbers from its formula alone: the number of elements, and the mean, spread, minimum and maximum of eight element properties (atomic number, mass, electronegativity, row, group, radius, Mendeleev number, valence). No crystal structure and no physics features.';
+        case 2: return 'Histogram gradient boosting adds up to 800 small decision trees (learning rate 0.04, at most 31 leaves per tree). It learns log(1 + Tc), so the many low-Tc compounds do not dominate; a compound that does not superconduct counts as Tc = 0.';
+        default: return 'Five-fold cross-validation grouped by parent compound, so no test compound shares its parent with the training data. The baseline is off by ' + baseK1(sc.reference_mae) + ' K on average, ' + hurTitle(hi) + ', our AI-designed model, by ' + baseK1(sc.tc_mae) + ' K, better in ' + sc.folds_better + ' of ' + list(sc.folds).length + ' folds' +
+          (cu ? '. Cuprates are hardest: ' + baseK1(cu.mae_ref) + ' K for the baseline, ' + baseK1(cu.mae) + ' K for ' + hurTitle(hi) : '') + '.';
+      }
+    }
+    if (!ri) return 'Radar’s baseline loads with the live progress data.';
+    var rd = ri.data, rs = ri.v.scores, cl = rd.classes || {};
+    switch (si) {
+      case 0: return 'Radar’s data: ' + fmtInt(rd.n) + ' SuperCon entries in 3DSC, ' + fmtInt(rd.n_unconventional) + ' from the four unconventional families (cuprates, iron- and nickel-based, heavy-fermion, other oxides) and ' + fmtInt(rd.n_conventional) + ' conventional ones' +
+        (typeof cl.Chevrel === 'number' ? ', among them ' + fmtInt(cl.Chevrel) + ' Chevrel phases and ' + fmtInt(cl.Carbon || 0) + ' carbon-based superconductors' : '') + '. The baseline sees only the chemical formula.';
+      case 1: return 'The same 33 numbers from the formula as Hurricane’s baseline: the number of elements, and the mean, spread, minimum and maximum of eight element properties. No crystal structure and no physics features.';
+      case 2: return 'A gradient-boosted classifier (up to 400 trees, learning rate 0.05, at most 31 leaves per tree) gives the probability that a material belongs to an unconventional family. At 0.5 or more it goes to Hurricane, otherwise to Storm.';
+      default: return 'Five-fold cross-validation grouped by parent compound. The baseline’s log loss is ' + rs.reference_log_loss.toFixed(3) + ', ' + radTitle(ri) + '’s ' + rs.log_loss.toFixed(3) + ' (lower is better), better in ' + rs.folds_better + ' of ' + list(rs.folds).length + ' folds; it picks the right model ' +
+        pct1(rs.reference_balanced_accuracy) + ' of the time against ' + pct1(rs.balanced_accuracy) + ' for ' + radTitle(ri) + ' (balanced accuracy).';
+    }
+  }
+
+  /* 0 · the data: families (Hurricane) or classes (Radar) */
+  function drawBaseData(c, C, D, t, narrow, variant) {
+    var rows = [], hi = hurInfo(), ri = radInfo(), vmax = 1, i;
+    if (variant === 'hurricane' && hi) {
+      hurFamilies(hi).forEach(function (f) { rows.push({ label: HUR_FAM_SHORT[f.id] || f.label, n: f.n, sc: f.n_sc, note: 'up to ' + Math.round(f.max_tc) + ' K', col: hurColor(C, f.id) }); });
+    } else if (variant === 'radar' && ri) {
+      var cl = ri.data.classes || {};
+      RAD_UNCONV.concat(RAD_CONV).forEach(function (k) { if (typeof cl[k] === 'number') rows.push({ label: RAD_SHORT[k] || k, n: cl[k], to: RAD_UNCONV.indexOf(k) >= 0 ? 'Hurricane' : 'Storm' }); });
+    }
+    if (!rows.length) { label(c, C, 'The data load with the live progress data.', D.x, D.y + 30, { size: 13, color: C.muted }); return; }
+    rows.forEach(function (r) { vmax = Math.max(vmax, r.n); });
+    var nameW = narrow ? 92 : 130, x0 = D.x + nameW, x1 = D.x + D.w - (narrow ? 70 : 150), rh = Math.min(narrow ? 34 : 38, (D.h - 40) / rows.length);
+    for (i = 0; i < rows.length; i++) {
+      var r = rows[i], y = D.y + 18 + i * rh, a = stSpan(t, 0.3 + 0.25 * i, 0.8 + 0.25 * i);
+      if (a <= 0) continue;
+      c.globalAlpha = a;
+      label(c, C, r.label, D.x, y + 5, { size: narrow ? 11.5 : 12.5, weight: '600', color: C.ink });
+      var w = (x1 - x0) * Math.sqrt(r.n / vmax) * a;
+      if (variant === 'hurricane') {
+        var wsc = w * r.sc / r.n;
+        stRound(c, x0, y - 7, Math.max(2, w), 14, 4); c.fillStyle = stAlpha(r.col, 0.25); c.fill();
+        stRound(c, x0, y - 7, Math.max(2, wsc), 14, 4); c.fillStyle = r.col; c.fill();
+        label(c, C, fmtInt(r.n) + (narrow ? '' : ' · ' + r.note), x0 + w + 8, y + 4, { size: 11.5, weight: '600', color: C.ink2 });
+      } else {
+        var col = r.to === 'Hurricane' ? C.accent : C.warm;
+        stRound(c, x0, y - 7, Math.max(2, w), 14, 4); c.fillStyle = col; c.fill();
+        label(c, C, fmtInt(r.n) + (narrow ? '' : ' → ' + r.to), x0 + w + 8, y + 4, { size: 11.5, weight: '600', color: C.ink2 });
+      }
+      c.globalAlpha = 1;
+    }
+    var ly = D.y + 18 + rows.length * rh + 12;
+    c.globalAlpha = stSpan(t, 1.6, 2.1);
+    if (variant === 'hurricane') {
+      c.fillStyle = C.accent; c.fillRect(D.x, ly - 8, 10, 10); label(c, C, 'superconducts', D.x + 14, ly + 1, { size: 11, color: C.ink2 });
+      c.fillStyle = stAlpha(C.accent, 0.25); c.fillRect(D.x + 110, ly - 8, 10, 10); label(c, C, 'measured, not superconducting', D.x + 124, ly + 1, { size: 11, color: C.ink2 });
+    } else {
+      c.fillStyle = C.accent; c.fillRect(D.x, ly - 8, 10, 10); label(c, C, 'unconventional → Hurricane', D.x + 14, ly + 1, { size: 11, color: C.ink2 });
+      c.fillStyle = C.warm; c.fillRect(D.x + (narrow ? 0 : 190), ly - 8 + (narrow ? 18 : 0), 10, 10); label(c, C, 'conventional → Storm', D.x + (narrow ? 14 : 204), ly + 1 + (narrow ? 18 : 0), { size: 11, color: C.ink2 });
+    }
+    c.globalAlpha = 1;
+  }
+
+  /* 1 · 33 numbers from the formula (the composition block of Storm's baseline, without structure) */
+  function drawBaseFeatures(c, C, D, t, narrow) {
+    drawModelFeatures(c, C, D, t, narrow, COMP_GROUPS, [['Composition · 33 numbers', 'Composition · 33', C.accent]]);
+  }
+
+  /* 2 · boosted trees, ending in Tc (Hurricane) or in a probability and a route (Radar) */
+  function drawBaseTrees(c, C, D, t, narrow, variant) {
+    var nShow = narrow ? 5 : 9, s = narrow ? 16 : 20, slotW = (D.w - 40) / (nShow + 1), total = variant === 'radar' ? 400 : 800;
+    for (var i = 0; i < nShow; i++) {
+      var x = D.x + 20 + slotW * (i + 0.5), y = D.y + 14, a = stSpan(t, 0.4 + i * (2.4 / nShow), 0.7 + i * (2.4 / nShow));
+      if (a <= 0) continue;
+      c.globalAlpha = a;
+      treeGlyph(c, C, x, y, s, C.accent);
+      if (i > 0) label(c, C, '+', x - slotW / 2, y + s * 0.8, { align: 'center', base: 'middle', size: 14, weight: '600', color: C.ink2 });
+    }
+    c.globalAlpha = stSpan(t, 2.8, 3.2);
+    label(c, C, '… ' + total, D.x + 20 + slotW * (nShow + 0.5), D.y + 14 + s * 0.85, { align: 'center', base: 'middle', size: 13, weight: '600', color: C.ink2 });
+    c.globalAlpha = stSpan(t, 3.2, 3.8);
+    var by = D.y + D.h * (narrow ? 0.5 : 0.45), bx = D.x + (narrow ? 0 : D.w * 0.12), bw = narrow ? D.w : D.w * 0.76;
+    if (variant === 'radar') {
+      // the probability bar with the 0.5 cut between Storm and Hurricane
+      stRound(c, bx, by, bw, 18, 9); c.fillStyle = C.surface2; c.fill(); c.strokeStyle = C.grid; c.lineWidth = 1; c.stroke();
+      var g = c.createLinearGradient(bx, 0, bx + bw, 0); g.addColorStop(0, C.warm); g.addColorStop(1, C.accent);
+      stRound(c, bx, by, bw, 18, 9); c.fillStyle = g; c.globalAlpha *= 0.85; c.fill(); c.globalAlpha = stSpan(t, 3.2, 3.8);
+      var cx = bx + bw / 2;
+      c.strokeStyle = C.ink; c.lineWidth = 2; c.beginPath(); c.moveTo(cx, by - 8); c.lineTo(cx, by + 26); c.stroke();
+      label(c, C, '0', bx, by + 36, { size: 11, color: C.muted }); label(c, C, '1', bx + bw, by + 36, { align: 'right', size: 11, color: C.muted });
+      label(c, C, '0.5', cx, by + 36, { align: 'center', size: 11, weight: '600', color: C.ink });
+      label(c, C, '← Storm', bx + bw * 0.25, by - 10, { align: 'center', size: 12, weight: '600', color: C.warm });
+      label(c, C, 'Hurricane →', bx + bw * 0.75, by - 10, { align: 'center', size: 12, weight: '600', color: C.accent });
+      stSym(c, C, symParts('probability of an unconventional family'), bx, by + 58, { size: 12, color: C.ink2 });
+    } else {
+      stSym(c, C, symParts('trees add up to log(1 + Tc)  →  Tc'), bx, by + 6, { size: narrow ? 13 : 15, weight: '600', color: C.ink });
+      stParaRich(c, C, 'A compound that does not superconduct counts as Tc = 0.', bx, by + 32, bw, 17, { size: 12, color: C.ink2 });
+    }
+    c.globalAlpha = 1;
+  }
+
+  /* 3 · fold by fold against the model in use */
+  function drawBaseScore(c, C, D, t, narrow, variant) {
+    var hi = hurInfo(), ri = radInfo(), f, r, unit, name, refMean, mean, fmt, extra = [];
+    if (variant === 'hurricane' && hi) {
+      var sc = hi.v.scores; f = list(sc.folds); r = list(sc.reference_folds); refMean = sc.reference_mae; mean = sc.tc_mae; name = hurTitle(hi); unit = ' K'; fmt = baseK1;
+      var bf = sc.by_family || {};
+      HUR_FAMS.forEach(function (k) { if (bf[k] && typeof bf[k].mae_ref === 'number') extra.push((HUR_FAM_SHORT[k] || k) + ': ' + baseK1(bf[k].mae_ref) + ' → ' + baseK1(bf[k].mae) + ' K'); });
+    } else if (variant === 'radar' && ri) {
+      var rs = ri.v.scores; f = list(rs.folds); r = list(rs.reference_folds); refMean = rs.reference_log_loss; mean = rs.log_loss; name = radTitle(ri); unit = ''; fmt = function (v) { return v.toFixed(3); };
+      extra.push('right model: ' + pct1(rs.reference_balanced_accuracy) + ' → ' + pct1(rs.balanced_accuracy));
+    }
+    if (!f || !f.length || f.length !== r.length) { label(c, C, 'Scores load with the live progress data.', D.x, D.y + 30, { size: 13, color: C.muted }); return; }
+    var n = f.length, better = 0;
+    for (var q = 0; q < n; q++) if (f[q] < r[q]) better++;
+    label(c, C, variant === 'radar' ? 'Log loss per test fold (lower is better)' : 'Tc error per test fold (K)', D.x, D.y + 8, { size: 12, weight: '600', color: C.ink2 });
+    var P = { x: D.x + 36, y: D.y + 24, w: D.w - 36 - (narrow ? 4 : 250), h: D.h - (narrow ? 150 : 50) };
+    var top = 0;
+    f.concat(r).forEach(function (v) { top = Math.max(top, v); });
+    var tstep = niceStep(top * 1.1 || 1, 3);
+    top = Math.ceil(top * 1.1 / tstep) * tstep;
+    function Y(v) { return P.y + P.h - v / top * P.h; }
+    c.lineWidth = 1;
+    for (var gv = 0; gv <= top + 1e-9; gv += tstep) {
+      var yy = Math.round(Y(gv)) + 0.5;
+      c.strokeStyle = gv ? C.grid : C.axis; c.beginPath(); c.moveTo(P.x, yy); c.lineTo(P.x + P.w, yy); c.stroke();
+      label(c, C, variant === 'radar' ? gv.toFixed(2) : fmtTick(gv), P.x - 6, yy + 4, { align: 'right', size: 10.5, color: C.muted });
+    }
+    var gw = P.w / n, bw = Math.min(26, gw * 0.3);
+    for (var i = 0; i < n; i++) {
+      var gx = P.x + gw * (i + 0.5), hr = (P.y + P.h - Y(r[i])) * stSpan(t, 0.3 + 0.4 * i, 0.8 + 0.4 * i), hf = (P.y + P.h - Y(f[i])) * stSpan(t, 0.5 + 0.4 * i, 1.0 + 0.4 * i);
+      c.fillStyle = C.axis; c.fillRect(gx - bw - 1, P.y + P.h - hr, bw, hr);
+      c.fillStyle = C.accent; c.fillRect(gx + 1, P.y + P.h - hf, bw, hf);
+      label(c, C, 'fold ' + (i + 1), gx, P.y + P.h + 15, { align: 'center', size: 10.5, color: C.muted });
+      if (t > 1.0 + 0.4 * i && f[i] < r[i]) label(c, C, '✓', gx + 1 + bw / 2, P.y + P.h - hf - 6, { align: 'center', size: 11, weight: '600', color: C.accent });
+    }
+    var items = [['baseline', fmt(refMean) + unit, C.axis], [name, fmt(mean) + unit, C.accent]];
+    var head = name + ' better in ' + better + ' of ' + n + ' folds';
+    if (narrow) {
+      var ky = P.y + P.h + 40;
+      items.forEach(function (it, k) { c.fillStyle = it[2]; c.fillRect(D.x, ky + k * 19 - 8, 10, 10); label(c, C, it[0] + ' ' + it[1], D.x + 14, ky + k * 19 + 1, { size: 11.5, weight: k ? '600' : '400', color: k ? C.accent : C.ink2 }); });
+      c.globalAlpha = stSpan(t, 3, 3.5);
+      label(c, C, head, D.x, ky + 44, { size: 11.5, weight: '600', color: C.ink });
+      if (extra.length) stParaRich(c, C, extra.join('; '), D.x, ky + 62, D.w, 16, { size: 11, color: C.ink2 });
+      c.globalAlpha = 1;
+      return;
+    }
+    var kx = P.x + P.w + 30, ky2 = P.y + 10;
+    items.forEach(function (it, k) {
+      c.fillStyle = it[2]; c.fillRect(kx, ky2 + k * 44 - 8, 10, 10);
+      label(c, C, it[0], kx + 16, ky2 + k * 44 + 1, { size: 11.5, color: k ? C.accent : C.ink2 });
+      label(c, C, it[1], kx + 16, ky2 + k * 44 + 19, { size: 13, weight: '600', color: k ? C.accent : C.ink2 });
+    });
+    c.globalAlpha = stSpan(t, 3, 3.5);
+    label(c, C, head, kx, ky2 + 100, { size: 12, weight: '600', color: C.ink });
+    extra.forEach(function (e, k) { stText(c, C, e, kx, ky2 + 124 + k * 20, { size: 11.5, color: C.ink2 }); });
+    c.globalAlpha = 1;
   }
 
   /* ---------- Storm: the AI-designed model, animated from its own spec ----------
@@ -4032,7 +4403,11 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][(+p[1] || 1) - 1];
     return p.length >= 3 ? (+p[2]) + ' ' + m + ' ' + p[0] : s;
   }
+  // The stages of the demo: the Storm in use (built over several rounds) once Storm 4.0 is released, else one version's spec.
+  function stormStages() { return stormLatest() ? STORM_LATEST_STAGES : STORM_STAGES; }
   function stormCaption(si) {
+    var Lt = stormLatest();
+    if (Lt) return stormLatestCaption(si, Lt);
     var info = stormInfo();
     if (!info) return 'Storm is the AI-designed model. Its structure and scores load with the live progress data.';
     var v = info.v, sc = v.scores, sp = v.spec, L0 = sp.learner || {}, n = 0;
@@ -4129,6 +4504,9 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var el = $('#storm-seg');
     if (!el) return;
     clear(el);
+    // the demo shows only the Storm in use, so there is no version to pick
+    el.hidden = !!stormLatest();
+    if (el.hidden) return;
     var info = stormInfo();
     if (!info) { el.appendChild(h('button', { type: 'button', 'aria-pressed': 'true', disabled: true }, 'Storm')); return; }
     info.versions.forEach(function (v) {
@@ -4138,8 +4516,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 
   function drawStorm(c, C) {
     var W = demo.W, H = demo.H, narrow = W < 560;
-    var si = demo.stormStage, t = motionOK() ? demo.stormT : STORM_DUR;
-    var n = STORM_STAGES.length, gap = narrow ? 6 : 18, nodeW = (W - 32 - gap * (n - 1)) / n, nodeH = narrow ? 34 : 40, ny = 12;
+    var si = demo.stormStage, t = motionOK() ? demo.stormT : STORM_DUR, Lt = stormLatest(), ST = Lt ? STORM_LATEST_STAGES : STORM_STAGES;
+    var n = ST.length, gap = narrow ? 6 : 18, nodeW = (W - 32 - gap * (n - 1)) / n, nodeH = narrow ? 34 : 40, ny = 12;
     demo.stormNodes = [];
     for (var i = 0; i < n; i++) {
       var x = 16 + i * (nodeW + gap), on = i === si;
@@ -4147,7 +4525,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stRound(c, x, ny, nodeW, nodeH, 9);
       c.fillStyle = on ? C.accent : C.surface2; c.fill();
       if (!on) { c.lineWidth = 1; c.strokeStyle = C.grid; c.stroke(); }
-      label(c, C, narrow ? STORM_STAGES[i].short : STORM_STAGES[i].node, x + nodeW / 2, ny + nodeH / 2 + 0.5,
+      label(c, C, narrow ? ST[i].short : ST[i].node, x + nodeW / 2, ny + nodeH / 2 + 0.5,
         { align: 'center', base: 'middle', size: narrow ? 10.5 : 12, weight: '600', color: on ? '#ffffff' : C.ink2 });
       if (i < n - 1 && !narrow) stArrow(c, x + nodeW + 3, ny + nodeH / 2, x + nodeW + gap - 3, ny + nodeH / 2, C.axis, 5);
     }
@@ -4157,6 +4535,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       c.fillRect(px.x + 6, ny + nodeH - 3, (px.w - 12) * Math.min(1, t / STORM_DUR), 2);
     }
     var B = { x: 16, y: ny + nodeH + 16, w: W - 32, h: H - ny - nodeH - 28 };
+    if (Lt) { drawStormLatest(c, C, B, t, narrow, si, Lt); return; }
     var info = stormInfo();
     if (!info) {
       label(c, C, 'Storm’s structure loads with the live progress data.', W / 2, B.y + B.h / 2, { align: 'center', base: 'middle', size: 13, color: C.muted });
@@ -4281,8 +4660,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var phys = withItems.filter(function (g) { return !had[g.group]; })[0] || withItems.filter(function (g) { return g.group === 'physics'; })[0];
     if (!phys) return;
     var P = narrow ? { x: B.x, y: y0 + ins.length * rowH + 6, w: B.w } : { x: B.x + colW + 16, y: y0 - 4, w: B.w - colW - 16 };
-    label(c, C, phys.group === 'physics' ? 'Physics features proposed by the AI' : phys.label, P.x, P.y + 10, { size: 12, weight: '600', color: had[phys.group] ? C.ink : C.warm });
-    var items = list(phys.items), cols = narrow ? 2 : (P.w > 360 ? 2 : 1), cw = P.w / cols, lh = narrow ? 21 : 23;
+    var items = list(phys.items), lh = narrow ? 21 : 23;
+    // on phones one column when the list fits, so no label is cut short; the bar above already names the group
+    var cols = narrow ? (P.y + 26 + items.length * lh <= B.y + B.h - 4 ? 1 : 2) : (P.w > 360 ? 2 : 1), cw = P.w / cols;
+    label(c, C, narrow && phys.group === 'physics' ? 'The ' + items.length + ' physics features' : phys.group === 'physics' ? 'Physics features proposed by the AI' : phys.label, P.x, P.y + 10, { size: 12, weight: '600', color: had[phys.group] ? C.ink : C.warm });
     items.forEach(function (it, j) {
       var a = stSpan(t, 1.2 + 0.25 * j, 1.6 + 0.25 * j);
       if (a <= 0) return;
@@ -4477,6 +4858,282 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       stParaRich(c, C, 'This animation is drawn from the model’s own spec, so the next version of ' + info.name + ' will explain itself here.', B.x, Math.min(B.y + B.h - 8, y + 8), B.w, 16, { size: 11.5, color: C.muted });
       c.globalAlpha = 1;
     }
+  }
+
+  /* ---------- Storm in use (4.0 and later): the demo shows only the Storm in use, built over several rounds ----------
+     Storm 1.0's trees (ai_model.versions), round 3's calibration (ai_model.calibration), round 4's average with the
+     crystal-graph network (ai_model.ensemble) and round 5's 90% range (ai_model.uncertainty), all read from progress.json. */
+  var STORM_LATEST_STAGES = [
+    { node: 'AI designs', short: 'Design' },
+    { node: 'Inputs', short: 'Inputs' },
+    { node: 'Learners', short: 'Learn' },
+    { node: 'Prediction', short: 'Predict' },
+    { node: 'Validation', short: 'Check' },
+    { node: 'What’s new', short: 'New' }
+  ];
+  function stormLatest() {
+    var am = state.data && state.data.ai_model, ens = stormEns();
+    if (!am || !ens) return null;
+    var vs = list(am.versions).filter(function (v) { return v && v.spec && v.scores; });
+    var cur = vs.filter(function (v) { return v.version === am.current; })[0] || vs[0];
+    if (!cur) return null;
+    var unc = stormUnc(), cal = stormCal(), name = am.name || 'Storm';
+    return { am: am, ens: ens, unc: unc, cal: cal, trees: cur, versions: vs, name: name, version: unc ? unc.version : ens.version,
+      info: { am: am, v: cur, versions: vs, name: name } };
+  }
+  function stormLatestTitle(L) { return L.name + ' ' + L.version; }
+  function stormRounds(L) {
+    var rows = [];
+    L.versions.forEach(function (v) {
+      var pv = v.scores.previous;
+      var ok = v.status === 'adopted';
+      rows.push({ round: v.round, name: L.name + ' ' + v.version, ok: ok, result: fmtVal(v.scores.tc_mae) + ' K',
+        what: lcFirst(String(v.summary || '').replace(/^Hand-made \+ /, '')), why: ok ? '' : 'not released' + (pv ? ', better than ' + pv.name + ' in ' + pv.folds_better + ' of ' + list(pv.folds).length + ' folds' : '') });
+    });
+    if (L.cal) rows.push({ round: L.cal.round || 3, name: L.name + ' ' + L.cal.version, what: 'calibrated to measured Tc', ok: true, result: fmtVal(L.cal.scores.mae) + ' K measured' });
+    rows.push({ round: L.ens.round || 4, name: L.name + ' ' + L.ens.version, what: 'trees and a crystal-graph network', ok: true, result: fmtVal(L.ens.scores.tc_mae) + ' K' });
+    if (L.unc) rows.push({ round: L.unc.round || 5, name: L.name + ' ' + L.unc.version, what: 'a 90% range for every prediction', ok: true, result: (100 * L.unc.scores.coverage).toFixed(1) + '% held' });
+    return rows.sort(function (a, b) { return a.round - b.round; });
+  }
+
+  function stormLatestCaption(si, L) {
+    var ens = L.ens, sc = ens.scores, cal = ens.calibration || {}, unc = L.unc, rows = stormRounds(L), name = stormLatestTitle(L);
+    var sp = L.trees.spec, n = 0;
+    list(sp.inputs).forEach(function (i) { n += i.n || 0; });
+    var notRel = rows.filter(function (r) { return !r.ok; }).map(function (r) { return 'round ' + r.round; });
+    switch (si) {
+      case 0:
+        return name + ' is the Storm in use. An AI agent (Claude) built it over ' + rows.length + ' rounds, and a round was released only if it beat the version in use on held-out materials' +
+          (notRel.length ? ' (' + notRel.join(' and ') + ' did not)' : '') + ': ' + rows.filter(function (r) { return r.ok; }).map(function (r) { return r.name + ', ' + r.what + (r.round === (L.ens.round || 4) ? ' together' : ''); }).join('; ') +
+          '. Storm predicts Tc for conventional, phonon-mediated superconductors; ' + (radInfo() && radInfo().rd.current ? radTitle(radInfo()) : 'Radar') + ' sends cuprates, iron-based, heavy-fermion compounds and other unconventional superconductors to ' + (hurInfo() ? hurTitle(hurInfo()) : 'Hurricane') + '.';
+      case 1:
+        return 'Two kinds of input. The boosted trees read ' + n + ' numbers per material: ' + list(sp.inputs).map(function (i) { return i.n + ' ' + lcFirst(i.label); }).join(', ') +
+          '. The physics features encode rules of thumb such as Matthias’s valence-electron peaks and the M^−½ scale of phonon frequencies. The crystal-graph network reads the crystal itself: every atom is a node joined to its 12 nearest neighbours.';
+      case 2:
+        var Lr = sp.learner || {};
+        return 'Two learners. ' + fmtInt(Lr.trees) + ' gradient-boosted trees, each fixing what the trees before it got wrong (up to ' + Lr.leaves + ' leaves, learning rate ' + Lr.learning_rate + '), and the ' +
+          (ens.gnn && ens.gnn.design ? ens.gnn.design : 'crystal-graph network') + ', which passes messages between neighbouring atoms in three layers and predicts Tc, λ and ω_log together.';
+      case 3:
+        return 'Three routes to Tc: the trees, the network, and the network’s λ and ω_log through the Allen–Dynes formula. Their average is off by ' + fmtVal(sc.tc_mae) + ' K for materials Storm never saw' +
+          (typeof cal.mae === 'number' ? '; round 3’s calibration maps it to experiment, ' + fmtVal(cal.mae) + ' K off against measured Tc' : '') +
+          (unc ? '; and every prediction gets a 90% range, which held the computed Tc ' + (100 * unc.scores.coverage).toFixed(1) + '% of the time' : '') + '. The Predict Tc demo walks through these steps for real materials.';
+      case 4:
+        return 'Five-fold cross-validation grouped by chemical system, so no test material shares its elements with training data. ' + name + ' is off by ' + fmtVal(sc.tc_mae) + ' K against ' +
+          fmtVal(sc.reference_mae) + ' K for Storm 1.0’s trees alone, better in ' + sc.folds_better + ' of ' + list(sc.folds).length + ' folds' +
+          (typeof cal.mae === 'number' ? '; calibrated, it is ' + fmtVal(cal.mae) + ' K off against measured Tc' + (typeof cal.mae_storm3 === 'number' ? ', against ' + fmtVal(cal.mae_storm3) + ' K for Storm 3.0' : '') : '') +
+          (unc ? '; its ranges held ' + (100 * unc.scores.coverage).toFixed(1) + '% of held-out materials and ' + (100 * unc.scores.tail_coverage).toFixed(1) + '% of the tenth with the highest Tc' : '') +
+          '. The locked JARVIS test set checks it once, at the end.';
+      default:
+        if (unc) return 'New in ' + name + ' (round 5): a 90% range around every prediction, set by conformal prediction from the errors on held-out folds. One width on log(1 + Tc) makes ranges wider where Tc is higher: half are narrower than ' +
+          fmtVal(unc.scores.median_width) + ' K, and they held ' + (100 * unc.scores.tail_coverage).toFixed(1) + '% of the highest-Tc tenth, where one width for every material held ' + (100 * unc.scores.reference_tail_coverage).toFixed(1) + '%. A range is for the computed Tc that Storm learns; measured Tc can lie further away, as for MgB₂.';
+        return 'New in ' + name + ' (round 4): Storm 1.0’s trees and the crystal-graph network together, ' + fmtVal(sc.tc_mae) + ' K against ' + fmtVal(sc.reference_mae) + ' K for the trees alone.';
+    }
+  }
+
+  function drawStormLatest(c, C, B, t, narrow, si, L) {
+    [drawStormRounds, drawStormInputsLatest, drawStormLearners, drawStormCombine, drawStormCheckLatest, drawStormNewLatest][si](c, C, B, t, narrow, L);
+  }
+  /* 0 · the rounds that built the Storm in use */
+  function drawStormRounds(c, C, B, t, narrow, L) {
+    var rows = stormRounds(L);
+    stormHeader(c, C, B, 'How ' + stormLatestTitle(L) + ' was built', narrow ? '' : 'each round released only if it beat the version in use');
+    var rh = Math.min(narrow ? 56 : 56, (B.h - 30) / Math.max(1, rows.length)), y0 = B.y + 30;
+    rows.forEach(function (r, i) {
+      var a = stSpan(t, 0.3 + 0.7 * i, 0.8 + 0.7 * i);
+      if (a <= 0) return;
+      var y = y0 + i * rh, last = i === rows.length - 1, cy = y + (narrow ? 14 : rh / 2);
+      c.globalAlpha = a;
+      if (last && t > 0.8 + 0.7 * i) { stRound(c, B.x - 6, y + 2, B.w + 12, rh - 4, 8); c.fillStyle = stAlpha(C.accent, 0.1); c.fill(); }
+      stTag(c, C, 'R' + r.round, B.x + 14, cy, { size: 10.5, bg: r.ok ? C.accent : C.surface, ring: r.ok ? null : C.grid, color: r.ok ? '#ffffff' : C.ink2 });
+      label(c, C, r.name, B.x + 36, cy + 4, { size: narrow ? 12 : 13, weight: '600', color: r.ok ? C.ink : C.muted });
+      stFont(c, C, narrow ? 12 : 13, '600');
+      var nameW = c.measureText(r.name).width;
+      if (last && t > 1.2 + 0.7 * i) stTag(c, C, 'in use', B.x + 36 + nameW + 8, cy, { align: 'left', size: 10.5, bg: C.track, color: C.ink });
+      var wx = narrow ? B.x + 36 : B.x + 196, wy = narrow ? cy + 19 : cy + 4, ww = narrow ? B.w - 40 : B.w - 196 - 120;
+      var full = r.what + (r.why ? ' · ' + r.why : ''), what = full;
+      stFont(c, C, narrow ? 11.5 : 12);
+      while (what.length > 8 && c.measureText(what + '…').width > ww) what = what.slice(0, -1).replace(/[\s,·]+$/, '');
+      stText(c, C, what + (what !== full ? '…' : ''), wx, wy, { size: narrow ? 11.5 : 12, color: r.ok ? C.ink2 : C.muted });
+      label(c, C, r.result, B.x + B.w, cy + 4, { align: 'right', size: narrow ? 11 : 12, weight: '600', color: r.ok ? C.accent : C.muted });
+      c.globalAlpha = 1;
+    });
+  }
+  /* 1 · the trees' inputs (the network's input is the crystal itself, drawn in the next step) */
+  function drawStormInputsLatest(c, C, B, t, narrow, L) { drawStormInputs(c, C, B, t, narrow, L.info); }
+  /* 2 · two learners: boosted trees and the crystal-graph network */
+  function drawStormLearners(c, C, B, t, narrow, L) {
+    var Lr = L.trees.spec.learner || {}, half = narrow ? { x: B.x, y: B.y + 26, w: B.w, h: (B.h - 40) / 2 } : { x: B.x, y: B.y + 26, w: B.w * 0.48, h: B.h - 30 };
+    var other = narrow ? { x: B.x, y: half.y + half.h + 14, w: B.w, h: half.h } : { x: B.x + B.w * 0.52, y: half.y, w: B.w * 0.48, h: half.h };
+    label(c, C, fmtInt(Lr.trees) + ' boosted trees', half.x, half.y + 10, { size: 12.5, weight: '600', color: C.ink });
+    var shown = narrow ? 5 : 6, gw = half.w / shown, grown = Math.min(shown, Math.floor(t / 0.5) + 1), th = Math.min(narrow ? 60 : 100, half.h - 46);
+    for (var i = 0; i < shown; i++) {
+      c.globalAlpha = i < grown ? 1 : 0.2;
+      drawTreeGlyph(c, C, half.x + gw * (i + 0.5), half.y + 26, gw * 0.8, th, 4, i === grown - 1 && t < shown * 0.5 ? C.warm : C.accent);
+    }
+    c.globalAlpha = 1;
+    label(c, C, 'each tree fixes what the trees before it got wrong', half.x, half.y + 26 + th + 18, { size: 11, color: C.muted });
+    // the network: atoms joined to their neighbours, messages flowing in three layers
+    label(c, C, L.ens.gnn && L.ens.gnn.version ? 'Crystal-graph network ' + L.ens.gnn.version : 'Crystal-graph network', other.x, other.y + 10, { size: 12.5, weight: '600', color: C.ink });
+    var cx = other.x + other.w * 0.42, cy = other.y + 26 + (other.h - 46) / 2, R = Math.min(other.w * 0.3, (other.h - 56) / 2), pts = [];
+    for (var q = 0; q < 8; q++) pts.push([cx + R * Math.cos(q * Math.PI / 4), cy + R * 0.8 * Math.sin(q * Math.PI / 4)]);
+    pts.push([cx, cy]);
+    c.lineWidth = 1; c.strokeStyle = C.grid;
+    pts.forEach(function (p, a) { pts.forEach(function (o, b) { if (b > a && Math.hypot(p[0] - o[0], p[1] - o[1]) < R * 0.95) { c.beginPath(); c.moveTo(p[0], p[1]); c.lineTo(o[0], o[1]); c.stroke(); } }); });
+    var ph = (t % 1.2) / 1.2, layer = Math.floor(t / 1.2) % 3;
+    pts.forEach(function (p, a) { if (a < 8) dot(c, p[0] + (cx - p[0]) * ph, p[1] + (cy - p[1]) * ph, 2.4, C.warm); });
+    pts.forEach(function (p, a) { dot(c, p[0], p[1], a === 8 ? 8 : 6, a === 8 ? C.accent : mix(C.accent, C.surface, 0.45)); });
+    var ox = other.x + other.w * 0.8;
+    ['Tc', 'λ', 'ω_log'].forEach(function (s, k) { stTag(c, C, s, ox, cy - 26 + k * 26, { size: 11.5, bg: C.track, color: C.ink, rich: true }); });
+    stArrow(c, cx + R + 8, cy, ox - 26, cy, C.axis, 6);
+    label(c, C, 'message passing, layer ' + (layer + 1) + ' of 3', other.x, other.y + other.h - 2, { size: 11, color: C.muted });
+  }
+  /* 3 · three routes, averaged, calibrated and given a range */
+  function drawStormCombine(c, C, B, t, narrow, L) {
+    var sc = L.ens.scores, cal = L.ens.calibration || {}, unc = L.unc, gn = L.ens.gnn || {};
+    stormHeader(c, C, B, 'Three routes to Tc, one prediction', narrow ? '' : 'errors on held-out materials');
+    var gAll = state.data && state.data.gnn, adMae = gAll && typeof gAll.tc_via_allen_dynes_mae === 'number' ? fmtVal(gAll.tc_via_allen_dynes_mae) + ' K' : '';
+    var srcs = [['trees', fmtVal(sc.reference_mae) + ' K'], ['network', typeof gn.tc_mae === 'number' ? fmtVal(gn.tc_mae) + ' K' : ''], [narrow ? 'Allen–Dynes' : 'λ, ω_log → Allen–Dynes', adMae]];
+    var exW = typeof predStormExamples === 'function' ? predStormExamples()[0] : null;
+    // one material through the same chain, with the numbers Storm computed for it (out of fold)
+    function example(y, w) {
+      if (!exW || t < 3.6) return;
+      c.globalAlpha = stSpan(t, 3.6, 4.2);
+      var txt = 'For ' + hurSub(exW.name) + ': (' + exW.trees.toFixed(1) + ' + ' + exW.gnn.toFixed(1) + ' + ' + exW.gnn_ad.toFixed(1) + ') / 3 = ' + exW.storm4.toFixed(1) + ' K' +
+        (typeof exW.calibrated === 'number' ? ', calibrated ' + exW.calibrated.toFixed(1) + ' K' : '') + ', 90% range ' + exW.lo.toFixed(1) + '–' + exW.hi.toFixed(1) + ' K; measured ' + exW.tc_exp.toFixed(1) + ' K.';
+      stParaRich(c, C, txt, B.x, y, w, 18, { size: narrow ? 12 : 12.5, color: C.ink2 });
+      c.globalAlpha = 1;
+    }
+    var bw = narrow ? (B.w - 16) / 3 : Math.min(190, B.w * 0.24), bh = 40, y0 = B.y + 44;
+    function box(x, y, w, text, sub, col, a) {
+      c.globalAlpha = a;
+      stRound(c, x, y, w, bh, 8); c.fillStyle = stAlpha(col, 0.14); c.fill(); c.lineWidth = 1; c.strokeStyle = col; c.stroke();
+      stText(c, C, text, x + w / 2, y + (sub ? 16 : 24), { align: 'center', size: narrow ? 10.5 : 12, weight: '600', color: C.ink });
+      if (sub) label(c, C, sub, x + w / 2, y + 32, { align: 'center', size: 10.5, color: C.muted });
+      c.globalAlpha = 1;
+    }
+    if (narrow) {
+      srcs.forEach(function (s, i) { box(B.x + i * (bw + 8), y0, bw, s[0], s[1], i === 2 ? C.warm : C.accent, stSpan(t, 0.2 + 0.3 * i, 0.6 + 0.3 * i)); });
+      var steps = [['average', fmtVal(sc.tc_mae) + ' K'], ['calibrated to experiment', typeof cal.mae === 'number' ? fmtVal(cal.mae) + ' K measured' : '']];
+      if (unc) steps.push(['90% range', (100 * unc.scores.coverage).toFixed(1) + '% held']);
+      steps.forEach(function (s, i) {
+        var a = stSpan(t, 1.4 + 0.8 * i, 1.9 + 0.8 * i), y = y0 + 70 + i * 62;
+        if (a <= 0) return;
+        c.globalAlpha = a; stArrow(c, B.x + B.w / 2, y - 24, B.x + B.w / 2, y - 4, C.axis, 6); c.globalAlpha = 1;
+        box(B.x + B.w * 0.15, y, B.w * 0.7, s[0], s[1], C.accent, a);
+      });
+      example(y0 + 70 + steps.length * 62 + 4, B.w);
+      return;
+    }
+    var xs = B.x, gap = 26;
+    srcs.forEach(function (s, i) { box(xs, y0 + i * 56, bw, s[0], s[1], i === 2 ? C.warm : C.accent, stSpan(t, 0.2 + 0.3 * i, 0.6 + 0.3 * i)); });
+    var chain = [['average', fmtVal(sc.tc_mae) + ' K'], ['calibrated to experiment', typeof cal.mae === 'number' ? fmtVal(cal.mae) + ' K measured' : '']];
+    if (unc) chain.push(['90% range', (100 * unc.scores.coverage).toFixed(1) + '% held']);
+    var cw = Math.min(180, (B.w - bw - gap * (chain.length + 1)) / chain.length), cy = y0 + 56;
+    chain.forEach(function (s, i) {
+      var a = stSpan(t, 1.4 + 0.8 * i, 1.9 + 0.8 * i), x = xs + bw + gap + i * (cw + gap);
+      if (a <= 0) return;
+      c.globalAlpha = a;
+      if (i === 0) [0, 1, 2].forEach(function (k) { stArrow(c, xs + bw + 3, y0 + k * 56 + bh / 2, x - 3, cy + bh / 2, C.axis, 6); });
+      else stArrow(c, x - gap + 3, cy + bh / 2, x - 3, cy + bh / 2, C.axis, 6);
+      c.globalAlpha = 1;
+      box(x, cy, cw, s[0], s[1], C.accent, a);
+    });
+    example(y0 + 3 * 56 + 30, Math.min(B.w, 760));
+  }
+  /* 4 · fold by fold against Storm 1.0, plus the measured-Tc and range checks */
+  function drawStormCheckLatest(c, C, B, t, narrow, L) {
+    var sc = L.ens.scores, f = list(sc.folds), r = list(sc.reference_folds), n = f.length, cal = L.ens.calibration || {}, unc = L.unc;
+    stormHeader(c, C, B, 'Better than Storm 1.0 in ' + sc.folds_better + ' of ' + n + ' folds', narrow ? '' : 'Tc error per test fold (K)');
+    var P = { x: B.x + 34, y: B.y + 34, w: B.w - 34 - (narrow ? 4 : 220), h: B.h - (narrow ? 150 : 74) };
+    var top = 0;
+    f.concat(r).forEach(function (v) { top = Math.max(top, v); });
+    var tstep = niceStep(top * 1.1 || 1, 3);
+    top = Math.ceil(top * 1.1 / tstep) * tstep;
+    function Y(v) { return P.y + P.h - v / top * P.h; }
+    c.lineWidth = 1;
+    for (var g = 0; g <= top + 1e-9; g += tstep) {
+      var yy = Math.round(Y(g)) + 0.5;
+      c.strokeStyle = g ? C.grid : C.axis; c.beginPath(); c.moveTo(P.x, yy); c.lineTo(P.x + P.w, yy); c.stroke();
+      label(c, C, fmtTick(g), P.x - 6, yy + 4, { align: 'right', size: 10.5, color: C.muted });
+    }
+    var gw = P.w / n, bw = Math.min(26, gw * 0.3);
+    for (var i = 0; i < n; i++) {
+      var gx = P.x + gw * (i + 0.5), hr = (P.y + P.h - Y(r[i])) * stSpan(t, 0.3 + 0.5 * i, 0.9 + 0.5 * i), hf = (P.y + P.h - Y(f[i])) * stSpan(t, 0.6 + 0.5 * i, 1.2 + 0.5 * i);
+      c.fillStyle = C.axis; c.fillRect(gx - bw - 1, P.y + P.h - hr, bw, hr);
+      c.fillStyle = C.accent; c.fillRect(gx + 1, P.y + P.h - hf, bw, hf);
+      label(c, C, 'fold ' + (i + 1), gx, P.y + P.h + 15, { align: 'center', size: 10.5, color: C.muted });
+      if (t > 1.2 + 0.5 * i && f[i] < r[i]) label(c, C, '✓', gx + 1 + bw / 2, P.y + P.h - hf - 6, { align: 'center', size: 11, weight: '600', color: C.accent });
+    }
+    var items = [['Storm 1.0’s trees', fmtVal(sc.reference_mae) + ' K', C.axis], [stormLatestTitle(L), fmtVal(sc.tc_mae) + ' K', C.accent]];
+    var extra = [];
+    if (typeof cal.mae === 'number') extra.push('measured Tc: ' + fmtVal(cal.mae) + ' K' + (typeof cal.mae_storm3 === 'number' ? ' (Storm 3.0 ' + fmtVal(cal.mae_storm3) + ')' : ''));
+    if (unc) extra.push('90% ranges held ' + (100 * unc.scores.coverage).toFixed(1) + '%');
+    if (narrow) {
+      var ky = P.y + P.h + 40;
+      items.forEach(function (it, k) { c.fillStyle = it[2]; c.fillRect(B.x, ky + k * 19 - 8, 10, 10); label(c, C, it[0] + ' ' + it[1], B.x + 14, ky + k * 19 + 1, { size: 11.5, weight: k ? '600' : '400', color: k ? C.accent : C.ink2 }); });
+      if (t > 3) { c.globalAlpha = stSpan(t, 3, 3.5); var ext = extra.join('; ') + '.'; stParaRich(c, C, ext.charAt(0).toUpperCase() + ext.slice(1), B.x, ky + 44, B.w, 16, { size: 11.5, color: C.ink2 }); c.globalAlpha = 1; }
+      return;
+    }
+    var kx = P.x + P.w + 26, ky2 = P.y + 10;
+    items.forEach(function (it, k) {
+      c.fillStyle = it[2]; c.fillRect(kx, ky2 + k * 44 - 8, 10, 10);
+      label(c, C, it[0], kx + 16, ky2 + k * 44 + 1, { size: 11.5, color: k ? C.accent : C.ink2 });
+      label(c, C, it[1], kx + 16, ky2 + k * 44 + 19, { size: 13, weight: '600', color: k ? C.accent : C.ink2 });
+    });
+    extra.forEach(function (e, k) {
+      c.globalAlpha = stSpan(t, 3 + 0.5 * k, 3.5 + 0.5 * k);
+      stTag(c, C, e, kx, ky2 + 104 + k * 30, { align: 'left', size: 11.5, bg: C.track, color: C.ink, rich: true });
+      c.globalAlpha = 1;
+    });
+  }
+  /* 5 · what the newest round added: the 90% range, shown for the worked examples */
+  function drawStormNewLatest(c, C, B, t, narrow, L) {
+    var unc = L.unc;
+    if (!unc) { drawStormCombine(c, C, B, t, narrow, L); return; }
+    stormHeader(c, C, B, narrow ? 'New in ' + stormLatestTitle(L) + ': a 90% range' : 'New in ' + stormLatestTitle(L) + ' (round 5): a 90% range for every prediction', '');
+    var ex = typeof predStormExamples === 'function' ? predStormExamples() : [];
+    if (!ex.length) ex = list(unc.worked).slice(0, narrow ? 4 : 5);
+    if (!ex.length) ex = list(unc.examples).slice(0, narrow ? 4 : 5).map(function (e) { return { name: e.name, storm4: e.pred, lo: e.lo, hi: e.hi, dft_tc: e.tc }; });
+    var vmax = 0;
+    ex.forEach(function (e) { vmax = Math.max(vmax, e.hi, e.dft_tc || 0, e.tc_exp || 0); });
+    vmax = vmax * 1.08 || 1;
+    var nameW = narrow ? 64 : 90, x0 = B.x + nameW, x1 = B.x + B.w - 16, rh = Math.min(narrow ? 46 : 50, (B.h - 70) / Math.max(1, ex.length));
+    function X(v) { return x0 + Math.max(0, Math.min(1, v / vmax)) * (x1 - x0); }
+    var axisY = B.y + 40 + ex.length * rh;
+    ex.forEach(function (e, i) {
+      var a = stSpan(t, 0.4 + 0.7 * i, 0.9 + 0.7 * i);
+      if (a <= 0) return;
+      var y = B.y + 40 + i * rh + rh / 2;
+      c.globalAlpha = a;
+      stText(c, C, hurSub(e.name), B.x, y + 4, { size: 12.5, weight: '600', color: C.ink });
+      c.fillStyle = stAlpha(C.accent, 0.2); stRound(c, X(e.lo), y - 6, Math.max(3, (X(e.hi) - X(e.lo)) * stSpan(t, 0.6 + 0.7 * i, 1.4 + 0.7 * i)), 12, 6); c.fill();
+      dot(c, X(e.storm4), y, 5, C.accent);
+      if (typeof e.dft_tc === 'number') { c.fillStyle = C.ink2; c.beginPath(); c.moveTo(X(e.dft_tc), y - 6); c.lineTo(X(e.dft_tc) + 5, y); c.lineTo(X(e.dft_tc), y + 6); c.lineTo(X(e.dft_tc) - 5, y); c.closePath(); c.fill(); }
+      if (typeof e.tc_exp === 'number' && e.tc_exp <= vmax) {
+        var sx = X(e.tc_exp); c.fillStyle = C.warm; c.beginPath();
+        for (var q = 0; q < 10; q++) { var rr = q % 2 ? 3 : 7, an = -Math.PI / 2 + q * Math.PI / 5; c.lineTo(sx + Math.cos(an) * rr, y + Math.sin(an) * rr); }
+        c.closePath(); c.fill();
+      }
+      c.globalAlpha = 1;
+    });
+    c.lineWidth = 1; c.strokeStyle = C.axis; c.beginPath(); c.moveTo(x0, axisY + 0.5); c.lineTo(x1, axisY + 0.5); c.stroke();
+    var stp = niceStep(vmax, 4);
+    for (var g = 0; g <= vmax + 1e-9; g += stp) label(c, C, fmtTick(g), X(g), axisY + 15, { align: 'center', size: 10.5, color: C.muted });
+    label(c, C, 'K', x1 + 4, axisY + 15, { size: 10.5, color: C.muted });
+    var ly = axisY + (narrow ? 34 : 36), lx = B.x;
+    c.globalAlpha = stSpan(t, 1, 1.5);
+    c.fillStyle = stAlpha(C.accent, 0.2); stRound(c, lx, ly - 9, 22, 10, 5); c.fill(); label(c, C, '90% range', lx + 28, ly, { size: 11, color: C.ink2 });
+    dot(c, lx + (narrow ? 104 : 116), ly - 4, 4.5, C.accent); label(c, C, 'Storm', lx + (narrow ? 112 : 124), ly, { size: 11, color: C.ink2 });
+    var dx = lx + (narrow ? 5 : 190);
+    if (narrow) ly += 20;
+    c.fillStyle = C.ink2; c.beginPath(); c.moveTo(dx, ly - 10); c.lineTo(dx + 5, ly - 4); c.lineTo(dx, ly + 2); c.lineTo(dx - 5, ly - 4); c.closePath(); c.fill();
+    label(c, C, 'DFT', dx + 9, ly, { size: 11, color: C.ink2 });
+    if (ex.some(function (e) { return typeof e.tc_exp === 'number'; })) {
+      var mx = dx + 52; c.fillStyle = C.warm; c.beginPath();
+      for (var q2 = 0; q2 < 10; q2++) { var r2 = q2 % 2 ? 3 : 6, a2 = -Math.PI / 2 + q2 * Math.PI / 5; c.lineTo(mx + Math.cos(a2) * r2, ly - 4 + Math.sin(a2) * r2); }
+      c.closePath(); c.fill(); label(c, C, 'measured', mx + 9, ly, { size: 11, color: C.ink2 });
+    }
+    c.globalAlpha = 1;
   }
 
   /* ---------- Hurricane: the AI-designed model for unconventional superconductors, animated from its own results ----------
@@ -5456,6 +6113,368 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       label(c, C, 'family left out', B.x + (narrow ? 18 : 228), ly + (narrow ? 17 : 1), { size: 11, weight: '600', color: C.ink });
     }
     c.globalAlpha = 1;
+  }
+
+  /* ---------- Predict Tc: the Allen–Dynes formula, and how Storm and Hurricane predict, step by step ----------
+     The two walk-throughs use only numbers the models computed: the worked examples that Storm round 5 writes into
+     progress.json (ai_model.uncertainty.worked, out of fold) and the anchors of the Hurricane in use (each with the two
+     parts of its prediction). A new training round therefore updates them without a new app. */
+  var PRED_MODES = [['formula', 'Formula'], ['storm', 'Storm'], ['hurricane', 'Hurricane']];
+  // a stable sort: by key, then by the original order
+  function predSortBy(arr, key) {
+    return arr.map(function (x, i) { return { x: x, i: i, k: key(x) }; }).sort(function (a, b) { return a.k - b.k || a.i - b.i; }).map(function (o) { return o.x; });
+  }
+  function predNum(v) { return typeof v === 'number' && isFinite(v); }
+  // Storm's examples: one crystal structure per composition first (so every number belongs to one crystal), and the ones
+  // whose computed Tc falls inside the range before the ones it misses, which are shown too
+  function predStormExamples() {
+    var u = state.data && state.data.ai_model && state.data.ai_model.uncertainty;
+    var ok = list(u && u.worked).filter(function (w) {
+      return w && ['trees', 'gnn', 'gnn_lambda', 'gnn_wlog', 'gnn_ad', 'storm4', 'lo', 'hi', 'tc_exp'].every(function (k) { return predNum(w[k]); });
+    });
+    return predSortBy(ok, function (w) { return (w.n_structures > 1 ? 2 : 0) + (predNum(w.dft_tc) && (w.dft_tc < w.lo || w.dft_tc > w.hi) ? 1 : 0); }).slice(0, 4);
+  }
+  // Hurricane's examples: scored anchors, one per family first (cuprates, heavy-fermion, iron-based, other oxides)
+  function predHurExamples() {
+    var hi = hurInfo(), an = hi && hi.v.anchors, rank = { 'cuprate': 0, 'heavy-fermion': 1, 'iron-based': 2, 'other oxide': 3 };
+    var ok = predSortBy(list(an && an.table).filter(function (r) {
+      return r && r.use === 'score' && ['pred', 'tc_sc', 'p_sc', 'tc_exp'].every(function (k) { return predNum(r[k]); });
+    }), function (r) { return rank[r.family] === undefined ? 9 : rank[r.family]; });
+    var seen = {}, first = [], rest = [];
+    ok.forEach(function (r) { if (seen[r.family]) rest.push(r); else { seen[r.family] = 1; first.push(r); } });
+    return first.concat(rest).slice(0, 3);
+  }
+  // Storm 1.0's trees, from its own spec: how many trees and how many input numbers
+  function predTreeSpec() {
+    var am = state.data && state.data.ai_model, vs = am ? list(am.versions).filter(function (v) { return v && v.spec; }) : [];
+    var v = vs.filter(function (x) { return x.version === am.current; })[0] || vs[0], n = 0;
+    if (!v) return null;
+    list(v.spec.inputs).forEach(function (i) { n += i.n || 0; });
+    return { trees: (v.spec.learner || {}).trees, n: n, name: (am.name || 'Storm') + ' ' + v.version };
+  }
+  // a probability as text; Radar's are rounded to two decimals, so 0 and 1 mean below 0.01 and above 0.99
+  function predP(p) { return p < 0.005 ? 'below 0.01' : p > 0.995 ? 'above 0.99' : p.toFixed(2); }
+  function predPShort(p) { return p < 0.005 ? '< 0.01' : p > 0.995 ? '> 0.99' : '= ' + p.toFixed(2); }
+  function predExamples(mode) { return mode === 'storm' ? predStormExamples() : mode === 'hurricane' ? predHurExamples() : []; }
+  function predExample() {
+    var ex = predExamples(demo.predMode);
+    return ex.length ? ex[demo.predEx % ex.length] : null;
+  }
+  function predK(v) { return typeof v === 'number' ? (Math.abs(v) >= 100 ? Math.round(v) : v.toFixed(1)) + ' K' : '—'; }
+  // Radar's own call for a graded material, when Radar has scored it (progress.json "radar", known materials)
+  function predRadar(name) {
+    var ri = radInfo(), k = ri ? list(ri.v.known).filter(function (x) { return x.name === name; })[0] : null;
+    return k && typeof k.p_unconventional === 'number' ? k : null;
+  }
+  function stormSteps(w) {
+    var rd = predRadar(w.name), steps = [];
+    steps.push({ id: 'radar', d: 2, text: rd ? radTitle(radInfo()) + ' sends it to Storm: the probability of an unconventional family is ' + predP(rd.p_unconventional) + '.'
+      : 'A conventional, phonon-mediated superconductor, so it goes to Storm.' });
+    var ts = predTreeSpec();
+    steps.push({ id: 'trees', d: 2.6, text: (ts && ts.trees ? ts.name + '’s ' + fmtInt(ts.trees) + ' boosted trees read ' + ts.n + ' numbers about the material' : 'Storm’s boosted trees read numbers about the material’s composition, structure and physics') +
+      ', and each tree adds a small correction: Tc = ' + predK(w.trees) + '.' });
+    steps.push({ id: 'graph', d: 3, text: 'The crystal-graph network passes messages between each atom and its 12 nearest neighbours: Tc = ' + predK(w.gnn) + ', with λ = ' + w.gnn_lambda.toFixed(2) + ' and ω_log = ' + Math.round(w.gnn_wlog) + ' K.' });
+    steps.push({ id: 'ad', d: 2.6, text: 'The Allen–Dynes formula with μ* = ' + (w.mu_star || 0.1).toFixed(2) + ' turns that λ and ω_log into Tc = ' + predK(w.gnn_ad) + '.' });
+    steps.push({ id: 'avg', d: 2.4, text: 'Storm averages the three: (' + w.trees.toFixed(1) + ' + ' + w.gnn.toFixed(1) + ' + ' + w.gnn_ad.toFixed(1) + ') / 3 = ' + predK(w.storm4) + '. The full DFT calculation gives ' + predK(w.dft_tc) + '.' });
+    if (typeof w.calibrated === 'number') steps.push({ id: 'cal', d: 2.2, text: 'Calibrated to experiment by round 3’s map: ' + predK(w.calibrated) + ', against ' + predK(w.tc_exp) + ' measured.' });
+    var dft = predNum(w.dft_tc), inR = dft && w.dft_tc >= w.lo && w.dft_tc <= w.hi;
+    var rt = (stormUnc() ? 'Storm ' + stormUnc().version + '’s' : 'The') + ' 90% range for the computed Tc: ' + w.lo.toFixed(1) + '–' + predK(w.hi) +
+      (!dft ? '.' : inR ? ', which holds the DFT value.' : '. The DFT value, ' + predK(w.dft_tc) + ', lies outside it, as it may for one material in ten.');
+    if (typeof w.calibrated !== 'number') {
+      rt += ' Measured: ' + predK(w.tc_exp) + '.';
+      if (dft && w.tc_exp > 2 * Math.max(w.dft_tc, w.hi)) rt += ' Here the DFT calculation that Storm learns from is itself far below the measurement.';
+    }
+    steps.push({ id: 'range', d: 2.6, text: rt });
+    return steps;
+  }
+  function hurSteps(r) {
+    var rd = predRadar(r.name), ph = r.physics || {}, steps = [], bits = [];
+    steps.push({ id: 'radar', d: 2, text: rd ? radTitle(radInfo()) + ' sends it to Hurricane: the probability of an unconventional family is ' + predP(rd.p_unconventional) + '.'
+      : 'One of Hurricane’s four unconventional families, so it goes to Hurricane.' });
+    if (typeof ph.p_cu === 'number') bits.push('holes per Cu p = ' + ph.p_cu.toFixed(2) + (typeof ph.dome !== 'number' ? '' : ph.dome >= 0.95 ? ', at the top of the cuprate dome' : ', where the cuprate dome is at ' + Math.round(100 * ph.dome) + '% of its top'));
+    if (typeof ph.cu_layers === 'number') bits.push(Math.round(ph.cu_layers) + ' CuO₂ planes');
+    if (typeof ph.tm_d === 'number' && typeof ph.p_cu !== 'number') bits.push(ph.tm_d.toFixed(1) + ' d electrons per transition-metal atom');
+    if (typeof ph.f_share === 'number' && ph.f_share > 0) bits.push(Math.round(100 * ph.f_share) + '% f-electron atoms');
+    var types = list(r.types).map(function (k) { return featLabel(k); });
+    if (types.length) bits.push('structure type ' + types.join(', '));
+    steps.push({ id: 'physics', d: 3.2, text: bits.length ? 'Physics read from the formula: ' + bits.join('; ') + '.' : 'Composition statistics, measurable structure and the physics features are read from the formula.' });
+    steps.push({ id: 'p', d: 2.4, text: 'Part 1, a classifier: the probability that it superconducts at all is P = ' + r.p_sc.toFixed(2) + '.' });
+    steps.push({ id: 'tc', d: 2.4, text: 'Part 2, a regressor trained only on superconductors: Tc if it does = ' + predK(r.tc_sc) + '.' });
+    steps.push({ id: 'product', d: 2.4, text: 'The prediction is their product: ' + r.p_sc.toFixed(2) + ' × ' + predK(r.tc_sc) + ' = ' + predK(r.pred) + '.' });
+    var off = r.pred - r.tc_exp, near = Math.abs(off) <= Math.max(1, 0.2 * r.tc_exp), none = r.tc_exp === 0, note;
+    if (near) note = none ? ', and the prediction is close to zero.' : ', close to the prediction.';
+    else if (off < 0 && r.p_sc < 0.5) note = ', above the prediction: the classifier doubts that it superconducts.';
+    else if (off < 0 && r.tc_sc < r.tc_exp) note = ', above the prediction: Hurricane pulls the highest Tc values toward the middle of its training data, which its next round works on.';
+    else if (off < 0) note = ', above the prediction: part 2 alone is closer, and multiplying by P pulls it down.';
+    else note = none ? ', but the prediction is above zero.' : ', below the prediction.';
+    steps.push({ id: 'check', d: 2.8, text: 'Measured: ' + (none ? 'not superconducting' : predK(r.tc_exp)) + ' (' + r.status + ')' + note });
+    return steps;
+  }
+  function predSteps(mode, ex) { return !ex ? [] : mode === 'storm' ? stormSteps(ex) : hurSteps(ex); }
+  // which step is showing at time t, and how far into it
+  function predAt(steps, t) {
+    var t0 = 0;
+    for (var i = 0; i < steps.length; i++) {
+      if (t < t0 + steps[i].d || i === steps.length - 1) return { i: i, s: t - t0, t0: t0 };
+      t0 += steps[i].d;
+    }
+    return { i: 0, s: 0, t0: 0 };
+  }
+  function predTotal(steps) { var s = 0; steps.forEach(function (x) { s += x.d; }); return s; }
+
+  function predCaption() {
+    var mode = demo.predMode, ex = predExample();
+    if (mode === 'formula') return demoDef().caption;
+    if (mode === 'storm') {
+      var u = stormUnc(), nm = u ? 'Storm ' + u.version : stormEns() ? 'Storm ' + stormEns().version : 'Storm';
+      if (!ex) return 'How ' + nm + ' turns a crystal into Tc. The worked examples load with the live progress data after Storm’s fifth training round.';
+      return 'How ' + nm + ', our model for conventional superconductors, predicts Tc, with the numbers it computed for ' + hurSub(ex.name) + ' (measured ' + predK(ex.tc_exp) + ', ' + ex.status + ').' +
+        ' Every value is out of fold: the material’s chemical system was held out while the models trained. Storm learns the Tc of DFT calculations, so its own error is against the calculation; the calibration maps it to experiment, and the range says how sure Storm is.' +
+        (ex.n_structures > 1 ? ' The database holds ' + ex.n_structures + ' structures of ' + hurSub(ex.name) + '; the one shown has the median computed Tc.' : '');
+    }
+    var hi = hurInfo(), hn = hi ? hurTitle(hi) : 'Hurricane';
+    if (!ex) return 'How ' + hn + ' predicts Tc in two parts. The worked examples load with the live progress data after Hurricane’s next training run.';
+    return 'How ' + hn + ', our model for unconventional superconductors, predicts Tc for ' + hurSub(ex.name) + ', a later measurement it never trained on. It reads the formula and its physics features, then predicts in two parts: whether the compound superconducts at all, and its Tc if it does. Their product is the prediction.';
+  }
+
+  function drawPredict(c, C) {
+    if (demo.predMode === 'formula') { drawAllenDynes(c, C); return; }
+    var W = demo.W, H = demo.H, narrow = W < 560, mode = demo.predMode, ex = predExample(), all = predExamples(mode);
+    var title = mode === 'storm' ? 'How ' + (stormUnc() ? 'Storm ' + stormUnc().version : 'Storm') + ' predicts Tc' : 'How ' + (hurInfo() ? hurTitle(hurInfo()) : 'Hurricane') + ' predicts Tc';
+    stText(c, C, title, 16, 24, { size: narrow ? 14 : 15, weight: '600', color: C.ink });
+    if (!ex) {
+      stParaRich(c, C, 'The worked examples load with the live progress data once the model’s training round has written them.', 16, 60, W - 32, 18, { size: 12.5, color: C.muted });
+      $('#demo-ad-readout').textContent = '';
+      return;
+    }
+    var steps = predSteps(mode, ex), total = predTotal(steps), t = motionOK() ? Math.min(demo.predT, total) : total, at = predAt(steps, t);
+    if (!motionOK()) at = { i: steps.length - 1, s: steps[steps.length - 1].d, t0: total - steps[steps.length - 1].d };
+    var chip = (mode === 'hurricane' ? hurShortName(ex.name) : hurSub(ex.name)) + (all.length > 1 ? ' · ' + (demo.predEx % all.length + 1) + ' of ' + all.length : '');
+    if (narrow) stTag(c, C, chip, 16, 46, { align: 'left', size: 11.5, bg: C.track, color: C.ink, rich: true });
+    else stTag(c, C, chip, W - 16, 22, { align: 'right', size: 12, bg: C.track, color: C.ink, rich: true });
+    var top = narrow ? 62 : 44;
+    var V = narrow ? { x: 16, y: top, w: W - 32, h: 150 } : { x: 16, y: top, w: Math.round((W - 32) * 0.4), h: H - top - 16 };
+    var T = narrow ? { x: 16, y: V.y + V.h + 12, w: W - 32, h: H - V.y - V.h - 20 } : { x: V.x + V.w + 22, y: top + 2, w: W - V.x - V.w - 38, h: H - top - 18 };
+    // the visual for the current step
+    c.save();
+    c.beginPath(); c.rect(V.x - 2, V.y - 2, V.w + 4, V.h + 4); c.clip();
+    if (mode === 'storm') drawPredStormVisual(c, C, V, ex, steps[at.i].id, at.s, narrow);
+    else drawPredHurVisual(c, C, V, ex, steps[at.i].id, at.s, narrow);
+    c.restore();
+    // the trace: one line per step so far; on small screens only the latest ones that fit
+    var size = narrow ? 11.5 : 12.5, lh = narrow ? 15 : 17, gap = narrow ? 7 : 9;
+    var shown = [];
+    for (var i = 0; i <= at.i; i++) shown.push(i);
+    function heightOf(i) { stFont(c, C, size); return predLines(c, C, steps[i].text, T.w - 22, size) * lh + gap; }
+    var hsum = 0, first = shown.length;
+    for (var j = shown.length - 1; j >= 0; j--) { var hh = heightOf(shown[j]); if (hsum + hh > T.h && j < shown.length - 1) break; hsum += hh; first = j; }
+    var y = T.y + 12;
+    for (var k = first; k < shown.length; k++) {
+      var si = shown[k], cur = si === at.i, a = cur ? stSpan(at.s, 0, 0.45) : 1;
+      c.globalAlpha = a;
+      dot(c, T.x + 6, y - 4, cur ? 5 : 3.5, cur ? C.accent : C.axis);
+      var n = stParaRich(c, C, steps[si].text, T.x + 20, y, T.w - 22, lh, { size: size, color: cur ? C.ink : C.ink2, weight: cur ? '600' : '400' });
+      y += n * lh + gap;
+      c.globalAlpha = 1;
+    }
+    $('#demo-ad-readout').textContent = (mode === 'hurricane' ? hurShortName(ex.name) : hurSub(ex.name)) + ' · step ' + (at.i + 1) + ' of ' + steps.length;
+    demo.canvas.setAttribute('aria-label', title + ' for ' + ex.name + ': ' + steps.map(function (s) { return s.text; }).join(' '));
+  }
+  function predLines(c, C, text, maxW, size) {
+    var words = String(text).split(' '), lines = 1, lw = 0;
+    stFont(c, C, size);
+    var sp = c.measureText(' ').width;
+    words.forEach(function (w) {
+      var ww = stSymWidth(c, C, symParts(w), size);
+      if (lw && lw + sp + ww > maxW) { lines++; lw = ww; } else lw += (lw ? sp : 0) + ww;
+    });
+    return lines;
+  }
+
+  /* the visuals */
+  function predRadarGlyph(c, C, V, s, toStorm, p) {
+    var cx = V.x + V.w / 2, cy = V.y + V.h * 0.42, r = Math.min(V.w, V.h) * 0.26;
+    c.lineWidth = 1; c.strokeStyle = C.grid;
+    [1, 0.62, 0.3].forEach(function (k) { c.beginPath(); c.arc(cx, cy, r * k, 0, Math.PI * 2); c.stroke(); });
+    var a = -Math.PI / 2 + s * 2.4;
+    c.strokeStyle = C.accent; c.lineWidth = 2;
+    c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r); c.stroke();
+    dot(c, cx, cy, 3.5, C.accent);
+    var bx = toStorm ? V.x + V.w * 0.22 : V.x + V.w * 0.78, by = V.y + V.h - 18;
+    stTag(c, C, 'Storm', V.x + V.w * 0.22, by, { size: 12, bg: toStorm ? C.accent : C.surface, ring: toStorm ? null : C.grid, color: toStorm ? '#ffffff' : C.ink2 });
+    stTag(c, C, 'Hurricane', V.x + V.w * 0.78, by, { size: 12, bg: toStorm ? C.surface : C.accent, ring: toStorm ? C.grid : null, color: toStorm ? C.ink2 : '#ffffff' });
+    if (s > 0.6) { c.globalAlpha = stSpan(s, 0.6, 1.1); stArrow(c, cx, cy + r + 4, bx, by - 14, C.accent, 7); c.globalAlpha = 1; }
+    if (typeof p === 'number') label(c, C, 'p ' + predPShort(p), cx + r + 8, cy - r + 10, { size: 11.5, color: C.muted });
+  }
+  // a horizontal Tc axis with labelled markers; vals: [{v, label, kind: 'bar'|'dot'|'diamond'|'star', color}], range [lo, hi]
+  function predAxis(c, C, V, vmax, vals, range, y) {
+    var x0 = V.x + 8, x1 = V.x + V.w - 12;
+    function X(v) { return x0 + Math.max(0, Math.min(1, v / vmax)) * (x1 - x0); }
+    c.lineWidth = 1; c.strokeStyle = C.axis;
+    c.beginPath(); c.moveTo(x0, y + 0.5); c.lineTo(x1, y + 0.5); c.stroke();
+    var stp = niceStep(vmax, 4), ticks = [];
+    for (var g = 0; g <= vmax + 1e-9; g += stp) ticks.push(g);
+    ticks.forEach(function (g, i) {
+      var gx = Math.round(X(g)) + 0.5, last = i === ticks.length - 1, txt = fmtTick(g) + (last ? ' K' : '');
+      c.beginPath(); c.moveTo(gx, y); c.lineTo(gx, y + 4); c.stroke();
+      stFont(c, C, 10.5);
+      var right = last && gx + c.measureText(txt).width / 2 > V.x + V.w;
+      label(c, C, txt, right ? V.x + V.w : gx, y + 16, { align: right ? 'right' : 'center', size: 10.5, color: C.muted });
+    });
+    if (range) {
+      c.fillStyle = stAlpha(C.accent, 0.18); stRound(c, X(range[0]), y - 13, Math.max(2, X(range[1]) - X(range[0])), 10, 5); c.fill();
+      c.strokeStyle = C.accent; c.lineWidth = 1.5;
+      c.beginPath(); c.moveTo(X(range[0]), y - 15); c.lineTo(X(range[0]), y - 1); c.moveTo(X(range[1]), y - 15); c.lineTo(X(range[1]), y - 1); c.stroke();
+    }
+    vals.forEach(function (m, i) {
+      var x = X(m.v), yy = y - 8;
+      if (m.kind === 'diamond') {
+        c.fillStyle = m.color; c.beginPath(); c.moveTo(x, yy - 6); c.lineTo(x + 5, yy); c.lineTo(x, yy + 6); c.lineTo(x - 5, yy); c.closePath(); c.fill();
+      } else if (m.kind === 'star') {
+        c.fillStyle = m.color; c.beginPath();
+        for (var q = 0; q < 10; q++) { var rr = q % 2 ? 3 : 7, an = -Math.PI / 2 + q * Math.PI / 5; c.lineTo(x + Math.cos(an) * rr, yy + Math.sin(an) * rr); }
+        c.closePath(); c.fill();
+      } else dot(c, x, yy, 5, m.color);
+      if (m.label) label(c, C, m.label, x, yy - 12 - (m.lift || 0), { align: x > x1 - 60 ? 'right' : x < x0 + 60 ? 'left' : 'center', size: 11, weight: '600', color: m.color });
+    });
+  }
+  function predBar(c, C, V, y, v, vmax, text, color, a) {
+    var x0 = V.x + 8, w = (V.w - 70) * Math.max(0, Math.min(1, v / vmax)) * (a === undefined ? 1 : a);
+    stRound(c, x0, y - 8, Math.max(2, w), 16, 5); c.fillStyle = color; c.fill();
+    stFont(c, C, 12, '600');
+    var tw = stSymWidth(c, C, symParts(text), 12, '600');
+    // the label goes after the bar; when the bar is too long for that, just above it
+    if (x0 + w + 8 + tw <= V.x + V.w) stSym(c, C, symParts(text), x0 + w + 8, y + 4, { size: 12, weight: '600', color: C.ink });
+    else stSym(c, C, symParts(text), x0, y - 13, { size: 12, weight: '600', color: C.ink });
+  }
+  function drawPredStormVisual(c, C, V, w, id, s, narrow) {
+    var vmax = Math.max(w.trees, w.gnn, w.gnn_ad, w.storm4, w.dft_tc, w.hi, w.tc_exp, typeof w.calibrated === 'number' ? w.calibrated : 0) * 1.1 || 1;
+    if (id === 'radar') { var rd = predRadar(w.name); predRadarGlyph(c, C, V, s, true, rd ? rd.p_unconventional : null); return; }
+    if (id === 'trees') {
+      var n = narrow ? 5 : 6, gw = V.w / n, grown = Math.min(n, Math.floor(s / 0.35) + 1);
+      for (var i = 0; i < n; i++) { c.globalAlpha = i < grown ? 1 : 0.18; drawTreeGlyph(c, C, V.x + gw * (i + 0.5), V.y + 10, gw * 0.8, narrow ? 54 : 74, 4, i === grown - 1 ? C.warm : C.accent); }
+      c.globalAlpha = 1;
+      var tsv = predTreeSpec();
+      if (tsv && tsv.trees) label(c, C, '… ' + fmtInt(tsv.trees) + ' trees', V.x + V.w - 4, V.y + (narrow ? 82 : 104), { align: 'right', size: 11, color: C.muted });
+      // the running sum climbs to the trees' prediction (the steps are schematic, the end point is Storm's number)
+      var k = stEase(Math.min(1, s / 2.2)), cur = w.trees * (1 - Math.pow(1 - k, 3));
+      predBar(c, C, V, V.y + (narrow ? 112 : 150), cur, vmax, 'trees: ' + predK(cur), C.accent);
+      return;
+    }
+    if (id === 'graph') {
+      var cx = V.x + V.w * (narrow ? 0.32 : 0.5), cy = V.y + (narrow ? 64 : V.h * 0.36), R = narrow ? 48 : Math.min(V.w, V.h) * 0.24, pts = [];
+      for (var q = 0; q < 6; q++) pts.push([cx + R * Math.cos(q * Math.PI / 3), cy + R * Math.sin(q * Math.PI / 3)]);
+      pts.push([cx, cy]);
+      c.lineWidth = 1; c.strokeStyle = C.grid;
+      pts.forEach(function (p, a) { pts.forEach(function (o, b) { if (b > a && Math.hypot(p[0] - o[0], p[1] - o[1]) < R * 1.05) { c.beginPath(); c.moveTo(p[0], p[1]); c.lineTo(o[0], o[1]); c.stroke(); } }); });
+      var layer = Math.min(2, Math.floor(s / 0.9)), ph = (s % 0.9) / 0.9;
+      pts.forEach(function (p, a) {
+        if (a === 6) return;
+        var x = p[0] + (cx - p[0]) * ph, y = p[1] + (cy - p[1]) * ph;
+        dot(c, x, y, 2.6, C.warm);
+      });
+      pts.forEach(function (p, a) { dot(c, p[0], p[1], a === 6 ? 9 : 7, a === 6 ? C.accent : mix(C.accent, C.surface, 0.45)); });
+      label(c, C, 'message passing, layer ' + (layer + 1) + ' of 3', cx, cy + R + 22, { align: 'center', size: 11, color: C.muted });
+      if (s > 2.2) {
+        c.globalAlpha = stSpan(s, 2.2, 2.7);
+        var ox = narrow ? V.x + V.w * 0.66 : V.x + 8, oy = narrow ? V.y + 30 : V.y + V.h - 48;
+        stText(c, C, 'Tc = ' + predK(w.gnn), ox, oy, { size: 13, weight: '700', color: C.accent });
+        stText(c, C, 'λ = ' + w.gnn_lambda.toFixed(2) + ',  ω_log = ' + Math.round(w.gnn_wlog) + ' K', ox, oy + 20, { size: 12, color: C.ink2 });
+        c.globalAlpha = 1;
+      }
+      return;
+    }
+    if (id === 'ad') {
+      var lam = w.gnn_lambda, wl = w.gnn_wlog, mu = w.mu_star || 0.1, dd = lam - mu * (1 + 0.62 * lam), big = narrow ? 12.5 : 13.5;
+      stSym(c, C, [['T'], ['c', 1], [' = (ω'], ['log', 1], [' / 1.2) ×']], V.x + 4, V.y + 26, { size: big, weight: '600' });
+      stSym(c, C, [['exp[ −1.04 (1 + λ) / (λ − μ*(1 + 0.62 λ)) ]']], V.x + 4, V.y + 48, { size: big - 1, weight: '600' });
+      if (s > 0.8) {
+        c.globalAlpha = stSpan(s, 0.8, 1.3);
+        stPara(c, C, '= (' + Math.round(wl) + ' / 1.2) × exp[ −1.04 × ' + (1 + lam).toFixed(2) + ' / ' + dd.toFixed(3) + ' ]', V.x + 4, V.y + 78, V.w - 8, 17, { size: 12, color: C.ink2 });
+        c.globalAlpha = 1;
+      }
+      if (s > 1.6) { c.globalAlpha = stSpan(s, 1.6, 2.1); stText(c, C, 'Tc = ' + predK(w.gnn_ad), V.x + 4, V.y + (narrow ? 130 : 128), { size: narrow ? 20 : 24, weight: '700', color: C.warm }); c.globalAlpha = 1; }
+      return;
+    }
+    if (id === 'avg') {
+      var rows = [['trees', w.trees, C.accent], ['network', w.gnn, mix(C.accent, C.surface, 0.35)], ['Allen–Dynes', w.gnn_ad, C.warm]], rh = narrow ? 24 : 30;
+      rows.forEach(function (r, i) { predBar(c, C, V, V.y + 14 + i * rh, r[1], vmax, r[0] + ' ' + predK(r[1]), r[2], stSpan(s, 0.1 * i, 0.4 + 0.1 * i)); });
+      if (s > 0.9) {
+        c.globalAlpha = stSpan(s, 0.9, 1.4);
+        predAxis(c, C, { x: V.x, y: V.y, w: V.w, h: V.h }, vmax, [{ v: w.dft_tc, label: 'DFT ' + predK(w.dft_tc), kind: 'diamond', color: C.ink2, lift: 10 }, { v: w.storm4, label: 'Storm ' + predK(w.storm4), kind: 'dot', color: C.accent }], null, V.y + V.h - 22);
+        c.globalAlpha = 1;
+      }
+      return;
+    }
+    // calibration and range share one axis
+    var marks = [{ v: w.storm4, label: id === 'range' ? '' : 'Storm ' + predK(w.storm4), kind: 'dot', color: C.accent }];
+    if (id === 'cal' && typeof w.calibrated === 'number') marks.push({ v: w.calibrated, label: 'calibrated ' + predK(w.calibrated), kind: 'dot', color: C.warm, lift: 14 });
+    marks.push({ v: w.tc_exp, label: 'measured ' + predK(w.tc_exp), kind: 'star', color: C.ink, lift: id === 'cal' ? 28 : 0 });
+    if (id === 'range') marks.push({ v: w.dft_tc, label: 'DFT ' + predK(w.dft_tc), kind: 'diamond', color: C.ink2, lift: 14 });
+    predAxis(c, C, V, vmax, marks, id === 'range' ? [w.lo, w.lo + (w.hi - w.lo) * stSpan(s, 0, 1)] : null, V.y + V.h * 0.6);
+    if (id === 'cal' && typeof w.calibrated === 'number' && s > 0.3) {
+      var x0 = V.x + 8, x1 = V.x + V.w - 12, ax = x0 + w.storm4 / vmax * (x1 - x0), bx = x0 + w.calibrated / vmax * (x1 - x0), yy = V.y + V.h * 0.6 + 30;
+      c.globalAlpha = stSpan(s, 0.3, 0.8); stArrow(c, ax, yy, ax + (bx - ax) * stSpan(s, 0.3, 1.2), yy, C.warm, 7); c.globalAlpha = 1;
+    }
+    if (id === 'range') label(c, C, '90% range ' + w.lo.toFixed(1) + '–' + predK(w.hi), V.x + 8, V.y + V.h * 0.6 + 40, { size: 12, weight: '600', color: C.accent });
+  }
+  function drawPredHurVisual(c, C, V, r, id, s, narrow) {
+    var vmax = Math.max(r.tc_sc, r.pred, r.tc_exp) * 1.15 || 1, ph = r.physics || {};
+    if (id === 'radar') { var rd = predRadar(r.name); predRadarGlyph(c, C, V, s, false, rd ? rd.p_unconventional : null); return; }
+    if (id === 'physics') {
+      if (typeof ph.p_cu === 'number') {
+        // the empirical cuprate dome Tc / Tc,max = 1 − 82.6 (p − 0.16)² (Presland and Tallon), with this compound's p
+        var x0 = V.x + 30, x1 = V.x + V.w - 10, y0 = V.y + 16, y1 = V.y + V.h - 34;
+        var X = function (p) { return x0 + (p - 0.03) / 0.27 * (x1 - x0); };
+        var Y = function (f) { return y1 - f * (y1 - y0); };
+        c.strokeStyle = C.axis; c.lineWidth = 1; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x0, y1); c.lineTo(x1, y1); c.stroke();
+        c.strokeStyle = C.accent; c.lineWidth = 2; c.beginPath();
+        for (var q = 0; q <= 60; q++) { var p = 0.05 + 0.22 * q / 60, f = Math.max(0, 1 - 82.6 * (p - 0.16) * (p - 0.16)); if (q) c.lineTo(X(p), Y(f)); else c.moveTo(X(p), Y(f)); }
+        c.stroke();
+        [0.05, 0.16, 0.27].forEach(function (p) { label(c, C, p.toFixed(2), X(p), y1 + 14, { align: 'center', size: 10.5, color: C.muted }); });
+        label(c, C, 'holes per Cu, p', (x0 + x1) / 2, y1 + 28, { align: 'center', size: 11, color: C.muted });
+        label(c, C, 'Tc / top', x0 - 4, y0 + 4, { align: 'right', size: 10.5, color: C.muted });
+        if (s > 0.5) {
+          var pp = Math.max(0.03, Math.min(0.3, ph.p_cu)), fd = Math.max(0, 1 - 82.6 * (pp - 0.16) * (pp - 0.16));
+          c.globalAlpha = stSpan(s, 0.5, 1); dot(c, X(pp), Y(fd), 6, C.warm);
+          label(c, C, 'p = ' + ph.p_cu.toFixed(2), X(pp) + 9, Y(fd) - 6, { size: 11.5, weight: '600', color: C.warm }); c.globalAlpha = 1;
+        }
+      } else {
+        var chips = list(r.types).map(function (k) { return featLabel(k); });
+        if (typeof ph.f_share === 'number') chips.push(Math.round(100 * ph.f_share) + '% f-electron atoms');
+        if (typeof ph.tm_d === 'number') chips.push('d count ' + ph.tm_d.toFixed(1));
+        if (!chips.length) chips = ['composition', 'structure', 'physics'];
+        chips.forEach(function (t2, i) { c.globalAlpha = stSpan(s, 0.3 * i, 0.3 * i + 0.4); stTag(c, C, t2, V.x, V.y + 24 + i * 30, { align: 'left', size: 12, bg: C.track, color: C.ink }); });
+        c.globalAlpha = 1;
+      }
+      return;
+    }
+    if (id === 'p') {
+      var gx = V.x + 8, gw2 = V.w - 24, gy = V.y + V.h * 0.42, fill = r.p_sc * stSpan(s, 0.2, 1.2);
+      stRound(c, gx, gy - 10, gw2, 20, 10); c.fillStyle = C.surface2; c.fill(); c.strokeStyle = C.grid; c.lineWidth = 1; c.stroke();
+      stRound(c, gx, gy - 10, Math.max(4, gw2 * fill), 20, 10); c.fillStyle = C.accent; c.fill();
+      label(c, C, '0', gx, gy + 28, { size: 10.5, color: C.muted }); label(c, C, '1', gx + gw2, gy + 28, { align: 'right', size: 10.5, color: C.muted });
+      label(c, C, 'P(superconducts) = ' + fill.toFixed(2), gx, gy - 20, { size: 13, weight: '700', color: C.accent });
+      return;
+    }
+    var rows = [];
+    if (id === 'tc' || id === 'product' || id === 'check') rows.push(['Tc if it superconducts', r.tc_sc, mix(C.accent, C.surface, 0.35)]);
+    if (id === 'product' || id === 'check') rows.push(['P × Tc', id === 'product' ? r.tc_sc + (r.pred - r.tc_sc) * stSpan(s, 0.3, 1.6) : r.pred, C.accent]);
+    rows.forEach(function (row, i) { predBar(c, C, V, V.y + 26 + i * 38, row[1], vmax, row[0] + ': ' + predK(row[1]), row[2], id === 'tc' ? stSpan(s, 0.2, 1) : 1); });
+    if (id === 'check') predAxis(c, C, V, vmax, [{ v: r.pred, label: 'predicted ' + predK(r.pred), kind: 'dot', color: C.accent }, { v: r.tc_exp, label: r.tc_exp === 0 ? 'not superconducting' : 'measured ' + predK(r.tc_exp), kind: 'star', color: C.ink, lift: 14 }], null, V.y + V.h - 22);
+  }
+  function setPredMode(m) {
+    demo.predMode = m; demo.predT = 0; demo.predEx = 0;
+    store.set('pred', m);
+    if (motionOK()) demo.predPlay = true;
+    syncControls(); kick();
+  }
+  function predNext() {
+    if (!motionOK()) { demo.predEx += 1; demo.predT = 0; syncControls(); kick(); return; }
+    var steps = predSteps(demo.predMode, predExample()), at = predAt(steps, demo.predT);
+    if (at.i < steps.length - 1) demo.predT = at.t0 + steps[at.i].d + 0.001;
+    else { demo.predEx += 1; demo.predT = 0; }
+    syncControls(); kick();
   }
 
   /* ---------- Theory & materials: mini card animations ----------
@@ -7764,7 +8783,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       h('div', { class: 'tc-legend', id: 'tc-legend' }),
       h('div', { class: 'chart', id: 'tc-chart' })
     ]);
-    var famBar = h('div', { class: 'fam-filter', role: 'group', 'aria-label': 'Filter materials by family' });
+    var famBar = h('div', { class: 'fam-filter', role: 'group', 'aria-label': 'Filter materials by family', id: 'mat-filter' });
     [['all', 'All']].concat(Object.keys(FAMILIES).map(function (k) { return [k, FAMILIES[k].label]; })).forEach(function (f) {
       famBar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'data-fam': f[0], 'aria-pressed': f[0] === learn.fam ? 'true' : 'false', text: f[1], onclick: function () { learn.fam = f[0]; renderMaterials(); } }));
     });
@@ -7861,7 +8880,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var grid = $('#material-grid');
     if (!grid) return;
     clear(grid);
-    [].forEach.call(document.querySelectorAll('.fam-filter button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-fam') === learn.fam ? 'true' : 'false'); });
+    // only the material filter: the Papers and AI views have filter bars of the same kind
+    [].forEach.call(document.querySelectorAll('#mat-filter button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-fam') === learn.fam ? 'true' : 'false'); });
     MATERIALS.filter(function (m) { return learn.fam === 'all' || m.f === learn.fam; }).forEach(function (m) {
       grid.appendChild(h('article', { class: 'lcard' },
         miniCanvas(m.anim),
@@ -9039,6 +10059,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
      The list comes from the paper feed's "ai" section (refreshed every three hours by GitHub Actions); while this view is open
      it checks for a newer feed every ten minutes, rolls the newest headlines and marks what arrived since the last visit. */
   var AI_POLL_MS = 10 * 60 * 1000;
+  // set by the feed (feed/papers.py, ai_kind): new candidates predicted, or AI-guided candidates made and measured
+  var AI_KIND_LABEL = { prediction: 'AI prediction', experiment: 'AI + experiment' };
   var aiState = { built: false, kind: 'all', shown: 12, timer: 0, tick: 0, tickTimer: 0,
     seen: store.get('aiSeen') || '', newest: '' };
 
@@ -9060,13 +10082,21 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       h('div', { class: 'fam-filter', role: 'group', 'aria-label': 'Filter by kind', id: 'ai-filter' }),
       h('ol', { class: 'feed-list', id: 'ai-list' }),
       h('div', { class: 'feed-more', id: 'ai-more' }),
-      h('p', { class: 'note', text: 'Collected every three hours from arXiv (all categories), Nature, Science, Physical Review and Nature-family journals, and science-news sites. An item is kept when it names an AI or machine-learning method and is about superconducting materials or their theory; quantum-computing and superconducting-electronics papers are left out. Tags are assigned automatically, so treat them as a rough guide.' }));
+      h('p', { class: 'note', text: 'Collected every three hours from arXiv (all categories), Nature, Science, Physical Review and Nature-family journals, and science-news sites. An item is kept when it names an AI or machine-learning method and is about superconducting materials or their theory; quantum-computing and superconducting-electronics papers are left out. “AI prediction” marks new candidate superconductors proposed by a model, and “AI + experiment” candidates that were then made and measured. Tags are assigned automatically, so treat them as a rough guide.' }));
     var ours = h('section', { class: 'card', id: 'ai-ours' });
+    var found = h('section', { class: 'card' },
+      h('div', { class: 'card-head' }, h('div', null, h('h2', { text: 'Superconductors found with AI by other groups' }),
+        h('p', { text: 'New superconductors whose discovery a machine-learning model guided and that experiments then confirmed, each with its paper. None of them is ours: the candidates our own models found are in the Candidates view.' }))),
+      h('ol', { class: 'adv-list', id: 'ai-found' }),
+      h('p', { class: 'note', id: 'ai-found-note' }),
+      h('h3', { class: 'found-sub', text: 'Predicted by AI, waiting for experiment' }),
+      h('p', { class: 'found-sub-intro', text: 'Notable AI predictions that, as far as we know, no experiment has tested yet. The feed above tags new AI predictions and new experiments as they appear; a material moves up to the list above once a measurement confirms it.' }),
+      h('ol', { class: 'adv-list', id: 'ai-watch' }));
     var cur = h('section', { class: 'card' },
       h('div', { class: 'card-head' }, h('div', null, h('h2', { text: 'Selected AI advances' }),
         h('p', { text: 'Results we checked by hand, each with its paper. New ones are added to the app without an update.' }))),
       h('ol', { class: 'adv-list', id: 'ai-curated' }));
-    append(el, [live, ours, cur]);
+    append(el, [live, ours, found, cur]);
     aiState.built = true;
     renderAI();
   }
@@ -9074,7 +10104,40 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (!aiState.built) return;
     renderAIList();
     renderAIOurs();
+    renderAIFound();
     renderAICurated();
+  }
+  function renderAIFound() {
+    var ol = $('#ai-found'), note = $('#ai-found-note'), wl = $('#ai-watch');
+    if (!ol) return;
+    function rows(target, items, kind) {
+      clear(target);
+      items.forEach(function (r) {
+        var refs = (r.refs || [r.ref]).map(function (k) { return REFS[k]; }).filter(Boolean), refP = h('p', { class: 'adv-ref' });
+        refs.forEach(function (ref, i) {
+          if (i) refP.appendChild(document.createTextNode('; '));
+          var url = refUrl(ref);
+          refP.appendChild(url ? h('a', { href: url, text: ref.t }) : h('span', { text: ref.t }));
+        });
+        target.appendChild(h('li', null,
+          h('p', { class: 'adv-meta' }, h('span', { text: r.d }), h('span', { class: 'kind kind-' + kind, text: r.m }), richText(h('span', { class: 'found-tc' }), r.tc)),
+          h('h3', { text: r.h }),
+          richText(h('p', { class: 'adv-text' }), r.x),
+          refs.length ? refP : null));
+      });
+    }
+    rows(ol, AI_FOUND, 'experiment');
+    if (wl) {
+      rows(wl, AI_WATCH, 'theory');
+      wl.hidden = !AI_WATCH.length;
+      [].forEach.call(document.querySelectorAll('.found-sub, .found-sub-intro'), function (e) { e.hidden = !AI_WATCH.length; });
+    }
+    if (note) {
+      clear(note);
+      richText(note, AI_FOUND_NOTE.x + ' ');
+      var nr = REFS[AI_FOUND_NOTE.ref];
+      if (nr) note.appendChild(h('a', { href: refUrl(nr), text: nr.t }));
+    }
   }
   function renderAIList() {
     var st = $('#ai-status'), bar = $('#ai-filter'), ol = $('#ai-list'), more = $('#ai-more');
@@ -9091,16 +10154,21 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
       return;
     }
     aiState.newest = items.length ? items[0].date : '';
-    var counts = { all: items.length, paper: 0, news: 0 };
-    items.forEach(function (x) { counts[x.kind_of === 'news' ? 'news' : 'paper']++; });
-    [['all', 'All'], ['paper', 'Papers'], ['news', 'News']].forEach(function (f) {
+    var counts = { all: items.length, paper: 0, news: 0, prediction: 0, experiment: 0 };
+    items.forEach(function (x) { counts[x.kind_of === 'news' ? 'news' : 'paper']++; if (AI_KIND_LABEL[x.ai_kind]) counts[x.ai_kind]++; });
+    if (!counts[aiState.kind] && aiState.kind !== 'all') aiState.kind = 'all';
+    [['all', 'All'], ['paper', 'Papers'], ['news', 'News'], ['prediction', 'Predictions'], ['experiment', 'Experiments']].forEach(function (f) {
+      if ((f[0] === 'prediction' || f[0] === 'experiment') && !counts[f[0]]) return;
       bar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'aria-pressed': aiState.kind === f[0] ? 'true' : 'false',
         text: f[1] + (counts[f[0]] ? ' ' + counts[f[0]] : ''), onclick: function () { aiState.kind = f[0]; aiState.shown = 12; renderAIList(); } }));
     });
-    var rows = items.filter(function (x) { return aiState.kind === 'all' || (aiState.kind === 'news') === (x.kind_of === 'news'); });
+    var rows = items.filter(function (x) {
+      return aiState.kind === 'all' || (aiState.kind === 'prediction' || aiState.kind === 'experiment' ? x.ai_kind === aiState.kind : (aiState.kind === 'news') === (x.kind_of === 'news'));
+    });
     if (d && !rows.length) ol.appendChild(h('li', { class: 'empty', text: 'Nothing here yet; the next check runs within three hours.' }));
     rows.slice(0, aiState.shown).forEach(function (x) {
       var li = x.kind_of === 'news' ? aiNewsItem(x) : paperItem(x);
+      if (AI_KIND_LABEL[x.ai_kind]) { var mt = li.querySelector('.paper-meta'); if (mt) mt.appendChild(h('span', { class: 'ai-kind ai-kind-' + x.ai_kind, text: AI_KIND_LABEL[x.ai_kind] })); }
       if (aiState.seen && x.date > aiState.seen) {
         li.classList.add('is-new');
         var meta = li.querySelector('.paper-meta');
@@ -9193,6 +10261,455 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     if (aiState.newest && aiState.newest > (store.get('aiSeen') || '')) store.set('aiSeen', aiState.newest);
   }
 
+  /* ---------- Candidate superconductors found by our AI models: the Candidates view ----------
+     Each screening round writes a "screen" block into progress.json: the materials our models rank highest, each with
+     Storm's 90% range and its crystal structure, published before any calculation or experiment checks them; every
+     check is added to its row, hits and misses alike. The list holds only our own finds. The screening leaves out every
+     material with a superconductivity record, in our training data or already reported or predicted by others; the app
+     also hides any row marked with an earlier report ("prior"), with a SuperCon record, or whose composition appears in
+     the advances and AI lists the app shows. The card reads only that block, so a new round updates it without a new app. */
+  var CAND_SHOWN = 10;
+  var candState = { all: false, sel: '', key: '' };
+  var CHECK_LABEL = { dft: 'DFT check', experiment: 'Measured' };
+  var SUB_DIGITS = '₀₁₂₃₄₅₆₇₈₉';
+
+  /* ---------- elements: symbols and covalent radii (pm; B. Cordero et al., Dalton Trans. 2832 (2008)) ---------- */
+  var XT_EL = ('H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr ' +
+    'Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg ' +
+    'Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm').split(' ');
+  var XT_R = [31, 28, 128, 96, 84, 76, 71, 66, 57, 58, 166, 141, 121, 111, 107, 105, 102, 106, 203, 176, 170, 160, 153, 139,
+    139, 132, 126, 124, 132, 122, 122, 120, 119, 120, 120, 116, 220, 195, 190, 175, 164, 154, 147, 146, 142, 139, 145, 144,
+    142, 139, 139, 138, 139, 140, 244, 215, 207, 204, 203, 201, 199, 198, 198, 196, 194, 192, 192, 189, 190, 187, 187, 175,
+    170, 162, 151, 144, 141, 136, 136, 132, 145, 146, 148, 140, 150, 150, 260, 221, 215, 206, 200, 196, 190, 187, 180, 169];
+  var XT_Z = {};
+  XT_EL.forEach(function (s, i) { XT_Z[s] = i; });
+
+  // "Nb₃Sn", "Nb3Sn" or "SnNb3" → "Nb:0.750|Sn:0.250"; '' for anything that is not a formula of two or more elements
+  function compKey(f) {
+    var s = String(f || '').replace(/[₀-₉]/g, function (ch) { return String(SUB_DIGITS.indexOf(ch)); }).replace(/\s+/g, '');
+    if (!/^(?:[A-Z][a-z]?(?:\d+(?:\.\d+)?)?)+$/.test(s)) return '';
+    var c = {}, tot = 0, m, re = /([A-Z][a-z]?)(\d+(?:\.\d+)?)?/g;
+    while ((m = re.exec(s))) {
+      if (XT_Z[m[1]] === undefined) return '';
+      var n = m[2] ? parseFloat(m[2]) : 1;
+      c[m[1]] = (c[m[1]] || 0) + n;
+      tot += n;
+    }
+    var ks = Object.keys(c).sort();
+    return ks.length < 2 || !(tot > 0) ? '' : ks.map(function (k) { return k + ':' + (c[k] / tot).toFixed(3); }).join('|');
+  }
+  // compositions named in the app's lists of others' work: the recent advances and the AI finds and predictions
+  var candPriorCache = { n: -1, keys: {} };
+  function candPriorKeys() {
+    var src = list(typeof RECENT !== 'undefined' ? RECENT : []).concat(list(AI_FOUND), list(AI_WATCH));
+    if (src.length === candPriorCache.n) return candPriorCache.keys;
+    var keys = {};
+    src.forEach(function (e) {
+      var text = String((e && e.h) || '') + ' ' + String((e && e.x) || '');
+      text = text.replace(/[₀-₉]/g, function (ch) { return String(SUB_DIGITS.indexOf(ch)); });
+      (text.match(/[A-Z][a-z]?(?:\d+(?:\.\d+)?)?(?:[A-Z][a-z]?(?:\d+(?:\.\d+)?)?)+/g) || []).forEach(function (tok) {
+        var k = compKey(tok);
+        if (k) keys[k] = 1;
+      });
+    });
+    candPriorCache = { n: src.length, keys: keys };
+    return keys;
+  }
+  function candRows(sc) {
+    var prior = candPriorKeys(), out = { rows: [], hidden: 0 };
+    list(sc && sc.candidates).slice(0, 300).forEach(function (c) {
+      if (!c || typeof c.formula !== 'string' || typeof c.tc !== 'number' || !isFinite(c.tc)) return;
+      var key = compKey(c.formula);
+      if (c.prior || (typeof c.supercon === 'string' && c.supercon) || (key && prior[key])) { out.hidden++; return; }
+      out.rows.push(c);
+    });
+    out.rows = out.rows.slice(0, 200);
+    return out;
+  }
+  function candId(c) { return String(c.id || c.formula); }
+  function candK(v) { return typeof v === 'number' && isFinite(v) ? (v >= 100 ? Math.round(v) : v.toFixed(1)) + ' K' : '—'; }
+  // a check is a DFT calculation or a measurement on the candidate; until then the row says "not checked yet"
+  function candCheck(c) {
+    var k = c.check;
+    if (!k || typeof k !== 'object' || !CHECK_LABEL[k.kind]) return h('span', { class: 'cand-open', text: 'not checked yet' });
+    var txt = CHECK_LABEL[k.kind] + ': ' + (k.superconducts === false ? 'not superconducting' + (typeof k.below === 'number' ? ' above ' + candK(k.below) : '') : 'Tc ' + candK(k.tc));
+    var ref = typeof k.ref === 'string' ? REFS[k.ref] : null, url = ref ? refUrl(ref) : '';
+    var el = richText(h('span', { class: 'cand-done' + (k.superconducts === false ? ' miss' : ' hit') }), txt);
+    return url ? h('a', { href: url, class: 'cand-check-link' }, el) : el;
+  }
+  function candOursNote(sc) {
+    var ex = (sc && sc.excluded) || {}, parts = [];
+    if (typeof ex.supercon === 'number') parts.push(fmtInt(ex.supercon) + ' with a SuperCon or 3DSC record');
+    if (typeof ex.computed === 'number') parts.push(fmtInt(ex.computed) + ' with a computed Tc');
+    if (typeof ex.prior === 'number') parts.push(fmtInt(ex.prior) + ' reported or predicted by others');
+    var txt = 'Only our own finds. A material is left out if it has a record in SuperCon or 3DSC, already has a computed Tc in the Alexandria or JARVIS electron–phonon data (which our models learn from or are tested on), or is on our list of superconductors reported or predicted by others, which includes the advances and AI finds shown in this app.';
+    if (parts.length) txt += ' Screening round ' + (sc.round || 1) + ' left out ' + (typeof ex.total === 'number' ? fmtInt(ex.total) + ' materials: ' : '') + parts.join(', ') + '.';
+    var lead = 'Only our own finds. ';
+    return h('div', { class: 'cand-ours' }, h('span', { class: 'cand-ours-mark', 'aria-hidden': 'true' }), h('p', null, h('b', { text: lead.trim() }), ' ', richText(h('span'), txt.slice(lead.length))));
+  }
+
+  function renderCandidates(d) {
+    var el = $('#candidates-card');
+    if (!el) return;
+    var sc = d && d.screen, got = candRows(sc), rows = got.rows;
+    // a refresh with the same list keeps the card (and its turning structures) as it is
+    var key = JSON.stringify([sc && sc.round, sc && sc.date, sc && sc.status, got.hidden, candState.all, rows.map(candId).join(','), rows.map(function (c) { return c.check ? 1 : 0; }).join('')]);
+    if (key === candState.key && el.firstChild) return;
+    candState.key = key;
+    xtReset();
+    clear(el);
+    el.appendChild(h('div', { class: 'card-head' }, h('div', null,
+      h('h2', { text: 'Candidate superconductors found by our AI models' }),
+      richText(h('p'), 'Every material on this list was found by our own AI-designed models, Radar and Storm, and is published here before any calculation or experiment checks it. Every check is added to its row, hits and misses alike.'))));
+    el.appendChild(candOursNote(sc));
+    if (!rows.length) {
+      // before the first screening round: what the list will hold
+      el.appendChild(h('ol', { class: 'cand-steps' },
+        richText(h('li'), 'Rank: Radar keeps the metals in open crystal databases that look like conventional superconductors, and Storm predicts their Tc, each with a 90% range.'),
+        richText(h('li'), 'Keep only our own finds: anything already reported or predicted as a superconductor is left out, as above.'),
+        richText(h('li'), 'Check: the top candidates go to a full DFT electron–phonon calculation.'),
+        richText(h('li'), 'Measure: the ones that pass are suggested to experimental groups.')));
+      el.appendChild(h('p', { class: 'note', text: sc && sc.status === 'running' ? 'Screening round ' + (sc.round || 1) + ' is running; the list appears here when it finishes.' :
+        got.hidden ? 'No candidates are left on the list: each one turned out to have an earlier report.' : 'The first list, with the crystal structure of every candidate turning in 3D, comes with Screening round 1, our next run.' }));
+      return;
+    }
+    var pool = sc.pool || {};
+    var models = list(sc.models).filter(function (m) { return typeof m === 'string'; }).map(function (m) { return cText(m, 40); });
+    var meta = h('p', { class: 'cand-meta' });
+    richText(meta, 'Screening round ' + (sc.round || 1) + (sc.date ? ', ' + fmtDayISO(sc.date) : '') + ': ' + (models.length ? models.join(' and ') : sc.model ? cText(sc.model, 40) : 'Storm') + ' ranked ' +
+      (typeof pool.n_screened === 'number' ? fmtInt(pool.n_screened) + ' ' : '') + cText(pool.what || 'materials', 120) + (pool.source ? ' from ' + cText(pool.source, 120) : '') +
+      (pool.rule ? ': ' + cText(pool.rule, 400) : '') + '. Storm’s Tc is the computed (DFT) Tc that it learns, and the 90% range is for that value.');
+    el.appendChild(meta);
+    if (!rows.some(function (c) { return candId(c) === candState.sel; })) candState.sel = candId(rows[0]);
+    var shown = candState.all ? rows : rows.slice(0, CAND_SHOWN);
+    if (!shown.some(function (c) { return candId(c) === candState.sel; })) shown = shown.concat(rows.filter(function (c) { return candId(c) === candState.sel; }));
+    var body = h('div', { class: 'cand-body' });
+    var viewer = h('div', { class: 'cand-viewer', id: 'cand-viewer' });
+    body.appendChild(viewer);
+    // a grid list rather than a table, so that phones get the same information without scrolling sideways
+    var ol = h('ol', { class: 'cand-list' });
+    ol.appendChild(h('li', { class: 'cand-row cand-headrow', 'aria-hidden': 'true' },
+      h('span', { class: 'cand-rank', text: '#' }), h('span'), h('span', { text: 'Material' }), richText(h('span', { class: 'cand-tc' }), 'Storm Tc, 90% range'),
+      h('span', { class: 'cand-cal', text: 'Calibrated' }), h('span', { class: 'cand-check', text: 'Check' })));
+    shown.forEach(function (c) {
+      var i = rows.indexOf(c), id = candId(c), M = xtModel(c), sel = id === candState.sel;
+      var name = isHttps(c.url) ? h('a', { href: c.url, text: hurSub(c.formula) }) : h('span', { text: hurSub(c.formula) });
+      var sub = [c.spg ? cText(c.spg, 30) : '', typeof c.ehull === 'number' ? Math.round(1000 * c.ehull) + ' meV/atom above the hull' : '', c.icsd === true ? 'made before (ICSD)' : '', c.id ? cText(String(c.id), 40) : ''].filter(Boolean).join(' · ');
+      var thumb;
+      if (M) {
+        var cv = h('canvas', { class: 'xt-thumb', 'aria-hidden': 'true' });
+        thumb = h('button', { class: 'cand-thumb', type: 'button', 'aria-pressed': sel ? 'true' : 'false', 'aria-label': 'Show the crystal structure of ' + c.formula + ' in the viewer',
+          onclick: function () { candSelect(id, true); } }, cv);
+        xtItem(cv, M, false);
+      } else thumb = h('span', { class: 'cand-thumb none', title: 'No structure stored' });
+      var li = h('li', { class: 'cand-row' + (sel ? ' is-sel' : ''), 'data-id': id },
+        h('span', { class: 'cand-rank', text: String(i + 1) }),
+        thumb,
+        h('div', { class: 'cand-main' }, h('b', null, name), sub ? h('div', { class: 'dt-cell-sub', text: sub }) : null),
+        h('div', { class: 'cand-tc' }, h('b', { text: candK(c.tc) }), typeof c.lo === 'number' && typeof c.hi === 'number' ? h('div', { class: 'dt-cell-sub', text: c.lo.toFixed(1) + '–' + candK(c.hi) }) : null),
+        h('div', { class: 'cand-cal' }, h('span', { class: 'cand-label', text: 'Calibrated ' }), typeof c.tc_cal === 'number' ? candK(c.tc_cal) : '—'),
+        h('div', { class: 'cand-check' }, candCheck(c)));
+      ol.appendChild(li);
+    });
+    body.appendChild(ol);
+    el.appendChild(body);
+    if (rows.length > CAND_SHOWN) {
+      el.appendChild(h('div', { class: 'feed-more' }, h('button', { class: 'btn small', type: 'button', onclick: function () { candState.all = !candState.all; renderCandidates(state.data); } },
+        candState.all ? 'Show the top ' + CAND_SHOWN : 'Show all ' + rows.length)));
+    }
+    var checked = rows.filter(function (c) { return c.check && CHECK_LABEL[c.check.kind]; }).length;
+    el.appendChild(richText(h('p', { class: 'note' }), (checked ? checked + ' of ' + rows.length + ' candidates checked so far. ' : 'None of these has been checked yet. ') +
+      'They are predictions: a candidate becomes a discovery only when a calculation and then an experiment confirm it. “Calibrated” is Storm’s estimate of the measured Tc. ' +
+      (got.hidden ? got.hidden + (got.hidden === 1 ? ' material was' : ' materials were') + ' taken off the list after an earlier report came to light. ' : '')));
+    var mail = AUTHORS.filter(function (a) { return a.contact && a.email; })[0];
+    el.appendChild(h('p', { class: 'note' }, 'If you know of an earlier report of any of these materials, ',
+      mail ? h('a', { href: 'mailto:' + mail.email + '?subject=' + encodeURIComponent('supercon-ml candidate list'), text: 'tell us' }) : 'tell us', ' and we will take it off the list.'));
+    el.appendChild(h('p', { class: 'note xt-credit' }, 'Atom sizes follow covalent radii (', h('a', { href: refUrl(REFS.cordero2008), text: REFS.cordero2008.t }), '); the box is the unit cell.'));
+    candViewer(rows);
+    xtKick();
+  }
+  function candSelect(id, scroll) {
+    candState.sel = id;
+    [].forEach.call(document.querySelectorAll('#candidates-card .cand-row[data-id]'), function (li) {
+      var on = li.getAttribute('data-id') === id;
+      li.classList.toggle('is-sel', on);
+      var b = li.querySelector('.cand-thumb');
+      if (b && b.tagName === 'BUTTON') b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    var got = candRows(state.data && state.data.screen);
+    candViewer(got.rows);
+    var v = $('#cand-viewer');
+    if (scroll && v && v.getBoundingClientRect().top < 0) v.scrollIntoView({ block: 'start', behavior: motionOK() ? 'smooth' : 'auto' });
+    xtKick();
+  }
+  // the large structure viewer: the selected candidate turning slowly; drag (or the arrow keys) to turn it
+  function candViewer(rows) {
+    var box = $('#cand-viewer');
+    if (!box) return;
+    XT.items = XT.items.filter(function (it) { if (it.big) { xtForget(it); return false; } return true; });
+    clear(box);
+    var i = 0;
+    rows.forEach(function (c, k) { if (candId(c) === candState.sel) i = k; });
+    var c = rows[i];
+    if (!c) return;
+    var M = xtModel(c);
+    var play = h('button', { class: 'btn small xt-play', type: 'button', onclick: function () { XT.play = !XT.play; xtSync(); xtKick(); } });
+    box.appendChild(h('div', { class: 'xt-head' },
+      h('div', { class: 'xt-title' }, h('span', { class: 'xt-rank', text: '#' + (i + 1) }), h('b', { text: hurSub(c.formula) }),
+        h('span', { class: 'xt-sub', text: [c.spg ? cText(c.spg, 30) : '', M ? M.n + (M.n === 1 ? ' atom' : ' atoms') + ' in the cell' : ''].filter(Boolean).join(' · ') })),
+      M ? play : null));
+    if (!M) {
+      box.appendChild(h('p', { class: 'note', text: 'No crystal structure is stored for this material.' }));
+      return;
+    }
+    var cv = h('canvas', { class: 'xt-big', role: 'img', tabindex: '0', 'aria-label': xtAlt(c, M) });
+    var it = xtItem(cv, M, true);
+    xtDragOn(cv, it);
+    box.appendChild(h('div', { class: 'xt-stage' }, cv));
+    var key = h('ul', { class: 'xt-key', 'aria-label': 'Elements' });
+    M.els.forEach(function (e, k) {
+      var r = XT_R[XT_Z[e]] / 100, px = Math.round(8 + 6 * Math.min(1, Math.max(0, (r - 0.6) / 1.6)));
+      key.appendChild(h('li', null, h('i', { class: 'xt-dot xt-s' + Math.min(k + 1, 4), style: 'width:' + px + 'px;height:' + px + 'px' }), e + ' ', h('span', { class: 'xt-n', text: '×' + M.count[e] })));
+    });
+    box.appendChild(key);
+    box.appendChild(h('p', { class: 'xt-facts', text: xtCellText(M) }));
+    var tc = h('p', { class: 'xt-tc' });
+    richText(tc, 'Storm Tc ' + candK(c.tc) + (typeof c.lo === 'number' && typeof c.hi === 'number' ? ' (90% range ' + c.lo.toFixed(1) + '–' + candK(c.hi) + ')' : '') + (typeof c.tc_cal === 'number' ? ' · calibrated ' + candK(c.tc_cal) : ''));
+    box.appendChild(tc);
+    var nav = h('div', { class: 'xt-nav' },
+      h('button', { class: 'btn small', type: 'button', disabled: i === 0, onclick: function () { candSelect(candId(rows[i - 1]), false); } }, 'Previous'),
+      h('span', { class: 'xt-hint', text: 'Drag to turn it' }),
+      h('button', { class: 'btn small', type: 'button', disabled: i >= rows.length - 1, onclick: function () { candSelect(candId(rows[i + 1]), false); } }, 'Next'));
+    box.appendChild(nav);
+    xtSync();
+  }
+  function xtSync() {
+    var b = $('#cand-viewer .xt-play');
+    if (!b) return;
+    b.innerHTML = XT.play ? G.pause : G.play;
+    b.appendChild(document.createTextNode(XT.play ? 'Pause' : 'Play'));
+    b.setAttribute('aria-label', XT.play ? 'Stop the structures turning' : 'Turn the structures');
+    b.hidden = !motionOK();
+  }
+  function xtAlt(c, M) {
+    var parts = M.els.map(function (e) { return M.count[e] + ' ' + e; });
+    return 'Crystal structure of ' + c.formula + (c.spg ? ', space group ' + c.spg : '') + ': ' + M.n + ' atoms in the unit cell (' + parts.join(', ') + '); ' + xtCellText(M);
+  }
+  function xtCellText(M) {
+    var a = M.abc, g = M.ang, f = function (x) { return x.toFixed(2); }, same = function (x, y) { return Math.abs(x - y) < 0.005; };
+    var len = same(a[0], a[1]) && same(a[1], a[2]) ? 'a = b = c = ' + f(a[0]) + ' Å' : same(a[0], a[1]) ? 'a = b = ' + f(a[0]) + ' Å, c = ' + f(a[2]) + ' Å' :
+      'a = ' + f(a[0]) + ' Å, b = ' + f(a[1]) + ' Å, c = ' + f(a[2]) + ' Å';
+    var d = function (x) { return Math.round(x * 10) / 10 + '°'; }, deg = g.map(function (x) { return x * 180 / Math.PI; }), right = function (x) { return Math.abs(x - 90) < 0.05; };
+    var ang = deg.every(right) ? 'α = β = γ = 90°' : right(deg[0]) && right(deg[1]) ? 'α = β = 90°, γ = ' + d(deg[2]) : 'α = ' + d(deg[0]) + ', β = ' + d(deg[1]) + ', γ = ' + d(deg[2]);
+    return len + '; ' + ang + '; ' + (M.vol / M.n).toFixed(1) + ' Å³ per atom';
+  }
+
+  /* ---------- turning crystal structures ----------
+     One requestAnimationFrame loop draws the structure canvases that are on screen while the Candidates view is open.
+     The c axis points up; each cell turns about it and is seen from 24° above, with the far side faded. */
+  var XT = { items: [], raf: 0, last: 0, t: 0, obs: null, play: true };
+  var XT_SPEED = 2 * Math.PI / 24;   // one turn in 24 s
+  var XT_YAW0 = 0.6, XT_PITCH0 = 0.42;
+  function xtOn() { return view === 'candidates' && !document.hidden; }
+  function xtItem(cv, M, big) {
+    var it = { cv: cv, m: M, big: big, vis: !window.IntersectionObserver, W: 0, H: 0, dpr: 0, ctx: null, off: 0, pitch: XT_PITCH0, drag: null, dirty: true };
+    XT.items.push(it);
+    if (window.IntersectionObserver) {
+      if (!XT.obs) XT.obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { XT.items.forEach(function (x) { if (x.cv === e.target) { x.vis = e.isIntersecting; x.dirty = true; } }); });
+        xtKick();
+      }, { rootMargin: '80px' });
+      XT.obs.observe(cv);
+    }
+    return it;
+  }
+  function xtForget(it) { if (XT.obs) XT.obs.unobserve(it.cv); }
+  function xtReset() { XT.items.forEach(xtForget); XT.items = []; }
+  function xtDirty() { XT.items.forEach(function (it) { it.dirty = true; it.W = 0; }); }
+  function xtKick() {
+    if (XT.raf || !xtOn()) return;
+    XT.last = 0;
+    XT.raf = requestAnimationFrame(xtFrame);
+  }
+  function xtFrame(ts) {
+    XT.raf = 0;
+    if (!xtOn()) return;
+    var moving = XT.play && motionOK(), dt = moving && XT.last ? Math.min(0.05, (ts - XT.last) / 1000) : 0;
+    XT.last = ts;
+    XT.t += dt;
+    var C = null;
+    XT.items.forEach(function (it) {
+      if (!it.vis || !it.cv.isConnected || !(moving || it.dirty)) return;
+      C = C || xtColors();
+      xtPaint(it, C);
+    });
+    if (moving) XT.raf = requestAnimationFrame(xtFrame);
+  }
+  function xtColors() {
+    var C = colors();
+    C.slots = [cssVar('--series-1'), cssVar('--series-2'), cssVar('--series-3'), C.ink2].map(function (x) { return hexRgb(x); });
+    C.bg = hexRgb(C.surface);
+    C.bg2 = hexRgb(C.surface2);
+    C.edge = hexRgb(C.axis);
+    C.inkRgb = hexRgb(C.ink);
+    return C;
+  }
+  function xtPaint(it, C) {
+    var W = Math.round(it.cv.clientWidth), H = Math.round(it.cv.clientHeight), dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (!W || !H) return;
+    if (W !== it.W || H !== it.H || dpr !== it.dpr) {
+      it.W = W; it.H = H; it.dpr = dpr;
+      it.cv.width = Math.round(W * dpr); it.cv.height = Math.round(H * dpr);
+      it.ctx = it.cv.getContext('2d');
+    }
+    var c = it.ctx;
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.clearRect(0, 0, W, H);
+    xtDraw(c, C, W, H, it.m, XT_YAW0 + XT.t * XT_SPEED + it.off, it.pitch, it.big);
+    it.dirty = false;
+  }
+  function xtMix(a, b, k) { return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k]; }
+  function xtCss(a) { return 'rgb(' + Math.round(a[0]) + ',' + Math.round(a[1]) + ',' + Math.round(a[2]) + ')'; }
+  function xtDraw(c, C, W, H, M, yaw, pitch, big) {
+    var cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+    var pad = big ? 10 : 3, sc = (Math.min(W, H) / 2 - pad) / M.R, ox = W / 2, oy = H / 2, ball = big ? 0.42 : 0.5;
+    var proj = function (p) {
+      var x1 = p[0] * cy - p[1] * sy, y1 = p[0] * sy + p[1] * cy;
+      return { x: ox + sc * x1, y: oy - sc * (y1 * sp + p[2] * cp), z: p[2] * sp - y1 * cp };
+    };
+    var P = M.pts.map(function (a) { return proj(a.p); }), K = M.corners.map(proj), R = M.R;
+    var rad = M.pts.map(function (a) { return Math.max(big ? 3 : 1.4, sc * a.r * ball); });
+    var items = [];
+    M.edges.forEach(function (e) { items.push({ k: 0, i: e[0], j: e[1], z: (K[e[0]].z + K[e[1]].z) / 2 }); });
+    if (big) M.bonds.forEach(function (b) { items.push({ k: 1, i: b[0], j: b[1], z: (P[b[0]].z + P[b[1]].z) / 2 }); });
+    P.forEach(function (q, i) { items.push({ k: 2, i: i, z: q.z }); });
+    items.sort(function (u, v) { return u.z - v.z; });
+    var white = [255, 255, 255], black = [0, 0, 0], fogTo = big ? C.bg : C.bg2;
+    c.lineCap = 'round';
+    items.forEach(function (o) {
+      var fog = Math.max(0, Math.min(1, (R - o.z) / (2 * R))) * (C.dark ? 0.6 : 0.5);
+      if (o.k === 0) {
+        c.strokeStyle = xtCss(xtMix(C.edge, fogTo, fog * 0.7));
+        c.lineWidth = big ? 1.2 : 0.8;
+        c.beginPath(); c.moveTo(K[o.i].x, K[o.i].y); c.lineTo(K[o.j].x, K[o.j].y); c.stroke();
+      } else if (o.k === 1) {
+        var A = P[o.i], B = P[o.j], dx = B.x - A.x, dy = B.y - A.y, L = Math.sqrt(dx * dx + dy * dy), ra = rad[o.i], rb = rad[o.j];
+        if (L <= ra + rb + 1) return;
+        var ux = dx / L, uy = dy / L, mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2;
+        c.lineWidth = Math.max(1.5, Math.min(3.2, sc * 0.16));
+        c.lineCap = 'butt';
+        c.strokeStyle = xtCss(xtMix(C.slots[Math.min(M.pts[o.i].slot, 3)], fogTo, fog));
+        c.beginPath(); c.moveTo(A.x + ux * ra * 0.9, A.y + uy * ra * 0.9); c.lineTo(mx, my); c.stroke();
+        c.strokeStyle = xtCss(xtMix(C.slots[Math.min(M.pts[o.j].slot, 3)], fogTo, fog));
+        c.beginPath(); c.moveTo(mx, my); c.lineTo(B.x - ux * rb * 0.9, B.y - uy * rb * 0.9); c.stroke();
+        c.lineCap = 'round';
+      } else {
+        var q = P[o.i], r = rad[o.i], base = xtMix(C.slots[Math.min(M.pts[o.i].slot, 3)], fogTo, fog);
+        if (big) {
+          var g = c.createRadialGradient(q.x - r * 0.35, q.y - r * 0.4, r * 0.1, q.x, q.y, r);
+          g.addColorStop(0, xtCss(xtMix(base, white, 0.5)));
+          g.addColorStop(0.55, xtCss(base));
+          g.addColorStop(1, xtCss(xtMix(base, black, 0.28)));
+          c.fillStyle = g;
+        } else c.fillStyle = xtCss(base);
+        c.beginPath(); c.arc(q.x, q.y, r, 0, 2 * Math.PI); c.fill();
+        c.lineWidth = big ? 0.8 : 0.6;
+        c.strokeStyle = xtCss(xtMix(base, C.dark ? black : C.inkRgb, 0.35));
+        c.stroke();
+        if (!big && r >= 2.5) {
+          c.fillStyle = 'rgba(255,255,255,' + (C.dark ? 0.28 : 0.4) + ')';
+          c.beginPath(); c.arc(q.x - r * 0.32, q.y - r * 0.34, r * 0.32, 0, 2 * Math.PI); c.fill();
+        }
+      }
+    });
+  }
+  // drag (mouse, pen or a sideways swipe) or the arrow keys turn the large structure
+  function xtDragOn(cv, it) {
+    cv.addEventListener('pointerdown', function (e) {
+      if (e.button !== undefined && e.button !== 0) return;
+      it.drag = { x: e.clientX, y: e.clientY, off: it.off, pitch: it.pitch, t: XT.t };
+      try { cv.setPointerCapture(e.pointerId); } catch (err) { /* capture is optional */ }
+    });
+    cv.addEventListener('pointermove', function (e) {
+      if (!it.drag) return;
+      it.off = it.drag.off + (e.clientX - it.drag.x) * 0.012 - (XT.t - it.drag.t) * XT_SPEED;
+      it.pitch = Math.max(-1.35, Math.min(1.35, it.drag.pitch + (e.clientY - it.drag.y) * 0.01));
+      it.dirty = true;
+      xtKick();
+    });
+    ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (ev) { cv.addEventListener(ev, function () { it.drag = null; }); });
+    cv.addEventListener('keydown', function (e) {
+      var k = e.key;
+      if (k === 'ArrowLeft' || k === 'ArrowRight') it.off += (k === 'ArrowLeft' ? -1 : 1) * Math.PI / 12;
+      else if (k === 'ArrowUp' || k === 'ArrowDown') it.pitch = Math.max(-1.35, Math.min(1.35, it.pitch + (k === 'ArrowUp' ? 0.17 : -0.17)));
+      else return;
+      e.preventDefault();
+      it.dirty = true;
+      xtKick();
+    });
+  }
+  // a structure as drawn: the stored sites plus their copies on the cell's faces, edges and corners, in a frame with c up
+  function xtNum(x) { return typeof x === 'number' && isFinite(x); }
+  function xtDot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function xtLen(a) { return Math.sqrt(xtDot(a, a)); }
+  function xtUnit(a) { var n = xtLen(a) || 1; return [a[0] / n, a[1] / n, a[2] / n]; }
+  function xtAngle(a, b) { return Math.acos(Math.max(-1, Math.min(1, xtDot(a, b) / (xtLen(a) * xtLen(b) || 1)))); }
+  function xtModel(c) {
+    var s = c && c.atoms;
+    if (!s || typeof s !== 'object' || s.__m === false) return null;
+    if (s.__m) return s.__m;
+    var Lt = s.lattice, E = s.elements, F = s.frac;
+    var ok = Array.isArray(Lt) && Lt.length === 3 && Array.isArray(E) && Array.isArray(F) && E.length > 0 && E.length === F.length && E.length <= 200 &&
+      Lt.every(function (v) { return Array.isArray(v) && v.length === 3 && v.every(xtNum); }) &&
+      F.every(function (v) { return Array.isArray(v) && v.length === 3 && v.every(xtNum); }) &&
+      E.every(function (e) { return typeof e === 'string' && XT_Z[e] !== undefined; });
+    var A = ok && Lt[0], B = ok && Lt[1], Cv = ok && Lt[2];
+    var vol = ok ? A[0] * (B[1] * Cv[2] - B[2] * Cv[1]) - A[1] * (B[0] * Cv[2] - B[2] * Cv[0]) + A[2] * (B[0] * Cv[1] - B[1] * Cv[0]) : 0;
+    if (!ok || !(Math.abs(vol) > 1) || Math.abs(vol) > 1e5) { xtKeep(s, false); return null; }
+    var up = xtUnit(Cv), xa = [A[0] - up[0] * xtDot(A, up), A[1] - up[1] * xtDot(A, up), A[2] - up[2] * xtDot(A, up)];
+    if (xtLen(xa) < 1e-6) xa = [B[0] - up[0] * xtDot(B, up), B[1] - up[1] * xtDot(B, up), B[2] - up[2] * xtDot(B, up)];
+    xa = xtUnit(xa);
+    var ya = [up[1] * xa[2] - up[2] * xa[1], up[2] * xa[0] - up[0] * xa[2], up[0] * xa[1] - up[1] * xa[0]];
+    var toFrame = function (f) {
+      var v = [0, 1, 2].map(function (k) { return (f[0] - 0.5) * A[k] + (f[1] - 0.5) * B[k] + (f[2] - 0.5) * Cv[k]; });
+      return [xtDot(v, xa), xtDot(v, ya), xtDot(v, up)];
+    };
+    // elements in the order of the formula, then any others as they appear
+    var els = [];
+    String(c.formula).replace(/[A-Z][a-z]?/g, function (x) { if (E.indexOf(x) >= 0 && els.indexOf(x) < 0) els.push(x); return x; });
+    E.forEach(function (e) { if (els.indexOf(e) < 0) els.push(e); });
+    var pts = [], eps = 0.02;
+    for (var i = 0; i < E.length && pts.length < 400; i++) {
+      var f = F[i].map(function (x) { var y = x - Math.floor(x); return y > 1 - 1e-4 ? 0 : y; });
+      var o = f.map(function (x) { return x < eps ? [x, x + 1] : x > 1 - eps ? [x, x - 1] : [x]; });
+      for (var a = 0; a < o[0].length; a++) for (var b = 0; b < o[1].length; b++) for (var d = 0; d < o[2].length; d++) {
+        pts.push({ p: toFrame([o[0][a], o[1][b], o[2][d]]), slot: els.indexOf(E[i]), r: XT_R[XT_Z[E[i]]] / 100 });
+      }
+    }
+    var corners = [], edges = [], k;
+    for (k = 0; k < 8; k++) corners.push(toFrame([k & 1, (k >> 1) & 1, (k >> 2) & 1]));
+    for (k = 0; k < 8; k++) [1, 2, 4].forEach(function (bit) { if (!(k & bit)) edges.push([k, k | bit]); });
+    // bonds: neighbours closer than 1.12 times the sum of their covalent radii
+    var bonds = [];
+    for (i = 0; i < pts.length && bonds.length < 1500; i++) for (var j = i + 1; j < pts.length; j++) {
+      var dx = pts[i].p[0] - pts[j].p[0], dy = pts[i].p[1] - pts[j].p[1], dz = pts[i].p[2] - pts[j].p[2], dd = Math.sqrt(dx * dx + dy * dy + dz * dz);
+      if (dd > 0.5 && dd < 1.12 * (pts[i].r + pts[j].r)) bonds.push([i, j]);
+    }
+    var R = 0;
+    pts.forEach(function (q) { R = Math.max(R, xtLen(q.p) + q.r * 0.5); });
+    corners.forEach(function (p) { R = Math.max(R, xtLen(p)); });
+    var count = {};
+    E.forEach(function (e) { count[e] = (count[e] || 0) + 1; });
+    var M = { pts: pts, corners: corners, edges: edges, bonds: bonds, R: R || 1, els: els, count: count, n: E.length,
+      abc: [xtLen(A), xtLen(B), xtLen(Cv)], ang: [xtAngle(B, Cv), xtAngle(A, Cv), xtAngle(A, B)], vol: Math.abs(vol) };
+    xtKeep(s, M);
+    return M;
+  }
+  // the drawn model is kept on the structure object, hidden from JSON, so that a re-render does not rebuild it
+  function xtKeep(s, M) { try { Object.defineProperty(s, '__m', { value: M, enumerable: false, configurable: true }); } catch (err) { /* rebuilt next time */ } }
+  window.addEventListener('resize', function () { if (xtOn()) { xtDirty(); xtKick(); } });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) xtKick(); });
+
   /* ---------- phone link and installable web app ---------- */
   var PHONE_URL = 'https://diracmagic.github.io/supercon-ml/';
   var QR = { n: 29, hex: 'feca23fc1445d06eb70ebb74ef85dbac6d2ec1292507faaaafe00aa3009fcbc4bac0b98db4d649297b87fb91ab13b0e62df1fe7c9d40ac2046d5765f1846a4a985b3b87db3920818cf25d5ff0043b463fb766b10578b13bac53fd5d7ff606e94576f04330ddfe999a80' };
@@ -9224,7 +10741,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     var prev = view;
     view = v;
     store.set('view', v);
-    ['progress', 'ai', 'demos', 'learn', 'papers', 'authors'].forEach(function (k) {
+    ['progress', 'candidates', 'ai', 'demos', 'learn', 'papers', 'authors'].forEach(function (k) {
       var b = $('#view-' + k);
       if (b) b.setAttribute('aria-selected', v === k ? 'true' : 'false');
     });
@@ -9234,6 +10751,8 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     $('#papers').hidden = v !== 'papers';
     $('#authors').hidden = v !== 'authors';
     $('#main').hidden = v !== 'progress' || !state.data;
+    $('#candidates').hidden = v !== 'candidates' || !state.data;
+    if (v === 'candidates') { xtDirty(); xtSync(); xtKick(); }
     if (prev === 'ai' && v !== 'ai') aiStop();
     if (v === 'ai') {
       if (!aiState.built) buildAI(); else renderAI();
@@ -9396,8 +10915,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     renderChrome();
     var d = state.data;
     $('#main').hidden = !d || view !== 'progress';
+    $('#candidates').hidden = !d || view !== 'candidates';
     if (!d) return;
     renderPipeline(d);
+    renderCandidates(d);
     renderKpis(d);
     renderModels(d);
     renderStages(d);
@@ -9423,12 +10944,15 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
     renderChrome();
     kick();
     miniKick();
+    xtDirty();
+    xtKick();
   });
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden && state.checkedAt && Date.now() - state.checkedAt.getTime() > 60 * 1000) refreshAll();
   });
 
   $('#view-progress').addEventListener('click', function () { setView('progress'); });
+  $('#view-candidates').addEventListener('click', function () { setView('candidates'); });
   $('#view-ai').addEventListener('click', function () { setView('ai'); });
   $('#view-demos').addEventListener('click', function () { setView('demos'); });
   $('#view-learn').addEventListener('click', function () { setView('learn'); });
