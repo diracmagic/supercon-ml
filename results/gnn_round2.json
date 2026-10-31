@@ -1,0 +1,606 @@
+{
+  "run_at": "2026-10-31T02:51:31-05:00",
+  "commit": "9c8afd6",
+  "round": 2,
+  "model": "Graph neural network",
+  "designer": "AI agent (Claude) proposed the candidates: weight averaging, an Allen-Dynes head, Storm 1.0's crystal descriptors in the readout, a wider and deeper network, and their combinations",
+  "selection": "5-fold GroupKFold by chemical system on Alexandria (7,582 materials), the same folds as Storm; one seed and 150 epochs per candidate; the epoch is picked on 10% of each training fold's chemical systems",
+  "rule": "release the lowest-error candidate that beats the round-1 design on average and in at least 4 of 5 folds",
+  "caveat": "picking the best of several candidates on the same folds makes its score slightly optimistic",
+  "descriptors": [
+    "n_elements",
+    "n_sites",
+    "Z_mean",
+    "Z_std",
+    "Z_min",
+    "Z_max",
+    "atomic_mass_mean",
+    "atomic_mass_std",
+    "atomic_mass_min",
+    "atomic_mass_max",
+    "X_mean",
+    "X_std",
+    "X_min",
+    "X_max",
+    "row_mean",
+    "row_std",
+    "row_min",
+    "row_max",
+    "group_mean",
+    "group_std",
+    "group_min",
+    "group_max",
+    "atomic_radius_mean",
+    "atomic_radius_std",
+    "atomic_radius_min",
+    "atomic_radius_max",
+    "mendeleev_no_mean",
+    "mendeleev_no_std",
+    "mendeleev_no_min",
+    "mendeleev_no_max",
+    "valence_mean",
+    "valence_std",
+    "valence_min",
+    "valence_max",
+    "volume_per_atom",
+    "density",
+    "a",
+    "b",
+    "c",
+    "c_over_a",
+    "nn_min",
+    "nn_mean",
+    "nn_max",
+    "vec",
+    "matthias_d47",
+    "matthias_d65",
+    "d_fraction",
+    "p_fraction",
+    "light_fraction",
+    "inv_sqrt_mass",
+    "omega_proxy",
+    "mass_ratio",
+    "x_diff",
+    "packing_fraction"
+  ],
+  "leaderboard": [
+    {
+      "id": "G6",
+      "name": "+ weight averaging + Allen\u2013Dynes head + crystal descriptors",
+      "config": {
+        "hidden": 64,
+        "n_conv": 3,
+        "head": [
+          128,
+          64
+        ],
+        "lr": 0.002,
+        "wd": 0.0001,
+        "ema": true,
+        "ad_head": true,
+        "hybrid": true
+      },
+      "tc_mae": 0.9766668328856628,
+      "fold_mae": [
+        1.039180704437656,
+        1.0217228648033256,
+        0.878253217885531,
+        0.9543030112476556,
+        0.9898034096534399
+      ],
+      "tc_direct_mae": 1.0068575554926098,
+      "tc_ad_head_mae": 0.9766668328856628,
+      "tc_allen_dynes_mae": 0.9766668375585957,
+      "lambda_mae": 0.09274870172996486,
+      "wlog_mae": 22.526203402711054,
+      "training": {
+        "epochs": 150,
+        "folds": [
+          {
+            "fold": 1,
+            "best_epoch": 68,
+            "val_tc_mae": 1.019,
+            "seconds": 120
+          },
+          {
+            "fold": 2,
+            "best_epoch": 50,
+            "val_tc_mae": 1.0247,
+            "seconds": 119
+          },
+          {
+            "fold": 3,
+            "best_epoch": 72,
+            "val_tc_mae": 1.0138,
+            "seconds": 117
+          },
+          {
+            "fold": 4,
+            "best_epoch": 46,
+            "val_tc_mae": 0.958,
+            "seconds": 120
+          },
+          {
+            "fold": 5,
+            "best_epoch": 58,
+            "val_tc_mae": 1.0723,
+            "seconds": 119
+          }
+        ],
+        "seconds": 596,
+        "n_params": 98435
+      },
+      "folds_better": 5,
+      "blend_mae": 0.9112507673206319,
+      "blend_folds_better_storm1": 5
+    },
+    {
+      "id": "G4",
+      "name": "Wider and deeper (4 layers, width 96)",
+      "config": {
+        "hidden": 96,
+        "n_conv": 4,
+        "head": [
+          128,
+          64
+        ],
+        "lr": 0.002,
+        "wd": 0.0001,
+        "ema": false,
+        "ad_head": false,
+        "hybrid": false
+      },
+      "tc_mae": 1.0035223574427095,
+      "fold_mae": [
+        1.0953054455228552,
+        1.0821379158256106,
+        0.908626796759837,
+        0.9405155510932499,
+        0.9909136778494195
+      ],
+      "tc_direct_mae": 1.0035223574427095,
+      "tc_ad_head_mae": 1.000078468386589,
+      "tc_allen_dynes_mae": 1.0000784528290172,
+      "lambda_mae": 0.0905365735240233,
+      "wlog_mae": 21.586582498662516,
+      "training": {
+        "epochs": 150,
+        "folds": [
+          {
+            "fold": 1,
+            "best_epoch": 112,
+            "val_tc_mae": 0.9247,
+            "seconds": 437
+          },
+          {
+            "fold": 2,
+            "best_epoch": 100,
+            "val_tc_mae": 1.0661,
+            "seconds": 429
+          },
+          {
+            "fold": 3,
+            "best_epoch": 124,
+            "val_tc_mae": 1.1091,
+            "seconds": 421
+          },
+          {
+            "fold": 4,
+            "best_epoch": 100,
+            "val_tc_mae": 0.9138,
+            "seconds": 425
+          },
+          {
+            "fold": 5,
+            "best_epoch": 70,
+            "val_tc_mae": 1.0043,
+            "seconds": 424
+          }
+        ],
+        "seconds": 2138,
+        "n_params": 207587
+      },
+      "folds_better": 5,
+      "blend_mae": 0.9154608565047608,
+      "blend_folds_better_storm1": 5
+    },
+    {
+      "id": "G5",
+      "name": "+ weight averaging + crystal descriptors",
+      "config": {
+        "hidden": 64,
+        "n_conv": 3,
+        "head": [
+          128,
+          64
+        ],
+        "lr": 0.002,
+        "wd": 0.0001,
+        "ema": true,
+        "ad_head": false,
+        "hybrid": true
+      },
+      "tc_mae": 1.0038585773620057,
+      "fold_mae": [
+        1.0627888947605675,
+        1.0914340741113393,
+        0.8963487613358417,
+        0.9535076745430577,
+        1.0151168423401271
+      ],
+      "tc_direct_mae": 1.0038585773620057,
+      "tc_ad_head_mae": 1.0024323454470108,
+      "tc_allen_dynes_mae": 1.0024323373109372,
+      "lambda_mae": 0.09225676895052676,
+      "wlog_mae": 21.90585746235009,
+      "training": {
+        "epochs": 150,
+        "folds": [
+          {
+            "fold": 1,
+            "best_epoch": 72,
+            "val_tc_mae": 1.1297,
+            "seconds": 118
+          },
+          {
+            "fold": 2,
+            "best_epoch": 52,
+            "val_tc_mae": 1.1024,
+            "seconds": 117
+          },
+          {
+            "fold": 3,
+            "best_epoch": 60,
+            "val_tc_mae": 1.1069,
+            "seconds": 117
+          },
+          {
+            "fold": 4,
+            "best_epoch": 46,
+            "val_tc_mae": 0.9744,
+            "seconds": 117
+          },
+          {
+            "fold": 5,
+            "best_epoch": 70,
+            "val_tc_mae": 1.0559,
+            "seconds": 119
+          }
+        ],
+        "seconds": 588,
+        "n_params": 98435
+      },
+      "folds_better": 5,
+      "blend_mae": 0.9220765317008668,
+      "blend_folds_better_storm1": 5
+    },
+    {
+      "id": "G1",
+      "name": "+ weight averaging",
+      "config": {
+        "hidden": 64,
+        "n_conv": 3,
+        "head": [
+          128,
+          64
+        ],
+        "lr": 0.002,
+        "wd": 0.0001,
+        "ema": true,
+        "ad_head": false,
+        "hybrid": false
+      },
+      "tc_mae": 1.0277145184929337,
+      "fold_mae": [
+        1.1166324657925268,
+        1.1148237677309956,
+        0.9140110221397806,
+        1.0048461234296078,
+        0.9881431004452813
+      ],
+      "tc_direct_mae": 1.0277145184929337,
+      "tc_ad_head_mae": 1.0345107145725145,
+      "tc_allen_dynes_mae": 1.0345107009730459,
+      "lambda_mae": 0.0941563452708878,
+      "wlog_mae": 22.066694265589277,
+      "training": {
+        "epochs": 150,
+        "folds": [
+          {
+            "fold": 1,
+            "best_epoch": 58,
+            "val_tc_mae": 0.9877,
+            "seconds": 119
+          },
+          {
+            "fold": 2,
+            "best_epoch": 80,
+            "val_tc_mae": 1.025,
+            "seconds": 118
+          },
+          {
+            "fold": 3,
+            "best_epoch": 64,
+            "val_tc_mae": 1.1391,
+            "seconds": 118
+          },
+          {
+            "fold": 4,
+            "best_epoch": 100,
+            "val_tc_mae": 0.9545,
+            "seconds": 118
+          },
+          {
+            "fold": 5,
+            "best_epoch": 86,
+            "val_tc_mae": 1.0966,
+            "seconds": 118
+          }
+        ],
+        "seconds": 591,
+        "n_params": 86723
+      },
+      "folds_better": 4,
+      "blend_mae": 0.9304804947828642,
+      "blend_folds_better_storm1": 5
+    },
+    {
+      "id": "G2",
+      "name": "+ Allen\u2013Dynes head",
+      "config": {
+        "hidden": 64,
+        "n_conv": 3,
+        "head": [
+          128,
+          64
+        ],
+        "lr": 0.002,
+        "wd": 0.0001,
+        "ema": false,
+        "ad_head": true,
+        "hybrid": false
+      },
+      "tc_mae": 1.0280960105918016,
+      "fold_mae": [
+        1.1701152724440873,
+        1.0714706597356027,
+        0.8907401067384074,
+        0.9596687598151622,
+        1.0483629627277287
+      ],
+      "tc_direct_mae": 1.0519786295499567,
+      "tc_ad_head_mae": 1.0280960105918016,
+      "tc_allen_dynes_mae": 1.0280959825106353,
+      "lambda_mae": 0.0956381964147049,
+      "wlog_mae": 23.486078005714486,
+      "training": {
+        "epochs": 150,
+        "folds": [
+          {
+            "fold": 1,
+            "best_epoch": 40,
+            "val_tc_mae": 0.9829,
+            "seconds": 120
+          },
+          {
+            "fold": 2,
+            "best_epoch": 108,
+            "val_tc_mae": 1.0188,
+            "seconds": 119
+          },
+          {
+            "fold": 3,
+            "best_epoch": 86,
+            "val_tc_mae": 1.0578,
+            "seconds": 117
+          },
+          {
+            "fold": 4,
+            "best_epoch": 60,
+            "val_tc_mae": 0.8625,
+            "seconds": 119
+          },
+          {
+            "fold": 5,
+            "best_epoch": 80,
+            "val_tc_mae": 1.0473,
+            "seconds": 119
+          }
+        ],
+        "seconds": 594,
+        "n_params": 86723
+      },
+      "folds_better": 3,
+      "blend_mae": 0.9279419894852647,
+      "blend_folds_better_storm1": 4
+    },
+    {
+      "id": "G3",
+      "name": "+ Storm 1.0's crystal descriptors in the readout",
+      "config": {
+        "hidden": 64,
+        "n_conv": 3,
+        "head": [
+          128,
+          64
+        ],
+        "lr": 0.002,
+        "wd": 0.0001,
+        "ema": false,
+        "ad_head": false,
+        "hybrid": true
+      },
+      "tc_mae": 1.0352349729128205,
+      "fold_mae": [
+        1.1314913602956345,
+        1.1292238639659964,
+        0.9104692341708805,
+        0.9650448730177998,
+        1.039820041505325
+      ],
+      "tc_direct_mae": 1.0352349729128205,
+      "tc_ad_head_mae": 1.022520790588957,
+      "tc_allen_dynes_mae": 1.0225207825825575,
+      "lambda_mae": 0.09376229861027122,
+      "wlog_mae": 22.75326780800787,
+      "training": {
+        "epochs": 150,
+        "folds": [
+          {
+            "fold": 1,
+            "best_epoch": 46,
+            "val_tc_mae": 1.1208,
+            "seconds": 121
+          },
+          {
+            "fold": 2,
+            "best_epoch": 82,
+            "val_tc_mae": 1.0956,
+            "seconds": 119
+          },
+          {
+            "fold": 3,
+            "best_epoch": 78,
+            "val_tc_mae": 1.0959,
+            "seconds": 116
+          },
+          {
+            "fold": 4,
+            "best_epoch": 84,
+            "val_tc_mae": 0.9763,
+            "seconds": 118
+          },
+          {
+            "fold": 5,
+            "best_epoch": 82,
+            "val_tc_mae": 1.0453,
+            "seconds": 118
+          }
+        ],
+        "seconds": 592,
+        "n_params": 98435
+      },
+      "folds_better": 4,
+      "blend_mae": 0.9295357379599861,
+      "blend_folds_better_storm1": 4
+    },
+    {
+      "id": "G0",
+      "name": "Round-1 design (reference)",
+      "config": {
+        "hidden": 64,
+        "n_conv": 3,
+        "head": [
+          128,
+          64
+        ],
+        "lr": 0.002,
+        "wd": 0.0001,
+        "ema": false,
+        "ad_head": false,
+        "hybrid": false
+      },
+      "tc_mae": 1.0526628795684405,
+      "fold_mae": [
+        1.1566309941051778,
+        1.1379063500036455,
+        0.9381087885660939,
+        1.001649055590122,
+        1.0288943998245428
+      ],
+      "tc_direct_mae": 1.0526628795684405,
+      "tc_ad_head_mae": 1.0526226413674535,
+      "tc_allen_dynes_mae": 1.0526226239698668,
+      "lambda_mae": 0.09549073020892468,
+      "wlog_mae": 22.531201720259602,
+      "training": {
+        "epochs": 150,
+        "folds": [
+          {
+            "fold": 1,
+            "best_epoch": 60,
+            "val_tc_mae": 1.0055,
+            "seconds": 120
+          },
+          {
+            "fold": 2,
+            "best_epoch": 102,
+            "val_tc_mae": 1.0168,
+            "seconds": 119
+          },
+          {
+            "fold": 3,
+            "best_epoch": 74,
+            "val_tc_mae": 1.1107,
+            "seconds": 116
+          },
+          {
+            "fold": 4,
+            "best_epoch": 100,
+            "val_tc_mae": 0.9501,
+            "seconds": 118
+          },
+          {
+            "fold": 5,
+            "best_epoch": 98,
+            "val_tc_mae": 1.0883,
+            "seconds": 119
+          }
+        ],
+        "seconds": 593,
+        "n_params": 86723
+      },
+      "folds_better": 0,
+      "blend_mae": 0.9356871975895261,
+      "blend_folds_better_storm1": 4
+    }
+  ],
+  "reference_id": "G0",
+  "best": "G6",
+  "adopted": true,
+  "version": "2.0",
+  "comparison": {
+    "storm1": {
+      "tc_mae": 0.9687274191514905,
+      "folds": [
+        1.0190205514684698,
+        0.9849558518186773,
+        0.8737968728140335,
+        0.9847093942560124,
+        0.9811105457399796
+      ]
+    },
+    "baseline": {
+      "tc_mae": 1.0454739088364944,
+      "folds": [
+        1.1104625506121488,
+        1.0574174567699177,
+        0.9374199316820668,
+        1.0785202715598632,
+        1.0434985867314894
+      ]
+    },
+    "blend": {
+      "name": "average of the graph network and Storm 1.0",
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "tc_mae": 0.9112507673206319,
+      "folds": [
+        0.9710470144154019,
+        0.9562352213269503,
+        0.810282241853366,
+        0.9021547248410342,
+        0.9164655176089526
+      ],
+      "folds_better_storm1": 5
+    },
+    "folds_better_storm1": 1
+  },
+  "versions": {
+    "jax": "0.10.2",
+    "optax": "0.2.8"
+  },
+  "minutes": 95.1
+}

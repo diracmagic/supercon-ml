@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-31T01:10:36-05:00",
+  "updated": "2026-10-31T02:51:31-05:00",
   "badge": "5/10 done · now: ai models",
   "project": "Finding high-Tc superconductors with AI-designed models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
@@ -62,7 +62,7 @@
       "status": "active",
       "name": "AI-designed models",
       "short": "AI models",
-      "detail": "Storm 3.0 for conventional superconductors (Storm 1.0 calibrated to measured Tc) and Hurricane 1.0 for unconventional ones are in use; Radar, which picks the model for each material, comes next",
+      "detail": "Storm 3.0 for conventional superconductors (Storm 1.0 calibrated to measured Tc), Hurricane 1.0 for unconventional ones and Radar 1.0 to pick between them are in use",
       "date": "2026-10-30"
     },
     {
@@ -159,6 +159,14 @@
     {
       "at": "2026-10-31T01:10:36-05:00",
       "event": "Graph neural network, round 1 (CGCNN-style, 86,723 parameters): Tc MAE 0.98 K on the same 5 folds as Storm (Storm 1.0 0.97 K, gradient boosting 1.05 K; better than Storm 1.0 in 2 of 5 folds); averaged with Storm 1.0: 0.92 K, better in 5 of 5 folds; via λ and ω_log with Allen-Dynes: 0.97 K"
+    },
+    {
+      "at": "2026-10-31T01:16:20-05:00",
+      "event": "Radar 1.0, the AI-designed router between Storm and Hurricane (round 1, 8 candidates): log loss 0.022 against 0.054 for the composition-only baseline, better in 5 of 5 folds; balanced accuracy 99.5%; adopted"
+    },
+    {
+      "at": "2026-10-31T02:51:31-05:00",
+      "event": "Graph neural network, round 2 (7 AI-designed candidates): best G6 weight averaging + Allen–Dynes head + crystal descriptors, Tc MAE 0.98 K against 1.05 K for the round-1 design, better in 5 of 5 folds; released as version 2.0; Storm 1.0 0.97 K on the same folds, the two averaged 0.91 K (better than Storm 1.0 in 5 of 5)"
     }
   ],
   "baselines": [
@@ -354,6 +362,13 @@
       "target": "Tc",
       "split": "val",
       "mae": 0.983
+    },
+    {
+      "at": "2026-10-31T02:51:31-05:00",
+      "model": "Graph neural network 2.0 (AI-designed)",
+      "target": "Tc",
+      "split": "val",
+      "mae": 0.977
     }
   ],
   "search": {
@@ -1413,6 +1428,12 @@
       "status": "Hurricane 1.0 in use",
       "active": true,
       "text": "Learns from 2,123 measured Tc values (cuprates, iron-based, heavy-fermion and other oxides; SuperCon with Materials Project structures via 3DSC), including 728 materials that did not superconduct. For compounds whose parent it never saw in training it is off by 12.7 K on average, against 15.0 K for a composition-only baseline. Predicting a whole family it never saw is much harder: trained without any cuprate, it misses cuprates by 35 K. Our AI agent designed it."
+    },
+    {
+      "id": "radar",
+      "status": "Radar 1.0 in use",
+      "active": true,
+      "text": "Reads a material’s composition and crystal structure and gives the probability that it belongs to an unconventional family, then sends it to Hurricane or Storm. It learns from 5,751 SuperCon entries in 3DSC (2,123 unconventional, 3,628 conventional). For parent compounds it never saw it picks the right model 99% of the time (balanced accuracy), against 98% for a composition-only baseline. Trained without any cuprate, it still sends 100% of cuprates to Hurricane. Our AI agent designed it."
     }
   ],
   "hurricane": {
@@ -1926,20 +1947,20 @@
   },
   "gnn": {
     "name": "Graph neural network",
-    "round": 1,
+    "round": 2,
     "date": "2026-10-31",
     "status": "done",
-    "summary": "CGCNN-style message passing on the crystal graph, trained end to end",
-    "tc_mae": 0.983,
+    "summary": "crystal-graph network, AI-designed: weight averaging + allen–dynes head + crystal descriptors",
+    "tc_mae": 0.977,
     "tc_via_allen_dynes_mae": 0.969,
     "lambda_mae": 0.088,
     "wlog_mae": 20.9,
     "folds": [
-      1.087,
-      1.017,
-      0.877,
-      0.961,
-      0.974
+      1.039,
+      1.022,
+      0.878,
+      0.954,
+      0.99
     ],
     "spec": {
       "architecture": "CGCNN-style crystal-graph network",
@@ -1956,19 +1977,917 @@
     "about": "A crystal-graph network learns Tc, λ and ω_log straight from the atoms and their neighbours, with no hand-made features. It is scored on the same five folds as Storm, grouped by chemical system.",
     "storm1_mae": 0.969,
     "baseline_mae": 1.045,
-    "folds_better_storm1": 2,
+    "folds_better_storm1": 1,
     "folds_better_baseline": 5,
     "blend": {
       "name": "average of the graph network and Storm 1.0",
-      "tc_mae": 0.915,
+      "tc_mae": 0.911,
       "folds": [
-        0.998,
-        0.938,
-        0.819,
-        0.903,
-        0.918
+        0.971,
+        0.956,
+        0.81,
+        0.902,
+        0.916
       ],
       "folds_better_storm1": 5
-    }
+    },
+    "current": "2.0",
+    "versions": [
+      {
+        "version": "1.0",
+        "round": 1,
+        "date": "2026-10-31",
+        "status": "adopted",
+        "summary": "CGCNN-style message passing on the crystal graph, trained end to end",
+        "tc_mae": 0.983,
+        "folds": [
+          1.087,
+          1.017,
+          0.877,
+          0.961,
+          0.974
+        ],
+        "spec": {
+          "architecture": "CGCNN-style crystal-graph network",
+          "graph": "atoms as nodes; edges to the 12 nearest neighbours within 8 Å, periodic images included",
+          "node_inputs": "a learned vector for each of 64 elements plus 8 element properties (Z, atomic_mass, X, row, group, atomic_radius, mendeleev_no, valence)",
+          "edge_inputs": "bond length in 40 Gaussians from 0 to 8 Å",
+          "layers": "3 gated message-passing layers (sigmoid gate times softplus message, averaged over neighbours, residual, layer norm), width 64",
+          "readout": "mean over atoms, then a network with 128 and 64 units (SiLU)",
+          "targets": "log(1 + Tc), log λ and log ω_log together (loss weights 1, 0.5, 0.5); Tc also via Allen-Dynes from λ and ω_log",
+          "training": "AdamW, peak learning rate 0.002, weight decay 0.0001, warm-up then cosine decay, 64 crystals per step, 200 epochs, Huber loss; the epoch with the lowest validation Tc error on 10% of the training fold's chemical systems is kept",
+          "ensemble": "average of 2 seed(s) per fold",
+          "n_params": 86723
+        }
+      },
+      {
+        "version": "2.0",
+        "round": 2,
+        "date": "2026-10-31",
+        "status": "adopted",
+        "summary": "+ weight averaging + Allen–Dynes head + crystal descriptors",
+        "tc_mae": 0.977,
+        "folds": [
+          1.039,
+          1.022,
+          0.878,
+          0.954,
+          0.99
+        ],
+        "folds_better": 5,
+        "reference_mae": 1.053,
+        "search": {
+          "candidates": 7,
+          "reference_id": "G0",
+          "leaderboard": [
+            {
+              "id": "G6",
+              "name": "+ weight averaging + Allen–Dynes head + crystal descriptors",
+              "tc_mae": 0.977,
+              "folds_better": 5,
+              "blend_mae": 0.911
+            },
+            {
+              "id": "G4",
+              "name": "Wider and deeper (4 layers, width 96)",
+              "tc_mae": 1.004,
+              "folds_better": 5,
+              "blend_mae": 0.915
+            },
+            {
+              "id": "G5",
+              "name": "+ weight averaging + crystal descriptors",
+              "tc_mae": 1.004,
+              "folds_better": 5,
+              "blend_mae": 0.922
+            },
+            {
+              "id": "G1",
+              "name": "+ weight averaging",
+              "tc_mae": 1.028,
+              "folds_better": 4,
+              "blend_mae": 0.93
+            },
+            {
+              "id": "G2",
+              "name": "+ Allen–Dynes head",
+              "tc_mae": 1.028,
+              "folds_better": 3,
+              "blend_mae": 0.928
+            },
+            {
+              "id": "G3",
+              "name": "+ Storm 1.0's crystal descriptors in the readout",
+              "tc_mae": 1.035,
+              "folds_better": 4,
+              "blend_mae": 0.93
+            },
+            {
+              "id": "G0",
+              "name": "Round-1 design (reference)",
+              "tc_mae": 1.053,
+              "folds_better": 0,
+              "blend_mae": 0.936
+            }
+          ]
+        },
+        "storm1_mae": 0.969,
+        "folds_better_storm1": 1,
+        "blend": {
+          "name": "average of the graph network and Storm 1.0",
+          "tc_mae": 0.911,
+          "folds": [
+            0.971,
+            0.956,
+            0.81,
+            0.902,
+            0.916
+          ],
+          "folds_better_storm1": 5
+        }
+      }
+    ]
+  },
+  "radar": {
+    "name": "Radar",
+    "about": "Radar is the project's router. From a material's composition and crystal structure it gives the probability that the material belongs to an unconventional family (cuprates, iron- and nickel-based, heavy-fermion and other oxides), and sends it to Hurricane if so and to Storm otherwise. It learns from the SuperCon classes in 3DSC. An AI agent (Claude) proposes each design; candidates are scored with cross-validation grouped by parent compound, and a version is released only if it beats the composition-only baseline on average and in at least 4 of 5 folds.",
+    "current": "1.0",
+    "data": {
+      "source": "3DSC_MP (SuperCon classes, with Materials Project structures)",
+      "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+      "doi": "10.1038/s41597-023-02721-y",
+      "licence": "CC BY 4.0",
+      "commit": "8d69ca9",
+      "n": 5751,
+      "n_unconventional": 2123,
+      "n_conventional": 3628,
+      "n_groups": 1883,
+      "classes": {
+        "Carbon": 30,
+        "Chevrel": 74,
+        "Other": 3524,
+        "cuprate": 874,
+        "heavy-fermion": 422,
+        "iron-based": 517,
+        "other oxide": 310
+      }
+    },
+    "versions": [
+      {
+        "version": "1.0",
+        "round": 1,
+        "date": "2026-10-31",
+        "status": "adopted",
+        "summary": "Composition + structure + physics + element fractions",
+        "changes": [
+          "Adds measurable crystal structure: crystal system, centring, point-group order, volume per atom, density, layering (anisotropy and c/a) and the f-f spacing",
+          "Adds physics features proposed by the AI: the d-electron count of the transition-metal layer from charge balance, the cuprate hole doping p and its Tc dome, the number of CuO2 planes, heavy-metal charge reservoirs, the FeAs/FeSe-type layer, f-electron share and count, magnetic 3d share and a doping indicator",
+          "Adds the share of each common element"
+        ],
+        "spec": {
+          "inputs": [
+            {
+              "group": "composition",
+              "label": "Composition statistics",
+              "n": 33,
+              "detail": "mean, spread, min and max of 8 element properties, plus the number of elements"
+            },
+            {
+              "group": "structure",
+              "label": "Measurable crystal structure",
+              "n": 17,
+              "items": [
+                {
+                  "name": "crystal system and lattice centring",
+                  "why": "seven crystal systems and four centring types, one-hot"
+                },
+                {
+                  "name": "pg_order",
+                  "why": "order of the point group, a single number for how symmetric the crystal is"
+                },
+                {
+                  "name": "vpa",
+                  "why": "volume per atom"
+                },
+                {
+                  "name": "density",
+                  "why": "density from the composition and the volume per atom"
+                },
+                {
+                  "name": "aniso",
+                  "why": "longest over geometric mean of the two shorter reduced-cell edges, a measure of layering"
+                },
+                {
+                  "name": "c_over_a",
+                  "why": "c/a of the conventional cell for tetragonal and hexagonal crystals (1 for cubic)"
+                },
+                {
+                  "name": "f_spacing",
+                  "why": "volume per f-electron atom to the power 1/3, a proxy for the f-f distance that decides whether f electrons stay local (the Hill limit)"
+                }
+              ]
+            },
+            {
+              "group": "physics",
+              "label": "Physics features proposed by the AI",
+              "n": 15,
+              "items": [
+                {
+                  "name": "tm_d",
+                  "why": "d electrons per transition-metal atom from charge balance (Cu2+ is d9, Fe2+ d6, Ni+ d9); each family's parent compound sits at a characteristic filling and doping moves it away"
+                },
+                {
+                  "name": "p_cu",
+                  "why": "holes per Cu from charge balance (negative for electron doping); cuprate Tc rises and falls with it"
+                },
+                {
+                  "name": "dome",
+                  "why": "the empirical cuprate dome 1 - 82.6 (p - 0.16)^2 (Presland and Tallon), largest at p = 0.16"
+                },
+                {
+                  "name": "cu_layers",
+                  "why": "Cu atoms per formula unit, a proxy for the number of CuO2 planes; Tc rises from one to three planes"
+                },
+                {
+                  "name": "heavy_block",
+                  "why": "share of Hg, Tl, Bi and Pb, the heavy-metal charge reservoirs of the highest-Tc cuprates"
+                },
+                {
+                  "name": "fe_based",
+                  "why": "iron or nickel together with a pnictogen or chalcogen, the FeAs- or FeSe-type layer"
+                },
+                {
+                  "name": "f_share",
+                  "why": "share of atoms with a partly filled f shell (Ce, Yb, U, Pu and others), the local moments of heavy-fermion metals"
+                },
+                {
+                  "name": "f_count",
+                  "why": "nominal f-electron count of those atoms"
+                },
+                {
+                  "name": "mag3d",
+                  "why": "share of magnetic 3d atoms (V to Cu), a proxy for spin fluctuations"
+                },
+                {
+                  "name": "nonint",
+                  "why": "share of non-integer stoichiometry, which marks doped samples"
+                },
+                {
+                  "name": "n_atoms_fu",
+                  "why": "atoms per formula unit as written, a measure of chemical complexity"
+                },
+                {
+                  "name": "oxide",
+                  "why": "share of oxygen"
+                },
+                {
+                  "name": "chalcogenide",
+                  "why": "share of S, Se and Te"
+                },
+                {
+                  "name": "pnictide",
+                  "why": "share of P, As and Sb"
+                },
+                {
+                  "name": "halide",
+                  "why": "share of F, Cl, Br and I"
+                }
+              ]
+            },
+            {
+              "group": "elements",
+              "label": "Element fractions",
+              "n": 79,
+              "detail": "the share of each element seen in at least ten training compounds"
+            }
+          ],
+          "learner": {
+            "kind": "gradient-boosting classifier",
+            "trees": 400,
+            "leaves": 31,
+            "learning_rate": 0.05,
+            "min_leaf": 10,
+            "l2": 1.0,
+            "features_per_split": 1.0,
+            "ensemble": 1,
+            "loss": "log loss",
+            "weights": null,
+            "calibration": null
+          },
+          "target": "probability that the material belongs to an unconventional family",
+          "cv": "5-fold, grouped by parent compound (the Materials Project chemical system)",
+          "rule": "send to Hurricane if the probability is at least 0.5, otherwise to Storm"
+        },
+        "scores": {
+          "log_loss": 0.022,
+          "reference_log_loss": 0.054,
+          "reference": "Composition only (baseline)",
+          "folds": [
+            0.012,
+            0.027,
+            0.016,
+            0.029,
+            0.028
+          ],
+          "reference_folds": [
+            0.023,
+            0.089,
+            0.053,
+            0.074,
+            0.033
+          ],
+          "folds_better": 5,
+          "balanced_accuracy": 0.995,
+          "reference_balanced_accuracy": 0.982,
+          "to_hurricane": 0.993,
+          "to_storm": 0.996,
+          "auc": 1.0,
+          "brier": 0.005,
+          "ece": 0.004,
+          "by_class": {
+            "Carbon": {
+              "n": 30,
+              "right": 0.9,
+              "mean_p": 0.089,
+              "model": "Storm"
+            },
+            "Chevrel": {
+              "n": 74,
+              "right": 1.0,
+              "mean_p": 0.0,
+              "model": "Storm"
+            },
+            "Other": {
+              "n": 3524,
+              "right": 0.997,
+              "mean_p": 0.004,
+              "model": "Storm"
+            },
+            "cuprate": {
+              "n": 874,
+              "right": 1.0,
+              "mean_p": 1.0,
+              "model": "Hurricane"
+            },
+            "heavy-fermion": {
+              "n": 422,
+              "right": 0.981,
+              "mean_p": 0.971,
+              "model": "Hurricane"
+            },
+            "iron-based": {
+              "n": 517,
+              "right": 0.986,
+              "mean_p": 0.985,
+              "model": "Hurricane"
+            },
+            "other oxide": {
+              "n": 310,
+              "right": 1.0,
+              "mean_p": 1.0,
+              "model": "Hurricane"
+            }
+          }
+        },
+        "lofo": [
+          {
+            "family": "cuprate",
+            "label": "Cuprates",
+            "n": 874,
+            "model": "Hurricane",
+            "right": 1.0,
+            "mean_p": 0.999,
+            "right_baseline": 1.0
+          },
+          {
+            "family": "iron-based",
+            "label": "Iron- and nickel-based",
+            "n": 517,
+            "model": "Hurricane",
+            "right": 0.331,
+            "mean_p": 0.331,
+            "right_baseline": 0.364
+          },
+          {
+            "family": "heavy-fermion",
+            "label": "Heavy-fermion",
+            "n": 422,
+            "model": "Hurricane",
+            "right": 0.009,
+            "mean_p": 0.01,
+            "right_baseline": 0.009
+          },
+          {
+            "family": "other oxide",
+            "label": "Other oxides",
+            "n": 310,
+            "model": "Hurricane",
+            "right": 0.681,
+            "mean_p": 0.718,
+            "right_baseline": 0.974
+          },
+          {
+            "family": "Chevrel",
+            "label": "Chevrel phases",
+            "n": 74,
+            "model": "Storm",
+            "right": 1.0,
+            "mean_p": 0.0,
+            "right_baseline": 0.973
+          },
+          {
+            "family": "Carbon",
+            "label": "Carbon-based",
+            "n": 30,
+            "model": "Storm",
+            "right": 0.867,
+            "mean_p": 0.133,
+            "right_baseline": 0.867
+          }
+        ],
+        "importance": [
+          {
+            "name": "oxide",
+            "gain": 0.3877
+          },
+          {
+            "name": "fe_based",
+            "gain": 0.1626
+          },
+          {
+            "name": "f_count",
+            "gain": 0.1001
+          },
+          {
+            "name": "f_spacing",
+            "gain": 0.0346
+          },
+          {
+            "name": "f_share",
+            "gain": 0.0308
+          },
+          {
+            "name": "X_max",
+            "gain": 0.0119
+          },
+          {
+            "name": "x_Yb",
+            "gain": 0.0103
+          },
+          {
+            "name": "mag3d",
+            "gain": 0.0064
+          },
+          {
+            "name": "mendeleev_no_min",
+            "gain": 0.0026
+          },
+          {
+            "name": "x_Ni",
+            "gain": 0.0025
+          },
+          {
+            "name": "Z_max",
+            "gain": 0.002
+          },
+          {
+            "name": "x_Nd",
+            "gain": 0.0017
+          }
+        ],
+        "known": [
+          {
+            "name": "UTe2",
+            "family": "heavy-fermion",
+            "p_unconventional": 1.0,
+            "model": "Hurricane",
+            "structure": true,
+            "list": "anchors"
+          },
+          {
+            "name": "CeRh2As2",
+            "family": "heavy-fermion",
+            "p_unconventional": 1.0,
+            "model": "Hurricane",
+            "structure": true,
+            "list": "anchors"
+          },
+          {
+            "name": "La3Ni2O7, bulk at ambient pressure",
+            "family": "other oxide",
+            "p_unconventional": 1.0,
+            "model": "Hurricane",
+            "structure": true,
+            "list": "anchors"
+          },
+          {
+            "name": "Nd0.8Sr0.2NiO2, bulk",
+            "family": "other oxide",
+            "p_unconventional": 1.0,
+            "model": "Hurricane",
+            "structure": true,
+            "list": "anchors"
+          },
+          {
+            "name": "HgBa2Ca2Cu3O8+δ (Hg-1223)",
+            "family": "cuprate",
+            "p_unconventional": 1.0,
+            "model": "Hurricane",
+            "structure": true,
+            "list": "anchors"
+          },
+          {
+            "name": "Nd0.8Sr0.2NiO2, thin film",
+            "family": "other oxide",
+            "p_unconventional": 1.0,
+            "model": "Hurricane",
+            "structure": true,
+            "list": "anchors"
+          },
+          {
+            "name": "Hg-1223 after a pressure quench",
+            "family": "cuprate",
+            "p_unconventional": 1.0,
+            "model": "Hurricane",
+            "structure": true,
+            "list": "anchors"
+          },
+          {
+            "name": "CsV3Sb5",
+            "family": "kagome",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": true,
+            "list": "anchors"
+          },
+          {
+            "name": "KV3Sb5",
+            "family": "kagome",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": true,
+            "list": "anchors"
+          },
+          {
+            "name": "Al",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Ga",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "In",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Sn (white tin)",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Pb",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Tl",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Hg",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Zn",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Cd",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Nb",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "V",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Ta",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Mo",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Re",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Ti",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Ru",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Os",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Ir",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Th",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "MgB2",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Nb3Sn",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Nb3Al",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Nb3Ga",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "V3Si",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "V3Ga",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "NbN",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "NbC",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "TaC",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "NbSe2",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "CaC6",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "Nb3Ge",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "YRu3B2",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "LuRu3B2",
+            "family": "conventional",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "H3S",
+            "family": "hydride",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "LaH10",
+            "family": "hydride",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          },
+          {
+            "name": "LaSc2H24",
+            "family": "hydride",
+            "p_unconventional": 0.0,
+            "model": "Storm",
+            "structure": false,
+            "list": "experiments"
+          }
+        ],
+        "search": {
+          "candidates": 8,
+          "reference_id": "R0",
+          "leaderboard": [
+            {
+              "id": "R4",
+              "name": "Composition + structure + physics + element fractions",
+              "settings": "default",
+              "log_loss": 0.022,
+              "balanced_accuracy": 0.995,
+              "folds_better": 5
+            },
+            {
+              "id": "R7",
+              "name": "Composition + structure + physics, calibrated probabilities",
+              "settings": "default",
+              "log_loss": 0.023,
+              "balanced_accuracy": 0.993,
+              "folds_better": 5
+            },
+            {
+              "id": "R1",
+              "name": "Composition + physics features",
+              "settings": "default",
+              "log_loss": 0.025,
+              "balanced_accuracy": 0.993,
+              "folds_better": 5
+            },
+            {
+              "id": "R6",
+              "name": "Composition + structure + physics",
+              "settings": "average of 5 seeds",
+              "log_loss": 0.025,
+              "balanced_accuracy": 0.993,
+              "folds_better": 5
+            },
+            {
+              "id": "R3",
+              "name": "Composition + structure + physics",
+              "settings": "default",
+              "log_loss": 0.025,
+              "balanced_accuracy": 0.993,
+              "folds_better": 5
+            },
+            {
+              "id": "R5",
+              "name": "Composition + structure + physics, balanced classes",
+              "settings": "default",
+              "log_loss": 0.027,
+              "balanced_accuracy": 0.992,
+              "folds_better": 5
+            },
+            {
+              "id": "R2",
+              "name": "Composition + measurable structure",
+              "settings": "default",
+              "log_loss": 0.041,
+              "balanced_accuracy": 0.99,
+              "folds_better": 4
+            },
+            {
+              "id": "R0",
+              "name": "Composition only (baseline)",
+              "settings": "default",
+              "log_loss": 0.054,
+              "balanced_accuracy": 0.982,
+              "folds_better": 0
+            }
+          ]
+        }
+      }
+    ]
   }
 }

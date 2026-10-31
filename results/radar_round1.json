@@ -1,0 +1,1474 @@
+{
+  "run_at": "2026-10-31T01:16:20-05:00",
+  "commit": "9c8afd6",
+  "round": 1,
+  "model": "Radar",
+  "version": "1.0",
+  "designer": "AI agent (Claude) proposed the candidates: Hurricane's physics features, measurable structure, element fractions, balanced classes, a seed bag and calibrated probabilities",
+  "selection": "5-fold GroupKFold by parent compound on 5,751 3DSC entries; leave-one-family-out reported separately; graded materials never used for training or selection",
+  "rule": "release the design with the lowest log loss that beats the composition-only baseline on average and in at least 4 of 5 folds; otherwise the best design stays experimental",
+  "caveat": "the labels are SuperCon's chemical classes, a proxy for the pairing mechanism rather than a measurement of it, and picking the best of several designs on the same folds makes its score slightly optimistic",
+  "scikit_learn": "1.9.1",
+  "data": {
+    "source": "3DSC_MP (SuperCon classes, with Materials Project structures)",
+    "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+    "doi": "10.1038/s41597-023-02721-y",
+    "licence": "CC BY 4.0",
+    "commit": "8d69ca9",
+    "n": 5751,
+    "n_unconventional": 2123,
+    "n_conventional": 3628,
+    "n_groups": 1883,
+    "classes": {
+      "Carbon": 30,
+      "Chevrel": 74,
+      "Other": 3524,
+      "cuprate": 874,
+      "heavy-fermion": 422,
+      "iron-based": 517,
+      "other oxide": 310
+    }
+  },
+  "baseline": {
+    "id": "R0",
+    "name": "Composition only (baseline)",
+    "scores": {
+      "log_loss": 0.054285591201629534,
+      "balanced_accuracy": 0.9817118881198779,
+      "to_hurricane": 0.9736222326895903,
+      "to_storm": 0.9898015435501654,
+      "accuracy": 0.983828899321857,
+      "auc": 0.9984953735560702,
+      "brier": 0.01288931055562166,
+      "ece": 0.01009835874121716,
+      "fold_log_loss": [
+        0.023114619522674844,
+        0.08909408829449511,
+        0.05295727452417319,
+        0.07354743451169563,
+        0.03274164434787323
+      ],
+      "fold_balanced_accuracy": [
+        0.9918976769433856,
+        0.974186829363704,
+        0.9864983118049747,
+        0.9660299153000541,
+        0.9879138829748182
+      ],
+      "by_class": {
+        "Carbon": {
+          "n": 30,
+          "right": 0.9333333333333333,
+          "mean_p": 0.06638838135266917,
+          "model": "Storm"
+        },
+        "Chevrel": {
+          "n": 74,
+          "right": 1.0,
+          "mean_p": 0.01431339297524577,
+          "model": "Storm"
+        },
+        "Other": {
+          "n": 3524,
+          "right": 0.9900681044267877,
+          "mean_p": 0.010796209288392762,
+          "model": "Storm"
+        },
+        "cuprate": {
+          "n": 874,
+          "right": 1.0,
+          "mean_p": 0.9999133257851969,
+          "model": "Hurricane"
+        },
+        "heavy-fermion": {
+          "n": 422,
+          "right": 0.8981042654028436,
+          "mean_p": 0.8966420528979333,
+          "model": "Hurricane"
+        },
+        "iron-based": {
+          "n": 517,
+          "right": 0.9748549323017408,
+          "mean_p": 0.9664084841682763,
+          "model": "Hurricane"
+        },
+        "other oxide": {
+          "n": 310,
+          "right": 1.0,
+          "mean_p": 0.9977150358381272,
+          "model": "Hurricane"
+        }
+      }
+    }
+  },
+  "leaderboard": [
+    {
+      "id": "R4",
+      "name": "Composition + structure + physics + element fractions",
+      "settings": "default",
+      "X": "ABCD",
+      "params": {
+        "max_iter": 400,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "scores": {
+        "log_loss": 0.022377677107009792,
+        "balanced_accuracy": 0.994537825599916,
+        "to_hurricane": 0.9929345266132831,
+        "to_storm": 0.996141124586549,
+        "accuracy": 0.9949573987132673,
+        "auc": 0.9997211202345706,
+        "brier": 0.004639025293389105,
+        "ece": 0.0042878364289217225,
+        "fold_log_loss": [
+          0.01191890507829199,
+          0.026695052739543063,
+          0.016334751831572708,
+          0.028842761795813562,
+          0.028106008674200433
+        ],
+        "fold_balanced_accuracy": [
+          0.996450028991944,
+          0.9907161803713528,
+          0.9965887618870612,
+          0.9928429832917127,
+          0.9944968553459119
+        ],
+        "by_class": {
+          "Carbon": {
+            "n": 30,
+            "right": 0.9,
+            "mean_p": 0.08877078653201474,
+            "model": "Storm"
+          },
+          "Chevrel": {
+            "n": 74,
+            "right": 1.0,
+            "mean_p": 0.00017918929918795637,
+            "model": "Storm"
+          },
+          "Other": {
+            "n": 3524,
+            "right": 0.9968785471055619,
+            "mean_p": 0.004013379014456484,
+            "model": "Storm"
+          },
+          "cuprate": {
+            "n": 874,
+            "right": 1.0,
+            "mean_p": 0.9999434408853348,
+            "model": "Hurricane"
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "right": 0.981042654028436,
+            "mean_p": 0.9706408617846548,
+            "model": "Hurricane"
+          },
+          "iron-based": {
+            "n": 517,
+            "right": 0.9864603481624759,
+            "mean_p": 0.9849093667077085,
+            "model": "Hurricane"
+          },
+          "other oxide": {
+            "n": 310,
+            "right": 1.0,
+            "mean_p": 0.9997382061709613,
+            "model": "Hurricane"
+          }
+        }
+      },
+      "n_features": 144,
+      "seconds": 11,
+      "folds_better": 5
+    },
+    {
+      "id": "R7",
+      "name": "Composition + structure + physics, calibrated probabilities",
+      "settings": "default",
+      "X": "ABC",
+      "params": {
+        "max_iter": 400,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "calibrate": true,
+      "scores": {
+        "log_loss": 0.02281514270241393,
+        "balanced_accuracy": 0.9929467957649745,
+        "to_hurricane": 0.9905793688177108,
+        "to_storm": 0.9953142227122381,
+        "accuracy": 0.993566336289341,
+        "auc": 0.999454055207807,
+        "brier": 0.005130892604453709,
+        "ece": 0.0025960703005481894,
+        "fold_log_loss": [
+          0.012051702579124229,
+          0.027230474247550648,
+          0.01917764448464883,
+          0.027764542710463302,
+          0.027860709003433317
+        ],
+        "fold_balanced_accuracy": [
+          0.9956913036505175,
+          0.9840848806366047,
+          0.9959963448254499,
+          0.9935413073140591,
+          0.9929245283018868
+        ],
+        "by_class": {
+          "Carbon": {
+            "n": 30,
+            "right": 0.8666666666666667,
+            "mean_p": 0.10123664634473656,
+            "model": "Storm"
+          },
+          "Chevrel": {
+            "n": 74,
+            "right": 1.0,
+            "mean_p": 0.004143074022804295,
+            "model": "Storm"
+          },
+          "Other": {
+            "n": 3524,
+            "right": 0.996311010215664,
+            "mean_p": 0.008127011166840998,
+            "model": "Storm"
+          },
+          "cuprate": {
+            "n": 874,
+            "right": 1.0,
+            "mean_p": 0.9994856543534554,
+            "model": "Hurricane"
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "right": 0.9691943127962085,
+            "mean_p": 0.9615221013677094,
+            "model": "Hurricane"
+          },
+          "iron-based": {
+            "n": 517,
+            "right": 0.9864603481624759,
+            "mean_p": 0.9858612438659311,
+            "model": "Hurricane"
+          },
+          "other oxide": {
+            "n": 310,
+            "right": 1.0,
+            "mean_p": 0.9990313596244386,
+            "model": "Hurricane"
+          }
+        }
+      },
+      "n_features": 65,
+      "seconds": 22,
+      "folds_better": 5
+    },
+    {
+      "id": "R1",
+      "name": "Composition + physics features",
+      "settings": "default",
+      "X": "AC",
+      "params": {
+        "max_iter": 400,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "scores": {
+        "log_loss": 0.024609427994493015,
+        "balanced_accuracy": 0.9931648491011191,
+        "to_hurricane": 0.9896373056994818,
+        "to_storm": 0.9966923925027563,
+        "accuracy": 0.9940879846983134,
+        "auc": 0.9996865848446245,
+        "brier": 0.0053110988853819025,
+        "ece": 0.004576484373436566,
+        "fold_log_loss": [
+          0.01309849118128468,
+          0.04017572054214701,
+          0.013827236163064418,
+          0.032902777914488424,
+          0.02305292368175288
+        ],
+        "fold_balanced_accuracy": [
+          0.996450028991944,
+          0.9840848806366047,
+          0.9965887618870612,
+          0.9912371598486214,
+          0.9952830188679245
+        ],
+        "by_class": {
+          "Carbon": {
+            "n": 30,
+            "right": 0.9333333333333333,
+            "mean_p": 0.07800870717352275,
+            "model": "Storm"
+          },
+          "Chevrel": {
+            "n": 74,
+            "right": 1.0,
+            "mean_p": 0.0005285499208458136,
+            "model": "Storm"
+          },
+          "Other": {
+            "n": 3524,
+            "right": 0.9971623155505108,
+            "mean_p": 0.003661128617363601,
+            "model": "Storm"
+          },
+          "cuprate": {
+            "n": 874,
+            "right": 1.0,
+            "mean_p": 0.9999346517653427,
+            "model": "Hurricane"
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "right": 0.9644549763033176,
+            "mean_p": 0.9595886927672079,
+            "model": "Hurricane"
+          },
+          "iron-based": {
+            "n": 517,
+            "right": 0.9864603481624759,
+            "mean_p": 0.9849846906728985,
+            "model": "Hurricane"
+          },
+          "other oxide": {
+            "n": 310,
+            "right": 1.0,
+            "mean_p": 0.9997653400214285,
+            "model": "Hurricane"
+          }
+        }
+      },
+      "n_features": 48,
+      "seconds": 5,
+      "folds_better": 5
+    },
+    {
+      "id": "R6",
+      "name": "Composition + structure + physics",
+      "settings": "average of 5 seeds",
+      "X": "ABC",
+      "params": {
+        "max_iter": 400,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0,
+        "max_features": 0.8
+      },
+      "bags": 5,
+      "scores": {
+        "log_loss": 0.025245752773956742,
+        "balanced_accuracy": 0.9925560005629528,
+        "to_hurricane": 0.988695242581253,
+        "to_storm": 0.9964167585446527,
+        "accuracy": 0.993566336289341,
+        "auc": 0.9996064783198246,
+        "brier": 0.00557986890505974,
+        "ece": 0.0049186262824283174,
+        "fold_log_loss": [
+          0.010632593237496954,
+          0.040124835775391686,
+          0.016391409010559917,
+          0.03391197262319457,
+          0.025180660318389676
+        ],
+        "fold_balanced_accuracy": [
+          0.996450028991944,
+          0.9801061007957559,
+          0.9959963448254499,
+          0.9923892335813402,
+          0.9952830188679245
+        ],
+        "by_class": {
+          "Carbon": {
+            "n": 30,
+            "right": 0.9333333333333333,
+            "mean_p": 0.08263691463364152,
+            "model": "Storm"
+          },
+          "Chevrel": {
+            "n": 74,
+            "right": 1.0,
+            "mean_p": 0.000341120615734043,
+            "model": "Storm"
+          },
+          "Other": {
+            "n": 3524,
+            "right": 0.9968785471055619,
+            "mean_p": 0.0039230291630737305,
+            "model": "Storm"
+          },
+          "cuprate": {
+            "n": 874,
+            "right": 1.0,
+            "mean_p": 0.9999320232369637,
+            "model": "Hurricane"
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "right": 0.9597156398104265,
+            "mean_p": 0.9549027564786566,
+            "model": "Hurricane"
+          },
+          "iron-based": {
+            "n": 517,
+            "right": 0.9864603481624759,
+            "mean_p": 0.9841605189862733,
+            "model": "Hurricane"
+          },
+          "other oxide": {
+            "n": 310,
+            "right": 1.0,
+            "mean_p": 0.9997263228991701,
+            "model": "Hurricane"
+          }
+        }
+      },
+      "n_features": 65,
+      "seconds": 33,
+      "folds_better": 5
+    },
+    {
+      "id": "R3",
+      "name": "Composition + structure + physics",
+      "settings": "default",
+      "X": "ABC",
+      "params": {
+        "max_iter": 400,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "scores": {
+        "log_loss": 0.02541772090391077,
+        "balanced_accuracy": 0.9927915163425101,
+        "to_hurricane": 0.9891662741403674,
+        "to_storm": 0.9964167585446527,
+        "accuracy": 0.9937402190923318,
+        "auc": 0.9995876526373354,
+        "brier": 0.0054134021839048,
+        "ece": 0.004387752465153379,
+        "fold_log_loss": [
+          0.010256901178787439,
+          0.04060772908313047,
+          0.016911229549083837,
+          0.0336470586398155,
+          0.025678869390236714
+        ],
+        "fold_balanced_accuracy": [
+          0.996450028991944,
+          0.9801061007957559,
+          0.9959963448254499,
+          0.9935413073140591,
+          0.9952830188679245
+        ],
+        "by_class": {
+          "Carbon": {
+            "n": 30,
+            "right": 0.9333333333333333,
+            "mean_p": 0.08564995036165696,
+            "model": "Storm"
+          },
+          "Chevrel": {
+            "n": 74,
+            "right": 1.0,
+            "mean_p": 0.0003941187640142254,
+            "model": "Storm"
+          },
+          "Other": {
+            "n": 3524,
+            "right": 0.9968785471055619,
+            "mean_p": 0.0038941662053691623,
+            "model": "Storm"
+          },
+          "cuprate": {
+            "n": 874,
+            "right": 1.0,
+            "mean_p": 0.9999305296265545,
+            "model": "Hurricane"
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "right": 0.9620853080568721,
+            "mean_p": 0.9561159222040412,
+            "model": "Hurricane"
+          },
+          "iron-based": {
+            "n": 517,
+            "right": 0.9864603481624759,
+            "mean_p": 0.9850313893140016,
+            "model": "Hurricane"
+          },
+          "other oxide": {
+            "n": 310,
+            "right": 1.0,
+            "mean_p": 0.9997311685375673,
+            "model": "Hurricane"
+          }
+        }
+      },
+      "n_features": 65,
+      "seconds": 6,
+      "folds_better": 5
+    },
+    {
+      "id": "R5",
+      "name": "Composition + structure + physics, balanced classes",
+      "settings": "default",
+      "X": "ABC",
+      "params": {
+        "max_iter": 400,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "balanced": true,
+      "scores": {
+        "log_loss": 0.027479545595684725,
+        "balanced_accuracy": 0.9916715180666829,
+        "to_hurricane": 0.987753179463024,
+        "to_storm": 0.9955898566703418,
+        "accuracy": 0.9926969222743871,
+        "auc": 0.9994849552935483,
+        "brier": 0.005880744950815284,
+        "ece": 0.004920503690205383,
+        "fold_log_loss": [
+          0.010751118550133052,
+          0.043775449714820946,
+          0.01670217758262084,
+          0.0368363411026492,
+          0.029347187486500045
+        ],
+        "fold_balanced_accuracy": [
+          0.996450028991944,
+          0.9787798408488064,
+          0.9959963448254499,
+          0.9912371598486214,
+          0.9929245283018868
+        ],
+        "by_class": {
+          "Carbon": {
+            "n": 30,
+            "right": 0.9,
+            "mean_p": 0.08833058015986059,
+            "model": "Storm"
+          },
+          "Chevrel": {
+            "n": 74,
+            "right": 1.0,
+            "mean_p": 0.0005921101784385466,
+            "model": "Storm"
+          },
+          "Other": {
+            "n": 3524,
+            "right": 0.996311010215664,
+            "mean_p": 0.0042808617910243965,
+            "model": "Storm"
+          },
+          "cuprate": {
+            "n": 874,
+            "right": 1.0,
+            "mean_p": 0.9999512159005841,
+            "model": "Hurricane"
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "right": 0.9549763033175356,
+            "mean_p": 0.9537529514504509,
+            "model": "Hurricane"
+          },
+          "iron-based": {
+            "n": 517,
+            "right": 0.9864603481624759,
+            "mean_p": 0.9857246911292876,
+            "model": "Hurricane"
+          },
+          "other oxide": {
+            "n": 310,
+            "right": 1.0,
+            "mean_p": 0.9997952309892586,
+            "model": "Hurricane"
+          }
+        }
+      },
+      "n_features": 65,
+      "seconds": 19,
+      "folds_better": 5
+    },
+    {
+      "id": "R2",
+      "name": "Composition + measurable structure",
+      "settings": "default",
+      "X": "AB",
+      "params": {
+        "max_iter": 400,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "scores": {
+        "log_loss": 0.04075359695674863,
+        "balanced_accuracy": 0.9896670372945858,
+        "to_hurricane": 0.9853980216674517,
+        "to_storm": 0.9939360529217199,
+        "accuracy": 0.9907842114414884,
+        "auc": 0.9990127552437965,
+        "brier": 0.008276198928182018,
+        "ece": 0.006963005932916722,
+        "fold_log_loss": [
+          0.015893987677125916,
+          0.09237881784997294,
+          0.03401363595153171,
+          0.0347558892915264,
+          0.026747271065133638
+        ],
+        "fold_balanced_accuracy": [
+          0.9959488384716928,
+          0.9755130893106536,
+          0.9909511197844068,
+          0.9898405118039286,
+          0.9931508944521938
+        ],
+        "by_class": {
+          "Carbon": {
+            "n": 30,
+            "right": 0.9,
+            "mean_p": 0.09607123008817572,
+            "model": "Storm"
+          },
+          "Chevrel": {
+            "n": 74,
+            "right": 1.0,
+            "mean_p": 0.0012811450360762546,
+            "model": "Storm"
+          },
+          "Other": {
+            "n": 3524,
+            "right": 0.9946083995459705,
+            "mean_p": 0.00677042606366686,
+            "model": "Storm"
+          },
+          "cuprate": {
+            "n": 874,
+            "right": 1.0,
+            "mean_p": 0.999909412407939,
+            "model": "Hurricane"
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "right": 0.9454976303317536,
+            "mean_p": 0.936415317722825,
+            "model": "Hurricane"
+          },
+          "iron-based": {
+            "n": 517,
+            "right": 0.9845261121856866,
+            "mean_p": 0.9749349433031386,
+            "model": "Hurricane"
+          },
+          "other oxide": {
+            "n": 310,
+            "right": 1.0,
+            "mean_p": 0.9975133926431043,
+            "model": "Hurricane"
+          }
+        }
+      },
+      "n_features": 50,
+      "seconds": 6,
+      "folds_better": 4
+    },
+    {
+      "id": "R0",
+      "name": "Composition only (baseline)",
+      "settings": "default",
+      "X": "A",
+      "params": {
+        "max_iter": 400,
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 10,
+        "l2_regularization": 1.0
+      },
+      "scores": {
+        "log_loss": 0.054285591201629534,
+        "balanced_accuracy": 0.9817118881198779,
+        "to_hurricane": 0.9736222326895903,
+        "to_storm": 0.9898015435501654,
+        "accuracy": 0.983828899321857,
+        "auc": 0.9984953735560702,
+        "brier": 0.01288931055562166,
+        "ece": 0.01009835874121716,
+        "fold_log_loss": [
+          0.023114619522674844,
+          0.08909408829449511,
+          0.05295727452417319,
+          0.07354743451169563,
+          0.03274164434787323
+        ],
+        "fold_balanced_accuracy": [
+          0.9918976769433856,
+          0.974186829363704,
+          0.9864983118049747,
+          0.9660299153000541,
+          0.9879138829748182
+        ],
+        "by_class": {
+          "Carbon": {
+            "n": 30,
+            "right": 0.9333333333333333,
+            "mean_p": 0.06638838135266917,
+            "model": "Storm"
+          },
+          "Chevrel": {
+            "n": 74,
+            "right": 1.0,
+            "mean_p": 0.01431339297524577,
+            "model": "Storm"
+          },
+          "Other": {
+            "n": 3524,
+            "right": 0.9900681044267877,
+            "mean_p": 0.010796209288392762,
+            "model": "Storm"
+          },
+          "cuprate": {
+            "n": 874,
+            "right": 1.0,
+            "mean_p": 0.9999133257851969,
+            "model": "Hurricane"
+          },
+          "heavy-fermion": {
+            "n": 422,
+            "right": 0.8981042654028436,
+            "mean_p": 0.8966420528979333,
+            "model": "Hurricane"
+          },
+          "iron-based": {
+            "n": 517,
+            "right": 0.9748549323017408,
+            "mean_p": 0.9664084841682763,
+            "model": "Hurricane"
+          },
+          "other oxide": {
+            "n": 310,
+            "right": 1.0,
+            "mean_p": 0.9977150358381272,
+            "model": "Hurricane"
+          }
+        }
+      },
+      "n_features": 33,
+      "seconds": 5,
+      "folds_better": 0
+    }
+  ],
+  "best": {
+    "id": "R4",
+    "name": "Composition + structure + physics + element fractions",
+    "settings": "default",
+    "X": "ABCD",
+    "params": {
+      "max_iter": 400,
+      "learning_rate": 0.05,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 10,
+      "l2_regularization": 1.0
+    },
+    "scores": {
+      "log_loss": 0.022377677107009792,
+      "balanced_accuracy": 0.994537825599916,
+      "to_hurricane": 0.9929345266132831,
+      "to_storm": 0.996141124586549,
+      "accuracy": 0.9949573987132673,
+      "auc": 0.9997211202345706,
+      "brier": 0.004639025293389105,
+      "ece": 0.0042878364289217225,
+      "fold_log_loss": [
+        0.01191890507829199,
+        0.026695052739543063,
+        0.016334751831572708,
+        0.028842761795813562,
+        0.028106008674200433
+      ],
+      "fold_balanced_accuracy": [
+        0.996450028991944,
+        0.9907161803713528,
+        0.9965887618870612,
+        0.9928429832917127,
+        0.9944968553459119
+      ],
+      "by_class": {
+        "Carbon": {
+          "n": 30,
+          "right": 0.9,
+          "mean_p": 0.08877078653201474,
+          "model": "Storm"
+        },
+        "Chevrel": {
+          "n": 74,
+          "right": 1.0,
+          "mean_p": 0.00017918929918795637,
+          "model": "Storm"
+        },
+        "Other": {
+          "n": 3524,
+          "right": 0.9968785471055619,
+          "mean_p": 0.004013379014456484,
+          "model": "Storm"
+        },
+        "cuprate": {
+          "n": 874,
+          "right": 1.0,
+          "mean_p": 0.9999434408853348,
+          "model": "Hurricane"
+        },
+        "heavy-fermion": {
+          "n": 422,
+          "right": 0.981042654028436,
+          "mean_p": 0.9706408617846548,
+          "model": "Hurricane"
+        },
+        "iron-based": {
+          "n": 517,
+          "right": 0.9864603481624759,
+          "mean_p": 0.9849093667077085,
+          "model": "Hurricane"
+        },
+        "other oxide": {
+          "n": 310,
+          "right": 1.0,
+          "mean_p": 0.9997382061709613,
+          "model": "Hurricane"
+        }
+      }
+    },
+    "n_features": 144,
+    "seconds": 11,
+    "folds_better": 5
+  },
+  "adopted": true,
+  "spec": {
+    "inputs": [
+      {
+        "group": "composition",
+        "label": "Composition statistics",
+        "n": 33,
+        "detail": "mean, spread, min and max of 8 element properties, plus the number of elements"
+      },
+      {
+        "group": "structure",
+        "label": "Measurable crystal structure",
+        "n": 17,
+        "items": [
+          {
+            "name": "crystal system and lattice centring",
+            "why": "seven crystal systems and four centring types, one-hot"
+          },
+          {
+            "name": "pg_order",
+            "why": "order of the point group, a single number for how symmetric the crystal is"
+          },
+          {
+            "name": "vpa",
+            "why": "volume per atom"
+          },
+          {
+            "name": "density",
+            "why": "density from the composition and the volume per atom"
+          },
+          {
+            "name": "aniso",
+            "why": "longest over geometric mean of the two shorter reduced-cell edges, a measure of layering"
+          },
+          {
+            "name": "c_over_a",
+            "why": "c/a of the conventional cell for tetragonal and hexagonal crystals (1 for cubic)"
+          },
+          {
+            "name": "f_spacing",
+            "why": "volume per f-electron atom to the power 1/3, a proxy for the f-f distance that decides whether f electrons stay local (the Hill limit)"
+          }
+        ]
+      },
+      {
+        "group": "physics",
+        "label": "Physics features proposed by the AI",
+        "n": 15,
+        "items": [
+          {
+            "name": "tm_d",
+            "why": "d electrons per transition-metal atom from charge balance (Cu2+ is d9, Fe2+ d6, Ni+ d9); each family's parent compound sits at a characteristic filling and doping moves it away"
+          },
+          {
+            "name": "p_cu",
+            "why": "holes per Cu from charge balance (negative for electron doping); cuprate Tc rises and falls with it"
+          },
+          {
+            "name": "dome",
+            "why": "the empirical cuprate dome 1 - 82.6 (p - 0.16)^2 (Presland and Tallon), largest at p = 0.16"
+          },
+          {
+            "name": "cu_layers",
+            "why": "Cu atoms per formula unit, a proxy for the number of CuO2 planes; Tc rises from one to three planes"
+          },
+          {
+            "name": "heavy_block",
+            "why": "share of Hg, Tl, Bi and Pb, the heavy-metal charge reservoirs of the highest-Tc cuprates"
+          },
+          {
+            "name": "fe_based",
+            "why": "iron or nickel together with a pnictogen or chalcogen, the FeAs- or FeSe-type layer"
+          },
+          {
+            "name": "f_share",
+            "why": "share of atoms with a partly filled f shell (Ce, Yb, U, Pu and others), the local moments of heavy-fermion metals"
+          },
+          {
+            "name": "f_count",
+            "why": "nominal f-electron count of those atoms"
+          },
+          {
+            "name": "mag3d",
+            "why": "share of magnetic 3d atoms (V to Cu), a proxy for spin fluctuations"
+          },
+          {
+            "name": "nonint",
+            "why": "share of non-integer stoichiometry, which marks doped samples"
+          },
+          {
+            "name": "n_atoms_fu",
+            "why": "atoms per formula unit as written, a measure of chemical complexity"
+          },
+          {
+            "name": "oxide",
+            "why": "share of oxygen"
+          },
+          {
+            "name": "chalcogenide",
+            "why": "share of S, Se and Te"
+          },
+          {
+            "name": "pnictide",
+            "why": "share of P, As and Sb"
+          },
+          {
+            "name": "halide",
+            "why": "share of F, Cl, Br and I"
+          }
+        ]
+      },
+      {
+        "group": "elements",
+        "label": "Element fractions",
+        "n": 79,
+        "detail": "the share of each element seen in at least ten training compounds"
+      }
+    ],
+    "learner": {
+      "kind": "gradient-boosting classifier",
+      "trees": 400,
+      "leaves": 31,
+      "learning_rate": 0.05,
+      "min_leaf": 10,
+      "l2": 1.0,
+      "features_per_split": 1.0,
+      "ensemble": 1,
+      "loss": "log loss",
+      "weights": null,
+      "calibration": null
+    },
+    "target": "probability that the material belongs to an unconventional family",
+    "cv": "5-fold, grouped by parent compound (the Materials Project chemical system)",
+    "rule": "send to Hurricane if the probability is at least 0.5, otherwise to Storm"
+  },
+  "changes": [
+    "Adds measurable crystal structure: crystal system, centring, point-group order, volume per atom, density, layering (anisotropy and c/a) and the f-f spacing",
+    "Adds physics features proposed by the AI: the d-electron count of the transition-metal layer from charge balance, the cuprate hole doping p and its Tc dome, the number of CuO2 planes, heavy-metal charge reservoirs, the FeAs/FeSe-type layer, f-electron share and count, magnetic 3d share and a doping indicator",
+    "Adds the share of each common element"
+  ],
+  "importance": [
+    {
+      "name": "oxide",
+      "gain": 0.3877
+    },
+    {
+      "name": "fe_based",
+      "gain": 0.1626
+    },
+    {
+      "name": "f_count",
+      "gain": 0.1001
+    },
+    {
+      "name": "f_spacing",
+      "gain": 0.0346
+    },
+    {
+      "name": "f_share",
+      "gain": 0.0308
+    },
+    {
+      "name": "X_max",
+      "gain": 0.0119
+    },
+    {
+      "name": "x_Yb",
+      "gain": 0.0103
+    },
+    {
+      "name": "mag3d",
+      "gain": 0.0064
+    },
+    {
+      "name": "mendeleev_no_min",
+      "gain": 0.0026
+    },
+    {
+      "name": "x_Ni",
+      "gain": 0.0025
+    },
+    {
+      "name": "Z_max",
+      "gain": 0.002
+    },
+    {
+      "name": "x_Nd",
+      "gain": 0.0017
+    }
+  ],
+  "lofo": [
+    {
+      "family": "cuprate",
+      "label": "Cuprates",
+      "n": 874,
+      "model": "Hurricane",
+      "right": 1.0,
+      "mean_p": 0.9988114131924964,
+      "right_baseline": 1.0
+    },
+    {
+      "family": "iron-based",
+      "label": "Iron- and nickel-based",
+      "n": 517,
+      "model": "Hurricane",
+      "right": 0.3307543520309478,
+      "mean_p": 0.3308878374957899,
+      "right_baseline": 0.36363636363636365
+    },
+    {
+      "family": "heavy-fermion",
+      "label": "Heavy-fermion",
+      "n": 422,
+      "model": "Hurricane",
+      "right": 0.009478672985781991,
+      "mean_p": 0.009512469313539907,
+      "right_baseline": 0.009478672985781991
+    },
+    {
+      "family": "other oxide",
+      "label": "Other oxides",
+      "n": 310,
+      "model": "Hurricane",
+      "right": 0.6806451612903226,
+      "mean_p": 0.7180915805064507,
+      "right_baseline": 0.9741935483870968
+    },
+    {
+      "family": "Chevrel",
+      "label": "Chevrel phases",
+      "n": 74,
+      "model": "Storm",
+      "right": 1.0,
+      "mean_p": 0.000370202098712363,
+      "right_baseline": 0.972972972972973
+    },
+    {
+      "family": "Carbon",
+      "label": "Carbon-based",
+      "n": 30,
+      "model": "Storm",
+      "right": 0.8666666666666667,
+      "mean_p": 0.13325158721682426,
+      "right_baseline": 0.8666666666666667
+    }
+  ],
+  "known": [
+    {
+      "name": "UTe2",
+      "family": "heavy-fermion",
+      "p_unconventional": 1.0,
+      "model": "Hurricane",
+      "structure": true,
+      "list": "anchors"
+    },
+    {
+      "name": "CeRh2As2",
+      "family": "heavy-fermion",
+      "p_unconventional": 1.0,
+      "model": "Hurricane",
+      "structure": true,
+      "list": "anchors"
+    },
+    {
+      "name": "La3Ni2O7, bulk at ambient pressure",
+      "family": "other oxide",
+      "p_unconventional": 1.0,
+      "model": "Hurricane",
+      "structure": true,
+      "list": "anchors"
+    },
+    {
+      "name": "Nd0.8Sr0.2NiO2, bulk",
+      "family": "other oxide",
+      "p_unconventional": 1.0,
+      "model": "Hurricane",
+      "structure": true,
+      "list": "anchors"
+    },
+    {
+      "name": "HgBa2Ca2Cu3O8+\u03b4 (Hg-1223)",
+      "family": "cuprate",
+      "p_unconventional": 1.0,
+      "model": "Hurricane",
+      "structure": true,
+      "list": "anchors"
+    },
+    {
+      "name": "Nd0.8Sr0.2NiO2, thin film",
+      "family": "other oxide",
+      "p_unconventional": 1.0,
+      "model": "Hurricane",
+      "structure": true,
+      "list": "anchors"
+    },
+    {
+      "name": "Hg-1223 after a pressure quench",
+      "family": "cuprate",
+      "p_unconventional": 1.0,
+      "model": "Hurricane",
+      "structure": true,
+      "list": "anchors"
+    },
+    {
+      "name": "CsV3Sb5",
+      "family": "kagome",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": true,
+      "list": "anchors"
+    },
+    {
+      "name": "KV3Sb5",
+      "family": "kagome",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": true,
+      "list": "anchors"
+    },
+    {
+      "name": "Al",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Ga",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "In",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Sn (white tin)",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Pb",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Tl",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Hg",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Zn",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Cd",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Nb",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "V",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Ta",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Mo",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Re",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Ti",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Ru",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Os",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Ir",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Th",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "MgB2",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Nb3Sn",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Nb3Al",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Nb3Ga",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "V3Si",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "V3Ga",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "NbN",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "NbC",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "TaC",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "NbSe2",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "CaC6",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "Nb3Ge",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "YRu3B2",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "LuRu3B2",
+      "family": "conventional",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "H3S",
+      "family": "hydride",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "LaH10",
+      "family": "hydride",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    },
+    {
+      "name": "LaSc2H24",
+      "family": "hydride",
+      "p_unconventional": 0.0,
+      "model": "Storm",
+      "structure": false,
+      "list": "experiments"
+    }
+  ]
+}
