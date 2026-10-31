@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-10-31T13:13:10+00:00",
+ "updated": "2026-10-31T14:25:08+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -56,7 +56,6 @@
   "Nat. Mater.",
   "Nat. Commun.",
   "npj Quantum Mater.",
-  "Nature News",
   "Phys.org",
   "Physics World",
   "APS Physics",
@@ -2979,27 +2978,6 @@
    "kind": ""
   },
   {
-   "id": "10.1038/s41467-026-73705-w",
-   "source": "Nat. Commun.",
-   "journal": "Nature Communications",
-   "title": "Addendum: Magnetic field screening in hydrogen-rich high-temperature superconductors",
-   "authors": [
-    "V. S. Minkov",
-    "E. F. Talantsev",
-    "S. L. Bud’ko",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-06",
-   "abstract": "",
-   "url": "https://doi.org/10.1038/s41467-026-73705-w",
-   "doi": "10.1038/s41467-026-73705-w",
-   "topics": [
-    "Hydrides"
-   ],
-   "kind": ""
-  },
-  {
    "id": "10.1038/s41467-026-78385-0",
    "source": "Nat. Commun.",
    "journal": "Nature Communications",
@@ -3017,6 +2995,27 @@
    "doi": "10.1038/s41467-026-78385-0",
    "topics": [
     "Kagome"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-73705-w",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Addendum: Magnetic field screening in hydrogen-rich high-temperature superconductors",
+   "authors": [
+    "V. S. Minkov",
+    "E. F. Talantsev",
+    "S. L. Bud’ko",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-10-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-73705-w",
+   "doi": "10.1038/s41467-026-73705-w",
+   "topics": [
+    "Hydrides"
    ],
    "kind": ""
   },
@@ -5251,7 +5250,8 @@
    "categories": [
     "cond-mat.supr-con"
    ],
-   "kind_of": "paper"
+   "kind_of": "paper",
+   "ai_kind": "prediction"
   },
   {
    "id": "2607.14949",
@@ -5370,7 +5370,8 @@
     "cond-mat.supr-con",
     "cond-mat.mtrl-sci"
    ],
-   "kind_of": "paper"
+   "kind_of": "paper",
+   "ai_kind": "experiment"
   },
   {
    "id": "2606.23799",
