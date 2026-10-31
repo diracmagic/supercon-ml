@@ -96,6 +96,7 @@ TOP_N = 50
 PER_SYSTEM = 1           # one candidate per chemical system in the published list
 NOBLE = {"He", "Ne", "Ar", "Kr", "Xe", "Rn"}
 PRIOR = P.ROOT / "data" / "prior_claims.json"
+CHECKS = P.ROOT / "data" / "checks.json"   # measurements and calculations on our own candidates, hits and misses
 UCI_URL = "https://archive.ics.uci.edu/static/public/464/superconductivty+data.zip"
 JARVIS_PAGE = "https://www.ctcms.nist.gov/~knc6/jsmol/{}.html"
 # space-group number -> point group (the last number of each range), and crystal systems
@@ -974,6 +975,44 @@ def first_listed(results: Path) -> tuple[dict, dict]:
     return by_id, by_comp
 
 
+def load_checks() -> tuple[Known, dict]:
+    """The checks on our candidates (data/checks.json): a matcher from composition to the check, and its sources.
+    A checked candidate stays on the list; the check is shown next to the prediction, right or wrong."""
+    if not CHECKS.exists():
+        return Known("checks"), {}
+    try:
+        d = json.loads(CHECKS.read_text(encoding="utf-8"))
+    except ValueError as err:
+        P.log(f"data/checks.json could not be read ({err}); no checks attached")
+        return Known("checks"), {}
+    K, out = Known("checks"), {}
+    for i, e in enumerate(d.get("materials", [])):
+        try:
+            comp = H.parse_formula(e["formula"])
+        except (KeyError, ValueError):
+            P.log(f"check not parsed: {e.get('formula')}")
+            continue
+        key = f"chk{i}"
+        K.add(comp, key)
+        src = (d.get("sources") or {}).get(e.get("ref")) or {}
+        rec = {k: e[k] for k in ("kind", "superconducts", "tc", "below", "note") if e.get(k) is not None}
+        rec.setdefault("kind", "experiment")
+        if src.get("doi"):
+            rec["doi"] = src["doi"]
+        if src.get("cite"):
+            rec["cite"] = src["cite"]
+        out[key] = rec
+    if out:
+        P.log(f"checks on our candidates: {len(out)} recorded in data/checks.json")
+    return K, out
+
+
+def check_for(K: Known, table: dict, comp: dict):
+    """The check recorded for one candidate's composition, if any."""
+    hit = K.match(comp)
+    return table.get(hit) if hit is not None else None
+
+
 def listed_for(jid: str, comp: dict, seen: tuple, now: dict) -> dict:
     """The first listing of one candidate: the earliest of its JARVIS ID's and its composition's, else this run."""
     by_id, by_comp = seen
@@ -1046,12 +1085,14 @@ def run() -> None:
     by_id = dict(zip(rows["id"], rows["atoms"]))
     comp_of = dict(zip(rows["id"], rows["comp"]))
     stamp = P.now_iso()
+    chkK, chkT = load_checks()
     seen = first_listed(P.RESULTS if not SMOKE else Path(tempfile.mkdtemp(prefix="screen-smoke-none-")))
     now = {"date": stamp[:10], "at": stamp, "round": ROUND, "file": f"screen_round{ROUND}.json"}
     cands = []
     for rank, i in enumerate(top_rows(ranked, ranked.index[ranked["model"] == "Storm"]), 1):
         r = ranked.loc[i]
-        c = dict(base_record(rank, r), tc=_r(r["storm_tc"], 2), lo=_r(r["lo"], 2), hi=_r(r["hi"], 2),
+        c = dict(base_record(rank, r), check=check_for(chkK, chkT, comp_of[r["jid"]]),
+                 tc=_r(r["storm_tc"], 2), lo=_r(r["lo"], 2), hi=_r(r["hi"], 2),
                  tc_cal=_r(r["tc_calibrated"], 2), p_sc=_r(r["p_sc"], 3), **{"lambda": _r(r["lambda"], 3)}, wlog=_r(r["wlog"], 1),
                  p_conventional=_r(1 - float(r["p_unconventional"]), 3), novelty=_r(r["novelty"], 2),
                  outside=True if float(r["novelty"]) > 1 else None,
@@ -1079,7 +1120,8 @@ def run() -> None:
                  types=[t for t in str(r["types"]).split(";") if t] or None, novelty=_r(r["novelty"], 2),
                  outside=True if float(r["novelty"]) > 1 else None,
                  nearest={"formula": r["nearest_training"], "tc": _r(r["nearest_training_tc"], 2)},
-                 listed=listed_for(r["jid"], comp_of[r["jid"]], seen, now), atoms=crystal(by_id[r["jid"]]))
+                 listed=listed_for(r["jid"], comp_of[r["jid"]], seen, now), atoms=crystal(by_id[r["jid"]]),
+                 check=check_for(chkK, chkT, comp_of[r["jid"]]))
         hcands.append({k: v for k, v in c.items() if v is not None})
     s_rule = (f"metals within {int(EHULL_MAX * 1000)} meV/atom of the convex hull, non-magnetic, {N_ELEMENTS[0]} to "
               f"{N_ELEMENTS[1]} elements, up to {nat_max} atoms in the cell, elements our training data covers; the list "
