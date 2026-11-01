@@ -1,6 +1,6 @@
 // Offline support for the phone web app. Pages from this site load network-first and
 // fall back to the last copy; live data from GitHub always goes straight to the network.
-const CACHE = 'supercon-0.3.11-team-login';
+const CACHE = 'supercon-0.3.12-owner-login-news';
 const SHELL = ['./', './index.html', './assets.json', './manifest.webmanifest', './progress.json', './icons/icon-192.png', './icons/icon-512.png'];
 
 function shellFiles(manifest) {
@@ -33,14 +33,23 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-  if (event.request.method !== 'GET' || url.origin !== self.location.origin) return;
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        const copy = response.clone();
-        if (response.ok) event.waitUntil(caches.open(CACHE).then((cache) => cache.put(event.request, copy)));
-        return response;
-      })
-      .catch(() => caches.match(event.request).then((hit) => hit || caches.match('./index.html')))
-  );
+  // Authenticated requests and private API routes must never enter the offline cache.
+  if (event.request.method !== 'GET' || url.origin !== self.location.origin ||
+      event.request.headers.has('Authorization') || /\/(?:auth|api)\//.test(url.pathname)) return;
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE);
+    const hit = await cache.match(event.request);
+    // Only resources installed from the public shell manifest can be refreshed.
+    // Arbitrary same-origin responses must not become an offline data store.
+    if (!hit) return fetch(event.request);
+    try {
+      const response = await fetch(event.request);
+      if (response.ok && !/\b(?:private|no-store)\b/i.test(response.headers.get('Cache-Control') || '')) {
+        event.waitUntil(cache.put(event.request, response.clone()));
+      }
+      return response;
+    } catch {
+      return hit;
+    }
+  })());
 });

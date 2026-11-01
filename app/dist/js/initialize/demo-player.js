@@ -28,7 +28,7 @@ const initializeSuperconDemoPlayer = function initializeSuperconDemoPlayer() {
 
   TC_MAX = 80;
 
-  view = ['candidates', 'ai', 'demos', 'learn', 'papers'].indexOf(store.get('view')) >= 0 ? store.get('view') : 'progress';
+  view = ['candidates', 'demos', 'learn', 'papers'].indexOf(store.get('view')) >= 0 ? store.get('view') : 'progress';
 
   demo = {
     id: 'story', t: 1.4, auto: true, clock: 0, raf: 0, last: 0, built: false,
