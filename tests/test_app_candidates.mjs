@@ -423,15 +423,17 @@ test('service-worker installation precaches the entire split frontend before act
     self: { location: { href: base }, addEventListener: (event, callback) => { handlers[event] = callback; },
       skipWaiting: async () => { activated = true; } },
     fetch: async () => ({ ok: true, json: async () => manifest }),
-    caches: { open: async () => ({ addAll: async (files) => { requested.push(...files); } }) }, URL,
+    caches: { open: async () => ({ addAll: async (files) => { requested.push(...files); } }) }, URL, Request,
   };
   vm.runInNewContext(fs.readFileSync(new URL('../app/dist/sw.js', import.meta.url), 'utf8'), context);
   handlers.install({ waitUntil: (promise) => { installation = promise; } });
   await installation;
   for (const asset of [...manifest.styles, ...manifest.scripts]) {
-    assert.ok(requested.includes(new URL(asset, base).href), 'Missing offline asset: ' + asset);
+    assert.ok(requested.some(request => request.url === new URL(asset, base).href), 'Missing offline asset: ' + asset);
   }
-  assert.equal(new Set(requested).size, requested.length);
+  assert.ok(requested.every(request => request instanceof Request && request.cache === 'reload' && request.method === 'GET'),
+    'Every install request must fetch current public bytes instead of reusing a stale browser HTTP-cache entry');
+  assert.equal(new Set(requested.map(request => request.url)).size, requested.length);
   assert.equal(activated, true);
 });
 
