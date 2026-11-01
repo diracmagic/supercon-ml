@@ -7,12 +7,11 @@ const initializeSuperconCandidates = function initializeSuperconCandidates() {
      Each screening round writes a "screen" block into progress.json, with two lists: the conventional candidates that
      Storm ranks ("candidates": its DFT Tc with a 90% range) and, from round 2, the unconventional ones that Hurricane
      ranks ("hurricane.candidates": the chance that each superconducts and its measured Tc if it does, with a 90% range).
-     Every row has its crystal structure and is published before any calculation or experiment checks it; every check is
-     added to its row, hits and misses alike. The lists hold only our own finds. The screening leaves out every material
-     with a superconductivity record, in our training data or already reported or predicted by others, and from round 2
-     every material made of exactly the elements of a known superconductor; the app also hides any row marked with an
-     earlier report ("prior"), with a SuperCon record, or whose composition appears in the advances and AI lists the app
-     shows. The card reads only that block, so a new round updates it without a new app. */
+     The display sorts each selected group by predicted Tc, highest first; Hurricane uses conditional Tc. Unknown Tc
+     stays visible at the end. Published screening scores, group membership and fold ranges are unchanged. Literature
+     associations do not establish exact identity or chronology. Only a reviewed earlier experimental positive with
+     all identity/condition matches and a sourced frozen prediction moves to the visible reported archive. Limited
+     negatives and unresolved outcomes remain alongside predictions, with source and sample conditions. */
   CAND_SHOWN = 10;
 
   CAND_KINDS = ['storm', 'hurricane'];
@@ -26,7 +25,7 @@ const initializeSuperconCandidates = function initializeSuperconCandidates() {
 
   candidateData = window.SuperconCandidates;
 
-  candState = { all: false, sel: { storm: '', hurricane: '' }, key: '', kind: store.get('cand-kind') === 'hurricane' ? 'hurricane' : 'storm',
+  candState = { all: false, archive: false, sel: { storm: '', hurricane: '' }, key: '', kind: store.get('cand-kind') === 'hurricane' ? 'hurricane' : 'storm',
     track: candidateData.tracks.indexOf(store.get('cand-track')) >= 0 ? store.get('cand-track') : 'storm_in_domain', notesOpen: false };
 
   CHECK_LABEL = { dft: 'DFT check', experiment: 'Measured' };
@@ -59,9 +58,6 @@ const initializeSuperconCandidates = function initializeSuperconCandidates() {
   XT_Z = {};
 
   XT_EL.forEach(function (s, i) { XT_Z[s] = i; });
-
-  // compositions named in the app's lists of others' work: the recent advances and the AI finds and predictions
-  candPriorCache = { n: -1, keys: {} };
 
   /* The McMillan limit: about 40 K, long thought to be the ceiling for conventional superconductors after McMillan's
      1968 analysis. Two highlights, and nothing else is highlighted however high its prediction:

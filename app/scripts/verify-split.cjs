@@ -1,7 +1,8 @@
-/* Verify the frontend resource extraction without installing parser packages.
+/* Verify the reviewed frontend resources without installing parser packages.
  * Node 22 (the app's CI version) includes Acorn behind --expose-internals.
- * The manifest captures the reviewed extraction baseline. An intentional behavior
- * change must explicitly update the relevant baseline rather than silently pass.
+ * The manifest retains original extraction provenance and a complete reviewed AST
+ * baseline. Intentional revisions are recorded explicitly; current functions are
+ * not claimed to remain identical to the historical inline implementation.
  */
 'use strict';
 const fs = require('node:fs');
@@ -26,7 +27,7 @@ const parse = (code) => acorn.parse(code, { ecmaVersion: 'latest' });
 const scripts = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"[^>]*>/g)].map((m) => m[1]);
 const styles = [...html.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)"[^>]*>/g)].map((m) => m[1]);
 assert.deepEqual(scripts, assets.scripts, 'HTML script order must match the complete asset manifest');
-assert.deepEqual(scripts, baseline.scripts, 'Extraction load order must remain reviewable');
+assert.deepEqual(scripts, baseline.scripts, 'Reviewed load order must remain exact');
 assert.deepEqual(styles, assets.styles);
 assert.equal(/<style\b/.test(html), false, 'Styles belong in the stylesheet');
 for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
@@ -70,14 +71,15 @@ for (let i = 0; i < scripts.length; i++) {
     }
   }
 }
-assert.deepEqual(functions, baseline.functions, 'Every function body, parameter and expression matches the original AST');
-assert.deepEqual(initialization, baseline.initialization, 'Every original initialization statement retains its AST and order');
+assert.deepEqual(functions, baseline.functions, 'Every function body, parameter and expression matches the reviewed AST baseline');
+assert.deepEqual(initialization, baseline.initialization, 'Every initialization statement retains its reviewed AST and order');
 const referenceFlag = process.argv.indexOf('--reference');
 if (referenceFlag >= 0) {
   const referenceHtml = fs.readFileSync(process.argv[referenceFlag + 1], 'utf8');
   assert.equal(hash(referenceHtml), baseline.original_html_sha256, 'Reference is the original complete HTML snapshot');
   const referenceScript = [...referenceHtml.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)]
     .find((m) => m[1].includes('(function ()'))?.[1];
+  assert.equal(hash(referenceScript), baseline.original_script_sha256, 'Reference retains the original complete script snapshot');
   const originalBody = parse(referenceScript).body[0].expression.callee.body.body;
   const originalFunctions = Object.fromEntries(originalBody.filter((n) => n.type === 'FunctionDeclaration')
     .map((n) => [n.id.name, astHash({ ...n, type: 'FunctionExpression' })]));
@@ -86,8 +88,13 @@ if (referenceFlag >= 0) {
     return n.declarations.filter((d) => d.init).flatMap((d) =>
       parse(d.id.name + ' = ' + referenceScript.slice(d.init.start, d.init.end) + ';').body.map(astHash));
   });
-  assert.deepEqual(functions, originalFunctions, 'Independent full-source function AST comparison');
-  assert.deepEqual(initialization, originalInitialization, 'Independent full-source initialization AST comparison');
+  if (baseline.reviewed_revision) {
+    assert.equal(astHash(originalFunctions), baseline.original_ast_sha256.functions, 'Independent original full-source function AST provenance');
+    assert.equal(astHash(originalInitialization), baseline.original_ast_sha256.initialization, 'Independent original full-source initialization AST provenance');
+  } else {
+    assert.deepEqual(functions, originalFunctions, 'Independent full-source function AST comparison');
+    assert.deepEqual(initialization, originalInitialization, 'Independent full-source initialization AST comparison');
+  }
 }
 const bindingNodes = parse(codeOf('js/bindings.js')).body;
 assert.ok(isDirective(bindingNodes[0]));
@@ -99,7 +106,7 @@ assert.deepEqual(boot.slice(1).map((n) => {
   assert.equal(n.type, 'ExpressionStatement'); assert.equal(n.expression.type, 'CallExpression');
   assert.equal(n.expression.callee.type, 'Identifier'); assert.equal(n.expression.arguments.length, 0);
   return n.expression.callee.name;
-}), initializers, 'All initializers run together in original order, with no resource-load timing gaps');
+}), initializers, 'All initializers run together in reviewed order, with no resource-load timing gaps');
 for (const file of ['inline-source-manifest.json', 'split-inline.cjs', 'verify-split.cjs']) {
   assert.ok(fs.statSync(path.join(__dirname, file)).size <= 70000, 'Complete review metadata/tool stays below 70 KB: ' + file);
 }
@@ -112,4 +119,5 @@ for (const name of [...baseline.bindings, ...Object.keys(functions), ...initiali
   assert.equal(Object.hasOwn(sandbox, name), false, 'Shared lexical binding must not overwrite a Window property: ' + name);
 }
 console.log(JSON.stringify({ scripts: scripts.length, functions: Object.keys(functions).length, initializationStatements: initialization.length,
-  maximumResourceBytes: Math.max(...assets.scripts.concat(assets.styles).map((file) => fs.statSync(path.join(dist, file)).size)), astEquivalent: true }));
+  maximumResourceBytes: Math.max(...assets.scripts.concat(assets.styles).map((file) => fs.statSync(path.join(dist, file)).size)),
+  astEquivalent: true, astComparison: 'reviewed-baseline', intentionalRevisionsRecorded: !!baseline.reviewed_revision }));

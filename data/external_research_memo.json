@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "updated": "2026-11-01",
+  "reviewed_on": "2026-11-01",
+  "source": {
+    "memo_version": "1.1",
+    "sha256": "4eb45b8bffc40442695ff9dd0b63d5a5791dcf461c758f613a8810b42bb4d115",
+    "scope": "29项研究与2项研究计划；摘要与引用，不含论文全文或图像"
+  },
+  "schedule": {
+    "frequency": "daily",
+    "time": "09:00",
+    "timezone": "America/Chicago",
+    "status": "active_schedule",
+    "automation_id": "ai",
+    "note": "已设置每日检索；不代表每日完成全部原文核验。条目核验日期单独记录。"
+  },
+  "entry_count": 31,
+  "entry_parts": [
+    "external-research-memo/part-01.json",
+    "external-research-memo/part-02.json",
+    "external-research-memo/part-03.json"
+  ]
+}

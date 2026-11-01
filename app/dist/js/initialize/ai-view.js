@@ -12,6 +12,11 @@ const initializeSuperconAiView = function initializeSuperconAiView() {
   AI_KIND_LABEL = { prediction: 'AI prediction', experiment: 'AI + experiment' };
 
   aiState = { built: false, kind: 'all', shown: 12, timer: 0, tick: 0, tickTimer: 0,
-    seen: store.get('aiSeen') || '', newest: '' };
+    seen: store.get('aiSeen') || '', newest: '',
+    external: { query: '', category: 'all', page: 0, pageSize: 6, source: null, controllers: [] } };
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stopExternalResearch();
+  });
 
 };

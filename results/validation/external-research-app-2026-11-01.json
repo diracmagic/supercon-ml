@@ -1,0 +1,57 @@
+{
+  "reviewed_on": "2026-11-01",
+  "base_commit": "d5a880259eee0c825ade37557ce060b00344d5d0",
+  "scope": "Native external research cards, daily review schedule metadata and candidate presentation. No new model fitting or release.",
+  "registry": {
+    "entries": 31,
+    "research_and_followups": 29,
+    "research_programmes": 2,
+    "content": "Paraphrased evidence, primary-source references, reviewed versions and limitations; no paper text, figures or embedded memo document.",
+    "schedule": "Daily 09:00 America/Chicago; Codex automation ai, active. This is a schedule, not a completed daily review or deployment."
+  },
+  "candidate_fixture": {
+    "run_url": "https://github.com/diracmagic/supercon-ml/actions/runs/41263644864",
+    "source_commit": "57434fbe6b6e26db109eddc823de0e83131b3361",
+    "screening_round": 5,
+    "storm_rows": 102,
+    "hurricane_rows": 50,
+    "exact_id_audit_records": 157,
+    "current_ids_with_visible_audit_status": 152,
+    "storm_groups": {"in_domain": 50, "exploration": 50, "borides": 2, "carbides": 0},
+    "archive_rows": 0,
+    "priority_limit": "No record satisfies all exact-identity, experimental-superconductivity and dated frozen-prediction requirements. Retention is not evidence of novelty.",
+    "ordering": "Storm predicted DFT Tc; Hurricane explicit conditional tc_sc, both descending with unknowns last. Original predictions, probabilities and fold ranges unchanged."
+  },
+  "validation": {
+    "python": {"run": 213, "passed": 212, "windows_symlink_skip": 1},
+    "node": {"run": 35, "passed": 35},
+    "checks": ["three normal-state bundle verifiers", "external registry deterministic bundle check", "Hosono validation", "reviewed complete AST baseline and LF-only checkout"],
+    "browser": {
+      "engine": "Installed Google Chrome through Playwright",
+      "viewports": ["1440x1050 desktop", "390x844 mobile"],
+      "each_viewport": {
+        "all_31_entries_reachable": true,
+        "doi_search_and_evidence_filter": true,
+        "experiment_limits_and_primary_links": true,
+        "no_document_embed": true,
+        "candidate_ids_and_tc_order": true,
+        "conditional_tc_and_probability_visible": true,
+        "ce_corrections_neutral_and_cited": true,
+        "animation_advance_pause_replay_and_leave_view_stop": true,
+        "animation_preserves_evidence_status": true,
+        "reduced_motion_manual_steps": true,
+        "precache_resources_with_exact_bytes": 70,
+        "offline_reload_resources_with_exact_bytes": 70,
+        "unrelated_cache_preserved": true,
+        "old_app_cache_removed": true,
+        "horizontal_page_overflow": false,
+        "runtime_errors": 0,
+        "failed_local_requests": 0
+      },
+      "limits": "Network responses were pinned to the real H6 result fixture. External citation content was reviewed separately; the browser check verifies rendering and link safety, not new source access. No native installer or live deployment tested."
+    }
+  },
+  "adopted_model": false,
+  "merged": false,
+  "deployed": false
+}

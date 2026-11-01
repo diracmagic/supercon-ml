@@ -2,37 +2,6 @@
 // candidates: shared lexical function definitions; no startup side effects.
 
 
-  // "Nb₃Sn", "Nb3Sn" or "SnNb3" → "Nb:0.750|Sn:0.250"; '' for anything that is not a formula of two or more elements
-  const compKey = function compKey(f) {
-    var s = String(f || '').replace(/[₀-₉]/g, function (ch) { return String(SUB_DIGITS.indexOf(ch)); }).replace(/\s+/g, '');
-    if (!/^(?:[A-Z][a-z]?(?:\d+(?:\.\d+)?)?)+$/.test(s)) return '';
-    var c = {}, tot = 0, m, re = /([A-Z][a-z]?)(\d+(?:\.\d+)?)?/g;
-    while ((m = re.exec(s))) {
-      if (XT_Z[m[1]] === undefined) return '';
-      var n = m[2] ? parseFloat(m[2]) : 1;
-      c[m[1]] = (c[m[1]] || 0) + n;
-      tot += n;
-    }
-    var ks = Object.keys(c).sort();
-    return ks.length < 2 || !(tot > 0) ? '' : ks.map(function (k) { return k + ':' + (c[k] / tot).toFixed(3); }).join('|');
-  };
-
-  const candPriorKeys = function candPriorKeys() {
-    var src = list(typeof RECENT !== 'undefined' ? RECENT : []).concat(list(AI_FOUND), list(AI_WATCH));
-    if (src.length === candPriorCache.n) return candPriorCache.keys;
-    var keys = {};
-    src.forEach(function (e) {
-      var text = String((e && e.h) || '') + ' ' + String((e && e.x) || '');
-      text = text.replace(/[₀-₉]/g, function (ch) { return String(SUB_DIGITS.indexOf(ch)); });
-      (text.match(/[A-Z][a-z]?(?:\d+(?:\.\d+)?)?(?:[A-Z][a-z]?(?:\d+(?:\.\d+)?)?)+/g) || []).forEach(function (tok) {
-        var k = compKey(tok);
-        if (k) keys[k] = 1;
-      });
-    });
-    candPriorCache = { n: src.length, keys: keys };
-    return keys;
-  };
-
   // the block that holds a list: the screen block itself for Storm's, its "hurricane" block for Hurricane's
   const candBlock = function candBlock(sc, kind) {
     if (!sc || typeof sc !== 'object') return null;
@@ -40,20 +9,17 @@
   };
 
   const candRows = function candRows(sc, kind) {
-    var prior = candPriorKeys(), out = { rows: [], hidden: 0 }, b = candBlock(sc, kind);
-    list(b && b.candidates).slice(0, 300).forEach(function (c) {
-      if (!c || typeof c.formula !== 'string' || typeof c.tc !== 'number' || !isFinite(c.tc)) return;
-      var key = compKey(c.formula);
-      if (c.prior || (typeof c.supercon === 'string' && c.supercon) || (key && prior[key])) { out.hidden++; return; }
-      out.rows.push(c);
-    });
-    out.rows = out.rows.slice(0, 200);
-    return out;
+    var b = candBlock(sc, kind);
+    return candidateData.partitionCandidates(list(b && b.candidates).filter(function (c) {
+      return c && typeof c.formula === 'string' && c.formula.trim();
+    }), kind);
   };
 
   const candCurrentRows = function candCurrentRows(sc, kind) {
     var got = candRows(sc, kind);
+    if (candState.archive) got.rows = got.reported;
     if (kind !== 'hurricane') got.rows = candidateData.trackRows(got.rows, sc && sc.tracks, candState.track);
+    got.rows = candidateData.sortByPredictedTc(got.rows, kind);
     return got;
   };
 
@@ -74,8 +40,8 @@
 
   const candRange = function candRange(c) { return candNum(c.lo) && candNum(c.hi) ? c.lo.toFixed(1) + '–' + candK(c.hi) : ''; };
 
-  // Hurricane's Tc if the compound superconducts (a one-part design gives only its Tc)
-  const candTcSc = function candTcSc(c) { return candNum(c.tc_sc) ? c.tc_sc : c.tc; };
+  // Hurricane's conditional Tc must be explicit: its joint chance-and-Tc score is not a fallback.
+  const candTcSc = function candTcSc(c) { return candidateData.predictedTc(c, 'hurricane'); };
 
   const candChecked = function candChecked(c) { var k = candidateData.checkFor(c); return k && typeof k === 'object' && CHECK_LABEL[k.kind] ? k : null; };
 
@@ -141,9 +107,10 @@
   const candGo = function candGo(kind, id) {
     if (CAND_KINDS.indexOf(kind) < 0) return;
     if (kind !== candState.kind) { candState.kind = kind; candState.all = false; store.set('cand-kind', kind); }
-    if (kind === 'storm' && !candCurrentRows(state.data && state.data.screen, kind).rows.some(function (c) { return candId(c) === id; })) {
-      var sc = state.data && state.data.screen;
-      candState.track = candidateData.trackForId(candRows(sc, kind).rows, sc && sc.tracks, id, candState.track);
+    var sc = state.data && state.data.screen, got = candRows(sc, kind);
+    candState.archive = got.reported.some(function (c) { return candId(c) === id; });
+    if (kind === 'storm' && !candCurrentRows(sc, kind).rows.some(function (c) { return candId(c) === id; })) {
+      candState.track = candidateData.trackForId(candState.archive ? got.reported : got.rows, sc && sc.tracks, id, candState.track);
       store.set('cand-track', candState.track);
     }
     candState.sel[kind] = id;
@@ -181,8 +148,14 @@
     var k = candChecked(c);
     out.push(k && typeof k === 'object' && CHECK_LABEL[k.kind] ? ['info', 'Checked: ' + candCheckText(k) + '.'] : ['warn', 'No matching DFT or experimental test is recorded here.']);
     if (k && typeof k === 'object' && CHECK_LABEL[k.kind]) {
-      if (typeof k.note === 'string' && k.note) out.push(['info', 'Reported conditions and findings: ' + cText(k.note, 1500)]);
+      candidateData.checkEvidenceLines(k).forEach(function (text) { out.push(['literature', text]); });
       if (candCheckSource(k)) out.push(['source', k]);
+    }
+    candidateData.priorReportLines(c).forEach(function (text) { out.push(['literature', text]); });
+    var prior = candidateData.earlierReport(c);
+    if (prior.status === 'confirmed') {
+      if (prior.evidence !== k) candidateData.checkEvidenceLines(prior.evidence).forEach(function (text) { out.push(['literature', text]); });
+      out.push(['literature-source', prior.source], ['prediction-source', prior.prediction]);
     }
     candidateData.literatureLines(c).forEach(function (text) { out.push(['literature', text]); });
     candidateData.literatureSources(c).forEach(function (source) { out.push(['literature-source', source]); });
@@ -207,6 +180,8 @@
         ul.appendChild(h('li', { class: 'is-info' }, 'Source: ', h('a', { href: candCheckSource(r[1]), text: cText(r[1].cite, 300) || 'Read the reported check' })));
       } else if (r[0] === 'literature-source') {
         ul.appendChild(h('li', { class: 'is-info' }, 'Literature source: ', h('a', { href: r[1].url, text: r[1].cite })));
+      } else if (r[0] === 'prediction-source') {
+        ul.appendChild(h('li', { class: 'is-info' }, 'Frozen prediction source: ', h('a', { href: r[1].url, text: r[1].cite })));
       } else if (r[0] === 'literature') {
         ul.appendChild(h('li', { class: 'is-info', text: r[1] }));
       } else ul.appendChild(richText(h('li', { class: 'is-' + r[0] }), r[1]));
@@ -223,7 +198,8 @@
   };
 
   const candCheckSource = function candCheckSource(k) {
-    if (typeof k.doi === 'string' && /^10\.\d{4,9}\/\S+$/.test(k.doi)) return 'https://doi.org/' + k.doi;
+    var source = candidateData.sourceLink(k);
+    if (source) return source.url;
     var ref = typeof k.ref === 'string' ? REFS[k.ref] : null;
     return ref && isHttps(refUrl(ref)) ? refUrl(ref) : '';
   };
@@ -244,11 +220,9 @@
     if (typeof ex.computed === 'number') parts.push(fmtInt(ex.computed) + ' with a computed Tc');
     if (typeof ex.prior === 'number') parts.push(fmtInt(ex.prior) + ' reported or predicted by others');
     if (sys) parts.push(fmtInt(ex.system) + ' made of the same elements as a known superconductor');
-    var txt = 'A material is left out if it has a record in SuperCon or 3DSC, already has a computed Tc in the Alexandria or JARVIS electron–phonon data (which our models learn from or are tested on), ' +
-      (sys ? 'is on our list of superconductors reported or predicted by others (which includes the advances and AI finds shown in this app), or is made of exactly the elements of a known superconductor, so that no superconductor has been reported in its chemical system.' :
-        'or is on our list of superconductors reported or predicted by others, which includes the advances and AI finds shown in this app.');
-    if (parts.length && sc) txt += ' For this list, screening round ' + (sc.round || 1) + ' left out ' + (typeof ex.total === 'number' ? fmtInt(ex.total) + ' materials: ' : '') + parts.join(', ') + '.';
-    return h('div', { class: 'cand-ours' }, h('span', { class: 'cand-ours-mark', 'aria-hidden': 'true' }), h('p', null, h('b', { text: 'Only our own finds.' }), ' ', richText(h('span'), txt)));
+    var txt = 'The new-candidate view retains predictions unless a reviewed experimental superconductivity report matches the exact composition, structure, phase, pressure, doping and sample form and predates a sourced frozen prediction. Such records remain visible in the earlier-reports archive. An unknown outcome, a formula match or a theoretical prediction is not enough to move a row. This list does not establish novelty.';
+    if (parts.length && sc) txt += ' The original screening round ' + (sc.round || 1) + ' applied broader pool exclusions: ' + parts.join(', ') + '. These historical exclusions are preserved in the screening data; the app does not restore materials absent from that data.';
+    return h('div', { class: 'cand-ours' }, h('span', { class: 'cand-ours-mark', 'aria-hidden': 'true' }), h('p', null, h('b', { text: 'Predictions and earlier reports.' }), ' ', h('span', { text: txt })));
   };
 
   const candKind = function candKind(k) {
@@ -267,6 +241,14 @@
     renderCandidates(state.data);
   };
 
+  const candArchive = function candArchive(show) {
+    if (candState.archive === show) return;
+    candState.archive = show;
+    candState.all = false;
+    candState.key = '';
+    renderCandidates(state.data);
+  };
+
   const candModel = function candModel(sc, re, fallback) {
     var m = list(sc && sc.models).filter(function (x) { return typeof x === 'string' && re.test(x); })[0];
     return m ? cText(m, 40) : fallback;
@@ -277,16 +259,16 @@
     var el = $('#candidates-card');
     if (!el) return;
     var sc = d && d.screen, kind = candState.kind === 'hurricane' ? 'hurricane' : 'storm', hur = kind === 'hurricane';
-    var gotS = candRows(sc, 'storm'), gotH = candRows(sc, 'hurricane'), got = hur ? gotH : candCurrentRows(sc, 'storm'), rows = got.rows;
+    var gotS = candRows(sc, 'storm'), gotH = candRows(sc, 'hurricane'), got = candCurrentRows(sc, kind), rows = got.rows;
     // a refresh with the same list keeps the card (and its turning structures) as it is
-    var key = JSON.stringify([sc && sc.round, sc && sc.date, sc && sc.status, sc && (sc.phonon_checks || sc.phonon_check), kind, candState.track, gotS.hidden, gotH.hidden, gotS.rows.length, gotH.rows.length, candState.all,
-      rows.map(function (c) { return [candId(c), c.tc, c.tc_cal, c.tc_sc, c.lo, c.hi, c.p_sc, c.p_lo, c.p_hi, c.novelty, c.outside, candChecked(c), c.phonon_check, candidateData.literatureFor(c)]; })]);
+    var key = JSON.stringify([sc && sc.round, sc && sc.date, sc && sc.status, sc && (sc.phonon_checks || sc.phonon_check), kind, candState.track, candState.archive, gotS.hidden, gotH.hidden, gotS.rows.length, gotH.rows.length, candState.all,
+      rows.map(function (c) { return [candId(c), c.tc, c.tc_cal, c.tc_sc, c.lo, c.hi, c.p_sc, c.p_lo, c.p_hi, c.novelty, c.outside, candChecked(c), c.phonon_check, candidateData.literatureFor(c), c.prior_superconductivity, c.prediction_provenance]; })]);
     if (key === candState.key && el.firstChild) return;
     candState.key = key;
     xtReset();
     clear(el);
     el.appendChild(h('div', { class: 'card-head' }, h('div', null,
-      h('h2', { text: 'Candidate superconductors found by our AI models' }),
+      h('h2', { text: 'Superconductivity candidates from our AI models' }),
       richText(h('p'), 'These model predictions include matching checks and bounded literature-search records when available. Radar sorts the materials: Storm ranks the ones that look like conventional superconductors, which pair through phonons, and Hurricane the ones that look like the unconventional families. Literature searches and direct validation checks are shown separately.'))));
     var banner = candMcmBanner(sc);
     if (banner) append(el, banner);
@@ -296,10 +278,18 @@
         h('b', { text: k[1] }), h('span', { class: 'cand-seg-sub', text: '· ' + k[2] }), k[3] ? h('span', { class: 'cand-seg-n', text: String(k[3]) }) : null));
     });
     el.appendChild(seg);
+    var selected = hur ? gotH : gotS, archiveSeg = h('div', { class: 'seg cand-seg', role: 'group', 'aria-label': 'Candidates or earlier reports' });
+    [[false, 'New candidates', selected.rows.length], [true, 'Earlier reports archive', selected.reported.length]].forEach(function (view) {
+      archiveSeg.appendChild(h('button', { type: 'button', 'aria-pressed': !!candState.archive === view[0] ? 'true' : 'false', onclick: function () { candArchive(view[0]); } },
+        view[1], h('span', { class: 'cand-seg-n', text: String(view[2]) })));
+    });
+    el.appendChild(archiveSeg);
+    el.appendChild(h('p', { class: 'cand-meta', text: 'Sorted by predicted ' + (hur ? 'Tc if superconducting' : 'DFT Tc') + ', highest first; unknown Tc last. ' +
+      (candState.archive ? 'This archive retains predictions with a reviewed, earlier experimental report for the exact candidate.' : '“New candidates” is a working list, not a claim of previously unreported superconductivity.') }));
     if (!hur) {
       var tracks = h('div', { class: 'seg cand-seg', role: 'group', 'aria-label': 'Storm candidate ranking' });
       CAND_TRACKS.forEach(function (track) {
-        var count = candidateData.trackRows(gotS.rows, sc && sc.tracks, track[0]).length;
+        var count = candidateData.trackRows(candState.archive ? gotS.reported : gotS.rows, sc && sc.tracks, track[0]).length;
         tracks.appendChild(h('button', { type: 'button', 'aria-pressed': candState.track === track[0] ? 'true' : 'false', onclick: function () { candTrack(track[0]); } },
           track[1], h('span', { class: 'cand-seg-n', text: String(count) })));
       });
@@ -313,20 +303,25 @@
     });
     var block = candBlock(sc, kind);
     if (!rows.length) {
+      if (candState.archive) {
+        el.appendChild(h('p', { class: 'note', text: 'No earlier experimental superconductivity report currently meets the exact-identity and sourced prediction-date requirements for this selected list. This is not evidence that no such report exists.' }));
+        el.appendChild(candTellUs());
+        return;
+      }
       // before the round that fills this list: what it will hold
       el.appendChild(h('ol', { class: 'cand-steps' }, hur ? [
         richText(h('li'), 'Sort: Radar sends the compounds in open crystal databases that look like the unconventional families (cuprates, iron-based and heavy-fermion compounds and other oxides) to Hurricane.'),
         richText(h('li'), 'Rank: Hurricane gives the chance that each compound superconducts and its Tc if it does, with a 90% range.'),
-        richText(h('li'), 'Keep only our own finds: anything already reported or predicted as a superconductor is left out, as above.'),
+        richText(h('li'), 'Review: exact candidates with verified earlier experimental superconductivity reports move to the visible archive.'),
         richText(h('li'), 'Check: the top candidates are suggested to experimental groups, since a calculation cannot yet predict unconventional pairing reliably.')] : [
         richText(h('li'), 'Rank: Radar keeps the metals in open crystal databases that look like conventional superconductors, and Storm predicts their Tc, each with a 90% range.'),
-        richText(h('li'), 'Keep only our own finds: anything already reported or predicted as a superconductor is left out, as above.'),
+        richText(h('li'), 'Review: exact candidates with verified earlier experimental superconductivity reports move to the visible archive.'),
         richText(h('li'), 'Check: the top candidates go to a full DFT electron–phonon calculation.'),
         richText(h('li'), 'Measure: the ones that pass are suggested to experimental groups.')]));
       var round = (sc && sc.round) || 0, empty;
       if (sc && sc.status === 'running') empty = 'Screening round ' + (round || 1) + ' is running; the list appears here when it finishes.';
       else if (!hur && gotS.rows.length) empty = 'No published candidates belong to this selected ranking yet. Choose another Storm ranking to see the available candidates.';
-      else if (got.hidden) empty = 'No candidates are left on this list: each one turned out to have an earlier report.';
+      else if (got.hidden) empty = 'These candidates have reviewed earlier experimental reports. Their predictions, sources and conditions remain in the earlier-reports archive.';
       else if (hur && block) empty = 'Radar sent no compound to Hurricane in screening round ' + (round || 1) + '.';
       else if (hur) empty = 'Hurricane’s list of unconventional candidates comes with Screening round ' + Math.max(2, round + 1) + ', our next run.';
       else empty = 'The first list, with the crystal structure of every candidate turning in 3D, comes with Screening round 1, our next run.';
@@ -395,6 +390,13 @@
       el.appendChild(h('div', { class: 'feed-more' }, h('button', { class: 'btn small', type: 'button', onclick: function () { candState.all = !candState.all; renderCandidates(state.data); } },
         candState.all ? 'Show the top ' + CAND_SHOWN : 'Show all ' + rows.length)));
     }
+    if (candState.archive) {
+      el.appendChild(h('p', { class: 'note', text: 'Original predictions are retained here for comparison with earlier measurements. Remarks provide the report, sample conditions, identity review and frozen prediction source. These entries are not new discoveries by this model.' }));
+      el.appendChild(candTellUs());
+      candViewer(rows);
+      xtKick();
+      return;
+    }
     var checked = rows.filter(function (c) { return candChecked(c); }).length;
     var lead = (checked ? checked + ' of ' + rows.length + ' candidates have matching checks recorded. ' : 'No matching DFT or experimental check is recorded for these candidates. ') + 'They are predictions: a candidate becomes a discovery only when ' +
       (hur ? 'an experiment confirms it. Many of these compounds have a band gap in DFT or are magnetic, and, like the parent compounds of the cuprates and iron-based superconductors, would need doping or pressure to superconduct. ' :
@@ -412,9 +414,9 @@
         (nk && candNum(nk.n) && candNum(nk.of) ? ': ' + fmtInt(nk.n) + ' of the ' + fmtInt(nk.of) + ' compounds Radar sent it lie too far, so it does not judge them and they are not on this list' : '') +
         '. It learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted as probably not superconducting. In cross-validation it gave ' +
         (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' of the held-out compounds of that kind at least an even chance' + (candNum(rel.false_alarms_reference) && rel.reference ? ' (Hurricane ' + rel.reference + ': ' + candPct(rel.false_alarms_reference) + ')' : '');
-      // the list itself comes from the model trained on all of its data, so say how many on it have an even chance or more
+      // Describe the published screening predictions without calling a fold ensemble a full-data fit.
       var nLik = rows.filter(function (c) { return candNum(c.p_sc) && c.p_sc >= 0.5; }).length;
-      lead += '; trained on all of its data, it gives ' + (nLik === 0 ? 'none' : nLik === 1 ? 'one' : fmtInt(nLik)) + ' of the ' + fmtInt(rows.length) + ' on this list at least an even chance. ';
+      lead += '; the published screening predictions give ' + (nLik === 0 ? 'none' : nLik === 1 ? 'one' : fmtInt(nLik)) + ' of the ' + fmtInt(rows.length) + ' on this list at least an even chance. ';
       var hv = candHurVersion(block), fA = hv ? hurLofoAvg(hv, 'found') : null, uA = hv ? hurLofoAvg(hv, 'unknown') : null, fR = hv ? hurLofoAvg(hv, 'found_reference') : null;
       lead += 'Trained without a whole family, it calls ' + candPct(rel.dismissed) + ' of that family’s superconductors unlikely' + (candNum(rel.dismissed_previous) && rel.previous ? ' (Hurricane ' + rel.previous + ': ' + candPct(rel.dismissed_previous) + ')' : '') +
         (candNum(fA) && candNum(uA) ? ', answers “not known” for ' + candPct(uA) + ' and gives ' + candPct(fA) + ' at least an even chance' + (candNum(fR) && rel.reference ? ' (Hurricane ' + rel.reference + ': ' + candPct(fR) + ')' : '') : '') + '. ';
@@ -426,7 +428,7 @@
     if (hur && nk) lead += (nOut ? fmtInt(nOut) + (nOut === 1 ? ' compound on this list lies' : ' compounds on this list lie') + ' just outside its training data, near enough for a chance; ' : 'Every compound on this list lies near its training data; ') +
       'still, the chance and the Tc are far from certain: treat this list as a set of leads, not of likely superconductors. ';
     else if (hur) lead += 'But many compounds on this list are unlike anything Hurricane learned from, and for them both the chance and the Tc are far less certain than these numbers suggest; treat this list as a set of leads, not of likely superconductors. ';
-    if (got.hidden) lead += got.hidden + (got.hidden === 1 ? ' material was' : ' materials were') + ' taken off the list after an earlier report came to light. ';
+    if (got.hidden) lead += got.hidden + (got.hidden === 1 ? ' material is' : ' materials are') + ' retained in the earlier-reports archive after exact-identity and prediction-date review. ';
     var nWorth = rows.filter(function (c) { return candMcm(c, hur) === 'worth'; }).length;
     lead += 'We highlight a candidate as worth an experiment only when its predicted Tc is above the McMillan limit of about 40 K and it passes every test: more likely than not to superconduct, inside its model’s training data, and made before (in ICSD)' +
       (hur ? '' : '; a Storm candidate also needs the low end of its 90% range, or a full DFT calculation, above 40 K') + '. ' + (nWorth ? (nWorth === 1 ? 'One candidate on this list does.' : nWorth + ' candidates on this list do.') : 'None on this list does yet.') + ' ';
@@ -438,7 +440,7 @@
   };
 
   const candTellUs = function candTellUs() {
-    return h('p', { class: 'note' }, 'If you know of an earlier report of any of these materials, ', contactLink('tell us', 'candidate'), ' and we will take it off the list.');
+    return h('p', { class: 'note' }, 'If you know of an earlier report of any of these materials, ', contactLink('tell us', 'candidate'), '. We will review its source, sample conditions and timing; a verified earlier superconductivity report for the exact candidate moves to the archive with its original prediction.');
   };
 
   const candSelect = function candSelect(id, scroll) {

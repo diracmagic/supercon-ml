@@ -1,9 +1,11 @@
 {
   "styles": [
-    "styles.css"
+    "styles.css",
+    "external-research.css"
   ],
   "scripts": [
     "literature-audit.js",
+    "external-research-data.js",
     "candidates.js",
     "js/bindings.js",
     "js/definitions/core.js",

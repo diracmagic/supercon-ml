@@ -16,6 +16,130 @@ const rows = [
 ];
 const ids = (xs) => xs.map(candidates.id);
 
+const reviewedEarlierCandidate = () => ({ id: 'JVASP-reviewed', formula: 'NbB2', tc: 8, tc_sc: 12, novelty: .5,
+  prediction_provenance: { candidate_id: 'JVASP-reviewed', reviewed: true, frozen_at: '2026-10-30',
+    url: 'https://example.org/frozen-prediction.json', cite: 'Frozen prediction record' },
+  prior_superconductivity: { candidate_id: 'JVASP-reviewed', reviewed: true, kind: 'experiment', superconducts: true,
+    published_at: '2024-03-01', doi: '10.1234/measured', cite: 'Reviewed experimental report',
+    locator: 'Results, Figure 2', sample_context: 'Reviewed single phase bulk specimen',
+    identity_match: { composition: true, structure: true, phase: true, pressure: true, doping: true, sample_form: true } } });
+
+test('predicted-Tc ordering is stable, keeps unknowns last and does not alter predictions or fold ranges', () => {
+  const input = [{ id: 'unknown', tc: null }, { id: 'joint-first', tc: 10, tc_sc: 3, p_sc: .9, p_lo: .8, p_hi: .95 },
+    { id: 'conditional-first', tc: 2, tc_sc: 30, p_sc: .05, p_lo: .02, p_hi: .08 }, { id: 'tie', tc: 2 },
+    { id: 'nan', tc: NaN }, { id: 'zero', tc: 0 }, { id: 'text', tc: '1000' }];
+  const original = structuredClone(input);
+  assert.deepEqual(ids(candidates.sortByPredictedTc(input, 'storm')), ['joint-first', 'conditional-first', 'tie', 'zero', 'unknown', 'nan', 'text']);
+  assert.deepEqual(ids(candidates.sortByPredictedTc(input, 'hurricane')), ['conditional-first', 'joint-first', 'unknown', 'tie', 'nan', 'zero', 'text']);
+  assert.deepEqual(input, original);
+  assert.equal(candidates.sortByPredictedTc(input, 'hurricane')[0], input[2], 'Rows and reported uncertainty are retained, not reconstructed');
+});
+
+test('Hurricane missing conditional Tc stays unknown instead of relabelling its joint prediction', () => {
+  const missing = { id: 'joint-only', formula: 'NbB2', tc: 10, p_sc: .2, tc_sc: null };
+  const conditional = { id: 'conditional', formula: 'TaC', tc: .1, p_sc: .2, tc_sc: .5 };
+  assert.equal(candidates.predictedTc(missing, 'hurricane'), null);
+  assert.equal(candidates.predictedTc({ ...missing, tc_sc: undefined }, 'hurricane'), null);
+  assert.equal(candidates.predictedTc({ ...missing, tc_sc: NaN }, 'hurricane'), null);
+  assert.equal(candidates.predictedTc({ ...missing, tc_sc: '50' }, 'hurricane'), null);
+  assert.equal(candidates.predictedTc({ ...missing, tc_sc: 0 }, 'hurricane'), 0);
+  assert.equal(candidates.predictedTc(missing, 'storm'), 10);
+  assert.deepEqual(ids(candidates.sortByPredictedTc([missing, conditional], 'hurricane')), ['conditional', 'joint-only']);
+  const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
+  const context = { candidateData: candidates };
+  vm.runInNewContext(source + '\nglobalThis.temperature = { candTcSc, candK, renderCandidates, candViewer };', context);
+  assert.equal(context.temperature.candTcSc(missing), null);
+  assert.equal(context.temperature.candK(context.temperature.candTcSc(missing)), '—');
+  assert.match(context.temperature.renderCandidates.toString(), /var tc = hur \? candTcSc\(c\) : c\.tc/);
+  assert.match(context.temperature.candViewer.toString(), /candK\(candTcSc\(c\)\)/);
+  assert.equal(missing.tc, 10, 'The original joint prediction remains unchanged');
+});
+
+test('only a sourced, reviewed exact experimental positive predating the frozen prediction enters the archive', () => {
+  const confirmed = reviewedEarlierCandidate();
+  assert.equal(candidates.earlierReport(confirmed).status, 'confirmed');
+  const negatives = [false, null].map(value => ({ ...confirmed, prior_superconductivity: { ...confirmed.prior_superconductivity, superconducts: value } }));
+  const unresolved = [
+    { ...confirmed, prior_superconductivity: { ...confirmed.prior_superconductivity, kind: 'dft' } },
+    { ...confirmed, prior_superconductivity: { ...confirmed.prior_superconductivity, candidate_id: 'other' } },
+    { ...confirmed, prior_superconductivity: { ...confirmed.prior_superconductivity, reviewed: false } },
+    { ...confirmed, prior_superconductivity: { ...confirmed.prior_superconductivity, doi: '', url: 'javascript:alert(1)' } },
+    { ...confirmed, prior_superconductivity: { ...confirmed.prior_superconductivity, locator: '' } },
+    { ...confirmed, prediction_provenance: undefined, listed: { date: '2026-10-30' } },
+    { ...confirmed, prediction_provenance: { ...confirmed.prediction_provenance, reviewed: false } },
+    { ...confirmed, prediction_provenance: { ...confirmed.prediction_provenance, candidate_id: 'other' } },
+    ...['2026-10-30', '2026-10-31', '2024', '2024-02-30', '2024-03-01T24:00:00Z'].map(published_at =>
+      ({ ...confirmed, prior_superconductivity: { ...confirmed.prior_superconductivity, published_at } })),
+    ...['composition', 'structure', 'phase', 'pressure', 'doping', 'sample_form'].map(key =>
+      ({ ...confirmed, prior_superconductivity: { ...confirmed.prior_superconductivity,
+        identity_match: { ...confirmed.prior_superconductivity.identity_match, [key]: null } } })),
+    { id: 'formula-only', formula: confirmed.formula, prior: true, supercon: 'same formula',
+      literature_audit: { status: 'reported-superconducting' }, check: { kind: 'experiment', superconducts: true, tc: 8, doi: '10.1234/measured' } },
+  ];
+  for (const candidate of [...negatives, ...unresolved]) assert.equal(candidates.earlierReport(candidate).status, 'unknown');
+  const before = structuredClone(confirmed);
+  const split = candidates.partitionCandidates([confirmed, ...negatives, ...unresolved], 'storm');
+  assert.deepEqual(split.reported, [confirmed]);
+  assert.equal(split.rows.length, negatives.length + unresolved.length);
+  assert.equal(split.hidden, 1);
+  assert.deepEqual(confirmed, before);
+  assert.match(candidates.priorReportLines(confirmed).join(' '), /before the frozen prediction/);
+});
+
+test('exact-ID audit metadata can provide a reviewed report but formula/structure-only statuses cannot', () => {
+  const previous = globalThis.SuperconLiterature;
+  const c = reviewedEarlierCandidate(), evidence = c.prior_superconductivity;
+  delete c.prior_superconductivity;
+  try {
+    globalThis.SuperconLiterature = { by_id: { [c.id]: { status: 'reported-superconducting', prior_superconductivity: evidence } } };
+    assert.equal(candidates.earlierReport(c).status, 'confirmed');
+    assert.equal(candidates.earlierReport({ ...c, id: 'other' }).status, 'unknown');
+    globalThis.SuperconLiterature.by_id[c.id] = { status: 'structure-only', sources: [{ url: 'https://doi.org/10.1234/measured' }] };
+    assert.equal(candidates.earlierReport(c).status, 'unknown');
+  } finally { globalThis.SuperconLiterature = previous; }
+});
+
+test('candidate views sort within all four Storm groups and retain unresolved prior flags and unknown Tc', () => {
+  const context = { candidateData: candidates, list: value => Array.isArray(value) ? value : [], candState: { track: 'borides', archive: false },
+    AI_FOUND: [{ h: 'NbB2 superconductor' }], AI_WATCH: [], RECENT: [] };
+  const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
+  vm.runInNewContext(source + '\nglobalThis.views = { candRows, candCurrentRows };', context);
+  const reported = reviewedEarlierCandidate();
+  const unresolved = [{ id: 'B-high', formula: 'NbB2', tc: 20, prior: true, novelty: .2 },
+    { id: 'C-low', formula: 'TaC', tc: 3, supercon: 'formula-only record', outside: true },
+    { id: 'BC-unknown', formula: 'MoBC', tc: null, outside: true }];
+  const screen = { candidates: [reported, ...unresolved], hurricane: { candidates: [{ ...unresolved[0], tc_sc: 40 }, ...unresolved.slice(1)] },
+    tracks: { storm_in_domain: ['JVASP-reviewed', 'B-high'], storm_exploration: ['BC-unknown', 'C-low'],
+      borides: ['BC-unknown', 'JVASP-reviewed', 'B-high'], carbides: ['BC-unknown', 'C-low'] } };
+  assert.deepEqual(ids(context.views.candRows(screen, 'storm').rows), ['B-high', 'C-low', 'BC-unknown']);
+  for (const [track, expected] of [['storm_in_domain', ['B-high']], ['storm_exploration', ['C-low', 'BC-unknown']],
+    ['borides', ['B-high', 'BC-unknown']], ['carbides', ['C-low', 'BC-unknown']]]) {
+    context.candState.track = track;
+    assert.deepEqual(ids(context.views.candCurrentRows(screen, 'storm').rows), expected);
+  }
+  context.candState.archive = true;
+  context.candState.track = 'borides';
+  assert.deepEqual(ids(context.views.candCurrentRows(screen, 'storm').rows), [reported.id]);
+  context.candState.archive = false;
+  assert.deepEqual(ids(context.views.candCurrentRows(screen, 'hurricane').rows), ['B-high', 'C-low', 'BC-unknown']);
+});
+
+test('current source audit confirms zero exact earlier positives and keeps conditional negatives and unknowns', () => {
+  const audit = JSON.parse(fs.readFileSync(new URL('../data/candidate_literature_audit.json', import.meta.url), 'utf8'));
+  assert.equal(audit.summary.exact_candidate_intrinsic_superconductors_confirmed, 0);
+  const checks = JSON.parse(fs.readFileSync(new URL('../data/checks.json', import.meta.url), 'utf8')).materials;
+  const inputs = checks.map((check, i) => ({ id: 'check-' + i, formula: check.formula, check, tc: i }));
+  assert.equal(candidates.partitionCandidates(inputs, 'hurricane').reported.length, 0);
+  assert.equal(candidates.partitionCandidates(inputs, 'hurricane').rows.length, checks.length);
+  const negative = candidates.checkEvidenceLines(checks.find(check => check.formula === 'YbRhIn5')).join(' ');
+  assert.match(negative, /Three-unit-cell/);
+  assert.match(negative, /pressure: unspecified here/);
+  assert.match(negative, /negative result applies only to the measured sample and conditions/);
+  const ce = candidates.checkEvidenceLines(checks.find(check => check.formula === 'Ce2NiGa12')).join(' ');
+  assert.match(ce, /minimum temperature \(K\): 0.35/);
+  assert.match(ce, /resistivity\/magnetoresistance; minimum temperature \(K\): unknown/);
+});
+
 test('split frontend retains initialization order, function ASTs, references and reviewable resource sizes', () => {
   const script = new URL('../app/scripts/verify-split.cjs', import.meta.url);
   const result = spawnSync(process.execPath, ['--expose-internals', fileURLToPath(script)], { encoding: 'utf8' });
@@ -185,6 +309,29 @@ test('literature findings and citations render as text nodes in candidate remark
   assert.equal(links[0].attrs.text, malicious);
 });
 
+test('archived experimental conditions and both provenance citations render as text without executing markup', () => {
+  const malicious = '<img src=x onerror=alert(1)> [unsafe](javascript:alert(1))';
+  const makeElement = (tag, attrs, ...children) => ({ tag, attrs: attrs || {}, children,
+    appendChild(node) { this.children.push(node); }, querySelectorAll() { return []; }, addEventListener() {} });
+  const context = { candidateData: candidates, CHECK_LABEL: { experiment: 'Measured' }, candState: { notesOpen: false },
+    h: makeElement, cText: (value, max) => String(value).slice(0, max),
+    richText: (el, value) => { assert.equal(String(value).includes(malicious), false); el.text = value; return el; } };
+  vm.runInNewContext(fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8') + '\nglobalThis.renderRemarks = candRemarksEl;', context);
+  const c = reviewedEarlierCandidate();
+  Object.assign(c.prior_superconductivity, { note: malicious, cite: malicious, pressure_gpa: 0,
+    measurement_conditions: [{ quantity: 'resistivity', tmin_k: null, field_t: 0, note: malicious }] });
+  const box = context.renderRemarks(c, false, null, true), nodes = [];
+  const visit = node => { if (node && typeof node === 'object') { nodes.push(node); node.children.forEach(visit); } };
+  visit(box);
+  const text = nodes.map(node => node.attrs.text || '').join(' ');
+  assert.match(text, /Reported pressure: 0 GPa/);
+  assert.match(text, /minimum temperature \(K\): unknown; field \(T\): 0/);
+  assert.ok(nodes.some(node => node.attrs.text === 'Reported conditions and findings: ' + malicious));
+  const links = nodes.filter(node => node.tag === 'a');
+  assert.deepEqual(links.map(node => node.attrs.href), ['https://doi.org/10.1234/measured', 'https://example.org/frozen-prediction.json']);
+  assert.equal(links[0].attrs.text, malicious);
+});
+
 test('probability spread states model disagreement and distinguishes same-fold seeds', () => {
   const c = { p_lo: 0.1, p_hi: 0.3, p_spread_method: 'same-held-out-fold-seeds' };
   assert.match(candidates.disagreement(c), /same held-out fold excluded/);
@@ -194,9 +341,10 @@ test('probability spread states model disagreement and distinguishes same-fold s
     /Five training-fold models, all excluding this candidate’s background fold/);
 });
 
-test('ensemble ranking describes mean joint predictions without replacing published scores', () => {
+test('display order is conditional Tc while original ensemble joint predictions remain unchanged', () => {
   const block = { design: { jackknife: { method: 'same-background-fold-training-fold-ensemble' } } };
-  assert.match(candidates.rankingText(block), /mean of those joint predictions/);
+  assert.match(candidates.rankingText(block), /predicted Tc if superconducting, highest first; unknown Tc comes last/);
+  assert.match(candidates.rankingText(block), /original screening score remains the mean/);
   assert.match(candidates.rankingText(block), /multiplying the two displayed means can give a different value/);
   assert.doesNotMatch(candidates.rankingText({}), /Each ensemble member/);
   const published = [{ id: 'joint-first', tc: 1.64 }, { id: 'second', tc: 1.06 }];

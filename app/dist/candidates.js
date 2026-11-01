@@ -8,6 +8,13 @@
   var TRACKS = ['storm_in_domain', 'storm_exploration', 'borides', 'carbides'];
   function number(n) { return typeof n === 'number' && isFinite(n); }
   function id(c) { return String(c.id || c.formula); }
+  function predictedTc(c, kind) { return kind === 'hurricane' ? (number(c.tc_sc) ? c.tc_sc : null) : number(c.tc) ? c.tc : null; }
+  function sortByPredictedTc(rows, kind) {
+    return rows.map(function (c, i) { return { row: c, index: i, tc: predictedTc(c, kind) }; }).sort(function (a, b) {
+      if (a.tc === null || b.tc === null) return a.tc === b.tc ? a.index - b.index : a.tc === null ? 1 : -1;
+      return b.tc - a.tc || a.index - b.index;
+    }).map(function (entry) { return entry.row; });
+  }
   function inside(c) { return c.outside !== true && number(c.novelty) && c.novelty <= 1; }
   function hasElement(c, symbol) { return (String(c.formula || '').match(/[A-Z][a-z]?/g) || []).indexOf(symbol) >= 0; }
   function trackRows(rows, tracks, track) {
@@ -35,7 +42,75 @@
   }
   function clean(s, max) { return typeof s === 'string' ? s.replace(/[\u0000-\u001f]/g, ' ').slice(0, max || 600) : ''; }
   function k(n) { return number(n) ? String(Number(n.toPrecision(3))) + ' K' : ''; }
+  function sourceLink(source) {
+    if (!source || typeof source !== 'object') return null;
+    var url = typeof source.doi === 'string' && /^10\.\d{4,9}\/[^\s\u0000-\u001f\u007f]+$/.test(source.doi) ? 'https://doi.org/' + source.doi : source.url;
+    if (typeof url !== 'string' || /[\u0000-\u0020\u007f]/.test(url)) return null;
+    try {
+      var parsed = new URL(url);
+      return parsed.protocol === 'https:' && parsed.hostname && !parsed.username && !parsed.password ?
+        { url: parsed.href, cite: clean(source.cite, 500) || 'Read the reported source' } : null;
+    } catch (_) { return null; }
+  }
+  function dateBound(value, end) {
+    if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z)?$/.test(value)) return null;
+    var day = value.slice(0, 10), start = Date.parse(day + 'T00:00:00Z'), stamp = Date.parse(value);
+    if (!isFinite(start) || !isFinite(stamp) || new Date(start).toISOString().slice(0, 10) !== day || new Date(stamp).toISOString().slice(0, 10) !== day) return null;
+    return value.length === 10 ? start + (end ? 86399999 : 0) : stamp;
+  }
+  // A reviewed positive report is not inferred from a formula, an AI/news mention, a DFT result or a search status.
+  // Optional prior_superconductivity evidence can live on a row or its exact-ID audit. All identity matches below
+  // must be explicit true; unknown conditions do not establish a match. prediction_provenance must cite the frozen
+  // prediction, not merely the latest screening date. Date-only reports must precede the whole prediction day.
+  function earlierReport(c) {
+    var audit = literatureFor(c), evidence = c && c.prior_superconductivity || audit && audit.prior_superconductivity || checkFor(c);
+    var unknown = { status: 'unknown', evidence: evidence || null, source: null, prediction: null };
+    if (!evidence || evidence.kind !== 'experiment' || evidence.superconducts !== true) return unknown;
+    var match = evidence.identity_match, frozen = c && c.prediction_provenance, source = sourceLink(evidence), prediction = sourceLink(frozen);
+    if (!c || typeof c.id !== 'string' || evidence.candidate_id !== c.id || evidence.reviewed !== true || !match ||
+      !['composition', 'structure', 'phase', 'pressure', 'doping', 'sample_form'].every(function (key) { return match[key] === true; }) ||
+      !source || !clean(evidence.locator) || !clean(evidence.sample_context) || !prediction ||
+      frozen.reviewed !== true || frozen.candidate_id !== c.id) return unknown;
+    var reported = dateBound(evidence.published_at, true), proposed = dateBound(frozen.frozen_at, false);
+    if (reported === null || proposed === null || reported >= proposed) return unknown;
+    return { status: 'confirmed', evidence: evidence, source: source, prediction: prediction };
+  }
+  function partitionCandidates(rows, kind) {
+    var current = [], reported = [];
+    rows.forEach(function (c) { (earlierReport(c).status === 'confirmed' ? reported : current).push(c); });
+    return { rows: sortByPredictedTc(current, kind), reported: sortByPredictedTc(reported, kind), hidden: reported.length };
+  }
+  function priorReportLines(c) {
+    var report = earlierReport(c);
+    if (report.status === 'confirmed') return ['Earlier superconductivity report: experimentally reported on ' + clean(report.evidence.published_at, 40) +
+      ', before the frozen prediction on ' + clean(c.prediction_provenance.frozen_at, 40) + '. Reviewed composition, crystal structure, phase, pressure, doping and sample form match this candidate. Retained in the reported archive.'];
+    return ['Earlier superconductivity report: not established for this exact candidate and its prediction date. Formula matches, theoretical predictions and an unsuccessful literature search do not establish novelty or justify removing this candidate.'];
+  }
+  function checkEvidenceLines(check) {
+    if (!check || typeof check !== 'object') return [];
+    var lines = [];
+    if (clean(check.sample_context)) lines.push('Reported sample: ' + clean(check.sample_context, 1800));
+    if (clean(check.note)) lines.push('Reported conditions and findings: ' + clean(check.note, 1800));
+    if (clean(check.locator)) lines.push('Source location: ' + clean(check.locator, 900));
+    if (check.kind === 'experiment') {
+      lines.push('Reported pressure: ' + (number(check.pressure_gpa) ? check.pressure_gpa + ' GPa.' : 'unspecified here; not assumed to be ambient.'));
+      lines.push('A composition-level literature association is not a validation of the predicted crystal, phase or tuning conditions. A negative result applies only to the measured sample and conditions.');
+    }
+    var labels = { quantity: 'quantity', tmin_k: 'minimum temperature (K)', tmax_k: 'maximum temperature (K)',
+      temperature_k: 'temperature (K)', field_t: 'field (T)', max_field_t: 'maximum field (T)',
+      pressure_gpa: 'pressure (GPa)', protocol: 'protocol', method: 'method', locator: 'source location', note: 'note' };
+    (Array.isArray(check.measurement_conditions) ? check.measurement_conditions : []).slice(0, 20).forEach(function (measurement) {
+      if (!measurement || typeof measurement !== 'object') return;
+      var parts = Object.keys(labels).filter(function (key) { return Object.prototype.hasOwnProperty.call(measurement, key); }).map(function (key) {
+        var value = measurement[key];
+        return labels[key] + ': ' + (number(value) ? value : clean(value, 900) || 'unknown');
+      });
+      if (parts.length) lines.push('Measurement conditions: ' + parts.join('; ') + '.');
+    });
+    return lines;
+  }
   var LITERATURE = {
+    'reported-superconducting': 'a superconductivity report was located; exact candidate identity and chronology require separate review',
     'reported-nonsuperconducting': 'no superconductivity reported under the source’s stated conditions; other conditions remain unknown',
     'structure-only': 'structure evidence only; superconductivity unknown',
     'needs-full-text': 'full text needed; superconductivity unknown',
@@ -109,9 +184,10 @@
   }
   function rankingText(block) {
     var ensemble = block && block.design && block.design.jackknife;
-    return ensemble && (ensemble.method === 'same-background-fold-training-fold-ensemble' || ensemble.method === 'training-fold-ensemble') ?
-      'Each ensemble member combines its chance and conditional Tc. Ranking uses the mean of those joint predictions; multiplying the two displayed means can give a different value.' :
-      'Ranking uses the model’s joint prediction of superconductivity chance and conditional Tc.';
+    return 'Displayed order is predicted Tc if superconducting, highest first; unknown Tc comes last. ' +
+      (ensemble && (ensemble.method === 'same-background-fold-training-fold-ensemble' || ensemble.method === 'training-fold-ensemble') ?
+        'The original screening score remains the mean of the ensemble’s joint chance-and-Tc predictions; multiplying the two displayed means can give a different value.' :
+        'The original joint chance-and-Tc screening score is preserved; it does not set this display order.');
   }
   function phononSummaryLines(screen) {
     var check = screen && (screen.phonon_checks || screen.phonon_check);
@@ -158,6 +234,8 @@
     return out;
   }
   return { tracks: TRACKS, id: id, inside: inside, trackRows: trackRows, trackForId: trackForId, checkText: checkText,
+    predictedTc: predictedTc, sortByPredictedTc: sortByPredictedTc, partitionCandidates: partitionCandidates, earlierReport: earlierReport,
+    priorReportLines: priorReportLines, sourceLink: sourceLink, checkEvidenceLines: checkEvidenceLines,
     literatureFor: literatureFor, literatureText: literatureText, literatureLines: literatureLines, literatureSources: literatureSources, checkFor: checkFor,
     disagreement: disagreement, rankingText: rankingText, phononSummaryLines: phononSummaryLines, phononLines: phononLines };
 });
