@@ -83,6 +83,68 @@ def protocol() -> dict:
     return json.loads(json.dumps(PROTOCOL))
 
 
+class StageWriter:
+    """Atomic operational status/partial diagnostics; never a released model result."""
+
+    def __init__(self, path: Path, *, smoke: bool):
+        self.path, self.started = Path(path), time.perf_counter()
+        self._warned = False
+        self.state = {"kind": "hurricane6_operational_status", "adopted": False,
+                      "mode": "synthetic_smoke_not_scientific" if smoke else "real_lofo_experiment",
+                      "protocol_sha256": digest(protocol()), "status": "running", "events": []}
+
+    @classmethod
+    def _diagnostic(cls, value):
+        """Sanitize a diagnostic copy; scientific arrays and metrics stay untouched."""
+        if isinstance(value, np.ndarray):
+            return cls._diagnostic(value.tolist())
+        if isinstance(value, np.generic):
+            return cls._diagnostic(value.item())
+        if isinstance(value, dict):
+            return {key: cls._diagnostic(item) for key, item in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [cls._diagnostic(item) for item in value]
+        return None if isinstance(value, float) and not np.isfinite(value) else value
+
+    def __call__(self, event: str, details: dict):
+        record = self._diagnostic({"event": event, "at": P.now_iso(),
+                                   "elapsed_seconds": round(time.perf_counter() - self.started, 3), **details})
+        self.state["events"].append(record)
+        self.state["latest"] = record
+        self.state["status"] = "completed" if event == "complete" else "failed" if event == "failed" else "running"
+        temporary = self.path.with_suffix(".tmp")
+        error = None
+        try:
+            payload = json.dumps(self.state, indent=2, allow_nan=False) + "\n"
+            for attempt in range(3):
+                try:
+                    temporary.write_text(payload, encoding="utf-8")
+                    temporary.replace(self.path)
+                    self._warned = False
+                    return
+                except PermissionError as failure:
+                    error = failure
+                    if attempt < 2:
+                        time.sleep(0.025 * (attempt + 1))
+                except OSError as failure:
+                    error = failure
+                    break
+        except (TypeError, ValueError) as failure:
+            error = failure
+        # Operational logging is best effort. Final scientific report writes in
+        # _run retain their normal exceptions and are not covered by this guard.
+        if not self._warned:
+            P.log(f"H6 operational status write warning: {type(error).__name__}: {error}; experiment continues")
+            self._warned = True
+
+
+def notify(progress, event: str, **details) -> None:
+    fields = " ".join(f"{key}={value}" for key, value in details.items() if isinstance(value, (str, int, float, bool)) or value is None)
+    P.log(f"H6 {event}" + (": " + fields if fields else ""))
+    if progress is not None:
+        progress(event, details)
+
+
 def safe_cif_path(value: str) -> str:
     """Only pinned-repository-relative CIF paths; never URL/path traversal or doped structures."""
     if not isinstance(value, str) or not value or "\\" in value:
@@ -193,9 +255,12 @@ def checkpoint_identity() -> dict:
     return {"checkpoint_url": MODEL_URL, "checkpoint_sha256": sha.hexdigest()}
 
 
-def embeddings(frame: pd.DataFrame, role: str) -> tuple[np.ndarray, dict]:
+def embeddings(frame: pd.DataFrame, role: str, *, progress=None) -> tuple[np.ndarray, dict]:
     if P.MACE_MODEL != PROTOCOL["mace_model"]:
         raise ValueError("H6 protocol fixes MACE_MODEL=medium; a different checkpoint requires a new protocol")
+    started = time.perf_counter()
+    n_batches = (len(frame) + 127) // 128
+    notify(progress, "embedding_start", role=role, structures=len(frame), batches=n_batches)
     generation = descriptor_generation()
     structure_key = descriptor_key(frame, role)
     cache_key = f"{structure_key}_{digest(generation)[:16]}"
@@ -216,19 +281,28 @@ def embeddings(frame: pd.DataFrame, role: str) -> tuple[np.ndarray, dict]:
     # 1,700-material background does not lose all computed descriptors.
     keys, batches = [], []
     for offset in range(0, len(frame), 128):
+        batch_started = time.perf_counter()
         chunk = frame.iloc[offset:offset + 128]
         key = f"{cache_key}_{identity['checkpoint_sha256'][:16]}_{offset}"
         keys.append(key)
         descriptor_cache = P.mace_cache_path(key, model_url=MODEL_URL)
+        cached = descriptor_cache.exists()
+        notify(progress, "embedding_batch_start", role=role, batch=offset // 128 + 1,
+               batches=n_batches, structures=len(chunk), cached=cached)
         if not descriptor_cache.exists() and not verified_now:
             current_checkpoint = checkpoint_identity()
             if current_checkpoint != identity:
                 raise ValueError("checkpoint bytes changed since these descriptors were generated; a mixed cache is forbidden")
             verified_now = True
         batches.append(np.asarray(P.mace_descriptors(chunk, key, model_url=MODEL_URL), dtype=float))
+        notify(progress, "embedding_batch_complete", role=role, batch=offset // 128 + 1,
+               batches=n_batches, structures=len(chunk), cached=cached,
+               seconds=round(time.perf_counter() - batch_started, 3))
     values = np.vstack(batches) if batches else np.zeros((0, 0))
     if values.ndim != 2 or len(values) != len(frame) or not values.shape[1] or not np.isfinite(values).all():
         raise ValueError("MACE descriptors are not a finite row-aligned matrix")
+    notify(progress, "embedding_complete", role=role, structures=len(frame), features=values.shape[1],
+           batches=n_batches, seconds=round(time.perf_counter() - started, 3))
     return values, {"keys": keys, "batch_size": 128, "n": len(frame), "features": values.shape[1],
                     "structure_fingerprint": digest([{ "id": str(r["id"]), "atoms": r["atoms"]} for _, r in frame.iterrows()]),
                     "model": P.MACE_MODEL, **identity, "descriptor_generation": generation}
@@ -291,12 +365,16 @@ def bootstrap_gain(y, families, systems, current_found, reference_found, *, resa
             "resamples": resamples, "unit": "chemical system within held-out family"}
 
 
-def score_design(c: dict, Xp, Xe, Xb, gate_p, gate_e, gate_b, y, ye, fam, fame, systems, syse, sysb, *, seed=P.SEED):
+def score_design(c: dict, Xp, Xe, Xb, gate_p, gate_e, gate_b, y, ye, fam, fame, systems, syse, sysb, *, seed=P.SEED, progress=None):
     """LOFO only. Background false alarms additionally cross-fit by their own system hash."""
     pred, probability, unknown = np.zeros(len(y)), np.zeros(len(y)), np.zeros(len(y), bool)
     rows, background_rows = [], []
     entry = c.get("rows") == "entry"
+    if c.get("per_family"):
+        raise ValueError("H6's declared comparisons require pooled designs")
     for family in H.FAMILY_LABEL:
+        family_started = time.perf_counter()
+        notify(progress, "family_start", design=c["id"], family=family)
         train_p, test = leave_family_masks(fam, systems, family)
         held = set(systems[test])
         train_e = (fame != family) & ~np.isin(syse, sorted(held))
@@ -305,6 +383,9 @@ def score_design(c: dict, Xp, Xe, Xb, gate_p, gate_e, gate_b, y, ye, fam, fame, 
         ratio_b = H4.ratio(gate, gate_systems, gate_b)
         near = ratio_b <= c.get("radius", 1.0)
         use = background_masks(sysb, held) & near
+        main_started = time.perf_counter()
+        notify(progress, "family_fit_start", design=c["id"], family=family,
+               training_rows=len(train_X), background_rows=int(use.sum()), features=train_X.shape[1])
         model = H2.Design(c, seed).fit(train_X, train_y, train_fam, Xb=Xb[use])
         tc = model.predict(Xp[test], fam[test])
         prob, _ = SC.hur_parts(model, Xp[test], fam[test])
@@ -315,9 +396,12 @@ def score_design(c: dict, Xp, Xe, Xb, gate_p, gate_e, gate_b, y, ye, fam, fame, 
         row = dict(family=family, **summary(y[test], prob, tc, unk), n_train=len(train_X), n_background=int(use.sum()),
                    held_systems=sorted(held), train_systems=sorted(set(gate_systems)))
         rows.append(row)
+        notify(progress, "family_fit_complete", design=c["id"], family=family,
+               seconds=round(time.perf_counter() - main_started, 3), found=row["found"], tc_mae=row["tc_mae"], metrics=row)
         # Five *separate* fits for background evaluation. A background compound's
         # own chemical-system fold is absent; it is never averaged with fits that saw it.
         for fold in range(P.N_FOLDS):
+            fold_started = time.perf_counter()
             test_b = np.array([H3.bg_fold(s) == fold for s in sysb])
             if not test_b.any():
                 continue
@@ -327,18 +411,24 @@ def score_design(c: dict, Xp, Xe, Xb, gate_p, gate_e, gate_b, y, ye, fam, fame, 
             held_b = set(sysb[test_b])
             keep_p = train_p & ~np.isin(systems, sorted(held_b))
             keep_e = train_e & ~np.isin(syse, sorted(held_b))
-            bx, by, bfamily = (Xe[keep_e], ye[keep_e], fame[keep_e]) if entry else (Xp[keep_p], y[keep_p], fam[keep_p])
+            bx, by = (Xe[keep_e], ye[keep_e]) if entry else (Xp[keep_p], y[keep_p])
             bgate, bsystems = (gate_e[keep_e], syse[keep_e]) if entry else (gate_p[keep_p], systems[keep_p])
             ratio_fold = H4.ratio(bgate, bsystems, gate_b)
             train_b = background_masks(sysb, held | held_b, fold) & (ratio_fold <= c.get("radius", 1.0))
-            model_b = H2.Design(c, seed + fold).fit(bx, by, bfamily, Xb=Xb[train_b])
-            pb, _ = SC.hur_parts(model_b, Xb[test_b], np.array(["unknown"] * int(test_b.sum())))
+            notify(progress, "background_fold_start", design=c["id"], family=family, fold=fold,
+                   training_rows=len(bx), background_rows=int(train_b.sum()), query_rows=int(test_b.sum()), features=bx.shape[1])
+            classifier = H2.fit_probability_classifier(c, bx, by, seed + fold, Xb=Xb[train_b])
+            pb = H2.probability_predictions(classifier, Xb[test_b])
             unk_b = ratio_fold[test_b] > c.get("abstain", 1.0)
             for index, pvalue, unknown_value in zip(np.where(test_b)[0], pb, unk_b):
                 background_rows.append({"design": c["id"], "left_out_family": family, "index": int(index),
                                         "chemsys": str(sysb[index]), "background_fold": fold,
                                         "p_sc": float(pvalue), "not_known": bool(unknown_value),
                                         "training_system_overlap": bool(sysb[index] in (set(sysb[train_b]) | set(bsystems)))})
+            notify(progress, "background_fold_complete", design=c["id"], family=family, fold=fold,
+                   query_rows=int(test_b.sum()), seconds=round(time.perf_counter() - fold_started, 3))
+        notify(progress, "family_complete", design=c["id"], family=family,
+               seconds=round(time.perf_counter() - family_started, 3), metrics=row)
     return {"p": probability, "tc": pred, "unknown": unknown, "lofo": rows, "background": background_rows}
 
 
@@ -384,22 +474,32 @@ def negative_audit() -> dict:
             "n_used_for_parent_training": len(labels["accepted"]), "excluded": labels["excluded"]}
 
 
-def prepare_real() -> dict:
+def prepare_real(*, progress=None) -> dict:
+    started = time.perf_counter()
+    notify(progress, "prepare_start")
     dsc = H.load_3dsc()
     tabular = Path(os.environ.get("HURRICANE_3DSC", P.CACHE / "3DSC_MP.csv"))
     if hashlib.sha256(tabular.read_bytes()).hexdigest() != PROTOCOL["3dsc_sha256"]:
         raise ValueError("H6 real evaluation requires the pinned 3DSC file, including when using a local override")
     entries, all_parents = H.build_frame(dsc, set(H.FAMILY_OF_CLASS)), H5.parent_frame(dsc)
+    structure_started = time.perf_counter()
+    notify(progress, "original_structures_start", parents=len(all_parents), entries=len(entries))
     crystal, excluded = original_structures(all_parents)
+    notify(progress, "original_structures_complete", parents=len(all_parents), usable=len(crystal), excluded=len(excluded),
+           seconds=round(time.perf_counter() - structure_started, 3))
     if len(crystal) < PROTOCOL["structure_min_fraction"] * len(all_parents):
         raise ValueError(f"only {len(crystal)}/{len(all_parents)} parent structures are usable; at least 95% required. Exclusions: {json.dumps(excluded[:10])}")
     parents = all_parents.loc[crystal["parent_index"]].reset_index(drop=True)
     # Drop entries whose original parent has no usable structure, keeping cohort definitions aligned.
     entries = entries[entries["material_id_2"].astype(str).isin(parents["material_id"].astype(str))].reset_index(drop=True)
+    background_started = time.perf_counter()
+    notify(progress, "background_prepare_start")
     rows = SC.load_rows()
     bg, bg_info = H3.background(rows, entries)
     if not len(bg):
         raise ValueError("empty weak-background pool")
+    notify(progress, "background_prepare_complete", structures=len(bg),
+           seconds=round(time.perf_counter() - background_started, 3))
     symbols = sorted({e for c in list(parents["comp"]) + list(entries["comp"]) + list(bg["comp"]) for e in c})
     table = P.element_table(symbols)
     counts = {}
@@ -423,11 +523,19 @@ def prepare_real() -> dict:
             raise ValueError(f"feature columns differ in block {block}")
     stack = lambda blocks: np.hstack([blocks[b].to_numpy(float) for b in key])
     Xp, Xe, Xb = stack(parent_blocks), stack(entry_blocks), stack(bg_blocks)
-    mp, info_p = embeddings(crystal, "parents")
-    mb, info_b = embeddings(bg[["id", "atoms"]], "background")
+    notify(progress, "embedding_prepare_ready", parents=len(crystal), background=len(bg),
+           parent_batches=(len(crystal) + 127) // 128, background_batches=(len(bg) + 127) // 128)
+    mp, info_p = embeddings(crystal, "parents", progress=progress)
+    mb, info_b = embeddings(bg[["id", "atoms"]], "background", progress=progress)
     if mp.shape[1] != mb.shape[1]:
         raise ValueError("parent/background MACE descriptor dimensions differ")
+    radar_started = time.perf_counter()
+    notify(progress, "radar_start", background=len(bg))
     sent = np.asarray(SC.radar_scores(bg)[0]) >= 0.5
+    notify(progress, "radar_complete", background=len(bg), sent_to_hurricane=int(sent.sum()),
+           seconds=round(time.perf_counter() - radar_started, 3))
+    notify(progress, "prepare_complete", parents=len(parents), background=len(bg),
+           parent_features=Xp.shape[1], mace_features=mp.shape[1], seconds=round(time.perf_counter() - started, 3))
     return dict(parents=parents, entries=entries, bg=bg, current=current,
                 Xp=Xp, Xe=Xe, Xb=Xb, mp=mp, mb=mb, sent=sent,
                 provenance={"3dsc_commit": H.DSC_COMMIT, "all_parents": len(all_parents), "usable_parents": len(parents),
@@ -497,13 +605,15 @@ def prepare_only(*, output_dir: Path | None = None, parents_per_family: int = 0)
     return path, passed
 
 
-def run(*, smoke=False, output_dir: Path | None = None) -> Path:
+def _run(*, smoke=False, output_dir: Path | None = None, progress=None) -> Path:
     output_dir = Path(output_dir or (P.RESULTS / "hurricane6"))
     output_dir.mkdir(parents=True, exist_ok=True)
     declaration = protocol()
     fingerprint = freeze_protocol(output_dir)  # before any fitting/data-dependent comparison
     started = time.time()
-    data = prepare_smoke() if smoke else prepare_real()
+    data = prepare_smoke() if smoke else prepare_real(progress=progress)
+    if smoke:
+        notify(progress, "synthetic_prepare_complete", parents=len(data["parents"]), background=len(data["bg"]))
     par, ent, bg = data["parents"], data["entries"], data["bg"]
     y, ye = par["tc"].to_numpy(float), ent["tc"].to_numpy(float)
     fam, fame = par["family"].to_numpy(), ent["family"].to_numpy()
@@ -518,11 +628,15 @@ def run(*, smoke=False, output_dir: Path | None = None) -> Path:
     outputs = {}
     try:
         for ident in DESIGNS:
+            design_started = time.perf_counter()
+            notify(progress, "design_start", design=ident)
             candidate = dict(current, id=ident, rows="entry" if ident == "H4" else "parent", per_family=False)
             Xp = np.hstack([data["Xp"], data["mp"]]) if ident == "M1" else data["Xp"]
             Xb = np.hstack([data["Xb"], data["mb"]]) if ident == "M1" else data["Xb"]
             outputs[ident] = score_design(candidate, Xp, data["Xe"], Xb, data["Xp"], data["Xe"], data["Xb"],
-                                          y, ye, fam, fame, systems, syse, sysb)
+                                          y, ye, fam, fame, systems, syse, sysb, progress=progress)
+            notify(progress, "design_complete", design=ident, seconds=round(time.perf_counter() - design_started, 3),
+                   lofo=outputs[ident]["lofo"])
     finally:
         if smoke:
             H2.CLF_PARAMS = original_classifier_params
@@ -541,6 +655,9 @@ def run(*, smoke=False, output_dir: Path | None = None) -> Path:
                   protocol=declaration, protocol_sha256=fingerprint, comparison=result,
                   lofo={k: v["lofo"] for k, v in outputs.items()}, provenance=data["provenance"],
                   negative_evidence=negative_audit(), packages=versions, seconds=round(time.time() - started, 1),
+                  background_evaluation={"pool_size": len(bg), "sent_to_hurricane": int(np.asarray(data["sent"], bool).sum()),
+                                         "routing_column": "radar_sent_to_hurricane",
+                                         "about": "The false-alarm gate uses only background rows routed to Hurricane; the CSV also retains the full pool."},
                   limitations=["MPTrj pretraining may already contain held-out MP structures; this is label/family holdout, not proof of unseen-structure pretraining.",
                                "No independent Hosono parent-potential negative labels exist in the imported sample-null records.",
                                "LOFO is a diagnostic experiment; no tuning or release is authorized from this report alone."])
@@ -554,9 +671,25 @@ def run(*, smoke=False, output_dir: Path | None = None) -> Path:
                                 "chemsys": str(systems[i]), "tc_parent_max": y[i], "p_sc": out["p"][i],
                                 "tc_pred": out["tc"][i], "not_known": bool(out["unknown"][i])})
     pd.DataFrame(predictions).to_csv(base.with_name(base.name + "-parents.csv"), index=False)
-    pd.DataFrame([r for out in outputs.values() for r in out["background"]]).to_csv(base.with_name(base.name + "-background.csv"), index=False)
+    pd.DataFrame([dict(r, radar_sent_to_hurricane=bool(data["sent"][r["index"]]))
+                  for out in outputs.values() for r in out["background"]]).to_csv(base.with_name(base.name + "-background.csv"), index=False)
     P.log(f"H6 report only: {base.with_suffix('.json')}; H4 remains in use")
     return base.with_suffix(".json")
+
+
+def run(*, smoke=False, output_dir: Path | None = None) -> Path:
+    output_dir = Path(output_dir or (P.RESULTS / "hurricane6"))
+    output_dir.mkdir(parents=True, exist_ok=True)
+    stage_path = output_dir / f"status-{time.time_ns()}.json"
+    stages = StageWriter(stage_path, smoke=smoke)
+    notify(stages, "start", status_file=str(stage_path))
+    try:
+        result = _run(smoke=smoke, output_dir=output_dir, progress=stages)
+    except Exception as error:
+        notify(stages, "failed", error_type=type(error).__name__, reason=str(error))
+        raise
+    notify(stages, "complete", report=str(result))
+    return result
 
 
 def main() -> None:

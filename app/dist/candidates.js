@@ -1,9 +1,9 @@
 /* Shared candidate data rules. Kept independent of the DOM so the rankings can be checked directly. */
 (function (root, factory) {
-  var api = factory();
+  var api = factory(root);
   if (typeof module === 'object' && module.exports) module.exports = api;
   else root.SuperconCandidates = api;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (root) {
   'use strict';
   var TRACKS = ['storm_in_domain', 'storm_exploration', 'borides', 'carbides'];
   function number(n) { return typeof n === 'number' && isFinite(n); }
@@ -35,6 +35,50 @@
   }
   function clean(s, max) { return typeof s === 'string' ? s.replace(/[\u0000-\u001f]/g, ' ').slice(0, max || 600) : ''; }
   function k(n) { return number(n) ? String(Number(n.toPrecision(3))) + ' K' : ''; }
+  var LITERATURE = {
+    'reported-nonsuperconducting': 'no superconductivity reported under the source’s stated conditions; other conditions remain unknown',
+    'structure-only': 'structure evidence only; superconductivity unknown',
+    'needs-full-text': 'full text needed; superconductivity unknown',
+    'not-found-in-this-search': 'no matching test recorded in this search; superconductivity unknown'
+  };
+  function literatureFor(c) {
+    var audit = c && c.literature_audit;
+    if (!audit || typeof audit !== 'object' || Array.isArray(audit)) {
+      var table = root.SuperconLiterature && root.SuperconLiterature.by_id;
+      audit = table && c && typeof c.id === 'string' && Object.prototype.hasOwnProperty.call(table, c.id) ? table[c.id] : null;
+    }
+    return audit && typeof audit === 'object' && !Array.isArray(audit) &&
+      Object.prototype.hasOwnProperty.call(LITERATURE, audit.status) ? audit : null;
+  }
+  function literatureText(c) {
+    var audit = literatureFor(c);
+    if (!audit) return 'Literature searched: unsearched; no audit recorded.';
+    var date = typeof audit.searched_on === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(audit.searched_on) ? ' (' + audit.searched_on + ')' : '';
+    return 'Literature searched: ' + LITERATURE[audit.status] + date + '.';
+  }
+  function literatureLines(c) {
+    var audit = literatureFor(c), out = [literatureText(c)];
+    if (!audit) return out;
+    if (clean(audit.scope)) out.push('Search scope: ' + clean(audit.scope, 1200));
+    if (clean(audit.conclusion) && clean(audit.conclusion).toLowerCase() !== 'unknown') out.push('Search finding: ' + clean(audit.conclusion, 1800));
+    var limits = Array.isArray(audit.limitations) ? audit.limitations.filter(function (s) { return typeof s === 'string'; }).join(' ') : audit.limitations;
+    if (clean(limits)) out.push('Search limitations: ' + clean(limits, 1800));
+    out.push('A literature search record is separate from a matching DFT or experimental check and does not confirm Tc.');
+    return out;
+  }
+  function literatureSources(c) {
+    var audit = literatureFor(c);
+    return (audit && Array.isArray(audit.sources) ? audit.sources : []).slice(0, 20).reduce(function (out, source) {
+      if (!source || typeof source.url !== 'string' || /[\u0000-\u0020\u007f]/.test(source.url)) return out;
+      try {
+        var url = new URL(source.url);
+        if (url.protocol === 'https:' && url.hostname && !url.username && !url.password) {
+          out.push({ url: url.href, cite: clean(source.cite, 500) || 'Read literature source' });
+        }
+      } catch (_) { /* Invalid or relative links are not sources. */ }
+      return out;
+    }, []);
+  }
   function checkText(check) {
     var label = check.kind === 'dft' ? 'DFT check' : 'Measured';
     if (check.superconducts === false) return label + ': ' +
@@ -48,6 +92,28 @@
       'Models trained with different random seeds, with the same held-out fold excluded, give chances from ' : 'The fitted models give chances from ';
     return models + (100 * c.p_lo).toFixed(1) + '% to ' + (100 * c.p_hi).toFixed(1) +
       '%. This is model disagreement describing training-data sensitivity, not a confidence interval or a calibrated probability range.';
+  }
+  function rankingText(block) {
+    var ensemble = block && block.design && block.design.jackknife;
+    return ensemble && (ensemble.method === 'same-background-fold-training-fold-ensemble' || ensemble.method === 'training-fold-ensemble') ?
+      'Each ensemble member combines its chance and conditional Tc. Ranking uses the mean of those joint predictions; multiplying the two displayed means can give a different value.' :
+      'Ranking uses the model’s joint prediction of superconductivity chance and conditional Tc.';
+  }
+  function phononSummaryLines(screen) {
+    var check = screen && (screen.phonon_checks || screen.phonon_check);
+    if (!check || typeof check !== 'object') return [];
+    var out = ['Optional MACE phonon prescreen. ' + (check.enabled ?
+      (number(check.selected) ? check.selected + ' candidates selected' : 'Enabled') +
+      (number(check.not_selected) ? '; ' + check.not_selected + ' eligible candidates not selected' : '') + '.' :
+      'Not requested for this screening run.')];
+    var counts = Object.create(null);
+    (check.enabled && Array.isArray(check.materials) ? check.materials : []).forEach(function (material) {
+      var status = phononLines(material)[0];
+      if (status) counts[status] = (counts[status] || 0) + 1;
+    });
+    Object.keys(counts).forEach(function (status) { out.push(counts[status] + ' result(s): ' + status); });
+    out.push('A finite q mesh and a learned potential cannot replace DFT, a full Brillouin-zone check or a superconductivity measurement. See each candidate’s Remarks for settings and limitations.');
+    return out;
   }
   function phononLines(check) {
     if (!check || typeof check !== 'object') return [];
@@ -78,5 +144,6 @@
     return out;
   }
   return { tracks: TRACKS, id: id, inside: inside, trackRows: trackRows, trackForId: trackForId, checkText: checkText,
-    disagreement: disagreement, phononLines: phononLines };
+    literatureFor: literatureFor, literatureText: literatureText, literatureLines: literatureLines, literatureSources: literatureSources,
+    disagreement: disagreement, rankingText: rankingText, phononSummaryLines: phononSummaryLines, phononLines: phononLines };
 });

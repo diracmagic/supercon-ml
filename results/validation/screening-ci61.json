@@ -1,0 +1,580 @@
+{
+  "schema_version": 1,
+  "round": 5,
+  "artifact_commit": "57434fb",
+  "artifact_models": [
+    "Radar 1.0",
+    "Storm 5.0",
+    "Hurricane 4.0"
+  ],
+  "read_only_artifact_audit": true,
+  "summary": {
+    "checks": 36,
+    "passed_checks": 36,
+    "failed_checks": 0,
+    "current_unique_ids": 152,
+    "new_exact_ids": 57,
+    "old_ids_retained": 95
+  },
+  "hurricane": {
+    "published_model": "Hurricane 4.0",
+    "not_a_release_of_Hurricane6": true,
+    "method": "same-background-fold-training-fold-ensemble",
+    "member_count": 5,
+    "fold_audit": [
+      {
+        "excluded_background_fold": 0,
+        "n_queries": 88,
+        "members_per_query": 5,
+        "n_training_background_by_member": [
+          225,
+          187,
+          201,
+          194,
+          198
+        ]
+      },
+      {
+        "excluded_background_fold": 1,
+        "n_queries": 47,
+        "members_per_query": 5,
+        "n_training_background_by_member": [
+          213,
+          194,
+          204,
+          193,
+          199
+        ]
+      },
+      {
+        "excluded_background_fold": 2,
+        "n_queries": 80,
+        "members_per_query": 5,
+        "n_training_background_by_member": [
+          225,
+          200,
+          213,
+          204,
+          209
+        ]
+      },
+      {
+        "excluded_background_fold": 3,
+        "n_queries": 64,
+        "members_per_query": 5,
+        "n_training_background_by_member": [
+          227,
+          199,
+          207,
+          203,
+          212
+        ]
+      },
+      {
+        "excluded_background_fold": 4,
+        "n_queries": 75,
+        "members_per_query": 5,
+        "n_training_background_by_member": [
+          230,
+          192,
+          211,
+          206,
+          210
+        ]
+      }
+    ],
+    "independent_query_fold_counts": {
+      "4": 75,
+      "3": 64,
+      "0": 88,
+      "1": 47,
+      "2": 80
+    },
+    "csv_rows": 354,
+    "eligible_after_abstention": 75,
+    "abstained": 279,
+    "published_rows": 50,
+    "CSV_note": "CSV retains internal scores for abstained rows; these are not published candidate probabilities.",
+    "median_probability_spread_all_queries": 0.095805,
+    "cross_half_all_queries": 46,
+    "yb_rh_example": {
+      "id": "JVASP-16400",
+      "formula": "YbIn5Rh",
+      "background_fold": 4,
+      "expected_tc_mean_of_member_joint_predictions": 1.63756,
+      "probability_mean": 0.34998,
+      "probability_member_min": 0.07633,
+      "probability_member_max": 0.4866,
+      "probability_spread": 0.41026999999999997,
+      "conditional_tc_mean": 4.34838,
+      "product_of_displayed_means_for_comparison_only": 1.5218460324,
+      "crosses_half_probability": false,
+      "abstained_not_a_published_probability": false
+    },
+    "widest_published_examples": [
+      {
+        "id": "JVASP-17895",
+        "formula": "YbIn5Co",
+        "background_fold": 0,
+        "expected_tc_mean_of_member_joint_predictions": 0.43889,
+        "probability_mean": 0.19507,
+        "probability_member_min": 0.03699,
+        "probability_member_max": 0.53089,
+        "probability_spread": 0.49389999999999995,
+        "conditional_tc_mean": 2.59417,
+        "product_of_displayed_means_for_comparison_only": 0.5060447419,
+        "crosses_half_probability": true,
+        "abstained_not_a_published_probability": false
+      },
+      {
+        "id": "JVASP-128322",
+        "formula": "Yb3Ce",
+        "background_fold": 1,
+        "expected_tc_mean_of_member_joint_predictions": 0.33773,
+        "probability_mean": 0.23302,
+        "probability_member_min": 0.03152,
+        "probability_member_max": 0.46655,
+        "probability_spread": 0.43503000000000003,
+        "conditional_tc_mean": 1.50823,
+        "product_of_displayed_means_for_comparison_only": 0.3514477546,
+        "crosses_half_probability": false,
+        "abstained_not_a_published_probability": false
+      },
+      {
+        "id": "JVASP-185426",
+        "formula": "Tl3O",
+        "background_fold": 3,
+        "expected_tc_mean_of_member_joint_predictions": 1.06433,
+        "probability_mean": 0.31902,
+        "probability_member_min": 0.09668,
+        "probability_member_max": 0.50791,
+        "probability_spread": 0.41123,
+        "conditional_tc_mean": 3.29706,
+        "product_of_displayed_means_for_comparison_only": 1.0518280812,
+        "crosses_half_probability": true,
+        "abstained_not_a_published_probability": false
+      },
+      {
+        "id": "JVASP-16400",
+        "formula": "YbIn5Rh",
+        "background_fold": 4,
+        "expected_tc_mean_of_member_joint_predictions": 1.63756,
+        "probability_mean": 0.34998,
+        "probability_member_min": 0.07633,
+        "probability_member_max": 0.4866,
+        "probability_spread": 0.41026999999999997,
+        "conditional_tc_mean": 4.34838,
+        "product_of_displayed_means_for_comparison_only": 1.5218460324,
+        "crosses_half_probability": false,
+        "abstained_not_a_published_probability": false
+      }
+    ],
+    "widest_internal_CSV_examples": [
+      {
+        "id": "JVASP-17773",
+        "formula": "CeTl3",
+        "background_fold": 0,
+        "expected_tc_mean_of_member_joint_predictions": 0.38815,
+        "probability_mean": 0.47741,
+        "probability_member_min": 0.03785,
+        "probability_member_max": 0.85652,
+        "probability_spread": 0.8186699999999999,
+        "conditional_tc_mean": 0.98015,
+        "product_of_displayed_means_for_comparison_only": 0.4679334115,
+        "crosses_half_probability": true,
+        "abstained_not_a_published_probability": true
+      },
+      {
+        "id": "JVASP-156416",
+        "formula": "PrHgPb",
+        "background_fold": 1,
+        "expected_tc_mean_of_member_joint_predictions": 0.49126,
+        "probability_mean": 0.39747,
+        "probability_member_min": 0.0516,
+        "probability_member_max": 0.83666,
+        "probability_spread": 0.78506,
+        "conditional_tc_mean": 1.40227,
+        "product_of_displayed_means_for_comparison_only": 0.5573602568999999,
+        "crosses_half_probability": true,
+        "abstained_not_a_published_probability": true
+      },
+      {
+        "id": "JVASP-134813",
+        "formula": "TlNiF3",
+        "background_fold": 1,
+        "expected_tc_mean_of_member_joint_predictions": 1.53486,
+        "probability_mean": 0.35798,
+        "probability_member_min": 0.06308,
+        "probability_member_max": 0.83468,
+        "probability_spread": 0.7716,
+        "conditional_tc_mean": 4.58401,
+        "product_of_displayed_means_for_comparison_only": 1.6409838998000001,
+        "crosses_half_probability": true,
+        "abstained_not_a_published_probability": true
+      },
+      {
+        "id": "JVASP-171877",
+        "formula": "NaCeTl2",
+        "background_fold": 1,
+        "expected_tc_mean_of_member_joint_predictions": 1.30581,
+        "probability_mean": 0.49248,
+        "probability_member_min": 0.02789,
+        "probability_member_max": 0.79569,
+        "probability_spread": 0.7678,
+        "conditional_tc_mean": 2.69492,
+        "product_of_displayed_means_for_comparison_only": 1.3271942016,
+        "crosses_half_probability": true,
+        "abstained_not_a_published_probability": true
+      }
+    ],
+    "legality_evidence": "Artifact fold metadata agree with independently MD5-partitioned actual CSV chemical systems. Inspected crossfit.py excludes each query background fold for every member, raises on query-system overlap, and requires five assignments; screen.py varies the five labelled-data training splits and removes their held-out systems from background too.",
+    "limits": "The artifact does not contain per-member prediction arrays, fitted model weights or complete per-member training-row IDs. This audits internal consistency and the inspected enforcement path, not an independent retraining/reproduction. Min/max are model training-data sensitivity, not confidence bounds. Mean joint prediction need not equal mean(probability) times mean(conditional Tc)."
+  },
+  "storm": {
+    "published_union_rows": 102,
+    "csv_Storm_rows": 1434,
+    "track_counts": {
+      "storm_in_domain": 50,
+      "storm_exploration": 50,
+      "borides": 2,
+      "carbides": 0
+    },
+    "borides": [
+      {
+        "id": "JVASP-92900",
+        "formula": "BaMg6B",
+        "rank": 101,
+        "tc": 1.0,
+        "novelty": 1.83
+      },
+      {
+        "id": "JVASP-92923",
+        "formula": "Mg6CdB",
+        "rank": 102,
+        "tc": 0.61,
+        "novelty": 1.62
+      }
+    ],
+    "carbides_note": "No carbide survived this filtered/routed/excluded Storm CSV pool; this is not a claim about all carbides.",
+    "ranking_scope": "Each track is one-per-chemical-system, in-domain/exploration separately capped50. B/C lists group domain first then exploration, with Tc descending within groups. JSON rank indexes the published union; UI sublist rank is separate."
+  },
+  "phonons": {
+    "selected": 3,
+    "eligible": 50,
+    "not_selected": 47,
+    "elapsed_seconds": 22.433,
+    "scope": "Fixed-cell MACE-MP-0 finite-displacement triage on the reported q mesh; no structural relaxation, supercell convergence, full-Brillouin-zone guarantee, DFT verification, or superconductivity test.",
+    "config": {
+      "max_candidates": 3,
+      "max_total_seconds": 180.0,
+      "max_material_seconds": 60.0,
+      "max_primitive_atoms": 12,
+      "max_supercell_atoms": 96,
+      "max_force_evaluations": 74,
+      "model": "small",
+      "supercell": [
+        2,
+        2,
+        2
+      ],
+      "q_mesh": [
+        2,
+        2,
+        2
+      ],
+      "displacement_angstrom": 0.01,
+      "imaginary_tolerance_mev": 1.0,
+      "max_residual_force_ev_angstrom": 0.1,
+      "cpu_threads": 2
+    },
+    "materials": [
+      {
+        "material_id": "JVASP-37780",
+        "formula": "Ga3Bi",
+        "status": "completed",
+        "verdict": "imaginary_modes_sampled",
+        "min_signed_mode_energy_mev": -5.094618091396538,
+        "significant_imaginary_modes": 29,
+        "modes_per_q": 12,
+        "max_residual_force_ev_angstrom": 1.5875245899730687e-07,
+        "equilibrium_force_tolerance_ev_angstrom": 0.1,
+        "model_weights_sha256": "b92ff1c212794bcc965c8dd41e98c8609b4bf52ec0a4dc02625d149fd56e0913",
+        "sampled_q_points": 8,
+        "force_cache_files": 25
+      },
+      {
+        "material_id": "JVASP-130243",
+        "formula": "ZnGa",
+        "status": "completed",
+        "verdict": "imaginary_modes_sampled",
+        "min_signed_mode_energy_mev": -7.793718981842757,
+        "significant_imaginary_modes": 16,
+        "modes_per_q": 6,
+        "max_residual_force_ev_angstrom": 1.668437217276908e-06,
+        "equilibrium_force_tolerance_ev_angstrom": 0.1,
+        "model_weights_sha256": "b92ff1c212794bcc965c8dd41e98c8609b4bf52ec0a4dc02625d149fd56e0913",
+        "sampled_q_points": 8,
+        "force_cache_files": 13
+      },
+      {
+        "material_id": "JVASP-160993",
+        "formula": "InGaBi",
+        "status": "completed",
+        "verdict": "no_significant_imaginary_modes_sampled",
+        "min_signed_mode_energy_mev": -0.01647074416043062,
+        "significant_imaginary_modes": 0,
+        "modes_per_q": 9,
+        "max_residual_force_ev_angstrom": 1.3459022546767992e-05,
+        "equilibrium_force_tolerance_ev_angstrom": 0.1,
+        "model_weights_sha256": "b92ff1c212794bcc965c8dd41e98c8609b4bf52ec0a4dc02625d149fd56e0913",
+        "sampled_q_points": 8,
+        "force_cache_files": 19
+      }
+    ],
+    "interpretation": "Ga3Bi and ZnGa have significant sampled imaginary modes. InGaBi has none beyond the1meV threshold on the eight q points only. No result validates superconductivity, electron-phonon coupling, Tc, DFT stability or full-BZ/supercell convergence; cells are unrelaxed. Residual forces are below the stated0.1eV/Angstrom threshold."
+  },
+  "frontend_findings": [
+    {
+      "finding": "Screen summary uses phonon_checks while overview read only phonon_check.",
+      "status": "fixed locally",
+      "change": "Read plural current schema with legacy singular fallback; show actual outcome counts, selections and unselected count."
+    },
+    {
+      "finding": "Hurricane rank explanation said to multiply displayed means.",
+      "status": "fixed locally",
+      "change": "Explain mean of member joint predictions; preserve artifact scores and sorting."
+    }
+  ],
+  "frontend_validation": {
+    "last_verified_command": "node --test tests/test_app_candidates.mjs",
+    "exit_code": 0,
+    "passed_tests": 19,
+    "includes_real_LF_checkout_copy": true,
+    "includes_script_AST_and_initialization_order_verifier": true,
+    "training_rerun": false,
+    "artifact_scores_or_sorting_modified": false
+  },
+  "checks": [
+    {
+      "name": "five-training-fold-ensemble-method",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "query-fold-counts-match-independent-MD5-system-partition",
+      "passed": true,
+      "details": {
+        "4": 75,
+        "3": 64,
+        "0": 88,
+        "1": 47,
+        "2": 80
+      }
+    },
+    {
+      "name": "each-background-fold-reports-five-members",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "background-training-counts-vary-across-label-training-folds",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "artifact-reports-no-query-system-in-training-background",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "all-CSV-probability-means-inside-member-min-max",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "CSV-unique-Hurricane-IDs",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "all50-published-Hurricane-scores-match-CSV-rounding",
+      "passed": true,
+      "details": []
+    },
+    {
+      "name": "published-Hurricane-selection-and-order-match-CSV",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "unknown-count-matches-excluded-from-published-list",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Storm-published-union-has-unique-IDs",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "each-track-is-unique-and-resolves-to-a-published-candidate",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "track-selection-order-storm_in_domain",
+      "passed": true,
+      "details": {
+        "published_count": 50,
+        "expected_count": 50
+      }
+    },
+    {
+      "name": "track-selection-order-storm_exploration",
+      "passed": true,
+      "details": {
+        "published_count": 50,
+        "expected_count": 50
+      }
+    },
+    {
+      "name": "track-selection-order-borides",
+      "passed": true,
+      "details": {
+        "published_count": 2,
+        "expected_count": 2
+      }
+    },
+    {
+      "name": "track-selection-order-carbides",
+      "passed": true,
+      "details": {
+        "published_count": 0,
+        "expected_count": 0
+      }
+    },
+    {
+      "name": "in-domain-and-exploration-are-ID-disjoint",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "Storm-union-exactly-covers-overall-and-all-sublist-picks",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "published-Storm-order-is-descending-Tc",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "published-JSON-ranks-are-sequential-within-union",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "screen-phonon-summary-identical-to-standalone-artifact",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "phonon-selection-is-top3-of-in-domain-track",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "phonon-eligible-selected-notselected-counts",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "phonon-candidate-attachment-JVASP-37780",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "phonon-disk-identity-JVASP-37780",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "finite-displacement-files-JVASP-37780",
+      "passed": true,
+      "details": {
+        "force_cache_files": 25,
+        "expected": 25
+      }
+    },
+    {
+      "name": "q-mesh-modes-and-relaxation-JVASP-37780",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "phonon-candidate-attachment-JVASP-130243",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "phonon-disk-identity-JVASP-130243",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "finite-displacement-files-JVASP-130243",
+      "passed": true,
+      "details": {
+        "force_cache_files": 13,
+        "expected": 13
+      }
+    },
+    {
+      "name": "q-mesh-modes-and-relaxation-JVASP-130243",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "phonon-candidate-attachment-JVASP-160993",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "phonon-disk-identity-JVASP-160993",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "finite-displacement-files-JVASP-160993",
+      "passed": true,
+      "details": {
+        "force_cache_files": 19,
+        "expected": 19
+      }
+    },
+    {
+      "name": "q-mesh-modes-and-relaxation-JVASP-160993",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "new-candidate-list-is-exact-ID-set-difference",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "issues": [],
+  "new_candidate_list": {
+    "count": 57,
+    "method": "Exact ID difference between round-5 and round-4 published candidate sets.",
+    "audit_index": "data/candidate_literature_audit.json"
+  },
+  "source_binding": {
+    "workflow_run": "https://github.com/diracmagic/supercon-ml/actions/runs/41263644864",
+    "source_commit": "57434fbe6b6e26db109eddc823de0e83131b3361",
+    "artifact_id": 13068391505,
+    "artifact_name": "research-results-61",
+    "artifact_sha256": "763bd5e78e1f7fe46e3ff816829f825f7903b7b9fd121b6dba7a81323ba21572",
+    "review_is_not_a_release": true
+  }
+}

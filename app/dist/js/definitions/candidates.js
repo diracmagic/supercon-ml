@@ -158,7 +158,7 @@
   const candRemarks = function candRemarks(c, hur, block) {
     var out = [], model = hur ? 'Hurricane' : 'Storm', range = candRange(c), ck = (block && block.check) || {};
     out.push(c.icsd === true ? ['ok', 'Made before: its structure is in ICSD, so the compound has been synthesized.'] :
-      ['warn', 'Hypothetical structure: computed in JARVIS-DFT and not in ICSD, so no one is known to have made it.']);
+      ['warn', 'Computed structure: not marked as an ICSD structure in this dataset; its synthesis history remains unresolved.']);
     if (range) {
       var wide = (c.hi + 1) / (c.lo + 1) >= 5;
       out.push([wide ? 'warn' : 'info', (wide ? 'Very wide range: the 90% range for its ' + (hur ? 'Tc if it superconducts' : 'DFT Tc') + ' is ' + range + ', so ' + model + ' is far from sure.' :
@@ -179,11 +179,13 @@
         'The most similar material ' + model + ' learned from is ' + near + '.']);
     } else if (hur) out.push(['warn', 'Many compounds on this list are unlike anything Hurricane learned from; this one has not been compared with its training data yet.']);
     var k = c.check;
-    out.push(k && typeof k === 'object' && CHECK_LABEL[k.kind] ? ['info', 'Checked: ' + candCheckText(k) + '.'] : ['warn', 'Not checked: no DFT calculation or experiment has tested it yet.']);
+    out.push(k && typeof k === 'object' && CHECK_LABEL[k.kind] ? ['info', 'Checked: ' + candCheckText(k) + '.'] : ['warn', 'No matching DFT or experimental test is recorded here.']);
     if (k && typeof k === 'object' && CHECK_LABEL[k.kind]) {
       if (typeof k.note === 'string' && k.note) out.push(['info', 'Reported conditions and findings: ' + cText(k.note, 1500)]);
       if (candCheckSource(k)) out.push(['source', k]);
     }
+    candidateData.literatureLines(c).forEach(function (text) { out.push(['literature', text]); });
+    candidateData.literatureSources(c).forEach(function (source) { out.push(['literature-source', source]); });
     candidateData.phononLines(c.phonon_check).forEach(function (text) {
       out.push(['warn', text]);
     });
@@ -203,6 +205,10 @@
           ' records when we proposed it.'));
       } else if (r[0] === 'source') {
         ul.appendChild(h('li', { class: 'is-info' }, 'Source: ', h('a', { href: candCheckSource(r[1]), text: cText(r[1].cite, 300) || 'Read the reported check' })));
+      } else if (r[0] === 'literature-source') {
+        ul.appendChild(h('li', { class: 'is-info' }, 'Literature source: ', h('a', { href: r[1].url, text: r[1].cite })));
+      } else if (r[0] === 'literature') {
+        ul.appendChild(h('li', { class: 'is-info', text: r[1] }));
       } else ul.appendChild(richText(h('li', { class: 'is-' + r[0] }), r[1]));
     });
     var warns = ul.querySelectorAll('li.is-warn').length;
@@ -222,10 +228,10 @@
     return ref && isHttps(refUrl(ref)) ? refUrl(ref) : '';
   };
 
-  // a check is a DFT calculation or a measurement on the candidate; until then the row says "not checked yet"
+  // A matching DFT or experimental check is separate from a literature-search record.
   const candCheck = function candCheck(c) {
     var k = c.check;
-    if (!k || typeof k !== 'object' || !CHECK_LABEL[k.kind]) return h('span', { class: 'cand-open', text: 'not checked yet' });
+    if (!k || typeof k !== 'object' || !CHECK_LABEL[k.kind]) return h('span', { class: 'cand-open', text: 'no matching check recorded' });
     var txt = candCheckText(k);
     var url = candCheckSource(k);
     var el = richText(h('span', { class: 'cand-done' + (k.superconducts === false ? ' miss' : ' hit') }), txt);
@@ -273,15 +279,15 @@
     var sc = d && d.screen, kind = candState.kind === 'hurricane' ? 'hurricane' : 'storm', hur = kind === 'hurricane';
     var gotS = candRows(sc, 'storm'), gotH = candRows(sc, 'hurricane'), got = hur ? gotH : candCurrentRows(sc, 'storm'), rows = got.rows;
     // a refresh with the same list keeps the card (and its turning structures) as it is
-    var key = JSON.stringify([sc && sc.round, sc && sc.date, sc && sc.status, kind, candState.track, gotS.hidden, gotH.hidden, gotS.rows.length, gotH.rows.length, candState.all,
-      rows.map(function (c) { return [candId(c), c.tc, c.tc_cal, c.tc_sc, c.lo, c.hi, c.p_sc, c.p_lo, c.p_hi, c.novelty, c.outside, c.check, c.phonon_check]; })]);
+    var key = JSON.stringify([sc && sc.round, sc && sc.date, sc && sc.status, sc && (sc.phonon_checks || sc.phonon_check), kind, candState.track, gotS.hidden, gotH.hidden, gotS.rows.length, gotH.rows.length, candState.all,
+      rows.map(function (c) { return [candId(c), c.tc, c.tc_cal, c.tc_sc, c.lo, c.hi, c.p_sc, c.p_lo, c.p_hi, c.novelty, c.outside, c.check, c.phonon_check, candidateData.literatureFor(c)]; })]);
     if (key === candState.key && el.firstChild) return;
     candState.key = key;
     xtReset();
     clear(el);
     el.appendChild(h('div', { class: 'card-head' }, h('div', null,
       h('h2', { text: 'Candidate superconductors found by our AI models' }),
-      richText(h('p'), 'Every material on these lists was found by our own AI-designed models and is published here before any calculation or experiment checks it. Radar sorts the materials: Storm ranks the ones that look like conventional superconductors, which pair through phonons, and Hurricane the ones that look like the unconventional families. Every check is added to its row, hits and misses alike.'))));
+      richText(h('p'), 'These model predictions include matching checks and bounded literature-search records when available. Radar sorts the materials: Storm ranks the ones that look like conventional superconductors, which pair through phonons, and Hurricane the ones that look like the unconventional families. Literature searches and direct validation checks are shown separately.'))));
     var banner = candMcmBanner(sc);
     if (banner) append(el, banner);
     var seg = h('div', { class: 'seg cand-seg', role: 'group', 'aria-label': 'Which list to show' });
@@ -302,13 +308,9 @@
       el.appendChild(h('p', { class: 'cand-meta', text: track[2] + ' Rank is within this selected list; each prediction remains subject to its validation checks.' }));
     }
     el.appendChild(candOursNote(sc, kind));
-    if (!hur && sc && sc.phonon_check) {
-      var ph = sc.phonon_check;
-      el.appendChild(h('p', { class: 'cand-meta' }, h('b', { text: 'Optional MACE phonon prescreen. ' }),
-        ph.enabled ? (candNum(ph.selected) ? ph.selected + ' candidates selected' : 'Enabled') +
-          (candNum(ph.not_selected) ? '; ' + ph.not_selected + ' eligible candidates not selected' : '') + '. See each candidate’s Remarks for the calculation status and settings. ' : 'Not requested for this screening run. ',
-        'A finite q mesh and a learned potential cannot replace DFT, a full Brillouin-zone check or a superconductivity measurement.'));
-    }
+    if (!hur) candidateData.phononSummaryLines(sc).forEach(function (text) {
+      el.appendChild(h('p', { class: 'cand-meta', text: text }));
+    });
     var block = candBlock(sc, kind);
     if (!rows.length) {
       // before the round that fills this list: what it will hold
@@ -338,7 +340,7 @@
     if (hur) {
       richText(meta, when + 'of the ' + (candNum(pool.n_screened) ? fmtInt(pool.n_screened) + ' ' : '') + 'compounds in Hurricane’s pool from ' + cText(pool.source || 'JARVIS-DFT', 120) +
         (rule ? ' (' + rule + ')' : '') + ', ' + candModel(sc, /^Radar/, 'Radar') + ' sent ' + (candNum(pool.n_sent) ? fmtInt(pool.n_sent) : 'the ones that look unconventional') + ' to ' +
-        cText(block.model || candModel(sc, /^Hurricane/, 'Hurricane'), 40) + '. Hurricane learns measured Tc: it gives the chance that a compound superconducts and its Tc if it does, and the 90% range is for that Tc. The list is ranked by the two multiplied.');
+        cText(block.model || candModel(sc, /^Hurricane/, 'Hurricane'), 40) + '. Hurricane learns measured Tc: it gives the chance that a compound superconducts and its Tc if it does, and the 90% range is for that Tc. ' + candidateData.rankingText(block));
     } else {
       var models = list(sc.models).filter(function (m) { return typeof m === 'string' && !/^Hurricane/.test(m); }).map(function (m) { return cText(m, 40); });
       richText(meta, when + (models.length ? models.join(' and ') : sc.model ? cText(sc.model, 40) : 'Storm') + ' ranked ' +
@@ -377,6 +379,7 @@
         h('span', { class: 'cand-rank', text: String(i + 1) }),
         thumb,
         h('div', { class: 'cand-main' }, h('b', null, name), sub ? h('div', { class: 'dt-cell-sub', text: sub }) : null,
+          h('div', { class: 'dt-cell-sub', text: candidateData.literatureText(c) }),
           candRemarksEl(c, hur, block, true),
           mcm ? h('span', { class: 'cand-mcm' + (mcm === 'confirmed' ? ' is-done' : ''), text: mcm === 'confirmed' ? 'Above the McMillan limit: measured and reproduced' : 'Worth an experiment: predicted above the McMillan limit' }) : null),
         h('div', { class: 'cand-tc' }, h('b', { text: candK(tc) }), range ? h('div', { class: 'dt-cell-sub', text: range }) : null),
@@ -393,7 +396,7 @@
         candState.all ? 'Show the top ' + CAND_SHOWN : 'Show all ' + rows.length)));
     }
     var checked = rows.filter(function (c) { return c.check && CHECK_LABEL[c.check.kind]; }).length;
-    var lead = (checked ? checked + ' of ' + rows.length + ' candidates checked so far. ' : 'None of these has been checked yet. ') + 'They are predictions: a candidate becomes a discovery only when ' +
+    var lead = (checked ? checked + ' of ' + rows.length + ' candidates have matching checks recorded. ' : 'No matching DFT or experimental check is recorded for these candidates. ') + 'They are predictions: a candidate becomes a discovery only when ' +
       (hur ? 'an experiment confirms it. Many of these compounds have a band gap in DFT or are magnetic, and, like the parent compounds of the cuprates and iron-based superconductors, would need doping or pressure to superconduct. ' :
         'a calculation and then an experiment confirm it. “Calibrated” is Storm’s estimate of the measured Tc. ');
     var ck = block && block.check;
@@ -471,8 +474,10 @@
       h('div', { class: 'xt-title' }, h('span', { class: 'xt-rank', text: '#' + (i + 1) }), h('b', { text: hurSub(c.formula) }),
         h('span', { class: 'xt-sub', text: [c.spg ? cText(c.spg, 30) : '', M ? M.n + (M.n === 1 ? ' atom' : ' atoms') + ' in the cell' : ''].filter(Boolean).join(' · ') })),
       M ? play : null));
+    box.appendChild(h('p', { class: 'xt-facts', text: candidateData.literatureText(c) }));
     if (!M) {
       box.appendChild(h('p', { class: 'note', text: 'No crystal structure is stored for this material.' }));
+      box.appendChild(candRemarksEl(c, hur, candBlock(state.data && state.data.screen, hur ? 'hurricane' : 'storm')));
       return;
     }
     var cv = h('canvas', { class: 'xt-big', role: 'img', tabindex: '0', 'aria-label': xtAlt(c, M) });

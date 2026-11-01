@@ -1,5 +1,7 @@
 import importlib.util
 import hashlib
+import contextlib
+import io
 import json
 import sys
 import tempfile
@@ -167,10 +169,16 @@ class Hurricane6Tests(unittest.TestCase):
                     raise AssertionError("model was asked to score a background row it trained on")
                 return np.full(len(X), 0.6), np.ones(len(X))
 
+            def predict_proba(self, X):
+                probability, _ = self.parts(X, None)
+                return np.column_stack([1 - probability, probability])
+
         candidate = dict(data["current"], id="P1", rows="parent")
         with patch.object(H6.H2, "Design", RejectSelfTraining), \
+             patch.object(H6.H2, "fit_probability_classifier", side_effect=lambda candidate, X, y, seed, Xb=None: RejectSelfTraining(candidate, seed).fit(X, y, None, Xb=Xb)), \
              patch.object(H6.H4, "ratio", side_effect=lambda train, groups, query: np.zeros(len(query))), \
-             patch.object(H6.SC, "hur_parts", side_effect=lambda model, X, family: model.parts(X, family)):
+             patch.object(H6.SC, "hur_parts", side_effect=lambda model, X, family: model.parts(X, family)), \
+             contextlib.redirect_stdout(io.StringIO()):
             result = H6.score_design(candidate, data["Xp"], data["Xe"], data["Xb"],
                                      data["Xp"], data["Xe"], data["Xb"], par.tc.to_numpy(), ent.tc.to_numpy(),
                                      par.family.to_numpy(), ent.family.to_numpy(), par.system.to_numpy(),
@@ -182,15 +190,92 @@ class Hurricane6Tests(unittest.TestCase):
     def test_offline_smoke_writes_only_nonrelease_report(self):
         before = H6.P.PROGRESS.read_bytes()
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as temporary:
-            with patch.dict(H6.PROTOCOL["bootstrap"], resamples=20):
+            logged = io.StringIO()
+            with patch.dict(H6.PROTOCOL["bootstrap"], resamples=20), contextlib.redirect_stdout(logged):
                 report_path = H6.run(smoke=True, output_dir=Path(temporary))
             report = json.loads(report_path.read_text())
             self.assertFalse(report["adopted"])
             self.assertFalse(report["comparison"]["promising"])
             self.assertEqual(report["mode"], "synthetic_smoke_not_scientific")
+            statuses = list(Path(temporary).glob("status-*.json"))
+            self.assertEqual(len(statuses), 1)
+            state = json.loads(statuses[0].read_text())
+            self.assertEqual(state["status"], "completed")
+            self.assertEqual(len([event for event in state["events"] if event["event"] == "design_complete"]), 3)
+            self.assertEqual(len([event for event in state["events"] if event["event"] == "family_complete"]), 12)
+            self.assertEqual(len([event for event in state["events"] if event["event"] == "background_fold_complete"]), 60)
+            self.assertIn("H6 background_fold_start", logged.getvalue())
             background = pd.read_csv(report_path.with_name(report_path.stem + "-background.csv"))
             self.assertFalse(background["training_system_overlap"].any())
+            self.assertIn("radar_sent_to_hurricane", background)
+            self.assertEqual(background.groupby("index")["radar_sent_to_hurricane"].nunique().max(), 1)
+            self.assertEqual(int(background.drop_duplicates("index")["radar_sent_to_hurricane"].sum()),
+                             report["background_evaluation"]["sent_to_hurricane"])
         self.assertEqual(H6.P.PROGRESS.read_bytes(), before)
+
+    def test_failed_preparation_leaves_diagnostic_status(self):
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as temporary:
+            with patch.object(H6, "prepare_real", side_effect=ValueError("test source failure")), contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(ValueError, "test source failure"):
+                    H6.run(output_dir=Path(temporary))
+            state = json.loads(next(Path(temporary).glob("status-*.json")).read_text())
+            self.assertEqual(state["status"], "failed")
+            self.assertEqual(state["latest"]["error_type"], "ValueError")
+            self.assertEqual(state["latest"]["reason"], "test source failure")
+
+    def test_operational_status_sanitizes_nonfinite_values_without_changing_metrics(self):
+        metrics = H6.summary([10.0], [np.nan], [5.0], [False])
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as temporary:
+            path = Path(temporary) / "status.json"
+            writer = H6.StageWriter(path, smoke=False)
+            writer("family_fit_complete", {"metrics": metrics, "nested": [np.float32(np.inf), -np.inf]})
+            state = json.loads(path.read_text(encoding="utf-8"))
+            self.assertIsNone(state["latest"]["metrics"]["brier"])
+            self.assertEqual(state["latest"]["nested"], [None, None])
+            self.assertTrue(np.isnan(metrics["brier"]))
+            self.assertEqual(metrics["tc_mae"], 5.0)
+
+    def test_operational_status_retries_two_transient_permission_errors(self):
+        original_replace, attempts = Path.replace, []
+        def replace(path, target):
+            attempts.append(str(path))
+            if len(attempts) < 3:
+                raise PermissionError("transient status-file lock")
+            return original_replace(path, target)
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as temporary:
+            path = Path(temporary) / "status.json"
+            with patch.object(Path, "replace", autospec=True, side_effect=replace), patch.object(H6.time, "sleep") as sleep:
+                H6.StageWriter(path, smoke=True)("complete", {"report": "kept.json"})
+            self.assertEqual(len(attempts), 3)
+            self.assertEqual(sleep.call_count, 2)
+            self.assertEqual(json.loads(path.read_text(encoding="utf-8"))["status"], "completed")
+
+    @unittest.skipUnless(importlib.util.find_spec("sklearn"), "scikit-learn is needed for the actual-fitting smoke check")
+    def test_persistent_status_failure_keeps_memory_and_scientific_report(self):
+        before = H6.P.PROGRESS.read_bytes()
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as temporary:
+            writer = H6.StageWriter(Path(temporary) / "status.json", smoke=True)
+            logged = io.StringIO()
+            with patch.object(H6, "StageWriter", return_value=writer), \
+                 patch.object(Path, "replace", side_effect=PermissionError("persistent status-file lock")), \
+                 patch.object(H6.time, "sleep"), patch.dict(H6.PROTOCOL["bootstrap"], resamples=20), \
+                 contextlib.redirect_stdout(logged):
+                report_path = H6.run(smoke=True, output_dir=Path(temporary))
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            self.assertFalse(report["adopted"])
+            self.assertEqual(report["mode"], "synthetic_smoke_not_scientific")
+            self.assertEqual(writer.state["status"], "completed")
+            self.assertEqual(len([event for event in writer.state["events"] if event["event"] == "background_fold_complete"]), 60)
+            self.assertEqual(logged.getvalue().count("operational status write warning"), 1)
+        self.assertEqual(H6.P.PROGRESS.read_bytes(), before)
+
+    def test_scientific_report_write_failure_is_not_hidden_by_status_failure(self):
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as temporary:
+            with patch.object(H6, "_run", side_effect=OSError("scientific report write failed")), \
+                 patch.object(Path, "replace", side_effect=PermissionError("status-file lock")), \
+                 patch.object(H6.time, "sleep"), contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(OSError, "scientific report write failed"):
+                    H6.run(output_dir=Path(temporary))
 
 
 if __name__ == "__main__":

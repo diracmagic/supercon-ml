@@ -1,0 +1,1357 @@
+{
+  "schema_version": 2,
+  "searched_on": "2026-10-31",
+  "materials": [
+    {
+      "rank_at_audit": 9,
+      "material_id": "JVASP-93832",
+      "formula": "CaClO",
+      "aliases_searched": [
+        "CaOCl",
+        "calcium chlorine oxygen"
+      ],
+      "candidate_structure": {
+        "space_group": "P6_3mc (186)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-93832.html"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"CaClO\" superconductivity",
+          "outcome": "Results included unrelated abbreviations, ions and bleaching-powder shorthand; none established the periodic neutral 1:1:1 candidate."
+        },
+        {
+          "query": "\"CaOCl\" superconductivity crystal",
+          "outcome": "No exact usable source located."
+        },
+        {
+          "query": "\"CaClO\" \"crystal\" -caclo -cACl0 -cAClO-vcMMAE",
+          "outcome": "A hydrogen/deuterium-containing oxychloride structural paper appeared; its stoichiometry differs from the candidate and was not used as a superconductivity check."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://pubchem.ncbi.nlm.nih.gov/compound/21226521",
+          "kind": "primary-database-near-match-rejected",
+          "supports": "This entry is charged CaClO+, not a validation of neutral periodic P6_3mc CaClO. No superconductivity conclusion follows."
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "temperature_min_k": null
+      },
+      "limitations": "A charged ion, Ca(ClO)2 bleaching powder, and hydrogen-containing oxychlorides cannot be assumed to be the candidate crystal. No measurement floor assigned.",
+      "checks_action": "No negative superconductivity check added.",
+      "model": "Hurricane",
+      "composition": {
+        "Ca": 2,
+        "Cl": 2,
+        "O": 2
+      },
+      "search_origin": "Retained inspected first-ten evidence; reviewed for this all-candidate audit.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.15,
+        "p_sc": 0.096
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 7,
+        "tc_pred": 0.29,
+        "p_sc": 0.141,
+        "p_lo": 0.007,
+        "p_hi": 0.277,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 7,
+      "material_id": "JVASP-151620",
+      "formula": "Yb2In8Ir",
+      "aliases_searched": [
+        "Yb2IrIn8",
+        "Yb Ir In8"
+      ],
+      "candidate_structure": {
+        "space_group": "P4/mmm (123)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-151620.html"
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"Yb2In8Ir\"",
+          "outcome": "The repository's element order did not yield a useful exact result."
+        },
+        {
+          "query": "\"Yb2IrIn8\" OR \"Yb2In8Ir\" superconductivity",
+          "outcome": "No superconductivity measurement located in this query."
+        },
+        {
+          "query": "\"Yb\" \"Ir\" \"In8\" compound",
+          "outcome": "Located crystal-chemistry papers citing Yb2IrIn8."
+        },
+        {
+          "query": "\"Yb2IrIn8\" crystal structure",
+          "outcome": "Located Zaremba et al. 2005; verified its identity in the authors' institutional publication list and the structural figure/citation in a later original paper."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.uni-muenster.de/Chemie.ac/poettgen/publications/pub_all.shtml",
+          "kind": "primary-author-institutional-bibliography",
+          "locator": "2005 entry: Ternary Indides REIrIn ... and Yb2IrIn8, Z. Anorg. Allg. Chem. 631, 1065",
+          "supports": "Verifies the original exact-composition structural paper and authors."
+        },
+        {
+          "url": "https://doi.org/10.1002/zaac.200400452",
+          "kind": "primary-paper-identified-access-failed",
+          "supports": "Original structural paper identified; direct publisher full text could not be inspected."
+        },
+        {
+          "url": "https://d-nb.info/1260640493/34",
+          "doi": "10.1002/zaac.201900174",
+          "kind": "primary-research-full-text-structural-citation",
+          "locator": "Figure 2 and reference 34",
+          "supports": "A later crystal-chemistry paper uses Yb2IrIn8 as a known structural comparison and cites the 2005 work; it does not provide a superconductivity test of this candidate."
+        }
+      ],
+      "conditions": {
+        "sample_form": "Structural literature located; exact candidate coordinates not matched",
+        "pressure_gpa": null,
+        "temperature_min_k": null
+      },
+      "limitations": "Structural precedent is not a positive or negative superconductivity result. The original structural paper remains a full-text follow-up; icsd=false in the candidate record does not prove the formula is unsynthesized.",
+      "checks_action": "No negative superconductivity check added; structural evidence retained only in this audit.",
+      "model": "Hurricane",
+      "composition": {
+        "Yb": 2,
+        "In": 8,
+        "Ir": 1
+      },
+      "search_origin": "Retained inspected first-ten evidence; reviewed for this all-candidate audit.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.16,
+        "p_sc": 0.065
+      },
+      "conclusion_zh": "已找到2005年Yb2IrIn8结构文献及后续结构引用；本轮未确立超导测量结论，不能称文献中从未研究过。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 8,
+        "tc_pred": 0.24,
+        "p_sc": 0.099,
+        "p_lo": 0.073,
+        "p_hi": 0.149,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-175989",
+      "formula": "LaYbCu2",
+      "model": "Hurricane",
+      "rank_at_audit": 18,
+      "composition": {
+        "La": 1,
+        "Yb": 1,
+        "Cu": 2
+      },
+      "aliases_searched": [
+        "LaYbCu2",
+        "LaCu2Yb",
+        "YbLaCu2",
+        "YbCu2La",
+        "Cu2LaYb",
+        "Cu2YbLa"
+      ],
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-175989.html"
+      },
+      "search_log": [
+        {
+          "query": "\"LaYbCu2\" OR \"YbLaCu2\" crystal",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"LaYbCu2\" OR \"LaCu2Yb\" OR \"YbLaCu2\" OR \"YbCu2La\" OR \"Cu2LaYb\" OR \"Cu2YbLa\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "lanthanum ytterbium copper \"LaYbCu2\" OR \"YbLaCu2\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.08,
+        "p_sc": 0.015
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 9,
+        "tc_pred": 0.2,
+        "p_sc": 0.02,
+        "p_lo": 0.013,
+        "p_hi": 0.032,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-17645",
+      "formula": "YbIn2Pd",
+      "model": "Hurricane",
+      "rank_at_audit": 11,
+      "composition": {
+        "Yb": 2,
+        "In": 4,
+        "Pd": 2
+      },
+      "aliases_searched": [
+        "YbIn2Pd",
+        "YbPdIn2",
+        "In2YbPd",
+        "In2PdYb",
+        "PdYbIn2",
+        "PdIn2Yb"
+      ],
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17645.html"
+      },
+      "search_log": [
+        {
+          "query": "\"YbPdIn2\" superconductivity OR \"YbIn2Pd\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"YbIn2Pd\" OR \"YbPdIn2\" OR \"In2YbPd\" OR \"In2PdYb\" OR \"PdYbIn2\" OR \"PdIn2Yb\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "ytterbium palladium indium \"1:1:2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.12,
+        "p_sc": 0.079
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 10,
+        "tc_pred": 0.2,
+        "p_sc": 0.143,
+        "p_lo": 0.055,
+        "p_hi": 0.369,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-150511",
+      "formula": "Cu8O",
+      "model": "Hurricane",
+      "rank_at_audit": 12,
+      "composition": {
+        "Cu": 8,
+        "O": 1
+      },
+      "aliases_searched": [
+        "Cu8O",
+        "OCu8"
+      ],
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-150511.html"
+      },
+      "search_log": [
+        {
+          "query": "\"Cu8O\" superconductivity structure",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"D1RA09068B\"",
+          "source_urls": [
+            "https://pubs.rsc.org/en/content/articlehtml/2022/ra/d1ra09068b",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC8979312/",
+            "https://pdfs.semanticscholar.org/dff0/9d5942d07922a290f5d2d7fc44bb407f4799.pdf"
+          ],
+          "access_status": "primary-full-text-opened-at-original-article-mirror",
+          "notes": "RSC HTML returned403 and PMC a CAPTCHA. Opened the actual eight-page RSC PDF copy and inspected methods, Table1, electronic results and conclusion."
+        },
+        {
+          "query": "Opened root-provided JKPS2010 original PDF",
+          "source_urls": [
+            "https://srin.pusan.ac.kr/bbs/srin/10387/594566/download.do"
+          ],
+          "access_status": "primary-full-text-opened",
+          "notes": "Read all four pages, including preparation, XRD/HRTEM and conclusion. It studies CNT–Cu8O/Cu64O nanocrystal composites."
+        },
+        {
+          "query": "Find in opened RSC text: Cu8O; superconduct; Ibam",
+          "source_urls": [
+            "https://pdfs.semanticscholar.org/dff0/9d5942d07922a290f5d2d7fc44bb407f4799.pdf"
+          ],
+          "access_status": "full-text-inspected",
+          "notes": "Table1 gives Cu8O as Amm2/no.38, metastable. Metallic electronic structure is discussed. No superconductivity test or Tc calculation identified."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1039/D1RA09068B",
+          "accessed_url": "https://pdfs.semanticscholar.org/dff0/9d5942d07922a290f5d2d7fc44bb407f4799.pdf",
+          "cite": "W.-T. Fan, Z.-Y. Zhao and H.-L. Shen, Stability and fundamental properties of CuxO1-x as optoelectronic functional materials, RSC Advances12,3755–3762 (2022).",
+          "doi": "10.1039/D1RA09068B",
+          "kind": "primary-original-research-publisher-PDF-copy",
+          "locator": "Sections2,3.1–3.3; Table1 p.3759; Fig.3; conclusion p.3762",
+          "evidence_scope": "Computes an OQMD-derived Cu8O model: Table1 lists orthorhombic Amm2(38), metastable; electronic analysis finds metallicity. No superconductivity measurement/Tc prediction. Prose crystal-system wording conflicts with the table, so use table/space-group identification without asserting a coordinate match."
+        },
+        {
+          "url": "https://doi.org/10.3938/jkps.56.421",
+          "accessed_url": "https://srin.pusan.ac.kr/bbs/srin/10387/594566/download.do",
+          "cite": "Y. Wu et al., Synthesis of Carbon Nanotube-CuxO(x=8,64) Nanocrystal Composites, JKPS56,421–424 (2010).",
+          "doi": "10.3938/jkps.56.421",
+          "kind": "primary-original-experimental-article-institutional-PDF",
+          "locator": "Experimental pp.421–422; Results pp.422–423; Figs.2–3; conclusion p.423",
+          "evidence_scope": "Room-temperature Cu sputtering on MWCNTs yields composites with approximately5–25nm particles. XRD/HRTEM features are assigned to Cu8O/Cu64O with overlapping assignments. This is mixed nanoscale structural evidence, not a matched phase-pure bulk candidate or superconductivity test."
+        }
+      ],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": "Computed periodic model in2022; separate CNT/nanocrystal composite in2010",
+        "phase": "Amm2(38) DFT model; CNT-supported Cu8O/Cu64O mixture separately"
+      },
+      "limitations": "Metallicity/metastability establish neither superconductivity nor its absence. Carbon-supported mixed suboxides do not establish exact ordered bulk-phase identity.",
+      "checks_action": "Record structural/computational and nanoscale synthesis evidence only; superconductivity unknown. No negative check, temperature floor or prior-Tc exclusion justified.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.12,
+        "p_sc": 0.017
+      },
+      "conclusion_zh": "2022年原文研究Amm2型Cu8O计算模型，2010年原文研究CNT上的Cu8O/Cu64O纳米复合物。均不构成该候选的超导测量。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 11,
+        "tc_pred": 0.17,
+        "p_sc": 0.02,
+        "p_lo": 0.009,
+        "p_hi": 0.041,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-135250",
+      "formula": "NaInO",
+      "model": "Hurricane",
+      "rank_at_audit": 15,
+      "composition": {
+        "Na": 2,
+        "In": 2,
+        "O": 2
+      },
+      "aliases_searched": [
+        "NaInO",
+        "NaOIn",
+        "InNaO",
+        "InONa",
+        "ONaIn",
+        "OInNa"
+      ],
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-135250.html"
+      },
+      "search_log": [
+        {
+          "query": "\"NaInO\" superconductivity crystal",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"NaInO\" indium sodium oxide compound",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"NaInO\" OR \"NaOIn\" OR \"InNaO\" OR \"InONa\" OR \"ONaIn\" OR \"OInNa\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched. Sodium indate NaInO2 search hits have a different oxygen stoichiometry and do not establish the candidate NaInO.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.11,
+        "p_sc": 0.021
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 12,
+        "tc_pred": 0.16,
+        "p_sc": 0.034,
+        "p_lo": 0.007,
+        "p_hi": 0.103,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-151922",
+      "formula": "YbIn4Pt",
+      "model": "Hurricane",
+      "rank_at_audit": 20,
+      "composition": {
+        "Yb": 2,
+        "In": 8,
+        "Pt": 2
+      },
+      "aliases_searched": [
+        "YbIn4Pt",
+        "YbPtIn4",
+        "In4YbPt",
+        "In4PtYb",
+        "PtYbIn4",
+        "PtIn4Yb"
+      ],
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-151922.html"
+      },
+      "search_log": [
+        {
+          "query": "\"YbPtIn4\" OR \"YbIn4Pt\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"YbIn4Pt\" OR \"YbPtIn4\" OR \"In4YbPt\" OR \"In4PtYb\" OR \"PtYbIn4\" OR \"PtIn4Yb\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.08,
+        "p_sc": 0.038
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 13,
+        "tc_pred": 0.15,
+        "p_sc": 0.079,
+        "p_lo": 0.037,
+        "p_hi": 0.122,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 8,
+      "material_id": "JVASP-104628",
+      "formula": "Yb2CuPd",
+      "aliases_searched": [
+        "Yb2PdCu",
+        "Yb2 CuPd"
+      ],
+      "candidate_structure": {
+        "space_group": "Fm-3m (225)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-104628.html"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"Yb2CuPd\"",
+          "outcome": "No exact usable literature source found in the returned results."
+        },
+        {
+          "query": "\"Yb2PdCu\" OR \"Yb2CuPd\" ytterbium",
+          "outcome": "No exact usable source found."
+        },
+        {
+          "query": "\"Yb2\" \"CuPd\" superconductivity",
+          "outcome": "No exact experimental test established."
+        },
+        {
+          "query": "\"Yb2CuPd\" crystal OR structure OR palladium",
+          "outcome": "No exact usable source found; direct candidate-page retrieval failed."
+        },
+        {
+          "query": "\"Yb2CuPd\" \"Yb2\" Heusler",
+          "outcome": "No exact experimental superconductivity source located."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-104628.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "No external contents verified; identifier retained for follow-up only."
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "temperature_min_k": null
+      },
+      "limitations": "The search result is unknown, not an assertion that no phase or measurement exists. Results on other Yb-Cu-Pd ratios would require separate composition and structure matching.",
+      "checks_action": "No negative superconductivity check added.",
+      "model": "Hurricane",
+      "composition": {
+        "Yb": 2,
+        "Cu": 1,
+        "Pd": 1
+      },
+      "search_origin": "Retained inspected first-ten evidence; reviewed for this all-candidate audit.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.15,
+        "p_sc": 0.039
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 14,
+        "tc_pred": 0.14,
+        "p_sc": 0.059,
+        "p_lo": 0.006,
+        "p_hi": 0.152,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-17779",
+      "formula": "YbGa5Co",
+      "model": "Hurricane",
+      "rank_at_audit": 14,
+      "composition": {
+        "Yb": 1,
+        "Ga": 5,
+        "Co": 1
+      },
+      "aliases_searched": [
+        "YbGa5Co",
+        "YbCoGa5",
+        "Ga5YbCo",
+        "Ga5CoYb",
+        "CoYbGa5",
+        "CoGa5Yb"
+      ],
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17779.html"
+      },
+      "search_log": [
+        {
+          "query": "\"YbCoGa5\" superconductivity OR \"YbGa5Co\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"YbGa5Co\" OR \"YbCoGa5\" OR \"Ga5YbCo\" OR \"Ga5CoYb\" OR \"CoYbGa5\" OR \"CoGa5Yb\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "ytterbium cobalt gallium \"115\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.11,
+        "p_sc": 0.03
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 15,
+        "tc_pred": 0.12,
+        "p_sc": 0.037,
+        "p_lo": 0.009,
+        "p_hi": 0.064,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-164490",
+      "formula": "YbGa5",
+      "model": "Hurricane",
+      "rank_at_audit": 22,
+      "composition": {
+        "Yb": 2,
+        "Ga": 10
+      },
+      "aliases_searched": [
+        "YbGa5",
+        "Ga5Yb"
+      ],
+      "status": "needs-full-text",
+      "superconductivity_outcome": "Intrinsic outcome unknown. An inspected 2025 article cites an approximately 2 K magnetic signal attributed to grain-boundary Ga filaments; the originating 2002 full text was not obtained.",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-164490.html"
+      },
+      "search_log": [
+        {
+          "query": "\"YbGa5\" OR \"YbGa₅\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"YbGa5\" \"2 K\" superconductivity gallium",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"2220-8054-2025-16-5-593-596\"",
+          "source_urls": [
+            "https://www.mathnet.ru/links/a9c0386ae3e18cf16ba0916ce2bb5835/nano1400.pdf"
+          ],
+          "access_status": "primary-full-text-opened",
+          "notes": "Read the YbGa5 bullet on printed p.595 and reference 15 on p.596. The original article itself studies SmGa2."
+        },
+        {
+          "query": "\"On the Binary Compound YbGa5\" pdf",
+          "source_urls": [
+            "https://onlinelibrary.wiley.com/doi/abs/10.1002/1521-3749%28200207%29628%3A7%3C1692%3A%3AAID-ZAAC1692%3E3.0.CO%3B2-Y",
+            "https://www.researchgate.net/publication/239088290_On_the_Binary_Compound_YbGa5"
+          ],
+          "access_status": "original-full-text-not-obtained",
+          "notes": "Wiley abstract/DOI routes returned Cache miss, full/pdf routes unavailable; ResearchGate request returned 403. No direct measurement conditions taken from this inaccessible original."
+        },
+        {
+          "query": "\"On the Binary Compound YbGa5\" site:pure.mpg.de",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "No usable original article copy established."
+        },
+        {
+          "query": "\"YbGa5\" Giedigkeit Niewa Schnelle filetype:pdf",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Citation and related-paper leads did not supply an inspected 2002 full text."
+        },
+        {
+          "query": "\"YbGa5\" \"filaments\"",
+          "source_urls": [
+            "https://www.mathnet.ru/links/a9c0386ae3e18cf16ba0916ce2bb5835/nano1400.pdf"
+          ],
+          "access_status": "primary-full-text-rechecked",
+          "notes": "Verified explicit separation of the historical impurity-associated YbGa5 report from this paper's SmGa2 measurements."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.17586/2220-8054-2025-16-5-593-596",
+          "accessed_url": "https://www.mathnet.ru/links/a9c0386ae3e18cf16ba0916ce2bb5835/nano1400.pdf",
+          "cite": "A. E. Shitov and M. P. Volkov, Inclusions of metastable superconducting phase of gallium in SmGa2, Nanosystems: Physics, Chemistry, Mathematics 16(5), 593–596 (2025).",
+          "doi": "10.17586/2220-8054-2025-16-5-593-596",
+          "kind": "primary-original-research-with-secondary-citation-about-YbGa5",
+          "locator": "p.595 first bullet after Fig.2; p.596 reference 15",
+          "evidence_scope": "Cites Giedigkeit2002 for a YbGa5 magnetic signal below about 2 K, attributed by the earlier authors to grain-boundary Ga filaments. No new YbGa5 measurement. This paper's 5.9/8.4 K values concern Ga inclusions in SmGa2, not YbGa5."
+        }
+      ],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": null,
+        "phase": null
+      },
+      "limitations": "The opened 2025 original is primary for SmGa2 but indirect for YbGa5. Neither an intrinsic YbGa5 Tc nor a negative temperature floor is established. No coordinate match to the JARVIS candidate.",
+      "checks_action": "Keep intrinsic outcome unknown; retain an impurity-associated historical-signal note. Do not label intrinsic superconductivity or use 2 K as candidate Tc. Obtain the 2002 original before stronger claims.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "uninspected_primary_leads": [
+        {
+          "doi": "10.1002/1521-3749(200207)628:7<1692::AID-ZAAC1692>3.0.CO;2-Y",
+          "cite": "R. Giedigkeit, R. Niewa, W. Schnelle, Y. Grin and R. Kniep, On the Binary Compound YbGa5, ZAAC628,1692–1696 (2002).",
+          "access_status": "Full text not obtained after publisher and author-copy searches.",
+          "verified_locator": "Reference15 in the inspected 2025 paper identifies this article.",
+          "evidence_scope": "Original measurement range, field, sample conditions and intrinsic outcome not independently verified."
+        }
+      ],
+      "reported_historical_signal": {
+        "approximately_below_k": 2,
+        "measurement": "Magnetic measurements according to the 2025 citation",
+        "attribution": "Ga filaments at grain boundaries",
+        "original_conditions_independently_verified": false
+      },
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.07,
+        "p_sc": 0.024
+      },
+      "conclusion_zh": "2025年论文引用约2 K磁学超导迹象并说明被归因于晶界镓丝；2002年原始全文尚未取得，不能认定YbGa5本征超导。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 16,
+        "tc_pred": 0.11,
+        "p_sc": 0.036,
+        "p_lo": 0.006,
+        "p_hi": 0.07,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 5,
+      "material_id": "JVASP-90501",
+      "formula": "Ba2NiF6",
+      "aliases_searched": [
+        "Ba2MF6",
+        "dibarium nickel fluoride"
+      ],
+      "candidate_structure": {
+        "space_group": "I4/mmm (139)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-90501.html"
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"Ba2NiF6\" magnetic",
+          "outcome": "Located a 1967 chemical/magnetic paper and later diffraction literature; did not infer superconductivity absence from antiferromagnetism."
+        },
+        {
+          "query": "\"Ba2NiF6\" neutron diffraction Renaudin Pannettier 1983",
+          "outcome": "Verified the original magnetic paper's citation in the ILL facility report and author publication list."
+        },
+        {
+          "query": "\"Ba2NiF6\" site:onlinelibrary.wiley.com",
+          "outcome": "Direct 1967 publisher access was unavailable; retrieved an institutional copy of a 2004 research paper with a structural table instead."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.unige.ch/sciences/chifi/publis/refs_pdf/ref00529.pdf",
+          "doi": "10.1016/j.materresbull.2003.12.006",
+          "kind": "primary-research-full-text-structural-citation",
+          "locator": "Table 1, p. 344; Ba2NiF6 column and its reference 11",
+          "supports": "The table lists Ba2NiF6 in I4/mmm and says single-crystal diffraction data exist for the listed compounds except the specified Ba2MgF6 exception. It is not a Ba2NiF6 superconductivity experiment."
+        },
+        {
+          "url": "https://www.ill.eu/fileadmin/user_upload/ILL/1_About_ILL/Documentation/Annual_report/Previous_issues_from_2005/AR-1983.pdf",
+          "kind": "primary-facility-bibliography",
+          "locator": "Publication 83RE289",
+          "supports": "Lists Renaudin et al., Solid State Communications 47, 445-448 (1983), a magnetic/neutron/Mossbauer study of Ba2NiF6 and Ba2FeF6. No superconductivity temperature floor was established from this bibliography."
+        },
+        {
+          "url": "https://doi.org/10.1002/zaac.19673530102",
+          "kind": "primary-paper-identified-access-failed",
+          "supports": "Original chemical/magnetic study identified as a follow-up lead; full text not inspected."
+        }
+      ],
+      "conditions": {
+        "sample_form": "Known structural literature; exact JARVIS atomic-structure match not performed",
+        "pressure_gpa": null,
+        "temperature_min_k": null
+      },
+      "limitations": "Known structure and magnetic order do not establish a negative superconductivity experiment. The repository's icsd=false field is not proof that no sample of this formula was synthesized.",
+      "checks_action": "No negative superconductivity check added; structural evidence retained only in this audit.",
+      "model": "Hurricane",
+      "composition": {
+        "Ba": 2,
+        "Ni": 1,
+        "F": 6
+      },
+      "search_origin": "Retained inspected first-ten evidence; reviewed for this all-candidate audit.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.18,
+        "p_sc": 0.029
+      },
+      "conclusion_zh": "有结构或其他物性文献，超导结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 17,
+        "tc_pred": 0.11,
+        "p_sc": 0.017,
+        "p_lo": 0.002,
+        "p_hi": 0.051,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-165558",
+      "formula": "Ce2Ga12Cu",
+      "model": "Hurricane",
+      "rank_at_audit": 17,
+      "composition": {
+        "Ce": 4,
+        "Ga": 24,
+        "Cu": 2
+      },
+      "aliases_searched": [
+        "Ce2Ga12Cu",
+        "Ce2CuGa12",
+        "Ga12Ce2Cu",
+        "Ga12CuCe2",
+        "CuCe2Ga12",
+        "CuGa12Ce2"
+      ],
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown; explicit no-transition-to-0.35K claim not established",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-165558.html"
+      },
+      "search_log": [
+        {
+          "query": "\"Ce2CuGa12\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"Ce2CuGa12\" \"0.35\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "Opened root-provided LSU repository record",
+          "source_urls": [
+            "https://repository.lsu.edu/physics_astronomy_pubs/5933/"
+          ],
+          "access_status": "primary-institutional-abstract-opened",
+          "notes": "Verified abstract/DOI. Repository states full document unavailable there."
+        },
+        {
+          "query": "\"cm801693t\" \"0.35\"",
+          "source_urls": [
+            "https://pubs.acs.org/doi/10.1021/cm801693t",
+            "https://pubs.acs.org/doi/pdf/10.1021/cm801693t"
+          ],
+          "access_status": "publisher-403-or-unavailable",
+          "notes": "No condition verified from inaccessible ACS pages."
+        },
+        {
+          "query": "\"Ce2CuGa12\" \"0.35 K\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "No exact original sentence supporting a negative cutoff established."
+        },
+        {
+          "query": "\"cm801693t\" site:osti.gov",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "No usable original copy found in this query."
+        },
+        {
+          "query": "\"Crystal Growth, Structure, and Physical Properties of\" \"Ln\" \"6116\" pdf",
+          "source_urls": [
+            "https://www.researchgate.net/publication/50351425_Crystal_growth_structure_and_physical_properties_of_LnCuAl12Ln_y_Ce_Pr_Sm_and_Yb_and_LnCuGa12_Ln_Y_Gd-Er_and_Yb"
+          ],
+          "access_status": "primary-author-upload-full-text-opened",
+          "notes": "Landing metadata mismatch; actual Julia Chan-uploaded document is the2008 original, identified by title/authors/pages/DOI on p.6116 and end marker CM801693T. Read methods and low-temperature results."
+        },
+        {
+          "query": "Find in opened original: 0.35; no superconduct; superconduct",
+          "source_urls": [
+            "https://www.researchgate.net/publication/50351425_Crystal_growth_structure_and_physical_properties_of_LnCuAl12Ln_y_Ce_Pr_Sm_and_Yb_and_LnCuGa12_Ln_Y_Gd-Er_and_Yb"
+          ],
+          "access_status": "primary-full-text-inspected",
+          "notes": "Methods separate heat-capacity0.35–70K from susceptibility2–300K. Approximately1.8K heat-capacity peak is interpreted as magnetic; no explicit superconductivity-negative sentence identified."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1021/cm801693t",
+          "accessed_url": "https://www.researchgate.net/publication/50351425_Crystal_growth_structure_and_physical_properties_of_LnCuAl12Ln_y_Ce_Pr_Sm_and_Yb_and_LnCuGa12_Ln_Y_Gd-Er_and_Yb",
+          "cite": "J. Y. Cho et al., Crystal Growth, Structure, and Physical Properties of Ln2MGa12 (Ln=La,Ce; M=Ni,Cu), Chemistry of Materials20,6116–6123 (2008).",
+          "doi": "10.1021/cm801693t",
+          "kind": "primary-original-research-author-upload-full-text",
+          "identity_warning": "RG landing metadata are another paper; attached full text has the correct2008 title, author list, page numbers and DOI.",
+          "locator": "Physical Property Measurements p.6117; Table1; Figs.3,5,8; low-temperature discussion pp.6121–6122",
+          "evidence_scope": "Ga-flux single crystals are P4/nbm. Methods state susceptibility2–300K at0.1T and heat capacity0.35–70K. Approximately1.8K heat-capacity peak is assigned magnetic; results discuss low-temperature heat capacity at0.4K. No explicit superconductivity exclusion to0.35K established."
+        },
+        {
+          "url": "https://repository.lsu.edu/physics_astronomy_pubs/5933/",
+          "cite": "LSU institutional record of Cho et al.2008, cm801693t.",
+          "doi": "10.1021/cm801693t",
+          "kind": "primary-institutional-abstract",
+          "locator": "Abstract; availability notice",
+          "evidence_scope": "Verifies article identity and magnetic/structural context; no full text at this record."
+        }
+      ],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": "Ga-flux-grown single crystals",
+        "phase": "Tetragonal P4/nbm(125); no coordinate match to JVASP-165558"
+      },
+      "limitations": "A heat-capacity floor alone is not explicit superconductivity absence; susceptibility does not reach that floor. Magnetic order also cannot exclude coexistence or superconductivity under other conditions.",
+      "checks_action": "Revise existing check to superconducts:null with separate verified measurement ranges. Remove the claim that susceptibility, resistivity and heat capacity all start at0.35K; do not assert an explicit no-superconductivity limit of0.35K.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "conventional_formula": "Ce2CuGa12",
+      "measurement_conditions": [
+        {
+          "quantity": "temperature-dependent susceptibility",
+          "tmin_k": 2,
+          "tmax_k": 300,
+          "field_t": 0.1,
+          "protocol": "ZFC/FC",
+          "locator": "Methods p.6117"
+        },
+        {
+          "quantity": "heat capacity",
+          "tmin_k": 0.35,
+          "tmax_k": 70,
+          "field_t": null,
+          "locator": "Methods p.6117",
+          "note": "Measurement range, not superconductivity-negative cutoff; results separately refer to0.4K as the lowest temperature."
+        },
+        {
+          "quantity": "magnetization versus field",
+          "temperature_k": 3,
+          "max_field_t": 9,
+          "locator": "Methods and Fig.4"
+        },
+        {
+          "quantity": "resistivity/magnetoresistance",
+          "method": "four-probeAC",
+          "tmin_k": null,
+          "locator": "Methods; Figs.5–6",
+          "note": "Heat-capacity floor must not be assigned to these measurements."
+        }
+      ],
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.09,
+        "p_sc": 0.052
+      },
+      "conclusion_zh": "2008年原文测得约1.8 K磁性热容峰。0.35 K是热容测量下限，磁化率为2–300 K；未确立“未超导至0.35 K”。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 18,
+        "tc_pred": 0.1,
+        "p_sc": 0.055,
+        "p_lo": 0.008,
+        "p_hi": 0.109,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 26,
+      "material_id": "JVASP-180041",
+      "formula": "Sr3GeO",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "Sr3GeO",
+        "Sr3OGe"
+      ],
+      "candidate_structure": {
+        "space_group": "Pm-3m (221)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-180041.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"Sr3GeO\" OR \"Sr3OGe\"",
+          "outcome": "未返回可用结果。"
+        },
+        {
+          "query": "Sr3GeO strontium germanium oxygen antiperovskite",
+          "outcome": "定位并打开 Ohashi 等作者机构全文；表2列出 Sr3GeO 的既有实验晶格与本研究 DFT 计算。"
+        },
+        {
+          "query": "Sr3GeO superconductivity critical temperature",
+          "outcome": "未定位匹配 Sr3GeO 的超导实测或 Tc 预测；Sr、SrAs3、Sr3-xSnO 结果不转移给本成分。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://discovery.ucl.ac.uk/10123095/1/Ohashi_Inverse_perovskite_oxysilisides_final.pdf",
+          "kind": "primary-research-author-full-text",
+          "locator": "PDF pp. 3–7, calculations and Table 2",
+          "supports": "表2将 Sr3GeO 的实验晶格归于 Velden/Jansen2004；本文计算采用 Pnma，列出电子能带，未给 Sr3GeO 超导转变。引言超导例子是 Sr3-xSnO。"
+        },
+        {
+          "url": "https://doi.org/10.1002/zaac.200300313",
+          "kind": "primary-paper-identified-access-failed",
+          "supports": "已定位原始合成/结构论文，Wiley页未能打开；不从检索摘要导出测量条件。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-180041.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "候选为立方 Pm-3m，已检索结构文献讨论正交 Pnma/Pbnm；只确认同成分文献线索，未确认实验样品与候选同相。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.06,
+        "p_sc": 0.023
+      },
+      "conclusion_zh": "有结构或其他物性文献，超导结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 19,
+        "tc_pred": 0.1,
+        "p_sc": 0.034,
+        "p_lo": 0.004,
+        "p_hi": 0.103,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-129550",
+      "formula": "YbIn",
+      "model": "Hurricane",
+      "rank_at_audit": 21,
+      "composition": {
+        "Yb": 1,
+        "In": 1
+      },
+      "aliases_searched": [
+        "YbIn",
+        "InYb"
+      ],
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-129550.html"
+      },
+      "search_log": [
+        {
+          "query": "\"YbIn\" superconductivity compound",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"YbIn\" \"binary\" compound indium",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"YbIn\" OR \"InYb\" \"binary\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"YbIn\" \"superconductivity\" binary",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched. Search hits on YbInCu4, YbInAu2 and YbIn3 are different compositions and were not transferred to binary YbIn.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.07,
+        "p_sc": 0.034
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 20,
+        "tc_pred": 0.09,
+        "p_sc": 0.046,
+        "p_lo": 0.012,
+        "p_hi": 0.083,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-164281",
+      "formula": "Yb3GeO",
+      "model": "Hurricane",
+      "rank_at_audit": 24,
+      "composition": {
+        "Yb": 12,
+        "Ge": 4,
+        "O": 4
+      },
+      "aliases_searched": [
+        "Yb3GeO",
+        "Yb3OGe",
+        "GeYb3O",
+        "GeOYb3",
+        "OYb3Ge",
+        "OGeYb3"
+      ],
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-164281.html"
+      },
+      "search_log": [
+        {
+          "query": "\"Yb3GeO\" OR \"Yb3OGe\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"Yb3GeO\" ytterbium germanium oxide",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "Open Velden/Jansen inverse-perovskite author full text; inspect Yb3GeO",
+          "source_urls": [
+            "https://www.researchgate.net/publication/230480413_Zur_Kenntnis_der_inversen_Perowskite_M3TO_M_Ca_Sr_Yb_T_Si_Ge_Sn_Pb"
+          ],
+          "access_status": "primary-author-full-text-opened",
+          "notes": "Read synthesis and structure text. Synthesis temperatures of 1123–1173 K are not superconductivity measurement conditions."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1002/zaac.200300313",
+          "accessed_url": "https://www.researchgate.net/publication/230480413_Zur_Kenntnis_der_inversen_Perowskite_M3TO_M_Ca_Sr_Yb_T_Si_Ge_Sn_Pb",
+          "cite": "A. Velden and M. Jansen, On the Inverse Perovskites M3TO (M = Ca, Sr, Yb; T = Si, Ge, Sn, Pb), ZAAC 630, 234–238 (2004).",
+          "doi": "10.1002/zaac.200300313",
+          "kind": "primary-research-author-uploaded-full-text",
+          "locator": "Abstract and synthesis/structure sections, pp. 234–238.",
+          "evidence_scope": "The author-uploaded text reports synthesis and powder-XRD structure refinement of Yb3GeO, an orthorhombic anti-perovskite (Pbnm, no. 62). No superconducting transition or superconductivity temperature limit is established."
+        }
+      ],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.07,
+        "p_sc": 0.027
+      },
+      "conclusion_zh": "2004年原文报告合成和粉末衍射确定的正交反钙钛矿结构。没有确立候选的超导转变或阴性温度下限。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 21,
+        "tc_pred": 0.09,
+        "p_sc": 0.04,
+        "p_lo": 0.009,
+        "p_hi": 0.09,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-100557",
+      "formula": "KCeF4",
+      "model": "Hurricane",
+      "rank_at_audit": 16,
+      "composition": {
+        "K": 1,
+        "Ce": 1,
+        "F": 4
+      },
+      "aliases_searched": [
+        "KCeF4",
+        "KF4Ce",
+        "CeKF4",
+        "CeF4K",
+        "F4KCe",
+        "F4CeK"
+      ],
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-100557.html"
+      },
+      "search_log": [
+        {
+          "query": "\"KCeF4\" magnetic superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "Brunton 1969 \"KCeF4\" 600",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "Open NBS KCeF4 reference and original Brunton DOI",
+          "source_urls": [
+            "https://nvlpubs.nist.gov/nistpubs/Legacy/MONO/nbsmonograph25-12.pdf",
+            "https://doi.org/10.1107/S0567740869002639"
+          ],
+          "access_status": "official-full-text-opened-original-doi-access-failed",
+          "notes": "Inspected the beta-KCeF4 entry and references. No superconductivity temperature limit is inferred."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/MONO/nbsmonograph25-12.pdf",
+          "cite": "NBS Monograph 25, Section 12 (1975), p. 59, potassium cerium fluoride.",
+          "kind": "official-crystallographic-reference-full-text",
+          "locator": "Printed p. 59; PDF page 68 (zero-based).",
+          "evidence_scope": "The inspected crystallographic reference records orthorhombic beta-KCeF4 (Pnam, no. 62), citing Brunton 1969. This is a calculated diffraction-pattern reference, not a superconductivity experiment."
+        },
+        {
+          "url": "https://doi.org/10.1107/S0567740869002639",
+          "cite": "G. Brunton, The crystal structure of beta-KCeF4, Acta Cryst. B25, 600–602 (1969).",
+          "doi": "10.1107/S0567740869002639",
+          "kind": "primary-structure-bibliographic-lead-original-access-failed",
+          "evidence_scope": "Original structural article identified from the inspected NBS reference; original DOI retrieval was unavailable in this search."
+        }
+      ],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched. Candidate atomic coordinates and polymorph have not been matched to the beta-phase reference. The phase-change temperature is not a superconductivity limit.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.09,
+        "p_sc": 0.016
+      },
+      "conclusion_zh": "NBS结构参考表记录正交β-KCeF4并引用1969年原始结构论文。不是超导实验，候选晶型和坐标未匹配。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 22,
+        "tc_pred": 0.08,
+        "p_sc": 0.019,
+        "p_lo": 0.006,
+        "p_hi": 0.039,
+        "tracks": {}
+      }
+    }
+  ]
+}

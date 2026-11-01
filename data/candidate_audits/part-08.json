@@ -1,0 +1,1360 @@
+{
+  "schema_version": 2,
+  "searched_on": "2026-10-31",
+  "materials": [
+    {
+      "rank_at_audit": 28,
+      "material_id": "JVASP-172208",
+      "formula": "CaYbIn2",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "CaYbIn2",
+        "CaIn2Yb"
+      ],
+      "candidate_structure": {
+        "space_group": "Fm-3m (225)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-172208.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"CaYbIn2\"",
+          "outcome": "未返回可用结果。"
+        },
+        {
+          "query": "CaYbIn2 calcium ytterbium indium",
+          "outcome": "返回二元Ca-In、Yb-In及不同Zintl化合物，未定位匹配原始实验报告。"
+        },
+        {
+          "query": "CaYbIn2 CaIn2Yb superconductivity",
+          "outcome": "未找到匹配成分的实验超导报告或既有Tc计算。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-172208.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "未把二元Ca-In、Yb-In或不同多元Zintl相当作等原子Ca/Yb的有序候选实验。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.05,
+        "p_sc": 0.027
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 23,
+        "tc_pred": 0.07,
+        "p_sc": 0.037,
+        "p_lo": 0.012,
+        "p_hi": 0.085,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-134812",
+      "formula": "SrNiF2",
+      "model": "Hurricane",
+      "rank_at_audit": 23,
+      "composition": {
+        "Sr": 1,
+        "Ni": 1,
+        "F": 2
+      },
+      "aliases_searched": [
+        "SrNiF2",
+        "SrF2Ni",
+        "NiSrF2",
+        "NiF2Sr",
+        "F2SrNi",
+        "F2NiSr"
+      ],
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-134812.html"
+      },
+      "search_log": [
+        {
+          "query": "\"SrNiF2\" OR \"SrF2Ni\" crystal",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"SrNiF2\" strontium nickel fluoride",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"SrNiF2\" OR \"SrF2Ni\" OR \"NiSrF2\" OR \"NiF2Sr\" OR \"F2SrNi\" OR \"F2NiSr\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched. SrNiF4, LiSrNiF6 and fluorides with additional elements do not establish binary-cation SrNiF2.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.07,
+        "p_sc": 0.02
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 24,
+        "tc_pred": 0.07,
+        "p_sc": 0.023,
+        "p_lo": 0.004,
+        "p_hi": 0.057,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 10,
+      "material_id": "JVASP-171500",
+      "formula": "NaYbCu2F8",
+      "aliases_searched": [
+        "NaYbCu₂F₈"
+      ],
+      "candidate_structure": {
+        "space_group": "I422 (97)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-171500.html"
+      },
+      "status": "needs-full-text",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"NaYbCu2F8\"",
+          "outcome": "Located an indexed RSC supplementary table associating the formula with Materials Project mp-1209951."
+        },
+        {
+          "query": "\"NaYbCu2F8\" superconductivity fluoride",
+          "outcome": "The same database-derived table appeared; no direct superconductivity measurement was established."
+        },
+        {
+          "query": "\"NaYbCu2F8\" synthesis fluoride structure",
+          "outcome": "No inspected synthesis or superconductivity report located."
+        },
+        {
+          "query": "\"d2se01350a\" materials",
+          "outcome": "Verified the parent paper is a high-throughput solar-cell materials study, not a superconductivity experiment."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://pubs.rsc.org/en/content/articlelanding/2023/se/d2se01350a",
+          "doi": "10.1039/D2SE01350A",
+          "kind": "primary-research-publisher-metadata",
+          "supports": "The parent article concerns ab initio screening from Materials Project for silicon tandem solar cells; it does not establish a superconductivity result."
+        },
+        {
+          "url": "https://www.rsc.org/suppdata/d2/se/d2se01350a/d2se01350a1.pdf",
+          "kind": "primary-supplement-search-index-only-access-failed",
+          "locator": "Indexed supplementary table, entry 516: mp-1209951 / NaYbCu2F8",
+          "supports": "A compositional/database lead only. Direct retrieval returned 404, so the table header, numerical meaning and exact structure were not independently inspected."
+        },
+        {
+          "url": "https://www.rsc.org/suppdata/d2/se/d2se01350a/d2se01350a2.pdf",
+          "kind": "primary-supplement-search-index-only-access-failed",
+          "supports": "A second indexed supplement repeated the formula; retrieval also returned 404."
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "temperature_min_k": null
+      },
+      "limitations": "A database-derived composition in a computational supplement is not evidence that this exact phase was made, measured or tested for superconductivity. No transition temperature or negative limit was inferred.",
+      "checks_action": "No negative superconductivity check added; full text and crystallographic provenance remain follow-ups.",
+      "model": "Hurricane",
+      "composition": {
+        "Na": 1,
+        "Yb": 1,
+        "Cu": 2,
+        "F": 8
+      },
+      "search_origin": "Retained inspected first-ten evidence; reviewed for this all-candidate audit.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.13,
+        "p_sc": 0.004
+      },
+      "conclusion_zh": "太阳能电池材料筛选补充表有同式数据库线索，但PDF直取失败，表头和结构未核实；不能从索引中的0.00推断Tc。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 25,
+        "tc_pred": 0.07,
+        "p_sc": 0.002,
+        "p_lo": 0.001,
+        "p_hi": 0.004,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-166391",
+      "formula": "PrIn6Cu6",
+      "model": "Hurricane",
+      "rank_at_audit": 19,
+      "composition": {
+        "Pr": 1,
+        "In": 6,
+        "Cu": 6
+      },
+      "aliases_searched": [
+        "PrIn6Cu6",
+        "PrCu6In6",
+        "In6PrCu6",
+        "In6Cu6Pr",
+        "Cu6PrIn6",
+        "Cu6In6Pr"
+      ],
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-166391.html"
+      },
+      "search_log": [
+        {
+          "query": "\"PrCu6In6\" OR \"PrIn6Cu6\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"PrCu6In6\" OR \"PrIn6Cu6\" crystal",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"PrIn6Cu6\" OR \"PrCu6In6\" OR \"In6PrCu6\" OR \"In6Cu6Pr\" OR \"Cu6PrIn6\" OR \"Cu6In6Pr\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.08,
+        "p_sc": 0.008
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 26,
+        "tc_pred": 0.07,
+        "p_sc": 0.009,
+        "p_lo": 0.004,
+        "p_hi": 0.015,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 31,
+      "material_id": "JVASP-13734",
+      "formula": "YbCuSb",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "YbCuSb",
+        "YbSbCu"
+      ],
+      "candidate_structure": {
+        "space_group": "P6_3mc (186)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-13734.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "YbCuSb crystal magnetic",
+          "outcome": "找到1997年YbMSb原始结构/磁性论文。"
+        },
+        {
+          "query": "\"crystal structure and magnetic properties of YbMSb\"",
+          "outcome": "出版社索引给出YbCuSb研究；直接打开publisher403，作者库cache miss。"
+        },
+        {
+          "query": "YbCuSb superconductivity critical temperature",
+          "outcome": "没有找到匹配超导实测或Tc预测；YBCO结果被排除。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.sciencedirect.com/science/article/pii/S0925838896030071",
+          "doi": "10.1016/S0925-8388(96)03007-1",
+          "kind": "primary-paper-identified-access-failed",
+          "supports": "已定位原始YbMSb结构/磁性研究；检索索引摘要涉及YbCuSb，正文未读取，不据此赋予超导阴性或温度截止。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-13734.html",
+          "kind": "primary-database-opened",
+          "supports": "已打开NIST原始数据库页核对 JVASP-13734、YbCuSb 和 P6_3mc (186)；这些为DFT结构信息，不是超导实验。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "NIST候选P6_3mc已打开核对；1997论文的检索摘要称ordered-Ni2In型，未完成结构同一性核对。XAS的10/300K不能当作超导测量范围。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.05,
+        "p_sc": 0.018
+      },
+      "conclusion_zh": "有结构或其他物性文献，超导结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 27,
+        "tc_pred": 0.07,
+        "p_sc": 0.021,
+        "p_lo": 0.008,
+        "p_hi": 0.038,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 28,
+      "material_id": "JVASP-110106",
+      "formula": "YbGa2Cu3",
+      "model": "Hurricane",
+      "composition": {
+        "Yb": 1,
+        "Ga": 2,
+        "Cu": 3
+      },
+      "conventional_formula": "YbCu3Ga2",
+      "track_ranks": {},
+      "prediction_at_audit": {
+        "tc_pred": 0.05,
+        "p_sc": 0.006
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "YbGa2Cu3",
+        "YbCu3Ga2"
+      ],
+      "candidate_structure": {
+        "space_group": "P6/mmm (191)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-110106.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "needs-full-text",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "有YbCu3Ga2磁性与价态文献线索，但全文未获取；尚不能核定该候选的超导结果。",
+      "search_log": [
+        {
+          "query": "\"YbGa2Cu3\"",
+          "outcome": "原式未返回可用结果；后续常规排序YbCu3Ga2检索定位磁性/价态原始论文线索。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "YbCu3Ga2 ytterbium copper gallium superconductivity",
+          "outcome": "YbCuGa3、YbBa2Cu3O7及β-YbAlB4计量不同；随后精确YbCu3Ga2查询找到了文献线索，但未读到原始全文。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"YbCu3Ga2\"",
+          "outcome": "常规排序精确查询定位YbCu3Ga2磁性/价态原始论文线索，相关全文接口未能取得；未导出SC测量范围。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1103/PhysRevB.52.4327",
+          "doi": "10.1103/PhysRevB.52.4327",
+          "cite": "E. Bauer et al., Evolution of a magnetic state in YbCu5-xGax, Phys. Rev. B52,4327–4335(1995).",
+          "kind": "primary-paper-identified-access-failed",
+          "locator": "Publisher/author-copy retrieval unavailable; no experimental locator verified",
+          "supports": "精确YbCu3Ga2与系列文献已定位；APS全文接口不可访问，不从索引摘录磁性数值或SC测量范围。"
+        },
+        {
+          "url": "https://doi.org/10.1051/jp4:19972125",
+          "doi": "10.1051/jp4:19972125",
+          "cite": "Temperature and Pressure Induced Valence Transitions in YbCu5-xGax Studied by Yb-LIII XANES.",
+          "kind": "primary-paper-identified-access-failed",
+          "supports": "XANES原始研究线索，DOI直接读取失败；光谱测量温度不能转换为SC下限。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-110106.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "YbCu3Ga2的Ga替代系列与不同空间群/成分不能混用。磁性或XANES题名并不等于无超导；全文条件、原子坐标匹配未核实。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 28,
+        "tc_pred": 0.05,
+        "p_sc": 0.006,
+        "p_lo": 0.005,
+        "p_hi": 0.007,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 34,
+      "material_id": "JVASP-165420",
+      "formula": "Ce2Ga12Ni",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "Ce2Ga12Ni",
+        "Ce2NiGa12"
+      ],
+      "candidate_structure": {
+        "space_group": "P4/nbm (125)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-165420.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "Ce2NiGa12 crystal magnetic",
+          "outcome": "定位2008原始Ln2MGa12论文。"
+        },
+        {
+          "query": "\"Crystal Growth, Structure, and Physical Properties of Ln2MGa12\"",
+          "outcome": "打开作者机构LSU摘要；出版社全文403。"
+        },
+        {
+          "query": "Ce2NiGa12 superconductivity critical temperature",
+          "outcome": "定位2014高压电阻/价态研究线索；未找到可核对的超导转变/Tc预测。"
+        },
+        {
+          "query": "\"Ce2NiGa12\" \"No superconductivity\"",
+          "outcome": "未返回可用匹配结果。"
+        },
+        {
+          "query": "Inspect Cho2008 original methods and Ce2NiGa12 magnetic discussion",
+          "source_urls": [
+            "https://www.researchgate.net/publication/50351425_Crystal_growth_structure_and_physical_properties_of_LnCuAl12Ln_y_Ce_Pr_Sm_and_Yb_and_LnCuGa12_Ln_Y_Gd-Er_and_Yb"
+          ],
+          "access_status": "primary-author-full-text-opened",
+          "notes": "The same paper covers both Ce compounds. Heat-capacity floor is not assigned to resistivity or a superconductivity exclusion."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1021/cm801693t",
+          "accessed_url": "https://www.researchgate.net/publication/50351425_Crystal_growth_structure_and_physical_properties_of_LnCuAl12Ln_y_Ce_Pr_Sm_and_Yb_and_LnCuGa12_Ln_Y_Gd-Er_and_Yb",
+          "cite": "J. Y. Cho et al., Crystal Growth, Structure, and Physical Properties of Ln2MGa12 (Ln=La,Ce; M=Ni,Cu), Chemistry of Materials20,6116–6123 (2008).",
+          "doi": "10.1021/cm801693t",
+          "kind": "primary-original-research-author-upload-full-text",
+          "identity_warning": "RG landing metadata are another paper; attached full text has the correct2008 title, author list, page numbers and DOI.",
+          "locator": "Physical Property Measurements p.6117; Table1; Figs.3,5,8; low-temperature discussion pp.6121–6122",
+          "evidence_scope": "The original paper reports P4/nbm Ce2NiGa12 single crystals and antiferromagnetic order near 10 K. Methods give susceptibility 2–300 K at 0.1 T and heat capacity 0.35–70 K. This audit did not establish an explicit absence of superconductivity down to 0.35 K."
+        },
+        {
+          "url": "https://repository.lsu.edu/physics_astronomy_pubs/5933/",
+          "cite": "LSU institutional record of Cho et al.2008, cm801693t.",
+          "doi": "10.1021/cm801693t",
+          "kind": "primary-institutional-abstract",
+          "locator": "Abstract; availability notice",
+          "evidence_scope": "Verifies article identity and magnetic/structural context; no full text at this record."
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "A heat-capacity floor alone is not explicit superconductivity absence; susceptibility does not reach that floor. Magnetic order also cannot exclude coexistence or superconductivity under other conditions.",
+      "checks_action": "Revise existing check to superconducts:null with separate verified measurement ranges. Remove the claim that susceptibility, resistivity and heat capacity all start at0.35K; do not assert an explicit no-superconductivity limit of0.35K.",
+      "measurement_conditions": [
+        {
+          "quantity": "temperature-dependent susceptibility",
+          "tmin_k": 2,
+          "tmax_k": 300,
+          "field_t": 0.1,
+          "protocol": "ZFC/FC",
+          "locator": "Methods p.6117"
+        },
+        {
+          "quantity": "heat capacity",
+          "tmin_k": 0.35,
+          "tmax_k": 70,
+          "field_t": null,
+          "locator": "Methods p.6117",
+          "note": "Methods measurement range only; not a superconductivity-negative cutoff."
+        },
+        {
+          "quantity": "magnetization versus field",
+          "temperature_k": 3,
+          "max_field_t": 9,
+          "locator": "Methods and Fig.4"
+        },
+        {
+          "quantity": "resistivity/magnetoresistance",
+          "method": "four-probeAC",
+          "tmin_k": null,
+          "locator": "Methods; Figs.5–6",
+          "note": "Heat-capacity floor must not be assigned to these measurements."
+        }
+      ],
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.03,
+        "p_sc": 0.029
+      },
+      "conclusion_zh": "2008年原文报告约10 K反铁磁序。0.35 K是热容测量下限，不能作为“未超导至0.35 K”的结论。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 29,
+        "tc_pred": 0.05,
+        "p_sc": 0.044,
+        "p_lo": 0.007,
+        "p_hi": 0.075,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 30,
+      "material_id": "JVASP-118315",
+      "formula": "SrOF",
+      "model": "Hurricane",
+      "composition": {
+        "Sr": 1,
+        "O": 1,
+        "F": 1
+      },
+      "conventional_formula": "SrFO",
+      "track_ranks": {},
+      "prediction_at_audit": {
+        "tc_pred": 0.05,
+        "p_sc": 0.014
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "SrOF",
+        "SrFO"
+      ],
+      "candidate_structure": {
+        "space_group": "Amm2 (38)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-118315.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "未找到SrOF候选相的可用超导报告，结果未知。",
+      "search_log": [
+        {
+          "query": "\"SrOF\" strontium oxyfluoride",
+          "outcome": "主要返回SROF缩写碰撞，没有匹配1:1:1周期SrOF的原始材料研究。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "SrFO strontium oxygen fluorine crystal superconductivity",
+          "outcome": "返回Sr2CuO2F2+δ及其他含铜氧氟化物；其计量不同，不能用于SrOF。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-118315.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "Sr2CuO2F2+δ的超导、SrOF2分子以及SrOF属于不同化学对象。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 30,
+        "tc_pred": 0.05,
+        "p_sc": 0.014,
+        "p_lo": 0.004,
+        "p_hi": 0.027,
+        "tracks": {}
+      }
+    },
+    {
+      "material_id": "JVASP-168805",
+      "formula": "NaSmCu2F8",
+      "model": "Hurricane",
+      "rank_at_audit": 25,
+      "composition": {
+        "Na": 1,
+        "Sm": 1,
+        "Cu": 2,
+        "F": 8
+      },
+      "aliases_searched": [
+        "NaSmCu2F8",
+        "NaSmF8Cu2",
+        "NaCu2SmF8",
+        "NaCu2F8Sm",
+        "NaF8SmCu2",
+        "NaF8Cu2Sm",
+        "SmNaCu2F8",
+        "SmNaF8Cu2",
+        "SmCu2NaF8",
+        "SmCu2F8Na",
+        "SmF8NaCu2",
+        "SmF8Cu2Na"
+      ],
+      "status": "needs-full-text",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-168805.html"
+      },
+      "search_log": [
+        {
+          "query": "\"NaSmCu2F8\" OR \"NaCu2SmF8\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"NaSmCu2F8\" fluoride OR pyrochlore",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"NaSmCu2F8\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"NaSmCu2F8\" \"superconducting\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "\"D2SE01350A\" and open a1/a2 supplementary PDFs",
+          "source_urls": [
+            "https://www.rsc.org/suppdata/d2/se/d2se01350a/d2se01350a1.pdf",
+            "https://www.rsc.org/suppdata/d2/se/d2se01350a/d2se01350a2.pdf"
+          ],
+          "access_status": "publisher-abstract-inspected-supplement-404",
+          "notes": "Parent paper metadata and abstract checked; both supplementary file URLs failed direct retrieval. The numerical entry 0.00 has not been assigned a physical meaning."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1039/D2SE01350A",
+          "cite": "Y. Zhao et al., High-throughput identification of materials for silicon tandem solar cells, Sustainable Energy Fuels 7, 812–820 (2023).",
+          "doi": "10.1039/D2SE01350A",
+          "kind": "primary-research-publisher-abstract-inspected",
+          "evidence_scope": "The inspected original publisher abstract describes ab initio solar-cell materials screening from Materials Project, not an experimental superconductivity study."
+        },
+        {
+          "url": "https://www.rsc.org/suppdata/d2/se/d2se01350a/d2se01350a1.pdf",
+          "kind": "primary-supplement-search-index-only-access-failed",
+          "locator": "Indexed entry 515: mp-1209940 / NaSmCu2F8.",
+          "evidence_scope": "Composition/database lead only. Direct PDF retrieval returned 404, so its table header and numeric column were not independently inspected. No number in the search extract was treated as Tc."
+        }
+      ],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.07,
+        "p_sc": 0.002
+      },
+      "conclusion_zh": "太阳能电池筛选补充表索引列出mp-1209940同式条目，但原PDF直取失败。不能给0.00赋予Tc含义或认为样品已合成。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 31,
+        "tc_pred": 0.05,
+        "p_sc": 0.002,
+        "p_lo": 0.001,
+        "p_hi": 0.004,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 32,
+      "material_id": "JVASP-18010",
+      "formula": "YbIn2Ni",
+      "model": "Hurricane",
+      "composition": {
+        "Yb": 2,
+        "In": 4,
+        "Ni": 2
+      },
+      "conventional_formula": "YbNiIn2",
+      "track_ranks": {},
+      "prediction_at_audit": {
+        "tc_pred": 0.04,
+        "p_sc": 0.037
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "YbIn2Ni",
+        "YbNiIn2"
+      ],
+      "candidate_structure": {
+        "space_group": "Cmcm (63)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-18010.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "原始研究明确制得YbNiIn2晶体；这些是合成或结构证据，超导结果仍未知。",
+      "search_log": [
+        {
+          "query": "\"YbNiIn2\"",
+          "outcome": "找到2004年YbNiIn2原始结构论文题名、作者及DOI；出版社正文无法读取。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "YbIn2Ni YbNiIn2 ytterbium nickel indium superconductivity",
+          "outcome": "元素Yb高压SC、Y-Ni-B-C体系与YbNiIn2不同；未核实匹配SC报告。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"Syntheses and Structures\" \"YbNiIn2\"",
+          "outcome": "补充题名检索核对2004原始结构论文；合成的直接全文证据另来自已打开RSC论文，未核实SC物性。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1039/C4DT03783A",
+          "accessed_url": "https://pubs.rsc.org/en/content/getauthorversionpdf/C4DT03783A",
+          "doi": "10.1039/C4DT03783A",
+          "cite": "U. Subbarao et al., Yb7Ni4InGe12: A Quaternary Compound Having Mixed Valent Yb atoms Grown from Indium Flux, Dalton Transactions, accepted manuscript.",
+          "kind": "primary-research-publisher-accepted-full-text",
+          "locator": "Section3.1, PDF p.8 (manuscript p.7), reference75",
+          "supports": "原文直接报告反应中得到YbNiIn2单晶副产物，改变In用量后可成为主要产物。其他主化合物的磁性/热学测试没有转移到YbNiIn2。"
+        },
+        {
+          "url": "https://doi.org/10.1002/zaac.200400187",
+          "doi": "10.1002/zaac.200400187",
+          "cite": "V. I. Zaremba et al., Syntheses and Structures of RE10Ni9+xIn20 (RE=Tb,Dy) and YbNiIn2, ZAAC630,1903–1907(2004).",
+          "kind": "primary-paper-identified-access-failed",
+          "supports": "2004原始结构论文已定位，Wiley正文不可访问；不提取其超导或低温测量结论。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-18010.html",
+          "kind": "primary-computational-database-opened",
+          "locator": "Summary, lines25–29",
+          "supports": "已打开NIST页核对YbIn2Ni、Cmcm(63)及DFT属性；这不是实验SC来源。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "NIST确认候选Cmcm；只核实同成分生成，未进行候选与实验原子坐标比对。2015论文主对象Yb7Ni4InGe12的性质不可转给YbNiIn2。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 32,
+        "tc_pred": 0.04,
+        "p_sc": 0.037,
+        "p_lo": 0.016,
+        "p_hi": 0.066,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 36,
+      "material_id": "JVASP-106012",
+      "formula": "Pr2Ga5Cu3",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "Pr2Ga5Cu3",
+        "Pr2Cu3Ga5"
+      ],
+      "candidate_structure": {
+        "space_group": "P-4m2 (115)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-106012.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"Pr2Ga5Cu3\"",
+          "outcome": "未返回可用结果。"
+        },
+        {
+          "query": "\"Pr2Cu3Ga5\"",
+          "outcome": "未返回可用结果。"
+        },
+        {
+          "query": "Pr2Cu3Ga5 praseodymium copper gallium",
+          "outcome": "主要返回元素资料和PrCuGa3等其他计量比。"
+        },
+        {
+          "query": "Pr2Ga5Cu3 Pr2Cu3Ga5 superconductivity",
+          "outcome": "未找到匹配化合物的超导测量或Tc预测。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-106012.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "PrCuGa3和Pr替代YBCO的研究不适用于Pr2Cu3Ga5；没有由本次检索建立任何实验阴性。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.03,
+        "p_sc": 0.007
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 33,
+        "tc_pred": 0.04,
+        "p_sc": 0.007,
+        "p_lo": 0.006,
+        "p_hi": 0.008,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 41,
+      "material_id": "JVASP-17871",
+      "formula": "PrIn3",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "PrIn3",
+        "In3Pr"
+      ],
+      "candidate_structure": {
+        "space_group": "Pm-3m (221)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17871.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"PrIn3\" superconductivity",
+          "outcome": "定位核磁性与超低温电阻原始研究线索；没有把商业AI化学摘要当来源。"
+        },
+        {
+          "query": "\"PrIn3\" \"Anomalous temperature\"",
+          "outcome": "定位2000电阻论文DOI；出版社全文未能读取。"
+        },
+        {
+          "query": "\"10.1016/S0921-4526(99)02919-1\"",
+          "outcome": "核对电阻论文题名线索，未从索引提取新的超导阴性。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://link.springer.com/article/10.1007/BF02571096",
+          "doi": "10.1007/BF02571096",
+          "kind": "primary-research-publisher-abstract",
+          "locator": "Abstract",
+          "supports": "1996原始摘要给出PrIn3立方Cu3Au结构、0.07–10mK比热和0.13mK核磁有序；没有将此称为超导转变或明确超导阴性。"
+        },
+        {
+          "url": "https://doi.org/10.1016/S0921-4526(99)02919-1",
+          "kind": "primary-paper-identified-access-failed",
+          "supports": "2000超低温电阻论文为进一步核对线索；正文未读到，测量温度/场未作为超导下限导出。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17871.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
+        }
+      ],
+      "conditions": {
+        "sample_form": "1996原始摘要所述PrIn3",
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null,
+        "other_measurement": "specific heat",
+        "other_measurement_temperature_min_k": 7e-05,
+        "other_measurement_temperature_max_k": 0.01
+      },
+      "limitations": "核磁有序和超导是不同现象；即使电阻测至很低温，也需读原始曲线与场、样品条件才能赋予明确阴性。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.02,
+        "p_sc": 0.035
+      },
+      "conclusion_zh": "有结构或其他物性文献，超导结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 34,
+        "tc_pred": 0.04,
+        "p_sc": 0.064,
+        "p_lo": 0.003,
+        "p_hi": 0.125,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 32,
+      "material_id": "JVASP-183688",
+      "formula": "CaOF",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "CaOF",
+        "CaFO"
+      ],
+      "candidate_structure": {
+        "space_group": "P-6m2 (187)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-183688.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"CaOF\" calcium oxygen fluorine",
+          "outcome": "返回化学式质量计算器和缩写碰撞；计算器不构成合成证据。"
+        },
+        {
+          "query": "CaOF CaFO superconductivity",
+          "outcome": "返回CaFeAsF等不同计量比和掺杂体系，无匹配候选实测。"
+        },
+        {
+          "query": "\"Side-On Coordination\" hypofluorites",
+          "outcome": "定位分子CaOF2近似文献；与CaOF计量不同，未用于本候选结论。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-183688.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "CaFeAsF、CaOF2分子和自动化学式计算网页均不能证明CaOF周期固体已测超导。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.05,
+        "p_sc": 0.018
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 35,
+        "tc_pred": 0.04,
+        "p_sc": 0.013,
+        "p_lo": 0.006,
+        "p_hi": 0.019,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 39,
+      "material_id": "JVASP-140429",
+      "formula": "LaCeCu12",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "LaCeCu12",
+        "LaCu12Ce",
+        "CeLaCu12"
+      ],
+      "candidate_structure": {
+        "space_group": "Pmc2_1 (26)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-140429.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"LaCeCu12\" OR \"LaCu12Ce\"",
+          "outcome": "未返回可用结果。"
+        },
+        {
+          "query": "\"LaCeCu12\"",
+          "outcome": "未返回可用结果。"
+        },
+        {
+          "query": "\"CeLaCu12\"",
+          "outcome": "未返回可用结果。"
+        },
+        {
+          "query": "LaCeCu12 LaCe Cu12 superconductivity",
+          "outcome": "未定位匹配报道；XC12碳笼不是Cu12铜化合物。"
+        },
+        {
+          "query": "CeLaCu12 LaCeCu12 magnetic",
+          "outcome": "返回字符串近似的商业磁体页面，无匹配材料报告。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-140429.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "等原子La/Ce有序Pmc2_1模型不能直接等同随机取代Ce1-xLaxCu6系列；本次未检查完整固溶体相图。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.02,
+        "p_sc": 0.011
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 36,
+        "tc_pred": 0.03,
+        "p_sc": 0.015,
+        "p_lo": 0.005,
+        "p_hi": 0.027,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 33,
+      "material_id": "JVASP-24364",
+      "formula": "SrLiNiF6",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "SrLiNiF6",
+        "LiSrNiF6",
+        "LiNiSrF6"
+      ],
+      "candidate_structure": {
+        "space_group": "P-31c (163)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-24364.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"LiSrNiF6\" OR \"SrLiNiF6\"",
+          "outcome": "初始别名查询无可用结果。"
+        },
+        {
+          "query": "LiSrNiF6 crystal nickel fluoride",
+          "outcome": "返回LiSrAlF6、NaBaLiNiF6等近似材料，未当作本候选。"
+        },
+        {
+          "query": "\"LiSrNiF6\"",
+          "outcome": "定位并打开2022原始研究补充表，精确列出LiSrNiF6，ICSD32733。"
+        },
+        {
+          "query": "SrLiNiF6 LiSrNiF6 superconductivity",
+          "outcome": "未定位匹配超导实测/Tc预测。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://journals.aps.org/prresearch/supplemental/10.1103/PhysRevResearch.4.023063/linematsearch_SM.pdf",
+          "doi": "10.1103/PhysRevResearch.4.023063",
+          "kind": "primary-research-supplement-full-text",
+          "locator": "Table S1, entry1537, PDF p.28; table definitions p.1",
+          "supports": "将LiSrNiF6列为P-31c(163)、ICSD32733的线图子晶格材料；磁性列是MaterialsProject计算元数据，不是超导实验。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-24364.html",
+          "kind": "primary-database-opened",
+          "supports": "已打开NIST原始数据库页核对 JVASP-24364、SrLiNiF6 和 P-31c (163)；这些为DFT结构信息，不是超导实验。"
+        }
+      ],
+      "conditions": {
+        "sample_form": "原始计算筛选补充表及NIST结构记录；未检视原始32733实验论文",
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "结构条目与候选空间群相同不等于原子坐标完全一致；计算的FM/SM标志不能当实测阴性。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.03,
+        "p_sc": 0.007
+      },
+      "conclusion_zh": "有结构或其他物性文献，超导结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 37,
+        "tc_pred": 0.03,
+        "p_sc": 0.009,
+        "p_lo": 0.004,
+        "p_hi": 0.017,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 42,
+      "material_id": "JVASP-162930",
+      "formula": "PrGa5Ni",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "PrGa5Ni",
+        "PrNiGa5"
+      ],
+      "candidate_structure": {
+        "space_group": "P4/mmm (123)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-162930.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"PrNiGa5\" OR \"PrGa5Ni\"",
+          "outcome": "未返回可用结果。"
+        },
+        {
+          "query": "\"PrNiGa5\"",
+          "outcome": "未返回可用结果。"
+        },
+        {
+          "query": "PrNiGa5 praseodymium gallium nickel",
+          "outcome": "返回PrNi5、PrNi4Ga等不同计量比。"
+        },
+        {
+          "query": "PrGa5Ni PrNiGa5 superconductivity",
+          "outcome": "返回PuRhGa5和PuCoGa5等不同元素体系，无匹配报道。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-162930.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "PrNi5、PrNi4Ga、PuRhGa5与PrNiGa5不等价；未将重费米子家族性质外推给该候选。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.02,
+        "p_sc": 0.011
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 38,
+        "tc_pred": 0.03,
+        "p_sc": 0.018,
+        "p_lo": 0.011,
+        "p_hi": 0.028,
+        "tracks": {}
+      }
+    },
+    {
+      "rank_at_audit": 37,
+      "material_id": "JVASP-89073",
+      "formula": "Yb2InGe2",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "Yb2InGe2",
+        "Yb2Ge2In"
+      ],
+      "candidate_structure": {
+        "space_group": "P4/mbm (127)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-89073.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "needs-full-text",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"Yb2InGe2\"",
+          "outcome": "定位2017TUWien学位论文的该成分章节；33MB全文超出抓取限制。"
+        },
+        {
+          "query": "\"Yb2InGe2\" \"Tobash\"",
+          "outcome": "定位Tobash等2005原始论文，打开作者机构出版目录；ACS正文403。"
+        },
+        {
+          "query": "\"cm051618g\" pdf",
+          "outcome": "核对DOI、题名和作者目录；仅有摘要及补充文件线索。"
+        },
+        {
+          "query": "Yb2InGe2 Yb2Ge2In superconductivity",
+          "outcome": "未找到匹配超导报告或Tc预测。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1021/cm051618g",
+          "accessed_url": "https://www1.udel.edu/chem/bobev/Site%202/Publications.html",
+          "doi": "10.1021/cm051618g",
+          "kind": "primary-author-bibliography",
+          "locator": "Selected Publications, first entry",
+          "supports": "作者机构目录确认RE2InGe2系列研究包括Yb；正文未读到，不提取超导或电阻温度条件。"
+        },
+        {
+          "url": "https://repositum.tuwien.at/bitstream/20.500.12708/3006/2/Budnowski%20Monika%20-%202017%20-%20Search%20for%20new%20Zintl%20phases%20for%20thermoelectricity.pdf",
+          "kind": "primary-thesis-identified-content-too-large",
+          "locator": "Indexed section5.2.2",
+          "supports": "精确成分的再合成/物性研究线索存在，但本次未能打开整篇；不可将检索摘要当作超导阴性。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-89073.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "Yb2LiInGe2多了Li，不能替代Yb2InGe2。已定位精确成分论文，但超导测量条件/结构同一性仍未核对。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.03,
+        "p_sc": 0.021
+      },
+      "conclusion_zh": "有线索，全文或实验条件尚待核实。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 39,
+        "tc_pred": 0.03,
+        "p_sc": 0.021,
+        "p_lo": 0.009,
+        "p_hi": 0.029,
+        "tracks": {}
+      }
+    }
+  ]
+}

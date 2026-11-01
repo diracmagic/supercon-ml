@@ -69,12 +69,14 @@ jobs:
           python ml/negative_data.py --validate data/hosono2015_negatives.json
 
       - name: Restore datasets and descriptors
-        uses: actions/cache@v4
+        id: data-cache
+        uses: actions/cache/restore@v4
         with:
           path: |
             ~/.cache/supercon-data
             ~/.cache/mace
-          key: supercon-cache-${{ github.run_id }}
+          # Cache entries are immutable; a rerun must be able to save its new batches.
+          key: supercon-cache-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: supercon-cache-
 
       - name: Baseline (composition and structure features)
@@ -146,8 +148,21 @@ jobs:
         run: python ml/pipeline.py storm5
 
       - name: Screening, the current round (candidates found by our models, only our own finds, with their structures)
+        id: screening
         if: success() && contains(format(' {0} ', env.STAGES), ' screen ')
         run: python ml/pipeline.py screen
+
+      - name: Preserve completed screening before the H6 experiment
+        if: always() && steps.screening.outcome == 'success'
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: screening-results-${{ github.run_number }}-${{ github.run_attempt }}
+          path: |
+            results/
+            progress/
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Hurricane, round 6 protocol and plumbing
         if: success() && contains(format(' {0} ', env.STAGES), ' hurricane6 ')
@@ -159,6 +174,21 @@ jobs:
       - name: Hurricane, round 6 (report-only MACE-MP-0 LOFO experiment)
         if: success() && contains(format(' {0} ', env.STAGES), ' hurricane6 ')
         run: python ml/pipeline.py hurricane6
+
+      - name: Check incremental descriptor caches before saving
+        id: cache-integrity
+        if: always() && steps.data-cache.outcome == 'success'
+        run: python .github/scripts/validate_descriptor_cache.py --cache-dir ~/.cache/supercon-data
+
+      - name: Save completed datasets and descriptor batches even if training fails
+        if: always() && steps.cache-integrity.outcome == 'success' && steps.data-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.cache/supercon-data
+            ~/.cache/mace
+          key: ${{ steps.data-cache.outputs.cache-primary-key }}
 
       - name: Preserve results even when training or publishing fails
         if: always()

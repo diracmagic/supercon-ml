@@ -1,0 +1,1413 @@
+{
+  "schema_version": 2,
+  "searched_on": "2026-10-31",
+  "materials": [
+    {
+      "material_id": "JVASP-111300",
+      "formula": "SrHg2Pb",
+      "model": "Storm",
+      "rank_at_audit": 73,
+      "composition": {
+        "Sr": 1,
+        "Hg": 2,
+        "Pb": 1
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"SrHg2Pb\" OR \"SrPbHg2\" superconductivity",
+        "\"SrHg2Pb\" OR \"SrPbHg2\" OR \"Hg2PbSr\""
+      ],
+      "search_log": [
+        {
+          "query": "\"SrHg2Pb\" OR \"SrPbHg2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"SrHg2Pb\" OR \"SrPbHg2\" OR \"Hg2PbSr\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.5,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 73,
+        "tc_pred": 1.5,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 23
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-64087",
+      "formula": "Ba2LiGa",
+      "model": "Storm",
+      "rank_at_audit": 74,
+      "composition": {
+        "Ba": 2,
+        "Li": 1,
+        "Ga": 1
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"Ba2LiGa\" OR \"LiBa2Ga\" superconductivity",
+        "\"Ba2LiGa\" OR \"Ba2GaLi\" OR \"LiBa2Ga\""
+      ],
+      "search_log": [
+        {
+          "query": "\"Ba2LiGa\" OR \"LiBa2Ga\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"Ba2LiGa\" OR \"Ba2GaLi\" OR \"LiBa2Ga\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.48,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 74,
+        "tc_pred": 1.48,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 24
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-75632",
+      "formula": "MgZnAs",
+      "model": "Storm",
+      "rank_at_audit": 75,
+      "composition": {
+        "Mg": 1,
+        "Zn": 1,
+        "As": 1
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"MgZnAs\" OR \"ZnMgAs\" superconductivity",
+        "\"MgZnAs\" OR \"ZnMgAs\" OR \"AsMgZn\" compound"
+      ],
+      "search_log": [
+        {
+          "query": "\"MgZnAs\" OR \"ZnMgAs\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"MgZnAs\" OR \"ZnMgAs\" OR \"AsMgZn\" compound",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.48,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 75,
+        "tc_pred": 1.48,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 25
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-186511",
+      "formula": "MgScGa4",
+      "model": "Storm",
+      "rank_at_audit": 76,
+      "composition": {
+        "Mg": 1,
+        "Sc": 1,
+        "Ga": 4
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"MgScGa4\" OR \"ScMgGa4\" superconductivity",
+        "\"MgScGa4\" OR \"ScMgGa4\" OR \"Ga4MgSc\""
+      ],
+      "search_log": [
+        {
+          "query": "\"MgScGa4\" OR \"ScMgGa4\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"MgScGa4\" OR \"ScMgGa4\" OR \"Ga4MgSc\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.48,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 76,
+        "tc_pred": 1.48,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 26
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-179584",
+      "formula": "Ba2LiTl",
+      "model": "Storm",
+      "rank_at_audit": 77,
+      "composition": {
+        "Ba": 2,
+        "Li": 1,
+        "Tl": 1
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"Ba2LiTl\" OR \"LiBa2Tl\" superconductivity",
+        "\"Ba2LiTl\" OR \"Ba2TlLi\" OR \"LiBa2Tl\""
+      ],
+      "search_log": [
+        {
+          "query": "\"Ba2LiTl\" OR \"LiBa2Tl\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"Ba2LiTl\" OR \"Ba2TlLi\" OR \"LiBa2Tl\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.35,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 77,
+        "tc_pred": 1.35,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 27
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-14728",
+      "formula": "NaGa4",
+      "model": "Storm",
+      "rank_at_audit": 78,
+      "composition": {
+        "Na": 1,
+        "Ga": 4
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"NaGa4\" superconductivity",
+        "\"NaGa4\" resistivity superconducting"
+      ],
+      "search_log": [
+        {
+          "query": "\"NaGa4\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"NaGa4\" resistivity superconducting",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "Open Yu2024 publisher full text and inspect Fig.7 caption",
+          "source_urls": [
+            "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.202402457"
+          ],
+          "access_status": "primary-publisher-full-text-opened",
+          "notes": "Verified the 4–300K zero-field measurement and separated annealing temperatures from measurement conditions."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1002/chem.202402457",
+          "accessed_url": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.202402457",
+          "doi": "10.1002/chem.202402457",
+          "cite": "C.-C. Yu et al., Adaptation of the BaAl4 Type to Small Cations: The Case of NaGa4, Chemistry – A European Journal 30, e202402457 (2024).",
+          "kind": "primary-original-publisher-full-text",
+          "locator": "Experimental Section; Section 2.4 Conductivity; Fig. 7.",
+          "evidence_scope": "A polycrystalline bulk specimen annealed at 200 degrees Celsius shows metallic resistivity over 4–300 K in zero field. The study also refines ordered/defect structures. No intrinsic Tc or universal superconductivity exclusion is established."
+        }
+      ],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "measurement_conditions": [
+        {
+          "quantity": "electrical resistivity",
+          "tmin_k": 4,
+          "tmax_k": 300,
+          "field_t": 0,
+          "sample_form": "polycrystalline bulk, annealed at 200 degrees Celsius",
+          "locator": "Fig. 7 and Section 2.4"
+        }
+      ],
+      "conclusion_zh": "2024年原文报告NaGa4块体多晶在零场4–300 K的金属输运，另有有序/缺陷结构。不能把4 K以下仍未知的行为写成永久不超导。",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.34,
+        "p_sc": 0.595
+      },
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 78,
+        "tc_pred": 1.34,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 28
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-8455",
+      "formula": "CaHgPb",
+      "model": "Storm",
+      "rank_at_audit": 79,
+      "composition": {
+        "Ca": 2,
+        "Hg": 2,
+        "Pb": 2
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"CaHgPb\" OR \"CaPbHg\" superconductivity",
+        "\"CaHgPb\" OR \"CaPbHg\" OR \"HgCaPb\""
+      ],
+      "search_log": [
+        {
+          "query": "\"CaHgPb\" OR \"CaPbHg\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"CaHgPb\" OR \"CaPbHg\" OR \"HgCaPb\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.32,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 79,
+        "tc_pred": 1.32,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 29
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-105723",
+      "formula": "BaSrTl2",
+      "model": "Storm",
+      "rank_at_audit": 80,
+      "composition": {
+        "Ba": 1,
+        "Sr": 1,
+        "Tl": 2
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"BaSrTl2\" OR \"SrBaTl2\" superconductivity",
+        "\"BaSrTl2\" OR \"SrBaTl2\" OR \"Tl2SrBa\""
+      ],
+      "search_log": [
+        {
+          "query": "\"BaSrTl2\" OR \"SrBaTl2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"BaSrTl2\" OR \"SrBaTl2\" OR \"Tl2SrBa\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.32,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 80,
+        "tc_pred": 1.32,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 30
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-40282",
+      "formula": "SrInHg2",
+      "model": "Storm",
+      "rank_at_audit": 81,
+      "composition": {
+        "Sr": 1,
+        "In": 1,
+        "Hg": 2
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"SrInHg2\" OR \"SrHg2In\" superconductivity",
+        "\"SrInHg2\" OR \"SrHg2In\" OR \"Hg2InSr\""
+      ],
+      "search_log": [
+        {
+          "query": "\"SrInHg2\" OR \"SrHg2In\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"SrInHg2\" OR \"SrHg2In\" OR \"Hg2InSr\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.31,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 81,
+        "tc_pred": 1.31,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 31
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-79064",
+      "formula": "NaTl2Sb",
+      "model": "Storm",
+      "rank_at_audit": 82,
+      "composition": {
+        "Na": 1,
+        "Tl": 2,
+        "Sb": 1
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"NaTl2Sb\" OR \"NaSbTl2\" superconductivity",
+        "\"NaTl2Sb\" OR \"NaSbTl2\" OR \"Tl2SbNa\""
+      ],
+      "search_log": [
+        {
+          "query": "\"NaTl2Sb\" OR \"NaSbTl2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"NaTl2Sb\" OR \"NaSbTl2\" OR \"Tl2SbNa\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.3,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 82,
+        "tc_pred": 1.3,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 32
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-103512",
+      "formula": "Ca2ZnGa3",
+      "model": "Storm",
+      "rank_at_audit": 83,
+      "composition": {
+        "Ca": 2,
+        "Zn": 1,
+        "Ga": 3
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"Ca2ZnGa3\" OR \"Ca2Ga3Zn\" superconductivity",
+        "\"Ca2ZnGa3\" OR \"Ca2Ga3Zn\" OR \"ZnCa2Ga3\""
+      ],
+      "search_log": [
+        {
+          "query": "\"Ca2ZnGa3\" OR \"Ca2Ga3Zn\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"Ca2ZnGa3\" OR \"Ca2Ga3Zn\" OR \"ZnCa2Ga3\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.3,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 83,
+        "tc_pred": 1.3,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 33
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-106568",
+      "formula": "NaTl2Sn",
+      "model": "Storm",
+      "rank_at_audit": 84,
+      "composition": {
+        "Na": 1,
+        "Tl": 2,
+        "Sn": 1
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"NaTl2Sn\" OR \"NaSnTl2\" superconductivity",
+        "\"NaTl2Sn\" OR \"NaSnTl2\" OR \"SnTl2Na\""
+      ],
+      "search_log": [
+        {
+          "query": "\"NaTl2Sn\" OR \"NaSnTl2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"NaTl2Sn\" OR \"NaSnTl2\" OR \"SnTl2Na\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.3,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 84,
+        "tc_pred": 1.3,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 34
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-160998",
+      "formula": "GaAgSn",
+      "model": "Storm",
+      "rank_at_audit": 85,
+      "composition": {
+        "Ga": 1,
+        "Ag": 1,
+        "Sn": 1
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"GaAgSn\" OR \"AgGaSn\" superconductivity",
+        "\"GaAgSn\" OR \"AgGaSn\" OR \"SnGaAg\" compound"
+      ],
+      "search_log": [
+        {
+          "query": "\"GaAgSn\" OR \"AgGaSn\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"GaAgSn\" OR \"AgGaSn\" OR \"SnGaAg\" compound",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.28,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 85,
+        "tc_pred": 1.28,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 35
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-110109",
+      "formula": "Li2ZnPb",
+      "model": "Storm",
+      "rank_at_audit": 86,
+      "track_ranks": {
+        "storm_in_domain": 36
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "Li2ZnPb",
+        "Li2PbZn",
+        "ZnLi2Pb",
+        "ZnPbLi2",
+        "PbLi2Zn",
+        "PbZnLi2"
+      ],
+      "search_log": [
+        {
+          "query": "\"Li2ZnPb\" OR \"Li2PbZn\" OR \"ZnLi2Pb\" OR \"ZnPbLi2\" OR \"PbLi2Zn\" OR \"PbZnLi2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "\"Li2ZnPb\" OR \"Li2PbZn\" lithium zinc lead compound",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "\"Li2ZnPb\" crystal",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "lithium zinc lead ternary intermetallic superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        },
+        {
+          "query": "\"Lithium\" \"Zink\" \"Zinn\" \"Blei\" intermetallischen",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        },
+        {
+          "query": "\"Topological Dirac Semimetallic Phase\" \"Li\" Zn Cd Sn Pb",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        },
+        {
+          "query": "Open identified prior Heusler study and official thesis page",
+          "source_urls": [
+            "https://pubs.acs.org/doi/10.1021/acsomega.5c01191",
+            "https://pubs.acs.org/acsodf/article/10/47/56973/3659296/Topological-Dirac-Semimetallic-Phase-in-Heusler",
+            "https://ethesys.lis.nsysu.edu.tw/ETD-db/ETD-search-c/view_etd?URN=etd-0023125-153019"
+          ],
+          "access_status": "official-author-institutional-page-opened-publisher-full-text-403",
+          "notes": "The official thesis abstract and contents were inspected; both ACS publisher entrances returned 403. No Tc measurement or prediction was inferred."
+        },
+        {
+          "query": "Open original German Li-Zn-Sn/Pb phase-analysis report",
+          "source_urls": [
+            "https://www.researchgate.net/publication/276416239_Zur_Kenntnis_intermetallischer_Phasen_des_Lithiums_mit_Zink_bzw_Cadmium_Indium_sowie_Zinn_oder_Blei_A_Contribution_to_the_Knowledge_of_Ternary_Intermetallic_Lithium-Phases_with_Zinc_resp_Cadmium_and_I",
+            "https://www.degruyterbrill.com/document/doi/10.1515/znb-1978-0123/html"
+          ],
+          "access_status": "publisher-reprint-full-text-opened-direct-publisher-unavailable",
+          "notes": "Pobitschka and Schuster, Z. Naturforsch.33b,115-117 (1978), DOI10.1515/znb-1978-0123: full original reprint inspected. The study discusses nonstoichiometric cubic phase regions, not a superconductivity experiment; no exact ordered candidate/sample equivalence was asserted."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://ethesys.lis.nsysu.edu.tw/ETD-db/ETD-search-c/view_etd?URN=etd-0023125-153019",
+          "cite": "F. Waheed, Topological Dirac semimetallic phase in Heusler-type Li2YZ compounds, National Sun Yat-sen University master's thesis (2025), official abstract and contents.",
+          "doi": null,
+          "evidence_scope": "Official page opened; Li2ZnPb is listed in Appendix A-5, p.40. This is a prior electronic/topological calculation, not a superconductivity result."
+        }
+      ],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": null,
+        "phase": "Prior calculations discuss F-43m (216) and Fm-3m (225); candidate coordinates not matched"
+      },
+      "limitations": "Prior structural/electronic calculations were located. Neither topological band crossings nor phonon stability establishes superconductivity or its absence. Experimental synthesis and an exact JARVIS phase match were not independently established here.",
+      "checks_action": "Retain unknown; add neither a negative superconductivity training label nor an exact-candidate prior-claim exclusion.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.24,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "有结构或其他物性文献，超导结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 86,
+        "tc_pred": 1.24,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 36
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-37625",
+      "formula": "SrTlHg2",
+      "model": "Storm",
+      "rank_at_audit": 87,
+      "track_ranks": {
+        "storm_in_domain": 37
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "SrTlHg2",
+        "SrHg2Tl",
+        "TlSrHg2",
+        "TlHg2Sr",
+        "Hg2SrTl",
+        "Hg2TlSr"
+      ],
+      "search_log": [
+        {
+          "query": "\"SrTlHg2\" OR \"SrHg2Tl\" OR \"TlSrHg2\" OR \"TlHg2Sr\" OR \"Hg2SrTl\" OR \"Hg2TlSr\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "\"SrTlHg2\" OR \"SrHg2Tl\" strontium thallium mercury",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "strontium thallium mercury ternary intermetallic superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        },
+        {
+          "query": "Open close Sr-Hg experimental hit and check elemental scope",
+          "source_urls": [
+            "https://www.frontiersin.org/journals/materials/articles/10.3389/fmats.2024.1470878/full"
+          ],
+          "access_status": "primary-full-text-opened-near-match-rejected",
+          "notes": "Original paper examines binary strontium mercurides; it contains no Tl in the tested compounds. SrHg2/SrHg11 results cannot be assigned to ternary SrTlHg2."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.frontiersin.org/journals/materials/articles/10.3389/fmats.2024.1470878/full",
+          "cite": "R. Nixon et al., Superconductivity in mercurides of strontium, Frontiers in Materials11,1470878(2024), Abstract and Materials and methods.",
+          "doi": "10.3389/fmats.2024.1470878",
+          "evidence_scope": "Opened primary full text; tested phases are binary Sr-Hg compounds, not SrTlHg2. No positive or negative candidate claim is supported."
+        }
+      ],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": null,
+        "phase": null
+      },
+      "limitations": "Bounded formula, alias and chemical-system search. No result is proof of novelty or nonsuperconductivity. Atomic coordinates of the JARVIS candidate were not independently matched to an experimental phase; unknown pressure, field and temperature are not replaced by zero.",
+      "checks_action": "Retain unknown; add neither a negative superconductivity training label nor an exact-candidate prior-claim exclusion.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.23,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 87,
+        "tc_pred": 1.23,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 37
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-158786",
+      "formula": "BaTl2In",
+      "model": "Storm",
+      "rank_at_audit": 88,
+      "track_ranks": {
+        "storm_in_domain": 38
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "BaTl2In",
+        "BaInTl2",
+        "Tl2BaIn",
+        "Tl2InBa",
+        "InBaTl2",
+        "InTl2Ba"
+      ],
+      "search_log": [
+        {
+          "query": "\"BaTl2In\" OR \"BaInTl2\" OR \"Tl2BaIn\" OR \"Tl2InBa\" OR \"InBaTl2\" OR \"InTl2Ba\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "\"BaTl2In\" OR \"BaInTl2\" barium thallium indium",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "barium thallium indium ternary intermetallic superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": null,
+        "phase": null
+      },
+      "limitations": "Bounded formula, alias and chemical-system search. No result is proof of novelty or nonsuperconductivity. Atomic coordinates of the JARVIS candidate were not independently matched to an experimental phase; unknown pressure, field and temperature are not replaced by zero.",
+      "checks_action": "Retain unknown; add neither a negative superconductivity training label nor an exact-candidate prior-claim exclusion.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.23,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 88,
+        "tc_pred": 1.23,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 38
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-109020",
+      "formula": "Ba2MgTl",
+      "model": "Storm",
+      "rank_at_audit": 89,
+      "track_ranks": {
+        "storm_in_domain": 39
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "Ba2MgTl",
+        "Ba2TlMg",
+        "MgBa2Tl",
+        "MgTlBa2",
+        "TlBa2Mg",
+        "TlMgBa2"
+      ],
+      "search_log": [
+        {
+          "query": "\"Ba2MgTl\" OR \"Ba2TlMg\" OR \"MgBa2Tl\" OR \"MgTlBa2\" OR \"TlBa2Mg\" OR \"TlMgBa2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "\"Ba2MgTl\" OR \"Ba2TlMg\" barium magnesium thallium",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "barium magnesium thallium ternary intermetallic superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": null,
+        "phase": null
+      },
+      "limitations": "Bounded formula, alias and chemical-system search. No result is proof of novelty or nonsuperconductivity. Atomic coordinates of the JARVIS candidate were not independently matched to an experimental phase; unknown pressure, field and temperature are not replaced by zero.",
+      "checks_action": "Retain unknown; add neither a negative superconductivity training label nor an exact-candidate prior-claim exclusion.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.22,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 89,
+        "tc_pred": 1.22,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 39
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-79928",
+      "formula": "NaLaTl2",
+      "model": "Storm",
+      "rank_at_audit": 90,
+      "track_ranks": {
+        "storm_in_domain": 40
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "NaLaTl2",
+        "NaTl2La",
+        "LaNaTl2",
+        "LaTl2Na",
+        "Tl2NaLa",
+        "Tl2LaNa"
+      ],
+      "search_log": [
+        {
+          "query": "\"NaLaTl2\" OR \"NaTl2La\" OR \"LaNaTl2\" OR \"LaTl2Na\" OR \"Tl2NaLa\" OR \"Tl2LaNa\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "\"NaLaTl2\" OR \"LaNaTl2\" sodium lanthanum thallium",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "sodium lanthanum thallium ternary intermetallic superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": null,
+        "phase": null
+      },
+      "limitations": "Bounded formula, alias and chemical-system search. No result is proof of novelty or nonsuperconductivity. Atomic coordinates of the JARVIS candidate were not independently matched to an experimental phase; unknown pressure, field and temperature are not replaced by zero.",
+      "checks_action": "Retain unknown; add neither a negative superconductivity training label nor an exact-candidate prior-claim exclusion.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.22,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 90,
+        "tc_pred": 1.22,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 40
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-182811",
+      "formula": "CdSnPd",
+      "model": "Storm",
+      "rank_at_audit": 91,
+      "track_ranks": {
+        "storm_in_domain": 41
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "CdSnPd",
+        "CdPdSn",
+        "SnCdPd",
+        "SnPdCd",
+        "PdCdSn",
+        "PdSnCd"
+      ],
+      "search_log": [
+        {
+          "query": "\"CdSnPd\" OR \"CdPdSn\" OR \"SnCdPd\" OR \"SnPdCd\" OR \"PdCdSn\" OR \"PdSnCd\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "\"CdSnPd\" OR \"PdCdSn\" cadmium tin palladium",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "cadmium tin palladium ternary intermetallic superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": null,
+        "phase": null
+      },
+      "limitations": "Bounded formula, alias and chemical-system search. No result is proof of novelty or nonsuperconductivity. Atomic coordinates of the JARVIS candidate were not independently matched to an experimental phase; unknown pressure, field and temperature are not replaced by zero.",
+      "checks_action": "Retain unknown; add neither a negative superconductivity training label nor an exact-candidate prior-claim exclusion.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.19,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 91,
+        "tc_pred": 1.19,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 41
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-181335",
+      "formula": "Ca2GaGe",
+      "model": "Storm",
+      "rank_at_audit": 92,
+      "track_ranks": {
+        "storm_in_domain": 42
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "Ca2GaGe",
+        "Ca2GeGa",
+        "GaCa2Ge",
+        "GaGeCa2",
+        "GeCa2Ga",
+        "GeGaCa2"
+      ],
+      "search_log": [
+        {
+          "query": "\"Ca2GaGe\" OR \"Ca2GeGa\" OR \"GaCa2Ge\" OR \"GaGeCa2\" OR \"GeCa2Ga\" OR \"GeGaCa2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "\"Ca2GaGe\" OR \"Ca2GeGa\" calcium gallium germanium",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "calcium gallium germanium ternary intermetallic superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        },
+        {
+          "query": "Open Ca-Ga-Ge superconductivity-family hit and check stoichiometry",
+          "source_urls": [
+            "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.80.064514"
+          ],
+          "access_status": "primary-abstract-opened-full-text-authorization-required",
+          "notes": "The abstract lists CaGaGe in an equiatomic MAB series. CaGaGe(1:1:1) is not Ca2GaGe(2:1:1), so its structural or magnetic results were not transferred."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.80.064514",
+          "cite": "M. J. Evans et al., Structural properties and superconductivity in the ternary intermetallic compounds MAB, Physical Review B80,064514(2009), Abstract.",
+          "doi": "10.1103/PhysRevB.80.064514",
+          "evidence_scope": "Opened original abstract; CaGaGe is a different stoichiometry from Ca2GaGe. No exact-candidate superconductivity test was established."
+        }
+      ],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": null,
+        "phase": null
+      },
+      "limitations": "Bounded formula, alias and chemical-system search. No result is proof of novelty or nonsuperconductivity. Atomic coordinates of the JARVIS candidate were not independently matched to an experimental phase; unknown pressure, field and temperature are not replaced by zero.",
+      "checks_action": "Retain unknown; add neither a negative superconductivity training label nor an exact-candidate prior-claim exclusion.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.19,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 92,
+        "tc_pred": 1.19,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 42
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-179129",
+      "formula": "BaIn2Pb",
+      "model": "Storm",
+      "rank_at_audit": 93,
+      "track_ranks": {
+        "storm_in_domain": 43
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "BaIn2Pb",
+        "BaPbIn2",
+        "In2BaPb",
+        "In2PbBa",
+        "PbBaIn2",
+        "PbIn2Ba"
+      ],
+      "search_log": [
+        {
+          "query": "\"BaIn2Pb\" OR \"BaPbIn2\" OR \"In2BaPb\" OR \"In2PbBa\" OR \"PbBaIn2\" OR \"PbIn2Ba\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "\"BaIn2Pb\" OR \"BaPbIn2\" barium indium lead",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for this exact formula was established. Related structures or different stoichiometries do not supply a negative test."
+        },
+        {
+          "query": "barium indium lead ternary intermetallic superconductivity",
+          "source_urls": [],
+          "access_status": "search-completed-no-exact-usable-superconductivity-report",
+          "notes": "No source-verified superconductivity measurement or prior Tc prediction for the exact candidate was established from these returned results."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "tmin_k": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "sample_form": null,
+        "phase": null
+      },
+      "limitations": "Bounded formula, alias and chemical-system search. No result is proof of novelty or nonsuperconductivity. Atomic coordinates of the JARVIS candidate were not independently matched to an experimental phase; unknown pressure, field and temperature are not replaced by zero.",
+      "checks_action": "Retain unknown; add neither a negative superconductivity training label nor an exact-candidate prior-claim exclusion.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.18,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 93,
+        "tc_pred": 1.18,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 43
+        }
+      }
+    }
+  ]
+}

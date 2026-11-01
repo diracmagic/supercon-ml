@@ -1230,6 +1230,12 @@ def run() -> None:
         "scikit_learn": sklearn.__version__, "minutes": round((time.time() - t_start) / 60, 1), "candidates": cands,
         "outside": int(sum(1 for c in cands if c.get("outside"))),
     }
+    from literature_audit import attach_audits, load_audit
+    literature_records, literature_index = load_audit()
+    out["literature_audit"] = {
+        "scope": literature_index["scope"], "searched_on": literature_index["searched_on"],
+        "storm": attach_audits(cands, literature_records),
+        "hurricane": attach_audits(hcands, literature_records)}
     results, progress = P.RESULTS, P.PROGRESS
     if SMOKE:
         tmp = Path(tempfile.mkdtemp(prefix="screen-smoke-"))
@@ -1274,7 +1280,7 @@ def update_progress(out: dict, progress: Path) -> None:
                   "width_k": out["storm"]["width_k"], "oof_coverage": out["storm"]["oof_coverage"]},
         "novelty": {"level": NOVEL_LEVEL, "outside": out["outside"], "about": NOVELTY_ABOUT}, "check": out["storm"].get("check"),
         "candidates": c, "tracks": out.get("tracks", {}), "phonon_checks": out.get("phonon_checks"),
-        "track_about": out.get("track_about"),
+        "track_about": out.get("track_about"), "literature_audit": out.get("literature_audit"),
         "hurricane": {
             "model": hu["model"], "design": hd["id"], "two_part": hd.get("two_part"),
             "pool": {"source": hu["pool"]["source"], "what": "compounds with no superconductivity record that Radar sends to Hurricane",

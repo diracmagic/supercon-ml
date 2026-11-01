@@ -77,6 +77,59 @@ test('negative literature checks describe the reported temperature and condition
   assert.doesNotMatch(candidates.checkText({ kind: 'experiment', superconducts: false }), /not superconducting|never/);
 });
 
+test('literature statuses preserve unknown outcomes and a missing record stays unsearched', () => {
+  assert.match(candidates.literatureText({ id: 'missing' }), /Literature searched: unsearched/);
+  for (const status of ['structure-only', 'needs-full-text', 'not-found-in-this-search']) {
+    const c = { literature_audit: { status, searched_on: '2026-10-31' } };
+    assert.match(candidates.literatureText(c), /superconductivity unknown/);
+    assert.match(candidates.literatureText(c), /2026-10-31/);
+    assert.doesNotMatch(candidates.literatureText(c), /never|no one|not superconducting|confirmed/);
+  }
+  assert.match(candidates.literatureText({ literature_audit: { status: 'reported-nonsuperconducting' } }), /source’s stated conditions; other conditions remain unknown/);
+  assert.match(candidates.literatureLines({ literature_audit: { status: 'structure-only' } }).join(' '), /separate from a matching DFT or experimental check and does not confirm Tc/);
+});
+
+test('literature lookup uses exact ids and gives inline records precedence over the static table', () => {
+  const previous = globalThis.SuperconLiterature;
+  try {
+    const stored = { status: 'structure-only' }, inline = { status: 'needs-full-text' };
+    globalThis.SuperconLiterature = { by_id: { 'JVASP-1': stored } };
+    assert.equal(candidates.literatureFor({ id: 'JVASP-1' }), stored);
+    assert.equal(candidates.literatureFor({ id: 'JVASP-1', literature_audit: inline }), inline);
+    for (const c of [{ id: 'JVASP-10' }, { formula: 'JVASP-1' }, { id: 'toString' }, { id: '__proto__' }]) {
+      assert.equal(candidates.literatureFor(c), null);
+    }
+  } finally { globalThis.SuperconLiterature = previous; }
+});
+
+test('literature sources accept only explicit HTTPS links without credentials or control characters', () => {
+  const urls = ['https://doi.org/10.1234/example', 'javascript:alert(1)', 'data:text/html,x', 'http://example.test',
+    '//example.test', '/relative', 'https://user:password@example.test', 'https://example.test/\nx', 'not a URL'];
+  const c = { literature_audit: { status: 'structure-only', sources: urls.map(url => ({ url, cite: '<img src=x onerror=alert(1)>' })) } };
+  assert.deepEqual(candidates.literatureSources(c), [{ url: urls[0], cite: '<img src=x onerror=alert(1)>' }]);
+});
+
+test('literature findings and citations render as text nodes in candidate remarks', () => {
+  const malicious = '<img src=x onerror=alert(1)> [unsafe](javascript:alert(1))';
+  const makeElement = (tag, attrs, ...children) => ({ tag, attrs: attrs || {}, children,
+    appendChild(node) { this.children.push(node); }, querySelectorAll() { return []; }, addEventListener() {} });
+  const context = { candidateData: candidates, CHECK_LABEL: {}, candState: { notesOpen: false },
+    h: makeElement, cText: (value, max) => String(value).slice(0, max),
+    richText: (el, value) => { assert.equal(String(value).includes(malicious), false, 'Audit text must not enter the rich-text parser'); el.text = value; return el; } };
+  const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
+  vm.runInNewContext(source + '\nglobalThis.renderRemarks = candRemarksEl;', context);
+  const box = context.renderRemarks({ id: 'JVASP-1', literature_audit: { status: 'not-found-in-this-search',
+    conclusion: malicious, sources: [{ url: 'https://doi.org/10.1234/example', cite: malicious }, { url: 'javascript:alert(1)' }] } }, false, null, true);
+  const nodes = [];
+  const visit = node => { if (node && typeof node === 'object') { nodes.push(node); node.children.forEach(visit); } };
+  visit(box);
+  assert.ok(nodes.some(node => node.tag === 'li' && node.attrs.text === 'Search finding: ' + malicious));
+  const links = nodes.filter(node => node.tag === 'a');
+  assert.equal(links.length, 1);
+  assert.equal(links[0].attrs.href, 'https://doi.org/10.1234/example');
+  assert.equal(links[0].attrs.text, malicious);
+});
+
 test('probability spread states model disagreement and distinguishes same-fold seeds', () => {
   const c = { p_lo: 0.1, p_hi: 0.3, p_spread_method: 'same-held-out-fold-seeds' };
   assert.match(candidates.disagreement(c), /same held-out fold excluded/);
@@ -84,6 +137,31 @@ test('probability spread states model disagreement and distinguishes same-fold s
   assert.doesNotMatch(candidates.disagreement({ p_lo: 0.1, p_hi: 0.3 }), /same held-out fold/);
   assert.match(candidates.disagreement({ ...c, p_spread_method: 'same-background-fold-training-fold-ensemble' }),
     /Five training-fold models, all excluding this candidate’s background fold/);
+});
+
+test('ensemble ranking describes mean joint predictions without replacing published scores', () => {
+  const block = { design: { jackknife: { method: 'same-background-fold-training-fold-ensemble' } } };
+  assert.match(candidates.rankingText(block), /mean of those joint predictions/);
+  assert.match(candidates.rankingText(block), /multiplying the two displayed means can give a different value/);
+  assert.doesNotMatch(candidates.rankingText({}), /Each ensemble member/);
+  const published = [{ id: 'joint-first', tc: 1.64 }, { id: 'second', tc: 1.06 }];
+  assert.deepEqual(ids(candidates.trackRows(published, { storm_exploration: ['joint-first', 'second'] }, 'storm_exploration')), ['joint-first', 'second']);
+});
+
+test('phonon overview reads the current plural field, retains legacy support and reports actual outcomes', () => {
+  const materials = [{ status: 'completed', verdict: 'imaginary_modes_sampled' },
+    { status: 'completed', verdict: 'no_significant_imaginary_modes_sampled' }, { status: 'inconclusive' }];
+  const summary = { enabled: true, selected: 3, not_selected: 47, materials };
+  const lines = candidates.phononSummaryLines({ phonon_checks: summary });
+  assert.match(lines.join(' '), /3 candidates selected; 47 eligible candidates not selected/);
+  assert.match(lines.join(' '), /significant imaginary modes detected/);
+  assert.match(lines.join(' '), /no significant imaginary modes detected among the sampled q points/);
+  assert.match(lines.join(' '), /inconclusive; not assessed/);
+  assert.match(lines.join(' '), /cannot replace DFT/);
+  assert.deepEqual(candidates.phononSummaryLines({ phonon_check: summary }), lines);
+  assert.deepEqual(candidates.phononSummaryLines({ phonon_checks: summary, phonon_check: { enabled: false } }), lines);
+  assert.match(candidates.phononSummaryLines({ phonon_checks: { enabled: false } })[0], /Not requested/);
+  assert.deepEqual(candidates.phononSummaryLines(null), []);
 });
 
 test('phonon details retain sampled energies and settings without claiming full stability', () => {
