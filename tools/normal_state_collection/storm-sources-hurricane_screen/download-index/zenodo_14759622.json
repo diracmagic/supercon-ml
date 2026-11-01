@@ -1,0 +1,72 @@
+{
+  "dataset_doi": "10.5281/zenodo.14759622",
+  "title": "Enhancement of superconductivity on thin film of Sn under high pressure",
+  "publication_date": "2025-01-29",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "metadata": {
+    "url": "https://zenodo.org/api/records/14759622",
+    "local_path": "zenodo-14759622/repository-metadata.json",
+    "sha256": "b961a584e1471989efe0e3e4c9aca999c271180a382a9f9d7d0d2e978e3e17df"
+  },
+  "files": [
+    {
+      "url": "https://zenodo.org/api/records/14759622/files/fig2.xlsx/content",
+      "local_path": "zenodo-14759622/original/fig2.xlsx",
+      "repository_checksum": "md5:796d1bdf5627dc6d85ec519e983efb41",
+      "bytes": 19385,
+      "sha256": "179d999a3a51db795a4bc4a7c587134291e25dad7d8a75e51acad420cd77d772"
+    },
+    {
+      "url": "https://zenodo.org/api/records/14759622/files/fig6.xlsx/content",
+      "local_path": "zenodo-14759622/original/fig6.xlsx",
+      "repository_checksum": "md5:5c47c112f13e17571c01f677640687b4",
+      "bytes": 37330,
+      "sha256": "2980f144211832b69c8876e4dd85582d18d4e946cbe1f19270c053b46116e504"
+    },
+    {
+      "url": "https://zenodo.org/api/records/14759622/files/fig7.xlsx/content",
+      "local_path": "zenodo-14759622/original/fig7.xlsx",
+      "repository_checksum": "md5:da169cb03200a8c6a9a93bdd36f044e7",
+      "bytes": 9888,
+      "sha256": "6a5c2ed1d1639b40eccc42303a46a93dfeb7a9e66fc653c564b0897d8b1404a0"
+    },
+    {
+      "url": "https://zenodo.org/api/records/14759622/files/fig1.xlsx/content",
+      "local_path": "zenodo-14759622/original/fig1.xlsx",
+      "repository_checksum": "md5:04cb4d037b43c1d624791f96e7370a37",
+      "bytes": 18428,
+      "sha256": "261a3be9100894c96481421e75ec67d0c879040178d18fec189e585723c6b1d8"
+    },
+    {
+      "url": "https://zenodo.org/api/records/14759622/files/fig3.xlsx/content",
+      "local_path": "zenodo-14759622/original/fig3.xlsx",
+      "repository_checksum": "md5:c429fd60a375a2502f6a46211fb0ed27",
+      "bytes": 82133,
+      "sha256": "b11343c4762d8efe8b2a41dc5a2c0a7b0d0c137cf77ef7ee1372b530af30a9c6"
+    },
+    {
+      "url": "https://zenodo.org/api/records/14759622/files/fig4.xlsx/content",
+      "local_path": "zenodo-14759622/original/fig4.xlsx",
+      "repository_checksum": "md5:4c043771cb935f375fae8af6b78c7369",
+      "bytes": 131800,
+      "sha256": "1bc62f069728612a1587cffd672a2137ad9f93ff3296ee378837ca7bc4fdfc41"
+    },
+    {
+      "url": "https://zenodo.org/api/records/14759622/files/fig5.xlsx/content",
+      "local_path": "zenodo-14759622/original/fig5.xlsx",
+      "repository_checksum": "md5:3a5ff9e1561e475c7a8b9d3045e4fa73",
+      "bytes": 21453,
+      "sha256": "4bed10f13929dbbdb3f5000cce6684548de6e009c01c6a51f436a168a41e5ed9"
+    },
+    {
+      "url": "https://zenodo.org/api/records/14759622/files/fig10.xlsx/content",
+      "local_path": "zenodo-14759622/original/fig10.xlsx",
+      "repository_checksum": "md5:b2db62e1edf3f153420c496802f0ddcc",
+      "bytes": 33262,
+      "sha256": "5163d52ddef7477679c5dda6307a3ac74589c90a29d8b898065ab82304be38d7"
+    }
+  ],
+  "capture_note": "Later source addition, absent from the early download manifest; restored from retained repository metadata."
+}

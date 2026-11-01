@@ -1,0 +1,185 @@
+{
+  "dataset_doi": "10.5281/zenodo.15172735",
+  "title": "Characterisation of MgB2 nanowire detector",
+  "publication_date": "2025-04-08",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "metadata": {
+    "url": "https://zenodo.org/api/records/15172735",
+    "local_path": "zenodo-15172735/repository-metadata.json",
+    "bytes": 7530,
+    "sha256": "1b74ffeae3940f87d0191ea75a007d7fd08e75604ef68d6e61c9ce7059ab4fb3",
+    "repository_md5_checked": false
+  },
+  "files": [
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/transition_temperature.png/content",
+      "local_path": "zenodo-15172735/original/transition_temperature.png",
+      "bytes": 81808,
+      "sha256": "71efdaa28a984a3f79a10e56ff3d98537ce0d4f52d1a0374130de4221c37a695",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/optical_pulse_count_rate.png/content",
+      "local_path": "zenodo-15172735/original/optical_pulse_count_rate.png",
+      "bytes": 110706,
+      "sha256": "cd8c98e04f642c0932f2852f66d26549c318571542c567118fbff303617e6132",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/voltage_pulse_data.csv/content",
+      "local_path": "zenodo-15172735/original/voltage_pulse_data.csv",
+      "bytes": 25228,
+      "sha256": "1e337d8aca7fb24bb3b785089081004bc6a81fd41e82e07cc2cfb35184c8999a",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/dark_counts_data.zip/content",
+      "local_path": "zenodo-15172735/original/dark_counts_data.zip",
+      "bytes": 15512,
+      "sha256": "d759949005b1ce137e55be0cf4c82f32ad873c2e588151480c12d96741856f58",
+      "repository_md5_checked": true,
+      "members": [
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=12.3.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=12.3.csv",
+          "bytes": 1152,
+          "sha256": "49e99e5d6e5fb3e3fd83672086be2b547d3229bacb6005e984759af649bc8853"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=5.2.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=5.2.csv",
+          "bytes": 351,
+          "sha256": "1f4add97d65a33f86f4dab50dde70ddc1f4f25f081194f668ada2f95f8de8d86"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=10.3.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=10.3.csv",
+          "bytes": 1181,
+          "sha256": "15880a033e6d289c99c1a6e5f530745fc336e22ea62aa420d084c711667ba63a"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=7.1.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=7.1.csv",
+          "bytes": 594,
+          "sha256": "3fab46d0d1e649605dd0129ca578ce394d90400b38736d50a0d2eefd53f9aba4"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=5.7.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=5.7.csv",
+          "bytes": 302,
+          "sha256": "0377828eb2fdbf90d3173d4608f5f841b33a38e59e5678f46a74d3c6cda002e2"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=3.1.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=3.1.csv",
+          "bytes": 161,
+          "sha256": "1d44e2d68417f19f5c9f276a1e2e3c103e6b4d387f26cdefaee13fdc5d4a9525"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=7.6.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=7.6.csv",
+          "bytes": 762,
+          "sha256": "e2353782d4f6138b947f5796b1f639a2d6681fc0ac590cafbba94f696c045825"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=3.2.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=3.2.csv",
+          "bytes": 202,
+          "sha256": "b8b787b0875eb440ff14f807e2e4fffda9b542aeedbe6c444c5f608da6a360e4"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=3.3.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=3.3.csv",
+          "bytes": 247,
+          "sha256": "ae54992e872209ca06950ecaf3fe0321eb66010bcee614c040e70d1aeb91bd80"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=17.4.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=17.4.csv",
+          "bytes": 582,
+          "sha256": "3c8c84c038d368495876258379036c10554e38a3a2b8ef17359dbaf5b2c225f5"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=4.3.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=4.3.csv",
+          "bytes": 307,
+          "sha256": "43424e56c8634bfc929436d5416e943e755aee00a8ce3ff002417f07cc38303d"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=6.2.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=6.2.csv",
+          "bytes": 425,
+          "sha256": "23333328971ff0a134f9b46effb69ed65bc91f6f7ed19cc7454d7b1d59b8ef38"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=6.6.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=6.6.csv",
+          "bytes": 551,
+          "sha256": "cd63ad4251f9607651aaf25ba5bfd04ffca09257a0636a0d5ddd1993b2896152"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=15.2.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=15.2.csv",
+          "bytes": 765,
+          "sha256": "631e02a00842fbae6777c074d1bcd27e80f1ee18ec3c618cce87bd12e1fcb153"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=8.2.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=8.2.csv",
+          "bytes": 759,
+          "sha256": "04cc7942865863dea5210bb0d44238bcab0a225353c38c339d29ad2a9900ce55"
+        },
+        {
+          "archive_member": "dark_counts_data/dark_counts_data_T=9.3.csv",
+          "local_path": "zenodo-15172735/extracted/dark_counts_data/dark_counts_data_T=9.3.csv",
+          "bytes": 792,
+          "sha256": "edc874e222b439da1ede53d2d5aa90fa5c68b4562a6d3c2cbff29037caaf0276"
+        }
+      ]
+    },
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/voltage_pulse.png/content",
+      "local_path": "zenodo-15172735/original/voltage_pulse.png",
+      "bytes": 126754,
+      "sha256": "e7e4286453ff94153807c7eca17de9ca156121c9a602f1b07f34c7471d4559ca",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/transition_temperature_data.csv/content",
+      "local_path": "zenodo-15172735/original/transition_temperature_data.csv",
+      "bytes": 1383285,
+      "sha256": "2868cf17fde42b329e21362f52c289050a11576c9d169923e9f61b70ec260cc2",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/optical_pulse_count_rate_data.csv/content",
+      "local_path": "zenodo-15172735/original/optical_pulse_count_rate_data.csv",
+      "bytes": 585,
+      "sha256": "6af995207616ce765911bd5f655766c3e3953ff8e8f12be85fd57d90c841f0c6",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/dataloading_plotting.py/content",
+      "local_path": "zenodo-15172735/original/dataloading_plotting.py",
+      "bytes": 4276,
+      "sha256": "2039bf77ccf22fd7feab8ef4fe061905cf31d04abb0a2b493d040685879f8b11",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/dark_counts.png/content",
+      "local_path": "zenodo-15172735/original/dark_counts.png",
+      "bytes": 516085,
+      "sha256": "e099159a7af94251a163801eb2457fa0a83cc7bd3cf07427aca324aa46098274",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/15172735/files/README.txt/content",
+      "local_path": "zenodo-15172735/original/README.txt",
+      "bytes": 2140,
+      "sha256": "fc52d0df2704bffa05d8c47630e2f06c877eab213a0f2357045f9493ea2cdffe",
+      "repository_md5_checked": true
+    }
+  ]
+}

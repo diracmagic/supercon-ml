@@ -1,0 +1,776 @@
+{
+  "sources": [
+    {
+      "source_id": "transport:nbs2-2021:377322d714fae57b",
+      "raw_path": "storm-sources-hurricane_screen/zenodo-5645160/original/Figure 3b-Long range R-T-2H-2H+3R-3R.csv",
+      "sha256": "377322d714fae57bb7fa360eda2077872729f01213d9e4795a4e82c08c40411a",
+      "reference": {
+        "doi": "10.1021/acsnano.1c07956",
+        "url": "https://doi.org/10.5281/zenodo.5645160",
+        "publication_date": "2021-11-10",
+        "locator": "Fig.3b CSV column pair 1",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8614232/",
+        "dataset_doi": "10.5281/zenodo.5645160",
+        "citation": "Wang et al. Superconducting 2D NbS2 Grown Epitaxially by Chemical Vapor Deposition. ACS Nano 15,18403–18410 (2021)."
+      },
+      "license": "CC-BY-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "CSV data license differs from the paper's CC-BY-NC-ND license.",
+        "Nominal NbS2; sulfur defects are reported, no exact per-device stoichiometry inferred."
+      ]
+    },
+    {
+      "source_id": "transport:nbs2-2021:b10bd5a5aca62124",
+      "raw_path": "storm-sources-hurricane_screen/zenodo-5645160/original/Figure 3b inset-Short range R-T-2H-2H+3R-3R.csv",
+      "sha256": "b10bd5a5aca62124d61f961db221f1e2beffdc572c5f86023ae36dc24a7bd097",
+      "reference": {
+        "doi": "10.1021/acsnano.1c07956",
+        "url": "https://doi.org/10.5281/zenodo.5645160",
+        "publication_date": "2021-11-10",
+        "locator": "Fig.3b inset CSV column pair 1",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8614232/",
+        "dataset_doi": "10.5281/zenodo.5645160",
+        "citation": "Wang et al. Superconducting 2D NbS2 Grown Epitaxially by Chemical Vapor Deposition. ACS Nano 15,18403–18410 (2021)."
+      },
+      "license": "CC-BY-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "CSV data license differs from the paper's CC-BY-NC-ND license.",
+        "Nominal NbS2; sulfur defects are reported, no exact per-device stoichiometry inferred."
+      ]
+    },
+    {
+      "source_id": "transport:mgb2-2025:2868cf17fde42b32",
+      "raw_path": "storm-sources-hurricane_screen/zenodo-15172735/original/transition_temperature_data.csv",
+      "sha256": "2868cf17fde42b329e21362f52c289050a11576c9d169923e9f61b70ec260cc2",
+      "reference": {
+        "doi": "10.1038/s44310-025-00084-3",
+        "url": "https://doi.org/10.5281/zenodo.15172735",
+        "publication_date": "2025-10-01",
+        "locator": "Supplementary Fig.1a; dataset README + transition_temperature_data.csv columns 1,2; Methods / Nanowire detector characteristics",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://www.nature.com/articles/s44310-025-00084-3",
+        "dataset_doi": "10.5281/zenodo.15172735",
+        "citation": "Sidorova et al. Quantum light detection in high-temperature superconducting nanowires. npj Nanophotonics 2,38 (2025)."
+      },
+      "license": "CC-BY-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Device includes a 100 nm-wide nanowire and series 1 micrometre-wide inductor; total device resistance is not material resistivity.",
+        "Two segments of one device, not two materials; preserve overlap without counting as independent specimens."
+      ]
+    },
+    {
+      "source_id": "transport:nbtin-2024:00599aefb3eb5c87",
+      "raw_path": "storm-sources-hurricane_screen/ntu-nbtin-2024/original/Fig. 1d.xlsx",
+      "sha256": "00599aefb3eb5c87810cccf52c8b7dba957fb29a7829bda839e2d66174e7729c",
+      "reference": {
+        "doi": "10.1038/s41598-024-81776-2",
+        "url": "https://doi.org/10.21979/N9/VH0WLV",
+        "publication_date": "2024-12-28",
+        "locator": "Fig.1d, first x1/y1(data) pair; fit columns deliberately excluded",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11680598/",
+        "dataset_doi": "10.21979/N9/VH0WLV",
+        "citation": "Dong et al. Establishing an end-to-end workflow for SNSPD fabrication and characterization. Scientific Reports 14,30891 (2024)."
+      },
+      "license": "CC-BY-NC-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Original XLSX repository MD5 verified. Ingested TSV is an additional repository transformation.",
+        "Measurement pressure/field unreported; deposition 2.5 mTorr is not measurement pressure."
+      ]
+    },
+    {
+      "source_id": "transport:sn-2025:1bc62f069728612a",
+      "raw_path": "storm-sources-hurricane_screen/zenodo-14759622/original/fig4.xlsx",
+      "sha256": "1bc62f069728612a1587cffd672a2137ad9f93ff3296ee378837ca7bc4fdfc41",
+      "reference": {
+        "doi": "10.1103/PhysRevB.111.104513",
+        "url": "https://doi.org/10.5281/zenodo.14759622",
+        "publication_date": "2025-03-27",
+        "locator": "Fig.4a inset; p.104513-4 caption; columns A/B",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://harvest.aps.org/v2/journals/articles/10.1103/PhysRevB.111.104513/fulltext#page=1",
+        "dataset_doi": "10.5281/zenodo.14759622",
+        "citation": "Sasaki et al. Enhancement of superconductivity in thin films of Sn under high pressure. Physical Review B 111,104513 (2025)."
+      },
+      "license": "CC-BY-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Resistance rather than resistivity; compression/decompression and pressure medium remain distinct conditions.",
+        "Possible 11 K anomaly discussed separately; not promoted to a confirmed Tc."
+      ]
+    },
+    {
+      "source_id": "transport:sn-2025:2980f144211832b6",
+      "raw_path": "storm-sources-hurricane_screen/zenodo-14759622/original/fig6.xlsx",
+      "sha256": "2980f144211832b69c8876e4dd85582d18d4e946cbe1f19270c053b46116e504",
+      "reference": {
+        "doi": "10.1103/PhysRevB.111.104513",
+        "url": "https://doi.org/10.5281/zenodo.14759622",
+        "publication_date": "2025-03-27",
+        "locator": "Fig.6a; p.104513-5; columns A/B",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://harvest.aps.org/v2/journals/articles/10.1103/PhysRevB.111.104513/fulltext#page=1",
+        "dataset_doi": "10.5281/zenodo.14759622",
+        "citation": "Sasaki et al. Enhancement of superconductivity in thin films of Sn under high pressure. Physical Review B 111,104513 (2025)."
+      },
+      "license": "CC-BY-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Resistance rather than resistivity; compression/decompression and pressure medium remain distinct conditions.",
+        "Possible 11 K anomaly discussed separately; not promoted to a confirmed Tc."
+      ]
+    },
+    {
+      "source_id": "transport:hea-2022:d78f831b9a902142",
+      "raw_path": "storm-sources-hurricane_screen/zenodo-6673464/extracted/archive/Fig 1ab/ZFCFC/ZFCFC13102021x0p4.csv",
+      "sha256": "d78f831b9a902142fcecb5d236f7f857fb7aa33b493d067a67cb1b16feda828c",
+      "reference": {
+        "doi": "10.1038/s41598-022-16355-4",
+        "url": "https://doi.org/10.5281/zenodo.6673464",
+        "publication_date": "2022-07-27",
+        "locator": "Fig.1a/b; CSV rows 2–201; author fig1ab.m separates rows1:200/201:400",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://access.archive-ouverte.unige.ch/access/metadata/ba192a83-71ef-4339-b7b6-1f53fd8e57c0/download",
+        "dataset_doi": "10.5281/zenodo.6673464",
+        "citation": "Leung et al. Evidence for isotropic s-wave superconductivity in high-entropy alloys. Scientific Reports 12,12773 (2022)."
+      },
+      "license": "CC-BY-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Two measured alloy groups x=.35/.71, nominal file names .4/.75; not many independent materials.",
+        "ZFC/FC are low-T magnetization, no broad-T normal resistance curves in this package."
+      ]
+    },
+    {
+      "source_id": "transport:hea-2022:bf8263d4cdad8f97",
+      "raw_path": "storm-sources-hurricane_screen/zenodo-6673464/extracted/archive/Fig 1ab/ZFCFC/ZFCFC13102021x0p75.csv",
+      "sha256": "bf8263d4cdad8f97e3db30f6eeed104a967f559c72f8367cbd962e85c9d51732",
+      "reference": {
+        "doi": "10.1038/s41598-022-16355-4",
+        "url": "https://doi.org/10.5281/zenodo.6673464",
+        "publication_date": "2022-07-27",
+        "locator": "Fig.1a/b; CSV rows 2–201; author fig1ab.m separates rows1:200/201:400",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://access.archive-ouverte.unige.ch/access/metadata/ba192a83-71ef-4339-b7b6-1f53fd8e57c0/download",
+        "dataset_doi": "10.5281/zenodo.6673464",
+        "citation": "Leung et al. Evidence for isotropic s-wave superconductivity in high-entropy alloys. Scientific Reports 12,12773 (2022)."
+      },
+      "license": "CC-BY-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Two measured alloy groups x=.35/.71, nominal file names .4/.75; not many independent materials.",
+        "ZFC/FC are low-T magnetization, no broad-T normal resistance curves in this package."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:abdf41eebb5804e1",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_1.2GPa.dat",
+      "sha256": "abdf41eebb5804e16f64f9132976cc701634e582e7be88819350127928226c1b",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:3ca117fb8d431fe8",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_1.6GPa.dat",
+      "sha256": "3ca117fb8d431fe89aa558a4fc42fda2d8398c8287311a2dc65f08a708255231",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:4d2289a9ca7d30d7",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_2.4GPa.dat",
+      "sha256": "4d2289a9ca7d30d7fadfaf42a2e7c9b0dd366c9573db3f7f1bf5032b831a4e8e",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:bb1da1fd66ee2af2",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_3.2GPa.dat",
+      "sha256": "bb1da1fd66ee2af2cda5699b9e361c238fe0136235e59bcff23e6eb93f3a80b7",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:b08bdf0958badec2",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_3.6GPa.dat",
+      "sha256": "b08bdf0958badec2e00bcdf6e7e1503bdcd4cafece6d9dcf064dd2e12c8dd353",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:252841901cdc0dfa",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_3.8GPa.dat",
+      "sha256": "252841901cdc0dfaa5bba1ad16aea5d43bdb8ecc7731e23db7714bd51c4ab8fa",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:b1c60ee1f25c832c",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_4.0GPa.dat",
+      "sha256": "b1c60ee1f25c832c19bd21057d6f2191f23d645ad37efa0dff8c0377bd8a9f4d",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:b8182ae554b1f079",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_4.1GPa.dat",
+      "sha256": "b8182ae554b1f0793bf1d8e773615770de7830897aefddb22070b11adc863ff7",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:0f2aa5a9bb62b090",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_4.3GPa.dat",
+      "sha256": "0f2aa5a9bb62b09020efd2448783c805a1e5dc33e110d3b9f41acdedf2c48f14",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:7f050386ed6be263",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_4.5GPa.dat",
+      "sha256": "7f050386ed6be263783ac089037c545846c671a476da28279db59b46e140294e",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:1d103f6074cfadd7",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_5.0GPa.dat",
+      "sha256": "1d103f6074cfadd77399ef0e156ebec499f7297dc76a804141a56889fa89591d",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:34370ea09651c74b",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_5.5GPa.dat",
+      "sha256": "34370ea09651c74b073f5d633e107a2f75554f0c65b863bee65f783c93854edf",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.1a; original two-column header and README, fixed10T; Methods II.A–C",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:699bd90c6d1944e3",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_a.dat",
+      "sha256": "699bd90c6d1944e3036d619efea92311bfc36e3c11b04208f2a9b2d83155c914",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:3457defcc8e50457",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_b.dat",
+      "sha256": "3457defcc8e504571ff097072fed05d200393034cf84f6f4d474fbfdaf1581d9",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:4a7e9e5b6e737965",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_c.dat",
+      "sha256": "4a7e9e5b6e73796581c3f84b477f7f12d70cef916d27b7026c8c8345948beb53",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:329fa5b0d390630f",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_d.dat",
+      "sha256": "329fa5b0d390630fc88621dc9f4c48f896750a4b7293b6506953f3fe8cd45d8c",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:06dbe85cdbcf2ad6",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_e.dat",
+      "sha256": "06dbe85cdbcf2ad651c4bc129dccfe389a1109bed4f0e3d8d2e60c813b0ab3ff",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:4e17cd68cd9b2518",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_f.dat",
+      "sha256": "4e17cd68cd9b25181143bb3def2fbfbeb1bc18e8e9f3c179290be90c613c60bc",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:5bc56fdf0cbfbaff",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_g.dat",
+      "sha256": "5bc56fdf0cbfbaff993e9ec305962ab19c8ac17bcd15e413a58ae4564b354c9c",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:97561bb05dcd470e",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_h.dat",
+      "sha256": "97561bb05dcd470e006fa357a1f0efad2c2bdc446f1fb3ab3fb95930f311049a",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:e4fcf4d9c10aaf37",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_i.dat",
+      "sha256": "e4fcf4d9c10aaf373c51959317911cdf66d8bc774c91cac66d54ab3f9b03ee77",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:31acde8f238e95c2",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_j.dat",
+      "sha256": "31acde8f238e95c23790f29ffe90dda3a86d67cf049e7a3682e4c73a0a721af4",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:02d42ffca0e2a0fa",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_k.dat",
+      "sha256": "02d42ffca0e2a0fa62209f7c9f37fde7fa509223e5675d28bcf0d7502f63de3b",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:626be2f2b4cd4021",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_l.dat",
+      "sha256": "626be2f2b4cd4021082122822d49e247f30e3f2a94670aac9ec8cdd8f10f4dc9",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-2020:f0dbefa3f4403afb",
+      "raw_path": "storm-sources-hurricane_screen/bristol-nbse2-2020/extracted/Fig3a/ChiT_m.dat",
+      "sha256": "f0dbefa3f4403afbf638a523bf514a90f79b2cfdcf1327d72ef18165fc159c82",
+      "reference": {
+        "doi": "10.1103/PhysRevResearch.2.043392",
+        "url": "https://doi.org/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "publication_date": "2020-12-18",
+        "locator": "Fig.3a caption p.043392-4; README pressure-to-letter map",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+        "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+        "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020)."
+      },
+      "license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    },
+    {
+      "source_id": "transport:ptsb-2026:8f845402c9ee49de",
+      "raw_path": "storm-sources-hurricane_screen/zenodo-20154939/extracted/datafiles/Figure2a.txt",
+      "sha256": "8f845402c9ee49de6fc42e78360863bc7cde84fb3abb76b9b4ce87658d58e5ff",
+      "reference": {
+        "doi": "10.1103/zjt7-88m9",
+        "url": "https://doi.org/10.5281/zenodo.20154939",
+        "publication_date": "2026-09-04",
+        "locator": "Fig.2a; p.094801-3 III.B; original Figure2a.txt headers",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://journals.aps.org/prmaterials/pdf/10.1103/zjt7-88m9",
+        "dataset_doi": "10.5281/zenodo.20154939",
+        "citation": "Müller et al. Superconductivity in epitaxial PtSb(0001) thin films. Physical Review Materials 10,094801 (2026)."
+      },
+      "license": "CC-BY-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Author-extracted figure-source values, not instrument-native data; no collector digitization.",
+        "Pairing mechanism is not inferred from type-II behavior. This is measured-sample transport, not a DFT electron-phonon truth label."
+      ]
+    },
+    {
+      "source_id": "transport:nbse2-hebs-2024:a3555f6e4695cc4e",
+      "raw_path": "storm-sources-hurricane_screen/zenodo-10613828/extracted/data/Fig 1/R_T.txt",
+      "sha256": "a3555f6e4695cc4ef9cdd66737d8f4b2a4b1c92cea75ea4c9b0ac9937eead507",
+      "reference": {
+        "doi": "10.1021/acs.nanolett.3c04493",
+        "url": "https://doi.org/10.5281/zenodo.10613828",
+        "publication_date": "2024-02-12",
+        "locator": "Fig.1c full R(T), Methods/results p.B lines98–118; data.zip Fig1/R_T.txt and info.txt",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://www.hse.ru/data/2026/04/01/230362828/%E2%84%962.pdf",
+        "dataset_doi": "10.5281/zenodo.10613828",
+        "citation": "Shein et al. Fundamental Limits of Few-Layer NbSe2 Microbolometers at Terahertz Frequencies. Nano Letters24,2282–2288 (2024)."
+      },
+      "license": "CC-BY-4.0",
+      "distribution": "Preserve dataset-specific license; no blanket redistribution authorization",
+      "source_notes": [
+        "Author-deposited data.zip Fig1 R_T, two-terminal device resistance with approximately27ohm contact residual.",
+        "Institutional author proof read, not publisher-paginated final. No precise midpoint definition found; no primary target constructed."
+      ]
+    }
+  ],
+  "source_root": "work/normal-state-collection",
+  "purpose": "Local source-backed experimental collection; dataset-specific redistribution restrictions retained"
+}

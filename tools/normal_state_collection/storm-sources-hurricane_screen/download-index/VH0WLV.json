@@ -1,0 +1,158 @@
+{
+  "dataset_doi": "10.21979/N9/VH0WLV",
+  "title": "Establishing an end-to-end workflow for SNSPD fabrication and characterization (source data)",
+  "license": {
+    "name": "CC BY-NC 4.0",
+    "uri": "http://creativecommons.org/licenses/by-nc/4.0",
+    "iconUri": "https://licensebuttons.net/l/by-nc/4.0/88x31.png"
+  },
+  "metadata": {
+    "url": "https://researchdata.ntu.edu.sg/api/datasets/:persistentId/?persistentId=doi:10.21979/N9/VH0WLV",
+    "local_path": "ntu-nbtin-2024/repository-metadata.json",
+    "bytes": 13606,
+    "sha256": "2e4b88acb393558ba88e6bf07f701cf2723624673dba9511a46e9c92c0e3dd66",
+    "repository_md5_checked": false
+  },
+  "files": [
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151556?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 1b.xlsx",
+      "bytes": 63349,
+      "sha256": "db7bd956bf20492a2995620de24278550fd8d56592c33d25b934a5e0b083c86f",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151556",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 1b.tab",
+      "bytes": 41031,
+      "sha256": "6011f3f44228d8328fa3d5fc42b449d1ba5e3998530a465296861fb7f42853f8",
+      "repository_md5_checked": false
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151551?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 1c.xlsx",
+      "bytes": 49904,
+      "sha256": "57593ed50468311f9a43bb98bad4b92a1cad11349b143c9c9593492fa2b4217c",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151551",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 1c.tab",
+      "bytes": 33721,
+      "sha256": "a86334b4ef122a57e193f9215c60190d0f0fb0aa95aa64d5604d9d6b5475fbad",
+      "repository_md5_checked": false
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151549?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 1d.xlsx",
+      "bytes": 31760,
+      "sha256": "00599aefb3eb5c87810cccf52c8b7dba957fb29a7829bda839e2d66174e7729c",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151549",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 1d.tab",
+      "bytes": 19355,
+      "sha256": "5339cab4f57739595291fd1ea49dc60fb5544e43da9a69f33c227f1433289fcc",
+      "repository_md5_checked": false
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151552?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 2a.xlsx",
+      "bytes": 8735,
+      "sha256": "933cf954e44a3044f014e6c710cc7ec411a2c0b82f1495ba5c8e21c623eaa60e",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151552",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 2a.tab",
+      "bytes": 174,
+      "sha256": "27961cecff8a4b911e8002876e8bfc24583331266222e286d54982471a9d71a0",
+      "repository_md5_checked": false
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151546?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 2b.xlsx",
+      "bytes": 8746,
+      "sha256": "40f3134ede46f8c2462800c2ff0db2c4b2a66e2ad760368199f984a39fe3caa0",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151546",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 2b.tab",
+      "bytes": 150,
+      "sha256": "2b0a12d7699e0d14f8abbb4583000afced63be678d754f542eccf4e39042ee15",
+      "repository_md5_checked": false
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151553?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 3b inset.xlsx",
+      "bytes": 21679,
+      "sha256": "624f264a31f17a194025aa4df5458ad0c26741e78e6390532a65f7e7d9f1cb80",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151553",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 3b inset.tab",
+      "bytes": 11955,
+      "sha256": "fdd0bd4464b3d31a8c18df6d3b373e2392a149e6f61888162b4c79dc078447c8",
+      "repository_md5_checked": false
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151550?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 3b.xlsx",
+      "bytes": 74165,
+      "sha256": "bed521fe86465260196c0808dfb52fd6b6488ce105b512cf97660f1c38ebc4e5",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151550",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 3b.tab",
+      "bytes": 51315,
+      "sha256": "635ab70bd8fe816b3d2506c0aa223e2075c161b504b488b9b9add37af3f90817",
+      "repository_md5_checked": false
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151545?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 3c.xlsx",
+      "bytes": 22289,
+      "sha256": "742e9a1a878de67dff53d5a9d47583f1d74fbcf8b7aee1534ace9447d9d08560",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151545",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 3c.tab",
+      "bytes": 11867,
+      "sha256": "bbdf71d321d3f12d07f39220ebdf030eac81259e947b1253d219f845d8c33eaa",
+      "repository_md5_checked": false
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151544?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 3d.xlsx",
+      "bytes": 10705,
+      "sha256": "a6c12a052bd4a26d3d3ba2db4496923eef4690a0dedee9f2f03b23cc84c71d23",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151544",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 3d.tab",
+      "bytes": 1644,
+      "sha256": "24a94fa78061b88e688de2fc5eaa1001b2bfc5eb8b04cd88aa507092df78dbca",
+      "repository_md5_checked": false
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151547?format=original",
+      "local_path": "ntu-nbtin-2024/original/Fig. 4c.xlsx",
+      "bytes": 11499,
+      "sha256": "8b7da80a0dcd8d97f2f2a260fe695da765ee4c90106021c9728afdc8f85ee441",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://researchdata.ntu.edu.sg/api/access/datafile/151547",
+      "local_path": "ntu-nbtin-2024/ingested-tab/Fig. 4c.tab",
+      "bytes": 2422,
+      "sha256": "8b9af0a07af3ae08be78c5e2253d1da47b66bb2e864cc65dfc6512c65e809d61",
+      "repository_md5_checked": false
+    }
+  ]
+}

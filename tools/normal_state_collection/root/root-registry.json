@@ -1,0 +1,36 @@
+{
+  "sources": [
+    {
+      "source_id": "brown2018-bi-source",
+      "raw_path": "bi_pressure/source.zip",
+      "sha256": "7b75686bec071a85e65b0b3c83972be6e7438e3808abfb2806eb2c03b1f9d02e",
+      "reference": {
+        "doi": "10.1126/sciadv.aao4793",
+        "url": "https://doi.org/10.17863/CAM.18197",
+        "publication_date": "2018-04-13",
+        "locator": "SupportingDataForPublication.zip headers; paper Figs.1–4 and Methods",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment"
+      },
+      "license": "CC-BY-NC-ND-4.0",
+      "distribution": "Local research extraction only; do not redistribute adapted numeric data",
+      "preprocessing_note": "Published resistivity values were scaled at 300 K to literature values; not unprocessed instrument voltage."
+    },
+    {
+      "source_id": "tokumoto2024-ta16te-source",
+      "raw_path": "ta16te/source-publisher.xlsx",
+      "sha256": "5c158e6bb2abf5a1be0b8e7295ef7e51ed814316b3ccf73be5ae589fe84b4190",
+      "reference": {
+        "doi": "10.1038/s41467-024-45952-2",
+        "url": "https://doi.org/10.1038/s41467-024-45952-2",
+        "publication_date": "2024-03-01",
+        "locator": "Source Data Figure 2a,b; Electrical resistivity; Physical property measurements",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment"
+      },
+      "license": "CC-BY-4.0",
+      "download_url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-024-45952-2/MediaObjects/41467_2024_45952_MOESM6_ESM.xlsx",
+      "attribution": "Tokumoto, Hamano, Nakagawa et al. Nature Communications 15,1529 (2024). Numerical transcription of source table, original normalization retained."
+    }
+  ]
+}

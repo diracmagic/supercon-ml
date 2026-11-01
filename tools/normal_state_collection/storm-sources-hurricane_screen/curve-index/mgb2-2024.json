@@ -1,0 +1,31 @@
+{
+  "source_id": "mgb2-2024",
+  "curve_index": [
+    {
+      "curve_id": "mgb2-2024-device-header-conflict",
+      "source_id": "mgb2-2024",
+      "sample_id": "mgb2-2024-Fig1b-device",
+      "formula": "MgB2",
+      "phase": "film",
+      "quantity": "device_resistance",
+      "unit": "ohm",
+      "temperature_unit": "K",
+      "pressure_gpa": null,
+      "magnetic_field_t": null,
+      "doping_fraction": null,
+      "strain": null,
+      "source_locator": "Fig.1b workbook A,B; first row declares R,T but numerical ranges/figure support T,R",
+      "original_path": "zenodo-10514254/original/Fig.1b.xlsx",
+      "original_sha256": "fc783cd249f31c3e4dc41ce7a441033a96c06fc149b72361eab52f56c53220d2",
+      "value_status": "quarantined_conflicting_original_column_headers",
+      "point_count": 512680,
+      "temperature_min_k": 3.82516,
+      "temperature_max_k": 294.0299,
+      "precursor_policy": "full_curve_is_not_a_precursor; define absolute normal-state window before fitting",
+      "training_eligible": false,
+      "training_eligibility_reason": "pending scoped training policy and condition/target matching",
+      "normalized_path": "normalized/mgb2-2024-device-header-conflict.json",
+      "sha256": "d1f2795448f41361b897bcd549f275509d7c13d271f192de612a9531d2e8c352"
+    }
+  ]
+}

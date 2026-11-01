@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "counts": {
+    "point_records": 33324,
+    "finite_pairs": 33323,
+    "point_field_coordinates_verified": 31445,
+    "curves_valid": 35
+  },
+  "negative_signed_raw_field_points_preserved": 16,
+  "independent_material_families": 4,
+  "policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+  "normal_state_version": "normal-state-sample-pilot-v2",
+  "normal_state_module_sha256": "5e23008516be4a7c851f1fc03c4aa0b98e32dda806cd26368ee1c8a9323b57bc",
+  "models_fitted": 0,
+  "ledger_writes": 0,
+  "normal_feature_ready_curves": 0,
+  "target_records": 0,
+  "curve_collection": {
+    "path": "heat-magnetic/heat-collection.json",
+    "bytes": 42947115,
+    "sha256": "e9399f5da9997fa2ba5748d5d0a370c64927e42baff748451514ed3bb267b437",
+    "md5": "25af9ecfa3ddaef5981bb0565e8158db"
+  },
+  "source_registry": {
+    "path": "heat-magnetic/heat-registry.json",
+    "bytes": 7716,
+    "sha256": "f1b7bc4b37ab1940df36bbb3140fcb60851b92b1c382b930439d5513f13259f6",
+    "md5": "1c33dacf8f4f2bab254ccf653962500e"
+  },
+  "checks": [
+    "Every source SHA256 verified within explicit collection root",
+    "Every retained point exactly matches its original source line/cell; heat uses only stated algebra",
+    "No missing value replaced by zero; one HEA M-missing row remains null",
+    "31445 raw sensor fields reproduced in main feedback coordinates and conditions, with original signed field preserved",
+    "Negative applied-field component is retained alongside explicitly converted nonnegative applied-field magnitude; not internal B",
+    "All35 curves schema-valid; all normal-state statuses unknown and no feature-ready curves",
+    "No target, link, Tc-relative normalization, ledger write, or model fit",
+    "NbSe2 ten duplicate comparisons and MgB2 sharedFast58 exactbyte duplicate counted once"
+  ],
+  "limitations": [
+    "Counts are observed rows and acquisition curves, not independent samples for fitting.",
+    "No150-300Kcoverage, no verifiednormal labels, and no measuredTc joins.",
+    "Oxford source/derived numericdata remain local under repository-use restrictions.",
+    "HEA units and fieldscript/caption mismatch remain unresolved; no chi conversion."
+  ]
+}

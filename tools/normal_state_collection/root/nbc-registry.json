@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "source_id": "dobrovolskiy2020-nbc",
+      "raw_path": "nbc/source.xls",
+      "sha256": "ed535d84651b9c6ca0a711af8b07d6f74dfe3a6bd3289115f03147ad5f3570a2",
+      "reference": {
+        "doi": "10.1038/s41467-020-16987-y",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7335109/",
+        "publication_date": "2020-07-03",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "locator": "Methods: Sample fabrication; Superconducting properties; Figure 7a,b; Source Data Figure 7 columns B,C"
+      },
+      "license": "CC-BY-4.0",
+      "download_url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-020-16987-y/MediaObjects/41467_2020_16987_MOESM3_ESM.xls",
+      "attribution": "Dobrovolskiy et al., Nature Communications 11,3291 (2020). Source numerical values preserved."
+    }
+  ]
+}

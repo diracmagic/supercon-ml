@@ -1,0 +1,73 @@
+{
+  "dataset_doi": "10.5281/zenodo.10514254",
+  "title": "Single-photon detection using large-scale high-temperature MgB2 sensors at 20 K",
+  "publication_date": "2024-01-15",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "metadata": {
+    "url": "https://zenodo.org/api/records/10514254",
+    "local_path": "zenodo-10514254/repository-metadata.json",
+    "bytes": 5470,
+    "sha256": "27438d62ecfa881cdd7ffc2c0a9681051745f9c2ab6c1b4be9931b8d70e0332d",
+    "repository_md5_checked": false
+  },
+  "files": [
+    {
+      "url": "https://zenodo.org/api/records/10514254/files/Fig.3a.xlsx/content",
+      "local_path": "zenodo-10514254/original/Fig.3a.xlsx",
+      "bytes": 11651,
+      "sha256": "fa3fb77914ce80fe9336dd6e214fbd0ce4e982485f173f4b8d2e5bef32cea956",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/10514254/files/Fig.1b.xlsx/content",
+      "local_path": "zenodo-10514254/original/Fig.1b.xlsx",
+      "bytes": 6901787,
+      "sha256": "fc783cd249f31c3e4dc41ce7a441033a96c06fc149b72361eab52f56c53220d2",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/10514254/files/Fig.1c.xlsx/content",
+      "local_path": "zenodo-10514254/original/Fig.1c.xlsx",
+      "bytes": 45373,
+      "sha256": "3ffeac69a97f81d5c867b1ad7c92d1a72f3c52f489773c14ca1ae776102d450f",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/10514254/files/Fig.3d.xlsx/content",
+      "local_path": "zenodo-10514254/original/Fig.3d.xlsx",
+      "bytes": 9599,
+      "sha256": "a427753982f016b70b58e38a7f09278ff943b5bb660177c40a9d7153e86fbc57",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/10514254/files/Fig.3e.xlsx/content",
+      "local_path": "zenodo-10514254/original/Fig.3e.xlsx",
+      "bytes": 10833,
+      "sha256": "a878d0818ddf23828a142c73413769a8052234d8a863a647f1603f857a74a3d7",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/10514254/files/Fig.3c.xlsx/content",
+      "local_path": "zenodo-10514254/original/Fig.3c.xlsx",
+      "bytes": 10948,
+      "sha256": "aa578323ccbb3423c3666d4e39ece1052bc3daa1e97c55311df348d849284f7d",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/10514254/files/Fig.3f.xlsx/content",
+      "local_path": "zenodo-10514254/original/Fig.3f.xlsx",
+      "bytes": 10364,
+      "sha256": "10061d6d902558cbb5678435a8d5350939cf622121190c69fee586e2db192b80",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/10514254/files/Fig.3b.xlsx/content",
+      "local_path": "zenodo-10514254/original/Fig.3b.xlsx",
+      "bytes": 9255,
+      "sha256": "cee28b378eece4d8a70c6e2451616ede2460f5b8804ad541389baba94eedccb0",
+      "repository_md5_checked": true
+    }
+  ]
+}

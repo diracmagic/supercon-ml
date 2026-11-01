@@ -33,6 +33,7 @@ import math
 import os
 from pathlib import Path
 import re
+import tempfile
 from urllib.parse import urlsplit
 
 try:
@@ -489,6 +490,77 @@ class FeedbackLedger:
         elif source_bytes is not None:
             raise FeedbackValidationError("source_bytes are only consumed by checked computation observations")
         return self._append("observation", payload, supersedes)
+
+    def append_observations(self, payloads, *, supersedes=None):
+        """Atomically import experimental observations/corrections in input order.
+
+        Repeated records are idempotent, including duplicates within the batch.
+        Corrections require an aligned explicit supersedes list and the same
+        active-observation/scope/reason checks as individual appends. Checked
+        computations retain the single-record source_bytes API. Ledger bytes remain
+        an exact prefix; invalid input or a failed write cannot leave half a batch.
+        """
+        payloads = list(payloads)
+        supersedes = [None] * len(payloads) if supersedes is None else list(supersedes)
+        _require(len(supersedes) == len(payloads), "supersedes must align with payloads")
+        prepared = []
+        for payload in payloads:
+            validate_observation(payload)
+            payload = copy.deepcopy(payload)
+            _require(payload["observation_type"] != "computed_superconductivity",
+                     "bulk computation imports require per-record source_bytes; use append_observation")
+            if payload["observation_type"] == "normal_state_measurement":
+                payload["feature_eligible"] = not _feature_reasons(payload)
+            prepared.append(json.loads(_canonical(payload)))
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        lock = self.path.with_name(self.path.name + ".lock")
+        try:
+            fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+        except FileExistsError as exc:
+            raise LedgerBusyError("ledger writer lock exists; no automatic lock takeover") from exc
+        os.close(fd)
+        temporary = None
+        try:
+            events = read_events(self.path) if self.path.exists() else []
+            original = self.path.read_bytes() if self.path.exists() else b""
+            by_id = {e["record_id"]: e for e in events}
+            added, returned = [], []
+            for payload, previous in zip(prepared, supersedes):
+                ident = _record_id("observation", payload, previous)
+                if ident in by_id:
+                    returned.append(by_id[ident])
+                    continue
+                now = self.clock()
+                _require(isinstance(now, datetime) and now.tzinfo is not None,
+                         "clock must return aware datetime")
+                body = {"schema_version": 1, "sequence": len(events) + 1,
+                        "event_type": "observation", "payload": payload,
+                        "supersedes": previous, "record_id": ident,
+                        "recorded_at": now.astimezone(timezone.utc).isoformat(),
+                        "previous_hash": events[-1]["hash"] if events else GENESIS}
+                event = dict(body, hash=_digest(body))
+                events.append(event)
+                by_id[ident] = event
+                added.append(event)
+                returned.append(event)
+            verify_events(events)
+            if added:
+                with tempfile.NamedTemporaryFile(mode="wb", dir=self.path.parent,
+                                                 prefix=self.path.name + ".", suffix=".tmp",
+                                                 delete=False) as handle:
+                    temporary = Path(handle.name)
+                    handle.write(original)
+                    for event in added:
+                        handle.write(_canonical(event) + b"\n")
+                    handle.flush()
+                    os.fsync(handle.fileno())
+                os.replace(temporary, self.path)
+                temporary = None
+            return copy.deepcopy(returned)
+        finally:
+            if temporary is not None and temporary.exists():
+                temporary.unlink()
+            lock.unlink()
 
     def _append(self, kind, payload, supersedes):
         payload = json.loads(_canonical(payload))

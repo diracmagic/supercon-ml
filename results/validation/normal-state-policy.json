@@ -1,0 +1,57 @@
+{
+  "version": "normal-state-sample-pilot-v2",
+  "preflight_amendment": {
+    "supersedes": "normal-state-sample-pilot-v1 unrun scaffold",
+    "reason": "Availability-driven same-run scope: unreported P/B may be nuisance only for a trace-bound Tc, never a cross-trace condition match",
+    "no_real_fit_observed": true,
+    "absolute_windows_unchanged": true
+  },
+  "target": "measured Tc of the explicitly linked physical specimen at declared conditions; not DFT or parent potential",
+  "window_k": [
+    150.0,
+    300.0
+  ],
+  "transport_anchors_k": [
+    200.0,
+    250.0
+  ],
+  "curvature_midpoint_k": 225.0,
+  "minimum_unique_temperatures": 5,
+  "maximum_interpolation_bracket_k": 50.0,
+  "extrapolation": false,
+  "transport_features": [
+    "log_ratio_250_200",
+    "normalized_secant_per_k",
+    "normalized_curvature_per_k2"
+  ],
+  "transport_feature_definitions": {
+    "log_ratio_250_200": "ln(y250/y200)",
+    "normalized_secant_per_k": "(y250-y200)/(50*(y250+y200)/2)",
+    "normalized_curvature_per_k2": "(y200-2*y225+y250)/(625*(y250+y200)/2)"
+  },
+  "secondary_policy": "Same fixed window/anchors; retain observable and original units. Secondary channels are not primary training inputs.",
+  "allowed_unknown_nuisance": [
+    "strain"
+  ],
+  "unknown_phase": "Only an inspected explicit same-physical-specimen link; no DFT phase binding",
+  "unknown_doping": "Only an inspected same-specimen link; retain null and prohibit doping-axis learning for this row",
+  "essential_known_conditions_in_cross_trace_scope": [
+    "pressure_gpa",
+    "magnetic_field_t"
+  ],
+  "matching_scopes": {
+    "same_specimen_condition_matched": "Known matching P/B, inspected physical-specimen link",
+    "same_run_measured_tc": "Same immutable raw-source hash, curve, measurement-run and trace-column identity; explicit varied_axes; no unknown controlled axis. Unknown unused P/B retained null with no condition-generalization claim"
+  },
+  "condition_tolerance": 1e-08,
+  "normalization": "Never T/Tc, Tc-derived scales, zero resistance, Meissner onset or heat-capacity jumps",
+  "primary_model_plan": "Fixed Ridge on log1p measured Tc; same-cohort composition/known-condition reference versus added transport shapes. No fit until split/criterion frozen.",
+  "minimum_independent_components": 5,
+  "minimum_training_components": 3,
+  "minimum_training_samples": 5,
+  "grouping": "Connected components of chemical system, inspected primary source, physical specimen and source-namespaced series; all conditions/temperatures stay together",
+  "independent_unit": "Physical specimen and condition, never individual temperature points",
+  "timing": "Frozen during source curation and before any real model fitting/scoring; some paper Tc values and curve ranges already inspected; retrospective exploratory, not blinded.",
+  "automatic_training": false,
+  "defined_at": "2026-11-01T12:55:28.792888+00:00"
+}

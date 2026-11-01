@@ -1,0 +1,70 @@
+{
+  "version": "storm-normal-state-pilot-v1",
+  "model_name": "Storm-normal-state-pilot",
+  "adopted": false,
+  "target": "log1p of observed positive same-specimen measured resistive-midpoint Tc in K",
+  "criterion_aliases": {
+    "resistive_midpoint": "resistive_midpoint",
+    "resistivity_midpoint": "resistive_midpoint",
+    "resistive_midpoint_50pct": "resistive_midpoint",
+    "50_percent_normal_resistance": "resistive_midpoint"
+  },
+  "censored_null": "Never Tc=0; exclude from this positive-Tc regression",
+  "composition_quality": "Require an explicit reported sample formula; exclude unknown, replica proxies and approximations not measured on the sample",
+  "baseline": {
+    "composition": [
+      "mean_atomic_Z",
+      "mean_atomic_mass",
+      "mean_electronegativity",
+      "n_elements"
+    ],
+    "conditions": [
+      "pressure_gpa",
+      "magnetic_field_t",
+      "doping_fraction"
+    ],
+    "missing_flags": "One indicator for every numeric baseline feature",
+    "quantity_one_hot": [
+      "normalized_resistance",
+      "normalized_resistivity",
+      "resistance",
+      "resistivity"
+    ]
+  },
+  "augmented": "Exactly the same baseline plus the frozen three transport-shape features",
+  "learner": {
+    "class": "sklearn.linear_model.Ridge",
+    "alpha": 1.0,
+    "fit_intercept": true,
+    "solver": "svd",
+    "sample_weights": "Uniform per unique eligible specimen-condition; no temperature-point replication",
+    "target_transform": "log1p",
+    "inverse_transform": "clip(expm1, min=0)",
+    "hyperparameter_search": false
+  },
+  "preprocessing": "Training-fold mean/std of observed entries; unknown becomes zero only in centered/scaled space, never a physical zero. Drop all-missing/constant training columns. Shared unknown-condition flags and observable types in both designs.",
+  "unknown_condition_axis": "Use a numeric condition only if both measured input and target conditions support it; unknown rows have zero centered feature and cannot identify its coefficient",
+  "split": "Leave one complete source/system/specimen/series connected component out, covering all eligible rows",
+  "minimum_components": 5,
+  "minimum_training_components": 3,
+  "minimum_training_specimen_conditions": 5,
+  "duplicate_unit": "Duplicate specimen-condition/criterion rows require explicit adjudication; never silently count multiple modalities/criteria as extra samples",
+  "metrics": {
+    "primary": "Equal-component macro MAE in raw K",
+    "secondary": [
+      "row MAE K",
+      "row RMSE K",
+      "fold errors"
+    ],
+    "paired_bootstrap": {
+      "resamples": 1000,
+      "seed": 7,
+      "unit": "independent connected component",
+      "quantity": "augmented minus baseline macro MAE",
+      "interval": "percentile 95%, exploratory with few groups"
+    }
+  },
+  "timing": "Retrospective replay of already published measurements; source Tc values may already be inspected, no prospective-discovery claim",
+  "release": "Separate measured-sample pilot, not an upgrade or validation of Storm's existing DFT Tc model; no winner release",
+  "extraction_policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14"
+}

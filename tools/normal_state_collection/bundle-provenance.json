@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "scope": "Hand-written local curation tooling and compactmetadata. No source arrays, raw files, full collections, ledger, or model fit outputs.",
+  "source_collection_relative_root": "normal-state-collection",
+  "scripts": [
+    {
+      "path": "root/extract_root_curves.py",
+      "original_relative_path": "extract_root_curves.py",
+      "original_sha256": "8450417bcf7610caec917f5af46f7e1b18be518de8e92a5d78a861fc9b30391c",
+      "bundled_sha256": "8450417bcf7610caec917f5af46f7e1b18be518de8e92a5d78a861fc9b30391c",
+      "copy_modifications": [],
+      "original_ast_sha256": "4a7d349172e95e5c6e10dbf91363c2f7347ffd3cd60a6b89b6372fe183dbfcdd",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "root/extract_nbc.py",
+      "original_relative_path": "extract_nbc.py",
+      "original_sha256": "900d15ec3287f6a4cb47a1acd56e73dd62778ee4793b6bcf4e7fa9e6e26fb4a6",
+      "bundled_sha256": "325e05b21b2cbf34d79381b4466ca0ecb484f4a046ae4d549eb9efae9784bdf7",
+      "copy_modifications": [
+        "Optional --observed-at; default remains original current-time behavior. No numeric, condition, target or source rule changed."
+      ],
+      "original_ast_sha256": "45cd084df1b11f1433992f52821958f2ebcc6c85850cbd5e1159e62b2618b26e",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "root/inspect_xlsx.py",
+      "original_relative_path": "inspect_xlsx.py",
+      "original_sha256": "3e88d0e61c956aa2c28bb5959af679b5f55d74e68283e078824aa788cfec5313",
+      "bundled_sha256": "3e88d0e61c956aa2c28bb5959af679b5f55d74e68283e078824aa788cfec5313",
+      "copy_modifications": [],
+      "original_ast_sha256": "bc1fba1d435014515a4b72eaebea5f854a7320c691328df11571cd47f725b075",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "root/merge_collection.py",
+      "original_relative_path": "merge_collection.py",
+      "original_sha256": "4695cbc09f1219c255f8a83fefdf1019b5e56888be73988289d04cd77ec77832",
+      "bundled_sha256": "4695cbc09f1219c255f8a83fefdf1019b5e56888be73988289d04cd77ec77832",
+      "copy_modifications": [],
+      "original_ast_sha256": "badf6e8278d0a6a34e009676dd0eb2c52e7ce689f523732449d13d7b5afeffce",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "root/correct_hea_duplicates.py",
+      "original_relative_path": "correct_hea_duplicates.py",
+      "original_sha256": "8f1922a4a27b5480370e7e82fc810809c71963dffe30dd1b522ae8709bade985",
+      "bundled_sha256": "8f1922a4a27b5480370e7e82fc810809c71963dffe30dd1b522ae8709bade985",
+      "copy_modifications": [],
+      "original_ast_sha256": "d2fce14c6933a2858587cdbb1d4d807d5ee25e9be69fccd6f250aae62d881590",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "storm-sources-hurricane_screen/normalize_sources.py",
+      "original_relative_path": "storm-sources-hurricane_screen/normalize_sources.py",
+      "original_sha256": "3962bce20fc6cae420c9b35bad6286f6ca1a35cd0a53a02fb0fd85f07b48ae4d",
+      "bundled_sha256": "3962bce20fc6cae420c9b35bad6286f6ca1a35cd0a53a02fb0fd85f07b48ae4d",
+      "copy_modifications": [],
+      "original_ast_sha256": "fbef3084aaeb9cbc84f0d59eac18f36d9128865c61783a4c3c2d5eb99601bf61",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "storm-sources-hurricane_screen/adapt_transport_collection.py",
+      "original_relative_path": "storm-sources-hurricane_screen/adapt_transport_collection.py",
+      "original_sha256": "c9be0e3e15be19e9465c0b3943cf602ed2920083d089eeceb63ae1a22edb46de",
+      "bundled_sha256": "fd54f75c01ea99e2dd4c7e2a31f05068ac99ad944535248a811ea565c5b6f69d",
+      "copy_modifications": [
+        "Optional --observed-at; default remains original current-time behavior. No numeric, condition, target or source rule changed."
+      ],
+      "original_ast_sha256": "9eecda794af897ee72da84577f5d730cea839c9bc8d8e91e7513aa4cb27794e0",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "heat-magnetic/extract_nbse2.py",
+      "original_relative_path": "heat-magnetic/extract_nbse2.py",
+      "original_sha256": "f2eabd5537ca1b1d88b7d007426ccfd93fcd88aa01a553594d6bd53d1e413b6c",
+      "bundled_sha256": "f2eabd5537ca1b1d88b7d007426ccfd93fcd88aa01a553594d6bd53d1e413b6c",
+      "copy_modifications": [],
+      "original_ast_sha256": "2c9bf92b2bdd7e245226a831eaf862fbe9769914f8289328a1350bbe7d97a3b3",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "heat-magnetic/extract_additional.py",
+      "original_relative_path": "heat-magnetic/extract_additional.py",
+      "original_sha256": "cc517e04ca90945f5b812eb0919e6d951dc3e7bdcb2f4d2bde54fa454a74dbd7",
+      "bundled_sha256": "cc517e04ca90945f5b812eb0919e6d951dc3e7bdcb2f4d2bde54fa454a74dbd7",
+      "copy_modifications": [],
+      "original_ast_sha256": "3c511036d51d2d3555677e04ab42ce4cf8420588cd57f0bc4353349ea6047a2a",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "heat-magnetic/build_normal_collection.py",
+      "original_relative_path": "heat-magnetic/build_normal_collection.py",
+      "original_sha256": "c182dee756d6863fc339521f8ef6ac2839db19bdfaf176a4bc6f7ba910b7a3c2",
+      "bundled_sha256": "c182dee756d6863fc339521f8ef6ac2839db19bdfaf176a4bc6f7ba910b7a3c2",
+      "copy_modifications": [],
+      "original_ast_sha256": "f460b82f5763e9a516505d9afc6267352fdd1f3df8589028814698da95d06803",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "heat-magnetic/build_manifest.py",
+      "original_relative_path": "heat-magnetic/build_manifest.py",
+      "original_sha256": "0ee78863d6171b0d503c5bd2a7dd0bfbb78a581e89fe7bc2e5b65091d4ab6d64",
+      "bundled_sha256": "0ee78863d6171b0d503c5bd2a7dd0bfbb78a581e89fe7bc2e5b65091d4ab6d64",
+      "copy_modifications": [],
+      "original_ast_sha256": "01649afecad63f17ebe3f9384636008723cf67fe97f3fe218c10e4a28ebc06eb",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    },
+    {
+      "path": "heat-magnetic/verify_collection.py",
+      "original_relative_path": "heat-magnetic/verify_collection.py",
+      "original_sha256": "7967f1906508b110d829a7093d0aeff47328299df682dd3803f50183504b8ec6",
+      "bundled_sha256": "8e79a3a304d955bc46ff825d562f8249d4ad1c02deeb7ecf9b19c0ccab755b80",
+      "copy_modifications": [
+        "Optional --repo for verification import path only; all data/roundtrip checks unchanged."
+      ],
+      "original_ast_sha256": "7689aeeac040e8fef42de1c404bd0ac29cf71eae3d169e90179a228e7a68e1c4",
+      "ast_equal_after_removing_only_documented_cli_additions": true
+    }
+  ],
+  "metadata": [
+    {
+      "path": "root/root-registry.json",
+      "original_relative_path": "root-registry.json",
+      "original_sha256": "ab0b1f9389f500f8469cbce6236cf4b6705f5a51d8bed26d782f336c8188a8c0",
+      "bundled_sha256": "42d283256813ad20d16462e632393c32360133c318678a5e3a57432fccc5d39e",
+      "same_json_content": true
+    },
+    {
+      "path": "root/nbc-registry.json",
+      "original_relative_path": "nbc-registry.json",
+      "original_sha256": "1bcdb8f04fa5bf6e447ecb4ecbebfeb0ef4db7759ddbbed35bab48a252714403",
+      "bundled_sha256": "cb6b83ef0ae2ee2023e29d3100829235b78283cc6d86dd30e3b38020eaff2ae0",
+      "same_json_content": true
+    },
+    {
+      "path": "root/combined-input-manifest.json",
+      "original_relative_path": "combined-input-manifest.json",
+      "original_sha256": "51390dbc544a47eb5ed6a046990d9d18ee6d86613162d1d411c398d6141910b1",
+      "bundled_sha256": "00f17e00c365f03cbaa0c8fbef793d659656d93f242af223ee4be36f821b6858",
+      "same_json_content": true
+    },
+    {
+      "path": "root/duplicate-adjudications.json",
+      "original_relative_path": "duplicate-adjudications.json",
+      "original_sha256": "a247d89c0c8a4bb3f7e09f69d3397f7e2c3840ea6155541c4ad510dca807d7f1",
+      "bundled_sha256": "a482c039a284a2f037b5ddda017565580ba723ee458c1bfd87d4c9b8b81138ec",
+      "same_json_content": true
+    },
+    {
+      "path": "storm-sources-hurricane_screen/transport-registry.json",
+      "original_relative_path": "storm-sources-hurricane_screen/transport-registry.json",
+      "original_sha256": "1e1acbd1c3e82799bfb823f7d786448329a8d8764bf89bbe910ebe676d8b2862",
+      "bundled_sha256": "5864a2af8f51a629a33751458456ff0b8f8a4dbf2f9dfe0a7ef69b60e0bf9802",
+      "same_json_content": true
+    },
+    {
+      "path": "storm-sources-hurricane_screen/transport-adapter-audit.json",
+      "original_relative_path": "storm-sources-hurricane_screen/transport-adapter-audit.json",
+      "original_sha256": "7c6bccec6d56d8d351b4c8280e7ff5c1a44129de5c6d82c0c79ebb5e4dbb4244",
+      "bundled_sha256": "5cfc9dab4a9ae498d026e70738f8b9b92de3264785bbb9e6f575ac643856f8bf",
+      "same_json_content": true
+    },
+    {
+      "path": "storm-sources-hurricane_screen/source-search-disposition.json",
+      "original_relative_path": "storm-sources-hurricane_screen/source-search-disposition.json",
+      "original_sha256": "7717dafead33c37a27a6e813dd8147b71474ff55cb6f03335786a64f397e1148",
+      "bundled_sha256": "06f1402c30443cbf423ad26d288935603de62b56c96e2718d975443f8614b3ca",
+      "same_json_content": true
+    },
+    {
+      "path": "heat-magnetic/manifest.json",
+      "original_relative_path": "heat-magnetic/manifest.json",
+      "original_sha256": "58f0e82956f4c45a10715ee39d9843fb303c327da7cd459c8563c5a3429c796f",
+      "bundled_sha256": "5e3673a7d10f63248ec0c903a861665dd8ff422aa8fc3e37a599448ac76b9e73",
+      "same_json_content": true
+    },
+    {
+      "path": "heat-magnetic/heat-registry.json",
+      "original_relative_path": "heat-magnetic/heat-registry.json",
+      "original_sha256": "f1b7bc4b37ab1940df36bbb3140fcb60851b92b1c382b930439d5513f13259f6",
+      "bundled_sha256": "d522facef7889c3e8c41cc23269f71325068941512b2644efd4a966a722e1ddb",
+      "same_json_content": true
+    },
+    {
+      "path": "heat-magnetic/verification/collection-audit.json",
+      "original_relative_path": "heat-magnetic/verification/collection-audit.json",
+      "original_sha256": "182a2f352fc33665e51719697e5dbbdd300a418a748eabbce8e1a42559e2b2e7",
+      "bundled_sha256": "0d11fd2d98b58d0f10a2397600c4fd33d1e84ecc991502ceb370b253eb31022e",
+      "same_json_content": true
+    },
+    {
+      "path": "protocol/normal-state-policy.json",
+      "original_relative_path": "protocol/normal-state-policy.json",
+      "original_sha256": "378ec18b8ffe9fec62dc59e639efa7134f22e68dafda9db0a8ab8b9bbb031337",
+      "bundled_sha256": "4aa609047fdd5d0754a25660be94b83bfde42c37aa081be50d3546e30db7856e",
+      "same_json_content": true
+    }
+  ],
+  "frozen_inspection_timestamps": {
+    "root-collection.json": [
+      "2026-11-01T12:57:19+00:00"
+    ],
+    "nbc-collection.json": [
+      "2026-11-01T13:06:54.455160+00:00"
+    ],
+    "storm-sources-hurricane_screen/transport-collection.json": [
+      "2026-11-01T13:16:15.946247+00:00"
+    ],
+    "heat-magnetic/heat-collection.json": [
+      "2026-11-01T13:03:00Z"
+    ]
+  },
+  "protocol_sha256": "378ec18b8ffe9fec62dc59e639efa7134f22e68dafda9db0a8ab8b9bbb031337",
+  "rebuild_does_not_imply_training_eligibility": true,
+  "cross_adapter_uniqueness_requires_explicit_adjudication": true
+}

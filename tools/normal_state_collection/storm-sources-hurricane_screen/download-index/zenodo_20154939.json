@@ -1,0 +1,74 @@
+{
+  "dataset_doi": "10.5281/zenodo.20154939",
+  "title": "Source data for \"Superconductivity in epitaxial PtSb(0001) thin films\"",
+  "publication_date": "2026-05-13",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "metadata": {
+    "url": "https://zenodo.org/api/records/20154939",
+    "local_path": "zenodo-20154939/repository-metadata.json",
+    "bytes": 9535,
+    "sha256": "37a93d7bba91541543fa43bb96aac46045855fb31e0064757e95bd4a97462bdd",
+    "repository_md5_checked": false
+  },
+  "files": [
+    {
+      "url": "https://zenodo.org/api/records/20154939/files/datafiles.zip/content",
+      "local_path": "zenodo-20154939/original/datafiles.zip",
+      "bytes": 185717,
+      "sha256": "5ad4d38ef310b230d0c248a10e256910e1a36e06ea134f0860f9f2c66ed3b9e6",
+      "repository_md5_checked": true,
+      "members": [
+        {
+          "archive_member": "Figure1.txt",
+          "local_path": "zenodo-20154939/extracted/datafiles/Figure1.txt",
+          "bytes": 360605,
+          "sha256": "020563fd772b1d6b0a0170ee7c77043ce5c57c0f51bf1e3fed50704b558e9374"
+        },
+        {
+          "archive_member": "Figure2a.txt",
+          "local_path": "zenodo-20154939/extracted/datafiles/Figure2a.txt",
+          "bytes": 8870,
+          "sha256": "8f845402c9ee49de6fc42e78360863bc7cde84fb3abb76b9b4ce87658d58e5ff"
+        },
+        {
+          "archive_member": "Figure2b.txt",
+          "local_path": "zenodo-20154939/extracted/datafiles/Figure2b.txt",
+          "bytes": 6796,
+          "sha256": "6a45031d0dbcdfb0cf21552eb6ca6f971482d656b37823702f79023b512b5333"
+        },
+        {
+          "archive_member": "Figure2c.txt",
+          "local_path": "zenodo-20154939/extracted/datafiles/Figure2c.txt",
+          "bytes": 3295,
+          "sha256": "58b3e41d30a19046eb53cf796f8b61efa748191f251397035e041a227bca5c9e"
+        },
+        {
+          "archive_member": "Figure3a.txt",
+          "local_path": "zenodo-20154939/extracted/datafiles/Figure3a.txt",
+          "bytes": 854,
+          "sha256": "d8afdc96a69815cc6c973d46bb0d1c1f328c89281b2b9c56bbe3d25c696523a7"
+        },
+        {
+          "archive_member": "Figure3b.txt",
+          "local_path": "zenodo-20154939/extracted/datafiles/Figure3b.txt",
+          "bytes": 781,
+          "sha256": "3bfbf6f1ec2ad9a05dcdb62f17f7d1c7aafc5dfdc981595a5757876fe8a9eabe"
+        },
+        {
+          "archive_member": "Figure5.txt",
+          "local_path": "zenodo-20154939/extracted/datafiles/Figure5.txt",
+          "bytes": 179146,
+          "sha256": "53c65537e790778e9d6a4890b2f96f58b6542d81623258ee539809ff78c6d566"
+        },
+        {
+          "archive_member": "README.md",
+          "local_path": "zenodo-20154939/extracted/datafiles/README.md",
+          "bytes": 2037,
+          "sha256": "c10562c183fb1c895976521c0254bd738fc61795d84591990374d589510bb8c1"
+        }
+      ]
+    }
+  ]
+}

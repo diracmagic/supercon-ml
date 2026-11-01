@@ -1,0 +1,31 @@
+{
+  "source_id": "nbtin-2024",
+  "curve_index": [
+    {
+      "curve_id": "nbtin-2024-Fig1d",
+      "source_id": "nbtin-2024",
+      "sample_id": "nbtin-2024-Fig1d-film",
+      "formula": "Nb0.62Ti0.38N",
+      "phase": "fcc NbTiN film",
+      "quantity": "sheet_resistance",
+      "unit": "ohm/square",
+      "temperature_unit": "K",
+      "pressure_gpa": null,
+      "magnetic_field_t": null,
+      "doping_fraction": null,
+      "strain": null,
+      "source_locator": "Fig.1d, first x1/y1(data) pair; fit columns deliberately excluded",
+      "original_path": "ntu-nbtin-2024/ingested-tab/Fig. 1d.tab",
+      "original_sha256": "5339cab4f57739595291fd1ea49dc60fb5544e43da9a69f33c227f1433289fcc",
+      "value_status": "verified_source_values",
+      "point_count": 902,
+      "temperature_min_k": 4.7019,
+      "temperature_max_k": 296.0,
+      "precursor_policy": "full_curve_is_not_a_precursor; define absolute normal-state window before fitting",
+      "training_eligible": false,
+      "training_eligibility_reason": "pending scoped training policy and condition/target matching",
+      "normalized_path": "normalized/nbtin-2024-Fig1d.json",
+      "sha256": "de1f9c1fd84cd6f9674dea31bba280f691d1d6dac3103ec36edc70ab9bf8366e"
+    }
+  ]
+}

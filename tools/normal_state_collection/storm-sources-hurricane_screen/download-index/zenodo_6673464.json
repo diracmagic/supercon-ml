@@ -1,0 +1,302 @@
+{
+  "dataset_doi": "10.5281/zenodo.6673464",
+  "title": "Raw Data for Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys",
+  "publication_date": "2022-06-21",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "metadata": {
+    "url": "https://zenodo.org/api/records/6673464",
+    "local_path": "zenodo-6673464/repository-metadata.json",
+    "bytes": 3768,
+    "sha256": "83a37758f95a7040989f2f6cdc25f5e05b9eb534d93ba9e66dc098b60fa527b4",
+    "repository_md5_checked": false
+  },
+  "files": [
+    {
+      "url": "https://zenodo.org/api/records/6673464/files/Evidence%20for%20Isotropic%20s-Wave%20Superconductivity%20in%20High-Entropy%20Alloys%20Raw%20Data.zip/content",
+      "local_path": "zenodo-6673464/original/Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data.zip",
+      "bytes": 13183940,
+      "sha256": "785b8ec48c4ee3fff3698c578f3ff8d0a958f19ac803a4564d11c551d03d06b7",
+      "repository_md5_checked": true,
+      "members": [
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Analysis by Python/Evidence_for_Isotropic_s_Wave_Superconductivity_in_High_Entropy_Alloys_analysis.ipynb",
+          "local_path": "zenodo-6673464/extracted/archive/563dd11eaaf980b7.ipynb",
+          "bytes": 61572,
+          "sha256": "d30f8c47899ccad951c251cf25a020a517d61944df1f0e2c48ddb81906500957"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 2 b2/Hc2/HMgraph_x0p75_backward_all.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 2 b2/Hc2/HMgraph_x0p75_backward_all.csv",
+          "bytes": 88417,
+          "sha256": "febfb5871afce80aea406c54cfb8956a49a9a9c3077d089387f19b10569e8ab0"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 2 b2/Hc2/HMgraph_x0p4_6_backward_all.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 2 b2/Hc2/HMgraph_x0p4_6_backward_all.csv",
+          "bytes": 117889,
+          "sha256": "0fdc55afdccbaa35f1e1aec1ee64ba1945eba7c32e2acce6b4ff3f10464974c1"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 2 b2/Hc2/HMgraph_x0p75_forward_all.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 2 b2/Hc2/HMgraph_x0p75_forward_all.csv",
+          "bytes": 84484,
+          "sha256": "08082997f1a1f207c671188cec1a685ec2fdc5cd69396a897acfb9418afbad33"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 2 b2/Hc2/fig2a.m",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 2 b2/Hc2/fig2a.m",
+          "bytes": 4200,
+          "sha256": "a662ed8b68111d5bb9877400a958d3df17ee7b5ac72b74dbf33d108d168ee2d7"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 2 b2/Hc2/HMgraph_x0p75_backward_all (1).csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 2 b2/Hc2/HMgraph_x0p75_backward_all (1).csv",
+          "bytes": 88417,
+          "sha256": "febfb5871afce80aea406c54cfb8956a49a9a9c3077d089387f19b10569e8ab0"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 2 b2/Hc2/HMgraph_x0p75_forward_all (1).csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 2 b2/Hc2/HMgraph_x0p75_forward_all (1).csv",
+          "bytes": 84484,
+          "sha256": "08082997f1a1f207c671188cec1a685ec2fdc5cd69396a897acfb9418afbad33"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 2 b2/Hc2/figsc2a.m",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 2 b2/Hc2/figsc2a.m",
+          "bytes": 3576,
+          "sha256": "25fdb457c0979cb6928fbec551eea379645b18b1f80451d619418b49502597ac"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 2 b2/Hc2/fig2b.m",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 2 b2/Hc2/fig2b.m",
+          "bytes": 3153,
+          "sha256": "30d6f8278f689bcd8922369a1568d5e7ed9380d67e96e80c99fcef28f6e6a458"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 2 b2/Hc2/HMgraph_x0p4_6_forward_all.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 2 b2/Hc2/HMgraph_x0p4_6_forward_all.csv",
+          "bytes": 118834,
+          "sha256": "70907f861a3c832e052bf5c64cf84438fe429adfe2bd64a5655c22fb65184edf"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1ab/ZFCFC/fig1ab.m",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1ab/ZFCFC/fig1ab.m",
+          "bytes": 2380,
+          "sha256": "ffac95175c739d11a9dc6dd27e0bbfdfcb6836de57780ba3e04be6425e7f4b3d"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1ab/ZFCFC/ZFCFC13102021x0p4.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1ab/ZFCFC/ZFCFC13102021x0p4.csv",
+          "bytes": 9698,
+          "sha256": "d78f831b9a902142fcecb5d236f7f857fb7aa33b493d067a67cb1b16feda828c"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1ab/ZFCFC/ZFCFC13102021x0p75.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1ab/ZFCFC/ZFCFC13102021x0p75.csv",
+          "bytes": 9606,
+          "sha256": "bf8263d4cdad8f97e3db30f6eeed104a967f559c72f8367cbd962e85c9d51732"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 3/Lambda_fitting/fig3a.m",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 3/Lambda_fitting/fig3a.m",
+          "bytes": 14152,
+          "sha256": "bdd69038b9bad6e8746b9c8b73ba1897c024bfe3a067ad8e04d94f6b4172621a"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 3/Lambda_fitting/fig3b.m",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 3/Lambda_fitting/fig3b.m",
+          "bytes": 7163,
+          "sha256": "c9fcf4cdfeb76860ae5900ab1c620754c8e344ef1bd602c9fa728fa0b068bda7"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1111_45.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1111_45.csv",
+          "bytes": 44205,
+          "sha256": "a19b9d7983dac4637e2ff5f4bc717faac5dec4e593caaa01db736de1cd0c0850"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1111_rot analy.xlsx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1111_rot analy.xlsx",
+          "bytes": 260682,
+          "sha256": "d197e087bf5d814bc0dd5afb33e892d085e3a671360b25e992736da7b46dea34"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1cd b1/Hc1/fig1d.m",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1cd b1/Hc1/fig1d.m",
+          "bytes": 2577,
+          "sha256": "877c5f464afb2abc2efd66e4c1bbb0f6a919e2d22c83755b40c6f6ec4dadef3f"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1cd b1/Hc1/HMgraph_Hc1_x04_all_1410.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1cd b1/Hc1/HMgraph_Hc1_x04_all_1410.csv",
+          "bytes": 151630,
+          "sha256": "a365e032934be81636903ce2e7ccb8f0d1226f75b2ebeb9cd5f790e3da5af9fa"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1111_45_analy.xlsx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1111_45_analy.xlsx",
+          "bytes": 39496,
+          "sha256": "bf9c2462a1f9fc3210e2a1e9c226076acd5016f847d6314fbd5b65916261590e"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1111_rot.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1111_rot.csv",
+          "bytes": 39282,
+          "sha256": "2acc5120d39c032e510347b2e36a558a93b39e8b7ee01a1eab087bd4638490f4"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1cd b1/Hc1/fig1c.m",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1cd b1/Hc1/fig1c.m",
+          "bytes": 3849,
+          "sha256": "d4fb141e34b7137b73464ec64aeb05ad0b71bcb3643972c39dae9924487dd3bb"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1cd b1/Hc1/HMgraph_Hc1_x075_all_0731.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1cd b1/Hc1/HMgraph_Hc1_x075_all_0731.csv",
+          "bytes": 42718,
+          "sha256": "88c94f4bcb525a97442e7c1303d29b03f52a790c3aae830916d1aadff70e2b02"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1505 analy.csv",
+          "local_path": "zenodo-6673464/extracted/archive/Fig 1cd b1/Hc1/HMgraph_Hc1_x0p75_all_1505 analy.csv",
+          "bytes": 76484,
+          "sha256": "95ac8e9cb766847f9d5d838264b2d8dd4a99834d96b613e61e249cf62b5c688a"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S3-02-table.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S3-02-table.docx",
+          "bytes": 366961,
+          "sha256": "26282677ce734611f1f8b1abb49a718f672dd45d0d589c65e88e77657c6a70fe"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S2-01-table.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S2-01-table.docx",
+          "bytes": 338839,
+          "sha256": "b7e8ef8d9a2bb27fdd780548e4ea6e0433d81a2db78d934a2a05593ffc51a3bc"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S2-01-map.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S2-01-map.docx",
+          "bytes": 1041680,
+          "sha256": "a88fbc4a9a6c101ae2d5128414866cd3417f7076e818ea83b5523154924c908b"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S3-03-map.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S3-03-map.docx",
+          "bytes": 1052317,
+          "sha256": "f5410a98af7870dced5d178a848033d1459bc19fc37860d20636206d1b5b6cb1"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S3-02-map.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S3-02-map.docx",
+          "bytes": 1056857,
+          "sha256": "231bed259588f6956506b418d2ccb38dbe4fa733c526197e41b1aed07877e045"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S1-01-table.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S1-01-table.docx",
+          "bytes": 335975,
+          "sha256": "53525525fd33e606b7f4e4608d4480c8658eea54b941710d79080ef0dc83476d"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S2-03-table.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S2-03-table.docx",
+          "bytes": 326258,
+          "sha256": "2e579518966cc14e87eea3b9f70f015d164dc86c4345484e29c4081d5ac53bd6"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S1-01-map.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S1-01-map.docx",
+          "bytes": 1049909,
+          "sha256": "4fd8271086a4b83593b14dc982125f4f4a91632f90324bb771ca2fd8bdaad0aa"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S1-03-table.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S1-03-table.docx",
+          "bytes": 332774,
+          "sha256": "719f2ee6c61d679bab96d636a61eb46bb58f389362ccf487a06e0c2c0153e00b"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S3-03-table.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S3-03-table.docx",
+          "bytes": 367901,
+          "sha256": "e1a19cf93d60bcddd15fdd1401858e84d669d190bacba28358c76cbc1eee628e"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S2-02-map.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S2-02-map.docx",
+          "bytes": 1040931,
+          "sha256": "4bebe95b974d6726c6dfc150464d3482a85dc0c26cb3d49c102910f46b535556"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S2-03-map.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S2-03-map.docx",
+          "bytes": 1038322,
+          "sha256": "9392458ea8a640064332bc1e056f92d4e707658744e1675d4b71321f240ade41"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S3-01-map.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S3-01-map.docx",
+          "bytes": 1055815,
+          "sha256": "4a29e56702c115d59c9a1a82a6f7a80970529c4f8206848be90858b4be46dac9"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S1-02-map.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S1-02-map.docx",
+          "bytes": 1045662,
+          "sha256": "8ef030798a6bef32877a4046107180472e0a384a834efc9992381eaf3f667c99"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S1-03-map.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S1-03-map.docx",
+          "bytes": 1033655,
+          "sha256": "d55c2742928a70259a8dda974237bb9e20601cdc269f8f47b02d391cf1d7d792"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S1-02-table.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S1-02-table.docx",
+          "bytes": 335454,
+          "sha256": "951f320d6fd77c68557beca55a96206013c2b727191dec4bf3968be05aa85fd2"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S3-01-table.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S3-01-table.docx",
+          "bytes": 369768,
+          "sha256": "ed1ffacf25bf0719966165d1b405b585fec26f139c7cdb1d9e8ad137d7c26594"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A1/EDX Measurement/S2-02-table.docx",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A1/EDX Measurement/S2-02-table.docx",
+          "bytes": 337478,
+          "sha256": "c8fdc923f940547739ca558af140a74e1840b6ba1bdd250daba747532c198140"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A2/XRD data/03062021 on X=0p4 X=0p6 X=0p75/data_analysis_07062021.mat",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A2/XRD data/03062021 on X=0p4 X=0p6 X=0p75/data_analysis_07062021.mat",
+          "bytes": 34277,
+          "sha256": "ba48950f7801949f2d28835dc36c2de4aa90188eef7b9fb65c0781b42c7dcd97"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A2/XRD data/03062021 on X=0p4 X=0p6 X=0p75/2-tf.ASC",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A2/XRD data/03062021 on X=0p4 X=0p6 X=0p75/2-tf.ASC",
+          "bytes": 23996,
+          "sha256": "5aa9c44838b318d24e752a1dc1a16b5e661c664eda4327e6f88d296233a66698"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A2/XRD data/03062021 on X=0p4 X=0p6 X=0p75/1-tf.ASC",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A2/XRD data/03062021 on X=0p4 X=0p6 X=0p75/1-tf.ASC",
+          "bytes": 23996,
+          "sha256": "8bd8c15265a90331ba9620d064ce6f489162e8db868c6063a1a850776fbb0653"
+        },
+        {
+          "archive_member": "Evidence for Isotropic s-Wave Superconductivity in High-Entropy Alloys Raw Data/Fig A2/XRD data/03062021 on X=0p4 X=0p6 X=0p75/3-tf.ASC",
+          "local_path": "zenodo-6673464/extracted/archive/Fig A2/XRD data/03062021 on X=0p4 X=0p6 X=0p75/3-tf.ASC",
+          "bytes": 23996,
+          "sha256": "b3d7547afc57dec7ac3f01128b94d1ee06103664b2ef65024797f4c5459e64a7"
+        }
+      ]
+    }
+  ]
+}
