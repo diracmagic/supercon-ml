@@ -2,6 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import os from 'node:os';
+import path from 'node:path';
 import candidates from '../app/dist/candidates.js';
 
 const rows = [
@@ -11,6 +15,39 @@ const rows = [
   { id: 'both', formula: 'MoBC', novelty: 0.4 },
 ];
 const ids = (xs) => xs.map(candidates.id);
+
+test('split frontend retains initialization order, function ASTs, references and reviewable resource sizes', () => {
+  const script = new URL('../app/scripts/verify-split.cjs', import.meta.url);
+  const result = spawnSync(process.execPath, ['--expose-internals', fileURLToPath(script)], { encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.equal(JSON.parse(result.stdout.trim()).astEquivalent, true);
+});
+
+test('a real LF-only checkout copy passes the same frontend verifier', () => {
+  const app = fileURLToPath(new URL('../app/', import.meta.url));
+  const temporaryBase = fs.realpathSync(os.tmpdir());
+  const temporary = fs.mkdtempSync(path.join(temporaryBase, 'supercon-frontend-lf-'));
+  try {
+    const assets = JSON.parse(fs.readFileSync(path.join(app, 'dist/assets.json'), 'utf8'));
+    const files = ['dist/index.html', 'dist/assets.json', ...assets.scripts.map((f) => 'dist/' + f),
+      ...assets.styles.map((f) => 'dist/' + f), 'scripts/verify-split.cjs', 'scripts/split-inline.cjs', 'scripts/inline-source-manifest.json'];
+    for (const file of files) {
+      assert.equal(path.isAbsolute(file) || file.split('/').includes('..'), false);
+      const destination = path.join(temporary, file);
+      fs.mkdirSync(path.dirname(destination), { recursive: true });
+      const source = fs.readFileSync(path.join(app, file), 'utf8').replace(/\r\n/g, '\n');
+      assert.equal(source.includes('\r\n'), false);
+      fs.writeFileSync(destination, source);
+    }
+    const result = spawnSync(process.execPath, ['--expose-internals', path.join(temporary, 'scripts/verify-split.cjs')], { encoding: 'utf8' });
+    assert.equal(result.status, 0, result.stderr || result.stdout);
+    assert.equal(JSON.parse(result.stdout.trim()).astEquivalent, true);
+  } finally {
+    const resolved = fs.realpathSync(temporary);
+    assert.ok(resolved.startsWith(temporaryBase + path.sep) && path.basename(resolved).startsWith('supercon-frontend-lf-'));
+    fs.rmSync(resolved, { recursive: true, force: true });
+  }
+});
 
 test('old candidate data separates established domain coverage from exploration', () => {
   assert.deepEqual(ids(candidates.trackRows(rows, null, 'storm_in_domain')), ['in', 'both']);
@@ -74,17 +111,48 @@ test('unavailable and inconclusive phonon runs never become successful stability
 
 test('service-worker activation only removes this application’s old caches', async () => {
   const handlers = {}, deleted = [];
+  const workerSource = fs.readFileSync(new URL('../app/dist/sw.js', import.meta.url), 'utf8');
+  const currentCache = /const CACHE = '([^']+)'/.exec(workerSource)[1];
   const context = {
     self: { addEventListener: (event, callback) => { handlers[event] = callback; }, clients: { claim: async () => {} } },
     caches: {
-      keys: async () => ['supercon-0.3.8', 'supercon-0.3.9', 'other-project-v1', 'superconductor-v1'],
+      keys: async () => ['supercon-old-test-version', currentCache, 'other-project-v1', 'superconductor-v1'],
       delete: async (key) => { deleted.push(key); return true; },
     },
     URL,
   };
-  vm.runInNewContext(fs.readFileSync(new URL('../app/dist/sw.js', import.meta.url), 'utf8'), context);
+  vm.runInNewContext(workerSource, context);
   let activation;
   handlers.activate({ waitUntil: (p) => { activation = p; } });
   await activation;
-  assert.deepEqual(deleted, ['supercon-0.3.8']);
+  assert.deepEqual(deleted, ['supercon-old-test-version']);
+});
+
+test('service-worker installation precaches the entire split frontend before activation', async () => {
+  const handlers = {}, requested = [];
+  let activated = false, installation;
+  const manifest = JSON.parse(fs.readFileSync(new URL('../app/dist/assets.json', import.meta.url), 'utf8'));
+  const base = 'https://example.test/supercon-ml/sw.js';
+  const context = {
+    self: { location: { href: base }, addEventListener: (event, callback) => { handlers[event] = callback; },
+      skipWaiting: async () => { activated = true; } },
+    fetch: async () => ({ ok: true, json: async () => manifest }),
+    caches: { open: async () => ({ addAll: async (files) => { requested.push(...files); } }) }, URL,
+  };
+  vm.runInNewContext(fs.readFileSync(new URL('../app/dist/sw.js', import.meta.url), 'utf8'), context);
+  handlers.install({ waitUntil: (promise) => { installation = promise; } });
+  await installation;
+  for (const asset of [...manifest.styles, ...manifest.scripts]) {
+    assert.ok(requested.includes(new URL(asset, base).href), 'Missing offline asset: ' + asset);
+  }
+  assert.equal(new Set(requested).size, requested.length);
+  assert.equal(activated, true);
+});
+
+test('service-worker refuses nonlocal asset manifest entries', () => {
+  const context = { self: { addEventListener() {}, location: { href: 'https://example.test/project/sw.js' } }, URL };
+  vm.runInNewContext(fs.readFileSync(new URL('../app/dist/sw.js', import.meta.url), 'utf8'), context);
+  for (const asset of ['https://other.test/code.js', '../other-project/code.js', '/outside.js']) {
+    assert.throws(() => context.shellFiles({ styles: [], scripts: [asset] }), /local relative paths/);
+  }
 });

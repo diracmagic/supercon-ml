@@ -1,6 +1,13 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.3.9 adds:
+Unreleased:
+
+- Candidate scores exclude each candidate's own background labels in every ensemble member; model disagreement is labelled separately from confidence intervals.
+- Storm training-domain priority, exploration and B/C-containing metallic sublists, with optional bounded MACE/ASE sampled-phonon triage.
+- Condition-specific literature checks, including unknown outcomes when the source does not establish a superconductivity null.
+- Ordered, reviewable frontend resources with AST extraction checks and a complete offline asset manifest; other applications' caches are preserved.
+
+Version 0.3.9 added:
 
 - **Hurricane 4.0, “not known” instead of “unlikely”**: far from everything it learned from, Hurricane now answers “not known” and gives no chance, and its classifier keeps only the 218 compounds with no superconductivity record that lie near its training data. Trained without a whole family, Hurricane 3.0 called 88% of that family’s superconductors unlikely and Hurricane 4.0 calls 28% unlikely, still with no false alarms and an error on measured T<sub>c</sub> of 10.4 K (Hurricane 3.0: 10.3 K). It does not find a new family either: it answers “not known” for most of one (64%) and gives at least an even chance to 8% (Hurricane 2.0: 47%). The model details show, for every family left out, how much it found, left open and called unlikely, and where the distance falls short: most cuprates look like the families it learned from, so a model that never saw one still calls 69% of them unlikely, and the refuted LK-99 now gets a 94% chance (Hurricane 3.0: 78%).
 - **Screening round 4**: Hurricane judges only the compounds near its training data, 75 of the 354 that Radar sends it; the other 279 get no chance and are counted, not listed. The list says which numbers come from cross-validation and which from the model trained on all of its data: in cross-validation none of the held-out compounds with no record reached an even chance, while on the list one compound does (61%). It is a prediction that nothing has checked.

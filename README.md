@@ -198,7 +198,7 @@ Each paper uses its own data split, so these numbers are a reference point rathe
 - `data/`: graded measured T<sub>c</sub> used only for checks (`experiments.json` for Storm, `hurricane_anchors.json` for Hurricane).
 - `feed/papers.py`: collects new superconductivity papers and news, and the AI × superconductors list, into `progress/papers.json`; `.github/workflows/papers.yml` runs it every three hours.
 - `results/`: metrics and predictions from the latest training run.
-- `app/`: the desktop app (Tauri). `app/dist/index.html` is the whole interface; `manifest.webmanifest` and `sw.js` make the same page installable on phones. `app/scripts/third-party-notices.mjs` writes the licence notices for the installers.
+- `app/`: the desktop app (Tauri). `app/dist/index.html` loads the styles and ordered feature resources listed in `app/dist/assets.json`; `app/FRONTEND_STRUCTURE.md` explains the loading and validation rules. `manifest.webmanifest` and `sw.js` make the same page installable on phones. `app/scripts/third-party-notices.mjs` writes the licence notices for the installers.
 - `.github/workflows/app.yml`: builds the Windows and macOS installers and publishes them as a release.
 - `.github/workflows/pages.yml`: publishes the phone version to GitHub Pages.
 

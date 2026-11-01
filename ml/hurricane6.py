@@ -183,11 +183,9 @@ def descriptor_generation() -> dict:
 
 
 def checkpoint_identity() -> dict:
-    """Verify the explicit MP-0 alias before using the shared descriptor implementation."""
-    from mace.calculators.foundations_models import download_mace_mp_checkpoint, mace_mp_urls
-    if mace_mp_urls.get(P.MACE_MODEL) != MODEL_URL:
-        raise ValueError("MACE's medium alias changed; declare a new checkpoint/protocol before evaluating")
-    path = Path(download_mace_mp_checkpoint(P.MACE_MODEL))
+    """Use the public downloader with the explicit MP-0 release URL, including on older MACE."""
+    from mace.calculators.foundations_models import download_mace_mp_checkpoint
+    path = Path(download_mace_mp_checkpoint(MODEL_URL))
     sha = hashlib.sha256()
     with path.open("rb") as handle:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
@@ -221,13 +219,13 @@ def embeddings(frame: pd.DataFrame, role: str) -> tuple[np.ndarray, dict]:
         chunk = frame.iloc[offset:offset + 128]
         key = f"{cache_key}_{identity['checkpoint_sha256'][:16]}_{offset}"
         keys.append(key)
-        descriptor_cache = P.CACHE / f"mace_mp0_{P.MACE_MODEL}_{key}.npz"
+        descriptor_cache = P.mace_cache_path(key, model_url=MODEL_URL)
         if not descriptor_cache.exists() and not verified_now:
             current_checkpoint = checkpoint_identity()
             if current_checkpoint != identity:
                 raise ValueError("checkpoint bytes changed since these descriptors were generated; a mixed cache is forbidden")
             verified_now = True
-        batches.append(np.asarray(P.mace_descriptors(chunk, key), dtype=float))
+        batches.append(np.asarray(P.mace_descriptors(chunk, key, model_url=MODEL_URL), dtype=float))
     values = np.vstack(batches) if batches else np.zeros((0, 0))
     if values.ndim != 2 or len(values) != len(frame) or not values.shape[1] or not np.isfinite(values).all():
         raise ValueError("MACE descriptors are not a finite row-aligned matrix")

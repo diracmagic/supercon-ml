@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
 import math
 import os
@@ -356,9 +357,15 @@ MACE_MODEL = os.environ.get("MACE_MODEL", "medium")
 N_BAGS = 3
 
 
-def mace_descriptors(df: pd.DataFrame, key: str) -> np.ndarray:
+def mace_cache_path(key: str, *, model_url: str | None = None) -> Path:
+    """A cache namespace for the actual checkpoint URL, or the legacy model alias."""
+    identity = hashlib.sha256(model_url.encode()).hexdigest()[:16] if model_url else MACE_MODEL
+    return CACHE / f"mace_mp0_{identity}_{key}.npz"
+
+
+def mace_descriptors(df: pd.DataFrame, key: str, *, model_url: str | None = None) -> np.ndarray:
     """Mean, std and max over atoms of frozen MACE-MP-0 invariant descriptors."""
-    cache = CACHE / f"mace_mp0_{MACE_MODEL}_{key}.npz"
+    cache = mace_cache_path(key, model_url=model_url)
     ids = df["id"].astype(str).to_numpy()
     if cache.exists():
         z = np.load(cache, allow_pickle=True)
@@ -370,7 +377,7 @@ def mace_descriptors(df: pd.DataFrame, key: str) -> np.ndarray:
     from mace.calculators import mace_mp
 
     torch.set_num_threads(os.cpu_count() or 2)
-    calc = mace_mp(model=MACE_MODEL, device="cpu", default_dtype="float32")
+    calc = mace_mp(model=model_url or MACE_MODEL, device="cpu", default_dtype="float32")
     feats = []
     t0 = time.time()
     for i, a in enumerate(df["atoms"]):

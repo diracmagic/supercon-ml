@@ -1,0 +1,25 @@
+# Frontend resources
+
+`dist/index.html` contains the document skeleton. `dist/styles.css` contains the stylesheet. The complete, ordered resource list is `dist/assets.json`.
+
+The application uses classic scripts and a shared **lexical** environment. Application names are `let`/`const` bindings, not properties written onto `window`. Each script retains strict mode. This preserves the original private application's name resolution without replacing native Window properties.
+
+Load order matters:
+
+1. `candidates.js` provides the standalone candidate data rules.
+2. `js/bindings.js` declares the application's state, initially undefined as the original `var` bindings were.
+3. `js/definitions/` contains named functions grouped by feature. All definitions load before initialization, preserving calls to functions originally declared later in the single IIFE.
+4. `js/initialize/` contains the original state initialization and setup statements, grouped by feature. Loading these files only defines initializer functions.
+5. `js/bootstrap.js` calls every initializer in the original order, in one synchronous stack. Timers, events and network completions cannot interleave between initialization resources.
+
+Functions retain their original bodies and names. The original top-level functions were not reassigned, so their bindings can be `const`. Top-level `var` initializers become assignments to the already-declared lexical state. There were no outer `this`, `return` or nested outer `var` dependencies to migrate.
+
+`scripts/inline-source-manifest.json` records AST fingerprints of the extraction baseline. `scripts/verify-split.cjs` checks every function and initialization statement, load order, strict mode, references, independent/combined syntax, lexical declarations and the 70 KB resource limit. It can also compare directly with a complete pre-extraction HTML snapshot:
+
+```sh
+node --expose-internals scripts/verify-split.cjs --reference /path/to/original/index.html
+```
+
+The verifier uses Acorn bundled with Node 22, the CI version; no parser dependency is downloaded. The regular candidate test file invokes it automatically. Intentional behavior changes require updating the affected reviewed baseline fingerprints; the extraction comparison must not be silently disabled.
+
+`scripts/split-inline.cjs` is the one-time extraction utility. It expects an original inline IIFE and deliberately refuses to re-extract the resulting shell. New resources must also be added to the ordered asset list, HTML references and service-worker offline shell.

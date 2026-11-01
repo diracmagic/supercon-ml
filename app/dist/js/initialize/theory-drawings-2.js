@@ -1,0 +1,27 @@
+'use strict';
+// theory-drawings: original initialization order; invoked synchronously by bootstrap.js.
+const initializeSuperconTheoryDrawings2 = function initializeSuperconTheoryDrawings2() {
+
+  MINI_ALT = {
+    london: 'Magnetic field lines pass straight through a round sample above Tc and bend around it once it is cooled below Tc, while a small plot shows the field decaying exponentially inside the surface over the penetration depth λ.',
+    gl: 'A free-energy curve turns from a single well at zero above Tc into a double well below Tc and a ball rolls into the new minimum, while beside it a triangular lattice of vortices appears, each carrying one flux quantum with supercurrent circling it.',
+    bcs: 'An electron moving between rows of positive ions pulls them toward its path and leaves a positive wake, a second electron moving the other way falls into the wake and the two bind into a pair of momentum k with spin up and −k with spin down, and the density of states opens an energy gap 2Δ with sharp peaks at its edges.',
+    eliashberg: 'The phonon spectrum α²F(ω), with an acoustic and an optical hump, fills in from low to high frequency while the electron–phonon coupling λ climbs to 1.16 and the Allen–Dynes formula with μ* = 0.10 and ω_log ≈ 308 K gives Tc ≈ 26 K.',
+    josephson: 'Two superconductors separated by a thin barrier each show a phase arrow; with a voltage applied the phase difference φ winds steadily, the supercurrent I = Ic sin φ oscillates in a scrolling trace, and Cooper pairs shuttle through the barrier with the current.',
+    dwave: 'A square Brillouin zone shows the cuprate Fermi surface wrapped in a gap band whose thickness follows cos kx − cos ky, positive (blue) near (0, ±π), negative (orange) near (±π, 0) and zero at nodes on the diagonals, with a pulsing arrow Q = (π, π) linking points of opposite sign.',
+    spm: 'In the Brillouin zone of an iron pnictide, hole pockets at the centre carry a positive gap (blue) and electron pockets at the corners a negative gap (orange), and a pulsing spin-fluctuation arrow Q links a hole pocket to an electron pocket.',
+    topo: 'A nanowire lies on a superconductor; as the bulk gap opens, its spread-out standing wave gives way to two Majorana modes glowing at the ends, whose probability density decays exponentially into the wire, while a level diagram keeps one state at zero energy inside the gap.',
+    moire: 'Two triangular lattices twisted by a small angle form a moiré pattern whose period grows as the twist shrinks toward the magic angle of about 1.1°, where the two central bands in the band plot become flat.',
+    magnet: 'A solenoid cut along its axis shows wire cross-sections with current out of the page on top and into the page below, current pulses running turn by turn along the winding, and a uniform magnetic field through the bore, as in MRI and accelerator magnets.',
+    mgb2: 'A top view of the boron honeycomb in MgB₂, with magnesium above the hexagon centres, shows the E₂g phonon: the two boron sublattices oscillate in opposite in-plane directions, stretching and squeezing the boron–boron bonds.',
+    rebco: 'A REBCO coated-conductor tape seen in cross-section, with substrate, buffer, a thin superconducting REBCO layer and a silver and copper cap, carries current along the REBCO layer while bubbles of boiling liquid nitrogen rise from it at 77 K.',
+    hg1223: 'A time plot shows pressure ramping to about 30 GPa and then being released abruptly, while the Tc of Hg-1223 rises from 133 K toward 164 K and then stays near 151 K after the quench, beside a stack of three CuO₂ planes that is squeezed under pressure.',
+    iron: 'A square lattice of iron atoms, with arsenic alternately above and below the square centres, carries spin arrows that fluctuate about a stripe antiferromagnetic pattern in which rows of up spins alternate with rows of down spins.',
+    hydride: 'A cage of rapidly vibrating hydrogen atoms around a lanthanum atom is squeezed as two diamond anvils close in, and readouts of about 170 GPa and Tc ≈ 250 K appear once it is compressed.',
+    nickelate: 'A bilayer nickelate film on a substrate shows two NiO₂ planes joined by apical oxygens in vertical Ni–O–Ni bridges, interlayer pairs forming between the planes, and inward arrows for the compressive strain imposed by the substrate.',
+    magic: 'A resistance versus filling trace for magic-angle graphene has a correlated-insulator peak at half filling and superconducting domes on either side where the resistance drops to zero, while a gate marker sweeps across and a label names the state: metal, superconductor or correlated insulator.',
+    triplet: 'An electron pair with parallel spins sits on the two lobes of a rotating p-wave orbital whose lobes have opposite signs, giving spin 1 and odd parity, next to a kagome lattice like that of CsV₃Sb₅ in which a 2 × 2 charge-density-wave pattern breathes in and out.',
+    heavy: 'Light conduction electrons move among a lattice of large f-electron moments and slow down sharply as screening clouds form around the moments, becoming heavy quasiparticles with an effective mass of about 100 to 1000 electron masses.'
+  };
+
+};

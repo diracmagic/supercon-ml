@@ -3,6 +3,7 @@ import hashlib
 import json
 import sys
 import tempfile
+import types
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -72,19 +73,47 @@ class Hurricane6Tests(unittest.TestCase):
         frame = pd.DataFrame([dict(id=str(i), atoms={"coords": [[float(i), 0, 0]]}) for i in range(129)])
         seen = []
         generation = {"packages": {"mace-torch": "test-version"}, "checkpoint_url": H6.MODEL_URL}
-        def descriptors(chunk, key):
+        def descriptors(chunk, key, *, model_url=None):
+            self.assertEqual(model_url, H6.MODEL_URL)
+            cache = H6.P.mace_cache_path(key, model_url=model_url)
+            if cache.exists():
+                with np.load(cache) as stored:
+                    return stored["X"]
             seen.append((len(chunk), key))
-            return np.ones((len(chunk), 3))
+            values = np.ones((len(chunk), 3))
+            np.savez_compressed(cache, ids=chunk["id"].astype(str).to_numpy(), X=values)
+            return values
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as temporary, \
              patch.object(H6.P, "CACHE", Path(temporary)), \
              patch.object(H6, "descriptor_generation", return_value=generation), \
              patch.object(H6, "checkpoint_identity", return_value={"checkpoint_url": H6.MODEL_URL, "checkpoint_sha256": "abc"}), \
              patch.object(H6.P, "mace_descriptors", side_effect=descriptors):
             result, info = H6.embeddings(frame, "parents")
+            with patch.object(H6, "checkpoint_identity", side_effect=AssertionError("complete descriptor cache should not reload weights")):
+                reused, reused_info = H6.embeddings(frame, "parents")
+            np.testing.assert_array_equal(reused, result)
+            self.assertEqual(reused_info, info)
         self.assertEqual([n for n, _ in seen], [128, 1])
         self.assertEqual(result.shape, (129, 3))
         self.assertEqual(info["checkpoint_sha256"], "abc")
         self.assertEqual(info["descriptor_generation"], generation)
+
+    def test_checkpoint_identity_uses_public_explicit_url_without_private_map(self):
+        calls = []
+        foundations = types.ModuleType("mace.calculators.foundations_models")
+        with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parents[1]) as temporary:
+            checkpoint = Path(temporary) / "checkpoint.model"
+            checkpoint.write_bytes(b"fixed-checkpoint-bytes")
+            def download(url):
+                calls.append(url)
+                return str(checkpoint)
+            foundations.download_mace_mp_checkpoint = download
+            with patch.dict(sys.modules, {"mace": types.ModuleType("mace"),
+                                          "mace.calculators": types.ModuleType("mace.calculators"),
+                                          "mace.calculators.foundations_models": foundations}):
+                result = H6.checkpoint_identity()
+            self.assertEqual(calls, [H6.MODEL_URL])
+            self.assertEqual(result["checkpoint_sha256"], hashlib.sha256(checkpoint.read_bytes()).hexdigest())
 
     def test_sample_preflight_cannot_claim_full_cohort_coverage(self):
         parents = pd.DataFrame([dict(material_id=f"p{i}", family=family) for i, family in enumerate(H6.H.FAMILY_LABEL)])

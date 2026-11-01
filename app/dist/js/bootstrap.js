@@ -1,0 +1,33 @@
+'use strict';
+// All definitions and initializer functions are now loaded. Run startup in one
+// synchronous stack, so timers and events cannot interleave between resources.
+initializeSuperconCore();
+initializeSuperconProgress();
+initializeSuperconDemoPlayer();
+initializeSuperconContent();
+initializeSuperconTour();
+initializeSuperconModelDemo();
+initializeSuperconBaselineDemos();
+initializeSuperconStormDemo();
+initializeSuperconStormCurrentDemo();
+initializeSuperconHurricaneDemo();
+initializeSuperconRadarDemo();
+initializeSuperconPredictionDemo();
+initializeSuperconTheoryDrawings();
+initializeSuperconTheoryDrawings2();
+initializeSuperconNobelDrawings();
+initializeSuperconMechanismDrawings();
+initializeSuperconNewsDrawings();
+initializeSuperconMiniPlayer();
+initializeSuperconTheoryView();
+initializeSuperconPapersView();
+initializeSuperconModelCards();
+initializeSuperconAuthors();
+initializeSuperconCitationContact();
+initializeSuperconModelDetails();
+initializeSuperconAiView();
+initializeSuperconCandidates();
+initializeSuperconCrystalViewer();
+initializeSuperconPhone();
+initializeSuperconUpdates();
+initializeSuperconStartup();
