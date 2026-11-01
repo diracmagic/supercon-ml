@@ -1,0 +1,164 @@
+{
+  "actual_feedback_training_records": 0,
+  "actual_precursor_training_records": 0,
+  "additional_features": [
+    "volume_per_atom_angstrom3",
+    "is_metal",
+    "small_gap",
+    "is_magnetic"
+  ],
+  "alpha_grid": [
+    0.001,
+    0.01,
+    0.1,
+    1.0
+  ],
+  "alpha_tie_auc_tolerance": 0.01,
+  "cohort": {
+    "h7": 615,
+    "historical_h6": 619,
+    "historical_h6_positive": 290,
+    "positive": 288,
+    "unlabeled": 327
+  },
+  "designs": {
+    "R0": "Ridge ranking on main effects",
+    "R1": "ElasticNet ranking on main effects, continuous squares and pairwise interactions",
+    "R2": "Fixed secondary ablation: train-only geometry PCA8 plus the same four additional features, then the R1 head"
+  },
+  "electronic_flags": {
+    "is_magnetic": "abs(moment/volume)>0.0001 muB/angstrom^3",
+    "is_metal": "gap<=0.005 eV",
+    "small_gap": "0.005<gap<=1.0 eV"
+  },
+  "excluded_predictors": [
+    "family",
+    "element identities/fractions",
+    "known structure-family templates",
+    "n_entries",
+    "Tc",
+    "database ID",
+    "raw gap/moment/hull/formation energy",
+    "cell volume",
+    "MACE descriptors",
+    "missing-value indicators"
+  ],
+  "failure_semantics": "Pending/failed/inconclusive folds stay explicit, never zero-filled. Empty feature/rule sets may return a finite all-tied score. Any incomplete design has null macro and is excluded from paired comparisons; all requested designs remain in the report.",
+  "families": [
+    "cuprate",
+    "iron-based",
+    "heavy-fermion",
+    "other oxide"
+  ],
+  "feedback": "Freeze each pre-feedback score/target/snapshot first. Only verified target-compatible evidence exports may change training labels. Model predictions and MACE stability are not SC labels; undoped sample nulls are not parent-potential negatives. Previously published but newly ingested literature remains retrospective.",
+  "geometry_config": {
+    "cutoff_scale": 1.25,
+    "max_atoms": 2048,
+    "max_neighbor_edges": 500000,
+    "min_separation_angstrom": 0.0001,
+    "sensitivity_fraction": 0.05
+  },
+  "geometry_features": [
+    "coordination_mean",
+    "coordination_std",
+    "metal_ligand_coordination_mean",
+    "metal_ligand_coordination_std",
+    "bond_length_mean_angstrom",
+    "bond_length_cv",
+    "local_planarity_mean",
+    "local_planarity_std",
+    "local_linearity_mean",
+    "local_linearity_std",
+    "tetrahedral_order_mean",
+    "tetrahedral_order_std",
+    "local_bond_length_cv_mean",
+    "radius_normalized_length_mean",
+    "radius_normalized_abs_deviation_mean",
+    "connectivity_0d_site_fraction",
+    "connectivity_1d_site_fraction",
+    "connectivity_2d_site_fraction",
+    "connectivity_3d_site_fraction"
+  ],
+  "geometry_version": "periodic-local-geometry-v1",
+  "inner_objective": "AUC separately in every inner validation fold x family with both P and U. Equally average valid-fold AUCs within each training family, then equally average all three training families. An alpha is invalid if any training family has no valid fold. Choose largest alpha within 0.01 AUC of best. Never compare scores across inner models; all transformations and term expansion fit inside each training fold.",
+  "inner_system_folds": 3,
+  "l1_ratio": 0.8,
+  "label_semantics": "P: an original MP parent with an observed positive SuperCon descendant; U: no positive descendant recorded in this snapshot, not measured nonsuperconducting.",
+  "max_iter": 5000,
+  "mixed_family_exclusions": {
+    "mp-1106248": [
+      "iron-based",
+      "other oxide"
+    ],
+    "mp-1218154": [
+      "cuprate",
+      "other oxide"
+    ],
+    "mp-1274783": [
+      "cuprate",
+      "other oxide"
+    ],
+    "mp-5670": [
+      "cuprate",
+      "other oxide"
+    ]
+  },
+  "outer": "Leave each family out; remove its chemical systems from all supervised and auxiliary training.",
+  "paired_comparisons": [
+    [
+      "R1",
+      "R0"
+    ],
+    [
+      "R2",
+      "R1"
+    ]
+  ],
+  "paired_quantities": [
+    "macro observed-P/U AUC",
+    "macro recall at 20% ranking budget"
+  ],
+  "paired_system_bootstraps": 1000,
+  "pairs": {
+    "different_chemical_systems": true,
+    "unlabeled_partners_per_positive": 4,
+    "weights": "Equal eligible training families, then equal eligible positive chemical systems (bootstrap system multiplicities respected), then equal eligible positive rows. Uniformly sample up to four distinct eligible unlabeled systems and one row per system; bootstrap multiplicity weights the system draw.",
+    "within_family_only": true
+  },
+  "pca_background": "None. PCA8 fits only the corresponding outer/inner training parents; no JARVIS auxiliary cohort, MACE or foundation-model pretraining.",
+  "pca_components": 8,
+  "preflight_amendment": {
+    "no_real_fit_observed": true,
+    "only_synthetic_smoke_before_amendment": true,
+    "reason": "Uncalibrated scores from different inner-fold models cannot be pooled into a single AUC. Compute AUC only within each validation fold and family, then average valid folds within family and the three training families equally.",
+    "superseded_protocol_sha256": "3d82c25a5a893290a6e62c50002d2065f0bf0a8812a08b197520965196c0c352"
+  },
+  "preprocessing": {
+    "constant_tolerance": 1e-12,
+    "imputation": "training median; no missingness indicator",
+    "minimum_training_finite_fraction": 0.5,
+    "z_clip": 5.0
+  },
+  "primary": "Macro observed-positive-versus-unlabeled AUC across four held families; it is not true-superconductor ROC AUC.",
+  "publication": "Exploratory report only: these four families were already inspected in H6. No winner selection, mechanism/causal claim, probability calibration or model release; adopted always false.",
+  "ridge_penalty": "The same inner alpha grid as R1/R2; sklearn Ridge alpha = number_of_pairs * selected_alpha",
+  "secondary": {
+    "recall_budget_fraction": 0.2,
+    "ties": "fractional allocation within boundary ties"
+  },
+  "seed": 7,
+  "source_commit": "8d69ca9c94b83d387378549225d3b7c3af85ca42",
+  "source_sha256": "353b86f9c60505d11a3e25df8312da02ff88fd8e27af05b632dec4739d52eb24",
+  "stability": {
+    "coefficient_tolerance": 1e-08,
+    "conditional_sign_agreement": 0.9,
+    "conditioning": "fixed outer-training feature basis and selected alpha; descriptive, not a false-discovery guarantee",
+    "convergence": "Any nonconverged bootstrap or family-specific head makes common-term support inconclusive; report empty common_terms, never treat unconverged coefficients as evidence",
+    "selection_frequency": 0.8,
+    "system_bootstraps": 64,
+    "training_families_same_sign": 3
+  },
+  "target": "parent_has_superconducting_doped_descendant",
+  "tol": 0.0001,
+  "version": "hurricane7-exploratory-pu-ranking-v2"
+}
