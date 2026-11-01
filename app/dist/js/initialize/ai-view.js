@@ -3,7 +3,7 @@
 const initializeSuperconAiView = function initializeSuperconAiView() {
 
 
-  /* ---------- AI × superconductors: a live list of AI and machine-learning papers and news, our models, curated advances ----------
+  /* ---------- AI × superconductors: a live list of AI and machine-learning papers and news, and our models ----------
      The list comes from the paper feed's "ai" section (refreshed every three hours by GitHub Actions); while this view is open
      it checks for a newer feed every ten minutes, rolls the newest headlines and marks what arrived since the last visit. */
   AI_POLL_MS = 10 * 60 * 1000;
@@ -12,11 +12,6 @@ const initializeSuperconAiView = function initializeSuperconAiView() {
   AI_KIND_LABEL = { prediction: 'AI prediction', experiment: 'AI + experiment' };
 
   aiState = { built: false, kind: 'all', shown: 12, timer: 0, tick: 0, tickTimer: 0,
-    seen: store.get('aiSeen') || '', newest: '',
-    external: { query: '', category: 'all', page: 0, pageSize: 6, source: null, controllers: [] } };
-
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) stopExternalResearch();
-  });
+    seen: store.get('aiSeen') || '', newest: '' };
 
 };
