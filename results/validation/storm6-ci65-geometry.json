@@ -1,0 +1,635 @@
+{
+  "scope": "Independent geometry, missingness, cutoff and artifact-binding audit. Metric audit is separate.",
+  "run_directory": "research-results-65/results/storm6/20261101T042028909465Z-1793506828909486216",
+  "run_id": "20261101T042028909465Z-1793506828909486216",
+  "source_commit": "8503bae5437352818eefce894f17ca88cb3cf602",
+  "current_worktree_differs_from_frozen_source": [
+    "ml/pipeline.py"
+  ],
+  "github_run_id": "41272635768",
+  "checks": [
+    {
+      "name": "protocol-file-sha256-binds-run-report-status",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "run-folder-and-report-identity",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "expected-successful-real-report-only-run",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "frozen-commit-source-blobs-match-protocol-content-hashes",
+      "passed": true,
+      "details": {
+        "data/experiments.json": {
+          "expected": "f3ccf50654f231c546584e5533c53d99a2512e98c465e85f684aa41b16eb5226",
+          "local_raw_sha256": "cc5a15bb7676e7646ca227bc3aa02a079c950bc2d6411064725eaea7ac7721d8",
+          "local_lf_sha256": "f3ccf50654f231c546584e5533c53d99a2512e98c465e85f684aa41b16eb5226",
+          "frozen_commit_blob_sha256": "f3ccf50654f231c546584e5533c53d99a2512e98c465e85f684aa41b16eb5226"
+        },
+        "ml/mechanism_features.py": {
+          "expected": "30e08cbba8901a88cabc6a9f5fd15842f7e0ef80d7f831b89f54d5d4bdd01464",
+          "local_raw_sha256": "30e08cbba8901a88cabc6a9f5fd15842f7e0ef80d7f831b89f54d5d4bdd01464",
+          "local_lf_sha256": "30e08cbba8901a88cabc6a9f5fd15842f7e0ef80d7f831b89f54d5d4bdd01464",
+          "frozen_commit_blob_sha256": "30e08cbba8901a88cabc6a9f5fd15842f7e0ef80d7f831b89f54d5d4bdd01464"
+        },
+        "ml/pipeline.py": {
+          "expected": "e65851b0343b1d1f154a23c0225cbdf6c5cd81656e682853864acb816b421700",
+          "local_raw_sha256": "047e18a967ee1630e70653f092d4b232656ab8f18c51c4e2231abe22cd01dbcd",
+          "local_lf_sha256": "f2c29ef1032b24208d5d25ee7bb9ea77534b24c0c9234d633054138065ffca68",
+          "frozen_commit_blob_sha256": "e65851b0343b1d1f154a23c0225cbdf6c5cd81656e682853864acb816b421700"
+        },
+        "ml/storm6.py": {
+          "expected": "96c33baccdf7b53f1af65c50f220158e3542e82493bae3a599b15d7e00e46ab7",
+          "local_raw_sha256": "96c33baccdf7b53f1af65c50f220158e3542e82493bae3a599b15d7e00e46ab7",
+          "local_lf_sha256": "96c33baccdf7b53f1af65c50f220158e3542e82493bae3a599b15d7e00e46ab7",
+          "frozen_commit_blob_sha256": "96c33baccdf7b53f1af65c50f220158e3542e82493bae3a599b15d7e00e46ab7"
+        }
+      }
+    },
+    {
+      "name": "geometry-cohort-count-and-unique-IDs",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "geometry-order-binds-input-manifest",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "geometry-order-matches-prediction-R0-ID-order",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "geometry-protocol-has-19-distinct-named-features",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "no-invalid-unsupported-budget-or-failed-geometries",
+      "passed": true,
+      "details": {
+        "ok": 7582
+      }
+    },
+    {
+      "name": "all-cache-generations-match-frozen-version-and-configuration",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "cache-generation-is-consistent-across-materials",
+      "passed": true,
+      "details": {
+        "generation_count": 1,
+        "example": {
+          "version": "periodic-local-geometry-v1",
+          "settings": {
+            "cutoff_scale": 1.25,
+            "sensitivity_fraction": 0.05,
+            "max_atoms": 2048,
+            "max_neighbor_edges": 500000,
+            "min_separation_angstrom": 0.0001
+          },
+          "ase": "3.29.0",
+          "radii_sha256": "66a3533de486f2db9792644024e4f9652e56d7dfc1945f9435da72043a897c1f"
+        }
+      }
+    },
+    {
+      "name": "fixed-missingness-contract",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "missingness-recomputed-from-every-material-matches-input-manifest",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "feature-missingness-agrees-with-local-environment-coverage",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "site-and-environment-coverage-counts-are-consistent",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "every-structure-has-the-frozen-minus-base-plus-cutoff-probe",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "cutoff-neighbor-counts-monotonic-and-base-edges-match",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "cutoff-dimensional-fractions-sum-to-one-and-are-nonnegative",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "base-dimension-components-match-sensitivity-base-fractions",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "cutoff-dimension-change-flags-match-the-recorded-probes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "unknown-oxidation-orbitals-never-reported-as-measured",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "scientific-limitations-retain-nonblind-cohort-and-noninvariant-legacy-D-warning",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "no-experimental-or-negative-feedback-used-as-DFT-training-labels",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "measured-Tc-checks-labelled-descriptive-and-not-selection",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "all_integrity_checks_passed": true,
+  "geometry": {
+    "materials": 7582,
+    "status_counts": {
+      "ok": 7582
+    },
+    "finite_feature_count_distribution": {
+      "17": 7501,
+      "19": 81
+    },
+    "feature_missingness": {
+      "coordination_mean": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "coordination_std": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "metal_ligand_coordination_mean": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "metal_ligand_coordination_std": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "bond_length_mean_angstrom": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "bond_length_cv": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "local_planarity_mean": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "local_planarity_std": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "local_linearity_mean": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "local_linearity_std": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "tetrahedral_order_mean": {
+        "missing": 7501,
+        "available": 81,
+        "missing_fraction": 0.9893168029543656
+      },
+      "tetrahedral_order_std": {
+        "missing": 7501,
+        "available": 81,
+        "missing_fraction": 0.9893168029543656
+      },
+      "local_bond_length_cv_mean": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "radius_normalized_length_mean": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "radius_normalized_abs_deviation_mean": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "connectivity_0d_site_fraction": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "connectivity_1d_site_fraction": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "connectivity_2d_site_fraction": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      },
+      "connectivity_3d_site_fraction": {
+        "missing": 0,
+        "available": 7582,
+        "missing_fraction": 0.0
+      }
+    },
+    "site_count": {
+      "n": 7582,
+      "min": 1.0,
+      "median": 4.0,
+      "mean": 4.643497757847534,
+      "p90": 7.0,
+      "p95": 8.0,
+      "max": 12.0
+    },
+    "total_sites": 35207,
+    "tetrahedral_materials": 81,
+    "tetrahedral_sites": 195,
+    "materials_with_no_possible_ligand_sites": 5637,
+    "materials_with_isolated_sites": 2,
+    "planarity_site_fraction": {
+      "n": 7582,
+      "min": 0.25,
+      "median": 1.0,
+      "mean": 0.9985334941151348,
+      "p90": 1.0,
+      "p95": 1.0,
+      "max": 1.0
+    },
+    "base_connectivity_site_counts": {
+      "0": 2,
+      "1": 1,
+      "2": 124,
+      "3": 35080
+    },
+    "base_connectivity_material_dimension_sets": {
+      "3": 7555,
+      "2": 24,
+      "0,2": 2,
+      "1,3": 1
+    },
+    "coordination_mean": {
+      "n": 7582,
+      "min": 3.0,
+      "median": 13.2,
+      "mean": 12.820772045739073,
+      "p90": 14.0,
+      "p95": 14.0,
+      "max": 17.0
+    },
+    "cutoff_probe_scales": [
+      1.1875,
+      1.25,
+      1.3125
+    ],
+    "materials_with_any_neighbor_count_change_under_probe": 4162,
+    "neighbor_count_sensitive_material_fraction": 0.5489316802954366,
+    "materials_with_dimension_change_under_probe": 48,
+    "dimension_sensitive_material_fraction": 0.006330783434450013,
+    "dimension_change_examples": [
+      {
+        "id": "agm003162412",
+        "probes": [
+          {
+            "cutoff_scale": 1.1875,
+            "directed_edges": 42,
+            "coordination_mean": 10.5,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.25,
+            "directed_edges": 48,
+            "coordination_mean": 12.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.3125,
+            "directed_edges": 48,
+            "coordination_mean": 12.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      {
+        "id": "agm003295001",
+        "probes": [
+          {
+            "cutoff_scale": 1.1875,
+            "directed_edges": 30,
+            "coordination_mean": 10.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.25,
+            "directed_edges": 30,
+            "coordination_mean": 10.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.3125,
+            "directed_edges": 36,
+            "coordination_mean": 12.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      {
+        "id": "agm002134771",
+        "probes": [
+          {
+            "cutoff_scale": 1.1875,
+            "directed_edges": 8,
+            "coordination_mean": 2.0,
+            "dimension_site_fractions": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.25,
+            "directed_edges": 48,
+            "coordination_mean": 12.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.3125,
+            "directed_edges": 48,
+            "coordination_mean": 12.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      {
+        "id": "agm003158455",
+        "probes": [
+          {
+            "cutoff_scale": 1.1875,
+            "directed_edges": 18,
+            "coordination_mean": 6.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.25,
+            "directed_edges": 36,
+            "coordination_mean": 12.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.3125,
+            "directed_edges": 36,
+            "coordination_mean": 12.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      {
+        "id": "agm003161305",
+        "probes": [
+          {
+            "cutoff_scale": 1.1875,
+            "directed_edges": 30,
+            "coordination_mean": 10.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.25,
+            "directed_edges": 30,
+            "coordination_mean": 10.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "cutoff_scale": 1.3125,
+            "directed_edges": 36,
+            "coordination_mean": 12.0,
+            "dimension_site_fractions": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          }
+        ]
+      }
+    ],
+    "near_cutoff_edge_fraction_per_material": {
+      "n": 7582,
+      "min": 0.0,
+      "median": 0.06060606060606061,
+      "mean": 0.09658752321310439,
+      "p90": 0.2423197492163015,
+      "p95": 0.3076923076923077,
+      "max": 1.0
+    },
+    "cached_materials": 0,
+    "distinct_geometry_cache_keys": 7582,
+    "reused_cache_keys": 0,
+    "cached_generation": {
+      "version": "periodic-local-geometry-v1",
+      "settings": {
+        "cutoff_scale": 1.25,
+        "sensitivity_fraction": 0.05,
+        "max_atoms": 2048,
+        "max_neighbor_edges": 500000,
+        "min_separation_angstrom": 0.0001
+      },
+      "ase": "3.29.0",
+      "radii_sha256": "66a3533de486f2db9792644024e4f9652e56d7dfc1945f9435da72043a897c1f"
+    }
+  },
+  "reported_geometry_ablation_deltas": {
+    "R2_minus_R0": {
+      "source": "report.json point metrics only; not independently recomputed",
+      "mae_delta_k": -0.007250467152847495,
+      "relative_mae_change_percent": -0.7484527654313289,
+      "folds_better": 3
+    },
+    "R3_minus_R1": {
+      "source": "report.json point metrics only; not independently recomputed",
+      "mae_delta_k": -0.02890880042023658,
+      "relative_mae_change_percent": -2.8537270225087896,
+      "folds_better": 5
+    },
+    "R4_minus_R1": {
+      "source": "report.json point metrics only; not independently recomputed",
+      "mae_delta_k": -0.01312656634273568,
+      "relative_mae_change_percent": -1.2957866303852872,
+      "folds_better": 4
+    }
+  },
+  "separate_metric_audit_geometry_posthoc": {
+    "source": "results/validation/storm6-ci65.json",
+    "sha256": "f0fa46c72c71a7d051cc175b3ec91c0d64453184fd9d31205c92a423f59b77fd",
+    "geometry_R3_minus_R1": {
+      "delta_mae_k_new_minus_reference": -0.028908800420236504,
+      "percentile_95_interval_k": [
+        -0.054127352084066105,
+        -0.0016371874644770807
+      ],
+      "repetitions": 1000,
+      "unit": "chemical-system cluster",
+      "selection_adjusted": false,
+      "n": 7582,
+      "chemical_systems": 4288,
+      "status": "post_hoc_descriptive_not_frozen_release_criterion"
+    },
+    "geometry_R2_minus_R0": {
+      "delta_mae_k_new_minus_reference": -0.007250467152847463,
+      "percentile_95_interval_k": [
+        -0.025169959224453673,
+        0.009023614451276245
+      ],
+      "repetitions": 1000,
+      "unit": "chemical-system cluster",
+      "selection_adjusted": false,
+      "n": 7582,
+      "chemical_systems": 4288,
+      "status": "post_hoc_descriptive_not_frozen_release_criterion"
+    },
+    "interpretation": "R3/R1 shows a small component-route association in this posthoc interval; direct R2/R0 interval crosses zero. Neither is selection-adjusted, new blind validation, an adoption criterion, or evidence of a mechanism."
+  },
+  "reproduction_limits": [
+    "Artifact supplies diagnostics, IDs and a structure/target digest, but not the complete atoms/targets snapshot or a 7582x19 feature matrix; those numerical values cannot all be independently regenerated from these artifacts alone.",
+    "The committed source hash and input identity digest bind the declared workflow; no independent retraining or source dataset redownload was performed.",
+    "Current feature cutoff probes report edge counts/dimensions, not full 19-feature changes or alternate-cutoff model fits, so predictive robustness to cutoff choice is not tested."
+  ],
+  "scientific_assessment": {
+    "usable_but_sparse_tetrahedrality": "Exactly-four-contact tetrahedrality is defined for only 81/7582 materials (1.0683%); missing is correctly explicit, not zero-imputed in raw-geometry HGB designs.",
+    "gain_scope": "Reported geometry deltas are modest conventional-DFT prediction associations on previously examined folds. Separate posthoc chemical-system bootstrap: R3/R1 -0.02891K [-0.05413,-0.00164], R2/R0 -0.00725K [-0.02517,+0.00902]. These intervals are not selection-adjusted or new blind evidence.",
+    "limitations_in_output": "Report correctly says simplified DFT Allen-Dynes target, report-only/non-adopted, no new blind cohort, noninvariance of legacy D, and no superconducting mechanism. The top report does not summarize the severe tetrahedral missingness or cutoff sensitivity; both are recoverable in attached diagnostics.",
+    "hurricane7_implications": [
+      "Do not infer that a small conventional DFT error gain establishes cross-family occurrence or an unconventional pairing mechanism.",
+      "Before H7 fitting, report per-family original-CIF geometry validity, exact-four-contact coverage and cutoff sensitivity; the Storm6 coverage distribution cannot be presumed for the 615-parent cohort.",
+      "Keep geometry-only/categorical controls distinct from the noninvariant legacy D descriptors, and fit missing-value processing/PCA only within the training folds.",
+      "Retain PU/unlabeled semantics, chemical-system exclusion and family-held-out evaluation; no normal-state or experimental evidence was added by this run.",
+      "The current geometric-contact connectivity may saturate at 3D even for physically layered materials; it is not electronic dimensionality or exchange topology."
+    ]
+  },
+  "artifact_sha256": {
+    "folds.json": "4cbc0ec54bd169c852de175fef739b17db1f023b1450ef9457cf60e97e031dc1",
+    "geometry-diagnostics.json": "6d6cbfbdf86cc83dd9afdf7f992a98a8e7b6aa81bc1ace2eaae495bbb090c996",
+    "input-manifest.json": "14ca2846afcb5bfbdbaa78541d4b3183b2cb4cdae64884deabcc7c475846d090",
+    "predictions.csv": "992a1ec3bda138a19803e3fe1307cd86c9005a423dfac7fd62753c07bf2e6a31",
+    "protocol.json": "f6558662af52f487f2c74aebfcf997c55fcf7a70c88a82ad289dfc2bc0438e19",
+    "protocol.sha256": "af96d3a138a778fb86196589fcfc694ff69c9c82d064d835fcbf451be7efa64b",
+    "report.json": "1eca347aa021dc5e137fa088a8afe850924e3f1116a1972ac4ea9727f5ce146c",
+    "run.json": "7f948afbc81f2cd5e728f5e0dd5793525570f23339ac9a34bf0981c7e1024bed",
+    "status.json": "a9ebacab93a83fac51d209f9b6b9d13b9ba3bd9b17d89c0eee5810a024871fe4"
+  },
+  "artifact": {
+    "name": "research-results-65",
+    "id": 13069428852,
+    "archive_sha256": "c8c8d79c0b0ba50488b7d4281e565f846dbfa2cf1a5ad7a3dc16546044e62b5c",
+    "workflow_run_url": "https://github.com/diracmagic/supercon-ml/actions/runs/41272635768"
+  }
+}
