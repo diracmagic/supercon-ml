@@ -1,0 +1,279 @@
+{
+  "curves": [
+    {
+      "curve_id": "nickelate-2026:FigE:pair1",
+      "source_id": "nickelate-2026:Raw_Data_File",
+      "source_doi": "10.1038/s41467-026-75922-9",
+      "source_archive_member": "Raw_Data_File/Fig.1/Fig1E.dat",
+      "source_column_pair_1based": [
+        1,
+        2
+      ],
+      "source_header_label": "90",
+      "family": "nickelate",
+      "chemical_system": [
+        "Ca",
+        "Eu",
+        "Ni",
+        "O",
+        "Sm"
+      ],
+      "study_group_id": "doi:10.1038/s41467-026-75922-9",
+      "source_group_id": "doi:10.1038/s41467-026-75922-9",
+      "series_group_id": "nickelate-2026:five-film-series",
+      "author_sample_label": "S1",
+      "specimen_id": "nickelate-2026:S1",
+      "sample_assignment_status": "author figure/header claim; no model target link created",
+      "sample_form": "infinite-layer nickelate epitaxial film",
+      "quantity": "longitudinal_resistivity",
+      "unit": "milliohm cm",
+      "source_unit_plain_text": "m\\g(W) cm",
+      "unit_evidence": "PublishedPDFp2 Figure1E-G axes show milliohm cm; source Origin escape m\\g(W) cm means milli-ohm cm",
+      "independent_axis": "signed_applied_field_t",
+      "data_columns": [
+        "signed_applied_field_t",
+        "value",
+        "source_row"
+      ],
+      "fixed_conditions": {
+        "temperature_k": 1.5,
+        "angle_degrees_field_from_c_axis": 90.0,
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "field_min_t": -0.0326913304812799,
+      "field_max_t": 55.3417393625886,
+      "explicit_missing_responses": 0,
+      "normal_state_review": {
+        "status": "unknown; sweep contains superconducting/reentrant transitions, not an admitted normal-state curve"
+      },
+      "representation_overlap": "Fig1C/E and Fig1D/G include normalized and absolute views at overlapping conditions; not additional physical specimens",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 1000,
+      "data_sha256_canonical_json": "117204889884efede5d07f5f91c8298974ee045fa1796d94a62e8e21ff58bd6f"
+    },
+    {
+      "curve_id": "nickelate-2026:FigE:pair2",
+      "source_id": "nickelate-2026:Raw_Data_File",
+      "source_doi": "10.1038/s41467-026-75922-9",
+      "source_archive_member": "Raw_Data_File/Fig.1/Fig1E.dat",
+      "source_column_pair_1based": [
+        3,
+        4
+      ],
+      "source_header_label": "82",
+      "family": "nickelate",
+      "chemical_system": [
+        "Ca",
+        "Eu",
+        "Ni",
+        "O",
+        "Sm"
+      ],
+      "study_group_id": "doi:10.1038/s41467-026-75922-9",
+      "source_group_id": "doi:10.1038/s41467-026-75922-9",
+      "series_group_id": "nickelate-2026:five-film-series",
+      "author_sample_label": "S1",
+      "specimen_id": "nickelate-2026:S1",
+      "sample_assignment_status": "author figure/header claim; no model target link created",
+      "sample_form": "infinite-layer nickelate epitaxial film",
+      "quantity": "longitudinal_resistivity",
+      "unit": "milliohm cm",
+      "source_unit_plain_text": "m\\g(W) cm",
+      "unit_evidence": "PublishedPDFp2 Figure1E-G axes show milliohm cm; source Origin escape m\\g(W) cm means milli-ohm cm",
+      "independent_axis": "signed_applied_field_t",
+      "data_columns": [
+        "signed_applied_field_t",
+        "value",
+        "source_row"
+      ],
+      "fixed_conditions": {
+        "temperature_k": 1.5,
+        "angle_degrees_field_from_c_axis": 82.0,
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "field_min_t": -0.0331978592212768,
+      "field_max_t": 55.313851315946,
+      "explicit_missing_responses": 0,
+      "normal_state_review": {
+        "status": "unknown; sweep contains superconducting/reentrant transitions, not an admitted normal-state curve"
+      },
+      "representation_overlap": "Fig1C/E and Fig1D/G include normalized and absolute views at overlapping conditions; not additional physical specimens",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 1000,
+      "data_sha256_canonical_json": "7e1e870b8830cb5ba63023e20e5278d7a8b3e5b6912484af9bdfddd0285ef4fd"
+    },
+    {
+      "curve_id": "nickelate-2026:FigE:pair3",
+      "source_id": "nickelate-2026:Raw_Data_File",
+      "source_doi": "10.1038/s41467-026-75922-9",
+      "source_archive_member": "Raw_Data_File/Fig.1/Fig1E.dat",
+      "source_column_pair_1based": [
+        5,
+        6
+      ],
+      "source_header_label": "73",
+      "family": "nickelate",
+      "chemical_system": [
+        "Ca",
+        "Eu",
+        "Ni",
+        "O",
+        "Sm"
+      ],
+      "study_group_id": "doi:10.1038/s41467-026-75922-9",
+      "source_group_id": "doi:10.1038/s41467-026-75922-9",
+      "series_group_id": "nickelate-2026:five-film-series",
+      "author_sample_label": "S1",
+      "specimen_id": "nickelate-2026:S1",
+      "sample_assignment_status": "author figure/header claim; no model target link created",
+      "sample_form": "infinite-layer nickelate epitaxial film",
+      "quantity": "longitudinal_resistivity",
+      "unit": "milliohm cm",
+      "source_unit_plain_text": "m\\g(W) cm",
+      "unit_evidence": "PublishedPDFp2 Figure1E-G axes show milliohm cm; source Origin escape m\\g(W) cm means milli-ohm cm",
+      "independent_axis": "signed_applied_field_t",
+      "data_columns": [
+        "signed_applied_field_t",
+        "value",
+        "source_row"
+      ],
+      "fixed_conditions": {
+        "temperature_k": 1.5,
+        "angle_degrees_field_from_c_axis": 73.0,
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "field_min_t": -0.0444103860617767,
+      "field_max_t": 55.5201896965904,
+      "explicit_missing_responses": 0,
+      "normal_state_review": {
+        "status": "unknown; sweep contains superconducting/reentrant transitions, not an admitted normal-state curve"
+      },
+      "representation_overlap": "Fig1C/E and Fig1D/G include normalized and absolute views at overlapping conditions; not additional physical specimens",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 1000,
+      "data_sha256_canonical_json": "d16299c9b0e72f473864e4224598c60381b8b1e4de87f210c340e6c1cf7cf7b8"
+    },
+    {
+      "curve_id": "nickelate-2026:FigE:pair4",
+      "source_id": "nickelate-2026:Raw_Data_File",
+      "source_doi": "10.1038/s41467-026-75922-9",
+      "source_archive_member": "Raw_Data_File/Fig.1/Fig1E.dat",
+      "source_column_pair_1based": [
+        7,
+        8
+      ],
+      "source_header_label": "68",
+      "family": "nickelate",
+      "chemical_system": [
+        "Ca",
+        "Eu",
+        "Ni",
+        "O",
+        "Sm"
+      ],
+      "study_group_id": "doi:10.1038/s41467-026-75922-9",
+      "source_group_id": "doi:10.1038/s41467-026-75922-9",
+      "series_group_id": "nickelate-2026:five-film-series",
+      "author_sample_label": "S1",
+      "specimen_id": "nickelate-2026:S1",
+      "sample_assignment_status": "author figure/header claim; no model target link created",
+      "sample_form": "infinite-layer nickelate epitaxial film",
+      "quantity": "longitudinal_resistivity",
+      "unit": "milliohm cm",
+      "source_unit_plain_text": "m\\g(W) cm",
+      "unit_evidence": "PublishedPDFp2 Figure1E-G axes show milliohm cm; source Origin escape m\\g(W) cm means milli-ohm cm",
+      "independent_axis": "signed_applied_field_t",
+      "data_columns": [
+        "signed_applied_field_t",
+        "value",
+        "source_row"
+      ],
+      "fixed_conditions": {
+        "temperature_k": 1.5,
+        "angle_degrees_field_from_c_axis": 68.0,
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "field_min_t": -0.0212034779885102,
+      "field_max_t": 55.6534147819848,
+      "explicit_missing_responses": 0,
+      "normal_state_review": {
+        "status": "unknown; sweep contains superconducting/reentrant transitions, not an admitted normal-state curve"
+      },
+      "representation_overlap": "Fig1C/E and Fig1D/G include normalized and absolute views at overlapping conditions; not additional physical specimens",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 1000,
+      "data_sha256_canonical_json": "9a2741cbbcc1a40cb63fc8bb20ed72ad247dfa64f2ad9010341043bf9ca7de4e"
+    },
+    {
+      "curve_id": "nickelate-2026:FigE:pair5",
+      "source_id": "nickelate-2026:Raw_Data_File",
+      "source_doi": "10.1038/s41467-026-75922-9",
+      "source_archive_member": "Raw_Data_File/Fig.1/Fig1E.dat",
+      "source_column_pair_1based": [
+        9,
+        10
+      ],
+      "source_header_label": "60",
+      "family": "nickelate",
+      "chemical_system": [
+        "Ca",
+        "Eu",
+        "Ni",
+        "O",
+        "Sm"
+      ],
+      "study_group_id": "doi:10.1038/s41467-026-75922-9",
+      "source_group_id": "doi:10.1038/s41467-026-75922-9",
+      "series_group_id": "nickelate-2026:five-film-series",
+      "author_sample_label": "S1",
+      "specimen_id": "nickelate-2026:S1",
+      "sample_assignment_status": "author figure/header claim; no model target link created",
+      "sample_form": "infinite-layer nickelate epitaxial film",
+      "quantity": "longitudinal_resistivity",
+      "unit": "milliohm cm",
+      "source_unit_plain_text": "m\\g(W) cm",
+      "unit_evidence": "PublishedPDFp2 Figure1E-G axes show milliohm cm; source Origin escape m\\g(W) cm means milli-ohm cm",
+      "independent_axis": "signed_applied_field_t",
+      "data_columns": [
+        "signed_applied_field_t",
+        "value",
+        "source_row"
+      ],
+      "fixed_conditions": {
+        "temperature_k": 1.5,
+        "angle_degrees_field_from_c_axis": 60.0,
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "field_min_t": -0.0259726184306872,
+      "field_max_t": 55.4673333997116,
+      "explicit_missing_responses": 0,
+      "normal_state_review": {
+        "status": "unknown; sweep contains superconducting/reentrant transitions, not an admitted normal-state curve"
+      },
+      "representation_overlap": "Fig1C/E and Fig1D/G include normalized and absolute views at overlapping conditions; not additional physical specimens",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 1000,
+      "data_sha256_canonical_json": "4a7b73c450c9826e9b711af38d7e0d786874b5770e8ff61c08f8903aab3f185b"
+    }
+  ]
+}

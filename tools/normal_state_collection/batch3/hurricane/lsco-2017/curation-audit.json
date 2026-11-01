@@ -1,0 +1,61 @@
+{
+  "status": "source_roundtrip_pass_no_training_admission",
+  "curves_prepared": 9,
+  "point_records": 19051,
+  "finite_responses": 19051,
+  "longitudinal_curves": 3,
+  "longitudinal_point_records": 7993,
+  "longitudinal_cover_200_225_250K": [
+    "lsco-2017:Fig1b:longitudinal",
+    "lsco-2017:Fig1c:longitudinal",
+    "lsco-2017:Fig1d:longitudinal"
+  ],
+  "minimum_distinct_physical_films_fromFig1": 3,
+  "additional_trace_identity_unresolved": [
+    "ED2",
+    "ED8a"
+  ],
+  "independent_families": 1,
+  "independent_primary_papers": 1,
+  "chemical_systems": 1,
+  "reported_numeric_Tc_claims": 1,
+  "longitudinal_curves_with_exact_same_physical_numeric_Tc": 0,
+  "model_target_links": 0,
+  "unit_Symbol_font_evidence": [
+    {
+      "shared_string_index": 4,
+      "font": "Symbol",
+      "encoded_text": "mW",
+      "decoded_meaning": "microohm",
+      "numeric_scale_changed": false
+    },
+    {
+      "shared_string_index": 5,
+      "font": "Symbol",
+      "encoded_text": "mW",
+      "decoded_meaning": "microohm",
+      "numeric_scale_changed": false
+    }
+  ],
+  "source_cell_roundtrip_checked": true,
+  "complete_thousand_device_dataset_claimed": false,
+  "all_original_source_hashes": {
+    "lsco-2017:41586_2017_BFnature23290_MOESM10_ESM": "90464cd34cb3a9df07056b52d38095dc241eb0455ecab55cd872683d2fb17400",
+    "lsco-2017:41586_2017_BFnature23290_MOESM11_ESM": "09e54ff7756a45abf6865bb6a6b3f3231ac5ce64cc5ff497a118b4bbc5bbce2c",
+    "lsco-2017:41586_2017_BFnature23290_MOESM12_ESM": "a28e11ee7edf18be827165d73148772a86bed5d1ede40baeec13fcc31243142b",
+    "lsco-2017:41586_2017_BFnature23290_MOESM13_ESM": "20e885d184fac23cc237f6147003fdd29c32ea84eaf2f00f05b4052f71cf6991",
+    "lsco-2017:41586_2017_BFnature23290_MOESM14_ESM": "1c7fd60ce3d21ef1a6161e4cb8f61e4f09a1d5ffcb8ce3e4575d137f4cd62cb8",
+    "lsco-2017:41586_2017_BFnature23290_MOESM15_ESM": "485c1dccf67ecca9c4b0ed5a02f01cf4a8f81bf8c10c43bce8a4934d199e19e8",
+    "lsco-2017:41586_2017_BFnature23290_MOESM16_ESM": "33066aa95937ab75d7f442694902507dff3282401c1931e13cd552bbdca48993",
+    "lsco-2017:41586_2017_BFnature23290_MOESM17_ESM": "94eabd3cd2db8710dd5269adbfbfc51bfd6a771b07079e3bd53e710791f22cb1",
+    "lsco-2017:41586_2017_BFnature23290_MOESM5_ESM": "73d5326747e746f58aedc85a1504fad6715dd28c865046bdbf078a3a067f02ad",
+    "lsco-2017:41586_2017_BFnature23290_MOESM6_ESM": "e07f393a4ecc19291aa35a225a7b49cc85bfa6466e7fbd30829beb9ff8f5f037",
+    "lsco-2017:41586_2017_BFnature23290_MOESM7_ESM": "ca1d6662f46a924e800aaaf73e83445f1e4f620aa174575442e3b99ce230a47d",
+    "lsco-2017:41586_2017_BFnature23290_MOESM8_ESM": "94559e3bff7e2cf388485265518c058ccde799b1999809ef6ca15c0e71246f9d",
+    "lsco-2017:41586_2017_BFnature23290_MOESM9_ESM": "bc66f21c7a690234b35e7c726b7732363878168eeed6a7e312cb1781f11a7d6d"
+  },
+  "models_fitted": 0,
+  "ledger_files_read_or_written": 0,
+  "policy_frozen": false,
+  "curated_private_output_sha256_canonical_json": "cf4497a3189e636216deece640787f0f001ef3fc4a581ab3f59355bb31adf4a0"
+}

@@ -1,0 +1,225 @@
+{
+  "curves": [
+    {
+      "curve_id": "nickelate-2026:Fig3B:pair1",
+      "source_id": "nickelate-2026:Raw_Data_File",
+      "source_doi": "10.1038/s41467-026-75922-9",
+      "source_archive_member": "Raw_Data_File/Fig.3/Fig3B.dat",
+      "source_column_pair_1based": [
+        1,
+        2
+      ],
+      "source_header_label": "S2",
+      "family": "nickelate",
+      "chemical_system": [
+        "Ca",
+        "Eu",
+        "Ni",
+        "O",
+        "Sm"
+      ],
+      "study_group_id": "doi:10.1038/s41467-026-75922-9",
+      "source_group_id": "doi:10.1038/s41467-026-75922-9",
+      "series_group_id": "nickelate-2026:five-film-series",
+      "author_sample_label": "S2",
+      "specimen_id": "nickelate-2026:S2",
+      "sample_assignment_status": "author figure/header claim; no model target link created",
+      "sample_form": "infinite-layer nickelate epitaxial film",
+      "quantity": "resistance_normalized_to_normal_state",
+      "unit": "dimensionless",
+      "source_unit_plain_text": "",
+      "unit_evidence": "Source header R/Rn",
+      "independent_axis": "signed_applied_field_t",
+      "data_columns": [
+        "signed_applied_field_t",
+        "value",
+        "source_row"
+      ],
+      "fixed_conditions": {
+        "temperature_k": 0.35,
+        "angle_degrees_field_from_c_axis": 0,
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "field_min_t": -0.0493117102877795,
+      "field_max_t": 58.9020075686045,
+      "explicit_missing_responses": 0,
+      "normal_state_review": {
+        "status": "unknown; sweep contains superconducting/reentrant transitions, not an admitted normal-state curve"
+      },
+      "representation_overlap": "Fig1C/E and Fig1D/G include normalized and absolute views at overlapping conditions; not additional physical specimens",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 1000,
+      "data_sha256_canonical_json": "56776f32f0c33a5e98dea85b262a688efdf0bfbd958a422dfa8c634e7aaf6c55"
+    },
+    {
+      "curve_id": "nickelate-2026:Fig3B:pair2",
+      "source_id": "nickelate-2026:Raw_Data_File",
+      "source_doi": "10.1038/s41467-026-75922-9",
+      "source_archive_member": "Raw_Data_File/Fig.3/Fig3B.dat",
+      "source_column_pair_1based": [
+        3,
+        4
+      ],
+      "source_header_label": "S4",
+      "family": "nickelate",
+      "chemical_system": [
+        "Ca",
+        "Eu",
+        "Ni",
+        "O",
+        "Sm",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/s41467-026-75922-9",
+      "source_group_id": "doi:10.1038/s41467-026-75922-9",
+      "series_group_id": "nickelate-2026:five-film-series",
+      "author_sample_label": "S4",
+      "specimen_id": null,
+      "sample_assignment_status": "unresolved: author header S4 conflicts with strong repeated-trace evidence against Fig1F labelled S2; no sample/Tc reassignment",
+      "sample_form": "infinite-layer nickelate epitaxial film",
+      "quantity": "resistance_normalized_to_normal_state",
+      "unit": "dimensionless",
+      "source_unit_plain_text": "",
+      "unit_evidence": "Source header R/Rn",
+      "independent_axis": "signed_applied_field_t",
+      "data_columns": [
+        "signed_applied_field_t",
+        "value",
+        "source_row"
+      ],
+      "fixed_conditions": {
+        "temperature_k": 0.6,
+        "angle_degrees_field_from_c_axis": 0,
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "field_min_t": 0.3558271255,
+      "field_max_t": 44.83233772,
+      "explicit_missing_responses": 0,
+      "normal_state_review": {
+        "status": "unknown; sweep contains superconducting/reentrant transitions, not an admitted normal-state curve"
+      },
+      "representation_overlap": "Fig1C/E and Fig1D/G include normalized and absolute views at overlapping conditions; not additional physical specimens",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 25099,
+      "data_sha256_canonical_json": "fe227284f4b0e149bb1acf4670e4870ed211e40482a0168a46cf4c8d2fa97b5d"
+    },
+    {
+      "curve_id": "nickelate-2026:Fig3B:pair3",
+      "source_id": "nickelate-2026:Raw_Data_File",
+      "source_doi": "10.1038/s41467-026-75922-9",
+      "source_archive_member": "Raw_Data_File/Fig.3/Fig3B.dat",
+      "source_column_pair_1based": [
+        5,
+        6
+      ],
+      "source_header_label": "S5",
+      "family": "nickelate",
+      "chemical_system": [
+        "Ca",
+        "Eu",
+        "Ni",
+        "O",
+        "Sm"
+      ],
+      "study_group_id": "doi:10.1038/s41467-026-75922-9",
+      "source_group_id": "doi:10.1038/s41467-026-75922-9",
+      "series_group_id": "nickelate-2026:five-film-series",
+      "author_sample_label": "S5",
+      "specimen_id": "nickelate-2026:S5",
+      "sample_assignment_status": "author figure/header claim; no model target link created",
+      "sample_form": "infinite-layer nickelate epitaxial film",
+      "quantity": "resistance_normalized_to_normal_state",
+      "unit": "dimensionless",
+      "source_unit_plain_text": "",
+      "unit_evidence": "Source header R/Rn",
+      "independent_axis": "signed_applied_field_t",
+      "data_columns": [
+        "signed_applied_field_t",
+        "value",
+        "source_row"
+      ],
+      "fixed_conditions": {
+        "temperature_k": 1.5,
+        "angle_degrees_field_from_c_axis": 0,
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "field_min_t": 0.0,
+      "field_max_t": 65.3169069758242,
+      "explicit_missing_responses": 0,
+      "normal_state_review": {
+        "status": "unknown; sweep contains superconducting/reentrant transitions, not an admitted normal-state curve"
+      },
+      "representation_overlap": "Fig1C/E and Fig1D/G include normalized and absolute views at overlapping conditions; not additional physical specimens",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 1000,
+      "data_sha256_canonical_json": "e13c4a0d40eb023e7ebb2623d8b349c1ea9c88f641bc60ac0393d13fce0b72d7"
+    },
+    {
+      "curve_id": "nickelate-2026:Fig3B:pair4",
+      "source_id": "nickelate-2026:Raw_Data_File",
+      "source_doi": "10.1038/s41467-026-75922-9",
+      "source_archive_member": "Raw_Data_File/Fig.3/Fig3B.dat",
+      "source_column_pair_1based": [
+        7,
+        8
+      ],
+      "source_header_label": "S3",
+      "family": "nickelate",
+      "chemical_system": [
+        "Ca",
+        "Eu",
+        "Ni",
+        "O",
+        "Sm"
+      ],
+      "study_group_id": "doi:10.1038/s41467-026-75922-9",
+      "source_group_id": "doi:10.1038/s41467-026-75922-9",
+      "series_group_id": "nickelate-2026:five-film-series",
+      "author_sample_label": "S3",
+      "specimen_id": "nickelate-2026:S3",
+      "sample_assignment_status": "author figure/header claim; no model target link created",
+      "sample_form": "infinite-layer nickelate epitaxial film",
+      "quantity": "resistance_normalized_to_normal_state",
+      "unit": "dimensionless",
+      "source_unit_plain_text": "",
+      "unit_evidence": "Source header R/Rn",
+      "independent_axis": "signed_applied_field_t",
+      "data_columns": [
+        "signed_applied_field_t",
+        "value",
+        "source_row"
+      ],
+      "fixed_conditions": {
+        "temperature_k": 0.6,
+        "angle_degrees_field_from_c_axis": 0,
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "field_min_t": -0.0288158644279351,
+      "field_max_t": 55.0185897343129,
+      "explicit_missing_responses": 0,
+      "normal_state_review": {
+        "status": "unknown; sweep contains superconducting/reentrant transitions, not an admitted normal-state curve"
+      },
+      "representation_overlap": "Fig1C/E and Fig1D/G include normalized and absolute views at overlapping conditions; not additional physical specimens",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 500,
+      "data_sha256_canonical_json": "9d1a26f9ffb83889d0c3483ac2bc1de91f14a7fa8dee628ea591ad397b460580"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "archive_listing": {
+    "entries": 5772,
+    "non_text_entry_count": 11,
+    "non_text_names": [
+      "dat/LAT154172.GIF",
+      "dat/MDOS157299.GIF",
+      "dat/MHC153970.GIF",
+      "dat/MHC154137.GIF",
+      "dat/MHC154139.GIF",
+      "dat/MHC156623.GIF",
+      "dat/MHC157205.GIF",
+      "dat/MRH157221.GIF",
+      "dat/MSP153504.GIF",
+      "dat/MTC154136.GIF",
+      "dat/MTC155178.GIF"
+    ]
+  },
+  "checked_on": "2026-11-01",
+  "decision": "May enter a versioned secondary-literature acquisition catalog. Not an automatic primary-curve observation or trainable target/precursor export.",
+  "findings": [
+    {
+      "finding": "MDR is a re-edited SuperCon numerical datasheet, not an author instrument export. Preserve MDR DOI/version/row/refno and mark evidence_domain=secondary_literature.",
+      "id": "secondary_origin",
+      "ingestion_boundary": "Retain every original field and source hash; set primary verification/training eligibility false until the cited primary evidence is checked.",
+      "locator": "schema.json descriptions/data_origins; ReadMe p.2"
+    },
+    {
+      "finding": "Reference numbers follow legacy journal-volume-page conventions in many cases, with other numeric identifiers also present. A row/data number does not prove a unique physical specimen, acquisition run, pressure or dopant condition. SuperCon-derived records can overlap 3DSC training evidence.",
+      "id": "identity_and_duplicate_sources",
+      "ingestion_boundary": "Never synthesize a DOI or specimen ID. Keep all same-source/sample/series/conditions connected during later grouping; old measured evidence is retrospective, not a prospective prediction success.",
+      "locator": "OAndM num/refno/title/journal/author/sample; ReadMe pp.10–11"
+    },
+    {
+      "finding": "Oxygen/occupancy variables occur in full formula and explicit composition fields. A generated numeric-looking formula can coexist with an unresolved oxygen field. Organic common names may specify only an anion or an acronym.",
+      "id": "composition_variables",
+      "ingestion_boundary": "Do not strip -X/+Y, assign unknown oxygen, expand chemical abbreviations without adjudication, or use formula-only matches as a phase/specimen link. The crosswalk preserves every unresolved record separately.",
+      "locator": "OAndM element, ma2…mj2, mo2, oz; Organic name/fullname"
+    },
+    {
+      "finding": "t1, t2, t3, tcsus and recommended tc denote different observables/criteria. tcn is a reported non-superconducting measurement floor. Organic tc is described as at critical or atmospheric pressure, with separate tcmax/pmax/pcrit fields.",
+      "id": "tc_criteria_and_censoring",
+      "ingestion_boundary": "Recommended tc cannot silently become resistive midpoint; a tcn row must not become Tc=0 or a universal negative. Verify sample, criterion, P/B and measurement window in the original before legal target export.",
+      "locator": "ReadMe p.5 / ReadmeTbl Oxide&Metal DB 86–94; Organic DB13–21"
+    },
+    {
+      "finding": "OAndM pmax is maximum pressure applied, not necessarily the pressure of every recorded Tc or rho point; field is specifically the Hall-effect magnetic field. Organic pmax is pressure of tcmax. These fields have different scopes.",
+      "id": "pressure_field_axes",
+      "ingestion_boundary": "Do not propagate a Hall field or maximum pressure to all modalities. Missing pressure/field remains null, never ambient/zero inferred from silence.",
+      "locator": "ReadmeTbl Oxide&Metal pmax DB97, field DB182; Organic pmax DB15"
+    },
+    {
+      "finding": "Resistivity fields describe 4.2 K, 77 K, stated normal temperature and RT, with direction-specific variants. RT is not an explicitly measured 300 K value. A database category called normal state is not proof each point is normal for its particular sample.",
+      "id": "scalars_are_not_broad_curves",
+      "ingestion_boundary": "Preserve raw temperature/unit/normal-state evidence. Do not fabricate a 150–300 K curve or 200/225/250 K anchors from sparse scalars. Low-temperature gamma or a heat-capacity jump cannot be substituted for a frozen normal-state precursor.",
+      "locator": "ReadmeTbl Oxide&Metal DB163–176; ReadMe pp.8–9"
+    },
+    {
+      "finding": "The readme describes figure/table sets and corresponding text data for selected samples, not a blanket guarantee of original author-raw measurement files. It explicitly identifies tcfig as a filename link. Archive contains 5772 entries, including non-text objects.",
+      "id": "legacy_curve_provenance",
+      "ingestion_boundary": "Resolve explicit filename references and inspect units, measured vs calculated/digitized origin and figure/sample identity. Do not guess links from filename-number prefixes or treat every archive member as a normal-state curve.",
+      "locator": "ReadMe p.12 FIGURE/DATA; data.zip listing"
+    }
+  ],
+  "fit_count": 0,
+  "independent_crosswalk": {
+    "candidate_ids_with_related_system_leads": 17,
+    "current_candidates": 152,
+    "exact_reduced_composition_matches": 0,
+    "ledger_writes": 0,
+    "models_fitted": 0,
+    "same_system_different_composition_records": 20
+  },
+  "inputs": [
+    {
+      "bytes": 2433,
+      "path_relative_to_batch3": "mdr/schema.json",
+      "sha256_raw_bytes": "e1c9da5febe039af30f94bb1d57b2c46a579464cef1e179efc9b75193ae00cd9"
+    },
+    {
+      "bytes": 1258221,
+      "path_relative_to_batch3": "mdr/SuperCon_ReadMe_en.pdf",
+      "sha256_raw_bytes": "1f3490ee3f415707cdfd4e7aade936d97f4202cdda7244ad8b2e0caf62ad6531"
+    },
+    {
+      "bytes": 25932,
+      "path_relative_to_batch3": "mdr/ReadmeTbl.xlsx",
+      "sha256_raw_bytes": "6b6c8311f9968fb5e726bf444141391ee2e11eba62423554ca7e5040f3a04b97"
+    },
+    {
+      "bytes": 3015852,
+      "path_relative_to_batch3": "mdr/data.zip",
+      "sha256_raw_bytes": "e6f01f5631343a077762bfaf7f8f17898abb47d224a4edf72f8df0c5ad698dc5"
+    },
+    {
+      "bytes": 19875381,
+      "path_relative_to_batch3": "mdr/20240322_MDR_OAndM.txt",
+      "sha256_raw_bytes": "f599ef0040c18521e386f758ee826fe269f67ef369c1a007656035d03ccdfdf6"
+    },
+    {
+      "bytes": 263372,
+      "path_relative_to_batch3": "mdr/240322_MDR_Organic.txt",
+      "sha256_raw_bytes": "d116848a90d01e48356ed6cf0bb69035fa863a3a559deac1ef188025bdb3b423"
+    }
+  ],
+  "ledger_write_count": 0,
+  "legal_collection_route": [
+    "immutable source files plus hashes",
+    "secondary raw-field records with row/refno locators",
+    "manual primary-paper and exact sample/condition review links",
+    "only then source-checked numeric observations and criterion-specific target/precursor joins"
+  ],
+  "readme_doi": "10.48505/nims.4488",
+  "rights_as_schema": "CC BY 4.0, dataset attribution required; underlying primary-paper identity and experimental provenance remain separate",
+  "schema_version": 1,
+  "scientific_policy_changes": 0,
+  "source_doi": "10.48505/nims.4487",
+  "version": "240322"
+}

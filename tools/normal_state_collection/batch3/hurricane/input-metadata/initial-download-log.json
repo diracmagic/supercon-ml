@@ -1,0 +1,38 @@
+[
+  {
+    "path": "lsco-2017/paper.html",
+    "url": "https://www.nature.com/articles/nature23290",
+    "bytes": 411807,
+    "sha256": "7901edbec105dfb024ee6f8cec0f792e6bd908dc27391cf124fea2fea9d8057d",
+    "content_type": "text/html; charset=utf-8",
+    "retrieved_utc": "2026-11-01T15:44:01.482002+00:00",
+    "status": "downloaded"
+  },
+  {
+    "path": "lsco-2017/pdf-endpoint-response.html",
+    "url": "https://www.nature.com/articles/nature23290.pdf",
+    "bytes": 411809,
+    "sha256": "2fdd23f000b9f643f5d7bc192a40c969c030d4e3ccf991247e9831f39b77a21f",
+    "content_type": "text/html; charset=utf-8",
+    "retrieved_utc": "2026-11-01T15:44:02.744514+00:00",
+    "status": "html_response_not_pdf"
+  },
+  {
+    "path": "fes-fese-fete-2022/paper.html",
+    "url": "https://www.nature.com/articles/s41563-022-01291-5",
+    "bytes": 392605,
+    "sha256": "2a8d77124b2394269ad3f03ba82ccf64fda3225710d406a576d21f30f30c1810",
+    "content_type": "text/html; charset=utf-8",
+    "retrieved_utc": "2026-11-01T15:44:00.479511+00:00",
+    "status": "downloaded"
+  },
+  {
+    "path": "fes-fese-fete-2022/pdf-endpoint-response.html",
+    "url": "https://www.nature.com/articles/s41563-022-01291-5.pdf",
+    "bytes": 392607,
+    "sha256": "5561f22625b72857634f763a1f5080728c08e74d8fcb5769c667dd11c28434f4",
+    "content_type": "text/html; charset=utf-8",
+    "retrieved_utc": "2026-11-01T15:44:01.566224+00:00",
+    "status": "html_response_not_pdf"
+  }
+]

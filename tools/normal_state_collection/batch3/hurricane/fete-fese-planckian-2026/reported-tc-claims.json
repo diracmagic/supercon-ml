@@ -1,0 +1,32 @@
+{
+  "reported_tc_claims": [
+    {
+      "claim_id": "fete-fese-planckian-2026:film:x0.45:reported-Tc",
+      "specimen_id": "fete-fese-planckian-2026:film:x0.45",
+      "tc_K": 13.2,
+      "tc_criterion": null,
+      "criterion_status": "not specified in inspected author v1 manuscript",
+      "source_url": "https://arxiv.org/abs/2505.00623",
+      "source_version": "arXiv2505.00623v1,1May2025; text dated2May2025",
+      "source_locator": "AuthorpreprintPDFp1 paragraph starting TDTS was performed; ExtendedDataFig1p8",
+      "matched_numeric_table": "fete-fese-planckian-2026:film:x0.45:DC-resistivity",
+      "model_target_link_created": false,
+      "limitation": "Numeric Tc is a primary author v1 claim, not a verified published-version midpoint definition"
+    },
+    {
+      "claim_id": "fete-fese-planckian-2026:film:x0.35:reported-Tc",
+      "specimen_id": "fete-fese-planckian-2026:film:x0.35",
+      "tc_K": 11.8,
+      "tc_criterion": null,
+      "criterion_status": "not specified in inspected author v1 manuscript",
+      "source_url": "https://arxiv.org/abs/2505.00623",
+      "source_version": "arXiv2505.00623v1,1May2025; text dated2May2025",
+      "source_locator": "AuthorpreprintPDFp1 paragraph starting TDTS was performed; ExtendedDataFig1p8",
+      "matched_numeric_table": "fete-fese-planckian-2026:film:x0.35:DC-resistivity",
+      "model_target_link_created": false,
+      "limitation": "Numeric Tc is a primary author v1 claim, not a verified published-version midpoint definition"
+    }
+  ],
+  "model_target_links": [],
+  "limitation": "Primary source claims, not ledger labels or admissions under a training policy"
+}

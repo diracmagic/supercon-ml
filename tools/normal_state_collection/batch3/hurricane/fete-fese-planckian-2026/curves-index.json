@@ -1,0 +1,118 @@
+{
+  "curves": [
+    {
+      "curve_id": "fete-fese-planckian-2026:film:x0.45:DC-resistivity",
+      "source_id": "fete-fese-planckian-2026:ExDat1",
+      "source_doi": "10.1038/s41567-026-03266-8",
+      "family": "iron_chalcogenide",
+      "chemical_system": [
+        "Fe",
+        "Se",
+        "Te"
+      ],
+      "study_group_id": "doi:10.1038/s41567-026-03266-8",
+      "source_group_id": "doi:10.1038/s41567-026-03266-8",
+      "series_group_id": "fete-fese-planckian-2026:two-film-composition-series",
+      "specimen_id": "fete-fese-planckian-2026:film:x0.45",
+      "author_unique_specimen_id": null,
+      "identity_scope": "Source sheet x matches the two films explicitly described on author-preprintPDFp1; not a unique instrument sample identifier",
+      "reported_material": "FeTe1-xSex",
+      "reported_composition_x": 0.45,
+      "sample_form": "100nm epitaxial film on CaF2(100), 100nm Se cap",
+      "quantity": "dc_longitudinal_resistivity",
+      "response_component": "longitudinal",
+      "unit": "milliohm mm",
+      "source_unit_plain_text": "Rho (mOhm mm)",
+      "unit_conversion_not_applied": "1milliohm mm = 100microohm cm; original values retained",
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "ExDat1.xlsx:'Se = 0.45'!A{source_row}:B{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "normal_state_review": {
+        "status": "candidate normal portion only, not admitted to a frozen training policy",
+        "review_window_k": [
+          150,
+          290
+        ],
+        "basis": "Both films have reported DC transitions below14K; no raw lowT point is automatically labelled normal"
+      },
+      "temperature_min_k": 0,
+      "temperature_max_k": 298.772,
+      "zero_tail_provenance": "AtintegerT0..9K the author table has exactlyzero rho. Source does not identify these as individual instrument measurements; no replacement, interpolation or ledger admission performed",
+      "negative_response_rows": 15,
+      "author_fit_column_excluded": "ColumnC Fit is author-derived, not an independent observation",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 244,
+      "data_sha256_canonical_json": "1fa019ad223a06fe1268c404478e1783ba2952c4c1da6a0aa1655aacfa3ecb77",
+      "author_table_zero_tail_rows_count": 10,
+      "author_table_zero_tail_rows_sha256": "94f17767bc369ab943f4985fbcf526043cb3c29d6b20073bb0956adb9d3496d8"
+    },
+    {
+      "curve_id": "fete-fese-planckian-2026:film:x0.35:DC-resistivity",
+      "source_id": "fete-fese-planckian-2026:ExDat1",
+      "source_doi": "10.1038/s41567-026-03266-8",
+      "family": "iron_chalcogenide",
+      "chemical_system": [
+        "Fe",
+        "Se",
+        "Te"
+      ],
+      "study_group_id": "doi:10.1038/s41567-026-03266-8",
+      "source_group_id": "doi:10.1038/s41567-026-03266-8",
+      "series_group_id": "fete-fese-planckian-2026:two-film-composition-series",
+      "specimen_id": "fete-fese-planckian-2026:film:x0.35",
+      "author_unique_specimen_id": null,
+      "identity_scope": "Source sheet x matches the two films explicitly described on author-preprintPDFp1; not a unique instrument sample identifier",
+      "reported_material": "FeTe1-xSex",
+      "reported_composition_x": 0.35,
+      "sample_form": "100nm epitaxial film on CaF2(100), 100nm Se cap",
+      "quantity": "dc_longitudinal_resistivity",
+      "response_component": "longitudinal",
+      "unit": "milliohm mm",
+      "source_unit_plain_text": "Rho (mOhm mm)",
+      "unit_conversion_not_applied": "1milliohm mm = 100microohm cm; original values retained",
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "ExDat1.xlsx:'Se = 0.35'!A{source_row}:B{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "normal_state_review": {
+        "status": "candidate normal portion only, not admitted to a frozen training policy",
+        "review_window_k": [
+          150,
+          290
+        ],
+        "basis": "Both films have reported DC transitions below14K; no raw lowT point is automatically labelled normal"
+      },
+      "temperature_min_k": 0,
+      "temperature_max_k": 296.311,
+      "zero_tail_provenance": "AtintegerT0..9K the author table has exactlyzero rho. Source does not identify these as individual instrument measurements; no replacement, interpolation or ledger admission performed",
+      "negative_response_rows": 4,
+      "author_fit_column_excluded": "ColumnC Fit is author-derived, not an independent observation",
+      "tc_K": null,
+      "tc_criterion": null,
+      "point_records": 215,
+      "data_sha256_canonical_json": "a01263a0f94cccbdbf9fd97f3f3b60cb946a837538532ee1731193cc027f45d7",
+      "author_table_zero_tail_rows_count": 10,
+      "author_table_zero_tail_rows_sha256": "d15bd9fce8bbba85d3c37a17a34be28bacf2d49a82e36f5680b8735e4fed02fd"
+    }
+  ]
+}

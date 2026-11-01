@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "status": "source_collection_only_no_effect_test",
+  "scope": "This batch3Hurricane curation only; not a census of every legacy Hmaterial lead",
+  "numeric_source_primary_papers": 3,
+  "numeric_source_families": [
+    "cuprate",
+    "iron_chalcogenide",
+    "nickelate"
+  ],
+  "primary_papers_fulltext_inspected": 4,
+  "additional_paper_without_numeric_response_source": "10.1038/s41563-022-01291-5",
+  "curves_or_trace_representations_prepared": 69,
+  "point_records": 157488,
+  "finite_response_records": 157480,
+  "explicit_source_missing_responses": 8,
+  "independent_sample_warning": "Trace count is not sampleN; normalized/absolute views and temperature/angle sweeps repeat the same physical film",
+  "broad_longitudinal": {
+    "curves": 5,
+    "point_records": 8452,
+    "distinct_physical_films": 5,
+    "independent_papers": 2,
+    "chemical_systems": 2,
+    "families": 2,
+    "cover_200_225_250K": 5,
+    "reported_same_sample_numeric_Tc_claims_criterion_unspecified": 2,
+    "explicit_same_sample_midpoint_Tc_targets": 0,
+    "figure1_LSCO_exact_numeric_Tc_missing": 3,
+    "limitations": [
+      "FeTeSe fulltext inspected is authorv1; final publisher criterion not verified",
+      "Twenty author-table lowT zero-tail rows are not asserted all instrumental measurements",
+      "Numeric pressure/field conditions remain null when not explicitly stated"
+    ]
+  },
+  "nickelate": {
+    "author_sample_labels_in_paper": 5,
+    "broad_temperature_curves": 0,
+    "reported_midpoint_Tc_claims": 5,
+    "normal_state_sweep_designations": 0,
+    "unresolved_source_sample_label_conflicts": 1,
+    "chemical_element_sets_in_author_sample_claims": 2,
+    "source_sc_boundary_and_calculation_tables_excluded_from_features": true
+  },
+  "LOFO_readiness": {
+    "multiple_families_with_broad_raw_rho": true,
+    "numeric_family_count_is_not_a_validated_effect_test": true,
+    "paired_midpoint_broad_rho_families": 0,
+    "models_fitted": 0,
+    "LOFO_runs": 0,
+    "reason": "Same-specimen numeric targets with a verified common criterion are incomplete. This batch alone cannot substantiate an improvement or a cross-family law. No new eligibility threshold was frozen."
+  },
+  "model_target_links": 0,
+  "ledger_files_read_or_written": 0,
+  "automatic_training": false,
+  "new_policy_frozen": false,
+  "grouping": "Use paper/source and family, keeping all dopings/angles/fields and repeated representations from one study in the same group; three LSCO dopings are one cuprate family, not three families"
+}

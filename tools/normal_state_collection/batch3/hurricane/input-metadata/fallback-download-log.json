@@ -1,0 +1,29 @@
+[
+  {
+    "path": "fete-fese-planckian-2026/zenodo-record.json",
+    "url": "https://zenodo.org/api/records/18662533",
+    "bytes": 6909,
+    "sha256": "9c7f964428a5b62fe29b4b23c8860936b6177b331afa2652a8bb9187ef2f6f52",
+    "content_type": "application/json",
+    "status": "downloaded",
+    "retrieved_utc": "2026-11-01T15:51:57.881952+00:00"
+  },
+  {
+    "path": "fete-fese-planckian-2026/paper.html",
+    "url": "https://www.nature.com/articles/s41567-026-03266-8",
+    "bytes": 331601,
+    "sha256": "68328368ea6a7f5e7e4fc9d7c8824e52115c3d7000c29c3f19b868233db49b59",
+    "content_type": "text/html; charset=utf-8",
+    "status": "downloaded",
+    "retrieved_utc": "2026-11-01T15:51:59.594819+00:00"
+  },
+  {
+    "path": "fete-fese-planckian-2026/pdf-endpoint-response.html",
+    "url": "https://www.nature.com/articles/s41567-026-03266-8.pdf",
+    "bytes": 331601,
+    "sha256": "7cedcecd7fee82c2b12e7dd077f2af6215466fc1d9b003719407a09b2bb26fd3",
+    "content_type": "text/html; charset=utf-8",
+    "status": "html_response_not_pdf",
+    "retrieved_utc": "2026-11-01T15:52:00.891819+00:00"
+  }
+]

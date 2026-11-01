@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "searched_on": "2026-11-01",
+  "scope": "Bounded primary-source acquisition, not an exhaustive literature search; no authors contacted",
+  "studies": [
+    {
+      "doi": "10.1038/nature23290",
+      "status": "original_numeric_subset_acquired",
+      "inspection": [
+        {"query_or_action": "Inspect publisher Data availability and source-data attachment links for DOI", "url": "https://www.nature.com/articles/nature23290", "access_status": "publisher_preview_and_source_links_read"},
+        {"query_or_action": "Read complete author manuscript and Methods", "url": "https://www.osti.gov/servlets/purl/1412648", "access_status": "full_pdf_opened", "locator": "PDFp5 Figure1 caption; PDFp15 MethodsA; PDFp16 MethodsC; MethodsG"},
+        {"query_or_action": "Open each original source workbook MOESM5-17", "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fnature23290/MediaObjects/41586_2017_BFnature23290_MOESM5_ESM.xlsx", "access_status": "13_original_workbooks_opened_and_hashed"}
+      ],
+      "finding": "Representative three-doping source subset with separate longitudinal and transverse components; exact numeric Tc missing for the three Figure1 films",
+      "limitations": ["Not all thousand devices", "ED2 40.8K Meissner onset/resistive zero not assigned to Figure1 by matching doping", "Nominal Sr x not inferred from mobile-hole p", "Attachment redistribution rights unknown"]
+    },
+    {
+      "doi": "10.1038/s41563-022-01291-5",
+      "status": "full_text_claims_only_no_original_numeric_response_file_found_in_this_search",
+      "inspection": [
+        {"query_or_action": "Inspect publisher page and Data availability for original numeric files", "url": "https://www.nature.com/articles/s41563-022-01291-5", "access_status": "publisher_preview_and_attachment_links_read"},
+        {"query_or_action": "Read institutional primary author full text", "url": "https://n04.iphy.ac.cn/allpdf/2022papers/zjd_NM.pdf", "access_status": "full_pdf_opened", "locator": "Figure5 and transport Methods; Data availability"},
+        {"query_or_action": "Open and inspect publisher supplement", "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41563-022-01291-5/MediaObjects/41563_2022_1291_MOESM1_ESM.pdf", "access_status": "full_pdf_opened", "locator": "FiguresS79/S80 distinguish critical current and phases"}
+      ],
+      "finding": "Tetragonal FeS/FeSe/FeTe resistive-midpoint Tc3.3/7.3/11.0K in Figure5. Extra data on reasonable request; no author R(T) numeric table obtained",
+      "limitations": ["No curves digitized from paper", "No request sent", "Hexagonal phases not labelled nonsuperconducting by this result", "50%Ic in SI is not an additional Tc criterion", "Source measurements may exist outside this search"],
+      "curves_prepared": 0,
+      "model_target_links": 0
+    },
+    {
+      "doi": "10.1038/s41567-026-03266-8",
+      "status": "original_numeric_workbooks_acquired_target_criterion_unverified",
+      "inspection": [
+        {"query_or_action": "Inspect publisher source-data and Data availability links", "url": "https://www.nature.com/articles/s41567-026-03266-8", "access_status": "publisher_preview_read_full_pdf_endpoint_returned_html"},
+        {"query_or_action": "Open repository metadata and all13original workbooks", "url": "https://zenodo.org/records/18662533", "access_status": "metadata_and_numeric_data_opened_repository_MD5_verified"},
+        {"query_or_action": "Read author preprint full text", "url": "https://arxiv.org/pdf/2505.00623", "access_status": "full_pdf_opened_arXivv1", "locator": "PDFp1 two film transition temperatures; PDFp8 ExtendedDataFigure1; Methods"}
+      ],
+      "finding": "Two FeTe1-xSex x=.45/.35 films have broad DC rho(T) source data and authorv1 Tc13.2/11.8K without an explicit inspected midpoint definition",
+      "limitations": ["Published final full text not inspected", "Author table includes20zero-tail rows at0-9K with unspecified instrument provenance", "Fit columns/refits not new observations", "No automatic target links"]
+    },
+    {
+      "doi": "10.1038/s41467-026-75922-9",
+      "status": "original_signed_field_sweeps_acquired_with_unresolved_sample_label_conflict",
+      "inspection": [
+        {"query_or_action": "Read published full text and original Figure1 image", "url": "https://www.nature.com/articles/s41467-026-75922-9.pdf", "access_status": "full_pdf_and_figure_opened", "locator": "PDFp2 Table1 and Figure1; Figure3 caption; transport Methods"},
+        {"query_or_action": "Read repository metadata and original ZIP", "url": "https://zenodo.org/records/20636178", "access_status": "metadata_and_numeric_data_opened_repository_MD5_verified"}
+      ],
+      "finding": "Five author film labels and midpoint Tc claims; available response tables are low-temperature field sweeps, not broad-temperature normal rho(T)",
+      "limitations": ["Fig1F paperS2 and Fig3Bpair2 headerS4 share strong trace evidence, so no convenient sample/Tc reassignment", "Eight explicit missing responses retained", "Signed field retained", "SC boundaries and theory tables excluded from prospective features", "Supplementary raw data stated available on request, no request sent"]
+    }
+  ],
+  "models_fitted": 0,
+  "ledger_files_read_or_written": 0,
+  "new_policy_frozen": false
+}

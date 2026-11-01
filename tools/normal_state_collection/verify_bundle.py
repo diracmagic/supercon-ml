@@ -53,7 +53,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--data-root', type=Path, help='Optional private original-source root; reads registry-listed originals only')
     args = parser.parse_args()
-    files = sorted(p for p in ROOT.rglob('*') if p.is_file())
+    # Unit tests import the new read-only parser. Ignore interpreter caches;
+    # all publishable source/metadata files still undergo the checks below.
+    files = sorted(p for p in ROOT.rglob('*') if p.is_file() and '__pycache__' not in p.relative_to(ROOT).parts)
     json_documents, py_files = {}, []
     for path in files:
         name = path.relative_to(ROOT).as_posix()

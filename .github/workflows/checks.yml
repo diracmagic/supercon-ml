@@ -29,5 +29,6 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: python tools/normal_state_collection/verify_bundle.py
       - run: python tools/normal_state_collection/batch2/verify_bundle.py
+      - run: python tools/normal_state_collection/batch3/verify_bundle.py
       - run: node --test tests/test_app_candidates.mjs
       - run: python ml/negative_data.py --validate data/hosono2015_negatives.json

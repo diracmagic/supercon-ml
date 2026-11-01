@@ -1,0 +1,308 @@
+{
+  "checked_on": "2026-11-01",
+  "fit_count": 0,
+  "leads": [
+    {
+      "150_300k_window_covered": false,
+      "availability_locator": "Data availability; Source data section",
+      "availability_status": "public_numeric_xlsx_downloaded_by_parent_and_headers_numeric_bounds_independently_inspected",
+      "candidate_relation": "YbRhIn5 and YbCoIn5 layers in a CeCoIn5-containing heterostructure; not standalone candidate phases",
+      "conditions_to_collect": [
+        "entire layer sequence and thickness",
+        "pattern and current direction",
+        "applied field direction and magnitude",
+        "harmonic and excitation settings",
+        "sample and figure series identity"
+      ],
+      "data_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-47875-4/MediaObjects/41467_2024_47875_MOESM3_ESM.xlsx",
+      "doi": "10.1038/s41467-024-47875-4",
+      "evidence_domain": "measured_heterostructure_only",
+      "format_as_declared": "XLSX",
+      "lead_id": "hurricane-ybrhin5-tricolor-source-data",
+      "local_file_relative_to_inventory": "raw/yb-heterostructure-source.xlsx",
+      "next_action": "Retain the real low-temperature numeric data as an explicitly related heterostructure channel, with current/field/orientation metadata. Do not transfer its transition to YbRhIn5 or YbCoIn5, or call it eligible for the frozen broad-temperature pilot.",
+      "no_label_transfer_reason": "An entire superconducting stack and one normal-metal layer are different experimental objects.",
+      "numeric_curve_download_verified": true,
+      "observable_scope": [
+        "first-harmonic resistance",
+        "second-harmonic resistance",
+        "temperature and directional applied-field series"
+      ],
+      "primary_checks": [
+        {
+          "access": "publisher_full_text_opened",
+          "locator": "Sample characterization; Methods; Data availability; Source data",
+          "url": "https://www.nature.com/articles/s41467-024-47875-4"
+        },
+        {
+          "access": "download_link_open_attempt_cache_miss",
+          "locator": "publisher source-data download",
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-47875-4/MediaObjects/41467_2024_47875_MOESM3_ESM.xlsx"
+        }
+      ],
+      "primary_url": "https://www.nature.com/articles/s41467-024-47875-4",
+      "raw_source_bytes": 63726,
+      "raw_source_sha256": "efe45a3408d9e3eacf8c856a2568c79d42a4f5b5c5f22cb773623bcdd1db3350",
+      "related_current_candidate_ids": [
+        "JVASP-16400",
+        "JVASP-17895"
+      ],
+      "same_candidate_specimen_verified": false,
+      "sample_matched_candidate_tc_available": false,
+      "sheet_names": [
+        "Fig2c",
+        "Fig3",
+        "Fig4",
+        "Fig5"
+      ],
+      "temperature_coverage": "Fig2c explicitly labels T(K) in column B and R at 0/3/6/8 T in C-F. Zero-field curve has 173 numeric pairs over 0.06–3.5 K. Other sheets are field/nonreciprocal data, not evidence for a 150–300 K normal-state curve.",
+      "title": "Evidence for a finite-momentum Cooper pair in tricolor d-wave superconducting superlattices",
+      "workbook_audit_file": "yb-source-workbook-audit.json"
+    },
+    {
+      "author_pdf_url": "https://arxiv.org/pdf/2310.10621",
+      "author_preprint_doi": "10.48550/arXiv.2310.10621",
+      "availability_status": "author_full_text_opened; no_numeric_repository_or_data_request_statement_located_in_inspected_preprint; published_page_access_blocked",
+      "candidate_relation": "Same nominal formula in a bulk single-crystal transport study; no coordinate/specimen match to JARVIS",
+      "conditions_to_collect": [
+        "Pb-flux crystal specimen ID",
+        "current and field orientation",
+        "explicit field for rho(T)",
+        "pressure if reported",
+        "point source and raw units"
+      ],
+      "data_url": null,
+      "doi": "10.1016/j.jallcom.2024.178130",
+      "evidence_domain": "measured_same_formula_transport_phase_unmatched",
+      "lead_id": "storm-srzn2ge2-transport",
+      "next_action": "Locate an author-deposited numeric file or request the measured curves through an authorized contact. The accessible paper is a real broad-temperature acquisition lead, not a Tc target.",
+      "no_label_transfer_reason": "Metallic transport and a low-temperature plateau do not by themselves establish a superconductivity negative; no matched Tc criterion was obtained.",
+      "numeric_curve_download_verified": false,
+      "observable_scope": [
+        "four-probe resistivity",
+        "magnetoresistance",
+        "Hall resistivity"
+      ],
+      "primary_checks": [
+        {
+          "access": "author_preprint_metadata_opened",
+          "locator": "version 3; related published DOI",
+          "url": "https://arxiv.org/abs/2310.10621"
+        },
+        {
+          "access": "author_preprint_full_text_opened",
+          "locator": "Experimental details p.3; figures and end matter; searches for Data Availability and request returned no matches",
+          "url": "https://arxiv.org/pdf/2310.10621"
+        },
+        {
+          "access": "403_forbidden",
+          "locator": "published version; no data statement inferred",
+          "url": "https://www.sciencedirect.com/science/article/pii/S0925838824047182"
+        }
+      ],
+      "primary_url": "https://arxiv.org/abs/2310.10621",
+      "related_current_candidate_ids": [
+        "JVASP-15791"
+      ],
+      "reported_measurement_range": {
+        "max_applied_field_t": 10,
+        "temperature_max_k": 300,
+        "temperature_min_k": 2
+      },
+      "same_candidate_specimen_verified": false,
+      "sample_matched_candidate_tc_available": false,
+      "title": "Electronic Transport and Fermi Surface Topology of Zintl Phase Compound SrZn2Ge2"
+    },
+    {
+      "availability_status": "primary_abstract_opened; full_text_and_supplement_authorization_required; raw_numeric_availability_unverified",
+      "candidate_relation": "Same nominal BaGa4 formula; exact candidate structure and experimental specimen unmatched",
+      "conditions_to_collect": [
+        "BaGa4 vs BaIn4 series identity",
+        "temperature range",
+        "field direction",
+        "applied pressure if reported",
+        "crystal and phase identity"
+      ],
+      "data_url": null,
+      "doi": "10.1103/PhysRevB.104.205119",
+      "evidence_domain": "measured_same_formula_transport_phase_unmatched",
+      "lead_id": "storm-baga4-magnetotransport",
+      "next_action": "Obtain an authorized full text and numeric supplement or author dataset. Keep the published abstract as a verified measurement lead, without inventing its temperature floor or public raw-data availability.",
+      "no_label_transfer_reason": "The opened abstract establishes magnetotransport, not a superconducting transition or a tested SC absence window.",
+      "numeric_curve_download_verified": false,
+      "observable_scope": [
+        "magnetoresistance",
+        "de Haas–van Alphen magnetization oscillations"
+      ],
+      "primary_checks": [
+        {
+          "access": "primary_abstract_opened_full_text_authorization_required",
+          "locator": "Abstract; Supplemental Material access notice",
+          "url": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.104.205119"
+        },
+        {
+          "access": "not_accessible_in_tool",
+          "locator": "supplement; no file contents claimed",
+          "url": "https://journals.aps.org/prb/supplemental/10.1103/PhysRevB.104.205119"
+        }
+      ],
+      "primary_url": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.104.205119",
+      "related_current_candidate_ids": [
+        "JVASP-14661"
+      ],
+      "reported_measurement_range": null,
+      "same_candidate_specimen_verified": false,
+      "sample_matched_candidate_tc_available": false,
+      "title": "Large magnetoresistance and de Haas–van Alphen oscillations in the topological semimetal candidates BaX4 (X=Ga, In)"
+    },
+    {
+      "author_upload_url": "https://www.researchgate.net/publication/50351425_Crystal_growth_structure_and_physical_properties_of_LnCuAl12Ln_y_Ce_Pr_Sm_and_Yb_and_LnCuGa12_Ln_Y_Gd-Er_and_Yb",
+      "availability_status": "original_full_text_verified_in_author_upload; declared_SI_is_CIF_only; no_numeric_rho_chi_C_dataset_located",
+      "candidate_relation": "Ce2CuGa12 and Ce2NiGa12 bulk crystals; same nominal formulas but exact candidate coordinates/specimens unmatched",
+      "conditions_to_collect": [
+        "Cu vs Ni compound",
+        "crystal ID and orientation for each modality",
+        "ZFC/FC path",
+        "modality-specific field and temperature floor",
+        "molar normalization and lattice subtraction"
+      ],
+      "data_url": null,
+      "doi": "10.1021/cm801693t",
+      "evidence_domain": "measured_same_formula_magnetism_transport_heat_capacity_phase_unmatched",
+      "identity_warning": "ResearchGate landing title/metadata identify a different article; the attached text was identified by its own title, authors, pages and DOI, not the landing title.",
+      "institutional_metadata_url": "https://repository.lsu.edu/physics_astronomy_pubs/5933/",
+      "lead_id": "hurricane-ce2mga12-three-modalities",
+      "next_action": "Seek original susceptibility/transport/heat-capacity numbers; use CIF for structure comparison only. Do not treat CIF as a curve dataset.",
+      "no_label_transfer_reason": "Magnetic order and a heat-capacity measurement floor do not establish SC absence, and the heat-capacity floor cannot be assigned to resistivity.",
+      "numeric_curve_download_verified": false,
+      "observable_scope": [
+        "ZFC/FC susceptibility",
+        "field-dependent magnetization",
+        "resistivity and magnetoresistance",
+        "heat capacity"
+      ],
+      "primary_checks": [
+        {
+          "access": "primary_institutional_metadata_opened",
+          "locator": "article identity",
+          "url": "https://repository.lsu.edu/physics_astronomy_pubs/5933/"
+        },
+        {
+          "access": "author_uploaded_original_full_text_opened",
+          "locator": "Attached text pp.6116–6123, DOI cm801693t; Physical Property Measurements p.6117; SI notice p.6123",
+          "url": "https://www.researchgate.net/publication/50351425_Crystal_growth_structure_and_physical_properties_of_LnCuAl12Ln_y_Ce_Pr_Sm_and_Yb_and_LnCuGa12_Ln_Y_Gd-Er_and_Yb"
+        },
+        {
+          "access": "direct_open_403; publisher_search_cache_corroborates_CIF_only_SI",
+          "locator": "Supporting Information",
+          "url": "https://pubs.acs.org/doi/10.1021/cm801693t"
+        }
+      ],
+      "primary_url": "https://pubs.acs.org/doi/10.1021/cm801693t",
+      "related_current_candidate_ids": [
+        "JVASP-165558",
+        "JVASP-165420"
+      ],
+      "reported_measurement_ranges": [
+        {
+          "applied_field_t": 0.1,
+          "observable": "susceptibility",
+          "temperature_max_k": 300,
+          "temperature_min_k": 2
+        },
+        {
+          "applied_field_t": null,
+          "observable": "heat_capacity",
+          "temperature_max_k": 70,
+          "temperature_min_k": 0.35
+        },
+        {
+          "max_applied_field_t": 9,
+          "observable": "magnetization_vs_field",
+          "temperature_k": 3
+        },
+        {
+          "method": "four-probe AC",
+          "observable": "resistivity",
+          "temperature_max_k": null,
+          "temperature_min_k": null
+        }
+      ],
+      "same_candidate_specimen_verified": false,
+      "sample_matched_candidate_tc_available": false,
+      "title": "Crystal Growth, Structure, and Physical Properties of Ln2MGa12 (Ln = La, Ce; M = Ni, Cu)"
+    },
+    {
+      "availability_status": "primary_full_text_and_data_statement_opened; statement_declares_crystallographic_CIF_not_numeric_transport",
+      "candidate_relation": "Same nominal NaGa4 formula, ordered and disordered phases must remain distinct",
+      "conditions_to_collect": [
+        "specimen from 200 C annealed batch",
+        "pressed-pellet preparation and density",
+        "reported zero magnetic field",
+        "mechanical cell pressure not equated to zero hydrostatic pressure",
+        "crystallographic order and defects"
+      ],
+      "data_url": null,
+      "doi": "10.1002/chem.202402457",
+      "evidence_domain": "measured_same_formula_transport_phase_unmatched",
+      "lead_id": "storm-naga4-transport",
+      "next_action": "Find or obtain original Fig.7 transport numbers. The availability statement supplies a structural route, not public numeric rho(T); digitized curves would require a separately allowed source-format route.",
+      "no_label_transfer_reason": "Metallic rho(T) alone is neither a measured Tc target nor a universal superconductivity negative.",
+      "numeric_curve_download_verified": false,
+      "observable_scope": [
+        "four-terminal van-der-Pauw resistivity of a cold-pressed polycrystalline pellet"
+      ],
+      "primary_checks": [
+        {
+          "access": "publisher_full_text_opened",
+          "locator": "Experimental Section; §2.4/Fig.7; Data Availability Statement; SI list",
+          "url": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.202402457"
+        },
+        {
+          "access": "download_attempt_cache_miss",
+          "locator": "SI PDF; contents not newly inspected",
+          "url": "https://chemistry-europe.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fchem.202402457&file=chem202402457-sup-0001-misc_information.pdf"
+        }
+      ],
+      "primary_url": "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.202402457",
+      "related_current_candidate_ids": [
+        "JVASP-14728"
+      ],
+      "reported_measurement_range": {
+        "applied_field_t": 0,
+        "pressure_gpa": null,
+        "temperature_max_k": 300,
+        "temperature_min_k": 4
+      },
+      "same_candidate_specimen_verified": false,
+      "sample_matched_candidate_tc_available": false,
+      "supporting_information_url": "https://chemistry-europe.onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1002%2Fchem.202402457&file=chem202402457-sup-0001-misc_information.pdf",
+      "title": "Adaptation of the BaAl4 Type to Small Cations: The Case of NaGa4"
+    }
+  ],
+  "ledger_write_count": 0,
+  "purpose": "Five prioritized acquisition leads checked against primary availability statements or access responses. A lead is not a downloaded, sample-matched training record.",
+  "schema_version": 1,
+  "screened_out_source_domains": [
+    {
+      "access": "publisher_primary_html_opened",
+      "doi": "10.1039/D2SE01350A",
+      "primary_url": "https://pubs.rsc.org/en/content/articlehtml/2023/se/d2se01350a",
+      "reason": "Computational solar-cell screening; not measured rho/chi/C for NaYbCu2F8 or NaSmCu2F8."
+    },
+    {
+      "access": "primary_search_metadata_and_previously_opened_author_manuscript; current_direct_authentication_failed",
+      "doi": "10.1038/s42005-024-01600-1",
+      "primary_url": "https://www.nature.com/articles/s42005-024-01600-1",
+      "reason": "SrAl4/EuAl4 computational CDW study; SrGa4/BaGa4 comparisons are not candidate superconductivity measurements."
+    }
+  ],
+  "summary": {
+    "limitation": "Five checked acquisition leads do not mean five available raw datasets. Four remain numeric-data acquisition tasks; the one public numeric attachment belongs to a related heterostructure.",
+    "prioritized_leads": 5,
+    "public_numeric_download_links_verified_on_primary_page": 1,
+    "public_numeric_files_downloaded_and_inspected_by_this_inventory": 1,
+    "same_candidate_specimen_or_DFT_phase_numeric_datasets_verified": 0,
+    "training_rows_or_labels_created": 0
+  }
+}
