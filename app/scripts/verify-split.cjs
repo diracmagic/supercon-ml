@@ -18,6 +18,42 @@ const assets = JSON.parse(fs.readFileSync(path.join(dist, 'assets.json'), 'utf8'
 const baseline = JSON.parse(fs.readFileSync(path.join(__dirname, 'inline-source-manifest.json'), 'utf8'));
 // Compare source contents consistently across Windows CRLF and Linux LF checkouts.
 const hash = (s) => crypto.createHash('sha256').update(s.replace(/\r\n/g, '\n')).digest('hex');
+// Keep the complete audit trail independently reviewable as it grows. A history
+// file is part of the baseline, not an optional attachment: verify its complete
+// LF-normalized bytes, ordered revision count and safe local path before use.
+const historyFiles = baseline.reviewed_revision_history_files || [];
+assert.ok(Array.isArray(historyFiles), 'Review history descriptors must be an array');
+assert.ok(Array.isArray(baseline.reviewed_revision_history || []), 'Inline review history must be an array');
+assert.equal(historyFiles.length > 0 && (baseline.reviewed_revision_history || []).length > 0, false,
+  'Do not mix inline and external review histories with ambiguous order');
+const reviewedHistory = [...(baseline.reviewed_revision_history || [])];
+const seenHistory = new Set();
+for (const entry of historyFiles) {
+  assert.match(entry.path || '', /^review-history-[0-9]{2}\.json$/, 'Review history must use a local, dedicated filename');
+  assert.equal(seenHistory.has(entry.path), false, 'No duplicate review history file');
+  seenHistory.add(entry.path);
+  const file = path.join(__dirname, entry.path);
+  assert.ok(fs.statSync(file).size <= 70000, 'Complete review history stays below 70 KB: ' + entry.path);
+  const text = fs.readFileSync(file, 'utf8');
+  assert.match(entry.sha256 || '', /^[a-f0-9]{64}$/, 'Review history has a SHA-256 digest');
+  assert.equal(hash(text), entry.sha256, 'Complete review history content hash: ' + entry.path);
+  const history = JSON.parse(text);
+  assert.equal(history.schema_version, 1, 'Known review history schema');
+  assert.ok(Array.isArray(history.revisions), 'Review history contains ordered revisions');
+  assert.ok(Number.isInteger(entry.count) && entry.count > 0, 'Review history descriptor has a positive revision count');
+  assert.equal(history.revisions.length, entry.count, 'Every historical revision is retained: ' + entry.path);
+  reviewedHistory.push(...history.revisions);
+}
+const reviewedRevisions = [...reviewedHistory, ...(baseline.reviewed_revision ? [baseline.reviewed_revision] : [])];
+for (const revision of reviewedRevisions) {
+  assert.match(revision.reviewed_on || '', /^\d{4}-\d{2}-\d{2}$/, 'Every revision retains its review date');
+  assert.ok(typeof revision.purpose === 'string' && revision.purpose.trim(), 'Every revision retains its purpose');
+  assert.ok(Array.isArray(revision.controls_preserved) && revision.controls_preserved.length,
+    'Every revision retains its preserved controls');
+}
+if (historyFiles.length || baseline.reviewed_revision_count !== undefined) {
+  assert.equal(baseline.reviewed_revision_count, reviewedRevisions.length, 'Complete reviewed revision count');
+}
 const canonical = (v) => Array.isArray(v) ? v.map(canonical) : v && typeof v === 'object' ?
   Object.fromEntries(Object.keys(v).filter((k) => !['start', 'end', 'loc', 'raw'].includes(k)).sort().map((k) => [k, canonical(v[k])])) : v;
 const astHash = (node) => hash(JSON.stringify(canonical(node)));
@@ -29,6 +65,7 @@ const styles = [...html.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*href="([^"]+)
 assert.deepEqual(scripts, assets.scripts, 'HTML script order must match the complete asset manifest');
 assert.deepEqual(scripts, baseline.scripts, 'Reviewed load order must remain exact');
 assert.deepEqual(styles, assets.styles);
+if (baseline.styles) assert.deepEqual(styles, baseline.styles, 'Reviewed stylesheet order must remain exact');
 assert.equal(/<style\b/.test(html), false, 'Styles belong in the stylesheet');
 for (const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
   if (!match[1].includes('src=') && !match[1].includes('application/json')) assert.equal(match[2].trim(), '', 'No inline executable fragments');
@@ -39,6 +76,10 @@ for (const file of [...assets.scripts, ...assets.styles, 'index.html', 'assets.j
   assert.ok(fs.statSync(path.join(dist, file)).size <= 70000, 'Complete resource stays below 70 KB: ' + file);
 }
 assert.equal(hash(codeOf('styles.css')), baseline.css_sha256, 'Complete stylesheet matches its reviewed baseline after LF normalization');
+for (const [file, digest] of Object.entries(baseline.additional_source_sha256 || {})) {
+  assert.ok(assets.scripts.includes(file) || assets.styles.includes(file), 'Reviewed additional source is a loaded resource: ' + file);
+  assert.equal(hash(codeOf(file)), digest, 'Complete additional source matches its reviewed baseline: ' + file);
+}
 const allCode = scripts.map(codeOf);
 for (let i = 0; i < scripts.length; i++) { parse(allCode[i]); new vm.Script(allCode[i], { filename: scripts[i] }); }
 parse(allCode.join('\n'));
@@ -125,4 +166,5 @@ for (const name of [...baseline.bindings, ...Object.keys(functions), ...initiali
 }
 console.log(JSON.stringify({ scripts: scripts.length, functions: Object.keys(functions).length, initializationStatements: initialization.length,
   maximumResourceBytes: Math.max(...assets.scripts.concat(assets.styles).map((file) => fs.statSync(path.join(dist, file)).size)),
-  astEquivalent: true, astComparison: 'reviewed-baseline', intentionalRevisionsRecorded: !!baseline.reviewed_revision }));
+  astEquivalent: true, astComparison: 'reviewed-baseline', intentionalRevisionsRecorded: !!baseline.reviewed_revision,
+  reviewedRevisionCount: reviewedRevisions.length, verifiedHistoryFiles: historyFiles.length }));

@@ -25,8 +25,6 @@ const initializeSuperconStartup = function initializeSuperconStartup() {
 
   $('#view-candidates').addEventListener('click', function () { setView('candidates'); });
 
-  $('#view-ai').addEventListener('click', function () { setView('ai'); });
-
   $('#view-demos').addEventListener('click', function () { setView('demos'); });
 
   $('#view-learn').addEventListener('click', function () { setView('learn'); });

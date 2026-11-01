@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "Native external-research cards with evidence boundaries; candidate Tc display ordering and strictly sourced earlier-report archive.",
+      "baseline_parent_commit": "d5a880259eee0c825ade37557ce060b00344d5d0",
+      "previous_manifest_sha256": "82576d20940468873b345c11134a0f5134b29c95ed5d9c55c90d8c1dc65a60c1",
+      "original_extraction_commit": "22eba00",
+      "allowed_modules": [
+        "js/definitions/ai-view.js",
+        "js/definitions/candidates.js",
+        "js/initialize/ai-view.js",
+        "js/initialize/candidates.js"
+      ],
+      "scripts_added": [
+        "external-research-data.js"
+      ],
+      "functions_added": {
+        "externalResearchCategory": "9557bef85b8d0d89bf7b104ee52b40cdfb2e12a4c6ebc3c9a7b2903d03723896",
+        "externalResearchRows": "1bee2bcb1c6583aeb110a26fb15c3974fb00564481d5786a2bade5ede8ea446b",
+        "externalResearchSchedule": "c8a2eef64269673ea3f98dac378bddf4bb20d461a41701074f3d4e400414c803",
+        "externalResearchUrl": "ae1e3857679e704488d8e7e289dea5da74bbcec43f6b4d80c4032790f590c28f",
+        "externalResearchReferences": "f2843e2f64d51bb56bef19cc3fdc5a92d6ec3b40b6798ca86e3cebb93ce4bb6b",
+        "renderExternalResearchList": "1d72ded40856c18362b4c93525e2de9e6d2a736d9910a5c62bd1e4c6cecdd387",
+        "buildExternalResearchCard": "cb1711c3a5c8f5c6ddda8804510cd4f08a6a9aeb37f821245d94d70eb36b1f8c",
+        "stopExternalResearch": "8dacbfe20fef73bd984e216a98d8fb75d042c28e61431761b90e63f8773c0a9c",
+        "buildExternalResearchRoute": "c7bba8d55bb2ad9f9008b9069f8b5586aef82c3a32f70bbd87a4c26b4870501e",
+        "candArchive": "b168ca844115c6815c7b6e9c35471a050324a69a7246811172d33d6f11472338"
+      },
+      "functions_changed": {
+        "buildAI": {
+          "before": "456fe7a79efba065ffd4d00192a195422fd27a1bdf6de8c9277fa7514e9c3905",
+          "after": "6bccd729a9525cee06ab0a811fc1217633e916e9280fece8825512b6e90223c6"
+        },
+        "renderAIFound": {
+          "before": "8a4d1131eb1f72f4fef179692554e963b026e407d85487df454d627f5bb07b72",
+          "after": "7c74c8cb108bab3eefdbfd5f5ccabc2c75b3e70e2a4955b666a6f1c6e721b0d6"
+        },
+        "renderAIOurs": {
+          "before": "1a4456cdda75f74372d0cde4e4f116c21534eded5b49116b6d0fbdaf36c7bd2f",
+          "after": "27d5b842b2b3048bbb61d8aac48a87b6a48d0cf38c646c9980f2f49a785c0328"
+        },
+        "aiStop": {
+          "before": "cf3fa706daca8532541eb206a617aa2e2218a01a2a7bed91e5c71806533915f1",
+          "after": "a0f6cdecefd4c0fc4bbcef38fea1a6c1acb0cfece03481a0ca0cbd776438193a"
+        },
+        "candRows": {
+          "before": "5d487460c386ace10df126c8afe2876d56f7564ca0d52372389df26a05fd37ba",
+          "after": "84443609c6db341db7040fb2343eb48dcef721fdb970ca1db756a76c0d079195"
+        },
+        "candCurrentRows": {
+          "before": "6831c86e8b4487d3893352475e8694d337fce3209d8687fb40bd2395a7a661aa",
+          "after": "2f440726e6d6101da282116c36983c4abb859559010fed8241c28c20721ee13c"
+        },
+        "candTcSc": {
+          "before": "12f82c307e4e06f656f11f910c98d7716611f8d2e13ee5a83cc8d6e3c19487c4",
+          "after": "926f2b6451e3b222b3fb628e60083d69d89b06c94ef862fae8a4c922ecc5e903"
+        },
+        "candGo": {
+          "before": "7193c5ac687092f5c4b65d1ac9cd137d952debc096488e96764720402812e2eb",
+          "after": "6ef03d9a920451afffb40d428e50ea9ccf8cc8934b368e4d95e3c6a339dc883a"
+        },
+        "candRemarks": {
+          "before": "6d08946885c1bfc1bdfb745d034f9e37a60e6e0c25848a2d9c6601ce46ee31c3",
+          "after": "a80f216cc5d834ab33bfb8f488f7d98ab2281ec25176aa1504e952f40b2ae021"
+        },
+        "candRemarksEl": {
+          "before": "f2ac2b3d39363f7588a7ddad5450c40b60673eb28ff6c11e3d71532ae16ca157",
+          "after": "27233e5433800427cfd3bb777653b4b3aaad339a5befbfed7978c9888452ac7e"
+        },
+        "candCheckSource": {
+          "before": "e0617ef02e658ef0145ab7f8e23a59338cc9171ac36cbc3edb0549d1fea48c06",
+          "after": "28cce57d523a3c19be85c2f8014fce905378961f88ed46ad1bbc31836324cbef"
+        },
+        "candOursNote": {
+          "before": "62a4264bf5883ea8f15c94572b4d37868e0fe1732b828788adc151b6c62fb557",
+          "after": "7dbb7191f0c934e89810065c4cfe4814f6d9e8a2c0f0e686838a87bae74a9539"
+        },
+        "renderCandidates": {
+          "before": "41e457a2db3f933c68f3771274b4fb3dfca0cb9435fad7e617cc2d6adbf7d03c",
+          "after": "e68adf63360195daf2ed1ef6a5a1e675e39f535d2dde37abd41b7bedf069c1b9"
+        },
+        "candTellUs": {
+          "before": "7326956ad19b2e52b68d919f0d7b20c9ab928e841a8da61272421bd71195f400",
+          "after": "c4e2ef3c3b7fd11b4442678f2be13a5525d91d7c7077fab18746c0d26602bd32"
+        }
+      },
+      "functions_removed": {
+        "compKey": "3d301cd1f56e03be66fcf248ccafebc8bdd79c7e68dd89f43925948e8c665ee6",
+        "candPriorKeys": "956bd3b16587c34f23cea3afacc0ff71f78ab313ec80db3087946af1e3269475"
+      },
+      "initializers_changed": [
+        {
+          "file": "js/initialize/ai-view.js",
+          "before_ast_sha256": "38f1cc9c329c0d9575da14c1db008ce9c65f19f30eb96ff321ec0bfe4c033696",
+          "after_ast_sha256": "051f3006f894d00ff1d00625fce1f6f65bffddf1e0f3f16d8c7d79428b49fd7b"
+        },
+        {
+          "file": "js/initialize/candidates.js",
+          "before_ast_sha256": "6a6a7b62d3cfe74bcef5073012c31f317c9e70c35cec13eca889cc5b6152f023",
+          "after_ast_sha256": "1a8e4f13f1eaab13ff229a323775e56069177626ba672c801c314ca34bc96629"
+        }
+      ],
+      "previous_initialization_sha256": "8e4e0a8ac6baf038aae01f9e1ffdd3511623ae2eaa0f048b5af620cb4da5b0a6",
+      "current_initialization_sha256": "47c97b98d91d99d1f40ecaa5c552e004a8a5623b5de4cc7f07330c67fd6df65a",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance"
+      ]
+    },
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "User-requested withdrawal of the native external-research memo cards, bundle and stylesheet; automatic feed and project model views retained.",
+      "baseline_parent_commit": "08c054fcca7516193872c912e7eefcec4de9de72",
+      "previous_manifest_sha256": "c0a4e8670ce4ebbb0a52a834463f4d5f43cc5e1e3d0b1403fb23e86deac35571",
+      "allowed_modules": [
+        "js/definitions/ai-view.js",
+        "js/initialize/ai-view.js",
+        "js/definitions/content.js"
+      ],
+      "scripts_removed": [
+        "external-research-data.js"
+      ],
+      "styles_removed": [
+        "external-research.css"
+      ],
+      "functions_added": {},
+      "functions_changed": {
+        "contentChanged": {
+          "before": "dab0ed4ae4463ac9371ae88fea7ef5398618c74edf5e29bd29f2207bc0a726cf",
+          "after": "1a16d08098b56128cadf5621cc2a5c7d8056b42a2f9c32bae81880f6bf005810"
+        },
+        "buildAI": {
+          "before": "6bccd729a9525cee06ab0a811fc1217633e916e9280fece8825512b6e90223c6",
+          "after": "a0ed9613fb3ed9df26c85de67580bebe8a66f896cb47794787b950aaf131ba52"
+        },
+        "renderAI": {
+          "before": "6a56ec1a2f43beeb8d531cb567cab6d6641e025239629742f3fcbd408d119197",
+          "after": "e121a604926abea452434f5a0cefae6797985caf47a4ba4737e14f9234b68017"
+        },
+        "aiStop": {
+          "before": "a0f6cdecefd4c0fc4bbcef38fea1a6c1acb0cfece03481a0ca0cbd776438193a",
+          "after": "cf3fa706daca8532541eb206a617aa2e2218a01a2a7bed91e5c71806533915f1"
+        }
+      },
+      "functions_removed": {
+        "renderAIFound": "7c74c8cb108bab3eefdbfd5f5ccabc2c75b3e70e2a4955b666a6f1c6e721b0d6",
+        "externalResearchCategory": "9557bef85b8d0d89bf7b104ee52b40cdfb2e12a4c6ebc3c9a7b2903d03723896",
+        "externalResearchRows": "1bee2bcb1c6583aeb110a26fb15c3974fb00564481d5786a2bade5ede8ea446b",
+        "externalResearchSchedule": "c8a2eef64269673ea3f98dac378bddf4bb20d461a41701074f3d4e400414c803",
+        "externalResearchUrl": "ae1e3857679e704488d8e7e289dea5da74bbcec43f6b4d80c4032790f590c28f",
+        "externalResearchReferences": "f2843e2f64d51bb56bef19cc3fdc5a92d6ec3b40b6798ca86e3cebb93ce4bb6b",
+        "renderExternalResearchList": "1d72ded40856c18362b4c93525e2de9e6d2a736d9910a5c62bd1e4c6cecdd387",
+        "buildExternalResearchCard": "cb1711c3a5c8f5c6ddda8804510cd4f08a6a9aeb37f821245d94d70eb36b1f8c",
+        "stopExternalResearch": "8dacbfe20fef73bd984e216a98d8fb75d042c28e61431761b90e63f8773c0a9c",
+        "buildExternalResearchRoute": "c7bba8d55bb2ad9f9008b9069f8b5586aef82c3a32f70bbd87a4c26b4870501e",
+        "renderAICurated": "91cf15c3b117ddbbbf5cbca1ab19e5b490ef7ff56bdeea4e63e380a5ad59bc45"
+      },
+      "initializers_changed": [
+        {
+          "file": "js/initialize/ai-view.js",
+          "before_ast_sha256": "051f3006f894d00ff1d00625fce1f6f65bffddf1e0f3f16d8c7d79428b49fd7b",
+          "after_ast_sha256": "38f1cc9c329c0d9575da14c1db008ce9c65f19f30eb96ff321ec0bfe4c033696"
+        }
+      ],
+      "previous_initialization_sha256": "47c97b98d91d99d1f40ecaa5c552e004a8a5623b5de4cc7f07330c67fd6df65a",
+      "current_initialization_sha256": "5da4020679fb7705e8b28679aabfe4e4fea22ce516682e70ea32420a74e0ef32",
+      "unchanged_progress_sha256": "40822a41deb4e19d0e99a52b742409b2d820ef2b3bfc58db3e66537ef3e3b786",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "prior reviewed revision history"
+      ]
+    },
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "Add an English GitHub sign-in link to the owner private research repository. No private records, requests, authentication or cache are introduced into the public app.",
+      "baseline_parent_commit": "08c054fcca7516193872c912e7eefcec4de9de72",
+      "previous_manifest_sha256": "c6c50515c99826a0b3040e5f2ffb194bda10010564d44b47503ba64782634b15",
+      "allowed_modules": [
+        "js/definitions/ai-view.js"
+      ],
+      "functions_changed": {
+        "buildAI": {
+          "before": "a0ed9613fb3ed9df26c85de67580bebe8a66f896cb47794787b950aaf131ba52",
+          "after": "87bb0299ab12ee9194d8f5bc9685aa11026bacd221cba2c02f6d583891b24116"
+        }
+      },
+      "functions_added": {},
+      "functions_removed": {},
+      "initializers_changed": [],
+      "scripts_changed": [],
+      "unchanged_progress_sha256": "40822a41deb4e19d0e99a52b742409b2d820ef2b3bfc58db3e66537ef3e3b786",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "prior reviewed revision history",
+        "private source and bundle exclusion"
+      ]
+    },
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "Replace the anonymous AI-page private-notes card with a prominent Login for team link in the main header. GitHub handles sign-in and existing permissions; no application session, membership or private-note ACL change.",
+      "baseline_parent_commit": "6200215b53a9332b63241cc0db17eeeed5ee2edf",
+      "previous_manifest_sha256": "6a12cc17926bd06fe5229373b471e7cdaadd6d89527ee88335b021573c6dfc59",
+      "allowed_modules": [
+        "js/definitions/ai-view.js"
+      ],
+      "static_files_changed": {
+        "index.html": {
+          "before_sha256": "9207973bcdd3cc02c7f5ed713c412a39b5ad788a031be90b171d8441d5719ce8",
+          "after_sha256": "1a4cfe3b5aada5389174ad36d79fcf00e33ae54a3bead61c17e1d1095a7affd3"
+        },
+        "sw.js": {
+          "before_sha256": "26ab9c26cfdd92565597bea6aca637fcb10bf130a49065852990206ddf1c8f8a",
+          "after_sha256": "6ddd28586d206e8c7460db2d371c409475214e51d023ec81c69c76a691f1e70d"
+        },
+        "styles.css": {
+          "before_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
+          "after_sha256": "0c74e49eb6f430ce9650ac416408b087c17d2de553b90dd5f7e5e349d925ef53"
+        }
+      },
+      "functions_changed": {
+        "buildAI": {
+          "before": "87bb0299ab12ee9194d8f5bc9685aa11026bacd221cba2c02f6d583891b24116",
+          "after": "a0ed9613fb3ed9df26c85de67580bebe8a66f896cb47794787b950aaf131ba52"
+        }
+      },
+      "functions_added": {},
+      "functions_removed": {},
+      "initializers_changed": [],
+      "scripts_changed": [],
+      "unchanged_progress_sha256": "40822a41deb4e19d0e99a52b742409b2d820ef2b3bfc58db3e66537ef3e3b786",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "prior reviewed revision history",
+        "private source and bundle exclusion"
+      ]
+    }
+  ]
+}

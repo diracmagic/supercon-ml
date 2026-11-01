@@ -153,8 +153,10 @@ test('a real LF-only checkout copy passes the same frontend verifier', () => {
   const temporary = fs.mkdtempSync(path.join(temporaryBase, 'supercon-frontend-lf-'));
   try {
     const assets = JSON.parse(fs.readFileSync(path.join(app, 'dist/assets.json'), 'utf8'));
+    const baseline = JSON.parse(fs.readFileSync(path.join(app, 'scripts/inline-source-manifest.json'), 'utf8'));
     const files = ['dist/index.html', 'dist/assets.json', ...assets.scripts.map((f) => 'dist/' + f),
-      ...assets.styles.map((f) => 'dist/' + f), 'scripts/verify-split.cjs', 'scripts/split-inline.cjs', 'scripts/inline-source-manifest.json'];
+      ...assets.styles.map((f) => 'dist/' + f), 'scripts/verify-split.cjs', 'scripts/split-inline.cjs', 'scripts/inline-source-manifest.json',
+      ...(baseline.reviewed_revision_history_files || []).map((entry) => 'scripts/' + entry.path)];
     for (const file of files) {
       assert.equal(path.isAbsolute(file) || file.split('/').includes('..'), false);
       const destination = path.join(temporary, file);
@@ -165,7 +167,10 @@ test('a real LF-only checkout copy passes the same frontend verifier', () => {
     }
     const result = spawnSync(process.execPath, ['--expose-internals', path.join(temporary, 'scripts/verify-split.cjs')], { encoding: 'utf8' });
     assert.equal(result.status, 0, result.stderr || result.stdout);
-    assert.equal(JSON.parse(result.stdout.trim()).astEquivalent, true);
+    const verified = JSON.parse(result.stdout.trim());
+    assert.equal(verified.astEquivalent, true);
+    assert.equal(verified.reviewedRevisionCount, baseline.reviewed_revision_count);
+    assert.equal(verified.verifiedHistoryFiles, baseline.reviewed_revision_history_files.length);
   } finally {
     const resolved = fs.realpathSync(temporary);
     assert.ok(resolved.startsWith(temporaryBase + path.sep) && path.basename(resolved).startsWith('supercon-frontend-lf-'));

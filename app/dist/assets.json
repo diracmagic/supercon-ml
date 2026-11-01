@@ -1,6 +1,7 @@
 {
   "styles": [
-    "styles.css"
+    "styles.css",
+    "team-auth.css"
   ],
   "scripts": [
     "literature-audit.js",
@@ -62,6 +63,8 @@
     "js/initialize/phone.js",
     "js/initialize/updates.js",
     "js/initialize/startup.js",
+    "team-auth-config.js",
+    "team-auth.js",
     "js/bootstrap.js"
   ]
 }

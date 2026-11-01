@@ -28,14 +28,16 @@
 
 
   const setView = function setView(v) {
-    var prev = view;
+    // Migrate saved links or callers of the retired public AI page.
+    if (v === 'ai') v = 'progress';
+    var previous = view;
+    if (v !== 'papers') aiStop();
     view = v;
     store.set('view', v);
-    ['progress', 'candidates', 'ai', 'demos', 'learn', 'papers', 'authors'].forEach(function (k) {
+    ['progress', 'candidates', 'demos', 'learn', 'papers', 'authors'].forEach(function (k) {
       var b = $('#view-' + k);
       if (b) b.setAttribute('aria-selected', v === k ? 'true' : 'false');
     });
-    $('#ai').hidden = v !== 'ai';
     $('#demos').hidden = v !== 'demos';
     $('#learn').hidden = v !== 'learn';
     $('#papers').hidden = v !== 'papers';
@@ -43,13 +45,6 @@
     $('#main').hidden = v !== 'progress' || !state.data;
     $('#candidates').hidden = v !== 'candidates' || !state.data;
     if (v === 'candidates') { xtDirty(); xtSync(); xtKick(); }
-    if (prev === 'ai' && v !== 'ai') aiStop();
-    if (v === 'ai') {
-      if (!aiState.built) buildAI(); else renderAI();
-      loadPapers(false);
-      loadContent(false);
-      aiStart();
-    }
     if (v === 'demos') {
       if (!demo.built) buildDemos();
       else syncControls();
@@ -58,6 +53,10 @@
     }
     if (v === 'learn' && !learn.built) buildLearn();
     if (v === 'learn') { miniKick(); loadContent(false); }
-    if (v === 'papers') { if (!paperState.built) buildPapers(); loadPapers(false); loadContent(false); miniKick(); }
+    if (v === 'papers') {
+      if (!paperState.built) buildPapers();
+      else if (previous !== 'papers') renderAIList();
+      aiStart(); loadPapers(false); loadContent(false); miniKick();
+    }
     if (v === 'authors') { renderAuthors(); miniKick(); }
   };

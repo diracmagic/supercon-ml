@@ -17,6 +17,30 @@
 
   const andList = function andList(a) { return a.length > 1 ? a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] : a.join(''); };
 
+  // Match feed identities, never headlines or a broad topic such as "AI and data". The public AI feed is
+  // already classified by feed/papers.py using named methods, superconductivity relevance and device exclusions.
+  const feedIdentityKeys = function feedIdentityKeys(item) {
+    var keys = [], doi = typeof item.doi === 'string' ? item.doi.trim().toLowerCase() : '';
+    if (/^10\.\d{4,9}\//.test(doi)) keys.push('doi:' + doi);
+    if (isHttps(item.url)) {
+      try {
+        var url = new URL(item.url); url.hash = '';
+        Array.from(url.searchParams.keys()).forEach(function (key) { if (/^utm_|^(?:fbclid|gclid)$/.test(key)) url.searchParams.delete(key); });
+        keys.push('url:' + url.href);
+        if (/^(?:dx\.)?doi\.org$/i.test(url.hostname)) keys.push('doi:' + decodeURIComponent(url.pathname.slice(1)).toLowerCase());
+        var arxiv = /^(?:www\.)?arxiv\.org$/i.test(url.hostname) && /^\/(?:abs|pdf)\/(\d{4}\.\d{4,5})(?:v\d+)?(?:\.pdf)?$/.exec(url.pathname);
+        if (arxiv) keys.push('arxiv:' + arxiv[1]);
+      } catch (_) { /* An invalid identity cannot match another item. */ }
+    }
+    if (item.id && item.source) keys.push('id:' + item.source + ':' + item.id);
+    return keys;
+  };
+
+  const feedIsAI = function feedIsAI(item) {
+    var keys = feedIdentityKeys(item);
+    return aiItems().some(function (candidate) { return feedIdentityKeys(candidate).some(function (key) { return keys.indexOf(key) >= 0; }); });
+  };
+
 
   const loadPapers = function loadPapers(force) {
     if (paperState.busy || (!force && paperState.data && Date.now() - paperState.at < 10 * 60 * 1000)) return Promise.resolve();
@@ -60,8 +84,18 @@
       h('ol', { class: 'feed-list', id: 'feed-list' }),
       h('div', { class: 'feed-more', id: 'feed-more' }),
       h('p', { class: 'note', text: 'Updated automatically every three hours by a GitHub Actions workflow. arXiv abstracts are shown in full; for journal papers we show only the first sentence of the abstract the publisher shares through Crossref, and the rest is on the publisher’s page. Topic and type tags are assigned from keywords, so treat them as a rough guide.' }));
-    append(el, [newsCard, feedCard, advCard]);
+    var aiSection = h('section', { class: 'papers-section', id: 'papers-ai', 'aria-labelledby': 'papers-ai-heading' },
+      h('h2', { class: 'papers-section-title', id: 'papers-ai-heading', text: 'AI for Superconductors' }),
+      h('p', { class: 'papers-section-intro', text: 'Public research using AI to study superconducting materials. Automated feed labels are a guide, not verification of a discovery.' }),
+      h('div', { id: 'papers-ai-feed' }),
+      h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('div', null, h('h3', { text: 'Selected AI research' }),
+        h('p', { text: 'Selected public advances with their original references.' }))), h('ol', { class: 'adv-list', id: 'ai-adv-list' }), h('div', { class: 'feed-more', id: 'ai-adv-more' })));
+    var generalSection = h('section', { class: 'papers-section', id: 'papers-superconductors', 'aria-labelledby': 'papers-superconductors-heading' },
+      h('h2', { class: 'papers-section-title', id: 'papers-superconductors-heading', text: 'Superconductors' }),
+      h('p', { class: 'papers-section-intro', text: 'Materials, mechanisms, measurements and applications. Items in the AI feed appear in the section above.' }), newsCard, feedCard, advCard);
+    append(el, [aiSection, generalSection]);
     paperState.built = true;
+    buildAI();
     renderAdvances();
     renderFeed();
   };
@@ -71,13 +105,13 @@
     var bar = $('#adv-filter'), ol = $('#adv-list'), more = $('#adv-more');
     if (!bar || !ol) return;
     clear(bar); clear(ol); clear(more);
-    [['all', 'All'], ['ai', 'AI for superconductivity'], ['experiment', 'Experiment'], ['theory', 'Theory and computation']].forEach(function (f) {
+    if (paperState.kind === 'ai') paperState.kind = 'all';
+    [['all', 'All'], ['experiment', 'Experiment'], ['theory', 'Theory and computation']].forEach(function (f) {
       bar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'aria-pressed': paperState.kind === f[0] ? 'true' : 'false', text: f[1],
         onclick: function () { paperState.kind = f[0]; renderAdvances(); } }));
     });
     var rows = RECENT.filter(function (r) {
-      if (paperState.kind === 'ai') return r.cards.indexOf('ai') >= 0;
-      return paperState.kind === 'all' || (paperState.kind === 'experiment' ? r.k === 'experiment' : r.k === 'theory' || r.k === 'computation');
+      return list(r.cards).indexOf('ai') < 0 && (paperState.kind === 'all' || (paperState.kind === 'experiment' ? r.k === 'experiment' : r.k === 'theory' || r.k === 'computation'));
     }).slice().sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
     if (!paperState.advAll && rows.length > 8) {
       more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.advAll = true; renderAdvances(); } }, 'Show all ' + rows.length));
@@ -90,6 +124,19 @@
         richText(h('p', { class: 'adv-text' }), r.x),
         h('p', { class: 'adv-ref' }, recentLink(r))));
     });
+    var aiList = $('#ai-adv-list'), aiMore = $('#ai-adv-more');
+    if (aiList && aiMore) {
+      clear(aiList); clear(aiMore);
+      var aiRows = RECENT.filter(function (r) { return list(r.cards).indexOf('ai') >= 0; }).slice().sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
+      (paperState.aiAdvAll ? aiRows : aiRows.slice(0, 8)).forEach(function (r) {
+        aiList.appendChild(h('li', { class: 'ai-selected-item' }, h('div', { class: 'news-art' }, miniCanvas('news-ai'), h('span', { class: 'news-art-caption', text: 'Illustration' })),
+          h('div', { class: 'news-body' }, h('p', { class: 'adv-meta' }, h('span', { text: fmtMonth(r.d) }), h('span', { class: 'kind kind-' + r.k, text: KIND_LABEL[r.k] || r.k })),
+            richText(h('h3'), r.h), richText(h('p', { class: 'adv-text' }), r.x), h('p', { class: 'adv-ref' }, recentLink(r)))));
+      });
+      if (!aiRows.length) aiList.appendChild(h('li', { class: 'empty', text: 'No selected AI research is available yet.' }));
+      if (!paperState.aiAdvAll && aiRows.length > 8) aiMore.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.aiAdvAll = true; renderAdvances(); } }, 'Show all ' + aiRows.length));
+      miniPrune(); miniKick();
+    }
   };
 
   const advTopic = function advTopic(r) {
@@ -108,7 +155,7 @@
     if (!ol) return;
     clear(bar); clear(ol); clear(more);
     miniPrune();
-    var d = paperState.data, items = d ? list(d.news).filter(function (n) { return n && n.title && isHttps(n.url); }) : [];
+    var d = paperState.data, items = d ? list(d.news).filter(function (n) { return n && n.title && isHttps(n.url) && !feedIsAI(n); }) : [];
     var ns = feedSources().news, nsub = $('#news-sub');
     if (nsub && ns.length) nsub.textContent = 'Recent stories from ' + andList(ns) + '.';
     if (!d || !items.length) {
@@ -117,6 +164,7 @@
     }
     var srcs = {};
     items.forEach(function (n) { srcs[n.source] = (srcs[n.source] || 0) + 1; });
+    if (paperState.newsSrc !== 'all' && !srcs[paperState.newsSrc]) paperState.newsSrc = 'all';
     [['all', 'All ' + items.length]].concat(Object.keys(srcs).sort().map(function (k) { return [k, k + ' ' + srcs[k]]; })).forEach(function (f) {
       bar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'aria-pressed': paperState.newsSrc === f[0] ? 'true' : 'false', text: f[1],
         onclick: function () { paperState.newsSrc = f[0]; paperState.newsShown = 10; renderNews(); } }));
@@ -148,7 +196,7 @@
     var srcBar = $('#feed-src'), ol = $('#feed-list'), more = $('#feed-more'), sel = $('#feed-topic'), sub = $('#feed-sub');
     if (!ol) return;
     clear(srcBar); clear(ol); clear(more); clear(sel);
-    var all = feedItems(), counts = { all: all.length };
+    var all = feedItems().filter(function (p) { return !feedIsAI(p); }), counts = { all: all.length };
     all.forEach(function (p) { counts[p.source] = (counts[p.source] || 0) + 1; });
     var fs = feedSources();
     if (paperState.src !== 'all' && !counts[paperState.src]) paperState.src = 'all';
