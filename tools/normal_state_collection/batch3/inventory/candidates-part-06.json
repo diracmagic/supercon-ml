@@ -1,0 +1,1618 @@
+{
+  "candidates": [
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "YbIn2Pd",
+      "material_id": "JVASP-17645",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.82
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.369,
+          "p_model_disagreement_lo": 0.055,
+          "p_sc_model_score": 0.143,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 1.5,
+          "tc_model_interval_hi_k": 6.82,
+          "tc_model_interval_lo_k": 0.0,
+          "tc_model_output_k": 0.2,
+          "unconventional_model_score": 0.999
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/9"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "9d82c287c4dcebf262a82fcbfe40dce89276615a19a37e0da99e4a1e1233fa09",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/3",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "8a2394b99e72590e67bf282191d918ffd031fb8f2ff7cbd99eba6a84952b2fc2",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 10,
+      "structure_reference": {
+        "database_id": "JVASP-17645",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17645.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 8,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/9/atoms",
+        "space_group_as_reported": "Cmcm (63)",
+        "structure_sha256_canonical_json": "8492deac866a2524632767811c2d88db659fd91225d509f23814bb142d6255b6"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "Cu8O",
+      "material_id": "JVASP-150511",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [
+          "20240322_MDR_OAndM.txt:3781:line3753",
+          "20240322_MDR_OAndM.txt:3796:line3768",
+          "20240322_MDR_OAndM.txt:101121:line17651",
+          "20240322_MDR_OAndM.txt:101122:line17652"
+        ],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.84
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.041,
+          "p_model_disagreement_lo": 0.009,
+          "p_sc_model_score": 0.02,
+          "routing_family": "cuprate",
+          "tc_given_sc_model_output_k": 7.45,
+          "tc_model_interval_hi_k": 25.44,
+          "tc_model_interval_lo_k": 1.7,
+          "tc_model_output_k": 0.17,
+          "unconventional_model_score": 0.999
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/10"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "77f232860a35939854973b7fce2c3b06e69977749a5f68828e46cecb33a4136d",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "phase": "Amm2(38) DFT model; CNT-supported Cu8O/Cu64O mixture separately",
+          "pressure_gpa": null,
+          "sample_form": "Computed periodic model in2022; separate CNT/nanocrystal composite in2010",
+          "tmin_k": null
+        },
+        "literature_source_ids": [
+          "source-3e33f4be371f39db260b",
+          "source-63c77db11afbeb9f2117"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/4",
+        "prior_search_log_count": 4,
+        "prior_search_log_sha256_canonical_json": "76a0b2d2b18e8b1fb0d83ca35778a3005a1b8f71d5d5cd5ce06c0f3c9c25bec5",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 11,
+      "structure_reference": {
+        "database_id": "JVASP-150511",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-150511.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 9,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/10/atoms",
+        "space_group_as_reported": "Cmmm (65)",
+        "structure_sha256_canonical_json": "f1f5f9d1202317c3f7503ce09e043b13c6cb6518466744cd089ade184bbbf647"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "NaInO",
+      "material_id": "JVASP-135250",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.98
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.103,
+          "p_model_disagreement_lo": 0.007,
+          "p_sc_model_score": 0.034,
+          "routing_family": "other oxide",
+          "tc_given_sc_model_output_k": 5.48,
+          "tc_model_interval_hi_k": 19.25,
+          "tc_model_interval_lo_k": 1.07,
+          "tc_model_output_k": 0.16,
+          "unconventional_model_score": 0.999
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/11"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "2c682f08cd56a419951d9f6373ae5ebc93a99c09edb70f973d30c39232d0b37f",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/5",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "96157bbe1d91432ec1c51e5d16342d00cd32cfc4036cbe15fdb57b9a53caa93f",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 12,
+      "structure_reference": {
+        "database_id": "JVASP-135250",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-135250.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 6,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/11/atoms",
+        "space_group_as_reported": "C2/m (12)",
+        "structure_sha256_canonical_json": "18cd4f11c5fc93f73a6f82ea8f25ff5bdcc535ec23c1cbe007c16357a44473bf"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "YbIn4Pt",
+      "material_id": "JVASP-151922",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.73
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.122,
+          "p_model_disagreement_lo": 0.037,
+          "p_sc_model_score": 0.079,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 1.88,
+          "tc_model_interval_hi_k": 8.02,
+          "tc_model_interval_lo_k": 0.0,
+          "tc_model_output_k": 0.15,
+          "unconventional_model_score": 0.999
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/12"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "50266bb7f6e5368ad0d80402df456d988423c5b1adb38ec4cd7aab2ac967b005",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/6",
+        "prior_search_log_count": 2,
+        "prior_search_log_sha256_canonical_json": "bbec68323479caff27af977b25a27f36bdbb2e539511e60dd2c238430ab307ee",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 13,
+      "structure_reference": {
+        "database_id": "JVASP-151922",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-151922.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 12,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/12/atoms",
+        "space_group_as_reported": "Cmcm (63)",
+        "structure_sha256_canonical_json": "8d04d2c822e509a712d5143cb322e73c50d08beb4b6e0d520cca35c07181970f"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "Yb2CuPd",
+      "material_id": "JVASP-104628",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.91
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.152,
+          "p_model_disagreement_lo": 0.006,
+          "p_sc_model_score": 0.059,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 8.05,
+          "tc_model_interval_hi_k": 27.32,
+          "tc_model_interval_lo_k": 1.89,
+          "tc_model_output_k": 0.14,
+          "unconventional_model_score": 0.991
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/13"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "c566e5355cfc92adf4edb2ef5479807aac6ef86bbb09059c845f15332c172780",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "sample_form": null,
+          "temperature_min_k": null
+        },
+        "literature_source_ids": [
+          "source-7240f200de1c0bfaa4ae"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/7",
+        "prior_search_log_count": 5,
+        "prior_search_log_sha256_canonical_json": "d5a5ae9bd10717ca7787425e17c7a88b26b1ed6c3ecab93e9719005c617185b0",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 14,
+      "structure_reference": {
+        "database_id": "JVASP-104628",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-104628.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 4,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/13/atoms",
+        "space_group_as_reported": "Fm-3m (225)",
+        "structure_sha256_canonical_json": "3c4af88bdb2e216540fba0e224b292ea32a35aff7040e94f873113b6092f487f"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "YbGa5Co",
+      "material_id": "JVASP-17779",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.63
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.064,
+          "p_model_disagreement_lo": 0.009,
+          "p_sc_model_score": 0.037,
+          "routing_family": "heavy-fermion",
+          "routing_types": [
+            "115_heavy_fermion"
+          ],
+          "tc_given_sc_model_output_k": 3.08,
+          "tc_model_interval_hi_k": 11.76,
+          "tc_model_interval_lo_k": 0.3,
+          "tc_model_output_k": 0.12,
+          "unconventional_model_score": 0.999
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/14"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "b9d0d276ccabb5657b3495252d8dd24da66a4a05afacf0be40fc1ecf2bae84a3",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/8",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "285c713e25b389cd567e758acb76b0a4a67fb89da7d02aa31833a0fb844a6120",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 15,
+      "structure_reference": {
+        "database_id": "JVASP-17779",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17779.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 7,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/14/atoms",
+        "space_group_as_reported": "P4/mmm (123)",
+        "structure_sha256_canonical_json": "3a97ecd8a6530b0131e7b7c63baf8e740a337a9e9ae607c388b159ad3e3e34b9"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "YbGa5",
+      "material_id": "JVASP-164490",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [
+          "20240322_MDR_OAndM.txt:131489:line25505"
+        ],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.51
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.07,
+          "p_model_disagreement_lo": 0.006,
+          "p_sc_model_score": 0.036,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 2.85,
+          "tc_model_interval_hi_k": 11.03,
+          "tc_model_interval_lo_k": 0.23,
+          "tc_model_output_k": 0.11,
+          "unconventional_model_score": 0.998
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/15"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "b5d1000eee1678f3ba44f61676a1af48fdfe45a34b77e3735d998fbf9638a072",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "phase": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "tmin_k": null
+        },
+        "literature_source_ids": [
+          "source-c6477828e709ad2053d9"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/9",
+        "prior_search_log_count": 7,
+        "prior_search_log_sha256_canonical_json": "3215bf28bf5bbbb44cc93d82d97c75e27a53939480f26d77003b37e405e54667",
+        "status": "needs-full-text",
+        "superconductivity_outcome_as_recorded": "Intrinsic outcome unknown. An inspected 2025 article cites an approximately 2 K magnetic signal attributed to grain-boundary Ga filaments; the originating 2002 full text was not obtained.",
+        "training_label_created": false
+      },
+      "rank": 16,
+      "structure_reference": {
+        "database_id": "JVASP-164490",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-164490.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 12,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/15/atoms",
+        "space_group_as_reported": "I4/mmm (139)",
+        "structure_sha256_canonical_json": "6505edc3450aa1566d396c073b5af7aa3eac96104f9af31610f8e82300d7a464"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "Ba2NiF6",
+      "material_id": "JVASP-90501",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.7
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.051,
+          "p_model_disagreement_lo": 0.002,
+          "p_sc_model_score": 0.017,
+          "tc_given_sc_model_output_k": 5.43,
+          "tc_model_interval_hi_k": 19.13,
+          "tc_model_interval_lo_k": 1.06,
+          "tc_model_output_k": 0.11,
+          "unconventional_model_score": 0.605
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/16"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "d701c31b5c9ef3510c273290d6c4d0d5e1d89663f3ac01335d74d6748ce74029",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "sample_form": "Known structural literature; exact JARVIS atomic-structure match not performed",
+          "temperature_min_k": null
+        },
+        "literature_source_ids": [
+          "source-da56be981fd9a2faf63a",
+          "source-99f7604d26a992b56e9f",
+          "source-bf8854d061f142fb5688"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/10",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "c2c26eb1d28169be3b6e32ea29ba5ae49094ad2773c967819472ad9bd3e24ac0",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 17,
+      "structure_reference": {
+        "database_id": "JVASP-90501",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-90501.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 9,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/16/atoms",
+        "space_group_as_reported": "I4/mmm (139)",
+        "structure_sha256_canonical_json": "bd9d0ac1a9359fe1454f7e1422e20d80aba37962efe8380b9f5f3ae732dda3f5"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [
+          "hurricane-ce2mga12-three-modalities"
+        ],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "Ce2Ga12Cu",
+      "material_id": "JVASP-165558",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.46
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.109,
+          "p_model_disagreement_lo": 0.008,
+          "p_sc_model_score": 0.055,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 1.67,
+          "tc_model_interval_hi_k": 7.36,
+          "tc_model_interval_lo_k": 0.0,
+          "tc_model_output_k": 0.1,
+          "unconventional_model_score": 1.0
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/17"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "590c09711b4346b884aa6c8ef3d7e538e054b4194ea5379c815e82b573181585",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "phase": "Tetragonal P4/nbm(125); no coordinate match to JVASP-165558",
+          "pressure_gpa": null,
+          "sample_form": "Ga-flux-grown single crystals",
+          "tmin_k": null
+        },
+        "literature_source_ids": [
+          "source-2fc57737aff8536cc6d0",
+          "source-702ae286d36a6ed8c2f0"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/11",
+        "prior_search_log_count": 8,
+        "prior_search_log_sha256_canonical_json": "9f46b68f02073e6b6ce5d19b92de83b8531b564348de9dc15300c737b324afa3",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown; explicit no-transition-to-0.35K claim not established",
+        "training_label_created": false
+      },
+      "rank": 18,
+      "structure_reference": {
+        "database_id": "JVASP-165558",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-165558.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 30,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/17/atoms",
+        "space_group_as_reported": "P4/nbm (125)",
+        "structure_sha256_canonical_json": "67c9f4cb6125dca9e7ba0d971ce07405083a15c562b1a86a496b43428a23346a"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "Sr3GeO",
+      "material_id": "JVASP-180041",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.94
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.103,
+          "p_model_disagreement_lo": 0.004,
+          "p_sc_model_score": 0.034,
+          "routing_family": "other oxide",
+          "tc_given_sc_model_output_k": 2.69,
+          "tc_model_interval_hi_k": 10.53,
+          "tc_model_interval_lo_k": 0.18,
+          "tc_model_output_k": 0.1,
+          "unconventional_model_score": 0.999
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/18"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "d4fdb9e07c088de8f0390f854bbd08d170675e8526cc6415fc497aa9b6cbc731",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-2a81b9daacb5eb1d6ef6",
+          "source-bd93b7a35cf2eab0299a",
+          "source-128fc1275d0e095ec6e1"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/12",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "be8c89c187e2f746165d72b4c3dc3f21f574df2d361bbbc9b08a4ffa362ea9b0",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 19,
+      "structure_reference": {
+        "database_id": "JVASP-180041",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-180041.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/18/atoms",
+        "space_group_as_reported": "Pm-3m (221)",
+        "structure_sha256_canonical_json": "d0ba85630443522c956b8e6d7141e8abae71464763c440d07ec4c9178234acf2"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "YbIn",
+      "material_id": "JVASP-129550",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [
+          "20240322_MDR_OAndM.txt:101509:line18037",
+          "20240322_MDR_OAndM.txt:120190:line24741"
+        ],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.68
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.083,
+          "p_model_disagreement_lo": 0.012,
+          "p_sc_model_score": 0.046,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 1.98,
+          "tc_model_interval_hi_k": 8.32,
+          "tc_model_interval_lo_k": 0.0,
+          "tc_model_output_k": 0.09,
+          "unconventional_model_score": 0.997
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/19"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "db10afa621a56375c28064c7273634e7f830763a9798d37d6891199370c62058",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/13",
+        "prior_search_log_count": 4,
+        "prior_search_log_sha256_canonical_json": "35f765f7ced269bd3f012f3ade5215aba72a36b604adbcc861972b548bcf92e0",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 20,
+      "structure_reference": {
+        "database_id": "JVASP-129550",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-129550.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 2,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/19/atoms",
+        "space_group_as_reported": "P4/mmm (123)",
+        "structure_sha256_canonical_json": "48044d47d8af4bb3a84946ed8d39585900f0398369ac033dd69ffb04858b93a4"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "Yb3GeO",
+      "material_id": "JVASP-164281",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.95
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.09,
+          "p_model_disagreement_lo": 0.009,
+          "p_sc_model_score": 0.04,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 2.42,
+          "tc_model_interval_hi_k": 9.7,
+          "tc_model_interval_lo_k": 0.09,
+          "tc_model_output_k": 0.09,
+          "unconventional_model_score": 1.0
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/20"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "e6ceabc346198bc47bfe34c2a50bb52eb0eee52b6b8d795603709f479b4f8f0f",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-04547954331c68a833e4"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-07.json#/materials/14",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "150b0863ec189a9d481a1bf00466dde2cbd21d55261fd921603b9ccc3b750203",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 21,
+      "structure_reference": {
+        "database_id": "JVASP-164281",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-164281.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 20,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/20/atoms",
+        "space_group_as_reported": "Pnma (62)",
+        "structure_sha256_canonical_json": "0e35d12d9628647b8e4adff4ed7d4340d85b5a71f6ccd004bd533c72e2e3c3ca"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "KCeF4",
+      "material_id": "JVASP-100557",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.86
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.039,
+          "p_model_disagreement_lo": 0.006,
+          "p_sc_model_score": 0.019,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 4.59,
+          "tc_model_interval_hi_k": 16.49,
+          "tc_model_interval_lo_k": 0.79,
+          "tc_model_output_k": 0.08,
+          "unconventional_model_score": 0.648
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/21"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "b04f73c92ff9c7533868b091578c5216aad7d087e5ba2c28085efb8f2b4a35bb",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-2b0fa099f2cf3f83851e",
+          "source-f1712579184e78a4001b"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-08.json#/materials/0",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "b29607797a2046a8ad10192418cde321c289a84c2f90eed80d7af5041e5a93c9",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 22,
+      "structure_reference": {
+        "database_id": "JVASP-100557",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-100557.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 6,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/21/atoms",
+        "space_group_as_reported": "P4/mmm (123)",
+        "structure_sha256_canonical_json": "b92ae71d5dbccd92c10f6745415b3655c37f9fba182fae79e155ce3e1d4bd100"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "CaYbIn2",
+      "material_id": "JVASP-172208",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.87
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.085,
+          "p_model_disagreement_lo": 0.012,
+          "p_sc_model_score": 0.037,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 1.98,
+          "tc_model_interval_hi_k": 8.31,
+          "tc_model_interval_lo_k": 0.0,
+          "tc_model_output_k": 0.07,
+          "unconventional_model_score": 0.997
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/22"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "307251c078b4fd8a2d5b531cfc822f775e052c46bd6513caef3a4275bd221f66",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-69215cc10625a3100d71"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-08.json#/materials/1",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "b4f58c16e46a5333d37f88cf0e075bcd78acf8007fb095e653255118006b181e",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 23,
+      "structure_reference": {
+        "database_id": "JVASP-172208",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-172208.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 4,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/22/atoms",
+        "space_group_as_reported": "Fm-3m (225)",
+        "structure_sha256_canonical_json": "a4adefdbc47cd84b4d43ea568e384df691b4d8e827f76b811d7eba9a4e0d797b"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "SrNiF2",
+      "material_id": "JVASP-134812",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.66
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.057,
+          "p_model_disagreement_lo": 0.004,
+          "p_sc_model_score": 0.023,
+          "tc_given_sc_model_output_k": 3.5,
+          "tc_model_interval_hi_k": 13.08,
+          "tc_model_interval_lo_k": 0.44,
+          "tc_model_output_k": 0.07,
+          "unconventional_model_score": 0.994
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/23"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "ea0c50f518c0468b431b0596307c7eb35d67169236da66676c8671b60586b65d",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [],
+        "original_audit_pointer": "data/candidate_audits/part-08.json#/materials/2",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "56c2bbecf7fc7468209f671b35b92c1216e14eac8507e8f458e466457c12118a",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 24,
+      "structure_reference": {
+        "database_id": "JVASP-134812",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-134812.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 4,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/23/atoms",
+        "space_group_as_reported": "P4mm (99)",
+        "structure_sha256_canonical_json": "c72590df77246c855b3578f5540092401eca6e53fb2810f3ec6afc7df22a4f8a"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "NaYbCu2F8",
+      "material_id": "JVASP-171500",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.88
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.004,
+          "p_model_disagreement_lo": 0.001,
+          "p_sc_model_score": 0.002,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 30.89,
+          "tc_model_interval_hi_k": 98.75,
+          "tc_model_interval_lo_k": 9.19,
+          "tc_model_output_k": 0.07,
+          "unconventional_model_score": 0.678
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/24"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "f8cc1da7e5fcac02e52b95d0117e80daa18b83550f1e0b2345e8d133a83e8586",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "sample_form": null,
+          "temperature_min_k": null
+        },
+        "literature_source_ids": [
+          "source-57facb322f859632c8d6",
+          "source-3bb78f44ce4a8277c2ec",
+          "source-dcbeabc2315c18fb2729"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-08.json#/materials/3",
+        "prior_search_log_count": 4,
+        "prior_search_log_sha256_canonical_json": "8f0075d23b293e16f5c33aa4dc1aedd7412555db41700885e1493cc5268d3113",
+        "status": "needs-full-text",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 25,
+      "structure_reference": {
+        "database_id": "JVASP-171500",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-171500.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 12,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/24/atoms",
+        "space_group_as_reported": "I422 (97)",
+        "structure_sha256_canonical_json": "02dac1798c79b78a026356aba00b60e3b9e3aeefecc6a92e43c76f0962500ec5"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "PrIn6Cu6",
+      "material_id": "JVASP-166391",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.84
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.015,
+          "p_model_disagreement_lo": 0.004,
+          "p_sc_model_score": 0.009,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 7.25,
+          "tc_model_interval_hi_k": 24.8,
+          "tc_model_interval_lo_k": 1.64,
+          "tc_model_output_k": 0.07,
+          "unconventional_model_score": 0.997
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/25"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "9660d957d0fde8a1ed752ab2ff02cdf733c54d821cfb93bdd68d2fbb6cc696f5",
+        "conditions_as_recorded": {
+          "pressure_gpa": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [],
+        "original_audit_pointer": "data/candidate_audits/part-08.json#/materials/4",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "f08b78f11ce26c138b5a64fa3ee323145ed61d656008baf7bd1a881b4c42a621",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 26,
+      "structure_reference": {
+        "database_id": "JVASP-166391",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-166391.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 13,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/25/atoms",
+        "space_group_as_reported": "Immm (71)",
+        "structure_sha256_canonical_json": "54e17c67b58cf0166d0e275728c0b890c31b38a34c948baaad7ffeb57746e603"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "YbCuSb",
+      "material_id": "JVASP-13734",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.96
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.038,
+          "p_model_disagreement_lo": 0.008,
+          "p_sc_model_score": 0.021,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 6.02,
+          "tc_model_interval_hi_k": 20.96,
+          "tc_model_interval_lo_k": 1.24,
+          "tc_model_output_k": 0.07,
+          "unconventional_model_score": 0.998
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/26"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "c770c5e4632347bf51695772e164874afe9f7ae3633f1d942504857d800950c9",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-b6b4b0480ab1ab919d1a",
+          "source-4292346e51cefa3ad6b0"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-08.json#/materials/5",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "ef96f16389a8c2c835525d6207a3ce5b184cf25d155df3fa875c9ab38e06a7ce",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 27,
+      "structure_reference": {
+        "database_id": "JVASP-13734",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-13734.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 6,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/26/atoms",
+        "space_group_as_reported": "P6_3mc (186)",
+        "structure_sha256_canonical_json": "4607bf1b315b70a3dfac56409f90a1e93fd36a63e9ba86553086ffeb5cede693"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "YbGa2Cu3",
+      "material_id": "JVASP-110106",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.88
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.007,
+          "p_model_disagreement_lo": 0.005,
+          "p_sc_model_score": 0.006,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 8.93,
+          "tc_model_interval_hi_k": 30.07,
+          "tc_model_interval_lo_k": 2.18,
+          "tc_model_output_k": 0.05,
+          "unconventional_model_score": 1.0
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/27"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "02c3d4cbf763272af063155d473df432a5505c23dc93adc71bc7f9bb78760534",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-853d273c43b28a3ab3b1",
+          "source-7c4fe2a0d00d560d7c88",
+          "source-fa885e3b6025571f5cf0"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-08.json#/materials/6",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "a00bfaf1cc8a66bb27d37656d7d9cfcdad1813f706bc0011488bfad38ea5bab7",
+        "status": "needs-full-text",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 28,
+      "structure_reference": {
+        "database_id": "JVASP-110106",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-110106.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 6,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/27/atoms",
+        "space_group_as_reported": "P6/mmm (191)",
+        "structure_sha256_canonical_json": "c6a51f12a5e3991d04d1e5a09a80cee84ca6773df27acb4eaf9bef08180a2520"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [
+          "hurricane-ce2mga12-three-modalities"
+        ],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "Ce2Ga12Ni",
+      "material_id": "JVASP-165420",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.57
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.075,
+          "p_model_disagreement_lo": 0.007,
+          "p_sc_model_score": 0.044,
+          "routing_family": "heavy-fermion",
+          "tc_given_sc_model_output_k": 1.02,
+          "tc_model_interval_hi_k": 5.31,
+          "tc_model_interval_lo_k": 0.0,
+          "tc_model_output_k": 0.05,
+          "unconventional_model_score": 1.0
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/28"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "b7a3a97a8393767d00b9e9c6f2a34d4562d69b51dbc51aeee0c6477fc64da76a",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-740139f7278836346f1b",
+          "source-702ae286d36a6ed8c2f0"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-08.json#/materials/7",
+        "prior_search_log_count": 5,
+        "prior_search_log_sha256_canonical_json": "e4beb190ed9fa04112549c0b0b0c9368265ae503e654708b4c2c9abfa39fe08a",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 29,
+      "structure_reference": {
+        "database_id": "JVASP-165420",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-165420.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 30,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/28/atoms",
+        "space_group_as_reported": "P4/nbm (125)",
+        "structure_sha256_canonical_json": "dbf7ed742d89f53b3ab33e7cff7f0b5828088ec2a0786e5d1d6525970a35add0"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    },
+    {
+      "acquisition": {
+        "raw_dataset_lead_ids": [],
+        "requested_modalities": [
+          "rho_or_R",
+          "chi_or_M",
+          "C"
+        ],
+        "sample_condition_target_join": "not_verified",
+        "track_dependency": null,
+        "training_eligible": false
+      },
+      "current": true,
+      "formula": "SrOF",
+      "material_id": "JVASP-118315",
+      "mdr_review": {
+        "dataset_version": "240322",
+        "exact_composition_matches": 0,
+        "same_system_different_composition_links": [],
+        "same_system_unresolved_composition_links": [],
+        "sample_or_structure_join": false
+      },
+      "model_domain": {
+        "basis": "published screening feature-distance gate, not exact training-set identity",
+        "classification": "within_H4_feature_proximity_acceptance",
+        "exact_training_composition_membership": "not_verified",
+        "exact_training_structure_membership": "not_verified",
+        "novelty_ratio_as_predicted": 0.62
+      },
+      "prediction_summary": {
+        "model": "Hurricane 4.0",
+        "observed_label": false,
+        "outputs": {
+          "p_model_disagreement_hi": 0.027,
+          "p_model_disagreement_lo": 0.004,
+          "p_sc_model_score": 0.014,
+          "routing_family": "other oxide",
+          "tc_given_sc_model_output_k": 2.98,
+          "tc_model_interval_hi_k": 11.44,
+          "tc_model_interval_lo_k": 0.27,
+          "tc_model_output_k": 0.05,
+          "unconventional_model_score": 0.999
+        },
+        "screen_round": 5,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/29"
+      },
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "bc8612251aa36babfe59a97d4971b6329797d163623e3a0664735fc480cb1996",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-8897d712fa931b410f03"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-08.json#/materials/8",
+        "prior_search_log_count": 2,
+        "prior_search_log_sha256_canonical_json": "46bb3d244d8a0d9515506b6267202c79309d36447671bef1236796f908b37c9f",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "rank": 30,
+      "structure_reference": {
+        "database_id": "JVASP-118315",
+        "database_url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-118315.html",
+        "experimental_phase_or_specimen_match": "not_verified",
+        "n_sites": 3,
+        "source_pointer": "work/research-results-61/results/screen_round5.json#/hurricane/candidates/29/atoms",
+        "space_group_as_reported": "Amm2 (38)",
+        "structure_sha256_canonical_json": "3cda8eae6223caf3c013f59b45403171a3e1d9096b3741f157d79975642918b4"
+      },
+      "subtracks": {},
+      "track": "Hurricane"
+    }
+  ],
+  "schema_version": 1
+}

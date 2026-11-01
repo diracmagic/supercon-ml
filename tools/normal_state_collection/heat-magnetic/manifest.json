@@ -1,0 +1,537 @@
+{
+  "schema_version": 1,
+  "collection": "Primary heat capacity and magnetic-response source collection",
+  "scope": "Current batch of author-deposited data only; literature/source search is not exhaustive.",
+  "counts": {
+    "source_datasets_raw_files": 6,
+    "primary_studies": 5,
+    "material_families": 4,
+    "curve_count": 35,
+    "numeric_observations": 33323,
+    "missing_response_observations": 1,
+    "total_point_records": 33324,
+    "specific_heat_points": 382,
+    "four_pi_chi_points": 196,
+    "explicit_moment_emu_points": 31945,
+    "unknown_unit_author_M_points": 800,
+    "verified_normal_curves": 0,
+    "feature_ready_curves": 0,
+    "measured_Tc_targets": 0,
+    "exact_specimen_Tc_links": 0,
+    "ledger_writes_by_this_collector": 0,
+    "models_fitted": 0
+  },
+  "scientific_boundary": [
+    "Temperature points and field sweeps are not independent material/sample counts.",
+    "The fixed150-300Knormal window is not covered; no collected curve was labeled verified_normal.",
+    "C/T converted only through T=sqrt(T2),C=(C/T)*T; electronic-background-subtracted/normalized model curves excluded.",
+    "Magnetic dipole moment(emu),4pi*chi and unknown-unitM remain distinct observables.",
+    "All31,445 instrument-field points retain explicit magnitude conversion and signedoriginal field/direction; not measured internalB.",
+    "Pressure/doping/strain not reported remain null; fabrication pressure or Mg additivewtpercent are not measurementpressure or dopingfraction.",
+    "Ta1.6Te heat/magnetic fragments and unresolved NbSe2 crystals are not falsely joined as one measured specimen.",
+    "These data provide observation/provenance coverage, not independent evidence of a universal pairing mechanism or a validated highTc predictor."
+  ],
+  "sources": [
+    {
+      "source_id": "nbse2-2025-raw-moment",
+      "raw_path": "heat-magnetic/raw/nbse2_2025/Magnetization data.zip",
+      "sha256": "4b34e509cba4e49901c23763c59ca9dccb812ff548b9cb2e94d0fb1ca6e24ef6",
+      "bytes": 7501,
+      "reference": {
+        "doi": "10.1038/s41467-025-62223-w",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12356947/",
+        "publication_date": "2025-08-15",
+        "cite": "Cho et al., Evidence for orbital Fulde-Ferrell-Larkin-Ovchinnikov state in the bulk limit of 2H-NbSe2, Nat Commun16,7599(2025).",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Methods: sample information/DC magnetization; Fig1b. Raw headers Time Stamp,Temperature(K),Magnetic Field(Oe),Moment(emu)."
+      },
+      "license": "CC-BY-4.0 (Zenodo dataset metadata; article separately CC-BY-NC-ND-4.0)",
+      "public_redistribution": "dataset_CC_BY_4.0",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "Low-T mixed superconducting/normal response; exact specimen assignment among two crystals not supplied in raw files."
+      ],
+      "original_file": {
+        "path": "heat-magnetic/raw/nbse2_2025/Magnetization data.zip",
+        "bytes": 7501,
+        "sha256": "4b34e509cba4e49901c23763c59ca9dccb812ff548b9cb2e94d0fb1ca6e24ef6",
+        "md5": "702f4885a1dde1b9c82400fd23df4c5c",
+        "source_url": "https://zenodo.org/records/15627723/files/Magnetization%20data.zip?download=1",
+        "requested_url": "https://zenodo.org/records/15627723/files/Magnetization%20data.zip?download=1",
+        "final_url": "https://zenodo.org/records/15627723/files/Magnetization%20data.zip?download=1",
+        "retrieved_at_utc": "2026-11-01T12:39:44.566307+00:00",
+        "expected_repository_md5": "702f4885a1dde1b9c82400fd23df4c5c"
+      },
+      "normal_state_feature_status": "not_admitted_unknown_normal_and_no150-300Kcoverage"
+    },
+    {
+      "source_id": "nbse2-2025-source-xlsx",
+      "raw_path": "heat-magnetic/raw/nbse2_2025/Source data.xlsx",
+      "sha256": "d6dfe8fc09572f1c997c978d790c44bfe9ac72e68afd15f3b8cbe6ffcd41e724",
+      "bytes": 291931,
+      "reference": {
+        "doi": "10.1038/s41467-025-62223-w",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12356947/",
+        "publication_date": "2025-08-15",
+        "cite": "Cho et al., Nat Commun16,7599(2025); author dataset Zenodo10.5281/zenodo.15627723.",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Fig1a,d,e,f source sheets. Source cells Moment(emu), distinct from plotted emu/g and offsets."
+      },
+      "license": "CC-BY-4.0 (Zenodo dataset metadata)",
+      "public_redistribution": "dataset_CC_BY_4.0",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "No mass normalization/chi conversion or plotted display offset applied."
+      ],
+      "original_file": {
+        "path": "heat-magnetic/raw/nbse2_2025/Source data.xlsx",
+        "bytes": 291931,
+        "sha256": "d6dfe8fc09572f1c997c978d790c44bfe9ac72e68afd15f3b8cbe6ffcd41e724",
+        "md5": "13c2dd7a7c0c4f768bf02f277f1b521c",
+        "source_url": "https://zenodo.org/records/15627723/files/Source%20data.xlsx?download=1",
+        "requested_url": "https://zenodo.org/records/15627723/files/Source%20data.xlsx?download=1",
+        "final_url": "https://zenodo.org/records/15627723/files/Source%20data.xlsx?download=1",
+        "retrieved_at_utc": "2026-11-01T12:39:44.566307+00:00",
+        "expected_repository_md5": "13c2dd7a7c0c4f768bf02f277f1b521c"
+      },
+      "normal_state_feature_status": "not_admitted_unknown_normal_and_no150-300Kcoverage"
+    },
+    {
+      "source_id": "mgb2-2020-bulk",
+      "raw_path": "heat-magnetic/raw/mgb2_2022/MgB2.zip",
+      "sha256": "2c3499733f6255f9598e7c40e394d95f4ef8ea146a65c3fe778e8be6c01ab755",
+      "bytes": 7832040,
+      "reference": {
+        "doi": "10.1088/1361-6668/ab7c53",
+        "url": "https://ora.ox.ac.uk/objects/uuid:b8aa6e71-8960-47bc-a186-aec73338efb2",
+        "publication_date": "2020-03-19",
+        "cite": "Matthews et al., Effect of the sintering temperature on the microstructure and superconducting properties of MgB2 bulks manufactured by the field assisted sintering technique, Supercond Sci Technol33,054003(2020). Dataset10.5287/bodleian:ZO6MREoYX deposited2022.",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Experimental section; QuantumDesign VSM DAT headers, sample labels; processing900/1000/1100/1200C."
+      },
+      "license": "Oxford repository terms of use; no dataset CC license stated",
+      "public_redistribution": "not_authorized_for_public_redistribution",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "Private noncommercial research terms. Source/data/derived numeric curves remain local.",
+        "Porous multiphase processing specimens; no pure-cell or measurement-pressure/doping inference."
+      ],
+      "original_file": {
+        "path": "heat-magnetic/raw/mgb2_2022/MgB2.zip",
+        "bytes": 7832040,
+        "sha256": "2c3499733f6255f9598e7c40e394d95f4ef8ea146a65c3fe778e8be6c01ab755",
+        "md5": "ae208b65c2ecd9d6d5208ef90ec65ddc",
+        "source_url": "https://ora.ox.ac.uk/objects/uuid:b8aa6e71-8960-47bc-a186-aec73338efb2/files/r0r967440t",
+        "retrieved_on": "2026-11-01",
+        "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+      },
+      "normal_state_feature_status": "not_admitted_unknown_normal_and_no150-300Kcoverage"
+    },
+    {
+      "source_id": "mgb2-2022-composite",
+      "raw_path": "heat-magnetic/raw/mgb2_2022/Mg-MgB2.zip",
+      "sha256": "f819ce15aa6dd1f4ffb98f8ce886db0ef497a18eb5478269096c7ff37928595a",
+      "bytes": 11717353,
+      "reference": {
+        "doi": "10.1088/1361-6668/ac5164",
+        "url": "https://ora.ox.ac.uk/objects/uuid:2acd535d-ce42-462d-9b19-43f5b0443eca",
+        "publication_date": "2022-04-26",
+        "cite": "Matthews et al., Improving the connectivity of MgB2 bulk superconductors by a novel liquid phase sintering process, Supercond Sci Technol35,065005(2022). Dataset10.5287/bodleian:xr11rwggY.",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Experimental section,Table1; original VSM DAT files by1/3/6/10wtpercentMg-addition preparation groups."
+      },
+      "license": "Oxford repository terms of use; no dataset CC license stated",
+      "public_redistribution": "not_authorized_for_public_redistribution",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "Mg wtpercent precursor addition is not substitutional doping fraction.",
+        "No volume/mass conversion from blank sample mass metadata or unrelated instrument channels."
+      ],
+      "original_file": {
+        "path": "heat-magnetic/raw/mgb2_2022/Mg-MgB2.zip",
+        "bytes": 11717353,
+        "sha256": "f819ce15aa6dd1f4ffb98f8ce886db0ef497a18eb5478269096c7ff37928595a",
+        "md5": "526d14806cfe4f30cea81dbc624d16ca",
+        "source_url": "https://ora.ox.ac.uk/objects/uuid:2acd535d-ce42-462d-9b19-43f5b0443eca/files/d9p290963p",
+        "retrieved_on": "2026-11-01",
+        "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+      },
+      "normal_state_feature_status": "not_admitted_unknown_normal_and_no150-300Kcoverage"
+    },
+    {
+      "source_id": "ta16te-2024-source-xlsx",
+      "raw_path": "ta16te/source-publisher.xlsx",
+      "sha256": "5c158e6bb2abf5a1be0b8e7295ef7e51ed814316b3ccf73be5ae589fe84b4190",
+      "bytes": 261304,
+      "reference": {
+        "doi": "10.1038/s41467-024-45952-2",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10907369/",
+        "publication_date": "2024-03-01",
+        "cite": "Tokumoto et al., Superconductivity in a van der Waals layered quasicrystal, Nat Commun15,1529(2024).",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Physical property measurements; source sheetsFigure3a,b andFigure3c; two separately weighed fragments."
+      },
+      "license": "CC-BY-4.0 (article/source data)",
+      "public_redistribution": "CC_BY_4.0",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "Heat26.09mg and susceptibility95.64mg are distinct pieces, not one physical specimen.",
+        "Source4pi*chi not demagnetization corrected; no independent measured lambda label."
+      ],
+      "original_file": {
+        "path": "ta16te/source-publisher.xlsx",
+        "bytes": 261304,
+        "sha256": "5c158e6bb2abf5a1be0b8e7295ef7e51ed814316b3ccf73be5ae589fe84b4190",
+        "md5": "dd48a96d501f1824d1b952e37475039a",
+        "source_url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-024-45952-2/MediaObjects/41467_2024_45952_MOESM6_ESM.xlsx",
+        "retrieved_on": "2026-11-01",
+        "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+      },
+      "normal_state_feature_status": "not_admitted_unknown_normal_and_no150-300Kcoverage"
+    },
+    {
+      "source_id": "hea-2022-raw",
+      "raw_path": "heat-magnetic/raw/hea_2022/raw-data.zip",
+      "sha256": "785b8ec48c4ee3fff3698c578f3ff8d0a958f19ac803a4564d11c551d03d06b7",
+      "bytes": 13183940,
+      "reference": {
+        "doi": "10.1038/s41598-022-16355-4",
+        "url": "https://archive-ouverte.unige.ch/unige:166708",
+        "publication_date": "2022-07-27",
+        "cite": "Leung et al., Evidence for isotropic s-wave superconductivity in high-entropy alloys, Sci Rep12,12773(2022). Dataset10.5281/zenodo.6673464(version1),concept6673463.",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Published Fig1caption and Experiment; author Fig1ab/ZFCFC CSV and fig1ab.m inspected as text, no author code executed."
+      },
+      "license": "CC-BY-4.0 (Zenodo metadata)",
+      "public_redistribution": "dataset_CC_BY_4.0",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "CSV M unit not explicit. PublishedcaptionZFC5Oe/FC50Oe differs from author plotting script common divisor5or5.187; retain unresolved input units/field.",
+        "Nominal x0.4/0.75 filenames correspond to EDX actualx0.35/0.71."
+      ],
+      "original_file": {
+        "path": "heat-magnetic/raw/hea_2022/raw-data.zip",
+        "bytes": 13183940,
+        "sha256": "785b8ec48c4ee3fff3698c578f3ff8d0a958f19ac803a4564d11c551d03d06b7",
+        "md5": "ca01d0abd582bea16e08b939139ac3d7",
+        "source_url": "https://zenodo.org/api/records/6673464/files/Evidence%20for%20Isotropic%20s-Wave%20Superconductivity%20in%20High-Entropy%20Alloys%20Raw%20Data.zip/content",
+        "requested_url": "https://zenodo.org/api/records/6673464/files/Evidence%20for%20Isotropic%20s-Wave%20Superconductivity%20in%20High-Entropy%20Alloys%20Raw%20Data.zip/content",
+        "final_url": "https://zenodo.org/api/records/6673464/files/Evidence%20for%20Isotropic%20s-Wave%20Superconductivity%20in%20High-Entropy%20Alloys%20Raw%20Data.zip/content",
+        "retrieved_at_utc": "2026-11-01T12:52:58.010349+00:00",
+        "expected_repository_md5": "ca01d0abd582bea16e08b939139ac3d7"
+      },
+      "normal_state_feature_status": "not_admitted_unknown_normal_and_no150-300Kcoverage"
+    }
+  ],
+  "source_data_integrity": {
+    "repository_md5_checked": [
+      "nbse2_2025/Magnetization data.zip",
+      "nbse2_2025/Source data.xlsx",
+      "hea_2022/raw-data.zip"
+    ],
+    "all_original_raw_files_sha256_bound_by_normal_state_registry": true,
+    "all_retained_points_roundtripped_to_raw_cells_or_lines": true,
+    "raw_file_modifications": 0,
+    "author_analysis_code_executed": false
+  },
+  "collection_files": {
+    "registry": {
+      "path": "heat-magnetic/heat-registry.json",
+      "bytes": 7716,
+      "sha256": "f1b7bc4b37ab1940df36bbb3140fcb60851b92b1c382b930439d5513f13259f6",
+      "md5": "1c33dacf8f4f2bab254ccf653962500e",
+      "retrieved_on": "2026-11-01",
+      "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+    },
+    "collection_numeric_local_only": {
+      "path": "heat-magnetic/heat-collection.json",
+      "bytes": 42947115,
+      "sha256": "e9399f5da9997fa2ba5748d5d0a370c64927e42baff748451514ed3bb267b437",
+      "md5": "25af9ecfa3ddaef5981bb0565e8158db",
+      "retrieved_on": "2026-11-01",
+      "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+    },
+    "roundtrip_audit": {
+      "path": "heat-magnetic/verification/collection-audit.json",
+      "bytes": 2294,
+      "sha256": "182a2f352fc33665e51719697e5dbbdd300a418a748eabbce8e1a42559e2b2e7",
+      "md5": "8d3c73d7219ce6fbbacf91141b04027e",
+      "retrieved_on": "2026-11-01",
+      "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+    },
+    "derived_csvs_local_only": [
+      {
+        "path": "heat-magnetic/derived/hea_2022/author_M_channel_vs_temperature.csv",
+        "bytes": 199264,
+        "sha256": "a1ce9b64fb1afd6b0db27d691e4e1080a008580c80998cfb5dee286719847f5b",
+        "md5": "d455903d42a7054a8cec2f0bc0fb9f6e",
+        "kind": "exact numeric source extraction; local only",
+        "retrieved_on": "2026-11-01",
+        "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+      },
+      {
+        "path": "heat-magnetic/derived/mgb2_2022/magnetic_moment_vs_temperature.csv",
+        "bytes": 7456165,
+        "sha256": "81777c5b9b6cee1652fc583c4004c21b4180c64a6614a2dd92b0cfb1358227a6",
+        "md5": "4592d12be514143d06573e48ca049dbe",
+        "kind": "exact numeric source extraction; local only",
+        "retrieved_on": "2026-11-01",
+        "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+      },
+      {
+        "path": "heat-magnetic/derived/nbse2_2025/magnetic_moment_vs_temperature.csv",
+        "bytes": 167249,
+        "sha256": "092257d3bbad465fb5bd59138c417648819f1c2e961388a3bca827aa9fd27dbb",
+        "md5": "fc455e8b246a75e7e714db2fbb302417",
+        "kind": "exact numeric source extraction; local only",
+        "retrieved_on": "2026-11-01",
+        "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+      },
+      {
+        "path": "heat-magnetic/derived/ta16te_2024/four_pi_chi_vs_temperature.csv",
+        "bytes": 35248,
+        "sha256": "be46e654ffd4f1515daf499ba60799e4ccf4815a3623dd9915dcc9a033e1c3cf",
+        "md5": "95c99d265cac143ab05a8953f5af99b4",
+        "kind": "exact numeric source extraction; local only",
+        "retrieved_on": "2026-11-01",
+        "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+      },
+      {
+        "path": "heat-magnetic/derived/ta16te_2024/specific_heat_vs_temperature.csv",
+        "bytes": 76292,
+        "sha256": "a4c6c9f44e48aaec0b0eec4655b1f8832b618665c286e59ba9d1be4fb96fba62",
+        "md5": "e28e28e0f54c201a6a39d7bb389dae84",
+        "kind": "exact numeric source extraction; local only",
+        "retrieved_on": "2026-11-01",
+        "timestamp_precision": "collection day; exact HTTP retrieval timestamp was not logged for this initial root/caller download"
+      }
+    ]
+  },
+  "access_failures": [
+    {
+      "requested_url": "https://zfn.mpdl.mpg.de/data/Reihe_A/15/ZNA-1960-15a-0728.pdf",
+      "retrieved_at_utc": "2026-11-01T13:00:37.4701095Z",
+      "path": "raw/elemental_v_nb_1960/archival-paper.pdf",
+      "client": "PowerShell Invoke-WebRequest with normal system TLS verification",
+      "status": "response_received_but_not_pdf",
+      "http_status": 200,
+      "final_url": "https://edmond.mpg.de/citation?persistentId=doi:10.17617/3.GRUJYR",
+      "bytes": 7119,
+      "sha256": "2d55f61839e5fa2d93295c7df6936674d052bb83e490d420bbce4b81b2547f4e",
+      "md5": "6095c2adc8f4d1f65304356c0b07f8a3",
+      "expected_format_matches": false
+    },
+    {
+      "requested_url": "https://www.degruyterbrill.com/document/doi/10.1515/zna-1960-0808/pdf",
+      "retrieved_at_utc": "2026-11-01T12:56:32.8348858Z",
+      "path": "raw/elemental_v_nb_1960/paper.pdf",
+      "client": "PowerShell Invoke-WebRequest with normal system TLS verification",
+      "status": "response_received_but_not_pdf",
+      "http_status": 202,
+      "final_url": "https://www.degruyterbrill.com/document/doi/10.1515/zna-1960-0808/pdf",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "md5": "d41d8cd98f00b204e9800998ecf8427e",
+      "expected_format_matches": false
+    },
+    {
+      "requested_url": "https://www.nature.com/articles/s41598-022-16355-4.pdf",
+      "retrieved_at_utc": "2026-11-01T12:56:32.2180447Z",
+      "path": "raw/hea_2022/paper.pdf",
+      "client": "PowerShell Invoke-WebRequest with normal system TLS verification",
+      "status": "response_received_but_not_pdf",
+      "http_status": 200,
+      "final_url": "https://www.nature.com/articles/s41598-022-16355-4.pdf",
+      "bytes": 3038,
+      "sha256": "32ed63159c77e21ee19ca1b9aa3213ccf0218eb59539560b132a8e68ef0e18ea",
+      "md5": "ef34477109bd5fe7e7bed6cd8efe5ade",
+      "expected_format_matches": false
+    },
+    {
+      "requested_url": "https://data.4tu.nl/file/8178b0dc-c6b7-4f0c-af82-abdbc73e8927/b2309c1c-da5a-4156-90bd-cc16d09ee52c",
+      "retrieved_at_utc": "2026-11-01T12:39:44.565307+00:00",
+      "path": "raw/nbs2_2021/Data.zip",
+      "expected_repository_md5": "05cc74a3a444c98febcb2635429ae3fc",
+      "status": "failed",
+      "error": "URLError: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>"
+    },
+    {
+      "requested_url": "https://data.4tu.nl/v3/datasets/8178b0dc-c6b7-4f0c-af82-abdbc73e8927/versions/1/ro-crate-metadata.json",
+      "retrieved_at_utc": "2026-11-01T12:39:45.660673+00:00",
+      "path": "raw/nbs2_2021/repository-metadata.json",
+      "expected_repository_md5": null,
+      "status": "failed",
+      "error": "URLError: <urlopen error [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond>"
+    },
+    {
+      "requested_url": "https://data.4tu.nl/file/8178b0dc-c6b7-4f0c-af82-abdbc73e8927/b2309c1c-da5a-4156-90bd-cc16d09ee52c",
+      "client": "PowerShell Invoke-WebRequest with normal TLS; authorized retry after initial urllib timeout",
+      "attempt_observed_on": "2026-11-01",
+      "exact_attempt_time_not_logged": true,
+      "status": "failed",
+      "bytes": 0,
+      "reason": "TCP connection timeout data.4tu.nl:443; stopped retrying"
+    }
+  ],
+  "pending_sources": [
+    {
+      "material": "NbS2",
+      "status": "public_dataset_identified_download_failed",
+      "paper_doi": "10.1038/s41467-021-23976-2",
+      "dataset_doi": "10.4121/14623011.v1",
+      "url": "https://data.4tu.nl/articles/_/14623011/1",
+      "published_file": {
+        "name": "Data.zip",
+        "bytes": 648831,
+        "repository_md5": "05cc74a3a444c98febcb2635429ae3fc"
+      },
+      "reported_modalities": [
+        "specific heat",
+        "magnetic torque",
+        "linear thermal expansion"
+      ],
+      "license": "CC-BY-SA-4.0 per primary repository landing",
+      "limitations": [
+        "No data bytes obtained; no C units or numerical measurements imported.",
+        "Torque is not magnetic susceptibility."
+      ]
+    },
+    {
+      "material": "V,Nb",
+      "status": "needs_full_text_original_tables",
+      "paper_doi": "10.1515/zna-1960-0808",
+      "reported_temperature_range_k": [
+        10,
+        273
+      ],
+      "title": "Die Atom- und Elektronenwarme des Vanadins und Niobs zwischen10und273K",
+      "publisher_url": "https://www.degruyterbrill.com/document/doi/10.1515/zna-1960-0808/pdf",
+      "archive_doi": "10.17617/3.GRUJYR",
+      "archive_license": "CC-BY-ND-3.0 per official archive API metadata",
+      "limitations": [
+        "Publisher returned WAF challenge/noPDF; archival individual URL redirected to HTMLchallenge.",
+        "Official public archiveAPI inspected: entire Reihe_A.zip50,086,033,062bytes, not downloaded.",
+        "No secondary JANAF/fitted curve or invented digitization substituted."
+      ]
+    },
+    {
+      "material": "MgB2 calorimetry",
+      "status": "paper_found_no_original_numeric_curve_dataset_in_this_search",
+      "paper_doi": "10.1103/PhysRevLett.87.167003",
+      "primary_pdf_url": "https://ir.lib.nycu.edu.tw/bitstream/11536/29338/1/bd6f816bad10b74262fcc428d2b38f00.pdf",
+      "inspection_scope": "primary search-indexed text only; not admitted as numeric data",
+      "limitations": [
+        "Synthesis3GPa is not measurement pressure.",
+        "No curve digitized or modeled from article figure."
+      ]
+    },
+    {
+      "material": "Nb3Sn,V3Si",
+      "status": "no_original_machine_readable_heat_curve_found_in_this_search",
+      "limitations": [
+        "Not a claim that raw data do not exist or measurements were never performed.",
+        "Handbook fits/secondary compilations excluded."
+      ]
+    },
+    {
+      "material": "Nb laser-processed",
+      "status": "next_batch_source_downloaded_by_root_not_part_of_current_collection",
+      "dataset_doi": "10.5281/zenodo.19254033",
+      "paper_doi": "10.1016/j.jallcom.2026.188695",
+      "author_preprint": "https://arxiv.org/abs/2604.15981",
+      "root_reported_file": {
+        "path": "nb-laser/source.zip",
+        "bytes": 59412788,
+        "md5": "d60e285d7e8455d7ae881de92998346a",
+        "sha256": "803793c1250a12921de369ddb993740ea91ef9249c0864930f3b2b38ef08624f"
+      },
+      "limitations": [
+        "Collector has not re-curated this archive. Excluded from current counts/hashes/admission.",
+        "ProcessingNpressure is not measurementP/dopingfraction."
+      ]
+    }
+  ],
+  "search_log": [
+    {
+      "query": "NbS2 heat capacity raw data dataset",
+      "source_urls": [
+        "https://data.4tu.nl/articles/_/14623011/1"
+      ],
+      "result": "primary repository identified; fetch timeout"
+    },
+    {
+      "query": "NbSe2 orbital FFLO source data magnetization Zenodo",
+      "source_urls": [
+        "https://zenodo.org/records/15627723",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12356947/"
+      ],
+      "result": "author original ZIP/XLSX downloaded and inspected"
+    },
+    {
+      "query": "Improving the connectivity of MgB2 dataset zip",
+      "source_urls": [
+        "https://ora.ox.ac.uk/objects/uuid:2acd535d-ce42-462d-9b19-43f5b0443eca"
+      ],
+      "result": "primary original ZIP downloaded with repository terms"
+    },
+    {
+      "query": "Effect of sintering temperature MgB2 raw magnetisation dataset",
+      "source_urls": [
+        "https://ora.ox.ac.uk/objects/uuid:b8aa6e71-8960-47bc-a186-aec73338efb2"
+      ],
+      "result": "primary original ZIP downloaded; sharedFast58 duplicate found"
+    },
+    {
+      "query": "Evidence for isotropic s-wave superconductivity high-entropy alloys raw data",
+      "source_urls": [
+        "https://zenodo.org/records/6673464",
+        "https://archive-ouverte.unige.ch/unige:166708"
+      ],
+      "result": "original ZIP and publishedPDF inspected; field/unit ambiguity retained"
+    },
+    {
+      "query": "specific heat superconductor csv raw data Nb3Sn V3Si MgB2",
+      "source_urls": [
+        "https://doi.org/10.1103/PhysRevLett.87.167003"
+      ],
+      "result": "no additional original numericCcurve admitted"
+    },
+    {
+      "query": "Die Atom- und Elektronenwarme des Vanadins und Niobs",
+      "source_urls": [
+        "https://doi.org/10.1515/zna-1960-0808",
+        "https://edmond.mpg.de/api/datasets/:persistentId/?persistentId=doi:10.17617/3.GRUJYR"
+      ],
+      "result": "bibliographic original source and public archive metadata; no paper tablebytes"
+    }
+  ],
+  "public_upload_allowlist": [
+    "heat-registry.json",
+    "build_normal_collection.py",
+    "extract_nbse2.py",
+    "extract_additional.py",
+    "verify_collection.py",
+    "build_manifest.py",
+    "manifest.json",
+    "verification/collection-audit.json"
+  ],
+  "never_upload_as_part_of_this_harvest": [
+    "heat-collection.json",
+    "raw/",
+    "derived/",
+    "verification/hea-published-figure1.png"
+  ],
+  "public_redistribution_authorized_by_software": false
+}

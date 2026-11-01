@@ -1,0 +1,62 @@
+{
+  "3dsc_commit": "8d69ca9c94b83d387378549225d3b7c3af85ca42",
+  "3dsc_sha256": "353b86f9c60505d11a3e25df8312da02ff88fd8e27af05b632dec4739d52eb24",
+  "bootstrap": {
+    "resamples": 1000,
+    "seed": 7,
+    "unit": "chemical system, sampled within each family"
+  },
+  "classifier_params": {
+    "l2_regularization": 1.0,
+    "learning_rate": 0.05,
+    "max_iter": 400,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 10
+  },
+  "designs": {
+    "H4": "Released H4 entry model, asked about parents",
+    "M1": "P1 plus frozen MACE-MP-0 medium invariant mean/std/max descriptors",
+    "P1": "H4 inputs and settings, trained on parents"
+  },
+  "evaluation": "Four fixed leave-one-family-out tests, with identical parent test rows across designs; no grouped-CV score is used for this comparison.",
+  "families": [
+    "cuprate",
+    "iron-based",
+    "heavy-fermion",
+    "other oxide"
+  ],
+  "gating": "H4 abstention/radius in handcrafted inputs, held fixed between P1 and M1 so embedding gains cannot come solely from changed abstention geometry.",
+  "mace_checkpoint_url": "https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model",
+  "mace_model": "medium",
+  "negative_evidence": "Hosono sample nulls are audited but not used for this parent target; no Tc=0 is imputed from a temperature-censored observation.",
+  "primary": "Macro-average fraction of positive parents found (p>=0.5 and not abstained) across held-out families.",
+  "promising_rule": {
+    "brier_tolerance_over_each_reference": 0.01,
+    "extra_positive_parents_over_both_references": 10,
+    "macro_found_gain_over_both_references": 0.05,
+    "macro_tc_mae_tolerance_K": 1.0,
+    "max_background_false_alarms": 0.05,
+    "paired_chemical_system_bootstrap_lower95_gain_over_both": 0.0,
+    "unknown_rate_increase_over_each_reference": 0.05
+  },
+  "publication": "Report-only challenger. adopted is always false; H4 current and progress.json remain untouched. Any release needs a separate preregistered independent evaluation.",
+  "reference_settings": {
+    "abstain": 1.0,
+    "background": 0.3,
+    "radius": 1.0,
+    "two_part": "mean"
+  },
+  "regressor_params": {
+    "l2_regularization": 1.0,
+    "learning_rate": 0.04,
+    "max_iter": 800,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 10
+  },
+  "structure_min_fraction": 0.95,
+  "target": "parent_has_superconducting_doped_descendant",
+  "target_definition": "One original MP structure; label positive if any linked SuperCon entry has Tc>0; regression target is their highest observed Tc. Zero only means no superconducting entry was observed among those linked in this dataset; it does not disprove potential under all dopings or pressures.",
+  "threshold": 0.5,
+  "version": "hurricane6-lofo-v1",
+  "weak_background": "H4's JARVIS compounds without a superconductivity record, label 0 at weight 0.3; these are explicitly weak labels, not measured negatives. Keep only H4's radius in handcrafted inputs."
+}

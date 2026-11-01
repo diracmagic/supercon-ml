@@ -1,0 +1,24 @@
+{
+  "status": "source_cell_roundtrip_pass_no_training_admission",
+  "curves_prepared": 2,
+  "point_records": 459,
+  "source_cell_roundtrip_checked": true,
+  "distinct_physical_films": 2,
+  "independent_papers": 1,
+  "independent_families": 1,
+  "chemical_systems": 1,
+  "longitudinal_cover_200_225_250K": [
+    "fete-fese-planckian-2026:film:x0.45:DC-resistivity",
+    "fete-fese-planckian-2026:film:x0.35:DC-resistivity"
+  ],
+  "same_sample_numeric_Tc_claims": 2,
+  "same_sample_explicit_midpoint_targets": 0,
+  "model_target_links": 0,
+  "source_table_rows_not_asserted_all_instrument_raw": true,
+  "author_table_zero_tail_rows": 20,
+  "models_fitted": 0,
+  "ledger_files_read_or_written": 0,
+  "published_fulltext_access": "publisher preview read; fulltext inspected is arXivv1, not asserted identical to final published article",
+  "policy_frozen": false,
+  "curated_private_output_sha256_canonical_json": "8fa6704d0d918f53b7e357646354fc6e4307de5ee25b97c2de0af056b5c02e99"
+}

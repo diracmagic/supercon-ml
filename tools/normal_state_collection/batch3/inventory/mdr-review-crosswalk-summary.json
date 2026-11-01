@@ -1,0 +1,679 @@
+{
+  "dataset_doi": "10.48505/nims.4487",
+  "limitations": [
+    "No exact match is not evidence of material novelty or superconductivity absence.",
+    "Secondary database records may duplicate evidence used by 3DSC/SuperCon-derived training; they are not independent validation samples.",
+    "Sample and condition evidence must be verified in primary papers before any target/precursor join.",
+    "Data.zip contains legacy figure/text data; no author-raw or point-provenance claim follows from file presence."
+  ],
+  "mdr_sources": [
+    {
+      "bytes": 19875381,
+      "path_relative_to_batch3": "mdr/20240322_MDR_OAndM.txt",
+      "sha256_raw_bytes": "f599ef0040c18521e386f758ee826fe269f67ef369c1a007656035d03ccdfdf6"
+    },
+    {
+      "bytes": 263372,
+      "path_relative_to_batch3": "mdr/240322_MDR_Organic.txt",
+      "sha256_raw_bytes": "d116848a90d01e48356ed6cf0bb69035fa863a3a559deac1ef188025bdb3b423"
+    }
+  ],
+  "metadata_correction": {
+    "candidate_match_results_changed": false,
+    "corrected_organic_record_count": 568,
+    "date": "2026-11-01",
+    "predictions_or_labels_changed": false,
+    "previous_organic_record_count_included_blank_footer": 569,
+    "reason": "Exclude one completely empty Organic footer at logical source row 571 from record/unresolved counts; retain its row locator explicitly."
+  },
+  "readme_doi": "10.48505/nims.4488",
+  "related_system_records": [
+    {
+      "author_raw": "A. Jez'owski",
+      "candidate_ids_for_manual_review": [
+        "JVASP-150511"
+      ],
+      "common_name_raw": "CuO",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Cu1O",
+      "data_number": "3781",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Solid State Commun.,71(1989)419-424",
+      "normalized_atomic_fractions_exact": {
+        "Cu": "1/2",
+        "O": "1/2"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:3781:line3753",
+      "reference_number": "SSC0710419",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 3753,
+      "title_raw": "FIVIDENCE FOR HYSTERESIS BEHAVIOUR AND ANOMALY OF THERMAL CONDUCTIVITY IN Y-Ba-Cu-O SUPERCONDUCTOR",
+      "training_eligible": false,
+      "year_raw": "1989"
+    },
+    {
+      "author_raw": "R. KUENTZLER,S. VILMINOT,S.EL HADIGUI,Y. DOSSMANN",
+      "candidate_ids_for_manual_review": [
+        "JVASP-150511"
+      ],
+      "common_name_raw": "CuO",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Cu1O1",
+      "data_number": "3796",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Solid State Commun.,65(1988)1529-1530",
+      "normalized_atomic_fractions_exact": {
+        "Cu": "1/2",
+        "O": "1/2"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:3796:line3768",
+      "reference_number": "SSC0651529",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 3768,
+      "title_raw": "ORIGIN OF THE RESIDUAL LINEAR SPECIFIC HEAT TERM IN YBa2Cu3O7-x",
+      "training_eligible": false,
+      "year_raw": "1988"
+    },
+    {
+      "author_raw": "V.B.Compton,B.T.Matthias,T.H.Geballe",
+      "candidate_ids_for_manual_review": [
+        "JVASP-122651",
+        "JVASP-14561"
+      ],
+      "common_name_raw": "Ca1Ga2",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ca1Ga2",
+      "data_number": "100889",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "REV.MORDERN PHYS.,35(1963)1",
+      "normalized_atomic_fractions_exact": {
+        "Ca": "1/3",
+        "Ga": "2/3"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:100889:line17420",
+      "reference_number": "RMP0350001",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 17420,
+      "title_raw": "Superconductivity",
+      "training_eligible": false,
+      "year_raw": "1963"
+    },
+    {
+      "author_raw": "B.T.Matthias,J.K.Hulm",
+      "candidate_ids_for_manual_review": [
+        "JVASP-150511"
+      ],
+      "common_name_raw": "Cu2O1",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Cu2O1",
+      "data_number": "101121",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Phys.Rev., 87(1952)799",
+      "normalized_atomic_fractions_exact": {
+        "Cu": "2/3",
+        "O": "1/3"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:101121:line17651",
+      "reference_number": "11",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 17651,
+      "title_raw": "A search for new superconducting compounds",
+      "training_eligible": false,
+      "year_raw": "1952"
+    },
+    {
+      "author_raw": "B.T.Matthias,J.K.Hulm",
+      "candidate_ids_for_manual_review": [
+        "JVASP-150511"
+      ],
+      "common_name_raw": "Cu1O1",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Cu1O1",
+      "data_number": "101122",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Phys.Rev., 87(1952)799",
+      "normalized_atomic_fractions_exact": {
+        "Cu": "1/2",
+        "O": "1/2"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:101122:line17652",
+      "reference_number": "11",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 17652,
+      "title_raw": "A search for new superconducting compounds",
+      "training_eligible": false,
+      "year_raw": "1952"
+    },
+    {
+      "author_raw": "A.S.COOPER,E.BUCHER,J.P.MAITA,K.ANDRES,V.HEINE",
+      "candidate_ids_for_manual_review": [
+        "JVASP-168087"
+      ],
+      "common_name_raw": "Ga0.03Mg0.97",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ga0.03Mg0.97",
+      "data_number": "101225",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "PHYS.REV.B,6(1972)103",
+      "normalized_atomic_fractions_exact": {
+        "Ga": "3/100",
+        "Mg": "97/100"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:101225:line17755",
+      "reference_number": "1340",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 17755,
+      "title_raw": "",
+      "training_eligible": false,
+      "year_raw": "1972"
+    },
+    {
+      "author_raw": "D.G.NAUGLE",
+      "candidate_ids_for_manual_review": [
+        "JVASP-107227"
+      ],
+      "common_name_raw": "Ge1Tl1",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ge1Tl1",
+      "data_number": "101337",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "PHYS.LETT.A,25(1967)688",
+      "normalized_atomic_fractions_exact": {
+        "Ge": "1/2",
+        "Tl": "1/2"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:101337:line17866",
+      "reference_number": "989",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 17866,
+      "title_raw": "",
+      "training_eligible": false,
+      "year_raw": "1967"
+    },
+    {
+      "author_raw": "C.C.TSUEI,W.L.JOHNSON",
+      "candidate_ids_for_manual_review": [
+        "JVASP-107227"
+      ],
+      "common_name_raw": "Ge0.3Tl0.7",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ge0.3Tl0.7",
+      "data_number": "101338",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "PHYS.REV.B,9(1974)4742",
+      "normalized_atomic_fractions_exact": {
+        "Ge": "3/10",
+        "Tl": "7/10"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:101338:line17867",
+      "reference_number": "1784",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 17867,
+      "title_raw": "",
+      "training_eligible": false,
+      "year_raw": "1974"
+    },
+    {
+      "author_raw": "C.C.TSUEI,W.L.JOHNSON",
+      "candidate_ids_for_manual_review": [
+        "JVASP-78995"
+      ],
+      "common_name_raw": "Ge0.3Zn0.7",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ge0.3Zn0.7",
+      "data_number": "101353",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "PHYS.REV.B,9(1974)4742",
+      "normalized_atomic_fractions_exact": {
+        "Ge": "3/10",
+        "Zn": "7/10"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:101353:line17881",
+      "reference_number": "1784",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 17881,
+      "title_raw": "",
+      "training_eligible": false,
+      "year_raw": "1974"
+    },
+    {
+      "author_raw": "J.D.LIVINGSTON",
+      "candidate_ids_for_manual_review": [
+        "JVASP-101186"
+      ],
+      "common_name_raw": "In0.22Pb0.57Sn0.21",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "In0.22Pb0.57Sn0.21",
+      "data_number": "101469",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "APPL.PHYS.LETT.,8(1966)319",
+      "normalized_atomic_fractions_exact": {
+        "In": "11/50",
+        "Pb": "57/100",
+        "Sn": "21/100"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:101469:line17997",
+      "reference_number": "1041",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 17997,
+      "title_raw": "",
+      "training_eligible": false,
+      "year_raw": "1966"
+    },
+    {
+      "author_raw": "E.E.HAVINGA,H.DAMSMA,M.H.VAN MAAREN",
+      "candidate_ids_for_manual_review": [
+        "JVASP-129550"
+      ],
+      "common_name_raw": "In3Yb1",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "In3Yb1",
+      "data_number": "101509",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "J.PHYS.CHEM.SOLIDS,31(1970)2653",
+      "normalized_atomic_fractions_exact": {
+        "In": "3/4",
+        "Yb": "1/4"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:101509:line18037",
+      "reference_number": "715",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 18037,
+      "title_raw": "",
+      "training_eligible": false,
+      "year_raw": "1970"
+    },
+    {
+      "author_raw": "B.T.Matthias,J.K.Hulm",
+      "candidate_ids_for_manual_review": [
+        "JVASP-185426"
+      ],
+      "common_name_raw": "O3Tl2",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "O3Tl2",
+      "data_number": "102501",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Phys.Rev., 87(1952)799",
+      "normalized_atomic_fractions_exact": {
+        "O": "3/5",
+        "Tl": "2/5"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:102501:line19024",
+      "reference_number": "11",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 19024,
+      "title_raw": "A search for new superconducting compounds",
+      "training_eligible": false,
+      "year_raw": "1952"
+    },
+    {
+      "author_raw": "W.Meissner,H.Franz,H.Westerhoff",
+      "candidate_ids_for_manual_review": [
+        "JVASP-50057"
+      ],
+      "common_name_raw": "S1Tl2",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "S1Tl2",
+      "data_number": "102646",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Ann.Phys., 17(1933)593",
+      "normalized_atomic_fractions_exact": {
+        "S": "1/3",
+        "Tl": "2/3"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:102646:line19166",
+      "reference_number": "84",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 19166,
+      "title_raw": "From Roberts' Table",
+      "training_eligible": false,
+      "year_raw": "1933"
+    },
+    {
+      "author_raw": "B.Lorenz,C.W.Chu,J.Cmaidalka,J.K.Meen,R.L.Meng,Y.S.Wang,Y.Y.Sun,Y.Y.Xue",
+      "candidate_ids_for_manual_review": [
+        "JVASP-20206",
+        "JVASP-122712"
+      ],
+      "common_name_raw": "SrGa2",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ga2Sr1",
+      "data_number": "111160",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Physica C, 382(2002)113-116",
+      "normalized_atomic_fractions_exact": {
+        "Ga": "2/3",
+        "Sr": "1/3"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:111160:line22409",
+      "reference_number": "PHC3820113",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 22409,
+      "title_raw": "Study of binary and pseudo-binary intermetallic compounds with AlB2 structure",
+      "training_eligible": false,
+      "year_raw": "2002"
+    },
+    {
+      "author_raw": "B.Lorenz,C.W.Chu,J.Cmaidalka,J.K.Meen,R.L.Meng,Y.S.Wang,Y.Y.Sun,Y.Y.Xue",
+      "candidate_ids_for_manual_review": [
+        "JVASP-14661"
+      ],
+      "common_name_raw": "BaGa2",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ba1Ga2",
+      "data_number": "111161",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Physica C, 382(2002)113-116",
+      "normalized_atomic_fractions_exact": {
+        "Ba": "1/3",
+        "Ga": "2/3"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:111161:line22410",
+      "reference_number": "PHC3820113",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 22410,
+      "title_raw": "Study of binary and pseudo-binary intermetallic compounds with AlB2 structure",
+      "training_eligible": false,
+      "year_raw": "2002"
+    },
+    {
+      "author_raw": "E.E.Havinga,H.Damsma,M.H.van Maaren",
+      "candidate_ids_for_manual_review": [
+        "JVASP-129550"
+      ],
+      "common_name_raw": "YbIn3",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "In3Yb1",
+      "data_number": "120190",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "J.Phys.Chem.Solids, 31(1970)2653",
+      "normalized_atomic_fractions_exact": {
+        "In": "3/4",
+        "Yb": "1/4"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:120190:line24741",
+      "reference_number": "PCS0312653",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 24741,
+      "title_raw": "Oscillatory dependence of superconductive critical temperature on number of valency electrons in Cu3Au-type alloys",
+      "training_eligible": false,
+      "year_raw": "1970"
+    },
+    {
+      "author_raw": "H.D. YANG,P. KLAVINS,R.N. SHELTON",
+      "candidate_ids_for_manual_review": [
+        "JVASP-19820"
+      ],
+      "common_name_raw": "CeCu6",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ce1Cu6",
+      "data_number": "131115",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Solid State Commun., 72(1989)279",
+      "normalized_atomic_fractions_exact": {
+        "Ce": "1/7",
+        "Cu": "6/7"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:131115:line25139",
+      "reference_number": "SSC0720279",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 25139,
+      "title_raw": "Low temperature electrical and magnetic properties of RCu6(R = La,Ce,Pr,Nd,Sm,Gd, and Th) compounds",
+      "training_eligible": false,
+      "year_raw": "1989"
+    },
+    {
+      "author_raw": "Y.Tagawa,J.Sakurai,Y.Komura,T.Ishimasa",
+      "candidate_ids_for_manual_review": [
+        "JVASP-164490"
+      ],
+      "common_name_raw": "YbGa6",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ga6Yb1",
+      "data_number": "131489",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "J.Less-Common Metals, 119(1986)269",
+      "normalized_atomic_fractions_exact": {
+        "Ga": "6/7",
+        "Yb": "1/7"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:131489:line25505",
+      "reference_number": "LES1190269",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 25505,
+      "title_raw": "Magnetic susceptibility and electrical resistivity of RGa6 (R = rare earth metals)",
+      "training_eligible": false,
+      "year_raw": "1986"
+    },
+    {
+      "author_raw": "F.Heiniger,E.Bucher,J.P.Maita,L.D.Longinotti",
+      "candidate_ids_for_manual_review": [
+        "JVASP-17871"
+      ],
+      "common_name_raw": "Pr3In",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Pr3In1",
+      "data_number": "150447",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Phys.Rev.B, 12(1975)1778",
+      "normalized_atomic_fractions_exact": {
+        "In": "1/4",
+        "Pr": "3/4"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:150447:line26214",
+      "reference_number": "PR01201778",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 26214,
+      "title_raw": "Thermodynamic properties of superconductors containing impurities in a crystal-field singlet ground state",
+      "training_eligible": false,
+      "year_raw": "1975"
+    },
+    {
+      "author_raw": "Michael J. Evans,Yang Wu,Verina F. Kranak,N. Newman,Armin Reller,F. Javier Garcia-Garcia,Ulrich Haussermann",
+      "candidate_ids_for_manual_review": [
+        "JVASP-181335"
+      ],
+      "common_name_raw": "CaGaGe",
+      "complete_formula_field": "element",
+      "complete_formula_raw": "Ca1Ga1Ge1",
+      "data_number": "151546",
+      "dataset_doi": "10.48505/nims.4487",
+      "evidence_domain": "secondary_literature_curated_record",
+      "journal_raw": "Phys.Rev.B, 80(2009)064514",
+      "normalized_atomic_fractions_exact": {
+        "Ca": "1/3",
+        "Ga": "1/3",
+        "Ge": "1/3"
+      },
+      "primary_doi": null,
+      "primary_paper_verified_by_this_crosswalk": false,
+      "record_review_id": "20240322_MDR_OAndM.txt:151546:line27262",
+      "reference_number": "PRB080064514",
+      "relation": "same_element_system_different_composition",
+      "sample_or_structure_identity_confirmed": false,
+      "sample_raw": "",
+      "source_file": "20240322_MDR_OAndM.txt",
+      "source_line_1_based": 27262,
+      "title_raw": "Structural properties and superconductivity in the ternary intermetallic compounds MAB (M=Ca, Sr, Ba; A=Al, Ga, In; B=Si, Ge, Sn)",
+      "training_eligible": false,
+      "year_raw": "2009"
+    }
+  ],
+  "rules": {
+    "fit_count": 0,
+    "ledger_write_count": 0,
+    "no_formula_fragment_match": "Organic fullname only; common name may identify merely an anion or molecular acronym",
+    "normalization": "exact atomic fractions, equivalent to reduced composition; unit cell multiplicity and element order ignored only",
+    "not_matched": [
+      "experimental specimen",
+      "structure/space group/phase",
+      "P/B/doping/strain",
+      "Tc criterion",
+      "curve/target same run"
+    ],
+    "parser": "Literal elemental formula with parentheses and positive decimal stoichiometry; exact Fraction arithmetic, no rounding/tolerance/variable substitution",
+    "primary_doi_policy": "No DOI synthesized from refno, title or journal abbreviation; primary DOI stays null pending primary lookup",
+    "training_eligible": false,
+    "unresolved_oxygen_or_occupancy": "reject exact matching when full formula or explicit stoichiometry fields are variable; preserve original text"
+  },
+  "schema_version": 1,
+  "source_private_crosswalk_sha256": "04fb2566504c6a7715645efd12db75c18001a5b7152928e193286c2567d6d044",
+  "summary": {
+    "all_unresolved_records_retained": 11057,
+    "candidate_ids_with_exact_composition_match": 0,
+    "candidate_ids_with_only_related_system_leads": 17,
+    "current_candidate_count": 152,
+    "exact_matching_mdr_records": 0,
+    "file_stats": {
+      "20240322_MDR_OAndM.txt": {
+        "complete_formula_field": "element",
+        "empty_logical_rows_excluded": [],
+        "organic_policy": null,
+        "strictly_parsed_records": 22969,
+        "total_records": 33458,
+        "unresolved_reasons": {
+          "invalid_element_variable_or_leading_number": 359,
+          "non_numeric_explicit_composition_or_oxygen_field": 10119,
+          "nonpositive_stoichiometry": 9,
+          "unsupported_or_variable_formula_characters": 2
+        },
+        "unresolved_records": 10489
+      },
+      "240322_MDR_Organic.txt": {
+        "complete_formula_field": "fullname",
+        "empty_logical_rows_excluded": [
+          571
+        ],
+        "organic_policy": "fullname only; do not treat common-name/anion fragment as complete material or expand abbreviations",
+        "strictly_parsed_records": 0,
+        "total_records": 568,
+        "unresolved_reasons": {
+          "invalid_element_variable_or_leading_number": 69,
+          "unsupported_or_variable_formula_characters": 499
+        },
+        "unresolved_records": 568
+      }
+    },
+    "related_system_records_for_manual_review": 20
+  },
+  "unresolved_full_metadata_private": {
+    "bytes": 11866004,
+    "path": "mdr-unresolved-composition-records.json",
+    "path_relative_to_batch3": "inventory/mdr-unresolved-composition-records.json",
+    "sha256_raw_bytes": "ac915b3afdde5fc1bbf65e6ca62a448129215113ad18a4a33f0378890a3eeaf3"
+  }
+}

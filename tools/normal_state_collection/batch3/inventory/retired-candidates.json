@@ -1,0 +1,138 @@
+{
+  "retired_candidates": [
+    {
+      "current": false,
+      "formula": "Yb2GaCu",
+      "material_id": "JVASP-157090",
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "746f1c549b07d1b9ff15a8e299105d3632f8ced91032c2562aac36ecfde86537",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-443d3cd079b411bb6f2d"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-09.json#/materials/12",
+        "prior_search_log_count": 3,
+        "prior_search_log_sha256_canonical_json": "aae418818eb6e3090adeedbc56425058da3e88fea74d796d83028659952370a9",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "reason": "present in round-4 audit, absent from round-5 candidate authority; no current acquisition rank",
+      "track": "Hurricane"
+    },
+    {
+      "current": false,
+      "formula": "SrOF2",
+      "material_id": "JVASP-118314",
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "0e65e61b79551d6cc5d791aa880d2ba673076f928bd0ad72b11509f6261a3459",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-8caf8fb56bbffa62770c",
+          "source-5f65c6eb190b51ce7be9"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-09.json#/materials/13",
+        "prior_search_log_count": 4,
+        "prior_search_log_sha256_canonical_json": "9f4bc8e8f0eb1a1f69178ca7fd290596dd8ca87a699265e255f29c25a13dce0b",
+        "status": "not-found-in-this-search",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "reason": "present in round-4 audit, absent from round-5 candidate authority; no current acquisition rank",
+      "track": "Hurricane"
+    },
+    {
+      "current": false,
+      "formula": "YbIn4Ni",
+      "material_id": "JVASP-152253",
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "c096b74a8d368e372dab8d311d36669b07b66e4fd16b9a4b4635e58c614973c0",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "measurement_temperature_description": "室温；原文未给此处精确K值",
+          "pressure_gpa": null,
+          "sample_form": "弧熔退火多晶；本文实验为室温结构/价态",
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-499caacccf74df45bf5f",
+          "source-a6ca83f83bcccb8f4a82"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-09.json#/materials/14",
+        "prior_search_log_count": 2,
+        "prior_search_log_sha256_canonical_json": "c228b451778131397fdc180f1f1c4e2b1713b0ff43345e481149176e7a64a650",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "reason": "present in round-4 audit, absent from round-5 candidate authority; no current acquisition rank",
+      "track": "Hurricane"
+    },
+    {
+      "current": false,
+      "formula": "Na2CoNiF7",
+      "material_id": "JVASP-168815",
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "606460e48e1e8540c65d6e7b29427453c4368b1408ac7907384ec6a0cbc948c1",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "pressure_gpa": null,
+          "sample_form": null,
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-32cde4a1ae322796fce8",
+          "source-5d6ef8e4da46af02cf0e",
+          "source-83cbe923f5abc7586413"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-09.json#/materials/15",
+        "prior_search_log_count": 4,
+        "prior_search_log_sha256_canonical_json": "ecad9e6e5f12eeaadb169c178f220d98fdac18e9faf32789833a49f75acbd891",
+        "status": "needs-full-text",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "reason": "present in round-4 audit, absent from round-5 candidate authority; no current acquisition rank",
+      "track": "Hurricane"
+    },
+    {
+      "current": false,
+      "formula": "PrCu5",
+      "material_id": "JVASP-8002",
+      "prior_audit": {
+        "audit_record_sha256_canonical_json": "5d18082a27fa36d1201bc5eab4e8b96fc42bae04a0348ba2ddcfb6f69b938953",
+        "conditions_as_recorded": {
+          "field_t": null,
+          "other_measurement": "specific heat and magnetization",
+          "other_measurement_temperature_min_k": 0.005,
+          "pressure_gpa": null,
+          "sample_form": "弧熔并退火的多晶/部分单晶，原文磁学实验",
+          "superconductivity_temperature_floor_k": null
+        },
+        "literature_source_ids": [
+          "source-ba385bc6ffd7ce1cf6a2",
+          "source-6e15067d9da28fef1a7a"
+        ],
+        "original_audit_pointer": "data/candidate_audits/part-09.json#/materials/16",
+        "prior_search_log_count": 2,
+        "prior_search_log_sha256_canonical_json": "50cfec8c4ed0cac0862cb185abd09746f8458b26cc4cd5125db0ebaacea00a2f",
+        "status": "structure-only",
+        "superconductivity_outcome_as_recorded": "unknown",
+        "training_label_created": false
+      },
+      "reason": "present in round-4 audit, absent from round-5 candidate authority; no current acquisition rank",
+      "track": "Hurricane"
+    }
+  ],
+  "schema_version": 1
+}

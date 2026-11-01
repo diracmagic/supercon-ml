@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "scope": "Source/provenance and curve-summary metadata only. Full normalized curves and targets remain private.",
+  "source_manifest_sha256": "6b4ddd30fb685cd60ef0c82a958a538706286f90b01d0a22a444a455a107c4e5",
+  "sources": [
+    {
+      "source_id": "nbs2-2021",
+      "paper_doi": "10.1021/acsnano.1c07956",
+      "dataset_doi": "10.5281/zenodo.5645160",
+      "citation": "Wang et al. Superconducting 2D NbS2 Grown Epitaxially by Chemical Vapor Deposition. ACS Nano 15,18403–18410 (2021).",
+      "accessed_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8614232/",
+      "inspection_status": "full_text_inspected",
+      "dataset_license": "CC-BY-4.0",
+      "publication_date": "2021-11-10",
+      "notes": [
+        "CSV data license differs from the paper's CC-BY-NC-ND license.",
+        "Nominal NbS2; sulfur defects are reported, no exact per-device stoichiometry inferred."
+      ]
+    },
+    {
+      "source_id": "mgb2-2025",
+      "paper_doi": "10.1038/s44310-025-00084-3",
+      "dataset_doi": "10.5281/zenodo.15172735",
+      "citation": "Sidorova et al. Quantum light detection in high-temperature superconducting nanowires. npj Nanophotonics 2,38 (2025).",
+      "accessed_url": "https://www.nature.com/articles/s44310-025-00084-3",
+      "inspection_status": "full_text_inspected",
+      "dataset_license": "CC-BY-4.0",
+      "publication_date": "2025-10-01",
+      "notes": [
+        "Device includes a 100 nm-wide nanowire and series 1 micrometre-wide inductor; total device resistance is not material resistivity.",
+        "Two segments of one device, not two materials; preserve overlap without counting as independent specimens."
+      ]
+    },
+    {
+      "source_id": "mgb2-2024",
+      "paper_doi": "10.1038/s41467-024-47353-x",
+      "dataset_doi": "10.5281/zenodo.10514254",
+      "citation": "Charaev et al. Single-photon detection using large-scale high-temperature MgB2 sensors at 20 K. Nature Communications 15 (2024).",
+      "accessed_url": "https://www.nature.com/articles/s41467-024-47353-x",
+      "inspection_status": "full_text_inspected",
+      "dataset_license": "CC-BY-4.0",
+      "publication_date": "2024-05-10",
+      "notes": [
+        "Raw Fig.1b workbook headers R,T contradict plotted axis/ranges; quarantine until column interpretation is explicitly accepted."
+      ]
+    },
+    {
+      "source_id": "nbtin-2024",
+      "paper_doi": "10.1038/s41598-024-81776-2",
+      "dataset_doi": "10.21979/N9/VH0WLV",
+      "citation": "Dong et al. Establishing an end-to-end workflow for SNSPD fabrication and characterization. Scientific Reports 14,30891 (2024).",
+      "accessed_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11680598/",
+      "inspection_status": "full_text_inspected",
+      "dataset_license": "CC-BY-NC-4.0",
+      "publication_date": "2024-12-28",
+      "notes": [
+        "Original XLSX repository MD5 verified. Ingested TSV is an additional repository transformation.",
+        "Measurement pressure/field unreported; deposition 2.5 mTorr is not measurement pressure."
+      ]
+    },
+    {
+      "source_id": "sn-2025",
+      "paper_doi": "10.1103/PhysRevB.111.104513",
+      "dataset_doi": "10.5281/zenodo.14759622",
+      "citation": "Sasaki et al. Enhancement of superconductivity in thin films of Sn under high pressure. Physical Review B 111,104513 (2025).",
+      "accessed_url": "https://harvest.aps.org/v2/journals/articles/10.1103/PhysRevB.111.104513/fulltext#page=1",
+      "inspection_status": "full_text_inspected",
+      "dataset_license": "CC-BY-4.0",
+      "publication_date": "2025-03-27",
+      "notes": [
+        "Resistance rather than resistivity; compression/decompression and pressure medium remain distinct conditions.",
+        "Possible 11 K anomaly discussed separately; not promoted to a confirmed Tc."
+      ]
+    },
+    {
+      "source_id": "hea-2022",
+      "paper_doi": "10.1038/s41598-022-16355-4",
+      "dataset_doi": "10.5281/zenodo.6673464",
+      "citation": "Leung et al. Evidence for isotropic s-wave superconductivity in high-entropy alloys. Scientific Reports 12,12773 (2022).",
+      "accessed_url": "https://access.archive-ouverte.unige.ch/access/metadata/ba192a83-71ef-4339-b7b6-1f53fd8e57c0/download",
+      "inspection_status": "full_text_inspected",
+      "dataset_license": "CC-BY-4.0",
+      "publication_date": "2022-07-27",
+      "notes": [
+        "Two measured alloy groups x=.35/.71, nominal file names .4/.75; not many independent materials.",
+        "ZFC/FC are low-T magnetization, no broad-T normal resistance curves in this package."
+      ]
+    },
+    {
+      "source_id": "nbse2-2020",
+      "paper_doi": "10.1103/PhysRevResearch.2.043392",
+      "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+      "citation": "Moulding et al. Absence of superconducting dome at the charge-density-wave quantum phase transition in 2H-NbSe2. Physical Review Research 2,043392 (2020).",
+      "accessed_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+      "inspection_status": "full_text_inspected",
+      "dataset_license": "Non-Commercial Government Licence for public sector information (repository landing); not paper's CC-BY",
+      "publication_date": "2020-12-18",
+      "notes": [
+        "Deposited Hall/volume susceptibility and extracted transitions; no original longitudinal rho(T) curve in deposit.",
+        "Sample numbering differs between deposited README and paper figure captions. No strict cross-quantity sample join is certified."
+      ]
+    }
+  ],
+  "curve_indexes": [
+    {
+      "source_id": "nbs2-2021",
+      "path": "storm-sources-hurricane_screen/curve-index/nbs2-2021.json",
+      "curves": 6
+    },
+    {
+      "source_id": "mgb2-2025",
+      "path": "storm-sources-hurricane_screen/curve-index/mgb2-2025.json",
+      "curves": 2
+    },
+    {
+      "source_id": "mgb2-2024",
+      "path": "storm-sources-hurricane_screen/curve-index/mgb2-2024.json",
+      "curves": 1
+    },
+    {
+      "source_id": "nbtin-2024",
+      "path": "storm-sources-hurricane_screen/curve-index/nbtin-2024.json",
+      "curves": 1
+    },
+    {
+      "source_id": "sn-2025",
+      "path": "storm-sources-hurricane_screen/curve-index/sn-2025.json",
+      "curves": 16
+    },
+    {
+      "source_id": "hea-2022",
+      "path": "storm-sources-hurricane_screen/curve-index/hea-2022.json",
+      "curves": 4
+    },
+    {
+      "source_id": "nbse2-2020",
+      "path": "storm-sources-hurricane_screen/curve-index/nbse2-2020.json",
+      "curves": 25
+    }
+  ],
+  "exclusions": [
+    {
+      "dataset_doi": "10.5281/zenodo.16274340",
+      "reason": "NbN 2 K THz conductivity vs frequency/B, plus theory: not broad-T normal-state R(T)"
+    },
+    {
+      "dataset_doi": "10.5281/zenodo.10125758",
+      "reason": "NbTiN deposition summary table; primary-paper link not resolved, not admitted"
+    },
+    {
+      "dataset_doi": "10.5281/zenodo.20154939",
+      "reason": "PtSb raw figure-source retained; mechanism/scope and detailed target conditions not certified in this handoff"
+    }
+  ],
+  "cross_adapter_deduplication": "See root/merge_collection.py adjudication and its bound combined-input manifest. Acquisition curves from independent adapters are not automatically unique observations."
+}

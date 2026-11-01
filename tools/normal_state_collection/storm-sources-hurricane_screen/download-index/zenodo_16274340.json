@@ -1,0 +1,248 @@
+{
+  "dataset_doi": "10.5281/zenodo.16274340",
+  "title": "Deeper insight into the terahertz response of conventional superconductors under magnetic field",
+  "publication_date": "2025-07-21",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "metadata": {
+    "url": "https://zenodo.org/api/records/16274340",
+    "local_path": "zenodo-16274340/repository-metadata.json",
+    "bytes": 6286,
+    "sha256": "5bfab4f0769f6eb9dbb579c7659511080fb2c2b3dcc0e9837ff31f116b49b2bb",
+    "repository_md5_checked": false
+  },
+  "files": [
+    {
+      "url": "https://zenodo.org/api/records/16274340/files/2024%20DynesSC%20Open%20data.zip/content",
+      "local_path": "zenodo-16274340/original/2024 DynesSC Open data.zip",
+      "bytes": 362396,
+      "sha256": "c44d0c59020749856bb5aa602531c2b0e734ddbffa64f04ababcfbbb3b42b7c6",
+      "repository_md5_checked": true,
+      "members": [
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 2/Fig 2 HHmodel.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 2/Fig 2 HHmodel.dat",
+          "bytes": 8940,
+          "sha256": "8ef8344c2b7b2492a8891b185a19ab6cf88aa358da0306b682823053eaea592b"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 2/Fig 2.pdf",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 2/Fig 2.pdf",
+          "bytes": 146250,
+          "sha256": "344bf146d4bc7269220394ff285455fa9b93b63f08a7e98b780076cb6741ffea"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 3/Fig 3.pdf",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 3/Fig 3.pdf",
+          "bytes": 50573,
+          "sha256": "08f4b5428f527445292cb812427db9f537cec9fd491e88361dea2f70e0440f00"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 3/fig 3a Gamma HH model.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 3/fig 3a Gamma HH model.dat",
+          "bytes": 356,
+          "sha256": "41cf7d24299e440d0b08cec07f57b99ca00b0a2444cd03cbb1f7fcc6d079b2ec"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 3/fig 3b gap HH model.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 3/fig 3b gap HH model.dat",
+          "bytes": 428,
+          "sha256": "d1d6efb0daeb779b902d464e0e0b2f1fe1cece4ed754cabc6b330cba93a4e187"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/Fig 5.pdf",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/Fig 5.pdf",
+          "bytes": 197942,
+          "sha256": "d1a02eda438a93e01aa2bb1db461050dddb09d85fdf639f30a4ad630a44f8ade"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5a exp s1.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5a exp s1.dat",
+          "bytes": 5380,
+          "sha256": "6b4c0e0f31fea17663e48243396ecb08a637dd6fd8b09e7e6f2ed8fc28e64aeb"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5a theory s1.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5a theory s1.dat",
+          "bytes": 3141,
+          "sha256": "3d6c8f073e3132f22119834f859b837ceb3a4ecb30d637dc44a59378c28c00ba"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5b exp s2.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5b exp s2.dat",
+          "bytes": 5417,
+          "sha256": "1d4cdbb002dfe50e695ac7c980e201b1fbe05fed8927c81988b3a10a011e8cc9"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5b theory s2.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5b theory s2.dat",
+          "bytes": 3211,
+          "sha256": "948e8b2264b9f769868152ef0d6ff08fbde35585e49196fa4242ac0e485de18e"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5c exp s1.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5c exp s1.dat",
+          "bytes": 4007,
+          "sha256": "0f7a5afb44273eeffab79656ace77270ddf3dcc4fa7a8407d69a2511528ea89f"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5c theory s1.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5c theory s1.dat",
+          "bytes": 2581,
+          "sha256": "371aad9e75801f508ab3f73cee0d460a9f256a9c032e77b6d3190241ff144a1b"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5d exp s2.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5d exp s2.dat",
+          "bytes": 3962,
+          "sha256": "8b68ab263362cf5e3db6d6eca138eb676bafc7979666b172f1a5285eaeddedd5"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5d theory s2.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5d theory s2.dat",
+          "bytes": 2631,
+          "sha256": "65a8e4af2607fab4650d7088066ea43a0e614a46bf5ba76763fc25dfb5548b42"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5e exp s1.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5e exp s1.dat",
+          "bytes": 6739,
+          "sha256": "852f221ba4ec6ae688984e2d0efca33e9f8f1fdf7ba0867274aa01cdde32e410"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5e theory dashed lines s1.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5e theory dashed lines s1.dat",
+          "bytes": 2072,
+          "sha256": "10f1c64b47c2ecd4b6c579930c27915c330a28567b504e516722690a4943a4c2"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5e theory s1.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5e theory s1.dat",
+          "bytes": 2434,
+          "sha256": "645d579e4ca07ce78cccee832841ee7bee446ad7b4e94f83bd9073c883a6c9c1"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5f exp s2.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5f exp s2.dat",
+          "bytes": 6727,
+          "sha256": "67fc470638e472af652f14614eb625d59a26b12f40d3a2c91bac162f4fff60ad"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5f theory dashed lines s2.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5f theory dashed lines s2.dat",
+          "bytes": 2073,
+          "sha256": "e975e43f6b2e589667f4b7a32992211da6ba0a691352796f21b777b9a54af8e6"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 5/fig 5f theory s2.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 5/fig 5f theory s2.dat",
+          "bytes": 3249,
+          "sha256": "d8fdad4b0fd0c0bc1a23a6948c4b3e2fc2c980bf6e05ab752685efce708d6cac"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6a NbN 11.5 nm exp.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6a NbN 11.5 nm exp.dat",
+          "bytes": 130,
+          "sha256": "ee9ecacb5032ad44fb66550cdc2d07c25d52f649c74e183d417bf4203e1b413f"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6a NbN 11.5 nm theory.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6a NbN 11.5 nm theory.dat",
+          "bytes": 1084,
+          "sha256": "1c38e138164607bf7439a3ee4e11d3c3a8526c0ce81d2331cb8ef11fc9e3da45"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6a NbN 30.1 nm exp.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6a NbN 30.1 nm exp.dat",
+          "bytes": 169,
+          "sha256": "2f6cdd261abff58dd43a2582ab560a4bddcc9dc337a316c5110478a312420261"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6a NbN 30.1 nm theory.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6a NbN 30.1 nm theory.dat",
+          "bytes": 260,
+          "sha256": "10aa80cc3d1b58c495a3651986a778bed6cff5947c757f38ded6d6d84015cdda"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6a NbN 5.3 nm exp.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6a NbN 5.3 nm exp.dat",
+          "bytes": 150,
+          "sha256": "89161de57e20bdd874e75806b855c2e4a8155d585c2ed8c2ff6197c0830190c5"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6a NbN 5.3 nm theory.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6a NbN 5.3 nm theory.dat",
+          "bytes": 1087,
+          "sha256": "040606c8aa48e9dcaa13774cf70a164f791969efb3ab1aaa0a6c398df3869a78"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6b NbN 11.5 nm exp.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6b NbN 11.5 nm exp.dat",
+          "bytes": 124,
+          "sha256": "c769eaf078e0a6da14960ddeeefa918ac21b438fd29d7676388ed1a113b4ad14"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6b NbN 11.5 nm theory.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6b NbN 11.5 nm theory.dat",
+          "bytes": 166,
+          "sha256": "af146e05a168104db48a90d33a4113e242c8134290c1b2920a3d6893a39ac63b"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6b NbN 30.1 nm exp.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6b NbN 30.1 nm exp.dat",
+          "bytes": 197,
+          "sha256": "869db0e0904396f89cb83ea37bfe3827bde2f43689e7d99d326e66943a19fecd"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6b NbN 30.1 nm theory.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6b NbN 30.1 nm theory.dat",
+          "bytes": 271,
+          "sha256": "db8d679079e72438117dddc4ce04b7db96ca0faf251011aea555e115acde71ef"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6b NbN 5.3 nm exp.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6b NbN 5.3 nm exp.dat",
+          "bytes": 167,
+          "sha256": "6aea81f5d994083a5e11ea99abf9404d51bb09efab5eb088f29c91cc83caa285"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6b NbN 5.3 nm theory.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6b NbN 5.3 nm theory.dat",
+          "bytes": 226,
+          "sha256": "fbcadabfa848a97daab418b7065a62d6470f45daa6a8b34c7676f112d84259f5"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6c NbN 11.5 nm exp.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6c NbN 11.5 nm exp.dat",
+          "bytes": 154,
+          "sha256": "a1a6a4b53d2b7eb7392ed57ad4fb28428fabf70b6c6c61fb4daf304e8a123265"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6c NbN 30.1 nm exp.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6c NbN 30.1 nm exp.dat",
+          "bytes": 261,
+          "sha256": "b1d40ed7e3fb0885181ad0fcf8a3b1c53e6065f297fe24ca45943990d0eb4a84"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/fig 6c NbN 5.3 nm exp.dat",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/fig 6c NbN 5.3 nm exp.dat",
+          "bytes": 222,
+          "sha256": "d295c24c39160d3e9651ae4c042dbf0989753244279ecbe111847346975783b3"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Fig 6/Fig6.pdf",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Fig 6/Fig6.pdf",
+          "bytes": 57519,
+          "sha256": "ed962d22dc9c61237563e94e92fe1fc9f46f97307ed4c0a72bb8f6fb079c994c"
+        },
+        {
+          "archive_member": "2024 DynesSC Open data/Readme.txt",
+          "local_path": "zenodo-16274340/extracted/2024 DynesSC Open data/Readme.txt",
+          "bytes": 1954,
+          "sha256": "97a25d2e08fe79cce87941d88290dec692848a2aa896b5c70ec00a75103fe4c3"
+        }
+      ]
+    }
+  ]
+}

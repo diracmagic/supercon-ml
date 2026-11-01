@@ -1,0 +1,202 @@
+{
+  "version": "normal-state-batch2-public-replay-v1",
+  "source_commit_reviewed": "fdd7b69d3b54604a20110cfcb08a9d0d843cdb61",
+  "extraction_policy_canonical_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+  "scripts": [
+    {
+      "path": "transport/adapt_batch2.py",
+      "original_private_relative_path": "transport/adapt_batch2.py",
+      "original_sha256": "3ca8f770b908267887719694aea4699fad8808e4d43974c4d89de2314e4ab8dd",
+      "bundled_sha256": "22b4cd13fc40fe5c8c1b93e045b820bab118f4ce98f3211d7f8340b6f79b17cf",
+      "unchanged_function_asts": [
+        "digest"
+      ],
+      "documented_changes": [
+        "Explicit private input/output/project/policy CLI paths; original source hash checks retained.",
+        "Extraction of only named archive members validates existing bytes and never executes author code.",
+        "Original scientific rules and outcomes preserved; reconstruction is checked against the private source collections."
+      ]
+    },
+    {
+      "path": "thermo/build_nitral_collection.py",
+      "original_private_relative_path": "thermo/build_nitral_collection.py",
+      "original_sha256": "ee6ce45b4554d20a132995a3552cd487e87a43767e82378cd83ddc0b45658bcc",
+      "bundled_sha256": "f20da56d20fe2260fa02b7b34599c61d672461e247be31b51c7ac13a369d9cbe",
+      "unchanged_function_asts": [
+        "digest",
+        "parse_author_table",
+        "extract_trace"
+      ],
+      "documented_changes": [
+        "Explicit private input/output/project/policy CLI paths; original source hash checks retained.",
+        "Extraction of only named archive members validates existing bytes and never executes author code.",
+        "Original scientific rules and outcomes preserved; reconstruction is checked against the private source collections."
+      ]
+    },
+    {
+      "path": "validation/adapt_yru3b2.py",
+      "original_private_relative_path": "validation/adapt_yru3b2.py",
+      "original_sha256": "a0f92d4ea6e0dcb3aa6f36eb98ed9b3a156fa3c2357576e0d9f7e220e9dd1e8c",
+      "bundled_sha256": "5aeca1c04bd2fc6726acd09b9a4fa3e50505a36305d57d33999835676355144c",
+      "unchanged_function_asts": [
+        "digest"
+      ],
+      "documented_changes": [
+        "Explicit private input/output/project/policy CLI paths; original source hash checks retained.",
+        "Extraction of only named archive members validates existing bytes and never executes author code.",
+        "Original scientific rules and outcomes preserved; reconstruction is checked against the private source collections."
+      ]
+    },
+    {
+      "path": "aggregate.py",
+      "original_private_relative_path": "build_combined.py",
+      "original_sha256": "8a0b36cd7a5c47f7eeb48092fcb54e9dfa2511308dc325b09658df61cc587403",
+      "bundled_sha256": "c80d6df55bf6ed987eaece360e0e4a2e0f6c68440116a7640930872b0a9e14bd",
+      "unchanged_function_asts": [
+        "read"
+      ],
+      "documented_changes": [
+        "Explicit private directories and common original-source parent; same merge ordering and registry-only raw_path rebasing.",
+        "Reject duplicate IDs and escaped original paths; role-based manifest references instead of local absolute paths.",
+        "Optional explicit private observation-corrections list is passed unchanged into both outputs; no automatic map or ledger operation."
+      ]
+    }
+  ],
+  "metadata": [
+    {
+      "path": "transport/transport-registry.json",
+      "original_private_relative_path": "transport/transport-registry.json",
+      "original_sha256": "f9a49a7f0d4c7327b2904b9f5b0391e6c1104369b021cf77d6a1343c569d4c8a",
+      "bundled_sha256": "8f3e240bee8052c814a6b39badbf50659f572e2fdab538e73da507636440f722",
+      "same_json_content": true,
+      "omitted_index_arrays": []
+    },
+    {
+      "path": "transport/transport-adapter-audit.compact.json",
+      "original_private_relative_path": "transport/transport-adapter-audit.json",
+      "original_sha256": "7029c970a75c39d0cbda3ee972304af7bed18cad9965e9d457b98f8acbb0c911",
+      "bundled_sha256": "51821bf3400b2f2ba1a6d2e310a892a75ff2556a06e754ddc15e34f1cb5fd232",
+      "same_json_content": false,
+      "omitted_index_arrays": [
+        {
+          "location": "$.feature.used_point_indices",
+          "count": 30533,
+          "canonical_sha256": "6f89de10f985eea9f93f83a0765541d1f310c67182772d8f4c986b0e95897041"
+        }
+      ]
+    },
+    {
+      "path": "thermo/nitral-registry.json",
+      "original_private_relative_path": "thermo/nitral-2024/nitral-registry.json",
+      "original_sha256": "64e7cfdeae9b28758cf99666e94208148cc7037b214cc3fa7c1000611097ab77",
+      "bundled_sha256": "498d1f4ea108d12020f7923f6d29dc9eb74bc1d2b603bc1473f1e738a4423113",
+      "same_json_content": true,
+      "omitted_index_arrays": []
+    },
+    {
+      "path": "thermo/nitral-curation-audit.compact.json",
+      "original_private_relative_path": "thermo/nitral-2024/nitral-curation-audit.json",
+      "original_sha256": "c2ac5c027a25051646c8afea68840b76e78871e85631b4ddde4d0eb7eff2b0e4",
+      "bundled_sha256": "3ff2b3fd503210afa0ed6158490177936322315e3808dc673390df173e5e9713",
+      "same_json_content": false,
+      "omitted_index_arrays": [
+        {
+          "location": "$.frozen_transport_extraction.used_point_indices",
+          "count": 80,
+          "canonical_sha256": "540b39b5e6bbb9803e3314065f41848fbf41bc419ab048e9ee014079f29326b1"
+        }
+      ]
+    },
+    {
+      "path": "validation/YRu3B2-registry.json",
+      "original_private_relative_path": "validation/YRu3B2-registry.json",
+      "original_sha256": "f76aaf16e259915da320bd7cbac23784e3850ac0b51c97de0ffdff433bee6ca5",
+      "bundled_sha256": "ebcb2874c07f82d35d37974ec03ccf9730b95e7404f1cf425a729439f307b5de",
+      "same_json_content": true,
+      "omitted_index_arrays": []
+    },
+    {
+      "path": "validation/YRu3B2-audit.json",
+      "original_private_relative_path": "validation/YRu3B2-audit.json",
+      "original_sha256": "aa91ea4432685ce96619cbe31f8d7806d87e3b7b67e6577d981284985113efbd",
+      "bundled_sha256": "f72b288f38cd2b98a2304b9bb8319d51752fc6d1049abdf65f73f8f1213dbe70",
+      "same_json_content": true,
+      "omitted_index_arrays": []
+    },
+    {
+      "path": "validation/independent-source-review.json",
+      "original_private_relative_path": "validation/independent-source-review.json",
+      "original_sha256": "290e4d9a00e8821157c548db94142c19150832f023d1e1a2d76ac48faf8a3107",
+      "bundled_sha256": "1ac246a7928021d6e19d00ccacd877b88b5bbbfac6f5485812304fbda67d355f",
+      "same_json_content": false,
+      "omitted_index_arrays": []
+    },
+    {
+      "path": "root/source-search-log.json",
+      "original_private_relative_path": "root/source-search-log.json",
+      "original_sha256": "ba7d37c4b4df22206844f731d0216706d6bc4103adc42b7c9ac135cd1896f57b",
+      "bundled_sha256": "9872db762cc58404988beba40bb6784b4b9a5301350172f13c1d5f08fb6bde6b",
+      "same_json_content": true,
+      "omitted_index_arrays": []
+    },
+    {
+      "path": "transport/scientific-manifest.json",
+      "original_private_relative_path": "transport/scientific-manifest.json",
+      "original_sha256": "3488ac4fd01f9edfc03135ea9903cad3134de05232b880cc409428eb4acdc1fb",
+      "bundled_sha256": "e6783989c909fbbc048bb3ce06eee4dad583db1b39e0b2aa0bbeef42873297a5",
+      "same_json_content": true,
+      "omitted_index_arrays": []
+    },
+    {
+      "path": "transport/source-search-disposition.json",
+      "original_private_relative_path": "transport/source-search-disposition.json",
+      "original_sha256": "191fabe0f27baa2e2890124140da2ffbdcfb1e27c6039a6de1fbae85646f95a8",
+      "bundled_sha256": "db52861b9736d7744a1234d873fb03023c74dd07539880c67b6c772d801296e5",
+      "same_json_content": true,
+      "omitted_index_arrays": []
+    },
+    {
+      "path": "root/al-correction-plan.json",
+      "original_private_relative_path": "al-correction-plan.json",
+      "original_sha256": "7461d74d8de5a66213c5d30793f512a740209f29f7d622a0483b4ee778f52d14",
+      "bundled_sha256": "174d261726f6fc64d2da7bb8ab9fa284b94b9d81dc771fdb0e3433db75447583",
+      "same_json_content": true,
+      "omitted_index_arrays": []
+    }
+  ],
+  "frozen_inspection_timestamps": {
+    "NbN": "2026-11-01T14:02:39+00:00",
+    "Al": "2026-11-01T13:59:19+00:00",
+    "YRu3B2": "2026-11-01T14:00:54.645058+00:00"
+  },
+  "outcomes": {
+    "NbN": "one author-curated same trace accepted; not proof of a continuous instrument acquisition",
+    "Al": "no links: published Table2 target not assigned to archive specimen0r2v3",
+    "YRu3B2": "no links: HT/LT same physical bar unverified"
+  },
+  "models_fitted": 0,
+  "ledger_files_read_or_written": 0,
+  "raw_fulltext_numeric_arrays_bundled": false,
+  "helper_files": [
+    {
+      "path": "bundle_common.py",
+      "bundled_sha256": "0a5e25dbe65b0742dfba9a11f6726eedef3da6205b0bed8979467a31ac5147fd"
+    },
+    {
+      "path": "verify_bundle.py",
+      "bundled_sha256": "534e6d20a9f0ec9beda3f9164eb3c98d29fe3858b4485dd42b4384b55b497597"
+    },
+    {
+      "path": "README.md",
+      "bundled_sha256": "27dace8f292fe66a7a196e02962cf535968dceda77564c38f384e581e942464b"
+    },
+    {
+      "path": "source-inputs.json",
+      "bundled_sha256": "589b4bdfd00172f4c2f47833ab31672761db9676701d77e8e4df1f5162cfc215"
+    },
+    {
+      "path": "replay-validation.json",
+      "bundled_sha256": "33bb9a629d19152359c9a9b1d5d1d451e746685b6708e2d38ad488fb28907a98"
+    }
+  ]
+}

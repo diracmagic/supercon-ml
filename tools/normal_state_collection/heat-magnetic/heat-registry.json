@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "source_root": "work/normal-state-collection",
+  "sources": [
+    {
+      "source_id": "nbse2-2025-raw-moment",
+      "raw_path": "heat-magnetic/raw/nbse2_2025/Magnetization data.zip",
+      "sha256": "4b34e509cba4e49901c23763c59ca9dccb812ff548b9cb2e94d0fb1ca6e24ef6",
+      "bytes": 7501,
+      "reference": {
+        "doi": "10.1038/s41467-025-62223-w",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12356947/",
+        "publication_date": "2025-08-15",
+        "cite": "Cho et al., Evidence for orbital Fulde-Ferrell-Larkin-Ovchinnikov state in the bulk limit of 2H-NbSe2, Nat Commun16,7599(2025).",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Methods: sample information/DC magnetization; Fig1b. Raw headers Time Stamp,Temperature(K),Magnetic Field(Oe),Moment(emu)."
+      },
+      "license": "CC-BY-4.0 (Zenodo dataset metadata; article separately CC-BY-NC-ND-4.0)",
+      "public_redistribution": "dataset_CC_BY_4.0",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "Low-T mixed superconducting/normal response; exact specimen assignment among two crystals not supplied in raw files."
+      ]
+    },
+    {
+      "source_id": "nbse2-2025-source-xlsx",
+      "raw_path": "heat-magnetic/raw/nbse2_2025/Source data.xlsx",
+      "sha256": "d6dfe8fc09572f1c997c978d790c44bfe9ac72e68afd15f3b8cbe6ffcd41e724",
+      "bytes": 291931,
+      "reference": {
+        "doi": "10.1038/s41467-025-62223-w",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12356947/",
+        "publication_date": "2025-08-15",
+        "cite": "Cho et al., Nat Commun16,7599(2025); author dataset Zenodo10.5281/zenodo.15627723.",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Fig1a,d,e,f source sheets. Source cells Moment(emu), distinct from plotted emu/g and offsets."
+      },
+      "license": "CC-BY-4.0 (Zenodo dataset metadata)",
+      "public_redistribution": "dataset_CC_BY_4.0",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "No mass normalization/chi conversion or plotted display offset applied."
+      ]
+    },
+    {
+      "source_id": "mgb2-2020-bulk",
+      "raw_path": "heat-magnetic/raw/mgb2_2022/MgB2.zip",
+      "sha256": "2c3499733f6255f9598e7c40e394d95f4ef8ea146a65c3fe778e8be6c01ab755",
+      "bytes": 7832040,
+      "reference": {
+        "doi": "10.1088/1361-6668/ab7c53",
+        "url": "https://ora.ox.ac.uk/objects/uuid:b8aa6e71-8960-47bc-a186-aec73338efb2",
+        "publication_date": "2020-03-19",
+        "cite": "Matthews et al., Effect of the sintering temperature on the microstructure and superconducting properties of MgB2 bulks manufactured by the field assisted sintering technique, Supercond Sci Technol33,054003(2020). Dataset10.5287/bodleian:ZO6MREoYX deposited2022.",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Experimental section; QuantumDesign VSM DAT headers, sample labels; processing900/1000/1100/1200C."
+      },
+      "license": "Oxford repository terms of use; no dataset CC license stated",
+      "public_redistribution": "not_authorized_for_public_redistribution",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "Private noncommercial research terms. Source/data/derived numeric curves remain local.",
+        "Porous multiphase processing specimens; no pure-cell or measurement-pressure/doping inference."
+      ]
+    },
+    {
+      "source_id": "mgb2-2022-composite",
+      "raw_path": "heat-magnetic/raw/mgb2_2022/Mg-MgB2.zip",
+      "sha256": "f819ce15aa6dd1f4ffb98f8ce886db0ef497a18eb5478269096c7ff37928595a",
+      "bytes": 11717353,
+      "reference": {
+        "doi": "10.1088/1361-6668/ac5164",
+        "url": "https://ora.ox.ac.uk/objects/uuid:2acd535d-ce42-462d-9b19-43f5b0443eca",
+        "publication_date": "2022-04-26",
+        "cite": "Matthews et al., Improving the connectivity of MgB2 bulk superconductors by a novel liquid phase sintering process, Supercond Sci Technol35,065005(2022). Dataset10.5287/bodleian:xr11rwggY.",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Experimental section,Table1; original VSM DAT files by1/3/6/10wtpercentMg-addition preparation groups."
+      },
+      "license": "Oxford repository terms of use; no dataset CC license stated",
+      "public_redistribution": "not_authorized_for_public_redistribution",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "Mg wtpercent precursor addition is not substitutional doping fraction.",
+        "No volume/mass conversion from blank sample mass metadata or unrelated instrument channels."
+      ]
+    },
+    {
+      "source_id": "ta16te-2024-source-xlsx",
+      "raw_path": "ta16te/source-publisher.xlsx",
+      "sha256": "5c158e6bb2abf5a1be0b8e7295ef7e51ed814316b3ccf73be5ae589fe84b4190",
+      "bytes": 261304,
+      "reference": {
+        "doi": "10.1038/s41467-024-45952-2",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10907369/",
+        "publication_date": "2024-03-01",
+        "cite": "Tokumoto et al., Superconductivity in a van der Waals layered quasicrystal, Nat Commun15,1529(2024).",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Physical property measurements; source sheetsFigure3a,b andFigure3c; two separately weighed fragments."
+      },
+      "license": "CC-BY-4.0 (article/source data)",
+      "public_redistribution": "CC_BY_4.0",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "Heat26.09mg and susceptibility95.64mg are distinct pieces, not one physical specimen.",
+        "Source4pi*chi not demagnetization corrected; no independent measured lambda label."
+      ]
+    },
+    {
+      "source_id": "hea-2022-raw",
+      "raw_path": "heat-magnetic/raw/hea_2022/raw-data.zip",
+      "sha256": "785b8ec48c4ee3fff3698c578f3ff8d0a958f19ac803a4564d11c551d03d06b7",
+      "bytes": 13183940,
+      "reference": {
+        "doi": "10.1038/s41598-022-16355-4",
+        "url": "https://archive-ouverte.unige.ch/unige:166708",
+        "publication_date": "2022-07-27",
+        "cite": "Leung et al., Evidence for isotropic s-wave superconductivity in high-entropy alloys, Sci Rep12,12773(2022). Dataset10.5281/zenodo.6673464(version1),concept6673463.",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "inspected_at": "2026-11-01T13:03:00Z",
+        "locator": "Published Fig1caption and Experiment; author Fig1ab/ZFCFC CSV and fig1ab.m inspected as text, no author code executed."
+      },
+      "license": "CC-BY-4.0 (Zenodo metadata)",
+      "public_redistribution": "dataset_CC_BY_4.0",
+      "raw_data_remain_local": true,
+      "limitations": [
+        "CSV M unit not explicit. PublishedcaptionZFC5Oe/FC50Oe differs from author plotting script common divisor5or5.187; retain unresolved input units/field.",
+        "Nominal x0.4/0.75 filenames correspond to EDX actualx0.35/0.71."
+      ]
+    }
+  ],
+  "collection_scope": "Low-temperature genuine heat/magnetic curves. No claim of normal-state precursor eligibility."
+}

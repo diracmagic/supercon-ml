@@ -1,0 +1,24 @@
+{
+  "status": "pass",
+  "table_checks": [
+    {
+      "table": "20240322_MDR_OAndM.txt",
+      "every_cell_and_logical_row_equal": true,
+      "records": 33458
+    },
+    {
+      "table": "240322_MDR_Organic.txt",
+      "every_cell_and_logical_row_equal": true,
+      "records": 568
+    }
+  ],
+  "attachment_hash_checks": 5772,
+  "all_record_and_attachment_training_admission_false": true,
+  "training_rows": 0,
+  "models_fitted": 0,
+  "ledger_events_added": 0,
+  "summary_sha256": "e1491f914ed43358beef4e196eb3dc8548148f2891d55d5663b2e70ee224f08c",
+  "all_metadata_sections_conflicts_preserved": true,
+  "delimiter_overrides_independently_checked": 29,
+  "numeric_first_two_finite_columns_not_physical_xy": 221314
+}

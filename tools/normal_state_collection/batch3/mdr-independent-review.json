@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-01",
+  "review_type": "independent read-only; no ledger opened",
+  "status": "pass",
+  "reviewed_source_sha256_raw_bytes": "9559dc8e7f0779d8c130dcc027a3593dddeff65c614626dda4a5527917175c59",
+  "reviewed_tests_sha256_raw_bytes": "f19f0aa794b74523c747f1d5ceadbe256ee779c0885f13a86e5c27f81fca179d",
+  "summary_sha256_raw_bytes": "e1491f914ed43358beef4e196eb3dc8548148f2891d55d5663b2e70ee224f08c",
+  "independent_validation_sha256_raw_bytes": "f5c2b5bc9589204956d1122b70e53f5e88f5a8e7ca2c492a6cdeb733acf3b73c",
+  "table_checks": [
+    {
+      "table": "20240322_MDR_OAndM.txt",
+      "records": 33458,
+      "all_raw_cells_equal": true,
+      "empty_logical_rows_excluded": []
+    },
+    {
+      "table": "240322_MDR_Organic.txt",
+      "records": 568,
+      "all_raw_cells_equal": true,
+      "empty_logical_rows_excluded": [
+        571
+      ]
+    }
+  ],
+  "raw_fields_compared": 6418310,
+  "records_checked": 34026,
+  "pinned_input_files_rehashed": 6,
+  "attachment_members_rehashed": 5772,
+  "numeric_first_two_finite_field_rows": 221314,
+  "files_with_numeric_pairs": 5732,
+  "delimiter_overrides_independently_verified": 29,
+  "multi_section_metadata_conflicts_preserved": 16,
+  "regression_test_result": "6/6 passed via unittest tests.test_mdr_catalog",
+  "resolved_findings": [
+    {
+      "finding": "Extension-derived delimiter previously omitted 29 numeric attachments",
+      "status": "closed; both delimiter scores and chosen separator retained; physical_axes_resolved=false"
+    },
+    {
+      "finding": "Different graph sections previously overwrote axis metadata in 16 files",
+      "status": "closed; all distinct metadata values and section starting logical rows retained; conflicting keys excluded from unqualified axis_metadata_raw"
+    }
+  ],
+  "no_open_scientific_blocker": true,
+  "final_copy_checks": {
+    "private_validation_binds_current_summary": true,
+    "public_summary_semantically_equals_current_catalog_summary": true
+  },
+  "necessary_limits": [
+    "Records and finite numeric rows are not independent samples or trainable paired observations.",
+    "Units, multiple series, digitization and SC-dependent variables remain unclassified; no normal-state/physical-axis inference is made.",
+    "This validates catalog preservation/availability only, not primary experimental reliability or legal training eligibility."
+  ],
+  "models_fitted": 0,
+  "ledger_reads": 0,
+  "ledger_writes": 0,
+  "final_binding_recheck": "Small summary/validation/source-hash checks only; full raw-cell/archive audit not repeated."
+}

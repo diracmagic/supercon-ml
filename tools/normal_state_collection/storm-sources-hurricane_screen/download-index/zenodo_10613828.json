@@ -1,0 +1,23 @@
+{
+  "dataset_doi": "10.5281/zenodo.10613828",
+  "title": "Fundamental limits of few-layer NbSe2 microbolometers at terahertz frequencies",
+  "publication_date": "2024-02-03",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "metadata": {
+    "url": "https://zenodo.org/api/records/10613828",
+    "local_path": "zenodo-10613828/repository-metadata.json",
+    "sha256": "97c4b03fad9ef1ea5cc3ecb0435d16bfe7070d46fe5ef5442c54cb4b1bc29add"
+  },
+  "files": [
+    {
+      "url": "https://zenodo.org/api/records/10613828/files/data.zip/content",
+      "local_path": "zenodo-10613828/original/data.zip",
+      "repository_checksum": "md5:0e17442564ece5f86a49a970f547e0cd",
+      "bytes": 291546,
+      "sha256": "3b832ea7c38e9edd279bd13814f0c0885d8daf2673bb6695308863a20f0bbe8e"
+    }
+  ],
+  "capture_note": "Later source addition, absent from the early download manifest; restored from retained repository metadata."
+}

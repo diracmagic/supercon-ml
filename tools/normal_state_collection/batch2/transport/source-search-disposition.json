@@ -1,0 +1,95 @@
+{
+  "collected_at": "2026-11-01",
+  "primary_evidence_is_separate_from_search": true,
+  "scope": "New transport sources only; query misses are not experimental negatives",
+  "records": [
+    {
+      "source_id": "nbn-mo-2025-reference",
+      "paper_doi": "10.1088/1361-6668/adeaf2",
+      "dataset_doi": "10.6084/m9.figshare.29339720.v1",
+      "disposition": "public_schema_ready_pending_independent_scope_review",
+      "reason": null,
+      "primary_access_status": "author_full_text_inspected"
+    },
+    {
+      "source_id": "nbre-annealing-2026",
+      "paper_doi": "10.1103/hhkw-ccv8",
+      "dataset_doi": "10.17632/7f4grs88j5.1",
+      "disposition": "not_admitted_no_broad_curve",
+      "reason": "Author has explicit50%Tc and scalar R300K/R10K, but public Fig2 R(T) numerical files contain the nearTc transition only. A single RRR is not a150–300K curve. All21 listed files were inspected by names/figure assignments; none is a full highT trace. No temperature or R values invented.",
+      "primary_access_status": "publisher_full_text_inspected"
+    },
+    {
+      "source_id": "elemental-re-warwick-2022",
+      "paper_doi": "10.1103/PhysRevB.105.L020503",
+      "dataset_doi": null,
+      "disposition": "normal_curve_retained_no_midpoint_target",
+      "reason": "R(T) starts1.80165K above Tc1.70K. Reported Tc is heat-capacity transition, not a measured resistive midpoint. Never substitute thermodynamic criterion.",
+      "primary_access_status": "publisher_version_on_institutional_repository_inspected"
+    },
+    {
+      "source_id": "nb-circuit-2026",
+      "paper_doi": "10.1038/s41534-026-01187-1",
+      "dataset_doi": "10.6084/m9.figshare.30970930",
+      "disposition": "normal_curve_retained_no_defined_midpoint",
+      "reason": "Author reports Tc7.47K from filmR(T), but no explicit50%/midpoint criterion found in inspected main HTML or full supplementary PDF. CSV normalized1 at296.235K although main label says300K; preserve source distinction. No collector-chosen midpoint.",
+      "primary_access_status": "publisher_HTML_and_supplement_inspected"
+    },
+    {
+      "source_id": "laniga2-transport-2025",
+      "paper_doi": "10.1103/8kbx-xrsk",
+      "dataset_doi": "10.5281/zenodo.17476438",
+      "disposition": "not_admitted_access_or_criterion_unresolved",
+      "reason": "Could not inspect originalnumeric Igor or primaryfulltext. Broad window, same-specimen Tc, criterion all unresolved; no substitution from anotherLaNiGa2 paper. No claim that data do not exist.",
+      "primary_access_status": "abstract_only_not_full_text"
+    },
+    {
+      "source_id": "nbn-pld-2026",
+      "paper_doi": "10.1088/1361-6668/ae61fe",
+      "dataset_doi": "10.6084/m9.figshare.30408310.v1",
+      "disposition": "not_collected_same_group_optional_followup",
+      "reason": "Dataset now unembargoed with5largeTXT23–47MB each; primary has50%Tc and R270K/R20K. No numeric source downloaded or curve coverage verified; would add NbN specimens, not a newindependent chemical group.",
+      "primary_access_status": "publisher_version_institutional_fulltext_inspected"
+    },
+    {
+      "source_id": "re6zr-inverse-melting-2025",
+      "paper_doi": "10.1038/s41467-025-57431-3",
+      "dataset_doi": "10.5281/zenodo.14780459",
+      "disposition": "not_admitted_broadT_or_midpoint_unverified",
+      "reason": "Main text concerns lowT transport/vortex states; no explicit midpoint found. TransportData.opju download403. 300mK lowercryostat limit is not300K uppercurve coverage. No conversion of vortexdata into a broad normalcurve.",
+      "primary_access_status": "published_fulltext_institutional_mirror_inspected"
+    },
+    {
+      "source_id": "wre-relaxation-2026",
+      "paper_doi": "10.1088/1361-6668/ae3fd2",
+      "dataset_doi": null,
+      "disposition": "not_collected_raw_data_on_request",
+      "reason": "Author explicitly provides rawdata only upon reasonable request; no public machine-readable source located. No author contacted.",
+      "primary_access_status": "publisher_HTML_inspected"
+    },
+    {
+      "source_id": "nb3al-thinfilm-2026",
+      "paper_doi": "10.1002/qute.202501015",
+      "dataset_doi": null,
+      "disposition": "not_collected_raw_data_on_request",
+      "reason": "Data support available from corresponding author onrequest; sole public supplement listed as10MB PDF, no machine-readable source confirmed. No author contacted.",
+      "primary_access_status": "publisher_abstract_data_statement_inspected"
+    },
+    {
+      "source_id": "re-film-2025",
+      "paper_doi": "10.1063/5.0292196",
+      "dataset_doi": "10.60893/figshare.jap.30040534.v1",
+      "disposition": "not_collected_numeric_source_unconfirmed",
+      "reason": "Repository title TransportandEDSdata actually lists only SupplementaryinformationPDF1.58MB; no numericTXT/CSV source listed. Do not mistake plot-containingPDF for machine-readableR(T).",
+      "primary_access_status": "dataset_metadata_inspected_not_primary_fulltext"
+    },
+    {
+      "source_id": "laniga2-theory-2014",
+      "paper_doi": "10.1063/1.4862329",
+      "dataset_doi": null,
+      "disposition": "excluded_theory_not_experimental_curve",
+      "reason": "Figshare searchhit Originofsuperconductivity is DFPT calculation plus paperPDF, not originalsampleR(T).",
+      "primary_access_status": null
+    }
+  ]
+}

@@ -1,0 +1,1326 @@
+{
+  "status": "passed",
+  "mode": "exploratory_pu_ranking",
+  "report_only": true,
+  "adopted": false,
+  "run_id": "20261101T045031630386Z-1793508631632341794",
+  "source_commit": "83f4f5ffa85ecff844779125772f480f33634025",
+  "protocol_sha256": "47b45b22ae94ca4a49f39aeabac2ea1e0b23a000aacfc5c29bb2a680f52abacf",
+  "paths": {
+    "script": ".github/scripts/audit_hurricane7_ci66.py",
+    "run_dir": "../research-results-66/results/hurricane7/20261101T045031630386Z-1793508631632341794"
+  },
+  "integrity": {
+    "executed_source_hashes_match": {
+      "ml/hurricane7.py": true,
+      "ml/mechanism_features.py": true,
+      "ml/hurricane.py": true,
+      "ml/hurricane3.py": true,
+      "ml/hurricane5.py": true,
+      "ml/hurricane6.py": true,
+      "ml/pipeline.py": true
+    },
+    "raw_3dsc_source_hash_verified": true,
+    "source_reference": "executed_commit",
+    "fixed_cohort": {
+      "n": 615,
+      "positive": 288,
+      "unlabeled": 327
+    },
+    "outer_and_inner_system_memberships_verified": true,
+    "outer_training_transforms_and_coefficients_to_scores_verified": true,
+    "report_numeric_comparisons": 3348,
+    "maximum_report_numeric_difference": 0.0
+  },
+  "ranking_chance_baselines": {
+    "families": [
+      {
+        "family": "cuprate",
+        "n": 158,
+        "observed_pu_auc": 0.5,
+        "expected_random_recall_at_ceil_20pct_budget": 0.20253164556962025
+      },
+      {
+        "family": "iron-based",
+        "n": 110,
+        "observed_pu_auc": 0.5,
+        "expected_random_recall_at_ceil_20pct_budget": 0.2
+      },
+      {
+        "family": "heavy-fermion",
+        "n": 221,
+        "observed_pu_auc": 0.5,
+        "expected_random_recall_at_ceil_20pct_budget": 0.20361990950226244
+      },
+      {
+        "family": "other oxide",
+        "n": 126,
+        "observed_pu_auc": 0.5,
+        "expected_random_recall_at_ceil_20pct_budget": 0.20634920634920634
+      }
+    ],
+    "macro_auc": 0.5,
+    "macro_expected_random_recall_at_ceil_20pct_budget": 0.20312519035527227
+  },
+  "outer_metrics": {
+    "R0": {
+      "families": [
+        {
+          "family": "cuprate",
+          "status": "completed",
+          "n": 158,
+          "n_positive": 84,
+          "n_unlabeled": 74,
+          "observed_pu_auc": 0.5685328185328186,
+          "recall_at_budget": 0.20238095238095238,
+          "budget": 32,
+          "expected_recorded_positives_at_budget": 17.0
+        },
+        {
+          "family": "iron-based",
+          "status": "completed",
+          "n": 110,
+          "n_positive": 72,
+          "n_unlabeled": 38,
+          "observed_pu_auc": 0.564327485380117,
+          "recall_at_budget": 0.20833333333333334,
+          "budget": 22,
+          "expected_recorded_positives_at_budget": 15.0
+        },
+        {
+          "family": "heavy-fermion",
+          "status": "completed",
+          "n": 221,
+          "n_positive": 81,
+          "n_unlabeled": 140,
+          "observed_pu_auc": 0.6227513227513227,
+          "recall_at_budget": 0.24691358024691357,
+          "budget": 45,
+          "expected_recorded_positives_at_budget": 20.0
+        },
+        {
+          "family": "other oxide",
+          "status": "completed",
+          "n": 126,
+          "n_positive": 51,
+          "n_unlabeled": 75,
+          "observed_pu_auc": 0.6603921568627451,
+          "recall_at_budget": 0.3333333333333333,
+          "budget": 26,
+          "expected_recorded_positives_at_budget": 17.0
+        }
+      ],
+      "macro": {
+        "observed_pu_auc": 0.6040009458817508,
+        "recall_at_budget": 0.24774029982363316
+      }
+    },
+    "R1": {
+      "families": [
+        {
+          "family": "cuprate",
+          "status": "completed",
+          "n": 158,
+          "n_positive": 84,
+          "n_unlabeled": 74,
+          "observed_pu_auc": 0.4811776061776062,
+          "recall_at_budget": 0.23809523809523808,
+          "budget": 32,
+          "expected_recorded_positives_at_budget": 20.0
+        },
+        {
+          "family": "iron-based",
+          "status": "completed",
+          "n": 110,
+          "n_positive": 72,
+          "n_unlabeled": 38,
+          "observed_pu_auc": 0.5639619883040936,
+          "recall_at_budget": 0.18055555555555555,
+          "budget": 22,
+          "expected_recorded_positives_at_budget": 13.0
+        },
+        {
+          "family": "heavy-fermion",
+          "status": "completed",
+          "n": 221,
+          "n_positive": 81,
+          "n_unlabeled": 140,
+          "observed_pu_auc": 0.5943562610229277,
+          "recall_at_budget": 0.2222222222222222,
+          "budget": 45,
+          "expected_recorded_positives_at_budget": 18.0
+        },
+        {
+          "family": "other oxide",
+          "status": "completed",
+          "n": 126,
+          "n_positive": 51,
+          "n_unlabeled": 75,
+          "observed_pu_auc": 0.6070588235294118,
+          "recall_at_budget": 0.27450980392156865,
+          "budget": 26,
+          "expected_recorded_positives_at_budget": 14.0
+        }
+      ],
+      "macro": {
+        "observed_pu_auc": 0.5616386697585097,
+        "recall_at_budget": 0.22884570494864612
+      }
+    },
+    "R2": {
+      "families": [
+        {
+          "family": "cuprate",
+          "status": "completed",
+          "n": 158,
+          "n_positive": 84,
+          "n_unlabeled": 74,
+          "observed_pu_auc": 0.5596846846846847,
+          "recall_at_budget": 0.20238095238095238,
+          "budget": 32,
+          "expected_recorded_positives_at_budget": 17.0
+        },
+        {
+          "family": "iron-based",
+          "status": "completed",
+          "n": 110,
+          "n_positive": 72,
+          "n_unlabeled": 38,
+          "observed_pu_auc": 0.5968567251461988,
+          "recall_at_budget": 0.20833333333333334,
+          "budget": 22,
+          "expected_recorded_positives_at_budget": 15.0
+        },
+        {
+          "family": "heavy-fermion",
+          "status": "completed",
+          "n": 221,
+          "n_positive": 81,
+          "n_unlabeled": 140,
+          "observed_pu_auc": 0.6022045855379189,
+          "recall_at_budget": 0.2222222222222222,
+          "budget": 45,
+          "expected_recorded_positives_at_budget": 18.0
+        },
+        {
+          "family": "other oxide",
+          "status": "completed",
+          "n": 126,
+          "n_positive": 51,
+          "n_unlabeled": 75,
+          "observed_pu_auc": 0.6250980392156863,
+          "recall_at_budget": 0.2549019607843137,
+          "budget": 26,
+          "expected_recorded_positives_at_budget": 13.0
+        }
+      ],
+      "macro": {
+        "observed_pu_auc": 0.5959610086461221,
+        "recall_at_budget": 0.2219596171802054
+      }
+    }
+  },
+  "paired_system_intervals": {
+    "R1-R0": {
+      "status": "completed",
+      "quantities": {
+        "observed_pu_auc": {
+          "delta_new_minus_reference": -0.04236227612324106,
+          "lower95": -0.10581853977686931,
+          "upper95": 0.017841280768621876,
+          "valid_resamples": 1000,
+          "requested_resamples": 1000
+        },
+        "recall_at_budget": {
+          "delta_new_minus_reference": -0.018894594874987042,
+          "lower95": -0.06614995626223671,
+          "upper95": 0.02517336282199784,
+          "valid_resamples": 1000,
+          "requested_resamples": 1000
+        }
+      }
+    },
+    "R2-R1": {
+      "status": "completed",
+      "quantities": {
+        "observed_pu_auc": {
+          "delta_new_minus_reference": 0.03432233888761238,
+          "lower95": -0.023305118291005556,
+          "upper95": 0.09013139961810365,
+          "valid_resamples": 1000,
+          "requested_resamples": 1000
+        },
+        "recall_at_budget": {
+          "delta_new_minus_reference": -0.006886087768440713,
+          "lower95": -0.0454250137820687,
+          "upper95": 0.03703150316136223,
+          "valid_resamples": 1000,
+          "requested_resamples": 1000
+        }
+      }
+    }
+  },
+  "model_audits": [
+    {
+      "design": "R0",
+      "held_family": "cuprate",
+      "main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 20,
+      "training_rows": 457,
+      "pca_train_eigen_residual": null,
+      "inner": {
+        "selected_alpha": 1.0,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": null,
+      "maximum_reconstructed_score_error": 1.1102230246251565e-16
+    },
+    {
+      "design": "R1",
+      "held_family": "cuprate",
+      "main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 226,
+      "training_rows": 457,
+      "pca_train_eigen_residual": null,
+      "inner": {
+        "selected_alpha": 0.01,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": {
+        "status": "completed",
+        "common_terms": [
+          "local_planarity_std * is_magnetic"
+        ],
+        "criterion_logic_verified": true,
+        "raw_bootstrap_coefficients_exported": false
+      },
+      "maximum_reconstructed_score_error": 4.440892098500626e-16
+    },
+    {
+      "design": "R2",
+      "held_family": "cuprate",
+      "main_features": [
+        "geometry_PC1",
+        "geometry_PC2",
+        "geometry_PC3",
+        "geometry_PC4",
+        "geometry_PC5",
+        "geometry_PC6",
+        "geometry_PC7",
+        "geometry_PC8",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 86,
+      "training_rows": 457,
+      "pca_train_eigen_residual": 2.6645352591003757e-15,
+      "inner": {
+        "selected_alpha": 0.1,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": {
+        "status": "completed",
+        "common_terms": [
+          "geometry_PC7"
+        ],
+        "criterion_logic_verified": true,
+        "raw_bootstrap_coefficients_exported": false
+      },
+      "maximum_reconstructed_score_error": 3.0531133177191805e-16
+    },
+    {
+      "design": "R0",
+      "held_family": "iron-based",
+      "main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 20,
+      "training_rows": 505,
+      "pca_train_eigen_residual": null,
+      "inner": {
+        "selected_alpha": 0.1,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": null,
+      "maximum_reconstructed_score_error": 2.220446049250313e-16
+    },
+    {
+      "design": "R1",
+      "held_family": "iron-based",
+      "main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 226,
+      "training_rows": 505,
+      "pca_train_eigen_residual": null,
+      "inner": {
+        "selected_alpha": 0.01,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": {
+        "status": "completed",
+        "common_terms": [
+          "volume_per_atom_angstrom3"
+        ],
+        "criterion_logic_verified": true,
+        "raw_bootstrap_coefficients_exported": false
+      },
+      "maximum_reconstructed_score_error": 4.440892098500626e-16
+    },
+    {
+      "design": "R2",
+      "held_family": "iron-based",
+      "main_features": [
+        "geometry_PC1",
+        "geometry_PC2",
+        "geometry_PC3",
+        "geometry_PC4",
+        "geometry_PC5",
+        "geometry_PC6",
+        "geometry_PC7",
+        "geometry_PC8",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 86,
+      "training_rows": 505,
+      "pca_train_eigen_residual": 4.3298697960381105e-15,
+      "inner": {
+        "selected_alpha": 0.1,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": {
+        "status": "completed",
+        "common_terms": [],
+        "criterion_logic_verified": true,
+        "raw_bootstrap_coefficients_exported": false
+      },
+      "maximum_reconstructed_score_error": 3.3306690738754696e-16
+    },
+    {
+      "design": "R0",
+      "held_family": "heavy-fermion",
+      "main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 20,
+      "training_rows": 394,
+      "pca_train_eigen_residual": null,
+      "inner": {
+        "selected_alpha": 1.0,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": null,
+      "maximum_reconstructed_score_error": 2.220446049250313e-16
+    },
+    {
+      "design": "R1",
+      "held_family": "heavy-fermion",
+      "main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 226,
+      "training_rows": 394,
+      "pca_train_eigen_residual": null,
+      "inner": {
+        "selected_alpha": 0.1,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": {
+        "status": "completed",
+        "common_terms": [],
+        "criterion_logic_verified": true,
+        "raw_bootstrap_coefficients_exported": false
+      },
+      "maximum_reconstructed_score_error": 2.220446049250313e-16
+    },
+    {
+      "design": "R2",
+      "held_family": "heavy-fermion",
+      "main_features": [
+        "geometry_PC1",
+        "geometry_PC2",
+        "geometry_PC3",
+        "geometry_PC4",
+        "geometry_PC5",
+        "geometry_PC6",
+        "geometry_PC7",
+        "geometry_PC8",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 86,
+      "training_rows": 394,
+      "pca_train_eigen_residual": 3.164135620181696e-15,
+      "inner": {
+        "selected_alpha": 0.1,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": {
+        "status": "completed",
+        "common_terms": [],
+        "criterion_logic_verified": true,
+        "raw_bootstrap_coefficients_exported": false
+      },
+      "maximum_reconstructed_score_error": 4.440892098500626e-16
+    },
+    {
+      "design": "R0",
+      "held_family": "other oxide",
+      "main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 20,
+      "training_rows": 489,
+      "pca_train_eigen_residual": null,
+      "inner": {
+        "selected_alpha": 1.0,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": null,
+      "maximum_reconstructed_score_error": 1.1102230246251565e-16
+    },
+    {
+      "design": "R1",
+      "held_family": "other oxide",
+      "main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 226,
+      "training_rows": 489,
+      "pca_train_eigen_residual": null,
+      "inner": {
+        "selected_alpha": 0.1,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": {
+        "status": "completed",
+        "common_terms": [],
+        "criterion_logic_verified": true,
+        "raw_bootstrap_coefficients_exported": false
+      },
+      "maximum_reconstructed_score_error": 2.7755575615628914e-16
+    },
+    {
+      "design": "R2",
+      "held_family": "other oxide",
+      "main_features": [
+        "geometry_PC1",
+        "geometry_PC2",
+        "geometry_PC3",
+        "geometry_PC4",
+        "geometry_PC5",
+        "geometry_PC6",
+        "geometry_PC7",
+        "geometry_PC8",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "terms": 86,
+      "training_rows": 489,
+      "pca_train_eigen_residual": 3.1086244689504383e-15,
+      "inner": {
+        "selected_alpha": 0.1,
+        "inner_memberships_verified": true,
+        "fold_family_AUC_to_family_mean_to_macro_verified": true,
+        "raw_inner_scores_and_bases_exported": false
+      },
+      "stability": {
+        "status": "completed",
+        "common_terms": [],
+        "criterion_logic_verified": true,
+        "raw_bootstrap_coefficients_exported": false
+      },
+      "maximum_reconstructed_score_error": 3.885780586188048e-16
+    }
+  ],
+  "n_entries_diagnostic": [
+    {
+      "linked_entries": "1",
+      "n": 421,
+      "recorded_positive_fraction": 0.334916864608076,
+      "ranking_diagnostics": {
+        "R0": {
+          "per_family": {
+            "cuprate": {
+              "n": 70,
+              "n_positive": 23,
+              "n_unlabeled": 47,
+              "observed_pu_auc": 0.5374653098982424,
+              "recall_at_budget": 0.17391304347826086,
+              "budget": 14,
+              "expected_recorded_positives_at_budget": 4.0
+            },
+            "iron-based": {
+              "n": 70,
+              "n_positive": 34,
+              "n_unlabeled": 36,
+              "observed_pu_auc": 0.5065359477124183,
+              "recall_at_budget": 0.20588235294117646,
+              "budget": 14,
+              "expected_recorded_positives_at_budget": 7.0
+            },
+            "heavy-fermion": {
+              "n": 190,
+              "n_positive": 56,
+              "n_unlabeled": 134,
+              "observed_pu_auc": 0.5972814498933902,
+              "recall_at_budget": 0.26785714285714285,
+              "budget": 38,
+              "expected_recorded_positives_at_budget": 15.0
+            },
+            "other oxide": {
+              "n": 91,
+              "n_positive": 28,
+              "n_unlabeled": 63,
+              "observed_pu_auc": 0.6819727891156463,
+              "recall_at_budget": 0.35714285714285715,
+              "budget": 19,
+              "expected_recorded_positives_at_budget": 10.0
+            }
+          },
+          "macro_among_defined_families": {
+            "observed_pu_auc": {
+              "macro": 0.5808138741549242,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            },
+            "recall_at_budget": {
+              "macro": 0.25119884910485935,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            }
+          },
+          "cross_family_score_pooling": false,
+          "primary_metric": false
+        },
+        "R1": {
+          "per_family": {
+            "cuprate": {
+              "n": 70,
+              "n_positive": 23,
+              "n_unlabeled": 47,
+              "observed_pu_auc": 0.4782608695652174,
+              "recall_at_budget": 0.21739130434782608,
+              "budget": 14,
+              "expected_recorded_positives_at_budget": 5.0
+            },
+            "iron-based": {
+              "n": 70,
+              "n_positive": 34,
+              "n_unlabeled": 36,
+              "observed_pu_auc": 0.5408496732026143,
+              "recall_at_budget": 0.11764705882352941,
+              "budget": 14,
+              "expected_recorded_positives_at_budget": 4.0
+            },
+            "heavy-fermion": {
+              "n": 190,
+              "n_positive": 56,
+              "n_unlabeled": 134,
+              "observed_pu_auc": 0.5907515991471215,
+              "recall_at_budget": 0.21428571428571427,
+              "budget": 38,
+              "expected_recorded_positives_at_budget": 12.0
+            },
+            "other oxide": {
+              "n": 91,
+              "n_positive": 28,
+              "n_unlabeled": 63,
+              "observed_pu_auc": 0.604875283446712,
+              "recall_at_budget": 0.32142857142857145,
+              "budget": 19,
+              "expected_recorded_positives_at_budget": 9.0
+            }
+          },
+          "macro_among_defined_families": {
+            "observed_pu_auc": {
+              "macro": 0.5536843563404164,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            },
+            "recall_at_budget": {
+              "macro": 0.2176881622214103,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            }
+          },
+          "cross_family_score_pooling": false,
+          "primary_metric": false
+        },
+        "R2": {
+          "per_family": {
+            "cuprate": {
+              "n": 70,
+              "n_positive": 23,
+              "n_unlabeled": 47,
+              "observed_pu_auc": 0.5023126734505088,
+              "recall_at_budget": 0.17391304347826086,
+              "budget": 14,
+              "expected_recorded_positives_at_budget": 4.0
+            },
+            "iron-based": {
+              "n": 70,
+              "n_positive": 34,
+              "n_unlabeled": 36,
+              "observed_pu_auc": 0.5040849673202614,
+              "recall_at_budget": 0.17647058823529413,
+              "budget": 14,
+              "expected_recorded_positives_at_budget": 6.0
+            },
+            "heavy-fermion": {
+              "n": 190,
+              "n_positive": 56,
+              "n_unlabeled": 134,
+              "observed_pu_auc": 0.5934168443496801,
+              "recall_at_budget": 0.19642857142857142,
+              "budget": 38,
+              "expected_recorded_positives_at_budget": 11.0
+            },
+            "other oxide": {
+              "n": 91,
+              "n_positive": 28,
+              "n_unlabeled": 63,
+              "observed_pu_auc": 0.623015873015873,
+              "recall_at_budget": 0.25,
+              "budget": 19,
+              "expected_recorded_positives_at_budget": 7.0
+            }
+          },
+          "macro_among_defined_families": {
+            "observed_pu_auc": {
+              "macro": 0.5557075895340808,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            },
+            "recall_at_budget": {
+              "macro": 0.1992030507855316,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            }
+          },
+          "cross_family_score_pooling": false,
+          "primary_metric": false
+        }
+      }
+    },
+    {
+      "linked_entries": "2-4",
+      "n": 95,
+      "recorded_positive_fraction": 0.5684210526315789,
+      "ranking_diagnostics": {
+        "R0": {
+          "per_family": {
+            "cuprate": {
+              "n": 49,
+              "n_positive": 25,
+              "n_unlabeled": 24,
+              "observed_pu_auc": 0.63,
+              "recall_at_budget": 0.24,
+              "budget": 10,
+              "expected_recorded_positives_at_budget": 6.0
+            },
+            "iron-based": {
+              "n": 13,
+              "n_positive": 11,
+              "n_unlabeled": 2,
+              "observed_pu_auc": 0.2727272727272727,
+              "recall_at_budget": 0.2727272727272727,
+              "budget": 3,
+              "expected_recorded_positives_at_budget": 3.0
+            },
+            "heavy-fermion": {
+              "n": 13,
+              "n_positive": 7,
+              "n_unlabeled": 6,
+              "observed_pu_auc": 0.8095238095238095,
+              "recall_at_budget": 0.42857142857142855,
+              "budget": 3,
+              "expected_recorded_positives_at_budget": 3.0
+            },
+            "other oxide": {
+              "n": 20,
+              "n_positive": 11,
+              "n_unlabeled": 9,
+              "observed_pu_auc": 0.6464646464646465,
+              "recall_at_budget": 0.2727272727272727,
+              "budget": 4,
+              "expected_recorded_positives_at_budget": 3.0
+            }
+          },
+          "macro_among_defined_families": {
+            "observed_pu_auc": {
+              "macro": 0.5896789321789322,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            },
+            "recall_at_budget": {
+              "macro": 0.3035064935064935,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            }
+          },
+          "cross_family_score_pooling": false,
+          "primary_metric": false
+        },
+        "R1": {
+          "per_family": {
+            "cuprate": {
+              "n": 49,
+              "n_positive": 25,
+              "n_unlabeled": 24,
+              "observed_pu_auc": 0.45666666666666667,
+              "recall_at_budget": 0.32,
+              "budget": 10,
+              "expected_recorded_positives_at_budget": 8.0
+            },
+            "iron-based": {
+              "n": 13,
+              "n_positive": 11,
+              "n_unlabeled": 2,
+              "observed_pu_auc": 0.5,
+              "recall_at_budget": 0.2727272727272727,
+              "budget": 3,
+              "expected_recorded_positives_at_budget": 3.0
+            },
+            "heavy-fermion": {
+              "n": 13,
+              "n_positive": 7,
+              "n_unlabeled": 6,
+              "observed_pu_auc": 0.7142857142857143,
+              "recall_at_budget": 0.42857142857142855,
+              "budget": 3,
+              "expected_recorded_positives_at_budget": 3.0
+            },
+            "other oxide": {
+              "n": 20,
+              "n_positive": 11,
+              "n_unlabeled": 9,
+              "observed_pu_auc": 0.5858585858585859,
+              "recall_at_budget": 0.2727272727272727,
+              "budget": 4,
+              "expected_recorded_positives_at_budget": 3.0
+            }
+          },
+          "macro_among_defined_families": {
+            "observed_pu_auc": {
+              "macro": 0.5642027417027418,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            },
+            "recall_at_budget": {
+              "macro": 0.3235064935064935,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            }
+          },
+          "cross_family_score_pooling": false,
+          "primary_metric": false
+        },
+        "R2": {
+          "per_family": {
+            "cuprate": {
+              "n": 49,
+              "n_positive": 25,
+              "n_unlabeled": 24,
+              "observed_pu_auc": 0.655,
+              "recall_at_budget": 0.28,
+              "budget": 10,
+              "expected_recorded_positives_at_budget": 7.0
+            },
+            "iron-based": {
+              "n": 13,
+              "n_positive": 11,
+              "n_unlabeled": 2,
+              "observed_pu_auc": 0.9545454545454546,
+              "recall_at_budget": 0.2727272727272727,
+              "budget": 3,
+              "expected_recorded_positives_at_budget": 3.0
+            },
+            "heavy-fermion": {
+              "n": 13,
+              "n_positive": 7,
+              "n_unlabeled": 6,
+              "observed_pu_auc": 0.7380952380952381,
+              "recall_at_budget": 0.2857142857142857,
+              "budget": 3,
+              "expected_recorded_positives_at_budget": 2.0
+            },
+            "other oxide": {
+              "n": 20,
+              "n_positive": 11,
+              "n_unlabeled": 9,
+              "observed_pu_auc": 0.6060606060606061,
+              "recall_at_budget": 0.2727272727272727,
+              "budget": 4,
+              "expected_recorded_positives_at_budget": 3.0
+            }
+          },
+          "macro_among_defined_families": {
+            "observed_pu_auc": {
+              "macro": 0.7384253246753246,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            },
+            "recall_at_budget": {
+              "macro": 0.2777922077922078,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            }
+          },
+          "cross_family_score_pooling": false,
+          "primary_metric": false
+        }
+      }
+    },
+    {
+      "linked_entries": "5+",
+      "n": 99,
+      "recorded_positive_fraction": 0.9393939393939394,
+      "ranking_diagnostics": {
+        "R0": {
+          "per_family": {
+            "cuprate": {
+              "n": 39,
+              "n_positive": 36,
+              "n_unlabeled": 3,
+              "observed_pu_auc": 0.6111111111111112,
+              "recall_at_budget": 0.19444444444444445,
+              "budget": 8,
+              "expected_recorded_positives_at_budget": 7.0
+            },
+            "iron-based": {
+              "n": 27,
+              "n_positive": 27,
+              "n_unlabeled": 0,
+              "observed_pu_auc": null,
+              "recall_at_budget": 0.2222222222222222,
+              "budget": 6,
+              "expected_recorded_positives_at_budget": 6.0
+            },
+            "heavy-fermion": {
+              "n": 18,
+              "n_positive": 18,
+              "n_unlabeled": 0,
+              "observed_pu_auc": null,
+              "recall_at_budget": 0.2222222222222222,
+              "budget": 4,
+              "expected_recorded_positives_at_budget": 4.0
+            },
+            "other oxide": {
+              "n": 15,
+              "n_positive": 12,
+              "n_unlabeled": 3,
+              "observed_pu_auc": 0.8333333333333334,
+              "recall_at_budget": 0.25,
+              "budget": 3,
+              "expected_recorded_positives_at_budget": 3.0
+            }
+          },
+          "macro_among_defined_families": {
+            "observed_pu_auc": {
+              "macro": 0.7222222222222223,
+              "n_defined_families": 2,
+              "defined_families": [
+                "cuprate",
+                "other oxide"
+              ]
+            },
+            "recall_at_budget": {
+              "macro": 0.2222222222222222,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            }
+          },
+          "cross_family_score_pooling": false,
+          "primary_metric": false
+        },
+        "R1": {
+          "per_family": {
+            "cuprate": {
+              "n": 39,
+              "n_positive": 36,
+              "n_unlabeled": 3,
+              "observed_pu_auc": 0.5648148148148148,
+              "recall_at_budget": 0.19444444444444445,
+              "budget": 8,
+              "expected_recorded_positives_at_budget": 7.0
+            },
+            "iron-based": {
+              "n": 27,
+              "n_positive": 27,
+              "n_unlabeled": 0,
+              "observed_pu_auc": null,
+              "recall_at_budget": 0.2222222222222222,
+              "budget": 6,
+              "expected_recorded_positives_at_budget": 6.0
+            },
+            "heavy-fermion": {
+              "n": 18,
+              "n_positive": 18,
+              "n_unlabeled": 0,
+              "observed_pu_auc": null,
+              "recall_at_budget": 0.2222222222222222,
+              "budget": 4,
+              "expected_recorded_positives_at_budget": 4.0
+            },
+            "other oxide": {
+              "n": 15,
+              "n_positive": 12,
+              "n_unlabeled": 3,
+              "observed_pu_auc": 0.8055555555555556,
+              "recall_at_budget": 0.25,
+              "budget": 3,
+              "expected_recorded_positives_at_budget": 3.0
+            }
+          },
+          "macro_among_defined_families": {
+            "observed_pu_auc": {
+              "macro": 0.6851851851851851,
+              "n_defined_families": 2,
+              "defined_families": [
+                "cuprate",
+                "other oxide"
+              ]
+            },
+            "recall_at_budget": {
+              "macro": 0.2222222222222222,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            }
+          },
+          "cross_family_score_pooling": false,
+          "primary_metric": false
+        },
+        "R2": {
+          "per_family": {
+            "cuprate": {
+              "n": 39,
+              "n_positive": 36,
+              "n_unlabeled": 3,
+              "observed_pu_auc": 0.5648148148148148,
+              "recall_at_budget": 0.19444444444444445,
+              "budget": 8,
+              "expected_recorded_positives_at_budget": 7.0
+            },
+            "iron-based": {
+              "n": 27,
+              "n_positive": 27,
+              "n_unlabeled": 0,
+              "observed_pu_auc": null,
+              "recall_at_budget": 0.2222222222222222,
+              "budget": 6,
+              "expected_recorded_positives_at_budget": 6.0
+            },
+            "heavy-fermion": {
+              "n": 18,
+              "n_positive": 18,
+              "n_unlabeled": 0,
+              "observed_pu_auc": null,
+              "recall_at_budget": 0.2222222222222222,
+              "budget": 4,
+              "expected_recorded_positives_at_budget": 4.0
+            },
+            "other oxide": {
+              "n": 15,
+              "n_positive": 12,
+              "n_unlabeled": 3,
+              "observed_pu_auc": 0.8055555555555556,
+              "recall_at_budget": 0.25,
+              "budget": 3,
+              "expected_recorded_positives_at_budget": 3.0
+            }
+          },
+          "macro_among_defined_families": {
+            "observed_pu_auc": {
+              "macro": 0.6851851851851851,
+              "n_defined_families": 2,
+              "defined_families": [
+                "cuprate",
+                "other oxide"
+              ]
+            },
+            "recall_at_budget": {
+              "macro": 0.2222222222222222,
+              "n_defined_families": 4,
+              "defined_families": [
+                "cuprate",
+                "iron-based",
+                "heavy-fermion",
+                "other oxide"
+              ]
+            }
+          },
+          "cross_family_score_pooling": false,
+          "primary_metric": false
+        }
+      }
+    }
+  ],
+  "limits": [
+    "P/U means catalog-recorded positive versus not-recorded-positive. This is not true-SC ROC, probability, specificity, experimental negative accuracy, a mechanism, or an H4 p>=0.5 success-rate comparison.",
+    "Frozen v2 records a preflight-only change from pooled inner scores to fold-family AUC -> valid-fold family mean -> equal training-family macro. It is not a post-real-evaluation threshold change.",
+    "Inner memberships and reported AUC aggregation/alpha selection are independently checked, but raw inner validation scores and fitted transform/PCA identities are not exported. Inner AUC and inner train-only transforms cannot be numerically reconstructed from these artifacts.",
+    "Outer training medians/scales/column filtering, PCA eigensystem and term expansion are reconstructed from raw exported inputs; coefficients are used only to check exported held-out scores, not to refit or independently certify the optimization solution.",
+    "Common-term logic, frequencies' denominators and convergence gates are checked. Raw stability bootstrap coefficient matrices/pair draws and expert coefficient vectors are absent, so original frequency and sign estimates cannot be independently refitted.",
+    "Whole-system bootstrap intervals condition on the already inspected families, fixed exploratory predictions and selection protocol; they are not selection-adjusted or new independent validation.",
+    "Random budget recall is ceil(0.2*N)/N within each held family, then a family macro; it is not exactly 20 percent when family sizes are not multiples of five.",
+    "CIF/geometry provenance is bound in the manifest, but raw CIF structures and geometry extraction are not recomputed by this audit. No scientific model module is imported and no models are retrained."
+  ]
+}

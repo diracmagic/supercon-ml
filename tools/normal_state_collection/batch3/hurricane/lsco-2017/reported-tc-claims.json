@@ -1,0 +1,22 @@
+{
+  "reported_tc_claims": [
+    {
+      "claim_id": "lsco-2017:ED2:screening-onset-and-resistive-zero",
+      "specimen_id": "lsco-2017:ED2:optimally-doped-film",
+      "tc_K": 40.8,
+      "tc_criterion": "Meissner_screening_onset_coincident_with_resistive_zero",
+      "outcome": true,
+      "source_doi": "10.1038/nature23290",
+      "source_locator": "Author manuscript PDFp15, MethodsA; ExtendedData2 and sourceMOESM9",
+      "linked_curve_ids": [
+        "lsco-2017:ED2:pickup_in_phase",
+        "lsco-2017:ED2:pickup_out_of_phase"
+      ],
+      "excluded_link_to_fig1": "Samep0.16does not establish samephysicalfilm; no link to Figure1 transport inferred",
+      "pressure_gpa": null,
+      "magnetic_field_t": null
+    }
+  ],
+  "model_target_links": [],
+  "limitation": "Primary source claims, not ledger labels or admissions under a training policy"
+}

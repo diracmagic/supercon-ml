@@ -1,0 +1,337 @@
+{
+  "version": "batch3-public-acquisition-snapshot-v1",
+  "files": [
+    {
+      "path": "combined-input-manifest.json",
+      "sha256": "9476a9873db9e1c884ca512ef0ebbf34415116829947bc3a0dd46f31a1df5cf3",
+      "bytes": 1356
+    },
+    {
+      "path": "diamond-feedback-ingestion.json",
+      "sha256": "43cf9b1aabe3d5f8dbcc6b7af1e4b05397da2c8bbb8e44f9ce834e53cc9f9747",
+      "bytes": 5516
+    },
+    {
+      "path": "hurricane/build_metadata.py",
+      "sha256": "c0e6a6dfedb2485178da1da63c390cef4c2d10ac2ccbf4b61fc1bb6a6c21f366",
+      "bytes": 8376
+    },
+    {
+      "path": "hurricane/extract_fete_fese.py",
+      "sha256": "ac6342ef1b267db2aff042c867c2b72227fb9f51229c2f5ae8e8417a6e2af351",
+      "bytes": 8101
+    },
+    {
+      "path": "hurricane/extract_lsco.py",
+      "sha256": "d5da213a50caa6382772accb0b5b3bb9df2d7ba9c09e7791159bf4db26fb4225",
+      "bytes": 17478
+    },
+    {
+      "path": "hurricane/extract_nickelate.py",
+      "sha256": "a989d94bc98d6f73c68521fe4af51dbf2d33ae989e662b1f6e932f94459fa0a0",
+      "bytes": 10309
+    },
+    {
+      "path": "hurricane/fete-fese-planckian-2026/curation-audit.json",
+      "sha256": "0e00584b14fa21cc07482562a0cab2627630e8e514915cc9a52210f592e1f9d3",
+      "bytes": 979
+    },
+    {
+      "path": "hurricane/fete-fese-planckian-2026/curves-index.json",
+      "sha256": "e24ca8fd3ea2c1e80edb8d806ee00ad44dba478da9705d798fc373fa6e23a5bc",
+      "bytes": 5292
+    },
+    {
+      "path": "hurricane/fete-fese-planckian-2026/reported-tc-claims.json",
+      "sha256": "5e43fa56537e24bc2989c9e86bcafd9fe33f8f78e4b6a0b201d396175daafe6d",
+      "bytes": 1649
+    },
+    {
+      "path": "hurricane/hurricane-readiness.json",
+      "sha256": "f61e5dc28f4718a3f08e38f4bc41bf2162abd91765fedc043bde207792dd410a",
+      "bytes": 2540
+    },
+    {
+      "path": "hurricane/input-metadata/attachment-download-log.json",
+      "sha256": "177da8f75736b25899d993fd3fef59f73c4bde847708f2b3c79025bfba98399e",
+      "bytes": 6720
+    },
+    {
+      "path": "hurricane/input-metadata/fallback-download-log.json",
+      "sha256": "ad203e5f4d88d59ccf9a32bc602e4fc33409edb4fd320d17b50f21bb7cdd865e",
+      "bytes": 1101
+    },
+    {
+      "path": "hurricane/input-metadata/fete-fese-planckian-2026/download-provenance.json",
+      "sha256": "2a519d35add0110241d544cc5fd9e576567c5142ed97d4ce5d18b7b490d12b79",
+      "bytes": 6241
+    },
+    {
+      "path": "hurricane/input-metadata/fete-fese-planckian-2026/preprint-download-log.json",
+      "sha256": "8bbaa96b5e98caa2fb17413a24d22eae044d28f52acd6f3a3e6dceb60fdd8199",
+      "bytes": 299
+    },
+    {
+      "path": "hurricane/input-metadata/further-download-log.json",
+      "sha256": "0de7c58f2beead5b61e80263779a16166994ca98726ed7691478eb9e5c9168f9",
+      "bytes": 1976
+    },
+    {
+      "path": "hurricane/input-metadata/initial-download-log.json",
+      "sha256": "7aa0c923a6a616f0e94256eb4d8e8b06788975967a568ddf4e53a817f7febc84",
+      "bytes": 1449
+    },
+    {
+      "path": "hurricane/lsco-2017/curation-audit.json",
+      "sha256": "a53e87337085d3504c6d61968ee3aabcc2c69b29c57b53a25e97e67523d14778",
+      "bytes": 2988
+    },
+    {
+      "path": "hurricane/lsco-2017/curves-index.json",
+      "sha256": "1a41c024f1c0b48b718018153a5f5b81fe1f18c9c10b0b09825dc9085e5c2bd8",
+      "bytes": 30926
+    },
+    {
+      "path": "hurricane/lsco-2017/reported-tc-claims.json",
+      "sha256": "d75a24c5fb066255002ede0c0d4a1bf43c5952c8ec9fc1638d4453ddf8c7c109",
+      "bytes": 861
+    },
+    {
+      "path": "hurricane/nickelate-2026/curation-audit.json",
+      "sha256": "c3f8883f249ea023a640f0c45f0d9e221c3c9a4433b26fa073d24d2f397ab2d9",
+      "bytes": 1442
+    },
+    {
+      "path": "hurricane/nickelate-2026/fig3b-index.json",
+      "sha256": "26dfd0e5141506fc55eaa8b749729a854d3ee7e0a7121fb8eee2818b0a531147",
+      "bytes": 8248
+    },
+    {
+      "path": "hurricane/nickelate-2026/figa-index.json",
+      "sha256": "1c650f6fe049c3892e188b7eb6a53fb0b7f5c204cd65289b3715426949bdc4aa",
+      "bytes": 22546
+    },
+    {
+      "path": "hurricane/nickelate-2026/figb-index.json",
+      "sha256": "f3f8234055203a7d0e0596c0394e3e9ad74949233f5a96901ac435b53c3352d6",
+      "bytes": 18447
+    },
+    {
+      "path": "hurricane/nickelate-2026/figc-index.json",
+      "sha256": "183bfb6450e0d3722691c2c499065c0825222510ac4a9841717ceae0739c86f4",
+      "bytes": 24619
+    },
+    {
+      "path": "hurricane/nickelate-2026/figd-index.json",
+      "sha256": "9721bb7869f0f239e8350845846679c3539f0ed7527107dd3a1f64c8ba734c25",
+      "bytes": 24612
+    },
+    {
+      "path": "hurricane/nickelate-2026/fige-index.json",
+      "sha256": "dbf760c675b6884c7f1d49f0c28ca4b40952e5181e0c18012ad595aa53835e64",
+      "bytes": 10641
+    },
+    {
+      "path": "hurricane/nickelate-2026/figf-index.json",
+      "sha256": "c3a8de230199e189791edd875e762930ccbf5392b01c088ad213bb0b68cd3db8",
+      "bytes": 2131
+    },
+    {
+      "path": "hurricane/nickelate-2026/figg-index.json",
+      "sha256": "7eb30448fe426e9fff2cd51f85dcad30a1f92aa351245275d94534396b8ad0a3",
+      "bytes": 8518
+    },
+    {
+      "path": "hurricane/nickelate-2026/reported-tc-claims.json",
+      "sha256": "b6a81b847a2969579d361aff68a015eeeb00ba5f407159c0e5fd506add85c354",
+      "bytes": 2961
+    },
+    {
+      "path": "hurricane/README.md",
+      "sha256": "78b4475dd1487d81369c288e13912004746c16a17d6df69e8db3e5428b7d9e3c",
+      "bytes": 6470
+    },
+    {
+      "path": "hurricane/rebuild-verification.json",
+      "sha256": "bbc8a758e927a9109432c13860acbc794b44b76642b30f69f7e26b826a761784",
+      "bytes": 850
+    },
+    {
+      "path": "hurricane/source-registry.json",
+      "sha256": "525c77c88d048fbd9fc1e5e0f5ef5dcf7d2b01cc100502b564747afa6917a6e4",
+      "bytes": 29207
+    },
+    {
+      "path": "hurricane/source-search-disposition.json",
+      "sha256": "b8faf2436227e1e6a27fc2b44414d386f79058e3c5c4304d0dda59b92ab6e4e6",
+      "bytes": 5339
+    },
+    {
+      "path": "hurricane/source_helpers.py",
+      "sha256": "4c50dbf4a139c65fa815b4401c0b65aae07c2997ceeb867882200f90edb8a047",
+      "bytes": 1391
+    },
+    {
+      "path": "hurricane/verify_bundle.py",
+      "sha256": "1ff606c10842e60318d806d22b5c3bc8e469041cc178b09d73a3cd6a9224bb07",
+      "bytes": 5828
+    },
+    {
+      "path": "inventory/build.py",
+      "sha256": "40df3c821a9597a0f742166347edf18a8ea023684edd19078f939728feb9e187",
+      "bytes": 11638
+    },
+    {
+      "path": "inventory/candidates-part-01.json",
+      "sha256": "6c2be3ef77c7e99fb8d202d873241f8d27b6f0dd28a0de91f8dae3f9f94ab988",
+      "bytes": 65583
+    },
+    {
+      "path": "inventory/candidates-part-02.json",
+      "sha256": "bad79dc32835b0a9b064baaeddbb4df9ab7abd231f4ad15895f6b861201962ff",
+      "bytes": 65958
+    },
+    {
+      "path": "inventory/candidates-part-03.json",
+      "sha256": "5db3092bbf1ae7134c13cf9e00cdefc1f91d484ca411f0b02b823ba0ced891e2",
+      "bytes": 66004
+    },
+    {
+      "path": "inventory/candidates-part-04.json",
+      "sha256": "2a4ac8f5a7d2169eeae7f8bc4a3af8bdb84ee7e09dde29ca7182f99c63bcd742",
+      "bytes": 67168
+    },
+    {
+      "path": "inventory/candidates-part-05.json",
+      "sha256": "df65444e5f680c60fe72b797aa1cb9bef3923071c88480212c048554f7771f79",
+      "bytes": 67091
+    },
+    {
+      "path": "inventory/candidates-part-06.json",
+      "sha256": "5d03cf7ebca63725705bbbd5fae8ff124d81cf04b0dba45dba8e71e3e900ea6a",
+      "bytes": 65055
+    },
+    {
+      "path": "inventory/candidates-part-07.json",
+      "sha256": "cc0586a4ee0b2de2ce7fbde6a3dfdbfa406a87090363b284dfee34510653474d",
+      "bytes": 62668
+    },
+    {
+      "path": "inventory/literature-part-01.json",
+      "sha256": "c769e67a65bc20ba1109392a6d64dd9076bdc903c4696739a0fe4c5bafb9fa30",
+      "bytes": 67068
+    },
+    {
+      "path": "inventory/literature-part-02.json",
+      "sha256": "f77169511ef48647fdec981e6b7d338975d9564e7c47896a3b3a5739a1b63e33",
+      "bytes": 38250
+    },
+    {
+      "path": "inventory/manifest.json",
+      "sha256": "d73942f550890169711030d41d6932525ebe2403f490a5b756848ae7eee26d1c",
+      "bytes": 15438
+    },
+    {
+      "path": "inventory/mdr-ingestion-risk-audit.json",
+      "sha256": "d009d14bb6c6044ca34688fe10320d9c1c9932d6fbfe57601e228f17bb43e3ea",
+      "bytes": 6958
+    },
+    {
+      "path": "inventory/mdr-review-crosswalk-summary.json",
+      "sha256": "3cfb18ab01f5e2b0a2831440e67d5bd582a2a6b691b9fa7eb0b0d03ad5d80be9",
+      "bytes": 26322
+    },
+    {
+      "path": "inventory/primary-data-leads.json",
+      "sha256": "93dee3b7a0f6dceb08ba77da94c4d9385ea4bad1384bdcc1b13825a680f1e6d3",
+      "bytes": 15826
+    },
+    {
+      "path": "inventory/README.md",
+      "sha256": "694ac50e99a6841bfb0667f14c9843aab45b47c8ca06d64f2d5bb17464e11d89",
+      "bytes": 4873
+    },
+    {
+      "path": "inventory/retired-candidates.json",
+      "sha256": "bcb43dbbdfb70118523a5820529e34bd437a4e1a5e6875635eedd80e168d2f79",
+      "bytes": 5824
+    },
+    {
+      "path": "inventory/validate.py",
+      "sha256": "33b3ea6fbc6460512ad563679b2a861a70b3fa51a7b84af9b49df7526f4d888d",
+      "bytes": 6370
+    },
+    {
+      "path": "mdr-independent-review.json",
+      "sha256": "e311ffb27d22c5c3f10b3099f18b1827eaf2ddeeb59b19ca8eeaaf8531371066",
+      "bytes": 2595
+    },
+    {
+      "path": "mdr-summary.json",
+      "sha256": "e4e07491245cfca0d5171ffd0e71fdb5c1f091b32f0a2386027302de249a1aa0",
+      "bytes": 19819
+    },
+    {
+      "path": "mdr-validation.json",
+      "sha256": "f5c2b5bc9589204956d1122b70e53f5e88f5a8e7ca2c492a6cdeb733acf3b73c",
+      "bytes": 717
+    },
+    {
+      "path": "mdr_catalog.py",
+      "sha256": "9559dc8e7f0779d8c130dcc027a3593dddeff65c614626dda4a5527917175c59",
+      "bytes": 13888
+    },
+    {
+      "path": "README.md",
+      "sha256": "1895c3d8f4fa67c9e8689e91bd0b4be4d65b148151a060e3ec6bbebb13d8a54e",
+      "bytes": 4874
+    },
+    {
+      "path": "storm/adapt_diamond.py",
+      "sha256": "8881afd8b90f5cbec796917b1c6cfd89b5c430ea6c4f1e1d3e241c861a1515ed",
+      "bytes": 16149
+    },
+    {
+      "path": "storm/compact-audit.json",
+      "sha256": "ca78b13fa48b6ac007c100ee819a5e96dadd3a2e16198fe565f663eee0c9f776",
+      "bytes": 23685
+    },
+    {
+      "path": "storm/fetch_diamond.py",
+      "sha256": "573b899f47e9a86b2882c004185f1cb72bbd2d68b33572e1be46abeebbec8c7c",
+      "bytes": 2273
+    },
+    {
+      "path": "storm/scientific-manifest.json",
+      "sha256": "393b452b8960426f9dec64ae0d9407b7f76a18f0ce800502ef19c5295c22ff7d",
+      "bytes": 35474
+    },
+    {
+      "path": "storm/source-search-disposition.json",
+      "sha256": "70fc1ab27a2d7b9d9890be54aaf42b05b59c4e59a2d423a5d3bcbebf36b2fc46",
+      "bytes": 5905
+    },
+    {
+      "path": "storm/tc-claims-unjoined.json",
+      "sha256": "6892af2aa737142d409d2407cc2457d61c38870a7dfa3ea493d6f588c1485ad7",
+      "bytes": 16933
+    },
+    {
+      "path": "storm-pilot-report.json",
+      "sha256": "f8a99e1f7b3a9e290cc8e605c0832ebd9251adf6937df7ee1cecbb544e539757",
+      "bytes": 5369
+    },
+    {
+      "path": "verify_bundle.py",
+      "sha256": "29c87d45ad52a153ff187fea9935493f51b721173ca77cf343fe64fce960d4a6",
+      "bytes": 2294
+    }
+  ],
+  "frozen_extraction_policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+  "frozen_training_protocol_sha256": "8827d1b757a4f250386c94931550acdc420bf61903704fcacc6f92a1c1783bb5",
+  "models_fitted": 0,
+  "adopted": false,
+  "raw_or_ledger_arrays_published": false,
+  "evidence_domains_separate": true,
+  "source_collection_licences_recorded": true
+}

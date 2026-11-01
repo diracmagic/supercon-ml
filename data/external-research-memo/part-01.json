@@ -1,0 +1,545 @@
+{
+  "schema_version": 1,
+  "entries": [
+    {
+      "id": "01",
+      "heading": "三元氢化物的大规模结构搜索",
+      "short": "Wang等 三元氢化物",
+      "year": "2026",
+      "stage": "理论预测",
+      "headline": "144个候选 Tc≥200 K；200 GPa",
+      "team": "Xiaoyang Wang等，中国多机构团队",
+      "publication": "National Science Review 13, nwag030 (2026)",
+      "result": "深度学习原子势与CALYPSO结构搜索结合，探索约3600万个三元氢化物结构，再经稳定性和超导性质计算筛选。在200 GPa下提出144个预测Tc≥200 K的候选，作者称其中129个此前未报道。",
+      "boundary": "这些是计算候选，尚非实验超导样品。筛选未计入非谐效应，结构数、候选数和实验成功数不可互换。",
+      "reference_point": "用势模型扩大结构搜索范围，再用更昂贵的物理计算逐级筛选；保留每一层筛选的物理近似。",
+      "title": "Computational discovery of high-temperature superconducting ternary hydrides via deep learning",
+      "doi": "10.1093/nsr/nwag030",
+      "url": "https://doi.org/10.1093/nsr/nwag030",
+      "extra": [
+        [
+          "公开全文",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC13023052/"
+        ]
+      ],
+      "category": "计算预测",
+      "evidence_type": "理论计算",
+      "pressure": "200 GPa",
+      "tc_criterion": "计算Tc；非实测",
+      "verified_version": "正式论文",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://doi.org/10.1093/nsr/nwag030"
+        },
+        {
+          "label": "公开全文",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13023052/"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "design",
+          "label": "候选设计",
+          "detail": "模型或结构搜索提出候选",
+          "status": "completed"
+        },
+        {
+          "kind": "calculation",
+          "label": "计算评估",
+          "detail": "预测指标与物理近似见证据边界",
+          "status": "completed"
+        },
+        {
+          "kind": "measurement",
+          "label": "实验验证",
+          "detail": "该条未报告相应候选超导实验",
+          "status": "not_reported"
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "heading": "常压氢化物家族的机器学习筛选",
+      "short": "Sanna等 Mg₂XH₆",
+      "year": "2024",
+      "stage": "理论预测",
+      "headline": "常压预测45–80 K；掺杂Pt体系>100 K",
+      "team": "Antonio Sanna等，跨机构计算材料团队",
+      "publication": "npj Computational Materials 10, 44 (2024)",
+      "result": "机器学习加速筛查超过100万种化合物，结合物理计算提出Mg₂XH₆家族，X为Rh、Ir、Pd或Pt。常压预测Tc约45–80 K，适当电子掺杂的Pt体系可能超过100 K。",
+      "boundary": "该论文未报告这些候选的超导实验验证。2026年Mg₂RhH₆实验后续见条目13；其压力和温度与原先常压预测不同。",
+      "reference_point": "把候选限定在明确结构家族内，比较电子填充与耦合强度；跟踪预测家族的后续实验。",
+      "title": "Prediction of ambient pressure conventional superconductivity above 80 K in hydride compounds",
+      "doi": "10.1038/s41524-024-01214-9",
+      "url": "https://www.nature.com/articles/s41524-024-01214-9",
+      "category": "计算预测",
+      "evidence_type": "理论计算",
+      "pressure": "常压计算",
+      "tc_criterion": "计算Tc；含掺杂情景",
+      "verified_version": "2024正式论文；2026实验另列13",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://www.nature.com/articles/s41524-024-01214-9"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "design",
+          "label": "候选设计",
+          "detail": "模型或结构搜索提出候选",
+          "status": "completed"
+        },
+        {
+          "kind": "calculation",
+          "label": "计算评估",
+          "detail": "预测指标与物理近似见证据边界",
+          "status": "completed"
+        },
+        {
+          "kind": "measurement",
+          "label": "实验验证",
+          "detail": "该条未报告相应候选超导实验",
+          "status": "not_reported"
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "heading": "InvDesFlow提出Li₂AuH₆候选",
+      "short": "Ouyang等 InvDesFlow",
+      "year": "2025",
+      "stage": "理论预测",
+      "headline": "Li₂AuH₆常压预测约140 K",
+      "team": "Ouyang等，中国人民大学团队",
+      "publication": "Physical Review B 111, L140501 (2025)",
+      "result": "结合AI逆向设计工具InvDesFlow与第一性原理计算，提出以AuH₆八面体为特征的Li₂AuH₆候选，预测常压Tc约140 K，并讨论可能的合成路线。",
+      "boundary": "提出合成路线不等于完成合成。后续考虑量子和热涨落的研究得到不同结构状态及约22 K估计，见条目14；两者均为理论结果。",
+      "reference_point": "候选生成之后仍需核实亚稳态寿命、有限温度结构和非谐效应，不能只检查谐近似声子。",
+      "title": "High-temperature superconductivity in Li₂AuH₆ mediated by strong electron-phonon coupling under ambient pressure",
+      "doi": "10.1103/PhysRevB.111.L140501",
+      "url": "https://doi.org/10.1103/PhysRevB.111.L140501",
+      "category": "计算预测",
+      "evidence_type": "理论计算",
+      "pressure": "常压计算",
+      "tc_criterion": "计算Tc",
+      "verified_version": "2025正式论文；后续理论另列14",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://doi.org/10.1103/PhysRevB.111.L140501"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "design",
+          "label": "候选设计",
+          "detail": "模型或结构搜索提出候选",
+          "status": "completed"
+        },
+        {
+          "kind": "calculation",
+          "label": "计算评估",
+          "detail": "预测指标与物理近似见证据边界",
+          "status": "completed"
+        },
+        {
+          "kind": "measurement",
+          "label": "实验验证",
+          "detail": "该条未报告相应候选超导实验",
+          "status": "not_reported"
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "heading": "机制相关特征指导含镓铜氧化物设计",
+      "short": "Lee等 含Ga铜氧化物",
+      "year": "2021",
+      "stage": "理论预测",
+      "headline": "Ga系列一至三层预测71／117／131 K",
+      "team": "D. Lee、D. You、D. Lee、X. Li、S. Kim",
+      "publication": "The Journal of Physical Chemistry Letters 12, 6211–6217 (2021)",
+      "result": "以29种已知空穴掺杂铜氧化物为基础，使用顶位氧电荷、顶位原子间力、CuO₂层数和顶位氧高度等特征构建回归模型。GaBa₂Caₙ₋₁CuₙO₂ₙ₊₂系列中，n=1、2、3的预测最优掺杂Tc分别为71、117、131 K。",
+      "boundary": "数值指该Ga系列的Tc,max，不是所有含Ga候选的上限，也不是实测温度。留一验证仍在铜氧化物小样本内；全数据先选公式的流程不能据此视为跨家族盲测。",
+      "reference_point": "把结构和电子态特征用于可解释的候选设计，同时区分家族内预测与新家族泛化。",
+      "title": "Machine-Learning-Guided Prediction Models of Critical Temperature of Cuprates",
+      "doi": "10.1021/acs.jpclett.1c01442",
+      "url": "https://doi.org/10.1021/acs.jpclett.1c01442",
+      "extra": [
+        [
+          "作者稿及方法细节",
+          "https://arxiv.org/abs/2101.02810"
+        ]
+      ],
+      "category": "计算预测",
+      "evidence_type": "模型与物理关系预测",
+      "pressure": "未核具体压力",
+      "tc_criterion": "Ga系列预测Tc,max",
+      "verified_version": "正式论文；家族内小样本",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://doi.org/10.1021/acs.jpclett.1c01442"
+        },
+        {
+          "label": "作者稿及方法细节",
+          "url": "https://arxiv.org/abs/2101.02810"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "design",
+          "label": "候选设计",
+          "detail": "模型或结构搜索提出候选",
+          "status": "completed"
+        },
+        {
+          "kind": "calculation",
+          "label": "计算评估",
+          "detail": "预测指标与物理近似见证据边界",
+          "status": "completed"
+        },
+        {
+          "kind": "measurement",
+          "label": "实验验证",
+          "detail": "该条未报告相应候选超导实验",
+          "status": "not_reported"
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "heading": "铜氧化物虚拟配方的深度学习筛选",
+      "short": "Wang等 Hg Pb铜氧化物",
+      "year": "2023",
+      "stage": "成分预测",
+      "headline": "虚拟配方预测152 K",
+      "team": "Yuxue Wang等，上海大学等",
+      "publication": "RSC Advances 13, 19836–19845 (2023)",
+      "result": "用组成描述符和元素物性描述符训练并组合深度神经网络，在Hg–Pb–Ba–Ca–Cu–O空间进行虚拟筛选。原文给出的Hg₀.₁₃Pb₀.₀₉Ba₀.₃₂Ca₀.₄₂₂Cu₀.₄O₁配方预测Tc为152 K。",
+      "boundary": "论文未报告该配方的合成与超导测量，也没有由此确定唯一晶体结构。元素属性汇总不是同一样品的正常态实测曲线，SHAP相关性也不构成机制因果证明。",
+      "reference_point": "双描述符可用于比较信息来源，但配方预测还须经过结构、可合成性及样品条件核验。",
+      "title": "Cuprate superconducting materials above liquid nitrogen temperature from machine learning",
+      "doi": "10.1039/D3RA02848H",
+      "url": "https://doi.org/10.1039/D3RA02848H",
+      "extra": [
+        [
+          "公开全文",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10315706/"
+        ]
+      ],
+      "category": "计算预测",
+      "evidence_type": "成分模型预测",
+      "pressure": "未核具体压力",
+      "tc_criterion": "预测Tc",
+      "verified_version": "正式论文；未报告该配方实验",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://doi.org/10.1039/D3RA02848H"
+        },
+        {
+          "label": "公开全文",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10315706/"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "design",
+          "label": "候选设计",
+          "detail": "模型或结构搜索提出候选",
+          "status": "completed"
+        },
+        {
+          "kind": "calculation",
+          "label": "计算评估",
+          "detail": "预测指标与物理近似见证据边界",
+          "status": "completed"
+        },
+        {
+          "kind": "measurement",
+          "label": "实验验证",
+          "detail": "该条未报告相应候选超导实验",
+          "status": "not_reported"
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "heading": "SuperDiff生成假想配方家族",
+      "short": "Yuan和Dordevic SuperDiff",
+      "year": "2024",
+      "stage": "组成生成",
+      "headline": "条件扩散生成配方；未实验确认新家族",
+      "team": "Samuel Yuan、S. V. Dordevic",
+      "publication": "Scientific Reports 14, 10275 (2024)",
+      "result": "以96维化学组成向量训练扩散模型，并用参考配方约束采样，探索铜氧化物、铁基等假想配方族。形成能和Tc由其他模型估计；另在四版模型的无条件采样中，共265722个输出通过计算筛选。",
+      "boundary": "没有生成完整晶体结构，所谓新家族主要由组成聚类判断，不能等同于新配对机制或实验发现。预测Tc曲线不是测得的超导相图。",
+      "reference_point": "参考材料可以引导局部化学空间探索；生成器和性质模型的输出仍需外部计算或实验检验。",
+      "title": "Diffusion models for conditional generation of hypothetical new families of superconductors",
+      "doi": "10.1038/s41598-024-61040-3",
+      "url": "https://www.nature.com/articles/s41598-024-61040-3",
+      "extra": [
+        [
+          "作者代码仓库",
+          "https://github.com/sdkyuanpanda/SuperDiff"
+        ]
+      ],
+      "category": "计算预测",
+      "evidence_type": "生成配方与模型评分",
+      "pressure": "未核具体压力",
+      "tc_criterion": "模型预测；非测得相图",
+      "verified_version": "已核作者稿；非完整晶体生成",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://www.nature.com/articles/s41598-024-61040-3"
+        },
+        {
+          "label": "作者代码仓库",
+          "url": "https://github.com/sdkyuanpanda/SuperDiff"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "design",
+          "label": "候选设计",
+          "detail": "模型或结构搜索提出候选",
+          "status": "completed"
+        },
+        {
+          "kind": "calculation",
+          "label": "计算评估",
+          "detail": "预测指标与物理近似见证据边界",
+          "status": "completed"
+        },
+        {
+          "kind": "measurement",
+          "label": "实验验证",
+          "detail": "该条未报告相应候选超导实验",
+          "status": "not_reported"
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "heading": "从旧数据回测铁基超导体",
+      "short": "Konno等 铁基历史回测",
+      "year": "2021",
+      "stage": "历史回测",
+      "headline": "用2008年前数据回测后来铁基材料",
+      "team": "Tomohiko Konno等",
+      "publication": "Physical Review B 103, 014509 (2021)",
+      "result": "以类似元素周期表的方式编码成分，用深度模型开展时间截断回测。剔除LaFePO和LaFePFO等前驱例子后，作者报告仍能给部分后来出现的铁基材料非零Tc预测。",
+      "boundary": "这是事后回测，不是2008年前已经完成发现。1399条铁基记录上的平均约80条及中位44条非零预测不是实验命中数；未记录超导的COD材料被设为零，也不是真阴性。",
+      "reference_point": "采用时间截断与前驱材料排除检验迁移能力，并明确记录召回分母和未标记数据的处理。",
+      "title": "Deep learning model for finding new superconductors",
+      "doi": "10.1103/PhysRevB.103.014509",
+      "url": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.103.014509",
+      "category": "回溯验证",
+      "evidence_type": "历史回测",
+      "pressure": "多来源；未统一",
+      "tc_criterion": "非零Tc预测；非实验命中",
+      "verified_version": "2021正式论文及补充材料",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.103.014509"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "data",
+          "label": "历史数据",
+          "detail": "用2008年前记录训练",
+          "status": "completed"
+        },
+        {
+          "kind": "validation",
+          "label": "事后回测",
+          "detail": "检验后来铁基记录",
+          "status": "completed"
+        },
+        {
+          "kind": "measurement",
+          "label": "前瞻实验",
+          "detail": "该回测未完成前瞻发现",
+          "status": "not_reported"
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "heading": "贝叶斯优化铁基材料的制备条件",
+      "short": "Ishii等 铁基热处理优化",
+      "year": "2023",
+      "stage": "实验工艺优化",
+      "headline": "13次实验；最高相纯度91.3%",
+      "team": "Akimitsu Ishii等",
+      "publication": "Journal of Alloys and Compounds 966, 171613 (2023)",
+      "result": "针对已知BaFe₂(As,P)₂材料，用高斯过程与期望改进选择热处理温度。作者称候选温度约800个；2次初始实验加11次迭代后，在863°C得到Rietveld分析相纯度91.3%。",
+      "boundary": "优化目标是相纯度，不是发现新材料或提高Tc纪录。作者指出单变量问题中经验搜索也可能有效，未提供等预算的直接对照；重选旧温度时复用旧结果，不等于新增重复实验。",
+      "reference_point": "实验反馈可针对可测、可优化的工艺指标；成功与失败都应绑定制备条件，并保留试验预算。",
+      "title": "Application of Bayesian optimization to the synthesis process of BaFe2(As,P)2 polycrystalline bulk superconducting materials",
+      "doi": "10.1016/j.jallcom.2023.171613",
+      "url": "https://doi.org/10.1016/j.jallcom.2023.171613",
+      "category": "实验研究",
+      "evidence_type": "实验工艺优化",
+      "pressure": "未核具体压力",
+      "tc_criterion": "目标是相纯度；非Tc优化",
+      "verified_version": "2023正式论文",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://doi.org/10.1016/j.jallcom.2023.171613"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "design",
+          "label": "工艺选择",
+          "detail": "贝叶斯优化热处理温度",
+          "status": "completed"
+        },
+        {
+          "kind": "measurement",
+          "label": "13次实验",
+          "detail": "测相纯度，最高91.3%",
+          "status": "completed"
+        },
+        {
+          "kind": "discovery",
+          "label": "新材料发现",
+          "detail": "此项不以发现新材料为目标",
+          "status": "not_reported"
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "heading": "BEE NET从物理谱预测走向实验",
+      "short": "Gibson等 BEE NET",
+      "year": "2026",
+      "stage": "筛选加实验",
+      "headline": "Be₂Hf₂Nb／Be₂HfNb₂ 起始3.18／4.24 K",
+      "team": "Gibson等，佛罗里达大学等",
+      "publication": "npj Computational Materials 12, 95 (2026)",
+      "result": "图神经网络学习电子—声子谱函数α²F(ω)，结合物理与稳定性计算，从约130万结构筛出741个计算候选，再开展合成。Be₂Hf₂Nb、Be₂HfNb₂电阻转变起始分别约3.18和4.24 K。",
+      "boundary": "均为低温结果。Be₂HfNb₂出现两个比热异常，存在多相问题；起始Tc不是中点Tc。模型报告的误差针对计算Tc，不能当作实验Tc预测误差。",
+      "reference_point": "学习物理中间量并用多个实验观测验证，同时把计算标签与实验标签分开。",
+      "title": "Developing a complete AI-accelerated workflow for superconductor discovery",
+      "doi": "10.1038/s41524-026-01964-8",
+      "url": "https://www.nature.com/articles/s41524-026-01964-8",
+      "extra": [
+        [
+          "作者稿v2",
+          "https://arxiv.org/html/2503.20005v2"
+        ]
+      ],
+      "category": "实验研究",
+      "evidence_type": "实验信号及物相限制",
+      "pressure": "未报告外加高压",
+      "tc_criterion": "电阻转变起始；非中点",
+      "verified_version": "2026正式论文；多相边界保留",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://www.nature.com/articles/s41524-026-01964-8"
+        },
+        {
+          "label": "作者稿v2",
+          "url": "https://arxiv.org/html/2503.20005v2"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "design",
+          "label": "计算筛选",
+          "detail": "BEE-NET加物理计算",
+          "status": "completed"
+        },
+        {
+          "kind": "measurement",
+          "label": "低温测量",
+          "detail": "电阻与热力学信号",
+          "status": "completed"
+        },
+        {
+          "kind": "phase_validation",
+          "label": "物相归因",
+          "detail": "Be₂HfNb₂多相仍需保留",
+          "status": "current"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "heading": "成分模型与实验组成闭环",
+      "short": "Pogue等 Zr In Ni闭环",
+      "year": "2023",
+      "stage": "闭环实验",
+      "headline": "Zr In Ni体系约9 K抗磁转变",
+      "team": "Pogue等",
+      "publication": "npj Computational Materials 9, 181 (2023)",
+      "result": "把成分预测、不确定度、新颖性、人工选择与合成测量组合，开展四轮实验迭代。除重发现已有超导体外，在Zr–In–Ni体系发现约9 K的超导抗磁转变信号及相关超导相线索。",
+      "boundary": "接近ZrNiIn₄的相高度亚稳，未分离成单相；约9 K不能直接替代电阻中点。不同筛选阶段的样品分母不同，不宜把成功比例变化全归因于模型。",
+      "reference_point": "以真实实验结果更新候选选择，并将杂相、合成失败和样品不确定性一并保留。",
+      "title": "Closed-loop superconducting materials discovery",
+      "doi": "10.1038/s41524-023-01131-3",
+      "url": "https://www.nature.com/articles/s41524-023-01131-3",
+      "extra": [
+        [
+          "作者实验数据目录",
+          "https://data.paradim.org/doi/w3xm-w506/"
+        ]
+      ],
+      "category": "实验研究",
+      "evidence_type": "闭环实验；亚稳混相",
+      "pressure": "未报告外加高压",
+      "tc_criterion": "约9 K抗磁转变",
+      "verified_version": "2023正式论文；未分离单相",
+      "reviewed_on": "2026-11-01",
+      "primary_refs": [
+        {
+          "label": "原始来源",
+          "url": "https://www.nature.com/articles/s41524-023-01131-3"
+        },
+        {
+          "label": "作者实验数据目录",
+          "url": "https://data.paradim.org/doi/w3xm-w506/"
+        }
+      ],
+      "progress_steps": [
+        {
+          "kind": "design",
+          "label": "模型推荐",
+          "detail": "推荐合成对象",
+          "status": "completed"
+        },
+        {
+          "kind": "feedback",
+          "label": "实验反馈",
+          "detail": "多轮结果回到模型",
+          "status": "completed"
+        },
+        {
+          "kind": "phase_validation",
+          "label": "物相限制",
+          "detail": "约9 K相高度亚稳、未分离单相",
+          "status": "current"
+        }
+      ]
+    }
+  ]
+}

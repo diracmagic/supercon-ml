@@ -24,6 +24,7 @@ concurrency:
 jobs:
   deploy:
     name: Publish to GitHub Pages
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -38,7 +39,7 @@ jobs:
       - name: Assemble the site
         run: |
           mkdir -p _site/icons
-          cp app/dist/index.html app/dist/manifest.webmanifest app/dist/sw.js _site/
+          cp -R app/dist/. _site/
           cp progress/progress.json _site/progress.json
           node app/scripts/make-icon.mjs _site/icons/icon-192.png 192
           node app/scripts/make-icon.mjs _site/icons/icon-512.png 512

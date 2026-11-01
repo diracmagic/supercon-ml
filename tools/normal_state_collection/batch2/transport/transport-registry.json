@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "source_id": "batch2:nbn-mo-2025:reference:4b24fcdf88508f21",
+      "raw_path": "transport/raw/nbn_mo_data/Fig3/Fig3_NbN_R-R300K(Temperature).txt",
+      "sha256": "4b24fcdf88508f214821dafa6c004280da70cfee63159829037da8e057ca1c73",
+      "reference": {
+        "doi": "10.1088/1361-6668/adeaf2",
+        "url": "https://doi.org/10.6084/m9.figshare.29339720.v1",
+        "dataset_doi": "10.6084/m9.figshare.29339720.v1",
+        "publication_date": "2025-07-14",
+        "locator": "Author preprint arXiv:2504.18997 PDF p.5 Table1; p.6 section2B; p.7 Fig3/reference-NbN text; deposited Fig3_NbN_R-R300K(Temperature).txt",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "accessed_url": "https://arxiv.org/pdf/2504.18997",
+        "accessed_version": "Author preprint; publisher article page/data statement inspected; publisher PDF access returned HTML, not treated as full text",
+        "citation": "Korneeva et al. Practical way to increase nonlinearity of kinetic inductance of superconductor. Superconductor Science and Technology 38,075016 (2025). DOI:10.1088/1361-6668/adeaf2",
+        "inspected_fulltext_sha256": "fd57da3865945284e20bfc0ee1c09009ff80bba04db7d1bdad244aee673cc621"
+      },
+      "license": "CC-BY-4.0",
+      "archive_path": "transport/raw/nbn_mo_data.zip",
+      "archive_sha256": "d146bc914912fa4302133af35c04cc08648592e245e34b971939b13f486f24e5",
+      "archive_md5": "b9389c83ac108ab58d1ea49db24e4b90",
+      "download_url": "https://ndownloader.figshare.com/files/55444505",
+      "source_notes": [
+        "Original author-deposited numerical TXT; no collector digitization, smoothing, resampling, temperature clipping or resistance conversion.",
+        "Normalized resistance R/R(300K), dimensionless; not ohm or intrinsic resistivity.",
+        "RRR<1 and increasing resistance on cooling are reported; not relabeled as a nonsuperconducting or parent-negative sample."
+      ]
+    }
+  ],
+  "source_root": "work/normal-state-batch2",
+  "ledger_written": false
+}

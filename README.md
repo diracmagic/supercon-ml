@@ -100,6 +100,33 @@ Radar decides which model a material goes to. From its composition and crystal s
 
 The AI agent proposed eight designs in round 1, from Hurricane's physics features and the crystal structure to balanced classes, a five-seed average and calibrated probabilities, and ranked them by the log loss, which punishes confident mistakes. Radar 1.0's probabilities are well calibrated (calibration error 0.4 percentage points), and its most important inputs are the oxygen share, the FeAs- or FeSe-type layer and the f-electron count. The harder test leaves out a whole family. Trained without any cuprate, Radar still sends every cuprate to Hurricane; trained without heavy-fermion compounds, it sends only 1% of them there, and only 33% of the iron- and nickel-based compounds, because these families look like ordinary intermetallics in their chemistry. Radar can route a new material of a known kind, but a new family needs physics, not only a classifier. Graded materials are scored by a Radar that never saw them (those also in 3DSC out of fold): UTe<sub>2</sub>, CeRh<sub>2</sub>As<sub>2</sub>, the nickelates and Hg-1223 go to Hurricane and the 36 graded conventional superconductors and hydrides to Storm, as do the kagome metals CsV<sub>3</sub>Sb<sub>5</sub> and KV<sub>3</sub>Sb<sub>5</sub>, whose pairing is still debated. Details are in `results/radar_round1.json`.
 
+## Hurricane 6: report-only embedding experiment
+
+`python ml/hurricane6.py --protocol` prints the frozen comparison and its SHA-256 before training. The experiment compares the released entry-trained Hurricane 4.0, a parent-trained ablation, and that same parent design with frozen **MACE-MP-0 medium** descriptors. Every comparison leaves out a whole family and all chemical systems shared with it. Parent test rows, weak-background weights and handcrafted distance gates are held fixed. Original MP CIFs come from the pinned 3DSC source; artificial doped CIFs and invented atomic coordinates are not accepted.
+
+Each run writes a separate timestamped report and predictions under `results/hurricane6/`; it never changes the released model or `progress.json`. A synthetic `--smoke` run checks the implementation only and cannot count as a scientific result. Full results must pass the preregistered gain, paired chemical-system bootstrap, calibration, Tc-error and background constraints before being called promising; a separate independent evaluation is still needed for release.
+
+Hosono 2015 observations are recorded in `data/hosono2015_negatives.json` with experimental conditions and source locations. The image-table import is **incomplete**: only individually verified records are included, and records missing required conditions cannot become training labels. A sample with no observed transition above its measurement floor is not a negative label for a parent's potential under all possible dopings or pressures. Validate the records with `python ml/negative_data.py --validate data/hosono2015_negatives.json`.
+
+## Screening round 5 validation
+
+Hurricane's earlier five-fold screening average could include a candidate's own artificial negative background label in four members. Round 5 fixes this: **all five members exclude the candidate's background chemical-system fold**, while varying the labelled-data training fold. Regression tests deliberately use a model that memorises negative rows and reject any contaminated query. The min/max probabilities describe model disagreement, not a confidence interval. Historical screening results are retained and are not rewritten as corrected predictions.
+
+Storm's candidate view now prioritises finite training-domain distances <= 1, separates exploration, and adds B- and C-containing metallic sublists from the same filtered pool. Each list has at most 50 entries, one per chemical system; the app receives their union so directed picks remain inspectable. `SCREEN_PHONONS=1 python ml/pipeline.py screen` optionally checks up to three in-domain picks with bounded MACE-MP-0/ASE finite displacements. The fixed-cell 2x2x2 supercell samples an eight-point q mesh, checks residual forces and reports unavailable/inconclusive results explicitly. This is potential-model triage, not a converged full-Brillouin-zone, DFT or superconductivity check.
+
+`data/candidate_literature_audit.json` records the searches and evidence for the previous Hurricane top ten. No search hit is treated as an exhaustive absence claim. Candidate checks retain measurement limits and sample scope, including when an abstract cannot establish a superconductivity null result.
+
+To check the code without downloading MACE weights:
+
+```bash
+pip install numpy pandas scikit-learn ase
+python -m unittest discover -s tests -v
+node --test tests/test_app_candidates.mjs
+python ml/hurricane6.py --smoke --output-dir /tmp/hurricane6-smoke
+```
+
+The training workflow preserves result artifacts on feature branches and only publishes progress from `main`. A failed publish exhausts its retries with a failed job rather than silently reporting success.
+
 ## When is a model done?
 
 An AI agent can always propose another round, so each model follows the same rules:
@@ -171,7 +198,7 @@ Each paper uses its own data split, so these numbers are a reference point rathe
 - `data/`: graded measured T<sub>c</sub> used only for checks (`experiments.json` for Storm, `hurricane_anchors.json` for Hurricane).
 - `feed/papers.py`: collects new superconductivity papers and news, and the AI × superconductors list, into `progress/papers.json`; `.github/workflows/papers.yml` runs it every three hours.
 - `results/`: metrics and predictions from the latest training run.
-- `app/`: the desktop app (Tauri). `app/dist/index.html` is the whole interface; `manifest.webmanifest` and `sw.js` make the same page installable on phones. `app/scripts/third-party-notices.mjs` writes the licence notices for the installers.
+- `app/`: the desktop app (Tauri). `app/dist/index.html` loads the styles and ordered feature resources listed in `app/dist/assets.json`; `app/FRONTEND_STRUCTURE.md` explains the loading and validation rules. `manifest.webmanifest` and `sw.js` make the same page installable on phones. `app/scripts/third-party-notices.mjs` writes the licence notices for the installers.
 - `.github/workflows/app.yml`: builds the Windows and macOS installers and publishes them as a release.
 - `.github/workflows/pages.yml`: publishes the phone version to GitHub Pages.
 

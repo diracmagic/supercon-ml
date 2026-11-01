@@ -1,0 +1,1490 @@
+{
+  "schema_version": 2,
+  "searched_on": "2026-10-31",
+  "materials": [
+    {
+      "rank_at_audit": 54,
+      "material_id": "JVASP-155635",
+      "formula": "SrLi2Zn2",
+      "model": "Storm",
+      "composition": {
+        "Sr": 1,
+        "Li": 2,
+        "Zn": 2
+      },
+      "conventional_formula": "Li2SrZn2",
+      "track_ranks": {
+        "storm_in_domain": 8
+      },
+      "prediction_at_audit": {
+        "tc_pred": 2.35,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "SrLi2Zn2",
+        "Li2SrZn2"
+      ],
+      "candidate_structure": {
+        "space_group": "I4/mmm (139)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155635.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "未找到SrLi2Zn2的可用超导报告，结果未知。",
+      "search_log": [
+        {
+          "query": "\"SrLi2Zn2\"",
+          "outcome": "原式精确查询无可用结果。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "Li2SrZn2 strontium lithium zinc superconductivity",
+          "outcome": "Sr-Li-Zn体系查询未核定此1:2:2相的SC实测；元素Sr、Li的SC不能直接转移。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"Li2SrZn2\"",
+          "outcome": "精确别名查询未返回可用结果；这不证明物相不存在或没有SC。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155635.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "没有把元素SC、其他Li-Zn间金属或未检查的结构数据库视作确切相实验。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 54,
+        "tc_pred": 2.35,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 8
+        }
+      }
+    },
+    {
+      "rank_at_audit": 55,
+      "material_id": "JVASP-107977",
+      "formula": "SrTl3",
+      "model": "Storm",
+      "composition": {
+        "Sr": 2,
+        "Tl": 6
+      },
+      "conventional_formula": "Tl3Sr",
+      "track_ranks": {
+        "storm_exploration": 47
+      },
+      "prediction_at_audit": {
+        "tc_pred": 2.34,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "SrTl3",
+        "Tl3Sr",
+        "strontium trithallide"
+      ],
+      "candidate_structure": {
+        "space_group": "P6_3/mmc (194)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-107977.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "needs-full-text",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "有SrTl3二手结构线索，原始论文和相条件待核；超导结果未知。",
+      "search_log": [
+        {
+          "query": "\"SrTl3\" superconductivity",
+          "outcome": "SrTl3精确加SC关键词返回大量SRTL3缩写碰撞。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "Tl3Sr strontium thallium SrTl3 crystal",
+          "outcome": "strontium tri-thallide的二手材料书目页有同式线索，但原始研究尚未定位并打开。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"SrTl3\" strontium trithallide",
+          "outcome": "补充精确式/名称查询主要为词形碰撞和二手结构概述；尚未检视原始实验。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.sciencedirect.com/topics/chemical-engineering/thallium-compound",
+          "kind": "secondary-overview-lead-access-failed",
+          "supports": "索引出现SrTl3三铊化锶的结构文字；这是二手主题页且直接访问403，不据此确认P6_3/mmc候选相或物性。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-107977.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "二手线索称立方而候选为P6_3/mmc；这进一步要求核定多形/结构身份。未把不同结构、Tl含铜氧化物或元素Tl的SC当本候选证据。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 55,
+        "tc_pred": 2.34,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_exploration": 47
+        }
+      }
+    },
+    {
+      "rank_at_audit": 56,
+      "material_id": "JVASP-179118",
+      "formula": "BaLaGa4",
+      "model": "Storm",
+      "composition": {
+        "Ba": 1,
+        "La": 1,
+        "Ga": 4
+      },
+      "conventional_formula": "LaBaGa4",
+      "track_ranks": {
+        "storm_exploration": 48
+      },
+      "prediction_at_audit": {
+        "tc_pred": 2.34,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "BaLaGa4",
+        "LaBaGa4"
+      ],
+      "candidate_structure": {
+        "space_group": "F-43m (216)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-179118.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "未找到BaLaGa4候选的可用超导报告，结果未知。",
+      "search_log": [
+        {
+          "query": "\"BaLaGa4\"",
+          "outcome": "原式检索主要为非材料字符串碰撞，没有匹配原始报告。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "BaLaGa4 LaBaGa4 barium lanthanum gallium superconductivity",
+          "outcome": "La/Ba/Ga体系检索返回REAgxGa4-x等含Ag材料；其4.2K无SC声明不属于BaLaGa4。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"LaBaGa4\"",
+          "outcome": "别名查询的返回结果未建立该候选的匹配SC实验；文字碰撞/结构列表不作为SC证据。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-179118.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "LaAgxGa4-x、BaGa4、La的实验及其他Li-Ga体系不可转给有序BaLaGa4。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 56,
+        "tc_pred": 2.34,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_exploration": 48
+        }
+      }
+    },
+    {
+      "rank_at_audit": 57,
+      "material_id": "JVASP-79828",
+      "formula": "LiLaHg2",
+      "model": "Storm",
+      "composition": {
+        "Li": 1,
+        "La": 1,
+        "Hg": 2
+      },
+      "conventional_formula": "LaLiHg2",
+      "track_ranks": {
+        "storm_exploration": 49
+      },
+      "prediction_at_audit": {
+        "tc_pred": 2.33,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "LiLaHg2",
+        "LaLiHg2"
+      ],
+      "candidate_structure": {
+        "space_group": "Fm-3m (225)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-79828.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "needs-full-text",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "只有数据库结构线索，未找到LiLaHg2的可用超导实验或先前Tc预测。",
+      "search_log": [
+        {
+          "query": "\"LiLaHg2\"",
+          "outcome": "精确式在VoroTop/MaterialsProject衍生结构表和MP20数据集中出现；不是SC实验。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "LaLiHg2 lanthanum lithium mercury LiLaHg2 superconductivity",
+          "outcome": "体系查询出现LaHg6.4超导和La氢化物，但均不是含Li的LiLaHg2。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"LaLiHg2\"",
+          "outcome": "精确别名查询未返回可用结果；这不证明物相不存在或没有SC。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.vorotop.org/filter-library.html",
+          "kind": "primary-computational-library-page-opened-entry-index-only",
+          "locator": "Page describes MaterialsProject-derived filters; LiLaHg2 row visible in search index only",
+          "supports": "已打开库说明，确认其条目来自MaterialsProject计算结构和Voronoi分类。精确LiLaHg2条目仅检索索引可见，页面正文未展开该行，不能据此确认合成或SC实验。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-79828.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "LaHg6.4是不同成分，不能因同含La/Hg就转移2.4K SC；MP20/VoroTop结构列表不是物性实验文献。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 57,
+        "tc_pred": 2.33,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_exploration": 49
+        }
+      }
+    },
+    {
+      "rank_at_audit": 58,
+      "material_id": "JVASP-155765",
+      "formula": "Al2Zn2In",
+      "model": "Storm",
+      "composition": {
+        "Al": 2,
+        "Zn": 2,
+        "In": 1
+      },
+      "conventional_formula": "InAl2Zn2",
+      "track_ranks": {
+        "storm_exploration": 50
+      },
+      "prediction_at_audit": {
+        "tc_pred": 2.32,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "Al2Zn2In",
+        "InAl2Zn2"
+      ],
+      "candidate_structure": {
+        "space_group": "I4/mmm (139)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155765.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "未找到Al2Zn2In确切候选的可用超导报告，结果未知。",
+      "search_log": [
+        {
+          "query": "\"Al2Zn2In\"",
+          "outcome": "原式精确查询无可用结果。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "InAl2Zn2 aluminum zinc indium superconductivity",
+          "outcome": "Al-Zn-In体系SC查询主要返回各元素或稀溶质影响，未核定2:2:1相。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"InAl2Zn2\"",
+          "outcome": "精确别名查询未返回可用结果；这不证明物相不存在或没有SC。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155765.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "各元素或任意合金混合物的SC不证明该2:2:1有序相；未据缺少检索结果声称不存在。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 58,
+        "tc_pred": 2.32,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_exploration": 50
+        }
+      }
+    },
+    {
+      "rank_at_audit": 59,
+      "material_id": "JVASP-108075",
+      "formula": "Sr2AlGa3",
+      "model": "Storm",
+      "composition": {
+        "Sr": 2,
+        "Al": 1,
+        "Ga": 3
+      },
+      "conventional_formula": "Sr2Ga3Al",
+      "track_ranks": {
+        "storm_in_domain": 9
+      },
+      "prediction_at_audit": {
+        "tc_pred": 2.16,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "Sr2AlGa3",
+        "Sr2Ga3Al"
+      ],
+      "candidate_structure": {
+        "space_group": "P-6m2 (187)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-108075.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "未找到Sr2AlGa3的可用超导报告，结果未知。",
+      "search_log": [
+        {
+          "query": "\"Sr2AlGa3\"",
+          "outcome": "原式精确查询无可用结果。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "Sr2Ga3Al strontium aluminum gallium superconductivity",
+          "outcome": "Sr-Al-Ga查询返回含Ge的SrAlGe/SrGaGe或元素Sr等，不是Sr2AlGa3。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"Sr2Ga3Al\"",
+          "outcome": "精确别名查询未返回可用结果；这不证明物相不存在或没有SC。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-108075.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "SrAlGe、SrGaGe、BaAlGe及不同Ga/Al比例不能替代本候选。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 59,
+        "tc_pred": 2.16,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 9
+        }
+      }
+    },
+    {
+      "rank_at_audit": 60,
+      "material_id": "JVASP-161412",
+      "formula": "NaLi2Zn",
+      "model": "Storm",
+      "composition": {
+        "Na": 1,
+        "Li": 2,
+        "Zn": 1
+      },
+      "conventional_formula": "Li2NaZn",
+      "track_ranks": {
+        "storm_in_domain": 10
+      },
+      "prediction_at_audit": {
+        "tc_pred": 2.02,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "NaLi2Zn",
+        "Li2NaZn"
+      ],
+      "candidate_structure": {
+        "space_group": "Fm-3m (225)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161412.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "未找到NaLi2Zn的可用超导报告，结果未知。",
+      "search_log": [
+        {
+          "query": "\"NaLi2Zn\"",
+          "outcome": "原式精确查询无可用结果。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "Li2NaZn sodium lithium zinc superconductivity",
+          "outcome": "Na-Li-Zn体系查询没有核定匹配SC实验；Na3Cl/Li3Cl、元素Li等计量与化学体系不同。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"Li2NaZn\"",
+          "outcome": "精确别名查询未返回可用结果；这不证明物相不存在或没有SC。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-161412.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "其他化学体系的反常计量预测或元素Li低温SC不能推给NaLi2Zn。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 60,
+        "tc_pred": 2.02,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 10
+        }
+      }
+    },
+    {
+      "rank_at_audit": 61,
+      "material_id": "JVASP-100191",
+      "formula": "La2ZnHg",
+      "model": "Storm",
+      "composition": {
+        "La": 2,
+        "Zn": 1,
+        "Hg": 1
+      },
+      "conventional_formula": "La2HgZn",
+      "track_ranks": {
+        "storm_in_domain": 11
+      },
+      "prediction_at_audit": {
+        "tc_pred": 1.96,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "La2ZnHg",
+        "La2HgZn"
+      ],
+      "candidate_structure": {
+        "space_group": "Fm-3m (225)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-100191.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "检索到材料列表线索，尚无可用的La2ZnHg超导实验或先前Tc预测。",
+      "search_log": [
+        {
+          "query": "\"La2ZnHg\"",
+          "outcome": "原式命中机器学习材料列表的补充文件索引，不是该物相的实验报告。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "La2HgZn lanthanum zinc mercury superconductivity",
+          "outcome": "La-Zn-Hg体系SC查询命中LaHg6.4及元素资料，没有匹配La2ZnHg实验。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"La2HgZn\"",
+          "outcome": "精确别名查询未返回可用结果；这不证明物相不存在或没有SC。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.rsc.org/suppdata/d5/dd/d5dd00061k/d5dd00061k1.pdf",
+          "kind": "primary-ML-supplement-index-lead-not-opened",
+          "supports": "精确化学式只出现在ML/候选列表的检索索引中，本次未打开原文件，不据列表内容认定合成、实验性质或Tc。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-100191.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "不能将ML提示词/列表中的式子当物性证据。LaHg6.4不含Zn且La/Hg比不同。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 61,
+        "tc_pred": 1.96,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 11
+        }
+      }
+    },
+    {
+      "rank_at_audit": 62,
+      "material_id": "JVASP-74563",
+      "formula": "KBeGa4",
+      "model": "Storm",
+      "composition": {
+        "K": 1,
+        "Be": 1,
+        "Ga": 4
+      },
+      "conventional_formula": "BeKGa4",
+      "track_ranks": {
+        "storm_in_domain": 12
+      },
+      "prediction_at_audit": {
+        "tc_pred": 1.92,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "KBeGa4",
+        "BeKGa4"
+      ],
+      "candidate_structure": {
+        "space_group": "F-43m (216)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-74563.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "未找到KBeGa4的可用超导报告，结果未知。",
+      "search_log": [
+        {
+          "query": "\"KBeGa4\"",
+          "outcome": "原式精确检索无可用结果。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "KBeGa4 potassium beryllium gallium superconductivity",
+          "outcome": "K-Be-Ga体系SC查询返回元素Ga薄膜、含氢体系和二元Li-Ga，未核定此1:1:4候选。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"KBeGa4\" gallium",
+          "outcome": "精确别名查询未返回可用结果；这不证明物相不存在或没有SC。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"BeKGa4\" potassium gallium",
+          "outcome": "精确别名查询未返回可用结果；这不证明物相不存在或没有SC。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-74563.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "K掺杂其他材料、元素Be/Ga、LiGa3或Li6Ga都不是KBeGa4。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 62,
+        "tc_pred": 1.92,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 12
+        }
+      }
+    },
+    {
+      "rank_at_audit": 63,
+      "material_id": "JVASP-78995",
+      "formula": "Zn3Ge",
+      "model": "Storm",
+      "composition": {
+        "Zn": 3,
+        "Ge": 1
+      },
+      "conventional_formula": "GeZn3",
+      "track_ranks": {
+        "storm_in_domain": 13
+      },
+      "prediction_at_audit": {
+        "tc_pred": 1.86,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "Zn3Ge",
+        "GeZn3"
+      ],
+      "candidate_structure": {
+        "space_group": "I4/mmm (139)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-78995.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "未找到Zn3Ge确切候选相的可用超导报告，结果未知。",
+      "search_log": [
+        {
+          "query": "\"Zn3Ge\" superconductivity",
+          "outcome": "Zn3Ge字符串与Zn-3Ge合金/用户名碰撞，未核定3:1相的SC实测。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "GeZn3 zinc germanium 3:1 superconductivity",
+          "outcome": "GeZn3体系查询返回Nb3Ge和Ga掺杂Ge，均不同于Zn3Ge。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"GeZn3\"",
+          "outcome": "别名查询的返回结果未建立该候选的匹配SC实验；文字碰撞/结构列表不作为SC证据。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-78995.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "Zn-3Ge材料标注可能表示合金含量，不等于Zn3Ge计量。Nb3Ge和掺杂Ge不得转移。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 63,
+        "tc_pred": 1.86,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 13
+        }
+      }
+    },
+    {
+      "rank_at_audit": 64,
+      "material_id": "JVASP-186125",
+      "formula": "LiCaGa2",
+      "model": "Storm",
+      "composition": {
+        "Li": 1,
+        "Ca": 1,
+        "Ga": 2
+      },
+      "conventional_formula": "CaLiGa2",
+      "track_ranks": {
+        "storm_in_domain": 14
+      },
+      "prediction_at_audit": {
+        "tc_pred": 1.81,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "LiCaGa2",
+        "CaLiGa2"
+      ],
+      "candidate_structure": {
+        "space_group": "Fm-3m (225)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-186125.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "原始学位论文中的名义LiCaGa2最终解析为Li11Ca15Ga32.3；未建立候选LiCaGa2相的实验SC结论。",
+      "search_log": [
+        {
+          "query": "\"LiCaGa2\"",
+          "outcome": "精确式命中1997原始学位论文；已打开并检查对应合成与最终结构章节。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "CaLiGa2 lithium calcium gallium superconductivity",
+          "outcome": "二元CaLi2、LiGa3等SC报道不适用于LiCaGa2；原始学位论文最终相也非本候选。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"LiCaGa2\" crystal structure",
+          "outcome": "原式查询命中已打开学位论文；已核实名义LiCaGa2与最终Li11Ca15Ga32.3不同，不能套用给候选。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"CaLiGa2\"",
+          "outcome": "原式查询命中已打开学位论文；已核实名义LiCaGa2与最终Li11Ca15Ga32.3不同，不能套用给候选。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.uni-kassel.de/upress/online/frei/978-3-7281-2597-2.volltext.frei.pdf",
+          "cite": "P. Hofmann, ETH Dissertation12210, Synthese, Struktur und Eigenschaften von binären und ternären Alkali- und Erdalkalimetallgalliden(1997), ISBN3-7281-2597-0.",
+          "kind": "primary-thesis-full-text-near-composition-rejected",
+          "locator": "Printed pp.94–100, Table5.5; section7.1 printed pp.151–154 (PDF pp.171–174)",
+          "supports": "合成过程中初步/近似组成一度记为LiCaGa2；最终结构章节题为Li11Ca15Ga32.3。不能将其当成确切有序LiCaGa2(Fm-3m)的样品，更不是SC测试。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-186125.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "名义投料比例、初步近似组成和最终精修化学式必须区分。其他未纯化或未生成的物相不能变成SC真负。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 64,
+        "tc_pred": 1.81,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 14
+        }
+      }
+    },
+    {
+      "rank_at_audit": 65,
+      "material_id": "JVASP-69171",
+      "formula": "KBaTl2",
+      "model": "Storm",
+      "composition": {
+        "K": 1,
+        "Ba": 1,
+        "Tl": 2
+      },
+      "conventional_formula": "BaKTl2",
+      "track_ranks": {
+        "storm_in_domain": 15
+      },
+      "prediction_at_audit": {
+        "tc_pred": 1.78,
+        "p_sc": 0.595
+      },
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "searched_on": "2026-10-31",
+      "aliases_searched": [
+        "KBaTl2",
+        "BaKTl2"
+      ],
+      "candidate_structure": {
+        "space_group": "P4/mmm (123)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-69171.html",
+        "identity_source": "results/screen_round5.json in completed CI artifact research-results-61"
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "conclusion_zh": "未找到KBaTl2的可用超导报告，结果未知。",
+      "search_log": [
+        {
+          "query": "\"KBaTl2\"",
+          "outcome": "原式精确查询无可用结果。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "BaKTl2 potassium barium thallium superconductivity",
+          "outcome": "K-Ba-Tl体系检索命中含Cu/O铊氧化物及K取代研究，不能支持不含Cu/O的KBaTl2。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        },
+        {
+          "query": "\"KBaTl2\" thallium",
+          "outcome": "精确别名查询未返回可用结果；这不证明物相不存在或没有SC。",
+          "access_status": "search-results-inspected-not-primary-proof"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-69171.html",
+          "kind": "primary-database-link-access-failed",
+          "locator": "Candidate page retrieval unavailable",
+          "supports": "尝试打开原始候选数据库页，工具无法访问；结构身份只来自CI的仓库结果，不由此认定实测或合成。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "structure_matching": {
+        "atomic_coordinate_comparison_performed": false,
+        "experimental_bulk_phase_match_established": false
+      },
+      "limitations": "Tl-Ba-Ca-Cu-O含氧多元超导体及K掺杂资料不适用于KBaTl2。 本次为有界公开检索，不证明新颖性、不存在、未被测试或在其他压力/掺杂条件下无超导。",
+      "checks_action": "No negative superconductivity label and no prior-Tc exclusion added; retain unknown.",
+      "audit_screen_round": 5,
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 65,
+        "tc_pred": 1.78,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 15
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-100952",
+      "formula": "BaNaTl2",
+      "model": "Storm",
+      "rank_at_audit": 66,
+      "composition": {
+        "Ba": 1,
+        "Na": 1,
+        "Tl": 2
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"BaNaTl2\" OR \"NaBaTl2\" superconductivity",
+        "\"BaNaTl2\" OR \"NaBaTl2\" OR \"Tl2BaNa\""
+      ],
+      "search_log": [
+        {
+          "query": "\"BaNaTl2\" OR \"NaBaTl2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"BaNaTl2\" OR \"NaBaTl2\" OR \"Tl2BaNa\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.7,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 66,
+        "tc_pred": 1.7,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 16
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-17274",
+      "formula": "CaZn2Ge2",
+      "model": "Storm",
+      "rank_at_audit": 67,
+      "composition": {
+        "Ca": 1,
+        "Zn": 2,
+        "Ge": 2
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"CaZn2Ge2\" superconductivity",
+        "\"CaZn2Ge2\" crystal structure"
+      ],
+      "search_log": [
+        {
+          "query": "\"CaZn2Ge2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"CaZn2Ge2\" crystal structure",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "Open Khan2022 original institutional PDF",
+          "source_urls": [
+            "https://faculty.uobasrah.edu.iq/uploads/publications/1650144738.pdf"
+          ],
+          "access_status": "primary-full-text-opened",
+          "notes": "Inspected calculation methods, structure and conclusion; generic introductory mentions of superconductivity were not assigned to CaZn2Ge2."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1140/epjp/s13360-022-02577-y",
+          "accessed_url": "https://faculty.uobasrah.edu.iq/uploads/publications/1650144738.pdf",
+          "doi": "10.1140/epjp/s13360-022-02577-y",
+          "cite": "A. A. Khan et al., Thermoelectric, structural, electronic, magnetic, and thermodynamic properties of CaZn2Ge2 compound, EPJ Plus 137, 351 (2022).",
+          "kind": "primary-original-research-institutional-full-text",
+          "locator": "Abstract; methods; Fig. 1 and Table 1, p. 3; conclusion.",
+          "evidence_scope": "A DFT study of tetragonal I4/mmm CaZn2Ge2 addresses structural, electronic, magnetic and thermoelectric properties. It establishes neither a measured superconducting transition nor a computed Tc."
+        }
+      ],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "conclusion_zh": "2022年原文是CaZn2Ge2的DFT结构、磁性及热电研究，不是超导测量或Tc预测。结构未与候选坐标匹配。",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.67,
+        "p_sc": 0.595
+      },
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 67,
+        "tc_pred": 1.67,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 17
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-169699",
+      "formula": "Li2CdBi",
+      "model": "Storm",
+      "rank_at_audit": 68,
+      "composition": {
+        "Li": 2,
+        "Cd": 1,
+        "Bi": 1
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"Li2CdBi\" OR \"CdLi2Bi\" superconductivity",
+        "\"Li2CdBi\" OR \"Li2BiCd\" OR \"CdBiLi2\""
+      ],
+      "search_log": [
+        {
+          "query": "\"Li2CdBi\" OR \"CdLi2Bi\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"Li2CdBi\" OR \"Li2BiCd\" OR \"CdBiLi2\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.63,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 68,
+        "tc_pred": 1.63,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 18
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-40873",
+      "formula": "CaLaZn2",
+      "model": "Storm",
+      "rank_at_audit": 69,
+      "composition": {
+        "Ca": 1,
+        "La": 1,
+        "Zn": 2
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"CaLaZn2\" OR \"LaCaZn2\" superconductivity",
+        "\"CaLaZn2\" OR \"LaCaZn2\" OR \"Zn2LaCa\""
+      ],
+      "search_log": [
+        {
+          "query": "\"CaLaZn2\" OR \"LaCaZn2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"CaLaZn2\" OR \"LaCaZn2\" OR \"Zn2LaCa\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.57,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 69,
+        "tc_pred": 1.57,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 19
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-15791",
+      "formula": "SrZn2Ge2",
+      "model": "Storm",
+      "rank_at_audit": 70,
+      "composition": {
+        "Sr": 1,
+        "Zn": 2,
+        "Ge": 2
+      },
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"SrZn2Ge2\" superconductivity",
+        "\"SrZn2Ge2\" superconducting transition resistivity"
+      ],
+      "search_log": [
+        {
+          "query": "\"SrZn2Ge2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"SrZn2Ge2\" superconducting transition resistivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "Open SrZn2Ge2 original author preprint; inspect methods and transport",
+          "source_urls": [
+            "https://arxiv.org/pdf/2310.10621"
+          ],
+          "access_status": "primary-preprint-full-text-opened",
+          "notes": "Separated the exact candidate compound from superconducting SrPd2Ge2 mentioned in the introduction."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://arxiv.org/abs/2310.10621",
+          "accessed_url": "https://arxiv.org/pdf/2310.10621",
+          "doi": "10.48550/arXiv.2310.10621",
+          "cite": "M. K. Hooda et al., Electronic Transport and Fermi Surface Topology of Zintl Phase Compound SrZn2Ge2, arXiv:2310.10621 (2023), author preprint.",
+          "kind": "primary-author-preprint-full-text",
+          "locator": "Experimental details, pp. 1–2; transport discussion and figures.",
+          "evidence_scope": "Pb-flux-grown single crystals were studied by four-probe magnetotransport over 2–300 K with fields up to 10 T. The preprint discusses metallic transport and a low-temperature resistivity plateau, not a demonstrated superconducting transition."
+        }
+      ],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "published_version": {
+        "doi": "10.1016/j.jallcom.2024.178130",
+        "cite": "Electronic transport and Fermi surface topology of nontrivial Dirac metal SrZn2Ge2, Journal of Alloys and Compounds 1010, 178130 (2025).",
+        "access_status": "Publisher-indexed metadata inspected; numerical method ranges above were verified in the opened preprint, not silently transferred between versions."
+      },
+      "measurement_conditions": [
+        {
+          "quantity": "four-probe magnetotransport",
+          "tmin_k": 2,
+          "tmax_k": 300,
+          "max_field_t": 10,
+          "locator": "Preprint Experimental details, pp. 1–2."
+        }
+      ],
+      "conclusion_zh": "作者预印本报告SrZn2Ge2单晶2–300 K输运和低温电阻平台。引言中的超导体SrPd2Ge2是不同成分，不能算当前候选命中。",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.56,
+        "p_sc": 0.595
+      },
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 70,
+        "tc_pred": 1.56,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 20
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-40047",
+      "formula": "KTl2Bi",
+      "model": "Storm",
+      "rank_at_audit": 71,
+      "composition": {
+        "K": 1,
+        "Tl": 2,
+        "Bi": 1
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"KTl2Bi\" OR \"KBiTl2\" superconductivity",
+        "\"KTl2Bi\" OR \"Tl2KBi\" OR \"BiKTl2\""
+      ],
+      "search_log": [
+        {
+          "query": "\"KTl2Bi\" OR \"KBiTl2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"KTl2Bi\" OR \"Tl2KBi\" OR \"BiKTl2\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.51,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 71,
+        "tc_pred": 1.51,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 21
+        }
+      }
+    },
+    {
+      "material_id": "JVASP-156876",
+      "formula": "SrLaZn2",
+      "model": "Storm",
+      "rank_at_audit": 72,
+      "composition": {
+        "Sr": 1,
+        "La": 1,
+        "Zn": 2
+      },
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "aliases_searched": [
+        "\"SrLaZn2\" OR \"LaSrZn2\" superconductivity",
+        "\"SrLaZn2\" OR \"LaSrZn2\" OR \"Zn2SrLa\""
+      ],
+      "search_log": [
+        {
+          "query": "\"SrLaZn2\" OR \"LaSrZn2\" superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        },
+        {
+          "query": "\"SrLaZn2\" OR \"LaSrZn2\" OR \"Zn2SrLa\"",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity report was established."
+        }
+      ],
+      "sources": [],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "A bounded formula/alternative-order search cannot establish that the material does not exist, was never measured or cannot superconduct. Candidate atomic coordinates were not matched.",
+      "checks_action": "No negative training label, superconductivity check or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 5,
+      "audit_scope": "First audited against screening round 5; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 1.51,
+        "p_sc": 0.595
+      },
+      "conclusion_zh": "本轮检索未找到可用的确切报告，结果未知。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 72,
+        "tc_pred": 1.51,
+        "p_sc": 0.595,
+        "p_lo": null,
+        "p_hi": null,
+        "tracks": {
+          "storm_in_domain": 22
+        }
+      }
+    }
+  ]
+}

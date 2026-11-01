@@ -1,0 +1,804 @@
+{
+  "status": "passed",
+  "run_id": "20261101T042028909465Z-1793506828909486216",
+  "github_run_id": "41272635768",
+  "source_commit": "8503bae5437352818eefce894f17ca88cb3cf602",
+  "target": "Recomputed simplified Allen-Dynes Tc (K), f1=f2=1, not measured Tc",
+  "report_only": true,
+  "adopted": false,
+  "paths": {
+    "script": ".github/scripts/audit_storm6_ci65.py",
+    "artifact_dir": "../research-results-65",
+    "predictions": "../research-results-65/results/storm6/20261101T042028909465Z-1793506828909486216/predictions.csv",
+    "report": "../research-results-65/results/storm6/20261101T042028909465Z-1793506828909486216/report.json",
+    "protocol": "../research-results-65/results/storm6/20261101T042028909465Z-1793506828909486216/protocol.json",
+    "folds": "../research-results-65/results/storm6/20261101T042028909465Z-1793506828909486216/folds.json"
+  },
+  "integrity": {
+    "protocol_sha256": "f6558662af52f487f2c74aebfcf997c55fcf7a70c88a82ad289dfc2bc0438e19",
+    "executed_source_hashes_match": {
+      "data/experiments.json": true,
+      "ml/mechanism_features.py": true,
+      "ml/pipeline.py": true,
+      "ml/storm6.py": true
+    },
+    "reference_hashes_match": {
+      "gnn_round2_final_predictions.csv": true,
+      "storm_round4.json": true,
+      "storm_round4_predictions.csv": true,
+      "storm_round5.json": true,
+      "storm_round5_ranges.csv": true
+    },
+    "exact_all_design_ID_order_and_fold_labels": true,
+    "reference_label_max_rounding_error_K": {
+      "storm4": 4.999189341603483e-06,
+      "storm5": 4.999189341603483e-06,
+      "gnn": 4.999189341603483e-06
+    },
+    "reference_component_label_max_rounding_error": {
+      "gnn.lambda": 4.999625099366689e-06,
+      "gnn.wlog": 4.9979456377968745e-06
+    },
+    "n_prediction_rows": 37910,
+    "n_unique_ids": 7582,
+    "n_chemical_systems": 4288,
+    "recomputed_outer_and_inner_folds_match": true,
+    "split_checks": [
+      {
+        "fold": 1,
+        "n_train": 6065,
+        "n_proper": 4821,
+        "n_calibration": 1244,
+        "n_test": 1517,
+        "calibration_systems": 686,
+        "quantile_rank": 619,
+        "no_system_overlap": true
+      },
+      {
+        "fold": 2,
+        "n_train": 6065,
+        "n_proper": 4869,
+        "n_calibration": 1196,
+        "n_test": 1517,
+        "calibration_systems": 686,
+        "quantile_rank": 619,
+        "no_system_overlap": true
+      },
+      {
+        "fold": 3,
+        "n_train": 6066,
+        "n_proper": 4853,
+        "n_calibration": 1213,
+        "n_test": 1516,
+        "calibration_systems": 687,
+        "quantile_rank": 620,
+        "no_system_overlap": true
+      },
+      {
+        "fold": 4,
+        "n_train": 6066,
+        "n_proper": 4885,
+        "n_calibration": 1181,
+        "n_test": 1516,
+        "calibration_systems": 687,
+        "quantile_rank": 620,
+        "no_system_overlap": true
+      },
+      {
+        "fold": 5,
+        "n_train": 6066,
+        "n_proper": 4883,
+        "n_calibration": 1183,
+        "n_test": 1516,
+        "calibration_systems": 686,
+        "quantile_rank": 619,
+        "no_system_overlap": true
+      }
+    ],
+    "numeric_report_values_compared": 361,
+    "maximum_report_numeric_difference": 0.0
+  },
+  "cohort": {
+    "n": 7582,
+    "chemical_systems": 4288,
+    "tail_n": 759,
+    "tail_threshold_k": 7.571265198345577,
+    "full_train_ood_n": 365,
+    "proper_train_ood_n": 343
+  },
+  "reference_Storm4_point": {
+    "n": 7582,
+    "mae_k": 0.8979121829929059,
+    "rmse_k": 1.9246074842055394,
+    "r2": 0.7285236960294273,
+    "median_absolute_error_k": 0.2825528508155092,
+    "within_1k_fraction": 0.7492745977314693,
+    "within_2k_fraction": 0.8712740701661831,
+    "fold_mae_k": [
+      0.9706529181198547,
+      0.9726446663149394,
+      0.7853852117203383,
+      0.8735181157890837,
+      0.8872627251717324
+    ],
+    "tail_n": 759,
+    "tail_mae_k": 3.295492111314325,
+    "chemical_systems": 4288,
+    "ood": {
+      "n": 365,
+      "mae_k": 1.3510124589033177
+    },
+    "within_training_distance": {
+      "n": 7217,
+      "mae_k": 0.8749966224127063
+    }
+  },
+  "reference_Storm5_intervals_full_ood365": {
+    "row_coverage": 0.8998944869427592,
+    "group_simultaneous_coverage": 0.8453824626865671,
+    "tail_coverage": 0.8405797101449275,
+    "finite_interval_rows": 7582,
+    "unbounded_interval_rows": 0,
+    "mean_width_k": 3.746814092587708,
+    "median_width_k": 1.810365,
+    "interval_score_k": 7.472632616358568,
+    "ood": {
+      "n": 365,
+      "row_coverage": 0.8054794520547945
+    },
+    "within_training_distance": {
+      "n": 7217,
+      "row_coverage": 0.9046695302757378
+    }
+  },
+  "designs": {
+    "R0": {
+      "point": {
+        "n": 7582,
+        "mae_k": 0.9687274184455796,
+        "rmse_k": 2.0155528648448127,
+        "r2": 0.702260829383683,
+        "median_absolute_error_k": 0.3505830724266982,
+        "within_1k_fraction": 0.7401740965444473,
+        "within_2k_fraction": 0.8685043524136112,
+        "fold_mae_k": [
+          1.0190205845206133,
+          0.9849558253095789,
+          0.8737968748689737,
+          0.9847094226782663,
+          0.9811105051849394
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 3.7348654895707334,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 365,
+          "mae_k": 1.377541221405703
+        },
+        "within_training_distance": {
+          "n": 7217,
+          "mae_k": 0.9480516476155334
+        }
+      },
+      "split_center": {
+        "n": 7582,
+        "mae_k": 1.0242219608707495,
+        "rmse_k": 2.10554640176681,
+        "r2": 0.6750794192427483,
+        "median_absolute_error_k": 0.37590883870682074,
+        "within_1k_fraction": 0.7217093115273016,
+        "within_2k_fraction": 0.8547876549723028,
+        "fold_mae_k": [
+          1.0713773576788561,
+          1.0603958817304142,
+          0.9154844166259646,
+          1.0288097104208394,
+          1.0449874713292913
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 3.9863671425119587,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 343,
+          "mae_k": 1.7066895990695223
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "mae_k": 0.9918851187789994
+        }
+      },
+      "intervals": {
+        "row_coverage": 0.9406489053020312,
+        "group_simultaneous_coverage": 0.9053171641791045,
+        "tail_coverage": 0.841897233201581,
+        "finite_interval_rows": 7582,
+        "unbounded_interval_rows": 0,
+        "mean_width_k": 5.483085905561805,
+        "median_width_k": 2.890434323002773,
+        "interval_score_k": 8.055162295024445,
+        "ood": {
+          "n": 343,
+          "row_coverage": 0.8425655976676385
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "row_coverage": 0.9452963116452548
+        }
+      },
+      "components": null,
+      "paired_bootstrap_vs_Storm4": {
+        "delta_mae_k_new_minus_reference": 0.07081523545267378,
+        "percentile_95_interval_k": [
+          0.05110734270061552,
+          0.09065096801106408
+        ],
+        "repetitions": 1000,
+        "unit": "chemical-system cluster",
+        "selection_adjusted": false,
+        "n": 7582,
+        "chemical_systems": 4288
+      },
+      "maximum_interval_formula_error_K": 5.329070518200751e-15
+    },
+    "R1": {
+      "point": {
+        "n": 7582,
+        "mae_k": 1.013019121738631,
+        "rmse_k": 2.0690930312029883,
+        "r2": 0.6862327414506256,
+        "median_absolute_error_k": 0.3476088513352117,
+        "within_1k_fraction": 0.7032445265101557,
+        "within_2k_fraction": 0.846214719071485,
+        "fold_mae_k": [
+          1.0486068184573316,
+          1.003073625834255,
+          0.9490803420149801,
+          1.0675887234766674,
+          0.996729184529436
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 3.056020527112582,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 365,
+          "mae_k": 1.613092349679177
+        },
+        "within_training_distance": {
+          "n": 7217,
+          "mae_k": 0.9826703995274214
+        }
+      },
+      "split_center": {
+        "n": 7582,
+        "mae_k": 1.0846566709094252,
+        "rmse_k": 2.2129284042709805,
+        "r2": 0.6410926818288845,
+        "median_absolute_error_k": 0.3544883541033903,
+        "within_1k_fraction": 0.6925613294645212,
+        "within_2k_fraction": 0.8317066737008705,
+        "fold_mae_k": [
+          1.087371180602176,
+          1.0360114027876903,
+          0.9840975465379891,
+          1.1565391220777625,
+          1.159294399875565
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 3.2293997627881943,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 343,
+          "mae_k": 1.9901979309020688
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "mae_k": 1.0417501020218058
+        }
+      },
+      "intervals": {
+        "row_coverage": 0.9380110788710103,
+        "group_simultaneous_coverage": 0.9057835820895522,
+        "tail_coverage": 0.9090909090909091,
+        "finite_interval_rows": 7582,
+        "unbounded_interval_rows": 0,
+        "mean_width_k": 6.890065230149132,
+        "median_width_k": 2.9857398081967603,
+        "interval_score_k": 9.183776803914903,
+        "ood": {
+          "n": 343,
+          "row_coverage": 0.8513119533527697
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "row_coverage": 0.9421190772206106
+        }
+      },
+      "components": {
+        "lambda": {
+          "mae": 0.09160850936486695,
+          "rmse": 0.15106102360971752,
+          "unit": "dimensionless"
+        },
+        "wlog": {
+          "mae": 20.86267162413798,
+          "rmse": 31.80385744493099,
+          "unit": "K"
+        }
+      },
+      "paired_bootstrap_vs_Storm4": {
+        "delta_mae_k_new_minus_reference": 0.11510693874572503,
+        "percentile_95_interval_k": [
+          0.08087303304932898,
+          0.14582015427881567
+        ],
+        "repetitions": 1000,
+        "unit": "chemical-system cluster",
+        "selection_adjusted": false,
+        "n": 7582,
+        "chemical_systems": 4288
+      },
+      "maximum_interval_formula_error_K": 2.1316282072803006e-14
+    },
+    "R2": {
+      "point": {
+        "n": 7582,
+        "mae_k": 0.9614769512927321,
+        "rmse_k": 1.9957919169395986,
+        "r2": 0.7080704176231227,
+        "median_absolute_error_k": 0.34898919303914977,
+        "within_1k_fraction": 0.7374043787918755,
+        "within_2k_fraction": 0.8689000263782644,
+        "fold_mae_k": [
+          1.0406511520913502,
+          0.9802995040275376,
+          0.8419594960382403,
+          0.9612848541855399,
+          0.98312510846299
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 3.6473685023523323,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 365,
+          "mae_k": 1.3125302077597418
+        },
+        "within_training_distance": {
+          "n": 7217,
+          "mae_k": 0.9437224219023405
+        }
+      },
+      "split_center": {
+        "n": 7582,
+        "mae_k": 1.0319247884900025,
+        "rmse_k": 2.119638408040604,
+        "r2": 0.6707156063118982,
+        "median_absolute_error_k": 0.36945709033495244,
+        "within_1k_fraction": 0.7251384858876286,
+        "within_2k_fraction": 0.8537325243998944,
+        "fold_mae_k": [
+          1.119529582561763,
+          1.071922537828336,
+          0.9075701185016694,
+          1.0127365791296556,
+          1.047780953885442
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 3.9971668239494287,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 343,
+          "mae_k": 1.6655426969348515
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "mae_k": 1.001902555778774
+        }
+      },
+      "intervals": {
+        "row_coverage": 0.9348456871537852,
+        "group_simultaneous_coverage": 0.8966884328358209,
+        "tail_coverage": 0.8155467720685112,
+        "finite_interval_rows": 7582,
+        "unbounded_interval_rows": 0,
+        "mean_width_k": 5.388545018803024,
+        "median_width_k": 2.876484229833302,
+        "interval_score_k": 8.107114274920995,
+        "ood": {
+          "n": 343,
+          "row_coverage": 0.8309037900874635
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "row_coverage": 0.9397706865589169
+        }
+      },
+      "components": null,
+      "paired_bootstrap_vs_Storm4": {
+        "delta_mae_k_new_minus_reference": 0.06356476829982632,
+        "percentile_95_interval_k": [
+          0.03956657838589143,
+          0.08496160488212368
+        ],
+        "repetitions": 1000,
+        "unit": "chemical-system cluster",
+        "selection_adjusted": false,
+        "n": 7582,
+        "chemical_systems": 4288
+      },
+      "maximum_interval_formula_error_K": 5.329070518200751e-15
+    },
+    "R3": {
+      "point": {
+        "n": 7582,
+        "mae_k": 0.9841103213183945,
+        "rmse_k": 2.0043070736107285,
+        "r2": 0.7055740360443461,
+        "median_absolute_error_k": 0.3346586990931665,
+        "within_1k_fraction": 0.7095753099446056,
+        "within_2k_fraction": 0.8509628066473226,
+        "fold_mae_k": [
+          1.0433742614852997,
+          0.9854354017442726,
+          0.8962850607009623,
+          1.0232027600981357,
+          0.9722141561908794
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 2.928058642107634,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 365,
+          "mae_k": 1.514274362048779
+        },
+        "within_training_distance": {
+          "n": 7217,
+          "mae_k": 0.9572972584298548
+        }
+      },
+      "split_center": {
+        "n": 7582,
+        "mae_k": 1.032232402680954,
+        "rmse_k": 2.124659969920411,
+        "r2": 0.6691535657266189,
+        "median_absolute_error_k": 0.3490638700524491,
+        "within_1k_fraction": 0.704563439725666,
+        "within_2k_fraction": 0.8419941967818517,
+        "fold_mae_k": [
+          1.070276792077758,
+          1.0279328732460467,
+          0.9720201528838468,
+          1.0755204920083004,
+          1.0153894440463627
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 3.140331675661359,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 343,
+          "mae_k": 1.9742532711601384
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "mae_k": 0.9875973484071094
+        }
+      },
+      "intervals": {
+        "row_coverage": 0.9453969928778686,
+        "group_simultaneous_coverage": 0.9134794776119403,
+        "tail_coverage": 0.9104084321475626,
+        "finite_interval_rows": 7582,
+        "unbounded_interval_rows": 0,
+        "mean_width_k": 7.074488593529235,
+        "median_width_k": 3.164974170722763,
+        "interval_score_k": 9.128389190079512,
+        "ood": {
+          "n": 343,
+          "row_coverage": 0.8513119533527697
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "row_coverage": 0.9498549523414836
+        }
+      },
+      "components": {
+        "lambda": {
+          "mae": 0.09034213471220079,
+          "rmse": 0.14922978108207113,
+          "unit": "dimensionless"
+        },
+        "wlog": {
+          "mae": 20.706956074978528,
+          "rmse": 31.39978973185917,
+          "unit": "K"
+        }
+      },
+      "paired_bootstrap_vs_Storm4": {
+        "delta_mae_k_new_minus_reference": 0.08619813832548852,
+        "percentile_95_interval_k": [
+          0.055178981637531294,
+          0.11443614073551014
+        ],
+        "repetitions": 1000,
+        "unit": "chemical-system cluster",
+        "selection_adjusted": false,
+        "n": 7582,
+        "chemical_systems": 4288
+      },
+      "maximum_interval_formula_error_K": 2.4868995751603507e-14
+    },
+    "R4": {
+      "point": {
+        "n": 7582,
+        "mae_k": 0.9998925553958954,
+        "rmse_k": 2.1639726541684383,
+        "r2": 0.6567969616795589,
+        "median_absolute_error_k": 0.3227288996801091,
+        "within_1k_fraction": 0.7144552888419942,
+        "within_2k_fraction": 0.8463466103930362,
+        "fold_mae_k": [
+          1.0294596867983659,
+          0.9558239534667174,
+          0.9488615597652509,
+          1.0443339206772455,
+          1.0209932218857012
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 3.030545047963813,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 365,
+          "mae_k": 1.5522113402226685
+        },
+        "within_training_distance": {
+          "n": 7217,
+          "mae_k": 0.971959015633976
+        }
+      },
+      "split_center": {
+        "n": 7582,
+        "mae_k": 1.0647643404318468,
+        "rmse_k": 2.1874214356772987,
+        "r2": 0.6493187753027637,
+        "median_absolute_error_k": 0.350190583498987,
+        "within_1k_fraction": 0.6966499604326035,
+        "within_2k_fraction": 0.8376417831706674,
+        "fold_mae_k": [
+          1.0807821794119703,
+          1.0513211084099563,
+          0.9887005247480074,
+          1.091946938580461,
+          1.1110692527192882
+        ],
+        "tail_n": 759,
+        "tail_mae_k": 3.186982826316923,
+        "chemical_systems": 4288,
+        "ood": {
+          "n": 343,
+          "mae_k": 1.9613163246374443
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "mae_k": 1.0222837035230858
+        }
+      },
+      "intervals": {
+        "row_coverage": 0.937087839620153,
+        "group_simultaneous_coverage": 0.9032182835820896,
+        "tail_coverage": 0.9038208168642952,
+        "finite_interval_rows": 7582,
+        "unbounded_interval_rows": 0,
+        "mean_width_k": 6.786129262520392,
+        "median_width_k": 3.0173404263310917,
+        "interval_score_k": 9.084700058154176,
+        "ood": {
+          "n": 343,
+          "row_coverage": 0.8600583090379009
+        },
+        "within_training_distance": {
+          "n": 7239,
+          "row_coverage": 0.9407376709490262
+        }
+      },
+      "components": {
+        "lambda": {
+          "mae": 0.09016459451471083,
+          "rmse": 0.14974996194565826,
+          "unit": "dimensionless"
+        },
+        "wlog": {
+          "mae": 20.787633395288942,
+          "rmse": 32.007690797623795,
+          "unit": "K"
+        }
+      },
+      "paired_bootstrap_vs_Storm4": {
+        "delta_mae_k_new_minus_reference": 0.10198037240298943,
+        "percentile_95_interval_k": [
+          0.06461537181243199,
+          0.137542497460655
+        ],
+        "repetitions": 1000,
+        "unit": "chemical-system cluster",
+        "selection_adjusted": false,
+        "n": 7582,
+        "chemical_systems": 4288
+      },
+      "maximum_interval_formula_error_K": 2.1316282072803006e-14
+    }
+  },
+  "R0_vs_saved_Storm1_max_absolute_prediction_difference_K": 4.9999731577266004e-06,
+  "post_hoc_paired_bootstrap": {
+    "tail_R3_minus_Storm4": {
+      "delta_mae_k_new_minus_reference": -0.36743346920669057,
+      "percentile_95_interval_k": [
+        -0.5280375297270913,
+        -0.20938325507206187
+      ],
+      "repetitions": 1000,
+      "unit": "chemical-system cluster",
+      "selection_adjusted": false,
+      "n": 759,
+      "chemical_systems": 490,
+      "status": "post_hoc_descriptive_not_frozen_release_criterion"
+    },
+    "full_train_OOD_R2_minus_Storm4": {
+      "delta_mae_k_new_minus_reference": -0.03848225114357583,
+      "percentile_95_interval_k": [
+        -0.13303452735258234,
+        0.05517701833414923
+      ],
+      "repetitions": 1000,
+      "unit": "chemical-system cluster",
+      "selection_adjusted": false,
+      "n": 365,
+      "chemical_systems": 272,
+      "status": "post_hoc_descriptive_not_frozen_release_criterion"
+    },
+    "geometry_R3_minus_R1": {
+      "delta_mae_k_new_minus_reference": -0.028908800420236504,
+      "percentile_95_interval_k": [
+        -0.054127352084066105,
+        -0.0016371874644770807
+      ],
+      "repetitions": 1000,
+      "unit": "chemical-system cluster",
+      "selection_adjusted": false,
+      "n": 7582,
+      "chemical_systems": 4288,
+      "status": "post_hoc_descriptive_not_frozen_release_criterion"
+    },
+    "geometry_R2_minus_R0": {
+      "delta_mae_k_new_minus_reference": -0.007250467152847463,
+      "percentile_95_interval_k": [
+        -0.025169959224453673,
+        0.009023614451276245
+      ],
+      "repetitions": 1000,
+      "unit": "chemical-system cluster",
+      "selection_adjusted": false,
+      "n": 7582,
+      "chemical_systems": 4288,
+      "status": "post_hoc_descriptive_not_frozen_release_criterion"
+    }
+  },
+  "common_proper_train_OOD343_interval_comparison": {
+    "mask": "R0/R1/R2/R3/R4 shared proper-train OOD, 343 rows; applied identically to saved Storm5",
+    "designs": {
+      "R0": {
+        "n": 343,
+        "chemical_systems": 261,
+        "row_coverage": 0.8425655976676385,
+        "group_simultaneous_coverage": 0.8160919540229885,
+        "mean_width_k": 5.020106137714124,
+        "median_width_k": 3.7099492182997498
+      },
+      "R1": {
+        "n": 343,
+        "chemical_systems": 261,
+        "row_coverage": 0.8513119533527697,
+        "group_simultaneous_coverage": 0.8314176245210728,
+        "mean_width_k": 7.5654954723186565,
+        "median_width_k": 3.449826986926129
+      },
+      "R2": {
+        "n": 343,
+        "chemical_systems": 261,
+        "row_coverage": 0.8309037900874635,
+        "group_simultaneous_coverage": 0.8045977011494253,
+        "mean_width_k": 4.9163995501838595,
+        "median_width_k": 3.4835616495959245
+      },
+      "R3": {
+        "n": 343,
+        "chemical_systems": 261,
+        "row_coverage": 0.8513119533527697,
+        "group_simultaneous_coverage": 0.8314176245210728,
+        "mean_width_k": 7.695311781498463,
+        "median_width_k": 4.571182147807418
+      },
+      "R4": {
+        "n": 343,
+        "chemical_systems": 261,
+        "row_coverage": 0.8600583090379009,
+        "group_simultaneous_coverage": 0.8314176245210728,
+        "mean_width_k": 7.3209901843876874,
+        "median_width_k": 4.1530246798762205
+      },
+      "Storm5_saved": {
+        "n": 343,
+        "chemical_systems": 261,
+        "row_coverage": 0.7959183673469388,
+        "group_simultaneous_coverage": 0.7509578544061303,
+        "mean_width_k": 3.3880532361516034,
+        "median_width_k": 2.07503
+      }
+    }
+  },
+  "experimental_diagnostics": {
+    "graded_anchor_saved_table_arithmetic": {
+      "n_scored": 18,
+      "n_listed": 38,
+      "dft_mae": 6.95,
+      "mae": {
+        "R0": 7.56,
+        "R1": 7.23,
+        "R2": 6.54,
+        "R3": 7.17,
+        "R4": 7.56,
+        "Storm4_saved": 6.66
+      }
+    },
+    "matched_3dsc_report_values": {
+      "R0": {
+        "n": 298,
+        "n_sc": 168,
+        "uncalibrated_mae_k": 2.236834654764162,
+        "dft_label_mae_k": 2.476304697516538
+      },
+      "R1": {
+        "n": 298,
+        "n_sc": 168,
+        "uncalibrated_mae_k": 2.869069721835553,
+        "dft_label_mae_k": 2.476304697516538
+      },
+      "R2": {
+        "n": 298,
+        "n_sc": 168,
+        "uncalibrated_mae_k": 2.205825771446191,
+        "dft_label_mae_k": 2.476304697516538
+      },
+      "R3": {
+        "n": 298,
+        "n_sc": 168,
+        "uncalibrated_mae_k": 2.6610285192274667,
+        "dft_label_mae_k": 2.476304697516538
+      },
+      "R4": {
+        "n": 298,
+        "n_sc": 168,
+        "uncalibrated_mae_k": 2.7915071003048078,
+        "dft_label_mae_k": 2.476304697516538
+      },
+      "Storm4_saved": {
+        "n": 298,
+        "n_sc": 168,
+        "uncalibrated_mae_k": 2.3075792092857945,
+        "dft_label_mae_k": 2.476304697516538
+      }
+    },
+    "historical_matched_pool_size_verified": 298,
+    "historical_matched_pool_positive_tc_verified": 168,
+    "independent_composition_mapping_rebuilt": false
+  },
+  "limits": [
+    "No models were refitted. Artifact source digests and split membership were checked, but train-only PCA/scaling and OOD distances cannot be numerically reconstructed without feature matrices.",
+    "Calibration predictions/residuals are absent: interval bound algebra, rank feasibility and held-out empirical coverage were verified; the saved calibration q order statistics cannot independently be reconstructed.",
+    "Historical reference Tc labels and forecasts were saved at limited decimal precision; label equality is within 6e-6 K, not bytewise equality.",
+    "7582-material target is simplified Allen-Dynes DFT Tc (mu*=0.1, f1=f2=1), not measured superconductivity; oracle components are algebraic checks only.",
+    "All historical folds have been reused for model selection; chemical-system bootstrap intervals are descriptive and not selection-adjusted or a blind external validation.",
+    "18 graded anchors and 298 composition-matched 3DSC entries (168 positive Tc, 130 zero-coded records) are different denominators and curation standards. Neither establishes phase/pressure/sample matches, prospective validation, or verified experimental negatives.",
+    "Anchor MAE was independently recomputed from the rounded saved table, not fresh primary-paper measurement verification. Atom/composition-to-ID mapping for the current 298 predictions is absent and was not reverse-engineered from Tc.",
+    "Nominal 90% group-conformal coverage relies on exchangeable chemical systems; fixed-cohort empirical coverage and especially OOD/tail subgroup coverage can differ.",
+    "Post-hoc tail/OOD/geometry contrasts are diagnostics requested after reading results, not frozen release criteria; all interval comparisons use the explicit common 343-row mask."
+  ]
+}

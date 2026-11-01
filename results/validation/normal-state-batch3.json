@@ -1,0 +1,233 @@
+{
+  "version": "normal-state-batch3-acquisition-audit-v1",
+  "collection_and_effect_evaluation_order": "parallel_independent_readiness; no Storm-before-Hurricane dependency",
+  "adopted": false,
+  "models_fitted": 0,
+  "current_candidates": {
+    "current": 152,
+    "Storm": 102,
+    "Hurricane": 50,
+    "retired": 5,
+    "unique_current_ids": 152,
+    "overlap_between_tracks": 0,
+    "current_status_counts": {
+      "structure-only": 28,
+      "not-found-in-this-search": 110,
+      "needs-full-text": 12,
+      "reported-nonsuperconducting": 2
+    },
+    "historical_status_counts": {
+      "structure-only": 30,
+      "not-found-in-this-search": 112,
+      "needs-full-text": 13,
+      "reported-nonsuperconducting": 2
+    },
+    "current_prior_search_log_entries": 496,
+    "all_historical_prior_search_log_entries": 511,
+    "domain_counts": {
+      "exploration": 52,
+      "in_domain": 50,
+      "within_H4_feature_proximity_acceptance": 50
+    },
+    "subtrack_counts": {
+      "storm_in_domain": 50,
+      "storm_exploration": 50,
+      "borides": 2,
+      "carbides": 0
+    },
+    "current_ids_with_inherited_primary_doi_check": 28,
+    "current_ids_with_any_prior_source": 77
+  },
+  "secondary_catalog": {
+    "dataset_doi": "10.48505/nims.4487",
+    "guide_doi": "10.48505/nims.4488",
+    "license": "CC-BY-4.0",
+    "records": 34026,
+    "attachments": {
+      "extensions": {
+        ".csv": 173,
+        ".dat": 5588,
+        ".gif": 11
+      },
+      "files": 5772,
+      "files_with_delimiter_override": 29,
+      "files_with_metadata_conflicts": 16,
+      "files_with_numeric_pairs": 5732,
+      "numeric_xy_rows": 221314,
+      "plot_digitizer_marked_files": 199,
+      "unresolved_encoding_files": 1
+    },
+    "training_rows_exported": 0,
+    "original_field_values_retained": 6418310,
+    "not_independent_specimen_count": true
+  },
+  "new_feedback_ingestion": {
+    "ledger_events_before": 318908,
+    "ledger_events_after": 327943,
+    "ledger_events_added": 9035,
+    "ledger_head": "b871e0024e15b216ccf400c74db0d86cc9ffcc5c33dd98b0bfbd20ebf33dc694",
+    "curves_schema_valid": 27,
+    "normal_feature_ready_curves": 9,
+    "linked_measured_tc_records": 0
+  },
+  "new_feedback_channel_counts": {
+    "verified_normal_points": 852,
+    "unknown_state_points": 8178,
+    "separate_author_midpoint_outcomes": 5,
+    "new_training_links": 0
+  },
+  "previous_ledger_prefix_byte_exact": true,
+  "combined_source_collection": {
+    "curves": 136,
+    "raw_point_records": 326018,
+    "targets": 15,
+    "links": 6,
+    "registry_entries": 57
+  },
+  "storm_pilot": {
+    "status": "insufficient_data",
+    "verified_evidence_binding": {
+      "as_of": "2026-11-01T16:10:42.894980+00:00",
+      "historical_ledger_head": "b871e0024e15b216ccf400c74db0d86cc9ffcc5c33dd98b0bfbd20ebf33dc694",
+      "current_ledger_head": "b871e0024e15b216ccf400c74db0d86cc9ffcc5c33dd98b0bfbd20ebf33dc694",
+      "registry_sha256": "9d0ad2eea378e2f1b955af36009c600624bf9e159fe16e4a5697bec1b491b2aa",
+      "collection_sha256": "edc1fe2a3a90a85584ccd63773753109898bada4473bd4943cbc9a634bde1ecc",
+      "policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+      "linked_records_sha256": "e678220c78712dfaaf8bc3f8e8162b5b5c4e29ddd4d209e1036aad2942f8bed8",
+      "unresolved_links": [],
+      "excluded_links": [
+        {
+          "link": {
+            "curve_id": "nbs2-No28-dev4-broad",
+            "target_id": "nbs2-No28-dev4-broad:resistive_midpoint",
+            "same_physical_specimen": true,
+            "assertion_status": "source_checked",
+            "specimen_id": "nbs2-2021-No28-dev4",
+            "curve_sample_id": "nbs2-2021-No28-dev4",
+            "target_sample_id": "nbs2-2021-No28-dev4",
+            "source_locator": "Primary paper Fig.3b/Different Phases: R(Tc)=0.5R_N; same2H10nm No28_dev4 CSVpair1 contains both transition and high-T points",
+            "scope": "same_run_measured_tc",
+            "measurement_run_id": "nbs2-No28-dev4-broad",
+            "trace_id": "zenodo-5645160/original/Figure 3b-Long range R-T-2H-2H+3R-3R.csv::Fig.3b CSV column pair 1",
+            "raw_source_sha256": "377322d714fae57bb7fa360eda2077872729f01213d9e4795a4e82c08c40411a",
+            "varied_axes": [
+              "temperature_k"
+            ],
+            "same_raw_trace": true,
+            "composition_quality": "nominal_sample_formula",
+            "composition_source_locator": "Wang et al., ACS Nano15,18403 (2021), Fig3b and SI device No28dev4: nominal 2H NbS2, reported sulfur defects; exact defect fraction unknown.",
+            "target_observation_hash": "224b3a39e211e5ef79cb53d3aea33ef896f59c01927da99581571c9a12d111e2"
+          },
+          "reasons": [
+            "Frozen target-independent curve features unavailable"
+          ]
+        }
+      ],
+      "source_claims_not_cryptographically_authenticated": true
+    },
+    "independent_groups": 5,
+    "training_specimen_conditions_in_each_holdout": 4,
+    "frozen_required_training_specimen_conditions": 5,
+    "models_fitted": 0,
+    "baseline_augmented_effect_score": null
+  },
+  "hurricane": {
+    "schema_version": 1,
+    "status": "source_collection_only_no_effect_test",
+    "scope": "This batch3Hurricane curation only; not a census of every legacy Hmaterial lead",
+    "numeric_source_primary_papers": 3,
+    "numeric_source_families": [
+      "cuprate",
+      "iron_chalcogenide",
+      "nickelate"
+    ],
+    "primary_papers_fulltext_inspected": 4,
+    "additional_paper_without_numeric_response_source": "10.1038/s41563-022-01291-5",
+    "curves_or_trace_representations_prepared": 69,
+    "point_records": 157488,
+    "finite_response_records": 157480,
+    "explicit_source_missing_responses": 8,
+    "independent_sample_warning": "Trace count is not sampleN; normalized/absolute views and temperature/angle sweeps repeat the same physical film",
+    "broad_longitudinal": {
+      "curves": 5,
+      "point_records": 8452,
+      "distinct_physical_films": 5,
+      "independent_papers": 2,
+      "chemical_systems": 2,
+      "families": 2,
+      "cover_200_225_250K": 5,
+      "reported_same_sample_numeric_Tc_claims_criterion_unspecified": 2,
+      "explicit_same_sample_midpoint_Tc_targets": 0,
+      "figure1_LSCO_exact_numeric_Tc_missing": 3,
+      "limitations": [
+        "FeTeSe fulltext inspected is authorv1; final publisher criterion not verified",
+        "Twenty author-table lowT zero-tail rows are not asserted all instrumental measurements",
+        "Numeric pressure/field conditions remain null when not explicitly stated"
+      ]
+    },
+    "nickelate": {
+      "author_sample_labels_in_paper": 5,
+      "broad_temperature_curves": 0,
+      "reported_midpoint_Tc_claims": 5,
+      "normal_state_sweep_designations": 0,
+      "unresolved_source_sample_label_conflicts": 1,
+      "chemical_element_sets_in_author_sample_claims": 2,
+      "source_sc_boundary_and_calculation_tables_excluded_from_features": true
+    },
+    "LOFO_readiness": {
+      "multiple_families_with_broad_raw_rho": true,
+      "numeric_family_count_is_not_a_validated_effect_test": true,
+      "paired_midpoint_broad_rho_families": 0,
+      "models_fitted": 0,
+      "LOFO_runs": 0,
+      "reason": "Same-specimen numeric targets with a verified common criterion are incomplete. This batch alone cannot substantiate an improvement or a cross-family law. No new eligibility threshold was frozen."
+    },
+    "model_target_links": 0,
+    "ledger_files_read_or_written": 0,
+    "automatic_training": false,
+    "new_policy_frozen": false,
+    "grouping": "Use paper/source and family, keeping all dopings/angles/fields and repeated representations from one study in the same group; three LSCO dopings are one cuprate family, not three families"
+  },
+  "copyright": {
+    "article_and_dataset_licenses_separate": true,
+    "unresolved_licenses": "local review; no raw redistribution or training admission inferred",
+    "public_repository_contains_raw_curves_or_papers_or_ledger": false,
+    "NIMS_deliverable": "CC-BY-4.0 attribution, version DOI, primary bibliography and change description included"
+  },
+  "references": [
+    {
+      "title": "NIMS MDR SuperCon Ver.240322",
+      "url": "https://doi.org/10.48505/nims.4487"
+    },
+    {
+      "title": "Boron-doped diamond data",
+      "url": "https://doi.org/10.17035/cardiff.34715652.v1"
+    },
+    {
+      "title": "LSCO source paper",
+      "url": "https://doi.org/10.1038/nature23290"
+    },
+    {
+      "title": "Iron-chalcogenide source paper",
+      "url": "https://doi.org/10.1038/s41567-026-03266-8"
+    },
+    {
+      "title": "Iron-chalcogenide data",
+      "url": "https://doi.org/10.5281/zenodo.18662533"
+    },
+    {
+      "title": "Nickelate paper",
+      "url": "https://doi.org/10.1038/s41467-026-75922-9"
+    },
+    {
+      "title": "Nickelate data",
+      "url": "https://doi.org/10.5281/zenodo.20636178"
+    }
+  ],
+  "limitations": [
+    "No new effect score or mechanistic law is supported by this batch.",
+    "Same-source specimen and Tc criterion gaps remain; rows/points do not solve independent-system shortage.",
+    "Current database equality and prior paper discovery are not prospective experimental validation.",
+    "Hurricane new-source broad-rho readiness covers this batch only; it is not a census of all legacy H leads."
+  ]
+}

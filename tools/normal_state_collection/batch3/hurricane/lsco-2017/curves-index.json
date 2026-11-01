@@ -1,0 +1,751 @@
+{
+  "curves": [
+    {
+      "curve_id": "lsco-2017:Fig1b:longitudinal",
+      "source_id": "lsco-2017:41586_2017_BFnature23290_MOESM5_ESM",
+      "source_doi": "10.1038/nature23290",
+      "family": "cuprate",
+      "chemical_system": [
+        "Cu",
+        "La",
+        "O",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/nature23290",
+      "source_group_id": "doi:10.1038/nature23290",
+      "series_group_id": "lsco-2017:ALL-MBE-doping-series",
+      "specimen_id": "lsco-2017:Fig1b:p0.10:phi40",
+      "author_unique_specimen_id": null,
+      "identity_scope": "Source Figure1 panel and doping/angle; paired longitudinal/transverse traces explicitly from the same sample (author manuscript PDFp5). No mapping to other figures solely by matchingp.",
+      "reported_material": "La2-xSrxCuO4",
+      "exact_sample_formula": null,
+      "composition": {
+        "nominal_Sr_x": null,
+        "reported_mobile_hole_density_p_per_formula_unit": 0.1,
+        "note": "MethodsA explicitly distinguishes nominalSr x and mobilehole p because of oxygen defects; no x=p substitution"
+      },
+      "sample_form": "epitaxial single-crystal thin film",
+      "substrate": "LaSrAlO4 (LSAO)",
+      "thickness_nm": 26.0,
+      "thickness_unit_cells": 20,
+      "phase": "epitaxially constrained tetragonal LSCO; sourceMethodsA",
+      "quantity": "longitudinal_resistivity",
+      "response_component": "longitudinal",
+      "unit": "microohm cm",
+      "source_unit_plain_text": "r (mW cm)",
+      "unit_evidence": {
+        "symbol_font_decoding": [
+          {
+            "shared_string_index": 4,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          },
+          {
+            "shared_string_index": 5,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          }
+        ],
+        "paper_locator": "Author manuscript PDFpp11-12 Fig1/2 axes; source XLSX sharedStrings SymbolmW means microohm"
+      },
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "41586_2017_BFnature23290_MOESM5_ESM.xlsx:Sheet1!A{source_row}:B{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "current_a": 2e-06,
+        "current_angle_from_100_degrees": 40.0,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "condition_notes": [
+        "Source describes spontaneous zero-external-field transverse transport, but no numeric residualfield or pressure accompanies Figure1; numericP/B leftnull.",
+        "Crystalstrain is imposed by substrate; no numericstrain assigned to this specifictrace.",
+        "Source averages three transverse contact voltages, then divides by current and multiplies by thickness; no additional collectorprocessing."
+      ],
+      "normal_state_review": {
+        "verified_range_k": [
+          150.0,
+          290.0
+        ],
+        "evidence_locator": "Primary text describes normal-state transport above SCtransition; Figure1 and MethodsG. The retained trace also includes the transition region, which is not automatically normal.",
+        "below_verified_range": "unknown_or_superconducting_region; do not use as prospective normalstate features"
+      },
+      "normalization": {
+        "kind": "none"
+      },
+      "tc_K": null,
+      "tc_criterion": null,
+      "superconductivity_claim": {
+        "outcome": true,
+        "scope": "Figure1sample shows a resistive transition; no numeric midpoint assigned by this curator",
+        "source_locator": "Author manuscript PDFp5, Fig1"
+      },
+      "temperature_min_k": 16.3,
+      "temperature_max_k": 290,
+      "missing_cells_not_padded": 8,
+      "explicit_missing_measurements": 0,
+      "not_hall_coefficient": false,
+      "point_records": 2738,
+      "data_sha256_canonical_json": "322905a9a6dc436f2d0ac4b3213c5eb4bd762884e138c592cb637a5dcf7a0d56"
+    },
+    {
+      "curve_id": "lsco-2017:Fig1b:transverse_even_in_field",
+      "source_id": "lsco-2017:41586_2017_BFnature23290_MOESM5_ESM",
+      "source_doi": "10.1038/nature23290",
+      "family": "cuprate",
+      "chemical_system": [
+        "Cu",
+        "La",
+        "O",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/nature23290",
+      "source_group_id": "doi:10.1038/nature23290",
+      "series_group_id": "lsco-2017:ALL-MBE-doping-series",
+      "specimen_id": "lsco-2017:Fig1b:p0.10:phi40",
+      "author_unique_specimen_id": null,
+      "identity_scope": "Source Figure1 panel and doping/angle; paired longitudinal/transverse traces explicitly from the same sample (author manuscript PDFp5). No mapping to other figures solely by matchingp.",
+      "reported_material": "La2-xSrxCuO4",
+      "exact_sample_formula": null,
+      "composition": {
+        "nominal_Sr_x": null,
+        "reported_mobile_hole_density_p_per_formula_unit": 0.1,
+        "note": "MethodsA explicitly distinguishes nominalSr x and mobilehole p because of oxygen defects; no x=p substitution"
+      },
+      "sample_form": "epitaxial single-crystal thin film",
+      "substrate": "LaSrAlO4 (LSAO)",
+      "thickness_nm": 26.0,
+      "thickness_unit_cells": 20,
+      "phase": "epitaxially constrained tetragonal LSCO; sourceMethodsA",
+      "quantity": "in_plane_transverse_resistivity_even_in_field",
+      "response_component": "transverse_even_in_field",
+      "unit": "microohm cm",
+      "source_unit_plain_text": "rT (mW cm)",
+      "unit_evidence": {
+        "symbol_font_decoding": [
+          {
+            "shared_string_index": 4,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          },
+          {
+            "shared_string_index": 5,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          }
+        ],
+        "paper_locator": "Author manuscript PDFpp11-12 Fig1/2 axes; source XLSX sharedStrings SymbolmW means microohm"
+      },
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "41586_2017_BFnature23290_MOESM5_ESM.xlsx:Sheet1!A{source_row}:C{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "current_a": 2e-06,
+        "current_angle_from_100_degrees": 40.0,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "condition_notes": [
+        "Source describes spontaneous zero-external-field transverse transport, but no numeric residualfield or pressure accompanies Figure1; numericP/B leftnull.",
+        "Crystalstrain is imposed by substrate; no numericstrain assigned to this specifictrace.",
+        "Source averages three transverse contact voltages, then divides by current and multiplies by thickness; no additional collectorprocessing."
+      ],
+      "normal_state_review": {
+        "verified_range_k": [
+          150.0,
+          290.0
+        ],
+        "evidence_locator": "Primary text describes normal-state transport above SCtransition; Figure1 and MethodsG. The retained trace also includes the transition region, which is not automatically normal.",
+        "below_verified_range": "unknown_or_superconducting_region; do not use as prospective normalstate features"
+      },
+      "normalization": {
+        "kind": "none"
+      },
+      "tc_K": null,
+      "tc_criterion": null,
+      "superconductivity_claim": {
+        "outcome": true,
+        "scope": "Figure1sample shows a resistive transition; no numeric midpoint assigned by this curator",
+        "source_locator": "Author manuscript PDFp5, Fig1"
+      },
+      "temperature_min_k": 15.5,
+      "temperature_max_k": 290,
+      "missing_cells_not_padded": 0,
+      "explicit_missing_measurements": 0,
+      "not_hall_coefficient": true,
+      "point_records": 2746,
+      "data_sha256_canonical_json": "95fe343bf286916309dd0b29d5831104b031a2c06da5709a2633cf93d967b593"
+    },
+    {
+      "curve_id": "lsco-2017:Fig1c:longitudinal",
+      "source_id": "lsco-2017:41586_2017_BFnature23290_MOESM5_ESM",
+      "source_doi": "10.1038/nature23290",
+      "family": "cuprate",
+      "chemical_system": [
+        "Cu",
+        "La",
+        "O",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/nature23290",
+      "source_group_id": "doi:10.1038/nature23290",
+      "series_group_id": "lsco-2017:ALL-MBE-doping-series",
+      "specimen_id": "lsco-2017:Fig1c:p0.16:phi320",
+      "author_unique_specimen_id": null,
+      "identity_scope": "Source Figure1 panel and doping/angle; paired longitudinal/transverse traces explicitly from the same sample (author manuscript PDFp5). No mapping to other figures solely by matchingp.",
+      "reported_material": "La2-xSrxCuO4",
+      "exact_sample_formula": null,
+      "composition": {
+        "nominal_Sr_x": null,
+        "reported_mobile_hole_density_p_per_formula_unit": 0.16,
+        "note": "MethodsA explicitly distinguishes nominalSr x and mobilehole p because of oxygen defects; no x=p substitution"
+      },
+      "sample_form": "epitaxial single-crystal thin film",
+      "substrate": "LaSrAlO4 (LSAO)",
+      "thickness_nm": 26.0,
+      "thickness_unit_cells": 20,
+      "phase": "epitaxially constrained tetragonal LSCO; sourceMethodsA",
+      "quantity": "longitudinal_resistivity",
+      "response_component": "longitudinal",
+      "unit": "microohm cm",
+      "source_unit_plain_text": "r (mW cm)",
+      "unit_evidence": {
+        "symbol_font_decoding": [
+          {
+            "shared_string_index": 4,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          },
+          {
+            "shared_string_index": 5,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          }
+        ],
+        "paper_locator": "Author manuscript PDFpp11-12 Fig1/2 axes; source XLSX sharedStrings SymbolmW means microohm"
+      },
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "41586_2017_BFnature23290_MOESM5_ESM.xlsx:Sheet1!A{source_row}:D{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "current_a": 2e-06,
+        "current_angle_from_100_degrees": 320.0,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "condition_notes": [
+        "Source describes spontaneous zero-external-field transverse transport, but no numeric residualfield or pressure accompanies Figure1; numericP/B leftnull.",
+        "Crystalstrain is imposed by substrate; no numericstrain assigned to this specifictrace.",
+        "Source averages three transverse contact voltages, then divides by current and multiplies by thickness; no additional collectorprocessing."
+      ],
+      "normal_state_review": {
+        "verified_range_k": [
+          150.0,
+          290.0
+        ],
+        "evidence_locator": "Primary text describes normal-state transport above SCtransition; Figure1 and MethodsG. The retained trace also includes the transition region, which is not automatically normal.",
+        "below_verified_range": "unknown_or_superconducting_region; do not use as prospective normalstate features"
+      },
+      "normalization": {
+        "kind": "none"
+      },
+      "tc_K": null,
+      "tc_criterion": null,
+      "superconductivity_claim": {
+        "outcome": true,
+        "scope": "Figure1sample shows a resistive transition; no numeric midpoint assigned by this curator",
+        "source_locator": "Author manuscript PDFp5, Fig1"
+      },
+      "temperature_min_k": 29.7,
+      "temperature_max_k": 290,
+      "missing_cells_not_padded": 142,
+      "explicit_missing_measurements": 0,
+      "not_hall_coefficient": false,
+      "point_records": 2604,
+      "data_sha256_canonical_json": "92c19339ffaa88bcc083fef7059e4c334170582a43546052631df098b949c058"
+    },
+    {
+      "curve_id": "lsco-2017:Fig1c:transverse_even_in_field",
+      "source_id": "lsco-2017:41586_2017_BFnature23290_MOESM5_ESM",
+      "source_doi": "10.1038/nature23290",
+      "family": "cuprate",
+      "chemical_system": [
+        "Cu",
+        "La",
+        "O",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/nature23290",
+      "source_group_id": "doi:10.1038/nature23290",
+      "series_group_id": "lsco-2017:ALL-MBE-doping-series",
+      "specimen_id": "lsco-2017:Fig1c:p0.16:phi320",
+      "author_unique_specimen_id": null,
+      "identity_scope": "Source Figure1 panel and doping/angle; paired longitudinal/transverse traces explicitly from the same sample (author manuscript PDFp5). No mapping to other figures solely by matchingp.",
+      "reported_material": "La2-xSrxCuO4",
+      "exact_sample_formula": null,
+      "composition": {
+        "nominal_Sr_x": null,
+        "reported_mobile_hole_density_p_per_formula_unit": 0.16,
+        "note": "MethodsA explicitly distinguishes nominalSr x and mobilehole p because of oxygen defects; no x=p substitution"
+      },
+      "sample_form": "epitaxial single-crystal thin film",
+      "substrate": "LaSrAlO4 (LSAO)",
+      "thickness_nm": 26.0,
+      "thickness_unit_cells": 20,
+      "phase": "epitaxially constrained tetragonal LSCO; sourceMethodsA",
+      "quantity": "in_plane_transverse_resistivity_even_in_field",
+      "response_component": "transverse_even_in_field",
+      "unit": "microohm cm",
+      "source_unit_plain_text": "rT (mW cm)",
+      "unit_evidence": {
+        "symbol_font_decoding": [
+          {
+            "shared_string_index": 4,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          },
+          {
+            "shared_string_index": 5,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          }
+        ],
+        "paper_locator": "Author manuscript PDFpp11-12 Fig1/2 axes; source XLSX sharedStrings SymbolmW means microohm"
+      },
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "41586_2017_BFnature23290_MOESM5_ESM.xlsx:Sheet1!A{source_row}:E{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "current_a": 2e-06,
+        "current_angle_from_100_degrees": 320.0,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "condition_notes": [
+        "Source describes spontaneous zero-external-field transverse transport, but no numeric residualfield or pressure accompanies Figure1; numericP/B leftnull.",
+        "Crystalstrain is imposed by substrate; no numericstrain assigned to this specifictrace.",
+        "Source averages three transverse contact voltages, then divides by current and multiplies by thickness; no additional collectorprocessing."
+      ],
+      "normal_state_review": {
+        "verified_range_k": [
+          150.0,
+          290.0
+        ],
+        "evidence_locator": "Primary text describes normal-state transport above SCtransition; Figure1 and MethodsG. The retained trace also includes the transition region, which is not automatically normal.",
+        "below_verified_range": "unknown_or_superconducting_region; do not use as prospective normalstate features"
+      },
+      "normalization": {
+        "kind": "none"
+      },
+      "tc_K": null,
+      "tc_criterion": null,
+      "superconductivity_claim": {
+        "outcome": true,
+        "scope": "Figure1sample shows a resistive transition; no numeric midpoint assigned by this curator",
+        "source_locator": "Author manuscript PDFp5, Fig1"
+      },
+      "temperature_min_k": 29,
+      "temperature_max_k": 290,
+      "missing_cells_not_padded": 135,
+      "explicit_missing_measurements": 0,
+      "not_hall_coefficient": true,
+      "point_records": 2611,
+      "data_sha256_canonical_json": "1de53d711188ba5385a220a422664615416032600471769e07399021598a9260"
+    },
+    {
+      "curve_id": "lsco-2017:Fig1d:longitudinal",
+      "source_id": "lsco-2017:41586_2017_BFnature23290_MOESM5_ESM",
+      "source_doi": "10.1038/nature23290",
+      "family": "cuprate",
+      "chemical_system": [
+        "Cu",
+        "La",
+        "O",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/nature23290",
+      "source_group_id": "doi:10.1038/nature23290",
+      "series_group_id": "lsco-2017:ALL-MBE-doping-series",
+      "specimen_id": "lsco-2017:Fig1d:p0.18:phi180",
+      "author_unique_specimen_id": null,
+      "identity_scope": "Source Figure1 panel and doping/angle; paired longitudinal/transverse traces explicitly from the same sample (author manuscript PDFp5). No mapping to other figures solely by matchingp.",
+      "reported_material": "La2-xSrxCuO4",
+      "exact_sample_formula": null,
+      "composition": {
+        "nominal_Sr_x": null,
+        "reported_mobile_hole_density_p_per_formula_unit": 0.18,
+        "note": "MethodsA explicitly distinguishes nominalSr x and mobilehole p because of oxygen defects; no x=p substitution"
+      },
+      "sample_form": "epitaxial single-crystal thin film",
+      "substrate": "LaSrAlO4 (LSAO)",
+      "thickness_nm": 26.0,
+      "thickness_unit_cells": 20,
+      "phase": "epitaxially constrained tetragonal LSCO; sourceMethodsA",
+      "quantity": "longitudinal_resistivity",
+      "response_component": "longitudinal",
+      "unit": "microohm cm",
+      "source_unit_plain_text": "r (mW cm)",
+      "unit_evidence": {
+        "symbol_font_decoding": [
+          {
+            "shared_string_index": 4,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          },
+          {
+            "shared_string_index": 5,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          }
+        ],
+        "paper_locator": "Author manuscript PDFpp11-12 Fig1/2 axes; source XLSX sharedStrings SymbolmW means microohm"
+      },
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "41586_2017_BFnature23290_MOESM5_ESM.xlsx:Sheet1!A{source_row}:F{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "current_a": 2e-06,
+        "current_angle_from_100_degrees": 180.0,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "condition_notes": [
+        "Source describes spontaneous zero-external-field transverse transport, but no numeric residualfield or pressure accompanies Figure1; numericP/B leftnull.",
+        "Crystalstrain is imposed by substrate; no numericstrain assigned to this specifictrace.",
+        "Source averages three transverse contact voltages, then divides by current and multiplies by thickness; no additional collectorprocessing."
+      ],
+      "normal_state_review": {
+        "verified_range_k": [
+          150.0,
+          290.0
+        ],
+        "evidence_locator": "Primary text describes normal-state transport above SCtransition; Figure1 and MethodsG. The retained trace also includes the transition region, which is not automatically normal.",
+        "below_verified_range": "unknown_or_superconducting_region; do not use as prospective normalstate features"
+      },
+      "normalization": {
+        "kind": "none"
+      },
+      "tc_K": null,
+      "tc_criterion": null,
+      "superconductivity_claim": {
+        "outcome": true,
+        "scope": "Figure1sample shows a resistive transition; no numeric midpoint assigned by this curator",
+        "source_locator": "Author manuscript PDFp5, Fig1"
+      },
+      "temperature_min_k": 25,
+      "temperature_max_k": 290,
+      "missing_cells_not_padded": 95,
+      "explicit_missing_measurements": 0,
+      "not_hall_coefficient": false,
+      "point_records": 2651,
+      "data_sha256_canonical_json": "5071ae21cdbe5493da96894615b17af5f14825a53eec424c77b978da89d8398d"
+    },
+    {
+      "curve_id": "lsco-2017:Fig1d:transverse_even_in_field",
+      "source_id": "lsco-2017:41586_2017_BFnature23290_MOESM5_ESM",
+      "source_doi": "10.1038/nature23290",
+      "family": "cuprate",
+      "chemical_system": [
+        "Cu",
+        "La",
+        "O",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/nature23290",
+      "source_group_id": "doi:10.1038/nature23290",
+      "series_group_id": "lsco-2017:ALL-MBE-doping-series",
+      "specimen_id": "lsco-2017:Fig1d:p0.18:phi180",
+      "author_unique_specimen_id": null,
+      "identity_scope": "Source Figure1 panel and doping/angle; paired longitudinal/transverse traces explicitly from the same sample (author manuscript PDFp5). No mapping to other figures solely by matchingp.",
+      "reported_material": "La2-xSrxCuO4",
+      "exact_sample_formula": null,
+      "composition": {
+        "nominal_Sr_x": null,
+        "reported_mobile_hole_density_p_per_formula_unit": 0.18,
+        "note": "MethodsA explicitly distinguishes nominalSr x and mobilehole p because of oxygen defects; no x=p substitution"
+      },
+      "sample_form": "epitaxial single-crystal thin film",
+      "substrate": "LaSrAlO4 (LSAO)",
+      "thickness_nm": 26.0,
+      "thickness_unit_cells": 20,
+      "phase": "epitaxially constrained tetragonal LSCO; sourceMethodsA",
+      "quantity": "in_plane_transverse_resistivity_even_in_field",
+      "response_component": "transverse_even_in_field",
+      "unit": "microohm cm",
+      "source_unit_plain_text": "rT (mW cm)",
+      "unit_evidence": {
+        "symbol_font_decoding": [
+          {
+            "shared_string_index": 4,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          },
+          {
+            "shared_string_index": 5,
+            "font": "Symbol",
+            "encoded_text": "mW",
+            "decoded_meaning": "microohm",
+            "numeric_scale_changed": false
+          }
+        ],
+        "paper_locator": "Author manuscript PDFpp11-12 Fig1/2 axes; source XLSX sharedStrings SymbolmW means microohm"
+      },
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "41586_2017_BFnature23290_MOESM5_ESM.xlsx:Sheet1!A{source_row}:G{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "current_a": 2e-06,
+        "current_angle_from_100_degrees": 180.0,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "condition_notes": [
+        "Source describes spontaneous zero-external-field transverse transport, but no numeric residualfield or pressure accompanies Figure1; numericP/B leftnull.",
+        "Crystalstrain is imposed by substrate; no numericstrain assigned to this specifictrace.",
+        "Source averages three transverse contact voltages, then divides by current and multiplies by thickness; no additional collectorprocessing."
+      ],
+      "normal_state_review": {
+        "verified_range_k": [
+          150.0,
+          290.0
+        ],
+        "evidence_locator": "Primary text describes normal-state transport above SCtransition; Figure1 and MethodsG. The retained trace also includes the transition region, which is not automatically normal.",
+        "below_verified_range": "unknown_or_superconducting_region; do not use as prospective normalstate features"
+      },
+      "normalization": {
+        "kind": "none"
+      },
+      "tc_K": null,
+      "tc_criterion": null,
+      "superconductivity_claim": {
+        "outcome": true,
+        "scope": "Figure1sample shows a resistive transition; no numeric midpoint assigned by this curator",
+        "source_locator": "Author manuscript PDFp5, Fig1"
+      },
+      "temperature_min_k": 25,
+      "temperature_max_k": 290,
+      "missing_cells_not_padded": 95,
+      "explicit_missing_measurements": 0,
+      "not_hall_coefficient": true,
+      "point_records": 2651,
+      "data_sha256_canonical_json": "7e41e362466354c0a084e5390949ea695d8e0b1afc85fe98e014cda8b9e0f957"
+    },
+    {
+      "curve_id": "lsco-2017:ED2:pickup_in_phase",
+      "source_id": "lsco-2017:41586_2017_BFnature23290_MOESM9_ESM",
+      "source_doi": "10.1038/nature23290",
+      "family": "cuprate",
+      "chemical_system": [
+        "Cu",
+        "La",
+        "O",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/nature23290",
+      "source_group_id": "doi:10.1038/nature23290",
+      "series_group_id": "lsco-2017:ALL-MBE-doping-series",
+      "specimen_id": "lsco-2017:ED2:optimally-doped-film",
+      "author_unique_specimen_id": null,
+      "identity_scope": "ExtendedData2film; identity with Figure1p0.16film remains unverified, so not an additional independentfilm count",
+      "reported_material": "La2-xSrxCuO4",
+      "exact_sample_formula": null,
+      "composition": {
+        "reported_mobile_hole_density_p_per_formula_unit": 0.16,
+        "nominal_Sr_x": null
+      },
+      "sample_form": "epitaxial thin film",
+      "quantity": "mutual_inductance_pickup_voltage",
+      "response_component": "in_phase",
+      "unit": "millivolt",
+      "source_unit_plain_text": "ReVp (mV)",
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "41586_2017_BFnature23290_MOESM9_ESM.xlsx:Sheet1!A{source_row}:B{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "normal_state_review": {
+        "status": "unknown; rawpickupvoltage not a calibrated chi(T) channel"
+      },
+      "tc_K": null,
+      "tc_criterion": null,
+      "temperature_min_k": 3.4,
+      "temperature_max_k": 98.9,
+      "missing_cells_not_padded": 0,
+      "explicit_missing_measurements": 0,
+      "point_records": 956,
+      "data_sha256_canonical_json": "70ecffb59be737af7fd3f8e03698d1f0db7a5f9818a03c3e5a6b245c3787e4e1"
+    },
+    {
+      "curve_id": "lsco-2017:ED2:pickup_out_of_phase",
+      "source_id": "lsco-2017:41586_2017_BFnature23290_MOESM9_ESM",
+      "source_doi": "10.1038/nature23290",
+      "family": "cuprate",
+      "chemical_system": [
+        "Cu",
+        "La",
+        "O",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/nature23290",
+      "source_group_id": "doi:10.1038/nature23290",
+      "series_group_id": "lsco-2017:ALL-MBE-doping-series",
+      "specimen_id": "lsco-2017:ED2:optimally-doped-film",
+      "author_unique_specimen_id": null,
+      "identity_scope": "ExtendedData2film; identity with Figure1p0.16film remains unverified, so not an additional independentfilm count",
+      "reported_material": "La2-xSrxCuO4",
+      "exact_sample_formula": null,
+      "composition": {
+        "reported_mobile_hole_density_p_per_formula_unit": 0.16,
+        "nominal_Sr_x": null
+      },
+      "sample_form": "epitaxial thin film",
+      "quantity": "mutual_inductance_pickup_voltage",
+      "response_component": "out_of_phase",
+      "unit": "millivolt",
+      "source_unit_plain_text": "ImVp (mV)",
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "41586_2017_BFnature23290_MOESM9_ESM.xlsx:Sheet1!A{source_row}:C{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null
+      },
+      "normal_state_review": {
+        "status": "unknown; rawpickupvoltage not a calibrated chi(T) channel"
+      },
+      "tc_K": null,
+      "tc_criterion": null,
+      "temperature_min_k": 3.4,
+      "temperature_max_k": 98.9,
+      "missing_cells_not_padded": 0,
+      "explicit_missing_measurements": 0,
+      "point_records": 956,
+      "data_sha256_canonical_json": "8ac565e97ee45d5ad89237a676ef4cf7a3aae15c799b5716648ed034759dd28f"
+    },
+    {
+      "curve_id": "lsco-2017:ED8a:transverse",
+      "source_id": "lsco-2017:41586_2017_BFnature23290_MOESM15_ESM",
+      "source_doi": "10.1038/nature23290",
+      "family": "cuprate",
+      "chemical_system": [
+        "Cu",
+        "La",
+        "O",
+        "Sr"
+      ],
+      "study_group_id": "doi:10.1038/nature23290",
+      "source_group_id": "doi:10.1038/nature23290",
+      "series_group_id": "lsco-2017:ALL-MBE-doping-series",
+      "specimen_id": "lsco-2017:ED8:p0.16:phi330",
+      "author_unique_specimen_id": null,
+      "identity_scope": "SourceED8a. Identity with Figure1p0.16film remains unresolved; do not count a new independentfilm",
+      "reported_material": "La2-xSrxCuO4",
+      "exact_sample_formula": null,
+      "composition": {
+        "reported_mobile_hole_density_p_per_formula_unit": 0.16,
+        "nominal_Sr_x": null
+      },
+      "quantity": "in_plane_transverse_resistivity_even_in_field",
+      "response_component": "transverse_even_in_field",
+      "unit": "microohm cm",
+      "source_unit_plain_text": "rT (mW cm)",
+      "independent_axis": "temperature_k",
+      "data_columns": [
+        "temperature_k",
+        "value",
+        "source_row"
+      ],
+      "source_locator_template": "41586_2017_BFnature23290_MOESM15_ESM.xlsx:Sheet1!A{source_row}:B{source_row}",
+      "fixed_conditions": {
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "doping_fraction": null,
+        "strain": null,
+        "current_angle_from_100_degrees": 330.0
+      },
+      "normal_state_review": {
+        "status": "unknown; mostly SCfluctuation/transitionrange; no automatic normaldesignation"
+      },
+      "tc_K": null,
+      "tc_criterion": null,
+      "temperature_min_k": 37.841,
+      "temperature_max_k": 102.471,
+      "missing_cells_not_padded": 0,
+      "explicit_missing_measurements": 0,
+      "point_records": 1138,
+      "data_sha256_canonical_json": "ac7f1262bce9ea3ede1075983d3e3a194cf95ef46047ccc3b170c7a287cb871d"
+    }
+  ]
+}

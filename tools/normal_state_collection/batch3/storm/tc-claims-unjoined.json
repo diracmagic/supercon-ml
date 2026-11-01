@@ -1,0 +1,294 @@
+{
+  "schema_version": "author-tc-claims-unjoined-v1",
+  "links": [],
+  "claims": [
+    {
+      "target_id": "diamond4inch-12k:author-resistive-midpoint",
+      "payload": {
+        "material_id": "boron-doped-diamond:12k",
+        "observed_at": "2026-11-01T15:56:20+00:00",
+        "statement": "Historical author-reported warming resistive midpoint Tc of a central-region film piece; not a model prediction or a cross-trace admitted label.",
+        "observation_type": "sample_superconductivity",
+        "assertion_status": "source_checked",
+        "outcome": true,
+        "evidence_kind": "measured_transition",
+        "tc_K": 2.9,
+        "tc_criterion": "resistive_midpoint",
+        "tc_is_approximate": false,
+        "criterion_definition": "Tc at R(Tc)=0.5*R(5K); author preprint p.6 section3 and p.8 Table1.",
+        "conditions": {
+          "sample_id": "diamond4inch-230224-central-piece-candidate",
+          "formula": null,
+          "sample_form": "CVD boron-doped nanocrystalline diamond film on silicon",
+          "phase": null,
+          "pressure_GPa": null,
+          "field_T": null,
+          "t_min_K": 2.0,
+          "t_max_K": 10.0,
+          "method": "resistivity"
+        },
+        "reference": {
+          "doi": "10.48550/arXiv.2609.15282",
+          "url": "https://arxiv.org/abs/2609.15282",
+          "dataset_doi": "10.17035/cardiff.34715652.v1",
+          "citation": "Mandal, S. and Williams, O. A. Growth of superconducting boron doped diamond on 4inch silicon wafers. arXiv:2609.15282v1 (14 September 2026). Author preprint, not an established journal version.",
+          "publication_date": "2026-09-14",
+          "inspection_status": "full_text_inspected",
+          "source_kind": "primary_experiment",
+          "locator": "Author preprint PDF pp.3-4 section2 (gas ratios, estimates, warming2-10K); p.6 section3 (Tc=0.5R5K); p.8 Table1/central pieces; p.12 Table2 (Raman estimates); deposited sample mapping and PPMS headers.",
+          "accessed_url": "https://arxiv.org/pdf/2609.15282",
+          "accessed_version": "arXiv v1 author preprint",
+          "inspected_fulltext_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff"
+        },
+        "raw_source_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff",
+        "source_locator": "Author preprint p.8 Table1; criterion p.6; warming2-10K method p.4.",
+        "curation_note": "Author criterion retained separately. Same-film/central-region candidate matching only; no same-raw-trace relation to broad cooling. Gas B/C is not assigned to film composition."
+      }
+    },
+    {
+      "target_id": "diamond4inch-18k:author-resistive-midpoint",
+      "payload": {
+        "material_id": "boron-doped-diamond:18k",
+        "observed_at": "2026-11-01T15:56:20+00:00",
+        "statement": "Historical author-reported warming resistive midpoint Tc of a central-region film piece; not a model prediction or a cross-trace admitted label.",
+        "observation_type": "sample_superconductivity",
+        "assertion_status": "source_checked",
+        "outcome": true,
+        "evidence_kind": "measured_transition",
+        "tc_K": 3.75,
+        "tc_criterion": "resistive_midpoint",
+        "tc_is_approximate": false,
+        "criterion_definition": "Tc at R(Tc)=0.5*R(5K); author preprint p.6 section3 and p.8 Table1.",
+        "conditions": {
+          "sample_id": "diamond4inch-230224C-central-piece-candidate",
+          "formula": null,
+          "sample_form": "CVD boron-doped nanocrystalline diamond film on silicon",
+          "phase": null,
+          "pressure_GPa": null,
+          "field_T": null,
+          "t_min_K": 2.0,
+          "t_max_K": 10.0,
+          "method": "resistivity"
+        },
+        "reference": {
+          "doi": "10.48550/arXiv.2609.15282",
+          "url": "https://arxiv.org/abs/2609.15282",
+          "dataset_doi": "10.17035/cardiff.34715652.v1",
+          "citation": "Mandal, S. and Williams, O. A. Growth of superconducting boron doped diamond on 4inch silicon wafers. arXiv:2609.15282v1 (14 September 2026). Author preprint, not an established journal version.",
+          "publication_date": "2026-09-14",
+          "inspection_status": "full_text_inspected",
+          "source_kind": "primary_experiment",
+          "locator": "Author preprint PDF pp.3-4 section2 (gas ratios, estimates, warming2-10K); p.6 section3 (Tc=0.5R5K); p.8 Table1/central pieces; p.12 Table2 (Raman estimates); deposited sample mapping and PPMS headers.",
+          "accessed_url": "https://arxiv.org/pdf/2609.15282",
+          "accessed_version": "arXiv v1 author preprint",
+          "inspected_fulltext_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff"
+        },
+        "raw_source_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff",
+        "source_locator": "Author preprint p.8 Table1; criterion p.6; warming2-10K method p.4.",
+        "curation_note": "Author criterion retained separately. Same-film/central-region candidate matching only; no same-raw-trace relation to broad cooling. Gas B/C is not assigned to film composition."
+      }
+    },
+    {
+      "target_id": "diamond4inch-24k:author-resistive-midpoint",
+      "payload": {
+        "material_id": "boron-doped-diamond:24k",
+        "observed_at": "2026-11-01T15:56:20+00:00",
+        "statement": "Historical author-reported warming resistive midpoint Tc of a central-region film piece; not a model prediction or a cross-trace admitted label.",
+        "observation_type": "sample_superconductivity",
+        "assertion_status": "source_checked",
+        "outcome": true,
+        "evidence_kind": "measured_transition",
+        "tc_K": 4.03,
+        "tc_criterion": "resistive_midpoint",
+        "tc_is_approximate": false,
+        "criterion_definition": "Tc at R(Tc)=0.5*R(5K); author preprint p.6 section3 and p.8 Table1.",
+        "conditions": {
+          "sample_id": "diamond4inch-250618-central-piece-candidate",
+          "formula": null,
+          "sample_form": "CVD boron-doped nanocrystalline diamond film on silicon",
+          "phase": null,
+          "pressure_GPa": null,
+          "field_T": null,
+          "t_min_K": 2.0,
+          "t_max_K": 10.0,
+          "method": "resistivity"
+        },
+        "reference": {
+          "doi": "10.48550/arXiv.2609.15282",
+          "url": "https://arxiv.org/abs/2609.15282",
+          "dataset_doi": "10.17035/cardiff.34715652.v1",
+          "citation": "Mandal, S. and Williams, O. A. Growth of superconducting boron doped diamond on 4inch silicon wafers. arXiv:2609.15282v1 (14 September 2026). Author preprint, not an established journal version.",
+          "publication_date": "2026-09-14",
+          "inspection_status": "full_text_inspected",
+          "source_kind": "primary_experiment",
+          "locator": "Author preprint PDF pp.3-4 section2 (gas ratios, estimates, warming2-10K); p.6 section3 (Tc=0.5R5K); p.8 Table1/central pieces; p.12 Table2 (Raman estimates); deposited sample mapping and PPMS headers.",
+          "accessed_url": "https://arxiv.org/pdf/2609.15282",
+          "accessed_version": "arXiv v1 author preprint",
+          "inspected_fulltext_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff"
+        },
+        "raw_source_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff",
+        "source_locator": "Author preprint p.8 Table1; criterion p.6; warming2-10K method p.4.",
+        "curation_note": "Author criterion retained separately. Same-film/central-region candidate matching only; no same-raw-trace relation to broad cooling. Gas B/C is not assigned to film composition."
+      }
+    },
+    {
+      "target_id": "diamond4inch-30k:author-resistive-midpoint",
+      "payload": {
+        "material_id": "boron-doped-diamond:30k",
+        "observed_at": "2026-11-01T15:56:20+00:00",
+        "statement": "Historical author-reported warming resistive midpoint Tc of a central-region film piece; not a model prediction or a cross-trace admitted label.",
+        "observation_type": "sample_superconductivity",
+        "assertion_status": "source_checked",
+        "outcome": true,
+        "evidence_kind": "measured_transition",
+        "tc_K": 3.98,
+        "tc_criterion": "resistive_midpoint",
+        "tc_is_approximate": false,
+        "criterion_definition": "Tc at R(Tc)=0.5*R(5K); author preprint p.6 section3 and p.8 Table1.",
+        "conditions": {
+          "sample_id": "diamond4inch-250703-central-piece-candidate",
+          "formula": null,
+          "sample_form": "CVD boron-doped nanocrystalline diamond film on silicon",
+          "phase": null,
+          "pressure_GPa": null,
+          "field_T": null,
+          "t_min_K": 2.0,
+          "t_max_K": 10.0,
+          "method": "resistivity"
+        },
+        "reference": {
+          "doi": "10.48550/arXiv.2609.15282",
+          "url": "https://arxiv.org/abs/2609.15282",
+          "dataset_doi": "10.17035/cardiff.34715652.v1",
+          "citation": "Mandal, S. and Williams, O. A. Growth of superconducting boron doped diamond on 4inch silicon wafers. arXiv:2609.15282v1 (14 September 2026). Author preprint, not an established journal version.",
+          "publication_date": "2026-09-14",
+          "inspection_status": "full_text_inspected",
+          "source_kind": "primary_experiment",
+          "locator": "Author preprint PDF pp.3-4 section2 (gas ratios, estimates, warming2-10K); p.6 section3 (Tc=0.5R5K); p.8 Table1/central pieces; p.12 Table2 (Raman estimates); deposited sample mapping and PPMS headers.",
+          "accessed_url": "https://arxiv.org/pdf/2609.15282",
+          "accessed_version": "arXiv v1 author preprint",
+          "inspected_fulltext_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff"
+        },
+        "raw_source_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff",
+        "source_locator": "Author preprint p.8 Table1; criterion p.6; warming2-10K method p.4.",
+        "curation_note": "Author criterion retained separately. Same-film/central-region candidate matching only; no same-raw-trace relation to broad cooling. Gas B/C is not assigned to film composition."
+      }
+    },
+    {
+      "target_id": "diamond4inch-36k:author-resistive-midpoint",
+      "payload": {
+        "material_id": "boron-doped-diamond:36k",
+        "observed_at": "2026-11-01T15:56:20+00:00",
+        "statement": "Historical author-reported warming resistive midpoint Tc of a central-region film piece; not a model prediction or a cross-trace admitted label.",
+        "observation_type": "sample_superconductivity",
+        "assertion_status": "source_checked",
+        "outcome": true,
+        "evidence_kind": "measured_transition",
+        "tc_K": 3.79,
+        "tc_criterion": "resistive_midpoint",
+        "tc_is_approximate": false,
+        "criterion_definition": "Tc at R(Tc)=0.5*R(5K); author preprint p.6 section3 and p.8 Table1.",
+        "conditions": {
+          "sample_id": "diamond4inch-250707-central-piece-candidate",
+          "formula": null,
+          "sample_form": "CVD boron-doped nanocrystalline diamond film on silicon",
+          "phase": null,
+          "pressure_GPa": null,
+          "field_T": null,
+          "t_min_K": 2.0,
+          "t_max_K": 10.0,
+          "method": "resistivity"
+        },
+        "reference": {
+          "doi": "10.48550/arXiv.2609.15282",
+          "url": "https://arxiv.org/abs/2609.15282",
+          "dataset_doi": "10.17035/cardiff.34715652.v1",
+          "citation": "Mandal, S. and Williams, O. A. Growth of superconducting boron doped diamond on 4inch silicon wafers. arXiv:2609.15282v1 (14 September 2026). Author preprint, not an established journal version.",
+          "publication_date": "2026-09-14",
+          "inspection_status": "full_text_inspected",
+          "source_kind": "primary_experiment",
+          "locator": "Author preprint PDF pp.3-4 section2 (gas ratios, estimates, warming2-10K); p.6 section3 (Tc=0.5R5K); p.8 Table1/central pieces; p.12 Table2 (Raman estimates); deposited sample mapping and PPMS headers.",
+          "accessed_url": "https://arxiv.org/pdf/2609.15282",
+          "accessed_version": "arXiv v1 author preprint",
+          "inspected_fulltext_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff"
+        },
+        "raw_source_sha256": "d9832c9ae7f78930b91308a650872ad91d5ea739311793862adce06590f55eff",
+        "source_locator": "Author preprint p.8 Table1; criterion p.6; warming2-10K method p.4.",
+        "curation_note": "Author criterion retained separately. Same-film/central-region candidate matching only; no same-raw-trace relation to broad cooling. Gas B/C is not assigned to film composition."
+      }
+    }
+  ],
+  "candidate_matches": [
+    {
+      "target_id": "diamond4inch-12k:author-resistive-midpoint",
+      "candidate_curve_ids": [
+        "diamond4inch-230224-bridge2-cooling_230224B-230224-230224C",
+        "diamond4inch-230224-bridge2-heatnig_230224B-230224-230224C",
+        "diamond4inch-230224-bridge2-RH_2K_230224B-230224-230224C"
+      ],
+      "admission_status": "not_admitted",
+      "same_raw_trace": false,
+      "same_physical_specimen_confirmed": false,
+      "reason": "Only author film/internal code and central region match. Table1 uses warming, broad region is in cooling; no unique physical piece and chosen-repeat binding; film composition unresolved."
+    },
+    {
+      "target_id": "diamond4inch-18k:author-resistive-midpoint",
+      "candidate_curve_ids": [
+        "diamond4inch-230224C-bridge3-cooling_230224B-230224-230224C",
+        "diamond4inch-230224C-bridge3-heatnig_230224B-230224-230224C",
+        "diamond4inch-230224C-bridge3-RH_2K_230224B-230224-230224C"
+      ],
+      "admission_status": "not_admitted",
+      "same_raw_trace": false,
+      "same_physical_specimen_confirmed": false,
+      "reason": "Only author film/internal code and central region match. Table1 uses warming, broad region is in cooling; no unique physical piece and chosen-repeat binding; film composition unresolved."
+    },
+    {
+      "target_id": "diamond4inch-24k:author-resistive-midpoint",
+      "candidate_curve_ids": [
+        "diamond4inch-250618-bridge1-cooling_250618-250703-250707",
+        "diamond4inch-250618-bridge1-cooling_250618-250703-250707_rep",
+        "diamond4inch-250618-bridge1-heating_250618-250703-250707",
+        "diamond4inch-250618-bridge1-heating_250618-250703-250707_rep",
+        "diamond4inch-250618-bridge1-RH_250618-250703-250707",
+        "diamond4inch-250618-bridge1-RH_250618-250703-250707_rep"
+      ],
+      "admission_status": "not_admitted",
+      "same_raw_trace": false,
+      "same_physical_specimen_confirmed": false,
+      "reason": "Only author film/internal code and central region match. Table1 uses warming, broad region is in cooling; no unique physical piece and chosen-repeat binding; film composition unresolved."
+    },
+    {
+      "target_id": "diamond4inch-30k:author-resistive-midpoint",
+      "candidate_curve_ids": [
+        "diamond4inch-250703-bridge2-cooling_250618-250703-250707",
+        "diamond4inch-250703-bridge2-cooling_250618-250703-250707_rep",
+        "diamond4inch-250703-bridge2-heating_250618-250703-250707",
+        "diamond4inch-250703-bridge2-heating_250618-250703-250707_rep",
+        "diamond4inch-250703-bridge2-RH_250618-250703-250707",
+        "diamond4inch-250703-bridge2-RH_250618-250703-250707_rep"
+      ],
+      "admission_status": "not_admitted",
+      "same_raw_trace": false,
+      "same_physical_specimen_confirmed": false,
+      "reason": "Only author film/internal code and central region match. Table1 uses warming, broad region is in cooling; no unique physical piece and chosen-repeat binding; film composition unresolved."
+    },
+    {
+      "target_id": "diamond4inch-36k:author-resistive-midpoint",
+      "candidate_curve_ids": [
+        "diamond4inch-250707-bridge3-cooling_250618-250703-250707",
+        "diamond4inch-250707-bridge3-cooling_250618-250703-250707_rep",
+        "diamond4inch-250707-bridge3-heating_250618-250703-250707",
+        "diamond4inch-250707-bridge3-heating_250618-250703-250707_rep",
+        "diamond4inch-250707-bridge3-RH_250618-250703-250707",
+        "diamond4inch-250707-bridge3-RH_250618-250703-250707_rep"
+      ],
+      "admission_status": "not_admitted",
+      "same_raw_trace": false,
+      "same_physical_specimen_confirmed": false,
+      "reason": "Only author film/internal code and central region match. Table1 uses warming, broad region is in cooling; no unique physical piece and chosen-repeat binding; film composition unresolved."
+    }
+  ],
+  "admission_status": "not_admitted_to_primary_pilot",
+  "note": "Claims are author Table1 facts; unrelated normal cooling files must not be silently paired. NoTc=0 record from6k censoring."
+}

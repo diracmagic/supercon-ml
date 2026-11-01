@@ -1,0 +1,26 @@
+[
+  {
+    "excluded_curve_id": "hea-x0.35-ZFC",
+    "retained_curve_id": "hea_2022_measured_x0p35_zfc",
+    "duplicate_finite_points": 200,
+    "reason": "Exact same source CSV values collected twice; retain unknown unit/field and original missing row. Historical ledger observations are corrected append-only."
+  },
+  {
+    "excluded_curve_id": "hea-x0.35-FC",
+    "retained_curve_id": "hea_2022_measured_x0p35_fc",
+    "duplicate_finite_points": 200,
+    "reason": "Exact same source CSV values collected twice; retain unknown unit/field and original missing row. Historical ledger observations are corrected append-only."
+  },
+  {
+    "excluded_curve_id": "hea-x0.71-ZFC",
+    "retained_curve_id": "hea_2022_measured_x0p71_zfc",
+    "duplicate_finite_points": 200,
+    "reason": "Exact same source CSV values collected twice; retain unknown unit/field and original missing row. Historical ledger observations are corrected append-only."
+  },
+  {
+    "excluded_curve_id": "hea-x0.71-FC",
+    "retained_curve_id": "hea_2022_measured_x0p71_fc",
+    "duplicate_finite_points": 200,
+    "reason": "Exact same source CSV values collected twice; retain unknown unit/field and original missing row. Historical ledger observations are corrected append-only."
+  }
+]

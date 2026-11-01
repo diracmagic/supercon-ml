@@ -1,0 +1,155 @@
+{
+  "status": "pass_with_explicit_training_exclusion",
+  "source_archive_sha256": "33cc65d8822eeef1b9a51984b04d90f7a4c2ee64bf6b06e1563e7be1ff052b20",
+  "paper_sha256": "f01ba9514e2d5b349d938d7a2da236bfb2eebd5f527376d2641056fbfaf1b1af",
+  "frozen_policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+  "curation_inspected_at": "2026-11-01T13:59:19+00:00",
+  "curves": 3,
+  "point_records": 310,
+  "physical_specimens": 1,
+  "material_groups": 1,
+  "published_midpoint_targets": 1,
+  "strict_primary_cohort_added": 0,
+  "sample": {
+    "paper_label": null,
+    "candidate_paper_label": "A, exact physicalpiece mapping unverified",
+    "formula": "Al",
+    "source_code": "0r2v3",
+    "run": 2,
+    "cooldown": "CD45",
+    "contacts": "C1",
+    "nominal_thickness_nm": 100.0
+  },
+  "tc": {
+    "value_k": 1.25,
+    "uncertainty_k": 0.01,
+    "criterion": "50% resistance drop relative to onset",
+    "source": "Table2 rowA; Sec.3.2",
+    "collector_computed_tc": false
+  },
+  "trace_diagnostics": [
+    {
+      "iv_member": "datset_superconducting_nitridized-aluminum_thin_films/run2/CD45/routines_0r2v3_/AlN_0r2v3_continuous_during_CD_C1_Still.txt",
+      "iv_member_sha256": "b0d546f39b4b7aee36e46f813d3191e7f6a5385410756f3f446a1a33d5332d0b",
+      "temperature_member": "datset_superconducting_nitridized-aluminum_thin_films/run2/CD45/routines_0r2v3_/AlN_0r2v3_continuous_during_CD_C1_Still_temperatures.txt",
+      "temperature_member_sha256": "09b143ded38413347c417407a544ecbbc7e360ee7784fae7dd2667ee5d8bf1bd",
+      "repetitions": 251,
+      "iv_points_per_repetition": 201,
+      "temperature_min_k": 4.024304999999999,
+      "temperature_max_k": 300.01785699999994,
+      "normal_window_records": 80,
+      "normal_window_unique_mean_temperatures": 78,
+      "r_squared_min": 0.5180184747527545,
+      "r_squared_median": 0.6944782554715578,
+      "window_r_squared_min": 0.8598303432910215,
+      "maximum_temperature_change_within_IV_k": 0.37891399999998043,
+      "curve_id": "nitral-2024-0r2v3-CD45-broad-C1"
+    },
+    {
+      "iv_member": "datset_superconducting_nitridized-aluminum_thin_films/run2/CD45/routines_0r2v3_/AlN_0r2v3_Tc_measurement_C1.txt",
+      "iv_member_sha256": "f692a3908f2d0f3bf17d3d0956859670be364f0cd91dfed79f2dac4d3183a26b",
+      "temperature_member": "datset_superconducting_nitridized-aluminum_thin_films/run2/CD45/routines_0r2v3_/AlN_0r2v3_Tc_measurement_C1_temperatures.txt",
+      "temperature_member_sha256": "4e84981ef158820dc3e7f393c6b4b6bec6d679d8310c9e025c9d1dd0e4cc4a40",
+      "repetitions": 51,
+      "iv_points_per_repetition": 201,
+      "temperature_min_k": 1.2286439999999998,
+      "temperature_max_k": 1.2790540000000004,
+      "normal_window_records": 0,
+      "normal_window_unique_mean_temperatures": 0,
+      "r_squared_min": 0.00016148084660538853,
+      "r_squared_median": 0.9236509710927941,
+      "window_r_squared_min": null,
+      "maximum_temperature_change_within_IV_k": 0.017220000000000013,
+      "curve_id": "nitral-2024-0r2v3-CD45-transition-C1"
+    },
+    {
+      "iv_member": "datset_superconducting_nitridized-aluminum_thin_films/run2/CD45/routines_0r2v3_/AlN_0r2v3_Tc_measurement_2_C1.txt",
+      "iv_member_sha256": "be4e0725fbe6557fad3af1a7948c3c717c5cb2f23642889207b656f0f2f67bc5",
+      "temperature_member": "datset_superconducting_nitridized-aluminum_thin_films/run2/CD45/routines_0r2v3_/AlN_0r2v3_Tc_measurement_2_C1_temperatures.txt",
+      "temperature_member_sha256": "9ef44247317a17d92ef78d60ab2110f059c443352df4382a12ebf50253ce9ca6",
+      "repetitions": 8,
+      "iv_points_per_repetition": 201,
+      "temperature_min_k": 1.2261430000000004,
+      "temperature_max_k": 1.2687670000000002,
+      "normal_window_records": 0,
+      "normal_window_unique_mean_temperatures": 0,
+      "r_squared_min": 4.151653579032022e-06,
+      "r_squared_median": 0.0832927701755618,
+      "window_r_squared_min": null,
+      "maximum_temperature_change_within_IV_k": 0.012378,
+      "curve_id": "nitral-2024-0r2v3-CD45-transition2-C1"
+    }
+  ],
+  "frozen_transport_extraction": {
+    "curve_id": "nitral-2024-0r2v3-CD45-broad-C1",
+    "quantity": "resistance",
+    "unit": "ohm",
+    "policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+    "status": "ready",
+    "features": {
+      "log_ratio_250_200": 0.2232946739730198,
+      "normalized_secant_per_k": 0.004447429558316091,
+      "normalized_curvature_per_k2": -2.2409972167122617e-05
+    },
+    "reasons": [],
+    "raw_point_count": 251,
+    "statistical_sample_count": 1,
+    "source_sha256": "33cc65d8822eeef1b9a51984b04d90f7a4c2ee64bf6b06e1563e7be1ff052b20",
+    "curve_content_sha256": "baf88500d9dfb47dacce88e8e7409f8aa48ae407d41760f170e4a0ca21d5ad2a",
+    "used_point_indices_summary": {
+      "count": 80,
+      "canonical_sha256": "540b39b5e6bbb9803e3314065f41848fbf41bc419ab048e9ee014079f29326b1",
+      "omitted_from_public_bundle": true
+    },
+    "window_point_count": 80,
+    "unique_temperature_count": 78,
+    "anchor_values": {
+      "200": 0.04808010434293016,
+      "225": 0.05447349016283802,
+      "250": 0.06010921360648762
+    },
+    "feature_units": "dimensionless shape / K powers",
+    "replicate_temperatures": 1
+  },
+  "strict_link_exclusion_reasons": [
+    "Inspected explicit same-physical-specimen link required"
+  ],
+  "same_specimen_evidence": {
+    "curve_id": "nitral-2024-0r2v3-CD45-broad-C1",
+    "target_id": "nitral-2024:sample-A:Tcmid",
+    "same_physical_specimen": null,
+    "assertion_status": "needs_review",
+    "specimen_id": "nitral-2024:0r2v3:CD45:C1",
+    "curve_sample_id": "nitral-2024:0r2v3:CD45:C1",
+    "target_sample_id": "nitral-2024:paper-Table2-A:run2-0pct:physical-piece-unresolved",
+    "source_locator": "Table2 rowA maps0%/run2 to pureAl but does not identify0r2v3/CD45/C1. Source.zip run2/CD45/routines_0r2v3_ directory and C1 basenames bind the3rawtraces to each other only. AuthorREADME defines runs/cooldowns/sample_id/contact configurations; v3 meaning unreported.",
+    "scope": "same_specimen_condition_matched",
+    "same_raw_trace": false,
+    "same_cooldown": null,
+    "same_contact_configuration": null,
+    "same_author_specimen_code": null,
+    "within_raw_trace_set_only": {
+      "same_cooldown": "CD45",
+      "same_contacts": "C1",
+      "same_sample_code": "0r2v3"
+    },
+    "measurement_run_id": null,
+    "unresolved_conditions": [
+      "pressure_gpa",
+      "magnetic_field_t",
+      "Table2A_to_0r2v3_physical_identity"
+    ],
+    "primary_join_eligible": false
+  },
+  "unresolved": [
+    "Table2 does not identify0r2v3/CD45/C1 or explain v3; 0%/run2 metadata and similarTc do not prove an exact physicalpiece/cooldown/contact match to the published1.25K value.",
+    "No numeric measurementP/B; magnetic shielding does not establish0T.",
+    "Separate highT and transition raw files; shared archive/cooldown/C1 is not identical rawtrace.",
+    "R is collector-derived OLS slope of rawIV, not a source-deposited processedR table. IV noise and within-ramp temperature drift are retained diagnostics.",
+    "Paper labels NitrAl's other samples by process gas flow; atomicN content is explicitly unreported, so do not manufacture formulas or concentration-axis labels.",
+    "Reported Table2 values do not identify which of the two nearTc repetitions contributed to their average; both are preserved and no per-fileTc is assigned."
+  ],
+  "zero_model_fits": true,
+  "zero_ledger_reads_or_writes": true,
+  "original_bytes_unchanged": true
+}

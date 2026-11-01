@@ -1,0 +1,330 @@
+{
+  "audit_hash_rule": "Canonical sorted compact UTF-8 JSON of original entire audit material record. Original source-file raw and CRLF-to-LF hashes are both retained; index hashes match LF only.",
+  "authority": {
+    "history_note": "No later adopted ranking found in the inspected sources; source commit is the executed ranking commit, not current checkout HEAD",
+    "models": [
+      "Radar 1.0",
+      "Storm 5.0",
+      "Hurricane 4.0"
+    ],
+    "not_current_candidate_sources": [
+      "progress/progress.json (stale round 4)",
+      "Storm 6 exploratory results",
+      "Hurricane 6/7 exploratory results"
+    ],
+    "screen_commit": "57434fb",
+    "screen_round": 5
+  },
+  "common_acquisition_requirements": {
+    "conditions": {
+      "applied_magnetic_field_t": "explicit known or null; preserve signed direction and H/B distinction",
+      "doping": "reported species, value, basis and sample identity; unknown remains null",
+      "pressure_gpa": "explicit known or null with source; silence is not ambient",
+      "strain": "reported value or null; no fabrication of zero",
+      "temperature_k": "measured point values, never T/Tc",
+      "varying_axes": "preserve all varied axes pointwise; do not turn multivariate trace into fixed-condition R(T)"
+    },
+    "independent_unit": "source/sample/chemical-system and all connected series/conditions grouped before any split; temperature points are not independent samples",
+    "normal_state_model_policy_boundary": "Collect complete source curves. Existing measured-sample pilot uses frozen absolute 150–300 K windows with 200/250 K anchors, normal-state provenance and sample-matched target; extraction/cohort/criterion/group gates remain separate. No window adjustment to increase coverage.",
+    "parallel_tracks": true,
+    "prohibited": [
+      "prediction-as-label",
+      "missing-as-zero",
+      "no-report-as-negative",
+      "heterostructure Tc assigned to an individual layer",
+      "structural or magnetic evidence called SC absence",
+      "condition/phase transfer across different specimens",
+      "calling all temperature points sample count"
+    ],
+    "purpose": "Collection queue only; does not amend any frozen scientific training protocol",
+    "requested_observables": [
+      "rho(T,P,x,H)",
+      "R(T,P,x,H) kept distinct from rho",
+      "chi or M(T,P,x,H) with normalization and field provenance",
+      "C(T,P,x,H), molar/specific units and addenda/background provenance"
+    ],
+    "requested_source_identity": [
+      "primary DOI and source-data URL",
+      "raw source byte SHA256 and licence",
+      "file/sheet/column/row or point locator",
+      "numeric raw vs digitized vs calculated flag"
+    ],
+    "required_join_evidence": [
+      "physical specimen ID and source locator",
+      "exact trace/logical author series identity",
+      "composition with nominal/measured/proxy quality and source",
+      "phase, form, synthesis, dimensions and orientation when reported",
+      "target observable and Tc criterion explicitly mapped; no formula-only joins"
+    ],
+    "requirement_id": "acquisition_requirements_v1",
+    "scientific_domains": {
+      "Hurricane": "retain positive/unlabeled semantics without inventing measured negatives or probabilities",
+      "Storm": "keep DFT Allen–Dynes targets separate from measured-sample Tc; no formula join to Alexandria"
+    },
+    "track_dependency_order": []
+  },
+  "created_on": "2026-11-01",
+  "current_candidate_count": 152,
+  "files": [
+    {
+      "bytes": 65583,
+      "path": "candidates-part-01.json",
+      "purpose": "Current candidate metadata; prediction is explicitly separate from observations",
+      "records": 22,
+      "sha256_raw_bytes": "6c2be3ef77c7e99fb8d202d873241f8d27b6f0dd28a0de91f8dae3f9f94ab988"
+    },
+    {
+      "bytes": 65958,
+      "path": "candidates-part-02.json",
+      "purpose": "Current candidate metadata; prediction is explicitly separate from observations",
+      "records": 22,
+      "sha256_raw_bytes": "bad79dc32835b0a9b064baaeddbb4df9ab7abd231f4ad15895f6b861201962ff"
+    },
+    {
+      "bytes": 66004,
+      "path": "candidates-part-03.json",
+      "purpose": "Current candidate metadata; prediction is explicitly separate from observations",
+      "records": 22,
+      "sha256_raw_bytes": "5db3092bbf1ae7134c13cf9e00cdefc1f91d484ca411f0b02b823ba0ced891e2"
+    },
+    {
+      "bytes": 67168,
+      "path": "candidates-part-04.json",
+      "purpose": "Current candidate metadata; prediction is explicitly separate from observations",
+      "records": 23,
+      "sha256_raw_bytes": "2a4ac8f5a7d2169eeae7f8bc4a3af8bdb84ee7e09dde29ca7182f99c63bcd742"
+    },
+    {
+      "bytes": 67091,
+      "path": "candidates-part-05.json",
+      "purpose": "Current candidate metadata; prediction is explicitly separate from observations",
+      "records": 22,
+      "sha256_raw_bytes": "df65444e5f680c60fe72b797aa1cb9bef3923071c88480212c048554f7771f79"
+    },
+    {
+      "bytes": 65055,
+      "path": "candidates-part-06.json",
+      "purpose": "Current candidate metadata; prediction is explicitly separate from observations",
+      "records": 21,
+      "sha256_raw_bytes": "5d03cf7ebca63725705bbbd5fae8ff124d81cf04b0dba45dba8e71e3e900ea6a"
+    },
+    {
+      "bytes": 62668,
+      "path": "candidates-part-07.json",
+      "purpose": "Current candidate metadata; prediction is explicitly separate from observations",
+      "records": 20,
+      "sha256_raw_bytes": "cc0586a4ee0b2de2ce7fbde6a3dfdbfa406a87090363b284dfee34510653474d"
+    },
+    {
+      "bytes": 67068,
+      "path": "literature-part-01.json",
+      "purpose": "Scoped source citations, inherited access checks and failures; no label transfer",
+      "records": 83,
+      "sha256_raw_bytes": "c769e67a65bc20ba1109392a6d64dd9076bdc903c4696739a0fe4c5bafb9fa30"
+    },
+    {
+      "bytes": 38250,
+      "path": "literature-part-02.json",
+      "purpose": "Scoped source citations, inherited access checks and failures; no label transfer",
+      "records": 54,
+      "sha256_raw_bytes": "f77169511ef48647fdec981e6b7d338975d9564e7c47896a3b3a5739a1b63e33"
+    },
+    {
+      "bytes": 5824,
+      "path": "retired-candidates.json",
+      "purpose": "Five historical IDs, excluded from the current count/ranking",
+      "records": 5,
+      "sha256_raw_bytes": "bcb43dbbdfb70118523a5820529e34bd437a4e1a5e6875635eedd80e168d2f79"
+    },
+    {
+      "bytes": 15826,
+      "path": "primary-data-leads.json",
+      "purpose": "Primary availability review",
+      "sha256_raw_bytes": "93dee3b7a0f6dceb08ba77da94c4d9385ea4bad1384bdcc1b13825a680f1e6d3"
+    },
+    {
+      "bytes": 6958,
+      "path": "mdr-ingestion-risk-audit.json",
+      "purpose": "Secondary MDR ingestion boundaries",
+      "sha256_raw_bytes": "d009d14bb6c6044ca34688fe10320d9c1c9932d6fbfe57601e228f17bb43e3ea"
+    },
+    {
+      "bytes": 26322,
+      "path": "mdr-review-crosswalk-summary.json",
+      "purpose": "Zero exact matches; all 20 related-system records retain source num/refno/line and no sample join",
+      "sha256_raw_bytes": "3cfb18ab01f5e2b0a2831440e67d5bd582a2a6b691b9fa7eb0b0d03ad5d80be9"
+    },
+    {
+      "bytes": 11638,
+      "path": "build.py",
+      "purpose": "Reproducible metadata build/validation",
+      "sha256_raw_bytes": "40df3c821a9597a0f742166347edf18a8ea023684edd19078f939728feb9e187"
+    },
+    {
+      "bytes": 6370,
+      "path": "validate.py",
+      "purpose": "Reproducible metadata build/validation",
+      "sha256_raw_bytes": "33b3ea6fbc6460512ad563679b2a861a70b3fa51a7b84af9b49df7526f4d888d"
+    },
+    {
+      "bytes": 4873,
+      "path": "README.md",
+      "purpose": "Scope and replay instructions",
+      "sha256_raw_bytes": "694ac50e99a6841bfb0667f14c9843aab45b47c8ca06d64f2d5bb17464e11d89"
+    }
+  ],
+  "files_max_bytes": 68000,
+  "ledger_writes": 0,
+  "models": [
+    "Radar 1.0",
+    "Storm 5.0",
+    "Hurricane 4.0"
+  ],
+  "models_fitted": 0,
+  "new_training_labels": 0,
+  "package_boundaries": [
+    "metadata and source references only",
+    "no atoms or raw curve point arrays",
+    "no PDFs, ZIPs, source XLSX or ledger",
+    "all current and retired candidate source checks preserved by reference",
+    "unknown is not a negative label",
+    "no formula-only sample/structure/target join"
+  ],
+  "prediction_semantics": {
+    "Hurricane": "Released H4 outputs only; p min/max express fitted-model disagreement, not confidence intervals. H6/H7 exploratory results do not replace this ranking.",
+    "Storm": "S5 predicts DFT Allen–Dynes Tc; its empirical correction and model scores are predictions, not measured candidate feedback. S6 exploratory results do not replace this ranking.",
+    "family": "H4 family/type fields are model routing outputs, not an observed pairing mechanism."
+  },
+  "retired_candidate_count": 5,
+  "schema_version": 1,
+  "source_inputs": [
+    {
+      "bytes": 222850,
+      "path_relative_to_workspace": "work/research-results-61/results/screen_round5.json",
+      "purpose": "Authority for current IDs, predictions, structures and track ranks",
+      "sha256_raw_bytes": "ae4af037f327b8efb69c9076e119d21c729434be24ad995e40d65fe14e10e200",
+      "sha256_text_LF": "ae4af037f327b8efb69c9076e119d21c729434be24ad995e40d65fe14e10e200"
+    },
+    {
+      "bytes": 3177,
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_literature_audit.json",
+      "purpose": "Authority for audit-part membership and expected byte hashes",
+      "sha256_raw_bytes": "c67b4fd677e1852d5cb43ca160e315cd20a4a7455560e6db473873b0c996ad1b",
+      "sha256_text_LF": "1ab9e240b5767f0c98295bb8b9f7264c958f984c00fb5be4e3fb3fc54ceb8098"
+    },
+    {
+      "bytes": 61767,
+      "index_expected_sha256_text_LF": "7d364d2ae820c68463737283d88505adf6bec91e3ac3a150f1b76fdf8afe3355",
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_audits/part-01.json",
+      "purpose": "Prior literature audit, retained as scoped evidence",
+      "sha256_raw_bytes": "716709932786302072f4cd71a366d93b39e4a4f5108a51420c9c971514a88e64",
+      "sha256_text_LF": "7d364d2ae820c68463737283d88505adf6bec91e3ac3a150f1b76fdf8afe3355"
+    },
+    {
+      "bytes": 58761,
+      "index_expected_sha256_text_LF": "98741a3974c360d54280b65c4e3469694ac08f7352336996107e8fbc6eb75a82",
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_audits/part-02.json",
+      "purpose": "Prior literature audit, retained as scoped evidence",
+      "sha256_raw_bytes": "f76b895845651ccdfb5a59b14768382fb12382846056cd3164bc94697d2dcac7",
+      "sha256_text_LF": "98741a3974c360d54280b65c4e3469694ac08f7352336996107e8fbc6eb75a82"
+    },
+    {
+      "bytes": 59263,
+      "index_expected_sha256_text_LF": "29953cdc99a45d8e19c00e422e0ec55abb652f9a36f686876cfda7427dafb2ee",
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_audits/part-03.json",
+      "purpose": "Prior literature audit, retained as scoped evidence",
+      "sha256_raw_bytes": "4ab9882eb60fa175d8843ed6fe334a84d521f27bb2239e79365994f8e7346166",
+      "sha256_text_LF": "29953cdc99a45d8e19c00e422e0ec55abb652f9a36f686876cfda7427dafb2ee"
+    },
+    {
+      "bytes": 61195,
+      "index_expected_sha256_text_LF": "186f04fd468a738ede252c68e41555ae7981f3a1b2e7500a7af70552837362f1",
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_audits/part-04.json",
+      "purpose": "Prior literature audit, retained as scoped evidence",
+      "sha256_raw_bytes": "a8c3d449eb3340ff9e63f96fc9a778e893c3dd5e99d1a10aafda8266c53041e7",
+      "sha256_text_LF": "186f04fd468a738ede252c68e41555ae7981f3a1b2e7500a7af70552837362f1"
+    },
+    {
+      "bytes": 60683,
+      "index_expected_sha256_text_LF": "e8df51f8ff8d95238471db19179001eab0d572bc7b0b96caaedc9a1fafcdcb87",
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_audits/part-05.json",
+      "purpose": "Prior literature audit, retained as scoped evidence",
+      "sha256_raw_bytes": "a2f80578f53057ff6ea65593173dd38bd00f339b4ff65a739a6b6c77ee0eca4e",
+      "sha256_text_LF": "e8df51f8ff8d95238471db19179001eab0d572bc7b0b96caaedc9a1fafcdcb87"
+    },
+    {
+      "bytes": 60452,
+      "index_expected_sha256_text_LF": "14c757f67574aa989c128cf4ac0acef72ef082d9ac407c88b4050205160da70c",
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_audits/part-06.json",
+      "purpose": "Prior literature audit, retained as scoped evidence",
+      "sha256_raw_bytes": "ce7c4db8cd920270075e4718012573429c0458065eea4740aae5747ec5584bc5",
+      "sha256_text_LF": "14c757f67574aa989c128cf4ac0acef72ef082d9ac407c88b4050205160da70c"
+    },
+    {
+      "bytes": 58118,
+      "index_expected_sha256_text_LF": "1cddb48b8eaccb1d0bb28db212641e69132c6abda7f17d20c2997033ec6e2f09",
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_audits/part-07.json",
+      "purpose": "Prior literature audit, retained as scoped evidence",
+      "sha256_raw_bytes": "33ba266f2156e698915e04f8f2c6b976d905b9293aacc55383c2ceef4403a175",
+      "sha256_text_LF": "1cddb48b8eaccb1d0bb28db212641e69132c6abda7f17d20c2997033ec6e2f09"
+    },
+    {
+      "bytes": 60380,
+      "index_expected_sha256_text_LF": "8c87584738a96629ac57217e14ad18628daaadb40ef9bb685107e86c703c6b21",
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_audits/part-08.json",
+      "purpose": "Prior literature audit, retained as scoped evidence",
+      "sha256_raw_bytes": "296206e9a10fb14adb552bb79fe58d092f7d71687891f62babbcebbb22ffdcaf",
+      "sha256_text_LF": "8c87584738a96629ac57217e14ad18628daaadb40ef9bb685107e86c703c6b21"
+    },
+    {
+      "bytes": 55785,
+      "index_expected_sha256_text_LF": "5aec44132d585b959ccf6c07d324ac2b442c28c31a35b9cd5de54a52c955379b",
+      "path_relative_to_workspace": "work/supercon-ml/data/candidate_audits/part-09.json",
+      "purpose": "Prior literature audit, retained as scoped evidence",
+      "sha256_raw_bytes": "7c8bcbd36f659519e852c697c721eb3aaeff849e7fed87ba5b84628f2990868c",
+      "sha256_text_LF": "5aec44132d585b959ccf6c07d324ac2b442c28c31a35b9cd5de54a52c955379b"
+    }
+  ],
+  "source_private_manifest": {
+    "bytes": 870079,
+    "filename": "candidate-acquisition-manifest.json",
+    "sha256_raw_bytes": "4654712cd80084b4329d06bea47eddfd0cda88d7d4c65ad9c5a420de9db26fee"
+  },
+  "structure_hash_rule": "Canonical sorted compact UTF-8 JSON of original stored lattice/elements/frac. Representation-sensitive; no symmetry-equivalence or experimental-phase identity claim.",
+  "summary": {
+    "Hurricane": 50,
+    "Storm": 102,
+    "all_historical_prior_search_log_entries": 511,
+    "current": 152,
+    "current_ids_with_any_prior_source": 77,
+    "current_ids_with_inherited_primary_doi_check": 28,
+    "current_prior_search_log_entries": 496,
+    "current_status_counts": {
+      "needs-full-text": 12,
+      "not-found-in-this-search": 110,
+      "reported-nonsuperconducting": 2,
+      "structure-only": 28
+    },
+    "domain_counts": {
+      "exploration": 52,
+      "in_domain": 50,
+      "within_H4_feature_proximity_acceptance": 50
+    },
+    "historical_status_counts": {
+      "needs-full-text": 13,
+      "not-found-in-this-search": 112,
+      "reported-nonsuperconducting": 2,
+      "structure-only": 30
+    },
+    "overlap_between_tracks": 0,
+    "retired": 5,
+    "subtrack_counts": {
+      "borides": 2,
+      "carbides": 0,
+      "storm_exploration": 50,
+      "storm_in_domain": 50
+    },
+    "unique_current_ids": 152
+  },
+  "track_dependency_order": []
+}

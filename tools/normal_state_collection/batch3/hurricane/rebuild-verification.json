@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "scope": "Actual isolated-copy rebuild of three adapters against original local source bytes; not an ML effect test",
+  "registered_source_and_evidence_hashes_checked": 32,
+  "numeric_source_containers": 27,
+  "primary_evidence_PDFs": 5,
+  "isolated_rebuild_json_compared": 18,
+  "all_compact_metadata_equal": true,
+  "source_cell_roundtrip_checked_for_all_prepared_points": true,
+  "all_public_files_LF": true,
+  "all_public_files_below_70000_bytes": true,
+  "no_raw_arrays_or_pdfs_or_ledger_payloads": true,
+  "no_local_absolute_paths_or_signed_auth_urls": true,
+  "source_originals_modified": false,
+  "models_fitted": 0,
+  "LOFO_runs": 0,
+  "ledger_files_read_or_written": 0,
+  "policy_frozen": false,
+  "source_registry_sha256": "525c77c88d048fbd9fc1e5e0f5ef5dcf7d2b01cc100502b564747afa6917a6e4"
+}

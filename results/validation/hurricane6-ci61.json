@@ -1,0 +1,607 @@
+{
+  "run_id": "20261031T2216200500-1793502980025349547",
+  "github_run": 41263644864,
+  "sources": {
+    "20261031T2216200500-1793502980025349547.json": "68482eb6525d6520097c55356054bba3e6530b11727c2f42ef5df169beb2b79c",
+    "20261031T2216200500-1793502980025349547-parents.csv": "0b3f967b6cca78baa3b8bccab785532e024689f2703fde45689f68aa030bab88",
+    "20261031T2216200500-1793502980025349547-background.csv": "c0a63b9303d49fc15a1243aa43ed3c02b8367b7b98e4eecce9ca1533754f07d5",
+    "protocol-e12a8a1530d0e716.json": "4723db0632df3828bcc3a0d5fc575cab729937aee82398f38cc72f856cae86f5",
+    "preflight-1793499575880003365.json": "702ccee44b32c8a1c20b96e05722beb449fc1184c4b225635b2b145776e9eedb"
+  },
+  "protocol": {
+    "sha256": "e12a8a1530d0e716d5585520b36523322882bd06c9b9447f058bd0b167832d68",
+    "frozen_report_and_preflight_match": true,
+    "version": "hurricane6-lofo-v1",
+    "threshold": 0.5,
+    "margins": {
+      "brier_tolerance_over_each_reference": 0.01,
+      "extra_positive_parents_over_both_references": 10,
+      "macro_found_gain_over_both_references": 0.05,
+      "macro_tc_mae_tolerance_K": 1.0,
+      "max_background_false_alarms": 0.05,
+      "paired_chemical_system_bootstrap_lower95_gain_over_both": 0.0,
+      "unknown_rate_increase_over_each_reference": 0.05
+    },
+    "bootstrap": {
+      "resamples": 1000,
+      "seed": 7,
+      "unit": "chemical system, sampled within each family"
+    }
+  },
+  "cohort": {
+    "parents_per_design": 619,
+    "positive_parents": 290,
+    "same_ids_order_metadata_targets_across_designs": true,
+    "preflight_usable_fraction": 1.0,
+    "parent_cif_id_hash_records_complete": true,
+    "p1_m1_parent_and_background_abstention_identical": true,
+    "embedding_checkpoint_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+    "embedding_parent_background_generation_identical": true,
+    "embedding_dimension": 768,
+    "negative_parent_training_labels": 0
+  },
+  "nonfinite_csv_values": {
+    "parents": {
+      "tc_parent_max": 0,
+      "p_sc": 0,
+      "tc_pred": 0
+    },
+    "background": {
+      "p_sc": 0
+    }
+  },
+  "lofo_and_macro": {
+    "H4": {
+      "lofo": [
+        {
+          "family": "cuprate",
+          "n": 160,
+          "n_sc": 84,
+          "n_found": 1,
+          "found": 0.011904761904761904,
+          "n_unknown_sc": 45,
+          "unknown_sc": 0.5357142857142857,
+          "n_unlikely_sc": 38,
+          "n_observed_zero": 76,
+          "n_false_positive_observed_zero": 0,
+          "unknown_all": 0.46875,
+          "brier": 0.43789730350933836,
+          "tc_mae": 34.512024258512156
+        },
+        {
+          "family": "iron-based",
+          "n": 111,
+          "n_sc": 73,
+          "n_found": 0,
+          "found": 0.0,
+          "n_unknown_sc": 66,
+          "unknown_sc": 0.9041095890410958,
+          "n_unlikely_sc": 7,
+          "n_observed_zero": 38,
+          "n_false_positive_observed_zero": 0,
+          "unknown_all": 0.8918918918918919,
+          "brier": 0.5432976051962225,
+          "tc_mae": 10.89129000682263
+        },
+        {
+          "family": "heavy-fermion",
+          "n": 221,
+          "n_sc": 81,
+          "n_found": 0,
+          "found": 0.0,
+          "n_unknown_sc": 80,
+          "unknown_sc": 0.9876543209876543,
+          "n_unlikely_sc": 1,
+          "n_observed_zero": 140,
+          "n_false_positive_observed_zero": 0,
+          "unknown_all": 0.9864253393665159,
+          "brier": 0.3349415944512224,
+          "tc_mae": 1.5062284102040233
+        },
+        {
+          "family": "other oxide",
+          "n": 127,
+          "n_sc": 52,
+          "n_found": 3,
+          "found": 0.057692307692307696,
+          "n_unknown_sc": 36,
+          "unknown_sc": 0.6923076923076923,
+          "n_unlikely_sc": 13,
+          "n_observed_zero": 75,
+          "n_false_positive_observed_zero": 5,
+          "unknown_all": 0.7086614173228346,
+          "brier": 0.3264486594541692,
+          "tc_mae": 3.559081155988601
+        }
+      ],
+      "stats": {
+        "macro_found": 0.0173992673992674,
+        "n_found": 4,
+        "n_sc": 290,
+        "macro_tc_mae": 12.617155957881852,
+        "macro_brier": 0.4106462906527381,
+        "macro_unknown_sc": 0.7799464720126821,
+        "micro_found": 0.013793103448275862,
+        "n_unknown_sc": 227,
+        "n_unlikely_sc": 59
+      }
+    },
+    "M1": {
+      "lofo": [
+        {
+          "family": "cuprate",
+          "n": 160,
+          "n_sc": 84,
+          "n_found": 0,
+          "found": 0.0,
+          "n_unknown_sc": 15,
+          "unknown_sc": 0.17857142857142858,
+          "n_unlikely_sc": 69,
+          "n_observed_zero": 76,
+          "n_false_positive_observed_zero": 0,
+          "unknown_all": 0.18125,
+          "brier": 0.5033287288783892,
+          "tc_mae": 34.55457516336348
+        },
+        {
+          "family": "iron-based",
+          "n": 111,
+          "n_sc": 73,
+          "n_found": 0,
+          "found": 0.0,
+          "n_unknown_sc": 50,
+          "unknown_sc": 0.684931506849315,
+          "n_unlikely_sc": 23,
+          "n_observed_zero": 38,
+          "n_false_positive_observed_zero": 0,
+          "unknown_all": 0.6576576576576577,
+          "brier": 0.581327487377616,
+          "tc_mae": 10.92533996707564
+        },
+        {
+          "family": "heavy-fermion",
+          "n": 221,
+          "n_sc": 81,
+          "n_found": 3,
+          "found": 0.037037037037037035,
+          "n_unknown_sc": 75,
+          "unknown_sc": 0.9259259259259259,
+          "n_unlikely_sc": 3,
+          "n_observed_zero": 140,
+          "n_false_positive_observed_zero": 2,
+          "unknown_all": 0.9140271493212669,
+          "brier": 0.29767164454674633,
+          "tc_mae": 1.4231058451671987
+        },
+        {
+          "family": "other oxide",
+          "n": 127,
+          "n_sc": 52,
+          "n_found": 2,
+          "found": 0.038461538461538464,
+          "n_unknown_sc": 20,
+          "unknown_sc": 0.38461538461538464,
+          "n_unlikely_sc": 30,
+          "n_observed_zero": 75,
+          "n_false_positive_observed_zero": 4,
+          "unknown_all": 0.4094488188976378,
+          "brier": 0.36919357960667204,
+          "tc_mae": 3.444551039551041
+        }
+      ],
+      "stats": {
+        "macro_found": 0.018874643874643875,
+        "n_found": 5,
+        "n_sc": 290,
+        "macro_tc_mae": 12.586893003789342,
+        "macro_brier": 0.43788036010235587,
+        "macro_unknown_sc": 0.5435110614905135,
+        "micro_found": 0.017241379310344827,
+        "n_unknown_sc": 160,
+        "n_unlikely_sc": 125
+      }
+    },
+    "P1": {
+      "lofo": [
+        {
+          "family": "cuprate",
+          "n": 160,
+          "n_sc": 84,
+          "n_found": 0,
+          "found": 0.0,
+          "n_unknown_sc": 15,
+          "unknown_sc": 0.17857142857142858,
+          "n_unlikely_sc": 69,
+          "n_observed_zero": 76,
+          "n_false_positive_observed_zero": 0,
+          "unknown_all": 0.18125,
+          "brier": 0.471372039833111,
+          "tc_mae": 34.41769642342467
+        },
+        {
+          "family": "iron-based",
+          "n": 111,
+          "n_sc": 73,
+          "n_found": 0,
+          "found": 0.0,
+          "n_unknown_sc": 50,
+          "unknown_sc": 0.684931506849315,
+          "n_unlikely_sc": 23,
+          "n_observed_zero": 38,
+          "n_false_positive_observed_zero": 2,
+          "unknown_all": 0.6576576576576577,
+          "brier": 0.5660274922597187,
+          "tc_mae": 10.868640484359902
+        },
+        {
+          "family": "heavy-fermion",
+          "n": 221,
+          "n_sc": 81,
+          "n_found": 3,
+          "found": 0.037037037037037035,
+          "n_unknown_sc": 75,
+          "unknown_sc": 0.9259259259259259,
+          "n_unlikely_sc": 3,
+          "n_observed_zero": 140,
+          "n_false_positive_observed_zero": 5,
+          "unknown_all": 0.9140271493212669,
+          "brier": 0.39635502600653694,
+          "tc_mae": 2.811577058549547
+        },
+        {
+          "family": "other oxide",
+          "n": 127,
+          "n_sc": 52,
+          "n_found": 6,
+          "found": 0.11538461538461539,
+          "n_unknown_sc": 20,
+          "unknown_sc": 0.38461538461538464,
+          "n_unlikely_sc": 26,
+          "n_observed_zero": 75,
+          "n_false_positive_observed_zero": 7,
+          "unknown_all": 0.4094488188976378,
+          "brier": 0.3803094586863913,
+          "tc_mae": 3.380125488697235
+        }
+      ],
+      "stats": {
+        "macro_found": 0.038105413105413107,
+        "n_found": 9,
+        "n_sc": 290,
+        "macro_tc_mae": 12.869509863757838,
+        "macro_brier": 0.4535160041964395,
+        "macro_unknown_sc": 0.5435110614905135,
+        "micro_found": 0.03103448275862069,
+        "n_unknown_sc": 160,
+        "n_unlikely_sc": 121
+      }
+    }
+  },
+  "frozen_gates": {
+    "H4": {
+      "pass": {
+        "macro_found": false,
+        "extra_parents": false,
+        "paired_interval": false,
+        "brier": false,
+        "tc_mae": true,
+        "unknown": true
+      },
+      "macro_found_gain": 0.0014753764753764748,
+      "extra_positive_parents": 1,
+      "brier_delta": 0.02723406944961776,
+      "tc_mae_delta_K": -0.03026295409251034,
+      "unknown_sc_delta": -0.23643541052216854,
+      "paired_gain_interval": {
+        "lower95": -0.020107722797596213,
+        "upper95": 0.021799613402061855,
+        "resamples": 1000,
+        "unit": "chemical system within held-out family"
+      }
+    },
+    "P1": {
+      "pass": {
+        "macro_found": false,
+        "extra_parents": false,
+        "paired_interval": false,
+        "brier": true,
+        "tc_mae": true,
+        "unknown": true
+      },
+      "macro_found_gain": -0.019230769230769232,
+      "extra_positive_parents": -4,
+      "brier_delta": -0.015635644094083634,
+      "tc_mae_delta_K": -0.2826168599684955,
+      "unknown_sc_delta": 0.0,
+      "paired_gain_interval": {
+        "lower95": -0.0392156862745098,
+        "upper95": -0.00423728813559322,
+        "resamples": 1000,
+        "unit": "chemical system within held-out family"
+      }
+    }
+  },
+  "background": {
+    "H4": {
+      "rows": 6856,
+      "unique_material_indices": 1714,
+      "n_folds": 5,
+      "system_fold_hash_matches": true,
+      "any_reported_training_system_overlap": false,
+      "unfiltered_false_alarms": 6,
+      "unfiltered_false_alarm_rate": 0.0008751458576429405,
+      "unfiltered_unknown_rate": 0.9294049008168028,
+      "reported_radar_conditional_false_alarm_rate": 0.0014124293785310734,
+      "alarm_rows": [
+        {
+          "left_out_family": "cuprate",
+          "index": 1243,
+          "chemsys": "Ge-Ni-Zn",
+          "p_sc": 0.7831812833490408
+        },
+        {
+          "left_out_family": "cuprate",
+          "index": 1600,
+          "chemsys": "Ni-Si-Zn",
+          "p_sc": 0.7748045459831823
+        },
+        {
+          "left_out_family": "iron-based",
+          "index": 1147,
+          "chemsys": "F-Pb-Sr",
+          "p_sc": 0.6011183732603333
+        },
+        {
+          "left_out_family": "other oxide",
+          "index": 1461,
+          "chemsys": "In-Pd-Sm",
+          "p_sc": 0.6692407409844339
+        },
+        {
+          "left_out_family": "other oxide",
+          "index": 451,
+          "chemsys": "Bi-Pb-Yb",
+          "p_sc": 0.6717669688360479
+        },
+        {
+          "left_out_family": "other oxide",
+          "index": 1459,
+          "chemsys": "In-Rh-Yb",
+          "p_sc": 0.6339554503132444
+        }
+      ]
+    },
+    "P1": {
+      "rows": 6856,
+      "unique_material_indices": 1714,
+      "n_folds": 5,
+      "system_fold_hash_matches": true,
+      "any_reported_training_system_overlap": false,
+      "unfiltered_false_alarms": 5,
+      "unfiltered_false_alarm_rate": 0.0007292882147024504,
+      "unfiltered_unknown_rate": 0.881855309218203,
+      "reported_radar_conditional_false_alarm_rate": 0.0014124293785310734,
+      "alarm_rows": [
+        {
+          "left_out_family": "cuprate",
+          "index": 1147,
+          "chemsys": "F-Pb-Sr",
+          "p_sc": 0.9477608052199106
+        },
+        {
+          "left_out_family": "iron-based",
+          "index": 1147,
+          "chemsys": "F-Pb-Sr",
+          "p_sc": 0.9504692812218322
+        },
+        {
+          "left_out_family": "heavy-fermion",
+          "index": 1567,
+          "chemsys": "Na-O-Sr",
+          "p_sc": 0.5634132922249709
+        },
+        {
+          "left_out_family": "heavy-fermion",
+          "index": 1609,
+          "chemsys": "O-Sr-Zn",
+          "p_sc": 0.6311768083727849
+        },
+        {
+          "left_out_family": "heavy-fermion",
+          "index": 1681,
+          "chemsys": "Si-Sr-Zn",
+          "p_sc": 0.9834311796026
+        }
+      ]
+    },
+    "M1": {
+      "rows": 6856,
+      "unique_material_indices": 1714,
+      "n_folds": 5,
+      "system_fold_hash_matches": true,
+      "any_reported_training_system_overlap": false,
+      "unfiltered_false_alarms": 1,
+      "unfiltered_false_alarm_rate": 0.00014585764294049007,
+      "unfiltered_unknown_rate": 0.881855309218203,
+      "reported_radar_conditional_false_alarm_rate": 0.0,
+      "alarm_rows": [
+        {
+          "left_out_family": "heavy-fermion",
+          "index": 883,
+          "chemsys": "Cu-K-Se",
+          "p_sc": 0.6499651345414993
+        }
+      ]
+    }
+  },
+  "system_isolation": [
+    {
+      "design": "H4",
+      "family": "cuprate",
+      "held_systems_match_csv": true,
+      "held_system_count": 119,
+      "train_system_count": 504,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": false
+    },
+    {
+      "design": "H4",
+      "family": "iron-based",
+      "held_systems_match_csv": true,
+      "held_system_count": 88,
+      "train_system_count": 558,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": false
+    },
+    {
+      "design": "H4",
+      "family": "heavy-fermion",
+      "held_systems_match_csv": true,
+      "held_system_count": 180,
+      "train_system_count": 494,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": false
+    },
+    {
+      "design": "H4",
+      "family": "other oxide",
+      "held_systems_match_csv": true,
+      "held_system_count": 89,
+      "train_system_count": 602,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": false
+    },
+    {
+      "design": "M1",
+      "family": "cuprate",
+      "held_systems_match_csv": true,
+      "held_system_count": 119,
+      "train_system_count": 357,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": true
+    },
+    {
+      "design": "M1",
+      "family": "iron-based",
+      "held_systems_match_csv": true,
+      "held_system_count": 88,
+      "train_system_count": 388,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": true
+    },
+    {
+      "design": "M1",
+      "family": "heavy-fermion",
+      "held_systems_match_csv": true,
+      "held_system_count": 180,
+      "train_system_count": 296,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": true
+    },
+    {
+      "design": "M1",
+      "family": "other oxide",
+      "held_systems_match_csv": true,
+      "held_system_count": 89,
+      "train_system_count": 387,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": true
+    },
+    {
+      "design": "P1",
+      "family": "cuprate",
+      "held_systems_match_csv": true,
+      "held_system_count": 119,
+      "train_system_count": 357,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": true
+    },
+    {
+      "design": "P1",
+      "family": "iron-based",
+      "held_systems_match_csv": true,
+      "held_system_count": 88,
+      "train_system_count": 388,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": true
+    },
+    {
+      "design": "P1",
+      "family": "heavy-fermion",
+      "held_systems_match_csv": true,
+      "held_system_count": 180,
+      "train_system_count": 296,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": true
+    },
+    {
+      "design": "P1",
+      "family": "other oxide",
+      "held_systems_match_csv": true,
+      "held_system_count": 89,
+      "train_system_count": 387,
+      "held_train_intersection": [],
+      "parent_training_set_reconstructed": true
+    }
+  ],
+  "radar_conditional_background_gate": {
+    "reported_pass": true,
+    "threshold": 0.05,
+    "reported_M1_rate": 0.0,
+    "independently_recomputed": false,
+    "limitation": "The artifact does not export the per-background-index Radar sent mask; the routed conditional denominator and one excluded M1 alarm cannot be independently reconstructed from these H6 files alone. Unfiltered counts are separately recomputed."
+  },
+  "supplemental_family_membership_audit": {
+    "scope": "The original H6 split audit verified the single assigned family used by that run and chemical-system exclusion. A later inspection of complete parent membership across original 3DSC rows identified four parents with more than one family label.",
+    "mixed_family_parents": [
+      {
+        "material_id": "mp-1106248",
+        "full_family_membership": ["iron-based", "other oxide"]
+      },
+      {
+        "material_id": "mp-1218154",
+        "full_family_membership": ["cuprate", "other oxide"]
+      },
+      {
+        "material_id": "mp-1274783",
+        "full_family_membership": ["cuprate", "other oxide"]
+      },
+      {
+        "material_id": "mp-5670",
+        "full_family_membership": ["cuprate", "other oxide"]
+      }
+    ],
+    "interpretation": "The recorded absence of held/train chemical-system intersections remains a chemical-system consistency check. It does not prove isolation of every original family membership: assigning a mixed-family parent one label can leave a parent with the held family's other membership on the training side of another family fold.",
+    "future_protocol_only": {
+      "name": "Unrun Hurricane7 draft protocol; currently deferred behind Storm6",
+      "proposed_pre_exclusion": "Exclude all four parents using complete membership metadata before forming any family folds",
+      "proposed_parents": 615,
+      "proposed_observed_positive_parents": 288,
+      "proposed_unlabeled_parents": 327,
+      "is_recalculation_of_h6": false
+    },
+    "historical_h6_unchanged": "H6 was not rerun or rescored. Its denominator remains 619 parents and 290 observed positives; all original metrics, frozen gates and raw-source hashes above are retained. M1 still fails the frozen improvement rule and is not released."
+  },
+  "conclusion": {
+    "promising": false,
+    "independent_rejection_does_not_depend_on_radar_gate": true,
+    "primary_result": "M1 does not pass the frozen improvement rule; it finds 5/290 positives versus P1 9/290 and H4 4/290. The paired interval against P1 is entirely negative.",
+    "adopted": false,
+    "label_leakage_audit": "No held/train chemical-system intersection in the recorded 12 LOFO splits; every background hash fold matches independently and 20568 recorded training-overlap flags are false. This is consistency verification of exported provenance, not re-execution of training or proof of unseen MACE pretraining structures.",
+    "limitations": [
+      "Assigned-family plus chemical-system isolation does not establish isolation of complete original 3DSC family memberships; see supplemental_family_membership_audit for the four mixed-family parents and the future-only exclusion protocol.",
+      "Weak-background false alarms are not measured nonsuperconductivity specificity.",
+      "Unknown/abstained and unlikely are distinct outcomes; e.g. M1 has 160 unknown positives and 125 available-but-unlikely positives, with 5 found.",
+      "MPTrj may contain held-out structures; label/family holdout does not establish structure-unseen pretraining.",
+      "No independent Hosono parent-potential negative labels entered this run."
+    ]
+  },
+  "source_binding": {
+    "workflow_run": "https://github.com/diracmagic/supercon-ml/actions/runs/41263644864",
+    "source_commit": "57434fbe6b6e26db109eddc823de0e83131b3361",
+    "artifact_id": 13068391505,
+    "artifact_name": "research-results-61",
+    "artifact_sha256": "763bd5e78e1f7fe46e3ff816829f825f7903b7b9fd121b6dba7a81323ba21572",
+    "review_is_not_a_release": true
+  }
+}

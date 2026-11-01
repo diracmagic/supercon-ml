@@ -1,0 +1,33 @@
+{
+  "status": "source_roundtrip_pass_with_unresolved_source_label_conflict",
+  "curves_prepared": 58,
+  "point_records": 137978,
+  "source_cell_roundtrip_checked": true,
+  "explicit_missing_responses": 8,
+  "author_sample_labels": 5,
+  "independent_papers": 1,
+  "independent_families": 1,
+  "broad_temperature_longitudinal_curves": 0,
+  "reported_numeric_midpoint_claims": 5,
+  "model_target_links": 0,
+  "label_conflict": {
+    "status": "unresolved_source_sample_label_conflict",
+    "absolute_source": "nickelate-2026:FigF:pair1",
+    "normalized_source": "nickelate-2026:Fig3B:pair2",
+    "author_labels": [
+      "S2",
+      "S4"
+    ],
+    "common_unique_field_values": 20290,
+    "least_squares_representation_scale": 0.033224490375713116,
+    "common_values_residual_below_1e_12": 18603,
+    "maximum_absolute_residual": 7.003482964506392e-06,
+    "limitation": "Repeated field keys use the last source row for this diagnostic. Strong shared-trace evidence is not an author-confirmed correction; original labels and bytes retained, no numeric Tc linked"
+  },
+  "paper_curve_omitted_from_source": "Fig1B published caption/axis has1.8K, but sourceFig1B header has no1.8K pair; no row fabricated",
+  "signed_fields_retained": true,
+  "models_fitted": 0,
+  "ledger_files_read_or_written": 0,
+  "policy_frozen": false,
+  "curated_private_output_sha256_canonical_json": "c307b006b22eafee2cd7d8a05eaffc103041f343a43956d8e29531118659a80a"
+}

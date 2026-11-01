@@ -1,0 +1,76 @@
+{
+  "reported_tc_claims": [
+    {
+      "claim_id": "nickelate-2026:Table1:S1",
+      "author_sample_label": "S1",
+      "specimen_id": "nickelate-2026:S1",
+      "tc_K": 9.6,
+      "tc_criterion": "midpoint halfway between zero and saturated normal-state resistance",
+      "formula": "Sm0.58Eu0.35Ca0.07NiO2",
+      "film_thickness_nm": 6.5,
+      "thickness_uncertainty_nm": 0.5,
+      "source_locator": "PublishedPDFp2 Table1 and Results paragraph defining Tc/Hc midpoints",
+      "pressure_gpa": null,
+      "magnetic_field_t": null,
+      "model_target_link_created": false
+    },
+    {
+      "claim_id": "nickelate-2026:Table1:S2",
+      "author_sample_label": "S2",
+      "specimen_id": "nickelate-2026:S2",
+      "tc_K": 11.7,
+      "tc_criterion": "midpoint halfway between zero and saturated normal-state resistance",
+      "formula": "Sm0.53Eu0.4Ca0.07NiO2",
+      "film_thickness_nm": 4.5,
+      "thickness_uncertainty_nm": 0.5,
+      "source_locator": "PublishedPDFp2 Table1 and Results paragraph defining Tc/Hc midpoints",
+      "pressure_gpa": null,
+      "magnetic_field_t": null,
+      "model_target_link_created": false
+    },
+    {
+      "claim_id": "nickelate-2026:Table1:S3",
+      "author_sample_label": "S3",
+      "specimen_id": "nickelate-2026:S3",
+      "tc_K": 16.8,
+      "tc_criterion": "midpoint halfway between zero and saturated normal-state resistance",
+      "formula": "Sm0.53Eu0.4Ca0.07NiO2",
+      "film_thickness_nm": 6.5,
+      "thickness_uncertainty_nm": 0.5,
+      "source_locator": "PublishedPDFp2 Table1 and Results paragraph defining Tc/Hc midpoints",
+      "pressure_gpa": null,
+      "magnetic_field_t": null,
+      "model_target_link_created": false
+    },
+    {
+      "claim_id": "nickelate-2026:Table1:S4",
+      "author_sample_label": "S4",
+      "specimen_id": "nickelate-2026:S4",
+      "tc_K": 22.1,
+      "tc_criterion": "midpoint halfway between zero and saturated normal-state resistance",
+      "formula": "Sm0.79Eu0.12Ca0.04Sr0.05NiO2",
+      "film_thickness_nm": 4.5,
+      "thickness_uncertainty_nm": 0.5,
+      "source_locator": "PublishedPDFp2 Table1 and Results paragraph defining Tc/Hc midpoints",
+      "pressure_gpa": null,
+      "magnetic_field_t": null,
+      "model_target_link_created": false
+    },
+    {
+      "claim_id": "nickelate-2026:Table1:S5",
+      "author_sample_label": "S5",
+      "specimen_id": "nickelate-2026:S5",
+      "tc_K": 31.7,
+      "tc_criterion": "midpoint halfway between zero and saturated normal-state resistance",
+      "formula": "Sm0.73Eu0.2Ca0.07NiO2",
+      "film_thickness_nm": 4.5,
+      "thickness_uncertainty_nm": 0.5,
+      "source_locator": "PublishedPDFp2 Table1 and Results paragraph defining Tc/Hc midpoints",
+      "pressure_gpa": null,
+      "magnetic_field_t": null,
+      "model_target_link_created": false
+    }
+  ],
+  "model_target_links": [],
+  "limitation": "Primary source claims, not ledger labels or admissions under a training policy"
+}

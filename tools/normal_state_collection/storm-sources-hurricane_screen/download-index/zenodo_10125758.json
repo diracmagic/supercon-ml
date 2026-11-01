@@ -1,0 +1,24 @@
+{
+  "dataset_doi": "10.5281/zenodo.10125758",
+  "title": "NbTiN film data",
+  "publication_date": "2023-11-14",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "metadata": {
+    "url": "https://zenodo.org/api/records/10125758",
+    "local_path": "zenodo-10125758/repository-metadata.json",
+    "bytes": 3606,
+    "sha256": "3db6946d516b5f5a525cb78d0797d5db49543eea5f192363ddfaf157a165d0b5",
+    "repository_md5_checked": false
+  },
+  "files": [
+    {
+      "url": "https://zenodo.org/api/records/10125758/files/Data%20NbTiN.xlsx/content",
+      "local_path": "zenodo-10125758/original/Data NbTiN.xlsx",
+      "bytes": 30525,
+      "sha256": "5cf3c425ed7e75b4f49140f3032a8b8e2a8a795e6f632cb304e262d99b8642a0",
+      "repository_md5_checked": true
+    }
+  ]
+}

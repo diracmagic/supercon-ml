@@ -1,0 +1,108 @@
+{
+  "dataset_doi": "10.5281/zenodo.5645160",
+  "title": "Data set for \"Superconducting 2D NbS2 Grown Epitaxially by Chemical Vapor Deposition \"",
+  "publication_date": "2021-11-04",
+  "license": {
+    "id": "cc-by-4.0"
+  },
+  "metadata": {
+    "url": "https://zenodo.org/api/records/5645160",
+    "local_path": "zenodo-5645160/repository-metadata.json",
+    "bytes": 7876,
+    "sha256": "00a7c72736ad09f681ae9ddfb4ca5cbe63f45aa595ea025b17720f12f6ee378f",
+    "repository_md5_checked": false
+  },
+  "files": [
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%20S10e-EDX-NbS2%20ribbons.csv/content",
+      "local_path": "zenodo-5645160/original/Figure S10e-EDX-NbS2 ribbons.csv",
+      "bytes": 35631,
+      "sha256": "cc58c0d47ccea6eb66fb8a2c7b9285a214d39ecb7da80345c3f76f6b3930eab4",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%20S12-long%20range%20R-T%203R.csv/content",
+      "local_path": "zenodo-5645160/original/Figure S12-long range R-T 3R.csv",
+      "bytes": 184006,
+      "sha256": "d370329642d636fb076e7eb0f7eaf9411bdbe700dcde131db596064d433d4253",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%20S13-2H+3R%20B%20dependent.csv/content",
+      "local_path": "zenodo-5645160/original/Figure S13-2H+3R B dependent.csv",
+      "bytes": 1712,
+      "sha256": "c36a10c1e9af3e0486cbbeefd6d876e9a67737abfc7765bc10032af834ce5f36",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%202c-Raman%20with%20different%20phases.csv/content",
+      "local_path": "zenodo-5645160/original/Figure 2c-Raman with different phases.csv",
+      "bytes": 49467,
+      "sha256": "4af4ba662e15b1f874d1bb2cf37c02be106b1e2e3eb2153f00135d9a43603ad0",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%203b%20inset-Short%20range%20R-T-2H-2H+3R-3R.csv/content",
+      "local_path": "zenodo-5645160/original/Figure 3b inset-Short range R-T-2H-2H+3R-3R.csv",
+      "bytes": 17030,
+      "sha256": "b10bd5a5aca62124d61f961db221f1e2beffdc572c5f86023ae36dc24a7bd097",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%203b-Long%20range%20R-T-2H-2H+3R-3R.csv/content",
+      "local_path": "zenodo-5645160/original/Figure 3b-Long range R-T-2H-2H+3R-3R.csv",
+      "bytes": 5091,
+      "sha256": "377322d714fae57bb7fa360eda2077872729f01213d9e4795a4e82c08c40411a",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%203c-I-V%20curve%20of%20different%20phases.csv/content",
+      "local_path": "zenodo-5645160/original/Figure 3c-I-V curve of different phases.csv",
+      "bytes": 15303,
+      "sha256": "6a32d03ebd3e16dc77224a7e0c9d8c474ebff9acd8bac516101eabdb58d51699",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%204a-No28-dev4-AC-R-T%20with%20B%20field-after%20refined.csv/content",
+      "local_path": "zenodo-5645160/original/Figure 4a-No28-dev4-AC-R-T with B field-after refined.csv",
+      "bytes": 87647,
+      "sha256": "9dec7e000d1969917553ee8b001a7474e9092c9b6f2ecb45959394af81facfa8",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%204b-B%20vs%20T.csv/content",
+      "local_path": "zenodo-5645160/original/Figure 4b-B vs T.csv",
+      "bytes": 107,
+      "sha256": "b0611651d8b174d82df79efab0cec1d81f12b83330b7a9a1f669240ee3025903",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%20S14-4T%20R-T%20DC.csv/content",
+      "local_path": "zenodo-5645160/original/Figure S14-4T R-T DC.csv",
+      "bytes": 261,
+      "sha256": "630541e6b975e619165798faf7d24ad1536c79401ae10543eeae8853a76d1807",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%204c-S13D22_Vh12Vl11_Vdssweep_120mV(1mV)_T_1.4K_5K(0.csv/content",
+      "local_path": "zenodo-5645160/original/Figure 4c-S13D22_Vh12Vl11_Vdssweep_120mV(1mV)_T_1.4K_5K(0.csv",
+      "bytes": 142815,
+      "sha256": "834455f3bb9b49daf423549d3f9753243c7d455477d064706b371b055f1a9896",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%204e-BKT%20fitting%20value.csv/content",
+      "local_path": "zenodo-5645160/original/Figure 4e-BKT fitting value.csv",
+      "bytes": 165,
+      "sha256": "f893055feab4b56ff3a53ae1b086925c4088c4495151c034740b5e6b82f503f0",
+      "repository_md5_checked": true
+    },
+    {
+      "url": "https://zenodo.org/api/records/5645160/files/Figure%204f-AC%20differential-Current-No28-dev3.csv/content",
+      "local_path": "zenodo-5645160/original/Figure 4f-AC differential-Current-No28-dev3.csv",
+      "bytes": 47747,
+      "sha256": "eeb24d616c830507d46a6ee05f3abd9cd19071092eb3739ff555bb3cccde43be",
+      "repository_md5_checked": true
+    }
+  ]
+}

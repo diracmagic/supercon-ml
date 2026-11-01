@@ -1,0 +1,52 @@
+[
+  {
+    "path": "lsco-2017/author-paper.pdf",
+    "url": "https://www.osti.gov/servlets/purl/1412648",
+    "bytes": 2199701,
+    "sha256": "adac30eb621af7f52e805e5717f3a27e46da8b89d5633c0935c93be5af3e560a",
+    "md5": "3c0366891f1cfb3e2a4ed177b2f3ada5",
+    "content_type": "application/pdf",
+    "retrieved_utc": "2026-11-01T15:46:22.154797+00:00",
+    "status": "downloaded"
+  },
+  {
+    "path": "nickelate-2026/zenodo-record.json",
+    "url": "https://zenodo.org/api/records/20636178",
+    "bytes": 3900,
+    "sha256": "c28d069354ebb2fbafc77092dfc9a63dcbba0bb504a1ca586cb534551132b387",
+    "md5": "00bf8e9ede6d4ebc617b9591c5425db4",
+    "content_type": "application/json",
+    "retrieved_utc": "2026-11-01T15:46:21.777350+00:00",
+    "status": "downloaded"
+  },
+  {
+    "path": "nickelate-2026/source.zip",
+    "url": "https://zenodo.org/records/20636178/files/Raw_Data_File.zip?download=1",
+    "bytes": 1789444,
+    "sha256": "e108d26a984692e84466c53b31e2107b7a41b517e24ec76d7036419046b613c2",
+    "md5": "631e84b5d1cfdf6ec9c9ea509cdbd5c5",
+    "content_type": "application/octet-stream",
+    "retrieved_utc": "2026-11-01T15:46:24.602876+00:00",
+    "status": "downloaded"
+  },
+  {
+    "path": "nickelate-2026/paper.html",
+    "url": "https://www.nature.com/articles/s41467-026-75922-9",
+    "bytes": 469649,
+    "sha256": "39f6d322ede7c2993da0d0a45d9d8bcd0241778e0b121975bbdb521620ab5bf2",
+    "md5": "2a52e64b7c19a5dbd5d3b2fe9379a9a9",
+    "content_type": "text/html; charset=utf-8",
+    "retrieved_utc": "2026-11-01T15:46:24.285096+00:00",
+    "status": "downloaded"
+  },
+  {
+    "path": "nickelate-2026/paper.pdf",
+    "url": "https://www.nature.com/articles/s41467-026-75922-9.pdf",
+    "bytes": 1825847,
+    "sha256": "dd235bafa56befa3a270fd51d3ab696b0762faa0860917a8b7028ef0cde8b5e3",
+    "md5": "9a53ac0675f41fc5dc5da78178972e9c",
+    "content_type": "application/pdf",
+    "retrieved_utc": "2026-11-01T15:46:34.348376+00:00",
+    "status": "downloaded"
+  }
+]

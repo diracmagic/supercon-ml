@@ -1,0 +1,73 @@
+{
+  "schema_version": 2,
+  "searched_on": "2026-10-31",
+  "scope": "All 152 currently listed screening round-5 candidates (102 Storm, 50 Hurricane), plus five previously listed round-4 IDs retained for audit history; 157 distinct IDs total.",
+  "prediction_source": "Current predictions are from research-results-61/results/screen_round5.json, source commit 57434fb. Hurricane remains H4.0 with the repaired five-member ensemble; these are not H6 model scores. First-audit round-4 values are separately retained.",
+  "summary": {
+    "candidates_audited": 157,
+    "currently_listed": 152,
+    "previously_listed_only": 5,
+    "storm": 102,
+    "hurricane": 55,
+    "current_storm": 102,
+    "current_hurricane": 50,
+    "status_counts": {
+      "structure-only": 30,
+      "not-found-in-this-search": 112,
+      "needs-full-text": 13,
+      "reported-nonsuperconducting": 2
+    },
+    "actual_search_log_entries": 511,
+    "exact_candidate_intrinsic_superconductors_confirmed": 0,
+    "new_negative_training_labels": 0,
+    "interpretation": "Two literature reports describe limited-condition nonsuperconductivity. All other intrinsic superconductivity outcomes remain unknown. No search can establish that nobody has ever measured a material."
+  },
+  "method": "Every candidate received actual formula/alternative-order searches, with promising primary or author/institutional copies opened when available. Access failures, wrong phases, mixtures and different stoichiometries are recorded. Absence of a located report remains unknown. Structural references and magnetic order do not establish a superconductivity negative.",
+  "parts": [
+    {
+      "path": "candidate_audits/part-01.json",
+      "count": 19,
+      "sha256": "7d364d2ae820c68463737283d88505adf6bec91e3ac3a150f1b76fdf8afe3355"
+    },
+    {
+      "path": "candidate_audits/part-02.json",
+      "count": 19,
+      "sha256": "98741a3974c360d54280b65c4e3469694ac08f7352336996107e8fbc6eb75a82"
+    },
+    {
+      "path": "candidate_audits/part-03.json",
+      "count": 15,
+      "sha256": "29953cdc99a45d8e19c00e422e0ec55abb652f9a36f686876cfda7427dafb2ee"
+    },
+    {
+      "path": "candidate_audits/part-04.json",
+      "count": 19,
+      "sha256": "186f04fd468a738ede252c68e41555ae7981f3a1b2e7500a7af70552837362f1"
+    },
+    {
+      "path": "candidate_audits/part-05.json",
+      "count": 21,
+      "sha256": "e8df51f8ff8d95238471db19179001eab0d572bc7b0b96caaedc9a1fafcdcb87"
+    },
+    {
+      "path": "candidate_audits/part-06.json",
+      "count": 15,
+      "sha256": "14c757f67574aa989c128cf4ac0acef72ef082d9ac407c88b4050205160da70c"
+    },
+    {
+      "path": "candidate_audits/part-07.json",
+      "count": 15,
+      "sha256": "1cddb48b8eaccb1d0bb28db212641e69132c6abda7f17d20c2997033ec6e2f09"
+    },
+    {
+      "path": "candidate_audits/part-08.json",
+      "count": 17,
+      "sha256": "8c87584738a96629ac57217e14ad18628daaadb40ef9bb685107e86c703c6b21"
+    },
+    {
+      "path": "candidate_audits/part-09.json",
+      "count": 17,
+      "sha256": "5aec44132d585b959ccf6c07d324ac2b442c28c31a35b9cd5de54a52c955379b"
+    }
+  ]
+}

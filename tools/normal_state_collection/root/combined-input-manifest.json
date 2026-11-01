@@ -1,0 +1,42 @@
+[
+  {
+    "registry": "root-registry.json",
+    "collection": "root-collection.json",
+    "registry_sha256": "ab0b1f9389f500f8469cbce6236cf4b6705f5a51d8bed26d782f336c8188a8c0",
+    "collection_sha256": "15d825d69108048538fc9c9616e8ab9962c198273a1d1639189807283996fe9e",
+    "curves": 15,
+    "points": 12898,
+    "targets": 2,
+    "links": 2
+  },
+  {
+    "registry": "nbc-registry.json",
+    "collection": "nbc-collection.json",
+    "registry_sha256": "1bcdb8f04fa5bf6e447ecb4ecbebfeb0ef4db7759ddbbed35bab48a252714403",
+    "collection_sha256": "5fb5fb8c7b071c41c856ec1a46d008923ee48e049a3ba57c84383837c7fb0201",
+    "curves": 1,
+    "points": 4210,
+    "targets": 1,
+    "links": 0
+  },
+  {
+    "registry": "storm-sources-hurricane_screen/transport-registry.json",
+    "collection": "storm-sources-hurricane_screen/transport-collection.json",
+    "registry_sha256": "1e1acbd1c3e82799bfb823f7d786448329a8d8764bf89bbe910ebe676d8b2862",
+    "collection_sha256": "930f04566151e1dc4c041f76673e71ab26a55f6068527b7f4093299a416a94e9",
+    "curves": 56,
+    "points": 111282,
+    "targets": 4,
+    "links": 3
+  },
+  {
+    "registry": "heat-magnetic/heat-registry.json",
+    "collection": "heat-magnetic/heat-collection.json",
+    "registry_sha256": "f1b7bc4b37ab1940df36bbb3140fcb60851b92b1c382b930439d5513f13259f6",
+    "collection_sha256": "e9399f5da9997fa2ba5748d5d0a370c64927e42baff748451514ed3bb267b437",
+    "curves": 35,
+    "points": 33324,
+    "targets": 0,
+    "links": 0
+  }
+]

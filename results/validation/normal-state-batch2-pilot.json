@@ -1,0 +1,140 @@
+{
+  "model_name": "Storm-normal-state-pilot",
+  "training_protocol_sha256": "8827d1b757a4f250386c94931550acdc420bf61903704fcacc6f92a1c1783bb5",
+  "extraction_policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+  "synthetic": false,
+  "adopted": false,
+  "status": "insufficient_data",
+  "models_fitted": 0,
+  "cohort": {
+    "status": "insufficient_data",
+    "linked_curve_records": 5,
+    "unique_specimens": 5,
+    "unique_specimen_conditions": 5,
+    "independent_components": 5,
+    "components": [
+      {
+        "component_id": "096c440550051eae",
+        "curve_ids": [
+          "brown2018:Bip27s"
+        ]
+      },
+      {
+        "component_id": "a3ef193ef06180d6",
+        "curve_ids": [
+          "nbn-mo-2025-Fig3-reference-9p6nm"
+        ]
+      },
+      {
+        "component_id": "1918f2f0ec1406c7",
+        "curve_ids": [
+          "ptsb-2026-Fig2a-30nm"
+        ]
+      },
+      {
+        "component_id": "46857a6daf41fde1",
+        "curve_ids": [
+          "sn-run1-broad-2p5"
+        ]
+      },
+      {
+        "component_id": "bd72e93089f7c98c",
+        "curve_ids": [
+          "tokumoto2024:rho"
+        ]
+      }
+    ],
+    "minimum_independent_components": 5,
+    "minimum_training_components": 3,
+    "minimum_training_samples": 5,
+    "single_component_holdout_feasibility_not_a_frozen_split": [
+      {
+        "held_component": "096c440550051eae",
+        "training_components": 4,
+        "training_specimen_conditions": 4,
+        "minimum_training_requirements_met": false
+      },
+      {
+        "held_component": "a3ef193ef06180d6",
+        "training_components": 4,
+        "training_specimen_conditions": 4,
+        "minimum_training_requirements_met": false
+      },
+      {
+        "held_component": "1918f2f0ec1406c7",
+        "training_components": 4,
+        "training_specimen_conditions": 4,
+        "minimum_training_requirements_met": false
+      },
+      {
+        "held_component": "46857a6daf41fde1",
+        "training_components": 4,
+        "training_specimen_conditions": 4,
+        "minimum_training_requirements_met": false
+      },
+      {
+        "held_component": "bd72e93089f7c98c",
+        "training_components": 4,
+        "training_specimen_conditions": 4,
+        "minimum_training_requirements_met": false
+      }
+    ],
+    "tc_criteria": {
+      "resistive_midpoint": 5
+    },
+    "temperature_points_are_not_independent_samples": true,
+    "models_fitted": 0,
+    "adopted": false,
+    "limitations": [
+      "Rows sharing a specimen/condition need modality or replicate adjudication before model fitting",
+      "A dataset's raw curve count is not its number of independent chemical systems or sources",
+      "No prospective claim follows from newly ingested historical literature"
+    ]
+  },
+  "excluded": [],
+  "retrospective_replay": true,
+  "existing_storm_dft_model_unchanged": true,
+  "verified_evidence_binding": {
+    "as_of": "2026-11-01T14:38:28.765891+00:00",
+    "historical_ledger_head": "101a386f320678d236f4e538d8ebb5be32812f1c2a54d1c9c5f9b61c9d0399c1",
+    "current_ledger_head": "101a386f320678d236f4e538d8ebb5be32812f1c2a54d1c9c5f9b61c9d0399c1",
+    "registry_sha256": "6b6d65788379b1c361ab1171a648d9f414036a3bd7ee484556250437bd2f3f7d",
+    "collection_sha256": "2c04575411faf8e7358fc8579c801f33b975c4529f016ae0d8f336cea35def35",
+    "policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+    "linked_records_sha256": "e678220c78712dfaaf8bc3f8e8162b5b5c4e29ddd4d209e1036aad2942f8bed8",
+    "unresolved_links": [],
+    "excluded_links": [
+      {
+        "link": {
+          "curve_id": "nbs2-No28-dev4-broad",
+          "target_id": "nbs2-No28-dev4-broad:resistive_midpoint",
+          "same_physical_specimen": true,
+          "assertion_status": "source_checked",
+          "specimen_id": "nbs2-2021-No28-dev4",
+          "curve_sample_id": "nbs2-2021-No28-dev4",
+          "target_sample_id": "nbs2-2021-No28-dev4",
+          "source_locator": "Primary paper Fig.3b/Different Phases: R(Tc)=0.5R_N; same2H10nm No28_dev4 CSVpair1 contains both transition and high-T points",
+          "scope": "same_run_measured_tc",
+          "measurement_run_id": "nbs2-No28-dev4-broad",
+          "trace_id": "zenodo-5645160/original/Figure 3b-Long range R-T-2H-2H+3R-3R.csv::Fig.3b CSV column pair 1",
+          "raw_source_sha256": "377322d714fae57bb7fa360eda2077872729f01213d9e4795a4e82c08c40411a",
+          "varied_axes": [
+            "temperature_k"
+          ],
+          "same_raw_trace": true,
+          "composition_quality": "nominal_sample_formula",
+          "composition_source_locator": "Wang et al., ACS Nano15,18403 (2021), Fig3b and SI device No28dev4: nominal 2H NbS2, reported sulfur defects; exact defect fraction unknown.",
+          "target_observation_hash": "224b3a39e211e5ef79cb53d3aea33ef896f59c01927da99581571c9a12d111e2"
+        },
+        "reasons": [
+          "Frozen target-independent curve features unavailable"
+        ]
+      }
+    ],
+    "source_claims_not_cryptographically_authenticated": true
+  },
+  "gate_only_detached_records_unverified": false,
+  "run_at": "2026-11-01T14:40:07.099171+00:00",
+  "input_records_sha256": "e678220c78712dfaaf8bc3f8e8162b5b5c4e29ddd4d209e1036aad2942f8bed8",
+  "implementation_sha256_lf": "f1fdd780cff81127ab8331ffb033bb4ba6d4ac2c39e27f1b66f43263b0a9ec75"
+}

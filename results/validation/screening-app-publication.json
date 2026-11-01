@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "published_on": "2026-11-01",
+  "purpose": "Publish audited screening round 5; not a new model release.",
+  "parent_commit": "ff9ee8045a94cea3f321385108a1e1e96a244b2c",
+  "source_binding": {
+    "workflow_run": "https://github.com/diracmagic/supercon-ml/actions/runs/41263644864",
+    "source_commit": "57434fbe6b6e26db109eddc823de0e83131b3361",
+    "artifact_id": 13068391505,
+    "artifact_name": "research-results-61",
+    "artifact_sha256": "763bd5e78e1f7fe46e3ff816829f825f7903b7b9fd121b6dba7a81323ba21572",
+    "review_is_not_a_release": true,
+    "artifact_progress_sha256": "cd090d6822eeed481e69c5f0969103bac6bd9656b6991203a1428e2b05b32220",
+    "artifact_screen_result_sha256": "ae4af037f327b8efb69c9076e119d21c729434be24ad995e40d65fe14e10e200",
+    "source_screen_canonical_sha256": "f5f07e5421c17706d1d4a370d65aae158e6a59dc03345a0d1a770995e901b015"
+  },
+  "deployed_screen_canonical_sha256": "3a764122abfc65f974e851cd0446fccaf42a6df9915bf6fd4eca859f9909cdb3",
+  "scientific_projection_sha256": "04a0d8cd16abdceb622a4125421740ea68b54102bfc9d22821bb698ed9a8a1e6",
+  "unchanged_non_screen_canonical_sha256": "8d8fb48c2f1b33fb8cce80d00f764256ce1bc15dad0d074a8a3aaf80d719aaa0",
+  "allowed_changes": {
+    "result_file_paths": [
+      {
+        "pointer": "/candidates/3/phonon_check/result_file",
+        "published": "results/phonons/530df406541c43fcf09cba4996afd873e03701f7069b116930d2a68a1bc48e1e/result.json"
+      },
+      {
+        "pointer": "/candidates/17/phonon_check/result_file",
+        "published": "results/phonons/6eb0e17695e6f845da539d8ed3627d48c9daed45edc716b23f811e1d858a9dff/result.json"
+      },
+      {
+        "pointer": "/candidates/22/phonon_check/result_file",
+        "published": "results/phonons/980bcbacf637e658426844c20480e7b64e8140cf65550451e31eb6fe478191a3/result.json"
+      },
+      {
+        "pointer": "/phonon_checks/materials/0/result_file",
+        "published": "results/phonons/530df406541c43fcf09cba4996afd873e03701f7069b116930d2a68a1bc48e1e/result.json"
+      },
+      {
+        "pointer": "/phonon_checks/materials/1/result_file",
+        "published": "results/phonons/6eb0e17695e6f845da539d8ed3627d48c9daed45edc716b23f811e1d858a9dff/result.json"
+      },
+      {
+        "pointer": "/phonon_checks/materials/2/result_file",
+        "published": "results/phonons/980bcbacf637e658426844c20480e7b64e8140cf65550451e31eb6fe478191a3/result.json"
+      }
+    ],
+    "exact_id_literature_corrections": [
+      {
+        "candidate_id": "JVASP-165558",
+        "formula": "Ce2Ga12Cu",
+        "pointer": "/hurricane/candidates/17/check",
+        "source": "data/candidate_literature_audit.json exact-ID check_correction",
+        "doi": "10.1021/cm801693t",
+        "before_sha256": "642a4b0351462811f4fee410e806da10c2dbed3ceba43c6a9547f680dab5bb51",
+        "after_sha256": "47c76a7aa5376826152933d944201e3b012f001a8db10b2a226626b999f24257"
+      },
+      {
+        "candidate_id": "JVASP-165420",
+        "formula": "Ce2Ga12Ni",
+        "pointer": "/hurricane/candidates/28/check",
+        "source": "data/candidate_literature_audit.json exact-ID check_correction",
+        "doi": "10.1021/cm801693t",
+        "before_sha256": "d017e9a597ca2737ab28e613e62f06e73938a3a1a288b3bcde3e155c08a29f9c",
+        "after_sha256": "ebb44bdd157657d1fe384cdab3c1c400bf764f50e93783f2d8f8b3edf4c0e231"
+      }
+    ],
+    "wording_changes": [],
+    "prediction_or_rank_changes": []
+  },
+  "verification": {
+    "candidate_ids": 152,
+    "storm": 102,
+    "hurricane": 50,
+    "tracks": {
+      "storm_in_domain": 50,
+      "storm_exploration": 50,
+      "borides": 2,
+      "carbides": 0
+    },
+    "hurricane_current": "4.0",
+    "hurricane_screen_model": "Hurricane 4.0",
+    "ensemble": {
+      "members": 5,
+      "method": "same-background-fold-training-fold-ensemble",
+      "fold_audit_source": "results/validation/screening-ci61.json",
+      "fold_audit_matches_artifact": true
+    },
+    "yb_rh": {
+      "id": "JVASP-16400",
+      "p_sc": 0.35,
+      "p_lo": 0.076,
+      "p_hi": 0.487,
+      "tc_sc": 4.35
+    },
+    "phonon_selected": 3,
+    "phonon_verdicts": {
+      "JVASP-37780": "imaginary_modes_sampled",
+      "JVASP-130243": "imaginary_modes_sampled",
+      "JVASP-160993": "no_significant_imaginary_modes_sampled"
+    },
+    "all_other_top_level_fields_unchanged": true,
+    "original_artifact_unchanged": true
+  },
+  "limits": [
+    "Five-fold disagreement is sensitivity to training data, not a confidence interval or calibrated uncertainty.",
+    "The artifact lacks fitted weights and per-member prediction arrays; legality was audited against source enforcement and metadata, not independent retraining.",
+    "MACE phonons are fixed-cell sampled-q triage, not full dynamical stability, DFT validation or a superconductivity test.",
+    "Original screening rule, caveat, exclusions and historical rank remain. Candidate status does not establish novelty.",
+    "Only screen changes; the historical global updated timestamp and logs remain unchanged as requested."
+  ]
+}

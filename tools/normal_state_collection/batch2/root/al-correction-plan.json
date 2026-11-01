@@ -1,0 +1,21 @@
+{
+  "reason": "Source identity audit: remove the unverified paper label A from archive specimen 0r2v3/CD45/C1. Exact numeric points, original source bytes and the separately unlinked Table2 outcome are unchanged. This is a metadata correction, not another specimen or another measurement.",
+  "curves": 3,
+  "corrections": 310,
+  "numeric_point_changes": 0,
+  "target_changes": 0,
+  "training_links_before": 0,
+  "training_links_after": 0,
+  "original_events": 318598,
+  "original_head": "8b66948a088f79114b65e82c9e499caf744d53d3a52082425771ab64ffc81bf1",
+  "original_prefix_bytes": 832070579,
+  "original_prefix_sha256": "8ee4ca2002da372ceafd7a82f0b01a61da383a4af54dee7d4aa7c048f91334db",
+  "curve_id_map": {
+    "nitral-2024-A-CD45-broad-C1": "nitral-2024-0r2v3-CD45-broad-C1",
+    "nitral-2024-A-CD45-transition-C1": "nitral-2024-0r2v3-CD45-transition-C1",
+    "nitral-2024-A-CD45-transition2-C1": "nitral-2024-0r2v3-CD45-transition2-C1"
+  },
+  "correction_map_sha256": "2acf97574c1773a7a7a3e60b99ea0cf7353235b0bddcbdc71fe891c02eac4624",
+  "applied_by_this_script": false,
+  "models_fitted": 0
+}

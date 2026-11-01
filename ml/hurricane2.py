@@ -145,6 +145,31 @@ def _fit_clf(X, labels, seed, weights=None):
     return m
 
 
+def fit_probability_classifier(c: dict, X, y, seed: int, Xb=None):
+    """Fit precisely the pooled two-part classifier, without an unused Tc head.
+
+    This is the same probability branch used by Design.fit. Background records
+    remain weak label 0 with the declared weight; single-class/no-classifier
+    cases still return None. Per-family designs keep Design's recursive path.
+    """
+    if c.get("per_family"):
+        raise ValueError("use Design for a per-family probability model")
+    if not c.get("two_part"):
+        return None
+    sc = y > 0
+    wb = float(c.get("background") or 0)
+    if wb > 0 and Xb is not None and len(Xb):
+        lab = np.concatenate([sc.astype(int), np.zeros(len(Xb), int)])
+        w = np.concatenate([np.ones(len(y)), np.full(len(Xb), wb)])
+        return _fit_clf(np.vstack([X, Xb]), lab, seed, w) if sc.any() else None
+    return _fit_clf(X, sc.astype(int), seed) if 0 < sc.sum() < len(y) else None
+
+
+def probability_predictions(classifier, X) -> np.ndarray:
+    """As screen.hur_parts: unavailable classifiers report NaN, never invented certainty."""
+    return classifier.predict_proba(X)[:, 1] if classifier is not None else np.full(len(X), np.nan)
+
+
 class Design:
     """One candidate fitted on one training set: gradient boosting on log(1 + Tc), optionally with a classifier for
     whether the compound superconducts (two parts) and optionally one model per family."""
@@ -162,14 +187,8 @@ class Design:
             self.pooled = Design(base, self.seed).fit(X, y, fam)   # for a family with no training rows (leave one out)
             return self
         sc = y > 0
-        wb = float(c.get("background") or 0)
         if c.get("two_part"):
-            if wb > 0 and Xb is not None and len(Xb):
-                lab = np.concatenate([sc.astype(int), np.zeros(len(Xb), int)])
-                w = np.concatenate([np.ones(len(y)), np.full(len(Xb), wb)])
-                self.clf = _fit_clf(np.vstack([X, Xb]), lab, self.seed, w) if sc.any() else None
-            else:
-                self.clf = _fit_clf(X, sc.astype(int), self.seed) if 0 < sc.sum() < len(y) else None
+            self.clf = fit_probability_classifier(c, X, y, self.seed, Xb=Xb)
             self.reg = H._fit(X[sc], np.log1p(y[sc]), c["params"], self.seed, n_bags=c.get("bags", 1))
         else:
             self.reg = H._fit(X, np.log1p(y), c["params"], self.seed, n_bags=c.get("bags", 1))

@@ -1,0 +1,164 @@
+{
+  "version": "normal-state-sample-pilot-v2",
+  "policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+  "as_of": "2026-11-01T16:07:27.403922+00:00",
+  "append_requested": true,
+  "observations_prepared": 9035,
+  "ledger_events_before": 318908,
+  "ledger_events_after": 327943,
+  "ledger_events_added": 9035,
+  "ledger_head": "b871e0024e15b216ccf400c74db0d86cc9ffcc5c33dd98b0bfbd20ebf33dc694",
+  "curves_schema_valid": 27,
+  "invalid_curves": [],
+  "normal_feature_ready_curves": 9,
+  "feature_failures": [
+    {
+      "curve_id": "diamond4inch-230224B-bridge1-heatnig_230224B-230224-230224C",
+      "reasons": [
+        "Normal state was not verified"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-230224-bridge2-heatnig_230224B-230224-230224C",
+      "reasons": [
+        "Normal state was not verified"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-230224C-bridge3-heatnig_230224B-230224-230224C",
+      "reasons": [
+        "Normal state was not verified"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-230224B-bridge1-RH_2K_230224B-230224-230224C",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-230224-bridge2-RH_2K_230224B-230224-230224C",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-230224C-bridge3-RH_2K_230224B-230224-230224C",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-heating_250618-250703-250707",
+      "reasons": [
+        "Normal state was not verified"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-heating_250618-250703-250707",
+      "reasons": [
+        "Normal state was not verified"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-heating_250618-250703-250707",
+      "reasons": [
+        "Normal state was not verified"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-heating_250618-250703-250707_rep",
+      "reasons": [
+        "Normal state was not verified"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-heating_250618-250703-250707_rep",
+      "reasons": [
+        "Normal state was not verified"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-heating_250618-250703-250707_rep",
+      "reasons": [
+        "Normal state was not verified"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-RH_250618-250703-250707",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-RH_250618-250703-250707",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-RH_250618-250703-250707",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-RH_250618-250703-250707_rep",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-RH_250618-250703-250707_rep",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ]
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-RH_250618-250703-250707_rep",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ]
+    }
+  ],
+  "unresolved_links": [],
+  "linked_measured_tc_records": 0,
+  "excluded_links": [],
+  "cohort": {
+    "status": "insufficient_data",
+    "linked_curve_records": 0,
+    "unique_specimens": 0,
+    "unique_specimen_conditions": 0,
+    "independent_components": 0,
+    "components": [],
+    "minimum_independent_components": 5,
+    "minimum_training_components": 3,
+    "minimum_training_samples": 5,
+    "single_component_holdout_feasibility_not_a_frozen_split": [],
+    "tc_criteria": {},
+    "temperature_points_are_not_independent_samples": true,
+    "models_fitted": 0,
+    "adopted": false,
+    "limitations": [
+      "Rows sharing a specimen/condition need modality or replicate adjudication before model fitting",
+      "A dataset's raw curve count is not its number of independent chemical systems or sources",
+      "No prospective claim follows from newly ingested historical literature"
+    ]
+  },
+  "models_fitted": 0,
+  "public_redistribution_authorized_by_module": false,
+  "limitations": [
+    "Raw file hashes and checked locators bind curation; software cannot authenticate a paper's scientific statements",
+    "Normal observations are recorded even if missing modalities, conditions or labels prevent training",
+    "No fit before independent-component, target-criterion and split gating; no Tc=0 for censored outcomes"
+  ]
+}

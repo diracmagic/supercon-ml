@@ -1,0 +1,581 @@
+{
+  "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+  "title": "Absence of superconducting dome in 2H-NbSe2 (2020) source data",
+  "license": "Non-Commercial Government Licence for public sector information (repository landing)",
+  "metadata": {
+    "url": "https://api.datacite.org/dois/10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+    "local_path": "bristol-nbse2-2020/datacite-metadata.json",
+    "bytes": 5202,
+    "sha256": "ba870c40c77e870884181b05f59a36d39b9fad248b6b3146e211520f7226939c",
+    "repository_md5_checked": false
+  },
+  "files": [
+    {
+      "url": "https://data.bris.ac.uk/datasets/3i7a3mzyfbrrp2j871ykh846v0/3i7a3mzyfbrrp2j871ykh846v0.zip",
+      "local_path": "bristol-nbse2-2020/3i7a3mzyfbrrp2j871ykh846v0.zip",
+      "bytes": 314429,
+      "sha256": "8300a48be7c7f478c48026455ecf6969b2342efc239c6ea982c67561849cf738",
+      "repository_md5_checked": false,
+      "members": [
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3b/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3b/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3b/Tc_chi.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3b/Tc_chi.dat",
+          "bytes": 480,
+          "sha256": "4f2bb9ad69d2db6b122bdf4fe56fa141a99ffc66ac63c210ebd0285fd170b419"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3b/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3b/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Readme.txt",
+          "local_path": "bristol-nbse2-2020/extracted/Readme.txt",
+          "bytes": 4513,
+          "sha256": "c89d179b3db14107a873dd0e89095f05d57c6b80c3fbe4493c72a01a928623d1"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2b/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2b/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2b/Tc_chi.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2b/Tc_chi.dat",
+          "bytes": 480,
+          "sha256": "4f2bb9ad69d2db6b122bdf4fe56fa141a99ffc66ac63c210ebd0285fd170b419"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2b/Tc_vs_P_RPA.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2b/Tc_vs_P_RPA.dat",
+          "bytes": 428,
+          "sha256": "ce027e3b3be81a63f98059dca9f1c5735e595d650fbfd3a7935190f20b464ab0"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2b/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2b/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_2.4GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_2.4GPa.dat",
+          "bytes": 270,
+          "sha256": "4d2289a9ca7d30d7fadfaf42a2e7c9b0dd366c9573db3f7f1bf5032b831a4e8e"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_3.8GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_3.8GPa.dat",
+          "bytes": 263,
+          "sha256": "252841901cdc0dfaa5bba1ad16aea5d43bdb8ecc7731e23db7714bd51c4ab8fa"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_4.0GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_4.0GPa.dat",
+          "bytes": 266,
+          "sha256": "b1c60ee1f25c832c19bd21057d6f2191f23d645ad37efa0dff8c0377bd8a9f4d"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_4.1GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_4.1GPa.dat",
+          "bytes": 264,
+          "sha256": "b8182ae554b1f0793bf1d8e773615770de7830897aefddb22070b11adc863ff7"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_3.6GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_3.6GPa.dat",
+          "bytes": 267,
+          "sha256": "b08bdf0958badec2e00bcdf6e7e1503bdcd4cafece6d9dcf064dd2e12c8dd353"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_4.3GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_4.3GPa.dat",
+          "bytes": 264,
+          "sha256": "0f2aa5a9bb62b09020efd2448783c805a1e5dc33e110d3b9f41acdedf2c48f14"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_3.2GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_3.2GPa.dat",
+          "bytes": 267,
+          "sha256": "bb1da1fd66ee2af2cda5699b9e361c238fe0136235e59bcff23e6eb93f3a80b7"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_5.0GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_5.0GPa.dat",
+          "bytes": 426,
+          "sha256": "1d103f6074cfadd77399ef0e156ebec499f7297dc76a804141a56889fa89591d"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_1.6GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_1.6GPa.dat",
+          "bytes": 266,
+          "sha256": "3ca117fb8d431fe89aa558a4fc42fda2d8398c8287311a2dc65f08a708255231"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_4.5GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_4.5GPa.dat",
+          "bytes": 424,
+          "sha256": "7f050386ed6be263783ac089037c545846c671a476da28279db59b46e140294e"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_5.5GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_5.5GPa.dat",
+          "bytes": 426,
+          "sha256": "34370ea09651c74b073f5d633e107a2f75554f0c65b863bee65f783c93854edf"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1a/RH_vs_T_1.2GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1a/RH_vs_T_1.2GPa.dat",
+          "bytes": 243,
+          "sha256": "abdf41eebb5804e16f64f9132976cc701634e582e7be88819350127928226c1b"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_3.6GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_3.6GPa.dat",
+          "bytes": 13938,
+          "sha256": "1328ff9cd72feea1a45b57c913cd7abb3f55de60c74ad6b0f97150cb3d0cd50a"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_2.4GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_2.4GPa.dat",
+          "bytes": 13866,
+          "sha256": "1f08fc83d3f6e66ba5883b6bc66bc5a3086b735f39e0f2e67a2560b8b8655e22"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_3.8GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_3.8GPa.dat",
+          "bytes": 13991,
+          "sha256": "75bbf12cf14499037aa45449c6a998c9ee476d8d073b0117512324c17cca8fed"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_3.2GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_3.2GPa.dat",
+          "bytes": 13908,
+          "sha256": "71a6a13ef8580f011b5a9a3dd38592bdf6c279d93495b261ef067214e2432937"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_5.0GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_5.0GPa.dat",
+          "bytes": 14259,
+          "sha256": "6b60b19505e24829b545017f8ba1fa3ed0070a4b2d915b62ffc46c291abd0dfc"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_4.1GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_4.1GPa.dat",
+          "bytes": 14022,
+          "sha256": "7c2e46d77784f8950cf188dce02d6a48a26a96c6f42b9be47612f6012d473c64"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_4.5GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_4.5GPa.dat",
+          "bytes": 14185,
+          "sha256": "825bde29c092ab58bcdd990181fbfa3adc4bc423bab82909ef0a4e30fa4c4e06"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_1.6GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_1.6GPa.dat",
+          "bytes": 11218,
+          "sha256": "8f7e54a41b91dd1681bcf2544a9d694a0b5bca4824282f53eed1052251cc5cab"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_1.2GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_1.2GPa.dat",
+          "bytes": 13903,
+          "sha256": "cf87ad3553d069ca87eef9831bce5dce2c4b78e546f62abae3cf77eecfe162f6"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_4.0GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_4.0GPa.dat",
+          "bytes": 13991,
+          "sha256": "a33b7e6fa2bfa294c6369f7176357344ea98bbd299f3ed091cbf915944a49700"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c/dRHdT_vs_T_4.3GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c/dRHdT_vs_T_4.3GPa.dat",
+          "bytes": 14078,
+          "sha256": "b5de60ab1c789b0e6d553895f3421e4efedf75e57f2f1c3abf9c36a983b4c410"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c inset/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c inset/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c inset/Amplitude_dRHdT.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c inset/Amplitude_dRHdT.dat",
+          "bytes": 266,
+          "sha256": "6f264515ec9635c762f4f8ef248d13adf17c1120946f16e451605110e0874e68"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1c inset/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1c inset/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2c/Tc_vs_TCDW_sample2.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2c/Tc_vs_TCDW_sample2.dat",
+          "bytes": 284,
+          "sha256": "0c6ce482075070ffa3bb03f0558239062d106b5202cbd22d5ed5ed977e35d91a"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2c/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2c/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2c/Tc_vs_TCDW_sample1.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2c/Tc_vs_TCDW_sample1.dat",
+          "bytes": 312,
+          "sha256": "c12a4d6382c80c85478c98bf92ec056c3606d668fb8251ea9e8aeffbd645c819"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2c/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2c/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_a.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_a.dat",
+          "bytes": 12109,
+          "sha256": "699bd90c6d1944e3036d619efea92311bfc36e3c11b04208f2a9b2d83155c914"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_k.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_k.dat",
+          "bytes": 11855,
+          "sha256": "02d42ffca0e2a0fa62209f7c9f37fde7fa509223e5675d28bcf0d7502f63de3b"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_e.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_e.dat",
+          "bytes": 12017,
+          "sha256": "06dbe85cdbcf2ad651c4bc129dccfe389a1109bed4f0e3d8d2e60c813b0ab3ff"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_l.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_l.dat",
+          "bytes": 12139,
+          "sha256": "626be2f2b4cd4021082122822d49e247f30e3f2a94670aac9ec8cdd8f10f4dc9"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_b.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_b.dat",
+          "bytes": 12014,
+          "sha256": "3457defcc8e504571ff097072fed05d200393034cf84f6f4d474fbfdaf1581d9"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_f.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_f.dat",
+          "bytes": 12133,
+          "sha256": "4e17cd68cd9b25181143bb3def2fbfbeb1bc18e8e9f3c179290be90c613c60bc"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_i.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_i.dat",
+          "bytes": 12054,
+          "sha256": "e4fcf4d9c10aaf373c51959317911cdf66d8bc774c91cac66d54ab3f9b03ee77"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_g.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_g.dat",
+          "bytes": 12162,
+          "sha256": "5bc56fdf0cbfbaff993e9ec305962ab19c8ac17bcd15e413a58ae4564b354c9c"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_m.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_m.dat",
+          "bytes": 12164,
+          "sha256": "f0dbefa3f4403afbf638a523bf514a90f79b2cfdcf1327d72ef18165fc159c82"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_c.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_c.dat",
+          "bytes": 12186,
+          "sha256": "4a7e9e5b6e73796581c3f84b477f7f12d70cef916d27b7026c8c8345948beb53"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_j.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_j.dat",
+          "bytes": 12198,
+          "sha256": "31acde8f238e95c23790f29ffe90dda3a86d67cf049e7a3682e4c73a0a721af4"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_h.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_h.dat",
+          "bytes": 12230,
+          "sha256": "97561bb05dcd470e006fa357a1f0efad2c2bdc446f1fb3ab3fb95930f311049a"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig3a/ChiT_d.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig3a/ChiT_d.dat",
+          "bytes": 12188,
+          "sha256": "329fa5b0d390630fc88621dc9f4c48f896750a4b7293b6506953f3fe8cd45d8c"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4b/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4b/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4b/Fermi_velocity.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4b/Fermi_velocity.dat",
+          "bytes": 585,
+          "sha256": "8a5e061ed36be03fe87688a52d5eabba4ea55c4b44ce3397f2acae411da37ce5"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4b/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4b/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_2.4GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_2.4GPa.dat",
+          "bytes": 172,
+          "sha256": "6ce8bf992766a5765ea89d793520574e329e18f6a00a18fe2a3d31329229eae7"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_3.8GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_3.8GPa.dat",
+          "bytes": 196,
+          "sha256": "dda3160eda70134815026f32606ac97bd4944c6558ab459257ec8d46e7174409"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_4.5GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_4.5GPa.dat",
+          "bytes": 165,
+          "sha256": "d1f3c9e5a779f3b5ab267118b8bac12b6a95310342bb409916b8b5098ffb9b52"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_5.5GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_5.5GPa.dat",
+          "bytes": 154,
+          "sha256": "ef4119226a3f895b2a4222ee057e601a0a2cf427b79646a579a45c48532e8f87"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_3.2GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_3.2GPa.dat",
+          "bytes": 185,
+          "sha256": "3d9d3eefa46e6bcb01b5c2f95d2b615774647500dc36dbd22cc7b5826f8bc722"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_1.2GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_1.2GPa.dat",
+          "bytes": 260,
+          "sha256": "2747ed80be558218b7f3316d0cdbfc34be2bcb44adeeabd104006cc18f295e1b"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_4.3GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_4.3GPa.dat",
+          "bytes": 185,
+          "sha256": "d5cb760d192ac3e4e4f096a0850ebaa79a7d96ad9d4472f32d2a3401f68aeedd"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_4.1GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_4.1GPa.dat",
+          "bytes": 197,
+          "sha256": "6c672e077c3096af1f0aea50a12fca34b0d0658caa28cd90ded68a3c62d374ab"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_5.0GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_5.0GPa.dat",
+          "bytes": 156,
+          "sha256": "4bb9740f8997d1873f63ff98a923c8f5a2e5156fa68701813c213104286c2298"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_4.0GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_4.0GPa.dat",
+          "bytes": 185,
+          "sha256": "72312d7561ad164048a9b48f60761ed699eee72dda20707e2cb22ce6faf9d5e4"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_1.6GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_1.6GPa.dat",
+          "bytes": 245,
+          "sha256": "eec507e76c50edd9dfe5b747f5fcb6fd763765b2d8d6157abb9fc8fd1dbdfec5"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig4a/Hc2_vs_Tc_3.6GPa.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig4a/Hc2_vs_Tc_3.6GPa.dat",
+          "bytes": 223,
+          "sha256": "aeac3744c216d03fcb6450762f0f91245857aac47bb25a4e8728cccebcd81938"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/.info.json",
+          "local_path": "bristol-nbse2-2020/extracted/.info.json",
+          "bytes": 33927,
+          "sha256": "bf0628d70f636cfaa60e65a8e9fed1795b8611b2f165b2e5d2d551cfa280f003"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1b/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1b/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1b/RHvs_P_10K.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1b/RHvs_P_10K.dat",
+          "bytes": 252,
+          "sha256": "9ffe1c447b83c33df74aa0c978b463ee43a15c3945dc24036fd9acd66c4c7ee8"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1b/RHvs_P_20K.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1b/RHvs_P_20K.dat",
+          "bytes": 407,
+          "sha256": "e3869972c8b9d0d256f63608a466ce6946612889a868558930378eb620d9f054"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1b/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1b/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1b/RHvs_P_15K.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1b/RHvs_P_15K.dat",
+          "bytes": 249,
+          "sha256": "d3a11a7fa975cb8f8b9700e6836def24ab43e56eba3e6c05f33ea0f795b36b8b"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig1b/RHvs_P_5K.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig1b/RHvs_P_5K.dat",
+          "bytes": 326,
+          "sha256": "33572d610b75826bac03d973a9b58e3bd6c35e246211a16c4f55e0cb74663968"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2a/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2a/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2a/TCDW_Res.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2a/TCDW_Res.dat",
+          "bytes": 251,
+          "sha256": "cb916e18236b77bc74998523000f2c3ecbbe9404386a3a793dc85f22793c5fc8"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2a/TCDW_Hall.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2a/TCDW_Hall.dat",
+          "bytes": 300,
+          "sha256": "73629d6c13071cf678d348757ec8dc0d5bb7ff542693b7b062ab131b7f2bcfd4"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2a/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2a/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig2a/PCDW_Hall.dat",
+          "local_path": "bristol-nbse2-2020/extracted/Fig2a/PCDW_Hall.dat",
+          "bytes": 81,
+          "sha256": "ec06fbf9138bb73478791891adfb5575ea8f3d7ff4a0d71bbb113d396298e487"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/.info.rdf",
+          "local_path": "bristol-nbse2-2020/extracted/.info.rdf",
+          "bytes": 47314,
+          "sha256": "fe7ea1f5422b22fb0284883735f0ec7e3a6daab19139536bca8eb246d827dca3"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig5/.footer.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig5/.footer.html",
+          "bytes": 1894,
+          "sha256": "746be45a3be896652d928b9c0c39e8941542a77cba9b10dc1eb3d411a58b8465"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig5/DoS_gap.txt",
+          "local_path": "bristol-nbse2-2020/extracted/Fig5/DoS_gap.txt",
+          "bytes": 1802,
+          "sha256": "bf9ac9250966cc70e5b51b0ef24725d3435e13ff638fee81c0a671896e84b163"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig5/.header.html",
+          "local_path": "bristol-nbse2-2020/extracted/Fig5/.header.html",
+          "bytes": 2666,
+          "sha256": "c035ec82934e35f1f715dac580e7d663bfbbdf4cbc8da0ff14fd6141814c3573"
+        },
+        {
+          "archive_member": "3i7a3mzyfbrrp2j871ykh846v0/Fig5/FS.txt",
+          "local_path": "bristol-nbse2-2020/extracted/Fig5/FS.txt",
+          "bytes": 1986297,
+          "sha256": "fc67cc05f6611baad13769211ff91a72d865ea094e4b06a10f96261c28a1c7db"
+        }
+      ]
+    }
+  ]
+}

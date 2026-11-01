@@ -1,0 +1,463 @@
+{
+  "curves_schema_valid": 56,
+  "targets_schema_valid": 4,
+  "curve_features": [
+    {
+      "curve_id": "nbs2-No28-dev4-broad",
+      "status": "insufficient_data",
+      "reasons": [
+        "Anchor outside measured range; extrapolation prohibited"
+      ],
+      "raw_point_count": 96
+    },
+    {
+      "curve_id": "nbs2-No18-dev3-broad",
+      "status": "insufficient_data",
+      "reasons": [
+        "Anchor outside measured range; extrapolation prohibited"
+      ],
+      "raw_point_count": 84
+    },
+    {
+      "curve_id": "nbs2-No18-dev2-broad",
+      "status": "insufficient_data",
+      "reasons": [
+        "Anchor outside measured range; extrapolation prohibited"
+      ],
+      "raw_point_count": 200
+    },
+    {
+      "curve_id": "nbs2-No28-dev4-transition",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Normalization reference is outside frozen normal window"
+      ],
+      "raw_point_count": 841
+    },
+    {
+      "curve_id": "nbs2-No18-dev3-transition",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Normalization reference is outside frozen normal window"
+      ],
+      "raw_point_count": 86
+    },
+    {
+      "curve_id": "nbs2-No18-dev2-transition",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Normalization reference is outside frozen normal window"
+      ],
+      "raw_point_count": 89
+    },
+    {
+      "curve_id": "mgb2-2025-device-segment1",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 19003
+    },
+    {
+      "curve_id": "mgb2-2025-device-segment2",
+      "status": "insufficient_data",
+      "reasons": [
+        "Anchor outside measured range; extrapolation prohibited"
+      ],
+      "raw_point_count": 56357
+    },
+    {
+      "curve_id": "nbtin-2024-Fig1d",
+      "status": "insufficient_data",
+      "reasons": [
+        "Too few distinct temperatures in frozen window"
+      ],
+      "raw_point_count": 902
+    },
+    {
+      "curve_id": "sn-run1-broad-2p5",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 447
+    },
+    {
+      "curve_id": "sn-glycerol-broad-9",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 413
+    },
+    {
+      "curve_id": "sn-run1-4a-0T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4a-0.2T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4a-0.4T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4a-0.6T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4a-0.8T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4a-1T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4a-1.5T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4a-2T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4a-2.5T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4a-3T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4b-0T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 157
+    },
+    {
+      "curve_id": "sn-run1-4b-1T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4b-3T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "sn-run1-4b-5T",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 79
+    },
+    {
+      "curve_id": "hea-x0.35-ZFC",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 200
+    },
+    {
+      "curve_id": "hea-x0.35-FC",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 200
+    },
+    {
+      "curve_id": "hea-x0.71-ZFC",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 200
+    },
+    {
+      "curve_id": "hea-x0.71-FC",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 200
+    },
+    {
+      "curve_id": "nbse2-Hall-1.2GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 16
+    },
+    {
+      "curve_id": "nbse2-Hall-1.6GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-2.4GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-3.2GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-3.6GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-3.8GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-4GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-4.1GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-4.3GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-4.5GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-5GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-Hall-5.5GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Observable has no frozen extractor"
+      ],
+      "raw_point_count": 18
+    },
+    {
+      "curve_id": "nbse2-chi-0GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 331
+    },
+    {
+      "curve_id": "nbse2-chi-1GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 326
+    },
+    {
+      "curve_id": "nbse2-chi-1.6GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 329
+    },
+    {
+      "curve_id": "nbse2-chi-2.5GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 329
+    },
+    {
+      "curve_id": "nbse2-chi-3.1GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 325
+    },
+    {
+      "curve_id": "nbse2-chi-3.4GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 326
+    },
+    {
+      "curve_id": "nbse2-chi-3.6GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 329
+    },
+    {
+      "curve_id": "nbse2-chi-4GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 330
+    },
+    {
+      "curve_id": "nbse2-chi-4.4GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 325
+    },
+    {
+      "curve_id": "nbse2-chi-4.9GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 330
+    },
+    {
+      "curve_id": "nbse2-chi-5.6GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 328
+    },
+    {
+      "curve_id": "nbse2-chi-6.2GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 328
+    },
+    {
+      "curve_id": "nbse2-chi-6.4GPa",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 329
+    },
+    {
+      "curve_id": "ptsb-2026-Fig2a-30nm",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 349
+    },
+    {
+      "curve_id": "nbse2-hebs-2024-Fig1c",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 25952
+    }
+  ],
+  "ledger_written": false,
+  "models_fitted": 0
+}

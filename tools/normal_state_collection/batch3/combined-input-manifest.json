@@ -1,0 +1,41 @@
+{
+  "inputs": [
+    {
+      "path": "normal-state-batch2/combined/registry.json",
+      "sha256": "1a9dd8d8c82c40fb31c8265e9ced56365edae97d7b4df2729e1c488e70e06cf6"
+    },
+    {
+      "path": "normal-state-batch2/combined/collection.json",
+      "sha256": "14cf425281689db9df00c342082372c5f2a442afd94d7dbe006cbdda1c61354e"
+    },
+    {
+      "path": "normal-state-batch3/storm/transport-registry.json",
+      "sha256": "9a8d0a5651e1c3076c1892761ddab0783bbbc2528f8e1862498b84c7f61b2175"
+    },
+    {
+      "path": "normal-state-batch3/storm/transport-collection.json",
+      "sha256": "dca965fe67cb860729b38ecd8132bd2b31c203129a274f2c887ba2848d5ea00e"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "normal-state-batch3/combined/registry.json",
+      "sha256": "b1839994c7b952070c253676330f69b01381ebc8799b8a277d5a575e706d42ba"
+    },
+    {
+      "path": "normal-state-batch3/combined/collection.json",
+      "sha256": "586e43d083a8e99415d16e11f40814c5933175ef2d6abd94159cea508c5dcd2d"
+    }
+  ],
+  "curves": 136,
+  "raw_point_records": 326018,
+  "targets": 15,
+  "links": 6,
+  "registry_entries": 57,
+  "old_ledger_prefix_byte_exact": true,
+  "old_ledger_prefix": {
+    "bytes": 833136428,
+    "sha256": "c9f8f21d2de82fd68086d7a318f50550a5cf383b5abc2ca0f94dba73a73914da",
+    "head": "101a386f320678d236f4e538d8ebb5be32812f1c2a54d1c9c5f9b61c9d0399c1"
+  }
+}

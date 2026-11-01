@@ -1,0 +1,132 @@
+{
+  "schema_version": "bounded-source-search-disposition-v1",
+  "searched_on": "2026-11-01",
+  "only_actual_queries": true,
+  "figshare_api": {
+    "endpoint": "https://api.figshare.com/v2/articles/search",
+    "queries": [
+      "NbSe2",
+      "Lu5Ir4Si10",
+      "Al13Os4",
+      "quasicrystal superconductivity",
+      "Nb3Ge",
+      "Ca3Ir4Sn13",
+      "LaPt2Si2",
+      "NbGe2",
+      "superconductivity resistivity",
+      "LaPtSi",
+      "LiPd2Ge",
+      "Ca3Rh4Sn13",
+      "Re7B3",
+      "PbTaSe2",
+      "LaPtGe",
+      "HfRuP"
+    ],
+    "limits": "Up to100 returned records/query; latest searches item_type=3; saved raw metadata remain in private work/search/. Results are leads, not original evidence."
+  },
+  "primary_followup_sources": [
+    {
+      "source_id": "diamond4inch-2026",
+      "paper_doi": "10.48550/arXiv.2609.15282",
+      "dataset_doi": "10.17035/cardiff.34715652.v1",
+      "inspection_status": "full_text_and_raw_data_inspected",
+      "disposition": "normal_only_and_separate_author_tc_no_links",
+      "reasons": [
+        "Author warming50%R5K midpoint is not the same raw trace as broad cooling.",
+        "Gas-phase B/C is process metadata; Raman B estimates are model-derived, not absolute film composition.",
+        "Six film/internal sample codes and repeated sweeps are not six independent chemical systems."
+      ]
+    },
+    {
+      "source_id": "al13os4-2025",
+      "paper_doi": "10.1038/s43246-025-00949-2",
+      "dataset_doi": null,
+      "inspection_status": "full_text_inspected",
+      "disposition": "not_acquired_no_original_numeric_file_located",
+      "reasons": [
+        "Primary data availability: corresponding-author request; only PDF SI/review attachments located.",
+        "Fig2a Tc5.47(2)K is explicitly onset, not the frozen resistive-midpoint target."
+      ]
+    },
+    {
+      "source_id": "nbse2-plasmon-2024",
+      "paper_doi": "10.1038/s41467-024-50452-4",
+      "dataset_doi": "10.6084/m9.figshare.26083276.v1",
+      "inspection_status": "full_text_and_raw_data_inspected",
+      "disposition": "raw_retained_low_temperature_only",
+      "reasons": [
+        "Author50%normal-resistance criterion is explicit, but fourFigure1 R(T) traces span only2.07–8.52K.",
+        "Heterostructure/photon-condition data are not treated as an unmodified bulkNbSe2 specimen."
+      ]
+    },
+    {
+      "source_id": "nbse2-topotactic-2023",
+      "paper_doi": "10.1038/s41467-023-39997-y",
+      "dataset_doi": null,
+      "inspection_status": "full_text_and_raw_data_inspected",
+      "disposition": "raw_retained_low_temperature_only",
+      "reasons": [
+        "Figure2g transport columns span1.75–15.7K, not150–300K.",
+        "Other large horizontal-coordinate numbers are XPS/Raman/spectroscopy coordinates, not high-T transport.",
+        "Composition/oxidation differs across TF/TP regions; do not collapse into one pure bulk formula."
+      ]
+    },
+    {
+      "source_id": "nbse2-superlattice-2024",
+      "paper_doi": "10.1038/s41467-024-54948-x",
+      "dataset_doi": "10.6084/m9.figshare.27850653.v2",
+      "inspection_status": "full_text_and_raw_data_inspected",
+      "disposition": "raw_retained_not_thermal_transport_target",
+      "reasons": [
+        "Public main-figure XLSX contains synthesis/structure/STM/DFT figure values; no broad R(T)+author midpoint pairing established."
+      ]
+    },
+    {
+      "source_id": "nbge2-electronphonon-2021",
+      "paper_doi": "10.1038/s41467-021-25547-x",
+      "dataset_doi": "10.18126/uftm-ny12",
+      "inspection_status": "full_text_and_dataset_metadata_inspected",
+      "disposition": "numeric_download_unavailable_no_tc_pair",
+      "reasons": [
+        "MDF public metadata resolves to old Globus collection; indexed total_size=0, no numeric file list, HTTPS collection DNS failed.",
+        "The inspected2021 paper establishes normal-state transport, not a Tc measurement for that specimen.",
+        "Do not join2025NbGe2 Tc1.96K from a different specimen (differentRRR)."
+      ]
+    },
+    {
+      "source_id": "lupt2in-2017",
+      "paper_doi": "10.1038/nphys4191",
+      "dataset_doi": null,
+      "inspection_status": "abstract_and_landing_only",
+      "disposition": "unresolved_numeric_source_not_located",
+      "reasons": [
+        "Primary landing inspected; body access restricted and no downloadable numeric transport source located in this bounded search.",
+        "No Tc criterion, sample binding, or absence-of-data claim inferred from unavailable text."
+      ]
+    },
+    {
+      "source_id": "mosi-vortex-2018",
+      "paper_doi": "10.1038/s41467-018-07256-0",
+      "dataset_doi": null,
+      "inspection_status": "full_text_and_raw_data_inspected",
+      "disposition": "source_xls_not_broad_transport",
+      "reasons": [
+        "Author midpoint Tc4.02K is explicit, but public XLS contains microwave-emission harmonic amplitudes/fits, not broadR(T).",
+        "Additional underlying measurements are available on reasonable request; no author contact made."
+      ]
+    }
+  ],
+  "duplicate_prior_source_detected": [
+    {
+      "dataset_doi": "10.82444/warw.33830350.v1",
+      "paper_doi": "10.1103/PhysRevB.105.L020503",
+      "reason": "Figshare mirror explicitly points to previously inspected Warwick156964; no duplicate download/admission."
+    }
+  ],
+  "other_unresolved_leads": [
+    "B-doped-diamond2inch dataset10.17035/d.2023.0297238455 metadata: not downloaded after4inch source acquisition; no eligibility asserted.",
+    "LiPd2Ge,LaPtSi,Ca3Rh4Sn13,Re7B3,PbTaSe2,LaPtGe,HfRuP exact Figshare searches found no matching original numeric dataset in returned scope; this is not proof of nonexistence.",
+    "Mo5Si3,Sc5Rh6Sn18,In2Bi,CaIrSi3,ZrNi2Ga/Ca3Ir4Sn13 targeted web leads did not yield a verified machine-readable broadT+same-trace midpoint source in this pass."
+  ],
+  "search_absence_is_not_a_material_negative": true
+}

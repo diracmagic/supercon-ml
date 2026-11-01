@@ -1,0 +1,143 @@
+{
+  "as_of": "2026-11-01",
+  "purpose": "Candidate-source search coverage and exact reasons for non-admission; never evidence of nonsuperconductivity or nonexistence",
+  "no_authors_contacted": true,
+  "policy_was_not_relaxed": true,
+  "candidates": [
+    {
+      "paper_doi": "10.1021/acs.nanolett.3c04493",
+      "dataset_doi": "10.5281/zenodo.10613828",
+      "query": "Fundamental limits of few-layer NbSe2 microbolometers + full-text/midpoint/half",
+      "primary_inspected_url": "https://www.hse.ru/data/2026/04/01/230362828/%E2%84%962.pdf",
+      "raw_downloaded": true,
+      "disposition": "Broad measured curve admitted; midpoint target unresolved",
+      "reason": "One deposited two-terminal R(T) trace has25952 numeric points and reaches289.3K. Paper states Tc around6.5K and middle-transition resistance about50ohm, but no unambiguous50%Rnormal or contact-baseline corrected definition. Four studied devices are not four deposited full curves."
+    },
+    {
+      "paper_doi": "10.1103/PhysRevB.111.104513",
+      "dataset_doi": "10.5281/zenodo.14759622",
+      "query": "Enhancement of superconductivity Sn high pressure source data",
+      "primary_inspected_url": "https://harvest.aps.org/v2/journals/articles/10.1103/PhysRevB.111.104513/fulltext#page=1",
+      "raw_downloaded": true,
+      "disposition": "Sn2.5GPa midpoint linked; Sn9GPa broad curve kept without midpoint label",
+      "reason": "Fig6a/b and Fig7 discuss multiple pressure-induced onset features. No source-declared same-sample midpoint value for9GPa. Do not transfer2.5/10.5GPa midpoint or collapse beta/gamma-related features."
+    },
+    {
+      "paper_doi": "10.1038/s41467-024-47353-x",
+      "dataset_doi": "10.5281/zenodo.10514254",
+      "query": "Single-photon detection large-scale MgB2 source data",
+      "primary_inspected_url": "https://www.nature.com/articles/s41467-024-47353-x",
+      "raw_downloaded": true,
+      "disposition": "Quarantined original-column-header conflict",
+      "reason": "Fig1b.xlsx header A=R/B=T conflicts with numerical ranges and figure axes supporting A=T/B=R. Original bytes and512680 numeric pairs preserved; no admitted training curve uses this interpretation."
+    },
+    {
+      "paper_doi": "10.1038/s44310-025-00084-3",
+      "dataset_doi": "10.5281/zenodo.15172735",
+      "query": "Quantum light detection MgB2 nanowires repository + transition criterion",
+      "primary_inspected_url": "https://www.nature.com/articles/s44310-025-00084-3",
+      "raw_downloaded": true,
+      "disposition": "Curves retained; frozen250K anchor unavailable",
+      "reason": "Two segments of one device reach206.268K. No extrapolation to250K. Device includes series inductor and explicit midpoint criterion is not established in inspected main text."
+    },
+    {
+      "paper_doi": "10.1038/s41598-024-81776-2",
+      "dataset_doi": "10.21979/N9/VH0WLV",
+      "query": "NbTiN SNSPD end-to-end workflow original data",
+      "primary_inspected_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11680598/",
+      "raw_downloaded": true,
+      "disposition": "Sparse high-T trace; public extractor rejects",
+      "reason": "Fig1d contains dense lowT data to27.1973K and a single296K endpoint. This is not a densely measured150–300K curve. Tc8.66K half-maximum and8.51K fluctuation-fit are retained separately, never relabeled as identical outcomes."
+    },
+    {
+      "paper_doi": "10.1021/acsnano.1c07956",
+      "dataset_doi": "10.5281/zenodo.5645160",
+      "query": "Superconducting2D NbS2 CVD source-data",
+      "primary_inspected_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8614232/",
+      "raw_downloaded": true,
+      "disposition": "Normalized three-phase curves retained; frozen250K anchor unavailable",
+      "reason": "Deposited broad curves end199–200K and report R/R200K, not ohm. The3R no-transition observation down to1.4K is censored sample evidence, neverTc=0 or a parent-negative."
+    },
+    {
+      "paper_doi": "10.1103/PhysRevResearch.2.043392",
+      "dataset_doi": "10.5523/bris.3i7a3mzyfbrrp2j871ykh846v0",
+      "query": "NbSe2 resistivity pressure source dataset",
+      "primary_inspected_url": "https://orca.cardiff.ac.uk/id/eprint/138618/1/PhysRevResearch.2.043392.pdf",
+      "raw_downloaded": true,
+      "disposition": "Hall and susceptibility retained; no raw longitudinal rho(T) in deposit",
+      "reason": "Sample numbers in README vs paper captions and susceptibility/Tc pressure grids do not permit strict same-sample joining. Hall coefficient is not a frozen transport response in current policy."
+    },
+    {
+      "paper_doi": "10.1103/dm72-92yy",
+      "dataset_doi": "10.5281/zenodo.16274340",
+      "query": "NbN conventional superconductors data terahertz",
+      "primary_inspected_url": "https://lts.fzu.cz/pdfpub/25-prb3.pdf",
+      "raw_downloaded": true,
+      "disposition": "Outside broad-T normal-transport target",
+      "reason": "Published experiments are optical-conductivity frequency/B sweeps at2K on three NbN films. The deposit also contains theory; neither is a broad normal R(T) series."
+    },
+    {
+      "paper_doi": "10.1038/s41598-022-16355-4",
+      "dataset_doi": "10.5281/zenodo.6673464",
+      "query": "Evidence isotropic s-wave superconductivity high-entropy alloys raw data",
+      "primary_inspected_url": "https://access.archive-ouverte.unige.ch/access/metadata/ba192a83-71ef-4339-b7b6-1f53fd8e57c0/download",
+      "raw_downloaded": true,
+      "disposition": "LowT magnetic curves retained only",
+      "reason": "ZFC/FC two grouped compositions are not broad150–300K transport; exact per-element fractions and precise Tc extraction threshold are unresolved. Temperature sweeps do not increase material independence."
+    },
+    {
+      "paper_doi": "10.1038/s41467-022-35191-8",
+      "dataset_doi": null,
+      "query": "WB2 high pressure superconductivity source data",
+      "primary_inspected_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9780245/",
+      "raw_downloaded": false,
+      "disposition": "No confirmed public machine-readable data downloaded",
+      "reason": "Inspected availability statement directs supporting data requests to authors. No author contact or guessed digitization performed."
+    },
+    {
+      "paper_doi": "10.1038/s41567-021-01219-x",
+      "dataset_doi": "10.5281/zenodo.4545917",
+      "query": "Two-fold symmetric superconductivity few-layer NbSe2",
+      "primary_inspected_url": "https://www.nature.com/articles/s41567-021-01219-x",
+      "raw_downloaded": false,
+      "disposition": "Not claimed as a conventional-pairing Storm dataset",
+      "reason": "Paper explicitly studies emergent unconventional mixing in few-layer NbSe2. No broadT midpoint-ready data claim made from title or repository metadata."
+    },
+    {
+      "paper_doi": "10.1038/s41699-021-00265-6",
+      "dataset_doi": "10.6084/m9.figshare.16720621.v1",
+      "query": "NbSe2/NbS2 broad resistivity source data",
+      "primary_inspected_url": "https://www.nature.com/articles/s41699-021-00265-6",
+      "raw_downloaded": true,
+      "disposition": "CC0 figure-source dat files retained; not included as midpoint-labeled specimens",
+      "reason": "Paper centers on normal-state anisotropic Kondo transport, including NbSe2 comparison. No exact specimen-specific resistive-midpoint Tc identified in inspected primary text. Never import Tc from generic compound literature."
+    },
+    {
+      "paper_doi": "10.1038/s41467-026-75646-w",
+      "dataset_doi": "10.14459/2026mp1851786",
+      "query": "Single-photon detection few-layer NbSe2 source data",
+      "primary_inspected_url": "https://www.nature.com/articles/s41467-026-75646-w",
+      "raw_downloaded": false,
+      "disposition": "Not admitted in this collection",
+      "reason": "Inspected main text describes cryogenic R(T) and approximate6K transition, not a verified broad150–300K midpoint-ready curve. Public repository link found but not treated as inspected numeric contents."
+    },
+    {
+      "paper_doi": null,
+      "dataset_doi": "10.5281/zenodo.10125758",
+      "query": "NbTiN film data deposition conditions",
+      "primary_inspected_url": null,
+      "raw_downloaded": true,
+      "disposition": "Primary-paper link not resolved; no training entry",
+      "reason": "Repository describes deposition summary table. No source-backed assumption that it contains broad-T traces."
+    },
+    {
+      "paper_doi": null,
+      "dataset_doi": "10.5281/zenodo.4479424",
+      "query": "Tailoring superconductivity monolayer NbSe2 molecular adlayers",
+      "primary_inspected_url": null,
+      "raw_downloaded": false,
+      "disposition": "Candidate metadata only; not inspected or admitted",
+      "reason": "No broad curve or midpoint-ready sample count inferred from repository title/abstract."
+    }
+  ]
+}

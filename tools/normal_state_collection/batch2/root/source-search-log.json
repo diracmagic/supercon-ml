@@ -1,0 +1,127 @@
+{
+  "scope": "Additional source checks by the coordinating collector; not an exhaustive literature search",
+  "inspection_date": "2026-11-01",
+  "models_fitted": 0,
+  "entries": [
+    {
+      "doi": "10.1038/s41467-025-67886-z",
+      "material": "NbS2 / NbSe2 films",
+      "primary_url": "https://www.nature.com/articles/s41467-025-67886-z",
+      "source_url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-67886-z/MediaObjects/41467_2025_67886_MOESM3_ESM.zip",
+      "source_sha256": "76664b03b5bf34243fd4f97f65edb59fef0bbed7f31b381bc8262cfe383442d6",
+      "status": "inspected_numeric_archive_not_admitted",
+      "reason": "Fig4d has 203 numeric points spanning 1.3-200 K, missing the frozen 250 K anchor. Other R(T) traces reach only 10 K; isolated room-temperature resistance and RRR do not supply the missing curve. No explicit resistive-midpoint criterion established in inspected main text.",
+      "notes": "Fig4e has 20 nominal zero-field traces plus one 1 T trace despite a caption describing 16 devices; preserve this discrepancy. A filename mentioning R-T in Fig4f actually has I-V columns; never parse from filename alone. No points or labels exported from this archive."
+    },
+    {
+      "doi": "10.1088/1361-6668/ad20fc",
+      "material": "Al / nitridized aluminium",
+      "primary_url": "https://publikationen.bibliothek.kit.edu/1000168884/152381183",
+      "dataset_doi": "10.5281/zenodo.10194875",
+      "status": "delegated_full_review",
+      "reason": "See thermo/nitral-2024 curation and transition-traces reviews. Pure-Al broad and transition traces share an explicit archive sample code, but author Table2 Tc is not explicitly mapped to that physical piece. No training link. Nitrogen gas-flow percentage is not a measured film formula."
+    },
+    {
+      "doi": "10.1209/0295-5075/127/37005",
+      "material": "Zr5Al4",
+      "primary_url": "https://collaborate.princeton.edu/en/publications/superconductivity-in-the-intermetallic-compound-zrsub5subalsub4su/",
+      "attempted_full_text": [
+        "https://oar.princeton.edu/bitstream/88435/pr1xs5jh5t/1/Superconductivity%20in%20the%20intermetallic%20compound%20Zr5Al4.pdf",
+        "https://mostwiedzy.pl/pl/publication/download/1/superconductivity-in-the-intermetallic-compound-zr5al4_39802.pdf"
+      ],
+      "status": "not_admitted_access_and_format_unresolved",
+      "reason": "Princeton file returned 401; the separately public author-postprint URL returned an Anubis HTML page, not PDF bytes. No bypass attempted. Search-index text is not a verified raw numeric table. Preprint and final abstract have differing thermodynamic numbers, so versions must not be mixed. No digitization or training label created."
+    },
+    {
+      "doi": "10.1038/s41467-022-33077-3",
+      "material": "Ti under pressure",
+      "primary_url": "https://www.nature.com/articles/s41467-022-33077-3",
+      "status": "not_admitted",
+      "reason": "Retrieved article HTML and found a supplementary PDF link; no downloadable numeric resistance table was established in this check. Do not infer absent data or create points from the abstract."
+    },
+    {
+      "doi": "10.1038/ncomms11043",
+      "material": "2H-TaS2 flakes",
+      "primary_url": "https://www.nature.com/articles/ncomms11043",
+      "status": "not_admitted",
+      "reason": "Only low-temperature figures and a supplementary PDF identified; no verified 150-300 K numeric trace with a same-specimen midpoint target obtained."
+    },
+    {
+      "doi": "10.1021/acsami.4c04997",
+      "material": "intercalated 2H-TaS2",
+      "primary_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12865752/",
+      "status": "not_admitted",
+      "reason": "Main discussion uses onset. Observed supplementary files were PDF and videos, not verified broad R(T) tables. An onset is not relabelled as a midpoint."
+    },
+    {
+      "doi": "10.1038/s41467-026-72136-x",
+      "material": "6R-TaS2",
+      "primary_url": "https://www.nature.com/articles/s41467-026-72136-x",
+      "status": "not_admitted",
+      "reason": "Resistive criteria described as onset/zero; the AC-susceptibility midpoint belongs to a different specimen. Do not join a magnetic criterion or polycrystal to the resistive sample."
+    },
+    {
+      "doi": "10.1088/1361-6668/adf3ea",
+      "material": "Nb3Sn / NbTi conductors",
+      "dataset_doi": "10.15128/r1m900nt511",
+      "status": "not_admitted",
+      "reason": "Identified public critical-current, n-value and RRR data, not an established broad normal-state curve plus matched resistive-midpoint Tc."
+    },
+    {
+      "doi": "10.1088/2515-7639/abe662",
+      "material": "Zr-alloyed Nb3Sn",
+      "dataset_doi": "10.26037/yareta:hocpp6cxlvdelfhahwzgzlrgti",
+      "status": "not_admitted",
+      "reason": "The reported resistive Tc criterion is 99 percent, not the frozen 50 percent channel."
+    },
+    {
+      "doi": "10.1038/srep24479",
+      "material": "LaRu2P2 under pressure",
+      "primary_url": "https://www.nature.com/articles/srep24479",
+      "status": "not_admitted",
+      "reason": "Broad transport plots are promising; no raw numeric table and source-bound midpoint pairing established in this check."
+    },
+    {
+      "doi": "10.1038/s41467-025-61383-z",
+      "material": "LaRu3Si2",
+      "primary_url": "https://www.nature.com/articles/s41467-025-61383-z",
+      "status": "not_admitted",
+      "reason": "Public ESRF data refer to diffraction. The transport data require an author request; a diffraction repository is not a resistance dataset."
+    },
+    {
+      "doi": "10.1038/s41563-025-02471-9",
+      "material": "PdTe",
+      "primary_url": "https://www.nature.com/articles/s41563-025-02471-9",
+      "status": "not_admitted",
+      "reason": "Reported resistive Tc uses 90 percent normal resistance, not the frozen midpoint target."
+    },
+    {
+      "doi": "10.48550/arXiv.2403.14075",
+      "dataset_doi": "10.5281/zenodo.12802453",
+      "primary_url": "https://arxiv.org/abs/2403.14075",
+      "status": "reserved_not_storm_admitted",
+      "reason": "The raw repository contains Bi2223 and copper transport-control measurements. It does not add the sought conventional-material Storm paired sample; do not turn control measurements into Tc=0 labels."
+    },
+    {
+      "doi": "10.1038/s41524-026-02370-w",
+      "primary_url": "https://www.nature.com/articles/s41524-026-02370-w",
+      "status": "separate_computational_channel",
+      "reason": "Computed conductivity and electron-phonon data are not same-specimen experimental curves. They cannot silently replace this measured-Tc validation task."
+    }
+  ],
+  "future_hurricane_leads_not_training_data": [
+    {
+      "doi": "10.1038/nature23290",
+      "reason": "LSCO transport source-data lead; not yet fully paired or imported."
+    },
+    {
+      "doi": "10.1038/s41563-022-01291-5",
+      "reason": "FeS/FeSe/FeTe reported midpoint lead; source and physical-specimen audit pending."
+    },
+    {
+      "doi": "10.1038/s41467-026-75922-9",
+      "dataset_doi": "10.5281/zenodo.20636178",
+      "reason": "Nickelate midpoint data lead; normal-window coverage and specimen conditions not yet audited."
+    }
+  ]
+}

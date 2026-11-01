@@ -1,0 +1,718 @@
+{
+  "schema_version": "storm-batch3-compact-audit-v1",
+  "curves": 27,
+  "points": 9030,
+  "author_film_codes": 6,
+  "source_numeric_files": 9,
+  "positive_author_midpoint_claims": 5,
+  "admitted_links": 0,
+  "new_independent_primary_pilot_groups": 0,
+  "ledger_written": false,
+  "models_fitted": 0,
+  "frozen_policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+  "collection_sha256": "dca965fe67cb860729b38ecd8132bd2b31c203129a274f2c887ba2848d5ea00e",
+  "registry_sha256": "9a8d0a5651e1c3076c1892761ddab0783bbbc2528f8e1862498b84c7f61b2175",
+  "per_curve": [
+    {
+      "curve_id": "diamond4inch-230224B-bridge1-cooling_230224B-230224-230224C",
+      "mode": "cooling",
+      "author_label": "6k",
+      "raw_points": 443,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.99889999628067,
+        299.995101928711
+      ],
+      "field_range_Oe": [
+        -0.528771996498108,
+        -0.528771996498108
+      ],
+      "broad_cooling_candidate": true
+    },
+    {
+      "curve_id": "diamond4inch-230224-bridge2-cooling_230224B-230224-230224C",
+      "mode": "cooling",
+      "author_label": "12k",
+      "raw_points": 443,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.99889999628067,
+        299.995101928711
+      ],
+      "field_range_Oe": [
+        -0.528771996498108,
+        -0.528771996498108
+      ],
+      "broad_cooling_candidate": true
+    },
+    {
+      "curve_id": "diamond4inch-230224C-bridge3-cooling_230224B-230224-230224C",
+      "mode": "cooling",
+      "author_label": "18k",
+      "raw_points": 443,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.99889999628067,
+        299.995101928711
+      ],
+      "field_range_Oe": [
+        -0.528771996498108,
+        -0.528771996498108
+      ],
+      "broad_cooling_candidate": true
+    },
+    {
+      "curve_id": "diamond4inch-230224B-bridge1-heatnig_230224B-230224-230224C",
+      "mode": "warming",
+      "author_label": "6k",
+      "raw_points": 386,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.009850025177,
+        10.0006999969482
+      ],
+      "field_range_Oe": [
+        -0.528771996498108,
+        -0.528771996498108
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-230224-bridge2-heatnig_230224B-230224-230224C",
+      "mode": "warming",
+      "author_label": "12k",
+      "raw_points": 386,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.009850025177,
+        10.0006999969482
+      ],
+      "field_range_Oe": [
+        -0.528771996498108,
+        -0.528771996498108
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-230224C-bridge3-heatnig_230224B-230224-230224C",
+      "mode": "warming",
+      "author_label": "18k",
+      "raw_points": 386,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.009850025177,
+        10.0006999969482
+      ],
+      "field_range_Oe": [
+        -0.528771996498108,
+        -0.528771996498108
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-230224B-bridge1-RH_2K_230224B-230224-230224C",
+      "mode": "field_sweep",
+      "author_label": "6k",
+      "raw_points": 614,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.9990000128746,
+        2.00110006332397
+      ],
+      "field_range_Oe": [
+        28.555972443819,
+        69999.5959375
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-230224-bridge2-RH_2K_230224B-230224-230224C",
+      "mode": "field_sweep",
+      "author_label": "12k",
+      "raw_points": 614,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.9990000128746,
+        2.00110006332397
+      ],
+      "field_range_Oe": [
+        28.555972443819,
+        69999.5959375
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-230224C-bridge3-RH_2K_230224B-230224-230224C",
+      "mode": "field_sweep",
+      "author_label": "18k",
+      "raw_points": 614,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.9990000128746,
+        2.00110006332397
+      ],
+      "field_range_Oe": [
+        28.555972443819,
+        69999.5959375
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-cooling_250618-250703-250707",
+      "mode": "cooling",
+      "author_label": "24k",
+      "raw_points": 162,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.00075006484985,
+        299.971252441406
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": true
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-cooling_250618-250703-250707",
+      "mode": "cooling",
+      "author_label": "30k",
+      "raw_points": 162,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.00075006484985,
+        299.971252441406
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": true
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-cooling_250618-250703-250707",
+      "mode": "cooling",
+      "author_label": "36k",
+      "raw_points": 162,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.00075006484985,
+        299.971252441406
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": true
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-cooling_250618-250703-250707_rep",
+      "mode": "cooling",
+      "author_label": "24k",
+      "raw_points": 202,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.0011500120163,
+        299.991897583008
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": true
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-cooling_250618-250703-250707_rep",
+      "mode": "cooling",
+      "author_label": "30k",
+      "raw_points": 202,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.0011500120163,
+        299.991897583008
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": true
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-cooling_250618-250703-250707_rep",
+      "mode": "cooling",
+      "author_label": "36k",
+      "raw_points": 202,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.0011500120163,
+        299.991897583008
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": true
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-heating_250618-250703-250707",
+      "mode": "warming",
+      "author_label": "24k",
+      "raw_points": 65,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.05599999427795,
+        10.0060000419617
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-heating_250618-250703-250707",
+      "mode": "warming",
+      "author_label": "30k",
+      "raw_points": 65,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.05599999427795,
+        10.0060000419617
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-heating_250618-250703-250707",
+      "mode": "warming",
+      "author_label": "36k",
+      "raw_points": 65,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.05599999427795,
+        10.0060000419617
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-heating_250618-250703-250707_rep",
+      "mode": "warming",
+      "author_label": "24k",
+      "raw_points": 376,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.00879991054535,
+        10.0008001327515
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-heating_250618-250703-250707_rep",
+      "mode": "warming",
+      "author_label": "30k",
+      "raw_points": 376,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.00879991054535,
+        10.0008001327515
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-heating_250618-250703-250707_rep",
+      "mode": "warming",
+      "author_label": "36k",
+      "raw_points": 376,
+      "missing_values": 0,
+      "temperature_range_K": [
+        2.00879991054535,
+        10.0008001327515
+      ],
+      "field_range_Oe": [
+        0.528771996498108,
+        0.528771996498108
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-RH_250618-250703-250707",
+      "mode": "field_sweep",
+      "author_label": "24k",
+      "raw_points": 336,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.9990000128746,
+        2.00170004367828
+      ],
+      "field_range_Oe": [
+        0.372255277633667,
+        8374.4948046875
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-RH_250618-250703-250707",
+      "mode": "field_sweep",
+      "author_label": "30k",
+      "raw_points": 336,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.9990000128746,
+        2.00170004367828
+      ],
+      "field_range_Oe": [
+        0.372255277633667,
+        8374.4948046875
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-RH_250618-250703-250707",
+      "mode": "field_sweep",
+      "author_label": "36k",
+      "raw_points": 336,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.9990000128746,
+        2.00170004367828
+      ],
+      "field_range_Oe": [
+        0.372255277633667,
+        8374.4948046875
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-RH_250618-250703-250707_rep",
+      "mode": "field_sweep",
+      "author_label": "24k",
+      "raw_points": 426,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.99904996156693,
+        2.00090003013611
+      ],
+      "field_range_Oe": [
+        24.4852295485139,
+        49909.19953125
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-RH_250618-250703-250707_rep",
+      "mode": "field_sweep",
+      "author_label": "30k",
+      "raw_points": 426,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.99904996156693,
+        2.00090003013611
+      ],
+      "field_range_Oe": [
+        24.4852295485139,
+        49909.19953125
+      ],
+      "broad_cooling_candidate": false
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-RH_250618-250703-250707_rep",
+      "mode": "field_sweep",
+      "author_label": "36k",
+      "raw_points": 426,
+      "missing_values": 0,
+      "temperature_range_K": [
+        1.99904996156693,
+        2.00090003013611
+      ],
+      "field_range_Oe": [
+        24.4852295485139,
+        49909.19953125
+      ],
+      "broad_cooling_candidate": false
+    }
+  ],
+  "feature_diagnostics": [
+    {
+      "curve_id": "diamond4inch-230224B-bridge1-cooling_230224B-230224-230224C",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 443,
+      "source_sha256": "0f1ac044d6a2c7d3b9d14f37355dfa6fd05168e8c41c221f913a3957a6e43873",
+      "curve_content_sha256": "1661c250ce164b27a9c9e5210ee3047e43bdc0a60c4df1240d3c31c98a5bb261"
+    },
+    {
+      "curve_id": "diamond4inch-230224-bridge2-cooling_230224B-230224-230224C",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 443,
+      "source_sha256": "0f1ac044d6a2c7d3b9d14f37355dfa6fd05168e8c41c221f913a3957a6e43873",
+      "curve_content_sha256": "981a537cf4b31e74bb8648ec98b5d09743322524db62ac0d25562b1dc5b3b15c"
+    },
+    {
+      "curve_id": "diamond4inch-230224C-bridge3-cooling_230224B-230224-230224C",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 443,
+      "source_sha256": "0f1ac044d6a2c7d3b9d14f37355dfa6fd05168e8c41c221f913a3957a6e43873",
+      "curve_content_sha256": "32bc476abb54c4119c3055a9bf5f8ded74edb8d915af8fc5855329819a071f70"
+    },
+    {
+      "curve_id": "diamond4inch-230224B-bridge1-heatnig_230224B-230224-230224C",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 386,
+      "source_sha256": "eba18c1cca714de0e493e890d0417ea5f8c3630f90da8b1e2bd0f023cc73fae3",
+      "curve_content_sha256": "794ecdb0f4a2eecaffe327e7d61632ca05fb4ef29a13a1cec2e2358a1dffb749"
+    },
+    {
+      "curve_id": "diamond4inch-230224-bridge2-heatnig_230224B-230224-230224C",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 386,
+      "source_sha256": "eba18c1cca714de0e493e890d0417ea5f8c3630f90da8b1e2bd0f023cc73fae3",
+      "curve_content_sha256": "e30efe29f067e8ec7869ead41d352bb6d1eb6841549cb00654e025da5276136c"
+    },
+    {
+      "curve_id": "diamond4inch-230224C-bridge3-heatnig_230224B-230224-230224C",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 386,
+      "source_sha256": "eba18c1cca714de0e493e890d0417ea5f8c3630f90da8b1e2bd0f023cc73fae3",
+      "curve_content_sha256": "f12225380d07265c350b682c1dfe1f1d1f4fb0913098d88ab1ed729f9bf66136"
+    },
+    {
+      "curve_id": "diamond4inch-230224B-bridge1-RH_2K_230224B-230224-230224C",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ],
+      "raw_point_count": 614,
+      "source_sha256": "b204815c6eb96c555fa2798279987c8a43d27e4ecd4ca2662585751e1365923e",
+      "curve_content_sha256": "23b6100c5266e98ac0383a3ad9f14120c1e3b088bf8de02cd18c765b77377be9"
+    },
+    {
+      "curve_id": "diamond4inch-230224-bridge2-RH_2K_230224B-230224-230224C",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ],
+      "raw_point_count": 614,
+      "source_sha256": "b204815c6eb96c555fa2798279987c8a43d27e4ecd4ca2662585751e1365923e",
+      "curve_content_sha256": "496c2f3acae3d3be4ec58468408b66ad3f257d1bffa7f5e9c1722cc4c8415f4d"
+    },
+    {
+      "curve_id": "diamond4inch-230224C-bridge3-RH_2K_230224B-230224-230224C",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ],
+      "raw_point_count": 614,
+      "source_sha256": "b204815c6eb96c555fa2798279987c8a43d27e4ecd4ca2662585751e1365923e",
+      "curve_content_sha256": "8fe66390eae0de8d3cfc4e30814ac1781524900d405f957422d39fb03d976a65"
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-cooling_250618-250703-250707",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 162,
+      "source_sha256": "29396e4e5de3ac7aa4a613fd36add5015725336e83a092fea00dcb587e50cfa7",
+      "curve_content_sha256": "abae75aacfe4d03d1caaef6e24064e3026875c40640391171b9701f3dc85772d"
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-cooling_250618-250703-250707",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 162,
+      "source_sha256": "29396e4e5de3ac7aa4a613fd36add5015725336e83a092fea00dcb587e50cfa7",
+      "curve_content_sha256": "077cd1bba2c890e463afaf470848b475a8a4b9ac73db4235a0b7daebd2acca36"
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-cooling_250618-250703-250707",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 162,
+      "source_sha256": "29396e4e5de3ac7aa4a613fd36add5015725336e83a092fea00dcb587e50cfa7",
+      "curve_content_sha256": "ddbc1ca1f67968582b6bb379760fce5ca91c69725e943397037c1dc0eb09510e"
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-cooling_250618-250703-250707_rep",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 202,
+      "source_sha256": "0b24e6305f84da55d4b6e7f72437bfdee7ccd1103011a294acbcd05d702f7bb1",
+      "curve_content_sha256": "bfe6bcd4440082c4eb8153b79832731149a8ff6c583204e340fb58c5814cf480"
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-cooling_250618-250703-250707_rep",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 202,
+      "source_sha256": "0b24e6305f84da55d4b6e7f72437bfdee7ccd1103011a294acbcd05d702f7bb1",
+      "curve_content_sha256": "49cd73d6b8c45756c44a8758e11767c7c0831ca030c25513b51600bb136618ce"
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-cooling_250618-250703-250707_rep",
+      "status": "ready",
+      "reasons": [],
+      "raw_point_count": 202,
+      "source_sha256": "0b24e6305f84da55d4b6e7f72437bfdee7ccd1103011a294acbcd05d702f7bb1",
+      "curve_content_sha256": "50b55d67ef0fa5e54dc1196127702dc739d91469c6cec0ceee0b090389349066"
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-heating_250618-250703-250707",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 65,
+      "source_sha256": "02c467299363c953560c4af61bcecfacda664b81437cb90e3596a4196ca3abc8",
+      "curve_content_sha256": "3af4538eba63e28bdff2a523ae998580a8907bc41a85c9a9ec31bad5105f32af"
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-heating_250618-250703-250707",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 65,
+      "source_sha256": "02c467299363c953560c4af61bcecfacda664b81437cb90e3596a4196ca3abc8",
+      "curve_content_sha256": "92fc8202006bb83e8a0359bef48a4a1408c574d8ebb093be0e1c1728c8543a5a"
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-heating_250618-250703-250707",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 65,
+      "source_sha256": "02c467299363c953560c4af61bcecfacda664b81437cb90e3596a4196ca3abc8",
+      "curve_content_sha256": "eef6010cf66278d795a139797fbea6e923b743b2095d5ac5d7e1cbd51f1877d7"
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-heating_250618-250703-250707_rep",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 376,
+      "source_sha256": "23541fa51d7bc4a3fe1c492f9e63b5818454ee660073b57a59e5dea116e057b8",
+      "curve_content_sha256": "44ebf3f60109664a505ca8603bd1b57ea848ce6438beba37d4ea85fcec9deb20"
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-heating_250618-250703-250707_rep",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 376,
+      "source_sha256": "23541fa51d7bc4a3fe1c492f9e63b5818454ee660073b57a59e5dea116e057b8",
+      "curve_content_sha256": "0fa285231361da6e4ebdddcb61c36881ab5a445b343fd4353b7da9b4b57d23fd"
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-heating_250618-250703-250707_rep",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified"
+      ],
+      "raw_point_count": 376,
+      "source_sha256": "23541fa51d7bc4a3fe1c492f9e63b5818454ee660073b57a59e5dea116e057b8",
+      "curve_content_sha256": "257609889c01790b69aec09c453fd29bbcb770e20996bc33b1d01fc69a93684b"
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-RH_250618-250703-250707",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ],
+      "raw_point_count": 336,
+      "source_sha256": "61da835294c87d98a7d6f4049be13ed79a61206c99597f953df552350165d6b9",
+      "curve_content_sha256": "250e49143624a3ab1400d53c2e9fa1148056f3ad55eb374ca23e50adf3d24a35"
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-RH_250618-250703-250707",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ],
+      "raw_point_count": 336,
+      "source_sha256": "61da835294c87d98a7d6f4049be13ed79a61206c99597f953df552350165d6b9",
+      "curve_content_sha256": "0a28e4078a79661b8a75f844411206b3c60f3253f2cb02eecb94de3b12880a65"
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-RH_250618-250703-250707",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ],
+      "raw_point_count": 336,
+      "source_sha256": "61da835294c87d98a7d6f4049be13ed79a61206c99597f953df552350165d6b9",
+      "curve_content_sha256": "dbf7c2b27605eab4b928b56e16cddc28d3757f971e9c4259c7443496a8038073"
+    },
+    {
+      "curve_id": "diamond4inch-250618-bridge1-RH_250618-250703-250707_rep",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ],
+      "raw_point_count": 426,
+      "source_sha256": "519344e7bd9c5a6f322c1ca7a14169715651c761558b4672cffbd3fe22ba3fbe",
+      "curve_content_sha256": "78da788f2861284b6e1edb510076ccc129a7d23c6d25c843f52a370fb9cc3a5b"
+    },
+    {
+      "curve_id": "diamond4inch-250703-bridge2-RH_250618-250703-250707_rep",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ],
+      "raw_point_count": 426,
+      "source_sha256": "519344e7bd9c5a6f322c1ca7a14169715651c761558b4672cffbd3fe22ba3fbe",
+      "curve_content_sha256": "3cf2b776ecf45c7ce3e1bcf323af2276ee281490d7bd35ba5faf9acf1e257514"
+    },
+    {
+      "curve_id": "diamond4inch-250707-bridge3-RH_250618-250703-250707_rep",
+      "status": "insufficient_data",
+      "reasons": [
+        "Normal state was not verified",
+        "Non-temperature coordinate varies or is partially unknown: magnetic_field_t"
+      ],
+      "raw_point_count": 426,
+      "source_sha256": "519344e7bd9c5a6f322c1ca7a14169715651c761558b4672cffbd3fe22ba3fbe",
+      "curve_content_sha256": "ae4ef45f25e9fe01a0b3dd7da9a8faadd9eba26e7f33b1e011ee3e7fc05abef4"
+    }
+  ],
+  "scientific_limits": [
+    "Normal-only curves plus separate author Tc outcomes; no cross-trace primary links.",
+    "Film B stoichiometry is unresolved. Gas ppm is process metadata. Raman B concentrations remain model estimates.",
+    "Repeated cooling/heating sweeps and six gas conditions are not additional independent systems."
+  ],
+  "no_original_numeric_arrays_in_public_bundle": true
+}
