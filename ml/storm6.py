@@ -31,12 +31,13 @@ DESIGNS = {
     "R4": {"features": "D+PCA8(geometry)", "route": "components", "name": "Train-only geometry PCA8 plus component route"},
 }
 REFERENCE_SHA256 = {
-    "storm_round4.json": "a735915e2818b48db8f2d92ff2d661ac3dbddd374dae57197cf16419de2809b4",
-    "storm_round4_predictions.csv": "87d91d7fd6c887511e22c7f995a82cc249a5a60b488d3e05b7592baec3e45915",
-    "storm_round5.json": "0e5a07abf25210dad18ad97cc8b1712db5a26facebf4954d5fd7f971cd957847",
-    "storm_round5_ranges.csv": "d6836ebba0a533c075f5a92b7c861ae0639c00bc7ec2965a5bed4f76d07a33f1",
-    "gnn_round2_final_predictions.csv": "b1de122cc4565b252745997522a1b2ed2228de1e1b69fb02a9427d84ff3b3296",
+    "storm_round4.json": "05d5d07965baeaca4daaebf303a12c343f9d893aa71431128748596de4e0ef73",
+    "storm_round4_predictions.csv": "0e5565db36dd831b8e3aedb109a0743ff51e49bb66110acda03d242097d3c0a4",
+    "storm_round5.json": "b683311ba4b89c03abd240cf5b94d885ef37eef9f40e011356dcf0d48f9cf075",
+    "storm_round5_ranges.csv": "e9ed8623080451eeb5629b457f1df9ef98b19944bd143fe9aadb114e7b1e5936",
+    "gnn_round2_final_predictions.csv": "4b9872048c45034afac76d520105ab604afea66a8bb2adbfd72ee18af5dead82",
 }
+REFERENCE_HASH_RULE = "SHA-256 of file bytes after CRLF-to-LF replacement only; every other byte, including whitespace and lone CR, is preserved"
 PARAMS = dict(P.STORM1_PARAMS)
 SEED = 7
 ALPHA = .10
@@ -49,6 +50,12 @@ SMOKE_PARAMS = dict(PARAMS, max_iter=12, max_leaf_nodes=7, min_samples_leaf=3)
 
 def _sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def _reference_sha(path):
+    # Git can check the same text blob out with platform-specific newlines.
+    # Do not parse/reserialize, strip whitespace, or normalize any other bytes.
+    return hashlib.sha256(Path(path).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def _json(path, value):
@@ -73,6 +80,7 @@ def freeze_protocol(output_dir, *, smoke=False):
     protocol = {
         "version": "storm6-frozen-cpu-ablation-v1", "adopted": False, "report_only": True,
         "smoke": bool(smoke), "source_sha256": sources, "reference_sha256": REFERENCE_SHA256,
+        "reference_hash_rule": REFERENCE_HASH_RULE,
         "expected_cohort": {"materials": 7582, "chemical_systems": 4288, "outer_folds": 5},
         "dataset": "alex_supercon; pipeline.to_frame/clean; original order, no extra filtering",
         "data_source": {"url": DATA_URL, "filename": "alex_supercon.json", "paper_doi": "10.1002/adfm.202404043",
@@ -328,7 +336,7 @@ def load_references(train, fold_of, directory=None):
     directory = Path(directory or P.RESULTS)
     for name, expected in REFERENCE_SHA256.items():
         path = directory / name
-        if not path.is_file() or _sha(path) != expected:
+        if not path.is_file() or _reference_sha(path) != expected:
             raise ValueError(f"Historical reference missing or changed: {name}")
     r4 = json.loads((directory / "storm_round4.json").read_text(encoding="utf-8"))
     r5 = json.loads((directory / "storm_round5.json").read_text(encoding="utf-8"))

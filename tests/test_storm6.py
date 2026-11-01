@@ -1,5 +1,6 @@
 import hashlib
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -143,6 +144,48 @@ class Storm6Tests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=S.P.ROOT.parent) as temporary:
             with self.assertRaisesRegex(ValueError, "missing or changed"):
                 S.load_references(frame, r5["fold"].to_numpy(), temporary)
+
+    def test_real_git_reference_blobs_load_with_lf_or_crlf_only(self):
+        r4 = pd.read_csv(S.P.RESULTS / "storm_round4_predictions.csv", dtype={"id": str})
+        r5 = pd.read_csv(S.P.RESULTS / "storm_round5_ranges.csv")
+        frame = r4[["id", "chemsys", "tc"]].copy()
+        for ending in ("LF", "CRLF"):
+            with self.subTest(ending=ending), tempfile.TemporaryDirectory(dir=S.P.ROOT.parent) as temporary:
+                root = Path(temporary)
+                for name, expected in S.REFERENCE_SHA256.items():
+                    blob = subprocess.run(["git", "show", f"HEAD:results/{name}"], cwd=S.P.ROOT,
+                                          capture_output=True, check=True).stdout
+                    self.assertNotIn(b"\r", blob)  # Actual committed LF blobs, not a mocked digest.
+                    self.assertEqual(hashlib.sha256(blob).hexdigest(), expected)
+                    (root / name).write_bytes(blob if ending == "LF" else blob.replace(b"\n", b"\r\n"))
+                    self.assertEqual(S._reference_sha(root / name), expected)
+                references, _ = S.load_references(frame, r5["fold"].to_numpy(), root)
+                self.assertEqual(len(references["gnn"]), 7582)
+
+    def test_reference_normalization_rejects_numeric_and_other_byte_changes(self):
+        r4 = pd.read_csv(S.P.RESULTS / "storm_round4_predictions.csv", dtype={"id": str})
+        r5 = pd.read_csv(S.P.RESULTS / "storm_round5_ranges.csv")
+        frame = r4[["id", "chemsys", "tc"]].copy()
+        with tempfile.TemporaryDirectory(dir=S.P.ROOT.parent) as temporary:
+            root = Path(temporary)
+            originals = {}
+            for name in S.REFERENCE_SHA256:
+                originals[name] = (S.P.RESULTS / name).read_bytes().replace(b"\r\n", b"\n")
+                (root / name).write_bytes(originals[name])
+            for name, original in originals.items():
+                with self.subTest(file=name):
+                    (root / name).write_bytes(original + b" ")  # Even semantically harmless whitespace changes fail.
+                    with self.assertRaisesRegex(ValueError, "missing or changed"):
+                        S.load_references(frame, r5["fold"].to_numpy(), root)
+                    (root / name).write_bytes(original)
+            name = "storm_round4_predictions.csv"
+            lines = originals[name].split(b"\n")
+            cells = lines[1].split(b",")
+            cells[-1] = str(float(cells[-1]) + .125).encode("ascii")
+            lines[1] = b",".join(cells)
+            (root / name).write_bytes(b"\n".join(lines))
+            with self.assertRaisesRegex(ValueError, "missing or changed"):
+                S.load_references(frame, r5["fold"].to_numpy(), root)
 
     def test_protocol_exists_before_target_loading_even_when_input_fails(self):
         with tempfile.TemporaryDirectory(dir=S.P.ROOT.parent) as temporary:
