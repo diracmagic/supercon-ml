@@ -1,0 +1,299 @@
+{
+  "source_url": "https://arxiv.org/pdf/1505.02240",
+  "source_sha256": "eaa5f69837687de71b98715392410a837b3f8debce244373fd54f2b23a69951a",
+  "source": "Author manuscript, table 2(b), PDF pages 134-136 (1-based)",
+  "not_training_data": true,
+  "count_unit": "nonempty material table cells; NOT expanded compounds, samples or independent measurements",
+  "layout_audit": [
+    {
+      "pdf_page": 134,
+      "text_characters": 3689,
+      "grid_rows": 52,
+      "nonempty_material_cells": 244,
+      "skipped_blue_header_cells": 3
+    },
+    {
+      "pdf_page": 135,
+      "text_characters": 2618,
+      "grid_rows": 56,
+      "nonempty_material_cells": 217,
+      "skipped_blue_header_cells": 12
+    },
+    {
+      "pdf_page": 136,
+      "text_characters": 2464,
+      "grid_rows": 56,
+      "nonempty_material_cells": 213,
+      "skipped_blue_header_cells": 12
+    }
+  ],
+  "table_cell_counts": {
+    "white": 333,
+    "yellow": 341
+  },
+  "cell_extraction_unreviewed": true,
+  "table_only_field_coverage": {
+    "raw_material_cells": 674,
+    "numeric_tmin": 0,
+    "numeric_measurement_pressure": 0,
+    "numeric_measurement_field": 0,
+    "cells_with_film_nanosheet_or_junction_annotations": 6,
+    "cells_with_numbered_references": 54,
+    "warning": "Cell counts are layout-extracted, not fully curated records; family shorthand/variable compositions are not expanded."
+  },
+  "condition_fields": {
+    "t_min_K": "No numeric measurement minimum in any table cell/header/footnote",
+    "measurement_pressure_GPa": "No numerical measurement-pressure field. HP phase annotations are not pressure-of-measurement records.",
+    "measurement_field_T": "No numerical measurement-field field",
+    "sample_form": "Some cells carry film/thin film/nanosheet annotations; not a complete sample schema"
+  },
+  "visually_checked_examples": [
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 2,
+      "column_in_grid": 2,
+      "bbox_pdf_points": [
+        162.7205,
+        104.88,
+        252.0005,
+        116.63999999999999
+      ],
+      "raw_text": "SrFeAsH",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "SrFeAsH",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    },
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 5,
+      "column_in_grid": 4,
+      "bbox_pdf_points": [
+        342.96,
+        140.39999999999998,
+        432.48,
+        152.15949999999998
+      ],
+      "raw_text": "LaFeSiF",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "LaFeSiF",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    },
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 30,
+      "column_in_grid": 3,
+      "bbox_pdf_points": [
+        252.0005,
+        456.4799999999999,
+        342.96,
+        468.4799999999999
+      ],
+      "raw_text": "ZrTiAs",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "ZrTiAs",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    },
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 31,
+      "column_in_grid": 3,
+      "bbox_pdf_points": [
+        252.0005,
+        468.4799999999999,
+        342.96,
+        486.95949999999993
+      ],
+      "raw_text": "SrCrAsF",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "SrCrAsF",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    },
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 31,
+      "column_in_grid": 4,
+      "bbox_pdf_points": [
+        342.96,
+        468.4799999999999,
+        432.48,
+        486.95949999999993
+      ],
+      "raw_text": "EuCrAsF",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "EuCrAsF",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    },
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 39,
+      "column_in_grid": 2,
+      "bbox_pdf_points": [
+        162.7205,
+        583.1999999999999,
+        252.0005,
+        594.9594999999999
+      ],
+      "raw_text": "BaCo2Ge2",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "BaCo2Ge2",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    },
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 39,
+      "column_in_grid": 3,
+      "bbox_pdf_points": [
+        252.0005,
+        583.1999999999999,
+        342.96,
+        594.9594999999999
+      ],
+      "raw_text": "YCo2B2",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "YCo2B2",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    },
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 40,
+      "column_in_grid": 1,
+      "bbox_pdf_points": [
+        73.4405,
+        594.9594999999999,
+        162.7205,
+        606.96
+      ],
+      "raw_text": "LaCo2Si2",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "LaCo2Si2",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    },
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 44,
+      "column_in_grid": 2,
+      "bbox_pdf_points": [
+        162.7205,
+        648.9594999999999,
+        252.0005,
+        660.96
+      ],
+      "raw_text": "LaNiAs",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "LaNiAs",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    },
+    {
+      "pdf_page": 134,
+      "table": "2(b)",
+      "row_in_grid": 47,
+      "column_in_grid": 1,
+      "bbox_pdf_points": [
+        73.4405,
+        691.2,
+        162.7205,
+        703.2
+      ],
+      "raw_text": "Cu2As",
+      "fill": "yellow",
+      "target_phase_as_reported": "possible to obtain",
+      "t_min_K": null,
+      "measurement_pressure_GPa": null,
+      "measurement_field_T": null,
+      "measurement_sample_form": null,
+      "training_label_exported": false,
+      "formula": "Cu2As",
+      "visually_checked": true,
+      "evidence_scope": "Table-only outcome with obtainable target phase; Tmin/pressure/field unknown; not exportable as a condition-matched negative"
+    }
+  ],
+  "example_coverage": {
+    "n": 10,
+    "formula": 10,
+    "phase_colour": 10,
+    "numeric_tmin": 0,
+    "numeric_measurement_pressure": 0,
+    "numeric_measurement_field": 0,
+    "explicit_sample_form": 0,
+    "condition_complete_exportable": 0
+  },
+  "recovery_route": [
+    "Use vector text plus black grid rules and colour fills, not plain-text formula extraction alone.",
+    "Preserve all raw cells, source page/bbox and series variables; manually verify formula/subscript parsing before expanding.",
+    "Reject impossible-to-obtain target phases as measured negatives.",
+    "Resolve each reference/figure and explicitly verify Tmin, measured pressure, field, sample form and method.",
+    "No missing condition is filled with zero, and no unreviewed OCR/vector parse enters training."
+  ]
+}
