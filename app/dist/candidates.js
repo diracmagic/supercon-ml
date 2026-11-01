@@ -50,6 +50,19 @@
     return audit && typeof audit === 'object' && !Array.isArray(audit) &&
       Object.prototype.hasOwnProperty.call(LITERATURE, audit.status) ? audit : null;
   }
+  function checkFor(c) {
+    var original = c && c.check;
+    if (!original || typeof original !== 'object' || !c || typeof c.id !== 'string') return original;
+    var audit = literatureFor(c), correction = audit && audit.check_correction;
+    if (!correction) {
+      var table = root.SuperconLiterature && root.SuperconLiterature.by_id;
+      var stored = table && Object.prototype.hasOwnProperty.call(table, c.id) && table[c.id];
+      correction = stored && stored.check_correction;
+    }
+    var reviewed = correction && correction.check;
+    return correction && typeof correction.replaces_doi === 'string' && original.doi === correction.replaces_doi &&
+      reviewed && typeof reviewed === 'object' && !Array.isArray(reviewed) && reviewed.kind === original.kind && reviewed.doi === original.doi ? reviewed : original;
+  }
   function literatureText(c) {
     var audit = literatureFor(c);
     if (!audit) return 'Literature searched: unsearched; no audit recorded.';
@@ -83,6 +96,7 @@
     var label = check.kind === 'dft' ? 'DFT check' : 'Measured';
     if (check.superconducts === false) return label + ': ' +
       (number(check.below) ? 'no superconducting transition reported down to ' + k(check.below) : 'no superconductivity reported under the studied conditions');
+    if (check.superconducts === null) return label + ': superconductivity outcome unknown; see the reported measurement and conditions';
     return label + (number(check.tc) ? ': Tc ' + k(check.tc) : ': see the reported measurement and conditions');
   }
   function disagreement(c) {
@@ -144,6 +158,6 @@
     return out;
   }
   return { tracks: TRACKS, id: id, inside: inside, trackRows: trackRows, trackForId: trackForId, checkText: checkText,
-    literatureFor: literatureFor, literatureText: literatureText, literatureLines: literatureLines, literatureSources: literatureSources,
+    literatureFor: literatureFor, literatureText: literatureText, literatureLines: literatureLines, literatureSources: literatureSources, checkFor: checkFor,
     disagreement: disagreement, rankingText: rankingText, phononSummaryLines: phononSummaryLines, phononLines: phononLines };
 });

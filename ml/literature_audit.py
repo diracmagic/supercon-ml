@@ -43,9 +43,13 @@ def compact_record(row: dict) -> dict:
             sources.append({"url": source["url"],
                             "cite": (source.get("cite") or source.get("doi") or "Original source")[:180],
                             "evidence": (source.get("evidence_scope") or source.get("supports", ""))[:250]})
-    return {"status": row["status"], "searched_on": row["searched_on"],
-            "conclusion": row["superconductivity_outcome"],
-            "sources": sources[:2], "limitations": row.get("limitations", "")[:180] if row["status"] != "not-found-in-this-search" else ""}
+    result = {"status": row["status"], "searched_on": row["searched_on"],
+              "sources": sources[:2], "limitations": row.get("limitations", "")[:180] if row["status"] != "not-found-in-this-search" else ""}
+    if row["superconductivity_outcome"] != "unknown":
+        result["conclusion"] = row["superconductivity_outcome"]
+    if row.get("check_correction"):
+        result["check_correction"] = copy.deepcopy(row["check_correction"])
+    return result
 
 
 def attach_audits(candidates: list[dict], records: dict) -> dict:

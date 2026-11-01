@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       stages:
-        description: Stages to run (including report-only hurricane6); screen uses candidate-safe cross-fitting
-        default: screen hurricane6
+        description: Stages to run (report-only storm6 by default; earlier stages remain available)
+        default: storm6
   push:
     branches: [main, codex/screening-validation]
     paths:
@@ -21,8 +21,8 @@ concurrency:
 
 env:
   # A push to ml/ trains only when its commit message contains [train], so a change spread over several commits
-  # runs once; it then runs the current rounds. Earlier stages can be re-run by hand.
-  STAGES: ${{ inputs.stages || 'screen hurricane6' }}
+  # runs once; it then runs the new report-only experiment. Earlier stages can be re-run by hand.
+  STAGES: ${{ inputs.stages || 'storm6' }}
   # Fixed string hashing, so that the order of a set can never change the results from one run to the next.
   PYTHONHASHSEED: '0'
   SCREEN_PHONONS: '1'
@@ -67,6 +67,7 @@ jobs:
           python -m unittest discover -s tests -v
           node --test tests/test_app_candidates.mjs
           python ml/negative_data.py --validate data/hosono2015_negatives.json
+          python ml/feedback.py --audit
 
       - name: Restore datasets and descriptors
         id: data-cache
@@ -146,6 +147,16 @@ jobs:
       - name: Storm, round 5 (a 90% range around every Storm 4.0 prediction)
         if: success() && contains(format(' {0} ', env.STAGES), ' storm5 ')
         run: python ml/pipeline.py storm5
+
+      - name: Storm, round 6 protocol and synthetic smoke
+        if: success() && contains(format(' {0} ', env.STAGES), ' storm6 ')
+        run: |
+          python ml/storm6.py --smoke --protocol --output-dir "$RUNNER_TEMP/storm6-smoke"
+          python ml/storm6.py --smoke --output-dir "$RUNNER_TEMP/storm6-smoke"
+
+      - name: Storm, round 6 (report-only CPU challengers)
+        if: success() && contains(format(' {0} ', env.STAGES), ' storm6 ')
+        run: python ml/pipeline.py storm6
 
       - name: Screening, the current round (candidates found by our models, only our own finds, with their structures)
         id: screening

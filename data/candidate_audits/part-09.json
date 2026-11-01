@@ -3,6 +3,88 @@
   "searched_on": "2026-10-31",
   "materials": [
     {
+      "rank_at_audit": 37,
+      "material_id": "JVASP-89073",
+      "formula": "Yb2InGe2",
+      "model": "Hurricane",
+      "aliases_searched": [
+        "Yb2InGe2",
+        "Yb2Ge2In"
+      ],
+      "candidate_structure": {
+        "space_group": "P4/mbm (127)",
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-89073.html",
+        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
+      },
+      "status": "needs-full-text",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {
+          "query": "\"Yb2InGe2\"",
+          "outcome": "定位2017TUWien学位论文的该成分章节；33MB全文超出抓取限制。"
+        },
+        {
+          "query": "\"Yb2InGe2\" \"Tobash\"",
+          "outcome": "定位Tobash等2005原始论文，打开作者机构出版目录；ACS正文403。"
+        },
+        {
+          "query": "\"cm051618g\" pdf",
+          "outcome": "核对DOI、题名和作者目录；仅有摘要及补充文件线索。"
+        },
+        {
+          "query": "Yb2InGe2 Yb2Ge2In superconductivity",
+          "outcome": "未找到匹配超导报告或Tc预测。"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://doi.org/10.1021/cm051618g",
+          "accessed_url": "https://www1.udel.edu/chem/bobev/Site%202/Publications.html",
+          "doi": "10.1021/cm051618g",
+          "kind": "primary-author-bibliography",
+          "locator": "Selected Publications, first entry",
+          "supports": "作者机构目录确认RE2InGe2系列研究包括Yb；正文未读到，不提取超导或电阻温度条件。"
+        },
+        {
+          "url": "https://repositum.tuwien.at/bitstream/20.500.12708/3006/2/Budnowski%20Monika%20-%202017%20-%20Search%20for%20new%20Zintl%20phases%20for%20thermoelectricity.pdf",
+          "kind": "primary-thesis-identified-content-too-large",
+          "locator": "Indexed section5.2.2",
+          "supports": "精确成分的再合成/物性研究线索存在，但本次未能打开整篇；不可将检索摘要当作超导阴性。"
+        },
+        {
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-89073.html",
+          "kind": "primary-database-link-access-failed",
+          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
+        }
+      ],
+      "conditions": {
+        "sample_form": null,
+        "pressure_gpa": null,
+        "field_t": null,
+        "superconductivity_temperature_floor_k": null
+      },
+      "limitations": "Yb2LiInGe2多了Li，不能替代Yb2InGe2。已定位精确成分论文，但超导测量条件/结构同一性仍未核对。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
+      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
+      "searched_on": "2026-10-31",
+      "audit_screen_round": 4,
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "prediction_at_audit": {
+        "tc_pred": 0.03,
+        "p_sc": 0.021
+      },
+      "conclusion_zh": "有线索，全文或实验条件尚待核实。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 39,
+        "tc_pred": 0.03,
+        "p_sc": 0.021,
+        "p_lo": 0.009,
+        "p_hi": 0.029,
+        "tracks": {}
+      }
+    },
+    {
       "rank_at_audit": 43,
       "material_id": "JVASP-19820",
       "formula": "CeCu5",

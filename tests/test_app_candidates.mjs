@@ -77,6 +77,61 @@ test('negative literature checks describe the reported temperature and condition
   assert.doesNotMatch(candidates.checkText({ kind: 'experiment', superconducts: false }), /not superconducting|never/);
 });
 
+test('reviewed check corrections match the exact candidate and original paper without mutating old results', () => {
+  const previous = globalThis.SuperconLiterature;
+  const original = { kind: 'experiment', superconducts: false, below: .35, doi: '10.1021/cm801693t' };
+  const reviewed = { kind: 'experiment', superconducts: null, doi: original.doi, note: 'Heat capacity measured to 0.35 K; superconductivity outcome unknown.' };
+  try {
+    globalThis.SuperconLiterature = { by_id: { 'JVASP-165558': { status: 'structure-only',
+      check_correction: { replaces_doi: original.doi, check: reviewed } } } };
+    assert.equal(candidates.checkFor({ id: 'JVASP-165558', check: original }), reviewed);
+    assert.equal(candidates.checkFor({ id: 'JVASP-165558', check: original, literature_audit: { status: 'needs-full-text' } }), reviewed);
+    assert.equal(original.superconducts, false, 'The downloaded scientific result stays unchanged');
+    assert.equal(candidates.checkFor({ id: 'JVASP-1655580', check: original }), original);
+    assert.equal(candidates.checkFor({ formula: 'JVASP-165558', check: original }), original);
+    assert.equal(candidates.checkFor({ id: 'JVASP-165558' }), undefined, 'An audit must not manufacture a matching experiment');
+    const anotherPaper = { ...original, doi: '10.1234/another-paper' };
+    assert.equal(candidates.checkFor({ id: 'JVASP-165558', check: anotherPaper }), anotherPaper);
+    for (const check of [{ ...reviewed, kind: 'dft' }, { ...reviewed, doi: '10.1234/another-paper' }]) {
+      assert.equal(candidates.checkFor({ id: 'JVASP-165558', check: original, literature_audit: { status: 'structure-only',
+        check_correction: { replaces_doi: original.doi, check } } }), original);
+    }
+    assert.match(candidates.checkText(reviewed), /superconductivity outcome unknown/);
+    assert.doesNotMatch(candidates.checkText(reviewed), /no superconducting transition|reported down to/);
+  } finally { globalThis.SuperconLiterature = previous; }
+});
+
+test('published Ce corrections remove obsolete exclusions from table, remarks and experiment-worthiness logic', () => {
+  const previous = globalThis.SuperconLiterature;
+  const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
+  const makeElement = (tag, attrs, ...children) => ({ tag, attrs: attrs || {}, children });
+  const context = { candidateData: candidates, CHECK_LABEL: { experiment: 'Measured' }, candNum: Number.isFinite,
+    MCMILLAN_K: 40, WORTH_P: .5, WORTH_HULL: .05, candRange: () => '', candPct: String,
+    cText: (s, n) => String(s).slice(0, n), h: makeElement, richText: (el, text) => ({ ...el, text }) };
+  try {
+    const table = {};
+    vm.runInNewContext(fs.readFileSync(new URL('../app/dist/literature-audit.js', import.meta.url), 'utf8'), table);
+    globalThis.SuperconLiterature = table.SuperconLiterature;
+    vm.runInNewContext(source + '\nglobalThis.reviewedRules = { candChecked, candWorthTests, candRemarks, candCheck };', context);
+    const checks = JSON.parse(fs.readFileSync(new URL('../data/checks.json', import.meta.url), 'utf8')).materials;
+    for (const [id, formula] of [['JVASP-165558', 'Ce2CuGa12'], ['JVASP-165420', 'Ce2NiGa12']]) {
+      const c = { id, check: { kind: 'experiment', superconducts: false, below: .35, doi: '10.1021/cm801693t' } };
+      const corrected = context.reviewedRules.candChecked(c);
+      const authoritative = checks.find(check => check.formula === formula);
+      assert.equal(corrected.superconducts, null);
+      assert.equal(corrected.below, undefined);
+      assert.equal(corrected.note, authoritative.note, 'The displayed interpretation matches reviewed source data');
+      assert.equal(context.reviewedRules.candWorthTests(c, true).settled, false);
+      const remarks = context.reviewedRules.candRemarks(c, true, null).map(row => typeof row[1] === 'string' ? row[1] : '').join(' ');
+      assert.match(remarks, /superconductivity outcome unknown/);
+      assert.doesNotMatch(remarks, /no superconducting transition reported down to 0\.35|no superconducting transition is reported in that range/);
+      const rendered = context.reviewedRules.candCheck(c);
+      const span = rendered.tag === 'a' ? rendered.children[0] : rendered;
+      assert.doesNotMatch(span.attrs.class, /\b(?:hit|miss)\b/, 'Unknown check has neutral presentation');
+    }
+  } finally { globalThis.SuperconLiterature = previous; }
+});
+
 test('literature statuses preserve unknown outcomes and a missing record stays unsearched', () => {
   assert.match(candidates.literatureText({ id: 'missing' }), /Literature searched: unsearched/);
   for (const status of ['structure-only', 'needs-full-text', 'not-found-in-this-search']) {

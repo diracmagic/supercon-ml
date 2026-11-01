@@ -551,6 +551,37 @@
     "independently_recomputed": false,
     "limitation": "The artifact does not export the per-background-index Radar sent mask; the routed conditional denominator and one excluded M1 alarm cannot be independently reconstructed from these H6 files alone. Unfiltered counts are separately recomputed."
   },
+  "supplemental_family_membership_audit": {
+    "scope": "The original H6 split audit verified the single assigned family used by that run and chemical-system exclusion. A later inspection of complete parent membership across original 3DSC rows identified four parents with more than one family label.",
+    "mixed_family_parents": [
+      {
+        "material_id": "mp-1106248",
+        "full_family_membership": ["iron-based", "other oxide"]
+      },
+      {
+        "material_id": "mp-1218154",
+        "full_family_membership": ["cuprate", "other oxide"]
+      },
+      {
+        "material_id": "mp-1274783",
+        "full_family_membership": ["cuprate", "other oxide"]
+      },
+      {
+        "material_id": "mp-5670",
+        "full_family_membership": ["cuprate", "other oxide"]
+      }
+    ],
+    "interpretation": "The recorded absence of held/train chemical-system intersections remains a chemical-system consistency check. It does not prove isolation of every original family membership: assigning a mixed-family parent one label can leave a parent with the held family's other membership on the training side of another family fold.",
+    "future_protocol_only": {
+      "name": "Unrun Hurricane7 draft protocol; currently deferred behind Storm6",
+      "proposed_pre_exclusion": "Exclude all four parents using complete membership metadata before forming any family folds",
+      "proposed_parents": 615,
+      "proposed_observed_positive_parents": 288,
+      "proposed_unlabeled_parents": 327,
+      "is_recalculation_of_h6": false
+    },
+    "historical_h6_unchanged": "H6 was not rerun or rescored. Its denominator remains 619 parents and 290 observed positives; all original metrics, frozen gates and raw-source hashes above are retained. M1 still fails the frozen improvement rule and is not released."
+  },
   "conclusion": {
     "promising": false,
     "independent_rejection_does_not_depend_on_radar_gate": true,
@@ -558,6 +589,7 @@
     "adopted": false,
     "label_leakage_audit": "No held/train chemical-system intersection in the recorded 12 LOFO splits; every background hash fold matches independently and 20568 recorded training-overlap flags are false. This is consistency verification of exported provenance, not re-execution of training or proof of unseen MACE pretraining structures.",
     "limitations": [
+      "Assigned-family plus chemical-system isolation does not establish isolation of complete original 3DSC family memberships; see supplemental_family_membership_audit for the four mixed-family parents and the future-only exclusion protocol.",
       "Weak-background false alarms are not measured nonsuperconductivity specificity.",
       "Unknown/abstained and unlikely are distinct outcomes; e.g. M1 has 160 unknown positives and 125 available-but-unlikely positives, with 5 found.",
       "MPTrj may contain held-out structures; label/family holdout does not establish structure-unseen pretraining.",

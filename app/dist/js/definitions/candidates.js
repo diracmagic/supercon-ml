@@ -77,7 +77,7 @@
   // Hurricane's Tc if the compound superconducts (a one-part design gives only its Tc)
   const candTcSc = function candTcSc(c) { return candNum(c.tc_sc) ? c.tc_sc : c.tc; };
 
-  const candChecked = function candChecked(c) { var k = c.check; return k && typeof k === 'object' && CHECK_LABEL[k.kind] ? k : null; };
+  const candChecked = function candChecked(c) { var k = candidateData.checkFor(c); return k && typeof k === 'object' && CHECK_LABEL[k.kind] ? k : null; };
 
   const candWorthTests = function candWorthTests(c, hur) {
     var k = candChecked(c), dft = !!(k && k.kind === 'dft' && k.superconducts !== false && candNum(k.tc) && k.tc >= MCMILLAN_K), tc = hur ? candTcSc(c) : c.tc;
@@ -109,7 +109,7 @@
   const candMcmChips = function candMcmChips(list) {
     var chips = h('div', { class: 'cand-mcm-chips' });
     list.slice(0, 8).forEach(function (x) {
-      var c = x.c, tc = x.level === 'confirmed' ? c.check.tc : x.kind === 'hurricane' ? candTcSc(c) : c.tc;
+      var c = x.c, tc = x.level === 'confirmed' ? candChecked(c).tc : x.kind === 'hurricane' ? candTcSc(c) : c.tc;
       chips.appendChild(h('button', { class: 'btn small cand-mcm-chip' + (x.level === 'confirmed' ? ' is-done' : ''), type: 'button', onclick: function () { candGo(x.kind, candId(c)); } },
         hurSub(c.formula) + ' · ' + candK(tc) + (x.level === 'worth' ? ' predicted' : ' measured')));
     });
@@ -178,7 +178,7 @@
       out.push([c.outside ? 'warn' : 'info', c.outside ? 'Outside the training data: even the most similar material ' + model + ' learned from, ' + near + ', is far from it, so this prediction is an extrapolation.' :
         'The most similar material ' + model + ' learned from is ' + near + '.']);
     } else if (hur) out.push(['warn', 'Many compounds on this list are unlike anything Hurricane learned from; this one has not been compared with its training data yet.']);
-    var k = c.check;
+    var k = candChecked(c);
     out.push(k && typeof k === 'object' && CHECK_LABEL[k.kind] ? ['info', 'Checked: ' + candCheckText(k) + '.'] : ['warn', 'No matching DFT or experimental test is recorded here.']);
     if (k && typeof k === 'object' && CHECK_LABEL[k.kind]) {
       if (typeof k.note === 'string' && k.note) out.push(['info', 'Reported conditions and findings: ' + cText(k.note, 1500)]);
@@ -230,11 +230,11 @@
 
   // A matching DFT or experimental check is separate from a literature-search record.
   const candCheck = function candCheck(c) {
-    var k = c.check;
+    var k = candChecked(c);
     if (!k || typeof k !== 'object' || !CHECK_LABEL[k.kind]) return h('span', { class: 'cand-open', text: 'no matching check recorded' });
     var txt = candCheckText(k);
     var url = candCheckSource(k);
-    var el = richText(h('span', { class: 'cand-done' + (k.superconducts === false ? ' miss' : ' hit') }), txt);
+    var el = richText(h('span', { class: 'cand-done' + (k.superconducts === false ? ' miss' : k.superconducts === true ? ' hit' : '') }), txt);
     return url ? h('a', { href: url, class: 'cand-check-link' }, el) : el;
   };
 
@@ -280,7 +280,7 @@
     var gotS = candRows(sc, 'storm'), gotH = candRows(sc, 'hurricane'), got = hur ? gotH : candCurrentRows(sc, 'storm'), rows = got.rows;
     // a refresh with the same list keeps the card (and its turning structures) as it is
     var key = JSON.stringify([sc && sc.round, sc && sc.date, sc && sc.status, sc && (sc.phonon_checks || sc.phonon_check), kind, candState.track, gotS.hidden, gotH.hidden, gotS.rows.length, gotH.rows.length, candState.all,
-      rows.map(function (c) { return [candId(c), c.tc, c.tc_cal, c.tc_sc, c.lo, c.hi, c.p_sc, c.p_lo, c.p_hi, c.novelty, c.outside, c.check, c.phonon_check, candidateData.literatureFor(c)]; })]);
+      rows.map(function (c) { return [candId(c), c.tc, c.tc_cal, c.tc_sc, c.lo, c.hi, c.p_sc, c.p_lo, c.p_hi, c.novelty, c.outside, candChecked(c), c.phonon_check, candidateData.literatureFor(c)]; })]);
     if (key === candState.key && el.firstChild) return;
     candState.key = key;
     xtReset();
@@ -395,7 +395,7 @@
       el.appendChild(h('div', { class: 'feed-more' }, h('button', { class: 'btn small', type: 'button', onclick: function () { candState.all = !candState.all; renderCandidates(state.data); } },
         candState.all ? 'Show the top ' + CAND_SHOWN : 'Show all ' + rows.length)));
     }
-    var checked = rows.filter(function (c) { return c.check && CHECK_LABEL[c.check.kind]; }).length;
+    var checked = rows.filter(function (c) { return candChecked(c); }).length;
     var lead = (checked ? checked + ' of ' + rows.length + ' candidates have matching checks recorded. ' : 'No matching DFT or experimental check is recorded for these candidates. ') + 'They are predictions: a candidate becomes a discovery only when ' +
       (hur ? 'an experiment confirms it. Many of these compounds have a band gap in DFT or are magnetic, and, like the parent compounds of the cuprates and iron-based superconductors, would need doping or pressure to superconduct. ' :
         'a calculation and then an experiment confirm it. “Calibrated” is Storm’s estimate of the measured Tc. ');

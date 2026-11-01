@@ -3,6 +3,93 @@
   "searched_on": "2026-10-31",
   "materials": [
     {
+      "material_id": "JVASP-100557",
+      "formula": "KCeF4",
+      "model": "Hurricane",
+      "rank_at_audit": 16,
+      "composition": {
+        "K": 1,
+        "Ce": 1,
+        "F": 4
+      },
+      "aliases_searched": [
+        "KCeF4",
+        "KF4Ce",
+        "CeKF4",
+        "CeF4K",
+        "F4KCe",
+        "F4CeK"
+      ],
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "candidate_structure": {
+        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-100557.html"
+      },
+      "search_log": [
+        {
+          "query": "\"KCeF4\" magnetic superconductivity",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "Brunton 1969 \"KCeF4\" 600",
+          "source_urls": [],
+          "access_status": "search-results-inspected",
+          "notes": "Actual public search executed. No usable exact-candidate superconductivity result was established; unrelated formulas were excluded."
+        },
+        {
+          "query": "Open NBS KCeF4 reference and original Brunton DOI",
+          "source_urls": [
+            "https://nvlpubs.nist.gov/nistpubs/Legacy/MONO/nbsmonograph25-12.pdf",
+            "https://doi.org/10.1107/S0567740869002639"
+          ],
+          "access_status": "official-full-text-opened-original-doi-access-failed",
+          "notes": "Inspected the beta-KCeF4 entry and references. No superconductivity temperature limit is inferred."
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/MONO/nbsmonograph25-12.pdf",
+          "cite": "NBS Monograph 25, Section 12 (1975), p. 59, potassium cerium fluoride.",
+          "kind": "official-crystallographic-reference-full-text",
+          "locator": "Printed p. 59; PDF page 68 (zero-based).",
+          "evidence_scope": "The inspected crystallographic reference records orthorhombic beta-KCeF4 (Pnam, no. 62), citing Brunton 1969. This is a calculated diffraction-pattern reference, not a superconductivity experiment."
+        },
+        {
+          "url": "https://doi.org/10.1107/S0567740869002639",
+          "cite": "G. Brunton, The crystal structure of beta-KCeF4, Acta Cryst. B25, 600–602 (1969).",
+          "doi": "10.1107/S0567740869002639",
+          "kind": "primary-structure-bibliographic-lead-original-access-failed",
+          "evidence_scope": "Original structural article identified from the inspected NBS reference; original DOI retrieval was unavailable in this search."
+        }
+      ],
+      "conditions": {
+        "superconductivity_temperature_floor_k": null,
+        "pressure_gpa": null
+      },
+      "limitations": "This is a bounded public search. Absence of a located report does not establish novelty, absence of experiments, nonexistence of the material or absence of superconductivity. Atomic coordinates and all possible sample conditions were not matched. Candidate atomic coordinates and polymorph have not been matched to the beta-phase reference. The phase-change temperature is not a superconductivity limit.",
+      "checks_action": "No experimental superconductivity label, training negative or prior-claim exclusion added.",
+      "searched_on": "2026-10-31",
+      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
+      "audit_screen_round": 4,
+      "prediction_at_audit": {
+        "tc_pred": 0.09,
+        "p_sc": 0.016
+      },
+      "conclusion_zh": "NBS结构参考表记录正交β-KCeF4并引用1969年原始结构论文。不是超导实验，候选晶型和坐标未匹配。",
+      "currently_listed": true,
+      "current_prediction": {
+        "screen_round": 5,
+        "rank": 22,
+        "tc_pred": 0.08,
+        "p_sc": 0.019,
+        "p_lo": 0.006,
+        "p_hi": 0.039,
+        "tracks": {}
+      }
+    },
+    {
       "rank_at_audit": 28,
       "material_id": "JVASP-172208",
       "formula": "CaYbIn2",
@@ -570,6 +657,16 @@
         "p_lo": 0.007,
         "p_hi": 0.075,
         "tracks": {}
+      },
+      "check_correction": {
+        "replaces_doi": "10.1021/cm801693t",
+        "check": {
+          "kind": "experiment",
+          "superconducts": null,
+          "doi": "10.1021/cm801693t",
+          "cite": "J. Y. Cho et al., Chem. Mater. 20, 6116 (2008)",
+          "note": "The original paper reports antiferromagnetic order near 10 K. Methods give susceptibility 2–300 K at 0.1 T and heat capacity 0.35–70 K. The heat-capacity floor must not be assigned to resistivity or treated as an explicit no-superconductivity cutoff. This audit did not establish a superconductivity absence statement to 0.35 K. Superconductivity outcome remains unknown."
+        }
       }
     },
     {
@@ -1271,88 +1368,6 @@
         "p_sc": 0.018,
         "p_lo": 0.011,
         "p_hi": 0.028,
-        "tracks": {}
-      }
-    },
-    {
-      "rank_at_audit": 37,
-      "material_id": "JVASP-89073",
-      "formula": "Yb2InGe2",
-      "model": "Hurricane",
-      "aliases_searched": [
-        "Yb2InGe2",
-        "Yb2Ge2In"
-      ],
-      "candidate_structure": {
-        "space_group": "P4/mbm (127)",
-        "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-89073.html",
-        "identity_source": "repository progress/progress.json at source commit 9d0cc1502254dbd77860fbd376272c3903e82c1e"
-      },
-      "status": "needs-full-text",
-      "superconductivity_outcome": "unknown",
-      "search_log": [
-        {
-          "query": "\"Yb2InGe2\"",
-          "outcome": "定位2017TUWien学位论文的该成分章节；33MB全文超出抓取限制。"
-        },
-        {
-          "query": "\"Yb2InGe2\" \"Tobash\"",
-          "outcome": "定位Tobash等2005原始论文，打开作者机构出版目录；ACS正文403。"
-        },
-        {
-          "query": "\"cm051618g\" pdf",
-          "outcome": "核对DOI、题名和作者目录；仅有摘要及补充文件线索。"
-        },
-        {
-          "query": "Yb2InGe2 Yb2Ge2In superconductivity",
-          "outcome": "未找到匹配超导报告或Tc预测。"
-        }
-      ],
-      "sources": [
-        {
-          "url": "https://doi.org/10.1021/cm051618g",
-          "accessed_url": "https://www1.udel.edu/chem/bobev/Site%202/Publications.html",
-          "doi": "10.1021/cm051618g",
-          "kind": "primary-author-bibliography",
-          "locator": "Selected Publications, first entry",
-          "supports": "作者机构目录确认RE2InGe2系列研究包括Yb；正文未读到，不提取超导或电阻温度条件。"
-        },
-        {
-          "url": "https://repositum.tuwien.at/bitstream/20.500.12708/3006/2/Budnowski%20Monika%20-%202017%20-%20Search%20for%20new%20Zintl%20phases%20for%20thermoelectricity.pdf",
-          "kind": "primary-thesis-identified-content-too-large",
-          "locator": "Indexed section5.2.2",
-          "supports": "精确成分的再合成/物性研究线索存在，但本次未能打开整篇；不可将检索摘要当作超导阴性。"
-        },
-        {
-          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-89073.html",
-          "kind": "primary-database-link-access-failed",
-          "supports": "已尝试直接打开但工具无法访问；候选身份和空间群只从仓库快照读取，没有由此验证实验合成或物性。"
-        }
-      ],
-      "conditions": {
-        "sample_form": null,
-        "pressure_gpa": null,
-        "field_t": null,
-        "superconductivity_temperature_floor_k": null
-      },
-      "limitations": "Yb2LiInGe2多了Li，不能替代Yb2InGe2。已定位精确成分论文，但超导测量条件/结构同一性仍未核对。 本次为有界公开检索，不证明文献穷尽，也不证明新颖性。",
-      "checks_action": "No negative superconductivity check added; no prior-Tc or prior-superconductivity claim established.",
-      "searched_on": "2026-10-31",
-      "audit_screen_round": 4,
-      "audit_scope": "First audited against screening round 4; exact recorded ID. Current round-5 listing and scores are recorded separately.",
-      "prediction_at_audit": {
-        "tc_pred": 0.03,
-        "p_sc": 0.021
-      },
-      "conclusion_zh": "有线索，全文或实验条件尚待核实。",
-      "currently_listed": true,
-      "current_prediction": {
-        "screen_round": 5,
-        "rank": 39,
-        "tc_pred": 0.03,
-        "p_sc": 0.021,
-        "p_lo": 0.009,
-        "p_hi": 0.029,
         "tracks": {}
       }
     }
