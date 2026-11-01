@@ -94,6 +94,7 @@ async function fixture(options = {}) {
     if (url.endsWith('/git/ref/heads/main')) return Response.json({ object: { type: 'commit', sha: COMMIT } });
     const parsed = new URL(url), prefix = '/repos/diracmagic/supercon-research-notes/contents/';
     assert.ok(parsed.pathname.startsWith(prefix));
+    if (controls.contentsDenied) return new Response('Synthetic missing Contents permission', { status: 403 });
     const name = parsed.pathname.slice(prefix.length), bytes = files.get(name); assert.ok(bytes);
     const lead = encoder.encode('blob ' + bytes.length + '\0'), blob = new Uint8Array(lead.length + bytes.length); blob.set(lead); blob.set(bytes, lead.length);
     if (controls.revokeDuringRead) { const record = controls.revokeDuringRead; controls.revokeDuringRead = null; await teamAccess(env, 'revoke', clock, { memberId: record }); }
@@ -228,12 +229,18 @@ test('private member and global read limits apply before any provider or install
   }
 });
 
-test('trusted installation reads accept omitted user pull metadata but never an explicit denial', async () => {
+test('trusted installation reads use verified App grants instead of user-role pull metadata', async () => {
   for (const deniedPull of [false, true]) {
     const h = await fixture({ controls: { missingPull: !deniedPull, deniedPull } }); await h.invite();
     const session = await (await h.login()).json();
-    assert.equal((await h.send('/api/session', { token: session.session_token })).status, deniedPull ? 403 : 200);
-    assert.equal((await h.send('/api/memo', { token: session.session_token })).status, deniedPull ? 403 : 200);
+    assert.equal((await h.send('/api/session', { token: session.session_token })).status, 200);
+    assert.equal((await h.send('/api/memo', { token: session.session_token })).status, 200);
+  }
+  const denied = await fixture({ controls: { deniedPull: true, contentsDenied: true } }); await denied.invite();
+  const session = await (await denied.login()).json();
+  for (const path of ['/api/session', '/api/memo']) {
+    const response = await denied.send(path, { token: session.session_token });
+    assert.equal(response.status, 403); assert.deepEqual(await response.json(), { error: 'memo_access_revoked' });
   }
 });
 

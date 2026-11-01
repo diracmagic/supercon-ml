@@ -67,10 +67,10 @@ async function content(api, token, base, path, commit, maximum) {
 export async function verifyMemoRepository(api, token, options = {}) {
   const repository = await api('/repositories/' + REPOSITORY_ID, token);
   // Installation grants are independently pinned/read-only before this internal
-  // path is used. GitHub can omit their user-specific pull field; explicit denial
-  // or malformed permission values are never accepted, including here.
+  // path is used. Getrepo's user-role permissions can all be false for App tokens;
+  // authorization instead comes from the verified grant and actual Contents reads.
   const pull = repository.permissions?.pull;
-  const readable = pull === true || (options.trustedInstallation === true && pull === undefined);
+  const readable = pull === true || options.trustedInstallation === true;
   demand(repository.id === REPOSITORY_ID && repository.private === true && repository.owner?.id === OWNER_ID && repository.full_name === 'diracmagic/supercon-research-notes' && readable, 'memo_unavailable', 403);
 }
 

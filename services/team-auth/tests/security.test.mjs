@@ -634,6 +634,7 @@ test('owner session polling rechecks fixed repository access when GitHub identit
 test('owner session polling requires a positive pull permission, but non-owner login does not access notes repository', async () => {
   const h = await harness(), { session } = await h.login(); h.controls.repoPullDenied = true;
   assert.equal((await h.send('/api/session', { token: session.session_token })).status, 403);
+  assert.equal((await h.send('/api/memo', { token: session.session_token })).status, 403);
   const other = await harness({ controls: { repoDenied: 404 } }), otherSession = (await other.login('other')).session;
   const response = await other.send('/api/session', { token: otherSession.session_token });
   assert.equal(response.status, 200); assert.equal((await response.json()).can_read_memo, false);
