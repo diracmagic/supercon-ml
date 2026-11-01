@@ -38,7 +38,7 @@ for (const file of [...assets.scripts, ...assets.styles, 'index.html', 'assets.j
   assert.ok(fs.existsSync(path.join(dist, file)), 'Referenced resource exists: ' + file);
   assert.ok(fs.statSync(path.join(dist, file)).size <= 70000, 'Complete resource stays below 70 KB: ' + file);
 }
-assert.equal(hash(codeOf('styles.css')), baseline.css_sha256, 'Extracted CSS is unchanged after LF normalization');
+assert.equal(hash(codeOf('styles.css')), baseline.css_sha256, 'Complete stylesheet matches its reviewed baseline after LF normalization');
 const allCode = scripts.map(codeOf);
 for (let i = 0; i < scripts.length; i++) { parse(allCode[i]); new vm.Script(allCode[i], { filename: scripts[i] }); }
 parse(allCode.join('\n'));
@@ -77,6 +77,11 @@ const referenceFlag = process.argv.indexOf('--reference');
 if (referenceFlag >= 0) {
   const referenceHtml = fs.readFileSync(process.argv[referenceFlag + 1], 'utf8');
   assert.equal(hash(referenceHtml), baseline.original_html_sha256, 'Reference is the original complete HTML snapshot');
+  if (baseline.original_css_sha256) {
+    const referenceStyles = [...referenceHtml.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)];
+    assert.equal(referenceStyles.length, 1, 'Original snapshot has one complete stylesheet');
+    assert.equal(hash(referenceStyles[0][1]), baseline.original_css_sha256, 'Independent original stylesheet provenance');
+  }
   const referenceScript = [...referenceHtml.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)]
     .find((m) => m[1].includes('(function ()'))?.[1];
   assert.equal(hash(referenceScript), baseline.original_script_sha256, 'Reference retains the original complete script snapshot');

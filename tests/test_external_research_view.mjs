@@ -80,29 +80,40 @@ test('published assets exclude the removed memo bundle and stylesheet', () => {
 
 test('AI view renders the models and automatic feed without memo or legacy discovery cards', () => {
   const h = harness();
-  assert.equal(h.root.children.length, 3);
+  assert.equal(h.root.children.length, 2);
   assert.match(h.root.textContent, /Our AI-designed models/);
   assert.match(h.root.textContent, /Storm/);
   assert.match(h.root.textContent, /Hurricane 4.0/);
   assert.match(h.root.textContent, /Automatic research feed/);
   assert.match(h.root.textContent, /Tags are assigned automatically/);
-  assert.doesNotMatch(h.root.textContent, /Removed memo entry|Legacy discovery claim|Legacy prediction list|reviewed studies above|Superconductors found with AI by other groups/);
-  for (const id of ['ai-found', 'ai-watch', 'ai-curated', 'external-research-list']) assert.equal(h.get(id), null);
+  assert.doesNotMatch(h.root.textContent, /Removed memo entry|Legacy discovery claim|Legacy prediction list|reviewed studies above|Superconductors found with AI by other groups|Private research notes|Sign in as diracmagic/);
+  for (const id of ['ai-found', 'ai-watch', 'ai-curated', 'external-research-list', 'ai-private-notes']) assert.equal(h.get(id), null);
   assert.equal(Object.hasOwn(h.context.aiState, 'external'), false);
   assert.equal(h.document.events.visibilitychange, undefined);
 });
 
-test('private notes entry only opens GitHub sign-in without loading or caching private records', () => {
+test('main header provides team login through GitHub without an app session or private notes card', () => {
   const h = harness();
-  const card = h.get('ai-private-notes');
-  assert.ok(card);
-  assert.equal(card.querySelector('h2').textContent, 'Private research notes');
-  assert.equal(card.querySelector('p').textContent, 'Your research memo is stored in a private GitHub repository. Sign in as diracmagic to view it.');
-  const link = card.querySelector('a');
-  assert.equal(link.textContent, 'Sign in to view notes');
-  assert.equal(link.getAttribute('href'), 'https://github.com/login?return_to=%2Fdiracmagic%2Fsupercon-research-notes');
-  assert.equal(link.getAttribute('target'), '_blank');
-  assert.equal(link.getAttribute('rel'), 'noopener noreferrer');
+  const html = read('index.html');
+  const header = /<header\b[^>]*>[\s\S]*?<\/header>/.exec(html)?.[0] || '';
+  const controls = /<div class="controls">([\s\S]*?)<\/div>/.exec(header)?.[1] || '';
+  const matches = [...controls.matchAll(/<a\b([^>]*)>([^<]*)<\/a>/g)];
+  const links = matches.map(match => ({ text: match[2], attrs: Object.fromEntries([...match[1].matchAll(/([\w-]+)="([^"]*)"/g)].map(attr => [attr[1], attr[2]])) }));
+  const matching = links.filter(link => link.attrs.id === 'team-login');
+  assert.equal(matching.length, 1);
+  const link = matching[0];
+  assert.equal(link.text, 'Login for team');
+  assert.equal(link.attrs.href, 'https://github.com/login?return_to=%2Fdiracmagic%2Fsupercon-research-notes');
+  assert.equal(link.attrs.title, 'Continue with GitHub. Access depends on your account permissions.');
+  assert.equal(link.attrs.target, '_blank');
+  assert.equal(link.attrs.rel, 'noopener noreferrer');
+  assert.match(link.attrs.class, /\bteam-login\b/);
+  const css = read('styles.css');
+  assert.match(css, /\.team-login\s*\{[^}]*min-height:\s*36px;[^}]*background:\s*var\(--ink\);[^}]*color:\s*var\(--page\);[^}]*font-weight:\s*600;[^}]*text-decoration:\s*none;[^}]*white-space:\s*nowrap;/);
+  assert.equal(link.attrs.hidden, undefined);
+  assert.equal(link.attrs.onclick, undefined);
+  assert.doesNotMatch(html + read('js/definitions/ai-view.js'), /Private research notes|Sign in as diracmagic|Sign in to view notes|ai-private-notes/);
+  assert.equal(h.get('ai-private-notes'), null);
   assert.deepEqual(h.requests, []);
   assert.doesNotMatch(read('js/definitions/ai-view.js'), /fetch\s*\(|XMLHttpRequest|localStorage|sessionStorage|caches\s*\./);
 });
@@ -138,7 +149,7 @@ test('feed refresh and polling remain available with clean start-stop lifecycle'
 test('content updates cannot call removed renderers or restore the memo', () => {
   const h = harness({ content: true });
   assert.doesNotThrow(() => h.run('contentChanged(); renderAI();'));
-  assert.equal(h.root.children.length, 3);
+  assert.equal(h.root.children.length, 2);
   assert.equal(h.get('ai-found'), null);
   assert.doesNotMatch(h.root.textContent, /Removed memo entry|Legacy discovery claim/);
 });
@@ -148,13 +159,15 @@ test('service-worker upgrade discards the old memo cache while preserving other 
   const source = read('sw.js');
   const current = /const CACHE = '([^']+)'/.exec(source)[1];
   const old = 'supercon-0.3.9-research31-tc-ranking';
+  const previous = 'supercon-0.3.10-ai-feed';
+  assert.equal(current, 'supercon-0.3.11-team-login');
   assert.notEqual(current, old);
   const context = { self: { addEventListener: (kind, fn) => { handlers[kind] = fn; }, clients: { claim: async () => {} } },
-    caches: { keys: async () => [old, current, 'unrelated-app'], delete: async (key) => { deleted.push(key); } } };
+    caches: { keys: async () => [old, previous, current, 'unrelated-app'], delete: async (key) => { deleted.push(key); } } };
   vm.runInNewContext(source, context);
   handlers.activate({ waitUntil: (promise) => { activation = promise; } });
   await activation;
-  assert.deepEqual(deleted, [old]);
+  assert.deepEqual(deleted, [old, previous]);
 });
 
 test('private research sources and export tooling stay outside the public repository', () => {
