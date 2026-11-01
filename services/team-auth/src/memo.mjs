@@ -64,20 +64,25 @@ async function content(api, token, base, path, commit, maximum) {
   return { bytes, data };
 }
 
-export async function verifyMemoRepository(api, token) {
+export async function verifyMemoRepository(api, token, options = {}) {
   const repository = await api('/repositories/' + REPOSITORY_ID, token);
-  demand(repository.id === REPOSITORY_ID && repository.private === true && repository.owner?.id === OWNER_ID && repository.full_name === 'diracmagic/supercon-research-notes' && repository.permissions?.pull === true, 'memo_unavailable', 403);
+  // Installation grants are independently pinned/read-only before this internal
+  // path is used. Getrepo's user-role permissions can all be false for App tokens;
+  // authorization instead comes from the verified grant and actual Contents reads.
+  const pull = repository.permissions?.pull;
+  const readable = pull === true || options.trustedInstallation === true;
+  demand(repository.id === REPOSITORY_ID && repository.private === true && repository.owner?.id === OWNER_ID && repository.full_name === 'diracmagic/supercon-research-notes' && readable, 'memo_unavailable', 403);
 }
 
-export async function verifyMemoAccess(api, token) {
-  await verifyMemoRepository(api, token);
+export async function verifyMemoAccess(api, token, options) {
+  await verifyMemoRepository(api, token, options);
   // Repository metadata can remain readable after Contents permission is revoked.
   // Probe only the fixed, bounded manifest; never return it in session metadata.
   await content(api, token, '/repos/diracmagic/supercon-research-notes', 'data/external_research_memo.json', 'main', 32768);
 }
 
-export async function readMemo(api, token) {
-  await verifyMemoRepository(api, token);
+export async function readMemo(api, token, options) {
+  await verifyMemoRepository(api, token, options);
   const base = '/repos/diracmagic/supercon-research-notes';
   // Resolve the small ref object, not a commit response containing file patches.
   const reference = await api(base + '/git/ref/heads/main', token);

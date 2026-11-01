@@ -1,11 +1,13 @@
-# GitHub sign-in and owner-only research API
+# Team sign-in and private research API
 
 This Worker provides real GitHub sign-in for the existing public Pages app. Any
 GitHub user may authenticate. Authentication does **not** establish team membership.
-Only the identity returned by GitHub with numeric user ID `350433501` may read the
-research memo. The private repository and its collaborator permissions are not
-changed by this service. No private memo content, credential, token or real-user
-test fixture is shipped in this directory.
+The identity returned by GitHub with numeric user ID `350433501` is the sole team
+administrator. The administrator and explicitly invited, verified email/password
+members may read the research memo. Membership does not grant GitHub repository
+collaborator permissions. No private memo content, credential, token or real-user
+test fixture is shipped in this directory. Ordinary GitHub sign-in does not
+automatically create membership or link to an email account.
 
 ## Deployment prerequisites
 
@@ -41,6 +43,68 @@ client secret; this implementation does not use installation JWTs/private keys
 or a broad personal access token. No OAuth `repo` scope is requested. GitHub App
 permissions and the authenticated user's permissions both restrict private reads.
 
+## Invited email/password members
+
+Firebase Authentication manages user-chosen passwords, email verification and
+password reset. The browser sends passwords directly to Firebase, not this
+Worker. Use the Spark project configured by the public `FIREBASE_PROJECT_ID` and
+`FIREBASE_API_KEY` variables. Enable email/password authentication, a suitable
+password policy and email-enumeration protection. Configure authorized domains
+for the Pages app and the Worker email-action host. Set the email templates'
+custom action URL to `https://<actual-worker-host>/auth/email/action`. Its GET
+handler does not consume a code: it returns a no-store redirect to the fixed
+Pages app with the action code in a fragment, which the app immediately removes.
+The browser uses only its configured project key and fixed return URL.
+
+This design intentionally permits Firebase identity registration through its
+public API. Registration alone gives **no access** to the team or memo. The
+administrator invites an email using the application API. A new provider account
+is initialized with a cryptographically random, unshared password that is never
+stored by the Worker; the recipient sets their own password through Firebase's
+built-in password-reset email. For an existing Firebase account, the invitation
+remains bound to its email until a fresh, provider-verified login atomically binds
+the UID. Do not claim that all Firebase sign-up is disabled.
+
+An invitation lasts seven days and requires a fresh login after it was issued.
+The login must have a currently verified email, match the invitation, and use the
+password provider. If setting a password did not verify the email, the app must
+complete Firebase's verification-email flow before joining. No admin code marks
+an unverified email as verified. An email request marked `accepted` means Firebase
+accepted the request; it is not proof of delivery. Failed sends remain visible in
+the administrator's member list. Reissuing invitations invalidates old membership
+versions; revocation invalidates all application sessions for that membership.
+
+The `TeamDirectory` SQLite Durable Object uses the `TEAM_DIRECTORY` binding and
+the additive `v2` migration. It caps the directory at 100 members and persists
+per-IP/global login limits and per-email/global invitation limits. Only the
+GitHub administrator may list, invite or revoke members. Anonymous responses do
+not disclose the membership list. No Firebase service-account key or project IAM
+role is required. The public Firebase key may be API-restricted; browser-only
+HTTP-referrer restrictions would block this Worker's server-side requests.
+
+Firebase private session checks and memo reads also share persistent limits:
+12/minute and 120/hour per member, 120/minute and 600/hour for the team. These
+budgets allow minute polling and ordinary note openings for a small team while
+bounding provider work. Limits run before Google/GitHub requests; identity,
+membership and installation checks are never replaced with a cached success.
+
+Every email session is revalidated through Google's authenticated `accounts:lookup`
+for the exact ID token. Decoding JWT claims is only preliminary validation, never
+the authenticity check. Project, issuer, expiry, UID, verified email, provider,
+disabled status, `validSince` and `passwordUpdatedAt` are checked. Missing
+revocation fields fail closed. The encrypted ID token is kept only until its
+expiry; no Firebase refresh token persists. Password changes and membership
+version changes invalidate existing application sessions on their next check.
+
+Members read notes using a short-lived GitHub App installation token minted from
+the Cloudflare secret `GITHUB_APP_PRIVATE_KEY`. The installation reader pins App
+ID `5570777`, installation `177619503`, owner `350433501`, repository `1442131882`
+and read-only Contents/Metadata permissions. It revalidates the installation and
+restricts every issued token to that one repository. Installation tokens never
+reach the browser. Removing or widening the installation fails closed. The key
+and actual email delivery/login must be configured and verified before claiming
+the deployed member flow works.
+
 ## Browser/API contract
 
 The sole CORS origin is `https://diracmagic.github.io`; the sole return document
@@ -53,9 +117,19 @@ return URL, repository ID, filename, account ID or role as authorization.
 | `GET /auth/start?challenge=...&state=...` | Each field is 43 base64url characters. `challenge` is SHA-256 of the browser's 43-character verifier. Creates a 10-minute server transaction, provider PKCE and a Secure/HttpOnly/SameSite=Lax host cookie, then redirects to GitHub. |
 | `GET /auth/github/callback` | Validates transaction state, cookie and callback binding; atomically consumes it; exchanges GitHub's code and reads `/user`. Returns to Pages with `#team_ticket=...&team_state=...`, or a fixed `team_error` code. |
 | `POST /auth/exchange` | Exact JSON `{ticket,verifier,state}`. Five-minute ticket, bound to browser PKCE and client state, consumed atomically once. Returns `{session_token,expires_at,user:{id,login},can_read_memo}`. |
-| `GET /api/session` | Bearer session; revalidates GitHub identity. Returns the same session metadata without its token. |
-| `GET /api/memo` | Bearer session; revalidates GitHub identity and the numeric owner guard on every read. Returns only `{entries,reviewed_on,updated,entry_count}`. |
+| `GET /api/session` | Bearer session; revalidates its provider identity, current membership and private-source access. Returns the same session metadata without its token. |
+| `GET /api/memo` | Bearer session; revalidates provider identity and administrator/member authorization on every read, including a membership check after loading. Returns only `{entries,reviewed_on,updated,entry_count}`. |
 | `POST /auth/logout` | Bearer session; destroys that session. It does not modify other sessions or repository access. |
+| `GET /auth/email/action` | Accepts a unique `mode` (`resetPassword`, `verifyEmail`, or `recoverEmail`) and bounded `oobCode`; optional `apiKey` must equal configured project key. Ignores caller continuation URLs. Redirects to the fixed app's `team_email_mode`/`team_email_code` fragment without consuming the code. Recovery never signs in automatically. |
+| `POST /auth/firebase` | Exact JSON `{id_token}`. Google validates the token, then the directory claims/checks the invitation. Returns the same bounded bearer session contract, with `user.provider:'firebase'`, `user.id:'firebase:'+UID`, and the member's own email. |
+| `GET /api/team` | GitHub administrator only. Returns `{members:[...]}` with opaque member IDs, email, status, timestamps, version and delivery status. |
+| `POST /api/team/invite` | GitHub administrator only. Exact `{email}`; returns `{member}` after Firebase accepts the email request. Does not promise delivery. |
+| `POST /api/team/revoke` | GitHub administrator only. Exact `{member_id}`; returns `{member}` and increments its authorization version. |
+
+Session metadata includes `can_read_memo` and `can_manage_team`; only the verified
+GitHub administrator receives the latter. Health also reports boolean
+`github_login`, `email_login`, and `team_notes` configuration flags. These flags
+do not perform real provider login, verify a configured key, or send an email.
 
 `expires_at` is Unix **milliseconds**. Ticket and session tokens are 43 base64url
 characters. Session lifetime is at most one hour, bounded by the provider token's
@@ -74,7 +148,7 @@ a separate app origin if that trust boundary changes.
 
 ## Private-data boundary
 
-GitHub tokens are AES-GCM encrypted with fresh IVs and type/token-specific AAD
+GitHub user tokens and Firebase ID tokens are AES-GCM encrypted with fresh IVs and type/token-specific AAD
 before entering Durable Object storage. Object names use hashes of random
 capabilities. The transaction, ticket and session are separate objects; atomic
 transactional consume prevents parallel replay. Alarms remove expired records.

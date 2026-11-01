@@ -761,6 +761,7 @@
     "b014bbcb92042b4c9769336b62766c7e4e97cf607902274a7bb101e50edde91b"
   ],
   "scripts": [
+    "team-account.js",
     "literature-audit.js",
     "candidates.js",
     "js/bindings.js",
@@ -831,32 +832,66 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-01",
-    "purpose": "Add fixed, non-sensitive sign-in callback diagnostics for the reviewed service error codes and browser proof failures, reject ambiguous ticket/error callbacks, and refresh the offline app shell. No shared news/candidate functions, initialization, predictions, private-note access policy or public endpoint configuration change.",
-    "baseline_parent_commit": "9e7a4333febf90c025fb208adfe5f573f8b3e9d3",
-    "previous_manifest_sha256": "49439a50c540c0f03e5e70006524139761d3739637477aabb1d42ccc50c5b7db",
+    "purpose": "Add invited-member email/password access with fixed-project Firebase actions and server-verified membership, owner-only invitation management, and per-note manual evidence walkthroughs. Passwords go only to Google; app tokens and private notes remain in memory. Clear email-action capabilities before other resources load, prohibit action URLs from offline caches, and retain GitHub owner administration. Shared scientific functions, initializer order, candidate predictions and progress data are unchanged.",
+    "baseline_parent_commit": "01ffebbb47251b17029ddca190de861bb3b28cae",
+    "previous_manifest_sha256": "7fdffcc61448dc889d1a066ea7a81969be9d6016d2564cbe47e008f885248837",
     "allowed_modules": [
-      "team-auth.js"
+      "team-auth.js",
+      "team-account.js",
+      "team-auth.css",
+      "team-account.css"
     ],
     "static_files_changed": {
-      "team-auth.js": {
-        "before_sha256": "02ddfc32b6056e0a58508368f6ac1d2a0d902bb7856b7c800ee3069d27d854f5",
-        "after_sha256": "ab0c5cf83e0cebb9411cc98b2f5a3df7556e0097f1cd51d0374d338391de757d"
+      "assets.json": {
+        "before_sha256": "3cdd9c296673af26d6c2dce7740c23c78f49ab12f8a185f940a8d5c40cb9b673",
+        "after_sha256": "ee7cb4db4481ade2a9e4ff002073e132fab9a81c59b42f825fd590679e2a18ab"
+      },
+      "index.html": {
+        "before_sha256": "7e985934c72aed8bdfc4df04f6dd09608927efe8440851ffca9afb80c1c715ee",
+        "after_sha256": "86da723e7c5a3a7f2275fc267ae94d65e771fcfc3348c673cd2b7196604cb994"
       },
       "sw.js": {
-        "before_sha256": "30d71a01c4967f256c8dff5df044ef84d34c429c839d05ce3d133b014e942cdb",
-        "after_sha256": "5a7149df41999202dda76ade29a1109a21e6d44403bc5be5743284762e470610"
+        "before_sha256": "52fa4478a37d81071aa3e2ff9ab153871d9110507baabfc354472e8127f99749",
+        "after_sha256": "586983a1b709b52db3f4186fcf12791487359f9cabcd4041fa4616f1956ba18f"
+      },
+      "team-auth-config.js": {
+        "before_sha256": "b5fe5cd0a01add6311215f5b9861aee423e9ef1c20df2e4a7e7cd787ff7fd268",
+        "after_sha256": "b3be2c6b5216a5ca0fbe278ecb29442f242eb4a43be6cb2e6a5e8e27df15e7b9"
+      },
+      "team-auth.css": {
+        "before_sha256": "4094e00fa78e6b25898c75f5966aa4d1b77d62c453d1eee734284428829f0996",
+        "after_sha256": "80703a82c2d1865b7bc8fc8d3650fb76aa4b469190ad22a306110aa700780d2a"
+      },
+      "team-auth.js": {
+        "before_sha256": "ab0c5cf83e0cebb9411cc98b2f5a3df7556e0097f1cd51d0374d338391de757d",
+        "after_sha256": "b829f35da94e04131b20a38c9b0856fb7aefaf16c9e807f627cd200d9f19b5ff"
+      }
+    },
+    "static_files_added": {
+      "team-account.js": {
+        "sha256": "92ad1eb91134df362d1d521ead52aa3d52e3773812e3bd67225c587ec1f148f5"
+      },
+      "team-account.css": {
+        "sha256": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0"
       }
     },
     "functions_changed": {},
     "functions_added": {},
     "functions_removed": {},
     "initializers_changed": [],
-    "scripts_changed": [],
+    "scripts_changed": [
+      {
+        "added": "team-account.js",
+        "position": "first script in head, before styles and other executable resources"
+      }
+    ],
     "additional_source_sha256": {
-      "team-auth.js": "ab0c5cf83e0cebb9411cc98b2f5a3df7556e0097f1cd51d0374d338391de757d",
-      "team-auth.css": "4094e00fa78e6b25898c75f5966aa4d1b77d62c453d1eee734284428829f0996"
+      "team-auth.js": "b829f35da94e04131b20a38c9b0856fb7aefaf16c9e807f627cd200d9f19b5ff",
+      "team-auth.css": "80703a82c2d1865b7bc8fc8d3650fb76aa4b469190ad22a306110aa700780d2a",
+      "team-account.js": "92ad1eb91134df362d1d521ead52aa3d52e3773812e3bd67225c587ec1f148f5",
+      "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0"
     },
-    "configuration_policy": "team-auth-config.js is a public endpoint configuration, parsed and loaded in exact order but not source-hash pinned. The API origin can be configured independently; authentication and allowed-origin behavior have dedicated tests.",
+    "configuration_policy": "team-auth-config.js contains only public API/Firebase project identifiers. It is parsed in the exact reviewed load order but remains independently configurable. No service-account keys, private notes or app-session tokens are bundled.",
     "unchanged_progress_sha256": "40822a41deb4e19d0e99a52b742409b2d820ef2b3bfc58db3e66537ef3e3b786",
     "controls_preserved": [
       "complete function and initializer AST comparison",
@@ -869,17 +904,25 @@
       "public feed provenance and deduplication",
       "reduced motion and timer lifecycle",
       "candidate predictions and five-fold probability ranges",
-      "fixed callback error messages without reflecting provider text or secrets"
+      "fixed callback error messages without reflecting provider text or secrets",
+      "fixed Firebase project and Worker route allowlists",
+      "server-verified membership and owner-only team administration",
+      "no password, identity token, session token or private memo in browser storage",
+      "email action URL stripping and no-referrer policy",
+      "manual private-note animation with reduced motion and cleanup"
     ]
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
   "styles": [
     "styles.css",
-    "team-auth.css"
+    "team-auth.css",
+    "team-account.css"
   ],
   "additional_source_sha256": {
-    "team-auth.js": "ab0c5cf83e0cebb9411cc98b2f5a3df7556e0097f1cd51d0374d338391de757d",
-    "team-auth.css": "4094e00fa78e6b25898c75f5966aa4d1b77d62c453d1eee734284428829f0996"
+    "team-auth.js": "b829f35da94e04131b20a38c9b0856fb7aefaf16c9e807f627cd200d9f19b5ff",
+    "team-auth.css": "80703a82c2d1865b7bc8fc8d3650fb76aa4b469190ad22a306110aa700780d2a",
+    "team-account.js": "92ad1eb91134df362d1d521ead52aa3d52e3773812e3bd67225c587ec1f148f5",
+    "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0"
   },
   "reviewed_revision_history_files": [
     {
@@ -891,7 +934,12 @@
       "path": "review-history-02.json",
       "sha256": "ffa69b36886ab1c4ac157233fdd2b1fe5b4d42ce1c0c45b68083ca1853e03ac6",
       "count": 1
+    },
+    {
+      "path": "review-history-03.json",
+      "sha256": "e8f4e8258013a8a0104fd67d9b6313c66965f37e3261d72c97ed81670d89e457",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 6
+  "reviewed_revision_count": 7
 }

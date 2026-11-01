@@ -1,9 +1,11 @@
 {
   "styles": [
     "styles.css",
-    "team-auth.css"
+    "team-auth.css",
+    "team-account.css"
   ],
   "scripts": [
+    "team-account.js",
     "literature-audit.js",
     "candidates.js",
     "js/bindings.js",

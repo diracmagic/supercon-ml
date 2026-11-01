@@ -47,7 +47,7 @@ function memo(count = 31) {
   })) };
 }
 
-function harness({ apiBase = 'https://auth.example.org', hash = '', pending = null, initialStorage = {}, fetch: customFetch, session = metadata() } = {}) {
+function harness({ apiBase = 'https://auth.example.org', hash = '', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI } = {}) {
   const doc = { events: {}, hidden: false, activeElement: null, readyState: 'complete',
     createElement(tag) { return new Element(tag, doc); },
     getElementById(id) { return flatten(doc.body).find((node) => node.attributes.id === id) || null; },
@@ -75,7 +75,7 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', pending = nu
     if (url.endsWith('/auth/logout')) return response({}, 204);
     throw new Error('Unexpected test URL');
   };
-  const controller = auth.createController({ window: win, document: doc, config: { apiBase }, crypto: webcrypto, fetch,
+  const controller = auth.createController({ window: win, document: doc, config: { apiBase }, crypto: webcrypto, fetch, accountUI,
     btoa: win.btoa, now: () => tick,
     setTimeout(fn, ms) { const id = nextTimer++; timers.set(id, { fn, ms }); return id; }, clearTimeout(id) { timers.delete(id); } });
   return { controller, doc, win, login, values, writes, requests, redirects, history, timers, events,
@@ -160,6 +160,71 @@ test('both numeric owner ID and server permission are required; other accounts n
     assert.equal(h.get('team-notes-dialog'), null);
     assert.equal(h.requests.some((r) => r.url.endsWith('/api/memo')), false);
   }
+});
+
+test('Firebase members require a typed, bounded server identity and can never gain admin capability', () => {
+  const member = metadata({user: {id: 'firebase:example_uid', login: 'member@example.org', email: 'member@example.org', provider: 'firebase'},
+    can_read_memo: true, can_manage_team: false});
+  const verified = auth.sessionMetadata(member, TIME);
+  assert.equal(verified.can_read_memo, true); assert.equal(verified.can_manage_team, false);
+  for (const changed of [
+    {...member, can_manage_team: true}, {...member, can_manage_team: undefined},
+    {...member, user: {...member.user, id: '350433501'}}, {...member, user: {...member.user, email: 'different@example.org'}},
+    {...member, user: {...member.user, provider: 'unknown'}}, {...member, user: {...member.user, email: '<img>@example.org', login: '<img>@example.org'}}
+  ]) assert.equal(auth.sessionMetadata(changed, TIME), null);
+  assert.equal(auth.sessionMetadata(metadata({can_manage_team: true}), TIME).can_manage_team, true);
+  assert.equal(auth.sessionMetadata(metadata({user: {id: 42, login: 'other'}, can_manage_team: true}), TIME).can_manage_team, false);
+});
+
+test('account adapter exchanges only a Firebase ID token and rechecks membership before showing notes', async () => {
+  let adapter, opened = 0, reset = 0;
+  const member = metadata({user: {id: 'firebase:example_uid', login: 'member@example.org', email: 'member@example.org', provider: 'firebase'},
+    can_read_memo: true, can_manage_team: false});
+  const h = harness({session: member, accountUI: {createAccountUI(env) {adapter = env; return {
+    openLogin() {opened++;}, openAdmin() {throw new Error('Member cannot open admin');}, reset() {reset++;}, handleEmailAction() {return false;}
+  };}}, fetch: (url) => {
+    if (url.endsWith('/auth/firebase')) return response({...member, session_token: TOKEN});
+    if (url.endsWith('/api/session')) return response(member);
+    if (url.endsWith('/api/memo')) return response(memo());
+    return response({}, 204);
+  }});
+  await h.start(); h.login.dispatch('click'); assert.equal(opened, 1);
+  await adapter.exchangeFirebase('synthetic-id-token'); await adapter.onAuthenticated();
+  const exchange = h.requests.find(request => request.url.endsWith('/auth/firebase'));
+  assert.deepEqual(JSON.parse(exchange.options.body), {id_token: 'synthetic-id-token'});
+  assert.equal(exchange.options.headers.Authorization, undefined);
+  assert.equal(h.get('team-notes').hidden, false); assert.equal(h.get('team-manage').hidden, true);
+  assert.equal(h.login.textContent, 'member@example.org'); assert.equal(h.values.size, 0);
+  assert.equal(h.get('team-notes-dialog').open, true);
+  await h.controller.logout(); assert.ok(reset > 0); assert.equal(h.get('team-notes-dialog').open, false);
+});
+
+test('dismissing a pending email exchange cannot silently adopt a late session', async () => {
+  let adapter, finish;
+  const member = metadata({user: {id: 'firebase:example_uid', login: 'member@example.org', email: 'member@example.org', provider: 'firebase'},
+    can_read_memo: true, can_manage_team: false});
+  const h = harness({accountUI: {createAccountUI(env) {adapter = env; return {
+    openLogin() {}, openAdmin() {}, reset() {}, handleEmailAction() {return false;}
+  };}}, fetch: url => url.endsWith('/auth/firebase') ? new Promise(resolve => {finish = resolve;}) : response(member)});
+  await h.start(); const exchange = adapter.exchangeFirebase('synthetic-id-token');
+  adapter.onDismiss(); finish(response({...member, session_token: TOKEN}));
+  await assert.rejects(exchange, /cancelled/);
+  assert.equal(h.get('team-notes').hidden, true); assert.equal(h.get('team-logout').hidden, true);
+  assert.equal(h.requests.length, 1); assert.equal(h.requests[0].options.signal.aborted, true);
+});
+
+test('only the verified GitHub owner can use the admin adapter, and all routes are fixed', async () => {
+  let adapter, opens = 0;
+  const owner = metadata({can_manage_team: true});
+  const h = harness({hash: '#team_ticket=' + TICKET + '&team_state=' + STATE, pending: proof(), session: owner,
+    accountUI: {createAccountUI(env) {adapter = env; return {openLogin() {}, openAdmin() {opens++;}, reset() {}, handleEmailAction() {return false;}};}},
+    fetch: url => url.endsWith('/auth/exchange') ? response({...owner, session_token: TOKEN}) : url.endsWith('/api/session') ? response(owner) :
+      url.endsWith('/api/memo') ? response(memo()) : response({members: []})});
+  await h.start(); assert.equal(h.get('team-manage').hidden, false); h.get('team-manage').dispatch('click'); assert.equal(opens, 1);
+  await adapter.teamRequest('/api/team', 'GET');
+  assert.equal(h.requests.at(-1).options.headers.Authorization, 'Bearer ' + TOKEN);
+  await assert.rejects(adapter.teamRequest('/api/team/delete', 'POST', {}));
+  await assert.rejects(adapter.teamRequest('/api/team', 'POST', {}));
 });
 
 test('stored identity or session strings cannot sign a user in', async () => {

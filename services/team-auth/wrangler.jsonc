@@ -5,8 +5,12 @@
   "compatibility_date": "2026-11-01",
   "workers_dev": true,
   "observability": { "enabled": false },
-  "durable_objects": {
-    "bindings": [{ "name": "AUTH_STATE", "class_name": "AuthState" }]
+  "vars": {
+    "FIREBASE_PROJECT_ID": "supercon-team",
+    "FIREBASE_API_KEY": "AIzaSyBuiEp-ZlMHzulhZPVQ-R79yfmyG93-nVc"
   },
-  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["AuthState"] }]
+  "durable_objects": {
+    "bindings": [{ "name": "AUTH_STATE", "class_name": "AuthState" }, { "name": "TEAM_DIRECTORY", "class_name": "TeamDirectory" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["AuthState"] }, { "tag": "v2", "new_sqlite_classes": ["TeamDirectory"] }]
 }
