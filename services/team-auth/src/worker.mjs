@@ -7,6 +7,9 @@ const COOKIE = '__Host-supercon_oauth';
 const TEN_MINUTES = 600000, FIVE_MINUTES = 300000, ONE_HOUR = 3600000;
 const OAUTH_ERRORS = new Set(['oauth_state_invalid', 'oauth_denied', 'oauth_failed', 'oauth_credentials_invalid', 'oauth_redirect_invalid', 'oauth_exchange_unavailable', 'oauth_identity_unavailable']);
 const PROVIDER_ERRORS = new Map([['incorrect_client_credentials', 'oauth_credentials_invalid'], ['redirect_uri_mismatch', 'oauth_redirect_invalid'], ['bad_verification_code', 'oauth_failed']]);
+const PROVIDER_HTTP_STATUSES = new Set([301, 302, 303, 307, 308, 400, 401, 403, 404, 429, 500, 502, 503, 504]);
+const httpDiagnostic = status => PROVIDER_HTTP_STATUSES.has(status) ? 'provider_http_' + status : 'provider_http_other';
+const CALLBACK_DIAGNOSTICS = new Set(['callback_parameters', 'callback_state', 'code_invalid', 'provider_bad_code', 'transaction_storage', 'provider_denied', 'provider_credentials', 'provider_redirect', 'provider_transport', 'provider_response_json', 'provider_http_other', ...[...PROVIDER_HTTP_STATUSES].map(httpDiagnostic), 'provider_grant_error_unknown', 'provider_email_unverified', 'provider_token_format', 'provider_token_type', 'provider_expiry', 'provider_identity', 'ticket_encryption', 'ticket_storage', 'unexpected']);
 const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/exchange', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/auth/logout', 'POST']]);
 const cookie = (value, expiry = 600) => COOKIE + '=' + value + '; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=' + expiry;
 function cookieValue(request) {
@@ -17,13 +20,22 @@ function parameters(url, required, optional = []) {
   for (const key of url.searchParams.keys()) demand([...required, ...optional].includes(key) && url.searchParams.getAll(key).length === 1);
   for (const key of required) demand(url.searchParams.has(key));
 }
+function callbackParameters(url) {
+  // RFC 6749 section 4.1.2 requires ignoring unrecognized authorization response
+  // parameters. Only these known fields are consumed; duplicates remain invalid.
+  demand(url.searchParams.has('state'));
+  for (const key of ['state', 'code', 'error', 'error_description', 'error_uri']) demand(url.searchParams.getAll(key).length <= 1);
+}
 function redirect(location, origin, cookieHeader) {
   const headers = securityHeaders(origin); headers.set('Location', location);
   if (cookieHeader) headers.set('Set-Cookie', cookieHeader);
   return new Response(null, { status: 303, headers });
 }
-function returnToApp(values, origin) {
-  return redirect(APP_RETURN + '#' + new URLSearchParams(values), origin, cookie('', 0));
+function returnToApp(values, origin, diagnostic) {
+  const destination = new URL(APP_RETURN);
+  if (diagnostic) destination.searchParams.set('login_status', CALLBACK_DIAGNOSTICS.has(diagnostic) ? diagnostic : 'unexpected');
+  destination.hash = new URLSearchParams(values).toString();
+  return redirect(destination.href, origin, cookie('', 0));
 }
 const presentation = record => ({ expires_at: record.expiresAt, user: { id: record.user.id, login: record.user.login }, can_read_memo: record.user.id === OWNER_ID });
 
@@ -33,11 +45,13 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
     demand(typeof path === 'string' && path.startsWith('/') && !path.startsWith('//'), 'upstream_unavailable', 503);
     let response;
     try {
-      response = await fetchImpl('https://api.github.com' + path, { redirect: 'error', signal: AbortSignal.timeout(10000), headers: {
+      // Workers supports manual, not redirect:'error'; never forward a bearer token.
+      response = await fetchImpl('https://api.github.com' + path, { redirect: 'manual', signal: AbortSignal.timeout(10000), headers: {
         Accept: 'application/vnd.github+json', Authorization: 'Bearer ' + token,
         'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'supercon-team-auth',
       } });
     } catch { throw new AuthError('upstream_unavailable', 503); }
+    if (response.status >= 300 && response.status < 400) { await response.body?.cancel(); throw new AuthError('upstream_unavailable', 503); }
     if (response.status === 401) { await response.body?.cancel(); throw new AuthError('session_revoked', 401); }
     const privateRead = path === '/repositories/' + REPOSITORY_ID || path.startsWith('/repos/diracmagic/supercon-research-notes/contents/');
     if (privateRead && [403, 404].includes(response.status) && response.headers.get('x-ratelimit-remaining') !== '0') {
@@ -107,43 +121,71 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
           return redirect(authorize.href, origin, cookie(browserCookie));
         }
         if (url.pathname === '/auth/github/callback') {
-          let clientState;
+          let clientState, stage = 'callback_parameters';
           try {
-            parameters(url, ['state'], ['code', 'error', 'error_description', 'error_uri']);
+            callbackParameters(url);
+            stage = 'callback_state';
             const serverState = url.searchParams.get('state'), browserCookie = cookieValue(request);
             demand(TOKEN_PATTERN.test(serverState || '') && TOKEN_PATTERN.test(browserCookie), 'oauth_state_invalid');
+            stage = 'transaction_storage';
             const transaction = await stateAccess(env, 'transaction', serverState, 'consume', now(), { checks: { cookieHash: await sha256(browserCookie), callback: url.origin + '/auth/github/callback' } });
+            stage = 'callback_state';
             demand(transaction?.kind === 'transaction', 'oauth_state_invalid');
             clientState = transaction.clientState;
+            stage = 'provider_denied';
             demand(!url.searchParams.has('error'), 'oauth_denied');
+            stage = 'code_invalid';
             const code = url.searchParams.get('code');
-            demand(typeof code === 'string' && /^[A-Za-z0-9_-]{1,256}$/.test(code), 'oauth_failed');
+            // OAuth codes are opaque VSCHAR strings (RFC 6749), not our base64url tickets.
+            demand(typeof code === 'string' && /^[\x20-\x7e]{1,2048}$/.test(code), 'oauth_failed');
             let response;
+            stage = 'provider_transport';
             try {
-              response = await fetchImpl('https://github.com/login/oauth/access_token', { method: 'POST', redirect: 'error', signal: AbortSignal.timeout(10000), headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'supercon-team-auth' },
+              response = await fetchImpl('https://github.com/login/oauth/access_token', { method: 'POST', redirect: 'manual', signal: AbortSignal.timeout(10000), headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'supercon-team-auth' },
                 body: new URLSearchParams({ client_id: env.GITHUB_CLIENT_ID, client_secret: env.GITHUB_CLIENT_SECRET, code, redirect_uri: transaction.callback, code_verifier: transaction.verifier, repository_id: String(REPOSITORY_ID) }) });
             } catch { throw new AuthError('oauth_exchange_unavailable'); }
+            stage = httpDiagnostic(response.status);
+            // Reject before parsing: a 307 must never forward the code/client secret.
+            if (response.status >= 300 && response.status < 400) { await response.body?.cancel(); throw new AuthError('oauth_exchange_unavailable'); }
+            stage = 'provider_response_json';
             const grant = await boundedJson(response, 16384, 'oauth_exchange_unavailable');
             demand(plainObject(grant), 'oauth_exchange_unavailable');
             // Only fixed categories cross the callback boundary, never provider text or credentials.
-            if (Object.hasOwn(grant, 'error')) throw new AuthError(PROVIDER_ERRORS.get(grant.error) || 'oauth_exchange_unavailable');
-            demand(response.ok && typeof grant.access_token === 'string' && /^[A-Za-z0-9_]{1,2048}$/.test(grant.access_token) && typeof grant.token_type === 'string' && grant.token_type.toLowerCase() === 'bearer', 'oauth_exchange_unavailable');
+            if (Object.hasOwn(grant, 'error')) {
+              stage = 'provider_grant_error_unknown';
+              if (grant.error === 'bad_verification_code') stage = 'provider_bad_code';
+              else if (grant.error === 'incorrect_client_credentials') stage = 'provider_credentials';
+              else if (grant.error === 'redirect_uri_mismatch') stage = 'provider_redirect';
+              else if (grant.error === 'unverified_user_email') stage = 'provider_email_unverified';
+              throw new AuthError(PROVIDER_ERRORS.get(grant.error) || 'oauth_exchange_unavailable');
+            }
+            stage = httpDiagnostic(response.status);
+            demand(response.ok, 'oauth_exchange_unavailable');
+            // RFC 6750 b64token permits punctuation and trailing padding, but no header controls.
+            stage = 'provider_token_format';
+            demand(typeof grant.access_token === 'string' && grant.access_token.length <= 2048 && /^[A-Za-z0-9._~+/-]+=*$/.test(grant.access_token), 'oauth_exchange_unavailable');
+            stage = 'provider_token_type';
+            demand(typeof grant.token_type === 'string' && grant.token_type.toLowerCase() === 'bearer', 'oauth_exchange_unavailable');
+            stage = 'provider_expiry';
             const lifetime = grant.expires_in === undefined ? ONE_HOUR : Number(grant.expires_in) * 1000;
             demand(Number.isSafeInteger(lifetime) && lifetime > 0, 'oauth_exchange_unavailable');
             const tokenExpiresAt = now() + Math.min(ONE_HOUR, lifetime);
             let user;
+            stage = 'provider_identity';
             try { user = await githubUser(grant.access_token); }
             catch { throw new AuthError('oauth_identity_unavailable'); }
+            stage = 'ticket_encryption';
             const ticket = randomToken();
             const record = { kind: 'ticket', expiresAt: Math.min(now() + FIVE_MINUTES, tokenExpiresAt), tokenExpiresAt,
               clientChallenge: transaction.clientChallenge, clientState, user,
               encrypted: await encryptToken(grant.access_token, key, 'ticket:' + await sha256(ticket)) };
+            stage = 'ticket_storage';
             demand(await stateAccess(env, 'ticket', ticket, 'create', now(), { record }), 'storage_unavailable', 503);
             // Ignore refresh_token entirely. Only an encrypted short-lived access token persists.
             return returnToApp({ team_ticket: ticket, team_state: clientState }, origin);
           } catch (error) {
             const code = error instanceof AuthError && OAUTH_ERRORS.has(error.code) ? error.code : 'oauth_failed';
-            return returnToApp({ team_error: code, ...(clientState ? { team_state: clientState } : {}) }, origin);
+            return returnToApp({ team_error: code, ...(clientState ? { team_state: clientState } : {}) }, origin, stage);
           }
         }
         // Cross-site APIs deliberately use bearer sessions without cookies.
