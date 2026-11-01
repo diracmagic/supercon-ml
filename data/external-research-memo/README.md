@@ -29,8 +29,10 @@ search is not evidence that a review completed or that the app was deployed.
    Python/Node checks in `.github/workflows/checks.yml`. Keep each reviewable file
    below 70 KB; split the bundle if growth requires it. Update the asset/cache
    manifests for changed resource structure and verify desktop, mobile and offline.
-6. Commit only to the authorized review branch and update PR #1. Do not merge,
-   deploy, update main, retrain a model or change a frozen protocol as a side effect.
+6. Commit to a review branch and update its open PR. After that PR is merged,
+   start a new review branch/PR for later findings. Merge or deploy only within
+   the user's explicit authorization for that release; do not retrain a model
+   or change a frozen protocol as a side effect of literature maintenance.
 
 The initial source digest is the independently reviewed memo-record JSON, not the
 DOCX's layout bytes. Later changes live in version control and must identify their
