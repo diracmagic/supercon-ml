@@ -64,10 +64,24 @@ async function harness(options = {}) {
   const files = await fixtureFiles(options.changeManifest);
   const grants = new Map(), tokens = new Map(), calls = [];
   const controls = { revoked: false, substituted: false, outage: false, lifetime: options.lifetime ?? 28800, ...options.controls };
+  function redirectResponse(status) {
+    return new Response(new ReadableStream({ cancel() { controls.redirectCancelled = (controls.redirectCancelled || 0) + 1; } }),
+      { status, headers: { Location: 'https://attacker.example/DO_NOT_FORWARD' } });
+  }
+  const getObject = namespace.get.bind(namespace);
+  namespace.get = id => {
+    const object = getObject(id);
+    return { fetch(request) {
+      if (controls.storageFailKind && id.startsWith(controls.storageFailKind + ':') && new URL(request.url).pathname === '/' + controls.storageFailOperation) throw new Error('DO_NOT_REFLECT_STORAGE_DETAIL');
+      return object.fetch(request);
+    } };
+  };
   async function upstream(url, init = {}) {
     calls.push(url);
     assert.ok(url.startsWith('https://api.github.com/') || url === 'https://github.com/login/oauth/access_token');
-    assert.equal(init.redirect, 'error');
+    // Model the Workers runtime, which rejects redirect:'error' before any I/O.
+    if (init.redirect === 'error') throw new TypeError('Synthetic Workers unsupported redirect mode');
+    assert.equal(init.redirect, 'manual');
     if (url === 'https://github.com/login/oauth/access_token') {
       assert.equal(new Headers(init.headers).get('User-Agent'), 'supercon-team-auth');
       const body = new URLSearchParams(init.body);
@@ -79,14 +93,17 @@ async function harness(options = {}) {
       assert.equal(body.get('repository_id'), String(REPOSITORY_ID));
       assert.equal(await sha256(body.get('code_verifier')), grant.challenge, 'Provider PKCE must validate');
       grants.delete(body.get('code'));
+      if (controls.tokenRedirect) return redirectResponse(controls.tokenRedirect);
       if (controls.tokenThrow) throw new Error('DO_NOT_REFLECT_TRANSPORT_DETAIL');
       if (controls.tokenMalformed) return new Response('DO_NOT_REFLECT_NON_JSON', { status: 502 });
       if (controls.tokenError) return Response.json({ error: controls.tokenError, error_description: 'DO_NOT_REFLECT_PROVIDER_DETAIL', error_uri: 'https://example.org/DO_NOT_REFLECT' }, { status: controls.tokenStatus || 200 });
+      if (Object.hasOwn(controls, 'tokenGrant')) return Response.json(controls.tokenGrant, { status: controls.tokenStatus || 200 });
       return Response.json({ access_token: grant.token, token_type: 'bearer', expires_in: controls.lifetime, refresh_token: 'REFRESH_MUST_NEVER_PERSIST' });
     }
     const authorization = new Headers(init.headers).get('authorization');
     const role = tokens.get(authorization?.slice(7));
     assert.ok(role, 'Only a fake provider token may reach this fake GitHub API');
+    if (controls.apiRedirect) return redirectResponse(controls.apiRedirect);
     if (controls.outage) return new Response('temporary', { status: 503 });
     if (url === 'https://api.github.com/user') {
       if (controls.revoked) return new Response('revoked', { status: 401 });
@@ -136,21 +153,22 @@ async function harness(options = {}) {
     assert.equal(authorize.searchParams.has('scope'), false);
     const cookie = response.headers.get('set-cookie').split(';')[0];
     assert.match(response.headers.get('set-cookie'), /Path=\/; HttpOnly; Secure; SameSite=Lax; Max-Age=600/);
-    const code = 'fake_code_' + ++count;
-    const token = 'ghu_FAKE_' + role + '_' + count;
+    const code = controls.providerCode ?? ('fake_code_' + ++count);
+    const token = controls.providerToken ?? ('ghu_FAKE_' + role + '_' + count);
     grants.set(code, { challenge: authorize.searchParams.get('code_challenge'), token }); tokens.set(token, role);
     return { verifier, state, serverState: authorize.searchParams.get('state'), cookie, code, providerToken: token };
   }
   async function callback(flow, changes = {}) {
-    const response = await send('/auth/github/callback?state=' + flow.serverState + '&code=' + flow.code, { origin: null, cookie: flow.cookie, ...changes });
+    const response = await send('/auth/github/callback?state=' + flow.serverState + '&code=' + encodeURIComponent(flow.code), { origin: null, cookie: flow.cookie, ...changes });
     const destination = new URL(response.headers.get('location'));
     assert.equal(destination.origin + destination.pathname, APP_RETURN);
-    return { response, fields: new URLSearchParams(destination.hash.slice(1)) };
+    return { response, fields: new URLSearchParams(destination.hash.slice(1)), diagnostic: destination.searchParams.get('login_status') };
   }
   async function ticket(role) {
     const flow = await start(role); const result = await callback(flow);
     assert.equal(result.fields.get('team_state'), flow.state);
     assert.ok(result.fields.get('team_ticket'));
+    assert.equal(new URL(result.response.headers.get('location')).search, '', 'Successful callbacks retain the canonical app URL without diagnostics');
     return { ...flow, ticket: result.fields.get('team_ticket') };
   }
   const exchange = flow => send('/auth/exchange', { method: 'POST', body: { ticket: flow.ticket, verifier: flow.verifier, state: flow.state } });
@@ -252,10 +270,154 @@ test('OAuth identity failures have a fixed category without issuing a ticket', a
   for (const controls of [{ revoked: true }, { outage: true }]) {
     const h = await harness({ controls }), flow = await h.start(), result = await h.callback(flow);
     assert.equal(result.fields.get('team_error'), 'oauth_identity_unavailable');
+    assert.equal(result.diagnostic, 'provider_identity');
     assert.equal(result.fields.has('team_ticket'), false);
     assert.equal(result.fields.get('team_state'), flow.state);
     assert.doesNotMatch(result.response.headers.get('location'), /ghu_|revoked|temporary/);
     assert.equal([...h.namespace.objects.keys()].some(name => name.startsWith('ticket:')), false);
+  }
+});
+
+test('callback diagnostics distinguish fixed failure stages without echoing provider values', async () => {
+  for (const [controls, expected] of [
+    [{ tokenError: 'bad_verification_code' }, 'provider_bad_code'],
+    [{ tokenError: 'incorrect_client_credentials' }, 'provider_credentials'],
+    [{ tokenError: 'redirect_uri_mismatch' }, 'provider_redirect'],
+    [{ tokenError: 'DO_NOT_REFLECT_UNKNOWN_ERROR' }, 'provider_grant_error_unknown'],
+    [{ providerCode: '\r' }, 'code_invalid'],
+    [{ storageFailKind: 'ticket', storageFailOperation: 'create' }, 'ticket_storage'],
+  ]) {
+    const h = await harness({ controls }), result = await h.callback(await h.start());
+    assert.equal(result.diagnostic, expected);
+    const target = new URL(result.response.headers.get('location'));
+    assert.deepEqual([...target.searchParams.keys()], ['login_status']);
+    assert.doesNotMatch(target.href, /DO_NOT_REFLECT|ghu_|FAKE_SECRET|fake_code/);
+    assert.equal(result.fields.has('team_ticket'), false);
+  }
+  const h = await harness(), flow = await h.start();
+  h.controls.storageFailKind = 'transaction'; h.controls.storageFailOperation = 'consume';
+  const failure = await h.callback(flow);
+  assert.equal(failure.diagnostic, 'transaction_storage');
+  assert.equal(failure.fields.has('team_state'), false);
+  const malformed = await h.send('/auth/github/callback?state=' + flow.serverState + '&code=' + flow.code + '&code=DO_NOT_REFLECT', { origin: null, cookie: flow.cookie });
+  const target = new URL(malformed.headers.get('location'));
+  assert.equal(target.searchParams.get('login_status'), 'callback_parameters');
+  assert.doesNotMatch(target.href, /DO_NOT_REFLECT|fake_code/);
+});
+
+test('exchange diagnostics expose only fixed transport, JSON, HTTP, grant and token validation stages', async () => {
+  const grant = { access_token: 'ghu_SYNTHETIC_ONLY', token_type: 'bearer', expires_in: 28800 };
+  for (const [controls, expected] of [
+    [{ tokenThrow: true }, 'provider_transport'],
+    [{ tokenMalformed: true }, 'provider_response_json'],
+    [{ tokenGrant: null }, 'provider_response_json'],
+    [{ tokenGrant: grant, tokenStatus: 503 }, 'provider_http_503'],
+    [{ tokenGrant: grant, tokenStatus: 418 }, 'provider_http_other'],
+    [{ tokenError: 'unverified_user_email' }, 'provider_email_unverified'],
+    [{ tokenError: 'DO_NOT_REFLECT_ARBITRARY_ERROR' }, 'provider_grant_error_unknown'],
+    [{ tokenGrant: { ...grant, access_token: 'invalid token' } }, 'provider_token_format'],
+    [{ tokenGrant: { ...grant, token_type: 'DO_NOT_REFLECT_TYPE' } }, 'provider_token_type'],
+    [{ tokenGrant: { ...grant, expires_in: -1 } }, 'provider_expiry'],
+  ]) {
+    const h = await harness({ controls }), result = await h.callback(await h.start());
+    assert.equal(result.diagnostic, expected);
+    assert.equal(result.fields.get('team_error'), 'oauth_exchange_unavailable');
+    assert.equal(result.fields.has('team_ticket'), false);
+    assert.doesNotMatch(result.response.headers.get('location'), /DO_NOT_REFLECT|ghu_|SYNTHETIC_ONLY|invalid.token/);
+    assert.equal(h.calls.some(url => url.endsWith('/user')), false);
+  }
+});
+
+test('manual token redirects are cancelled without forwarding the code or client secret', { timeout: 5000 }, async () => {
+  for (const tokenRedirect of [302, 307]) {
+    const h = await harness({ controls: { tokenRedirect } }), result = await h.callback(await h.start());
+    assert.equal(result.diagnostic, 'provider_http_' + tokenRedirect);
+    assert.equal(result.fields.get('team_error'), 'oauth_exchange_unavailable');
+    assert.equal(result.fields.has('team_ticket'), false);
+    assert.equal(h.controls.redirectCancelled, 1);
+    assert.deepEqual(h.calls, ['https://github.com/login/oauth/access_token']);
+    assert.doesNotMatch(result.response.headers.get('location'), /attacker|DO_NOT_FORWARD|FAKE_SECRET|fake_code/);
+  }
+});
+
+test('manual API redirects are cancelled without forwarding bearer identity or private reads', { timeout: 5000 }, async () => {
+  for (const apiRedirect of [302, 307]) {
+    const h = await harness(), { session } = await h.login();
+    h.controls.apiRedirect = apiRedirect;
+    const before = h.calls.length;
+    const response = await h.send('/api/memo', { token: session.session_token });
+    assert.equal(response.status, 503); assert.deepEqual(await response.json(), { error: 'upstream_unavailable' });
+    assert.equal(h.controls.redirectCancelled, 1);
+    assert.deepEqual(h.calls.slice(before), ['https://api.github.com/user']);
+    assert.equal(h.calls.some(url => url.includes('attacker.example')), false);
+  }
+});
+
+test('OAuth callback ignores unknown provider parameters without trusting caller redirects', async () => {
+  const h = await harness(), flow = await h.start();
+  const query = new URLSearchParams({ state: flow.serverState, code: flow.code,
+    scope: 'DO_NOT_REFLECT_SCOPE', installation_id: '123', setup_action: 'install',
+    redirect_uri: 'https://attacker.example/callback', return_to: 'https://attacker.example/return' });
+  query.append('unknown', 'DO_NOT_REFLECT_ONE'); query.append('unknown', 'DO_NOT_REFLECT_TWO');
+  const response = await h.send('/auth/github/callback?' + query, { origin: null, cookie: flow.cookie });
+  const target = new URL(response.headers.get('location')), fields = new URLSearchParams(target.hash.slice(1));
+  assert.equal(target.origin + target.pathname, APP_RETURN); assert.equal(target.search, '');
+  assert.ok(fields.get('team_ticket')); assert.equal(fields.get('team_state'), flow.state);
+  assert.doesNotMatch(target.href, /attacker|DO_NOT_REFLECT|installation_id|setup_action|redirect_uri|return_to/);
+  const exchanged = await h.exchange({ ...flow, ticket: fields.get('team_ticket') });
+  assert.equal(exchanged.status, 200);
+});
+
+test('OAuth callback still rejects duplicate known fields and missing state before exchange', async () => {
+  for (const duplicate of ['state', 'code', 'error', 'error_description', 'error_uri', null]) {
+    const h = await harness(), flow = await h.start();
+    const query = new URLSearchParams({ state: flow.serverState, code: flow.code });
+    if (duplicate === null) query.delete('state');
+    else {
+      if (!query.has(duplicate)) query.set(duplicate, 'DO_NOT_REFLECT_ONE');
+      query.append(duplicate, 'DO_NOT_REFLECT_TWO');
+    }
+    const response = await h.send('/auth/github/callback?' + query, { origin: null, cookie: flow.cookie });
+    const target = new URL(response.headers.get('location')), fields = new URLSearchParams(target.hash.slice(1));
+    assert.equal(target.searchParams.get('login_status'), 'callback_parameters');
+    assert.equal(fields.has('team_ticket'), false); assert.equal(fields.has('team_state'), false);
+    assert.doesNotMatch(target.href, /DO_NOT_REFLECT/); assert.equal(h.calls.length, 0);
+  }
+});
+
+test('opaque provider codes accept RFC 6749 punctuation and bounded lengths without altering PKCE', async () => {
+  for (const providerCode of ['opaque.code+with/slash=and~tilde:%?&quoted\" space', 'x'.repeat(2048)]) {
+    const h = await harness({ controls: { providerCode } }), flow = await h.login();
+    assert.equal(flow.session.user.id, OWNER_ID);
+    assert.match(flow.ticket, /^[A-Za-z0-9_-]{43}$/);
+    assert.equal(h.calls.filter(url => url.endsWith('/access_token')).length, 1);
+  }
+});
+
+test('opaque provider codes still reject controls, non-ASCII and oversized values before exchange', async () => {
+  for (const providerCode of ['', 'code\r\nheader', 'code\0', 'code\x7f', 'code\u00e9', 'x'.repeat(2049)]) {
+    const h = await harness({ controls: { providerCode } }), result = await h.callback(await h.start());
+    assert.equal(result.fields.get('team_error'), 'oauth_failed');
+    assert.equal(result.fields.has('team_ticket'), false);
+    assert.equal(h.calls.length, 0);
+  }
+});
+
+test('opaque provider bearer tokens accept RFC 6750 punctuation and trailing padding only server-side', async () => {
+  const providerToken = 'ghu_SYNTHETIC.token-with~all+punctuation/==';
+  const h = await harness({ controls: { providerToken } }), flow = await h.login();
+  assert.equal(flow.session.user.id, OWNER_ID);
+  assert.doesNotMatch(JSON.stringify(flow.session), /SYNTHETIC/);
+  assert.doesNotMatch(h.namespace.snapshot(), /SYNTHETIC/);
+  assert.equal((await h.send('/api/session', { token: flow.session.session_token })).status, 200);
+});
+
+test('opaque provider bearer tokens reject header injection, interior padding and oversized values', async () => {
+  for (const providerToken of ['', 'token\r\nX-Injected: yes', 'token with space', 'token\x7f', 'token\u00e9', 'token=middle', 'x'.repeat(2049)]) {
+    const h = await harness({ controls: { providerToken } }), result = await h.callback(await h.start());
+    assert.equal(result.fields.get('team_error'), 'oauth_exchange_unavailable');
+    assert.equal(result.fields.has('team_ticket'), false);
+    assert.equal(h.calls.some(url => url.endsWith('/user')), false);
   }
 });
 
