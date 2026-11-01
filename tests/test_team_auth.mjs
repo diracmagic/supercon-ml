@@ -182,6 +182,63 @@ test('expired, mismatched and duplicate callback proofs fail before exchange', a
   }
 });
 
+test('fixed server callback codes give distinct safe diagnostics without attempting exchange', async () => {
+  const expected = {
+    oauth_state_invalid: /service could not verify the callback/,
+    oauth_denied: /authorization was cancelled or denied/,
+    oauth_failed: /failed at the authorization service/,
+    oauth_credentials_invalid: /GitHub rejected the app credentials/,
+    oauth_redirect_invalid: /GitHub rejected the callback address/,
+    oauth_exchange_unavailable: /could not complete the GitHub exchange/,
+    oauth_identity_unavailable: /could not verify your GitHub account/
+  };
+  const messages = new Set();
+  for (const [code, pattern] of Object.entries(expected)) {
+    // The server can report an invalid transaction without returning client state.
+    const hash = '#team_error=' + code + (code === 'oauth_state_invalid' ? '' : '&team_state=' + STATE);
+    const h = harness({ hash, pending: proof() });
+    assert.equal(h.win.location.hash, '', 'Strip callback before initialization');
+    await h.start();
+    assert.match(h.doc.body.textContent, pattern);
+    assert.doesNotMatch(h.doc.body.textContent, /request expired after 10 minutes/);
+    assert.equal(h.requests.length, 0); assert.equal(h.values.has(auth.PENDING_KEY), false);
+    assert.equal(h.get('team-notes').hidden, true); assert.equal(h.get('team-logout').hidden, true);
+    messages.add(h.doc.body.textContent);
+  }
+  assert.equal(messages.size, Object.keys(expected).length);
+});
+
+test('client missing, expired, mismatched and malformed proofs have separate diagnostics', async () => {
+  const normalHash = '#team_ticket=' + TICKET + '&team_state=' + STATE;
+  const cases = [
+    [{ hash: normalHash }, /could not find a valid pending sign-in request/],
+    [{ hash: normalHash, pending: proof({ created_at: TIME - 600000 }) }, /request expired after 10 minutes/],
+    [{ hash: normalHash, pending: proof({ created_at: TIME + 1 }) }, /saved sign-in time is invalid/],
+    [{ hash: normalHash, pending: proof({ state: 'X'.repeat(43) }) }, /does not match the request started in this tab/],
+    [{ hash: '#team_ticket=bad&team_state=' + STATE, pending: proof() }, /did not include a valid login ticket/],
+    [{ hash: normalHash + '&team_state=' + STATE, pending: proof() }, /callback was malformed/],
+    [{ hash: normalHash + '&team_error=oauth_denied', pending: proof() }, /callback was malformed/]
+  ];
+  for (const [options, pattern] of cases) {
+    const h = harness(options); await h.start();
+    assert.match(h.doc.body.textContent, pattern); assert.equal(h.requests.length, 0);
+    assert.equal(h.win.location.hash, ''); assert.equal(h.values.has(auth.PENDING_KEY), false);
+    assert.equal(h.get('team-notes').hidden, true);
+  }
+});
+
+test('unknown callback errors and descriptions are never reflected as text or markup', async () => {
+  for (const code of ['__proto__', 'toString', '<img src=x onerror=alert(1)>', 'PRIVATE_ERROR_MARKER']) {
+    const h = harness({ hash: '#team_error=' + encodeURIComponent(code) + '&error_description=DO_NOT_REFLECT&team_state=' + STATE,
+      pending: proof() });
+    await h.start();
+    assert.match(h.doc.body.textContent, /unrecognized error/);
+    assert.equal(h.doc.body.textContent.includes(code), false); assert.doesNotMatch(h.doc.body.textContent, /DO_NOT_REFLECT/);
+    assert.equal(flatten(h.doc.body).some(node => node.tagName === 'IMG'), false);
+    assert.equal(h.win.location.hash, ''); assert.equal(h.requests.length, 0); assert.equal(h.values.has(auth.PENDING_KEY), false);
+  }
+});
+
 test('session revocation on visibility check immediately closes and clears private content', async () => {
   let denied = false;
   const h = harness({ hash: '#team_ticket=' + TICKET + '&team_state=' + STATE, pending: proof(), fetch: async (url) => {

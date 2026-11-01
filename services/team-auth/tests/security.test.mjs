@@ -69,6 +69,7 @@ async function harness(options = {}) {
     assert.ok(url.startsWith('https://api.github.com/') || url === 'https://github.com/login/oauth/access_token');
     assert.equal(init.redirect, 'error');
     if (url === 'https://github.com/login/oauth/access_token') {
+      assert.equal(new Headers(init.headers).get('User-Agent'), 'supercon-team-auth');
       const body = new URLSearchParams(init.body);
       const grant = grants.get(body.get('code'));
       assert.ok(grant, 'Fake provider only exchanges the issued code');
@@ -78,6 +79,9 @@ async function harness(options = {}) {
       assert.equal(body.get('repository_id'), String(REPOSITORY_ID));
       assert.equal(await sha256(body.get('code_verifier')), grant.challenge, 'Provider PKCE must validate');
       grants.delete(body.get('code'));
+      if (controls.tokenThrow) throw new Error('DO_NOT_REFLECT_TRANSPORT_DETAIL');
+      if (controls.tokenMalformed) return new Response('DO_NOT_REFLECT_NON_JSON', { status: 502 });
+      if (controls.tokenError) return Response.json({ error: controls.tokenError, error_description: 'DO_NOT_REFLECT_PROVIDER_DETAIL', error_uri: 'https://example.org/DO_NOT_REFLECT' }, { status: controls.tokenStatus || 200 });
       return Response.json({ access_token: grant.token, token_type: 'bearer', expires_in: controls.lifetime, refresh_token: 'REFRESH_MUST_NEVER_PERSIST' });
     }
     const authorization = new Headers(init.headers).get('authorization');
@@ -219,6 +223,40 @@ test('provider denial is a fixed error and consumes the verified transaction', a
   const response = await h.send('/auth/github/callback?state=' + flow.serverState + '&error=access_denied&error_description=do-not-reflect', { origin: null, cookie: flow.cookie });
   const location = response.headers.get('location'); assert.match(location, /team_error=oauth_denied/); assert.doesNotMatch(location, /do-not-reflect/);
   assert.equal((await h.callback(flow)).fields.get('team_error'), 'oauth_state_invalid');
+});
+
+test('OAuth token errors expose only fixed diagnostic categories and consume the transaction', async () => {
+  const cases = [
+    [{ tokenError: 'incorrect_client_credentials' }, 'oauth_credentials_invalid'],
+    [{ tokenError: 'incorrect_client_credentials', tokenStatus: 401 }, 'oauth_credentials_invalid'],
+    [{ tokenError: 'redirect_uri_mismatch' }, 'oauth_redirect_invalid'],
+    [{ tokenError: 'bad_verification_code' }, 'oauth_failed'],
+    [{ tokenError: 'DO_NOT_REFLECT_UNKNOWN_ERROR' }, 'oauth_exchange_unavailable'],
+    [{ tokenMalformed: true }, 'oauth_exchange_unavailable'],
+    [{ tokenThrow: true }, 'oauth_exchange_unavailable'],
+  ];
+  for (const [controls, expected] of cases) {
+    const h = await harness({ controls }), flow = await h.start(), result = await h.callback(flow);
+    assert.equal(result.fields.get('team_error'), expected);
+    assert.equal(result.fields.get('team_state'), flow.state);
+    assert.equal(result.fields.has('team_ticket'), false);
+    assert.doesNotMatch(result.response.headers.get('location'), /DO_NOT_REFLECT|ghu_|FAKE_SECRET/);
+    assert.match(result.response.headers.get('cache-control'), /private, no-store/);
+    assert.match(result.response.headers.get('set-cookie'), /Max-Age=0/);
+    assert.equal(h.calls.some(url => url.endsWith('/user')), false);
+    assert.equal((await h.callback(flow)).fields.get('team_error'), 'oauth_state_invalid');
+  }
+});
+
+test('OAuth identity failures have a fixed category without issuing a ticket', async () => {
+  for (const controls of [{ revoked: true }, { outage: true }]) {
+    const h = await harness({ controls }), flow = await h.start(), result = await h.callback(flow);
+    assert.equal(result.fields.get('team_error'), 'oauth_identity_unavailable');
+    assert.equal(result.fields.has('team_ticket'), false);
+    assert.equal(result.fields.get('team_state'), flow.state);
+    assert.doesNotMatch(result.response.headers.get('location'), /ghu_|revoked|temporary/);
+    assert.equal([...h.namespace.objects.keys()].some(name => name.startsWith('ticket:')), false);
+  }
 });
 
 test('ticket redemption binds both browser PKCE and client state', async () => {
