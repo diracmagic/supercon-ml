@@ -4,16 +4,20 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const source = fs.readFileSync(new URL('../app/dist/sw.js', import.meta.url), 'utf8');
-function worker({ hit, response, fail = false } = {}) {
-  const handlers = {}, writes = [], waits = [];
+function worker({ hit, response, fail = false, fetcher } = {}) {
+  const handlers = {}, writes = [], waits = [], requests = [];
   let handled = false, answer;
   vm.runInNewContext(source, {
     URL,
     self: { location: new URL('https://example.org/supercon-ml/sw.js'), addEventListener(kind, fn) { handlers[kind] = fn; } },
     caches: { open: async () => ({ match: async () => hit, put: async (...values) => { writes.push(values); } }) },
-    fetch: async () => { if (fail) throw new Error('offline'); return response; }
+    fetch: async (request, options) => {
+      requests.push({ request, options });
+      if (fetcher) return fetcher(request, options);
+      if (fail) throw new Error('offline'); return response;
+    }
   });
-  return { writes, async send(request) {
+  return { writes, requests, async send(request) {
     handlers.fetch({ request, respondWith(promise) { handled = true; answer = promise; }, waitUntil(promise) { waits.push(promise); } });
     const result = handled ? await answer : undefined;
     await Promise.all(waits);
@@ -31,6 +35,7 @@ test('authenticated, API and cross-origin requests bypass the offline worker', a
     const w = worker();
     assert.equal((await w.send(req)).handled, false);
     assert.equal(w.writes.length, 0);
+    assert.equal(w.requests.length, 0);
   }
 });
 
@@ -59,4 +64,17 @@ test('successful public shell responses are refreshed', async () => {
   const w = worker({ hit: new Response('old'), response: new Response('new', { headers: { 'Cache-Control': 'public' } }) });
   assert.equal(await (await w.send(new Request('https://example.org/supercon-ml/index.html'))).result.text(), 'new');
   assert.equal(w.writes.length, 1);
+});
+
+test('a fresh but obsolete HTTP cache cannot masquerade as a network refresh', async () => {
+  const w = worker({ hit: new Response('OLD offline shell'), fetcher: async (request, options) => {
+    // Model a fresh browser HTTP-cache entry: default fetch would never reach Pages.
+    const mode = options?.cache || request.cache;
+    return new Response(mode === 'no-store' ? 'NEW deployed script' : 'OLD HTTP-cached script',
+      { headers: { 'Cache-Control': 'public, max-age=600' } });
+  } });
+  const result = await w.send(new Request('https://example.org/supercon-ml/team-auth.js'));
+  assert.equal(await result.result.text(), 'NEW deployed script');
+  assert.equal(w.requests.length, 1); assert.equal(w.requests[0].options.cache, 'no-store');
+  assert.equal(w.writes.length, 1); assert.equal(await w.writes[0][1].text(), 'NEW deployed script');
 });

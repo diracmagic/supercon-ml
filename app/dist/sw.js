@@ -1,6 +1,6 @@
 // Offline support for the phone web app. Pages from this site load network-first and
 // fall back to the last copy; live data from GitHub always goes straight to the network.
-const CACHE = 'supercon-0.3.13-oauth-diagnostics';
+const CACHE = 'supercon-0.3.14-public-cache-refresh';
 const SHELL = ['./', './index.html', './assets.json', './manifest.webmanifest', './progress.json', './icons/icon-192.png', './icons/icon-512.png'];
 
 function shellFiles(manifest) {
@@ -18,7 +18,8 @@ self.addEventListener('install', (event) => {
     if (!response.ok) throw new Error('Asset manifest is unavailable');
     const files = shellFiles(await response.json());
     const cache = await caches.open(CACHE);
-    await cache.addAll(files);
+    // A new offline cache must not be populated from a fresh-but-old HTTP cache.
+    await cache.addAll(files.map((url) => new Request(url, { cache: 'reload' })));
     await self.skipWaiting();
   })());
 });
@@ -43,7 +44,8 @@ self.addEventListener('fetch', (event) => {
     // Arbitrary same-origin responses must not become an offline data store.
     if (!hit) return fetch(event.request);
     try {
-      const response = await fetch(event.request);
+      // "Network first" must bypass the separate browser HTTP cache as well.
+      const response = await fetch(event.request, { cache: 'no-store' });
       if (response.ok && !/\b(?:private|no-store)\b/i.test(response.headers.get('Cache-Control') || '')) {
         event.waitUntil(cache.put(event.request, response.clone()));
       }
