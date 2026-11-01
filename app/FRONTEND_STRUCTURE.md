@@ -23,3 +23,5 @@ node --expose-internals scripts/verify-split.cjs --reference /path/to/original/i
 The verifier uses Acorn bundled with Node 22, the CI version; no parser dependency is downloaded. The regular candidate test file invokes it automatically. Intentional behavior changes require updating the affected reviewed baseline fingerprints; the extraction comparison must not be silently disabled.
 
 `scripts/split-inline.cjs` is the one-time extraction utility. It expects an original inline IIFE and deliberately refuses to re-extract the resulting shell. New resources must also be added to the ordered asset list, HTML references and service-worker offline shell.
+
+The main header's **Login for team** link delegates sign-in and the destination's existing access checks to GitHub. The public app does not create a login session, detect team roles, fetch private notes, or change membership or repository permissions. The private notes remain owner-only; the label does not grant team access. Keep private contents and credentials outside the public app and its offline cache.

@@ -23,11 +23,7 @@
       h('div', { class: 'feed-more', id: 'ai-more' }),
       h('p', { class: 'note', text: 'Collected every three hours from arXiv (all categories), Nature, Science, Physical Review and Nature-family journals, and science-news sites. An item is kept when it names an AI or machine-learning method and is about superconducting materials or their theory; quantum-computing and superconducting-electronics papers are left out. “AI prediction” marks new candidate superconductors proposed by a model, and “AI + experiment” candidates that were then made and measured. Tags are assigned automatically, so treat them as a rough guide.' }));
     var ours = h('section', { class: 'card', id: 'ai-ours' });
-    var notes = h('section', { class: 'card', id: 'ai-private-notes' },
-      h('h2', { text: 'Private research notes' }),
-      h('p', { text: 'Your research memo is stored in a private GitHub repository. Sign in as diracmagic to view it.' }),
-      h('a', { class: 'btn small', href: 'https://github.com/login?return_to=%2Fdiracmagic%2Fsupercon-research-notes', target: '_blank', rel: 'noopener noreferrer', text: 'Sign in to view notes' }));
-    append(el, [ours, notes, live]);
+    append(el, [ours, live]);
     aiState.built = true;
     renderAI();
   };
