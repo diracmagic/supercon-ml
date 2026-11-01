@@ -1,15 +1,20 @@
 {
-  "about": "Checks on the candidates our models proposed: measurements and calculations that someone has already done, hits and misses alike. A candidate stays on the list with its check attached, so that a wrong prediction is visible next to the prediction. This is the opposite of data/prior_claims.json, which holds superconductors reported by others and takes a material off the list altogether. A \"formula\" matches a material with the same elements and every share within 2 at.%. Each entry says only what its source says: where a paper reports a measurement but never uses the words \"not superconducting\", the note says what was measured and that no transition is reported.",
+  "about": "Checks on the candidates our models proposed: measurements and calculations that someone has already done, hits and misses alike. A candidate stays on the list with its check attached, so that a wrong prediction is visible next to the prediction. This is the opposite of data/prior_claims.json, which holds superconductors reported by others and takes a material off the list altogether. A \"formula\" matches a material with the same elements and every share within 2 at.%; this is not an atomic-structure, pressure, doping or sample-form match. A negative entry is limited to the reported conditions, never a claim that every phase of that composition cannot superconduct. A null superconducts value records a measurement without an established superconductivity conclusion. See data/candidate_literature_audit.json for the bounded top-ten literature search, including unresolved entries.",
   "updated": "2026-10-31",
   "sources": {
     "asaba2024": {
       "cite": "T. Asaba et al., Nat. Commun. 15, 3861 (2024)",
       "doi": "10.1038/s41467-024-47875-4",
+      "url": "https://www.nature.com/articles/s41467-024-47875-4",
+      "full_text_url": "https://repository.kulib.kyoto-u.ac.jp/server/api/core/bitstreams/5431c7d2-77a6-4047-bde1-d11200812965/content",
+      "locator": "Results, Sample characterization; PDF page 3, Fig. 2 and adjacent text",
       "quote": "In this configuration, YbCoIn5 and YbRhIn5 act as conventional non-superconducting metals"
     },
     "shimozawa2012": {
       "cite": "M. Shimozawa et al., Phys. Rev. B 86, 144526 (2012)",
       "doi": "10.1103/PhysRevB.86.144526",
+      "full_text_url": "https://arxiv.org/pdf/1208.0672",
+      "locator": "Introduction, PDF page 1; the 20 mK statement cites references 16 and 19",
       "quote": "YbCoIn5 is a conventional nonmagnetic metal with no superconducting transition down to 20 mK"
     },
     "cho2008": {
@@ -20,6 +25,8 @@
     "karaki1996": {
       "cite": "Y. Karaki et al., Czech. J. Phys. 46, 2209 (1996)",
       "doi": "10.1007/BF02571096",
+      "url": "https://link.springer.com/article/10.1007/BF02571096",
+      "locator": "Publisher abstract; full subscription text was not inspected in this audit",
       "quote": "has been measured in the temperature range between 0.07 mK and 10 mK"
     }
   },
@@ -29,15 +36,21 @@
       "kind": "experiment",
       "superconducts": false,
       "ref": "asaba2024",
-      "note": "Grown as single crystals and used as the non-superconducting layers of a CeCoIn5 superlattice, which is the strongest statement an experiment can make about it: the paper calls YbRhIn5 a conventional non-superconducting metal. Ytterbium is divalent here, so the compound has none of the local moments that CeRhIn5 superconducts with."
+      "evidence_status": "reported-nonsuperconducting",
+      "sample_context": "Three-unit-cell YbRhIn5 spacer layers in an epitaxial YbCoIn5/CeCoIn5/YbRhIn5 superlattice on MgF2",
+      "pressure_gpa": null,
+      "note": "The authors describe the YbRhIn5 spacer as a normal metal in this thin-film stack. No standalone YbRhIn5 transition-temperature limit is assigned here. The passage does not specify an applied pressure. This observation does not exclude superconductivity in other crystal phases, doped compositions or pressure conditions, and is not a direct validation of the JARVIS structure."
     },
     {
       "formula": "YbCoIn5",
       "kind": "experiment",
       "superconducts": false,
       "below": 0.02,
-      "ref": "asaba2024",
-      "note": "The same superlattice work calls YbCoIn5 a conventional non-superconducting metal; no superconducting transition down to 20 mK has been reported (Phys. Rev. B 86, 144526 (2012), doi:10.1103/PhysRevB.86.144526)."
+      "ref": "shimozawa2012",
+      "evidence_status": "reported-nonsuperconducting",
+      "sample_context": "Undoped YbCoIn5 end member; the quoted low-temperature limit is a literature statement in a study of epitaxial Ce1-xYbxCoIn5 films",
+      "pressure_gpa": null,
+      "note": "The introduction cites prior work reporting no transition to 0.020 K. This is not a new temperature limit for every strained film. Applied pressure is unspecified in the passage; the statement does not exclude superconductivity in other phases, doping or pressure conditions."
     },
     {
       "formula": "Ce2CuGa12",
@@ -58,10 +71,12 @@
     {
       "formula": "PrIn3",
       "kind": "experiment",
-      "superconducts": false,
-      "below": 0.0001,
+      "superconducts": null,
+      "measurement_min_k": 0.00007,
+      "measurement_max_k": 0.01,
       "ref": "karaki1996",
-      "note": "Specific heat measured from 0.07 mK to 10 mK, with a nuclear magnetic ordering anomaly at 0.13 mK and no superconducting transition reported; PrIn3 is a van Vleck paramagnet with a non-magnetic crystal-field ground state."
+      "evidence_status": "needs-full-text",
+      "note": "The publisher abstract gives a specific-heat measurement range of 0.07-10 mK (0.00007-0.01 K) for cubic Cu3Au-type PrIn3 and attributes an anomaly near 0.13 mK to nuclear magnetic ordering. This is a measured temperature range, not an established superconductivity exclusion limit. The inspected abstract does not establish absence of superconductivity; full text and the experimental conditions would be needed before assigning such a conclusion."
     }
   ]
 }

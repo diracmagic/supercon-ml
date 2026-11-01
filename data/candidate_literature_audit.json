@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "searched_on": "2026-10-31",
+  "scope": "Bounded literature search for the ten Hurricane candidates displayed in progress/progress.json, screening round 4, at the start of this audit. This is a record of what this search located and inspected, not an exhaustive literature review or proof of novelty. No external messages were sent.",
+  "method": "Exact formulas, conventional element orderings, selected element-separated variants and candidate IDs were queried in public web search. Candidate structure links and promising publisher, author or institutional copies were opened where available. Unrelated stoichiometries, molecular clusters, hydrides, doped materials and thin-film results were not silently treated as tests of a JARVIS bulk structure. Search-index metadata and access failures are explicitly labelled.",
+  "interpretation": {
+    "reported-nonsuperconducting": "An inspected original research paper explicitly characterizes the material as nonsuperconducting or reports no transition under the stated conditions. This does not establish absence in every phase or at every pressure.",
+    "measured-no-transition": "A source explicitly reports a measurement with no transition in a defined range; no such new classification was assigned solely from an unrelated measurement or an abstract omitting superconductivity.",
+    "structure-only": "Structural or bibliographic evidence was located, but this audit did not establish a superconductivity measurement for the exact candidate structure.",
+    "needs-full-text": "A relevant lead exists, but the inspected material or accessible text is insufficient for the proposed physical conclusion.",
+    "not-found-in-this-search": "This bounded search did not locate an exact, usable experimental superconductivity report. This is an unknown result, not a statement that the material does not exist, was never measured or cannot superconduct."
+  },
+  "summary": {
+    "candidates_audited": 10,
+    "reported_nonsuperconducting_under_limited_conditions": 2,
+    "structure_only": 2,
+    "needs_full_text": 1,
+    "not_found_in_this_search": 5,
+    "new_superconductors_confirmed": 0,
+    "unknown_superconductivity_outcomes": 8
+  },
+  "materials": [
+    {
+      "rank_at_audit": 1,
+      "material_id": "JVASP-16400",
+      "formula": "YbIn5Rh",
+      "aliases_searched": ["YbRhIn5"],
+      "candidate_structure": {"space_group": "P4/mmm (123)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-16400.html"},
+      "status": "reported-nonsuperconducting",
+      "superconductivity_outcome": "reported normal-metal spacer under the studied thin-film conditions; general outcome unknown",
+      "search_log": [
+        {"query": "YbRhIn5 superconducting Asaba 2024 3861", "outcome": "Located and inspected the original 2024 paper via its publisher-indexed text and Kyoto full-text copy."},
+        {"query": "\"YbRhIn5\" \"superconducting\" \"pressure\"", "outcome": "Related CeRhIn5-containing superlattices were found; their pressure-induced superconductivity was not transferred to YbRhIn5."},
+        {"query": "\"Magnetic and transport properties of YbRhIn5 and YbIrIn5 single crystals\"", "outcome": "Located the 2005 original article and an author-uploaded full text; this is a separate bulk sample context."}
+      ],
+      "sources": [
+        {"url": "https://www.nature.com/articles/s41467-024-47875-4", "accessed_url": "https://repository.kulib.kyoto-u.ac.jp/server/api/core/bitstreams/5431c7d2-77a6-4047-bde1-d11200812965/content", "doi": "10.1038/s41467-024-47875-4", "kind": "primary-research-full-text", "locator": "Results, Sample characterization; PDF p. 3, Fig. 2", "supports": "The 3-unit-cell YbRhIn5 layer is described as a normal-metal spacer in the CeCoIn5 stack, not as the superconducting layer."},
+        {"url": "https://doi.org/10.1016/j.ssc.2005.02.018", "accessed_url": "https://www.researchgate.net/publication/256855414_Magnetic_and_transport_properties_of_YbRhIn5_and_YbIrIn5_single_crystals", "kind": "primary-research-author-uploaded-full-text", "locator": "Experimental and Electrical properties, pp. 476-477", "supports": "Flux-grown bulk single crystals have metallic transport. Resistivity was measured to 4.2 K; magnetic measurements reached 1.72 K. These distinct measurement floors are not interchangeable superconductivity limits."}
+      ],
+      "conditions": {"primary_check_sample": "Epitaxial thin-film spacer; bulk study recorded separately", "pressure_gpa": null, "superconductivity_temperature_floor_k": null},
+      "limitations": "The atomic structure, strain state and pressure of the experimental samples were not matched to JVASP-16400. No all-phases or all-pressures exclusion is justified.",
+      "checks_action": "Retained composition-level check; removed the overstatement that it was the strongest possible proof and corrected the thin-film context. No new temperature cutoff added."
+    },
+    {
+      "rank_at_audit": 2,
+      "material_id": "JVASP-185426",
+      "formula": "Tl3O",
+      "aliases_searched": ["thallium suboxide", "Tl x O"],
+      "candidate_structure": {"space_group": "Cm (8)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-185426.html"},
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {"query": "\"Tl3O\" superconductivity", "outcome": "No exact bulk Tl3O experimental superconductivity source was located in the returned results."},
+        {"query": "\"Tl3O\" thallium oxide", "outcome": "Returned small-molecule/cluster and vapor-chemistry leads; these were not treated as the candidate solid."},
+        {"query": "\"Tl3O\" solid superconducting", "outcome": "Returned a Tl-O bonding discussion in a different cuprate stoichiometry, not an exact Tl3O test."},
+        {"query": "\"JVASP-183451\" OR \"JVASP-185426\"", "outcome": "No indexed result for the candidate IDs in this query; direct candidate page retrieval also failed."}
+      ],
+      "sources": [
+        {"url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-185426.html", "kind": "primary-database-link-access-failed", "supports": "No external structure contents were verified from this page; identity above is copied from the repository snapshot."},
+        {"url": "https://www.sciencedirect.com/science/article/abs/pii/S0304885313008068", "kind": "primary-research-near-match-rejected", "supports": "The paper concerns Ba2Tl2CuO6; its Tl-O bonding labels do not establish properties of stoichiometric Tl3O."}
+      ],
+      "conditions": {"sample_form": null, "pressure_gpa": null, "temperature_min_k": null},
+      "limitations": "No exact experimental test was established. Molecular Tl3O and thallium-containing cuprates are not this monoclinic periodic candidate.",
+      "checks_action": "No negative superconductivity check added."
+    },
+    {
+      "rank_at_audit": 3,
+      "material_id": "JVASP-17895",
+      "formula": "YbIn5Co",
+      "aliases_searched": ["YbCoIn5"],
+      "candidate_structure": {"space_group": "P4/mmm (123)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17895.html"},
+      "status": "reported-nonsuperconducting",
+      "superconductivity_outcome": "no transition to 0.020 K is reported in the inspected original paper's literature discussion; not an all-conditions exclusion",
+      "search_log": [
+        {"query": "YbCoIn5 20 mK Shimozawa 144526", "outcome": "Identified the existing check's article."},
+        {"query": "\"PhysRevB.86.144526\"", "outcome": "Verified title, author list and DOI against APS metadata."},
+        {"query": "\"Strong suppression of superconductivity\" Shimozawa arxiv", "outcome": "Located and inspected the author preprint 1208.0672; p. 1 explicitly reports the 20 mK limit and cites prior work."},
+        {"query": "\"YbCoIn5\" \"1157\" \"2003\"", "outcome": "Located the underlying crystal-chemistry reference; its full text was not independently inspected in this audit."}
+      ],
+      "sources": [
+        {"url": "https://doi.org/10.1103/PhysRevB.86.144526", "accessed_url": "https://arxiv.org/pdf/1208.0672", "kind": "primary-research-full-text", "locator": "Introduction, p. 1; references 16 and 19 on p. 5", "supports": "The paper reports an absence of a YbCoIn5 transition to 20 mK as prior knowledge. Its own epitaxial-film work includes strain and compositions distinct from an arbitrary bulk structure."},
+        {"url": "https://www.nature.com/articles/s41467-024-47875-4", "accessed_url": "https://repository.kulib.kyoto-u.ac.jp/server/api/core/bitstreams/5431c7d2-77a6-4047-bde1-d11200812965/content", "kind": "primary-research-full-text", "locator": "Results, Sample characterization; PDF p. 3", "supports": "YbCoIn5 is a normal-metal spacer in the specified tricolor thin-film stack."}
+      ],
+      "conditions": {"reported_temperature_floor_k": 0.02, "floor_provenance": "Literature statement in Shimozawa et al.; originating measurement not revalidated here", "pressure_gpa": null, "phase_match": "Same formula and candidate space group; atomic coordinates and strain state not matched"},
+      "limitations": "The 20 mK statement must not be presented as a new 2012 measurement on every film, or as a test under every pressure, doping or polymorph.",
+      "checks_action": "Kept 0.020 K as a reported literature limit, changed the main reference to Shimozawa 2012 and added the provenance and sample caveats."
+    },
+    {
+      "rank_at_audit": 4,
+      "material_id": "JVASP-183451",
+      "formula": "SrZnO",
+      "aliases_searched": ["Sr Zn O", "strontium zinc oxide"],
+      "candidate_structure": {"space_group": "P-6m2 (187)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-183451.html"},
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {"query": "\"SrZnO\" superconductivity", "outcome": "Returned SrZnO2 and Sr-doped ZnO film studies; no exact 1:1:1 candidate superconductivity measurement was established."},
+        {"query": "\"SrZnO\" \"superconduct\" \"JVASP\"", "outcome": "No usable exact-candidate source located."},
+        {"query": "\"SrZnO\" ternary 1:1:1 compound", "outcome": "Near matches again used other stoichiometries or alloy compositions."}
+      ],
+      "sources": [
+        {"url": "https://journals.pan.pl/Content/104937/PDF/10172-Volume62_Issue1-30_paper.pdf", "doi": "10.1515/amm-2017-0030", "kind": "primary-research-near-match-rejected", "supports": "The paper describes SrO-ZnO alloy films with a range of Sr contents, not the stoichiometric P-6m2 SrZnO candidate."},
+        {"url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-183451.html", "kind": "primary-database-link-access-failed", "supports": "Candidate page could not be inspected; no measurement claim derived from it."}
+      ],
+      "conditions": {"sample_form": null, "pressure_gpa": null, "temperature_min_k": null},
+      "limitations": "SrZnO2, Sr-substituted ZnO and SrZnO have different compositions; their synthesis or optical measurements do not resolve this candidate's superconductivity.",
+      "checks_action": "No negative superconductivity check added."
+    },
+    {
+      "rank_at_audit": 5,
+      "material_id": "JVASP-90501",
+      "formula": "Ba2NiF6",
+      "aliases_searched": ["Ba2MF6", "dibarium nickel fluoride"],
+      "candidate_structure": {"space_group": "I4/mmm (139)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-90501.html"},
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {"query": "\"Ba2NiF6\" magnetic", "outcome": "Located a 1967 chemical/magnetic paper and later diffraction literature; did not infer superconductivity absence from antiferromagnetism."},
+        {"query": "\"Ba2NiF6\" neutron diffraction Renaudin Pannettier 1983", "outcome": "Verified the original magnetic paper's citation in the ILL facility report and author publication list."},
+        {"query": "\"Ba2NiF6\" site:onlinelibrary.wiley.com", "outcome": "Direct 1967 publisher access was unavailable; retrieved an institutional copy of a 2004 research paper with a structural table instead."}
+      ],
+      "sources": [
+        {"url": "https://www.unige.ch/sciences/chifi/publis/refs_pdf/ref00529.pdf", "doi": "10.1016/j.materresbull.2003.12.006", "kind": "primary-research-full-text-structural-citation", "locator": "Table 1, p. 344; Ba2NiF6 column and its reference 11", "supports": "The table lists Ba2NiF6 in I4/mmm and says single-crystal diffraction data exist for the listed compounds except the specified Ba2MgF6 exception. It is not a Ba2NiF6 superconductivity experiment."},
+        {"url": "https://www.ill.eu/fileadmin/user_upload/ILL/1_About_ILL/Documentation/Annual_report/Previous_issues_from_2005/AR-1983.pdf", "kind": "primary-facility-bibliography", "locator": "Publication 83RE289", "supports": "Lists Renaudin et al., Solid State Communications 47, 445-448 (1983), a magnetic/neutron/Mossbauer study of Ba2NiF6 and Ba2FeF6. No superconductivity temperature floor was established from this bibliography."},
+        {"url": "https://doi.org/10.1002/zaac.19673530102", "kind": "primary-paper-identified-access-failed", "supports": "Original chemical/magnetic study identified as a follow-up lead; full text not inspected."}
+      ],
+      "conditions": {"sample_form": "Known structural literature; exact JARVIS atomic-structure match not performed", "pressure_gpa": null, "temperature_min_k": null},
+      "limitations": "Known structure and magnetic order do not establish a negative superconductivity experiment. The repository's icsd=false field is not proof that no sample of this formula was synthesized.",
+      "checks_action": "No negative superconductivity check added; structural evidence retained only in this audit."
+    },
+    {
+      "rank_at_audit": 6,
+      "material_id": "JVASP-157048",
+      "formula": "Yb2BiPb",
+      "aliases_searched": ["Yb2PbBi", "Yb2 BiPb"],
+      "candidate_structure": {"space_group": "Fm-3m (225)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-157048.html"},
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {"query": "\"Yb2BiPb\"", "outcome": "No exact usable literature source found in the returned results."},
+        {"query": "\"Yb2PbBi\" OR \"Yb2BiPb\" bismuth", "outcome": "No exact usable source found."},
+        {"query": "\"Yb2\" \"BiPb\" crystal", "outcome": "No exact experimental superconductivity report established."},
+        {"query": "\"Yb2BiPb\" OR \"Yb2PbBi\" crystal structure", "outcome": "No exact usable source found; direct candidate-page access also failed."}
+      ],
+      "sources": [{"url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-157048.html", "kind": "primary-database-link-access-failed", "supports": "No external contents verified. The database identifier is retained for follow-up, not as evidence of a measurement."}],
+      "conditions": {"sample_form": null, "pressure_gpa": null, "temperature_min_k": null},
+      "limitations": "No exact candidate literature claim was established. Formula-based search cannot prove nonexistence or exhaust all synonyms, disordered phases or crystallographic records.",
+      "checks_action": "No negative superconductivity check added."
+    },
+    {
+      "rank_at_audit": 7,
+      "material_id": "JVASP-151620",
+      "formula": "Yb2In8Ir",
+      "aliases_searched": ["Yb2IrIn8", "Yb Ir In8"],
+      "candidate_structure": {"space_group": "P4/mmm (123)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-151620.html"},
+      "status": "structure-only",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {"query": "\"Yb2In8Ir\"", "outcome": "The repository's element order did not yield a useful exact result."},
+        {"query": "\"Yb2IrIn8\" OR \"Yb2In8Ir\" superconductivity", "outcome": "No superconductivity measurement located in this query."},
+        {"query": "\"Yb\" \"Ir\" \"In8\" compound", "outcome": "Located crystal-chemistry papers citing Yb2IrIn8."},
+        {"query": "\"Yb2IrIn8\" crystal structure", "outcome": "Located Zaremba et al. 2005; verified its identity in the authors' institutional publication list and the structural figure/citation in a later original paper."}
+      ],
+      "sources": [
+        {"url": "https://www.uni-muenster.de/Chemie.ac/poettgen/publications/pub_all.shtml", "kind": "primary-author-institutional-bibliography", "locator": "2005 entry: Ternary Indides REIrIn ... and Yb2IrIn8, Z. Anorg. Allg. Chem. 631, 1065", "supports": "Verifies the original exact-composition structural paper and authors."},
+        {"url": "https://doi.org/10.1002/zaac.200400452", "kind": "primary-paper-identified-access-failed", "supports": "Original structural paper identified; direct publisher full text could not be inspected."},
+        {"url": "https://d-nb.info/1260640493/34", "doi": "10.1002/zaac.201900174", "kind": "primary-research-full-text-structural-citation", "locator": "Figure 2 and reference 34", "supports": "A later crystal-chemistry paper uses Yb2IrIn8 as a known structural comparison and cites the 2005 work; it does not provide a superconductivity test of this candidate."}
+      ],
+      "conditions": {"sample_form": "Structural literature located; exact candidate coordinates not matched", "pressure_gpa": null, "temperature_min_k": null},
+      "limitations": "Structural precedent is not a positive or negative superconductivity result. The original structural paper remains a full-text follow-up; icsd=false in the candidate record does not prove the formula is unsynthesized.",
+      "checks_action": "No negative superconductivity check added; structural evidence retained only in this audit."
+    },
+    {
+      "rank_at_audit": 8,
+      "material_id": "JVASP-104628",
+      "formula": "Yb2CuPd",
+      "aliases_searched": ["Yb2PdCu", "Yb2 CuPd"],
+      "candidate_structure": {"space_group": "Fm-3m (225)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-104628.html"},
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {"query": "\"Yb2CuPd\"", "outcome": "No exact usable literature source found in the returned results."},
+        {"query": "\"Yb2PdCu\" OR \"Yb2CuPd\" ytterbium", "outcome": "No exact usable source found."},
+        {"query": "\"Yb2\" \"CuPd\" superconductivity", "outcome": "No exact experimental test established."},
+        {"query": "\"Yb2CuPd\" crystal OR structure OR palladium", "outcome": "No exact usable source found; direct candidate-page retrieval failed."},
+        {"query": "\"Yb2CuPd\" \"Yb2\" Heusler", "outcome": "No exact experimental superconductivity source located."}
+      ],
+      "sources": [{"url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-104628.html", "kind": "primary-database-link-access-failed", "supports": "No external contents verified; identifier retained for follow-up only."}],
+      "conditions": {"sample_form": null, "pressure_gpa": null, "temperature_min_k": null},
+      "limitations": "The search result is unknown, not an assertion that no phase or measurement exists. Results on other Yb-Cu-Pd ratios would require separate composition and structure matching.",
+      "checks_action": "No negative superconductivity check added."
+    },
+    {
+      "rank_at_audit": 9,
+      "material_id": "JVASP-93832",
+      "formula": "CaClO",
+      "aliases_searched": ["CaOCl", "calcium chlorine oxygen"],
+      "candidate_structure": {"space_group": "P6_3mc (186)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-93832.html"},
+      "status": "not-found-in-this-search",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {"query": "\"CaClO\" superconductivity", "outcome": "Results included unrelated abbreviations, ions and bleaching-powder shorthand; none established the periodic neutral 1:1:1 candidate."},
+        {"query": "\"CaOCl\" superconductivity crystal", "outcome": "No exact usable source located."},
+        {"query": "\"CaClO\" \"crystal\" -caclo -cACl0 -cAClO-vcMMAE", "outcome": "A hydrogen/deuterium-containing oxychloride structural paper appeared; its stoichiometry differs from the candidate and was not used as a superconductivity check."}
+      ],
+      "sources": [
+        {"url": "https://pubchem.ncbi.nlm.nih.gov/compound/21226521", "kind": "primary-database-near-match-rejected", "supports": "This entry is charged CaClO+, not a validation of neutral periodic P6_3mc CaClO. No superconductivity conclusion follows."}
+      ],
+      "conditions": {"sample_form": null, "pressure_gpa": null, "temperature_min_k": null},
+      "limitations": "A charged ion, Ca(ClO)2 bleaching powder, and hydrogen-containing oxychlorides cannot be assumed to be the candidate crystal. No measurement floor assigned.",
+      "checks_action": "No negative superconductivity check added."
+    },
+    {
+      "rank_at_audit": 10,
+      "material_id": "JVASP-171500",
+      "formula": "NaYbCu2F8",
+      "aliases_searched": ["NaYbCu₂F₈"],
+      "candidate_structure": {"space_group": "I422 (97)", "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-171500.html"},
+      "status": "needs-full-text",
+      "superconductivity_outcome": "unknown",
+      "search_log": [
+        {"query": "\"NaYbCu2F8\"", "outcome": "Located an indexed RSC supplementary table associating the formula with Materials Project mp-1209951."},
+        {"query": "\"NaYbCu2F8\" superconductivity fluoride", "outcome": "The same database-derived table appeared; no direct superconductivity measurement was established."},
+        {"query": "\"NaYbCu2F8\" synthesis fluoride structure", "outcome": "No inspected synthesis or superconductivity report located."},
+        {"query": "\"d2se01350a\" materials", "outcome": "Verified the parent paper is a high-throughput solar-cell materials study, not a superconductivity experiment."}
+      ],
+      "sources": [
+        {"url": "https://pubs.rsc.org/en/content/articlelanding/2023/se/d2se01350a", "doi": "10.1039/D2SE01350A", "kind": "primary-research-publisher-metadata", "supports": "The parent article concerns ab initio screening from Materials Project for silicon tandem solar cells; it does not establish a superconductivity result."},
+        {"url": "https://www.rsc.org/suppdata/d2/se/d2se01350a/d2se01350a1.pdf", "kind": "primary-supplement-search-index-only-access-failed", "locator": "Indexed supplementary table, entry 516: mp-1209951 / NaYbCu2F8", "supports": "A compositional/database lead only. Direct retrieval returned 404, so the table header, numerical meaning and exact structure were not independently inspected."},
+        {"url": "https://www.rsc.org/suppdata/d2/se/d2se01350a/d2se01350a2.pdf", "kind": "primary-supplement-search-index-only-access-failed", "supports": "A second indexed supplement repeated the formula; retrieval also returned 404."}
+      ],
+      "conditions": {"sample_form": null, "pressure_gpa": null, "temperature_min_k": null},
+      "limitations": "A database-derived composition in a computational supplement is not evidence that this exact phase was made, measured or tested for superconductivity. No transition temperature or negative limit was inferred.",
+      "checks_action": "No negative superconductivity check added; full text and crystallographic provenance remain follow-ups."
+    }
+  ],
+  "additional_correction": {
+    "formula": "PrIn3",
+    "source_url": "https://link.springer.com/article/10.1007/BF02571096",
+    "doi": "10.1007/BF02571096",
+    "status": "needs-full-text",
+    "inspected": "Publisher abstract",
+    "supported": "Specific heat was measured over 0.07-10 mK, equivalent to 0.00007-0.01 K, and a feature near 0.13 mK was attributed to nuclear magnetic ordering.",
+    "correction": "Preserved the check entry, replaced the erroneous 0.0001 K superconductivity cutoff with a separate measured temperature range, and changed superconducts to null. The abstract is not sufficient to establish a negative superconductivity test."
+  }
+}

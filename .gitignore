@@ -5,4 +5,7 @@ app/src-tauri/icons/
 app/app-icon.png
 app/dist/progress.json
 .DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
 app/src-tauri/THIRD-PARTY-NOTICES.txt

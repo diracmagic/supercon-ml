@@ -78,8 +78,10 @@ import radar as RD
 import storm3 as S3
 import storm4 as S4
 import storm5 as S5
+from crossfit import candidate_predictions
+from screen_tracks import directed_tracks
 
-ROUND = 4
+ROUND = 5
 SMOKE = os.environ.get("SCREEN_SMOKE") == "1"
 POOL = "dft_3d"
 GAP_MAX = 0.005          # eV (OptB88vdW): metals
@@ -850,23 +852,22 @@ def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None)
     P.log(f"Hurricane {version} ({c['id']}) out of fold: range width {width:.4f} on log(1 + Tc), coverage {cover:.3f} on "
           f"{int(sc.sum())} superconductors; {check['share_sc_likely']} of the {check['n_likely']} entries given at least an "
           f"even chance superconduct, against {check['share_sc_unlikely']} of the others ({time.time() - t0:.0f} s)")
-    # The models for the pool: five, each trained without one fifth of the training compounds (whole parent compounds,
-    # the same folds the scores are measured on) and without one background fold. A candidate's chance is their mean and
-    # their spread says how much it depends on which fifth was left out; one model trained on everything can be far more
-    # confident than any of them.
+    # A query in background fold k may ONLY use models excluding fold k. Averaging
+    # all five folds would train four members on the query's own artificial zero.
+    # Instead vary the labelled-data training fold while keeping the query's
+    # background fold excluded in every member; the spread is descriptive only.
     near = (H4.ratio(X, groups, Xb) <= radius if radius else np.ones(len(Xb), bool)) if bg is not None else None
-    finals = [H2.Design(c, P.SEED + 500 + k).fit(X[tr], y[tr], fam[tr],
-                                                 Xb=Xb[(fold_b != k) & near] if bg is not None else None)
-              for k, (tr, _) in enumerate(GroupKFold(n_splits=P.N_FOLDS).split(X, y, groups))]
     n_p = len(pool)
     info = {"version": version, "id": c["id"], "name": c["name"], "settings": c.get("settings"),
             "two_part": c.get("two_part"), "n_train": int(len(y)), "n_train_sc": int(sc.sum()),
             "width_log": round(float(width), 4), "oof_coverage": round(cover, 3), "check": check}
-    info["jackknife"] = {"n": len(finals),
-                         "about": ("every candidate is scored by five models, each trained without one fifth of the "
-                                   "training compounds (whole parent compounds) and one fifth of the background; the "
-                                   "chance shown is their mean, and the spread is the range between the lowest and "
-                                   "the highest of the five")}
+    n_members = P.N_FOLDS
+    info["jackknife"] = {"n": n_members,
+                         "method": "same-background-fold-training-fold-ensemble" if bg is not None else "training-fold-ensemble",
+                         "about": ("a candidate is scored only by models that exclude its chemical system's "
+                                   "background fold; the five labelled-data training folds vary. The mean is the score; "
+                                   "the min/max describe fitted-model disagreement, not a confidence interval"
+                                   if bg is not None else "the mean and min/max across the training-fold models")}
     if bg is not None:
         info["background"] = {"n": int(near.sum()), "weight": float(c["background"]), "cross_fitted": True,
                               "radius": radius, "pool": int(len(bg))}
@@ -884,15 +885,48 @@ def hurricane_scores(pool: pd.DataFrame, background: pd.DataFrame | None = None)
     if Xp.shape[1] != X.shape[1]:
         raise SystemExit(f"Hurricane's inputs for the pool ({Xp.shape[1]}) do not match its training inputs ({X.shape[1]})")
     pf = np.array([family_guess(cc) for cc in pool["comp"]])
-    each_tc = np.vstack([m.predict(Xp, pf) for m in finals])
-    parts = [hur_parts(m, Xp, pf) for m in finals]
-    each_p = np.vstack([p for p, _ in parts])
-    each_tcsc = np.vstack([t for _, t in parts])
+    final_splits = list(GroupKFold(n_splits=P.N_FOLDS).split(X, y, groups))
+    final_background = {}
+    final_radius = {}
+
+    def fit_member(tr, keep, fold, member):
+        xb = None
+        if bg is not None:
+            key = (fold, member)
+            if key not in final_background:
+                keep = keep & ~np.isin(sys_b, sys3[final_splits[member][1]])
+                if radius:
+                    if member not in final_radius:
+                        final_radius[member] = H4.ratio(X[tr], groups[tr], Xb) <= radius
+                    keep &= final_radius[member]
+                final_background[key] = keep
+            xb = Xb[final_background[key]]
+        return H2.Design(c, P.SEED + 500 + 100 * fold + member).fit(X[tr], y[tr], fam[tr], Xb=xb)
+
+    def predict_member(model, query):
+        chance, conditional_tc = hur_parts(model, Xp[query], pf[query])
+        return model.predict(Xp[query], pf[query]), chance, conditional_tc
+
+    members = candidate_predictions(
+        final_splits, n_p, fit_member, predict_member,
+        pool_folds=np.array([H3.bg_fold(H3_chemsys(cc)) for cc in pool["comp"]]) if bg is not None else None,
+        background_folds=fold_b if bg is not None else None,
+        pool_systems=np.array([H3_chemsys(cc) for cc in pool["comp"]]) if bg is not None else None,
+        background_systems=sys_b if bg is not None else None)
+    each_tc, each_p, each_tcsc = (members[k] for k in ("tc", "p_sc", "tc_sc"))
+    info["jackknife"]["audit"] = members["audit"]
+    for entry in info["jackknife"]["audit"]:
+        fold = entry["excluded_background_fold"]
+        if bg is not None:
+            entry["n_training_background_by_member"] = [int(final_background[(fold, member)].sum())
+                                                        for member in range(P.N_FOLDS)]
+            entry.pop("n_training_background", None)
+    info["jackknife"]["no_query_system_in_background"] = True
     tc = np.clip(each_tc.mean(axis=0), 0, None)
     p_sc, tc_sc = each_p.mean(axis=0), each_tcsc.mean(axis=0)
     p_lo, p_hi = each_p.min(axis=0), each_p.max(axis=0)
     if np.isfinite(p_sc).any():
-        P.log(f"Hurricane: the five models disagree by {np.nanmedian(p_hi - p_lo):.2f} on the chance of the median "
+        P.log(f"Hurricane: the legal ensemble members disagree by {np.nanmedian(p_hi - p_lo):.2f} on the chance of the median "
               f"compound; {int(np.nansum((p_hi >= 0.5) & (p_lo < 0.5))):,} of the {n_p:,} are above an even chance "
               "for some of them and below it for others")
     lo, hi = np.clip(np.expm1(np.log1p(tc_sc) - width), 0, None), np.expm1(np.log1p(tc_sc) + width)
@@ -1088,8 +1122,26 @@ def run() -> None:
     chkK, chkT = load_checks()
     seen = first_listed(P.RESULTS if not SMOKE else Path(tempfile.mkdtemp(prefix="screen-smoke-none-")))
     now = {"date": stamp[:10], "at": stamp, "round": ROUND, "file": f"screen_round{ROUND}.json"}
+    storm_rows = ranked.index[ranked["model"] == "Storm"]
+    inside = np.isfinite(ranked["novelty"]) & (ranked["novelty"] <= 1)
+    track_indices = {
+        "storm_in_domain": top_rows(ranked, [i for i in storm_rows if inside[i]]),
+        "storm_exploration": top_rows(ranked, [i for i in storm_rows if not inside[i]])}
+    directed = directed_tracks(ranked, by_id, limit=len(ranked))
+    index_of = dict(zip(ranked["jid"], ranked.index))
+    for name, groups_directed in directed["tracks"].items():
+        order = groups_directed["in_domain"] + groups_directed["exploration"]
+        track_indices[name] = top_rows(ranked, [index_of[r["jid"]] for r in order])
+    # Publish the union, so an in-domain or directed pick need not be in the
+    # overall top 50 to remain viewable. Each individual list keeps its cap.
+    overall = top_rows(ranked, storm_rows)
+    published = set(overall)
+    published.update(i for indices in track_indices.values() for i in indices)
+    selected = [i for i in storm_rows if i in published]
+    track_ids = {name: [str(ranked.at[i, "jid"]) for i in indices]
+                 for name, indices in track_indices.items()}
     cands = []
-    for rank, i in enumerate(top_rows(ranked, ranked.index[ranked["model"] == "Storm"]), 1):
+    for rank, i in enumerate(selected, 1):
         r = ranked.loc[i]
         c = dict(base_record(rank, r), check=check_for(chkK, chkT, comp_of[r["jid"]]),
                  tc=_r(r["storm_tc"], 2), lo=_r(r["lo"], 2), hi=_r(r["hi"], 2),
@@ -1099,6 +1151,19 @@ def run() -> None:
                  nearest={"formula": r["nearest_training"], "tc": _r(r["nearest_training_tc"], 2)},
                  listed=listed_for(r["jid"], comp_of[r["jid"]], seen, now), atoms=crystal(by_id[r["jid"]]))
         cands.append({k: v for k, v in c.items() if v is not None})
+    phonon_summary = {"enabled": False, "materials": [],
+                      "about": "Optional MACE-MP-0 finite-displacement triage; not a DFT or superconductivity check"}
+    if os.environ.get("SCREEN_PHONONS") == "1":
+        from phonon_check import PhononConfig, run_checks
+        phonon_dir = (Path(tempfile.mkdtemp(prefix="screen-phonons-")) if SMOKE else P.RESULTS / "phonons")
+        phonon_summary = run_checks(cands, by_id, phonon_dir, config=PhononConfig(
+            max_candidates=int(os.environ.get("SCREEN_PHONON_TOP", "3")),
+            model=os.environ.get("SCREEN_PHONON_MODEL", "small")))
+        phonon_summary["enabled"] = True
+        phonon_of = {r["material_id"]: r for r in phonon_summary["materials"]}
+        for candidate in cands:
+            if candidate["id"] in phonon_of:
+                candidate["phonon_check"] = phonon_of[candidate["id"]]
     # Hurricane: the materials Radar sends it, highest predicted Tc (the chance times the Tc if it superconducts) first
     hr = pd.DataFrame({
         "jid": hsel["id"], "formula": [S3.pretty(c) for c in hsel["comp"]], "chemsys": hsel["chemsys"], "nat": hsel["nat"],
@@ -1121,6 +1186,7 @@ def run() -> None:
                  outside=True if float(r["novelty"]) > 1 else None,
                  nearest={"formula": r["nearest_training"], "tc": _r(r["nearest_training_tc"], 2)},
                  listed=listed_for(r["jid"], comp_of[r["jid"]], seen, now), atoms=crystal(by_id[r["jid"]]),
+                 p_spread_method=hu["info"]["jackknife"]["method"],
                  check=check_for(chkK, chkT, comp_of[r["jid"]]))
         hcands.append({k: v for k, v in c.items() if v is not None})
     s_rule = (f"metals within {int(EHULL_MAX * 1000)} meV/atom of the convex hull, non-magnetic, {N_ELEMENTS[0]} to "
@@ -1140,6 +1206,8 @@ def run() -> None:
                  "n_screened": int(len(spool)), "n_storm": int(to_storm.sum()), "n_hurricane": int((~to_storm).sum()),
                  "rule": s_rule},
         "excluded": s_counts, "sources": sources, "radar": radar_info, "storm": st["info"],
+        "tracks": track_ids, "phonon_checks": phonon_summary,
+        "track_about": "Training-domain picks first; exploration separate. B/C lists use the same filtered metallic pool, one per system.",
         "rule": ("only our own finds: nothing that SuperCon, 3DSC, the Alexandria or JARVIS electron-phonon data or our list "
                  "of others' claims already has, and nothing made of exactly the elements of a known superconductor"),
         "caveat": ("Storm predicts the DFT (Allen-Dynes, μ* = 0.10) Tc of a structure that DFT says is stable or nearly so; "
@@ -1205,7 +1273,8 @@ def update_progress(out: dict, progress: Path) -> None:
         "range": {"level": 0.9, "design": out["storm"]["range_design"], "width_log": out["storm"]["width_log"],
                   "width_k": out["storm"]["width_k"], "oof_coverage": out["storm"]["oof_coverage"]},
         "novelty": {"level": NOVEL_LEVEL, "outside": out["outside"], "about": NOVELTY_ABOUT}, "check": out["storm"].get("check"),
-        "candidates": c,
+        "candidates": c, "tracks": out.get("tracks", {}), "phonon_checks": out.get("phonon_checks"),
+        "track_about": out.get("track_about"),
         "hurricane": {
             "model": hu["model"], "design": hd["id"], "two_part": hd.get("two_part"),
             "pool": {"source": hu["pool"]["source"], "what": "compounds with no superconductivity record that Radar sends to Hurricane",

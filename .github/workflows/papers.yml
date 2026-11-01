@@ -33,6 +33,7 @@ jobs:
         run: python feed/papers.py
 
       - name: Commit the feed
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -41,8 +42,16 @@ jobs:
             echo "No new papers"
           else
             git commit -m "Update paper feed"
+            published=false
             for i in 1 2 3; do
-              git pull --rebase origin main && git push origin HEAD:main && break
+              if git pull --rebase origin main && git push origin HEAD:main; then
+                published=true
+                break
+              fi
               sleep 10
             done
+            if [[ "$published" != true ]]; then
+              echo "Paper feed was fetched, but publishing failed after 3 attempts" >&2
+              exit 1
+            fi
           fi

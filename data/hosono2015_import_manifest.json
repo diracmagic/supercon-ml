@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5099821/",
+  "doi": "10.1088/1468-6996/16/3/033503",
+  "source_license": "CC BY 3.0",
+  "table": "2(b): materials which exhibited no superconductivity",
+  "reported_unsuccessful_materials_approx": 700,
+  "extraction_status": "Table 2 is images. No bulk OCR-derived table rows have been accepted or fabricated.",
+  "table_images": [
+    "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/8f52/5099821/ac53ef340f49/TSTA11661279_M0003.jpg",
+    "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/8f52/5099821/7427495121c6/TSTA11661279_M0004.jpg",
+    "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/8f52/5099821/7c5033f336a5/TSTA11661279_M0005.jpg",
+    "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/8f52/5099821/74ce7f1a1ac0/TSTA11661279_M0006.jpg",
+    "https://cdn.ncbi.nlm.nih.gov/pmc/blobs/8f52/5099821/15c995c84ebc/TSTA11661279_M0007.jpg"
+  ],
+  "accepted_observations": {"file": "data/hosono2015_negatives.json", "n": 2, "origin": "section 3.2.5 and Figure 33 caption, not Table 2(b) OCR", "complete_training_labels": 0},
+  "import_rules": [
+    "Transcribe an explicit formula or an individually enumerated substitution, retaining the source spelling and exact locator; never expand an unspecified range into samples.",
+    "Require explicit successful synthesis and an actual superconductivity measurement. Failed synthesis, unsuccessful carrier injection, absent literature and DFT-only candidates are not experimental negatives.",
+    "Store the lowest measured temperature, pressure, applied field, sample form, doping/stoichiometry, phase and measurement criterion. Unknown values stay null with a reason; they are not replaced by ambient conditions.",
+    "No observed transition down to Tmin is censored evidence, not Tc=0. Binary training requires an explicit threshold no lower than Tmin and matching conditions.",
+    "A null at one composition or in an undoped parent cannot label the parent as lacking potential under every doping or pressure. These records are never fed to Hurricane 6's parent-potential target.",
+    "Before any training use, check exact-sample positive conflicts at the same conditions, retain source/condition-specific records, and assign train/test groups by chemical system so the same material cannot leak across splits.",
+    "Preserve the raw extraction separately; a second source check is needed before table-image transcription can be promoted to source_checked."
+  ],
+  "remaining_work": ["Read each Table 2(b) image at sufficient resolution and transcribe row conditions", "Locate methods/original references for pressure, field and sample form", "Resolve ambiguous formulas and exact-sample positive conflicts", "Match measured sample structures without replacing fractional occupancy with arbitrary ordered atoms"]
+}

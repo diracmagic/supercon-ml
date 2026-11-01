@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "description": "Small source-checked set of censored exact-sample observations, not a transcription of the approximately 700 entries in Table 2(b).",
+  "sources": {
+    "hosono2015": {
+      "title": "Exploration of new superconductors and functional materials, and fabrication of superconducting tapes and wires of iron pnictides",
+      "authors": "H. Hosono et al.",
+      "year": 2015,
+      "journal": "Science and Technology of Advanced Materials 16, 033503",
+      "doi": "10.1088/1468-6996/16/3/033503",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5099821/",
+      "license": "CC BY 3.0",
+      "source_type": "Project authors' review of their experiments; section 3.2.5 cites original experiment [32]."
+    }
+  },
+  "records": [
+    {
+      "id": "hosono2015-batio-sbbi-y040",
+      "formula": "BaTi2Sb1.2Bi0.8O",
+      "composition": {"Ba": 1, "Ti": 2, "Sb": 1.2, "Bi": 0.8, "O": 1},
+      "as_reported": "BaTi2(Sb1-yBiy)2O, y=0.4",
+      "source_id": "hosono2015",
+      "source_locator": "Section 3.2.5, paragraph immediately before Figure 33; Figure 33(a).",
+      "observation": "not_detected_above_tmin",
+      "synthesis_status": "synthesized",
+      "scope": "exact_sample",
+      "sample_form": "unknown",
+      "measurement": {
+        "t_min_K": 1.85,
+        "t_max_K": null,
+        "pressure_GPa": null,
+        "pressure_status": "not stated in the cited paragraph; ambient pressure is not inferred",
+        "field_T": null,
+        "method": "low-temperature magnetic susceptibility",
+        "criterion": "no superconductivity detected above the reported minimum measurement temperature"
+      },
+      "verification": {"status": "source_checked", "checked_on": "2026-10-31", "method": "Read section 3.2.5 and Figure 33 caption; expand stoichiometry at the explicitly stated y."},
+      "training": {"parent_potential": "ineligible", "reason": "A null at this particular substitution does not rule out superconductivity in other substitutions; the same section reports superconducting regions on either side. Pressure, field and sample form still need verification."}
+    },
+    {
+      "id": "hosono2015-batio-sbbi-y050",
+      "formula": "BaTi2SbBiO",
+      "composition": {"Ba": 1, "Ti": 2, "Sb": 1, "Bi": 1, "O": 1},
+      "as_reported": "BaTi2(Sb1-yBiy)2O, y=0.5",
+      "source_id": "hosono2015",
+      "source_locator": "Section 3.2.5, paragraph immediately before Figure 33; Figure 33(a).",
+      "observation": "not_detected_above_tmin",
+      "synthesis_status": "synthesized",
+      "scope": "exact_sample",
+      "sample_form": "unknown",
+      "measurement": {
+        "t_min_K": 1.85,
+        "t_max_K": null,
+        "pressure_GPa": null,
+        "pressure_status": "not stated in the cited paragraph; ambient pressure is not inferred",
+        "field_T": null,
+        "method": "low-temperature magnetic susceptibility",
+        "criterion": "no superconductivity detected above the reported minimum measurement temperature"
+      },
+      "verification": {"status": "source_checked", "checked_on": "2026-10-31", "method": "Read section 3.2.5 and Figure 33 caption; expand stoichiometry at the explicitly stated y."},
+      "training": {"parent_potential": "ineligible", "reason": "A null at this particular substitution does not rule out superconductivity in other substitutions; pressure, field and sample form still need verification."}
+    }
+  ]
+}

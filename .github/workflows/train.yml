@@ -4,12 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       stages:
-        description: Stages to run, in order (any of baseline foundation search search1 storm3 hurricane hurricane2 hurricane3 hurricane4 hurricane5 radar gnn gnn2 gnn2final storm4 storm5 screen gnnsmoke)
-        default: hurricane5 screen
+        description: Stages to run (including report-only hurricane6); screen uses candidate-safe cross-fitting
+        default: screen hurricane6
   push:
-    branches: [main]
+    branches: [main, codex/screening-validation]
     paths:
       - 'ml/**'
+      - '.github/workflows/train.yml'
 
 permissions:
   contents: write
@@ -21,9 +22,14 @@ concurrency:
 env:
   # A push to ml/ trains only when its commit message contains [train], so a change spread over several commits
   # runs once; it then runs the current rounds. Earlier stages can be re-run by hand.
-  STAGES: ${{ inputs.stages || 'hurricane5 screen' }}
+  STAGES: ${{ inputs.stages || 'screen hurricane6' }}
   # Fixed string hashing, so that the order of a set can never change the results from one run to the next.
   PYTHONHASHSEED: '0'
+  SCREEN_PHONONS: '1'
+  SCREEN_PHONON_TOP: '3'
+  OMP_NUM_THREADS: '2'
+  OPENBLAS_NUM_THREADS: '2'
+  MKL_NUM_THREADS: '2'
 
 jobs:
   models:
@@ -42,7 +48,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [[ " $STAGES " == *" foundation "* ]]; then
+          if [[ " $STAGES " == *" foundation "* || " $STAGES " == *" search1 "* || " $STAGES " == *" hurricane6 "* || " $STAGES " == *" screen "* ]]; then
             pip install torch --index-url https://download.pytorch.org/whl/cpu
             pip install -r ml/requirements.txt mace-torch
           else
@@ -51,6 +57,16 @@ jobs:
           if [[ " $STAGES " == *" gnn "* || " $STAGES " == *" gnn2 "* || " $STAGES " == *" gnn2final "* || " $STAGES " == *" storm4 "* || " $STAGES " == *" screen "* || " $STAGES " == *" gnnsmoke "* ]]; then
             pip install "jax[cpu]" optax
           fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify before training
+        run: |
+          python -m unittest discover -s tests -v
+          node --test tests/test_app_candidates.mjs
+          python ml/negative_data.py --validate data/hosono2015_negatives.json
 
       - name: Restore datasets and descriptors
         uses: actions/cache@v4
@@ -82,27 +98,27 @@ jobs:
         run: python ml/pipeline.py storm3
 
       - name: Hurricane, unconventional superconductors (round 1)
-        if: always() && contains(format(' {0} ', env.STAGES), ' hurricane ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' hurricane ')
         run: python ml/pipeline.py hurricane
 
       - name: Hurricane, round 2 (new designs against Hurricane 1.0)
-        if: always() && contains(format(' {0} ', env.STAGES), ' hurricane2 ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' hurricane2 ')
         run: python ml/pipeline.py hurricane2
 
       - name: Hurricane, round 3 (fewer false alarms outside the training data)
-        if: always() && contains(format(' {0} ', env.STAGES), ' hurricane3 ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' hurricane3 ')
         run: python ml/pipeline.py hurricane3
 
       - name: Hurricane, round 4 (not known instead of unlikely outside the training data)
-        if: always() && contains(format(' {0} ', env.STAGES), ' hurricane4 ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' hurricane4 ')
         run: python ml/pipeline.py hurricane4
 
       - name: Hurricane, round 5 (the parent compound, and what DFT says about its electrons)
-        if: always() && contains(format(' {0} ', env.STAGES), ' hurricane5 ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' hurricane5 ')
         run: python ml/pipeline.py hurricane5
 
       - name: Radar, the router between Storm and Hurricane (round 1)
-        if: always() && contains(format(' {0} ', env.STAGES), ' radar ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' radar ')
         run: python ml/pipeline.py radar
 
       - name: Graph neural network, quick check on a small subset (writes nothing)
@@ -110,31 +126,52 @@ jobs:
         run: GNN_SMOKE=1 python ml/pipeline.py gnn
 
       - name: Graph neural network (round 1, same folds as Storm)
-        if: always() && contains(format(' {0} ', env.STAGES), ' gnn ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' gnn ')
         run: python ml/pipeline.py gnn
 
       - name: Graph neural network, round 2 (AI-designed search, same folds)
-        if: always() && contains(format(' {0} ', env.STAGES), ' gnn2 ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' gnn2 ')
         run: python ml/pipeline.py gnn2
 
       - name: Graph neural network, round 2 final check (the selected design trained like version 1.0)
-        if: always() && contains(format(' {0} ', env.STAGES), ' gnn2final ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' gnn2final ')
         run: python ml/pipeline.py gnn2final
 
       - name: Storm, round 4 (Storm 1.0 and the graph network together)
-        if: always() && contains(format(' {0} ', env.STAGES), ' storm4 ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' storm4 ')
         run: python ml/pipeline.py storm4
 
       - name: Storm, round 5 (a 90% range around every Storm 4.0 prediction)
-        if: always() && contains(format(' {0} ', env.STAGES), ' storm5 ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' storm5 ')
         run: python ml/pipeline.py storm5
 
       - name: Screening, the current round (candidates found by our models, only our own finds, with their structures)
-        if: always() && contains(format(' {0} ', env.STAGES), ' screen ')
+        if: success() && contains(format(' {0} ', env.STAGES), ' screen ')
         run: python ml/pipeline.py screen
 
-      - name: Commit results and progress
+      - name: Hurricane, round 6 protocol and plumbing
+        if: success() && contains(format(' {0} ', env.STAGES), ' hurricane6 ')
+        run: |
+          python ml/hurricane6.py --protocol
+          python ml/hurricane6.py --smoke --output-dir /tmp/hurricane6-smoke
+          python ml/hurricane6.py --prepare-only
+
+      - name: Hurricane, round 6 (report-only MACE-MP-0 LOFO experiment)
+        if: success() && contains(format(' {0} ', env.STAGES), ' hurricane6 ')
+        run: python ml/pipeline.py hurricane6
+
+      - name: Preserve results even when training or publishing fails
         if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-results-${{ github.run_number }}
+          path: |
+            results/
+            progress/
+          retention-days: 14
+
+      - name: Commit results and progress
+        if: success() && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -143,8 +180,16 @@ jobs:
             echo "Nothing to commit"
           else
             git commit -m "Update training results (run ${GITHUB_RUN_NUMBER})"
+            published=false
             for i in 1 2 3; do
-              git pull --rebase origin main && git push origin HEAD:main && break
+              if git pull --rebase origin main && git push origin HEAD:main; then
+                published=true
+                break
+              fi
               sleep 10
             done
+            if [[ "$published" != true ]]; then
+              echo "Results are preserved as an artifact, but publishing failed after 3 attempts" >&2
+              exit 1
+            fi
           fi
