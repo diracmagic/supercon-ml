@@ -98,7 +98,6 @@
   const contentChanged = function contentChanged() {
     if (paperState.built) renderAdvances();
     if (learn.built) { learn.built = false; if (view === 'learn') { buildLearn(); miniKick(); } }
-    if (aiState.built) { renderAIFound(); renderAICurated(); }
     if (view === 'authors') renderAuthors();
   };
 

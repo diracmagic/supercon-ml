@@ -1,5 +1,5 @@
 {
-  "source": "Reviewed frontend AST baseline after intentional revisions; original extraction snapshot hashes retained for provenance.",
+  "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
   "css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -248,7 +248,7 @@
     "recentLink": "83f4cc35051afdb1cbbd08b4360b233117acd1585c0af8435d268c01daa3f590",
     "cText": "7ae36dada05d4d2dda9959f00713649bc431aabfff3d8e8cb8039841f825f1f7",
     "applyContent": "9d446517bd7647c8b90f4279c031fe47e1f97c92698b581f626c863cbdc29a43",
-    "contentChanged": "dab0ed4ae4463ac9371ae88fea7ef5398618c74edf5e29bd29f2207bc0a726cf",
+    "contentChanged": "1a16d08098b56128cadf5621cc2a5c7d8056b42a2f9c32bae81880f6bf005810",
     "loadContent": "22148b883473448df200bb17af71e8aafe6f9ff3ef78473aebd404f12285d46b",
     "stormMae": "6efcc8b450a146bc4374f1402ea8f144fc944db4e779199eddafb240dfcf8988",
     "stormName": "ad2cb2c4e88e4bac9efd836b8e909e2ed3b8604ea0d4bebbc314248ad07c8bad",
@@ -494,25 +494,14 @@
     "hurricaneDetails": "a49e79fb3b9a7d14eecef6b9566407a75d2e64e128b1bdfc7b12fc44fcf42814",
     "calibrationDetails": "bedb4390cdc574379086732be016e4539a6c1c0e9292364b16b8572e1b4ce9b3",
     "aiItems": "fb487527b0fd05558d28563ecbf59d1dfa8ff5883db22b93f67421bddcf89f0a",
-    "buildAI": "6bccd729a9525cee06ab0a811fc1217633e916e9280fece8825512b6e90223c6",
-    "renderAI": "6a56ec1a2f43beeb8d531cb567cab6d6641e025239629742f3fcbd408d119197",
-    "renderAIFound": "7c74c8cb108bab3eefdbfd5f5ccabc2c75b3e70e2a4955b666a6f1c6e721b0d6",
-    "externalResearchCategory": "9557bef85b8d0d89bf7b104ee52b40cdfb2e12a4c6ebc3c9a7b2903d03723896",
-    "externalResearchRows": "1bee2bcb1c6583aeb110a26fb15c3974fb00564481d5786a2bade5ede8ea446b",
-    "externalResearchSchedule": "c8a2eef64269673ea3f98dac378bddf4bb20d461a41701074f3d4e400414c803",
-    "externalResearchUrl": "ae1e3857679e704488d8e7e289dea5da74bbcec43f6b4d80c4032790f590c28f",
-    "externalResearchReferences": "f2843e2f64d51bb56bef19cc3fdc5a92d6ec3b40b6798ca86e3cebb93ce4bb6b",
-    "renderExternalResearchList": "1d72ded40856c18362b4c93525e2de9e6d2a736d9910a5c62bd1e4c6cecdd387",
-    "buildExternalResearchCard": "cb1711c3a5c8f5c6ddda8804510cd4f08a6a9aeb37f821245d94d70eb36b1f8c",
-    "stopExternalResearch": "8dacbfe20fef73bd984e216a98d8fb75d042c28e61431761b90e63f8773c0a9c",
-    "buildExternalResearchRoute": "c7bba8d55bb2ad9f9008b9069f8b5586aef82c3a32f70bbd87a4c26b4870501e",
+    "buildAI": "87bb0299ab12ee9194d8f5bc9685aa11026bacd221cba2c02f6d583891b24116",
+    "renderAI": "e121a604926abea452434f5a0cefae6797985caf47a4ba4737e14f9234b68017",
     "renderAIList": "38ce77ea917c53418c4da71ff90707f1cbeff8e7826f3a5edfcd2e78d9add33e",
     "aiNewsItem": "e3683704b2898ccd5f3a72dd4e868843d7bd520f9eca0a30b31f7aabf158fcfe",
     "renderTicker": "1dee7fe1b2e46e3d2b6a5e9e135a99816fbf5a8de4ca5314dcff548705eda955",
     "renderAIOurs": "27d5b842b2b3048bbb61d8aac48a87b6a48d0cf38c646c9980f2f49a785c0328",
-    "renderAICurated": "91cf15c3b117ddbbbf5cbca1ab19e5b490ef7ff56bdeea4e63e380a5ad59bc45",
     "aiStart": "575f1a62ad01896b7f7fb4a3b3c0a3c4e2d90df811daac2d9cd67ecc409ae85f",
-    "aiStop": "a0f6cdecefd4c0fc4bbcef38fea1a6c1acb0cfece03481a0ca0cbd776438193a",
+    "aiStop": "cf3fa706daca8532541eb206a617aa2e2218a01a2a7bed91e5c71806533915f1",
     "candBlock": "e64b243c85021c17e186900762156ece7ae3b74b640ff51a8424b60576d00974",
     "candRows": "84443609c6db341db7040fb2343eb48dcef721fdb970ca1db756a76c0d079195",
     "candCurrentRows": "2f440726e6d6101da282116c36983c4abb859559010fed8241c28c20721ee13c",
@@ -716,8 +705,7 @@
     "e4cac75a0e61cf1f5501269217529f938cffecac10f53dfaa7b5f763c1551d0d",
     "429484f87b2e2cd35b8bd89b582198ad75a7b15325dbf230b37f5915dc699ab2",
     "6d2b1fa4fe9618d1871b5da231525f92f103534808f63f83a941711aa30485f4",
-    "ce8249f03b004bf5cee70d738f8c21e58e10c8ea9ac9b6a8c94b48dad4b30593",
-    "e8ed6f59250f5325244416f6a20ab3888af1e8efc472c30a8572233c9269cb3b",
+    "c890d9668faf4d8d42856c7cb0305c554580570246158cdd675ae4244b6718f8",
     "a1a3d76a5e3190d283bbadbaf08ca1b586c9314e0e60ea63bea19e9590704e17",
     "ea1eb542bd9d06f3b1568a8779d98aff7588606ecef90d5fe142ddff001e5990",
     "98a495bf500f47899e6144a5721427a81478893b86ee6e032fedb264e9695cd5",
@@ -769,7 +757,6 @@
   ],
   "scripts": [
     "literature-audit.js",
-    "external-research-data.js",
     "candidates.js",
     "js/bindings.js",
     "js/definitions/core.js",
@@ -837,113 +824,211 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-01",
-    "purpose": "Native external-research cards with evidence boundaries; candidate Tc display ordering and strictly sourced earlier-report archive.",
-    "baseline_parent_commit": "d5a880259eee0c825ade37557ce060b00344d5d0",
-    "previous_manifest_sha256": "82576d20940468873b345c11134a0f5134b29c95ed5d9c55c90d8c1dc65a60c1",
-    "original_extraction_commit": "22eba00",
+    "purpose": "Add an English GitHub sign-in link to the owner private research repository. No private records, requests, authentication or cache are introduced into the public app.",
+    "baseline_parent_commit": "08c054fcca7516193872c912e7eefcec4de9de72",
+    "previous_manifest_sha256": "c6c50515c99826a0b3040e5f2ffb194bda10010564d44b47503ba64782634b15",
     "allowed_modules": [
-      "js/definitions/ai-view.js",
-      "js/definitions/candidates.js",
-      "js/initialize/ai-view.js",
-      "js/initialize/candidates.js"
+      "js/definitions/ai-view.js"
     ],
-    "scripts_added": [
-      "external-research-data.js"
-    ],
-    "functions_added": {
-      "externalResearchCategory": "9557bef85b8d0d89bf7b104ee52b40cdfb2e12a4c6ebc3c9a7b2903d03723896",
-      "externalResearchRows": "1bee2bcb1c6583aeb110a26fb15c3974fb00564481d5786a2bade5ede8ea446b",
-      "externalResearchSchedule": "c8a2eef64269673ea3f98dac378bddf4bb20d461a41701074f3d4e400414c803",
-      "externalResearchUrl": "ae1e3857679e704488d8e7e289dea5da74bbcec43f6b4d80c4032790f590c28f",
-      "externalResearchReferences": "f2843e2f64d51bb56bef19cc3fdc5a92d6ec3b40b6798ca86e3cebb93ce4bb6b",
-      "renderExternalResearchList": "1d72ded40856c18362b4c93525e2de9e6d2a736d9910a5c62bd1e4c6cecdd387",
-      "buildExternalResearchCard": "cb1711c3a5c8f5c6ddda8804510cd4f08a6a9aeb37f821245d94d70eb36b1f8c",
-      "stopExternalResearch": "8dacbfe20fef73bd984e216a98d8fb75d042c28e61431761b90e63f8773c0a9c",
-      "buildExternalResearchRoute": "c7bba8d55bb2ad9f9008b9069f8b5586aef82c3a32f70bbd87a4c26b4870501e",
-      "candArchive": "b168ca844115c6815c7b6e9c35471a050324a69a7246811172d33d6f11472338"
-    },
     "functions_changed": {
       "buildAI": {
-        "before": "456fe7a79efba065ffd4d00192a195422fd27a1bdf6de8c9277fa7514e9c3905",
-        "after": "6bccd729a9525cee06ab0a811fc1217633e916e9280fece8825512b6e90223c6"
-      },
-      "renderAIFound": {
-        "before": "8a4d1131eb1f72f4fef179692554e963b026e407d85487df454d627f5bb07b72",
-        "after": "7c74c8cb108bab3eefdbfd5f5ccabc2c75b3e70e2a4955b666a6f1c6e721b0d6"
-      },
-      "renderAIOurs": {
-        "before": "1a4456cdda75f74372d0cde4e4f116c21534eded5b49116b6d0fbdaf36c7bd2f",
-        "after": "27d5b842b2b3048bbb61d8aac48a87b6a48d0cf38c646c9980f2f49a785c0328"
-      },
-      "aiStop": {
-        "before": "cf3fa706daca8532541eb206a617aa2e2218a01a2a7bed91e5c71806533915f1",
-        "after": "a0f6cdecefd4c0fc4bbcef38fea1a6c1acb0cfece03481a0ca0cbd776438193a"
-      },
-      "candRows": {
-        "before": "5d487460c386ace10df126c8afe2876d56f7564ca0d52372389df26a05fd37ba",
-        "after": "84443609c6db341db7040fb2343eb48dcef721fdb970ca1db756a76c0d079195"
-      },
-      "candCurrentRows": {
-        "before": "6831c86e8b4487d3893352475e8694d337fce3209d8687fb40bd2395a7a661aa",
-        "after": "2f440726e6d6101da282116c36983c4abb859559010fed8241c28c20721ee13c"
-      },
-      "candTcSc": {
-        "before": "12f82c307e4e06f656f11f910c98d7716611f8d2e13ee5a83cc8d6e3c19487c4",
-        "after": "926f2b6451e3b222b3fb628e60083d69d89b06c94ef862fae8a4c922ecc5e903"
-      },
-      "candGo": {
-        "before": "7193c5ac687092f5c4b65d1ac9cd137d952debc096488e96764720402812e2eb",
-        "after": "6ef03d9a920451afffb40d428e50ea9ccf8cc8934b368e4d95e3c6a339dc883a"
-      },
-      "candRemarks": {
-        "before": "6d08946885c1bfc1bdfb745d034f9e37a60e6e0c25848a2d9c6601ce46ee31c3",
-        "after": "a80f216cc5d834ab33bfb8f488f7d98ab2281ec25176aa1504e952f40b2ae021"
-      },
-      "candRemarksEl": {
-        "before": "f2ac2b3d39363f7588a7ddad5450c40b60673eb28ff6c11e3d71532ae16ca157",
-        "after": "27233e5433800427cfd3bb777653b4b3aaad339a5befbfed7978c9888452ac7e"
-      },
-      "candCheckSource": {
-        "before": "e0617ef02e658ef0145ab7f8e23a59338cc9171ac36cbc3edb0549d1fea48c06",
-        "after": "28cce57d523a3c19be85c2f8014fce905378961f88ed46ad1bbc31836324cbef"
-      },
-      "candOursNote": {
-        "before": "62a4264bf5883ea8f15c94572b4d37868e0fe1732b828788adc151b6c62fb557",
-        "after": "7dbb7191f0c934e89810065c4cfe4814f6d9e8a2c0f0e686838a87bae74a9539"
-      },
-      "renderCandidates": {
-        "before": "41e457a2db3f933c68f3771274b4fb3dfca0cb9435fad7e617cc2d6adbf7d03c",
-        "after": "e68adf63360195daf2ed1ef6a5a1e675e39f535d2dde37abd41b7bedf069c1b9"
-      },
-      "candTellUs": {
-        "before": "7326956ad19b2e52b68d919f0d7b20c9ab928e841a8da61272421bd71195f400",
-        "after": "c4e2ef3c3b7fd11b4442678f2be13a5525d91d7c7077fab18746c0d26602bd32"
+        "before": "a0ed9613fb3ed9df26c85de67580bebe8a66f896cb47794787b950aaf131ba52",
+        "after": "87bb0299ab12ee9194d8f5bc9685aa11026bacd221cba2c02f6d583891b24116"
       }
     },
-    "functions_removed": {
-      "compKey": "3d301cd1f56e03be66fcf248ccafebc8bdd79c7e68dd89f43925948e8c665ee6",
-      "candPriorKeys": "956bd3b16587c34f23cea3afacc0ff71f78ab313ec80db3087946af1e3269475"
-    },
-    "initializers_changed": [
-      {
-        "file": "js/initialize/ai-view.js",
-        "before_ast_sha256": "38f1cc9c329c0d9575da14c1db008ce9c65f19f30eb96ff321ec0bfe4c033696",
-        "after_ast_sha256": "051f3006f894d00ff1d00625fce1f6f65bffddf1e0f3f16d8c7d79428b49fd7b"
-      },
-      {
-        "file": "js/initialize/candidates.js",
-        "before_ast_sha256": "6a6a7b62d3cfe74bcef5073012c31f317c9e70c35cec13eca889cc5b6152f023",
-        "after_ast_sha256": "1a8e4f13f1eaab13ff229a323775e56069177626ba672c801c314ca34bc96629"
-      }
-    ],
-    "previous_initialization_sha256": "8e4e0a8ac6baf038aae01f9e1ffdd3511623ae2eaa0f048b5af620cb4da5b0a6",
-    "current_initialization_sha256": "47c97b98d91d99d1f40ecaa5c552e004a8a5623b5de4cc7f07330c67fd6df65a",
+    "functions_added": {},
+    "functions_removed": {},
+    "initializers_changed": [],
+    "scripts_changed": [],
+    "unchanged_progress_sha256": "40822a41deb4e19d0e99a52b742409b2d820ef2b3bfc58db3e66537ef3e3b786",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
       "70,000 byte resource limit",
       "strict mode and lexical bindings",
-      "original snapshot provenance"
+      "original snapshot provenance",
+      "prior reviewed revision history",
+      "private source and bundle exclusion"
     ]
-  }
+  },
+  "reviewed_revision_history": [
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "Native external-research cards with evidence boundaries; candidate Tc display ordering and strictly sourced earlier-report archive.",
+      "baseline_parent_commit": "d5a880259eee0c825ade37557ce060b00344d5d0",
+      "previous_manifest_sha256": "82576d20940468873b345c11134a0f5134b29c95ed5d9c55c90d8c1dc65a60c1",
+      "original_extraction_commit": "22eba00",
+      "allowed_modules": [
+        "js/definitions/ai-view.js",
+        "js/definitions/candidates.js",
+        "js/initialize/ai-view.js",
+        "js/initialize/candidates.js"
+      ],
+      "scripts_added": [
+        "external-research-data.js"
+      ],
+      "functions_added": {
+        "externalResearchCategory": "9557bef85b8d0d89bf7b104ee52b40cdfb2e12a4c6ebc3c9a7b2903d03723896",
+        "externalResearchRows": "1bee2bcb1c6583aeb110a26fb15c3974fb00564481d5786a2bade5ede8ea446b",
+        "externalResearchSchedule": "c8a2eef64269673ea3f98dac378bddf4bb20d461a41701074f3d4e400414c803",
+        "externalResearchUrl": "ae1e3857679e704488d8e7e289dea5da74bbcec43f6b4d80c4032790f590c28f",
+        "externalResearchReferences": "f2843e2f64d51bb56bef19cc3fdc5a92d6ec3b40b6798ca86e3cebb93ce4bb6b",
+        "renderExternalResearchList": "1d72ded40856c18362b4c93525e2de9e6d2a736d9910a5c62bd1e4c6cecdd387",
+        "buildExternalResearchCard": "cb1711c3a5c8f5c6ddda8804510cd4f08a6a9aeb37f821245d94d70eb36b1f8c",
+        "stopExternalResearch": "8dacbfe20fef73bd984e216a98d8fb75d042c28e61431761b90e63f8773c0a9c",
+        "buildExternalResearchRoute": "c7bba8d55bb2ad9f9008b9069f8b5586aef82c3a32f70bbd87a4c26b4870501e",
+        "candArchive": "b168ca844115c6815c7b6e9c35471a050324a69a7246811172d33d6f11472338"
+      },
+      "functions_changed": {
+        "buildAI": {
+          "before": "456fe7a79efba065ffd4d00192a195422fd27a1bdf6de8c9277fa7514e9c3905",
+          "after": "6bccd729a9525cee06ab0a811fc1217633e916e9280fece8825512b6e90223c6"
+        },
+        "renderAIFound": {
+          "before": "8a4d1131eb1f72f4fef179692554e963b026e407d85487df454d627f5bb07b72",
+          "after": "7c74c8cb108bab3eefdbfd5f5ccabc2c75b3e70e2a4955b666a6f1c6e721b0d6"
+        },
+        "renderAIOurs": {
+          "before": "1a4456cdda75f74372d0cde4e4f116c21534eded5b49116b6d0fbdaf36c7bd2f",
+          "after": "27d5b842b2b3048bbb61d8aac48a87b6a48d0cf38c646c9980f2f49a785c0328"
+        },
+        "aiStop": {
+          "before": "cf3fa706daca8532541eb206a617aa2e2218a01a2a7bed91e5c71806533915f1",
+          "after": "a0f6cdecefd4c0fc4bbcef38fea1a6c1acb0cfece03481a0ca0cbd776438193a"
+        },
+        "candRows": {
+          "before": "5d487460c386ace10df126c8afe2876d56f7564ca0d52372389df26a05fd37ba",
+          "after": "84443609c6db341db7040fb2343eb48dcef721fdb970ca1db756a76c0d079195"
+        },
+        "candCurrentRows": {
+          "before": "6831c86e8b4487d3893352475e8694d337fce3209d8687fb40bd2395a7a661aa",
+          "after": "2f440726e6d6101da282116c36983c4abb859559010fed8241c28c20721ee13c"
+        },
+        "candTcSc": {
+          "before": "12f82c307e4e06f656f11f910c98d7716611f8d2e13ee5a83cc8d6e3c19487c4",
+          "after": "926f2b6451e3b222b3fb628e60083d69d89b06c94ef862fae8a4c922ecc5e903"
+        },
+        "candGo": {
+          "before": "7193c5ac687092f5c4b65d1ac9cd137d952debc096488e96764720402812e2eb",
+          "after": "6ef03d9a920451afffb40d428e50ea9ccf8cc8934b368e4d95e3c6a339dc883a"
+        },
+        "candRemarks": {
+          "before": "6d08946885c1bfc1bdfb745d034f9e37a60e6e0c25848a2d9c6601ce46ee31c3",
+          "after": "a80f216cc5d834ab33bfb8f488f7d98ab2281ec25176aa1504e952f40b2ae021"
+        },
+        "candRemarksEl": {
+          "before": "f2ac2b3d39363f7588a7ddad5450c40b60673eb28ff6c11e3d71532ae16ca157",
+          "after": "27233e5433800427cfd3bb777653b4b3aaad339a5befbfed7978c9888452ac7e"
+        },
+        "candCheckSource": {
+          "before": "e0617ef02e658ef0145ab7f8e23a59338cc9171ac36cbc3edb0549d1fea48c06",
+          "after": "28cce57d523a3c19be85c2f8014fce905378961f88ed46ad1bbc31836324cbef"
+        },
+        "candOursNote": {
+          "before": "62a4264bf5883ea8f15c94572b4d37868e0fe1732b828788adc151b6c62fb557",
+          "after": "7dbb7191f0c934e89810065c4cfe4814f6d9e8a2c0f0e686838a87bae74a9539"
+        },
+        "renderCandidates": {
+          "before": "41e457a2db3f933c68f3771274b4fb3dfca0cb9435fad7e617cc2d6adbf7d03c",
+          "after": "e68adf63360195daf2ed1ef6a5a1e675e39f535d2dde37abd41b7bedf069c1b9"
+        },
+        "candTellUs": {
+          "before": "7326956ad19b2e52b68d919f0d7b20c9ab928e841a8da61272421bd71195f400",
+          "after": "c4e2ef3c3b7fd11b4442678f2be13a5525d91d7c7077fab18746c0d26602bd32"
+        }
+      },
+      "functions_removed": {
+        "compKey": "3d301cd1f56e03be66fcf248ccafebc8bdd79c7e68dd89f43925948e8c665ee6",
+        "candPriorKeys": "956bd3b16587c34f23cea3afacc0ff71f78ab313ec80db3087946af1e3269475"
+      },
+      "initializers_changed": [
+        {
+          "file": "js/initialize/ai-view.js",
+          "before_ast_sha256": "38f1cc9c329c0d9575da14c1db008ce9c65f19f30eb96ff321ec0bfe4c033696",
+          "after_ast_sha256": "051f3006f894d00ff1d00625fce1f6f65bffddf1e0f3f16d8c7d79428b49fd7b"
+        },
+        {
+          "file": "js/initialize/candidates.js",
+          "before_ast_sha256": "6a6a7b62d3cfe74bcef5073012c31f317c9e70c35cec13eca889cc5b6152f023",
+          "after_ast_sha256": "1a8e4f13f1eaab13ff229a323775e56069177626ba672c801c314ca34bc96629"
+        }
+      ],
+      "previous_initialization_sha256": "8e4e0a8ac6baf038aae01f9e1ffdd3511623ae2eaa0f048b5af620cb4da5b0a6",
+      "current_initialization_sha256": "47c97b98d91d99d1f40ecaa5c552e004a8a5623b5de4cc7f07330c67fd6df65a",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance"
+      ]
+    },
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "User-requested withdrawal of the native external-research memo cards, bundle and stylesheet; automatic feed and project model views retained.",
+      "baseline_parent_commit": "08c054fcca7516193872c912e7eefcec4de9de72",
+      "previous_manifest_sha256": "c0a4e8670ce4ebbb0a52a834463f4d5f43cc5e1e3d0b1403fb23e86deac35571",
+      "allowed_modules": [
+        "js/definitions/ai-view.js",
+        "js/initialize/ai-view.js",
+        "js/definitions/content.js"
+      ],
+      "scripts_removed": [
+        "external-research-data.js"
+      ],
+      "styles_removed": [
+        "external-research.css"
+      ],
+      "functions_added": {},
+      "functions_changed": {
+        "contentChanged": {
+          "before": "dab0ed4ae4463ac9371ae88fea7ef5398618c74edf5e29bd29f2207bc0a726cf",
+          "after": "1a16d08098b56128cadf5621cc2a5c7d8056b42a2f9c32bae81880f6bf005810"
+        },
+        "buildAI": {
+          "before": "6bccd729a9525cee06ab0a811fc1217633e916e9280fece8825512b6e90223c6",
+          "after": "a0ed9613fb3ed9df26c85de67580bebe8a66f896cb47794787b950aaf131ba52"
+        },
+        "renderAI": {
+          "before": "6a56ec1a2f43beeb8d531cb567cab6d6641e025239629742f3fcbd408d119197",
+          "after": "e121a604926abea452434f5a0cefae6797985caf47a4ba4737e14f9234b68017"
+        },
+        "aiStop": {
+          "before": "a0f6cdecefd4c0fc4bbcef38fea1a6c1acb0cfece03481a0ca0cbd776438193a",
+          "after": "cf3fa706daca8532541eb206a617aa2e2218a01a2a7bed91e5c71806533915f1"
+        }
+      },
+      "functions_removed": {
+        "renderAIFound": "7c74c8cb108bab3eefdbfd5f5ccabc2c75b3e70e2a4955b666a6f1c6e721b0d6",
+        "externalResearchCategory": "9557bef85b8d0d89bf7b104ee52b40cdfb2e12a4c6ebc3c9a7b2903d03723896",
+        "externalResearchRows": "1bee2bcb1c6583aeb110a26fb15c3974fb00564481d5786a2bade5ede8ea446b",
+        "externalResearchSchedule": "c8a2eef64269673ea3f98dac378bddf4bb20d461a41701074f3d4e400414c803",
+        "externalResearchUrl": "ae1e3857679e704488d8e7e289dea5da74bbcec43f6b4d80c4032790f590c28f",
+        "externalResearchReferences": "f2843e2f64d51bb56bef19cc3fdc5a92d6ec3b40b6798ca86e3cebb93ce4bb6b",
+        "renderExternalResearchList": "1d72ded40856c18362b4c93525e2de9e6d2a736d9910a5c62bd1e4c6cecdd387",
+        "buildExternalResearchCard": "cb1711c3a5c8f5c6ddda8804510cd4f08a6a9aeb37f821245d94d70eb36b1f8c",
+        "stopExternalResearch": "8dacbfe20fef73bd984e216a98d8fb75d042c28e61431761b90e63f8773c0a9c",
+        "buildExternalResearchRoute": "c7bba8d55bb2ad9f9008b9069f8b5586aef82c3a32f70bbd87a4c26b4870501e",
+        "renderAICurated": "91cf15c3b117ddbbbf5cbca1ab19e5b490ef7ff56bdeea4e63e380a5ad59bc45"
+      },
+      "initializers_changed": [
+        {
+          "file": "js/initialize/ai-view.js",
+          "before_ast_sha256": "051f3006f894d00ff1d00625fce1f6f65bffddf1e0f3f16d8c7d79428b49fd7b",
+          "after_ast_sha256": "38f1cc9c329c0d9575da14c1db008ce9c65f19f30eb96ff321ec0bfe4c033696"
+        }
+      ],
+      "previous_initialization_sha256": "47c97b98d91d99d1f40ecaa5c552e004a8a5623b5de4cc7f07330c67fd6df65a",
+      "current_initialization_sha256": "5da4020679fb7705e8b28679aabfe4e4fea22ce516682e70ea32420a74e0ef32",
+      "unchanged_progress_sha256": "40822a41deb4e19d0e99a52b742409b2d820ef2b3bfc58db3e66537ef3e3b786",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "prior reviewed revision history"
+      ]
+    }
+  ]
 }

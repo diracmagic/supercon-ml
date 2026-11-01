@@ -6,7 +6,7 @@ The application uses classic scripts and a shared **lexical** environment. Appli
 
 Load order matters:
 
-1. The generated literature and external-research bundles provide reviewed data; `candidates.js` provides the standalone candidate data rules.
+1. The generated candidate-literature bundle provides reviewed evidence; `candidates.js` provides the standalone candidate data rules. The private external-research memo is not part of the public app or its offline bundle.
 2. `js/bindings.js` declares the application's state, initially undefined as the original `var` bindings were.
 3. `js/definitions/` contains named functions grouped by feature. All definitions load before initialization, preserving calls to functions originally declared later in the single IIFE.
 4. `js/initialize/` contains the original state initialization and setup statements, grouped by feature. Loading these files only defines initializer functions.
