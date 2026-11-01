@@ -1,5 +1,6 @@
 .header-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 7px; max-width: 330px; }
 .team-auth-controls { display: inline-flex; align-items: center; gap: 6px; }
+.team-auth-controls:not(:has(button:not([hidden]))) { display: none; }
 .team-auth-status { flex-basis: 100%; max-width: 330px; text-align: right; color: var(--muted); font-size: 11px; line-height: 1.45; }
 .team-auth-status:empty { display: none; }
 .team-login:disabled { cursor: default; opacity: .75; }
@@ -45,4 +46,17 @@
   .team-notes-status { padding: 12px 15px 0; }
   .team-notes-body { padding: 14px 15px 16px; }
   .team-notes-filters, .team-notes-list { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  /* Account controls and status get a row; the clean public login keeps its corner. */
+  .top:has(#team-logout:not([hidden]), .team-auth-status:not(:empty)) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "brand" "actions" "views" "controls";
+  }
+  .top:has(#team-logout:not([hidden]), .team-auth-status:not(:empty)) .header-actions {
+    width: 100%; max-width: 100%; justify-self: stretch;
+  }
+  .top:has(#team-logout:not([hidden]), .team-auth-status:not(:empty)) .team-login {
+    display: block; min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+  }
 }
