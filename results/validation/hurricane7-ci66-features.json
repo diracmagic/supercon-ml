@@ -1,0 +1,1490 @@
+{
+  "status": "pass_with_scientific_limits",
+  "scope": "Independent geometry, train-fold preprocessing, stability and artifact/source binding audit. No models retrained and no performance metrics rescored.",
+  "artifact": "research-results-66/results/hurricane7/20261101T045031630386Z-1793508631632341794",
+  "source_commit": "83f4f5ffa85ecff844779125772f480f33634025",
+  "github_run_id": "41274550971",
+  "protocol_sha256": "47b45b22ae94ca4a49f39aeabac2ea1e0b23a000aacfc5c29bb2a680f52abacf",
+  "github_run_attempt": "1",
+  "run_id": "20261101T045031630386Z-1793508631632341794",
+  "run_at": "2026-11-01T04:50:31.630386+00:00",
+  "artifact_archive": {
+    "artifact_name": "research-results-66",
+    "zip_name": "research-results-66.zip",
+    "artifact_id": "13071275361",
+    "sha256": "e03efe69a3613aa8b707b224f2d23f3e71264e53b2f24560314580da663f0813",
+    "verification": "Archive identity and checksum independently verified by the parent task; file-level hashes recomputed here."
+  },
+  "all_checks_passed": true,
+  "checks": [
+    {
+      "name": "frozen-v2-protocol-binds-run-report-status",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "before-first-realfit-amendment-retains-prior-protocol",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "actual-run-identity-source-commit-and-report-only-mode",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "run-json-and-report-match-all-run-identity-fields",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "run-and-report-source-manifests-identical",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "all-seven-frozen-source-blobs-match-recorded-LF-hashes",
+      "passed": true,
+      "details": {
+        "ml/hurricane7.py": {
+          "expected": "5b66c6a4488467bb1063b078ea410c54e808bcf3687222088a70a3679080a941",
+          "frozen_commit_blob_sha256": "5b66c6a4488467bb1063b078ea410c54e808bcf3687222088a70a3679080a941",
+          "match": true
+        },
+        "ml/mechanism_features.py": {
+          "expected": "30e08cbba8901a88cabc6a9f5fd15842f7e0ef80d7f831b89f54d5d4bdd01464",
+          "frozen_commit_blob_sha256": "30e08cbba8901a88cabc6a9f5fd15842f7e0ef80d7f831b89f54d5d4bdd01464",
+          "match": true
+        },
+        "ml/hurricane.py": {
+          "expected": "43f7439063456899d644ce0364675eee382011c9c2384485f4b94788cd1f46dd",
+          "frozen_commit_blob_sha256": "43f7439063456899d644ce0364675eee382011c9c2384485f4b94788cd1f46dd",
+          "match": true
+        },
+        "ml/hurricane3.py": {
+          "expected": "a8ee04a510905b6bf82f0892d8482965964fd888aefa84004f2fc63764047e91",
+          "frozen_commit_blob_sha256": "a8ee04a510905b6bf82f0892d8482965964fd888aefa84004f2fc63764047e91",
+          "match": true
+        },
+        "ml/hurricane5.py": {
+          "expected": "57460b892d673d46383bb1d73e0138648780800e65629c913432a6610aae4906",
+          "frozen_commit_blob_sha256": "57460b892d673d46383bb1d73e0138648780800e65629c913432a6610aae4906",
+          "match": true
+        },
+        "ml/hurricane6.py": {
+          "expected": "0531968ac59c51487e22e5379dd830251ca5d505225dcfd98051c90423f62e9e",
+          "frozen_commit_blob_sha256": "0531968ac59c51487e22e5379dd830251ca5d505225dcfd98051c90423f62e9e",
+          "match": true
+        },
+        "ml/pipeline.py": {
+          "expected": "f2c29ef1032b24208d5d25ee7bb9ea77534b24c0c9234d633054138065ffca68",
+          "frozen_commit_blob_sha256": "f2c29ef1032b24208d5d25ee7bb9ea77534b24c0c9234d633054138065ffca68",
+          "match": true
+        }
+      }
+    },
+    {
+      "name": "input-manifest-canonical-hash-binds-report",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "exact-input-CSV-byte-hash-and-typed-metadata-hash",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "source-dataset-hash-consistent",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "fixed-cohort-and-full-membership-metadata",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "CIF-and-geometry-provenance-order-binds-input-IDs",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "no-geometry-exclusions-invalids-budget-failures",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "geometry-version-config-and-ASE-generation-consistent",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "raw-geometry-NaNs-match-explicit-diagnostic-missingness",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "volume-and-flags-remain-valid-observed-values",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "coverage-recomputed-from-raw-CSV-equals-report-and-manifest",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "no-feedback-precursors-auxiliary-background-or-measured-negative-labels",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "all-three-designs-and-all-twelve-outer-fits-completed-with-no-failures",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "all-outer-splits-exclude-entire-memberships-and-systems",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "outer-feature-masks-medians-means-std-rebuilt-from-training-CSV-only",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "PCA-bases-orthonormal-training-centered-with-matching-projection-variance",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "every-inner-fit-excludes-validation-and-outer-held-systems",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "all-three-designs-use-the-declared-inner-alpha-grid-and-tie-policy",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "inner-head-statuses-retained-and-all-family-AUC-cells-valid-with-no-skips",
+      "passed": true,
+      "details": {
+        "inner_heads": {
+          "completed": 133,
+          "not_converged": 11
+        },
+        "fold_family_cells": {
+          "valid": 432
+        }
+      }
+    },
+    {
+      "name": "selected-alpha-inner-heads-all-converged-and-unconverged-alphas-excluded",
+      "passed": true,
+      "details": {
+        "selected_inner_heads": {
+          "completed": 36
+        },
+        "invalid_alpha_records": [
+          {
+            "design": "R1",
+            "held_family": "cuprate",
+            "alpha": 0.001,
+            "selected": false,
+            "reason": "one or more inner heads did not converge",
+            "failed_heads": [
+              {
+                "fold": 1,
+                "status": "not_converged"
+              },
+              {
+                "fold": 2,
+                "status": "not_converged"
+              }
+            ]
+          },
+          {
+            "design": "R1",
+            "held_family": "iron-based",
+            "alpha": 0.001,
+            "selected": false,
+            "reason": "one or more inner heads did not converge",
+            "failed_heads": [
+              {
+                "fold": 0,
+                "status": "not_converged"
+              },
+              {
+                "fold": 1,
+                "status": "not_converged"
+              },
+              {
+                "fold": 2,
+                "status": "not_converged"
+              }
+            ]
+          },
+          {
+            "design": "R1",
+            "held_family": "heavy-fermion",
+            "alpha": 0.001,
+            "selected": false,
+            "reason": "one or more inner heads did not converge",
+            "failed_heads": [
+              {
+                "fold": 0,
+                "status": "not_converged"
+              },
+              {
+                "fold": 1,
+                "status": "not_converged"
+              },
+              {
+                "fold": 2,
+                "status": "not_converged"
+              }
+            ]
+          },
+          {
+            "design": "R1",
+            "held_family": "other oxide",
+            "alpha": 0.001,
+            "selected": false,
+            "reason": "one or more inner heads did not converge",
+            "failed_heads": [
+              {
+                "fold": 0,
+                "status": "not_converged"
+              },
+              {
+                "fold": 1,
+                "status": "not_converged"
+              },
+              {
+                "fold": 2,
+                "status": "not_converged"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "all-512-stability-heads-and-24-training-family-heads-completed",
+      "passed": true,
+      "details": {
+        "bootstrap_heads": {
+          "completed": 512
+        },
+        "family_heads": {
+          "completed": 24
+        }
+      }
+    },
+    {
+      "name": "reported-common-terms-exactly-obey-stability-and-three-family-sign-rules",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "raw-19-feature-models-drop-tetrahedrality-and-constant-1D-proxy-in-all-outer-folds",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "limitations-explicitly-disclaim-probability-mechanism-FDR-and-PC-basis-merging",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "feature_coverage_by_family": {
+    "all": {
+      "n": 615,
+      "features": {
+        "coordination_mean": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "coordination_std": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "metal_ligand_coordination_mean": {
+          "finite_rows": 614,
+          "finite_fraction": 0.9983739837398374
+        },
+        "metal_ligand_coordination_std": {
+          "finite_rows": 614,
+          "finite_fraction": 0.9983739837398374
+        },
+        "bond_length_mean_angstrom": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "bond_length_cv": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "local_planarity_mean": {
+          "finite_rows": 614,
+          "finite_fraction": 0.9983739837398374
+        },
+        "local_planarity_std": {
+          "finite_rows": 614,
+          "finite_fraction": 0.9983739837398374
+        },
+        "local_linearity_mean": {
+          "finite_rows": 614,
+          "finite_fraction": 0.9983739837398374
+        },
+        "local_linearity_std": {
+          "finite_rows": 614,
+          "finite_fraction": 0.9983739837398374
+        },
+        "tetrahedral_order_mean": {
+          "finite_rows": 148,
+          "finite_fraction": 0.24065040650406505
+        },
+        "tetrahedral_order_std": {
+          "finite_rows": 148,
+          "finite_fraction": 0.24065040650406505
+        },
+        "local_bond_length_cv_mean": {
+          "finite_rows": 614,
+          "finite_fraction": 0.9983739837398374
+        },
+        "radius_normalized_length_mean": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "radius_normalized_abs_deviation_mean": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "connectivity_0d_site_fraction": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "connectivity_1d_site_fraction": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "connectivity_2d_site_fraction": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "connectivity_3d_site_fraction": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "volume_per_atom_angstrom3": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "is_metal": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "small_gap": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        },
+        "is_magnetic": {
+          "finite_rows": 615,
+          "finite_fraction": 1.0
+        }
+      }
+    },
+    "cuprate": {
+      "n": 158,
+      "features": {
+        "coordination_mean": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "coordination_std": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "metal_ligand_coordination_mean": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "metal_ligand_coordination_std": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "bond_length_mean_angstrom": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "bond_length_cv": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "local_planarity_mean": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "local_planarity_std": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "local_linearity_mean": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "local_linearity_std": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "tetrahedral_order_mean": {
+          "finite_rows": 49,
+          "finite_fraction": 0.310126582278481
+        },
+        "tetrahedral_order_std": {
+          "finite_rows": 49,
+          "finite_fraction": 0.310126582278481
+        },
+        "local_bond_length_cv_mean": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "radius_normalized_length_mean": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "radius_normalized_abs_deviation_mean": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "connectivity_0d_site_fraction": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "connectivity_1d_site_fraction": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "connectivity_2d_site_fraction": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "connectivity_3d_site_fraction": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "volume_per_atom_angstrom3": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "is_metal": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "small_gap": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        },
+        "is_magnetic": {
+          "finite_rows": 158,
+          "finite_fraction": 1.0
+        }
+      }
+    },
+    "iron-based": {
+      "n": 110,
+      "features": {
+        "coordination_mean": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "coordination_std": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "metal_ligand_coordination_mean": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "metal_ligand_coordination_std": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "bond_length_mean_angstrom": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "bond_length_cv": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "local_planarity_mean": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "local_planarity_std": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "local_linearity_mean": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "local_linearity_std": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "tetrahedral_order_mean": {
+          "finite_rows": 36,
+          "finite_fraction": 0.32727272727272727
+        },
+        "tetrahedral_order_std": {
+          "finite_rows": 36,
+          "finite_fraction": 0.32727272727272727
+        },
+        "local_bond_length_cv_mean": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "radius_normalized_length_mean": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "radius_normalized_abs_deviation_mean": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "connectivity_0d_site_fraction": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "connectivity_1d_site_fraction": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "connectivity_2d_site_fraction": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "connectivity_3d_site_fraction": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "volume_per_atom_angstrom3": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "is_metal": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "small_gap": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        },
+        "is_magnetic": {
+          "finite_rows": 110,
+          "finite_fraction": 1.0
+        }
+      }
+    },
+    "heavy-fermion": {
+      "n": 221,
+      "features": {
+        "coordination_mean": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "coordination_std": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "metal_ligand_coordination_mean": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "metal_ligand_coordination_std": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "bond_length_mean_angstrom": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "bond_length_cv": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "local_planarity_mean": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "local_planarity_std": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "local_linearity_mean": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "local_linearity_std": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "tetrahedral_order_mean": {
+          "finite_rows": 7,
+          "finite_fraction": 0.03167420814479638
+        },
+        "tetrahedral_order_std": {
+          "finite_rows": 7,
+          "finite_fraction": 0.03167420814479638
+        },
+        "local_bond_length_cv_mean": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "radius_normalized_length_mean": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "radius_normalized_abs_deviation_mean": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "connectivity_0d_site_fraction": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "connectivity_1d_site_fraction": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "connectivity_2d_site_fraction": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "connectivity_3d_site_fraction": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "volume_per_atom_angstrom3": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "is_metal": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "small_gap": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        },
+        "is_magnetic": {
+          "finite_rows": 221,
+          "finite_fraction": 1.0
+        }
+      }
+    },
+    "other oxide": {
+      "n": 126,
+      "features": {
+        "coordination_mean": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "coordination_std": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "metal_ligand_coordination_mean": {
+          "finite_rows": 125,
+          "finite_fraction": 0.9920634920634921
+        },
+        "metal_ligand_coordination_std": {
+          "finite_rows": 125,
+          "finite_fraction": 0.9920634920634921
+        },
+        "bond_length_mean_angstrom": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "bond_length_cv": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "local_planarity_mean": {
+          "finite_rows": 125,
+          "finite_fraction": 0.9920634920634921
+        },
+        "local_planarity_std": {
+          "finite_rows": 125,
+          "finite_fraction": 0.9920634920634921
+        },
+        "local_linearity_mean": {
+          "finite_rows": 125,
+          "finite_fraction": 0.9920634920634921
+        },
+        "local_linearity_std": {
+          "finite_rows": 125,
+          "finite_fraction": 0.9920634920634921
+        },
+        "tetrahedral_order_mean": {
+          "finite_rows": 56,
+          "finite_fraction": 0.4444444444444444
+        },
+        "tetrahedral_order_std": {
+          "finite_rows": 56,
+          "finite_fraction": 0.4444444444444444
+        },
+        "local_bond_length_cv_mean": {
+          "finite_rows": 125,
+          "finite_fraction": 0.9920634920634921
+        },
+        "radius_normalized_length_mean": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "radius_normalized_abs_deviation_mean": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "connectivity_0d_site_fraction": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "connectivity_1d_site_fraction": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "connectivity_2d_site_fraction": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "connectivity_3d_site_fraction": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "volume_per_atom_angstrom3": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "is_metal": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "small_gap": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        },
+        "is_magnetic": {
+          "finite_rows": 126,
+          "finite_fraction": 1.0
+        }
+      }
+    }
+  },
+  "geometry_by_family": {
+    "cuprate": {
+      "n": 158,
+      "tetrahedral_rows": 49,
+      "base_component_dimension_sets": {
+        "3": 144,
+        "2": 10,
+        "0,2": 4
+      },
+      "no_possible_ligand_sites": 0,
+      "neighbor_count_changes_with_plus_minus_5_percent_cutoff": 149,
+      "dimension_changes_with_cutoff": 7
+    },
+    "iron-based": {
+      "n": 110,
+      "tetrahedral_rows": 36,
+      "base_component_dimension_sets": {
+        "3": 98,
+        "2": 10,
+        "0,2": 2
+      },
+      "no_possible_ligand_sites": 2,
+      "neighbor_count_changes_with_plus_minus_5_percent_cutoff": 74,
+      "dimension_changes_with_cutoff": 6
+    },
+    "heavy-fermion": {
+      "n": 221,
+      "tetrahedral_rows": 7,
+      "base_component_dimension_sets": {
+        "3": 217,
+        "0,3": 3,
+        "2": 1
+      },
+      "no_possible_ligand_sites": 99,
+      "neighbor_count_changes_with_plus_minus_5_percent_cutoff": 143,
+      "dimension_changes_with_cutoff": 7
+    },
+    "other oxide": {
+      "n": 126,
+      "tetrahedral_rows": 56,
+      "base_component_dimension_sets": {
+        "3": 119,
+        "2": 4,
+        "0": 1,
+        "0,3": 2
+      },
+      "no_possible_ligand_sites": 0,
+      "neighbor_count_changes_with_plus_minus_5_percent_cutoff": 99,
+      "dimension_changes_with_cutoff": 4
+    }
+  },
+  "fits": [
+    {
+      "design": "R0",
+      "held_family": "cuprate",
+      "training_rows": 457,
+      "alpha": 1.0,
+      "main_feature_count": 20,
+      "retained_main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 20,
+      "tetrahedral_training_finite_fraction": 0.21663019693654267
+    },
+    {
+      "design": "R1",
+      "held_family": "cuprate",
+      "training_rows": 457,
+      "alpha": 0.01,
+      "main_feature_count": 20,
+      "retained_main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 100,
+      "tetrahedral_training_finite_fraction": 0.21663019693654267,
+      "stability": {
+        "status": "completed",
+        "resamples": 64,
+        "bootstrap_status_counts": {
+          "completed": 64
+        },
+        "common_terms": [
+          "local_planarity_std * is_magnetic"
+        ]
+      }
+    },
+    {
+      "design": "R2",
+      "held_family": "cuprate",
+      "training_rows": 457,
+      "alpha": 0.1,
+      "main_feature_count": 12,
+      "retained_main_features": [
+        "geometry_PC1",
+        "geometry_PC2",
+        "geometry_PC3",
+        "geometry_PC4",
+        "geometry_PC5",
+        "geometry_PC6",
+        "geometry_PC7",
+        "geometry_PC8",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 27,
+      "tetrahedral_training_finite_fraction": 0.21663019693654267,
+      "stability": {
+        "status": "completed",
+        "resamples": 64,
+        "bootstrap_status_counts": {
+          "completed": 64
+        },
+        "common_terms": [
+          "geometry_PC7"
+        ]
+      }
+    },
+    {
+      "design": "R0",
+      "held_family": "iron-based",
+      "training_rows": 505,
+      "alpha": 0.1,
+      "main_feature_count": 20,
+      "retained_main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 20,
+      "tetrahedral_training_finite_fraction": 0.22178217821782178
+    },
+    {
+      "design": "R1",
+      "held_family": "iron-based",
+      "training_rows": 505,
+      "alpha": 0.01,
+      "main_feature_count": 20,
+      "retained_main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 103,
+      "tetrahedral_training_finite_fraction": 0.22178217821782178,
+      "stability": {
+        "status": "completed",
+        "resamples": 64,
+        "bootstrap_status_counts": {
+          "completed": 64
+        },
+        "common_terms": [
+          "volume_per_atom_angstrom3"
+        ]
+      }
+    },
+    {
+      "design": "R2",
+      "held_family": "iron-based",
+      "training_rows": 505,
+      "alpha": 0.1,
+      "main_feature_count": 12,
+      "retained_main_features": [
+        "geometry_PC1",
+        "geometry_PC2",
+        "geometry_PC3",
+        "geometry_PC4",
+        "geometry_PC5",
+        "geometry_PC6",
+        "geometry_PC7",
+        "geometry_PC8",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 22,
+      "tetrahedral_training_finite_fraction": 0.22178217821782178,
+      "stability": {
+        "status": "completed",
+        "resamples": 64,
+        "bootstrap_status_counts": {
+          "completed": 64
+        },
+        "common_terms": []
+      }
+    },
+    {
+      "design": "R0",
+      "held_family": "heavy-fermion",
+      "training_rows": 394,
+      "alpha": 1.0,
+      "main_feature_count": 20,
+      "retained_main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 20,
+      "tetrahedral_training_finite_fraction": 0.35786802030456855
+    },
+    {
+      "design": "R1",
+      "held_family": "heavy-fermion",
+      "training_rows": 394,
+      "alpha": 0.1,
+      "main_feature_count": 20,
+      "retained_main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 39,
+      "tetrahedral_training_finite_fraction": 0.35786802030456855,
+      "stability": {
+        "status": "completed",
+        "resamples": 64,
+        "bootstrap_status_counts": {
+          "completed": 64
+        },
+        "common_terms": []
+      }
+    },
+    {
+      "design": "R2",
+      "held_family": "heavy-fermion",
+      "training_rows": 394,
+      "alpha": 0.1,
+      "main_feature_count": 12,
+      "retained_main_features": [
+        "geometry_PC1",
+        "geometry_PC2",
+        "geometry_PC3",
+        "geometry_PC4",
+        "geometry_PC5",
+        "geometry_PC6",
+        "geometry_PC7",
+        "geometry_PC8",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 28,
+      "tetrahedral_training_finite_fraction": 0.35786802030456855,
+      "stability": {
+        "status": "completed",
+        "resamples": 64,
+        "bootstrap_status_counts": {
+          "completed": 64
+        },
+        "common_terms": []
+      }
+    },
+    {
+      "design": "R0",
+      "held_family": "other oxide",
+      "training_rows": 489,
+      "alpha": 1.0,
+      "main_feature_count": 20,
+      "retained_main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 20,
+      "tetrahedral_training_finite_fraction": 0.18813905930470348
+    },
+    {
+      "design": "R1",
+      "held_family": "other oxide",
+      "training_rows": 489,
+      "alpha": 0.1,
+      "main_feature_count": 20,
+      "retained_main_features": [
+        "coordination_mean",
+        "coordination_std",
+        "metal_ligand_coordination_mean",
+        "metal_ligand_coordination_std",
+        "bond_length_mean_angstrom",
+        "bond_length_cv",
+        "local_planarity_mean",
+        "local_planarity_std",
+        "local_linearity_mean",
+        "local_linearity_std",
+        "local_bond_length_cv_mean",
+        "radius_normalized_length_mean",
+        "radius_normalized_abs_deviation_mean",
+        "connectivity_0d_site_fraction",
+        "connectivity_2d_site_fraction",
+        "connectivity_3d_site_fraction",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 32,
+      "tetrahedral_training_finite_fraction": 0.18813905930470348,
+      "stability": {
+        "status": "completed",
+        "resamples": 64,
+        "bootstrap_status_counts": {
+          "completed": 64
+        },
+        "common_terms": []
+      }
+    },
+    {
+      "design": "R2",
+      "held_family": "other oxide",
+      "training_rows": 489,
+      "alpha": 0.1,
+      "main_feature_count": 12,
+      "retained_main_features": [
+        "geometry_PC1",
+        "geometry_PC2",
+        "geometry_PC3",
+        "geometry_PC4",
+        "geometry_PC5",
+        "geometry_PC6",
+        "geometry_PC7",
+        "geometry_PC8",
+        "volume_per_atom_angstrom3",
+        "is_metal",
+        "small_gap",
+        "is_magnetic"
+      ],
+      "dropped_source_features": [
+        "tetrahedral_order_mean",
+        "tetrahedral_order_std",
+        "connectivity_1d_site_fraction"
+      ],
+      "nonzero_terms": 19,
+      "tetrahedral_training_finite_fraction": 0.18813905930470348,
+      "stability": {
+        "status": "completed",
+        "resamples": 64,
+        "bootstrap_status_counts": {
+          "completed": 64
+        },
+        "common_terms": []
+      }
+    }
+  ],
+  "training_common_terms": [
+    {
+      "design": "R1",
+      "held_family": "cuprate",
+      "term": "local_planarity_std * is_magnetic",
+      "coefficient": -0.07810485902719633,
+      "selection_frequency": 0.96875,
+      "conditional_sign_agreement": 0.967741935483871,
+      "training_family_signs": [
+        -1,
+        -1,
+        -1
+      ],
+      "common_in_training": true
+    },
+    {
+      "design": "R2",
+      "held_family": "cuprate",
+      "term": "geometry_PC7",
+      "coefficient": 0.1603532493174283,
+      "selection_frequency": 1.0,
+      "conditional_sign_agreement": 1.0,
+      "training_family_signs": [
+        1,
+        1,
+        1
+      ],
+      "common_in_training": true
+    },
+    {
+      "design": "R1",
+      "held_family": "iron-based",
+      "term": "volume_per_atom_angstrom3",
+      "coefficient": 0.08953717789808868,
+      "selection_frequency": 0.921875,
+      "conditional_sign_agreement": 1.0,
+      "training_family_signs": [
+        1,
+        1,
+        1
+      ],
+      "common_in_training": true
+    }
+  ],
+  "raw_R1_common_term_intersection_across_all_outer_folds": [],
+  "completion": {
+    "outer_selected_heads": {
+      "completed": 12
+    },
+    "inner_head_states_all_alphas": {
+      "completed": 133,
+      "not_converged": 11
+    },
+    "selected_alpha_inner_head_states": {
+      "completed": 36
+    },
+    "inner_family_cell_states": {
+      "valid": 432
+    },
+    "stability_bootstrap_states": {
+      "completed": 512
+    },
+    "training_family_expert_states": {
+      "completed": 24
+    },
+    "unselected_invalid_alpha_records": [
+      {
+        "design": "R1",
+        "held_family": "cuprate",
+        "alpha": 0.001,
+        "selected": false,
+        "reason": "one or more inner heads did not converge",
+        "failed_heads": [
+          {
+            "fold": 1,
+            "status": "not_converged"
+          },
+          {
+            "fold": 2,
+            "status": "not_converged"
+          }
+        ]
+      },
+      {
+        "design": "R1",
+        "held_family": "iron-based",
+        "alpha": 0.001,
+        "selected": false,
+        "reason": "one or more inner heads did not converge",
+        "failed_heads": [
+          {
+            "fold": 0,
+            "status": "not_converged"
+          },
+          {
+            "fold": 1,
+            "status": "not_converged"
+          },
+          {
+            "fold": 2,
+            "status": "not_converged"
+          }
+        ]
+      },
+      {
+        "design": "R1",
+        "held_family": "heavy-fermion",
+        "alpha": 0.001,
+        "selected": false,
+        "reason": "one or more inner heads did not converge",
+        "failed_heads": [
+          {
+            "fold": 0,
+            "status": "not_converged"
+          },
+          {
+            "fold": 1,
+            "status": "not_converged"
+          },
+          {
+            "fold": 2,
+            "status": "not_converged"
+          }
+        ]
+      },
+      {
+        "design": "R1",
+        "held_family": "other oxide",
+        "alpha": 0.001,
+        "selected": false,
+        "reason": "one or more inner heads did not converge",
+        "failed_heads": [
+          {
+            "fold": 0,
+            "status": "not_converged"
+          },
+          {
+            "fold": 1,
+            "status": "not_converged"
+          },
+          {
+            "fold": 2,
+            "status": "not_converged"
+          }
+        ]
+      }
+    ],
+    "selected_outer_designs_skipped": 0,
+    "feedback_training_records": 0,
+    "warning": "11 inner heads at unselected R1 alpha=0.001 did not converge; that alpha was invalid in all four outer folds and was excluded by the frozen policy. This is disclosed search-diagnostic failure, not a failure of selected models."
+  },
+  "scientific_conclusion": {
+    "supports_universal_superconducting_rule": false,
+    "supported_statement": "A reproducible exploratory P/U ranking run with a few conditional training-family associations; no universal pairing law or superconductivity probability is established.",
+    "reasons": [
+      "The only raw R1 terms passing the declared three-training-family stability rule are different in two leave-one-family-out fits; the other two fits have none. No raw term is common to all four outer fits.",
+      "The single R2 stable PC term belongs only to its own outer-training PCA basis. PC names cannot be compared or combined across folds.",
+      "Stability fixes the outer training basis and chosen alpha; it neither refits preprocessing nor adjusts for all searched terms, and is not a causal or FDR guarantee.",
+      "The three-training-family criterion is same-sign single-family heads plus pooled training-system bootstrap stability; it is not a separate 64-bootstrap stability demonstration in every family.",
+      "The stable-only terms are not a separately fitted or held-family-validated predictor; full-model scores cannot validate each individual stable term.",
+      "Tetrahedrality is defined in 148 of 615 raw structures, but both columns are dropped before every outer fit because training coverage is below 50%. This run cannot establish that tetrahedral coordination is irrelevant.",
+      "Original MP parent geometry and categorical DFT flags omit carrier filling, correlations, disorder, electronic coupling and measured tuning paths; U remains absence of a positive record, not a measured nonsuperconductor.",
+      "These four families and their literature were already inspected; research ascertainment and composition-correlated geometric proxies remain confounders."
+    ],
+    "output_limitations_accurate": true
+  },
+  "artifact_sha256": {
+    "folds.json": "4788e271688ebb494f86a17696b8b8d74cded86d6ad556c635af6c3ef395c1e9",
+    "input-manifest.json": "4b779dedd0571c011c87f87586bf398e8bf64930cdaafb40eca3edd1643dd615",
+    "input-parents.csv": "5932496e18c8a12dcd184191139b29d1afcaa8f42e241af3e178d2eece304530",
+    "parents.csv": "dbb18168f2d05f2d42ddf6ca88a96467e196e54276461f82f723d215bcea0c9e",
+    "protocol.json": "4246083e995969de2c4398251448f925b1c67257254fa01f6d72fb7acc211dbb",
+    "protocol.sha256": "1e763f27fa59f1b546c4b9f1503c2cbcbca82abd0ddd2c1f13692b66ca6f3d54",
+    "report.json": "1ccf1d43d821e34ee7a2894cb43c9299ae8a7e4021334414ce7d3202de9da7d3",
+    "run.json": "0c175aa4ccc72edf1b940cb9731deca8030d379bdb3dad649982e8f09f59daff",
+    "status.json": "098c372bf4b99e56d0113494d975617081fd76e789df5f38cd3febbc1ba3ceb9"
+  }
+}
