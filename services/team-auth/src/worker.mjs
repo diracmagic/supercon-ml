@@ -5,6 +5,8 @@ export { AuthState } from './state.mjs';
 
 const COOKIE = '__Host-supercon_oauth';
 const TEN_MINUTES = 600000, FIVE_MINUTES = 300000, ONE_HOUR = 3600000;
+const OAUTH_ERRORS = new Set(['oauth_state_invalid', 'oauth_denied', 'oauth_failed', 'oauth_credentials_invalid', 'oauth_redirect_invalid', 'oauth_exchange_unavailable', 'oauth_identity_unavailable']);
+const PROVIDER_ERRORS = new Map([['incorrect_client_credentials', 'oauth_credentials_invalid'], ['redirect_uri_mismatch', 'oauth_redirect_invalid'], ['bad_verification_code', 'oauth_failed']]);
 const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/exchange', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/auth/logout', 'POST']]);
 const cookie = (value, expiry = 600) => COOKIE + '=' + value + '; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=' + expiry;
 function cookieValue(request) {
@@ -118,16 +120,20 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
             demand(typeof code === 'string' && /^[A-Za-z0-9_-]{1,256}$/.test(code), 'oauth_failed');
             let response;
             try {
-              response = await fetchImpl('https://github.com/login/oauth/access_token', { method: 'POST', redirect: 'error', signal: AbortSignal.timeout(10000), headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+              response = await fetchImpl('https://github.com/login/oauth/access_token', { method: 'POST', redirect: 'error', signal: AbortSignal.timeout(10000), headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'supercon-team-auth' },
                 body: new URLSearchParams({ client_id: env.GITHUB_CLIENT_ID, client_secret: env.GITHUB_CLIENT_SECRET, code, redirect_uri: transaction.callback, code_verifier: transaction.verifier, repository_id: String(REPOSITORY_ID) }) });
-            } catch { throw new AuthError('oauth_failed'); }
-            demand(response.ok, 'oauth_failed');
-            const grant = await boundedJson(response, 16384, 'oauth_failed');
-            demand(plainObject(grant) && typeof grant.access_token === 'string' && /^[A-Za-z0-9_]{1,2048}$/.test(grant.access_token) && grant.token_type?.toLowerCase() === 'bearer' && !grant.error, 'oauth_failed');
+            } catch { throw new AuthError('oauth_exchange_unavailable'); }
+            const grant = await boundedJson(response, 16384, 'oauth_exchange_unavailable');
+            demand(plainObject(grant), 'oauth_exchange_unavailable');
+            // Only fixed categories cross the callback boundary, never provider text or credentials.
+            if (Object.hasOwn(grant, 'error')) throw new AuthError(PROVIDER_ERRORS.get(grant.error) || 'oauth_exchange_unavailable');
+            demand(response.ok && typeof grant.access_token === 'string' && /^[A-Za-z0-9_]{1,2048}$/.test(grant.access_token) && typeof grant.token_type === 'string' && grant.token_type.toLowerCase() === 'bearer', 'oauth_exchange_unavailable');
             const lifetime = grant.expires_in === undefined ? ONE_HOUR : Number(grant.expires_in) * 1000;
-            demand(Number.isSafeInteger(lifetime) && lifetime > 0, 'oauth_failed');
+            demand(Number.isSafeInteger(lifetime) && lifetime > 0, 'oauth_exchange_unavailable');
             const tokenExpiresAt = now() + Math.min(ONE_HOUR, lifetime);
-            const user = await githubUser(grant.access_token);
+            let user;
+            try { user = await githubUser(grant.access_token); }
+            catch { throw new AuthError('oauth_identity_unavailable'); }
             const ticket = randomToken();
             const record = { kind: 'ticket', expiresAt: Math.min(now() + FIVE_MINUTES, tokenExpiresAt), tokenExpiresAt,
               clientChallenge: transaction.clientChallenge, clientState, user,
@@ -136,7 +142,7 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
             // Ignore refresh_token entirely. Only an encrypted short-lived access token persists.
             return returnToApp({ team_ticket: ticket, team_state: clientState }, origin);
           } catch (error) {
-            const code = error instanceof AuthError && ['oauth_state_invalid', 'oauth_denied'].includes(error.code) ? error.code : 'oauth_failed';
+            const code = error instanceof AuthError && OAUTH_ERRORS.has(error.code) ? error.code : 'oauth_failed';
             return returnToApp({ team_error: code, ...(clientState ? { team_state: clientState } : {}) }, origin);
           }
         }

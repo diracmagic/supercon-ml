@@ -33,20 +33,24 @@ function reviewedCopy(run) {
   }
 }
 
-test('external review history keeps the original provenance and all four prior revisions', () => {
+test('external review history keeps the original provenance and all five published prior revisions', () => {
   const baseline = JSON.parse(fs.readFileSync(path.join(app, 'scripts/inline-source-manifest.json'), 'utf8'));
   const entries = baseline.reviewed_revision_history_files;
-  assert.equal(entries.length, 1);
-  const historyText = fs.readFileSync(path.join(app, 'scripts', entries[0].path), 'utf8');
-  const history = JSON.parse(historyText);
-  assert.equal(hash(historyText), entries[0].sha256);
-  assert.equal(history.revisions.length, 4);
-  assert.equal(baseline.reviewed_revision_count, 5);
+  assert.equal(entries.length, 2);
+  const revisions = entries.flatMap(entry => {
+    const historyText = fs.readFileSync(path.join(app, 'scripts', entry.path), 'utf8');
+    assert.equal(hash(historyText), entry.sha256);
+    const history = JSON.parse(historyText);
+    assert.equal(history.revisions.length, entry.count);
+    return history.revisions;
+  });
+  assert.equal(revisions.length, 5);
+  assert.equal(baseline.reviewed_revision_count, 6);
   assert.equal(baseline.reviewed_revision_history, undefined, 'History has one unambiguous order');
   assert.equal(baseline.original_html_sha256, 'a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b');
   assert.equal(baseline.original_script_sha256, '79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b');
   assert.equal(baseline.original_css_sha256, '62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441');
-  for (const revision of history.revisions) {
+  for (const revision of revisions) {
     assert.ok(revision.controls_preserved.includes('original snapshot provenance'));
     assert.ok(revision.controls_preserved.includes('complete function and initializer AST comparison'));
   }
@@ -112,7 +116,7 @@ test('additional authentication implementation is reviewed while public endpoint
   fs.writeFileSync(config, "'use strict';\nglobalThis.SuperconTeamConfig = Object.freeze({apiBase: 'https://configured.example.org'});\n");
   let result = verify();
   assert.equal(result.status, 0, result.stderr || result.stdout);
-  assert.equal(JSON.parse(result.stdout).reviewedRevisionCount, 5);
+  assert.equal(JSON.parse(result.stdout).reviewedRevisionCount, 6);
   fs.appendFileSync(path.join(directory, 'dist/team-auth.js'), '\n// unreviewed implementation edit\n');
   result = verify();
   assert.notEqual(result.status, 0);

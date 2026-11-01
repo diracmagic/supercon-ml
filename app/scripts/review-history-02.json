@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "Separate public News & Papers into AI for Superconductors and Superconductors, retain existing illustrations, add explicitly schematic AI workflows and stop/restart their timers with the news view. Remove the former AI navigation route. Position the outlined team login at the upper right and integrate the separately tested GitHub-backed team authentication client without publishing private notes or changing candidate predictions.",
+      "baseline_parent_commit": "6ea1062d2614e81a4e304cbaa34741cec4b1d74a",
+      "previous_manifest_sha256": "d75046e9c0eb2b246db6110126db0df11a0a6d610cd851ccaa1e49d54c4a19cd",
+      "allowed_modules": [
+        "js/definitions/ai-view.js",
+        "js/definitions/papers-view.js",
+        "js/definitions/phone.js",
+        "js/initialize/demo-player.js",
+        "js/initialize/startup.js"
+      ],
+      "static_files_changed": {
+        "index.html": {
+          "before_sha256": "1a4cfe3b5aada5389174ad36d79fcf00e33ae54a3bead61c17e1d1095a7affd3",
+          "after_sha256": "7e985934c72aed8bdfc4df04f6dd09608927efe8440851ffca9afb80c1c715ee"
+        },
+        "assets.json": {
+          "before_sha256": "15ddb05fb110cd455fee5494e83e9fc2f96f874b16b5fcb274e1a61fe73d6b89",
+          "after_sha256": "3cdd9c296673af26d6c2dce7740c23c78f49ab12f8a185f940a8d5c40cb9b673"
+        },
+        "sw.js": {
+          "before_sha256": "6ddd28586d206e8c7460db2d371c409475214e51d023ec81c69c76a691f1e70d",
+          "after_sha256": "30d71a01c4967f256c8dff5df044ef84d34c429c839d05ce3d133b014e942cdb"
+        },
+        "styles.css": {
+          "before_sha256": "0c74e49eb6f430ce9650ac416408b087c17d2de553b90dd5f7e5e349d925ef53",
+          "after_sha256": "f3ad81916c032fdfc66c46e23ccff40ebd64269f1d58d187bc3aeaa2b157ec35"
+        }
+      },
+      "functions_changed": {
+        "buildPapers": {
+          "before": "59c6ce89fb7b9c2f070fc5416f8686d67f0b18b747d91eb83f79b06e1989d125",
+          "after": "7dbfabc8d5f0ae3fe7495fe1db4ec60a2f46c73c9d34e83e6644bcd977a43327"
+        },
+        "renderAdvances": {
+          "before": "6a3b6ecd807edc3b09b0062a7a1a8a7b4b235ae81cdd1c3611cb362b5991a8d4",
+          "after": "c4de8a3c24b68403d4b6df5dbe06e8e4333579b474a4d2b5cce640d88f7ed78e"
+        },
+        "renderNews": {
+          "before": "cdf5bc1261a0fe8a8b0196e1c1cf36a2fc68239c36fa509c2b35c7e02fa7b532",
+          "after": "55db67e41b05484b3f20ab616a0c1803cf9d912c6f9435e1a6680fff64962446"
+        },
+        "renderFeed": {
+          "before": "c80fa2c1cad2035b91d707a025d865332dcd43a0f92e44b0b4208d9d841d0646",
+          "after": "8e357ca0f09643c8ea37904113d4c302c00553398f4a6aa5eb43b2ac8c3ff702"
+        },
+        "aiItems": {
+          "before": "fb487527b0fd05558d28563ecbf59d1dfa8ff5883db22b93f67421bddcf89f0a",
+          "after": "8d45676cbb96999978aae3c177cd833fa63efafec62a48a24bdc102c7b62ea02"
+        },
+        "buildAI": {
+          "before": "a0ed9613fb3ed9df26c85de67580bebe8a66f896cb47794787b950aaf131ba52",
+          "after": "fc6fb62bb27ab1c97d373354d8836f54a7953ecc5df9fd8e7537ab48a394b3c2"
+        },
+        "renderAI": {
+          "before": "e121a604926abea452434f5a0cefae6797985caf47a4ba4737e14f9234b68017",
+          "after": "5e79835f3b3e18c3dea3af9ba58efae7b542a286668153f976e663fa68cb981c"
+        },
+        "renderAIList": {
+          "before": "38ce77ea917c53418c4da71ff90707f1cbeff8e7826f3a5edfcd2e78d9add33e",
+          "after": "01c651ebdb2038d9251022fefd3e4783bc70ed19a9e2d163d35224e96f864bc6"
+        },
+        "renderTicker": {
+          "before": "1dee7fe1b2e46e3d2b6a5e9e135a99816fbf5a8de4ca5314dcff548705eda955",
+          "after": "86f551f120248587e97a3e44fb7dd4f999b1e127170bfe91a5c20351002e880f"
+        },
+        "aiStart": {
+          "before": "575f1a62ad01896b7f7fb4a3b3c0a3c4e2d90df811daac2d9cd67ecc409ae85f",
+          "after": "51cdf95807f6d003471196997838e62133e2dc656199baaed6d14f12d2f7a41a"
+        },
+        "setView": {
+          "before": "49904829ef6049b6bd66445f272114e340c4a9f9913c811904cb061356fcf17a",
+          "after": "0e1000e0272ea187f4f509025bf64e050ab6c9158198ceb5ea06d7eabe8bef4c"
+        }
+      },
+      "functions_added": {
+        "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
+        "feedIsAI": "e1dd033fa1f10a99be06bc5795efe53a5966a9428e8126ed1bad8c0750736f2c",
+        "aiArticleArt": "ce0fcb8a2ce95da07c2b642d07aa91e7b8d2c889e074fc11cf3cdbbb8ca14909",
+        "aiWorkflowInfo": "3f40c7e3e1a501bddb6bf55bdb2a92f9dd2ac9f5010039062320d8acd60b9c2e",
+        "aiWorkflow": "f61b1965222b44feadb05d62ad32350e0b3fd6a6dff0541f020fd1ed427ea2d4",
+        "aiAnimatedItem": "6f9320a21010d4b230cda28e34c1d032200ea8161d5bda13f096f6554d3b4223"
+      },
+      "functions_removed": {},
+      "initializers_changed": [
+        {
+          "file": "js/initialize/demo-player.js",
+          "before_ast_sha256": "dd4fac541e364a482d57f88c478419b3e152294674b9e99e4c61e70858ab58ff",
+          "after_ast_sha256": "4460bd1b72490fc56519c47cd7b7acfea01abd2080e524f6c30dde0812730d7a"
+        },
+        {
+          "file": "js/initialize/startup.js",
+          "before_ast_sha256": "09e3509c0f09a078cfab59b4662e42518fccf724cf13e027f44020d5a6f4aabd",
+          "after_ast_sha256": "8d1e20f89713cd619a5712ca2f1813e3674f86fb59414174274cb940d043a989"
+        }
+      ],
+      "previous_initialization_sha256": "5da4020679fb7705e8b28679aabfe4e4fea22ce516682e70ea32420a74e0ef32",
+      "current_initialization_sha256": "17e4fb810a99a46401d5a55bd0c2c4c88deac66cd5ebda066a8449e9cf110022",
+      "scripts_added": [
+        "team-auth-config.js",
+        "team-auth.js"
+      ],
+      "styles_added": [
+        "team-auth.css"
+      ],
+      "additional_source_sha256": {
+        "team-auth.js": "02ddfc32b6056e0a58508368f6ac1d2a0d902bb7856b7c800ee3069d27d854f5",
+        "team-auth.css": "4094e00fa78e6b25898c75f5966aa4d1b77d62c453d1eee734284428829f0996"
+      },
+      "configuration_policy": "team-auth-config.js is a public endpoint configuration, parsed and loaded in exact order but not source-hash pinned. The API origin can be configured independently; authentication and allowed-origin behavior have dedicated tests.",
+      "unchanged_progress_sha256": "40822a41deb4e19d0e99a52b742409b2d820ef2b3bfc58db3e66537ef3e3b786",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges"
+      ]
+    }
+  ]
+}

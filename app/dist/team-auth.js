@@ -9,6 +9,15 @@
   const CATEGORY = Object.freeze({ '计算预测': 'Computational prediction', '回溯验证': 'Retrospective validation',
     '实验研究': 'Experimental research', '数据与工具': 'Data and tools', '研究计划': 'Research programme' });
   const STEP_STATUS = Object.freeze({ completed: 'Reported', current: 'Current evidence', not_reported: 'Not reported' });
+  const CALLBACK_ERRORS = Object.freeze({
+    oauth_state_invalid: 'The sign-in service could not verify the callback. Start again in this tab and allow cookies for the sign-in service.',
+    oauth_denied: 'GitHub authorization was cancelled or denied. Start again when you are ready.',
+    oauth_failed: 'GitHub sign-in failed at the authorization service. Please try again.',
+    oauth_credentials_invalid: 'GitHub rejected the app credentials. The app administrator needs to check the sign-in configuration.',
+    oauth_redirect_invalid: 'GitHub rejected the callback address. The app administrator needs to check the registered sign-in URL.',
+    oauth_exchange_unavailable: 'The sign-in service could not complete the GitHub exchange. Please try again shortly.',
+    oauth_identity_unavailable: 'The sign-in service could not verify your GitHub account. Please try again shortly.'
+  });
 
   function apiOrigin(value) {
     if (typeof value !== 'string' || !value || /\s|\\|[?#]/.test(value)) return '';
@@ -35,6 +44,22 @@
     return !!proof && typeof proof.verifier === 'string' && typeof proof.state === 'string' &&
       /^[A-Za-z0-9_-]{43}$/.test(proof.verifier) && /^[A-Za-z0-9_-]{43}$/.test(proof.state) &&
       proof.state === state && Number.isFinite(proof.created_at) && proof.created_at <= now && now - proof.created_at < PROOF_TTL;
+  }
+
+  function callbackFailure(received, proof, now) {
+    if (!received || received.invalid) return 'The sign-in callback was malformed. Start sign-in again from this tab.';
+    // Never reflect an arbitrary provider error, description, ticket or proof.
+    if (received.error) return Object.hasOwn(CALLBACK_ERRORS, received.error) ? CALLBACK_ERRORS[received.error] :
+      'The sign-in service returned an unrecognized error. Please start sign-in again.';
+    if (!/^[A-Za-z0-9_-]{43}$/.test(received.ticket)) return 'The sign-in callback did not include a valid login ticket. Start sign-in again.';
+    if (!proof || typeof proof.verifier !== 'string' || typeof proof.state !== 'string' ||
+      !/^[A-Za-z0-9_-]{43}$/.test(proof.verifier) || !/^[A-Za-z0-9_-]{43}$/.test(proof.state)) {
+      return 'The browser could not find a valid pending sign-in request. Start again in this tab with session storage available.';
+    }
+    if (!Number.isFinite(proof.created_at) || proof.created_at > now) return 'The saved sign-in time is invalid. Check your device clock and start again.';
+    if (now - proof.created_at >= PROOF_TTL) return 'This sign-in request expired after 10 minutes. Start sign-in again.';
+    if (!validProof(proof, received.state, now)) return 'This sign-in response does not match the request started in this tab. Start sign-in again.';
+    return '';
   }
 
   function sessionMetadata(value, now) {
@@ -105,7 +130,7 @@
       win.history.replaceState(null, '', win.location.pathname + win.location.search);
       const duplicate = ['team_ticket', 'team_state', 'team_error'].some(function (key) { return params.getAll(key).length > 1; });
       return { ticket: params.get('team_ticket') || '', state: params.get('team_state') || '',
-        error: params.get('team_error') || '', invalid: duplicate };
+        error: params.get('team_error') || '', invalid: duplicate || (params.has('team_ticket') && params.has('team_error')) };
     }
     callback = consumeFragment();
 
@@ -220,9 +245,8 @@
       removePending();
       const received = callback; callback = null;
       if (!origin) { say('Team sign-in is not available yet.'); return; }
-      if (received.error || received.invalid || !/^[A-Za-z0-9_-]{43}$/.test(received.ticket) || !validProof(proof, received.state, now())) {
-        say('Sign-in was not completed or has expired. Please try again.'); return;
-      }
+      const failure = callbackFailure(received, proof, now());
+      if (failure) { proof = null; say(failure); return; }
       busy = true; renderAccount(); say('Confirming your GitHub account…');
       const expected = generation;
       try {
