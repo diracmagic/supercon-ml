@@ -657,8 +657,25 @@ def ingest_collection(collection, *, registry, policy, ledger_path, output_dir, 
     """Record actual measurements even when no labels/valid holdout are available."""
     validate_policy(policy)
     _require(isinstance(collection, dict) and isinstance(collection.get("curves"), list), "Collection needs curves[]")
+    corrections = collection.get("observation_corrections", [])
+    _require(isinstance(corrections, list), "observation_corrections must be an explicit list")
+    correction_map, previous_hashes = {}, set()
+    for correction in corrections:
+        _require(isinstance(correction, dict) and set(correction) == {"curve_id", "point_index", "supersedes", "reason"},
+                 "Point correction needs only curve_id, point_index, supersedes and reason; targets cannot be corrected here")
+        _require(_text(correction["curve_id"]), "Correction curve_id required")
+        _require(type(correction["point_index"]) is int and correction["point_index"] >= 0,
+                 "Correction point_index must be a nonnegative integer")
+        previous = correction["supersedes"]
+        _require(isinstance(previous, str) and re.fullmatch("[0-9a-f]{64}", previous), "Correction supersedes must be a SHA256 hash")
+        _require(_text(correction["reason"]), "Correction reason required")
+        key = (correction["curve_id"], correction["point_index"])
+        _require(key not in correction_map, "Duplicate correction curve/point mapping")
+        _require(previous not in previous_hashes, "Duplicate correction supersedes hash")
+        correction_map[key] = correction
+        previous_hashes.add(previous)
     curves, features, payloads, invalid = [], [], [], []
-    seen = set()
+    seen, used_corrections, supersedes = set(), set(), []
     for curve in collection["curves"]:
         _require(curve.get("curve_id") not in seen, "Duplicate curve ID in collection")
         seen.add(curve.get("curve_id"))
@@ -670,7 +687,15 @@ def ingest_collection(collection, *, registry, policy, ledger_path, output_dir, 
             continue
         curves.append(curve)
         features.append(feature)
-        payloads.extend(observations)
+        for index, payload in enumerate(observations):
+            key = (curve["curve_id"], index)
+            correction = correction_map.get(key)
+            if correction is not None:
+                payload["correction_reason"] = correction["reason"]
+                used_corrections.add(key)
+            payloads.append(payload)
+            supersedes.append(correction["supersedes"] if correction is not None else None)
+    _require(used_corrections == set(correction_map), "Unused correction mapping: missing or invalid curve/point")
     target_ids = set()
     for target in collection.get("targets", []):
         _require(isinstance(target, dict) and _text(target.get("target_id")), "Target needs explicit target_id")
@@ -681,10 +706,16 @@ def ingest_collection(collection, *, registry, policy, ledger_path, output_dir, 
         _require(payload["observation_type"] == "sample_superconductivity", "This collection route is measured-sample only")
         payload["normal_collection_target_id"] = target["target_id"]
         payloads.append(payload)
+        supersedes.append(None)
     ledger = F.FeedbackLedger(ledger_path)
-    before = ledger.read() if Path(ledger_path).exists() else []
+    # Only the count is needed below. Do not retain a second decoded copy of a
+    # large ledger while the atomic writer validates and appends its new view.
+    before_count = len(ledger.read()) if Path(ledger_path).exists() else 0
     if append:
-        ledger.append_observations(payloads)
+        if correction_map:
+            ledger.append_observations(payloads, supersedes=supersedes)
+        else:
+            ledger.append_observations(payloads)
     events = ledger.read() if Path(ledger_path).exists() else []
     cutoff = as_of or datetime.now(timezone.utc).isoformat()
     links, unresolved = resolve_links_at_cutoff(events, collection.get("links", []), as_of=cutoff)
@@ -692,8 +723,8 @@ def ingest_collection(collection, *, registry, policy, ledger_path, output_dir, 
     audit = cohort_audit(linked["accepted"], policy)
     result = {"version": VERSION, "policy_sha256": sha256(policy), "as_of": cutoff,
               "append_requested": bool(append), "observations_prepared": len(payloads),
-              "ledger_events_before": len(before), "ledger_events_after": len(events),
-              "ledger_events_added": len(events) - len(before), "ledger_head": F.verify_events(events)["head"],
+              "ledger_events_before": before_count, "ledger_events_after": len(events),
+              "ledger_events_added": len(events) - before_count, "ledger_head": F.verify_events(events)["head"],
               "curves_schema_valid": len(curves), "invalid_curves": invalid,
               "normal_feature_ready_curves": sum(f["status"] == "ready" for f in features),
               "feature_failures": [{"curve_id": f["curve_id"], "reasons": f["reasons"]} for f in features if f["status"] != "ready"],
@@ -703,6 +734,8 @@ def ingest_collection(collection, *, registry, policy, ledger_path, output_dir, 
               "limitations": ["Raw file hashes and checked locators bind curation; software cannot authenticate a paper's scientific statements",
                               "Normal observations are recorded even if missing modalities, conditions or labels prevent training",
                               "No fit before independent-component, target-criterion and split gating; no Tc=0 for censored outcomes"]}
+    if correction_map:
+        result["normal_point_corrections_prepared"] = len(correction_map)
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
     for name, value in (("normal-state-preflight.json", result), ("normal-state-features.json", features),

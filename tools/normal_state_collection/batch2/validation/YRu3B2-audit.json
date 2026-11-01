@@ -1,0 +1,78 @@
+{
+  "status": "not_admitted_to_primary_or_sensitivity_cohort",
+  "models_fitted": 0,
+  "ledger_written": false,
+  "original_zip_sha256": "caa5dc079b241d2e873781a20dc5a288dc383c16bbd324ed322bd07256fe82f1",
+  "files": [
+    {
+      "raw_path": "raw/YRu3B2_LT.csv",
+      "zip_member": "YRu3B2_data/Fig_1/Fig_1a/YRu3B2_resistance.csv",
+      "sha256": "31b58f29f4b4f7778ae82f7e4913a08d59a25740395c0545f8a19a5ec8f9e082",
+      "bytes": 1464627
+    },
+    {
+      "raw_path": "raw/YRu3B2_HT.csv",
+      "zip_member": "YRu3B2_data/RRR/YRu3B2_resistance_HT.csv",
+      "sha256": "c4022d0783cc24bf7556c16ab0cac5ade5260d48c03b041b234c91c9bee4c512",
+      "bytes": 10620999
+    },
+    {
+      "raw_path": "raw/YRu3B2_LT_author.ipynb",
+      "zip_member": "YRu3B2_data/Fig_1/Fig_1a/Fig_1a_code.ipynb",
+      "sha256": "a0ef0f5128a87bee22771712743f47c2b62767cc4f950dccdeb1f8696807720d",
+      "bytes": 96687
+    },
+    {
+      "raw_path": "raw/YRu3B2_HT_author.ipynb",
+      "zip_member": "YRu3B2_data/RRR/RRR_calculation.ipynb",
+      "sha256": "3e0b95359d40b1869381c70f739426071d937160495e5d962e1b14dec45b3384",
+      "bytes": 30932
+    }
+  ],
+  "numeric_data": {
+    "LT_rows": 59161,
+    "HT_rows_full": 55398,
+    "HT_author_selected_rows": 44164,
+    "HT_author_selected_range_k": [
+      1.9757,
+      298.9873
+    ],
+    "HT_window_rows_150_300": 21862,
+    "HT_features_status": "ready",
+    "LT_features_status": "insufficient_data"
+  },
+  "evidence": {
+    "paper": {
+      "doi": "10.48550/arXiv.2512.09314",
+      "url": "https://arxiv.org/html/2512.09314",
+      "inspection_status": "full_text_inspected",
+      "source_kind": "primary_experiment",
+      "publication_date": "2025-12-10",
+      "locator": "Experimental Methods; Experimental Results paragraph 1; Fig. 1a caption"
+    },
+    "dataset_doi": "10.5281/zenodo.18276373",
+    "dataset_license": "CC-BY-4.0",
+    "resistive_midpoint_tc_k": 0.78,
+    "same_bar_circumstantial": {
+      "notebooks": [
+        "YRu3B2_data/RRR/RRR_calculation.ipynb",
+        "YRu3B2_data/Fig_1/Fig_1a/Fig_1a_code.ipynb"
+      ],
+      "HT_code": "l1=54/45; w1=18/45; d1=11/45 # Unit: mm; Bridge 2 Resistance (ohms)",
+      "LT_code": "l=54/45; w=18/45; t=11/45 # Unit: mm; Bridge 2 Resistance (ohms)",
+      "paper_caption": "Fig. 1a describes a bar-shaped sample in zero external field",
+      "explicit_same_specimen_identifier": null,
+      "interpretation": "Identical unusual dimensions and instrument channel support likely same bar, but a copied geometry or another bar is not excluded. Not an inspected explicit same-physical-specimen assertion."
+    }
+  },
+  "exclusions": [
+    "High-T and low-T are different measurement traces, with no explicit same-bar identifier or statement.",
+    "Sample pressure is unreported for both traces; the unrelated instrument Pressure() column is not a sample-pressure measurement in GPa.",
+    "High-T measured residual field reading is 0.014402 Oe, whereas low-T has only a nominal zero-field declaration; equivalence is not silently asserted.",
+    "A source physical sample identifier is unknown; no checked composition link is fabricated."
+  ],
+  "next_evidence_needed": [
+    "Author or original supplementary/source metadata explicitly linking the two traces to the same physical bar.",
+    "For original strict cross-trace primary scope, explicit matching sample pressure and field evidence; a new pre-fit sensitivity protocol may retain unknown nuisance conditions but cannot waive specimen identity."
+  ]
+}

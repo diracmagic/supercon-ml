@@ -1,0 +1,49 @@
+{
+  "source_root_role": "--data-root, private batch2 directory",
+  "original_files_not_bundled": true,
+  "files": [
+    {
+      "raw_path": "transport/raw/nbn_mo_data.zip",
+      "sha256": "d146bc914912fa4302133af35c04cc08648592e245e34b971939b13f486f24e5",
+      "url": "https://ndownloader.figshare.com/files/55444505",
+      "doi": "10.6084/m9.figshare.29339720.v1",
+      "license": "CC-BY-4.0",
+      "bytes": 1346433
+    },
+    {
+      "raw_path": "transport/raw/nbn_mo_paper.pdf",
+      "sha256": "fd57da3865945284e20bfc0ee1c09009ff80bba04db7d1bdad244aee673cc621",
+      "url": "https://arxiv.org/pdf/2504.18997",
+      "doi": "10.48550/arXiv.2504.18997",
+      "role": "Inspected author preprint; publisher PDF response was HTML and is not included or treated as full text",
+      "bytes": 789706
+    },
+    {
+      "raw_path": "thermo/nitral-2024/source.zip",
+      "sha256": "33cc65d8822eeef1b9a51984b04d90f7a4c2ee64bf6b06e1563e7be1ff052b20",
+      "url": "https://zenodo.org/records/10194875/files/datset_superconducting_nitridized-aluminum_thin_films.zip?download=1",
+      "doi": "10.5281/zenodo.10194875",
+      "license": "CC-BY-4.0",
+      "bytes": 9749798
+    },
+    {
+      "raw_path": "thermo/nitral-2024/paper.pdf",
+      "sha256": "f01ba9514e2d5b349d938d7a2da236bfb2eebd5f527376d2641056fbfaf1b1af",
+      "url": "https://publikationen.bibliothek.kit.edu/1000168884/152381183",
+      "doi": "10.1088/1361-6668/ad20fc",
+      "role": "Inspected published article",
+      "bytes": 997974
+    },
+    {
+      "raw_path": "validation/raw/YRu3B2_data.zip",
+      "sha256": "caa5dc079b241d2e873781a20dc5a288dc383c16bbd324ed322bd07256fe82f1",
+      "url": "https://zenodo.org/records/18276373/files/YRu3B2_data.zip?download=1",
+      "doi": "10.5281/zenodo.18276373",
+      "license": "CC-BY-4.0",
+      "paper_url": "https://arxiv.org/html/2512.09314",
+      "paper_doi": "10.48550/arXiv.2512.09314",
+      "bytes": 1926463
+    }
+  ],
+  "selected_members": "Original selected TXT/CSV/notebook member paths and hashes are preserved in registries and source audits; no downloaded author notebook is executed."
+}

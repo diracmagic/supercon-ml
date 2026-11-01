@@ -1,0 +1,42 @@
+{
+  "sources": [
+    {
+      "source_id": "yru3b2-LT",
+      "raw_path": "raw/YRu3B2_LT.csv",
+      "sha256": "31b58f29f4b4f7778ae82f7e4913a08d59a25740395c0545f8a19a5ec8f9e082",
+      "reference": {
+        "doi": "10.48550/arXiv.2512.09314",
+        "url": "https://arxiv.org/html/2512.09314",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "publication_date": "2025-12-10",
+        "locator": "Experimental Methods; Experimental Results paragraph 1; Fig. 1a caption"
+      },
+      "dataset_doi": "10.5281/zenodo.18276373",
+      "dataset_url": "https://zenodo.org/records/18276373",
+      "download_url": "https://zenodo.org/records/18276373/files/YRu3B2_data.zip?download=1",
+      "zip_sha256": "caa5dc079b241d2e873781a20dc5a288dc383c16bbd324ed322bd07256fe82f1",
+      "zip_member": "YRu3B2_data/Fig_1/Fig_1a/YRu3B2_resistance.csv",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "source_id": "yru3b2-HT",
+      "raw_path": "raw/YRu3B2_HT.csv",
+      "sha256": "c4022d0783cc24bf7556c16ab0cac5ade5260d48c03b041b234c91c9bee4c512",
+      "reference": {
+        "doi": "10.48550/arXiv.2512.09314",
+        "url": "https://arxiv.org/html/2512.09314",
+        "inspection_status": "full_text_inspected",
+        "source_kind": "primary_experiment",
+        "publication_date": "2025-12-10",
+        "locator": "Experimental Methods; Experimental Results paragraph 1; Fig. 1a caption"
+      },
+      "dataset_doi": "10.5281/zenodo.18276373",
+      "dataset_url": "https://zenodo.org/records/18276373",
+      "download_url": "https://zenodo.org/records/18276373/files/YRu3B2_data.zip?download=1",
+      "zip_sha256": "caa5dc079b241d2e873781a20dc5a288dc383c16bbd324ed322bd07256fe82f1",
+      "zip_member": "YRu3B2_data/RRR/YRu3B2_resistance_HT.csv",
+      "license": "CC-BY-4.0"
+    }
+  ]
+}

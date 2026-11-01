@@ -1,0 +1,108 @@
+{
+  "status": "pass",
+  "collections": [
+    {
+      "path": "transport/transport-collection.json",
+      "original_bytes_sha256": "63799e6090ecbc57ee01f1aa2592d1cd9ac8405b148b88a63f6db3f5025e1638",
+      "replayed_bytes_sha256": "63799e6090ecbc57ee01f1aa2592d1cd9ac8405b148b88a63f6db3f5025e1638",
+      "json_exact": true,
+      "byte_exact": true,
+      "curves": 1,
+      "point_records": 52439,
+      "targets": 1,
+      "links": 1
+    },
+    {
+      "path": "thermo/nitral-2024/nitral-collection.json",
+      "original_bytes_sha256": "7952dddd63815bd3a171783270a589a0726e56f3841c0cae7c9b8c8d30807888",
+      "replayed_bytes_sha256": "7952dddd63815bd3a171783270a589a0726e56f3841c0cae7c9b8c8d30807888",
+      "json_exact": true,
+      "byte_exact": true,
+      "curves": 3,
+      "point_records": 310,
+      "targets": 1,
+      "links": 0
+    },
+    {
+      "path": "validation/YRu3B2-collection.json",
+      "original_bytes_sha256": "dc6e53bab6f374467e03a00518951330d23f40f082c5705f4a03d05d33826c1e",
+      "replayed_bytes_sha256": "dc6e53bab6f374467e03a00518951330d23f40f082c5705f4a03d05d33826c1e",
+      "json_exact": true,
+      "byte_exact": true,
+      "curves": 2,
+      "point_records": 103325,
+      "targets": 1,
+      "links": 0
+    }
+  ],
+  "aggregate": {
+    "sources": 48,
+    "curves": 109,
+    "point_records": 316988,
+    "targets": 10,
+    "links": 6,
+    "new_point_records": 156074,
+    "registry_canonical_sha256": "6b6d65788379b1c361ab1171a648d9f414036a3bd7ee484556250437bd2f3f7d",
+    "scientific_arrays_canonical_sha256": "ba1ca58677e05e3165aee7051aadbb808b0249fd3c1dbf1dd292f584ac13086b",
+    "exact_arrays_and_rebased_registry": true,
+    "audit_path_references": "Role-based references differ from the original local paths; numeric arrays, targets and links are identical.",
+    "explicit_private_correction_map": {
+      "count": 310,
+      "original_file_sha256": "2acf97574c1773a7a7a3e60b99ea0cf7353235b0bddcbdc71fe891c02eac4624",
+      "canonical_sha256": "9acdef416e39fae9305d6cc546590448866a2b94805447af4c718f6167857002",
+      "passed_through_to_both_collections": true,
+      "full_records_not_bundled": true
+    }
+  },
+  "models_fitted": 0,
+  "ledger_files_read_or_written": 0,
+  "previous_collector_outputs_modified": false,
+  "isolated_contract_checks": {
+    "status": "pass",
+    "checks": [
+      {
+        "case": "absent",
+        "expected_success": true,
+        "matched": true
+      },
+      {
+        "case": "valid",
+        "expected_success": true,
+        "matched": true
+      },
+      {
+        "case": "bool_index",
+        "expected_success": false,
+        "matched": true
+      },
+      {
+        "case": "duplicate",
+        "expected_success": false,
+        "matched": true
+      },
+      {
+        "case": "unavailable_point",
+        "expected_success": false,
+        "matched": true
+      },
+      {
+        "case": "target_field",
+        "expected_success": false,
+        "matched": true
+      },
+      {
+        "case": "changed_original_byte",
+        "expected_success": false,
+        "matched": true
+      },
+      {
+        "case": "optimized_interpreter_integrity_assertions_disabled",
+        "expected_success": false,
+        "matched": true
+      }
+    ],
+    "synthetic_fixtures_only": true,
+    "real_ledger_files_read_or_written": 0,
+    "models_fitted": 0
+  }
+}

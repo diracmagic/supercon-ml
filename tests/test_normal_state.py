@@ -307,6 +307,99 @@ class NormalStateTests(unittest.TestCase):
                                     ledger_path=ledger_path, output_dir=self.root / "audit", append=True)
         self.assertEqual(again["ledger_events_added"], 0)
 
+    def test_collection_point_corrections_preserve_prefix_rebind_features_and_reimport_zero(self):
+        """Synthetic measurements exercise the real append-only importer, not a mock ledger."""
+        target = dict(material_id=self.curve["material_id"], observed_at="2025-02-01T00:00:00Z",
+                      statement="Synthetic unlinked target", observation_type="sample_superconductivity",
+                      assertion_status="source_checked", outcome=True, evidence_kind="measured_transition", tc_K=8.,
+                      tc_criterion="resistive_midpoint", conditions=copy.deepcopy(self.conditions), reference=self.reference)
+        collection = {"curves": [copy.deepcopy(self.curve)], "targets": [{"target_id": "fixture-target", "payload": target}]}
+        ledger_path = self.root / "metadata-corrections.jsonl"
+        original = N.ingest_collection(collection, registry=self.registry, policy=self.policy, ledger_path=ledger_path,
+                                       output_dir=self.root / "before", append=True)
+        prefix = ledger_path.read_bytes()
+        events = N.F.FeedbackLedger(ledger_path).read()
+        revised = copy.deepcopy(collection)
+        curve = revised["curves"][0]
+        curve["curve_id"] = "fixture-curve-reviewed"
+        curve["specimen_id"] = "fixture-source:reviewed-physical-code"
+        curve["conditions"]["sample_id"] = "reviewed-sample-code"
+        revised["observation_corrections"] = [
+            dict(curve_id=curve["curve_id"], point_index=i, supersedes=event["hash"],
+                 reason="Synthetic metadata correction; retain measured value and source bytes")
+            for i, event in enumerate(events[:-1])
+        ]
+        frozen_input = copy.deepcopy(revised)
+        result = N.ingest_collection(revised, registry=self.registry, policy=self.policy, ledger_path=ledger_path,
+                                     output_dir=self.root / "corrected", append=True)
+        self.assertEqual(revised, frozen_input)
+        self.assertEqual(result["ledger_events_added"], len(curve["points"]))
+        self.assertEqual(result["normal_point_corrections_prepared"], len(curve["points"]))
+        self.assertEqual(result["models_fitted"], 0)
+        self.assertEqual(result["policy_sha256"], original["policy_sha256"])
+        self.assertTrue(ledger_path.read_bytes().startswith(prefix))
+        corrected = N.F.FeedbackLedger(ledger_path).read()
+        self.assertEqual(corrected[:len(events)], events)
+        additions = corrected[len(events):]
+        self.assertEqual([e["supersedes"] for e in additions], [e["hash"] for e in events[:-1]])
+        self.assertTrue(all(e["payload"]["observation_type"] == "normal_state_measurement" for e in additions))
+        self.assertTrue(all(e["payload"]["curve_content_sha256"] == N.sha256(curve) for e in additions))
+        self.assertTrue(all(e["payload"]["correction_reason"] == revised["observation_corrections"][i]["reason"]
+                            for i, e in enumerate(additions)))
+        self.assertEqual([e["payload"]["value"] for e in additions], [p["value"] for p in curve["points"]])
+        old_feature = json.loads((self.root / "before/normal-state-features.json").read_text())[0]
+        new_feature = json.loads((self.root / "corrected/normal-state-features.json").read_text())[0]
+        self.assertEqual(old_feature["features"], new_feature["features"])
+        self.assertEqual(new_feature["curve_content_sha256"], N.sha256(curve))
+        self.assertNotEqual(old_feature["curve_content_sha256"], new_feature["curve_content_sha256"])
+        active = N.historical_observations(corrected, as_of="2100-01-01T00:00:00Z")
+        self.assertEqual(len(active), len(events))  # Eight replacements and the one untouched target.
+        final_bytes = ledger_path.read_bytes()
+        again = N.ingest_collection(revised, registry=self.registry, policy=self.policy, ledger_path=ledger_path,
+                                    output_dir=self.root / "corrected", append=True)
+        self.assertEqual(again["ledger_events_added"], 0)
+        self.assertEqual(ledger_path.read_bytes(), final_bytes)
+
+    def test_invalid_or_unused_point_correction_maps_fail_before_append(self):
+        ledger_path = self.root / "invalid-map.jsonl"
+        N.ingest_collection({"curves": [self.curve]}, registry=self.registry, policy=self.policy, ledger_path=ledger_path,
+                            output_dir=self.root / "original", append=True)
+        original = ledger_path.read_bytes()
+        previous = N.F.FeedbackLedger(ledger_path).read()[0]["hash"]
+        valid = dict(curve_id=self.curve["curve_id"], point_index=0, supersedes=previous, reason="Synthetic correction")
+        invalid = [None, {}, [dict(valid, supersedes="bad")], [dict(valid, reason=" ")],
+                   [dict(valid, point_index=True)], [dict(valid, point_index=-1)],
+                   [dict(valid, curve_id="")], [valid, copy.deepcopy(valid)],
+                   [valid, dict(valid, point_index=1)], [dict(valid, curve_id="missing-curve")],
+                   [dict(valid, point_index=len(self.curve["points"]))],
+                   [dict(valid, target_id="not-a-normal-point")], [dict(valid, curve_id="fixture-target")]]
+        for value in invalid:
+            with self.subTest(corrections=value), patch.object(N.F.FeedbackLedger, "append_observations",
+                                                              side_effect=AssertionError("invalid map reached append")):
+                with self.assertRaises(ValueError):
+                    N.ingest_collection({"curves": [self.curve], "observation_corrections": value},
+                                        registry=self.registry, policy=self.policy, ledger_path=ledger_path,
+                                        output_dir=self.root / "invalid", append=True)
+            self.assertEqual(ledger_path.read_bytes(), original)
+        bad_curve = copy.deepcopy(self.curve)
+        bad_curve["quantity"] = "zero_resistance"
+        with patch.object(N.F.FeedbackLedger, "append_observations", side_effect=AssertionError("invalid curve map reached append")):
+            with self.assertRaisesRegex(ValueError, "Unused correction"):
+                N.ingest_collection({"curves": [bad_curve], "observation_corrections": [valid]}, registry=self.registry,
+                                    policy=self.policy, ledger_path=ledger_path, output_dir=self.root / "invalid", append=True)
+        self.assertEqual(ledger_path.read_bytes(), original)
+
+    def test_missing_predecessor_or_target_predecessor_cannot_write_point_correction(self):
+        events, _ = self.ledger()
+        ledger_path = next(self.root.glob("ledger-*.jsonl"))
+        original = ledger_path.read_bytes()
+        for previous in ("0" * 64, events[-1]["hash"]):
+            with self.subTest(supersedes=previous), self.assertRaises(N.F.LedgerIntegrityError):
+                N.ingest_collection({"curves": [self.curve], "observation_corrections": [
+                    dict(curve_id=self.curve["curve_id"], point_index=0, supersedes=previous, reason="Synthetic invalid predecessor")
+                ]}, registry=self.registry, policy=self.policy, ledger_path=ledger_path, output_dir=self.root / "invalid", append=True)
+            self.assertEqual(ledger_path.read_bytes(), original)
+
     def test_policy_freeze_is_idempotent_and_refuses_window_changes(self):
         document = N.freeze_policy(self.root / "protocol", defined_at=self.policy["defined_at"])
         self.assertEqual(N.freeze_policy(self.root / "protocol"), document)

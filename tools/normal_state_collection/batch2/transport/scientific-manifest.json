@@ -1,0 +1,330 @@
+{
+  "collection": "Storm transport batch2",
+  "collected_at": "2026-11-01",
+  "source_root": "work/normal-state-batch2",
+  "admission_rules_unchanged": true,
+  "ledger_written": false,
+  "models_fitted": 0,
+  "sources": [
+    {
+      "source_id": "nbn-mo-2025-reference",
+      "material": "NbN",
+      "paper_doi": "10.1088/1361-6668/adeaf2",
+      "dataset_doi": "10.6084/m9.figshare.29339720.v1",
+      "license": "CC-BY-4.0",
+      "citation": "Korneeva et al. Practical way to increase nonlinearity of kinetic inductance of superconductor. Supercond.Sci.Technol.38,075016(2025).",
+      "paper_access": {
+        "status": "author_full_text_inspected",
+        "url": "https://arxiv.org/pdf/2504.18997",
+        "locator": "PDF p5 Table1; p6 section2B; p7 Fig3 and reference-NbN text",
+        "publisher_pdf_status": "returned HTML access block, not treated as inspected full text"
+      },
+      "raw_files": [
+        {
+          "path": "raw/nbn_mo_data.zip",
+          "bytes": 1346433,
+          "sha256": "d146bc914912fa4302133af35c04cc08648592e245e34b971939b13f486f24e5"
+        },
+        {
+          "path": "raw/nbn_mo_data/Fig3/Fig3_NbN_R-R300K(Temperature).txt",
+          "bytes": 837515,
+          "sha256": "4b24fcdf88508f214821dafa6c004280da70cfee63159829037da8e057ca1c73"
+        },
+        {
+          "path": "raw/nbn_mo_paper.pdf",
+          "bytes": 789706,
+          "sha256": "fd57da3865945284e20bfc0ee1c09009ff80bba04db7d1bdad244aee673cc621"
+        }
+      ],
+      "original_url": "https://ndownloader.figshare.com/files/55444505",
+      "archive_repository_md5": "b9389c83ac108ab58d1ea49db24e4b90",
+      "curve": {
+        "n_points": 52439,
+        "temperature_min_k": 2.5,
+        "temperature_max_k": 300,
+        "quantity": "normalized_resistance",
+        "unit": "1",
+        "normalization": "R/R(300K)",
+        "specimen": "NbN reference strip,9.6nm,4um wide,3mm long; no Mo",
+        "pressure_gpa": null,
+        "magnetic_field_t": null,
+        "crystal_phase": null
+      },
+      "target": {
+        "tc_K": 8.5,
+        "tc_criterion": "resistive_midpoint",
+        "definition": "Author section2B:R(Tc)=half R20K",
+        "value_locator": "Table1 NbN row; Fig3 referenceNbN results text"
+      },
+      "disposition": "public_schema_ready_pending_independent_scope_review",
+      "limitations": [
+        "Nominal sample formula NbN, no exact measured N/Nb stoichiometry supplied.",
+        "Same deposited author Fig3 trace contains transition and highT; no separate acquisition-run identifier. Broad cooling/heating and lowT heater measurements are described; no claim of one uninterrupted instrument sweep.",
+        "Two-terminal normalized R(T) includes possible contact response; do not substitute four-terminal roomT characterization.",
+        "SN5/SN6/SN7 are NbN/Mo bilayers, not extra independent chemical systems and not admitted to this collection."
+      ]
+    },
+    {
+      "source_id": "nbre-annealing-2026",
+      "material": "Nb0.18Re0.82",
+      "paper_doi": "10.1103/hhkw-ccv8",
+      "dataset_doi": "10.17632/7f4grs88j5.1",
+      "license": "CC-BY-4.0",
+      "paper_access": {
+        "status": "publisher_full_text_inspected",
+        "url": "https://harvest.aps.org/v2/journals/articles/10.1103/hhkw-ccv8/fulltext",
+        "locator": "p094209-2 II.B; Fig2; p094209-3 TableI"
+      },
+      "raw_files": [
+        {
+          "path": "raw/nbre_fulltext.pdf",
+          "bytes": 2923520,
+          "sha256": "146b14dffac8843978a4efd3109578d5a6dcf583725998199eeaa85d5582a47a"
+        },
+        {
+          "path": "raw/nbre_files.json",
+          "bytes": 14615,
+          "sha256": "efe3c27bc65f252588d176475adfc325b1a91e6abce0f6f1dd54b2c097e4d24d"
+        },
+        {
+          "path": "raw/fig 2 a.txt",
+          "bytes": 137985,
+          "sha256": "35371bd66ec8cbbb8536e50592648789163351a88b9e93a319efef7d7327e7d6"
+        },
+        {
+          "path": "raw/fig 2 b.txt",
+          "bytes": 446185,
+          "sha256": "0fb19dc2ef50819760d406a060b1662b2bdc69cf625333e3bf59fb2b96b30498"
+        }
+      ],
+      "targets": [
+        {
+          "sample": "A20",
+          "tc_K": 6.6,
+          "criterion": "resistive_midpoint"
+        },
+        {
+          "sample": "N20",
+          "tc_K": 6.28,
+          "criterion": "resistive_midpoint"
+        }
+      ],
+      "disposition": "not_admitted_no_broad_curve",
+      "reason": "Author has explicit50%Tc and scalar R300K/R10K, but public Fig2 R(T) numerical files contain the nearTc transition only. A single RRR is not a150–300K curve. All21 listed files were inspected by names/figure assignments; none is a full highT trace. No temperature or R values invented."
+    },
+    {
+      "source_id": "elemental-re-warwick-2022",
+      "material": "Re",
+      "paper_doi": "10.1103/PhysRevB.105.L020503",
+      "dataset_url": "https://wrap.warwick.ac.uk/id/eprint/156964/",
+      "license": "CC-BY-4.0",
+      "paper_access": {
+        "status": "publisher_version_on_institutional_repository_inspected",
+        "url": "https://wrap.warwick.ac.uk/id/eprint/162032/7/WRAP-Quantum-muon-diffusion-preservation-time-reversal-symmetry-superconducting-type-I-rhenium-2022.pdf",
+        "locator": "Fig1 normal state resistivity; Fig2 heat-capacity jump Tc1.70(1)K"
+      },
+      "raw_files": [
+        {
+          "path": "raw/re_data.zip",
+          "bytes": 186339,
+          "sha256": "fc0c078be5ebe56f787cb65a3f5f034eaad436fbdd99f77c47134be414a240c2"
+        },
+        {
+          "path": "raw/re_data/WRAP Data/Figure1.txt",
+          "bytes": 154899,
+          "sha256": "d3195f71e11e5f94a18c5f4dc279694ee7b316fcb42c31d3858b8fe7d38631f6"
+        },
+        {
+          "path": "raw/re_paper.pdf",
+          "bytes": 783737,
+          "sha256": "d124134a0c2db5e9bdcda02859fade91228336c460fd987e3a97d8ccceaf9740"
+        }
+      ],
+      "curve": {
+        "n_points": 3466,
+        "temperature_min_k": 1.80165,
+        "temperature_max_k": 300.04715,
+        "quantity": "resistivity",
+        "unit_status": "original Igor escape header retained; see primaryFig1 axis for physical units"
+      },
+      "disposition": "normal_curve_retained_no_midpoint_target",
+      "reason": "R(T) starts1.80165K above Tc1.70K. Reported Tc is heat-capacity transition, not a measured resistive midpoint. Never substitute thermodynamic criterion."
+    },
+    {
+      "source_id": "nb-circuit-2026",
+      "material": "Nb",
+      "paper_doi": "10.1038/s41534-026-01187-1",
+      "dataset_doi": "10.6084/m9.figshare.30970930",
+      "paper_access": {
+        "status": "publisher_HTML_and_supplement_inspected",
+        "url": "https://www.nature.com/articles/s41534-026-01187-1",
+        "locator": "Experimental verifications Fig3b; Supplementary Notes I–IV"
+      },
+      "raw_files": [
+        {
+          "path": "raw/nb_circuit_figshare.json",
+          "bytes": 11787,
+          "sha256": "faf7bbfc632d06bce47e5735d43f9ed9111c5594dcbe37f60e1354d17c85c38a"
+        },
+        {
+          "path": "raw/nb_circuit_fig3b.csv",
+          "bytes": 6404,
+          "sha256": "d63ad2548fc10a0b46ede29f0544e3d194a02b864232182e1760a282ab8ac5bf"
+        },
+        {
+          "path": "raw/nb_circuit_supp.pdf",
+          "bytes": 5035801,
+          "sha256": "8f9a5f136d4ee228d406c039e06c8aceff7ae494e5196c8766fd61a62227ae6c"
+        }
+      ],
+      "curve": {
+        "n_points": 291,
+        "temperature_min_k": 4.305,
+        "temperature_max_k": 296.235,
+        "quantity": "normalized_resistance",
+        "unit": "1",
+        "sample": "35nm Nb film for two-qubit device"
+      },
+      "disposition": "normal_curve_retained_no_defined_midpoint",
+      "reason": "Author reports Tc7.47K from filmR(T), but no explicit50%/midpoint criterion found in inspected main HTML or full supplementary PDF. CSV normalized1 at296.235K although main label says300K; preserve source distinction. No collector-chosen midpoint."
+    },
+    {
+      "source_id": "laniga2-transport-2025",
+      "material": "LaNiGa2",
+      "paper_doi": "10.1103/8kbx-xrsk",
+      "dataset_doi": "10.5281/zenodo.17476438",
+      "paper_access": {
+        "status": "abstract_only_not_full_text",
+        "url": "https://journals.aps.org/prb/abstract/10.1103/8kbx-xrsk",
+        "attempts": [
+          "publisher/harvest PDF401",
+          "accepted manuscript404",
+          "OpenAlex only publisher location/no OA fulltext"
+        ]
+      },
+      "dataset_metadata": "LaNiGa2_Data.pxp1195024B and Electronic band structure.xlsx20523B listed; raw download403 in this collection session",
+      "disposition": "not_admitted_access_or_criterion_unresolved",
+      "reason": "Could not inspect originalnumeric Igor or primaryfulltext. Broad window, same-specimen Tc, criterion all unresolved; no substitution from anotherLaNiGa2 paper. No claim that data do not exist."
+    },
+    {
+      "source_id": "nbn-pld-2026",
+      "material": "NbN",
+      "paper_doi": "10.1088/1361-6668/ae61fe",
+      "dataset_doi": "10.6084/m9.figshare.30408310.v1",
+      "paper_access": {
+        "status": "publisher_version_institutional_fulltext_inspected",
+        "url": "https://api.repository.cam.ac.uk/server/api/core/bitstreams/8468e4d7-9d1c-4e31-b3e5-5de9ccc46f44/content",
+        "locator": "Results:50%normal-resistance criterion; data availability statement"
+      },
+      "raw_files": [
+        {
+          "path": "raw/nbn_pld_paper.pdf",
+          "bytes": 730905,
+          "sha256": "1d2a12e3596671eaa3e6f49facc962934de709b74f43906ccf59ec12c39a4845"
+        },
+        {
+          "path": "raw/nbn_pld_figshare.json",
+          "bytes": 4323,
+          "sha256": "34d944a3b363ac8350616e3526fe680a2214c40cc0fa8ea225543e9dfa594f85"
+        }
+      ],
+      "disposition": "not_collected_same_group_optional_followup",
+      "reason": "Dataset now unembargoed with5largeTXT23–47MB each; primary has50%Tc and R270K/R20K. No numeric source downloaded or curve coverage verified; would add NbN specimens, not a newindependent chemical group."
+    },
+    {
+      "source_id": "re6zr-inverse-melting-2025",
+      "material": "Re6Zr",
+      "paper_doi": "10.1038/s41467-025-57431-3",
+      "dataset_doi": "10.5281/zenodo.14780459",
+      "paper_access": {
+        "status": "published_fulltext_institutional_mirror_inspected",
+        "url": "https://www.tifr.res.in/superconductivity/pdfs/RD_NC.pdf",
+        "locator": "Sample details and Methods transport measurements"
+      },
+      "raw_files": [
+        {
+          "path": "raw/re6zr_paper.pdf",
+          "bytes": 2135879,
+          "sha256": "2e5d588be7f5d04251db8c27b054e09d4148f71e8b99eda196b3cb79e260ff89"
+        }
+      ],
+      "disposition": "not_admitted_broadT_or_midpoint_unverified",
+      "reason": "Main text concerns lowT transport/vortex states; no explicit midpoint found. TransportData.opju download403. 300mK lowercryostat limit is not300K uppercurve coverage. No conversion of vortexdata into a broad normalcurve."
+    },
+    {
+      "source_id": "wre-relaxation-2026",
+      "material": "WRe/WReN",
+      "paper_doi": "10.1088/1361-6668/ae3fd2",
+      "paper_access": {
+        "status": "publisher_HTML_inspected",
+        "url": "https://doi.org/10.1088/1361-6668/ae3fd2",
+        "locator": "Data availability statement; Fig1d/half-RSN criterion"
+      },
+      "disposition": "not_collected_raw_data_on_request",
+      "reason": "Author explicitly provides rawdata only upon reasonable request; no public machine-readable source located. No author contacted."
+    },
+    {
+      "source_id": "nb3al-thinfilm-2026",
+      "material": "Nb3Al",
+      "paper_doi": "10.1002/qute.202501015",
+      "paper_access": {
+        "status": "publisher_abstract_data_statement_inspected",
+        "url": "https://advanced.onlinelibrary.wiley.com/doi/abs/10.1002/qute.202501015",
+        "locator": "Data Availability Statement; supporting information only PDF"
+      },
+      "disposition": "not_collected_raw_data_on_request",
+      "reason": "Data support available from corresponding author onrequest; sole public supplement listed as10MB PDF, no machine-readable source confirmed. No author contacted."
+    },
+    {
+      "source_id": "re-film-2025",
+      "material": "Re",
+      "paper_doi": "10.1063/5.0292196",
+      "dataset_doi": "10.60893/figshare.jap.30040534.v1",
+      "raw_files": [
+        {
+          "path": "raw/figshare-30040534.json",
+          "bytes": 4875,
+          "sha256": "c90154ffd1490cc53e66e0e158f984615d429dd793aa8fb28bbfa3b0e8ec7a5d"
+        }
+      ],
+      "paper_access": {
+        "status": "dataset_metadata_inspected_not_primary_fulltext",
+        "url": "https://api.figshare.com/v2/articles/30040534"
+      },
+      "disposition": "not_collected_numeric_source_unconfirmed",
+      "reason": "Repository title TransportandEDSdata actually lists only SupplementaryinformationPDF1.58MB; no numericTXT/CSV source listed. Do not mistake plot-containingPDF for machine-readableR(T)."
+    },
+    {
+      "source_id": "laniga2-theory-2014",
+      "material": "LaNiGa2",
+      "paper_doi": "10.1063/1.4862329",
+      "raw_files": [
+        {
+          "path": "raw/figshare-29713487.json",
+          "bytes": 15933,
+          "sha256": "3d59b1055c1cf8dbd25a4fca6efba2b279f55312882704ad32628684b45959d9"
+        }
+      ],
+      "disposition": "excluded_theory_not_experimental_curve",
+      "reason": "Figshare searchhit Originofsuperconductivity is DFPT calculation plus paperPDF, not originalsampleR(T)."
+    }
+  ],
+  "adapter_files": [
+    "transport-registry.json",
+    "transport-collection.json",
+    "transport-adapter-audit.json"
+  ],
+  "search_logs": [
+    "zenodo-search-index.json",
+    "zenodo-search-index2.json",
+    "figshare-search-index.json",
+    "search/"
+  ],
+  "statistical_note": "Many temperaturepoints are one specimen. Heterogeneousbilayers are not independent elemental systems. Exclusion or failed download is not a nonsuperconductivity assertion.",
+  "summary": {
+    "adapter_candidate_systems": 1,
+    "adapter_specimens": 1,
+    "adapter_points": 52439,
+    "additional_independent_systems_confirmed": 0
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "sources": [
+    {
+      "source_id": "torrascoloma2024-nitral-author-archive",
+      "raw_path": "thermo/nitral-2024/source.zip",
+      "sha256": "33cc65d8822eeef1b9a51984b04d90f7a4c2ee64bf6b06e1563e7be1ff052b20",
+      "reference": {
+        "doi": "10.1088/1361-6668/ad20fc",
+        "url": "https://publikationen.bibliothek.kit.edu/1000168884/152381183",
+        "publication_date": "2024-02-14",
+        "source_kind": "primary_experiment",
+        "inspection_status": "full_text_inspected",
+        "locator": "Paper PDF pp.4-7 (printed pp.3-6), Sec.2 and Sec.3.2, Figs.2-3, Table2; author Readme_NitrAl.md and run2/CD45/routines_0r2v3_/C1 IV/T pairs",
+        "dataset_doi": "10.5281/zenodo.10194875",
+        "citation": "Torras-Coloma et al. Superconducting nitridized-aluminum thin films. Supercond. Sci. Technol.37,035017 (2024).",
+        "paper_sha256": "f01ba9514e2d5b349d938d7a2da236bfb2eebd5f527376d2641056fbfaf1b1af"
+      },
+      "license": "CC-BY-4.0",
+      "download_url": "https://zenodo.org/records/10194875/files/datset_superconducting_nitridized-aluminum_thin_films.zip?download=1",
+      "preprocessing_note": "Instrument I-V/T arrays retained in archive. Each derived four-terminal resistance is an OLS voltage/current slope with free intercept, in ohms. Not sheet resistance, not intrinsic resistivity, not author-processed R(T)."
+    }
+  ]
+}

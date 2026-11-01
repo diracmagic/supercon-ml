@@ -1,0 +1,118 @@
+{
+  "reviewed_commit": "fdd7b69d3b54604a20110cfcb08a9d0d843cdb61",
+  "review_type": "independent source/schema review; no fitting; no ledger writes; no frozen-policy changes",
+  "frozen_policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+  "NbN": {
+    "verdict": "accept under existing author-curated same-trace interpretation; not proof of uninterrupted hardware acquisition",
+    "inputs_sha256": {
+      "collection": "63799e6090ecbc57ee01f1aa2592d1cd9ac8405b148b88a63f6db3f5025e1638",
+      "source_curve": "4b24fcdf88508f214821dafa6c004280da70cfee63159829037da8e057ca1c73",
+      "original_zip": "d146bc914912fa4302133af35c04cc08648592e245e34b971939b13f486f24e5",
+      "inspected_author_pdf": "fd57da3865945284e20bfc0ee1c09009ff80bba04db7d1bdad244aee673cc621"
+    },
+    "source_evidence": {
+      "paper": "https://arxiv.org/abs/2504.18997",
+      "data_doi": "10.6084/m9.figshare.29339720.v1",
+      "table1_pdf_page5": "NbN reference,9.6nm,noMo,Tc8.5K",
+      "method_pdf_page6": "R(Tc)=half R(20K),two-terminal10uA; broad cryocooler measurement and near-Tc heater control",
+      "figure3_pdf_page7": "same reference NbN curve and high-T inset, source TXT explicitly NbN"
+    },
+    "checks": {
+      "all_52439_source_points_exact": true,
+      "all_source_values_finite": true,
+      "reported_midpoint_not_collector_label": true,
+      "source_reference_is_not_adjacent_NbN_Mo_bilayer": true,
+      "same_source_trace_HT_and_transition": true,
+      "instrument_single_acquisition_id_proven": false,
+      "condition_numbers_not_silently_zero_filled": true,
+      "nominal_formula_not_measured_stoichiometry": true
+    },
+    "window": {
+      "n": 30533,
+      "unique_t": 14559,
+      "max_unique_t_gap_k": 4.300000000000011,
+      "anchor_values": [
+        1.069685,
+        1.04933,
+        1.03057
+      ],
+      "independent_features": {
+        "log_ratio_250_200": -0.037252165376904324,
+        "normalized_secant_per_k": -0.0007449571599639094,
+        "normalized_curvature_per_k2": 2.430181097056944e-06
+      },
+      "agree_with_adapter": true
+    },
+    "policy_comparison": "Existing TaTe link also uses curator-namespaced author source curve as measurement_run_id. Do not add a new single-hardware-sweep requirement only for this source. If such a stricter requirement is desired, freeze it prospectively and re-audit all sources consistently.",
+    "limitations": [
+      "Author-curated figure trace,not native instrument session record.",
+      "Two-terminal resistance may include contacts; retain normalized_resistance instead of claiming intrinsic resistivity.",
+      "P/B unreported remain null; no condition-generalization claim.",
+      "Publisher PDF response begins <head and is not a PDF; inspected full text is the archived author preprint."
+    ]
+  },
+  "Al": {
+    "verdict": "provisional HT/LT archive specimen identity is strong, but published Table2 scalar target to exact 0r2v3 specimen is unresolved; do not admit to primary or sensitivity with Table2 Tc",
+    "inputs_sha256": {
+      "collection": "c64a9aaab07d2f2e89c82cec0ee7db9e7d9d0606f95ce7e738faebd4dd8bb13b",
+      "original_zip": "33cc65d8822eeef1b9a51984b04d90f7a4c2ee64bf6b06e1563e7be1ff052b20",
+      "inspected_paper": "f01ba9514e2d5b349d938d7a2da236bfb2eebd5f527376d2641056fbfaf1b1af"
+    },
+    "specimen_evidence": {
+      "code": "0r2v3",
+      "fabrication_run": 2,
+      "cooldown": "CD45",
+      "contacts": "C1",
+      "README_member": "datset_superconducting_nitridized-aluminum_thin_films/Readme_NitrAl.md",
+      "README_semantics": "folders identify runs,cooldowns,sample_id; C1 identifies four-probe contact configuration; continuous and Tc_measurement filenames identify separate routines",
+      "Table2_pdf_page7": "rowA pure-Al reference,0%nitrogen-flow,run2,100nm,Tc1.25+-0.01K",
+      "criterion_pdf_page6": "50% resistance drop relative to onset",
+      "direct_Table2_to_0r2v3_text_map": false,
+      "map_limit": "Table2 specifies 0%run2 rather than archive version code; shared exact sample_id and cooldown establish HT/LT identity, not hardware-trace identity."
+    },
+    "strict_exclusion": [
+      "different HT and LT traces",
+      "sample pressure unreported",
+      "numeric applied/residual field unreported; shielding alone is not B=0"
+    ],
+    "sensitivity_requirements": [
+      "Freeze exact source/cohort/target/link hashes before any real fit.",
+      "Keep separate trace IDs; no same_raw_trace=true fiction.",
+      "Retain original strict five-group gated report.",
+      "Use one published target and one physical specimen-condition,not two Tc routines as replicate samples.",
+      "No P/B/strain/doping condition-axis learning from unknowns.",
+      "Preserve I-V fit diagnostics and uncertainty; do not select observations using prediction results.",
+      "Resolve exact target specimen identity first; six rows cannot be formed from the current unlinked Table2 scalar."
+    ],
+    "review_disagreement": {
+      "initial_independent_opinion": "Table2 unique0%run2 plus exact HT/LT archive code considered sufficient for an exploratory cross-trace link",
+      "curator_and_root_final_adjudication": "More conservative: Table2A does not explicitly name0r2v3 or map v3, so uniqueness/value agreement cannot authenticate the published target specimen. No linked scalar Table2 Tc and no fit.",
+      "agreement": "Original strict cross-trace conditions gate fails. Preserve source evidence and the disagreement; do not silently rewrite old ledger."
+    }
+  },
+  "YRu3B2": {
+    "verdict": "reject current primary and sensitivity admission; evidence insufficient for explicit same-bar identity",
+    "audit": "YRu3B2-audit.json",
+    "curated_links": 0,
+    "reasons": [
+      "identical source notebook dimensions and Bridge2 are circumstantial only",
+      "no source bar ID links HT and LT",
+      "unreported sample pressure",
+      "HT small sensor field versus LT nominalzero not silently equated"
+    ]
+  },
+  "feasibility": {
+    "strict_five_singleton_components": "insufficient_data because each LOCO train has four samples while frozen minimum is five",
+    "six_components_with_Al_sensitivity": "Not currently supported: Al Table2 target-to-specimen map is unresolved. A source-bound deterministically derived target would require a separately predeclared, auditable criterion and normal-state reference; not automatic substitution.",
+    "statistical_scope": "Retrospective six-component exploratory regression; bootstrap is descriptive with very few groups; no causal mechanism,DFT validation or released-model upgrade claim"
+  },
+  "metadata_correction_followup": {
+    "plan": "root/al-correction-plan.json",
+    "original_review_input_sha256_retained": true,
+    "curve_ids_and_sample_metadata_later_remove_unverified_A_label": true,
+    "numeric_point_changes": 0,
+    "target_changes": 0,
+    "training_link_changes": 0,
+    "source_of_final_adjudication": "curator and root; no Table2 Tc is assigned to raw0r2v3"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "curves": 1,
+  "points": 52439,
+  "independent_specimens": 1,
+  "independent_systems": 1,
+  "sources": 1,
+  "targets": 1,
+  "links": 1,
+  "frozen_policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+  "feature": {
+    "curve_id": "nbn-mo-2025-Fig3-reference-9p6nm",
+    "quantity": "normalized_resistance",
+    "unit": "1",
+    "policy_sha256": "78a9cdde0d438f85895e0d61e1322535c59d5cfbd143128349b985e0b2c4ee14",
+    "status": "ready",
+    "features": {
+      "log_ratio_250_200": -0.037252165376904324,
+      "normalized_secant_per_k": -0.0007449571599639095,
+      "normalized_curvature_per_k2": 2.430181097056944e-06
+    },
+    "reasons": [],
+    "raw_point_count": 52439,
+    "statistical_sample_count": 1,
+    "source_sha256": "4b24fcdf88508f214821dafa6c004280da70cfee63159829037da8e057ca1c73",
+    "curve_content_sha256": "25d62ee49ff5682eb80c81aea390e7d1756445bfb76fc87308bf5768b206a0bd",
+    "used_point_indices_summary": {
+      "count": 30533,
+      "canonical_sha256": "6f89de10f985eea9f93f83a0765541d1f310c67182772d8f4c986b0e95897041",
+      "omitted_from_public_bundle": true
+    },
+    "window_point_count": 30533,
+    "unique_temperature_count": 14559,
+    "anchor_values": {
+      "200": 1.069685,
+      "225": 1.04933,
+      "250": 1.03057
+    },
+    "feature_units": "dimensionless shape / K powers",
+    "replicate_temperatures": 14281
+  },
+  "link_reasons": [],
+  "ledger_written": false,
+  "models_fitted": 0,
+  "limitations": [
+    "Author preprint full text, not publisher-paginated final PDF; page/section locators explicitly name this edition.",
+    "Nominal author formula, no independent composition analysis; unknown phase/P/B stay null.",
+    "Author-deposited combined Fig3 trace, not proof that high/low-T sweeps are one uninterrupted acquisition."
+  ]
+}
