@@ -1,6 +1,6 @@
 // Offline support for the phone web app. Pages from this site load network-first and
 // fall back to the last copy; live data from GitHub always goes straight to the network.
-const CACHE = 'supercon-0.3.14-public-cache-refresh';
+const CACHE = 'supercon-0.3.15-team-members';
 const SHELL = ['./', './index.html', './assets.json', './manifest.webmanifest', './progress.json', './icons/icon-192.png', './icons/icon-512.png'];
 
 function shellFiles(manifest) {
@@ -34,6 +34,12 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
+  // Legacy email-action navigation must never refresh or enter the shell cache.
+  // Production email links arrive through the no-store Worker bridge as fragments.
+  if (url.origin === self.location.origin && ['mode', 'oobCode', 'team_email_code'].some(key => url.searchParams.has(key))) {
+    event.respondWith(fetch(event.request, {cache: 'no-store', referrerPolicy: 'no-referrer'}));
+    return;
+  }
   // Authenticated requests and private API routes must never enter the offline cache.
   if (event.request.method !== 'GET' || url.origin !== self.location.origin ||
       event.request.headers.has('Authorization') || /\/(?:auth|api)\//.test(url.pathname)) return;

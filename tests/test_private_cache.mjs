@@ -45,6 +45,19 @@ test('unlisted responses cannot be added to the public shell cache', async () =>
   assert.equal(w.writes.length, 0);
 });
 
+test('legacy email action URLs bypass both offline and browser HTTP caches', async () => {
+  for (const query of ['mode=resetPassword&oobCode=synthetic', 'oobCode=synthetic', 'team_email_code=synthetic']) {
+    const w = worker({hit: new Response('old sensitive navigation'), response: new Response('fresh action document')});
+    const result = await w.send(new Request('https://example.org/supercon-ml/?' + query));
+    assert.equal(await result.result.text(), 'fresh action document');
+    assert.equal(w.requests[0].options.cache, 'no-store'); assert.equal(w.requests[0].options.referrerPolicy, 'no-referrer');
+    assert.equal(w.writes.length, 0);
+    const unavailable = worker({hit: new Response('must not fall back'), fail: true});
+    await assert.rejects(unavailable.send(new Request('https://example.org/supercon-ml/?' + query)), /offline/);
+    assert.equal(unavailable.writes.length, 0);
+  }
+});
+
 test('private or no-store responses never overwrite a cached public shell resource', async () => {
   for (const policy of ['private, no-store', 'no-store', 'private']) {
     const w = worker({ hit: new Response('public'), response: new Response('sensitive', { headers: { 'Cache-Control': policy } }) });

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "Add fixed, non-sensitive sign-in callback diagnostics for the reviewed service error codes and browser proof failures, reject ambiguous ticket/error callbacks, and refresh the offline app shell. No shared news/candidate functions, initialization, predictions, private-note access policy or public endpoint configuration change.",
+      "baseline_parent_commit": "9e7a4333febf90c025fb208adfe5f573f8b3e9d3",
+      "previous_manifest_sha256": "49439a50c540c0f03e5e70006524139761d3739637477aabb1d42ccc50c5b7db",
+      "allowed_modules": [
+        "team-auth.js"
+      ],
+      "static_files_changed": {
+        "team-auth.js": {
+          "before_sha256": "02ddfc32b6056e0a58508368f6ac1d2a0d902bb7856b7c800ee3069d27d854f5",
+          "after_sha256": "ab0c5cf83e0cebb9411cc98b2f5a3df7556e0097f1cd51d0374d338391de757d"
+        },
+        "sw.js": {
+          "before_sha256": "30d71a01c4967f256c8dff5df044ef84d34c429c839d05ce3d133b014e942cdb",
+          "after_sha256": "5a7149df41999202dda76ade29a1109a21e6d44403bc5be5743284762e470610"
+        }
+      },
+      "functions_changed": {},
+      "functions_added": {},
+      "functions_removed": {},
+      "initializers_changed": [],
+      "scripts_changed": [],
+      "additional_source_sha256": {
+        "team-auth.js": "ab0c5cf83e0cebb9411cc98b2f5a3df7556e0097f1cd51d0374d338391de757d",
+        "team-auth.css": "4094e00fa78e6b25898c75f5966aa4d1b77d62c453d1eee734284428829f0996"
+      },
+      "configuration_policy": "team-auth-config.js is a public endpoint configuration, parsed and loaded in exact order but not source-hash pinned. The API origin can be configured independently; authentication and allowed-origin behavior have dedicated tests.",
+      "unchanged_progress_sha256": "40822a41deb4e19d0e99a52b742409b2d820ef2b3bfc58db3e66537ef3e3b786",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets"
+      ]
+    }
+  ]
+}

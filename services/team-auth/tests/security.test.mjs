@@ -114,7 +114,7 @@ async function harness(options = {}) {
       if (controls.repoDenied) return new Response('no access', { status: controls.repoDenied });
       return Response.json({ id: controls.wrongRepo ? 99 : REPOSITORY_ID,
         owner: { id: controls.wrongRepoOwner ? 999 : OWNER_ID }, private: !controls.publicRepo,
-        permissions: { pull: !controls.repoPullDenied }, full_name: 'diracmagic/supercon-research-notes' });
+        permissions: controls.repoPullMissing ? {} : { pull: !controls.repoPullDenied }, full_name: 'diracmagic/supercon-research-notes' });
     }
     if (url === 'https://api.github.com/repos/diracmagic/supercon-research-notes/git/ref/heads/main') return Response.json({ ref: 'refs/heads/main', object: { type: controls.wrongRefType ? 'tag' : 'commit', sha: controls.wrongRefSha ? 'main' : COMMIT } });
     const prefix = 'https://api.github.com/repos/diracmagic/supercon-research-notes/contents/';
@@ -185,7 +185,7 @@ test('owner receives a bounded real-provider identity session and validated memo
   assert.equal(flow.session.expires_at, h.now() + 3600000);
   assert.match(flow.session.session_token, /^[A-Za-z0-9_-]{43}$/);
   const session = await h.send('/api/session', { token: flow.session.session_token });
-  assert.deepEqual(await session.json(), { expires_at: flow.session.expires_at, user: { id: OWNER_ID, login: 'diracmagic' }, can_read_memo: true });
+  assert.deepEqual(await session.json(), { expires_at: flow.session.expires_at, user: { id: OWNER_ID, login: 'diracmagic' }, can_read_memo: true, can_manage_team: true });
   const response = await h.send('/api/memo', { token: flow.session.session_token });
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('Access-Control-Allow-Origin'), APP_ORIGIN);
@@ -567,9 +567,9 @@ test('expiry alarms remove ciphertext, transaction records and alarm metadata', 
 
 test('deployment declares SQLite state, excludes local secrets and disables application logging', () => {
   const config = JSON.parse(fs.readFileSync(new URL('../wrangler.jsonc', import.meta.url), 'utf8'));
-  assert.deepEqual(config.migrations, [{ tag: 'v1', new_sqlite_classes: ['AuthState'] }]);
+  assert.deepEqual(config.migrations, [{ tag: 'v1', new_sqlite_classes: ['AuthState'] }, { tag: 'v2', new_sqlite_classes: ['TeamDirectory'] }]);
   assert.equal(config.observability.enabled, false);
-  assert.equal(Object.hasOwn(config, 'vars'), false);
+  assert.deepEqual(Object.keys(config.vars || {}).sort(), ['FIREBASE_API_KEY', 'FIREBASE_PROJECT_ID']);
   const ignore = fs.readFileSync(new URL('../.gitignore', import.meta.url), 'utf8');
   assert.match(ignore, /\.dev\.vars/); assert.match(ignore, /\.env/);
   for (const file of ['worker.mjs', 'state.mjs', 'memo.mjs', 'security.mjs']) {
@@ -582,12 +582,12 @@ test('health reports configuration readiness without any credential, identity or
   const h = await harness();
   const response = await h.send('/health', { origin: null });
   assert.equal(response.status, 200);
-  assert.deepEqual(await response.json(), { status: 'ready', configured: true });
+  assert.deepEqual(await response.json(), { status: 'ready', configured: true, github_login: true, email_login: false, team_notes: false });
   assert.equal(h.calls.length, 0);
   assert.equal((await h.send('/health?secret=echo', { origin: null })).status, 400);
   h.env.GITHUB_CLIENT_SECRET = '';
   const missing = await h.send('/health', { origin: null }); assert.equal(missing.status, 503);
-  assert.deepEqual(await missing.json(), { error: 'not_configured' });
+  assert.deepEqual(await missing.json(), { status: 'not_configured', configured: false, github_login: false, email_login: false, team_notes: false });
 });
 
 test('ciphertext cannot be transplanted between two independent bearer sessions', async () => {
@@ -638,6 +638,12 @@ test('owner session polling requires a positive pull permission, but non-owner l
   const response = await other.send('/api/session', { token: otherSession.session_token });
   assert.equal(response.status, 200); assert.equal((await response.json()).can_read_memo, false);
   assert.equal(other.calls.some(url => url.includes('/repositories/')), false);
+});
+
+test('ordinary user tokens cannot use the trusted installation exception for absent pull metadata', async () => {
+  const h = await harness({ controls: { repoPullMissing: true } }), { session } = await h.login();
+  for (const path of ['/api/session', '/api/memo']) assert.equal((await h.send(path, { token: session.session_token })).status, 403);
+  assert.equal(h.calls.some(url => url.includes('/contents/')), false);
 });
 
 test('owner polling denies stale note access when metadata remains available but Contents permission is revoked', async () => {

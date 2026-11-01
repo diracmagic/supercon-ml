@@ -1,7 +1,11 @@
 import { APP_ORIGIN, APP_RETURN, OWNER_ID, REPOSITORY_ID, TOKEN_PATTERN, AuthError, boundedJson, demand, decryptToken, encryptionKey, encryptToken, equalSecret, jsonResponse, plainObject, randomToken, securityHeaders, sha256 } from './security.mjs';
 import { stateAccess } from './state.mjs';
 import { readMemo, verifyMemoAccess } from './memo.mjs';
+import { createFirebaseClient, firebaseConfigured, normalizeEmail } from './firebase.mjs';
+import { teamAccess } from './team.mjs';
+import { createInstallationReader } from './installation.mjs';
 export { AuthState } from './state.mjs';
+export { TeamDirectory } from './team.mjs';
 
 const COOKIE = '__Host-supercon_oauth';
 const TEN_MINUTES = 600000, FIVE_MINUTES = 300000, ONE_HOUR = 3600000;
@@ -10,7 +14,7 @@ const PROVIDER_ERRORS = new Map([['incorrect_client_credentials', 'oauth_credent
 const PROVIDER_HTTP_STATUSES = new Set([301, 302, 303, 307, 308, 400, 401, 403, 404, 429, 500, 502, 503, 504]);
 const httpDiagnostic = status => PROVIDER_HTTP_STATUSES.has(status) ? 'provider_http_' + status : 'provider_http_other';
 const CALLBACK_DIAGNOSTICS = new Set(['callback_parameters', 'callback_state', 'code_invalid', 'provider_bad_code', 'transaction_storage', 'provider_denied', 'provider_credentials', 'provider_redirect', 'provider_transport', 'provider_response_json', 'provider_http_other', ...[...PROVIDER_HTTP_STATUSES].map(httpDiagnostic), 'provider_grant_error_unknown', 'provider_email_unverified', 'provider_token_format', 'provider_token_type', 'provider_expiry', 'provider_identity', 'ticket_encryption', 'ticket_storage', 'unexpected']);
-const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/exchange', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/auth/logout', 'POST']]);
+const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/email/action', 'GET'], ['/auth/exchange', 'POST'], ['/auth/firebase', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/api/team', 'GET'], ['/api/team/invite', 'POST'], ['/api/team/revoke', 'POST'], ['/auth/logout', 'POST']]);
 const cookie = (value, expiry = 600) => COOKIE + '=' + value + '; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=' + expiry;
 function cookieValue(request) {
   const matches = (request.headers.get('cookie') || '').split(';').map(value => value.trim()).filter(value => value.startsWith(COOKIE + '='));
@@ -37,10 +41,24 @@ function returnToApp(values, origin, diagnostic) {
   destination.hash = new URLSearchParams(values).toString();
   return redirect(destination.href, origin, cookie('', 0));
 }
-const presentation = record => ({ expires_at: record.expiresAt, user: { id: record.user.id, login: record.user.login }, can_read_memo: record.user.id === OWNER_ID });
+const isAdmin = record => record.provider !== 'firebase' && record.user.id === OWNER_ID;
+const presentation = record => ({ expires_at: record.expiresAt,
+  user: record.provider === 'firebase' ? { id: record.user.id, login: record.user.login, provider: 'firebase', email: record.user.email } : { id: record.user.id, login: record.user.login },
+  can_read_memo: isAdmin(record) || record.provider === 'firebase', can_manage_team: isAdmin(record) });
 
 // Injectable dependencies are for local tests, never environment-driven mocks.
 export function createHandler({ fetchImpl = (...args) => fetch(...args), now = () => Date.now() } = {}) {
+  const firebase = createFirebaseClient({ fetchImpl, now });
+  const installationToken = createInstallationReader({ fetchImpl, now });
+  const bodyJson = async (request, maximum = 4096) => {
+    demand(/^application\/json(?:\s*;|$)/i.test(request.headers.get('content-type') || ''));
+    const body = await boundedJson(request, maximum, 'invalid_request'); demand(plainObject(body)); return body;
+  };
+  async function rate(env, key, maximum, window) { return teamAccess(env, 'limit', now(), { key, maximum, window }); }
+  async function stillCurrent(env, session) {
+    demand(await stateAccess(env, 'session', session.token, 'get', now()), 'invalid_session', 401);
+    if (session.record.provider === 'firebase') await teamAccess(env, 'check', now(), { memberId: session.record.memberId, uid: session.record.firebaseUid, email: session.record.user.email, version: session.record.memberVersion });
+  }
   async function github(path, token, maximum = 131072) {
     demand(typeof path === 'string' && path.startsWith('/') && !path.startsWith('//'), 'upstream_unavailable', 503);
     let response;
@@ -70,14 +88,29 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
     demand(token, 'invalid_session', 401);
     const record = await stateAccess(env, 'session', token, 'get', now());
     demand(record && record.kind === 'session', 'invalid_session', 401);
+    if (record.provider === 'firebase' && ['/api/session', '/api/memo'].includes(new URL(request.url).pathname)) {
+      // Rate-limit before Google/GitHub work, without caching identity or membership.
+      const memberKey = await sha256(record.memberId);
+      await rate(env, 'private-member-minute:' + memberKey, 12, 60000);
+      await rate(env, 'private-member-hour:' + memberKey, 120, 3600000);
+      await rate(env, 'private-global-minute', 120, 60000);
+      await rate(env, 'private-global-hour', 600, 3600000);
+    }
     try {
-      const githubToken = await decryptToken(record.encrypted, key, 'session:' + await sha256(token));
+      const sourceToken = await decryptToken(record.encrypted, key, 'session:' + await sha256(token));
+      if (record.provider === 'firebase') {
+        const identity = await firebase.verify(env, sourceToken);
+        demand(identity.uid === record.firebaseUid && identity.email === record.user.email && identity.passwordUpdatedAt === record.passwordUpdatedAt, 'invalid_session', 401);
+        const session = { token, record };
+        await stillCurrent(env, session); return session;
+      }
+      const githubToken = sourceToken;
       const user = await githubUser(githubToken);
       demand(user.id === record.user.id, 'invalid_session', 401);
       demand(await stateAccess(env, 'session', token, 'get', now()), 'invalid_session', 401);
       return { token, record: { ...record, user }, githubToken };
     } catch (error) {
-      if (error instanceof AuthError && error.status === 401) await stateAccess(env, 'session', token, 'delete', now());
+      if (error instanceof AuthError && [401, 403].includes(error.status)) await stateAccess(env, 'session', token, 'delete', now());
       throw error;
     }
   }
@@ -100,11 +133,24 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
           return new Response(null, { status: 204, headers });
         }
         demand(request.method === ROUTES.get(url.pathname), 'method_not_allowed', 405);
-        demand(typeof env.GITHUB_CLIENT_ID === 'string' && /^[A-Za-z0-9_.-]{3,128}$/.test(env.GITHUB_CLIENT_ID) && typeof env.GITHUB_CLIENT_SECRET === 'string' && env.GITHUB_CLIENT_SECRET.length >= 16 && env.GITHUB_CLIENT_SECRET.length <= 1024 && env.AUTH_STATE, 'not_configured', 503);
+        const githubReady = typeof env.GITHUB_CLIENT_ID === 'string' && /^[A-Za-z0-9_.-]{3,128}$/.test(env.GITHUB_CLIENT_ID) && typeof env.GITHUB_CLIENT_SECRET === 'string' && env.GITHUB_CLIENT_SECRET.length >= 16 && env.GITHUB_CLIENT_SECRET.length <= 1024;
+        demand(env.AUTH_STATE, 'not_configured', 503);
         const key = await encryptionKey(env);
         if (url.pathname === '/health') {
           parameters(url, []);
-          return jsonResponse({ status: 'ready', configured: true }, 200, origin);
+          const emailReady = firebaseConfigured(env) && Boolean(env.TEAM_DIRECTORY);
+          const ready = githubReady || emailReady;
+          return jsonResponse({ status: ready ? 'ready' : 'not_configured', configured: ready, github_login: githubReady, email_login: emailReady, team_notes: emailReady && typeof env.GITHUB_APP_PRIVATE_KEY === 'string' && env.GITHUB_APP_PRIVATE_KEY.length > 0 }, ready ? 200 : 503, origin);
+        }
+        if (['/auth/start', '/auth/github/callback', '/auth/exchange'].includes(url.pathname)) demand(githubReady, 'not_configured', 503);
+        if (url.pathname === '/auth/email/action') {
+          demand(firebaseConfigured(env), 'email_not_configured', 503);
+          for (const field of ['mode', 'oobCode']) demand(url.searchParams.getAll(field).length === 1);
+          demand(url.searchParams.getAll('apiKey').length <= 1 && (!url.searchParams.has('apiKey') || url.searchParams.get('apiKey') === env.FIREBASE_API_KEY));
+          const mode = url.searchParams.get('mode'), code = url.searchParams.get('oobCode');
+          demand(['resetPassword', 'verifyEmail', 'recoverEmail'].includes(mode) && typeof code === 'string' && /^[\x21-\x7e]{1,2048}$/.test(code));
+          // No action is consumed on GET; unknown continue URLs are never used.
+          return redirect(APP_RETURN + '#' + new URLSearchParams({ team_email_mode: mode, team_email_code: code }), origin);
         }
         if (url.pathname === '/auth/start') {
           parameters(url, ['challenge', 'state']);
@@ -191,6 +237,23 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
         // Cross-site APIs deliberately use bearer sessions without cookies.
         demand(origin === APP_ORIGIN, 'origin_denied', 403);
         parameters(url, []);
+        if (url.pathname === '/auth/firebase') {
+          demand(firebaseConfigured(env), 'email_not_configured', 503);
+          const ip = request.headers.get('CF-Connecting-IP') || 'unavailable';
+          await rate(env, 'login-ip:' + await sha256(ip), 30, 60000);
+          await rate(env, 'login-global', 120, 60000);
+          const body = await bodyJson(request, 20000);
+          demand(Object.keys(body).length === 1 && typeof body.id_token === 'string');
+          const identity = await firebase.verify(env, body.id_token);
+          const member = await teamAccess(env, 'claim', now(), { uid: identity.uid, email: identity.email, authTime: identity.authTime });
+          const token = randomToken(), record = { kind: 'session', provider: 'firebase', expiresAt: Math.min(now() + ONE_HOUR, identity.expiresAt),
+            user: { id: 'firebase:' + identity.uid, login: identity.email, email: identity.email }, firebaseUid: identity.uid,
+            memberId: member.id, memberVersion: member.version, passwordUpdatedAt: identity.passwordUpdatedAt,
+            encrypted: await encryptToken(body.id_token, key, 'session:' + await sha256(token)) };
+          demand(await stateAccess(env, 'session', token, 'create', now(), { record }), 'storage_unavailable', 503);
+          await stillCurrent(env, { token, record });
+          return jsonResponse({ session_token: token, ...presentation(record) }, 200, origin);
+        }
         if (url.pathname === '/auth/exchange') {
           demand(/^application\/json(?:\s*;|$)/i.test(request.headers.get('content-type') || ''));
           const body = await boundedJson(request, 4096, 'invalid_request');
@@ -214,14 +277,41 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
           return jsonResponse({ logged_out: true }, 200, origin);
         }
         const session = await getSession(request, env, key);
+        if (url.pathname.startsWith('/api/team')) {
+          demand(isAdmin(session.record), 'admin_only', 403);
+          if (url.pathname === '/api/team') return jsonResponse({ members: await teamAccess(env, 'list', now()) }, 200, origin);
+          const body = await bodyJson(request);
+          if (url.pathname === '/api/team/revoke') {
+            demand(Object.keys(body).length === 1 && typeof body.member_id === 'string' && TOKEN_PATTERN.test(body.member_id));
+            const member = await teamAccess(env, 'revoke', now(), { memberId: body.member_id });
+            return jsonResponse({ member }, 200, origin);
+          }
+          demand(Object.keys(body).length === 1 && typeof body.email === 'string');
+          const email = normalizeEmail(body.email);
+          await rate(env, 'invite-global', 20, 3600000);
+          await rate(env, 'invite-email:' + await sha256(email), 1, 60000);
+          const previous = (await teamAccess(env, 'list', now())).find(member => member.email === email);
+          if (previous?.status === 'active') return jsonResponse({ member: previous }, 200, origin);
+          const identity = await firebase.invite(env, email);
+          let member = await teamAccess(env, 'invite', now(), { ...identity, expectedMemberId: previous?.member_id || null, expectedVersion: previous?.version || null });
+          try {
+            await firebase.sendInvitation(env, email, request.headers.get('CF-Connecting-IP') || '');
+            member = await teamAccess(env, 'delivery', now(), { memberId: member.member_id, version: member.version, status: 'accepted' });
+          } catch {
+            try { await teamAccess(env, 'delivery', now(), { memberId: member.member_id, version: member.version, status: 'failed' }); } catch { /* A concurrent revocation wins. */ }
+            throw new AuthError('invitation_delivery_failed', 503);
+          }
+          return jsonResponse({ member }, 200, origin);
+        }
         if (url.pathname === '/api/session') {
-          if (session.record.user.id === OWNER_ID) await verifyMemoAccess(github, session.githubToken);
-          demand(await stateAccess(env, 'session', session.token, 'get', now()), 'invalid_session', 401);
+          if (session.record.provider === 'firebase') await verifyMemoAccess(github, await installationToken(env), { trustedInstallation: true });
+          else if (isAdmin(session.record)) await verifyMemoAccess(github, session.githubToken);
+          await stillCurrent(env, session);
           return jsonResponse(presentation(session.record), 200, origin);
         }
-        demand(session.record.user.id === OWNER_ID, 'owner_only', 403);
-        const memo = await readMemo(github, session.githubToken);
-        demand(await stateAccess(env, 'session', session.token, 'get', now()), 'invalid_session', 401);
+        demand(isAdmin(session.record) || session.record.provider === 'firebase', 'owner_only', 403);
+        const memo = await readMemo(github, session.record.provider === 'firebase' ? await installationToken(env) : session.githubToken, session.record.provider === 'firebase' ? { trustedInstallation: true } : undefined);
+        await stillCurrent(env, session);
         return jsonResponse(memo, 200, origin);
       } catch (error) {
         const known = error instanceof AuthError;
