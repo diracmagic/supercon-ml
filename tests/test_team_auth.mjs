@@ -47,7 +47,7 @@ function memo(count = 31) {
   })) };
 }
 
-function harness({ apiBase = 'https://auth.example.org', hash = '', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI } = {}) {
+function harness({ apiBase = 'https://auth.example.org', hash = '', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI, materialUI } = {}) {
   const doc = { events: {}, hidden: false, activeElement: null, readyState: 'complete',
     createElement(tag) { return new Element(tag, doc); },
     getElementById(id) { return flatten(doc.body).find((node) => node.attributes.id === id) || null; },
@@ -65,6 +65,7 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', pending = nu
     sessionStorage: { getItem: (key) => values.get(key) ?? null, setItem(key, value) { values.set(key, value); writes.push([key, value]); }, removeItem: (key) => values.delete(key) },
     addEventListener(kind, fn) { (events[kind] ||= []).push(fn); },
     btoa: (value) => Buffer.from(value, 'binary').toString('base64') };
+  if (materialUI) win.SuperconMaterialVisual = materialUI;
   Object.defineProperty(win, 'localStorage', { get() { throw new Error('Auth may not use localStorage'); } });
   const fetch = async (url, options) => {
     requests.push({ url, options });
@@ -152,6 +153,51 @@ test('verified owner exchanges the proof, revalidates with the server and displa
   h.get('team-notes-dialog').close(); assert.equal(h.doc.activeElement, h.get('team-notes'));
 });
 
+test('authenticated notes show sourced team and status text with both visuals and clean up material components', async () => {
+  const classified = [], materials = [];
+  const materialUI = {
+    classifyMaterial(entry) { classified.push(entry.id); return 'unknown'; },
+    createMaterialAnimation(options) {
+      assert.equal(options.kind, 'unknown'); assert.equal(options.details.tagName, 'DETAILS');
+      const node = options.document.createElement('section'); node.className = 'synthetic-material'; node.textContent = 'Synthetic material illustration';
+      const record = { node, details: options.details, pauses: 0, destroys: 0 }; materials.push(record);
+      return { node, pause() { record.pauses++; }, destroy() { record.destroys++; node.textContent = ''; } };
+    }
+  };
+  const anonymous = harness({ materialUI }); await anonymous.start(); await anonymous.controller.openNotes();
+  assert.equal(materials.length, 0, 'No material is constructed before authentication');
+  const h = harness({ materialUI, hash: '#team_ticket=' + TICKET + '&team_state=' + STATE, pending: proof() });
+  await h.start();
+  assert.equal(materials.length, 31); assert.equal(new Set(classified).size, 31);
+  const cards = flatten(h.doc.body).filter(node => node.className === 'team-notes-card');
+  assert.equal(cards.length, 31);
+  for (const card of cards) {
+    const overview = card.children.find(node => node.className === 'team-notes-overview');
+    assert.ok(overview, 'The overview is outside collapsed details');
+    assert.match(overview.textContent, /Research teamExample team/);
+    assert.match(overview.textContent, /This study: A prediction, not a measured result/);
+    assert.match(overview.textContent, /Current status: Theoretical prediction/);
+    const link = overview.children.find(node => node.tagName === 'A');
+    assert.match(link.attributes.href, /^https:\/\/example\.org\/paper\//);
+    assert.equal(link.attributes.rel, 'noopener noreferrer'); assert.equal(link.attributes.referrerpolicy, 'no-referrer');
+    const details = card.children.find(node => node.tagName === 'DETAILS');
+    assert.equal(details.children[0].textContent, 'Material, progress and sources');
+    assert.equal(flatten(details).filter(node => node.className === 'synthetic-material').length, 1);
+    assert.equal(flatten(details).filter(node => node.attributes.class === 'team-note-animation').length, 1, 'The existing workflow is retained');
+    assert.match(details.textContent, /Evidence limitsNo candidate experiment reported/);
+    assert.match(details.textContent, /Not reported/);
+  }
+  const initial = materials.slice();
+  const search = h.get('team-notes-search'); search.value = 'Fixture result 31'; search.dispatch('input');
+  assert.ok(initial.every(record => record.destroys === 1 && record.node.textContent === '' && !record.node.isConnected));
+  assert.equal(materials.length, 32); assert.equal(flatten(h.doc.body).filter(node => node.className === 'synthetic-material').length, 1);
+  const remaining = materials.at(-1);
+  h.get('team-notes-dialog').close(); assert.equal(remaining.pauses, 1, 'Closing Notes pauses the material using the shared animation registry');
+  await h.controller.logout();
+  assert.ok(materials.every(record => record.destroys === 1 && record.node.textContent === '' && !record.node.isConnected));
+  assert.doesNotMatch(h.doc.body.textContent, /Synthetic material|Example team|This study:|Current status:|Fixture result/);
+});
+
 test('both numeric owner ID and server permission are required; other accounts never fetch notes', async () => {
   for (const session of [metadata({ user: { id: 42, login: 'example-user' }, can_read_memo: true }), metadata({ can_read_memo: false })]) {
     const h = harness({ hash: '#team_ticket=' + TICKET + '&team_state=' + STATE, pending: proof(), session });
@@ -226,6 +272,23 @@ test('only the verified GitHub owner can use the admin adapter, and all routes a
   assert.equal(h.requests.at(-1).options.headers.Authorization, 'Bearer ' + TOKEN);
   await assert.rejects(adapter.teamRequest('/api/team/delete', 'POST', {}));
   await assert.rejects(adapter.teamRequest('/api/team', 'POST', {}));
+});
+
+test('account adapter forwards only fixed invitation and member-name error categories', async () => {
+  let adapter, errorCode;
+  const owner = metadata({ can_manage_team: true });
+  const h = harness({ hash: '#team_ticket=' + TICKET + '&team_state=' + STATE, pending: proof(), session: owner,
+    accountUI: { createAccountUI(env) { adapter = env; return { openLogin() {}, openAdmin() {}, reset() {}, handleEmailAction() { return false; } }; } },
+    fetch: url => url.endsWith('/auth/exchange') ? response({ ...owner, session_token: TOKEN }) : url.endsWith('/api/session') ? response(owner) :
+      url.endsWith('/api/memo') ? response(memo()) : response({ error: errorCode, description: 'DO_NOT_REFLECT_PROVIDER_DETAIL' }, 400) });
+  await h.start();
+  for (const code of ['invitation_not_ready', 'fresh_login_required', 'invalid_member_name', 'member_not_found']) {
+    errorCode = code;
+    await assert.rejects(adapter.teamRequest('/api/team/name', 'POST', { member_id: 'M'.repeat(43), name: 'Synthetic Name' }), error => error.code === code && error.message === 'Request failed');
+  }
+  errorCode = '<img src=x onerror=alert(1)>';
+  await assert.rejects(adapter.teamRequest('/api/team/name', 'POST', { member_id: 'M'.repeat(43), name: 'Synthetic Name' }), error => error.code === undefined && error.message === 'Request failed');
+  assert.doesNotMatch(h.doc.body.textContent, /DO_NOT_REFLECT_PROVIDER_DETAIL/);
 });
 
 test('stored identity or session strings cannot sign a user in', async () => {

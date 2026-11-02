@@ -8,7 +8,8 @@
   const SESSION_CHECK = 60 * 1000;
   const ACCOUNT_ERRORS = new Set(['admin_only', 'not_invited', 'invitation_expired', 'membership_conflict', 'membership_revoked',
     'invalid_email_identity', 'invalid_email', 'rate_limited', 'team_capacity', 'invitation_delivery_failed',
-    'email_not_configured', 'identity_unavailable', 'invalid_session']);
+    'email_not_configured', 'identity_unavailable', 'invalid_session', 'invitation_not_ready', 'fresh_login_required',
+    'invalid_member_name', 'member_not_found']);
   const CATEGORY = Object.freeze({ '计算预测': 'Computational prediction', '回溯验证': 'Retrospective validation',
     '实验研究': 'Experimental research', '数据与工具': 'Data and tools', '研究计划': 'Research programme' });
   const STEP_STATUS = Object.freeze({ completed: 'Reported', current: 'Current evidence', not_reported: 'Not reported' });
@@ -504,7 +505,12 @@
 
     function memoCard(entry) {
       const body = el('div', { class: 'team-notes-detail' });
-      const details = el('details', {}, [el('summary', { text: 'Evidence, conditions and sources' }), body]);
+      const details = el('details', {}, [el('summary', { text: 'Material, progress and sources' }), body]);
+      const materialVisual = win.SuperconMaterialVisual;
+      if (materialVisual && typeof materialVisual.classifyMaterial === 'function' && typeof materialVisual.createMaterialAnimation === 'function') {
+        const material = materialVisual.createMaterialAnimation({ document: doc, window: win, details: details, kind: materialVisual.classifyMaterial(entry) });
+        if (material) { body.appendChild(material.node); noteAnimations.add(material); }
+      }
       const animation = createNoteAnimation({ document: doc, window: win, details: details, steps: entry.progress_steps });
       if (animation) { body.appendChild(animation.node); noteAnimations.add(animation); }
       [['Result', entry.result], ['Evidence limits', entry.boundary], ['What we can learn', entry.reference_point]].forEach(function (item) {
@@ -526,11 +532,16 @@
         body.appendChild(route);
       }
       body.appendChild(el('h4', { text: 'Primary sources' })); body.appendChild(sourceLinks(entry));
+      const overview = el('section', { class: 'team-notes-overview', 'aria-label': 'Research team and current status' });
+      overview.appendChild(el('h4', { text: 'Research team' }));
+      overview.appendChild(el('p', { class: 'team-notes-team', text: typeof entry.team === 'string' && entry.team ? entry.team : 'Not specified in this note.' }));
+      if (typeof entry.headline === 'string' && entry.headline) overview.appendChild(el('p', { class: 'team-notes-headline', text: 'This study: ' + entry.headline }));
+      overview.appendChild(el('p', { class: 'team-notes-stage', text: 'Current status: ' + (typeof entry.stage === 'string' && entry.stage ? entry.stage : 'Not specified in this note.') }));
+      const primary = [{ url: entry.url }].concat(Array.isArray(entry.primary_refs) ? entry.primary_refs : []).find(function (ref) { return ref && safeSourceUrl(ref.url); });
+      if (primary) overview.appendChild(el('a', { class: 'team-notes-primary-link', href: safeSourceUrl(primary.url), target: '_blank', rel: 'noopener noreferrer', referrerpolicy: 'no-referrer', text: 'Primary source' }));
       return el('article', { class: 'team-notes-card' }, [
         el('p', { class: 'team-notes-meta', text: '#' + entry.id + ' · ' + (entry.year || '') + ' · ' + (CATEGORY[entry.category] || entry.category || '') }),
-        el('h3', { text: entry.heading }), el('p', { class: 'team-notes-headline', text: entry.headline || '' }),
-        el('p', { class: 'team-notes-stage', text: entry.stage || '' }),
-        details
+        el('h3', { text: entry.heading }), overview, details
       ]);
     }
 

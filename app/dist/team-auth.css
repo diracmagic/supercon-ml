@@ -81,3 +81,8 @@
     display: block; min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
   }
 }
+.team-notes-overview { padding: 12px 14px; margin: 10px 0 14px; border-left: 3px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; }
+.team-notes-overview h4 { margin: 0 0 5px; font-size: 12px; color: var(--muted); }
+.team-notes-overview p { margin: 5px 0 9px; }
+.team-notes-team { font-weight: 600; }
+.team-notes-primary-link { display: inline-block; margin-top: 4px; font-size: 12px; }

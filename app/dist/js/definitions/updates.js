@@ -12,6 +12,23 @@
     return false;
   };
 
+  // Public release identity is explicit; cache names are implementation revisions.
+  const webReleaseVersion = function webReleaseVersion(source) {
+    if (typeof source !== 'string' || source.length > 65536) return '';
+    var match = /(?:^|\n)\s*const\s+APP_VERSION\s*=\s*(['"])(\d{1,6}\.\d{1,6}\.\d{1,6})\1\s*;/.exec(source);
+    return match ? match[2] : '';
+  };
+
+  const updateWebBadge = function updateWebBadge(available) {
+    try {
+      var standalone = navigator.standalone === true || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+      if (!standalone || UPD.badged === available) return;
+      UPD.badged = available;
+      var operation = available ? navigator.setAppBadge : navigator.clearAppBadge;
+      if (typeof operation === 'function') Promise.resolve(operation.call(navigator, ...(available ? [1] : []))).catch(function () {});
+    } catch (_) { /* Optional badges need no permission prompt or update dependency. */ }
+  };
+
   const installerName = function installerName() {
     var ua = navigator.userAgent || '', pf = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
     if (/win/i.test(pf) || /Windows/.test(ua)) return 'SuperconProgress-windows-x64-setup.exe';
@@ -40,10 +57,10 @@
     return !!(isDesktop() && info && info.url && verNewer(info.v, APP_VERSION));
   };
 
-  const checkUpdate = function checkUpdate(manual) {
+  const checkUpdate = function checkUpdate(manual, fresh) {
     if (!isDesktop() || UPD.busy) return;
     var cached = updRead('update');
-    if (!manual && cached && cached.t && Date.now() - cached.t < UPD_EVERY) { UPD.info = cached; renderUpdate(); return; }
+    if (!manual && !fresh && cached && cached.t && Date.now() - cached.t < UPD_EVERY) { UPD.info = cached; renderUpdate(); downloadUpdate(false); return; }
     UPD.busy = true;
     if (manual) { store.set('updateLater', ''); UPD.dismissed = false; flashNote('Checking for updates…', 0); }
     getJSON(API + '/releases/latest', { headers: { Accept: 'application/vnd.github+json' }, timeout: 12000 })
@@ -58,7 +75,69 @@
       }, function () {
         if (manual) flashNote('Couldn’t reach GitHub to check for updates. Try again later.', 8000);
       })
-      .then(function () { UPD.busy = false; renderUpdate(); });
+      .then(function () { UPD.busy = false; renderUpdate(); downloadUpdate(false); });
+  };
+
+  const nativeUpdateCall = function nativeUpdateCall(command, args) {
+    var invoke = window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke;
+    if (typeof invoke !== 'function') invoke = window.__TAURI_INTERNALS__ && window.__TAURI_INTERNALS__.invoke;
+    if (typeof invoke !== 'function') return Promise.reject(new Error('update_native_unavailable'));
+    return Promise.resolve().then(function () { return invoke(command, args); });
+  };
+
+  const updateFailureText = function updateFailureText(error) {
+    var code = typeof error === 'string' ? error : error && error.message;
+    var messages = {
+      update_busy: 'An update is already being prepared. Try again shortly.',
+      update_not_newer: 'This installed app is already current. Check again for the latest release.',
+      update_release_changed: 'The published version changed. Check again before downloading.',
+      update_asset_unavailable: 'The installer for this computer is not available yet.',
+      update_digest_unavailable: 'The installer has no verified checksum yet. Try again later.',
+      update_integrity_failed: 'The installer failed its integrity check and will not be opened. Retry the download.',
+      update_not_downloaded: 'Download the update again before installing it.',
+      update_launch_failed: 'The installer could not be opened. Try again.',
+      update_unsupported_platform: 'In-app installation is available on Windows and macOS.',
+      update_native_unavailable: 'This installed build needs a one-time upgrade to version 0.3.10 or later before it can install updates inside the app.',
+      update_origin_denied: 'Updates must be opened from the installed app.'
+    };
+    return Object.hasOwn(messages, code) ? messages[code] : 'The update could not be completed. Check your connection and try again.';
+  };
+
+  const downloadUpdate = function downloadUpdate(retry) {
+    if (!updAvailable() || UPD.downloading || UPD.installing) return;
+    var version = UPD.info.v;
+    if (UPD.download && UPD.download.version === version) return;
+    if (!retry && UPD.downloadAttempted === version) return;
+    UPD.downloadAttempted = version; UPD.downloading = true; UPD.downloadError = ''; UPD.installError = '';
+    UPD.download = null; UPD.installConfirm = false; UPD.launched = false; renderUpdate();
+    return nativeUpdateCall('download_app_update', { expectedVersion: version }).then(function (artifact) {
+      if (!artifact || artifact.version !== version || !['windows', 'macos'].includes(artifact.platform) ||
+        !Number.isSafeInteger(artifact.size) || artifact.size < 1 || artifact.size > 1073741824 ||
+        typeof artifact.downloadId !== 'string' || !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(artifact.downloadId)) throw new Error('update_integrity_failed');
+      if (UPD.info && UPD.info.v === version) UPD.download = artifact;
+    }).catch(function (error) {
+      if (UPD.info && UPD.info.v === version) UPD.downloadError = updateFailureText(error);
+    }).then(function () {
+      UPD.downloading = false; renderUpdate();
+      if (UPD.info && UPD.info.v !== version) downloadUpdate(false);
+    });
+  };
+
+  const installUpdate = function installUpdate() {
+    if (!UPD.installConfirm || UPD.installing || !UPD.download || !UPD.info || UPD.download.version !== UPD.info.v) return;
+    var artifact = UPD.download;
+    UPD.installing = true; UPD.installConfirm = false; UPD.installError = ''; renderUpdate();
+    return nativeUpdateCall('install_app_update', { downloadId: artifact.downloadId }).then(function (result) {
+      if (!result || result.launched !== true || result.version !== artifact.version || result.platform !== artifact.platform) throw new Error('update_launch_failed');
+      UPD.launched = true;
+    }).catch(function (error) {
+      var code = typeof error === 'string' ? error : error && error.message;
+      if (code === 'update_integrity_failed' || code === 'update_not_downloaded') {
+        // A missing or changed artifact must be downloaded and verified again.
+        // Keep downloadAttempted set so retries require an explicit user action.
+        UPD.download = null; UPD.installConfirm = false; UPD.downloadError = updateFailureText(error); UPD.installError = '';
+      } else UPD.installError = updateFailureText(error);
+    }).then(function () { UPD.installing = false; renderUpdate(); });
   };
 
   const flashNote = function flashNote(msg, ms) {
@@ -79,25 +158,33 @@
       if (!(later && later.v === info.v && Date.now() < later.until)) kind = 'desktop';
     }
     el.hidden = !kind;
+    updateWebBadge(kind === 'web');
     if (kind === 'web') {
       append(el, [glyph('refresh', 'upd-glyph'), h('div', { class: 'upd-body' },
-        h('p', { class: 'upd-title', text: UPD.web === 'new' ? 'A new version of Supercon Progress is ready.' : 'Supercon Progress ' + UPD.web + ' is ready.' }),
+        h('p', { class: 'upd-title', text: UPD.web === 'new' ? 'A new version of Supercon Progress is available.' : 'Supercon Progress ' + UPD.web + ' is available.' }),
         h('div', { class: 'upd-actions' },
           h('button', { class: 'btn primary', type: 'button', onclick: function () { window.location.reload(); } }, 'Reload now'),
           h('button', { class: 'btn', type: 'button', onclick: function () { UPD.dismissed = true; renderUpdate(); } }, 'Later')))]);
     } else if (kind === 'desktop') {
-      var mac = /\.dmg$/.test(info.url), how = mac
-        ? 'When the download finishes, quit Supercon Progress, open the .dmg and drag the app into Applications to replace this version.'
-        : /\.exe$/.test(info.url) ? 'When the download finishes, quit Supercon Progress and run the installer. It replaces this version and keeps your settings.'
-          : 'Download the installer for your computer from the release page.';
+      var artifact = UPD.download && UPD.download.version === info.v ? UPD.download : null;
+      var actions = h('div', { class: 'upd-actions' }), status = '';
+      if (UPD.downloading) status = 'Downloading and verifying the update inside the app…';
+      else if (UPD.installing) status = 'Opening the installer…';
+      else if (UPD.launched) status = artifact && artifact.platform === 'macos'
+        ? 'The installer is open. Drag Supercon Progress into Applications to replace it, then reopen the app.'
+        : 'The installer is open. Follow its prompts to finish, then reopen the app.';
+      else if (artifact) {
+        status = 'Update downloaded and verified. Installation starts only after you confirm.';
+        if (UPD.installConfirm) {
+          actions.appendChild(h('button', { class: 'btn primary', type: 'button', onclick: installUpdate }, 'Confirm installation'));
+          actions.appendChild(h('button', { class: 'btn', type: 'button', onclick: function () { UPD.installConfirm = false; renderUpdate(); } }, 'Cancel'));
+        } else actions.appendChild(h('button', { class: 'btn primary', type: 'button', onclick: function () { UPD.installConfirm = true; renderUpdate(); } }, 'Install update'));
+      } else actions.appendChild(h('button', { class: 'btn primary', type: 'button', onclick: function () { UPD.downloadAttempted = ''; checkUpdate(true, true); } }, UPD.downloadError ? 'Retry download' : 'Download update'));
+      actions.appendChild(h('button', { class: 'btn', type: 'button', onclick: function () { store.set('updateLater', JSON.stringify({ v: info.v, until: Date.now() + UPD_LATER })); renderUpdate(); } }, 'Later'));
       append(el, [glyph('download', 'upd-glyph'), h('div', { class: 'upd-body' },
         h('p', { class: 'upd-title', text: 'Supercon Progress ' + info.v + ' is available. You have ' + APP_VERSION + '.' }),
         info.news && info.news.length ? h('p', { class: 'upd-news', text: 'New: ' + info.news.join(' · ') }) : null,
-        h('div', { class: 'upd-actions' },
-          h('button', { class: 'btn primary', type: 'button', onclick: function () { openExternal(info.url); UPD.downloaded = true; renderUpdate(); } }, glyph('download', 'btn-glyph'), 'Download ' + info.v),
-          h('button', { class: 'btn', type: 'button', onclick: function () { openExternal(info.page); } }, 'What’s new'),
-          h('button', { class: 'btn', type: 'button', onclick: function () { store.set('updateLater', JSON.stringify({ v: info.v, until: Date.now() + UPD_LATER })); renderUpdate(); } }, 'Later')),
-        h('p', { class: 'upd-hint', text: UPD.downloaded ? 'Downloading in your browser. ' + how : how }))]);
+        actions, h('p', { class: 'upd-hint', role: 'status', text: UPD.downloadError || UPD.installError || status }))]);
     }
     renderUpdateFoot();
   };

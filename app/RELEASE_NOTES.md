@@ -1,6 +1,16 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Unreleased:
+Version 0.3.10 adds:
+
+- **Team access on the web:** invited email/password accounts, administrator-managed display names, resend controls, and hidden revoked members. Membership invitations remain valid until revoked; Firebase password-setting links still expire and can be requested again. Password recovery and invitation setup have separate entries.
+- **Private Notes:** material or research-method illustrations alongside the existing research walkthroughs, source-based team introductions, progress, evidence limits and references. Illustrations are schematic, not verified crystal structures or experimental measurements. Private content stays behind team authentication.
+- **Phone updates:** the installed web app checks for updates when opened or resumed and offers an update banner without automatically reloading. Home-screen badges depend on browser support.
+- **Desktop updates inside the APP:** after this first installation, future versions are checked and downloaded automatically. The APP verifies the installer against its GitHub release checksum and starts installation only after confirmation, without opening a GitHub download page. Existing 0.3.9 installations need this one-time upgrade. The installers are not code-signed; operating-system confirmation may still be required.
+- **News and papers:** separate AI-for-superconductors and general-superconductivity sections with their existing animations.
+
+Use [the hosted APP](https://diracmagic.github.io/supercon-ml/) for team sign-in and private Notes. Native-installer authentication has not been verified.
+
+Candidate-screening and validation updates included in this release:
 
 - Candidate scores exclude each candidate's own background labels in every ensemble member; model disagreement is labelled separately from confidence intervals.
 - Storm training-domain priority, exploration and B/C-containing metallic sublists, with optional bounded MACE/ASE sampled-phonon triage.
@@ -51,6 +61,7 @@ Version 0.2.0 added the *Hello Super* tour, the physics demos, the Theory & mate
 
 ### Download
 
+- **Phone / iPad:** open [the web APP](https://diracmagic.github.io/supercon-ml/) and add it to the Home Screen. It keeps the same icon across updates.
 - **Windows 10/11:** `SuperconProgress-windows-x64-setup.exe` (or the `.msi`)
 - **macOS, Apple Silicon and Intel:** `SuperconProgress-macos-universal.dmg`
 
