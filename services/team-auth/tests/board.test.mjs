@@ -74,9 +74,10 @@ async function harness() {
     return token;
   }
   const owner = (admin = true) => createSession({ user: { id: admin ? OWNER_ID : 77, login: admin ? 'diracmagic' : 'outsider' } }, admin ? 'synthetic_owner' : 'synthetic_other');
-  async function member({ uid = 'synthetic_member', name = 'Ada', invited = true } = {}) {
-    const email = uid + '@example.test'; let membership = { id: randomToken(), version: 1 };
-    if (invited) {
+  async function member({ uid = 'synthetic_member', name = 'Ada', invited = true, existing } = {}) {
+    if (existing) uid = existing.uid;
+    const email = uid + '@example.test'; let membership = existing ? { id: existing.memberId, version: existing.memberVersion } : { id: randomToken(), version: 1 };
+    if (invited && !existing) {
       const pending = await teamAccess(env, 'invite', clock, { uid, email, name, expectedMemberId: null, expectedVersion: null });
       await teamAccess(env, 'delivery', clock, { memberId: pending.member_id, version: pending.version, status: 'accepted' });
       membership = await teamAccess(env, 'claim', clock, { uid, email, authTime: clock });
@@ -106,7 +107,8 @@ test('owner and invited email members share the board with server names and requ
   const h = await harness(), owner = await h.owner(), member = await h.member();
   let response = await h.send('/api/board', { method: 'POST', token: owner, body: { body: '  Synthetic owner message\n\tsecond line  ' } });
   assert.equal(response.status, 200); const first = await response.json();
-  assert.deepEqual(first, { message: { id: 1, body: 'Synthetic owner message\n\tsecond line', created_at: h.now(), author: { name: 'diracmagic', is_self: true } }, latest_id: 1 });
+  assert.deepEqual(first, { message: { id: 1, body: 'Synthetic owner message\n\tsecond line', created_at: h.now(), author: { name: 'diracmagic', is_self: true } }, latest_id: 1,
+    presence: { members: [{ name: 'diracmagic', is_self: true, online: true }], window_seconds: 150, observed_at: h.now() } });
   response = await h.send('/api/board', { method: 'POST', token: member.token, body: { body: '<b>Synthetic literal text</b>' } }); assert.equal(response.status, 200);
   assert.deepEqual((await response.json()).message.author, { name: 'Ada', is_self: true });
   response = await h.send('/api/board?after=0', { token: member.token }); assert.equal(response.status, 200);
@@ -281,6 +283,121 @@ test('board CORS preflight exposes only exact allowed origin and methods without
   }
   assert.equal((await h.send('/api/board', { method: 'OPTIONS', origin: 'https://attacker.example', headers: { 'Access-Control-Request-Method': 'GET' } })).status, 403);
   assert.equal(h.calls.length, 0); assert.equal(h.env.TEAM_BOARD.calls, 0);
+});
+
+test('presence is private and rejects anonymous, non-team, revoked and forged requests', async () => {
+  const h = await harness(), outsider = await h.owner(false), member = await h.member();
+  for (const [token, origin, status] of [[undefined, APP_ORIGIN, 401], [outsider, APP_ORIGIN, 403], [member.token, 'https://attacker.example', 403], [member.token, null, 403]]) {
+    const response = await h.send('/api/presence', { token, origin });
+    assert.equal(response.status, status); assert.deepEqual(Object.keys(await response.json()), ['error']);
+    assert.match(response.headers.get('cache-control'), /private, no-store/);
+  }
+  assert.equal((await h.send('/api/presence?name=Forged&online=true', { token: member.token })).status, 400);
+  assert.equal((await h.send('/api/presence', { token: member.token, method: 'POST', body: { actor: { name: 'Forged' } } })).status, 405);
+  await teamAccess(h.env, 'revoke', h.now(), { memberId: member.memberId });
+  assert.equal((await h.send('/api/presence', { token: member.token })).status, 403);
+});
+
+test('validated board and session requests piggyback names-only presence without another provider poll', async () => {
+  const h = await harness(), owner = await h.owner(), member = await h.member();
+  let response = await h.send('/api/board', { token: owner }); assert.equal(response.status, 200);
+  assert.deepEqual((await response.json()).presence, { members: [{ name: 'diracmagic', is_self: true, online: true }], window_seconds: 150, observed_at: h.now() });
+  const calls = h.calls.length;
+  response = await h.send('/api/session', { token: member.token }); assert.equal(response.status, 200);
+  const presence = (await response.json()).presence;
+  assert.deepEqual(presence.members, [{ name: 'Ada', is_self: true, online: true }, { name: 'diracmagic', is_self: false, online: true }]);
+  assert.equal(h.calls.slice(calls).filter(url => url.startsWith('https://identitytoolkit.googleapis.com/')).length, 1);
+  assert.doesNotMatch(JSON.stringify(presence), /email|example\.test|synthetic_member|memberId|sessionKey|firebase:/);
+  assert.equal(h.env.TEAM_BOARD.paths.at(-1), '/presence');
+  assert.match(response.headers.get('cache-control'), /private, no-store/);
+  assert.equal(response.headers.get('Access-Control-Allow-Origin'), APP_ORIGIN);
+});
+
+test('presence expires at150 seconds without implying live connectivity and bounds session expiry', async () => {
+  const h = await harness(), owner = await h.owner(), member = await h.member();
+  await h.send('/api/presence', { token: member.token });
+  h.advance(149999);
+  let result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.ok(result.presence.members.some(person => person.name === 'Ada'));
+  h.advance(1);
+  result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.equal(result.presence.members.some(person => person.name === 'Ada'), false);
+  h.advance(3600000);
+  assert.equal((await h.send('/api/presence', { token: owner })).status, 401);
+  const renewedOwner = await h.owner();
+  result = await (await h.send('/api/presence', { token: renewedOwner })).json();
+  assert.deepEqual(result.presence.members, [{ name: 'diracmagic', is_self: true, online: true }]);
+});
+
+test('logout removes only its session and another active device preserves one person in the list', async () => {
+  const h = await harness(), owner = await h.owner(), member = await h.member(), second = await h.member({ existing: member });
+  await h.send('/api/presence', { token: member.token }); await h.send('/api/presence', { token: second.token });
+  let result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.equal(result.presence.members.filter(person => person.name === 'Ada').length, 1);
+  assert.equal((await h.send('/auth/logout', { method: 'POST', token: member.token })).status, 200);
+  result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.equal(result.presence.members.filter(person => person.name === 'Ada').length, 1);
+  assert.equal((await h.send('/auth/logout', { method: 'POST', token: second.token })).status, 200);
+  assert.equal((await h.send('/auth/logout', { method: 'POST', token: second.token })).status, 200);
+  result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.equal(result.presence.members.some(person => person.name === 'Ada'), false);
+});
+
+test('completed signout fences a delayed presence refresh across object recreation', async () => {
+  const h = await harness(), owner = await h.owner(), member = await h.member();
+  await h.send('/api/presence', { token: member.token });
+  h.env.TEAM_BOARD.before = async request => {
+    if (new URL(request.url).pathname === '/presence') {
+      h.env.TEAM_BOARD.before = null;
+      assert.equal((await h.send('/auth/logout', { method: 'POST', token: member.token })).status, 200);
+      for (const [name, storage] of h.env.TEAM_BOARD.stores) h.env.TEAM_BOARD.objects.set(name, new TeamBoardDO({ storage }));
+    }
+  };
+  assert.equal((await h.send('/api/presence', { token: member.token })).status, 401);
+  const result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.equal(result.presence.members.some(person => person.name === 'Ada'), false);
+});
+
+test('revocation immediately removes all devices and fences delayed presence after reinstantiation', async () => {
+  const h = await harness(), owner = await h.owner(), member = await h.member(), second = await h.member({ existing: member });
+  await h.send('/api/presence', { token: member.token }); await h.send('/api/presence', { token: second.token });
+  h.env.TEAM_BOARD.before = async request => {
+    if (new URL(request.url).pathname === '/presence') {
+      h.env.TEAM_BOARD.before = null;
+      await teamAccess(h.env, 'revoke', h.now(), { memberId: member.memberId });
+      for (const [name, storage] of h.env.TEAM_BOARD.stores) h.env.TEAM_BOARD.objects.set(name, new TeamBoardDO({ storage }));
+    }
+  };
+  assert.equal((await h.send('/api/presence', { token: member.token })).status, 403);
+  const result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.equal(result.presence.members.some(person => person.name === 'Ada'), false);
+  assert.equal((await h.send('/api/presence', { token: second.token })).status, 403);
+});
+
+test('presence names use current verified directory data, neutral fallback and per-person aggregation', async () => {
+  const h = await harness(), owner = await h.owner(), member = await h.member({ name: '' }), second = await h.member({ existing: member });
+  await h.send('/api/presence', { token: member.token });
+  let result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.ok(result.presence.members.some(person => person.name === 'Team member'));
+  await teamAccess(h.env, 'name', h.now(), { memberId: member.memberId, name: 'Ada Updated' });
+  await h.send('/api/presence', { token: second.token });
+  result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.equal(result.presence.members.filter(person => person.name === 'Ada Updated').length, 1);
+  assert.equal(result.presence.members.some(person => person.name === 'Team member'), false);
+});
+
+test('failed repository checks cannot refresh presence and listing shares existing private API limits', async () => {
+  const h = await harness(), owner = await h.owner(), member = await h.member();
+  h.controls.repoRevoked = true;
+  assert.equal((await h.send('/api/presence', { token: member.token })).status, 403);
+  h.controls.repoRevoked = false;
+  const result = await (await h.send('/api/presence', { token: owner })).json();
+  assert.equal(result.presence.members.some(person => person.name === 'Ada'), false);
+  const fresh = await h.member({ existing: member });
+  for (let i = 0; i < 11; i++) assert.equal((await h.send('/api/presence', { token: fresh.token })).status, 200);
+  const before = h.calls.length;
+  assert.equal((await h.send('/api/presence', { token: fresh.token })).status, 429);
+  assert.equal(h.calls.length, before);
 });
 
 test('board binding and migration preserve prior classes and neither data path logs nor auto-deletes messages', () => {

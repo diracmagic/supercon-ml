@@ -587,7 +587,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "4d2b1ce8e2aa05a7a6b4b4e635288161517b5086c0ee46d6b19aaa4e56dd6d4d",
+    "2113c01a189f3e02f31a0ac4593b0f9fd5cea113624840e9f9ee1b6536262690",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -840,7 +840,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-01",
-    "purpose": "Release 0.3.13: make explicit desktop download retries immediate and visible during background release checks; return OAuth-navigated desktop windows to the fixed bundled home screen before invoking native updates; recover from malformed or changed release metadata; show bounded GitHub sign-in rate-limit waiting guidance without automatic retries; restore distinct subject-based News and selected AI illustrations with labelled schematic structures, methods and uncertainty rather than repeated placeholders.",
+    "purpose": "Release 0.3.14: show authenticated team presence with explicit freshness limits, monotonic snapshots and revoked-member filtering; keep invitation password setup and email sign-in inside the existing account dialog; return hosted Firebase password flows to a fixed email sign-in form without automatic authentication or exposing credentials or private membership to anonymous users.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -865,51 +865,28 @@
       "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
       "native fixed-repository installer selection and SHA-256 verification",
       "explicit installation confirmation and no browser download fallback",
+      "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+      "native fixed-repository installer selection and SHA-256 verification",
+      "explicit installation confirmation and no browser download fallback",
       "bounded allowlisted sign-in retry diagnostics without reflecting provider text"
     ],
-    "functions_changed": [
-      "newsArt",
-      "renderAdvances",
-      "renderNews",
-      "aiArticleArt",
-      "isDesktop",
-      "checkUpdate",
-      "nativeUpdateCall",
-      "updateFailureText",
-      "downloadUpdate",
-      "renderUpdate"
-    ],
+    "functions_changed": [],
     "initializers_changed": [
-      0,
-      94,
-      158
+      0
     ],
     "additional_source_sha256": {
-      "team-auth.js": "9f59958c5073817bd463ce4ba25178c27025793eb24741eb033fc6c963a1719e",
+      "team-auth.js": "916b9227994c74e8d101f6a4d0254735b8f9eee092f1bdb03a7e4a826f5403b3",
       "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
-      "team-account.js": "c1e77ff6618b578b39a5b60e0291f14ed4d489e0e61583a497b979b194402e4f",
+      "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
       "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
       "team-material.js": "c795117547162024a4f9f813310a6d871879e99e36f95a594cc25126dc524383",
       "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
       "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
       "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
     },
-    "previous_function_changes": {
-      "newsArt": "a522ada898ced69ca191f96667f20e6d0251f94b28b970faeae0afd87dfe9653",
-      "renderAdvances": "c4de8a3c24b68403d4b6df5dbe06e8e4333579b474a4d2b5cce640d88f7ed78e",
-      "renderNews": "55db67e41b05484b3f20ab616a0c1803cf9d912c6f9435e1a6680fff64962446",
-      "aiArticleArt": "941ba681231d519aa775955bc45cde0d14ddaf13219003523645fba1d81b0b43",
-      "isDesktop": "1ef3564734c9a180cce69bbbe3b08f1e8a8c200ddb1f6a0c11185145262b47b4",
-      "checkUpdate": "6c7816af72515c27ef1292ce49ab8166a030ad6171ec759abcd82b8878d7c1d3",
-      "nativeUpdateCall": "e6904ef5d7bb46f48db145c96951e383ca7f312aca38741c0f026733bcfd461d",
-      "updateFailureText": "f481801ebbc0cc7fa6efe6e52b776013d438ae0db78bf0572c3ba14437e3a616",
-      "downloadUpdate": "578ad06cfa33ebd3c2e8302cc28449028faeb8d5f6f5fd9bf09da09f0698e5db",
-      "renderUpdate": "cf2f0d1a0f45056fe4e591f0a9e94f46a7df0b17a0891ce19809296b40b26f7f"
-    },
+    "previous_function_changes": {},
     "previous_initialization_changes": {
-      "0": "7db9943b7afddcf83d7f0a8bd91337c8002e51bfa821f922a9c55d02032db357",
-      "94": "f5b51de52e5ac3f0b0e09ce8966fbee8afbb289bddf75fe6b2e03972f4bfe605",
-      "158": "66fccc7771ec59929b31ec9cd7c1c9adae8c10d4f580341563acb9ccc724c782"
+      "0": "4d2b1ce8e2aa05a7a6b4b4e635288161517b5086c0ee46d6b19aaa4e56dd6d4d"
     }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -921,9 +898,9 @@
     "team-board.css"
   ],
   "additional_source_sha256": {
-    "team-auth.js": "9f59958c5073817bd463ce4ba25178c27025793eb24741eb033fc6c963a1719e",
+    "team-auth.js": "916b9227994c74e8d101f6a4d0254735b8f9eee092f1bdb03a7e4a826f5403b3",
     "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
-    "team-account.js": "c1e77ff6618b578b39a5b60e0291f14ed4d489e0e61583a497b979b194402e4f",
+    "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
     "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
     "team-material.js": "c795117547162024a4f9f813310a6d871879e99e36f95a594cc25126dc524383",
     "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
@@ -970,7 +947,12 @@
       "path": "review-history-08.json",
       "sha256": "6b53b310458e26b98bacff331c8490b0bd516e6e06ae574c31f3d3b5c9f6c0aa",
       "count": 1
+    },
+    {
+      "path": "review-history-09.json",
+      "sha256": "e22e2922c60083f1a16e01a029aa21544e2a5c432bbdd677d35328f1481593a5",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 12
+  "reviewed_revision_count": 13
 }

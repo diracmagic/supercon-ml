@@ -35,8 +35,9 @@ function harness(options = {}) {
   const doc = {activeElement: null, createElement: tag => new Element(tag, doc)};
   doc.body = doc.createElement('body');
   const opener = doc.body.appendChild(doc.createElement('button')); opener.focus();
-  const requests = [], exchanges = [], teamRequests = [], history = [], timers = new Map();
+  const requests = [], exchanges = [], teamRequests = [], presenceRequests = [], history = [], timers = new Map();
   let nextTimer = 1, authenticated = 0, github = 0, emailActions = 0, admin = options.admin === true;
+  let canReadTeam = options.teamMember === true || admin, clock = Date.now();
   const win = {location: {pathname: '/supercon-ml/', search: options.search || '', hash: options.hash || ''},
     history: {replaceState(_state, _title, value) {history.push(value); const url = new URL(value, 'https://diracmagic.github.io'); Object.assign(win.location, {pathname: url.pathname, search: url.search, hash: url.hash});}}};
   for (const name of ['localStorage', 'sessionStorage']) Object.defineProperty(win, name, {get() {throw new Error('No account data may use storage');}});
@@ -53,6 +54,11 @@ function harness(options = {}) {
     },
     exchangeFirebase: async token => {exchanges.push(token); if (options.exchange) return options.exchange(token);},
     onAuthenticated: async () => {authenticated++;}, onEmailAction: () => {emailActions++;}, signInGithub: () => {github++;}, canManageTeam: () => admin,
+    canReadTeam: () => canReadTeam, now: () => clock,
+    presenceRequest: async () => {
+      presenceRequests.push(true);
+      return options.presence ? options.presence(clock) : {presence: {members: [{name: 'Alice', is_self: false, online: true}], window_seconds: 150, observed_at: clock}};
+    },
     teamRequest: async (path, method, payload) => {
       teamRequests.push({path, method, payload});
       return options.team ? options.team(path, method, payload) : {members: [{member_id: MEMBER, email: 'member@example.org', status: 'invited', delivery_status: 'accepted'}]};
@@ -63,8 +69,9 @@ function harness(options = {}) {
   const get = id => nodes().find(node => node.attributes.id === id);
   const click = text => {const button = nodes().find(node => node.tagName === 'BUTTON' && node.textContent === text); assert.ok(button, text); button.dispatch('click');};
   const submit = id => {let target = get(id); while (target && target.tagName !== 'FORM') target = target.parentNode; assert.ok(target); target.dispatch('submit');};
-  return {ui, doc, win, opener, requests, exchanges, teamRequests, history, timers, get, click, submit,
+  return {ui, doc, win, opener, requests, exchanges, teamRequests, presenceRequests, history, timers, get, click, submit,
     setAdmin(value) {admin = value;}, get authenticated() {return authenticated;}, get github() {return github;}, get emailActions() {return emailActions;},
+    setTeam(value) {canReadTeam = value;}, now: () => clock, advance(ms) {clock += ms;},
     fireTimeout() {for (const [id, timer] of [...timers]) {timers.delete(id); timer.handler();}}};
 }
 
@@ -178,7 +185,7 @@ test('reset requests give the same visible result for unknown and eligible email
     const h = harness({fetch: () => unknown ? json({error: {message: 'EMAIL_NOT_FOUND'}}, 400) : json({})});
     h.ui.openLogin('member@example.org'); h.click('Forgot password?'); h.submit('team-reset-email'); await flush();
     messages.push(h.get('team-account-status').textContent);
-    assert.deepEqual(JSON.parse(h.requests[0].settings.body), {requestType: 'PASSWORD_RESET', email: 'member@example.org', continueUrl: 'https://diracmagic.github.io/supercon-ml/'});
+    assert.deepEqual(JSON.parse(h.requests[0].settings.body), {requestType: 'PASSWORD_RESET', email: 'member@example.org', continueUrl: 'https://diracmagic.github.io/supercon-ml/?team_login=email'});
   }
   assert.equal(messages[0], messages[1]);
 });
@@ -204,6 +211,27 @@ test('password setup accepts the unchanged 128-character upper bound and preserv
   h.get('team-new-password').value = password; h.get('team-confirm-password').value = password; h.submit('team-new-password'); await flush();
   assert.deepEqual(JSON.parse(h.requests[1].settings.body), {oobCode: CODE, newPassword: password});
   assert.equal(h.authenticated, 0); assert.equal(h.exchanges.length, 0);
+});
+
+test('password setup immediately shows an enabled email sign-in form in the same dialog without retaining the password', async () => {
+  const h = harness({hash: '#team_email_mode=resetPassword&team_email_code=' + CODE});
+  await h.ui.handleEmailAction();
+  const dialog = h.get('team-account-dialog'), oldPassword = h.get('team-new-password');
+  oldPassword.value = 'new passphrase'; h.get('team-confirm-password').value = 'new passphrase';
+  h.submit('team-new-password'); await flush();
+  assert.equal(h.get('team-account-dialog'), dialog); assert.equal(dialog.open, true);
+  assert.equal(h.get('team-account-title').textContent, 'Team sign in');
+  assert.equal(h.get('team-account-email').value, 'member@example.org');
+  assert.equal(h.get('team-account-email').getAttribute('type'), 'email');
+  assert.equal(h.get('team-account-password').value, ''); assert.equal(oldPassword.value, '');
+  assert.equal(h.get('team-account-password').disabled, false);
+  assert.equal(h.doc.activeElement, h.get('team-account-password'));
+  assert.match(dialog.textContent, /Email address/); assert.match(dialog.textContent, /Sign in below/);
+  assert.doesNotMatch(dialog.textContent, /new passphrase/);
+  assert.equal(h.requests.length, 2); assert.equal(h.exchanges.length, 0); assert.equal(h.authenticated, 0);
+  h.get('team-account-password').value = 'new passphrase'; h.submit('team-account-password'); await flush();
+  assert.equal(h.requests.filter(row => row.url.includes('signInWithPassword')).length, 1);
+  assert.equal(h.authenticated, 1); assert.equal(dialog.open, false);
 });
 
 test('email verification requires confirmation and never grants Notes or signs in automatically', async () => {
@@ -303,4 +331,108 @@ test('forgot-password and invitation setup have distinct entries without signing
     assert.equal(JSON.parse(h.requests[0].settings.body).requestType, 'PASSWORD_RESET');
     assert.equal(h.authenticated, 0); assert.equal(h.teamRequests.length, 0); assert.equal(h.exchanges.length, 0);
   }
+});
+
+test('approved members see only recent names in Team and never invitation controls or email fields', async () => {
+  const denied = harness(); assert.equal(await denied.ui.openTeam(), false); assert.equal(denied.presenceRequests.length, 0);
+  const h = harness({teamMember: true, presence: clock => ({presence: {observed_at: clock, window_seconds: 150, members: [
+    {name: '<Alice & Bob>', is_self: false, online: true, email: 'private@example.org'},
+    {name: 'Team member', is_self: true, online: true}
+  ]}})});
+  await h.ui.openTeam();
+  assert.equal(h.get('team-account-title').textContent, 'Team');
+  assert.match(h.get('team-presence-list').textContent, /<Alice & Bob>/);
+  assert.match(h.get('team-presence-list').textContent, /Team member \(you\)/);
+  assert.match(h.doc.body.textContent, /2½ minutes at the latest check/);
+  assert.doesNotMatch(h.doc.body.textContent, /private@example.org|Invite member|Manage team|Revoke access|Member email/);
+  assert.equal(h.teamRequests.length, 0); assert.equal(h.requests.length, 0);
+  h.click('Refresh'); await flush(); assert.equal(h.presenceRequests.length, 2);
+  assert.equal(await h.ui.openAdmin(), false); assert.equal(h.teamRequests.length, 0);
+});
+
+test('administrator opens management separately from the names-only Team view', async () => {
+  const h = harness({admin: true}); await h.ui.openTeam();
+  assert.match(h.doc.body.textContent, /Manage team/); assert.doesNotMatch(h.doc.body.textContent, /member@example.org/);
+  assert.equal(h.teamRequests.length, 0);
+  h.click('Manage team'); await flush(); assert.equal(h.get('team-account-title').textContent, 'Manage team');
+  assert.match(h.doc.body.textContent, /member@example.org/); assert.equal(h.teamRequests.length, 1);
+  h.click('Back to Team'); await flush(); assert.equal(h.get('team-account-title').textContent, 'Team');
+  assert.doesNotMatch(h.doc.body.textContent, /member@example.org/); assert.equal(h.teamRequests.length, 1);
+});
+
+test('presence updates arrive without extra requests, expire and never survive logout or a late refresh', async () => {
+  let resolve;
+  const h = harness({teamMember: true}); await h.ui.openTeam();
+  assert.equal(h.ui.setPresence({observed_at: h.now(), window_seconds: 150, members: [{name: 'Carol', is_self: false, online: true}]}), true);
+  assert.match(h.get('team-presence-list').textContent, /Carol/); assert.equal(h.presenceRequests.length, 1);
+  h.advance(150001); h.fireTimeout();
+  assert.doesNotMatch(h.get('team-presence-list').textContent, /Carol/);
+  assert.match(h.get('team-presence-list').textContent, /not current/);
+  h.setTeam(false); h.ui.reset();
+  assert.equal(h.ui.setPresence({observed_at: h.now(), window_seconds: 150, members: [{name: 'Secret', is_self: false, online: true}]}), false);
+  assert.doesNotMatch(h.doc.body.textContent, /Carol|Secret|Alice/); assert.equal(h.get('team-account-dialog').open, false);
+  const late = harness({teamMember: true, presence: () => new Promise(done => {resolve = done;})});
+  const pending = late.ui.openTeam(); await flush(); late.ui.reset(); late.setTeam(false);
+  resolve({presence: {observed_at: late.now(), window_seconds: 150, members: [{name: 'Late private name', is_self: false, online: true}]}});
+  await pending; assert.doesNotMatch(late.doc.body.textContent, /Late private name/);
+  assert.equal(late.get('team-account-dialog').open, false);
+});
+
+test('malformed, stale and unavailable presence never become current online claims or expose upstream errors', async () => {
+  const h = harness({teamMember: true}); await h.ui.openTeam();
+  const good = {observed_at: h.now(), window_seconds: 150, members: [{name: 'Alice', is_self: false, online: true}]};
+  for (const value of [null, {...good, observed_at: h.now() - 150001}, {...good, observed_at: h.now() + 60001}, {...good, window_seconds: 1000000},
+    {...good, members: [{name: 'Bad\nname', is_self: false, online: true}]}, {...good, members: [{name: 'Alice', is_self: 'false', online: true}]},
+    {...good, members: [{name: 'Alice', is_self: false, online: false}]}]) {
+    assert.equal(h.ui.setPresence(value), false); assert.doesNotMatch(h.get('team-presence-list').textContent, /Alice|Bad/);
+  }
+  const failed = harness({teamMember: true, presence: () => {throw new Error('private provider response');}});
+  await failed.ui.openTeam(); assert.match(failed.doc.body.textContent, /could not complete/);
+  assert.doesNotMatch(failed.doc.body.textContent, /private provider response/);
+});
+
+test('an older presence response cannot restore names removed by a newer snapshot', async () => {
+  const h = harness({teamMember: true}); await h.ui.openTeam();
+  const older = {observed_at: h.now(), window_seconds: 150, members: [{name: 'Formerly online', is_self: false, online: true}]};
+  h.advance(1000);
+  assert.equal(h.ui.setPresence({observed_at: h.now(), window_seconds: 150, members: []}), true);
+  assert.equal(h.ui.setPresence(older), true);
+  assert.doesNotMatch(h.get('team-presence-list').textContent, /Formerly online/);
+  assert.match(h.get('team-presence-list').textContent, /No team members/);
+  assert.equal(h.ui.setPresence(null), false); assert.match(h.get('team-presence-list').textContent, /not current/);
+});
+
+test('the fixed email-login return hint opens a blank form once without authenticating or exposing an email in the URL', async () => {
+  const h = harness({search: '?view=news&team_login=email'});
+  assert.deepEqual(h.history, ['/supercon-ml/?view=news']);
+  assert.equal(await h.ui.handleEmailAction(), true);
+  assert.equal(h.get('team-account-title').textContent, 'Team sign in');
+  assert.equal(h.get('team-account-email').value, ''); assert.equal(h.get('team-account-password').value, '');
+  assert.equal(h.requests.length, 0); assert.equal(h.exchanges.length, 0); assert.equal(h.authenticated, 0); assert.equal(h.emailActions, 0);
+  assert.equal(await h.ui.handleEmailAction(), false);
+});
+
+test('unknown, duplicated and OAuth-mixed return hints do not open a login form or change authentication', async () => {
+  for (const options of [
+    {search: '?team_login=Email'}, {search: '?team_login=email&team_login=email'},
+    {search: '?team_login=email%0A'}, {search: '?team_login=https%3A%2F%2Fevil.example'},
+    {search: '?team_login=email', hash: '#team_ticket=' + 'T'.repeat(43) + '&team_state=' + 'S'.repeat(43)}
+  ]) {
+    const h = harness(options); assert.equal(await h.ui.handleEmailAction(), false);
+    assert.equal(h.get('team-account-dialog'), undefined); assert.equal(h.requests.length, 0);
+    assert.equal(h.emailActions, 0); assert.doesNotMatch(h.win.location.search, /team_login/);
+    if (options.hash) assert.equal(h.win.location.hash, options.hash);
+  }
+  const real = harness({search: '?team_login=email&mode=resetPassword&oobCode=' + CODE});
+  await real.ui.handleEmailAction(); assert.equal(real.requests.length, 1);
+  assert.equal(real.get('team-account-title').textContent, 'Set your password');
+  assert.doesNotMatch(real.win.location.search, /team_login|oobCode/);
+});
+
+test('email-login return hints are consumed by the early head loader before other app resources', () => {
+  const writes = [];
+  const win = {location: {pathname: '/supercon-ml/', search: '?team_login=email', hash: ''},
+    history: {replaceState(_a, _b, url) {writes.push(url);}}};
+  vm.runInNewContext(source, {window: win, URLSearchParams, AbortController});
+  assert.deepEqual(writes, ['/supercon-ml/']);
 });

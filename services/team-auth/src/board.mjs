@@ -1,4 +1,5 @@
 import { AuthError, TOKEN_PATTERN, boundedJson, demand, jsonResponse, plainObject, sha256 } from './security.mjs';
+import { updatePresence, validateActivity } from './presence.mjs';
 
 const HOUR = 3600000;
 const actorPattern = /^(?:github:[1-9][0-9]{0,15}|firebase:[A-Za-z0-9_-]{1,128})$/;
@@ -30,12 +31,14 @@ export class TeamBoardDO {
       const input = await boundedJson(request, 12288, 'invalid_request');
       demand(plainObject(input) && Number.isSafeInteger(input.now) && input.now > 0);
       const operation = new URL(request.url).pathname;
-      demand(operation === '/read' || operation === '/post' || operation === '/revoke', 'not_found', 404);
+      demand(['/read', '/post', '/revoke', '/presence', '/signout'].includes(operation), 'not_found', 404);
       if (operation === '/revoke') demand(typeof input.memberId === 'string' && TOKEN_PATTERN.test(input.memberId) && Number.isSafeInteger(input.version) && input.version >= 1);
+      else if (operation === '/signout') demand(TOKEN_PATTERN.test(input.sessionKey || '') && (input.expiresAt === undefined || Number.isSafeInteger(input.expiresAt) && input.expiresAt > input.now && input.expiresAt <= input.now + HOUR));
       else validateActor(input.actor);
+      if (operation === '/presence' || input.activity) validateActivity(input.activity, input.now);
       const body = operation === '/post' ? normalizeBoardBody(input.body) : null;
       const rateKey = operation === '/post' ? 'rate:' + await sha256(input.actor.id) : null;
-      const memberId = operation === '/revoke' ? input.memberId : input.actor.memberId;
+      const memberId = operation === '/revoke' ? input.memberId : input.actor?.memberId;
       const fenceKey = memberId ? 'revoked:' + await sha256(memberId) : null;
       const result = await this.storage.transaction(async transaction => {
         // Revoke acknowledgements and appends share this durable transaction
@@ -46,10 +49,14 @@ export class TeamBoardDO {
           demand(Number.isSafeInteger(throughVersion) && throughVersion >= 0, 'board_unavailable', 503);
           if (operation === '/revoke') {
             await transaction.put(fenceKey, Math.max(throughVersion, input.version));
+            await updatePresence(transaction, input, operation);
             return { revoked: true };
           }
           demand(input.actor.memberVersion > throughVersion, 'membership_revoked', 403);
         }
+        if (operation === '/signout') { await updatePresence(transaction, input, operation); return { signed_out: true }; }
+        const presence = input.activity ? await updatePresence(transaction, input, operation) : undefined;
+        if (operation === '/presence') return { presence };
         const latest = await transaction.get('latest') || 0;
         demand(Number.isSafeInteger(latest) && latest >= 0, 'board_unavailable', 503);
         if (operation === '/post') {
@@ -62,7 +69,7 @@ export class TeamBoardDO {
           await transaction.put(messageKey(message.id), message);
           await transaction.put(rateKey, [...times, input.now]);
           await transaction.put('latest', message.id);
-          return { message: present(message, input.actor.id), latest_id: message.id };
+          return { message: present(message, input.actor.id), latest_id: message.id, ...(presence ? { presence } : {}) };
         }
         demand(Number.isSafeInteger(input.limit) && input.limit >= 1 && input.limit <= 50 &&
           Number.isSafeInteger(input.after) && input.after >= 0 &&
@@ -85,7 +92,7 @@ export class TeamBoardDO {
           demand(message && message.id === id, 'board_unavailable', 503);
           messages.push(present(message, input.actor.id));
         }
-        return { messages, latest_id: latest, has_more: hasMore };
+        return { messages, latest_id: latest, has_more: hasMore, ...(presence ? { presence } : {}) };
       });
       return jsonResponse({ result }, 200, null);
     } catch (error) {
@@ -96,12 +103,12 @@ export class TeamBoardDO {
 
 export async function boardAccess(env, operation, now, values) {
   demand(env.TEAM_BOARD, 'board_not_configured', 503);
-  demand(operation === 'read' || operation === 'post' || operation === 'revoke');
+  demand(['read', 'post', 'revoke', 'presence', 'signout'].includes(operation));
   const object = env.TEAM_BOARD.get(env.TEAM_BOARD.idFromName('supercon-team-board-v1'));
   const response = await object.fetch(new Request('https://internal/' + operation, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ now, ...values }) }));
   const data = await boundedJson(response, 524288, 'board_unavailable');
   if (!response.ok) {
-    const known = new Set(['rate_limited', 'board_capacity', 'invalid_message', 'invalid_request', 'membership_revoked']);
+    const known = new Set(['rate_limited', 'board_capacity', 'invalid_message', 'invalid_request', 'membership_revoked', 'invalid_session', 'presence_capacity']);
     throw new AuthError(known.has(data.error) ? data.error : 'board_unavailable', known.has(data.error) ? response.status : 503);
   }
   demand(plainObject(data.result), 'board_unavailable', 503);

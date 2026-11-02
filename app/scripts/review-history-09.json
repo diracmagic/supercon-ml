@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "Release 0.3.13: make explicit desktop download retries immediate and visible during background release checks; return OAuth-navigated desktop windows to the fixed bundled home screen before invoking native updates; recover from malformed or changed release metadata; show bounded GitHub sign-in rate-limit waiting guidance without automatic retries; restore distinct subject-based News and selected AI illustrations with labelled schematic structures, methods and uncertainty rather than repeated placeholders.",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup",
+        "fixed authenticated board routes and bounded integer pagination",
+        "actor-bound private request lifecycle, absolute session expiry and logout cleanup",
+        "only opaque actor hashes and numeric last-seen cursors may persist for unread state",
+        "Notes update dates come only from explicit per-entry update metadata",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text"
+      ],
+      "functions_changed": [
+        "newsArt",
+        "renderAdvances",
+        "renderNews",
+        "aiArticleArt",
+        "isDesktop",
+        "checkUpdate",
+        "nativeUpdateCall",
+        "updateFailureText",
+        "downloadUpdate",
+        "renderUpdate"
+      ],
+      "initializers_changed": [
+        0,
+        94,
+        158
+      ],
+      "additional_source_sha256": {
+        "team-auth.js": "9f59958c5073817bd463ce4ba25178c27025793eb24741eb033fc6c963a1719e",
+        "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
+        "team-account.js": "c1e77ff6618b578b39a5b60e0291f14ed4d489e0e61583a497b979b194402e4f",
+        "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
+        "team-material.js": "c795117547162024a4f9f813310a6d871879e99e36f95a594cc25126dc524383",
+        "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
+        "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
+        "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
+      },
+      "previous_function_changes": {
+        "newsArt": "a522ada898ced69ca191f96667f20e6d0251f94b28b970faeae0afd87dfe9653",
+        "renderAdvances": "c4de8a3c24b68403d4b6df5dbe06e8e4333579b474a4d2b5cce640d88f7ed78e",
+        "renderNews": "55db67e41b05484b3f20ab616a0c1803cf9d912c6f9435e1a6680fff64962446",
+        "aiArticleArt": "941ba681231d519aa775955bc45cde0d14ddaf13219003523645fba1d81b0b43",
+        "isDesktop": "1ef3564734c9a180cce69bbbe3b08f1e8a8c200ddb1f6a0c11185145262b47b4",
+        "checkUpdate": "6c7816af72515c27ef1292ce49ab8166a030ad6171ec759abcd82b8878d7c1d3",
+        "nativeUpdateCall": "e6904ef5d7bb46f48db145c96951e383ca7f312aca38741c0f026733bcfd461d",
+        "updateFailureText": "f481801ebbc0cc7fa6efe6e52b776013d438ae0db78bf0572c3ba14437e3a616",
+        "downloadUpdate": "578ad06cfa33ebd3c2e8302cc28449028faeb8d5f6f5fd9bf09da09f0698e5db",
+        "renderUpdate": "cf2f0d1a0f45056fe4e591f0a9e94f46a7df0b17a0891ce19809296b40b26f7f"
+      },
+      "previous_initialization_changes": {
+        "0": "7db9943b7afddcf83d7f0a8bd91337c8002e51bfa821f922a9c55d02032db357",
+        "94": "f5b51de52e5ac3f0b0e09ce8966fbee8afbb289bddf75fe6b2e03972f4bfe605",
+        "158": "66fccc7771ec59929b31ec9cd7c1c9adae8c10d4f580341563acb9ccc724c782"
+      }
+    }
+  ]
+}

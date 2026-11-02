@@ -362,7 +362,7 @@
       notesButton.hidden = !session || !session.can_read_memo;
       if (messagesButton) messagesButton.hidden = !session || !session.can_read_memo;
       logoutButton.hidden = !session;
-      if (teamButton) teamButton.hidden = !session || !session.can_manage_team;
+      if (teamButton) teamButton.hidden = !session || !session.can_read_memo;
     }
 
     function clearMemo() {
@@ -388,6 +388,31 @@
       unreadCount(0);
     }
 
+    function publishPresence(value) {
+      if (!accountUI || typeof accountUI.setPresence !== 'function') return;
+      const presence = session && session.can_read_memo && token && session.expires_at > now() && value && value.presence;
+      // The account module validates this bounded, credential-free snapshot. A
+      // missing/invalid snapshot must not preserve a previous actor's presence.
+      try { accountUI.setPresence(presence || null); }
+      catch (_) { accountUI.setPresence(null); }
+    }
+
+    async function presenceRequest() {
+      if (!session || !session.can_read_memo || !token) throw Object.assign(new Error('Team unavailable'), {code: 'membership_required'});
+      if (session.expires_at <= now()) { reset('Your session expired. Sign in again.'); throw new Error('Session expired'); }
+      const expected = generation, bearer = token;
+      try {
+        const value = await request('/api/presence', 'GET', bearer);
+        if (generation !== expected || token !== bearer || !session || !session.can_read_memo) throw new Error('Request cancelled');
+        if (session.expires_at <= now()) { reset('Your session expired. Sign in again.'); throw new Error('Session expired'); }
+        publishPresence(value); armSessionChecks();
+        return value;
+      } catch (error) {
+        if (generation === expected && token === bearer && (error.status === 401 || error.status === 403)) reset('Team access could not be confirmed. Sign in again.');
+        throw error;
+      }
+    }
+
     async function boardRequest(path, method, payload, options) {
       if (!boardRoute(path, method) || !session || !session.can_read_memo || !token) throw new Error('Messages unavailable');
       if (session.expires_at <= now()) { reset('Your session expired. Sign in again.'); throw new Error('Session expired'); }
@@ -396,6 +421,7 @@
         const value = await request(path, method, bearer, payload, options);
         if (generation !== expected || boardGeneration !== boardExpected || token !== bearer || !session || !session.can_read_memo) throw new Error('Request cancelled');
         if (session.expires_at <= now()) { reset('Your session expired. Sign in again.'); throw new Error('Session expired'); }
+        publishPresence(value);
         // The board endpoint verifies the same session and membership. Reuse that
         // fresh server check, while retaining the original absolute expiry.
         armSessionChecks();
@@ -445,13 +471,14 @@
       activeRequests.clear();
       cancel(expiryTimer); cancel(checkTimer); expiryTimer = checkTimer = 0;
       token = ''; session = null; busy = false; emailSignInPending = false;
+      publishPresence(null);
       if (accountUI) accountUI.reset();
       clearBoard(); clearMemo(); renderAccount(); say(message || '');
       if (wasOpen && loginButton) loginButton.focus();
     }
 
     async function request(path, method, bearer, body, options) {
-      if (!origin || (!/^\/(?:auth\/(?:exchange|logout|firebase)|api\/(?:session|memo|team(?:\/(?:invite|revoke|name))?))$/.test(path) && !boardRoute(path, method))) throw new Error('Request unavailable');
+      if (!origin || (!/^\/(?:auth\/(?:exchange|logout|firebase)|api\/(?:session|memo|presence|team(?:\/(?:invite|revoke|name))?))$/.test(path) && !boardRoute(path, method))) throw new Error('Request unavailable');
       const controller = new AbortController();
       activeRequests.add(controller);
       let timeout, rejectAbort;
@@ -516,9 +543,11 @@
         const verified = sessionMetadata(value, now());
         if (!verified || verified.user.id !== session.user.id) throw new Error('Session unavailable');
         const lostAdmin = session.can_manage_team && !verified.can_manage_team;
+        const lostTeam = session.can_read_memo && !verified.can_read_memo;
         session = verified;
-        if (lostAdmin && accountUI) accountUI.reset();
+        if ((lostAdmin || lostTeam) && accountUI) accountUI.reset();
         if (!session.can_read_memo) { clearMemo(); clearBoard(); }
+        publishPresence(value);
         renderAccount(); armSessionChecks();
         if (session.can_read_memo) await activateBoard();
         return true;
@@ -564,6 +593,7 @@
       } catch (error) {
         if (generation === expected) {
           emailSignInPending = false; busy = false; token = ''; session = null;
+          publishPresence(null);
           clearBoard(); clearMemo(); renderAccount(); say('');
         }
         throw error;
@@ -800,13 +830,19 @@
         accountUI = accountModule.createAccountUI({window: win, document: doc, config: (env.config || win.SuperconTeamConfig || {}).firebase,
           fetch: fetcher, setTimeout: later, clearTimeout: cancel, signInGithub: signIn, exchangeFirebase: exchangeFirebase,
           canManageTeam: function () { return !!session && session.can_manage_team === true; }, teamRequest: teamRequest,
+          canReadTeam: function () { return !!session && session.can_read_memo === true; }, presenceRequest: presenceRequest,
           onAuthenticated: openNotes, onEmailAction: function () { logout(); },
           onDismiss: function () { if (emailSignInPending) { emailSignInPending = false; reset(''); } }});
       }
       loginButton.addEventListener('click', function (event) { event.preventDefault(); if (accountUI) accountUI.openLogin(); else signIn(); });
       notesButton.addEventListener('click', openNotes); logoutButton.addEventListener('click', logout);
       messagesButton.addEventListener('click', openMessages);
-      teamButton.addEventListener('click', function () { if (accountUI && session && session.can_manage_team) accountUI.openAdmin(); });
+      teamButton.addEventListener('click', function () {
+        if (!accountUI || !session || !session.can_read_memo) return;
+        if (session.expires_at <= now()) { reset('Your session expired. Sign in again.'); return; }
+        if (typeof accountUI.openTeam === 'function') accountUI.openTeam();
+        else if (session.can_manage_team && typeof accountUI.openAdmin === 'function') accountUI.openAdmin();
+      });
       doc.addEventListener('visibilitychange', function () { if (!doc.hidden && token) validateSession(); });
       win.addEventListener('pagehide', function () { reset(''); });
       renderAccount();
