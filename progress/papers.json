@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-02T01:30:11+00:00",
+ "updated": "2026-11-02T07:48:32+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -64,6 +64,153 @@
   "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2610.41915",
+   "source": "arXiv",
+   "title": "Andreev-Enhanced Conductance in a Bilayer Graphene Quantum Point Contact",
+   "authors": [
+    "Emma Horgan",
+    "Bernd Aichner",
+    "Nadine Omar",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-10-30",
+   "updated": "2026-10-30",
+   "category": "cond-mat.mes-hall",
+   "cross_list": true,
+   "abstract": "Quantum point contacts provide a platform for probing mode-dependent Andreev reflection. Here, we demonstrate Andreev-enhanced conductance in a gate-defined bilayer graphene quantum point contact coupled to a superconducting aluminum electrode. Electrostatic gating enables sequential mode occupation, verified by normal-state conductance quantization. In the superconducting state, the conductance is enhanced within the conductance plateaus, while the enhancement decreases between plateaus, consistent with the nonlinear transmission dependence of Andreev reflection. The enhancement yields effective transmission probabilities up to 0.9, and extends over a bias window of approximately 140 μV, which we associate with a proximity-induced superconducting gap, close to the gap of the aluminum film. For in-plane fields, the enhancement persists up to the critical field, and the bias window follows the spectral gap predicted by Abrikosov-Gor'kov theory. In contrast, perpendicular fields suppress the enhancement approximately linearly from zero field, deviating from homogeneous pair breaking and indicative of flux penetration.",
+   "url": "https://arxiv.org/abs/2610.41915",
+   "pdf": "https://arxiv.org/pdf/2610.41915",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.mes-hall",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2610.41827",
+   "source": "arXiv",
+   "title": "Creating functional nanostructures for vortex manipulation in superconducting Bi₂Sr₂CaCu₂O₈+x thin films via focused He ion beam irradiation",
+   "authors": [
+    "Bernd Aichner",
+    "Christoph Schmid",
+    "Sandra Keppert",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-10-30",
+   "updated": "2026-10-30",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Bi₂Sr₂CaCu₂O₈₊ₓ (Bi-2212) is a highly anisotropic high-temperature superconductor exhibiting unique vortex dynamics due to its layered structure. Precise nanoscale patterning of ultrathin Bi-2212 films remains challenging, limiting controlled studies of vortex pinning. Here, we employ 30 keV focused helium ion beam (He-FIB) irradiation to fabricate periodic arrays of columnar defects with 100 nm spacings in optimally-doped Bi-2212 thin films, thereby creating artificial vortex pinning centers. Magnetotransport measurements reveal pronounced vortex matching effects, evidenced by minima in magnetoresistance and peaks in critical current at commensurate magnetic fields. The angular dependence of magnetoresistance and critical current scale with an effective magnetic field, indicating strong confinement of pancake vortices along irradiation-induced tracks. These findings demonstrate the efficacy of He-FIB nanopatterning in modulating the superconducting properties in Bi-2212 thin films, providing a platform for fundamental studies of vortex matter and advancing prospects for device applications based on this highly anisotropic superconductor.",
+   "url": "https://arxiv.org/abs/2610.41827",
+   "pdf": "https://arxiv.org/pdf/2610.41827",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall",
+    "cond-mat.mtrl-sci",
+    "physics.app-ph"
+   ]
+  },
+  {
+   "id": "2610.41687",
+   "source": "arXiv",
+   "title": "Pair density waves via interband pairing –- a perspective from superfluid weight",
+   "authors": [
+    "Yi-Jian Hu",
+    "Yi-Fan Jiang",
+    "Wen Huang"
+   ],
+   "n_authors": 3,
+   "date": "2026-10-30",
+   "updated": "2026-10-30",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Pair density waves (PDW) are superconducting states that exhibit a spatially modulated pairing order parameter, corresponding to Cooper pairs carrying finite center-of-mass momentum. While some recent studies have emphasized the role of quantum geometry in stabilizing PDW order in certain multiband systems, we here present a systematic investigation of an alternative, geometry-independent mechanism: PDW order driven purely by interband Cooper pairing. Using the superfluid weight (SW) as a diagnostic, we study two canonical models. The first is the classic Fulde-Ferrell model of an s-wave superconductor subject to a Zeeman splitting field, which realizes pure interband pairing between two rigidly shifted bands; the second is a spinless honeycomb-lattice model with nearest-neighbor f-wave pairing, a modified version of which was recently found to exhibit PDW instability in density-matrix renormalization-group simulations. In both models the SW receives no quantum geometric contribution at the mean-field level, yet it can be greatly suppressed or even turn negative, signaling a tendency toward pairing with spatial phase modulations. For the first model, we establish that the SW is increasingly suppressed as the Zeeman field grows, drastically turning negative upon the emergence of extensive gapless excitations, i.e., the Bogoliubov Fermi surfaces. For the honeycomb f-wave model, w",
+   "url": "https://arxiv.org/abs/2610.41687",
+   "pdf": "https://arxiv.org/pdf/2610.41687",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2610.41575",
+   "source": "arXiv",
+   "title": "Phase transition dynamics of Abelian-Higgs vortices in the oscillating axion background",
+   "authors": [
+    "Naoya Kitajima",
+    "Shota Nakagawa"
+   ],
+   "n_authors": 2,
+   "date": "2026-10-30",
+   "updated": "2026-10-30",
+   "category": "hep-ph",
+   "cross_list": true,
+   "abstract": "We investigate the effect of an oscillating axion background on thermally induced vortex-antivortex production in the Abelian-Higgs model. Through its coupling to the gauge field, the axion sources an electromagnetic response in the presence of vortex magnetic flux, modifying the dynamics of the vortices. We study this system using Langevin lattice simulations with dissipation and stochastic noise. It is shown that the phase transition dynamics of Abelian-Higgs vortices, namely the pair creation of vortex and antivortex under thermal fluctuations, can be significantly modified in the oscillating axion background. We find that the axion background shifts the rapid increase in the vortex density to lower temperature. In particular, this transition temperature becomes smaller as the oscillation frequency of the axion increases. The temperature dependence of the correlation length is also modified. These features provide a new experimental approach for the axion dark matter using superconducting devices.",
+   "url": "https://arxiv.org/abs/2610.41575",
+   "pdf": "https://arxiv.org/pdf/2610.41575",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "hep-ph",
+    "cond-mat.supr-con",
+    "hep-th"
+   ]
+  },
+  {
+   "id": "2610.41161",
+   "source": "arXiv",
+   "title": "Frustration-Induced 1/6-Vortex-Paired Phase in a Kagome XY Model",
+   "authors": [
+    "Tong-Yu Lin",
+    "Guang-Ming Zhang"
+   ],
+   "n_authors": 2,
+   "date": "2026-10-30",
+   "updated": "2026-10-30",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "Geometric frustration can fractionalize vortices in two-dimensional XY systems, but a given frustrated model usually hosts only a single type of fractional vortex. Here we study a kagome XY model in which an antiferromagnetic coupling J₁ and a second-harmonic coupling K favor two competing frustrated ground-state manifolds. For K/J₁1/9, they map onto those of the kagome Ising antiferromagnet and support 1/2 vortices. At K/J₁=1/9, the two manifolds become degenerate, and bends in the domain walls between them carry 1/6-vortex excitations. Tensor-network calculations show that a finite-temperature phase with quasi-long-range order only in e⁶iθ emerges from this degenerate point, separating the 1/3- and 1/2-vortex-paired phases. This 1/6-vortex-paired phase has no counterpart in either parent manifold, showing that competing frustrated manifolds provide a route to new fractional-vortex-paired phases.",
+   "url": "https://arxiv.org/abs/2610.41161",
+   "pdf": "https://arxiv.org/pdf/2610.41161",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Kagome",
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.stat-mech",
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2610.40469",
    "source": "arXiv",
@@ -2196,143 +2343,6 @@
     "cond-mat.supr-con",
     "cond-mat.mes-hall",
     "cond-mat.quant-gas"
-   ]
-  },
-  {
-   "id": "2610.28240",
-   "source": "arXiv",
-   "title": "Saturating T² resistivity in iron-based superconductors",
-   "authors": [
-    "M. Lourdes Amigó",
-    "Jorge I. Facio"
-   ],
-   "n_authors": 2,
-   "date": "2026-10-20",
-   "updated": "2026-10-20",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Many correlated metals exhibit a crossover from low-temperature ρ∝T² behavior to a slower increase of the resistivity at elevated temperatures. Distinguishing phonon scattering from electron–electron correlations as the origin of this crossover is experimentally challenging. We introduce a simple phenomenological framework that isolates the contribution responsible for the high-temperature saturating tendency. This approach reveals a clear contrast between systems well known for the predominance of electron–phonon scattering and several iron-based superconductors. For the latter, the conductivity can be expressed as the sum of a Fermi-liquid-like term (∝1/T²) and a temperature-independent component, which together describe ρ(T) up to ∼250 K in LiFeAs, KFe₂As₂, and KCaFe₄As₄. In FeSe, the same approach identifies a similar regime above the nematic transition, with a pronounced change toward nearly linear-in-T resistivity below it. We discuss these findings in the broader context of coherence and electronic correlations in Hund's metals.",
-   "url": "https://arxiv.org/abs/2610.28240",
-   "pdf": "https://arxiv.org/pdf/2610.28240",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Iron-based",
-    "Electron–phonon"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.27729",
-   "source": "arXiv",
-   "title": "Superconducting weak links at substrate steps in bilayer nickelate films",
-   "authors": [
-    "Yidi Liu",
-    "Yaoju Tarn",
-    "Lopa Bhatt",
-    "et al."
-   ],
-   "n_authors": 9,
-   "date": "2026-10-20",
-   "updated": "2026-10-20",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Ambient-pressure superconductivity above 40 K has been realized in bilayer nickelate thin films on SrLaAlO₄ (001), yet resistive measurements often exhibit incomplete zero-resistance states and/or two-step superconducting transitions of unresolved origin. We show that these features arise from superconducting weak links at substrate step-terrace structures. A direct correlation between the azimuthal-angle-dependent two-step transition and step-terrace orientation establishes this connection, further supported by atomic-scale visualization of structurally disrupted regions at step terraces. Modeling the films as pristine (weak-link) regions with higher (lower) transition temperature reproduces essential features of the two-step transition using both a simple model and finite-element simulations. Transport measurements further reveal a strong dependence of transition characteristics - and even the occurrence of superconductivity itself - on average terrace width. These results identify step-induced weak links as the microscopic origin of two-step transitions in bilayer nickelate films, providing a framework for understanding anisotropic and percolative transport, and a route to superconducting devices.",
-   "url": "https://arxiv.org/abs/2610.27729",
-   "pdf": "https://arxiv.org/pdf/2610.27729",
-   "journal_ref": "Nano Lett. (2026) 26 (37): 12409-12416",
-   "doi": "10.1021/acs.nanolett.6c03024",
-   "topics": [
-    "Nickelates"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.27718",
-   "source": "arXiv",
-   "title": "Non-uniform grids to accelerate electron-phonon coupling calculations for superconductivity",
-   "authors": [
-    "Kang Wang",
-    "Siyu Chen",
-    "Sun-Woo Kim",
-    "et al."
-   ],
-   "n_authors": 6,
-   "date": "2026-10-20",
-   "updated": "2026-10-20",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Efficient and accurate evaluation of electron-phonon interactions is essential for predictive superconductivity calculations, but dense Brillouin zone sampling requirements pose a major computational bottleneck. To overcome this, we introduce an accelerated, highly scalable framework that combines a double delta truncation scheme with non-uniform Farey grids in both k and q space. The truncation strategy significantly reduces computational cost by restricting integration to states satisfying energy constraints near the Fermi level, while the Farey grids dynamically resolve sampling errors from localized scattering and stabilize convergence. Applied to elemental aluminium and several high-pressure hydrides, this combined methodology reduces computational cost by up to two orders of magnitude and yields electron-phonon coupling constants and superconducting critical temperatures Tc typically within about 5% of full-grid benchmarks. This approach overcomes sampling bottlenecks associated with dense uniform grids, making accurate, low-cost predictions of superconductivity in complex quantum materials feasible.",
-   "url": "https://arxiv.org/abs/2610.27718",
-   "pdf": "https://arxiv.org/pdf/2610.27718",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Iron-based",
-    "Hydrides",
-    "Electron–phonon"
-   ],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci",
-    "physics.comp-ph"
-   ]
-  },
-  {
-   "id": "2610.27683",
-   "source": "arXiv",
-   "title": "Andreev Scattering Driven Surface Photogalvanic Effect",
-   "authors": [
-    "V. M. Kovalev",
-    "I. G. Savenko"
-   ],
-   "n_authors": 2,
-   "date": "2026-10-20",
-   "updated": "2026-10-20",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The surface photogalvanic effect is a powerful tool for generating macroscopic direct currents in centrosymmetric film structures via asymmetric scattering of carriers at film boundaries. Here, we uncover a fundamentally distinct regime of photoinduced transport in normal metal-superconductor heterostructures, in which the macroscopic photocurrent is governed by Andreev scattering at the interface rather than by classical scattering. We demonstrate that the interplay between asymmetric surface scattering and Andreev retroreflection yields a giant, strongly frequency-dependent anomalous photocurrent. Strikingly, the electron-hole conversion at the normal-superconducting interface dictates a macroscopic sign reversal of the photogalvanic current across the superconducting transition, and induces non-analytic spectral kinks exactly at the pairing gap frequency. Our results establish the Andreev reflection-driven surface photogalvanic effect as a platform for optical control of superconducting correlations and suggest a direct, non-invasive spectroscopic probe for gap dynamics in hybrid quantum devices.",
-   "url": "https://arxiv.org/abs/2610.27683",
-   "pdf": "https://arxiv.org/pdf/2610.27683",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.27664",
-   "source": "arXiv",
-   "title": "Pressure-induced superconductivity in a bilayer metal",
-   "authors": [
-    "Tomoya Sano",
-    "Satoshi Ikegaya",
-    "Shingo Kobayashi",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-20",
-   "updated": "2026-10-20",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We propose a model that explains the mechanism of pressure-induced superconductivity in a bilayer metal. Four types of pair potentials are assumed for a Cooper pair consisting of two electrons on different layers. Absence of local inversion symmetry gives rise to the spin-orbit coupling which is antisymmetric in the two layers. We assume that external pressure enhances the hybridization between the two layers. The stability of the superconducting states is well explained by the frequency symmetry of the induced pairing correlations by these potentials. Pressure-induced superconductivity emerges when the following two conditions are realized. (i) The spin-orbit coupling induces the odd-frequency pairing correlations and suppresses superconductivity at ambient pressure. (ii) The interplay between the spin-orbit coupling and the hybridization induces the additional pairing correlation that belongs to an even-frequency symmetry class. We briefly discuss the relevance of our model to real materials.",
-   "url": "https://arxiv.org/abs/2610.27664",
-   "pdf": "https://arxiv.org/pdf/2610.27664",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con"
    ]
   }
  ],
