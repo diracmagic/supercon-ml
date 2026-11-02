@@ -98,7 +98,8 @@ test('legacy action queries are stripped and URL project keys and return targets
   assert.equal(h.requests.length, 1);
   assert.ok(h.requests[0].url.endsWith('?key=' + CONFIG.apiKey));
   assert.deepEqual(JSON.parse(h.requests[0].settings.body), {oobCode: CODE});
-  assert.equal(h.get('team-new-password').getAttribute('minlength'), '15');
+  assert.equal(h.get('team-new-password').getAttribute('minlength'), '8');
+  assert.equal(h.get('team-confirm-password').getAttribute('minlength'), '8');
   assert.equal(h.get('team-new-password').getAttribute('maxlength'), '128');
 });
 
@@ -182,15 +183,27 @@ test('reset requests give the same visible result for unknown and eligible email
   assert.equal(messages[0], messages[1]);
 });
 
-test('reset validates a code, applies only a matching 15–128 character password and requires a fresh login', async () => {
+test('reset validates a code, applies only a matching 8–128 character password and requires a fresh login', async () => {
   const h = harness({hash: '#team_email_mode=resetPassword&team_email_code=' + CODE}); await h.ui.handleEmailAction();
-  h.get('team-new-password').value = 'too short'; h.get('team-confirm-password').value = 'too short'; h.submit('team-new-password'); await flush();
+  assert.match(h.doc.body.textContent, /at least 8 characters/); assert.doesNotMatch(h.doc.body.textContent, /15 characters/);
+  h.get('team-new-password').value = 'short 7'; h.get('team-confirm-password').value = 'short 7'; h.submit('team-new-password'); await flush();
+  assert.equal(h.requests.length, 1);
+  assert.match(h.doc.body.textContent, /between 8 and 128 characters/);
+  h.get('team-new-password').value = 'x'.repeat(129); h.get('team-confirm-password').value = 'x'.repeat(129); h.submit('team-new-password'); await flush();
   assert.equal(h.requests.length, 1);
   h.get('team-new-password').value = 'a good long passphrase'; h.get('team-confirm-password').value = 'different password'; h.submit('team-new-password'); await flush();
   assert.equal(h.requests.length, 1);
-  h.get('team-new-password').value = 'a good long passphrase'; h.get('team-confirm-password').value = 'a good long passphrase'; h.submit('team-new-password'); await flush();
-  assert.equal(h.requests.length, 2); assert.deepEqual(JSON.parse(h.requests[1].settings.body), {oobCode: CODE, newPassword: 'a good long passphrase'});
+  h.get('team-new-password').value = 'eight888'; h.get('team-confirm-password').value = 'eight888'; h.submit('team-new-password'); await flush();
+  assert.equal(h.requests.length, 2); assert.deepEqual(JSON.parse(h.requests[1].settings.body), {oobCode: CODE, newPassword: 'eight888'});
   assert.equal(h.authenticated, 0); assert.equal(h.exchanges.length, 0); assert.match(h.doc.body.textContent, /Password saved. Sign in/);
+});
+
+test('password setup accepts the unchanged 128-character upper bound and preserves spaces', async () => {
+  const h = harness({hash: '#team_email_mode=resetPassword&team_email_code=' + CODE}); await h.ui.handleEmailAction();
+  const password = ' ' + 'x'.repeat(126) + ' ';
+  h.get('team-new-password').value = password; h.get('team-confirm-password').value = password; h.submit('team-new-password'); await flush();
+  assert.deepEqual(JSON.parse(h.requests[1].settings.body), {oobCode: CODE, newPassword: password});
+  assert.equal(h.authenticated, 0); assert.equal(h.exchanges.length, 0);
 });
 
 test('email verification requires confirmation and never grants Notes or signs in automatically', async () => {

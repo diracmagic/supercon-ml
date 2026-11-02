@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "Release 0.3.10: source-based private Notes material illustrations and team introductions, mobile and desktop update controls.",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup"
+      ],
+      "functions_changed": [
+        "webReleaseVersion",
+        "updateWebBadge",
+        "checkUpdate",
+        "nativeUpdateCall",
+        "updateFailureText",
+        "downloadUpdate",
+        "installUpdate",
+        "renderUpdate"
+      ],
+      "initializers_changed": [
+        0,
+        155,
+        156,
+        158,
+        159
+      ],
+      "additional_source_sha256": {
+        "team-auth.js": "8c4f618e4043ab6a33adc65f85fc9727c29bf1d0f28133c4134f641569075032",
+        "team-auth.css": "366ed5aa2c848ba650d382fac7ef39cd08799bcf75b76dbf2cb8d6c466466e6e",
+        "team-account.js": "a461252488decec7a3c579a9de76c90b0fec4de577dd92a9a760362352e3e90d",
+        "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
+        "team-material.js": "155bdeb1bb5e2eb7187f01f2ff53dce85d6430b9a4fa4e59b520eff66e404ce3",
+        "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266"
+      },
+      "previous_function_changes": {
+        "checkUpdate": "1a61633aaa8682cbe9554235f9516956837872bd37f8ebef35b9df325f00d6cb",
+        "renderUpdate": "2548dfc5ffd799f5eb2bfd2dc4afedf17717a8aa1630f642962d29067b17cfe9"
+      },
+      "previous_initialization_changes": {
+        "0": "d8f46f7dad1304951755c94af4b45cfb7e8096d3a1b763cc96a36961582fd938",
+        "155": "9da4693c82589667eae015397dc5f929078ed44c72e5c6f28a875fc02dc8022e",
+        "156": "92179c834ce934ca9645ebb1bd8722e381c16d6d7b3a489d991ff2b096df3595",
+        "158": "28296f6aaa9698b755035740a294065860b6465c434aa09073686a0d1f95c53e",
+        "159": "ca262f5610cb1d13a31dd7da6e90c18c91c558e79920af81d059db802ddca1f6"
+      }
+    }
+  ]
+}
