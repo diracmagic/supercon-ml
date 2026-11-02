@@ -55,7 +55,7 @@ function memo(count = 31) {
   })) };
 }
 
-function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?test=1', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI, materialUI, boardUI, crypto = webcrypto, pageUrl, nativeBridge } = {}) {
+function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?test=1', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI, materialUI, boardUI, crypto = webcrypto, pageUrl, nativeBridge, nativeInvoke } = {}) {
   const doc = { events: {}, hidden: false, activeElement: null, readyState: 'complete',
     createElement(tag) { return new Element(tag, doc); },
     getElementById(id) { return flatten(doc.body).find((node) => node.attributes.id === id) || null; },
@@ -67,9 +67,9 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?t
   const login = header.appendChild(doc.createElement('button')); login.setAttribute('id', 'team-login');
   const values = new Map(Object.entries(initialStorage));
   if (pending) values.set(auth.PENDING_KEY, JSON.stringify(pending));
-  const writes = [], requests = [], redirects = [], history = [], events = {}, timers = new Map();
+  const writes = [], requests = [], redirects = [], nativeCalls = [], history = [], events = {}, timers = new Map();
   let tick = TIME, nextTimer = 1;
-  const win = { location: { href: pageUrl || 'https://diracmagic.github.io/supercon-ml/' + search + hash, hash, pathname: '/supercon-ml/', search, assign: (url) => redirects.push(url) },
+  const win = { location: { href: pageUrl || 'https://diracmagic.github.io/supercon-ml/' + search + hash, hash, pathname: '/supercon-ml/', search, assign: (url) => redirects.push(url), replace: (url) => redirects.push(url) },
     history: { replaceState(_state, _title, path) { history.push(path); win.location.hash = ''; } },
     sessionStorage: { getItem: (key) => values.get(key) ?? null, setItem(key, value) { values.set(key, value); writes.push([key, value]); }, removeItem: (key) => values.delete(key) },
     addEventListener(kind, fn) { (events[kind] ||= []).push(fn); },
@@ -78,7 +78,17 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?t
     clearTimeout(id) { timers.delete(id); },
     btoa: (value) => Buffer.from(value, 'binary').toString('base64') };
   if (materialUI) win.SuperconMaterialVisual = materialUI;
-  if (nativeBridge) win[nativeBridge] = {};
+  if (nativeBridge) {
+    const invoke = async (command, args) => {
+      nativeCalls.push({command, args});
+      if (nativeInvoke) return nativeInvoke(command, args);
+      if (command === 'begin_team_sign_in') return {url: 'https://diracmagic.github.io/supercon-ml/?team_login=email'};
+      if (command === 'native_team_request') return {status: 401, body: '{}'};
+      if (command === 'clear_team_session') return {};
+      throw new Error('Legacy bridge has no session handoff');
+    };
+    win[nativeBridge] = nativeBridge === '__TAURI__' ? {core: {invoke}} : {invoke};
+  }
   Object.defineProperty(win, 'localStorage', { get() { throw new Error('Auth may not use localStorage'); } });
   const fetch = async (url, options) => {
     requests.push({ url, options });
@@ -92,7 +102,7 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?t
   const controller = auth.createController({ window: win, document: doc, config: { apiBase }, crypto, fetch, accountUI, boardUI,
     btoa: win.btoa, now: () => tick,
     setTimeout(fn, ms) { const id = nextTimer++; timers.set(id, { fn, ms }); return id; }, clearTimeout(id) { timers.delete(id); } });
-  return { controller, doc, win, login, values, writes, requests, redirects, history, timers, events,
+  return { controller, doc, win, login, values, writes, requests, redirects, nativeCalls, history, timers, events,
     get: (id) => doc.getElementById(id), setTime: (value) => { tick = value; },
     fire(ms) { const matches = [...timers].filter(([, timer]) => timer.ms === ms); for (const [id, timer] of matches) { timers.delete(id); timer.fn(); } },
     start() { controller.init(); return flush(); } };
@@ -151,7 +161,7 @@ test('native local login moves to the fixed hosted form before credentials or PK
           accountUI: {createAccountUI() {return {openLogin() {opened++;}, reset() {}, handleEmailAction() {return false;}};}}});
         await h.start();
         if (action === 'button') h.login.dispatch('click'); else await h.controller.signIn();
-        h.login.dispatch('click'); await h.controller.signIn();
+        h.login.dispatch('click'); await h.controller.signIn(); await flush();
         assert.deepEqual(h.redirects, ['https://diracmagic.github.io/supercon-ml/?team_login=email'], base + ' ' + action);
         assert.equal(opened, 0, 'No local form collects an email or password');
         assert.equal(h.requests.length, 0); assert.equal(h.writes.length, 0, 'No local PKCE verifier is generated');
@@ -182,7 +192,7 @@ test('hosted native windows and ordinary web pages retain the normal explicit si
 
 test('native-to-hosted login succeeds with isolated origin storage and a proof generated only after arrival', async () => {
   const local = harness({pageUrl: 'http://tauri.localhost/', nativeBridge: '__TAURI_INTERNALS__', pending: proof()});
-  await local.start(); await local.controller.signIn();
+  await local.start(); await local.controller.signIn(); await flush();
   assert.equal(local.values.has(auth.PENDING_KEY), false); assert.equal(local.writes.length, 0); assert.equal(local.requests.length, 0);
   const hosted = harness({pageUrl: local.redirects[0], nativeBridge: '__TAURI_INTERNALS__'});
   await hosted.start(); assert.equal(hosted.values.size, 0); assert.equal(hosted.redirects.length, 0);
@@ -220,12 +230,12 @@ test('native-login handoff rejects lookalike origins, credentials and nondefault
 test('failed native navigation displays an actionable error and can be retried without local proof', async () => {
   const h = harness({pageUrl: 'http://tauri.localhost/', nativeBridge: '__TAURI__'});
   await h.start(); h.win.location.assign = () => {throw new Error('PRIVATE_NAVIGATION_DETAIL');};
-  await h.controller.signIn();
-  assert.match(h.doc.body.textContent, /team sign-in page could not be opened/);
+  await h.controller.signIn(); await flush();
+  assert.match(h.doc.body.textContent, /sign-in page could not be opened/);
   assert.doesNotMatch(h.doc.body.textContent, /PRIVATE_NAVIGATION_DETAIL/);
   assert.equal(h.login.disabled, false); assert.equal(h.writes.length, 0); assert.equal(h.requests.length, 0);
   h.win.location.assign = url => h.redirects.push(url);
-  h.login.dispatch('click');
+  h.login.dispatch('click'); await flush();
   assert.deepEqual(h.redirects, ['https://diracmagic.github.io/supercon-ml/?team_login=email']);
   assert.equal(h.writes.length, 0); assert.equal(h.requests.length, 0);
 });
@@ -956,4 +966,119 @@ test('delayed native hashing is awaited and logout cannot activate a stale board
       assert.equal(board.instances[0].options.storageKey, createHash('sha256').update('github:350433501').digest('hex'));
     }
   }
+});
+
+
+test('desktop handoff returns to local origin, restores team access and keeps every credential out of storage and URLs', async () => {
+  let bearer = '', pending = false;
+  const calls = [];
+  const invoke = async (command, args) => {
+    calls.push({command, args});
+    if (command === 'begin_team_sign_in') {pending = true; bearer = ''; return {url: 'https://diracmagic.github.io/supercon-ml/?team_login=email'};}
+    if (command === 'complete_team_sign_in') {
+      assert.equal(pending, true); assert.equal(args.sessionToken, TOKEN); pending = false; bearer = args.sessionToken;
+      return {local_url: 'http://tauri.localhost/'};
+    }
+    if (command === 'clear_team_session') {bearer = ''; pending = false; return {};}
+    if (command === 'native_team_request') {
+      assert.deepEqual(Object.keys(args).sort(), ['body', 'method', 'path']);
+      if (args.path === '/auth/logout') {bearer = ''; return {status: 204, body: ''};}
+      if (!bearer) return {status: 401, body: '{}'};
+      return {status: 200, body: JSON.stringify(args.path === '/api/memo' ? memo() : metadata())};
+    }
+    throw Error('Unexpected command');
+  };
+  const local = harness({pageUrl: 'http://tauri.localhost/', nativeBridge: '__TAURI_INTERNALS__', nativeInvoke: invoke});
+  await local.start(); await local.controller.signIn(); await flush();
+  const hosted = harness({pageUrl: local.redirects[0], nativeBridge: '__TAURI_INTERNALS__', nativeInvoke: invoke});
+  await hosted.start(); await hosted.controller.signIn();
+  const saved = JSON.parse(hosted.values.get(auth.PENDING_KEY));
+  const hash = '#team_ticket=' + TICKET + '&team_state=' + saved.state;
+  const callback = harness({pageUrl: 'https://diracmagic.github.io/supercon-ml/' + hash, hash,
+    initialStorage: Object.fromEntries(hosted.values), nativeBridge: '__TAURI_INTERNALS__', nativeInvoke: invoke});
+  await callback.start();
+  assert.deepEqual(callback.redirects, ['http://tauri.localhost/']);
+  assert.equal(callback.requests.some(x => x.url.endsWith('/api/memo')), false, 'Return happens before loading private notes in the remote view');
+  const home = harness({pageUrl: callback.redirects[0], nativeBridge: '__TAURI_INTERNALS__', nativeInvoke: invoke});
+  await home.start(); assert.equal(home.get('team-notes').hidden, false);
+  assert.equal(home.login.textContent, '@' + metadata().user.login);
+  await home.controller.openNotes(); assert.equal(home.get('team-notes-dialog').open, true);
+  assert.equal(home.requests.length, 0, 'Local origin never fetches bearer APIs through browser CORS');
+  for (const h of [local, callback, home]) {
+    assert.equal(h.writes.length, 0); assert.equal([...h.values.values()].some(x => x.includes(TOKEN)), false);
+    assert.equal(h.redirects.some(x => x.includes(TOKEN)), false);
+  }
+  home.events.pagehide.forEach(fn => fn()); await flush(); assert.equal(bearer, TOKEN, 'Navigation preserves native memory');
+  const reload = harness({pageUrl: 'http://tauri.localhost/', nativeBridge: '__TAURI_INTERNALS__', nativeInvoke: invoke});
+  await reload.start(); await reload.controller.logout(); assert.equal(bearer, '');
+  const afterLogout = harness({pageUrl: 'http://tauri.localhost/', nativeBridge: '__TAURI_INTERNALS__', nativeInvoke: invoke});
+  await afterLogout.start(); assert.equal(afterLogout.get('team-notes').hidden, true);
+});
+
+test('failed or untrusted desktop handoff never navigates away from the current authenticated view', async () => {
+  for (const result of [null, {local_url: 'https://evil.example/'}, {local_url: 'http://tauri.localhost:8080/'}]) {
+    const h = harness({pageUrl: 'https://diracmagic.github.io/supercon-ml/', nativeBridge: '__TAURI_INTERNALS__',
+      hash: '#team_ticket=' + TICKET + '&team_state=' + STATE, pending: proof(),
+      nativeInvoke: async () => {if (!result) throw Error('native unavailable'); return result;}});
+    await h.start(); assert.equal(h.get('team-notes').hidden, false); assert.deepEqual(h.redirects, []);
+    await h.win.SuperconReturnToDesktop(); assert.deepEqual(h.redirects, []);
+    assert.match(h.doc.body.textContent, /session has been kept/);
+  }
+});
+
+test('late native restoration cannot revive a session after sign-out or a new login attempt', async () => {
+  for (const action of ['logout', 'login']) {
+    let finish;
+    const h = harness({pageUrl: 'http://tauri.localhost/', nativeBridge: '__TAURI_INTERNALS__', nativeInvoke: async (command, args) => {
+      if (command === 'native_team_request') {
+        if (args.path === '/auth/logout') return {status: 200, body: '{}'};
+        return new Promise(resolve => {finish = resolve;});
+      }
+      if (command === 'begin_team_sign_in') return {url: 'https://diracmagic.github.io/supercon-ml/?team_login=email'};
+      return {};
+    }});
+    await h.start();
+    if (action === 'logout') await h.controller.logout(); else await h.controller.signIn();
+    finish({status: 200, body: JSON.stringify(metadata())}); await flush();
+    assert.equal(h.get('team-notes').hidden, true);
+  }
+});
+
+
+test('sign-out during native restoration clears the native credential before JS adopts it', async () => {
+  let bearer = TOKEN, finish;
+  const h = harness({pageUrl: 'http://tauri.localhost/', nativeBridge: '__TAURI_INTERNALS__', nativeInvoke: async (command,args) => {
+    if (command === 'native_team_request' && args.path === '/auth/logout') {bearer = ''; return {status: 200, body: '{}'};}
+    if (command === 'native_team_request') return new Promise(resolve => {finish = resolve;});
+    if (command === 'clear_team_session') {bearer = ''; return {};}
+    throw Error('Unexpected command');
+  }});
+  await h.start(); assert.equal(h.get('team-notes').hidden, true);
+  await h.controller.logout(); assert.equal(bearer, '', 'Logout clears Rust state even while JS has no session marker');
+  finish({status: 200, body: JSON.stringify(metadata())}); await flush();
+  assert.equal(bearer, ''); assert.equal(h.get('team-notes').hidden, true);
+});
+
+test('hosted sign-out cancels in-flight native completion even when remote revocation is offline', async () => {
+  let bearer = '', epoch = 1, finish;
+  const h = harness({pageUrl:'https://diracmagic.github.io/supercon-ml/', nativeBridge:'__TAURI_INTERNALS__',
+    hash:'#team_ticket='+TICKET+'&team_state='+STATE, pending:proof(),
+    nativeInvoke: async command => {
+      if (command === 'complete_team_sign_in') {
+        const attempt = epoch; await new Promise(resolve => {finish=resolve;});
+        if (attempt !== epoch) throw Error('cancelled');
+        bearer=TOKEN; return {local_url:'http://tauri.localhost/'};
+      }
+      if (command === 'cancel_team_sign_in') {epoch++; bearer=''; return {};}
+      throw Error('Unexpected command');
+    }, fetch: async url => {
+      if (url.endsWith('/auth/exchange')) return response({...metadata(), session_token:TOKEN});
+      if (url.endsWith('/api/session')) return response(metadata());
+      if (url.endsWith('/auth/logout')) throw Error('offline');
+      throw Error('Unexpected URL');
+    }});
+  await h.start(); assert.equal(typeof finish,'function');
+  await h.controller.logout(); finish(); await flush();
+  assert.equal(bearer,''); assert.equal(h.get('team-notes').hidden,true); assert.deepEqual(h.redirects,[]);
+  assert.equal(h.nativeCalls.filter(x=>x.command==='cancel_team_sign_in').length,1);
 });

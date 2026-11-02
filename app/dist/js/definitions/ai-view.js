@@ -137,14 +137,12 @@
   };
 
   const aiAnimatedItem = function aiAnimatedItem(item) {
-    var original = item.kind_of === 'news' ? aiNewsItem(item) : paperItem(item);
+    var original = item.kind_of === 'news' ? aiNewsItem(item) : paperItem(item, true);
     var body = h('div', { class: 'news-body' });
     while (original.firstChild) body.appendChild(original.firstChild);
+    body.appendChild(newsArticleFigure(item));
     body.appendChild(aiWorkflow(item));
-    var art = aiArticleArt(item), drawing = miniCanvas(art);
-    drawing.setAttribute('data-news-art', art);
-    return h('li', { class: 'news-item ai-feed-item', 'data-feed-key': feedIdentityKeys(item)[0] || '' },
-      h('div', { class: 'news-art' }, drawing, h('span', { class: 'news-art-caption', text: 'Illustration' })), body);
+    return h('li', { class: 'news-item ai-feed-item article-item', 'data-feed-key': feedIdentityKeys(item)[0] || '' }, body);
   };
 
   const aiNewsItem = function aiNewsItem(n) {

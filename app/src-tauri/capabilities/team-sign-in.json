@@ -1,9 +1,9 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "team-sign-in",
-  "description": "Allows only the exact hosted app in the main window to complete an active local sign-in",
+  "description": "Allows only the exact hosted app in the main window to complete or cancel a local sign-in; grants no session reading or update access",
   "windows": ["main"],
   "local": false,
   "remote": { "urls": ["https://diracmagic.github.io/supercon-ml/"] },
-  "permissions": ["allow-complete-team-sign-in"]
+  "permissions": ["allow-complete-team-sign-in", "allow-cancel-team-sign-in"]
 }

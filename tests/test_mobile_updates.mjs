@@ -233,7 +233,7 @@ test('malformed release metadata clears busy state and pending installers are no
   assert.doesNotMatch(text(h.foot), /latest version/);
 });
 
-test('OAuth navigation to the web APP cannot invoke native updates and offers only a fixed local return', async () => {
+test('Hosted sign-in cannot invoke updates or discard its session through the return button', async () => {
   for (const [platform, expected] of [['Win32', 'http://tauri.localhost/'], ['MacIntel', 'tauri://localhost/']]) {
     const h = harness({desktop: true});
     h.navigator.platform = platform;
@@ -241,10 +241,13 @@ test('OAuth navigation to the web APP cannot invoke native updates and offers on
     await h.start(); await h.fireTimeout(3000);
     assert.equal(h.nativeCalls.length, 0); assert.equal(h.releaseChecks, 0);
     assert.equal(h.updateCalls, 0); assert.equal(h.fetchCalls, 0);
-    assert.match(text(h.update), /Sign-in opened the web version/);
+    assert.match(text(h.update), /keeps your team session/);
     assert.equal(h.button('Retry download'), undefined);
     h.button('Return to installed app').attrs.onclick();
-    assert.deepEqual(h.localReturns, [expected]); assert.equal(h.browserOpens, 0);
+    assert.deepEqual(h.localReturns, [], 'No direct origin navigation without session handoff');
+    let handoffs = 0; h.context.window.SuperconReturnToDesktop = () => { handoffs++; };
+    h.button('Return to installed app').attrs.onclick();
+    assert.equal(handoffs, 1); assert.deepEqual(h.localReturns, []); assert.equal(h.browserOpens, 0);
     h.context.api.checkUpdate(true, true); await flush(); assert.equal(h.releaseChecks, 0);
   }
 });

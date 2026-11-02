@@ -182,10 +182,10 @@
       var installer = installerName(), local = installer.indexOf('windows') >= 0 ? 'http://tauri.localhost/' :
         installer.indexOf('macos') >= 0 ? 'tauri://localhost/' : '';
       append(el, [glyph('refresh', 'upd-glyph'), h('div', {class: 'upd-body'},
-        h('p', {class: 'upd-title', text: 'Return to the installed app to update.'}),
-        h('p', {class: 'upd-hint', role: 'status', text: 'Sign-in opened the web version in this window. Downloading and installing updates is available from the installed app’s home screen.'}),
+        h('p', {class: 'upd-title', text: 'Desktop sign-in'}),
+        h('p', {class: 'upd-hint', role: 'status', text: 'After sign-in, the latest desktop app returns automatically and keeps your team session. Older desktop versions need an update.'}),
         local ? h('div', {class: 'upd-actions'}, h('button', {class: 'btn primary', type: 'button', onclick: function () {
-          window.location.replace(local);
+          if (typeof window.SuperconReturnToDesktop === 'function') window.SuperconReturnToDesktop();
         }}, 'Return to installed app')) : h('p', {class: 'upd-hint', text: 'Close and reopen the installed app to return to its home screen.'}))]);
     } else if (kind === 'web') {
       append(el, [glyph('refresh', 'upd-glyph'), h('div', { class: 'upd-body' },

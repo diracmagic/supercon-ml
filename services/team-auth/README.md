@@ -267,3 +267,23 @@ Official references: [GitHub App visibility](https://docs.github.com/en/apps/cre
 [Contents read permission](https://docs.github.com/en/rest/repos/contents#get-repository-content),
 [Durable Object transactions](https://developers.cloudflare.com/durable-objects/api/sqlite-storage-api/),
 [SQLite namespace migration](https://developers.cloudflare.com/durable-objects/best-practices/access-durable-objects-storage/).
+
+
+### Installed desktop session bridge (APP 0.3.16)
+
+The bundled main window starts a bounded native sign-in attempt before navigating
+in the same window to the fixed hosted form. Existing GitHub PKCE and email
+verification remain at the hosted origin. That exact hosted APP path has only
+`complete_team_sign_in` and `cancel_team_sign_in` native permissions. Completion
+validates the returned session with the fixed Worker, keeps its bearer in Rust
+process memory and returns a fixed local home URL. Cancellation clears the native
+epoch even if remote logout is unavailable. No credential is put in a URL, browser
+storage or application file.
+
+The local main window restores only server-verified session metadata. Its narrow
+native request command accepts the existing private route/method/body allowlist;
+it supplies the fixed service Origin header required by the Worker and never
+accepts a caller-controlled host, header or credential. Redirects are rejected,
+responses are bounded, live server membership checks remain authoritative, and
+late responses from a cleared session are discarded. Native installer commands
+remain local-only. UI reloads retain the in-memory session; process exit does not.

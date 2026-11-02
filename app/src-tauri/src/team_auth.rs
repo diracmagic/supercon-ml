@@ -1,4 +1,4 @@
-//! A memory-only session bridge. The hosted app may complete one local sign-in;
+//! A memory-only session bridge. The hosted app may complete or cancel a local sign-in;
 //! only the bundled app can subsequently make narrowly scoped team requests.
 //! Neither a bearer token nor a caller-controlled destination leaves this module.
 use reqwest::{blocking::Client, redirect::Policy, Url};
@@ -13,7 +13,7 @@ const ORIGIN: &str = "https://diracmagic.github.io";
 const ATTEMPT_TTL: u64 = 20 * 60 * 1000;
 const SESSION_TTL: u64 = 60 * 60 * 1000;
 const MAX_BODY: usize = 12_288;
-const MAX_RESPONSE: u64 = 2 * 1024 * 1024;
+const MAX_RESPONSE: u64 = 1_500_000;
 type Result<T> = std::result::Result<T, String>;
 type Shared = Arc<Mutex<AuthState>>;
 fn error(code: &str) -> String { code.to_owned() }
@@ -138,6 +138,10 @@ fn request_body(path: &str, method: &str, body: Option<Value>) -> Result<Option<
     Ok(Some(bytes))
 }
 fn unavailable() -> NativeResponse { NativeResponse { status: 401, body: "{\"error\":\"invalid_session\"}".to_owned() } }
+fn cancel_session(state: &Shared) -> Result<()> {
+    state.lock().map_err(|_| error("team_unavailable"))?.clear();
+    Ok(())
+}
 
 fn transport(path: &str, method: &str, body: Option<&str>, token: &str) -> Result<NativeResponse> {
     // Path is already allowlisted. Credentials cannot be redirected or sent to a
@@ -244,8 +248,14 @@ pub async fn native_team_request(window: WebviewWindow, state: State<'_, TeamAut
 #[tauri::command]
 pub fn clear_team_session(window: WebviewWindow, state: State<'_, TeamAuthState>) -> Result<()> {
     authorize(&window, false)?;
-    state.0.lock().map_err(|_| error("team_unavailable"))?.clear();
-    Ok(())
+    cancel_session(&state.0)
+}
+#[tauri::command]
+pub fn cancel_team_sign_in(window: WebviewWindow, state: State<'_, TeamAuthState>) -> Result<()> {
+    // Hosted logout must cancel even when backend revocation fails or a
+    // completion is still in flight. This grants no session-reading capability.
+    authorize(&window, true)?;
+    cancel_session(&state.0)
 }
 
 #[cfg(test)]
@@ -323,6 +333,19 @@ mod tests {
         assert!(lock.current(session_epoch,TIME+ATTEMPT_TTL));
     }
     #[test]
+    fn hosted_cancel_invalidates_in_flight_and_already_completed_sessions_without_network() {
+        let state = shared(); state.lock().unwrap().begin(TIME);
+        assert!(complete(&state,token(),||TIME,|_,_,_,_| {
+            cancel_session(&state).unwrap();
+            // Backend verification can still succeed after a failed network
+            // logout, but it must not repopulate the native session.
+            Ok(valid(TIME+60_000))
+        }).is_err());
+        assert_eq!(execute(&state,"/api/session","GET",None,||TIME,|_,_,_,_| panic!("cancelled")).unwrap().status,401);
+        let state = signed_in(); cancel_session(&state).unwrap();
+        assert_eq!(execute(&state,"/api/session","GET",None,||TIME,|_,_,_,_| panic!("cancelled after navigation failure")).unwrap().status,401);
+    }
+    #[test]
     fn busy_and_expired_attempts_fail_closed() {
         let mut state = AuthState::default(); state.begin(TIME); state.claim(TIME).unwrap(); assert!(state.claim(TIME).is_err());
         assert!(state.finish(state.epoch,token(),TIME+ATTEMPT_TTL+1,TIME+ATTEMPT_TTL).is_err());
@@ -358,9 +381,10 @@ mod tests {
         let remote: Value = serde_json::from_str(include_str!("../capabilities/team-sign-in.json")).unwrap();
         assert_eq!(remote["local"],false);
         assert_eq!(remote["remote"]["urls"],json!(["https://diracmagic.github.io/supercon-ml/"]));
-        assert_eq!(remote["permissions"],json!(["allow-complete-team-sign-in"]));
+        assert_eq!(remote["permissions"],json!(["allow-complete-team-sign-in","allow-cancel-team-sign-in"]));
         let local: Value = serde_json::from_str(include_str!("../capabilities/default.json")).unwrap();
         assert!(local.get("remote").is_none()); assert_eq!(local["local"],true);
         assert!(!local["permissions"].as_array().unwrap().contains(&json!("allow-complete-team-sign-in")));
+        assert!(!local["permissions"].as_array().unwrap().contains(&json!("allow-cancel-team-sign-in")));
     }
 }
