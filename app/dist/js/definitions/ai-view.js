@@ -85,10 +85,9 @@
   };
 
   const aiArticleArt = function aiArticleArt(item) {
-    // Retain a neutral material motif when structural context supports it. AI is the fallback, never a
-    // floating-magnet illustration that could suggest an unmeasured candidate has already superconducted.
+    // Use this paper's method or material subject, rather than assigning every AI paper a crystal network.
     var art = newsArt(item);
-    return art === 'news-general' || art === 'news-research' ? 'news-ai' : art;
+    return art === 'news-general' || art === 'news-research' ? 'news-features' : art;
   };
 
   const aiWorkflowInfo = function aiWorkflowInfo(item) {

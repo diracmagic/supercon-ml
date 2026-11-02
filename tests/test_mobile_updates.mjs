@@ -12,7 +12,7 @@ function harness({ controlled = true, standalone = true, desktop = false, versio
   let clock = 1800000000000, reloads = 0, updateCalls = 0, fetchCalls = 0, releaseChecks = 0, browserOpens = 0;
   const controls = { published: "const APP_VERSION = '0.3.10';\nconst CACHE = 'supercon-8.9.99-internal';", updateFailed: false, fetchFailed: false, status: 200,
     releaseVersion: '0.3.10', releaseFailed: false, assetReady: true, nativeError: '', artifactOverrides: {} };
-  const nativeCalls = [];
+  const nativeCalls = [], localReturns = [];
   const swEvents = {}, documentEvents = {}, windowEvents = {}, intervals = [], timeouts = [], badges = [], values = new Map();
   const element = (tag, attrs = {}, ...children) => ({ tag, attrs, text: attrs.text || '', children: children.flat(Infinity).filter(value => value !== null && value !== undefined), hidden: false,
     appendChild(child) { this.children.push(child); return child; } });
@@ -24,10 +24,12 @@ function harness({ controlled = true, standalone = true, desktop = false, versio
     addEventListener(name, fn) { (swEvents[name] ||= []).push(fn); } };
   const navigator = { serviceWorker, onLine: true, standalone: standalone && !desktop, userAgent: 'Synthetic test browser', platform: desktop ? 'Win32' : '',
     setAppBadge(value) { badges.push(['set', value]); return Promise.resolve(); }, clearAppBadge() { badges.push(['clear']); return Promise.resolve(); } };
-  const window = { location: { reload() { reloads++; } }, matchMedia: () => ({ matches: standalone && !desktop }),
+  const window = { location: { protocol: desktop ? 'http:' : 'https:', hostname: desktop ? 'tauri.localhost' : 'example.org', port: '',
+    reload() { reloads++; }, replace(url) { localReturns.push(url); } }, matchMedia: () => ({ matches: standalone && !desktop }),
     addEventListener(name, fn) { (windowEvents[name] ||= []).push(fn); }, ...(desktop ? { __TAURI__: { core: { invoke: async (command, args) => {
       nativeCalls.push({ command, args: JSON.parse(JSON.stringify(args)) });
       if (controls.nativeError) throw controls.nativeError;
+      if (controls.nativeReply) return controls.nativeReply(command, args);
       if (command === 'download_app_update') return { version: controls.releaseVersion, platform: 'windows', size: 123456,
         downloadId: '11111111-2222-4333-8444-555555555555', ...controls.artifactOverrides };
       if (command === 'install_app_update') return { launched: true, version: controls.releaseVersion, platform: 'windows' };
@@ -41,12 +43,12 @@ function harness({ controlled = true, standalone = true, desktop = false, versio
     store: { get: key => values.get(key), set: (key, value) => values.set(key, value) },
     fetch: async (_url, options) => { fetchCalls++; assert.equal(options.cache, 'no-store'); assert.equal(options.redirect, 'error'); if (controls.fetchFailed) throw new Error('offline');
       return { ok: controls.status >= 200 && controls.status < 300, text: async () => controls.published }; },
-    getJSON: async () => { releaseChecks++; if (controls.releaseFailed) throw new Error('offline'); return {
+    getJSON: async () => { releaseChecks++; if (controls.releaseFailed) throw new Error('offline'); if (controls.releaseReply) return controls.releaseReply(); return {
       tag_name: 'app-v' + controls.releaseVersion, html_url: 'https://github.com/example/test/releases/tag/app-v' + controls.releaseVersion,
       assets: controls.assetReady ? [{ name: 'SuperconProgress-windows-x64-setup.exe', browser_download_url: 'https://github.com/example/test/releases/download/app-v' + controls.releaseVersion + '/SuperconProgress-windows-x64-setup.exe' }] : [], body: '' }; },
     openExternal() { browserOpens++; throw new Error('Updates must not open a browser'); } };
   vm.runInNewContext(definitions + '\n' + initialize + '\nthis.api = { initializeSuperconUpdates, renderUpdate, webReleaseVersion, checkUpdate, installUpdate };', context);
-  return { context, controls, update, navigator, serviceWorker, badges, intervals, timeouts, nativeCalls,
+  return { context, controls, update, foot, navigator, serviceWorker, badges, intervals, timeouts, nativeCalls, localReturns,
     get reloads() { return reloads; }, get updateCalls() { return updateCalls; }, get fetchCalls() { return fetchCalls; },
     get releaseChecks() { return releaseChecks; }, get browserOpens() { return browserOpens; },
     advance(ms) { clock += ms; },
@@ -159,5 +161,90 @@ test('an installer integrity or missing-artifact failure requires an explicit ne
     h.controls.nativeError = ''; h.button('Retry download').attrs.onclick(); await flush();
     assert.equal(h.nativeCalls.length, 3); assert.equal(h.nativeCalls[2].command, 'download_app_update');
     assert.ok(h.button('Install update')); assert.equal(h.browserOpens, 0); assert.equal(h.reloads, 0);
+  }
+});
+
+test('retry starts the native download immediately even while a release check is busy', async () => {
+  const h = harness({desktop: true}); h.controls.nativeError = 'update_download_failed';
+  await h.start(); await h.fireTimeout(3000);
+  let finishCheck, finishDownload;
+  h.controls.releaseReply = () => new Promise(resolve => {finishCheck = resolve;});
+  h.context.api.checkUpdate(true, true);
+  assert.equal(h.context.UPD.busy, true); assert.match(text(h.update), /Checking the current release/);
+  h.controls.nativeError = '';
+  h.controls.nativeReply = () => new Promise(resolve => {finishDownload = resolve;});
+  const retry = h.button('Retry download'); retry.attrs.onclick();
+  assert.match(text(h.update), /Downloading and verifying/);
+  await flush(); assert.equal(h.nativeCalls.length, 2);
+  retry.attrs.onclick(); await flush(); assert.equal(h.nativeCalls.length, 2, 'A second click cannot start a duplicate download');
+  finishCheck({tag_name: 'app-v0.3.10', assets: [{name: 'SuperconProgress-windows-x64-setup.exe', browser_download_url: 'https://example.org/fixed-fixture.exe'}]});
+  await flush(); assert.equal(h.context.UPD.busy, false); assert.match(text(h.update), /Downloading and verifying/);
+  finishDownload({version: '0.3.10', platform: 'windows', size: 123456, downloadId: '11111111-2222-4333-8444-555555555555'});
+  await flush(); assert.ok(h.button('Install update')); assert.equal(h.nativeCalls.length, 2);
+  assert.equal(h.browserOpens, 0);
+});
+
+test('download and native-busy failures can retry without another web release request', async () => {
+  for (const code of ['update_download_failed', 'update_integrity_failed', 'update_busy', 'update_unavailable']) {
+    const h = harness({desktop: true}); h.controls.nativeError = code;
+    await h.start(); await h.fireTimeout(3000);
+    assert.match(text(h.update), /retry|Try again/i);
+    h.controls.nativeError = ''; h.controls.releaseFailed = true;
+    const releaseChecks = h.releaseChecks;
+    h.button('Retry download').attrs.onclick();
+    assert.match(text(h.update), /Downloading and verifying/);
+    await flush(); assert.ok(h.button('Install update'));
+    assert.equal(h.nativeCalls.length, 2); assert.equal(h.releaseChecks, releaseChecks);
+  }
+});
+
+test('a changed published release refreshes once and downloads the new version', async () => {
+  const h = harness({desktop: true}); h.controls.nativeError = 'update_download_failed';
+  await h.start(); await h.fireTimeout(3000); h.controls.nativeError = '';
+  h.controls.nativeReply = (_command, args) => {
+    if (args.expectedVersion === '0.3.10') {
+      h.controls.releaseVersion = '0.3.11'; throw 'update_release_changed';
+    }
+    return {version: '0.3.11', platform: 'windows', size: 123456, downloadId: '11111111-2222-4333-8444-555555555555'};
+  };
+  h.button('Retry download').attrs.onclick(); await flush();
+  assert.equal(h.releaseChecks, 2); assert.equal(h.nativeCalls.length, 3);
+  assert.equal(h.context.UPD.download.version, '0.3.11'); assert.ok(h.button('Install update'));
+  assert.equal(h.context.UPD.launched, false);
+});
+
+test('cancelled installation confirmation keeps a verified download reusable', async () => {
+  const h = harness({desktop: true}); await h.start(); await h.fireTimeout(3000);
+  h.button('Install update').attrs.onclick(); h.button('Cancel').attrs.onclick();
+  assert.equal(h.context.UPD.installConfirm, false); assert.ok(h.button('Install update'));
+  assert.equal(h.nativeCalls.length, 1);
+  h.button('Install update').attrs.onclick(); h.button('Confirm installation').attrs.onclick(); await flush();
+  assert.equal(h.nativeCalls.length, 2); assert.match(text(h.update), /installer is open/);
+});
+
+test('malformed release metadata clears busy state and pending installers are not called current', async () => {
+  const h = harness({desktop: true}); await h.start(); await h.fireTimeout(3000);
+  h.controls.releaseReply = () => ({tag_name: 'app-v0.3.11', assets: null});
+  await h.context.api.checkUpdate(true, true); await flush();
+  assert.equal(h.context.UPD.busy, false); assert.match(text(h.foot), /Couldn’t verify/);
+  h.controls.releaseReply = null; h.controls.releaseVersion = '0.3.11'; h.controls.assetReady = false;
+  await h.context.api.checkUpdate(true, true); await flush();
+  assert.match(text(h.foot), /installer for this computer is still being prepared/);
+  assert.doesNotMatch(text(h.foot), /latest version/);
+});
+
+test('OAuth navigation to the web APP cannot invoke native updates and offers only a fixed local return', async () => {
+  for (const [platform, expected] of [['Win32', 'http://tauri.localhost/'], ['MacIntel', 'tauri://localhost/']]) {
+    const h = harness({desktop: true});
+    h.navigator.platform = platform;
+    Object.assign(h.context.window.location, {protocol: 'https:', hostname: 'diracmagic.github.io'});
+    await h.start(); await h.fireTimeout(3000);
+    assert.equal(h.nativeCalls.length, 0); assert.equal(h.releaseChecks, 0);
+    assert.equal(h.updateCalls, 0); assert.equal(h.fetchCalls, 0);
+    assert.match(text(h.update), /Sign-in opened the web version/);
+    assert.equal(h.button('Retry download'), undefined);
+    h.button('Return to installed app').attrs.onclick();
+    assert.deepEqual(h.localReturns, [expected]); assert.equal(h.browserOpens, 0);
+    h.context.api.checkUpdate(true, true); await flush(); assert.equal(h.releaseChecks, 0);
   }
 });

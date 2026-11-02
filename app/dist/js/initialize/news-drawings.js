@@ -57,32 +57,35 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
         disc(c, x, ys[0], 3.2 * k, C.accent); disc(c, x, ys[1], 3.2 * k, C.accent);
       }
     };
-    // Iron-based: iron square lattice, arsenic above and below, fluctuating stripe spins
+    // Iron-plane motif only; does not assume an As ligand or stripe-magnetic order.
     D.iron = function (c, C, W, H, t, k) {
       var s = 24 * k, nx = Math.floor(W / s) + 1, ny = Math.floor(H / s) + 1, ox = (W - (nx - 1) * s) / 2, oy = (H - (ny - 1) * s) / 2;
-      for (var i = 0; i < nx - 1; i++) for (var j = 0; j < ny - 1; j++) disc(c, ox + (i + 0.5) * s, oy + (j + 0.5) * s, ((i + j) % 2 ? 2.2 : 3.8) * k, stAlpha(C.muted, (i + j) % 2 ? 0.45 : 0.7));
-      for (i = 0; i < nx; i++) for (j = 0; j < ny; j++) {
-        var x = ox + i * s, y = oy + j * s, ang = (j % 2 ? 1 : -1) * Math.PI / 2 + 0.35 * Math.sin(TAU * t / 2.6 + i * 0.9 + j * 0.4), L = 13 * k;
-        disc(c, x, y, 2.6 * k, C.accent);
-        arrowHead(c, x - Math.cos(ang) * L / 2, y - Math.sin(ang) * L / 2, x + Math.cos(ang) * L / 2, y + Math.sin(ang) * L / 2, C.warm, 3.6 * k, 1.4);
+      c.translate(W / 2, H / 2); c.rotate(.035 * Math.sin(t / 3)); c.translate(-W / 2, -H / 2);
+      for (var i = 0; i < nx; i++) for (var j = 0; j < ny; j++) {
+        var x = ox + i * s, y = oy + j * s;
+        c.strokeStyle = C.axis; c.lineWidth = 1;
+        if (i + 1 < nx) seg(c, x, y, x + s, y);
+        if (j + 1 < ny) seg(c, x, y, x, y + s);
+        disc(c, x, y, 3 * k, C.accent);
       }
     };
-    // Hydrides: a hydrogen cage around a metal atom, squeezed between two diamond anvils
-    D.hydride = function (c, C, W, H, t, k) {
+    // Pressure apparatus: the central rectangle is a sample, not a guessed atomic cage.
+    D.pressure = function (c, C, W, H, t, k) {
       var sq = 0.5 + 0.5 * Math.sin(TAU * t / 4), cx = W / 2, cy = H / 2, gap = (16 + 6 * (1 - sq)) * k;
       c.fillStyle = stAlpha(C.accent, 0.16); c.strokeStyle = stAlpha(C.accent, 0.6); c.lineWidth = 1.2;
       [-1, 1].forEach(function (sd) {
         c.beginPath(); c.moveTo(cx - 26 * k, cy + sd * (gap + 22 * k)); c.lineTo(cx + 26 * k, cy + sd * (gap + 22 * k)); c.lineTo(cx + 8 * k, cy + sd * gap); c.lineTo(cx - 8 * k, cy + sd * gap); c.closePath(); c.fill(); c.stroke();
       });
-      var r = (13 - 2.5 * sq) * k;
-      for (var i = 0; i < 12; i++) {
-        var a = TAU * i / 12 + t * 0.4, ring = i % 2, rr = r * (ring ? 0.75 : 1);
-        var x = cx + Math.cos(a) * rr * 1.3 + 0.8 * k * Math.sin(t * 17 + i), y = cy + Math.sin(a) * rr * 0.75 + (ring ? -2 : 2) * k + 0.8 * k * Math.cos(t * 19 + i);
-        disc(c, x, y, 1.9 * k, C.accent);
-      }
-      disc(c, cx, cy, 4.6 * k, C.gold || C.warm);
+      c.fillStyle = C.warm; c.fillRect(cx - 12 * k, cy - 4 * k, 24 * k, 8 * k);
       c.strokeStyle = stAlpha(C.warm, 0.6 * sq); c.lineWidth = 1.4;
       [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (d) { arrowHead(c, cx + d[0] * 40 * k, cy + d[1] * (gap + 14 * k), cx + d[0] * 32 * k, cy + d[1] * (gap + 6 * k), stAlpha(C.warm, 0.7 * sq), 3.2 * k, 1.2); });
+    };
+    // Chemical building blocks, intentionally unbonded: no universal hydride cage exists.
+    D.hydride = function (c, C, W, H, t, k) {
+      var atoms = [[.2, .3], [.48, .24], [.75, .32], [.3, .68], [.65, .7]];
+      c.font = (10 * k) + 'px sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+      atoms.forEach(function (p, i) { var x = W * p[0], y = H * p[1] + 2 * k * Math.sin(t + i); disc(c, x, y, 9 * k, stAlpha(C.accent, .25)); c.fillStyle = C.ink; c.fillText('H', x, y); });
+      disc(c, W * .5, H * .49, 10 * k, C.warm); c.fillStyle = C.surface; c.fillText('M', W * .5, H * .49);
     };
     // Moiré and 2D: two triangular lattices twisted by a small, slowly changing angle
     D.moire = function (c, C, W, H, t, k) {
@@ -140,20 +143,15 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
       c.beginPath(); c.ellipse(cx, cy, L, L * 0.8, 0, 0, TAU); c.stroke(); c.setLineDash([]);
       disc(c, cx, cy, 2 * k, C.ink2);
     };
-    // Topological: a nanowire on a superconductor with Majorana modes glowing at its ends
+    // Candidate boundary/channel schematic; no observed Majorana mode is asserted.
     D.topo = function (c, C, W, H, t, k) {
       var y = H * 0.48, x0 = W * 0.14, x1 = W * 0.86, g = 0.6 + 0.4 * Math.sin(TAU * t / 2.4);
       c.fillStyle = stAlpha(C.accent, 0.18); c.fillRect(W * 0.06, y + 7 * k, W * 0.88, 14 * k);
       stRound(c, x0, y - 5 * k, x1 - x0, 10 * k, 5 * k); c.fillStyle = C.surface; c.fill(); c.strokeStyle = C.axis; c.lineWidth = 1.2; c.stroke();
-      c.beginPath();
-      for (var i = 0; i <= 60; i++) {
-        var u = i / 60, x = x0 + u * (x1 - x0), env = Math.exp(-u * 7) + Math.exp(-(1 - u) * 7), yy = y - 14 * k * env * g * (0.6 + 0.4 * Math.cos(u * 40));
-        if (i) c.lineTo(x, yy); else c.moveTo(x, yy);
-      }
-      c.strokeStyle = stAlpha(C.gold || C.warm, 0.8); c.lineWidth = 1.4; c.stroke();
-      halo(c, x0 + 4 * k, y, 10 * k * g, C.gold || C.warm, 0.8); halo(c, x1 - 4 * k, y, 10 * k * g, C.gold || C.warm, 0.8);
+      c.strokeStyle = stAlpha(C.warm, .4 + .3 * g); c.lineWidth = 2;
+      seg(c, x0, y - 9 * k, x1, y - 9 * k);
     };
-    // Electron–phonon: an electron pulls the ions together behind it; a partner rides the wake
+    // Electron–phonon coupling cartoon; not literal Cooper-pair trajectories.
     D.eph = function (c, C, W, H, t, k) {
       var s = 14 * k, nx = Math.ceil(W / s) + 1, rows = [H * 0.3, H * 0.7], ex = md(t * 22 * k, W + 40 * k) - 20 * k, ey = H / 2;
       rows.forEach(function (ry, ri) {
@@ -164,7 +162,6 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
       });
       c.fillStyle = stAlpha(C.warm, 0.12); c.fillRect(ex - 40 * k, rows[0], 40 * k, rows[1] - rows[0]);
       halo(c, ex, ey, 8 * k, C.accent, 0.6); disc(c, ex, ey, 3 * k, C.accent);
-      var px = ex - 26 * k; halo(c, px, ey, 7 * k, C.accent, 0.4); disc(c, px, ey, 2.6 * k, C.accent);
     };
     // Vortices and junctions: a lattice of swirling flux vortices
     D.vortex = function (c, C, W, H, t, k) {
@@ -227,22 +224,132 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
       c.beginPath(); c.moveTo(cx + w, my); c.lineTo(cx, my + w * 0.32); c.lineTo(cx, my + w * 1.6); c.lineTo(cx + w, my + w * 1.28); c.closePath(); c.fillStyle = mix(C.warm, '#000000', 0.2); c.fill();
     };
 
+    // Subject-specific diagrams reuse the original canvas palette and motion, not random artwork.
+    D.layered = function (c, C, W, H, t, k, count) {
+      count = count || 4;
+      for (var layer = 0; layer < count; layer++) {
+        var y = H * .23 + layer * H * .54 / (count - 1), shift = 2 * k * Math.sin(t / 3);
+        c.fillStyle = stAlpha(C.accent, .1 + .04 * layer); c.strokeStyle = C.accent; c.lineWidth = 1;
+        c.beginPath(); c.moveTo(W * .16 + shift, y); c.lineTo(W * .68 + shift, y); c.lineTo(W * .84 + shift, y - 9 * k); c.lineTo(W * .32 + shift, y - 9 * k); c.closePath(); c.fill(); c.stroke();
+      }
+    };
+    D['layered-six'] = function (c, C, W, H, t, k) { D.layered(c, C, W, H, t, k, 6); };
+    D.stripes = function (c, C, W, H, t, k) {
+      for (var i = 0; i < 8; i++) for (var j = 0; j < 5; j++) {
+        var a = .25 + .65 * (1 + Math.cos(i * Math.PI / 2)) / 2;
+        disc(c, W * .12 + i * 12 * k, H * .18 + j * 13 * k, (2 + a) * k, stAlpha(C.accent, a));
+      }
+      c.strokeStyle = stAlpha(C.warm, .7); c.lineWidth = 2;
+      var scan = W * (.12 + .76 * md(t / 5, 1)); seg(c, scan, H * .1, scan, H * .88);
+    };
+    D.literature = function (c, C, W, H, t, k) {
+      for (var i = 2; i >= 0; i--) {
+        var x = W * .12 + i * 4 * k, y = H * .18 + i * 4 * k;
+        c.fillStyle = C.surface; c.strokeStyle = C.axis; c.lineWidth = 1;
+        c.fillRect(x, y, 33 * k, 43 * k); c.strokeRect(x, y, 33 * k, 43 * k);
+        for (var line = 0; line < 4; line++) { c.strokeStyle = line === Math.floor(md(t, 4)) ? C.warm : C.accent; seg(c, x + 6 * k, y + (10 + line * 8) * k, x + 27 * k, y + (10 + line * 8) * k); }
+      }
+      arrowHead(c, W * .55, H * .5, W * .68, H * .5, C.warm, 3 * k, 1.2);
+      c.strokeStyle = C.accent;
+      for (i = 0; i < 3; i++) { c.strokeRect(W * .72, H * .25 + i * 16 * k, 20 * k, 10 * k); disc(c, W * .76, H * .31 + i * 16 * k, 1.5 * k, C.warm); }
+    };
+    D.features = function (c, C, W, H, t, k) {
+      var centers = [[.24, .32], [.7, .28], [.48, .72]];
+      c.strokeStyle = C.grid; c.lineWidth = 1;
+      centers.forEach(function (p, i) { var q = centers[(i + 1) % 3]; seg(c, p[0] * W, p[1] * H, q[0] * W, q[1] * H); });
+      centers.forEach(function (p, group) {
+        for (var i = 0; i < 7; i++) { var a = i * 2.4, r = (5 + i) * k; disc(c, p[0] * W + Math.cos(a) * r, p[1] * H + Math.sin(a) * r, 2 * k, group === 1 ? C.warm : C.accent); }
+        c.beginPath(); c.arc(p[0] * W, p[1] * H, (15 + Math.sin(t + group)) * k, 0, TAU); c.strokeStyle = stAlpha(C.accent, .5); c.stroke();
+      });
+    };
+    D.graph = function (c, C, W, H, t, k) {
+      var points = [[.2, .3], [.45, .18], [.7, .32], [.28, .72], [.57, .68], [.82, .6]], edges = [[0, 1], [1, 2], [0, 3], [1, 4], [2, 5], [3, 4], [4, 5]];
+      edges.forEach(function (edge, i) { var p = points[edge[0]], q = points[edge[1]], phase = md(t / 2 + i / edges.length, 1); c.strokeStyle = C.axis; c.lineWidth = 1.4; seg(c, p[0] * W, p[1] * H, q[0] * W, q[1] * H); disc(c, (p[0] + phase * (q[0] - p[0])) * W, (p[1] + phase * (q[1] - p[1])) * H, 2 * k, C.warm); });
+      points.forEach(function (p) { disc(c, p[0] * W, p[1] * H, 4 * k, C.accent); });
+    };
+    D.search = function (c, C, W, H, t, k) {
+      for (var i = 0; i < 6; i++) {
+        var x = W * .12 + (i % 3) * 31 * k, y = H * .22 + Math.floor(i / 3) * 29 * k;
+        c.strokeStyle = i === Math.floor(md(t, 6)) ? C.warm : C.axis; c.lineWidth = i === Math.floor(md(t, 6)) ? 2.2 : 1;
+        c.strokeRect(x, y, 23 * k, 21 * k);
+        disc(c, x + 8 * k, y + 7 * k, 2 * k, C.accent); disc(c, x + 16 * k, y + 14 * k, 2 * k, C.accent);
+      }
+    };
+    D.measurement = function (c, C, W, H, t, k) {
+      c.fillStyle = C.accent; c.fillRect(W * .2, H * .55, W * .6, 10 * k);
+      c.strokeStyle = C.axis; c.lineWidth = 1.4;
+      [.25, .4, .6, .75].forEach(function (x, i) { seg(c, W * x, H * .55, W * x, H * (i === 0 || i === 3 ? .75 : .35)); disc(c, W * x, H * .55, 2.2 * k, C.warm); });
+      c.beginPath(); c.arc(W / 2, H * .29, 12 * k, 0, TAU); c.stroke();
+      var angle = -.8 + .3 * Math.sin(t); seg(c, W / 2, H * .29, W / 2 + 9 * k * Math.sin(angle), H * .29 - 9 * k * Math.cos(angle));
+    };
+    D.spectrum = function (c, C, W, H, t, k) {
+      c.strokeStyle = C.axis; c.lineWidth = 1; seg(c, W * .14, H * .78, W * .88, H * .78); seg(c, W * .14, H * .78, W * .14, H * .18);
+      c.strokeStyle = C.accent; c.lineWidth = 1.7; c.beginPath();
+      for (var i = 0; i <= 60; i++) { var u = i / 60, height = .12 + .4 * Math.exp(-Math.pow((u - .3) / .1, 2)) + .3 * Math.exp(-Math.pow((u - .68) / .14, 2)), x = W * (.15 + .72 * u), y = H * (.78 - height); if (i) c.lineTo(x, y); else c.moveTo(x, y); } c.stroke();
+      var scan = W * (.15 + .72 * md(t / 5, 1)); c.strokeStyle = C.warm; seg(c, scan, H * .2, scan, H * .78);
+    };
+    D.light = function (c, C, W, H, t, k) {
+      c.fillStyle = C.accent; c.fillRect(W * .64, H * .24, 15 * k, H * .55);
+      c.strokeStyle = C.warm; c.lineWidth = 1.5; c.beginPath();
+      for (var i = 0; i <= 60; i++) { var u = i / 60, x = W * (.1 + .5 * u), y = H * .5 + 9 * k * Math.sin(u * 20 - t * 5); if (i) c.lineTo(x, y); else c.moveTo(x, y); } c.stroke();
+      arrowHead(c, W * .52, H * .5, W * .63, H * .5, C.warm, 4 * k, 1.5);
+    };
+    D.junction = function (c, C, W, H, t, k) {
+      c.fillStyle = stAlpha(C.accent, .4); c.fillRect(W * .17, H * .28, W * .29, H * .44); c.fillRect(W * .54, H * .28, W * .29, H * .44);
+      c.fillStyle = C.axis; c.fillRect(W * .48, H * .28, W * .04, H * .44);
+      disc(c, W * (.28 + .44 * md(t / 3, 1)), H * .5, 3 * k, C.warm);
+    };
+    D.interval = function (c, C, W, H, t, k) {
+      for (var i = 0; i < 4; i++) { var y = H * (.22 + i * .19), x = W * (.35 + i * .1), width = (12 + i * 4) * k; c.strokeStyle = C.accent; c.lineWidth = 2; seg(c, x - width, y, x + width, y); seg(c, x - width, y - 4 * k, x - width, y + 4 * k); seg(c, x + width, y - 4 * k, x + width, y + 4 * k); disc(c, x, y, (2.5 + .5 * Math.sin(t + i)) * k, C.warm); }
+    };
+    D.routing = function (c, C, W, H, t, k) {
+      c.strokeStyle = C.axis; c.lineWidth = 1.4;
+      [[.2, .5, .48, .5], [.48, .5, .76, .25], [.48, .5, .76, .75]].forEach(function (p) { seg(c, W * p[0], H * p[1], W * p[2], H * p[3]); });
+      [[.2, .5], [.48, .5], [.76, .25], [.76, .75]].forEach(function (p, i) { disc(c, W * p[0], H * p[1], (i ? 5 : 4) * k, i === 2 + Math.floor(md(t / 2, 2)) ? C.warm : C.accent); });
+    };
+    D['two-stage'] = function (c, C, W, H, t, k) {
+      D.routing(c, C, W, H, t, k);
+      c.font = (8 * k) + 'px sans-serif'; c.textAlign = 'center'; c.fillStyle = C.ink;
+      c.fillText('SC score', W * .47, H * .37); c.fillText('Tc', W * .77, H * .12); c.fillText('low score', W * .75, H * .92);
+    };
+    D.tree = function (c, C, W, H, t, k) {
+      var points = [[.5, .18], [.28, .43], [.72, .43], [.14, .76], [.41, .76], [.6, .76], [.86, .76]];
+      for (var i = 1; i < points.length; i++) { var parent = points[Math.floor((i - 1) / 2)], child = points[i]; c.strokeStyle = C.axis; c.lineWidth = 1.3; seg(c, W * parent[0], H * parent[1], W * child[0], H * child[1]); }
+      points.forEach(function (p, i) { disc(c, W * p[0], H * p[1], 4 * k, i === Math.floor(md(t, 7)) ? C.warm : C.accent); });
+    };
+
     var ALT = {
       cuprate: 'Idealised CuO₂-plane fragment: a square copper net with oxygen at link midpoints. Only the viewing angle changes; this is not a complete crystal or measured motion.',
       nickelate: 'Idealised section of a bilayer nickelate, with Ni–O–Ni bridges. The view moves; no pairing mechanism or measured atomic motion is implied.',
-      iron: 'An iron square lattice with arsenic above and below and fluctuating stripe-ordered spins.',
-      hydride: 'A cage of hydrogen atoms around a metal atom, squeezed between two diamond anvils.',
+      iron: 'Idealised iron-plane square net. The viewing angle changes; no ligand, magnetic order or pairing mechanism is specified.',
+      hydride: 'Hydride chemical building blocks: hydrogen and a metal, shown unbonded. Positions do not reconstruct a crystal or imply a hydrogen cage or pressure.',
+      pressure: 'Qualitative diamond-anvil pressure apparatus with a sample between the tips. No crystal topology, pressure value or measured transition is depicted.',
       moire: 'Two atomic lattices twisted by a small angle, forming a slowly changing moiré pattern.',
       kagome: 'Idealised kagome plane with corner-sharing triangles and hexagonal holes. The view rotates; no charge-density wave or measured motion is implied.',
-      heavy: 'Light electrons slow down and gather clouds around large f-electron moments.',
-      triplet: 'A rotating p-wave orbital carrying two parallel spins.',
-      topo: 'A nanowire on a superconductor with Majorana modes glowing at its two ends.',
-      eph: 'An electron pulls the ions together behind it and a second electron rides in the wake.',
+      heavy: 'Qualitative heavy-electron dressing cartoon with local moments. Not particle trajectories or a claim about the article’s pairing state.',
+      triplet: 'Illustration of one proposed triplet-pairing component: parallel spins with an odd-parity orbital. This does not establish triplet pairing in the article’s material.',
+      topo: 'Qualitative boundary/channel motif for a topological candidate. This is not evidence of a Majorana mode or a reconstructed device.',
+      eph: 'Classical electron–lattice coupling cartoon. Ionic response is exaggerated; this is not a Cooper-pair trajectory or a measured vibration.',
       vortex: 'A triangular lattice of swirling magnetic-flux vortices.',
       ai: 'A crystal structure feeds a small neural network whose layers light up in turn.',
       qubit: 'A cross-shaped superconducting qubit beside a Bloch circle whose arrow swings back and forth.',
       general: 'A magnet floating above a cold superconductor, the Meissner effect.',
-      research: 'An animated research-paper icon. No material structure, measurement or superconducting discovery is asserted.'
+      research: 'An animated research-paper icon. No material structure, measurement or superconducting discovery is asserted.',
+      layered: 'Layered-material schematic with four illustrative sheets. The sheet count and spacing are not the article’s measured structure; no twist is implied.',
+      'layered-six': 'Six graphene layers, matching the layer count named in the article. Spacing and viewing angle are schematic; no twist, atomic stacking registry or measured motion is implied.',
+      stripes: 'Qualitative lattice-model/stripe-analysis motif. Site shading illustrates a possible modulation, not a measured density, established ground state or electron motion.',
+      literature: 'Literature-processing schematic: papers are read into structured records. No crystal structure or experimental discovery is implied.',
+      features: 'Illustrative clusters and links in a learned feature space. These points are not actual embeddings or measured material data.',
+      graph: 'Message passing on an illustrative graph. Node positions are not crystallographic coordinates and moving markers represent computation.',
+      search: 'Candidate-search schematic: alternative proposals are examined in turn. The symbols are not generated or synthesized crystal structures.',
+      measurement: 'Illustrative sample contacts and measurement meter. No measured trace, transition temperature or successful result is shown.',
+      spectrum: 'Qualitative spectroscopy/response-analysis schematic. The curve is illustrative, not measured or digitised article data.',
+      light: 'Qualitative incident electromagnetic wave and sample. No wavelength, timescale or measured sample response is specified.',
+      junction: 'Qualitative weak-link schematic between two electrodes. The moving marker is illustrative, not a literal pair trajectory.',
+      interval: 'Illustrative prediction intervals around model estimates. Their lengths are not the paper’s numerical intervals or a coverage measurement.',
+      routing: 'Model-routing schematic: an input follows one of two model branches. This is not an accuracy or mechanism claim.',
+      'two-stage': 'Two-stage prediction schematic: an SC catalog-label score and a conditional Tc estimate. The score is not a universally calibrated probability.',
+      tree: 'Illustrative decision-tree branches used in a boosted-tree model. Not a neural network or a rendering of the fitted tree.'
     };
     Object.keys(D).forEach(function (kind) {
       MINI_DRAW['news-' + kind] = guard(D[kind]);

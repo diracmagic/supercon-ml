@@ -129,7 +129,7 @@
       clear(aiList); clear(aiMore);
       var aiRows = RECENT.filter(function (r) { return list(r.cards).indexOf('ai') >= 0; }).slice().sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
       (paperState.aiAdvAll ? aiRows : aiRows.slice(0, 8)).forEach(function (r) {
-        aiList.appendChild(h('li', { class: 'ai-selected-item' }, h('div', { class: 'news-art' }, miniCanvas('news-ai'), h('span', { class: 'news-art-caption', text: 'Illustration' })),
+        aiList.appendChild(h('li', { class: 'ai-selected-item' }, h('div', { class: 'news-art' }, miniCanvas(aiArticleArt({ title: r.h, summary: r.x, ai_kind: r.k === 'experiment' ? 'experiment' : '' })), h('span', { class: 'news-art-caption', text: 'Schematic' })),
           h('div', { class: 'news-body' }, h('p', { class: 'adv-meta' }, h('span', { text: fmtMonth(r.d) }), h('span', { class: 'kind kind-' + r.k, text: KIND_LABEL[r.k] || r.k })),
             richText(h('h3'), r.h), richText(h('p', { class: 'adv-text' }), r.x), h('p', { class: 'adv-ref' }, recentLink(r)))));
       });
@@ -174,7 +174,7 @@
       var meta = h('p', { class: 'paper-meta' }, h('span', { class: 'src src-news', text: n.source }), h('span', { text: fmtDayISO(n.date) }));
       list(n.topics).forEach(function (t) { meta.appendChild(h('span', { class: 'topic', text: t })); });
       ol.appendChild(h('li', { class: 'news-item' },
-        h('div', { class: 'news-art' }, miniCanvas(newsArt(n))),
+        h('div', { class: 'news-art' }, miniCanvas(newsArt(n)), h('span', { class: 'news-art-caption', text: 'Schematic' })),
         h('div', { class: 'news-body' }, meta, h('h3', null, h('a', { href: n.url, text: n.title })), n.summary ? h('p', { class: 'paper-intro', text: n.summary }) : null)));
     });
     miniKick();

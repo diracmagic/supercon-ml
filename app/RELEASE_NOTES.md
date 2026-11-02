@@ -1,5 +1,12 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.13 adds:
+
+- **Responsive update retries:** Retry download immediately starts the verified download inside the APP, even when a background release check is active. Checking, download failures and installers still being prepared have visible status messages; installation still requires confirmation.
+- **Return after web sign-in:** if sign-in leaves a desktop window on the hosted web APP, a clear button returns to the installed home screen before updating. Remote pages do not gain native updater permissions.
+- **GitHub sign-in retry guidance:** temporary GitHub rate limits have bounded waiting guidance, and the sign-in service observes a cooldown before requesting another exchange. Account permissions remain unchanged.
+- **Distinct News illustrations:** restores animated material and method motifs instead of repeated placeholders. Literature extraction, graph models, candidate searches, spectroscopy, pressure, layered materials and model uncertainty use separate labelled schematics; no measured data or unverified crystal structure is invented.
+
 Version 0.3.12 adds:
 
 - **Notes by update date:** newest substantive updates appear first, grouped by day; publication dates and review dates remain separate. Experimental evidence is highlighted with its conditions and limitations. Daily literature review continues at 09:00 America/Chicago.

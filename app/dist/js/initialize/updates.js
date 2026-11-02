@@ -14,7 +14,10 @@ const initializeSuperconUpdates = function initializeSuperconUpdates() {
   UPD_EVERY = 15 * 60 * 1000;
   UPD_LATER = 3 * 24 * 3600 * 1000;
 
-  if (isDesktop()) {
+  if (window.__TAURI__ || window.__TAURI_INTERNALS__) {
+    // OAuth can leave a native window on the public web APP. Its bridge object
+    // is not authorization: only the bundled local origin may invoke updates.
+    if (!isDesktop()) { UPD.returnToApp = true; renderUpdate(); return; }
     var lastDesktop = 0;
     function pollDesktop() {
       if (UPD.busy || document.visibilityState !== 'visible' || navigator.onLine === false || Date.now() - lastDesktop < UPD_EVERY) return;

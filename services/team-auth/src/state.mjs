@@ -1,7 +1,8 @@
 import { AuthError, boundedJson, demand, equalSecret, plainObject, sha256 } from './security.mjs';
 
-// One unguessable transaction, ticket or session per DO. These methods are only
-// reachable through the binding; the public Worker never forwards paths here.
+// One unguessable transaction, ticket or session per DO, plus one fixed
+// credential-free provider cooldown object. Only binding calls reach these
+// methods; the public Worker never forwards paths here.
 export class AuthState {
   constructor(state) { this.storage = state.storage; }
   async fetch(request) {
@@ -10,7 +11,17 @@ export class AuthState {
     demand(plainObject(input) && Number.isSafeInteger(input.now), 'invalid_request');
     const operation = new URL(request.url).pathname;
     let result;
-    if (operation === '/create') {
+    if (operation === '/cooldown') {
+      // One fixed provider-wide object stores only a deadline, never OAuth
+      // credentials or response text. Concurrent failures may extend, not shorten it.
+      demand(input.until === undefined || (Number.isSafeInteger(input.until) && input.until > input.now && input.until <= input.now + 86400000), 'invalid_request');
+      result = await this.storage.transaction(async transaction => {
+        const previous = await transaction.get('cooldownUntil');
+        const until = Math.max(Number.isSafeInteger(previous) ? previous : 0, input.until || 0);
+        if (input.until !== undefined && until !== previous) await transaction.put('cooldownUntil', until);
+        return until > input.now ? until : 0;
+      });
+    } else if (operation === '/create') {
       demand(plainObject(input.record) && Number.isSafeInteger(input.record.expiresAt) && input.record.expiresAt > input.now, 'invalid_request');
       result = await this.storage.transaction(async transaction => {
         if (await transaction.get('record')) return false;
