@@ -587,7 +587,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "2113c01a189f3e02f31a0ac4593b0f9fd5cea113624840e9f9ee1b6536262690",
+    "59c346d719865fcb3637e9c6636f66f4abd5e176149ae3f29c6d3a2f7c893188",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -840,7 +840,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-01",
-    "purpose": "Release 0.3.14: show authenticated team presence with explicit freshness limits, monotonic snapshots and revoked-member filtering; keep invitation password setup and email sign-in inside the existing account dialog; return hosted Firebase password flows to a fixed email sign-in form without automatic authentication or exposing credentials or private membership to anonymous users.",
+    "purpose": "Release 0.3.15: begin desktop team authentication on the fixed hosted APP origin in the same window, before creating a GitHub proof or accepting email credentials. Preserve PKCE state validation, exact service CORS and local-only native updater permissions; forward no credentials or caller-controlled return URLs",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -868,6 +868,9 @@
       "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
       "native fixed-repository installer selection and SHA-256 verification",
       "explicit installation confirmation and no browser download fallback",
+      "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+      "native fixed-repository installer selection and SHA-256 verification",
+      "explicit installation confirmation and no browser download fallback",
       "bounded allowlisted sign-in retry diagnostics without reflecting provider text"
     ],
     "functions_changed": [],
@@ -875,7 +878,7 @@
       0
     ],
     "additional_source_sha256": {
-      "team-auth.js": "916b9227994c74e8d101f6a4d0254735b8f9eee092f1bdb03a7e4a826f5403b3",
+      "team-auth.js": "222da26589af3b328cc6861d9abd6b4d41e53ba2c9d0ded0e39a346d2b71ca57",
       "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
       "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
       "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
@@ -886,7 +889,7 @@
     },
     "previous_function_changes": {},
     "previous_initialization_changes": {
-      "0": "4d2b1ce8e2aa05a7a6b4b4e635288161517b5086c0ee46d6b19aaa4e56dd6d4d"
+      "0": "2113c01a189f3e02f31a0ac4593b0f9fd5cea113624840e9f9ee1b6536262690"
     }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -898,7 +901,7 @@
     "team-board.css"
   ],
   "additional_source_sha256": {
-    "team-auth.js": "916b9227994c74e8d101f6a4d0254735b8f9eee092f1bdb03a7e4a826f5403b3",
+    "team-auth.js": "222da26589af3b328cc6861d9abd6b4d41e53ba2c9d0ded0e39a346d2b71ca57",
     "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
     "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
     "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
@@ -952,7 +955,12 @@
       "path": "review-history-09.json",
       "sha256": "e22e2922c60083f1a16e01a029aa21544e2a5c432bbdd677d35328f1481593a5",
       "count": 1
+    },
+    {
+      "path": "review-history-10.json",
+      "sha256": "3e047bdfb9e651b97af70ed58df2d6bf9773281b07c8d57361613c7c0b6ba708",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 13
+  "reviewed_revision_count": 14
 }
