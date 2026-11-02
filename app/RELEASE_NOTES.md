@@ -1,5 +1,9 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.19 adds:
+
+- **Animated unsupervised results:** replaces the highlight-only view with a step-by-step animation of the audited Storm 7 and Hurricane 8 results. The underlying audited values remain fixed during animation. No new model was adopted.
+
 Version 0.3.18 adds:
 
 - **Unsupervised results:** Physics demos now presents the audited Storm 7 and Hurricane 8 experiment results. Neither experiment established a substantive improvement. No new model was adopted, and Hurricane 4.0 remains in use.

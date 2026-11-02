@@ -105,8 +105,10 @@
       h('button', { class: 'btn', type: 'button', id: 'rad-play', onclick: function () { demo.radPlay = !demo.radPlay; syncControls(); kick(); } }),
       h('span', { class: 'demo-readout', id: 'rad-readout' }));
     var unsupRow = h('div', { class: 'demo-controls', id: 'demo-unsup-row' },
+      h('button', { class: 'btn icon-only', type: 'button', id: 'unsup-prev', 'aria-label': 'Previous result', title: 'Previous result', onclick: function () { goUnsupervisedStep(demo.unsupStage - 1); } }),
       h('button', { class: 'btn', type: 'button', id: 'unsup-play', onclick: function () { demo.unsupPlay = !demo.unsupPlay; syncControls(); kick(); } }),
-      h('span', { class: 'demo-readout', text: 'Completed comparison / no new model adopted' }));
+      h('button', { class: 'btn icon-only', type: 'button', id: 'unsup-next', 'aria-label': 'Next result', title: 'Next result', onclick: function () { goUnsupervisedStep(demo.unsupStage + 1); } }),
+      h('span', { class: 'demo-readout', id: 'unsup-readout' }));
     var caption = h('p', { class: 'demo-caption', id: 'demo-caption' });
     var zoo = h('div', { class: 'zoo', id: 'demo-zoo' });
     var refs = h('div', { class: 'demo-refs', id: 'demo-refs' });
@@ -118,6 +120,8 @@
     ]);
     $('#story-prev').innerHTML = G.prev;
     $('#story-next').innerHTML = G.next;
+    $('#unsup-prev').innerHTML = G.prev;
+    $('#unsup-next').innerHTML = G.next;
     demo.canvas = canvas;
     demo.ctx = canvas.getContext('2d');
     canvas.addEventListener('pointermove', function (e) {
@@ -285,8 +289,11 @@
     renderRefs($('#demo-refs'), d.story ? STORY[demo.scene].refs : d.model ? MODEL_REFS[demo.modelVariant] || d.refs : d.id === 'allen-dynes' && demo.predMode !== 'formula' ? (demo.predMode === 'storm' ? d.stormRefs : d.hurRefs) || d.refs : d.refs);
     if (d.unsupervised) renderUnsupervisedReferences($('#demo-refs'));
     var up = $('#unsup-play');
-    up.textContent = demo.unsupPlay ? 'Pause highlights' : 'Play highlights';
+    up.innerHTML = demo.unsupPlay ? G.pause : G.play;
+    up.appendChild(document.createTextNode(demo.unsupPlay ? 'Pause animation' : 'Play animation'));
     up.hidden = !motionOK();
+    $('#unsup-prev').hidden = !motionOK(); $('#unsup-next').hidden = !motionOK();
+    $('#unsup-readout').textContent = motionOK() ? 'Result ' + (demo.unsupStage + 1) + ' of 4 / ' + ['Storm: Tc error', 'Hurricane: ranking', 'Hurricane: recall', 'Conclusion'][demo.unsupStage] : 'Complete audited results / motion reduced';
     var walk = d.id === 'allen-dynes' && demo.predMode !== 'formula';
     [].forEach.call(document.querySelectorAll('#pred-seg button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-pred') === demo.predMode ? 'true' : 'false'); });
     $('#pred-sliders').hidden = walk;
@@ -380,6 +387,10 @@
     demo.last = ts;
     demo.clock += dt;
     var d = demoDef();
+    if (d.unsupervised && demo.unsupPlay && moving) {
+      demo.unsupT += dt;
+      if (demo.unsupT >= 8) { demo.unsupStage = (demo.unsupStage + 1) % 4; demo.unsupT = 0; syncControls(); }
+    }
     if (d.story && demo.storyPlay && moving) {
       demo.sceneT += dt;
       if (demo.sceneT >= STORY[demo.scene].dur) { demo.scene = (demo.scene + 1) % STORY.length; demo.sceneT = 0; syncControls(); }
