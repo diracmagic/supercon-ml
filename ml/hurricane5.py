@@ -647,6 +647,7 @@ def update_progress(out: dict, progress: Path) -> None:
     bg = out["background"]
     entry = {
         "version": ver, "round": ROUND, "date": stamp[:10], "status": "adopted" if out["adopted"] else "experimental",
+        "data": out["data"],
         "summary": f"{best['name']}, {best['settings']}",
         "changes": out["changes"], "spec": out["spec"], "rule": out["rule"],
         "scores": {"tc_mae": r2(sc["tc_mae"]), "folds": [r2(x) for x in sc["fold_mae"]],
@@ -705,8 +706,7 @@ def update_progress(out: dict, progress: Path) -> None:
     cur = released[-1] if released else None
     block = dict(reg)
     block.update({"name": H.MODEL, "current": cur["version"] if cur else None, "versions": versions})
-    if out["adopted"]:
-        block["data"] = out["data"]
+    block["data"] = cur.get("data", reg.get("data", {})) if cur else {}
     prog["hurricane"] = block
     if out["adopted"]:
         d = out["data"]

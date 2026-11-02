@@ -18,6 +18,7 @@
   const buildLearn = function buildLearn() {
     var el = $('#learn');
     clear(el);
+    el.appendChild(h('p', { class: 'note learn-note', text: 'Animations simplify structures and physical ideas. Their curves illustrate trends; they are not digitised experimental measurements. Reported temperatures and conditions are identified separately and linked to their sources.' }));
     var chartCard = h('section', { class: 'card' });
     var toggle = h('button', { class: 'btn small', type: 'button', id: 'tc-toggle', onclick: function () { learn.table = !learn.table; renderTcChart(); } });
     append(chartCard, [

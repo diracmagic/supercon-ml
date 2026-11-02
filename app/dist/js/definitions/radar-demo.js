@@ -37,7 +37,7 @@
       case 1:
         var sr = v.search || {};
         return 'An AI agent (Claude) proposed ' + (sr.candidates || 'several') + ' designs in round ' + v.round + ': which inputs to use (Hurricane’s physics features, the crystal structure, element shares), balanced classes, a seed average and calibrated probabilities. ' +
-          'Each was scored with five-fold cross-validation that holds out whole parent compounds, using the log loss, which punishes confident mistakes. ' +
+          'Each was scored with five-fold cross-validation that holds out whole Materials Project chemical-system groups, using the log loss, which punishes confident mistakes. ' +
           (ok ? 'The best beat the composition-only baseline in ' + sc.folds_better + ' of ' + nf + ' folds and became ' + name + '.'
             : 'A design is released only if it beats the baseline on average and in at least 4 of 5 folds; none did, so ' + name + ' stays experimental.');
       case 2:
@@ -53,7 +53,7 @@
         var hyd = toS.some(function (k) { return k.family === 'hydride'; });
         var kagM = kag.length && kag.every(function (k) { return k.model === kag[0].model; }) ? kag[0].model : '';
         return 'Graded materials, each with its probability of an unconventional family from a Radar that never saw it' +
-          (kn.some(function (k) { return k.in_training; }) ? ' (those also in its training data are scored out of fold, with their parent compound held out)' : '') + '. ' +
+          (kn.some(function (k) { return k.in_training; }) ? ' (those also in its training data are scored out of fold, with their chemical-system group held out)' : '') + '. ' +
           (toH.length ? 'It sends ' + radAnd(toH.slice(0, 4).map(nm)) + ' to Hurricane' : '') +
           (toS.length ? (toH.length ? ', and ' : 'It sends ') + toS.length + ' graded conventional superconductors' + (hyd ? ' and hydrides' : '') + (ends ? ', from aluminium to MgB₂ and Nb₃Sn,' : '') + ' to Storm' : '') + '. ' +
           (oddS.length ? radAnd(oddS.map(nm)) + (oddS.length > 1 ? ' go' : ' goes') + ' to Hurricane instead. ' : '') +
@@ -62,7 +62,7 @@
             '; whether their pairing is unconventional is still debated, which makes them a test case for comparing what the two models predict.' :
             kag.length ? 'The kagome metals split: ' + radAnd(kag.map(function (k) { return hurShortName(k.name) + ' to ' + k.model; })) + '; whether their pairing is unconventional is still debated.' : '');
       case 3:
-        return 'For parent compounds it never saw, ' + name + ' picks the right model ' + radPct(sc.balanced_accuracy) + ' of the time (balanced accuracy), against ' +
+        return 'On held-out chemical-system groups, ' + name + ' has balanced accuracy ' + radPct(sc.balanced_accuracy) + ', against ' +
           radPct(sc.reference_balanced_accuracy) + ' for gradient boosting on the composition alone. It sends ' + radPct(sc.to_hurricane) + ' of unconventional entries to Hurricane and ' +
           radPct(sc.to_storm) + ' of conventional ones to Storm' + (typeof sc.ece === 'number' ? ', and its probabilities are well calibrated: when it says 90%, it is right about 90% of the time (calibration error ' + (100 * sc.ece).toFixed(1) + ' points)' : '') + '.';
       default:
@@ -264,7 +264,7 @@
   /* 3 · how often each class goes to the right model */
   const drawRadCheck = function drawRadCheck(c, C, B, t, narrow, info) {
     var sc = info.v.scores || {}, bc = sc.by_class || {};
-    stormHeader(c, C, B, 'Right model ' + radPct(sc.balanced_accuracy) + ' of the time', narrow ? '' : 'parent compounds held out; composition only: ' + radPct(sc.reference_balanced_accuracy));
+    stormHeader(c, C, B, 'Balanced accuracy ' + radPct(sc.balanced_accuracy), narrow ? '' : 'chemical-system groups held out; composition only: ' + radPct(sc.reference_balanced_accuracy));
     var keys = RAD_UNCONV.concat(RAD_CONV).filter(function (k) { return bc[k]; });
     var rh = Math.min(narrow ? 40 : 44, (B.h - 60) / Math.max(1, keys.length)), nameW = narrow ? 118 : 200, bx = B.x + nameW, bw = B.w - nameW - 70, y0 = B.y + 32;
     keys.forEach(function (k, i) {

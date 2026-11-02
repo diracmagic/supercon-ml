@@ -4,8 +4,10 @@ import { readMemo, verifyMemoAccess } from './memo.mjs';
 import { createFirebaseClient, firebaseConfigured, normalizeEmail } from './firebase.mjs';
 import { normalizeMemberName, teamAccess } from './team.mjs';
 import { createInstallationReader } from './installation.mjs';
+import { boardAccess, normalizeBoardBody } from './board.mjs';
 export { AuthState } from './state.mjs';
 export { TeamDirectory } from './team.mjs';
+export { TeamBoardDO } from './board.mjs';
 
 const COOKIE = '__Host-supercon_oauth';
 const TEN_MINUTES = 600000, FIVE_MINUTES = 300000, ONE_HOUR = 3600000;
@@ -14,7 +16,7 @@ const PROVIDER_ERRORS = new Map([['incorrect_client_credentials', 'oauth_credent
 const PROVIDER_HTTP_STATUSES = new Set([301, 302, 303, 307, 308, 400, 401, 403, 404, 429, 500, 502, 503, 504]);
 const httpDiagnostic = status => PROVIDER_HTTP_STATUSES.has(status) ? 'provider_http_' + status : 'provider_http_other';
 const CALLBACK_DIAGNOSTICS = new Set(['callback_parameters', 'callback_state', 'code_invalid', 'provider_bad_code', 'transaction_storage', 'provider_denied', 'provider_credentials', 'provider_redirect', 'provider_transport', 'provider_response_json', 'provider_http_other', ...[...PROVIDER_HTTP_STATUSES].map(httpDiagnostic), 'provider_grant_error_unknown', 'provider_email_unverified', 'provider_token_format', 'provider_token_type', 'provider_expiry', 'provider_identity', 'ticket_encryption', 'ticket_storage', 'unexpected']);
-const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/email/action', 'GET'], ['/auth/exchange', 'POST'], ['/auth/firebase', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/api/team', 'GET'], ['/api/team/invite', 'POST'], ['/api/team/revoke', 'POST'], ['/api/team/name', 'POST'], ['/auth/logout', 'POST']]);
+const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/email/action', 'GET'], ['/auth/exchange', 'POST'], ['/auth/firebase', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/api/board', 'GET, POST'], ['/api/team', 'GET'], ['/api/team/invite', 'POST'], ['/api/team/revoke', 'POST'], ['/api/team/name', 'POST'], ['/auth/logout', 'POST']]);
 const cookie = (value, expiry = 600) => COOKIE + '=' + value + '; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=' + expiry;
 function cookieValue(request) {
   const matches = (request.headers.get('cookie') || '').split(';').map(value => value.trim()).filter(value => value.startsWith(COOKIE + '='));
@@ -88,7 +90,7 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
     demand(token, 'invalid_session', 401);
     const record = await stateAccess(env, 'session', token, 'get', now());
     demand(record && record.kind === 'session', 'invalid_session', 401);
-    if (record.provider === 'firebase' && ['/api/session', '/api/memo'].includes(new URL(request.url).pathname)) {
+    if (record.provider === 'firebase' && ['/api/session', '/api/memo', '/api/board'].includes(new URL(request.url).pathname)) {
       // Rate-limit before Google/GitHub work, without caching identity or membership.
       const memberKey = await sha256(record.memberId);
       await rate(env, 'private-member-minute:' + memberKey, 12, 60000);
@@ -124,7 +126,7 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
         demand(!origin || origin === APP_ORIGIN, 'origin_denied', 403);
         demand(ROUTES.has(url.pathname), 'not_found', 404);
         if (request.method === 'OPTIONS') {
-          demand(origin === APP_ORIGIN && request.headers.get('access-control-request-method') === ROUTES.get(url.pathname), 'origin_denied', 403);
+          demand(origin === APP_ORIGIN && ROUTES.get(url.pathname).split(', ').includes(request.headers.get('access-control-request-method')), 'origin_denied', 403);
           const requested = (request.headers.get('access-control-request-headers') || '').toLowerCase().split(',').map(value => value.trim()).filter(Boolean);
           demand(requested.every(value => ['authorization', 'content-type'].includes(value)), 'origin_denied', 403);
           const headers = securityHeaders(origin);
@@ -132,7 +134,7 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
           headers.set('Access-Control-Allow-Headers', 'Authorization, Content-Type');
           return new Response(null, { status: 204, headers });
         }
-        demand(request.method === ROUTES.get(url.pathname), 'method_not_allowed', 405);
+        demand(ROUTES.get(url.pathname).split(', ').includes(request.method), 'method_not_allowed', 405);
         const githubReady = typeof env.GITHUB_CLIENT_ID === 'string' && /^[A-Za-z0-9_.-]{3,128}$/.test(env.GITHUB_CLIENT_ID) && typeof env.GITHUB_CLIENT_SECRET === 'string' && env.GITHUB_CLIENT_SECRET.length >= 16 && env.GITHUB_CLIENT_SECRET.length <= 1024;
         demand(env.AUTH_STATE, 'not_configured', 503);
         const key = await encryptionKey(env);
@@ -236,7 +238,8 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
         }
         // Cross-site APIs deliberately use bearer sessions without cookies.
         demand(origin === APP_ORIGIN, 'origin_denied', 403);
-        parameters(url, []);
+        if (url.pathname === '/api/board' && request.method === 'GET') parameters(url, [], ['after', 'before', 'limit']);
+        else parameters(url, []);
         if (url.pathname === '/auth/firebase') {
           demand(firebaseConfigured(env), 'email_not_configured', 503);
           const ip = request.headers.get('CF-Connecting-IP') || 'unavailable';
@@ -277,6 +280,42 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
           return jsonResponse({ logged_out: true }, 200, origin);
         }
         const session = await getSession(request, env, key);
+        if (url.pathname === '/api/board') {
+          demand(presentation(session.record).can_read_memo, 'team_only', 403);
+          // Match Notes access: live provider identity + membership, and live
+          // access to the pinned private repository. No cached authorization.
+          if (session.record.provider === 'firebase') await verifyMemoAccess(github, await installationToken(env), { trustedInstallation: true });
+          else await verifyMemoAccess(github, session.githubToken);
+          let actor;
+          if (session.record.provider === 'firebase') {
+            const member = await teamAccess(env, 'board-identity', now(), { memberId: session.record.memberId, uid: session.record.firebaseUid, email: session.record.user.email, version: session.record.memberVersion });
+            actor = { id: 'firebase:' + session.record.firebaseUid, name: member.name, memberId: session.record.memberId, memberVersion: session.record.memberVersion };
+          } else actor = { id: 'github:' + session.record.user.id, name: session.record.user.login };
+          let values, operation;
+          if (request.method === 'POST') {
+            let body;
+            try { body = await bodyJson(request, 8192); }
+            catch (error) { if (error instanceof AuthError && error.code === 'invalid_request' && error.status === 502) throw new AuthError('invalid_message'); throw error; }
+            demand(Object.keys(body).length === 1 && Object.hasOwn(body, 'body'));
+            values = { actor, body: normalizeBoardBody(body.body) }; operation = 'post';
+          } else {
+            const integer = (name, fallback, minimum, maximum) => {
+              if (!url.searchParams.has(name)) return fallback;
+              const value = url.searchParams.get(name);
+              demand(/^(?:0|[1-9][0-9]{0,15})$/.test(value));
+              const number = Number(value); demand(Number.isSafeInteger(number) && number >= minimum && number <= maximum); return number;
+            };
+            demand(!(url.searchParams.has('after') && url.searchParams.has('before')));
+            values = { actor, after: integer('after', 0, 0, Number.MAX_SAFE_INTEGER), before: integer('before', null, 1, Number.MAX_SAFE_INTEGER), limit: integer('limit', 50, 1, 50) }; operation = 'read';
+          }
+          await stillCurrent(env, session);
+          const board = await boardAccess(env, operation, now(), values);
+          // A committed post is acknowledged even if revocation follows its
+          // commit. TeamBoard's durable fence orders those two operations; a
+          // post-commit membership check would falsely report a saved post failed.
+          if (operation === 'read') await stillCurrent(env, session);
+          return jsonResponse(board, 200, origin);
+        }
         if (url.pathname.startsWith('/api/team')) {
           demand(isAdmin(session.record), 'admin_only', 403);
           if (url.pathname === '/api/team') return jsonResponse({ members: await teamAccess(env, 'list', now()) }, 200, origin);

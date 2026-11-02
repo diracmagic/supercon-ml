@@ -16,6 +16,7 @@ const initializeSuperconContent = function initializeSuperconContent() {
     josephson1962: { t: 'B. D. Josephson, Phys. Lett. 1, 251 (1962)', d: '10.1016/0031-9163(62)91369-0' },
     mcmillan1968: { t: 'W. L. McMillan, Phys. Rev. 167, 331 (1968)', d: '10.1103/PhysRev.167.331' },
     allendynes1975: { t: 'P. B. Allen & R. C. Dynes, Phys. Rev. B 12, 905 (1975)', d: '10.1103/PhysRevB.12.905' },
+    liu2017hydride: { t: 'H. Liu et al., PNAS 114, 6990–6995 (2017)', d: '10.1073/pnas.1704505114' },
     matthias1954: { t: 'B. T. Matthias et al., Phys. Rev. 95, 1435 (1954)', d: '10.1103/PhysRev.95.1435' },
     gavaler1973: { t: 'J. R. Gavaler, Appl. Phys. Lett. 23, 480 (1973)', d: '10.1063/1.1654966' },
     steglich1979: { t: 'F. Steglich et al., Phys. Rev. Lett. 43, 1892 (1979)', d: '10.1103/PhysRevLett.43.1892' },

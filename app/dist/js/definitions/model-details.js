@@ -73,7 +73,7 @@
     box.appendChild(h('h3', { class: 'dt-title' }, radTitle(ri) + ' · which model to ask',
       h('span', { class: 'mf-status', text: v.status === 'adopted' ? 'in use' : 'experimental' })));
     box.appendChild(h('p', { class: 'dt-lead', text: 'Learns from ' + fmtInt(dd.n) + ' SuperCon entries in 3DSC labelled by their chemical class: ' + fmtInt(dd.n_unconventional) +
-      ' in Hurricane’s four unconventional families and ' + fmtInt(dd.n_conventional) + ' conventional ones for Storm. It gives the probability of an unconventional family and sends the material to Hurricane at one half or more. Cross-validation holds out whole parent compounds.' }));
+      ' in Hurricane’s four unconventional families and ' + fmtInt(dd.n_conventional) + ' conventional ones for Storm. It gives the probability of an unconventional family and sends the material to Hurricane at one half or more. Cross-validation holds out whole Materials Project chemical-system groups.' }));
     box.appendChild(h('div', { class: 'dt-tiles' },
       statTile('Right model', pct(sc.balanced_accuracy), 'baseline ' + pct(sc.reference_balanced_accuracy) + ' (balanced accuracy)'),
       statTile('Unconventional to Hurricane', pct(sc.to_hurricane), 'conventional to Storm: ' + pct(sc.to_storm)),
@@ -94,7 +94,7 @@
     var kn = list(v.known).filter(function (k) { return k.list === 'anchors' || /^(MgB2|Nb3Sn|NbSe2|H3S|LaH10|Pb|Nb)$/.test(k.name); });
     if (kn.length) {
       var seen = kn.some(function (k) { return k.in_training; });
-      box.appendChild(h('p', { class: 'dt-sub', text: 'Graded materials, each scored by a Radar that never saw it' + (seen ? ' (those also in 3DSC out of fold, with their parent compound held out)' : '') +
+      box.appendChild(h('p', { class: 'dt-sub', text: 'Graded materials, each scored by a Radar that never saw it' + (seen ? ' (those also in 3DSC out of fold, with their chemical-system group held out)' : '') +
         ', with the probability that each belongs to an unconventional family:' }));
       box.appendChild(smallTable(['Material', 'Probability', 'Goes to'], kn.map(function (k) {
         return [hurSub(k.name) + (k.in_training ? ' (in 3DSC)' : ''), k.p_unconventional.toFixed(2), k.model];
@@ -253,7 +253,7 @@
 
 
   const hurricaneDetails = function hurricaneDetails(hu, v) {
-    var sc = v.scores, data = hu.data || {}, box = h('div', { class: 'dt-block' }), rl = hurRel(v), bg = rl && rl.background ? rl.background : null, r4 = hur4(rl);
+    var sc = v.scores, data = v.data || hu.data || {}, box = h('div', { class: 'dt-block' }), rl = hurRel(v), bg = rl && rl.background ? rl.background : null, r4 = hur4(rl);
     var bgN = bg ? (typeof bg.n_used === 'number' ? bg.n_used : bg.n) : null;
     box.appendChild(h('h3', { class: 'dt-title' }, 'Hurricane ' + v.version + ' · unconventional superconductors',
       h('span', { class: 'mf-status', text: v.status === 'adopted' ? 'in use' : 'experimental' })));
@@ -261,7 +261,7 @@
       (data.n_sc || '?').toLocaleString('en-US') + ' of them superconducting) from 3DSC, which matches the SuperCon database to Materials Project structures.' +
       (typeof bgN === 'number' ? ' Its classifier also learns from ' + fmtInt(bgN) + ' compounds with no superconductivity record, counted as probably not superconducting.' : '') +
       (r4 && rl.abstain ? ' It gives a chance only to compounds near its training data and answers “not known” further away.' : '') +
-      ' Cross-validation holds out whole parent compounds, so every score is for compounds the model never saw.' }));
+      ' Zero-Tc entries are catalog labels whose measurement limits and conditions are not established here. Cross-validation holds out chemical-system groups; related structures with different element sets may remain in training.' }));
     // from round 2 on, a version is compared with the previous one retrained on the same folds (v.previous)
     var pv = v.previous && typeof v.previous.tc_mae === 'number' ? v.previous : null, pvName = pv ? 'Hurricane ' + pv.version : '';
     box.appendChild(h('div', { class: 'dt-tiles' },
@@ -316,14 +316,14 @@
       box.appendChild(smallTable(['Test', verHead('Hurricane ' + v.version), verHead(pvC), verHead(refC)], [
         ['A left-out family’s superconductors called unlikely', pct(rl.dismissed), pct(rl.dismissed_previous), pct(rl.dismissed_reference)],
         ['False alarms: compounds with no record, sent by Radar, given an even chance or more', pct(rl.false_alarms), pct(rl.false_alarms_previous), pct(rl.false_alarms_reference)],
-        ['Compounds with no record, sent by Radar, given no chance (not known)', pct(rl.unknown_sent), pct(0), pct(0)],
+        ['Compounds with no record, sent by Radar, marked not known (abstained)', pct(rl.unknown_sent), pct(0), pct(0)],
         ['Held-out 3DSC entries given a chance', pct(rl.coverage), pct(rl.coverage_previous), '—'],
         ['Brier score of the chance on 3DSC (lower is better)', f3(rl.brier), f3(rl.brier_previous), '—'],
         ['Change of the chance when a 3DSC compound’s structure comes from JARVIS' + (typeof rl.n_matched === 'number' ? ' (' + fmtInt(rl.n_matched) + ' compounds)' : ''), hurSigned(rl.shift), hurSigned(rl.shift_previous), '—']
       ]));
-      box.appendChild(h('p', { class: 'note', text: 'Not known: ' + (rl.abstain && rl.abstain !== 1 ? 'more than ' + rl.abstain + ' times as far from every training compound, in the model’s own inputs, as 95% of the training compounds are from their nearest neighbour in another parent compound. ' :
-        'further from every training compound, in the model’s own inputs, than 95% of the training compounds are from their nearest neighbour in another parent compound, which is when the app marks a candidate as outside the training data. ') +
-        (bg && typeof bgN === 'number' ? 'The classifier learns from ' + fmtInt(bgN) + ' of the ' + fmtInt(bg.n) + ' compounds with no record in Hurricane’s screening pool' + (bg.radius ? ', those within ' + (bg.radius === 1 ? 'the training data' : bg.radius + ' times that distance') : '') + ', counted as not superconducting, as Konno et al. (2021) did with crystal structures from the Crystallography Open Database.' : '') }));
+      box.appendChild(h('p', { class: 'note', text: 'Not known: ' + (rl.abstain && rl.abstain !== 1 ? 'more than ' + rl.abstain + ' times as far from every training compound, in the model’s own inputs, as 95% of the training compounds are from their nearest neighbour in another chemical-system group. ' :
+        'further from every training compound, in the model’s own inputs, than 95% of the training compounds are from their nearest neighbour in another chemical-system group, which is when the app marks a candidate as outside the training data. ') +
+        (bg && typeof bgN === 'number' ? 'The classifier learns from ' + fmtInt(bgN) + ' of the ' + fmtInt(bg.n) + ' compounds with no record in Hurricane’s screening pool' + (bg.radius ? ', those within ' + (bg.radius === 1 ? 'the training data' : bg.radius + ' times that distance') : '') + ', given weak zero labels, following the background-label approach of Konno et al. (2021). Missing records are not experimental negatives. “False alarms” here denotes scores above the threshold on this unlabelled background, not measured experimental false positives.' : '') }));
       if (rl.caveat) box.appendChild(h('p', { class: 'note', text: rl.caveat }));
     } else if (rl) {
       var pvCol = pvName || 'Before';
@@ -376,7 +376,7 @@
     if (lofo.length) {
       var flat = lofo.filter(function (r) { return r.mae >= 0.9 * r.mae_median; }).map(function (r) { return hurFamText(r.family); });
       if (flat.length) box.appendChild(h('p', { class: 'note', text: 'For ' + flat.join(', ').replace(/, ([^,]*)$/, ' and $1') +
-        ', the error without any member of the family in training is about that of always guessing the median Tc of the other families: a model that has only seen other families does not predict a new one. Finding new high-Tc families needs physics and experiments, not more of the same data.' }));
+        ', the error without any member of the family in training is about that of always guessing the median Tc of the other families. These tests do not establish reliable discovery of new high-Tc families; additional physical information and independent experiments are needed.' }));
     }
     var imp = list(v.importance).slice(0, 8);
     if (imp.length) {
@@ -389,20 +389,20 @@
     if (an && list(an.table).length) {
       box.appendChild(h('p', { class: 'dt-sub', text: 'Later measurements it never trained on, graded by reliability:' }));
       box.appendChild(smallTable(['Material', 'Measured', 'Predicted', 'Grade'], list(an.table).map(function (r) {
-        var use = r.use === 'score' ? 'scored' : r.use === 'exclude' ? 'left out' : 'shown';
-        var pr = typeof r.pred === 'number' ? r.pred.toFixed(r.pred >= 10 ? 0 : 1) + ' K' : '—';
-        // with round 3, the chance that it superconducts at all, and the version before's
-        var ch = r4 && r.unknown ? 'chance not known: outside the training data' + (typeof r.p_sc_previous === 'number' ? ', was ' + pct(r.p_sc_previous) : '') :
-          rl && typeof r.p_sc === 'number' ? 'chance ' + pct(r.p_sc) + (typeof r.p_sc_previous === 'number' ? ', was ' + pct(r.p_sc_previous) : '') : '';
+        var use = r.unknown === true ? 'abstained' : r.use === 'score' ? 'scored' : r.use === 'exclude' ? 'left out' : 'shown';
+        var pr = r.unknown === true ? 'unknown' : typeof r.pred === 'number' ? r.pred.toFixed(r.pred >= 10 ? 0 : 1) + ' K' : '—';
+        // Classifier outputs are model scores; abstention takes precedence over saved raw outputs.
+        var ch = r.unknown === true ? 'not known: outside the training data' + (typeof r.p_sc_previous === 'number' ? ', previous score ' + pct(r.p_sc_previous) : '') :
+          rl && typeof r.p_sc === 'number' ? 'classifier score ' + pct(r.p_sc) + (typeof r.p_sc_previous === 'number' ? ', previous score ' + pct(r.p_sc_previous) : '') : '';
         return [h('span', { class: 'dt-formula', title: r.note || '', text: hurSub(r.name) }), r.tc_exp === null || r.tc_exp === undefined ? '—' : r.tc_exp + ' K',
           ch ? h('span', null, pr, h('br'), h('span', { class: 'dt-cell-sub dt-wrap', text: ch })) : pr, h('span', { class: 'dt-wrap', text: r.status + ', ' + use })];
       })));
-      if (typeof an.mae === 'number') box.appendChild(h('p', { class: 'note', text: an.n_scored + ' scored measurements, average error ' + k2(an.mae) + (an.scored_as_check ? '.' : '; too few to count as a check yet, so they are shown, not used to choose a design.') }));
+      if (typeof an.mae === 'number') box.appendChild(h('p', { class: 'note', text: 'Historical raw-output diagnostic: ' + an.n_scored + ' entries, average error ' + k2(an.mae) + (list(an.table).some(function (r) { return r.use === 'score' && r.unknown === true; }) ? '. This saved diagnostic includes internal outputs for abstained entries; those entries are displayed as unknown here' : '') + (an.scored_as_check ? '.' : '; too few to count as a check yet, so they are shown, not used to choose a design.') }));
     }
     if (list(v.changes).length) box.appendChild(h('p', { class: 'note', text: 'Design: ' + prettyMath(list(v.changes).join('; ')) + '.' }));
     box.appendChild(h('p', { class: 'note dt-data' }, 'Data: ', h('a', { href: 'https://doi.org/10.1038/s41597-023-02721-y', text: '3DSC' }),
       ' (T. Sommer et al., Sci. Data 10, 816 (2023)), which matches the SuperCon database (NIMS) to Materials Project structures, used under ',
-      h('a', { href: 'https://creativecommons.org/licenses/by/4.0/', text: 'CC BY 4.0' }), '. We filter it, group it by parent compound and add features; the models and predictions are ours.'));
+      h('a', { href: 'https://creativecommons.org/licenses/by/4.0/', text: 'CC BY 4.0' }), '. We filter it, group folds by the Materials Project chemical-system label and add features; the models and predictions are ours.'));
     return box;
   };
 

@@ -51,7 +51,7 @@
     var cu = list(ri.v.lofo).filter(function (r) { return r.family === 'cuprate'; })[0];
     return { id: 'radar', name: 'Radar', on: inUse, live: true, status: inUse ? radTitle(ri) + ' in use' : radTitle(ri) + ' experimental', role: role,
       text: 'Reads a material’s composition and crystal structure and gives the probability that it belongs to an unconventional family, then sends it to Hurricane or Storm. It learns from ' +
-        fmtInt(dd.n) + ' SuperCon entries in 3DSC. For parent compounds it never saw it picks the right model ' + radPct(sc.balanced_accuracy) + ' of the time, against ' +
+        fmtInt(dd.n) + ' SuperCon entries in 3DSC. On held-out chemical-system groups its balanced accuracy is ' + radPct(sc.balanced_accuracy) + ', against ' +
         radPct(sc.reference_balanced_accuracy) + ' for a composition-only baseline.' + (cu ? ' Trained without any cuprate, it still sends ' + radPct(cu.right) + ' of cuprates to Hurricane.' : '') + ' Our AI agent designed it.',
       act: ['See how Radar works', function () { setView('demos'); selectDemo('radar'); window.scrollTo(0, 0); }] };
   };
@@ -63,7 +63,7 @@
       text: 'No first-principles theory gives their Tc, so Hurricane will learn from measured Tc in the literature. Every measurement is graded as replicated, single report, preprint, retracted or refuted: unconfirmed claims count less and retracted ones not at all. Our AI agent will design it the same way as Storm.' };
     var sc = hi.v.scores || {}, dd = hi.data || {}, inUse = !!hi.hu.current;
     return { id: 'hurricane', name: 'Hurricane', on: inUse, live: true, status: inUse ? hurTitle(hi) + ' in use' : hurTitle(hi) + ' experimental', role: role,
-      text: 'Learns from ' + fmtInt(dd.n) + ' measured Tc values (SuperCon with Materials Project structures, via 3DSC), including materials that did not superconduct. For compounds whose parent it never saw in training it is off by ' +
+      text: 'Learns from ' + fmtInt(dd.n) + ' catalogued Tc values (SuperCon with Materials Project structures, via 3DSC), including zero labels whose measurement limits are not established here. For held-out chemical-system groups it is off by ' +
         hurK(sc.tc_mae) + ' K on average, against ' + (hi.v.previous && typeof hi.v.previous.tc_mae === 'number' ? hurK(hi.v.previous.tc_mae) + ' K for Hurricane ' + hi.v.previous.version + ' and ' : '') +
         hurK(sc.reference_mae) + ' K for a composition-only baseline.' +
         // round 3 on: fewer false alarms outside the training data (hurRel in details.js)

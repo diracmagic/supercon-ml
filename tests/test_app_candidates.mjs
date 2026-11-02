@@ -273,6 +273,19 @@ test('literature statuses preserve unknown outcomes and a missing record stays u
   assert.match(candidates.literatureLines({ literature_audit: { status: 'structure-only' } }).join(' '), /separate from a matching DFT or experimental check and does not confirm Tc/);
 });
 
+test('DFT hull stability cannot stand in for an experimentally linked crystal structure', () => {
+  const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
+  const context = { candidateData: candidates, CHECK_LABEL: { dft: 'Computed' }, MCMILLAN_K: 40, WORTH_P: .5,
+    REFS: { first: {}, second: {} } };
+  vm.runInNewContext(source + '\nglobalThis.rules = {candWorthTests, candMcm};', context);
+  const hypothetical = {formula: 'Example', tc: 55, lo: 45, hi: 65, p_sc: .8, novelty: .2,
+    ehull: 0, icsd: false, check: {kind: 'dft', tc: 52, superconducts: true}};
+  assert.equal(context.rules.candWorthTests(hypothetical, false).made, false);
+  assert.equal(context.rules.candMcm(hypothetical, false), '');
+  assert.equal(context.rules.candMcm({...hypothetical, icsd: true}, false), 'worth');
+  assert.equal(context.rules.candMcm({...hypothetical, icsd: true, outside: true}, false), '');
+});
+
 test('literature lookup uses exact ids and gives inline records precedence over the static table', () => {
   const previous = globalThis.SuperconLiterature;
   try {

@@ -1,5 +1,13 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.12 adds:
+
+- **Notes by update date:** newest substantive updates appear first, grouped by day; publication dates and review dates remain separate. Experimental evidence is highlighted with its conditions and limitations. Daily literature review continues at 09:00 America/Chicago.
+- **Private team messages:** a message board beside Notes with an in-app new-message indicator, visible only to authenticated, approved team members. While the APP is visible it checks about once a minute; this is not a background push service. Logging out clears private content and notifications.
+- **Correct model explanations:** Hurricane 4.0 displays its own 2,123-entry training cohort; later experimental versions keep separate cohorts. Chemical-system groups, catalogued zero labels and abstentions are described accurately.
+- **Evidence-based illustrations:** source-supported octahedral, copper–oxygen, nickel–oxygen and kagome motifs replace broad family-based guesses. Idealised structures and proposed mechanisms are labelled explicitly, with experimental conditions and references retained.
+- **Careful screening claims:** 40 K is a screening benchmark, not a universal physical limit. DFT stability is no longer treated as proof of synthesis, and model scores are distinguished from demonstrated discovery probabilities.
+
 Version 0.3.11 adds:
 
 - **Team password setup:** new passwords can contain 8–128 characters. Existing passwords remain unchanged.

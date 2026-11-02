@@ -156,7 +156,7 @@ test('News & Papers separates explicit public AI identities from general superco
   assert.match(h.get('news-list').textContent, /A cuprate measurement/);
   assert.equal(h.get('ai-list').children[0].querySelector('a').getAttribute('href'), ai.url);
   const canvases = flatten(h.get('ai-list')).filter(node => node.tagName === 'canvas');
-  assert.deepEqual(canvases.map(node => node.getAttribute('data-news-art')), ['news-ai', 'news-hydride']);
+  assert.deepEqual(canvases.map(node => node.getAttribute('data-news-art')), ['news-ai', 'news-ai']);
   assert.equal(h.get('news-list').querySelector('canvas').getAttribute('data-news-art'), 'news-cuprate');
   assert.equal(h.requests.length, 0, 'Rendering public records cannot fetch private content');
 });
@@ -289,8 +289,8 @@ test('service-worker upgrade discards the old memo cache while preserving other 
   const source = read('sw.js');
   const current = /const CACHE = '([^']+)'/.exec(source)[1];
   const old = 'supercon-0.3.9-research31-tc-ranking';
-  const previous = 'supercon-0.3.10-team-notes';
-  assert.equal(current, 'supercon-0.3.11-team-password');
+  const previous = 'supercon-0.3.11-team-password';
+  assert.equal(current, 'supercon-0.3.12-science-audit');
   assert.notEqual(current, old);
   const context = { self: { addEventListener: (kind, fn) => { handlers[kind] = fn; }, clients: { claim: async () => {} } },
     caches: { keys: async () => [old, previous, current, 'unrelated-app'], delete: async (key) => { deleted.push(key); } } };

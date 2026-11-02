@@ -51,7 +51,7 @@
       above: candNum(tc) && tc >= MCMILLAN_K && (hur || dft || (candNum(c.lo) && c.lo >= MCMILLAN_K)),
       likely: candNum(c.p_sc) && c.p_sc >= WORTH_P,
       inside: candNum(c.novelty) && c.novelty <= 1 && c.outside !== true,
-      made: c.icsd === true || (dft && candNum(c.ehull) && c.ehull <= WORTH_HULL),
+      made: c.icsd === true,
       settled: !!(k && (k.superconducts === false || (candNum(k.tc) && k.tc < MCMILLAN_K)))
     };
   };
@@ -88,15 +88,15 @@
     var done = all.filter(function (x) { return x.level === 'confirmed'; }), worth = all.filter(function (x) { return x.level === 'worth'; }), out = [];
     if (done.length) {
       out.push(h('div', { class: 'cand-mcm-banner is-done', role: 'note' },
-        h('p', null, h('b', { text: done.length === 1 ? 'A new superconductor above the McMillan limit.' : done.length + ' new superconductors above the McMillan limit.' }), ' ',
-          (done.length === 1 ? 'One of our candidates superconducts' : done.length + ' of our candidates superconduct') + ' above about 40 K, long thought to be the ceiling for conventional superconductors: measured, published and reproduced by another group (',
-          h('a', { href: refUrl(REFS.mcmillan1968), text: REFS.mcmillan1968.t }), ').'), candMcmChips(done)));
+        h('p', null, h('b', { text: done.length === 1 ? 'An experimentally checked candidate at or above 40 K.' : done.length + ' experimentally checked candidates at or above 40 K.' }), ' ',
+          'The matching records report superconductivity at or above our screening benchmark. Check the cited samples and conditions; this badge does not establish discovery priority. A temperature of 40 K is not a universal limit for conventional superconductivity (',
+          h('a', { href: refUrl(REFS.allendynes1975), text: REFS.allendynes1975.t }), ').'), candMcmChips(done)));
     }
     if (worth.length) {
       out.push(h('div', { class: 'cand-mcm-banner', role: 'note' },
         h('p', null, h('b', { text: 'Worth an experiment.' }), ' ',
-          (worth.length === 1 ? 'One candidate passes' : worth.length + ' candidates pass') + ' every test we set before suggesting a measurement: a predicted Tc above the McMillan limit of about 40 K, long thought to be the ceiling for conventional superconductors (',
-          h('a', { href: refUrl(REFS.mcmillan1968), text: REFS.mcmillan1968.t }), '); more likely than not to superconduct; inside its model’s training data; and made before. ' +
+          (worth.length === 1 ? 'One candidate passes' : worth.length + ' candidates pass') + ' our screening criteria: a predicted Tc of at least 40 K; a superconductivity model score of at least 0.5; proximity to the training data; and an ICSD-linked structure. The 40 K benchmark is not a universal physical limit (',
+          h('a', { href: refUrl(REFS.allendynes1975), text: REFS.allendynes1975.t }), '). ' +
           (worth.length === 1 ? 'It is still a prediction, and we suggest it' : 'They are still predictions, and we suggest them') + ' to experimental groups: if you can measure ' + (worth.length === 1 ? 'it' : 'one') + ', ',
           contactLink('write to us', 'experiment'), '.'), candMcmChips(worth)));
     }
@@ -124,7 +124,7 @@
   // trusted, how close it is to what the model learned from, whether anything has checked it, and when we first listed it
   const candRemarks = function candRemarks(c, hur, block) {
     var out = [], model = hur ? 'Hurricane' : 'Storm', range = candRange(c), ck = (block && block.check) || {};
-    out.push(c.icsd === true ? ['ok', 'Made before: its structure is in ICSD, so the compound has been synthesized.'] :
+    out.push(c.icsd === true ? ['info', 'This database structure is linked to ICSD, an experimental crystallographic source. Verify the original sample and phase before assuming the relaxed computational structure is experimentally realized.'] :
       ['warn', 'Computed structure: not marked as an ICSD structure in this dataset; its synthesis history remains unresolved.']);
     if (range) {
       var wide = (c.hi + 1) / (c.lo + 1) >= 5;
@@ -132,13 +132,12 @@
         'The 90% range for its ' + (hur ? 'Tc if it superconducts' : 'DFT Tc') + ' is ' + range + '.')]);
     }
     if (candNum(c.p_sc)) {
-      out.push(['warn', 'Chance it superconducts: ' + candPct(c.p_sc) + '. ' + (hur ?
-        'It is calibrated on compounds in 3DSC, the families Hurricane learned from' + (block && block.background ? ', and on compounds with no superconductivity record' : '') +
-          (c.outside ? '; this compound lies outside the families, so here the chance says little.' :
-          c.nearest ? ', and holds only for compounds like them.' : '; for a compound unlike them it says little.') :
-        'It is calibrated on ' + (candNum(ck.n) ? fmtInt(ck.n) + ' ' : '') + 'known materials in 3DSC, most of them measured because someone expected them to superconduct, so for a new material it is likely lower' +
-          (c.outside ? '; this one also lies outside Storm’s training data, so here it says little.' : '.'))]);
-    } else out.push(['warn', model + ' gives no chance of superconducting for this candidate yet.']);
+      out.push(['warn', 'Superconductivity model score: ' + candPct(c.p_sc) + '. ' + (hur ?
+        'This classifier learns 3DSC labels' + (block && block.background ? ' and background compounds treated as negative because no superconductivity record was found' : '') +
+          '. An unreported compound is not a confirmed negative; the score is not established as the probability that a new material superconducts.' :
+        'This calibration uses ' + (candNum(ck.n) ? fmtInt(ck.n) + ' ' : '') + 'selected materials in 3DSC. Its relationship to experimental outcomes may not transfer to untested candidates.') +
+        (c.outside ? ' This candidate is outside the training domain, which adds extrapolation uncertainty.' : '')]);
+    } else out.push(['warn', model + ' does not provide a superconductivity score for this candidate.']);
     if (hur && candidateData.disagreement(c)) out.push(['warn', candidateData.disagreement(c)]);
     if (c.nearest && typeof c.nearest.formula === 'string') {
       var near = hurSub(cText(c.nearest.formula, 60).replace(/([A-Z][a-z]?)1(?![\d.])/g, '$1')) + (candNum(c.nearest.tc) ? ' (' + (hur ? 'measured' : 'DFT') + ' Tc ' + candK(c.nearest.tc) + ')' : '');
@@ -311,7 +310,7 @@
       // before the round that fills this list: what it will hold
       el.appendChild(h('ol', { class: 'cand-steps' }, hur ? [
         richText(h('li'), 'Sort: Radar sends the compounds in open crystal databases that look like the unconventional families (cuprates, iron-based and heavy-fermion compounds and other oxides) to Hurricane.'),
-        richText(h('li'), 'Rank: Hurricane gives the chance that each compound superconducts and its Tc if it does, with a 90% range.'),
+        richText(h('li'), 'Hurricane provides a superconductivity model score and a conditional Tc estimate, with a 90% range. The score is not a demonstrated discovery probability.'),
         richText(h('li'), 'Review: exact candidates with verified earlier experimental superconductivity reports move to the visible archive.'),
         richText(h('li'), 'Check: the top candidates are suggested to experimental groups, since a calculation cannot yet predict unconventional pairing reliably.')] : [
         richText(h('li'), 'Rank: Radar keeps the metals in open crystal databases that look like conventional superconductors, and Storm predicts their Tc, each with a 90% range.'),
@@ -335,7 +334,7 @@
     if (hur) {
       richText(meta, when + 'of the ' + (candNum(pool.n_screened) ? fmtInt(pool.n_screened) + ' ' : '') + 'compounds in Hurricane’s pool from ' + cText(pool.source || 'JARVIS-DFT', 120) +
         (rule ? ' (' + rule + ')' : '') + ', ' + candModel(sc, /^Radar/, 'Radar') + ' sent ' + (candNum(pool.n_sent) ? fmtInt(pool.n_sent) : 'the ones that look unconventional') + ' to ' +
-        cText(block.model || candModel(sc, /^Hurricane/, 'Hurricane'), 40) + '. Hurricane learns measured Tc: it gives the chance that a compound superconducts and its Tc if it does, and the 90% range is for that Tc. ' + candidateData.rankingText(block));
+        cText(block.model || candModel(sc, /^Hurricane/, 'Hurricane'), 40) + '. Hurricane learns catalogued Tc values and provides a superconductivity model score and Tc conditional on superconductivity. The 90% range is for that Tc; it does not validate the classifier score for new families. ' + candidateData.rankingText(block));
     } else {
       var models = list(sc.models).filter(function (m) { return typeof m === 'string' && !/^Hurricane/.test(m); }).map(function (m) { return cText(m, 40); });
       richText(meta, when + (models.length ? models.join(' and ') : sc.model ? cText(sc.model, 40) : 'Storm') + ' ranked ' +
@@ -355,7 +354,7 @@
     ol.appendChild(h('li', { class: 'cand-row cand-headrow', 'aria-hidden': 'true' },
       h('span', { class: 'cand-rank', text: '#' }), h('span'), h('span', { text: 'Material' }),
       richText(h('span', { class: 'cand-tc' }), hur ? 'Tc if it superconducts, 90% range' : 'Storm Tc, 90% range'),
-      hur ? null : h('span', { class: 'cand-cal', text: 'Calibrated' }), h('span', { class: 'cand-p', text: 'Chance' }), h('span', { class: 'cand-check', text: 'Check' })));
+      hur ? null : h('span', { class: 'cand-cal', text: 'Calibrated' }), h('span', { class: 'cand-p', text: 'SC score' }), h('span', { class: 'cand-check', text: 'Check' })));
     shown.forEach(function (c) {
       var i = rows.indexOf(c), id = candId(c), M = xtModel(c), on = id === sel;
       var name = isHttps(c.url) ? h('a', { href: c.url, text: hurSub(c.formula) }) : h('span', { text: hurSub(c.formula) });
@@ -376,10 +375,10 @@
         h('div', { class: 'cand-main' }, h('b', null, name), sub ? h('div', { class: 'dt-cell-sub', text: sub }) : null,
           h('div', { class: 'dt-cell-sub', text: candidateData.literatureText(c) }),
           candRemarksEl(c, hur, block, true),
-          mcm ? h('span', { class: 'cand-mcm' + (mcm === 'confirmed' ? ' is-done' : ''), text: mcm === 'confirmed' ? 'Above the McMillan limit: measured and reproduced' : 'Worth an experiment: predicted above the McMillan limit' }) : null),
+          mcm ? h('span', { class: 'cand-mcm' + (mcm === 'confirmed' ? ' is-done' : ''), text: mcm === 'confirmed' ? 'At least 40 K: experimental check recorded' : 'Worth an experiment: predicted at least 40 K' }) : null),
         h('div', { class: 'cand-tc' }, h('b', { text: candK(tc) }), range ? h('div', { class: 'dt-cell-sub', text: range }) : null),
         hur ? null : h('div', { class: 'cand-cal' }, h('span', { class: 'cand-label', text: 'Calibrated ' }), candNum(c.tc_cal) ? candK(c.tc_cal) : '—'),
-        h('div', { class: 'cand-p' }, h('span', { class: 'cand-label', text: 'Chance it superconducts ' }), candPct(c.p_sc),
+        h('div', { class: 'cand-p' }, h('span', { class: 'cand-label', text: 'Superconductivity score ' }), candPct(c.p_sc),
           hur && candNum(c.p_lo) && candNum(c.p_hi) ? h('div', { class: 'dt-cell-sub', title: candidateData.disagreement(c), text: 'Model disagreement ' + (100 * c.p_lo).toFixed(1) + '–' + (100 * c.p_hi).toFixed(1) + '%' }) : null),
         h('div', { class: 'cand-check' }, candCheck(c), c.phonon_check ? h('div', { class: 'dt-cell-sub', text: candidateData.phononLines(c.phonon_check)[0] }) : null));
       ol.appendChild(li);
@@ -399,42 +398,42 @@
     }
     var checked = rows.filter(function (c) { return candChecked(c); }).length;
     var lead = (checked ? checked + ' of ' + rows.length + ' candidates have matching checks recorded. ' : 'No matching DFT or experimental check is recorded for these candidates. ') + 'They are predictions: a candidate becomes a discovery only when ' +
-      (hur ? 'an experiment confirms it. Many of these compounds have a band gap in DFT or are magnetic, and, like the parent compounds of the cuprates and iron-based superconductors, would need doping or pressure to superconduct. ' :
+      (hur ? 'an experiment establishes it under stated conditions. Some candidates are magnetic or have a DFT band gap and may require tuning, but neither property demonstrates superconducting potential, and doping or pressure may not produce superconductivity. ' :
         'a calculation and then an experiment confirm it. “Calibrated” is Storm’s estimate of the measured Tc. ');
     var ck = block && block.check;
     if (ck && candNum(ck.share_sc_likely) && candNum(ck.share_sc_unlikely)) {
-      lead += 'How far its chance can be trusted: on ' + (hur ? 'compounds in 3DSC' : 'known materials in 3DSC') + ' that it had not seen in training, ' + Math.round(100 * ck.share_sc_likely) +
-        '% of those it gave at least an even chance superconduct, against ' + Math.round(100 * ck.share_sc_unlikely) + '% of the others. ' +
-        (hur ? '' : 'Most of those materials were measured because someone expected them to superconduct, so for new materials the chance is likely lower. ');
+      lead += 'Observed label frequencies in held-out data: on ' + (hur ? 'compounds in 3DSC' : 'known materials in 3DSC') + ' that it had not seen in training, ' + Math.round(100 * ck.share_sc_likely) +
+        '% of those with a model score of at least 0.5 have a positive superconductivity label, against ' + Math.round(100 * ck.share_sc_unlikely) + '% of the others. ' +
+        (hur ? '' : 'Those selected literature records do not establish the same frequencies for untested candidates. ');
     }
     // round 3 on: Hurricane also learned from compounds with no superconductivity record, and was released for fewer false alarms
     var rel = hur && block && block.reliability, nk = hur && block && block.not_known;
     if (rel && candNum(rel.dismissed) && candNum(rel.false_alarms)) {   // round 4 on: "not known" far from the training data
-      lead += (block.model || 'Hurricane') + ' gives a chance only to compounds near its training data' +
+      lead += (block.model || 'Hurricane') + ' provides a score only for compounds near its training data' +
         (nk && candNum(nk.n) && candNum(nk.of) ? ': ' + fmtInt(nk.n) + ' of the ' + fmtInt(nk.of) + ' compounds Radar sent it lie too far, so it does not judge them and they are not on this list' : '') +
         '. It learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted as probably not superconducting. In cross-validation it gave ' +
-        (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' of the held-out compounds of that kind at least an even chance' + (candNum(rel.false_alarms_reference) && rel.reference ? ' (Hurricane ' + rel.reference + ': ' + candPct(rel.false_alarms_reference) + ')' : '');
+        (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' of the held-out compounds of that kind a model score of at least 0.5' + (candNum(rel.false_alarms_reference) && rel.reference ? ' (Hurricane ' + rel.reference + ': ' + candPct(rel.false_alarms_reference) + ')' : '');
       // Describe the published screening predictions without calling a fold ensemble a full-data fit.
       var nLik = rows.filter(function (c) { return candNum(c.p_sc) && c.p_sc >= 0.5; }).length;
-      lead += '; the published screening predictions give ' + (nLik === 0 ? 'none' : nLik === 1 ? 'one' : fmtInt(nLik)) + ' of the ' + fmtInt(rows.length) + ' on this list at least an even chance. ';
+      lead += '; the published screening predictions give ' + (nLik === 0 ? 'none' : nLik === 1 ? 'one' : fmtInt(nLik)) + ' of the ' + fmtInt(rows.length) + ' on this list a model score of at least 0.5. ';
       var hv = candHurVersion(block), fA = hv ? hurLofoAvg(hv, 'found') : null, uA = hv ? hurLofoAvg(hv, 'unknown') : null, fR = hv ? hurLofoAvg(hv, 'found_reference') : null;
       lead += 'Trained without a whole family, it calls ' + candPct(rel.dismissed) + ' of that family’s superconductors unlikely' + (candNum(rel.dismissed_previous) && rel.previous ? ' (Hurricane ' + rel.previous + ': ' + candPct(rel.dismissed_previous) + ')' : '') +
-        (candNum(fA) && candNum(uA) ? ', answers “not known” for ' + candPct(uA) + ' and gives ' + candPct(fA) + ' at least an even chance' + (candNum(fR) && rel.reference ? ' (Hurricane ' + rel.reference + ': ' + candPct(fR) + ')' : '') : '') + '. ';
+        (candNum(fA) && candNum(uA) ? ', answers “not known” for ' + candPct(uA) + ' and gives ' + candPct(fA) + ' a model score of at least 0.5' + (candNum(fR) && rel.reference ? ' (Hurricane ' + rel.reference + ': ' + candPct(fR) + ')' : '') : '') + '. ';
     } else if (rel && candNum(rel.false_alarms) && candNum(rel.false_alarms_previous)) {
       lead += (block.model || 'Hurricane') + ' also learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted as probably not superconducting, so it is more cautious with compounds unlike its training data: of the held-out compounds of that kind, it gives ' +
-        (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' at least an even chance, against ' + candPct(rel.false_alarms_previous) + ' for Hurricane ' + (rel.previous || 'before') + '. The price: it would also be slow to recognize a family of superconductors that no one has found yet. ';
+        (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' a model score of at least 0.5, against ' + candPct(rel.false_alarms_previous) + ' for Hurricane ' + (rel.previous || 'before') + '. The price: it would also be slow to recognize a family of superconductors that no one has found yet. ';
     }
     var nOut = rows.filter(function (c) { return c.outside === true; }).length;
-    if (hur && nk) lead += (nOut ? fmtInt(nOut) + (nOut === 1 ? ' compound on this list lies' : ' compounds on this list lie') + ' just outside its training data, near enough for a chance; ' : 'Every compound on this list lies near its training data; ') +
-      'still, the chance and the Tc are far from certain: treat this list as a set of leads, not of likely superconductors. ';
-    else if (hur) lead += 'But many compounds on this list are unlike anything Hurricane learned from, and for them both the chance and the Tc are far less certain than these numbers suggest; treat this list as a set of leads, not of likely superconductors. ';
+    if (hur && nk) lead += (nOut ? fmtInt(nOut) + (nOut === 1 ? ' compound on this list lies' : ' compounds on this list lie') + ' just outside its training data, near enough for a score; ' : 'Every compound on this list lies near its training data; ') +
+      'still, the score and the Tc are far from certain: treat this list as a set of leads, not of likely superconductors. ';
+    else if (hur) lead += 'But many compounds on this list are unlike anything Hurricane learned from, and for them both the score and the Tc are far less certain than these numbers suggest; treat this list as a set of leads, not of likely superconductors. ';
     if (got.hidden) lead += got.hidden + (got.hidden === 1 ? ' material is' : ' materials are') + ' retained in the earlier-reports archive after exact-identity and prediction-date review. ';
     var nWorth = rows.filter(function (c) { return candMcm(c, hur) === 'worth'; }).length;
-    lead += 'We highlight a candidate as worth an experiment only when its predicted Tc is above the McMillan limit of about 40 K and it passes every test: more likely than not to superconduct, inside its model’s training data, and made before (in ICSD)' +
-      (hur ? '' : '; a Storm candidate also needs the low end of its 90% range, or a full DFT calculation, above 40 K') + '. ' + (nWorth ? (nWorth === 1 ? 'One candidate on this list does.' : nWorth + ' candidates on this list do.') : 'None on this list does yet.') + ' ';
+    lead += 'We highlight a candidate as worth an experiment only when its predicted Tc reaches our 40 K screening benchmark, its superconductivity model score is at least 0.5, it lies near the training data, and its structure is linked to ICSD' +
+      (hur ? '' : '; a Storm candidate also needs the low end of its 90% range, or a matching DFT calculation, to reach 40 K') + '. The benchmark is not a universal physical limit; a model score is not an experimentally established probability. DFT stability alone does not demonstrate synthesis. ' + (nWorth ? (nWorth === 1 ? 'One candidate on this list passes these criteria.' : nWorth + ' candidates on this list pass these criteria.') : 'None on this list passes these criteria yet.') + ' ';
     el.appendChild(richText(h('p', { class: 'note' }), lead));
     el.appendChild(candTellUs());
-    el.appendChild(h('p', { class: 'note xt-credit' }, 'Atom sizes follow covalent radii (', h('a', { href: refUrl(REFS.cordero2008), text: REFS.cordero2008.t }), '); the box is the unit cell.'));
+    el.appendChild(h('p', { class: 'note xt-credit' }, 'Positions and the cell come from the stored database structure, which may be computationally relaxed rather than measured. Atom sizes use covalent radii (', h('a', { href: refUrl(REFS.cordero2008), text: REFS.cordero2008.t }), '). Lines show nearby atoms selected by a distance threshold, not calculated chemical bonds. Rotation changes the viewing angle; it does not represent atomic motion.'));
     candViewer(rows);
     xtKick();
   };
@@ -496,17 +495,17 @@
     var tc = h('p', { class: 'xt-tc' }), range = candRange(c);
     if (hur) {
       richText(tc, 'Hurricane: Tc ' + candK(candTcSc(c)) + ' if it superconducts' + (range ? ' (90% range ' + range + ')' : '') +
-        (candNum(c.p_sc) ? '; the chance that it does is ' + candPct(c.p_sc) : '') + '. ' + (candChecked(c) ? 'Reported checks are listed below.' : 'A prediction awaiting a DFT or measurement check.'));
+        (candNum(c.p_sc) ? '; superconductivity model score ' + candPct(c.p_sc) : '') + '. ' + (candChecked(c) ? 'Reported checks are listed below.' : 'A prediction awaiting a DFT or measurement check.'));
     } else {
       richText(tc, 'Storm Tc ' + candK(c.tc) + (range ? ' (90% range ' + range + ')' : '') + (candNum(c.tc_cal) ? ' · calibrated ' + candK(c.tc_cal) : ''));
     }
     box.appendChild(tc);
     var mcm = candMcm(c, hur);
     if (mcm === 'confirmed') {
-      box.appendChild(h('p', { class: 'xt-mcm is-done' }, 'Above the McMillan limit of about 40 K, long thought to be the ceiling for conventional superconductors: measured, published and reproduced by another group.'));
+      box.appendChild(h('p', { class: 'xt-mcm is-done' }, 'A matching experimental record reports Tc of at least 40 K. Inspect its source, sample conditions and replication evidence; this badge does not establish discovery priority.'));
     } else if (mcm === 'worth') {
       box.appendChild(h('p', { class: 'xt-mcm' }, 'Worth an experiment: ' + (hur ? 'Hurricane puts its Tc, if it superconducts,' : 'Storm puts its Tc') +
-        ' above the McMillan limit of about 40 K, and it passes every test we set before suggesting a measurement. It is still a prediction. If you can measure it, ', contactLink('write to us', 'experiment'), '.'));
+        ' at or above our 40 K screening benchmark, and it passes the displayed screening criteria. This is not a physical upper limit or an experimental finding. If you can measure it, ', contactLink('write to us', 'experiment'), '.'));
     }
     if (hur) {
       var types = list(c.types).filter(function (t) { return CAND_TYPE[t]; }).map(function (t) { return CAND_TYPE[t]; });

@@ -8,9 +8,9 @@
     if (!info) return 'Hurricane, our second AI-designed model, learns the Tc of unconventional superconductors from measurements, each graded by how well it has been confirmed.';
     var v = info.v, sc = v.scores || {}, dd = info.data, top = list(v.importance).slice(0, 2).map(function (i) { return hurFeatName(i.name); });
     return 'Hurricane, our second AI-designed model, learns the Tc of cuprates, iron- and nickel-based, heavy-fermion and other oxide superconductors directly from ' + fmtInt(dd.n) +
-      ' measurements. Our AI agent gave it physics features such as the number of holes per copper, which sets where a cuprate sits on its Tc dome' +
+      ' catalogued Tc values. Our AI agent gave it heuristic physics features such as nominal holes per copper from charge balance and an empirical cuprate dome' +
       (top.length ? '; these turned out to be what the model relies on most (' + top.join(', ') + ')' : '') + '. ' + hurTitle(info) + ' is off by ' + hurK(sc.tc_mae) +
-      ' K for compounds whose parent it never saw, against ' + hurK(sc.reference_mae) + ' K for a composition-only model. It cannot yet predict a family it has never seen, which is where the search for new high-Tc families has to go beyond data.';
+      ' K for held-out chemical-system groups, against ' + hurK(sc.reference_mae) + ' K for a composition-only model. Its cross-family tests do not yet support reliable discovery of new superconducting families.';
   };
 
   const drawStoryHurricane = function drawStoryHurricane(c, C, B, t, narrow) {
@@ -23,7 +23,7 @@
     var v = info.v, sc = v.scores || {}, dd = info.data;
     var items = [
       ['Learns from', fmtInt(dd.n) + ' measured Tc values', '4 families · SuperCon via 3DSC'],
-      ['Error, unseen parents', hurK(sc.tc_mae) + ' K', 'composition only: ' + hurK(sc.reference_mae) + ' K'],
+      ['Error, held-out systems', hurK(sc.tc_mae) + ' K', 'composition only: ' + hurK(sc.reference_mae) + ' K'],
       ['Relies most on', list(v.importance).slice(0, 2).map(function (i) { return hurFeatName(i.name); }).join(' · '), 'physics features the AI proposed']
     ];
     var rowH = narrow ? Math.min(58, R.h / 3) : Math.min(78, R.h / 3.3);

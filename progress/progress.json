@@ -70,7 +70,7 @@
       "status": "active",
       "name": "High-Tc screening",
       "short": "High-Tc screen",
-      "detail": "Round 4: 50 conventional candidates (Storm) and 50 unconventional ones (Hurricane) proposed by our AI models from JARVIS-DFT, none reported or predicted before and none made of the elements of a known superconductor. All are unchecked predictions; next: full DFT checks of the top conventional ones",
+      "detail": "Round 5: 102 Storm candidates and 50 Hurricane candidates retained from JARVIS-DFT. Prior reports and experimental evidence are recorded per candidate; a search with no match is not proof of novelty. 3 sampled-phonon checks completed with MACE; this is bounded structural triage, not DFT or superconductivity validation. The candidate list contains model suggestions, not newly confirmed superconductors.",
       "date": "2026-10-31"
     },
     {
@@ -350,11 +350,19 @@
     },
     {
       "tag": "hurricane",
-      "model": "Hurricane 5.0 (AI-designed)",
-      "target": "Tc_exp (parent compound)",
-      "mae": 8.46,
+      "model": "Hurricane 4.0 (AI-designed)",
+      "target": "Tc_exp",
+      "mae": 10.43,
       "unit": "K",
-      "note": "5-fold CV grouped by chemical system; 619 parent compounds from 2,123 3DSC entries, 290 of which superconduct when doped, plus 225 compounds with no superconductivity record for the classifier"
+      "note": "5-fold CV grouped by the Materials Project chemical-system label; 2,123 cuprates, iron-based, heavy-fermion and other oxides from 3DSC (SuperCon + Materials Project), 1,395 superconducting, plus 218 compounds with no superconductivity record for the classifier"
+    },
+    {
+      "tag": "hurricane",
+      "model": "Gradient boosting, composition only (measured-Tc baseline)",
+      "target": "Tc_exp",
+      "mae": 14.98,
+      "unit": "K",
+      "note": "Same data and folds"
     }
   ],
   "history": [
@@ -1818,9 +1826,9 @@
     },
     {
       "id": "hurricane",
-      "status": "Hurricane 5.0 in use",
+      "status": "Hurricane 4.0 in use",
       "active": true,
-      "text": "Asks whether a parent compound is worth doping: it learns from 619 parent compounds in 3DSC (290 of which superconduct in some doped form), from what DFT says about their electrons, and from 225 compounds with no superconductivity record. Trained without a whole family it finds 4% of that family's superconducting parents (Hurricane 4.0: 3%), gives 0% of the held-out compounds with no record at least an even chance, and answers \"not known\" far from its training data. Our AI agent designed it."
+      "text": "Learns from 2,123 measured Tc values (cuprates, iron-based, heavy-fermion and other oxides; SuperCon with Materials Project structures via 3DSC), including 728 zero-Tc catalog entries with measurement limits not established here, and from 218 compounds with no superconductivity record, counted as probably not superconducting. For held-out chemical-system groups it is off by 10.4 K on average. It gives a chance only to compounds near its training data and answers \"not known\" further away: of the held-out compounds with no record, it gives 0% at least an even chance (Hurricane 2.0: 39%), and trained without a whole family it calls 28% of that family's superconductors unlikely (Hurricane 3.0: 88%). Our AI agent designed it."
     }
   ],
   "hurricane": {
@@ -1828,42 +1836,41 @@
     "about": "Hurricane is the project's AI-designed Tc model for unconventional superconductors: cuprates, iron- and nickel-based pnictides and chalcogenides, heavy-fermion compounds and other oxides. No first-principles theory gives their Tc, so it learns from measured Tc (SuperCon, with Materials Project structures, via the 3DSC dataset), including materials that did not superconduct. An AI agent (Claude) proposes each design; candidates are scored with cross-validation grouped by parent compound, and a version is released only if it beats the reference on average and in at least 4 of 5 folds.",
     "current": "4.0",
     "data": {
-      "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures), by parent compound",
+      "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
       "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
       "doi": "10.1038/s41597-023-02721-y",
       "licence": "CC BY 4.0",
       "commit": "8d69ca9",
-      "n": 619,
-      "n_sc": 290,
-      "n_entries": 2123,
+      "n": 2123,
+      "n_sc": 1395,
       "n_groups": 476,
       "families": {
         "cuprate": {
           "label": "Cuprates",
-          "n": 160,
-          "n_sc": 84,
+          "n": 874,
+          "n_sc": 576,
           "max_tc": 132.9
         },
         "iron-based": {
           "label": "Iron- and nickel-based",
-          "n": 111,
-          "n_sc": 73,
+          "n": 517,
+          "n_sc": 406,
           "max_tc": 56.5
         },
         "heavy-fermion": {
           "label": "Heavy-fermion",
-          "n": 221,
-          "n_sc": 81,
+          "n": 422,
+          "n_sc": 242,
           "max_tc": 16.6
         },
         "other oxide": {
           "label": "Other oxides",
-          "n": 127,
-          "n_sc": 52,
+          "n": 310,
+          "n_sc": 171,
           "max_tc": 31.5
         }
       },
-      "parent_about": "a parent compound is one Materials Project structure in 3DSC with all the SuperCon entries matched to it: it counts as superconducting if any of them does, and its Tc is the highest they reach"
+      "context": 3635
     },
     "versions": [
       {
@@ -2329,6 +2336,43 @@
               "note": "the resistivity jumps come from Cu2S impurities"
             }
           ]
+        },
+        "data": {
+          "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+          "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+          "doi": "10.1038/s41597-023-02721-y",
+          "licence": "CC BY 4.0",
+          "commit": "8d69ca9",
+          "n": 2123,
+          "n_sc": 1395,
+          "n_groups": 476,
+          "families": {
+            "cuprate": {
+              "label": "Cuprates",
+              "n": 874,
+              "n_sc": 576,
+              "max_tc": 132.9
+            },
+            "iron-based": {
+              "label": "Iron- and nickel-based",
+              "n": 517,
+              "n_sc": 406,
+              "max_tc": 56.5
+            },
+            "heavy-fermion": {
+              "label": "Heavy-fermion",
+              "n": 422,
+              "n_sc": 242,
+              "max_tc": 16.6
+            },
+            "other oxide": {
+              "label": "Other oxides",
+              "n": 310,
+              "n_sc": 171,
+              "max_tc": 31.5
+            }
+          },
+          "context": 3635
         }
       },
       {
@@ -3046,6 +3090,43 @@
           "spread_median": null,
           "model_mae": null,
           "about": "formulas that SuperCon lists with more than one Tc; each distinct value against the mean of the others, which no model can beat on those compounds"
+        },
+        "data": {
+          "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+          "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+          "doi": "10.1038/s41597-023-02721-y",
+          "licence": "CC BY 4.0",
+          "commit": "8d69ca9",
+          "n": 2123,
+          "n_sc": 1395,
+          "n_groups": 476,
+          "families": {
+            "cuprate": {
+              "label": "Cuprates",
+              "n": 874,
+              "n_sc": 576,
+              "max_tc": 132.9
+            },
+            "iron-based": {
+              "label": "Iron- and nickel-based",
+              "n": 517,
+              "n_sc": 406,
+              "max_tc": 56.5
+            },
+            "heavy-fermion": {
+              "label": "Heavy-fermion",
+              "n": 422,
+              "n_sc": 242,
+              "max_tc": 16.6
+            },
+            "other oxide": {
+              "label": "Other oxides",
+              "n": 310,
+              "n_sc": 171,
+              "max_tc": 31.5
+            }
+          },
+          "context": 3635
         }
       },
       {
@@ -3828,6 +3909,43 @@
               "p_sc_previous": 0.897
             }
           ]
+        },
+        "data": {
+          "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+          "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+          "doi": "10.1038/s41597-023-02721-y",
+          "licence": "CC BY 4.0",
+          "commit": "8d69ca9",
+          "n": 2123,
+          "n_sc": 1395,
+          "n_groups": 476,
+          "families": {
+            "cuprate": {
+              "label": "Cuprates",
+              "n": 874,
+              "n_sc": 576,
+              "max_tc": 132.9
+            },
+            "iron-based": {
+              "label": "Iron- and nickel-based",
+              "n": 517,
+              "n_sc": 406,
+              "max_tc": 56.5
+            },
+            "heavy-fermion": {
+              "label": "Heavy-fermion",
+              "n": 422,
+              "n_sc": 242,
+              "max_tc": 16.6
+            },
+            "other oxide": {
+              "label": "Other oxides",
+              "n": 310,
+              "n_sc": 171,
+              "max_tc": 31.5
+            }
+          },
+          "context": 3635
         }
       },
       {
@@ -4708,6 +4826,43 @@
               "ratio": 0.89
             }
           ]
+        },
+        "data": {
+          "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+          "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+          "doi": "10.1038/s41597-023-02721-y",
+          "licence": "CC BY 4.0",
+          "commit": "8d69ca9",
+          "n": 2123,
+          "n_sc": 1395,
+          "n_groups": 476,
+          "families": {
+            "cuprate": {
+              "label": "Cuprates",
+              "n": 874,
+              "n_sc": 576,
+              "max_tc": 132.9
+            },
+            "iron-based": {
+              "label": "Iron- and nickel-based",
+              "n": 517,
+              "n_sc": 406,
+              "max_tc": 56.5
+            },
+            "heavy-fermion": {
+              "label": "Heavy-fermion",
+              "n": 422,
+              "n_sc": 242,
+              "max_tc": 16.6
+            },
+            "other oxide": {
+              "label": "Other oxides",
+              "n": 310,
+              "n_sc": 171,
+              "max_tc": 31.5
+            }
+          },
+          "context": 3635
         }
       },
       {
@@ -5505,6 +5660,44 @@
               "types": []
             }
           ]
+        },
+        "data": {
+          "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures), by parent compound",
+          "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+          "doi": "10.1038/s41597-023-02721-y",
+          "licence": "CC BY 4.0",
+          "commit": "8d69ca9",
+          "n": 619,
+          "n_sc": 290,
+          "n_entries": 2123,
+          "n_groups": 476,
+          "families": {
+            "cuprate": {
+              "label": "Cuprates",
+              "n": 160,
+              "n_sc": 84,
+              "max_tc": 132.9
+            },
+            "iron-based": {
+              "label": "Iron- and nickel-based",
+              "n": 111,
+              "n_sc": 73,
+              "max_tc": 56.5
+            },
+            "heavy-fermion": {
+              "label": "Heavy-fermion",
+              "n": 221,
+              "n_sc": 81,
+              "max_tc": 16.6
+            },
+            "other oxide": {
+              "label": "Other oxides",
+              "n": 127,
+              "n_sc": 52,
+              "max_tc": 31.5
+            }
+          },
+          "parent_about": "a parent compound is one Materials Project structure in 3DSC with all the SuperCon entries matched to it: it counts as superconducting if any of them does, and its Tc is the highest they reach"
         }
       }
     ]

@@ -197,6 +197,30 @@ wider use; cryptographic challenge validation is not a bot-cost control.
 
 ## Verification and limits
 
+The team message board uses the separate `TEAM_BOARD` binding and the additive
+`v3` SQLite migration for `TeamBoardDO`. Its Worker route rechecks the same live
+identity, active membership and repository access as private Notes. A member's
+current administrator-assigned display name is captured when posting; blank names
+become `Team member`. Email addresses and internal actor IDs are never returned.
+
+`GET /api/board` returns the latest 50 messages in ascending ID order. `before=N`
+pages older messages; `after=N` pages newer messages; `limit` is 1–50. The response
+is `{messages, latest_id, has_more}`, where each message contains `id`, `body`,
+`created_at` (epoch milliseconds), and `author: {name, is_self}`. `has_more` refers
+to older history for initial/`before` pages and newer messages for nonzero `after`.
+`POST /api/board` accepts only `{body}` and returns `{message, latest_id}`. Trimmed
+plain text is limited to 2,000 UTF-16 code units and the request to 8 KiB; control
+characters other than LF/TAB are rejected. Transactional limits allow one message
+per three seconds and twenty per rolling hour per actor. Messages use independent
+durable keys, with no automatic deletion. Member reads share the existing private
+API rate budget, so visible-page polling should run no faster than once a minute.
+No board messages are logged, cached publicly, or written during synthetic tests.
+Revocation is acknowledged only after a persistent membership-version fence is
+written to the board's own transaction queue. An old in-flight append after that
+fence is rejected, even following an object restart or later reinvitation. A post
+that commits before the fence is an accepted in-flight operation and receives its
+success receipt; it is not falsely reported as a failed post after committing.
+
 Tests use a memory Durable Object adapter and a fake GitHub transport containing
 only invented records. They exercise callback cookies/state, both PKCE stages,
 parallel replay, expiry, owner/non-owner access, upstream identity substitution,

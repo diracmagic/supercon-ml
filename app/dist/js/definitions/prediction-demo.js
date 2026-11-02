@@ -22,7 +22,7 @@
   const predHurExamples = function predHurExamples() {
     var hi = hurInfo(), an = hi && hi.v.anchors, rank = { 'cuprate': 0, 'heavy-fermion': 1, 'iron-based': 2, 'other oxide': 3 };
     var ok = predSortBy(list(an && an.table).filter(function (r) {
-      return r && r.use === 'score' && ['pred', 'tc_sc', 'p_sc', 'tc_exp'].every(function (k) { return predNum(r[k]); });
+      return r && r.use === 'score' && r.unknown !== true && ['pred', 'tc_sc', 'p_sc', 'tc_exp'].every(function (k) { return predNum(r[k]); });
     }), function (r) { return rank[r.family] === undefined ? 9 : rank[r.family]; });
     var seen = {}, first = [], rest = [];
     ok.forEach(function (r) { if (seen[r.family]) rest.push(r); else { seen[r.family] = 1; first.push(r); } });
@@ -84,14 +84,14 @@
     var rd = predRadar(r.name), ph = r.physics || {}, steps = [], bits = [];
     steps.push({ id: 'radar', d: 2, text: rd ? radTitle(radInfo()) + ' sends it to Hurricane: the probability of an unconventional family is ' + predP(rd.p_unconventional) + '.'
       : 'One of Hurricane’s four unconventional families, so it goes to Hurricane.' });
-    if (typeof ph.p_cu === 'number') bits.push('holes per Cu p = ' + ph.p_cu.toFixed(2) + (typeof ph.dome !== 'number' ? '' : ph.dome >= 0.95 ? ', at the top of the cuprate dome' : ', where the cuprate dome is at ' + Math.round(100 * ph.dome) + '% of its top'));
-    if (typeof ph.cu_layers === 'number') bits.push(Math.round(ph.cu_layers) + ' CuO₂ planes');
-    if (typeof ph.tm_d === 'number' && typeof ph.p_cu !== 'number') bits.push(ph.tm_d.toFixed(1) + ' d electrons per transition-metal atom');
+    if (typeof ph.p_cu === 'number') bits.push('nominal charge-balance estimate p = ' + ph.p_cu.toFixed(2) + (typeof ph.dome !== 'number' ? '' : ', giving a heuristic dome feature of ' + Math.round(100 * ph.dome) + '%'));
+    if (typeof ph.cu_layers === 'number') bits.push('Cu-count proxy = ' + ph.cu_layers + ' (formula coefficient capped at 6, not a measured layer count)');
+    if (typeof ph.tm_d === 'number' && typeof ph.p_cu !== 'number') bits.push('nominal d-count estimate ' + ph.tm_d.toFixed(1) + ' per transition-metal atom');
     if (typeof ph.f_share === 'number' && ph.f_share > 0) bits.push(Math.round(100 * ph.f_share) + '% f-electron atoms');
     var types = list(r.types).map(function (k) { return featLabel(k); });
     if (types.length) bits.push('structure type ' + types.join(', '));
     steps.push({ id: 'physics', d: 3.2, text: bits.length ? 'Physics read from the formula: ' + bits.join('; ') + '.' : 'Composition statistics, measurable structure and the physics features are read from the formula.' });
-    steps.push({ id: 'p', d: 2.4, text: 'Part 1, a classifier: the probability that it superconducts at all is P = ' + r.p_sc.toFixed(2) + '.' });
+    steps.push({ id: 'p', d: 2.4, text: 'Part 1, a classifier: model score P = ' + r.p_sc.toFixed(2) + '. It learns catalog labels and weak background labels; this is not an experimentally calibrated probability for a new material.' });
     steps.push({ id: 'tc', d: 2.4, text: 'Part 2, a regressor trained only on superconductors: Tc if it does = ' + predK(r.tc_sc) + '.' });
     steps.push({ id: 'product', d: 2.4, text: 'The prediction is their product: ' + r.p_sc.toFixed(2) + ' × ' + predK(r.tc_sc) + ' = ' + predK(r.pred) + '.' });
     var off = r.pred - r.tc_exp, near = Math.abs(off) <= Math.max(1, 0.2 * r.tc_exp), none = r.tc_exp === 0, note;
@@ -126,12 +126,12 @@
       var u = stormUnc(), nm = u ? 'Storm ' + u.version : stormEns() ? 'Storm ' + stormEns().version : 'Storm';
       if (!ex) return 'How ' + nm + ' turns a crystal into Tc. The worked examples load with the live progress data after Storm’s fifth training round.';
       return 'How ' + nm + ', our model for conventional superconductors, predicts Tc, with the numbers it computed for ' + hurSub(ex.name) + ' (measured ' + predK(ex.tc_exp) + ', ' + ex.status + ').' +
-        ' Every value is out of fold: the material’s chemical system was held out while the models trained. Storm learns the Tc of DFT calculations, so its own error is against the calculation; the calibration maps it to experiment, and the range says how sure Storm is.' +
+        ' Every value is out of fold: the material’s chemical system was held out while the models trained. Storm learns the Tc of DFT calculations, so its own error is against the calculation. The calibration estimates measured Tc; the separate 90% range applies only to the computed target, not to the experimental estimate.' +
         (ex.n_structures > 1 ? ' The database holds ' + ex.n_structures + ' structures of ' + hurSub(ex.name) + '; the one shown has the median computed Tc.' : '');
     }
     var hi = hurInfo(), hn = hi ? hurTitle(hi) : 'Hurricane';
-    if (!ex) return 'How ' + hn + ' predicts Tc in two parts. The worked examples load with the live progress data after Hurricane’s next training run.';
-    return 'How ' + hn + ', our model for unconventional superconductors, predicts Tc for ' + hurSub(ex.name) + ', a later measurement it never trained on. It reads the formula and its physics features, then predicts in two parts: whether the compound superconducts at all, and its Tc if it does. Their product is the prediction.';
+    if (!ex) return 'No numerical anchor demonstration is available: it requires a scored anchor where ' + hn + ' has not abstained. An unknown answer is not a low probability.';
+    return 'How ' + hn + ', our model for unconventional superconductors, predicts Tc for ' + hurSub(ex.name) + ', an anchor measurement excluded from training. It reads the formula and heuristic physics features, then combines a classifier score with Tc conditional on superconductivity. Their product is the model prediction. Anchors where Hurricane abstains are omitted from this numerical demonstration; an unknown answer is not a low probability.';
   };
 
 
@@ -141,7 +141,7 @@
     var title = mode === 'storm' ? 'How ' + (stormUnc() ? 'Storm ' + stormUnc().version : 'Storm') + ' predicts Tc' : 'How ' + (hurInfo() ? hurTitle(hurInfo()) : 'Hurricane') + ' predicts Tc';
     stText(c, C, title, 16, 24, { size: narrow ? 14 : 15, weight: '600', color: C.ink });
     if (!ex) {
-      stParaRich(c, C, 'The worked examples load with the live progress data once the model’s training round has written them.', 16, 60, W - 32, 18, { size: 12.5, color: C.muted });
+      stParaRich(c, C, mode === 'hurricane' ? 'No scored anchor without abstention is available. Hurricane’s unknown answers are not displayed as numerical predictions.' : 'The worked examples load with the live progress data once the model’s training round has written them.', 16, 60, W - 32, 18, { size: 12.5, color: C.muted });
       $('#demo-ad-readout').textContent = '';
       return;
     }
@@ -358,7 +358,7 @@
       stRound(c, gx, gy - 10, gw2, 20, 10); c.fillStyle = C.surface2; c.fill(); c.strokeStyle = C.grid; c.lineWidth = 1; c.stroke();
       stRound(c, gx, gy - 10, Math.max(4, gw2 * fill), 20, 10); c.fillStyle = C.accent; c.fill();
       label(c, C, '0', gx, gy + 28, { size: 10.5, color: C.muted }); label(c, C, '1', gx + gw2, gy + 28, { align: 'right', size: 10.5, color: C.muted });
-      label(c, C, 'P(superconducts) = ' + fill.toFixed(2), gx, gy - 20, { size: 13, weight: '700', color: C.accent });
+      label(c, C, 'Classifier score = ' + fill.toFixed(2), gx, gy - 20, { size: 13, weight: '700', color: C.accent });
       return;
     }
     var rows = [];

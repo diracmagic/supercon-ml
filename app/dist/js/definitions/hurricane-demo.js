@@ -9,7 +9,7 @@
     var vs = hu ? list(hu.versions).filter(function (v) { return v && v.scores && v.spec; }) : [];
     if (!vs.length) return null;
     var v = vs.filter(function (x) { return x.version === hu.current; })[0] || vs[vs.length - 1];
-    return { hu: hu, v: v, name: hu.name || 'Hurricane', data: hu.data || {}, versions: vs };
+    return { hu: hu, v: v, name: hu.name || 'Hurricane', data: v.data || hu.data || {}, versions: vs };
   };
 
   const hurTitle = function hurTitle(info) { return info.name + ' ' + info.v.version; };
@@ -72,9 +72,9 @@
       case 0:
         return 'No first-principles theory gives Tc for cuprates, iron-based or heavy-fermion superconductors, so Hurricane learns from measurements: ' +
           fmtInt(dd.n) + ' measured Tc values from 3DSC, which pairs the SuperCon database of measured Tc with Materials Project crystal structures' +
-          (dd.n_groups ? ', from ' + fmtInt(dd.n_groups) + ' parent compounds' : '') + '. ' + fmtInt(non) +
-          ' of them were reported as not superconducting down to the lowest temperature measured; they teach the model where Tc falls to zero.' +
-          (bgn ? ' Its classifier also learns from ' + fmtInt(typeof rl.background.n_used === 'number' ? rl.background.n_used : bgn) + ' compounds that no one has reported as superconducting, counted as probably not superconducting, so that it does not call ordinary compounds likely superconductors.' : '') +
+          (dd.n_groups ? ', in ' + fmtInt(dd.n_groups) + ' chemical-system groups' : '') + '. ' + fmtInt(non) +
+          ' have catalogued Tc = 0. The underlying measurement limits and conditions have not been established here; these zero labels do not prove the absence of superconductivity under every condition.' +
+          (bgn ? ' Its classifier also learns from ' + fmtInt(typeof rl.background.n_used === 'number' ? rl.background.n_used : bgn) + ' compounds with no superconductivity record in the checked sources, assigned weak zero labels. These are unlabelled background compounds, not experimentally established negatives.' : '') +
           (hur4(rl) && rl.abstain ? ' Far from everything it learned from, it answers “not known” instead of giving a chance.' : '');
       case 1:
         var sr = v.search || {}, pv = v.previous && typeof v.previous.tc_mae === 'number' ? v.previous : null;
@@ -86,7 +86,7 @@
               (rl.reference_version ? ' and ' + radPct(rl.dismissed_reference) + ' for Hurricane ' + rl.reference_version : '') + ', with ' + (rl.false_alarms === 0 ? 'no false alarms' : radPct(rl.false_alarms) + ' false alarms') + ', and became ' + name + '.' +
               (typeof hurLofoAvg(v, 'unknown') === 'number' && typeof hurLofoAvg(v, 'found') === 'number' ? ' For ' + radPct(hurLofoAvg(v, 'unknown')) + ' of them it answers “not known”, and it gives ' + radPct(hurLofoAvg(v, 'found')) +
                 ' at least an even chance' + (typeof hurLofoAvg(v, 'found_reference') === 'number' && rl.reference_version ? ' (Hurricane ' + rl.reference_version + ': ' + radPct(hurLofoAvg(v, 'found_reference')) + ')' : '') +
-                (hurLofoAvg(v, 'found') <= 0.2 ? ': it would not recognize a new family either.' : '.') : '')
+                (hurLofoAvg(v, 'found') <= 0.2 ? ': this does not establish reliable recognition of a new family.' : '.') : '') + ' “False alarms” here uses the unlabelled background, not experimental negative measurements.'
               : 'None passed every test of the release rule, so Hurricane ' + pv.version + ' stays in use.');
         }
         if (pv && rl) {   // round 3: the same model with background compounds, released for fewer false alarms outside the training data
@@ -105,14 +105,14 @@
               : 'A design is released only if it beats Hurricane ' + pv.version + ' on average and in at least 4 of 5 folds; none did this round, so Hurricane ' + pv.version + ' stays in use.');
         }
         return 'An AI agent (Claude) proposed ' + (sr.candidates || 'several') + ' designs in round ' + v.round +
-          ': which inputs to use, physics features, the objective and how to weight noisy entries. Each was trained and scored with five-fold cross-validation that holds out whole parent compounds, so no test compound has a close relative in training. ' +
+          ': which inputs to use, physics features, the objective and how to weight noisy entries. Each was trained and scored with five-fold cross-validation that holds out whole Materials Project chemical-system groups. Similar structures with different element sets can still cross folds. ' +
           (ok ? 'The best one beat the composition-only baseline on average and in ' + sc.folds_better + ' of ' + nf + ' folds and became ' + name + '.'
             : 'A design is released only if it beats the baseline on average and in at least 4 of 5 folds; none did this round, so ' + name + ' stays experimental.');
       case 2:
         var ins = list(v.spec.inputs), total = 0, top = list(v.importance).slice(0, 3).map(function (i) { return hurFeatName(i.name); });
         ins.forEach(function (g) { total += g.n || 0; });
         return name + ' reads ' + total + ' numbers per compound: ' + ins.map(function (g) { return g.n + ' ' + lcFirst(g.label); }).join(', ').replace(/, ([^,]*)$/, ' and $1') +
-          '. The physics features carry what is known about these families. Charge balance gives the holes per copper, p, and cuprate Tc rises and falls with p along the empirical dome 1 − 82.6 (p − 0.16)², highest at p = 0.16; it also gives the d-electron count of the metal layer (Cu²⁺ is d⁹, Fe²⁺ d⁶).' +
+          '. The physics features are heuristics: nominal charge balance estimates holes per copper, p, and a nominal d-electron count (Cu²⁺ is d⁹, Fe²⁺ d⁶). The empirical cuprate dome 1 − 82.6 (p − 0.16)² peaks at p = 0.16; it is an input feature, not a universal law or a measurement of carrier density.' +
           (top.length ? ' Shuffling one input at a time and measuring how much the error grows shows what the model relies on most: ' + top.join(', ') + '.' : '') +
           // Hurricane 2.0 and later can predict in two parts (spec.learner.two_part says how)
           (v.spec.learner && typeof v.spec.learner.two_part === 'string' ? ' It predicts in two parts: ' + v.spec.learner.two_part.replace(/\.$/, '') + '.' : '');
@@ -120,7 +120,7 @@
         var fam = sc.by_family || {}, parts = [];
         HUR_FAMS.forEach(function (k) { if (fam[k]) parts.push(hurFamText(k) + ' ' + hurK(fam[k].mae) + ' K'); });
         var pv3 = v.previous && typeof v.previous.tc_mae === 'number' ? v.previous : null;
-        return name + ' is off by ' + hurK(sc.tc_mae) + ' K on average for compounds whose parent it never saw, against ' + hurK(sc.reference_mae) +
+        return name + ' is off by ' + hurK(sc.tc_mae) + ' K on average for held-out chemical-system groups, against ' + hurK(sc.reference_mae) +
           ' K for gradient boosting on the composition alone, and better in ' + sc.folds_better + ' of ' + nf + ' folds.' +
           (pv3 ? ' Hurricane ' + pv3.version + ', retrained on the same folds, is off by ' + hurK(pv3.tc_mae) + ' K.' : '') +
           (typeof sc.sc_mae === 'number' ? ' For superconductors alone the error is ' + hurK(sc.sc_mae) + ' K.' : '') +
@@ -132,16 +132,16 @@
         var cu4 = cu && hur4(hurRel(v)) && typeof cu.dismissed === 'number' ? cu : null;
         return 'Leaving out a whole family is a much harder test. ' +
           (cu ? 'Trained without any cuprate, ' + name + ' never predicts more than ' + hurK(cu.max_pred) + ' K for one, while cuprates reach ' + Math.round(cu.max_tc) + ' K. ' : '') +
-          (cu4 ? 'It calls ' + radPct(cu4.dismissed) + ' of the cuprate superconductors unlikely and gives ' + radPct(cu4.unknown) + ' of them no chance at all' + (typeof cu4.dismissed_previous === 'number' ? ', where Hurricane ' + (v.previous && v.previous.version || 'before') + ' called ' + radPct(cu4.dismissed_previous) + ' unlikely' : '') + '. ' : '') +
+          (cu4 ? 'It calls ' + radPct(cu4.dismissed) + ' of the cuprate superconductors unlikely and answers “not known” for ' + radPct(cu4.unknown) + ' of them' + (typeof cu4.dismissed_previous === 'number' ? ', where Hurricane ' + (v.previous && v.previous.version || 'before') + ' called ' + radPct(cu4.dismissed_previous) + ' unlikely' : '') + '. ' : '') +
           (flat.length ? 'For ' + flat.join(', ').replace(/, ([^,]*)$/, ' and $1') + ', the error is no better than always guessing the median Tc of the other families. ' : '') +
           (good.length ? good.map(function (r) { var x = hurFamText(r.family); return x.charAt(0).toUpperCase() + x.slice(1); }).join(' and ') + (good.length > 1 ? ' are' : ' are') + ' the exception: their Tc is low across the board, and a model that predicts low values does well (' + good.map(function (r) { return hurK(r.mae) + ' K'; }).join(', ') + '). ' : '') +
-          'A model that has only seen other families does not discover a new one; finding a new high-Tc family needs physics that these correlations do not contain.';
+          'These cross-family tests do not support reliable discovery of new high-Tc families. Further physical information and independent experimental tests are needed.';
       default:
         var an = v.anchors || {}, rows = list(an.table), hg = rows.filter(function (r) { return /Hg-1223\)?$/.test(r.name) && r.use === 'score'; })[0];
         var shown = rows.filter(function (r) { return r.use === 'show'; }).length, out = rows.filter(function (r) { return r.use === 'exclude'; });
-        return 'Compounds Hurricane never trained on, most reported after the 2018 SuperCon snapshot that 3DSC is built on, each graded by reliability. Only replicated, ambient-pressure, bulk measurements in its four families are scored' +
-          (typeof an.mae === 'number' ? ': ' + an.n_scored + ' so far, off by ' + hurK(an.mae) + ' K on average' + (an.scored_as_check ? '' : ', too few to count as a check yet') : '') + '. ' +
-          (hg && typeof hg.pred === 'number' ? 'Hg-1223, the ambient-pressure record of ' + hg.tc_exp + ' K since 1993, is predicted at ' + Math.round(hg.pred) + ' K. ' : '') +
+        return 'Compounds Hurricane never trained on, most reported after the 2018 SuperCon snapshot that 3DSC is built on, each graded by reliability. The historical raw-output diagnostic used replicated, ambient-pressure, bulk measurements in its four families' +
+          (typeof an.mae === 'number' ? ': ' + an.n_scored + ' entries, off by ' + hurK(an.mae) + ' K on average' + (rows.some(function (r) { return r.use === 'score' && r.unknown === true; }) ? ', including internal outputs for abstained entries' : '') + (an.scored_as_check ? '' : ', too few to count as a check yet') : '') + '. Abstentions are displayed as unknown, without a numerical prediction. ' +
+          (hg && hg.unknown !== true && typeof hg.pred === 'number' ? 'The Hg-1223 anchor uses the 1993 measurement of ' + hg.tc_exp + ' K; its prediction is ' + Math.round(hg.pred) + ' K. ' : '') +
           (shown ? shown + ' more, such as thin films, pressure-quenched samples and kagome metals, are shown but not scored' : '') +
           (out.length ? (shown ? ', and ' : '') + out.map(function (r) { return hurShortName(r.name); }).join(', ') + ' is left out because it was ' + (out[0].status || 'refuted') : '') + '.';
     }
@@ -248,7 +248,7 @@
     });
     if (!narrow && t > 4) {
       c.globalAlpha = stSpan(t, 4, 4.6);
-      stParaRich(c, C, 'Pale: compounds reported as not superconducting. They show the model where Tc falls to zero.', L.x, L.y + fams.length * rh + 6, L.w, 16, { size: 11.5, color: C.muted });
+      stParaRich(c, C, 'Pale: catalogued Tc = 0. Measurement limits and conditions are not established here.', L.x, L.y + fams.length * rh + 6, L.w, 16, { size: 11.5, color: C.muted });
     }
     c.globalAlpha = 1;
   };
@@ -461,7 +461,7 @@
   /* 3 · fold by fold against the composition-only baseline, and family by family */
   const drawHurCheck = function drawHurCheck(c, C, B, t, narrow, info) {
     var sc = info.v.scores, f = list(sc.folds), r = list(sc.reference_folds), n = f.length;
-    stormHeader(c, C, B, (narrow ? 'Better in ' : 'Better than composition only in ') + sc.folds_better + ' of ' + n + ' folds', narrow ? '' : 'error for compounds whose parent it never saw');
+    stormHeader(c, C, B, (narrow ? 'Better in ' : 'Better than composition only in ') + sc.folds_better + ' of ' + n + ' folds', narrow ? '' : 'error for held-out chemical-system groups');
     var F = narrow ? { x: B.x, y: B.y + 28, w: B.w, h: Math.min(200, B.h * 0.47) } : { x: B.x, y: B.y + 30, w: Math.round(B.w * 0.5), h: B.h - 30 };
     var G = narrow ? { x: B.x, y: F.y + F.h + 18, w: B.w, h: B.y + B.h - (F.y + F.h + 18) } : { x: F.x + F.w + 36, y: B.y + 30, w: B.w - F.w - 36, h: B.h - 30 };
     var P = { x: F.x + 30, y: F.y + 8, w: F.w - 34, h: F.h - 8 - 46 };
@@ -604,7 +604,7 @@
     var nameW = narrow ? Math.min(112, B.w * 0.36) : Math.min(240, B.w * 0.3), gradeW = narrow ? 56 : 104;
     var P = { x: B.x + nameW + 10, y: B.y + 34, w: B.w - nameW - 10 - gradeW - 12, h: B.h - 34 - (narrow ? 66 : 48) };
     var vmax = 0;
-    rows.forEach(function (r) { vmax = Math.max(vmax, typeof r.tc_exp === 'number' ? r.tc_exp : 0, typeof r.pred === 'number' ? r.pred : 0); });
+    rows.forEach(function (r) { vmax = Math.max(vmax, typeof r.tc_exp === 'number' ? r.tc_exp : 0, r.unknown !== true && typeof r.pred === 'number' ? r.pred : 0); });
     vmax = Math.max(20, Math.ceil(vmax * 1.05 / 20) * 20);
     function X(v) { return P.x + Math.sqrt(Math.max(0, Math.min(v, vmax)) / vmax) * P.w; }
     var rh = Math.min(30, P.h / rows.length), axisY = P.y + rows.length * rh + 2;
@@ -622,7 +622,7 @@
       c.globalAlpha = a * (scored ? 1 : 0.85);
       var nm = hurFit(c, C, hurShortName(r.name), nameW - 4, narrow ? 11 : 12, scored ? '600' : '400');
       label(c, C, nm, B.x, cy2 + 4, { size: narrow ? 11 : 12, weight: scored ? '600' : '400', color: scored ? C.ink : C.ink2 });
-      var hasM = typeof r.tc_exp === 'number', hasP = typeof r.pred === 'number', g = stSpan(t, 0.6 + 0.35 * i, 1.3 + 0.35 * i);
+      var hasM = typeof r.tc_exp === 'number', hasP = r.unknown !== true && typeof r.pred === 'number', g = stSpan(t, 0.6 + 0.35 * i, 1.3 + 0.35 * i);
       if (hasM && hasP && g > 0) {
         var xm = X(r.tc_exp), xp = xm + (X(r.pred) - xm) * g;
         c.strokeStyle = stAlpha(C.ink2, 0.5); c.lineWidth = 2; c.beginPath(); c.moveTo(xm, cy2); c.lineTo(xp, cy2); c.stroke();
@@ -633,7 +633,7 @@
         if (hasP && g > 0) dot(c, X(r.pred), cy2, 4.5, C.surface, C.accent);
         label(c, C, r.status || 'no Tc', P.x + (hasP && X(r.pred) < P.x + 70 ? 16 + (X(r.pred) - P.x) : 4), cy2 + 4, { size: 11, color: C.warm, weight: '600' });
       }
-      var use = scored ? 'scored' : r.use === 'exclude' ? 'left out' : 'shown';
+      var use = r.unknown === true ? 'unknown' : scored ? 'scored' : r.use === 'exclude' ? 'left out' : 'shown';
       stTag(c, C, narrow ? use : use + ' · ' + (r.status === 'single report' ? 'single' : r.status), B.x + B.w, cy2, { align: 'right', size: 10.5, bg: scored ? C.track : C.surface, ring: scored ? null : C.grid, color: scored ? C.ink : C.ink2 });
     });
     c.globalAlpha = 1;
@@ -646,7 +646,8 @@
       dot(c, B.x + 86, ly - 4, 4.5, C.surface, C.accent);
       label(c, C, hurTitle(info), B.x + 95, ly, { size: 11, color: C.ink2 });
       if (typeof an.mae === 'number') {
-        var msg = an.n_scored + ' scored · average error ' + hurK(an.mae) + ' K' + (an.scored_as_check ? '' : (narrow ? '' : ' · too few for a check yet'));
+        var hasAbstentions = rows.some(function (r) { return r.use === 'score' && r.unknown === true; });
+        var msg = an.n_scored + ' raw-output entries · ' + hurK(an.mae) + ' K' + (hasAbstentions ? (narrow ? ' · includes unknown' : ' · includes abstentions') : (an.scored_as_check ? '' : (narrow ? '' : ' · too few for a check yet')));
         if (narrow) label(c, C, msg, B.x, ly + 18, { size: 11, weight: '600', color: C.ink });
         else label(c, C, msg, B.x + B.w, ly, { align: 'right', size: 11, weight: '600', color: C.ink });
       }

@@ -1266,6 +1266,23 @@ def storm_version() -> str:
     return str(ens.get("version") or am.get("current") or "1.0")
 
 
+def screening_stage_detail(screen: dict) -> str:
+    """Describe the current snapshot without promoting missing records to novelty."""
+    storm = screen.get("candidates") or []
+    hurricane = (screen.get("hurricane") or {}).get("candidates") or []
+    checks = (screen.get("phonon_checks") or {}).get("materials") or []
+    completed = sum(row.get("status") == "completed" and row.get("verdict") in {
+        "imaginary_modes_sampled", "no_significant_imaginary_modes_sampled"
+    } for row in checks)
+    detail = (f"Round {screen.get('round', ROUND)}: {len(storm)} Storm candidates and {len(hurricane)} Hurricane "
+              "candidates retained from JARVIS-DFT. Prior reports and experimental evidence are recorded per candidate; "
+              "a search with no match is not proof of novelty. ")
+    if completed:
+        detail += (f"{completed} sampled-phonon checks completed with MACE; this is bounded structural triage, "
+                   "not DFT or superconductivity validation. ")
+    return detail + "The candidate list contains model suggestions, not newly confirmed superconductors."
+
+
 def update_progress(out: dict, progress: Path) -> None:
     prog = json.loads(progress.read_text(encoding="utf-8"))
     stamp = out["run_at"]
@@ -1298,10 +1315,7 @@ def update_progress(out: dict, progress: Path) -> None:
         prog["screen"]["hurricane"]["not_known"] = hu["not_known"]
     for st in prog.get("stages", []):
         if st.get("id") == "screen":
-            st.update(status="active", date=st.get("date") or stamp[:10], detail=(
-                f"Round {ROUND}: {len(c)} conventional candidates (Storm) and {len(hc)} unconventional ones (Hurricane) "
-                f"proposed by our AI models from JARVIS-DFT, none reported or predicted before and none made of the elements "
-                f"of a known superconductor. All are unchecked predictions; next: full DFT checks of the top conventional ones"))
+            st.update(status="active", date=st.get("date") or stamp[:10], detail=screening_stage_detail(prog["screen"]))
     done = sum(1 for s in prog.get("stages", []) if s.get("status") == "done")
     current = next((s for s in prog.get("stages", []) if s.get("status") == "active"), None)
     if prog.get("stages"):
@@ -1310,7 +1324,7 @@ def update_progress(out: dict, progress: Path) -> None:
            f"{hu['pool']['n_sent']:,} compounds that {out['models'][0]} sent it, from JARVIS-DFT, after leaving out "
            f"{out['excluded']['total'] + hu['excluded']['total']:,} entries that others have reported, computed or predicted "
            f"or that share the elements of a known superconductor; {len(c)} conventional and {len(hc)} unconventional "
-           f"candidates published. All are predictions that no calculation or experiment has checked")
+           f"candidates published. These are model suggestions; literature and calculation checks are recorded separately")
     if c:
         msg += f"; Storm's highest is {c[0]['formula']} at {c[0]['tc']:.1f} K (90% range {c[0]['lo']:.1f}–{c[0]['hi']:.1f} K)"
     if hc:
