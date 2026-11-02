@@ -1,8 +1,8 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Lets bundled main-window code open links and download verified application updates",
+  "description": "Lets bundled main-window code open links, download verified updates and use the memory-only team session",
   "windows": ["main"],
   "local": true,
-  "permissions": ["core:default", "opener:default", "allow-download-app-update", "allow-install-app-update"]
+  "permissions": ["core:default", "opener:default", "allow-download-app-update", "allow-install-app-update", "allow-begin-team-sign-in", "allow-native-team-request", "allow-clear-team-session"]
 }
