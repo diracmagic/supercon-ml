@@ -32,7 +32,7 @@ const initializeSuperconDemoPlayer = function initializeSuperconDemoPlayer() {
   view = ['candidates', 'demos', 'learn', 'papers'].indexOf(store.get('view')) >= 0 ? store.get('view') : 'progress';
 
   demo = {
-    id: 'story', t: 1.4, auto: true, clock: 0, raf: 0, last: 0, built: false, unsupPlay: true,
+    id: 'story', t: 1.4, auto: true, clock: 0, raf: 0, last: 0, built: false, unsupPlay: true, unsupStage: 0, unsupT: 0,
     scene: 0, sceneT: 0, storyPlay: true, modelStage: 0, modelT: 0, modelPlay: true, modelNodes: [],
     stormStage: 0, stormT: 0, stormPlay: true, stormVer: '', stormNodes: [],
     hurStage: 0, hurT: 0, hurPlay: true, hurNodes: [],

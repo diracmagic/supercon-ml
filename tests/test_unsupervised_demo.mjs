@@ -38,11 +38,18 @@ function harness(width = 390, reduced = false) {
         top: y - size, bottom: y + size * .23, font: this.font, color: this.fillStyle });
     },
     fillRect(x, y, w, h) { paint.push({ kind: 'rect', x, y, w, h, color: this.fillStyle }); },
-    beginPath() { path = null; },
-    rect(x, y, w, h) { path = { x, y, w, h }; },
-    roundRect(x, y, w, h, radius) { assert.ok(Number.isFinite(radius) && radius >= 0); path = { x, y, w, h }; },
-    fill() { assert.ok(path); paint.push({ kind: 'rect', ...path, color: this.fillStyle }); },
-    stroke() { assert.ok(path); paint.push({ kind: 'stroke', ...path, color: this.strokeStyle, alpha: this.globalAlpha, lineWidth: this.lineWidth }); },
+    beginPath() { path = { kind: 'path', points: [] }; },
+    rect(x, y, w, h) { path = { kind: 'rect', x, y, w, h }; },
+    roundRect(x, y, w, h, radius) { assert.ok(Number.isFinite(radius) && radius >= 0); path = { kind: 'rect', x, y, w, h }; },
+    moveTo(x, y) { assert.equal(path?.kind, 'path'); path.points.push([x, y]); },
+    lineTo(x, y) { assert.equal(path?.kind, 'path'); path.points.push([x, y]); },
+    arc(x, y, radius, start, end) {
+      assert.ok([x, y, radius, start, end].every(Number.isFinite) && radius >= 0);
+      path = { kind: 'circle', x, y, radius };
+    },
+    setLineDash(values) { assert.ok(values.every(Number.isFinite)); this.dash = [...values]; },
+    fill() { assert.ok(path); paint.push({ ...path, color: this.fillStyle, alpha: this.globalAlpha }); },
+    stroke() { assert.ok(path); paint.push({ ...path, stroke: true, color: this.strokeStyle, alpha: this.globalAlpha, lineWidth: this.lineWidth, dash: [...(this.dash || [])] }); },
     clearRect() {}, setTransform(...args) { assert.ok(args.every(Number.isFinite)); }
   };
   function h(tag, attrs = {}, ...children) {
@@ -90,9 +97,9 @@ function harness(width = 390, reduced = false) {
   vm.runInContext('initializeSuperconDemoPlayer(); buildDemos();', context);
   return { context, root, ids, paint, scheduled, palette,
     run: code => vm.runInContext(code, context),
-    draw(clock = 0, playing = true) {
+    draw(stage = 3, time = 0, playing = true) {
       paint.length = 0;
-      context.demo.clock = clock; context.demo.unsupPlay = playing;
+      context.demo.unsupStage = stage; context.demo.unsupT = time; context.demo.unsupPlay = playing;
       vm.runInContext('drawUnsupervisedResults(demo.ctx, colors())', context);
       return plain(paint);
     }
@@ -124,7 +131,13 @@ test('three result bars exactly match the audited within-run U0/U1 numbers', () 
   ]) {
     assert.ok(interval[0] < 0 && interval[1] > 0);
     for (const bound of interval) assert.ok(row.interval.includes(signed(bound * factor, digits)));
+    assert.equal(row.lower, interval[0] * factor);
+    assert.equal(row.upper, interval[1] * factor);
+    assert.ok(row.changeRange > Math.max(Math.abs(row.lower), Math.abs(row.upper)));
   }
+  assert.equal(rows[0].change, storm.delta_mae_k_new_minus_reference);
+  assert.equal(rows[1].change, quantities.observed_pu_auc.delta_new_minus_reference);
+  assert.equal(rows[2].change, quantities.recall_at_budget.delta_new_minus_reference * 100);
   assert.equal(report.adopted, false);
   const caption = h.run('unsupervisedCaption()');
   assert.match(caption, /no new model adopted/i);
@@ -133,51 +146,80 @@ test('three result bars exactly match the audited within-run U0/U1 numbers', () 
   assert.match(caption, /not a new blind test/);
 });
 
-test('result canvas stays finite and English within 280, 390 and 1000 pixel layouts', () => {
+test('all four animated scenes stay finite and English within 280, 390 and 1000 pixel layouts', () => {
   for (const width of [280, 390, 1000]) {
     const h = harness(width);
     assert.equal(h.context.demo.W, width);
     assert.equal(h.context.demo.H, width < 560 ? 600 : 510);
-    const paint = h.draw(4);
-    assert.ok(paint.length > 20 && paint.length < 250, 'Bounded result drawing');
-    for (const item of paint) {
-      const coordinates = item.kind === 'text' ? ['x', 'y', 'left', 'right', 'top', 'bottom'] : ['x', 'y', 'w', 'h'];
-      for (const key of coordinates) assert.ok(Number.isFinite(item[key]), `${width}px ${item.kind} ${key}`);
-      if (item.kind === 'text') {
-        assert.ok(item.left >= 0 && item.right <= width, `${width}px horizontal overflow: ${item.value} (${item.left}, ${item.right})`);
-        assert.ok(item.top >= 0 && item.bottom <= h.context.demo.H, `${width}px vertical overflow: ${item.value}`);
-        assert.doesNotMatch(item.value, han);
-        assert.doesNotMatch(item.value, /doi\.org|10\.\d{4,9}\/|https?:|KMeans|\bRBF\b|\bPCA\b|\bSVD\b|2020|2022|Roter|prior work|references?/i,
-          'Citations and methodological context belong beneath the canvas');
-      } else {
-        assert.ok(item.w >= 0 && item.h >= 0 && item.x >= 0 && item.y >= 0);
-        assert.ok(item.x + item.w <= width && item.y + item.h <= h.context.demo.H);
+    for (const stage of [0, 1, 2, 3]) for (const time of [0, .75, 2.3, 4, 7.9]) {
+      const paint = h.draw(stage, time);
+      assert.ok(paint.length > 20 && paint.length < 250, 'Bounded result drawing');
+      for (const item of paint) {
+        if (item.kind === 'text') {
+          for (const key of ['x', 'y', 'left', 'right', 'top', 'bottom']) assert.ok(Number.isFinite(item[key]));
+          assert.ok(item.left >= 0 && item.right <= width, `${width}px scene ${stage} horizontal overflow: ${item.value} (${item.left}, ${item.right})`);
+          assert.ok(item.top >= 0 && item.bottom <= h.context.demo.H, `${width}px scene ${stage} vertical overflow: ${item.value}`);
+          assert.doesNotMatch(item.value, han);
+          assert.doesNotMatch(item.value, /doi\.org|10\.\d{4,9}\/|https?:|KMeans|\bRBF\b|\bPCA\b|\bSVD\b|2020|2022|Roter|prior work|references?/i,
+            'Citations and methodological context belong beneath the canvas');
+        } else {
+          const points = item.kind === 'path' ? item.points : item.kind === 'circle' ?
+            [[item.x - item.radius, item.y - item.radius], [item.x + item.radius, item.y + item.radius]] :
+            [[item.x, item.y], [item.x + item.w, item.y + item.h]];
+          if (item.kind === 'rect') assert.ok(item.w >= 0 && item.h >= 0);
+          for (const [x, y] of points) assert.ok(Number.isFinite(x) && Number.isFinite(y) && x >= 0 && x <= width && y >= 0 && y <= h.context.demo.H,
+            `${width}px scene ${stage} invalid ${item.kind} point ${x}, ${y}`);
+        }
       }
+      assert.doesNotMatch(h.context.demo.canvas.attrs['aria-label'], han);
     }
-    const visible = paint.filter(item => item.kind === 'text').map(item => item.value).join(' ');
+    const visible = h.draw(3).filter(item => item.kind === 'text').map(item => item.value).join(' ');
     for (const expected of ['0.967 K', '0.975 K', '0.604', '0.601', '24.8%', '25.4%', 'No new model adopted.']) assert.ok(visible.includes(expected), expected);
-    assert.doesNotMatch(h.context.demo.canvas.attrs['aria-label'], han);
   }
 });
 
-test('motion highlights one row only, while pause and reduced motion keep fixed numbers without highlights', () => {
+test('each metric genuinely animates baseline then challenger then the audited interval, never counting numerical labels', () => {
   const h = harness();
   const before = plain(h.run('unsupervisedResults()'));
-  const first = h.draw(0, true), second = h.draw(4, true);
-  const highlighted = paint => paint.filter(item => item.kind === 'stroke' && item.color === h.palette.accent);
-  assert.equal(highlighted(first).length, 1);
-  assert.equal(highlighted(second).length, 1);
-  assert.notEqual(highlighted(first)[0].y, highlighted(second)[0].y);
-  assert.deepEqual(first.filter(item => item.kind === 'text'), second.filter(item => item.kind === 'text'));
-  for (const clock of [0, 4, 10000]) assert.equal(highlighted(h.draw(clock, false)).length, 0);
+  const barWidth = (paint, color) => paint.find(item => item.kind === 'rect' && !item.stroke && item.h === 17 && item.color === color)?.w || 0;
+  const interval = paint => paint.filter(item => item.kind === 'path' && item.stroke && item.color === h.palette.accent && item.lineWidth === 3);
+  for (const [stage, row] of before.entries()) {
+    const start = h.draw(stage, 0), blueHalf = h.draw(stage, .75), blueEnd = h.draw(stage, 1.5);
+    const orangeHalf = h.draw(stage, 2.35), orangeEnd = h.draw(stage, 3.1), fading = h.draw(stage, 4), complete = h.draw(stage, 4.8);
+    assert.equal(barWidth(start, h.palette.accent), 0);
+    assert.ok(barWidth(blueHalf, h.palette.accent) > 0 && barWidth(blueHalf, h.palette.accent) < barWidth(blueEnd, h.palette.accent));
+    assert.equal(barWidth(blueEnd, h.palette.warm), 0, 'The challenger waits for the baseline');
+    assert.ok(barWidth(orangeHalf, h.palette.warm) > 0 && barWidth(orangeHalf, h.palette.warm) < barWidth(orangeEnd, h.palette.warm));
+    assert.equal(barWidth(orangeEnd, h.palette.accent), barWidth(blueEnd, h.palette.accent));
+    assert.ok(Math.abs(barWidth(complete, h.palette.warm) / barWidth(complete, h.palette.accent) - row.after / row.before) < 1e-12);
+    assert.equal(interval(orangeEnd).length, 3);
+    assert.ok(interval(orangeEnd).every(item => item.alpha === 0));
+    assert.ok(interval(fading).every(item => item.alpha > 0 && item.alpha < 1));
+    assert.ok(interval(complete).every(item => item.alpha === 1));
+    const span = interval(complete)[0].points;
+    const zero = complete.find(item => item.kind === 'path' && item.dash?.length)?.points[0][0];
+    const marker = complete.find(item => item.kind === 'circle' && !item.stroke && item.radius === 6);
+    assert.ok(span[0][0] < zero && zero < span[1][0], 'The real interval crosses zero');
+    assert.ok(row.change > 0 ? marker.x > zero : marker.x < zero, 'The point estimate has the correct sign');
+    assert.ok(Math.abs((marker.x - span[0][0]) / (span[1][0] - span[0][0]) - (row.change - row.lower) / (row.upper - row.lower)) < 1e-12);
+    for (const paint of [start, blueHalf, blueEnd, orangeHalf, orangeEnd, fading, complete]) {
+      const labels = paint.filter(item => item.kind === 'text').map(item => item.value);
+      for (const value of [row.before, row.after]) assert.ok(labels.includes(value.toFixed(row.digits) + row.unit), 'Every numerical label stays at its audited value');
+      assert.ok(labels.includes('Change: ' + row.delta));
+      assert.match(h.context.demo.canvas.attrs['aria-label'], /No new model adopted/);
+    }
+  }
   assert.deepEqual(plain(h.run('unsupervisedResults()')), before);
+});
+
+test('reduced motion always shows the complete static summary and hides all motion controls', () => {
   const reduced = harness(390, true);
   assert.equal(reduced.context.demo.unsupPlay, false);
-  assert.equal(reduced.ids.get('#unsup-play').hidden, true);
-  const still = reduced.draw(0, true);
-  assert.equal(highlighted(still).length, 0, 'Preference overrides a stale play flag');
-  assert.deepEqual(reduced.draw(120, true), still);
-  assert.deepEqual(plain(reduced.run('unsupervisedResults()')), before);
+  for (const name of ['play', 'prev', 'next']) assert.equal(reduced.ids.get('#unsup-' + name).hidden, true);
+  assert.match(reduced.ids.get('#unsup-readout').textContent, /Complete audited results/);
+  const still = reduced.draw(0, 0, true);
+  for (const stage of [0, 1, 2, 3]) assert.deepEqual(reduced.draw(stage, 120, true), still, 'Preference overrides stale animation state');
+  assert.equal(reduced.context.demo.canvas.attrs['aria-label'], reduced.run('unsupervisedCaption()'));
 });
 
 test('native references are beneath the canvas, cite clustering/PCA precedents and PR17, and stay English', () => {
@@ -216,7 +258,54 @@ test('demo-player routes, controls, sizing and animation scheduling use the resu
     h.paint.length = 0;
     h.run('frame(1000)');
     assert.equal(h.scheduled.length, expectedFrames);
-    assert.ok(h.paint.some(item => item.value === 'Unsupervised learning: results'), 'Frame selected the real results renderer');
-    assert.equal(h.context.demo.canvas.attrs['aria-label'], h.run('unsupervisedCaption()'));
+    assert.ok(h.paint.some(item => item.value === (reduced ? 'Unsupervised learning: results' : 'Storm 7: DFT Tc error')), 'Frame selected the real results renderer');
+    if (reduced) assert.equal(h.context.demo.canvas.attrs['aria-label'], h.run('unsupervisedCaption()'));
+    else assert.match(h.context.demo.canvas.attrs['aria-label'], /Storm 7, result 1 of 4/);
+  }
+});
+
+test('real previous/play/next controls wrap scenes, reset only their clock and freeze animation when paused or hidden', () => {
+  const h = harness();
+  h.context.view = 'demos';
+  h.context.demo.unsupT = 5;
+  h.ids.get('#unsup-prev').attrs.onclick();
+  assert.equal(h.context.demo.unsupStage, 3);
+  assert.equal(h.context.demo.unsupT, 0);
+  assert.match(h.ids.get('#unsup-readout').textContent, /Result 4 of 4 \/ Conclusion/);
+  h.ids.get('#unsup-next').attrs.onclick();
+  assert.equal(h.context.demo.unsupStage, 0);
+  assert.match(h.ids.get('#unsup-readout').textContent, /Result 1 of 4 \/ Storm/);
+  for (const stage of [1, 2, 3, 0]) {
+    h.context.demo.unsupT = 7.99; h.context.demo.last = 1000;
+    h.run('frame(1050)');
+    assert.equal(h.context.demo.unsupStage, stage);
+    assert.equal(h.context.demo.unsupT, 0);
+  }
+  h.context.demo.unsupT = 2.2;
+  h.ids.get('#unsup-play').attrs.onclick();
+  assert.equal(h.context.demo.unsupPlay, false);
+  const framesBeforePause = h.scheduled.length;
+  h.paint.length = 0; h.context.demo.last = 1000; h.run('frame(1050)');
+  const pausedPaint = plain(h.paint);
+  h.paint.length = 0; h.run('frame(1100)');
+  assert.equal(h.context.demo.unsupT, 2.2);
+  assert.equal(h.scheduled.length, framesBeforePause);
+  assert.deepEqual(plain(h.paint), pausedPaint, 'Paused geometry stays at its exact partial-reveal state');
+  h.ids.get('#unsup-next').attrs.onclick();
+  assert.equal(h.context.demo.unsupStage, 1);
+  assert.equal(h.context.demo.unsupT, 0);
+  assert.equal(h.context.demo.unsupPlay, false, 'Manual stepping does not silently resume playback');
+  h.ids.get('#unsup-play').attrs.onclick();
+  assert.equal(h.context.demo.unsupPlay, true);
+  h.context.demo.last = 1000; h.run('frame(1050)');
+  assert.ok(h.context.demo.unsupT > 0);
+  for (const hidden of [false, true]) {
+    h.context.view = hidden ? 'demos' : 'papers';
+    h.context.document.hidden = hidden;
+    const time = h.context.demo.unsupT, frames = h.scheduled.length;
+    h.paint.length = 0; h.run('frame(1200)');
+    assert.equal(h.context.demo.unsupT, time);
+    assert.equal(h.scheduled.length, frames);
+    assert.equal(h.paint.length, 0, 'Hidden demos do not draw or schedule work');
   }
 });
