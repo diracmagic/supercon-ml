@@ -30,7 +30,7 @@ jobs:
             label: windows
             rust-targets: ''
             build-args: ''
-          - os: macos-latest
+          - os: macos-15-intel
             label: macos
             rust-targets: aarch64-apple-darwin,x86_64-apple-darwin
             build-args: --target universal-apple-darwin
