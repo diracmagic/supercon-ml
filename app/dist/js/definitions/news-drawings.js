@@ -2,7 +2,7 @@
 // news-drawings: shared lexical function definitions; no startup side effects.
 
   const newsArt = function newsArt(n) {
-    var tp = list(n.topics), head = String(n.title || ''), body = head + ' ' + String(n.summary || '') + ' ' + String(n.abstract || '');
+    var tp = list(n.topics), head = String(n.title || n.h || ''), body = head + ' ' + String(n.summary || n.x || '') + ' ' + String(n.abstract || '');
     // Match the stated subject before broad tags. These are labelled subject schematics,
     // never reconstructed structures, measured traces or evidence of superconductivity.
     if (/\bStorm\b/i.test(head) && /range|interval|conformal/i.test(head)) return 'news-interval';
@@ -10,19 +10,27 @@
     if (/\bHurricane\b/i.test(head)) return /two.parts|two.stage|[2-9]\.0/i.test(head) ? 'news-two-stage' : 'news-tree';
     if (/\bStorm\b/i.test(head) && !/graph|network/i.test(head)) return 'news-tree';
     if (/literature|retrieval[- ]augmented|question answering|text mining|language model|corpus|structured extraction/i.test(head)) return 'news-literature';
+    if (/holographic/i.test(head)) return 'news-features';
     if (/stripes?|Hubbard|Kondo[- ]Heisenberg/i.test(head)) return 'news-stripes';
     if (/geometry of materials|common features|representation|tangent kernel/i.test(head)) return 'news-features';
     if (/density of states|spectroscop|Raman|muon stopping|ultrasound/i.test(head)) return 'news-spectrum';
     if (/vorti(?:ces|ex)/i.test(head)) return 'news-vortex';
-    if (/graphene/i.test(head) && !/twist|moir[eé]/i.test(head)) return /(?:six|6)[- ]layer/i.test(head) ? 'news-layered-six' : 'news-layered';
+    if (/graphene/i.test(head)) {
+      var grapheneText = body.replace(/\b(?:without|no|absence of)\s+(?:a\s+)?moir[eé](?:\s+pattern)?\b/gi, '');
+      if (/twist|moir[eé]/i.test(grapheneText)) return 'news-moire';
+      return /(?:six|6)[- ]layer/i.test(head) ? 'news-layered-six' : 'news-layered';
+    }
     if (/electron[– -]phonon|phonon|breathing mode/i.test(head)) return 'news-eph';
     if (/magnon|spin wave/i.test(head) && !/circuit|qubit/i.test(head)) return 'news-stripes';
     if (/graph neural|line[- ]graph|ALIGNN|crystal[- ]graph/i.test(head)) return 'news-graph';
     if (/generat|diffusion|inverse design|structure search|physics judge/i.test(head)) return 'news-search';
     if (/terahertz|picosecond|laser|light pulse/i.test(head)) return 'news-light';
-    if (/pressure|diamond anvil|\bGPa\b/i.test(head)) return 'news-pressure';
+    var pressureText = head.replace(/\bambient[- ]pressure\b|\b(?:without|no)\s+(?:applied\s+|external\s+)?pressure\b|\bpressure[- ]free\b/gi, '');
+    if (/pressure|diamond anvil|\bGPa\b/i.test(pressureText)) return 'news-pressure';
     if (/nanowire/i.test(head)) return 'news-topo';
     if (/kagome/i.test(head)) return 'news-kagome';
+    if (/cuprate|CuO[₂2]|Zhang[– -]Rice/i.test(head)) return 'news-cuprate';
+    if (/nickelate/i.test(head)) return /\bbilayer\b|\bdouble[- ]layer\b/i.test(body) && !/\binfinite[- ]layer\b/i.test(body) ? 'news-nickelate' : 'news-layered';
     if (n.ai_kind === 'experiment') return 'news-measurement';
     if (n.ai_kind === 'generation') return 'news-search';
     if (n.ai_kind === 'data' || n.ai_kind === 'review') return 'news-literature';
@@ -177,155 +185,23 @@
     return result;
   };
 
+  // A compact neutral fallback for an unregistered theme. The original topic
+  // animations take priority in miniFrame; this icon invents no article data.
   const newsArticleDraw = function newsArticleDraw(c, C, W, H, t, info) {
-    var k = Math.min(W / 360, H / 170), cx = W / 2, cy = H * .48, ids = info.facts.map(function (f) { return f.id; });
-    var has = function (id) { return ids.indexOf(id) >= 0; }, ink = C.ink || '#222', accent = C.accent || '#456';
-    function line(x, y, X, Y) { c.beginPath(); c.moveTo(x, y); c.lineTo(X, Y); c.stroke(); }
-    function text(s, x, y, max) {
-      c.fillStyle = ink; c.font = Math.max(10, 11 * k) + 'px sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
-      var limit = Math.max(8, Math.floor((max || 25) * k)), words = String(s).split(/\s+/), rows = [''];
-      words.forEach(function (word) { var last = rows.length - 1, next = rows[last] ? rows[last] + ' ' + word : word;
-        if (next.length > limit && rows[last]) rows.push(word); else rows[last] = next; });
-      rows.slice(0, 3).forEach(function (row, i) { c.fillText(row.length > limit ? row.slice(0, limit-1) + '…' : row, x, y + i * 13 * k); });
+    var k = Math.min(W / 112, H / 84), x = W / 2 - 20 * k, y = H / 2 - 27 * k;
+    c.strokeStyle = C.accent || C.ink || '#456'; c.lineWidth = 1.4; c.lineCap = 'round';
+    c.strokeRect(x, y, 40 * k, 54 * k);
+    for (var row = 0; row < 4; row++) {
+      c.globalAlpha = .45 + .35 * (1 + Math.sin(t * 1.3 - row)) / 2;
+      c.beginPath(); c.moveTo(x + 8 * k, y + (12 + row * 10) * k);
+      c.lineTo(x + (row === 3 ? 24 : 32) * k, y + (12 + row * 10) * k); c.stroke();
     }
-    function box(x, y, w, hh) { c.strokeRect(x, y, w, hh); }
-    function circle(x, y, r) { c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.stroke(); }
-    function arrow(x, y, X, Y) { line(x, y, X, Y); var a = Math.atan2(Y-y, X-x); line(X,Y,X-5*k*Math.cos(a-.5),Y-5*k*Math.sin(a-.5)); line(X,Y,X-5*k*Math.cos(a+.5),Y-5*k*Math.sin(a+.5)); }
-    function documentAt(x, y, w, hh, words) { box(x, y, w, hh); for (var i = 0; i < words; i++) line(x+5*k,y+(7+i*6)*k,x+w-5*k,y+(7+i*6)*k); }
-    c.strokeStyle = accent; c.lineWidth = 1.4; c.lineCap = 'round';
-    var material = info.materials[0], lx = W * .19, rx = W * .81, sy = cy;
-    // Composition tokens are unbonded ingredients, never inferred atom positions.
-    if (info.layerCounts.length) {
-      info.layerCounts.slice(0,2).forEach(function(count,index){var offset=info.layerCounts.length>1?(index-.5)*38*k:0,width=info.layerCounts.length>1?30:56;
-        for (var layer = 0; layer < count; layer++) { var yy = sy - 20*k + layer * Math.min(7, 42/count)*k; box(lx+offset-width/2*k,yy,width*k,4*k); }});
-      text(info.layerCounts.join(' / ') + ' layers mentioned', lx, sy+38*k, 20);
-    } else if (material) {
-      material.components.slice(0, 5).forEach(function (part, i) { var x = lx + (i-(Math.min(5,material.components.length)-1)/2)*20*k;
-        circle(x,sy,(7+Math.min(4,Math.log(1+Number(part.count))))*k); text(part.element,x,sy,5); text('×'+part.count,x,sy+18*k,7); });
-      text(material.text,lx,sy+38*k,22);
-    } else if (info.mode === 'documents' || info.mode === 'question' || info.mode === 'theory') {
-      documentAt(lx-20*k,sy-25*k,40*k,48*k,5); text(info.namedSubject || 'Source question',lx,sy+38*k,22);
-    } else { box(lx-28*k,sy-17*k,56*k,34*k); text(info.namedSubject || 'System in source',lx,sy+38*k,22); }
-    if (has('pressure')) {
-      [-1,1].forEach(function (s) { c.beginPath(); c.moveTo(lx-18*k,sy+s*48*k); c.lineTo(lx+18*k,sy+s*48*k); c.lineTo(lx+7*k,sy+s*28*k); c.lineTo(lx-7*k,sy+s*28*k); c.closePath(); c.stroke(); arrow(lx,sy+s*60*k,lx,sy+s*49*k); });
-    } else if (has('strain')) {
-      var tensile = info.facts.some(function(f){return f.id==='strain' && /tensile/i.test(f.text);});
-      if(tensile){arrow(lx-33*k,sy,lx-52*k,sy);arrow(lx+33*k,sy,lx+52*k,sy);}
-      else if(info.facts.some(function(f){return f.id==='strain' && /compressive/i.test(f.text);})){arrow(lx-52*k,sy,lx-33*k,sy);arrow(lx+52*k,sy,lx+33*k,sy);}
-      else { line(lx-46*k,sy-15*k,lx-46*k,sy+15*k);line(lx+46*k,sy-15*k,lx+46*k,sy+15*k); }
-    }
-    if (has('doping')) { for (var d=0;d<3;d++) { circle(lx-20*k+d*20*k,sy-36*k,3*k); arrow(lx-20*k+d*20*k,sy-31*k,lx-20*k+d*20*k,sy-22*k); } }
-    var pulse = .5+.5*Math.sin(t*1.6);
-    // A paper can combine several probes or model ingredients. Render those
-    // explicit mentions as different small symbols, not just a primary topic.
-    // Their placement is a legend, not a claim that the methods form a causal
-    // sequence or were all performed by the present authors.
-    var secondary=info.facts.filter(function(f){return ['ambient','pressure','strain','doping','layers'].indexOf(f.id)<0 && f.id!==info.mode && !(info.mode==='theory'&&f.id==='calculation') && !(info.mode==='pairing'&&f.id==='gap') && !(info.mode==='documents'&&f.id==='literature') && !(info.mode==='device'&&f.id==='junction');}).slice(0,4);
-    secondary.forEach(function(f,index){var x=cx+(index-(secondary.length-1)/2)*35*k,y=17*k;
-      if(f.id==='phonon'){for(var z=0;z<3;z++){circle(x+(z-1)*7*k,y,2*k);if(z<2)line(x+(z-1)*7*k+2*k,y,x+z*7*k-2*k,y);}}
-      else if(f.id==='gap'){circle(x-5*k,y,4*k);circle(x+5*k,y,4*k);}
-      else if(f.id==='magnetic'){arrow(x,y+8*k,x,y-8*k);}
-      else if(f.id==='thermal'){line(x,y-8*k,x,y+3*k);circle(x,y+6*k,3*k);}
-      else if(f.id==='spectrum'){box(x-8*k,y-9*k,16*k,18*k);for(var z=0;z<3;z++)line(x-5*k,y+(z-1)*5*k,x+5*k,y+(z-1)*5*k);}
-      else if(f.id==='light'){c.beginPath();for(var z=0;z<20;z++){var X=x+(z-10)*k,Y=y+Math.sin(z*.6)*4*k;if(z)c.lineTo(X,Y);else c.moveTo(X,Y);}c.stroke();}
-      else if(f.id==='vortex'){circle(x,y,8*k);circle(x,y,3*k);}
-      else if(f.id==='transport'||f.id==='four-probe'){box(x-8*k,y-4*k,16*k,8*k);var terminals=f.id==='four-probe'?4:2;for(var z=0;z<terminals;z++)line(x+(-6+12*z/(terminals-1))*k,y-4*k,x+(-6+12*z/(terminals-1))*k,y-9*k);}
-      else if(f.id==='network'){circle(x-7*k,y+5*k,2*k);circle(x+7*k,y+5*k,2*k);circle(x,y-6*k,2*k);line(x-7*k,y+5*k,x,y-6*k);line(x+7*k,y+5*k,x,y-6*k);}
-      else if(f.id==='generation'){arrow(x-8*k,y,x+7*k,y-6*k);arrow(x-8*k,y,x+7*k,y+6*k);}
-      else if(f.id==='boundary'){box(x-9*k,y-8*k,18*k,16*k);box(x-5*k,y-4*k,10*k,8*k);}
-      else if(f.id==='correlations'){box(x-10*k,y-5*k,7*k,10*k);box(x+3*k,y-5*k,7*k,10*k);line(x-3*k,y,x+3*k,y);}
-      else if(f.id==='junction'){box(x-10*k,y-7*k,6*k,14*k);box(x+4*k,y-7*k,6*k,14*k);line(x-4*k,y,x+4*k,y);}
-      else documentAt(x-7*k,y-9*k,14*k,18*k,2);
-    });
-    if (info.mode === 'generation') {
-      box(cx-32*k,cy-18*k,25*k,36*k);
-      [-1,0,1].forEach(function (v) { arrow(cx-5*k,cy,cx+17*k,cy+v*25*k); box(cx+19*k,cy+v*25*k-9*k,22*k,18*k); });
-      text('Proposals, not samples',cx,cy+48*k,25);
-    } else if (info.mode === 'network') {
-      var layers = [[-30,[-18,18]],[0,[-28,0,28]],[30,[-12,12]]];
-      for(var g=0;g<2;g++) layers[g][1].forEach(function(y){layers[g+1][1].forEach(function(Y){line(cx+layers[g][0]*k,cy+y*k,cx+layers[g+1][0]*k,cy+Y*k);});});
-      layers.forEach(function(a,j){a[1].forEach(function(y){circle(cx+a[0]*k,cy+y*k,(4+((Math.floor(t)%3===j)?pulse:0))*k);});});
-      text('Learned representation',cx,cy+48*k,26);
-    } else if (info.mode === 'documents') {
-      documentAt(cx-34*k,cy-27*k,26*k,44*k,4); arrow(cx-5*k,cy,cx+11*k,cy);
-      for(var row=0;row<3;row++) box(cx+14*k,cy-23*k+row*16*k,29*k,12*k);
-      text('Extract / retrieve',cx,cy+48*k,24);
-    } else if (info.mode === 'transport') {
-      box(cx-25*k,cy-10*k,50*k,20*k);
-      var contacts = has('four-probe') ? [-21,-7,7,21] : [-21,21];
-      contacts.forEach(function(x,i){line(cx+x*k,cy-10*k,cx+x*k,cy-(i%2?28:36)*k);circle(cx+x*k,cy-(i%2?29:37)*k,2*k);});
-      text(has('four-probe')?'4-terminal method':'Transport quantity',cx,cy+38*k,25);
-      text('No measured R(T) trace',cx,cy+54*k,27);
-    } else if (info.mode === 'light') {
-      c.beginPath();for(var p=0;p<=30;p++){var xx=cx-38*k+p*2*k,yy=cy+Math.sin(p*.45-t*2)*9*k;if(p)c.lineTo(xx,yy);else c.moveTo(xx,yy);}c.stroke();
-      line(cx+29*k,cy-26*k,cx+29*k,cy+26*k); text('Incident radiation',cx,cy+43*k,23);
-    } else if (info.mode === 'spectrum') {
-      box(cx-34*k,cy-22*k,22*k,44*k); arrow(cx-8*k,cy,cx+10*k,cy); box(cx+14*k,cy-29*k,22*k,58*k);
-      [0,1,2,3].forEach(function(i){line(cx+18*k,cy+(-21+i*14)*k,cx+32*k,cy+(-21+i*14)*k);});text('Probe → response',cx,cy+45*k,22);
-    } else if (info.mode === 'thermal') {
-      box(cx-27*k,cy-19*k,42*k,38*k);line(cx+27*k,cy-28*k,cx+27*k,cy+13*k);circle(cx+27*k,cy+20*k,7*k);
-      arrow(cx-45*k,cy,cx-30*k,cy);text('Heat / temperature',cx,cy+46*k,24);
-    } else if (info.mode === 'magnetic') {
-      for(var m=0;m<4;m++) arrow(cx-28*k+m*18*k,cy+23*k,cx-28*k+m*18*k,cy-23*k);
-      box(cx-21*k,cy-10*k,42*k,20*k);text('Magnetic response',cx,cy+46*k,24);
-    } else if (info.mode === 'device') {
-      box(cx-35*k,cy-20*k,22*k,40*k);box(cx+13*k,cy-20*k,22*k,40*k);line(cx-13*k,cy,cx+13*k,cy);text('Device / coupling',cx,cy+46*k,24);
-    } else if (info.mode === 'theory') {
-      box(cx-31*k,cy-25*k,62*k,50*k);text('Model',cx,cy-10*k,12);text('→ analysis',cx,cy+12*k,15);text('Theoretical relation',cx,cy+46*k,25);
-    } else if (info.mode === 'phonon') {
-      for(var ion=0;ion<4;ion++){var px=cx+(ion-1.5)*19*k,py=cy+Math.sin(t+ion*.7)*4*k;circle(px,py,5*k);if(ion<3)line(px+5*k,py,px+14*k,cy+Math.sin(t+(ion+1)*.7)*4*k);}
-      text('Lattice response',cx,cy+39*k,22);text('Not a measured mode',cx,cy+54*k,25);
-    } else if (info.mode === 'vortex') {
-      [12,24].forEach(function(r){c.beginPath();c.arc(cx,cy,r*k,.3+t*.2,5.4+t*.2);c.stroke();});line(cx,cy-32*k,cx,cy+32*k);
-      text('Flux / vortex question',cx,cy+46*k,26);
-    } else if (info.mode === 'pressure' || info.mode === 'strain' || info.mode === 'carrier') {
-      var branches=info.mode==='carrier'?3:2;
-      for(var b=0;b<branches;b++){var yy=cy+(b-(branches-1)/2)*26*k;box(cx+4*k,yy-9*k,33*k,18*k);arrow(cx-28*k,cy,cx+1*k,yy);}
-      text(info.mode==='carrier'?'Carrier control':info.mode==='pressure'?'Pressure conditions':'Strain conditions',cx,cy+46*k,25);
-    } else if (info.mode === 'layers') {
-      info.layerCounts.slice(0,2).forEach(function(count,index){var offset=info.layerCounts.length>1?(index-.5)*34*k:0,width=info.layerCounts.length>1?26:58;
-        for(var l=0;l<count;l++){var yy=cy+(l-(count-1)/2)*Math.min(8,45/Math.max(1,count))*k;box(cx+offset-width/2*k,yy,width*k,3*k);}});
-      text('Layer-dependent question',cx,cy+46*k,28);
-    } else if (info.mode === 'correlations') {
-      box(cx-39*k,cy-17*k,28*k,34*k);box(cx+11*k,cy-17*k,28*k,34*k);
-      arrow(cx-7*k,cy-7*k,cx+7*k,cy-7*k);arrow(cx+7*k,cy+7*k,cx-7*k,cy+7*k);
-      text('Interacting orders',cx,cy+46*k,23);
-    } else if (info.mode === 'pairing') {
-      circle(cx-20*k,cy,12*k);circle(cx+20*k,cy,12*k);c.setLineDash([3*k,3*k]);line(cx-8*k,cy,cx+8*k,cy);c.setLineDash([]);
-      text('Pairing / gap question',cx,cy+39*k,25);text('Mechanism not asserted',cx,cy+54*k,26);
-    } else if (info.mode === 'boundary') {
-      box(cx-31*k,cy-24*k,62*k,48*k);box(cx-22*k,cy-15*k,44*k,30*k);c.setLineDash([3*k,3*k]);line(cx-31*k,cy-24*k,cx+31*k,cy-24*k);c.setLineDash([]);
-      text('Bulk / boundary question',cx,cy+46*k,29);
-    } else {
-      var steps = Math.min(4, info.concepts.length);
-      for(var s=0;s<steps;s++) {var yy=cy+(s-(steps-1)/2)*18*k;box(cx-31*k,yy-7*k,62*k,14*k);if(s<steps-1)arrow(cx,yy+7*k,cx,yy+11*k);}
-      text('Question / concepts',cx,cy+46*k,25);
-    }
-    // The target box names the paper's scientific question, not a made-up result.
-    var target = info.concepts.length > 1 ? info.concepts[info.concepts.length-1] : info.concepts[0];
-    box(rx-49*k,cy-31*k,98*k,62*k);text(target,rx,cy-14*k,20);
-    c.globalAlpha=.55;arrow(lx+54*k,cy,cx-48*k,cy);arrow(cx+48*k,cy,rx-54*k,cy);c.globalAlpha=1;
-    // The moving dot is a reading guide through the diagram, not a charge or
-    // a measured time evolution. Reduced-motion rendering fixes t upstream.
-    var guide=(t%4)/4;c.fillStyle=accent;c.beginPath();c.arc(lx+54*k+(cx-lx-102*k)*guide,cy,2*k,0,Math.PI*2);c.fill();
-    c.font=Math.max(10,10*k)+'px sans-serif';c.fillStyle=C.ink2||ink;c.textAlign='left';
-    var controls=info.facts.filter(function(f){return ['ambient','pressure','strain','doping','layers'].indexOf(f.id)>=0;}).map(function(f){return f.text;});
-    c.fillText((controls.length?controls.join(' · '):'Concepts, not measured data').slice(0,55),8,H-10);
+    c.globalAlpha = 1;
   };
 
-  const newsArticleFigure = function newsArticleFigure(item) {
-    var info = newsArticleDescribe(item), art = item.ai_kind && typeof aiArticleArt === 'function' ? aiArticleArt(item) : newsArt(item), drawing = miniCanvas(art, item);
-    var figure = h('figure', { class: 'article-figure', 'data-article-key': info.key, 'data-article-mode': info.mode }, drawing);
-    var caption = h('figcaption', null, h('span', { text: 'Source-based schematic · ' + info.evidence }));
-    if (isHttps(info.url)) caption.appendChild(h('a', { href: info.url, text: 'Original source' }));
-    var details = h('details', { class: 'article-figure-evidence' }, h('summary', { text: 'What this drawing uses' }), h('p', { text: info.scope }));
-    details.appendChild(h('p', { text: 'Question: ' + info.concepts.join(' → ') }));
-    if (info.materials.length) details.appendChild(h('p', { text: 'Composition text: ' + info.materials.map(function(m){return m.text;}).join(', ') + '. Symbols show composition, not atomic coordinates.' }));
-    info.facts.forEach(function(f){details.appendChild(h('p',{text:f.label+': '+f.text+' ('+f.field+').'}));});
-    if (info.sparse) details.appendChild(h('p', { text: 'Only the available title is used. Methods, outcomes and material structure are not independently verified here.' }));
-    // Keep the original topic animations available with their original limits.
-    // Article-specific construction is the primary graphic above.
-    var kind = newsArt(item), alt = typeof MINI_ALT !== 'undefined' ? MINI_ALT[kind] : '';
-    if (alt && kind !== 'news-research') details.appendChild(h('div', { class: 'article-topic-concept' }, miniCanvas(kind), h('p', { text: 'Related concept illustration: ' + alt })));
-    caption.appendChild(details); figure.appendChild(caption); return figure;
+  const newsArticleFigure = function newsArticleFigure(item, kind) {
+    var info = newsArticleDescribe(item);
+    var art = kind || (item.ai_kind && typeof aiArticleArt === 'function' ? aiArticleArt(item) : newsArt(item));
+    return h('div', { class: 'news-art', 'data-article-key': info.key, 'data-source-url': info.url,
+      title: info.title }, miniCanvas(art, item));
   };

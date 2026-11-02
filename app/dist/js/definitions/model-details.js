@@ -55,7 +55,9 @@
     var ri = radInfo(), gn = d && d.gnn && typeof d.gnn.tc_mae === 'number' ? d.gnn : null;
     el.hidden = !hv && !cal && !ri && !gn && !ens && !unc;
     if (el.hidden) return;
-    var parts = [cardHead('Model details', 'What the latest training rounds found, read from the live progress data.')];
+    var parts = [cardHead('Model details', 'What the latest training rounds found, read from the live progress data.'),
+      h('p', { class: 'note' }, 'Published methods and data underpin these models. ',
+        h('button', { class: 'linklike', type: 'button', onclick: function () { setView('authors'); } }, 'Method sources and our differences'))];
     if (hv) parts.push(hurricaneDetails(hu, hv));
     if (ri) parts.push(radarDetails(ri));
     if (unc) parts.push(uncertaintyDetails(unc));

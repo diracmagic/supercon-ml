@@ -22,7 +22,7 @@
           ens.scores.tc_mae.toFixed(2) + ' K off on average against the computed Tc of materials it never saw' + (typeof ens.scores.reference_mae === 'number' ? ', against ' + ens.scores.reference_mae.toFixed(2) + ' K for the trees alone' : '') +
           '. Calibrated to measured Tc, it is off by ' + ens.calibration.mae.toFixed(2) + ' K against experiment.' +
           (unc ? ' Every prediction comes with a 90% range: for materials it never saw, the range held the computed Tc ' + Math.round(100 * unc.scores.coverage) + '% of the time, and half of the ranges are narrower than ' + unc.scores.median_width.toFixed(1) + ' K.' : '') +
-          ' Our AI agent designed it; a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
+          ' Our AI-assisted implementation uses published methods (see Cite); a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
         act: ['See how Storm works', function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); }] },
       hurFamilyEntry(),
       radFamilyEntry()
@@ -35,7 +35,7 @@
           (mae ? ', ' + mae + ' off on average against the computed Tc of materials it never saw' : '') +
           (cal ? '. A calibration learned from ' + calN + 'materials with measured Tc then maps its prediction to experiment: off by ' + cal.scores.mae.toFixed(2) + ' K' +
             (typeof cal.scores.mae_raw === 'number' ? ', against ' + cal.scores.mae_raw.toFixed(2) + ' K uncalibrated' : '') : '') +
-          '. Our AI agent designed it; a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
+          '. Our AI-assisted implementation uses published methods (see Cite); a new version is released only if it beats the current one on held-out materials and holds up against replicated Tc measurements.',
         act: ['See how Storm works', function () { setView('demos'); selectDemo('storm'); window.scrollTo(0, 0); }] },
       hurFamilyEntry(),
       radFamilyEntry()
@@ -52,7 +52,7 @@
     return { id: 'radar', name: 'Radar', on: inUse, live: true, status: inUse ? radTitle(ri) + ' in use' : radTitle(ri) + ' experimental', role: role,
       text: 'Reads a material’s composition and crystal structure and gives the probability that it belongs to an unconventional family, then sends it to Hurricane or Storm. It learns from ' +
         fmtInt(dd.n) + ' SuperCon entries in 3DSC. On held-out chemical-system groups its balanced accuracy is ' + radPct(sc.balanced_accuracy) + ', against ' +
-        radPct(sc.reference_balanced_accuracy) + ' for a composition-only baseline.' + (cu ? ' Trained without any cuprate, it still sends ' + radPct(cu.right) + ' of cuprates to Hurricane.' : '') + ' Our AI agent designed it.',
+        radPct(sc.reference_balanced_accuracy) + ' for a composition-only baseline.' + (cu ? ' Trained without any cuprate, it still sends ' + radPct(cu.right) + ' of cuprates to Hurricane.' : '') + ' Sources and implementation differences are listed under Cite.',
       act: ['See how Radar works', function () { setView('demos'); selectDemo('radar'); window.scrollTo(0, 0); }] };
   };
 
@@ -74,7 +74,7 @@
             radPct(hurLofoAvg(hi.v, 'found')) + ' at least an even chance' + (typeof hurLofoAvg(hi.v, 'found_reference') === 'number' && hurRel(hi.v).reference_version ?
               ', against ' + radPct(hurLofoAvg(hi.v, 'found_reference')) + ' for Hurricane ' + hurRel(hi.v).reference_version : '') : '') + '.' :
           hurRel(hi.v) ? ' It also learns from compounds with no superconductivity record, so of the compounds like those it screens it gives ' +
-          (hurRel(hi.v).false_alarms === 0 ? 'none' : radPct(hurRel(hi.v).false_alarms)) + ' at least an even chance of superconducting, against ' + radPct(hurRel(hi.v).false_alarms_previous) + ' for Hurricane ' + ((hi.v.previous && hi.v.previous.version) || 'before') + '.' : '') + ' Our AI agent designed it.',
+          (hurRel(hi.v).false_alarms === 0 ? 'none' : radPct(hurRel(hi.v).false_alarms)) + ' at least an even chance of superconducting, against ' + radPct(hurRel(hi.v).false_alarms_previous) + ' for Hurricane ' + ((hi.v.previous && hi.v.previous.version) || 'before') + '.' : '') + ' Sources and implementation differences are listed under Cite.',
       act: ['See how Hurricane works', function () { setView('demos'); selectDemo('hurricane'); window.scrollTo(0, 0); }] };
   };
 

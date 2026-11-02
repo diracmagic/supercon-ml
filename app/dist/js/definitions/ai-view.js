@@ -90,59 +90,12 @@
     return art === 'news-general' || art === 'news-research' ? 'news-features' : art;
   };
 
-  const aiWorkflowInfo = function aiWorkflowInfo(item) {
-    var kind = item.ai_kind;
-    var flows = {
-      prediction: [['Inputs and model', 'Material information is used to estimate properties or rank candidates.'], ['Predicted candidates', 'A model score is a prediction, not a measured superconducting transition.'], ['Independent validation', 'Calculations or experiments would test the prediction; this diagram does not say those tests occurred.']],
-      generation: [['Training structures', 'A generative model learns a representation of materials.'], ['Generated structures', 'Proposed structures still require physical and synthesis checks.'], ['Independent validation', 'A generated structure is not an experimentally realized phase.']],
-      experiment: [['Inputs and model', 'The feed labels this item as linking AI with experiments; check the original source.'], ['Reported sample tests', 'Read which samples were made and which superconductivity criteria were measured.'], ['Phase and condition checks', 'A signal in a sample does not by itself identify the predicted phase; retain pressure, composition and measurement limits.']],
-      data: [['Source records', 'Material records require source and sample identities.'], ['Model-assisted processing', 'Extracted or predicted values can contain errors and duplicate samples.'], ['Source audit', 'Check original conditions, units and permissions before using records as training targets.']],
-      review: [['Published studies', 'A review compares existing work.'], ['Compare methods', 'Different datasets and validation splits are not automatically comparable.'], ['Assess evidence', 'A review is not a new experimental discovery.']]
-    };
-    var known = Object.prototype.hasOwnProperty.call(flows, kind);
-    return { kind: known ? kind : 'analysis',
-      steps: known ? flows[kind] : [['Research inputs', 'The source supplies material data, structures or a physical model.'], ['AI-assisted analysis', 'An AI method helps analyze, predict or search. The original source defines its actual role.'], ['Interpret the evidence', 'Check the reported validation and limitations. No experimental result is implied by this schematic.']] };
-  };
-
-  const aiWorkflow = function aiWorkflow(item) {
-    var info = aiWorkflowInfo(item), position = 0, timer = 0, buttons = [];
-    var box = h('details', { class: 'ai-workflow', 'data-workflow-kind': info.kind });
-    var group = h('div', { class: 'ai-workflow-steps', role: 'group', 'aria-label': 'Explore the illustrative workflow' });
-    var detail = h('p', { class: 'ai-workflow-detail', 'aria-live': 'polite' });
-    var status = h('p', { class: 'ai-workflow-status' });
-    function stop() { clearInterval(timer); timer = 0; }
-    function show() {
-      buttons.forEach(function (button, i) { button.setAttribute('aria-pressed', i === position ? 'true' : 'false'); });
-      detail.textContent = info.steps[position][1];
-      play.textContent = timer ? 'Pause explanation' : 'Play explanation';
-      play.disabled = !motionOK();
-      status.textContent = !motionOK() ? 'Reduced motion: choose a step manually.' : timer ? 'Playing an illustrative explanation.' : 'Choose a step or play the explanation.';
-    }
-    var play = h('button', { class: 'btn small', type: 'button', onclick: function () {
-      if (timer || !motionOK()) { stop(); show(); return; }
-      timer = setInterval(function () {
-        if (!box.isConnected || !box.open || view !== 'papers' || document.hidden || !motionOK()) { stop(); show(); return; }
-        position = (position + 1) % info.steps.length; show();
-      }, 2500);
-      show();
-    } });
-    info.steps.forEach(function (step, i) {
-      var button = h('button', { type: 'button', onclick: function () { stop(); position = i; show(); } }, h('span', { text: String(i + 1) }), step[0]);
-      buttons.push(button); group.appendChild(button);
-    });
-    box.addEventListener('toggle', function () { if (!box.open) stop(); show(); });
-    append(box, [h('summary', { text: 'Explore the AI workflow' }), h('p', { class: 'note', text: 'Illustrative schematic, not a record of completed research steps. Feed labels are automatic; the linked source determines what was actually predicted or measured.' }), group, detail, play, status]);
-    show();
-    return box;
-  };
-
   const aiAnimatedItem = function aiAnimatedItem(item) {
     var original = item.kind_of === 'news' ? aiNewsItem(item) : paperItem(item, true);
     var body = h('div', { class: 'news-body' });
     while (original.firstChild) body.appendChild(original.firstChild);
-    body.appendChild(newsArticleFigure(item));
-    body.appendChild(aiWorkflow(item));
-    return h('li', { class: 'news-item ai-feed-item article-item', 'data-feed-key': feedIdentityKeys(item)[0] || '' }, body);
+    return h('li', { class: 'news-item ai-feed-item article-item', 'data-feed-key': feedIdentityKeys(item)[0] || '' },
+      newsArticleFigure(item, aiArticleArt(item)), body);
   };
 
   const aiNewsItem = function aiNewsItem(n) {

@@ -2,7 +2,7 @@
   "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
-  "css_sha256": "cac0d82163ef9c1a3e89df59527abeb5b3aeed3e8f541c6a92db2b4ee8b40d85",
+  "css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
   "scope_checks": {
     "top_level_this": false,
     "top_level_return": false,
@@ -422,15 +422,15 @@
     "drawPredHurVisual": "4ca08639ad06506962f96b384de4d14601b5281ae0d138a8639f99f06f1cdef6",
     "setPredMode": "6c4c4a48ffcfdf2a49134f54f24f3858d0cb3f5d160bb15d01f14afeadbf3f7c",
     "predNext": "a4b1ce35704b1a900b488a942aea61370163a0b0fe1b12e9a8944a70df46839d",
-    "newsArt": "38a5d06c7a524c201478d376fb2489cff38b70c995c1ca8e97d4d7987f3823a9",
+    "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca",
     "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
-    "newsArticleDraw": "82a25bfaff22d302c1f628f3825c9e6548fb724ee88f1d3b843562e5a375e58c",
-    "newsArticleFigure": "3d6bbecece45f6bec433e543840eddeb1af76fd9713abf3ac3d5659cab208f73",
-    "miniCanvas": "f386399c4c40a069eb9ba331a1a788174e2f932cdc52f51d152a66cba063c51f",
+    "newsArticleDraw": "aad50f6cbfc164970f29ca1d87851ddc88036222cdc8055400ff64ffc2436d77",
+    "newsArticleFigure": "7325a250f2a0b34f8d82310df1325824394a0aef1e8c6c53672ea73a7d4de0a0",
+    "miniCanvas": "c06597b876eef6baebaba0ea2c096877073d4eb839124dcd4e67543c5873c778",
     "miniPrune": "c7a65acf48aa9003887f8c937d6174f9a1124e12436d2c90785be2c5d5846612",
     "miniOn": "9bf40eaa15ff576fcde21d9755d13cff9d210f7fba8def43ca7fc3b5686d82c3",
     "miniKick": "7497222fad6455672ca786c27ed6b624495c6aaffb75b17aea8610c3b4066003",
-    "miniFrame": "cb66776935552a977d6ef8526dcca320bb2b2dd9bde4497f1926c23e8f504424",
+    "miniFrame": "e8a0edb5c29576c9050bea23c540cfbff7d8f9c3b061567471b6f5f62ae9b7f3",
     "richText": "bf8290778526c81e6699f7a5699cecb67e5e2d6f05eada39b11791ab3a2a7332",
     "buildLearn": "3a95cbd1736ec72870ff49b2de9c014a0e284c49d4acf88f90d7a1fb602c6b3a",
     "latestList": "f6174e0847417d7a2a6a7c7aacf11bdac91c7f4d97fc1b706bbf819e226b0579",
@@ -443,29 +443,31 @@
     "feedIsAI": "e1dd033fa1f10a99be06bc5795efe53a5966a9428e8126ed1bad8c0750736f2c",
     "loadPapers": "2a9c0019c267bbaa5225d0901df24cddc8c0d4160f4f0b2d6a9debba04a2ca27",
     "buildPapers": "7dbfabc8d5f0ae3fe7495fe1db4ec60a2f46c73c9d34e83e6644bcd977a43327",
-    "renderAdvances": "75f54972b08a418b421e24c361372b7064866fa1e2c339fd5107050e80e65cfb",
+    "renderAdvances": "981010443fe904f01015408f37693e6f727416ad463a6b3ada45200b06ee7dea",
     "advTopic": "d51c2c2c5b972a1cea9e4e06874989c165c7333b707fa4e3cc9e33090e70ee94",
-    "renderNews": "6021e25c7de5067d12e32e0a39919394aee84a9372e15cb8de52be872ab6d203",
+    "renderNews": "8785a2bada0701d709f161e188929bf4dc1293a58a29e9f29272a856ca350ece",
     "feedItems": "44cbf44ae60423c9c15413f53b114383fd03d8604c3ef1aae1a5f25e9209d575",
     "renderFeed": "4a0cee3108bcaf4daf7b18ee18b802234145c2c3018d766e079d5d5b4cd7130d",
     "firstSentence": "2f1906d4010a04e0b71dd080e1880cda26beb0491050ef461736d6c74713fa1c",
-    "paperItem": "a27a1d37a0ce3e8262340aad6676636a02a339b5157fb5a58bbce66905b93985",
+    "paperItem": "4d89ee3e78b82b26fa9b90809df22cb604abd0eda38453c154e7a94c3577072c",
     "fmtDayISO": "69642cce9642daa98ecb272710f9d02070c23cf85331d7f5e801d66529b34011",
     "stormInUse": "42878ab2b80914f58c34b31276799653e55eadc159ef42fcfe8ac192c5796e83",
-    "modelFamily": "ce2b8bc70c72e5e45f46e79fb941ddf6147634a4c9160578532b959c6a38d6af",
-    "radFamilyEntry": "d7f5a55a4d53b5f2499cdbaafd6c6cc34761fbb31089139eda3e89d89db31026",
-    "hurFamilyEntry": "af7d3018caf58ebfc5764b24a3566b1bef7fee2361b62508b1505744d8d906f6",
+    "modelFamily": "65157cdf142961aadcaafac49749d11661ff248963f53032ae955330aa253ca7",
+    "radFamilyEntry": "ed57bb699ca4cbbbb80bf71c69f86501d8e0a8cdb81e04a0a4afb5017a5aee47",
+    "hurFamilyEntry": "2bc72799028c1c4370d85f0eaa859e9d98be2bfc7bb80391e8d4f7801a234946",
     "familyOverride": "32744f19ac583d7b90cc9b8b5c6cf6a179f8627e97485a5ab121fbbeda1dbec2",
     "renderModels": "f8227bf574121061ac9f9315011494701504747fd70e937e0f8148204fa58e13",
     "nameSeed": "37c243d0c9ea28904a248ffd18123a2a1257e5a72e46dfb732b7f1adb7a44bda",
     "authorList": "ae00a08883628fc8516a0f7ee4ae820b762193eada1df84ad18f0e1af6645bc8",
     "treeKind": "0b67664eae3b2e96c4148b00d978ffb23d0f0ad6448c022909a586c75187df8a",
     "copyText": "ae668bc2f1befd6ba278daa003cfe62a8211211e01adb522d6128182ea8aebb5",
+    "modelMethodSources": "981c23965a290318fc1ff1c553a293c299a006b574231ba6f5de92a671b6e7c8",
+    "modelMethodsCard": "18cd8386eed53fdf560f29444d327932f53849e308deb04d912b601a982b12bf",
     "citeYear": "1ee76a2c50118d2f19137e26617c7afb2710d96a0b8f64f4208dc3073f8a3509",
     "citeToday": "16c1ba58b4c5e554f9f3734aeb50d1cd52ad830c9e478106d8a559e6d1361403",
     "citeText": "8f805151f6a0f4236f181d352f4c2fa4b9ae8c615f9a9f5bd9782476ae5e5e2a",
     "citeBib": "2c4211d2369e22dfb154959b71f61823f6bb0f0aa6528ef240c4e1995e0a1a7d",
-    "renderAuthors": "0c1d687b80311225a5e37da1ad6a05f77202389499a3bdad7ada6efe0ef21b1a",
+    "renderAuthors": "43604139bbb804c1036f9e7d9af43fe401be2222b22970dd4d36a83e4dab8e47",
     "contactTopic": "884383acc7f294e9a4ff3ef744fed51d59eee9e185d59143402ad783039f883b",
     "contactLink": "2cef9e7a9ab1754f440304dce91d62c91a7280043cd6bec8337270b5d5df17d8",
     "contactGo": "031fccbee31a5d7dd4ba136e315bab0681a6d61285efce238549c629483b01b8",
@@ -481,7 +483,7 @@
     "barRow": "d03d1b8569ab5f184440a968500653812278e4b154e39d9bdf12fcc4fd740ff8",
     "statTile": "8ffc259c3d489cf5d482a6a65ba725283e4986e449c05e0f0949c514f734864d",
     "smallTable": "7d584cdd187e93f8abf08feddcfcb9431b80a157e4a5161c7b5908c26aedd753",
-    "renderDetails": "79196a129a363f46261430fa41ccc536bd9e6b2b4fee0e5eb8562d4806149b54",
+    "renderDetails": "9be094b7955d64526c3c3cc9c405d32525bef82a8dd8bfd61c9b901a38c3f8ce",
     "pct": "bc9ee0407461540ce386f6eef21f47277836ecc68fef655d40d1f11cc490cc5a",
     "radarDetails": "b5483ee7a62b2dc1bd5fde0f1ba6f51b5c066751568fa7993ff3c2db0b599227",
     "gnnDetails": "f277452adecb16582ffd6fc8e9b6ddd46816d37437d1fa052773dd4855e36450",
@@ -503,9 +505,7 @@
     "renderAI": "5e79835f3b3e18c3dea3af9ba58efae7b542a286668153f976e663fa68cb981c",
     "renderAIList": "01c651ebdb2038d9251022fefd3e4783bc70ed19a9e2d163d35224e96f864bc6",
     "aiArticleArt": "b4ee827a36a97150281bc6421e96825290e97aaf33a0d2ce72404920963fed18",
-    "aiWorkflowInfo": "3f40c7e3e1a501bddb6bf55bdb2a92f9dd2ac9f5010039062320d8acd60b9c2e",
-    "aiWorkflow": "f61b1965222b44feadb05d62ad32350e0b3fd6a6dff0541f020fd1ed427ea2d4",
-    "aiAnimatedItem": "9980109628f47e047a5332599c431adbdf6161f9384876c12d3389931c692d89",
+    "aiAnimatedItem": "b8f0c74ac6ea8fa8dc429091f2a4311aaac04a9889b7f537ee034f50be636a5a",
     "aiNewsItem": "e3683704b2898ccd5f3a72dd4e868843d7bd520f9eca0a30b31f7aabf158fcfe",
     "renderTicker": "86f551f120248587e97a3e44fb7dd4f999b1e127170bfe91a5c20351002e880f",
     "renderAIOurs": "27d5b842b2b3048bbb61d8aac48a87b6a48d0cf38c646c9980f2f49a785c0328",
@@ -590,7 +590,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "f1666a8d438f88013913d090ff782fb122f2d2d3525fd25004c5aeb4e9eac2e9",
+    "a60de862a57fcfcf967fd9c40ec4d78e4dab79ced02265a2e71be7d129cf1735",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -842,8 +842,8 @@
     "initialization": "8e4e0a8ac6baf038aae01f9e1ffdd3511623ae2eaa0f048b5af620cb4da5b0a6"
   },
   "reviewed_revision": {
-    "reviewed_on": "2026-11-01",
-    "purpose": "Release 0.3.16: complete desktop login with a one-use hosted-to-native memory-only session bridge and fixed authenticated API proxy, preserve local-only updater permissions, restore full mobile navigation labels, and show article-specific sourced illustrations",
+    "reviewed_on": "2026-11-02",
+    "purpose": "Release0.3.17: restore original compact news/article animation thumbnails with no detailed-figure expansion; retain full phone navigation; cite12 primary method sources and distinguish project implementations and experimental results",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -877,30 +877,61 @@
       "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
       "native fixed-repository installer selection and SHA-256 verification",
       "explicit installation confirmation and no browser download fallback",
-      "bounded allowlisted sign-in retry diagnostics without reflecting provider text"
+      "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+      "private team content excluded from public method sources",
+      "same original miniature animations and reduced-motion lifecycle"
     ],
+    "previous_css_sha256": "cac0d82163ef9c1a3e89df59527abeb5b3aeed3e8f541c6a92db2b4ee8b40d85",
     "functions_added": [
-      "newsArticleDescribe",
-      "newsArticleDraw",
-      "newsArticleFigure"
+      "modelMethodSources",
+      "modelMethodsCard"
     ],
-    "previous_css_sha256": "f3ad81916c032fdfc66c46e23ccff40ebd64269f1d58d187bc3aeaa2b157ec35",
+    "functions_removed": [
+      "aiWorkflow",
+      "aiWorkflowInfo"
+    ],
+    "previous_removed_functions": {
+      "aiWorkflow": "f61b1965222b44feadb05d62ad32350e0b3fd6a6dff0541f020fd1ed427ea2d4",
+      "aiWorkflowInfo": "3f40c7e3e1a501bddb6bf55bdb2a92f9dd2ac9f5010039062320d8acd60b9c2e"
+    },
     "functions_changed": [
-      "newsArticleDescribe",
+      "newsArt",
       "newsArticleDraw",
       "newsArticleFigure",
       "miniCanvas",
       "miniFrame",
       "renderAdvances",
       "renderNews",
-      "renderFeed",
       "paperItem",
-      "aiAnimatedItem",
-      "renderUpdate"
+      "modelFamily",
+      "radFamilyEntry",
+      "hurFamilyEntry",
+      "renderAuthors",
+      "renderDetails",
+      "aiAnimatedItem"
     ],
     "initializers_changed": [
       0
     ],
+    "previous_function_changes": {
+      "newsArt": "38a5d06c7a524c201478d376fb2489cff38b70c995c1ca8e97d4d7987f3823a9",
+      "newsArticleDraw": "82a25bfaff22d302c1f628f3825c9e6548fb724ee88f1d3b843562e5a375e58c",
+      "newsArticleFigure": "3d6bbecece45f6bec433e543840eddeb1af76fd9713abf3ac3d5659cab208f73",
+      "miniCanvas": "f386399c4c40a069eb9ba331a1a788174e2f932cdc52f51d152a66cba063c51f",
+      "miniFrame": "cb66776935552a977d6ef8526dcca320bb2b2dd9bde4497f1926c23e8f504424",
+      "renderAdvances": "75f54972b08a418b421e24c361372b7064866fa1e2c339fd5107050e80e65cfb",
+      "renderNews": "6021e25c7de5067d12e32e0a39919394aee84a9372e15cb8de52be872ab6d203",
+      "paperItem": "a27a1d37a0ce3e8262340aad6676636a02a339b5157fb5a58bbce66905b93985",
+      "modelFamily": "ce2b8bc70c72e5e45f46e79fb941ddf6147634a4c9160578532b959c6a38d6af",
+      "radFamilyEntry": "d7f5a55a4d53b5f2499cdbaafd6c6cc34761fbb31089139eda3e89d89db31026",
+      "hurFamilyEntry": "af7d3018caf58ebfc5764b24a3566b1bef7fee2361b62508b1505744d8d906f6",
+      "renderAuthors": "0c1d687b80311225a5e37da1ad6a05f77202389499a3bdad7ada6efe0ef21b1a",
+      "renderDetails": "79196a129a363f46261430fa41ccc536bd9e6b2b4fee0e5eb8562d4806149b54",
+      "aiAnimatedItem": "9980109628f47e047a5332599c431adbdf6161f9384876c12d3389931c692d89"
+    },
+    "previous_initialization_changes": {
+      "0": "f1666a8d438f88013913d090ff782fb122f2d2d3525fd25004c5aeb4e9eac2e9"
+    },
     "additional_source_sha256": {
       "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
       "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
@@ -910,19 +941,6 @@
       "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
       "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
       "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
-    },
-    "previous_function_changes": {
-      "miniCanvas": "de60ec0998119928473a469bbd4a65424c6466579915f36c136e5f2f67a1e87e",
-      "miniFrame": "bcaf730f7b6ea243fc1b9f6827f21725e0dc862bb47a54157b7b99fbd6349c34",
-      "renderAdvances": "23a74cd7bb2ebc2a40d860e48c0d9918b89f129928c422ff07947b26ec785c3f",
-      "renderNews": "ac23473cbcbf254dc5d78641a2947ab33db51bcdbc953c56c546eecc4c07b5be",
-      "renderFeed": "8e357ca0f09643c8ea37904113d4c302c00553398f4a6aa5eb43b2ac8c3ff702",
-      "paperItem": "54607f7313f61732a4b300f718b9189aa0cea3010b240640c9b17fec42fdbb73",
-      "aiAnimatedItem": "6f9320a21010d4b230cda28e34c1d032200ea8161d5bda13f096f6554d3b4223",
-      "renderUpdate": "f14d10600b7a1f919f5c1af0a6683734fca1fc5a648184c3274ba15e1edaeb3b"
-    },
-    "previous_initialization_changes": {
-      "0": "59c346d719865fcb3637e9c6636f66f4abd5e176149ae3f29c6d3a2f7c893188"
     }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -998,7 +1016,12 @@
       "path": "review-history-11.json",
       "sha256": "35e2ea900c05317431fb6529c6922795b5b89ef69ec4b3ffc0e9d278c7fd909d",
       "count": 1
+    },
+    {
+      "path": "review-history-12.json",
+      "sha256": "a64b462f6f04b350189f24d28563216df9764c8d9ee0c6fd01b8c9d543ed4732",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 15
+  "reviewed_revision_count": 16
 }
