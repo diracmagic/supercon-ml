@@ -475,7 +475,8 @@
       if (boardUI && session && session.can_read_memo) boardUI.open();
     }
 
-    function reset(message) {
+    function reset(message, preserveNative) {
+      if (!preserveNative && localNativeSignIn(win)) nativeCall('clear_team_session').catch(function () {});
       const wasOpen = !!dialog && dialog.open;
       generation++;
       activeRequests.forEach(function (controller) { controller.abort(); });
@@ -486,6 +487,54 @@
       if (accountUI) accountUI.reset();
       clearBoard(); clearMemo(); renderAccount(); say(message || '');
       if (wasOpen && loginButton) loginButton.focus();
+    }
+
+    function nativeCall(command, args) {
+      const invoke = win.__TAURI__ && win.__TAURI__.core && win.__TAURI__.core.invoke || win.__TAURI_INTERNALS__ && win.__TAURI_INTERNALS__.invoke;
+      return typeof invoke === 'function' ? Promise.resolve().then(function () { return invoke(command, args || {}); }) : Promise.reject(new Error('Native sign-in unavailable'));
+    }
+
+    async function nativeResponse(path, method, body) {
+      const result = await nativeCall('native_team_request', {path: path, method: method, body: body === undefined ? null : body});
+      if (!result || !Number.isInteger(result.status) || result.status < 100 || result.status > 599 || typeof result.body !== 'string' || result.body.length > 1500000) throw new Error('Invalid native response');
+      return {ok: result.status >= 200 && result.status < 300, status: result.status, text: async function () {return result.body;}};
+    }
+
+    async function restoreNativeSession() {
+      if (!localNativeSignIn(win)) return;
+      const expected = generation;
+      try {
+        const value = await request('/api/session', 'GET', '');
+        if (generation !== expected) return;
+        const verified = sessionMetadata(value, now());
+        if (!verified) throw new Error('Invalid native session');
+        // Local activity marker only. Rust retains the bearer credential.
+        token = 'native-session'; session = verified;
+        renderAccount(); armSessionChecks(); publishPresence(value);
+        say('Signed in with ' + (verified.user.provider === 'firebase' ? 'email.' : 'GitHub.'));
+        await activateBoard();
+      } catch (error) {
+        if (generation === expected && error.status !== 401) say('Team session could not be restored. Use Login for team to sign in again.');
+      }
+    }
+
+    async function returnToNative() {
+      if (!(win.__TAURI__ || win.__TAURI_INTERNALS__) || localNativeSignIn(win) || !token || !session) return false;
+      let here;
+      try {here = new URL(win.location.href);} catch (_) {return false;}
+      if (here.origin !== 'https://diracmagic.github.io' || here.pathname !== '/supercon-ml/' || here.username || here.password) return false;
+      const expected = generation, bearer = token;
+      try {
+        say('Returning to the desktop app…');
+        const result = await nativeCall('complete_team_sign_in', {sessionToken: bearer});
+        if (generation !== expected || token !== bearer) return false;
+        if (!result || !['http://tauri.localhost/', 'https://tauri.localhost/', 'tauri://localhost/'].includes(result.local_url)) throw new Error('Invalid return location');
+        win.location.replace(result.local_url);
+        return true;
+      } catch (_) {
+        if (generation === expected) say('Could not return to the desktop app yet. Try Return to installed app again; older desktop versions need an update. Your current session has been kept.');
+        return false;
+      }
     }
 
     async function request(path, method, bearer, body, options) {
@@ -506,7 +555,7 @@
         return await Promise.race([
           (async function () {
             if (controller.signal.aborted) throw new Error('Request cancelled');
-            const response = await fetcher(origin + path, { method: method, headers: headers, credentials: 'omit', cache: 'no-store',
+            const response = localNativeSignIn(win) ? await nativeResponse(path, method, body) : await fetcher(origin + path, { method: method, headers: headers, credentials: 'omit', cache: 'no-store',
               referrerPolicy: 'no-referrer', redirect: 'error', signal: controller.signal,
               ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
             if (!response.ok) {
@@ -572,15 +621,17 @@
     function handoffNativeSignIn() {
       if (!localNativeSignIn(win)) return false;
       if (busy || session) return true;
-      // Establish the hosted origin before collecting credentials or creating
-      // PKCE proof. The callback can then read that same origin's sessionStorage.
-      // Never carry a local verifier, identity, query or fragment to the web APP.
       removePending(); busy = true; renderAccount(); say('Opening team sign-in…');
-      try { win.location.assign(TEAM_LOGIN_URL); }
-      catch (_) {
+      const expected = ++generation;
+      nativeCall('begin_team_sign_in').then(function (result) {
+        if (generation !== expected) return;
+        if (!result || result.url !== TEAM_LOGIN_URL) throw new Error('Invalid sign-in location');
+        win.location.assign(TEAM_LOGIN_URL);
+      }).catch(function () {
+        if (generation !== expected) return;
         busy = false; renderAccount();
-        say('The team sign-in page could not be opened. Check your connection and try Login for team again.');
-      }
+        say('The desktop sign-in page could not be opened. Update the desktop app, then try Login for team again.');
+      });
       return true;
     }
 
@@ -617,6 +668,7 @@
         token = value.session_token; session = verified;
         if (!await validateSession()) throw Object.assign(new Error('Session unavailable'), {code: 'invalid_session'});
         emailSignInPending = false; busy = false; renderAccount(); say('Signed in with email.');
+        await returnToNative();
       } catch (error) {
         if (generation === expected) {
           emailSignInPending = false; busy = false; token = ''; session = null;
@@ -659,6 +711,7 @@
         token = value.session_token; session = verified;
         if (!await validateSession()) return;
         busy = false; renderAccount(); say('Signed in with GitHub.');
+        if (await returnToNative()) return;
         if (session && session.can_read_memo) await openNotes();
       } catch (_) {
         proof = null;
@@ -668,12 +721,15 @@
 
     async function logout() {
       const bearer = token;
-      reset('Signed out.');
+      // Native logout removes its bearer before attempting remote revocation.
+      reset('Signed out.', true);
+      const local = localNativeSignIn(win);
+      const cancelling = !local && (win.__TAURI__ || win.__TAURI_INTERNALS__)
+        ? nativeCall('cancel_team_sign_in').catch(function () {}) : Promise.resolve();
+      const ending = (local || bearer) && origin ? request('/auth/logout', 'POST', bearer).catch(function () {}) : Promise.resolve();
       removePending();
       if (loginButton) loginButton.focus();
-      if (bearer && origin) {
-        try { await request('/auth/logout', 'POST', bearer); } catch (_) { /* local private state is already gone */ }
-      }
+      await Promise.all([ending, cancelling]);
     }
 
     function createDialog() {
@@ -875,7 +931,8 @@
         else if (session.can_manage_team && typeof accountUI.openAdmin === 'function') accountUI.openAdmin();
       });
       doc.addEventListener('visibilitychange', function () { if (!doc.hidden && token) validateSession(); });
-      win.addEventListener('pagehide', function () { reset(''); });
+      win.addEventListener('pagehide', function () { reset('', true); });
+      win.SuperconReturnToDesktop = returnToNative;
       renderAccount();
       if (callback) finishSignIn();
       else {
@@ -885,6 +942,7 @@
           if (pending && !validProof(pending, pending.state, now())) removePending();
         } catch (_) { removePending(); }
         if (!origin) say('Team sign-in is not available yet.');
+        else restoreNativeSession();
       }
     }
     return Object.freeze({ init: init, signIn: signIn, logout: logout, openNotes: openNotes, openMessages: openMessages });

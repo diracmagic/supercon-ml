@@ -2,7 +2,7 @@
   "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
-  "css_sha256": "f3ad81916c032fdfc66c46e23ccff40ebd64269f1d58d187bc3aeaa2b157ec35",
+  "css_sha256": "cac0d82163ef9c1a3e89df59527abeb5b3aeed3e8f541c6a92db2b4ee8b40d85",
   "scope_checks": {
     "top_level_this": false,
     "top_level_return": false,
@@ -423,11 +423,14 @@
     "setPredMode": "6c4c4a48ffcfdf2a49134f54f24f3858d0cb3f5d160bb15d01f14afeadbf3f7c",
     "predNext": "a4b1ce35704b1a900b488a942aea61370163a0b0fe1b12e9a8944a70df46839d",
     "newsArt": "38a5d06c7a524c201478d376fb2489cff38b70c995c1ca8e97d4d7987f3823a9",
-    "miniCanvas": "de60ec0998119928473a469bbd4a65424c6466579915f36c136e5f2f67a1e87e",
+    "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
+    "newsArticleDraw": "82a25bfaff22d302c1f628f3825c9e6548fb724ee88f1d3b843562e5a375e58c",
+    "newsArticleFigure": "3d6bbecece45f6bec433e543840eddeb1af76fd9713abf3ac3d5659cab208f73",
+    "miniCanvas": "f386399c4c40a069eb9ba331a1a788174e2f932cdc52f51d152a66cba063c51f",
     "miniPrune": "c7a65acf48aa9003887f8c937d6174f9a1124e12436d2c90785be2c5d5846612",
     "miniOn": "9bf40eaa15ff576fcde21d9755d13cff9d210f7fba8def43ca7fc3b5686d82c3",
     "miniKick": "7497222fad6455672ca786c27ed6b624495c6aaffb75b17aea8610c3b4066003",
-    "miniFrame": "bcaf730f7b6ea243fc1b9f6827f21725e0dc862bb47a54157b7b99fbd6349c34",
+    "miniFrame": "cb66776935552a977d6ef8526dcca320bb2b2dd9bde4497f1926c23e8f504424",
     "richText": "bf8290778526c81e6699f7a5699cecb67e5e2d6f05eada39b11791ab3a2a7332",
     "buildLearn": "3a95cbd1736ec72870ff49b2de9c014a0e284c49d4acf88f90d7a1fb602c6b3a",
     "latestList": "f6174e0847417d7a2a6a7c7aacf11bdac91c7f4d97fc1b706bbf819e226b0579",
@@ -440,13 +443,13 @@
     "feedIsAI": "e1dd033fa1f10a99be06bc5795efe53a5966a9428e8126ed1bad8c0750736f2c",
     "loadPapers": "2a9c0019c267bbaa5225d0901df24cddc8c0d4160f4f0b2d6a9debba04a2ca27",
     "buildPapers": "7dbfabc8d5f0ae3fe7495fe1db4ec60a2f46c73c9d34e83e6644bcd977a43327",
-    "renderAdvances": "23a74cd7bb2ebc2a40d860e48c0d9918b89f129928c422ff07947b26ec785c3f",
+    "renderAdvances": "75f54972b08a418b421e24c361372b7064866fa1e2c339fd5107050e80e65cfb",
     "advTopic": "d51c2c2c5b972a1cea9e4e06874989c165c7333b707fa4e3cc9e33090e70ee94",
-    "renderNews": "ac23473cbcbf254dc5d78641a2947ab33db51bcdbc953c56c546eecc4c07b5be",
+    "renderNews": "6021e25c7de5067d12e32e0a39919394aee84a9372e15cb8de52be872ab6d203",
     "feedItems": "44cbf44ae60423c9c15413f53b114383fd03d8604c3ef1aae1a5f25e9209d575",
-    "renderFeed": "8e357ca0f09643c8ea37904113d4c302c00553398f4a6aa5eb43b2ac8c3ff702",
+    "renderFeed": "4a0cee3108bcaf4daf7b18ee18b802234145c2c3018d766e079d5d5b4cd7130d",
     "firstSentence": "2f1906d4010a04e0b71dd080e1880cda26beb0491050ef461736d6c74713fa1c",
-    "paperItem": "54607f7313f61732a4b300f718b9189aa0cea3010b240640c9b17fec42fdbb73",
+    "paperItem": "a27a1d37a0ce3e8262340aad6676636a02a339b5157fb5a58bbce66905b93985",
     "fmtDayISO": "69642cce9642daa98ecb272710f9d02070c23cf85331d7f5e801d66529b34011",
     "stormInUse": "42878ab2b80914f58c34b31276799653e55eadc159ef42fcfe8ac192c5796e83",
     "modelFamily": "ce2b8bc70c72e5e45f46e79fb941ddf6147634a4c9160578532b959c6a38d6af",
@@ -502,7 +505,7 @@
     "aiArticleArt": "b4ee827a36a97150281bc6421e96825290e97aaf33a0d2ce72404920963fed18",
     "aiWorkflowInfo": "3f40c7e3e1a501bddb6bf55bdb2a92f9dd2ac9f5010039062320d8acd60b9c2e",
     "aiWorkflow": "f61b1965222b44feadb05d62ad32350e0b3fd6a6dff0541f020fd1ed427ea2d4",
-    "aiAnimatedItem": "6f9320a21010d4b230cda28e34c1d032200ea8161d5bda13f096f6554d3b4223",
+    "aiAnimatedItem": "9980109628f47e047a5332599c431adbdf6161f9384876c12d3389931c692d89",
     "aiNewsItem": "e3683704b2898ccd5f3a72dd4e868843d7bd520f9eca0a30b31f7aabf158fcfe",
     "renderTicker": "86f551f120248587e97a3e44fb7dd4f999b1e127170bfe91a5c20351002e880f",
     "renderAIOurs": "27d5b842b2b3048bbb61d8aac48a87b6a48d0cf38c646c9980f2f49a785c0328",
@@ -581,13 +584,13 @@
     "downloadUpdate": "21b7d3994719510746686d4704b0279db615161f88946f78679e6f00be9f337d",
     "installUpdate": "466b7e4677fc5b3a72918c039d8bb3599a5484b40bf547f06585a102e89b344d",
     "flashNote": "a40bc3e6cc19fa5244a1d26e13d3933804346a31f99e3ea1160f292f518acd68",
-    "renderUpdate": "f14d10600b7a1f919f5c1af0a6683734fca1fc5a648184c3274ba15e1edaeb3b",
+    "renderUpdate": "bd71807c558f4ff472903f12cf8e58d96ac4adff849efad3dc27adfab54eaaf8",
     "renderUpdateFoot": "aa84c81c187fd3390dee3a81ba9a825d20ba1f79eaa454f1c8c81b381951cb8a",
     "render": "77a5e9284915980da80b209caaa9e4a5758068618979f71d49ae51dba883f47a",
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "59c346d719865fcb3637e9c6636f66f4abd5e176149ae3f29c6d3a2f7c893188",
+    "f1666a8d438f88013913d090ff782fb122f2d2d3525fd25004c5aeb4e9eac2e9",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -840,7 +843,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-01",
-    "purpose": "Release 0.3.15: begin desktop team authentication on the fixed hosted APP origin in the same window, before creating a GitHub proof or accepting email credentials. Preserve PKCE state validation, exact service CORS and local-only native updater permissions; forward no credentials or caller-controlled return URLs",
+    "purpose": "Release 0.3.16: complete desktop login with a one-use hosted-to-native memory-only session bridge and fixed authenticated API proxy, preserve local-only updater permissions, restore full mobile navigation labels, and show article-specific sourced illustrations",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -871,14 +874,35 @@
       "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
       "native fixed-repository installer selection and SHA-256 verification",
       "explicit installation confirmation and no browser download fallback",
+      "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+      "native fixed-repository installer selection and SHA-256 verification",
+      "explicit installation confirmation and no browser download fallback",
       "bounded allowlisted sign-in retry diagnostics without reflecting provider text"
     ],
-    "functions_changed": [],
+    "functions_added": [
+      "newsArticleDescribe",
+      "newsArticleDraw",
+      "newsArticleFigure"
+    ],
+    "previous_css_sha256": "f3ad81916c032fdfc66c46e23ccff40ebd64269f1d58d187bc3aeaa2b157ec35",
+    "functions_changed": [
+      "newsArticleDescribe",
+      "newsArticleDraw",
+      "newsArticleFigure",
+      "miniCanvas",
+      "miniFrame",
+      "renderAdvances",
+      "renderNews",
+      "renderFeed",
+      "paperItem",
+      "aiAnimatedItem",
+      "renderUpdate"
+    ],
     "initializers_changed": [
       0
     ],
     "additional_source_sha256": {
-      "team-auth.js": "222da26589af3b328cc6861d9abd6b4d41e53ba2c9d0ded0e39a346d2b71ca57",
+      "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
       "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
       "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
       "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
@@ -887,9 +911,18 @@
       "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
       "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
     },
-    "previous_function_changes": {},
+    "previous_function_changes": {
+      "miniCanvas": "de60ec0998119928473a469bbd4a65424c6466579915f36c136e5f2f67a1e87e",
+      "miniFrame": "bcaf730f7b6ea243fc1b9f6827f21725e0dc862bb47a54157b7b99fbd6349c34",
+      "renderAdvances": "23a74cd7bb2ebc2a40d860e48c0d9918b89f129928c422ff07947b26ec785c3f",
+      "renderNews": "ac23473cbcbf254dc5d78641a2947ab33db51bcdbc953c56c546eecc4c07b5be",
+      "renderFeed": "8e357ca0f09643c8ea37904113d4c302c00553398f4a6aa5eb43b2ac8c3ff702",
+      "paperItem": "54607f7313f61732a4b300f718b9189aa0cea3010b240640c9b17fec42fdbb73",
+      "aiAnimatedItem": "6f9320a21010d4b230cda28e34c1d032200ea8161d5bda13f096f6554d3b4223",
+      "renderUpdate": "f14d10600b7a1f919f5c1af0a6683734fca1fc5a648184c3274ba15e1edaeb3b"
+    },
     "previous_initialization_changes": {
-      "0": "2113c01a189f3e02f31a0ac4593b0f9fd5cea113624840e9f9ee1b6536262690"
+      "0": "59c346d719865fcb3637e9c6636f66f4abd5e176149ae3f29c6d3a2f7c893188"
     }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -901,7 +934,7 @@
     "team-board.css"
   ],
   "additional_source_sha256": {
-    "team-auth.js": "222da26589af3b328cc6861d9abd6b4d41e53ba2c9d0ded0e39a346d2b71ca57",
+    "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
     "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
     "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
     "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
@@ -960,7 +993,12 @@
       "path": "review-history-10.json",
       "sha256": "3e047bdfb9e651b97af70ed58df2d6bf9773281b07c8d57361613c7c0b6ba708",
       "count": 1
+    },
+    {
+      "path": "review-history-11.json",
+      "sha256": "35e2ea900c05317431fb6529c6922795b5b89ef69ec4b3ffc0e9d278c7fd909d",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 14
+  "reviewed_revision_count": 15
 }

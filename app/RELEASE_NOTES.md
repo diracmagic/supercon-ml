@@ -1,5 +1,12 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.16 adds:
+
+- **Desktop sign-in returns automatically:** after GitHub or email sign-in, the app hands the verified team session back to its installed home screen. Notes, Messages and Team remain available there alongside native updates. Credentials stay in process memory; closing the desktop process or signing out ends the local session. Cancellation and expired or revoked membership cannot restore private access.
+- **Consistent mobile navigation:** Physics demos, Theory & materials and News & papers now use the same full titles on phones, in a compact two-row navigation bar.
+- **Article-specific illustrations:** every displayed news item, paper and selected advance gets a diagram driven by its available material, method and research question, with an original-source link and an explanation of the evidence used. These are labelled schematics, not reconstructed crystal coordinates or measured traces. Existing concept animations remain available in the drawing details.
+- **Branded Windows uninstaller:** new installations use the Supercon icon for the uninstaller as well as the installer. An upgrade may still briefly open the previous version's old uninstaller.
+
 Version 0.3.15 fixes:
 
 - **Desktop team sign-in:** the installed APP opens the fixed hosted sign-in form in the same window before starting GitHub or email authentication. GitHub verification is now stored at the same address that receives the callback, preventing the missing pending-request error. Credentials never move between the bundled and hosted origins; existing PKCE, membership and native-updater checks remain in force.

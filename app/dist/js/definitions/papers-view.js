@@ -122,6 +122,7 @@
         h('p', { class: 'adv-meta' }, h('span', { text: fmtMonth(r.d) }), h('span', { class: 'kind kind-' + r.k, text: KIND_LABEL[r.k] || r.k }), h('span', { text: advTopic(r) })),
         richText(h('h3'), r.h),
         richText(h('p', { class: 'adv-text' }), r.x),
+        newsArticleFigure(r),
         h('p', { class: 'adv-ref' }, recentLink(r))));
     });
     var aiList = $('#ai-adv-list'), aiMore = $('#ai-adv-more');
@@ -129,9 +130,9 @@
       clear(aiList); clear(aiMore);
       var aiRows = RECENT.filter(function (r) { return list(r.cards).indexOf('ai') >= 0; }).slice().sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
       (paperState.aiAdvAll ? aiRows : aiRows.slice(0, 8)).forEach(function (r) {
-        aiList.appendChild(h('li', { class: 'ai-selected-item' }, h('div', { class: 'news-art' }, miniCanvas(aiArticleArt({ title: r.h, summary: r.x, ai_kind: r.k === 'experiment' ? 'experiment' : '' })), h('span', { class: 'news-art-caption', text: 'Schematic' })),
+        aiList.appendChild(h('li', { class: 'ai-selected-item article-item' },
           h('div', { class: 'news-body' }, h('p', { class: 'adv-meta' }, h('span', { text: fmtMonth(r.d) }), h('span', { class: 'kind kind-' + r.k, text: KIND_LABEL[r.k] || r.k })),
-            richText(h('h3'), r.h), richText(h('p', { class: 'adv-text' }), r.x), h('p', { class: 'adv-ref' }, recentLink(r)))));
+            richText(h('h3'), r.h), richText(h('p', { class: 'adv-text' }), r.x), newsArticleFigure(r), h('p', { class: 'adv-ref' }, recentLink(r)))));
       });
       if (!aiRows.length) aiList.appendChild(h('li', { class: 'empty', text: 'No selected AI research is available yet.' }));
       if (!paperState.aiAdvAll && aiRows.length > 8) aiMore.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.aiAdvAll = true; renderAdvances(); } }, 'Show all ' + aiRows.length));
@@ -173,9 +174,8 @@
     rows.slice(0, paperState.newsShown).forEach(function (n) {
       var meta = h('p', { class: 'paper-meta' }, h('span', { class: 'src src-news', text: n.source }), h('span', { text: fmtDayISO(n.date) }));
       list(n.topics).forEach(function (t) { meta.appendChild(h('span', { class: 'topic', text: t })); });
-      ol.appendChild(h('li', { class: 'news-item' },
-        h('div', { class: 'news-art' }, miniCanvas(newsArt(n)), h('span', { class: 'news-art-caption', text: 'Schematic' })),
-        h('div', { class: 'news-body' }, meta, h('h3', null, h('a', { href: n.url, text: n.title })), n.summary ? h('p', { class: 'paper-intro', text: n.summary }) : null)));
+      ol.appendChild(h('li', { class: 'news-item article-item' },
+        h('div', { class: 'news-body' }, meta, h('h3', null, h('a', { href: n.url, text: n.title })), n.summary ? h('p', { class: 'paper-intro', text: n.summary }) : null, newsArticleFigure(n))));
     });
     miniKick();
     if (rows.length > paperState.newsShown) {
@@ -222,6 +222,7 @@
     });
     if (!rows.length) ol.appendChild(h('li', { class: 'empty', text: 'No papers match these filters yet.' }));
     rows.slice(0, paperState.shown).forEach(function (p) { ol.appendChild(paperItem(p)); });
+    miniPrune(); miniKick();
     if (rows.length > paperState.shown) {
       more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.shown += 20; renderFeed(); } },
         'Show more (' + (rows.length - paperState.shown) + ' left)'));
@@ -233,7 +234,7 @@
     return m ? m[1] : (s || '').length > 300 ? s.slice(0, 297).replace(/\s+\S*$/, '') + '…' : s;
   };
 
-  const paperItem = function paperItem(p) {
+  const paperItem = function paperItem(p, withoutFigure) {
     var isArxiv = p.source === 'arXiv';
     var meta = h('p', { class: 'paper-meta' },
       h('span', { class: 'src src-' + (isArxiv ? 'arxiv' : 'journal'), text: isArxiv ? 'arXiv' + (p.cross_list ? ' (cross-list)' : '') : p.journal || p.source }),
@@ -252,7 +253,8 @@
       body.push(h('p', { class: 'paper-intro muted', text: 'Published in ' + (p.journal || p.source) + '. The abstract is on the publisher’s page.' }));
     }
     if (isArxiv && p.journal_ref) body.push(h('p', { class: 'paper-authors', text: 'Published as ' + p.journal_ref }));
-    return h('li', null, body);
+    if (!withoutFigure) body.push(newsArticleFigure(p));
+    return h('li', { class: 'article-item' }, body);
   };
 
   const fmtDayISO = function fmtDayISO(s) {
