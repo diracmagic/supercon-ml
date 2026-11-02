@@ -221,6 +221,26 @@ fence is rejected, even following an object restart or later reinvitation. A pos
 that commits before the fence is an accepted in-flight operation and receives its
 success receipt; it is not falsely reported as a failed post after committing.
 
+`GET /api/presence` uses the same live team and repository authorization as the
+board. Its response is `{presence: {members, window_seconds: 150, observed_at}}`;
+each active member has only `{name, is_self, online: true}`. No email, membership
+ID, provider ID, or session key is returned. "Online" means a successful verified
+board/session/presence request within the preceding 150 seconds, not a confirmed
+live connection. The timestamp is the server's check time. Closed or hidden apps
+age out; it is not an offline team roster. Names are server-assigned and duplicate
+devices appear as one person. This same object piggybacks existing board and
+eligible session responses so clients need no new polling loop. Manual presence
+reads share the existing private API rate limits.
+
+Presence uses the existing board object and private, non-cacheable responses.
+Only internal session hashes and short-lived activity records are stored there.
+Logout removes that session, retaining other active devices; a durable logout
+fence lasts until the session expiry so a delayed request cannot restore it.
+Member revocation removes all its devices in the same transaction as the existing
+revocation fence. Expired activity and logout fences are pruned on subsequent
+updates. External provider changes are detected on subsequent authenticated
+requests; the recent-activity label does not claim continuous monitoring.
+
 A token-endpoint HTTP 429 stores an application-wide cooldown deadline in the
 existing `AUTH_STATE` namespace. Valid `Retry-After` seconds/HTTP dates are respected;
 future `x-ratelimit-reset` epochs also apply when `x-ratelimit-remaining` is exactly

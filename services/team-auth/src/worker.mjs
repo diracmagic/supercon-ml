@@ -17,7 +17,7 @@ const PROVIDER_ERRORS = new Map([['incorrect_client_credentials', 'oauth_credent
 const PROVIDER_HTTP_STATUSES = new Set([301, 302, 303, 307, 308, 400, 401, 403, 404, 429, 500, 502, 503, 504]);
 const httpDiagnostic = status => PROVIDER_HTTP_STATUSES.has(status) ? 'provider_http_' + status : 'provider_http_other';
 const CALLBACK_DIAGNOSTICS = new Set(['callback_parameters', 'callback_state', 'code_invalid', 'provider_bad_code', 'transaction_storage', 'provider_denied', 'provider_credentials', 'provider_redirect', 'provider_transport', 'provider_response_json', 'provider_http_other', ...[...PROVIDER_HTTP_STATUSES].map(httpDiagnostic), 'provider_grant_error_unknown', 'provider_email_unverified', 'provider_token_format', 'provider_token_type', 'provider_expiry', 'provider_identity', 'ticket_encryption', 'ticket_storage', 'unexpected']);
-const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/email/action', 'GET'], ['/auth/exchange', 'POST'], ['/auth/firebase', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/api/board', 'GET, POST'], ['/api/team', 'GET'], ['/api/team/invite', 'POST'], ['/api/team/revoke', 'POST'], ['/api/team/name', 'POST'], ['/auth/logout', 'POST']]);
+const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/email/action', 'GET'], ['/auth/exchange', 'POST'], ['/auth/firebase', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/api/board', 'GET, POST'], ['/api/presence', 'GET'], ['/api/team', 'GET'], ['/api/team/invite', 'POST'], ['/api/team/revoke', 'POST'], ['/api/team/name', 'POST'], ['/auth/logout', 'POST']]);
 const cookie = (value, expiry = 600) => COOKIE + '=' + value + '; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=' + expiry;
 function cookieValue(request) {
   const matches = (request.headers.get('cookie') || '').split(';').map(value => value.trim()).filter(value => value.startsWith(COOKIE + '='));
@@ -63,6 +63,12 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
     demand(await stateAccess(env, 'session', session.token, 'get', now()), 'invalid_session', 401);
     if (session.record.provider === 'firebase') await teamAccess(env, 'check', now(), { memberId: session.record.memberId, uid: session.record.firebaseUid, email: session.record.user.email, version: session.record.memberVersion });
   }
+  async function boardActor(env, session) {
+    if (session.record.provider !== 'firebase') return { id: 'github:' + session.record.user.id, name: session.record.user.login };
+    const member = await teamAccess(env, 'board-identity', now(), { memberId: session.record.memberId, uid: session.record.firebaseUid, email: session.record.user.email, version: session.record.memberVersion });
+    return { id: 'firebase:' + session.record.firebaseUid, name: member.name, memberId: session.record.memberId, memberVersion: session.record.memberVersion };
+  }
+  const boardActivity = async session => ({ sessionKey: await sha256(session.token), expiresAt: session.record.expiresAt });
   async function github(path, token, maximum = 131072) {
     demand(typeof path === 'string' && path.startsWith('/') && !path.startsWith('//'), 'upstream_unavailable', 503);
     let response;
@@ -92,7 +98,7 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
     demand(token, 'invalid_session', 401);
     const record = await stateAccess(env, 'session', token, 'get', now());
     demand(record && record.kind === 'session', 'invalid_session', 401);
-    if (record.provider === 'firebase' && ['/api/session', '/api/memo', '/api/board'].includes(new URL(request.url).pathname)) {
+    if (record.provider === 'firebase' && ['/api/session', '/api/memo', '/api/board', '/api/presence'].includes(new URL(request.url).pathname)) {
       // Rate-limit before Google/GitHub work, without caching identity or membership.
       const memberKey = await sha256(record.memberId);
       await rate(env, 'private-member-minute:' + memberKey, 12, 60000);
@@ -291,23 +297,23 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
         if (url.pathname === '/auth/logout') {
           const token = /^Bearer ([A-Za-z0-9_-]{43})$/.exec(request.headers.get('authorization') || '')?.[1];
           demand(token, 'invalid_session', 401);
-          await stateAccess(env, 'session', token, 'delete', now());
+          const record = await stateAccess(env, 'session', token, 'get', now());
+          try {
+            if (env.TEAM_BOARD) await boardAccess(env, 'signout', now(), { sessionKey: await sha256(token), ...(record ? { expiresAt: record.expiresAt } : {}) });
+          } finally { await stateAccess(env, 'session', token, 'delete', now()); }
           return jsonResponse({ logged_out: true }, 200, origin);
         }
         const session = await getSession(request, env, key);
-        if (url.pathname === '/api/board') {
+        if (url.pathname === '/api/board' || url.pathname === '/api/presence') {
           demand(presentation(session.record).can_read_memo, 'team_only', 403);
           // Match Notes access: live provider identity + membership, and live
           // access to the pinned private repository. No cached authorization.
           if (session.record.provider === 'firebase') await verifyMemoAccess(github, await installationToken(env), { trustedInstallation: true });
           else await verifyMemoAccess(github, session.githubToken);
-          let actor;
-          if (session.record.provider === 'firebase') {
-            const member = await teamAccess(env, 'board-identity', now(), { memberId: session.record.memberId, uid: session.record.firebaseUid, email: session.record.user.email, version: session.record.memberVersion });
-            actor = { id: 'firebase:' + session.record.firebaseUid, name: member.name, memberId: session.record.memberId, memberVersion: session.record.memberVersion };
-          } else actor = { id: 'github:' + session.record.user.id, name: session.record.user.login };
+          const actor = await boardActor(env, session), activity = await boardActivity(session);
           let values, operation;
-          if (request.method === 'POST') {
+          if (url.pathname === '/api/presence') { values = { actor }; operation = 'presence'; }
+          else if (request.method === 'POST') {
             let body;
             try { body = await bodyJson(request, 8192); }
             catch (error) { if (error instanceof AuthError && error.code === 'invalid_request' && error.status === 502) throw new AuthError('invalid_message'); throw error; }
@@ -323,12 +329,13 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
             demand(!(url.searchParams.has('after') && url.searchParams.has('before')));
             values = { actor, after: integer('after', 0, 0, Number.MAX_SAFE_INTEGER), before: integer('before', null, 1, Number.MAX_SAFE_INTEGER), limit: integer('limit', 50, 1, 50) }; operation = 'read';
           }
+          values.activity = activity;
           await stillCurrent(env, session);
           const board = await boardAccess(env, operation, now(), values);
           // A committed post is acknowledged even if revocation follows its
           // commit. TeamBoard's durable fence orders those two operations; a
           // post-commit membership check would falsely report a saved post failed.
-          if (operation === 'read') await stillCurrent(env, session);
+          if (operation !== 'post') await stillCurrent(env, session);
           return jsonResponse(board, 200, origin);
         }
         if (url.pathname.startsWith('/api/team')) {
@@ -369,7 +376,12 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
           if (session.record.provider === 'firebase') await verifyMemoAccess(github, await installationToken(env), { trustedInstallation: true });
           else if (isAdmin(session.record)) await verifyMemoAccess(github, session.githubToken);
           await stillCurrent(env, session);
-          return jsonResponse(presentation(session.record), 200, origin);
+          let presence;
+          if (env.TEAM_BOARD && presentation(session.record).can_read_memo) {
+            ({ presence } = await boardAccess(env, 'presence', now(), { actor: await boardActor(env, session), activity: await boardActivity(session) }));
+            await stillCurrent(env, session);
+          }
+          return jsonResponse({ ...presentation(session.record), ...(presence ? { presence } : {}) }, 200, origin);
         }
         demand(isAdmin(session.record) || session.record.provider === 'firebase', 'owner_only', 403);
         const memo = await readMemo(github, session.record.provider === 'firebase' ? await installationToken(env) : session.githubToken, session.record.provider === 'firebase' ? { trustedInstallation: true } : undefined);

@@ -251,7 +251,7 @@ test('account adapter exchanges only a Firebase ID token and rechecks membership
   const exchange = h.requests.find(request => request.url.endsWith('/auth/firebase'));
   assert.deepEqual(JSON.parse(exchange.options.body), {id_token: 'synthetic-id-token'});
   assert.equal(exchange.options.headers.Authorization, undefined);
-  assert.equal(h.get('team-notes').hidden, false); assert.equal(h.get('team-manage').hidden, true);
+  assert.equal(h.get('team-notes').hidden, false); assert.equal(h.get('team-manage').hidden, false);
   assert.equal(h.login.textContent, 'member@example.org'); assert.equal(h.values.size, 0);
   assert.equal(h.get('team-notes-dialog').open, true);
   await h.controller.logout(); assert.ok(reset > 0); assert.equal(h.get('team-notes-dialog').open, false);
@@ -546,6 +546,14 @@ function boardStub() {
     }};
   }};
 }
+function presenceAccountStub() {
+  const account = {options: null, updates: [], opens: 0, resets: 0};
+  return Object.assign(account, {createAccountUI(options) {
+    account.options = options;
+    return {openLogin() {}, openTeam() {account.opens++;}, reset() {account.resets++;}, handleEmailAction() {return false;},
+      setPresence(value) {account.updates.push(value);} };
+  }});
+}
 async function startBoardSession(h, board) {
   await h.start();
   // WebCrypto runs outside the JS event loop. Fixed setImmediate turns do not
@@ -614,6 +622,75 @@ test('email members activate the board with a different opaque actor key', async
   assert.equal(board.instances.length, 1); assert.equal(h.get('team-messages').hidden, false);
   assert.equal(board.instances[0].options.storageKey, createHash('sha256').update('firebase:firebase:example_uid').digest('hex'));
   assert.doesNotMatch(board.instances[0].options.storageKey, /member|example_uid/);
+});
+
+test('Team presence is available to approved email members without granting team administration', async () => {
+  const anonymousAccount = presenceAccountStub(), anonymous = harness({accountUI: anonymousAccount});
+  await anonymous.start();
+  assert.equal(anonymous.get('team-manage').hidden, true);
+  await assert.rejects(anonymousAccount.options.presenceRequest(), /unavailable/);
+  assert.equal(anonymous.requests.length, 0);
+  const snapshot = {members: [{name: 'Synthetic member', is_self: true, online: true}], window_seconds: 150, observed_at: TIME};
+  const member = metadata({user: {id: 'firebase:example_uid', login: 'member@example.org', email: 'member@example.org', provider: 'firebase'}, can_manage_team: false, presence: snapshot});
+  const account = presenceAccountStub(), h = harness({accountUI: account, fetch: url =>
+    url.endsWith('/auth/firebase') ? response({...member, session_token: TOKEN}) :
+    url.endsWith('/api/presence') ? response({presence: snapshot}) : response(member)});
+  await h.start(); await account.options.exchangeFirebase('synthetic-id-token');
+  assert.equal(h.get('team-manage').hidden, false); assert.equal(account.options.canReadTeam(), true); assert.equal(account.options.canManageTeam(), false);
+  h.get('team-manage').dispatch('click'); assert.equal(account.opens, 1);
+  assert.deepEqual(JSON.parse(JSON.stringify(account.updates.at(-1))), snapshot);
+  const before = h.requests.length;
+  await account.options.presenceRequest('https://evil.example/private');
+  assert.equal(h.requests.length, before + 1, 'Presence does not add a redundant session check');
+  const req = h.requests.at(-1);
+  assert.equal(req.url, 'https://auth.example.org/api/presence'); assert.equal(req.options.method, 'GET');
+  assert.equal(req.options.headers.Authorization, 'Bearer ' + TOKEN); assert.equal(req.options.cache, 'no-store');
+  await assert.rejects(account.options.teamRequest('/api/team', 'GET'), /management unavailable/);
+  assert.equal(h.writes.length, 0);
+  await h.controller.logout();
+  assert.equal(account.updates.at(-1), null); assert.equal(account.options.canReadTeam(), false); assert.equal(h.get('team-manage').hidden, true);
+});
+
+test('presence piggybacks verified board responses and late snapshots cannot survive logout', async () => {
+  const first = {members: [{name: 'Initial fixture', is_self: true, online: true}], window_seconds: 150, observed_at: TIME};
+  const second = {...first, members: [{name: 'Board fixture', is_self: true, online: true}]};
+  const account = presenceAccountStub(), board = boardStub(); let delayed = false, finish;
+  const h = harness({...loginOptions, accountUI: account, boardUI: board, fetch: url =>
+    url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) :
+    url.endsWith('/api/session') ? response({...metadata(), presence: first}) :
+    url.endsWith('/api/memo') ? response(memo()) : url.includes('/api/board') ?
+      delayed ? new Promise(resolve => {finish = resolve;}) : response({messages: [], presence: second}) : response({}, 204)});
+  await startBoardSession(h, board); assert.deepEqual(JSON.parse(JSON.stringify(account.updates.at(-1))), first);
+  const adapter = board.instances[0].options;
+  await adapter.request('/api/board?after=0', 'GET'); assert.deepEqual(JSON.parse(JSON.stringify(account.updates.at(-1))), second);
+  delayed = true;
+  const pending = adapter.request('/api/board', 'GET'); const rejected = assert.rejects(pending, /cancelled/);
+  await h.controller.logout(); await rejected;
+  const count = account.updates.length;
+  finish(response({messages: [], presence: second})); await flush();
+  assert.equal(account.updates.length, count); assert.equal(account.updates.at(-1), null);
+  assert.equal(h.requests.filter(req => req.url.endsWith('/api/presence')).length, 0, 'Existing polls supply presence without a new loop');
+});
+
+test('presence failures and membership loss preserve the authentication boundary', async () => {
+  for (const status of [401, 403, 429, 503]) {
+    const account = presenceAccountStub(), h = harness({...loginOptions, accountUI: account, fetch: url =>
+      url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) :
+      url.endsWith('/api/session') ? response(metadata()) : url.endsWith('/api/memo') ? response(memo()) :
+      response({error: status === 403 ? 'membership_revoked' : 'rate_limited'}, status)});
+    await h.start();
+    await assert.rejects(account.options.presenceRequest());
+    assert.equal(h.get('team-manage').hidden, status === 401 || status === 403);
+    if (status === 401 || status === 403) assert.equal(account.updates.at(-1), null);
+  }
+  let canRead = true;
+  const account = presenceAccountStub(), h = harness({...loginOptions, accountUI: account, fetch: url =>
+    url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) :
+    url.endsWith('/api/session') ? response(metadata({can_read_memo: canRead, can_manage_team: false})) : response(memo())});
+  await h.start(); const resets = account.resets; canRead = false;
+  h.doc.dispatch('visibilitychange'); await flush();
+  assert.equal(account.resets, resets + 1, 'Losing read permission clears the Team dialog even without a prior admin role');
+  assert.equal(account.updates.at(-1), null); assert.equal(h.get('team-manage').hidden, true);
 });
 
 test('board cancellation aborts the network request and a late response cannot survive logout', async () => {

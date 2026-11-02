@@ -1,5 +1,10 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.14 adds:
+
+- **Team presence:** approved members can open Team to see names with authenticated activity in the last 2½ minutes. Existing checks refresh this private list; leaving or closing the APP may take a short time to disappear. Sign-out and revocation clear access.
+- **Clearer email sign-in:** after setting a password in the APP, the same account dialog returns to sign-in with the invited email address. New password emails also return from Firebase’s hosted page to the APP’s email form. No separate username is needed; returning to the form does not sign anyone in automatically.
+
 Version 0.3.13 adds:
 
 - **Responsive update retries:** Retry download immediately starts the verified download inside the APP, even when a background release check is active. Checking, download failures and installers still being prepared have visible status messages; installation still requires confirmation.

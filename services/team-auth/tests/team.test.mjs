@@ -68,7 +68,7 @@ async function fixture(options = {}) {
         return Response.json({ localId: UID, email: body.email, idToken: 'DISCARD_ID_TOKEN', refreshToken: 'DISCARD_REFRESH_TOKEN' });
       }
       if (method === 'sendOobCode') {
-        assert.equal(body.requestType, 'PASSWORD_RESET'); assert.equal(body.continueUrl, APP_RETURN);
+        assert.equal(body.requestType, 'PASSWORD_RESET'); assert.equal(body.continueUrl, APP_RETURN + '?team_login=email');
         assert.equal(Object.hasOwn(body, 'returnOobLink'), false);
         if (controls.emailFailure) return Response.json({ error: { message: 'DO_NOT_REFLECT_EMAIL_DETAIL' } }, { status: 429 });
         return Response.json({ email: body.email });
@@ -116,6 +116,19 @@ async function fixture(options = {}) {
   const login = token => send('/auth/firebase', { method: 'POST', body: { id_token: token || idToken() } });
   return { env, controls, calls, idToken, send, githubSession, invite, login, now: () => clock, advance: ms => { clock += ms; }, firebase: createFirebaseClient({ fetchImpl, now: () => clock }) };
 }
+
+test('hosted invitation reset continues to the fixed APP email form without embedding identity or action credentials', async () => {
+  const h = await fixture(); await h.invite();
+  const calls = h.calls.filter(call => call.url.includes(':sendOobCode'));
+  assert.equal(calls.length, 1);
+  const body = JSON.parse(calls[0].body), target = new URL(body.continueUrl);
+  assert.equal(target.origin + target.pathname, APP_RETURN);
+  assert.deepEqual([...target.searchParams], [['team_login', 'email']]);
+  assert.equal(target.hash, '');
+  assert.equal(body.canHandleCodeInApp, false);
+  assert.equal(Object.hasOwn(body, 'returnOobLink'), false);
+  assert.doesNotMatch(target.href, /member@example|oobCode|apiKey|redirect|token|password/);
+});
 
 test('invited verified email member reads notes via installation without GitHub membership or admin rights', async () => {
   const h = await fixture(), { member } = await h.invite();

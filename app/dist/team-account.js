@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   const APP_URL = 'https://diracmagic.github.io/supercon-ml/';
+  const EMAIL_LOGIN_URL = APP_URL + '?team_login=email';
   const GOOGLE_API = 'https://identitytoolkit.googleapis.com/v1/accounts:';
   const GOOGLE_ACTIONS = new Set(['signInWithPassword', 'lookup', 'sendOobCode', 'resetPassword', 'update']);
   const ACTION_KEYS = ['mode', 'oobCode', 'apiKey', 'continueUrl', 'lang'];
@@ -46,14 +47,22 @@
     const fragment = new URLSearchParams((win.location.hash || '').replace(/^#/, ''));
     const legacy = params.has('mode') || params.has('oobCode');
     const bridged = fragment.has('team_email_mode') || fragment.has('team_email_code');
-    if (!legacy && !bridged) return null;
     const oauth = ['team_ticket', 'team_state', 'team_error'];
     const mixedOAuth = oauth.some(key => fragment.has(key));
+    const loginIntent = params.getAll('team_login').length === 1 && params.get('team_login') === 'email';
+    if (!legacy && !bridged) {
+      if (!params.has('team_login')) return null;
+      params.delete('team_login');
+      const query = params.toString();
+      win.history.replaceState(null, '', win.location.pathname + (query ? '?' + query : '') + (win.location.hash || ''));
+      return loginIntent && !mixedOAuth ? {mode: 'login'} : null;
+    }
     const invalid = (legacy && bridged) || mixedOAuth || ACTION_KEYS.some(key => params.getAll(key).length > 1) ||
       ['team_email_mode', 'team_email_code'].some(key => fragment.getAll(key).length > 1);
     const mode = bridged ? fragment.get('team_email_mode') || '' : params.get('mode') || '';
     const code = bridged ? fragment.get('team_email_code') || '' : params.get('oobCode') || '';
     ACTION_KEYS.forEach(key => params.delete(key));
+    params.delete('team_login');
     ['team_email_mode', 'team_email_code'].forEach(key => fragment.delete(key));
     if (mixedOAuth) oauth.forEach(key => fragment.delete(key));
     const query = params.toString(), remainingHash = bridged || mixedOAuth ? fragment.toString() : (win.location.hash || '').replace(/^#/, '');
@@ -72,13 +81,24 @@
         delivery_status: typeof row.delivery_status === 'string' && /^[a-z_-]{1,40}$/.test(row.delivery_status) ? row.delivery_status : 'unknown' };
     });
   }
+  function presence(value) {
+    if (!value || !Array.isArray(value.members) || value.members.length > 501 || value.window_seconds !== 150 ||
+        !Number.isSafeInteger(value.observed_at) || value.observed_at < 1) throw new Error('Invalid presence response');
+    return {observed_at: value.observed_at, window_seconds: 150, members: value.members.map(row => {
+      if (!row || typeof row.name !== 'string' || !row.name.trim() || row.name.length > 80 ||
+          /[\u0000-\u001f\u007f-\u009f]/.test(row.name) || typeof row.is_self !== 'boolean' || row.online !== true) throw new Error('Invalid presence member');
+      return {name: row.name, is_self: row.is_self, online: true};
+    })};
+  }
   function createAccountUI(env) {
     const doc = env.document, win = env.window, config = configuration(env.config || (win.SuperconTeamConfig || {}).firebase);
     const fetcher = env.fetch || win.fetch.bind(win);
     const later = env.setTimeout || win.setTimeout.bind(win), cancel = env.clearTimeout || win.clearTimeout.bind(win);
+    const now = env.now || Date.now;
     const active = new Set();
     let dialog, body, heading, status, closeButton, focusBefore, generation = 0, busy = false;
     let verificationToken = '', pendingAction = earlyAction || consumeEmailAction(win), destroyed = false;
+    let onlineSnapshot = null, presenceTimer = 0, teamView = false, presenceList = null;
     earlyAction = null;
     function node(tag, attrs, children) {
       const result = doc.createElement(tag);
@@ -127,11 +147,13 @@
     }
     function open(title) {
       if (destroyed) return false;
+      teamView = false; presenceList = null;
       ensureDialog(); invalidate(); empty(body); heading.textContent = title; say('');
       if (!dialog.open) { focusBefore = doc.activeElement; dialog.showModal(); }
       return true;
     }
     function close(restoreFocus = true) {
+      teamView = false; presenceList = null; clearPresence();
       invalidate();
       if (typeof env.onDismiss === 'function') env.onDismiss();
       if (dialog && dialog.open) dialog.close();
@@ -174,9 +196,9 @@
     function addBack() { body.appendChild(button('Back to sign in', () => openLogin(), {class: 'btn small'})); }
     function openLogin(initialEmail = '', message = '') {
       if (!open('Team sign in')) return;
-      body.appendChild(node('p', { class: 'team-account-intro', text: 'Invited members can sign in with email and password. GitHub sign-in remains available.' }));
+      body.appendChild(node('p', { class: 'team-account-intro', text: 'Sign in with the email address your administrator invited and your own password. No separate username is needed.' }));
       const form = node('form', { class: 'team-account-form', autocomplete: 'on' });
-      const address = field(form, 'Email', 'team-account-email', 'email', 'username', initialEmail);
+      const address = field(form, 'Email address', 'team-account-email', 'email', 'username', initialEmail);
       const password = field(form, 'Password', 'team-account-password', 'password', 'current-password');
       form.appendChild(node('button', { type: 'submit', class: 'btn primary', text: 'Sign in' }));
       form.addEventListener('submit', event => {
@@ -209,19 +231,19 @@
       }, {class: 'btn team-account-github'}));
       if (!config) { form.querySelectorAll('button,input').forEach(item => { item.disabled = true; }); say('Email sign-in is being configured. You can continue with GitHub.'); }
       else say(message);
-      address.focus();
+      if (email(initialEmail) && config) password.focus(); else address.focus();
     }
     function openResetRequest(initialEmail, invitation = false) {
       if (!open(invitation ? 'Set up your team password' : 'Reset your password')) return;
       body.appendChild(node('p', {text: invitation ? 'Use the email address invited by your administrator. Firebase currently labels the setup email as a password reset; use it to choose your own password.' : 'Enter your team email address to request a password reset. If an account is eligible, the account service will send a link.'}));
       const form = node('form', {class: 'team-account-form'});
-      const address = field(form, 'Email', 'team-reset-email', 'email', 'username', initialEmail);
+      const address = field(form, 'Email address', 'team-reset-email', 'email', 'username', initialEmail);
       form.appendChild(node('button', {type: 'submit', class: 'btn primary', text: 'Send password link'}));
       form.addEventListener('submit', event => {
         event.preventDefault(); const target = address.value.trim();
         if (!email(target)) { say('Enter a valid email address.'); return; }
         run(async expected => {
-          try { await google('sendOobCode', {requestType: 'PASSWORD_RESET', email: target, continueUrl: APP_URL}); }
+          try { await google('sendOobCode', {requestType: 'PASSWORD_RESET', email: target, continueUrl: EMAIL_LOGIN_URL}); }
           catch (error) { if (error.code !== 'EMAIL_NOT_FOUND') throw error; }
           if (current(expected)) say('If this account is eligible, a password link has been sent. Check your inbox and spam folder.');
         });
@@ -243,6 +265,9 @@
     async function handleEmailAction() {
       if (!pendingAction) return false;
       const action = pendingAction; pendingAction = null;
+      // This first-party return hint opens a form only. It never verifies an
+      // email, consumes a password action, or starts an authentication request.
+      if (action.mode === 'login') { openLogin('', 'Sign in with your invited email address and password.'); return true; }
       if (typeof env.onEmailAction === 'function') env.onEmailAction();
       const titles = {verifyEmail: 'Verify your email', recoverEmail: 'Restore your email address', resetPassword: 'Set your password'};
       if (!open(titles[action.mode] || 'Email action')) return true;
@@ -285,7 +310,7 @@
           if (secret !== repeat) { say('The passwords did not match. Enter them again.'); return; }
           run(async version => {
             await google('resetPassword', {oobCode: action.code, newPassword: secret}); action.code = '';
-            if (current(version)) openLogin(checked.email, 'Password saved. Sign in with your new password.');
+            if (current(version)) openLogin(checked.email, 'Password saved. Sign in below with your email address and new password.');
           });
         });
         body.appendChild(form); addBack(); password.focus();
@@ -293,6 +318,56 @@
       return true;
     }
     function isAdmin() { return typeof env.canManageTeam === 'function' && env.canManageTeam() === true; }
+    function isTeam() { return typeof env.canReadTeam === 'function' && env.canReadTeam() === true; }
+    function clearPresence() {
+      if (presenceTimer) cancel(presenceTimer);
+      presenceTimer = 0; onlineSnapshot = null;
+    }
+    function renderPresence() {
+      if (!teamView || !presenceList || !dialog || !dialog.open) return;
+      empty(presenceList);
+      if (!isTeam()) return;
+      if (!onlineSnapshot || onlineSnapshot.observed_at + 150000 <= now()) {
+        presenceList.appendChild(node('p', {text: 'Online status is not current. Select Refresh to check again.'})); return;
+      }
+      if (!onlineSnapshot.members.length) presenceList.appendChild(node('p', {text: 'No team members were recently active at the latest check.'}));
+      onlineSnapshot.members.forEach(row => {
+        presenceList.appendChild(node('article', {class: 'team-member team-presence-member'}, [
+          node('p', {class: 'team-member-email', text: row.name + (row.is_self ? ' (you)' : '')}),
+          node('p', {class: 'team-member-status', text: 'Online'})]));
+      });
+    }
+    function setPresence(value) {
+      if (destroyed || !isTeam()) { clearPresence(); renderPresence(); return false; }
+      try {
+        const checked = presence(value), remaining = checked.observed_at + 150000 - now();
+        if (checked.observed_at > now() + 60000 || remaining <= 0) throw new Error('Stale presence response');
+        // Session, board and manual refreshes can finish out of order. An older
+        // response must not restore names removed by a fresher snapshot.
+        if (onlineSnapshot && onlineSnapshot.observed_at + 150000 > now() && checked.observed_at < onlineSnapshot.observed_at) return true;
+        clearPresence();
+        onlineSnapshot = checked;
+        presenceTimer = later(() => { clearPresence(); renderPresence(); }, Math.min(remaining, 150000));
+      } catch (_) { clearPresence(); renderPresence(); return false; }
+      renderPresence(); return true;
+    }
+    async function openTeam() {
+      if (!isTeam() || !open('Team')) return false;
+      teamView = true;
+      body.appendChild(node('p', {text: 'Online means authenticated activity within the last 2½ minutes at the latest check. Background or closed apps may remain listed briefly.'}));
+      presenceList = node('div', {id: 'team-presence-list', class: 'team-member-list', 'aria-live': 'polite'});
+      body.appendChild(presenceList); renderPresence();
+      async function refresh(expected) {
+        if (!isTeam() || typeof env.presenceRequest !== 'function') throw new Error('Presence unavailable');
+        const value = await env.presenceRequest();
+        if (!current(expected) || !isTeam()) return;
+        if (!setPresence(value && value.presence)) throw new Error('Presence unavailable');
+        say('Online status updated.');
+      }
+      body.appendChild(button('Refresh', () => run(refresh), {class: 'btn small'}));
+      if (isAdmin()) body.appendChild(button('Manage team', openAdmin, {class: 'btn small'}));
+      await run(refresh); return true;
+    }
     async function team(path, method, payload) {
       if (!isAdmin() || typeof env.teamRequest !== 'function') throw Object.assign(new Error('Not authorized'), {code: 'owner_only'});
       if (!['/api/team', '/api/team/invite', '/api/team/revoke', '/api/team/name'].includes(path)) throw new Error('Invalid team operation');
@@ -301,6 +376,7 @@
     async function openAdmin() {
       if (!isAdmin()) return false;
       if (!open('Manage team')) return false;
+      if (isTeam()) body.appendChild(button('Back to Team', openTeam, {class: 'btn small'}));
       body.appendChild(node('p', {text: 'Invite members to read research notes. Invitations do not grant administrator access or access to the private GitHub repository.'}));
       body.appendChild(node('p', {class: 'team-account-hint', text: 'Invitations stay valid until revoked. Password-setting links expire; resend an invitation for a fresh link. If a message is missing, check spam.'}));
       const form = node('form', {class: 'team-account-form team-account-invite'});
@@ -368,10 +444,10 @@
       await run(async expected => { await refresh(expected); if (current(expected)) say('Only the administrator can manage this list.'); });
       return true;
     }
-    return Object.freeze({openLogin, openAdmin, handleEmailAction, close,
+    return Object.freeze({openLogin, openAdmin, openTeam, setPresence, handleEmailAction, close,
       reset() { close(false); }, destroy() { close(false); destroyed = true; if (dialog && dialog.parentNode) dialog.parentNode.removeChild(dialog); }});
   }
-  const api = Object.freeze({configuration, email, safeError, consumeEmailAction, members, createAccountUI});
+  const api = Object.freeze({configuration, email, safeError, consumeEmailAction, members, presence, createAccountUI});
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else if (typeof window !== 'undefined') {
     // This script is the first resource in <head>: erase action capabilities

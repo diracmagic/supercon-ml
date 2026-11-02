@@ -60,7 +60,7 @@ export function createFirebaseClient({ fetchImpl = (...args) => fetch(...args), 
     async sendInvitation(env, email, userIp) {
       email = normalizeEmail(email);
       demand(typeof userIp === 'string' && /^[0-9a-fA-F:.]{3,64}$/.test(userIp), 'invitation_unavailable', 503);
-      await request(env, 'sendOobCode', { requestType: 'PASSWORD_RESET', email, continueUrl: APP_RETURN, canHandleCodeInApp: false, userIp });
+      await request(env, 'sendOobCode', { requestType: 'PASSWORD_RESET', email, continueUrl: APP_RETURN + '?team_login=email', canHandleCodeInApp: false, userIp });
     },
     async verify(env, idToken) {
       const config = configuration(env), claims = claimsOf(idToken, config.project, now());
