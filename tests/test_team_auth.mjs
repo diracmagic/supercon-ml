@@ -14,6 +14,13 @@ const proof = (changes = {}) => ({ verifier: VERIFIER, state: STATE, created_at:
 const metadata = (changes = {}) => ({ user: { id: 350433501, login: 'demo-owner' }, expires_at: TIME + 120000, can_read_memo: true, ...changes });
 const response = (value, status = 200) => ({ ok: status >= 200 && status < 300, status, text: async () => JSON.stringify(value) });
 const flush = async () => { for (let i = 0; i < 12; i++) await new Promise(setImmediate); };
+async function waitFor(predicate, description, timeout = 5000) {
+  const deadline = Date.now() + timeout;
+  while (!predicate()) {
+    assert.ok(Date.now() < deadline, 'Timed out waiting for ' + description);
+    await new Promise(resolve => setTimeout(resolve, 2));
+  }
+}
 const flatten = (node) => [node, ...node.children.flatMap(flatten)];
 
 class Element {
@@ -48,7 +55,7 @@ function memo(count = 31) {
   })) };
 }
 
-function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?test=1', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI, materialUI, boardUI } = {}) {
+function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?test=1', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI, materialUI, boardUI, crypto = webcrypto } = {}) {
   const doc = { events: {}, hidden: false, activeElement: null, readyState: 'complete',
     createElement(tag) { return new Element(tag, doc); },
     getElementById(id) { return flatten(doc.body).find((node) => node.attributes.id === id) || null; },
@@ -81,7 +88,7 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?t
     if (url.endsWith('/auth/logout')) return response({}, 204);
     throw new Error('Unexpected test URL');
   };
-  const controller = auth.createController({ window: win, document: doc, config: { apiBase }, crypto: webcrypto, fetch, accountUI, boardUI,
+  const controller = auth.createController({ window: win, document: doc, config: { apiBase }, crypto, fetch, accountUI, boardUI,
     btoa: win.btoa, now: () => tick,
     setTimeout(fn, ms) { const id = nextTimer++; timers.set(id, { fn, ms }); return id; }, clearTimeout(id) { timers.delete(id); } });
   return { controller, doc, win, login, values, writes, requests, redirects, history, timers, events,
@@ -505,6 +512,14 @@ function boardStub() {
     }};
   }};
 }
+async function startBoardSession(h, board) {
+  await h.start();
+  // WebCrypto runs outside the JS event loop. Fixed setImmediate turns do not
+  // establish readiness under concurrent CI load; await observable completion.
+  await waitFor(() => board.instances[0]?.activates === 1 &&
+    h.get('team-notes-dialog')?.open && h.doc.body.textContent.includes('Fixture result 31'),
+  'verified board activation and the completed automatic Notes load');
+}
 const loginOptions = {hash: '#team_ticket=' + TICKET + '&team_state=' + STATE, pending: proof()};
 
 test('message routes accept only fixed paths and bounded integer pagination', () => {
@@ -530,7 +545,7 @@ test('messages activate only for a verified team actor, with opaque storage and 
   const h = harness({...loginOptions, boardUI: board, fetch: (url) =>
     url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) :
     url.endsWith('/api/session') ? response(metadata()) : url.endsWith('/api/memo') ? response(memo()) : response({messages: []})});
-  await h.start();
+  await startBoardSession(h, board);
   assert.equal(board.instances.length, 1); const instance = board.instances[0];
   assert.equal(instance.activates, 1); assert.equal(h.get('team-messages').hidden, false);
   assert.equal(instance.options.storageKey, createHash('sha256').update('github:350433501').digest('hex'));
@@ -572,7 +587,7 @@ test('board cancellation aborts the network request and a late response cannot s
   const board = boardStub(), h = harness({...loginOptions, boardUI: board, fetch: (url) =>
     url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) : url.endsWith('/api/session') ? response(metadata()) :
     url.endsWith('/api/memo') ? response(memo()) : url.endsWith('/api/board') ? new Promise(resolve => {finish = resolve;}) : response({}, 204)});
-  await h.start(); const options = board.instances[0].options, controller = new AbortController();
+  await startBoardSession(h, board); const options = board.instances[0].options, controller = new AbortController();
   const pending = options.request('/api/board', 'GET', undefined, {signal: controller.signal});
   const rejected = assert.rejects(pending, /cancelled/); controller.abort(); await rejected;
   assert.equal(h.requests.at(-1).options.signal.aborted, true);
@@ -588,7 +603,7 @@ test('board denial clears private UI while rate limits leave the authenticated t
     const board = boardStub(), h = harness({...loginOptions, boardUI: board, fetch: url =>
       url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) : url.endsWith('/api/session') ? response(metadata()) :
       url.endsWith('/api/memo') ? response(memo()) : response({error: 'rate_limited'}, code)});
-    await h.start(); const instance = board.instances[0]; instance.options.onUnread(1);
+    await startBoardSession(h, board); const instance = board.instances[0]; instance.options.onUnread(1);
     await assert.rejects(instance.options.request('/api/board', 'GET'), error => error.status === code);
     assert.equal(h.get('team-messages').hidden, code !== 429);
     assert.equal(instance.destroys, code === 429 ? 0 : 1);
@@ -600,7 +615,7 @@ test('membership loss and timed expiry destroy the board and ignore old notifica
     let permitted = true;
     const board = boardStub(), h = harness({...loginOptions, boardUI: board, fetch: url =>
       url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) : url.endsWith('/api/session') ? response(metadata({can_read_memo: permitted})) : response(memo())});
-    await h.start(); const instance = board.instances[0]; instance.options.onUnread(1);
+    await startBoardSession(h, board); const instance = board.instances[0]; instance.options.onUnread(1);
     if (expiry) { h.setTime(TIME + 120001); h.fire(120000); } else { permitted = false; h.doc.dispatch('visibilitychange'); }
     await flush();
     assert.equal(instance.destroys, 1); assert.equal(h.get('team-messages').hidden, true);
@@ -679,6 +694,8 @@ test('the actual board module integrates with authenticated requests, badges, di
       {id: 1, body: 'Synthetic integrated message', created_at: TIME - 1000, author: {name: 'Synthetic member', is_self: false}}
     ], latest_id: 1, has_more: false}) : response({}, 204)});
   await h.start();
+  await waitFor(() => h.get('team-messages-unread').textContent === 'New' && h.doc.body.textContent.includes('Fixture result 31'),
+    'the initial authenticated board snapshot and automatic Notes load');
   assert.equal(h.get('team-messages-unread').textContent, 'New');
   assert.doesNotMatch(h.doc.body.textContent, /Synthetic integrated message/, 'Closed board keeps message bodies out of the DOM');
   await h.controller.openMessages(); await flush();
@@ -699,7 +716,7 @@ test('successful board authorization suppresses duplicate minute checks without 
   const h = harness({...loginOptions, boardUI: board, fetch: url =>
     url.endsWith('/auth/exchange') ? response({...longSession, session_token: TOKEN}) : url.endsWith('/api/session') ? response(longSession) :
     url.endsWith('/api/memo') ? response(memo()) : response({messages: []})});
-  await h.start();
+  await startBoardSession(h, board);
   const requestsBefore = h.requests.filter(row => row.url.endsWith('/api/session')).length;
   const adapter = board.instances[0].options;
   await adapter.request('/api/board?after=0&limit=50', 'GET');
@@ -709,4 +726,33 @@ test('successful board authorization suppresses duplicate minute checks without 
   assert.ok([...h.timers.values()].some(timer => timer.ms === 540000), 'Expiry still uses the original absolute deadline');
   h.setTime(TIME + 600001); h.fire(540000); await flush();
   assert.equal(h.get('team-messages').hidden, true); assert.equal(board.instances[0].destroys, 1);
+});
+
+test('delayed native hashing is awaited and logout cannot activate a stale board afterward', async () => {
+  for (const cancelLogin of [false, true]) {
+    let releaseDigest, finishDigest, digestStarted = false;
+    const gate = new Promise(resolve => {releaseDigest = resolve;});
+    const finished = new Promise(resolve => {finishDigest = resolve;});
+    const crypto = {subtle: {async digest(...args) {
+      digestStarted = true; await gate;
+      try { return await webcrypto.subtle.digest(...args); }
+      finally { finishDigest(); }
+    }}};
+    const board = boardStub(), h = harness({...loginOptions, boardUI: board, crypto});
+    await h.start(); await waitFor(() => digestStarted, 'board digest request');
+    assert.equal(board.instances.length, 0, 'A pending digest must not create a board');
+    if (cancelLogin) await h.controller.logout();
+    releaseDigest(); await finished;
+    if (cancelLogin) {
+      await flush();
+      assert.equal(board.instances.length, 0);
+      assert.equal(h.get('team-messages').hidden, true);
+      assert.doesNotMatch(h.doc.body.textContent, /Synthetic private board/);
+    } else {
+      await waitFor(() => board.instances[0]?.activates === 1 && h.doc.body.textContent.includes('Fixture result 31'),
+        'board activation after the delayed native digest');
+      assert.equal(h.get('team-messages').hidden, false);
+      assert.equal(board.instances[0].options.storageKey, createHash('sha256').update('github:350433501').digest('hex'));
+    }
+  }
 });
