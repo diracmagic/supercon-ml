@@ -190,6 +190,7 @@ test('native references are beneath the canvas, cite clustering/PCA precedents a
   assert.match(content, /clustering/i); assert.match(content, /SVD\/PCA/); assert.match(content, /KMeans/);
   assert.match(content, /training features only/); assert.match(content, /do not establish a superconductivity mechanism/);
   assert.doesNotMatch(content + h.ids.get('#demo-caption').textContent, han);
+  assert.doesNotMatch(content, /\uFFFD|\u00e2\u20ac|\u00c2\u00b7/, 'Reference text must not contain UTF-8 decoding artifacts');
   const links = descendants(refs).filter(node => node.tag === 'a');
   assert.equal(links.length, 3);
   for (const id of ['roter2020-pca', 'roter2022-clustering']) {

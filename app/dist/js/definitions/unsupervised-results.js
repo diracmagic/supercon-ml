@@ -26,9 +26,9 @@
     clear(el);
     el.hidden = false;
     el.appendChild(h('p', { class: 'refs-title', text: 'Method context and references' }));
-    el.appendChild(h('p', { class: 'note', text: 'Method context and prior work. Earlier studies used clustering to explore superconductor families and SVD/PCA before supervised Tc prediction. Our comparison adds 16 KMeansâ€“RBF prototype similarities fitted on training features only, keeps the prediction head unchanged, and evaluates the added value with chemical-system/family holdouts and paired system resampling. This is a test of an existing research direction; the results above do not establish a superconductivity mechanism.' }));
+    el.appendChild(h('p', { class: 'note', text: 'Method context and prior work. Earlier studies used clustering to explore superconductor families and SVD/PCA before supervised Tc prediction. Our comparison adds 16 KMeans-RBF prototype similarities fitted on training features only, keeps the prediction head unchanged, and evaluates the added value with chemical-system/family holdouts and paired system resampling. This is a test of an existing research direction; the results above do not establish a superconductivity mechanism.' }));
     modelMethodSources().filter(function (r) { return r.id === 'roter2022-clustering' || r.id === 'roter2020-pca'; }).forEach(function (r) {
-      el.appendChild(h('p', null, h('a', { href: r.url, text: r.title }), ' Â· ' + r.citation));
+      el.appendChild(h('p', null, h('a', { href: r.url, text: r.title }), ' | ' + r.citation));
     });
     el.appendChild(h('p', null, h('a', { href: 'https://github.com/diracmagic/supercon-ml/pull/17', text: 'Frozen comparison, complete results and independent audit' })));
   };
