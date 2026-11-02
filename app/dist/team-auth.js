@@ -313,7 +313,7 @@
     }
 
     async function request(path, method, bearer, body) {
-      if (!origin || !/^\/(?:auth\/(?:exchange|logout|firebase)|api\/(?:session|memo|team(?:\/(?:invite|revoke))?))$/.test(path)) throw new Error('Request unavailable');
+      if (!origin || !/^\/(?:auth\/(?:exchange|logout|firebase)|api\/(?:session|memo|team(?:\/(?:invite|revoke|name))?))$/.test(path)) throw new Error('Request unavailable');
       const controller = new AbortController();
       activeRequests.add(controller);
       let timeout;
@@ -419,7 +419,7 @@
     }
 
     async function teamRequest(path, method, payload) {
-      const methods = {'/api/team': 'GET', '/api/team/invite': 'POST', '/api/team/revoke': 'POST'};
+      const methods = {'/api/team': 'GET', '/api/team/invite': 'POST', '/api/team/revoke': 'POST', '/api/team/name': 'POST'};
       if (methods[path] !== method || !session || !session.can_manage_team || !token || !await validateSession() || !session || !session.can_manage_team) {
         throw Object.assign(new Error('Team management unavailable'), {code: 'admin_only'});
       }

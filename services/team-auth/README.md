@@ -65,17 +65,32 @@ built-in password-reset email. For an existing Firebase account, the invitation
 remains bound to its email until a fresh, provider-verified login atomically binds
 the UID. Do not claim that all Firebase sign-up is disabled.
 
-An invitation lasts seven days and requires a fresh login after it was issued.
+An application membership invitation does not expire, including invitations
+issued by earlier versions. Firebase's single-use password and verification links
+still expire according to Firebase's rules; the administrator can resend them.
+Joining requires a fresh login after the original invitation was issued.
 The login must have a currently verified email, match the invitation, and use the
 password provider. If setting a password did not verify the email, the app must
 complete Firebase's verification-email flow before joining. No admin code marks
 an unverified email as verified. An email request marked `accepted` means Firebase
 accepted the request; it is not proof of delivery. Failed sends remain visible in
-the administrator's member list. Reissuing invitations invalidates old membership
-versions; revocation invalidates all application sessions for that membership.
+the administrator's member list. Resending a pending invitation preserves its
+original login threshold, pinned Firebase UID and any earlier accepted invitation;
+a failed resend does not withdraw that invitation. It advances the authorization
+version and reports the latest email request status. Inviting an active member is
+an explicit no-op and does not send an email. Revocation invalidates all application
+sessions and hides the member from the list, while retaining an internal tombstone
+to reject stale in-flight invitations. Deliberately inviting that email again starts
+a new authorization version and requires a fresh login after the new invitation.
+
+An optional display name is trimmed, consecutive spaces are collapsed, and names
+are limited to 80 characters without control characters. Existing records without
+a name return an empty string. Only the administrator may edit names; a name edit
+does not change identity, permissions, authorization versions or sessions, and sends
+no email. Names are display data, never an authorization input.
 
 The `TeamDirectory` SQLite Durable Object uses the `TEAM_DIRECTORY` binding and
-the additive `v2` migration. It caps the directory at 100 members and persists
+the additive `v2` migration. It caps the directory at 100 retained member records and persists
 per-IP/global login limits and per-email/global invitation limits. Only the
 GitHub administrator may list, invite or revoke members. Anonymous responses do
 not disclose the membership list. No Firebase service-account key or project IAM
@@ -122,9 +137,10 @@ return URL, repository ID, filename, account ID or role as authorization.
 | `POST /auth/logout` | Bearer session; destroys that session. It does not modify other sessions or repository access. |
 | `GET /auth/email/action` | Accepts a unique `mode` (`resetPassword`, `verifyEmail`, or `recoverEmail`) and bounded `oobCode`; optional `apiKey` must equal configured project key. Ignores caller continuation URLs. Redirects to the fixed app's `team_email_mode`/`team_email_code` fragment without consuming the code. Recovery never signs in automatically. |
 | `POST /auth/firebase` | Exact JSON `{id_token}`. Google validates the token, then the directory claims/checks the invitation. Returns the same bounded bearer session contract, with `user.provider:'firebase'`, `user.id:'firebase:'+UID`, and the member's own email. |
-| `GET /api/team` | GitHub administrator only. Returns `{members:[...]}` with opaque member IDs, email, status, timestamps, version and delivery status. |
-| `POST /api/team/invite` | GitHub administrator only. Exact `{email}`; returns `{member}` after Firebase accepts the email request. Does not promise delivery. |
-| `POST /api/team/revoke` | GitHub administrator only. Exact `{member_id}`; returns `{member}` and increments its authorization version. |
+| `GET /api/team` | GitHub administrator only. Returns `{members:[...]}` with opaque member IDs, optional display name (empty string if absent), email, status, timestamps, version and delivery status. Revoked records are excluded. |
+| `POST /api/team/invite` | GitHub administrator only. `{email}` with optional `name`; unknown fields are rejected. Creates/reissues an invitation or resends a pending one. Returns `{member,email_request:'accepted'}` after Firebase accepts the email request; this does not promise delivery. For an active member, returns `email_request:'not_sent_active'` without sending an email or changing the name. Omitting `name` on resend preserves the existing name. Limited to one request per email per minute and 20 requests per hour globally. |
+| `POST /api/team/revoke` | GitHub administrator only. Exact `{member_id}`; returns `{member}`, increments its authorization version and removes it from the visible list. |
+| `POST /api/team/name` | GitHub administrator only. Exact `{member_id,name}`; changes display data for an invited or active member. Returns `{member}`. Revoked records cannot be renamed; no email is sent. |
 
 Session metadata includes `can_read_memo` and `can_manage_team`; only the verified
 GitHub administrator receives the latter. Health also reports boolean

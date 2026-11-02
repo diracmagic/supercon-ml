@@ -140,7 +140,7 @@ test('uninvited, unverified, forged, wrong-project and substituted identities ca
 
 test('ordinary GitHub identities cannot invite, revoke or enumerate the team', async () => {
   const h = await fixture(), other = await h.githubSession(false);
-  for (const [path, body] of [['/api/team', undefined], ['/api/team/invite', { email: EMAIL }], ['/api/team/revoke', { member_id: randomToken() }]]) {
+  for (const [path, body] of [['/api/team', undefined], ['/api/team/invite', { email: EMAIL }], ['/api/team/revoke', { member_id: randomToken() }], ['/api/team/name', { member_id: randomToken(), name: 'Fixture' }]]) {
     assert.equal((await h.send(path, { method: body ? 'POST' : 'GET', token: other, body })).status, 403);
   }
   assert.equal(h.calls.some(call => call.url.includes('googleapis.com')), false);
@@ -167,8 +167,16 @@ test('member revocation and reinvitation invalidate old sessions by version', as
   const revoked = await h.send('/api/team/revoke', { method: 'POST', token: owner, body: { member_id: member.member_id } }); assert.equal(revoked.status, 200);
   assert.equal((await h.send('/api/memo', { token: session.session_token })).status, 403);
   assert.equal((await h.send('/api/session', { token: session.session_token })).status, 401);
-  h.advance(61000); await h.invite();
+  assert.deepEqual((await (await h.send('/api/team', { token: owner })).json()).members, []);
+  const tombstone = await teamAccess(h.env, 'lookup', h.now(), { email: EMAIL });
+  assert.equal(tombstone.status, 'revoked'); assert.equal(tombstone.member_id, member.member_id);
+  h.advance(61000); h.controls.existing = true;
+  const reissued = await h.invite();
+  assert.equal(reissued.member.member_id, member.member_id); assert.equal(reissued.member.version, member.version + 2);
+  assert.equal((await (await h.send('/api/team', { token: owner })).json()).members.length, 1);
   assert.equal((await h.send('/api/memo', { token: session.session_token })).status, 401);
+  assert.equal((await h.login(h.idToken({ sub: 'replacement_uid' }))).status, 403);
+  assert.equal((await h.login()).status, 200);
 });
 
 test('an invite paused at Firebase cannot overwrite a later administrator revocation', async () => {
@@ -182,7 +190,8 @@ test('an invite paused at Firebase cannot overwrite a later administrator revoca
   release();
   const response = await staleInvite; assert.equal(response.status, 409);
   assert.deepEqual(await response.json(), { error: 'membership_changed' });
-  const record = (await (await h.send('/api/team', { token: owner })).json()).members[0];
+  assert.deepEqual((await (await h.send('/api/team', { token: owner })).json()).members, []);
+  const record = await teamAccess(h.env, 'lookup', h.now(), { email: EMAIL });
   assert.equal(record.status, 'revoked'); assert.equal(record.version, member.version + 1);
   assert.equal(h.calls.filter(call => call.url.includes(':sendOobCode')).length, 1, 'No email is sent by the stale request');
 });
@@ -212,6 +221,10 @@ test('persistent limits reject repeated login and invitation attempts without ex
   for (let i = 0; i < 30; i++) await h.send('/auth/firebase', { method: 'POST', body: { id_token: 'bad' } });
   const before = h.calls.length;
   assert.equal((await h.login()).status, 429); assert.equal(h.calls.length, before);
+  const full = await fixture(), admin = await full.githubSession();
+  for (let i = 0; i < 20; i++) await teamAccess(full.env, 'limit', full.now(), { key: 'invite-global', maximum: 20, window: 3600000 });
+  const limited = await full.send('/api/team/invite', { method: 'POST', token: admin, body: { email: EMAIL } });
+  assert.equal(limited.status, 429); assert.equal(full.calls.some(call => call.url.includes('googleapis.com')), false);
 });
 
 test('private member and global read limits apply before any provider or installation request', async () => {
@@ -244,12 +257,104 @@ test('trusted installation reads use verified App grants instead of user-role pu
   }
 });
 
-test('directory enforces a 100-member cap, invite expiry and bounded metadata', async () => {
+test('directory enforces its bounded capacity while membership invitations never expire', async () => {
   const h = await fixture();
-  for (let i = 0; i < 100; i++) await teamAccess(h.env, 'invite', h.now(), { email: 'member' + i + '@example.test', uid: null, expectedMemberId: null, expectedVersion: null });
+  for (let i = 0; i < 100; i++) await teamAccess(h.env, 'invite', h.now(), { email: String(i).padStart(3, '0') + 'a'.repeat(238) + '@example.test', name: '名'.repeat(80), uid: null, expectedMemberId: null, expectedVersion: null });
+  assert.equal((await teamAccess(h.env, 'list', h.now())).length, 100, 'The bounded full directory still fits the internal response limit with UTF-8 names');
   await assert.rejects(teamAccess(h.env, 'invite', h.now(), { email: 'overflow@example.test', uid: null, expectedMemberId: null, expectedVersion: null }), error => error.code === 'team_capacity');
-  const h2 = await fixture(); await h2.invite(); h2.advance(8 * 86400000);
-  assert.equal((await h2.login()).status, 403);
+  for (const legacy of [false, true]) {
+    const h2 = await fixture(); await h2.invite();
+    const storage = h2.env.TEAM_DIRECTORY.get('supercon-team-v1').storage;
+    const records = await storage.get('members');
+    assert.equal(Object.hasOwn(records[0], 'expiresAt'), false);
+    if (legacy) { records[0].expiresAt = h2.now() + 7 * 86400000; delete records[0].deliveryAccepted; await storage.put('members', records); }
+    h2.advance(365 * 86400000);
+    assert.equal((await h2.login()).status, 200, 'Fresh verified identity can claim new and legacy invitations after a year');
+    assert.equal(h2.calls.filter(call => call.url.includes(':sendOobCode')).length, 1);
+  }
+});
+
+test('resending preserves pinned identity, original login threshold and prior accepted eligibility', async () => {
+  const h = await fixture(), owner = await h.githubSession();
+  const initial = await h.send('/api/team/invite', { method: 'POST', token: owner, body: { email: EMAIL, name: '  Ada   Example  ' } });
+  const { member } = await initial.json(); assert.equal(member.name, 'Ada Example');
+  h.advance(1000); const eligible = h.idToken(); h.advance(61000);
+  h.controls.existing = true; h.controls.emailFailure = true;
+  const retry = await h.send('/api/team/invite', { method: 'POST', token: owner, body: { email: EMAIL } });
+  assert.equal(retry.status, 503);
+  const [latest] = (await (await h.send('/api/team', { token: owner })).json()).members;
+  assert.equal(latest.invited_at, member.invited_at); assert.equal(latest.name, 'Ada Example');
+  assert.equal(latest.version, member.version + 1); assert.equal(latest.delivery_status, 'failed');
+  assert.equal((await h.login(h.idToken({ sub: 'replacement_uid' }))).status, 403);
+  assert.equal((await h.login(eligible)).status, 200, 'A failed resend does not withdraw the prior accepted invitation');
+});
+
+test('pending resend sends a new request, updates supplied name and active invite is an explicit no-op', async () => {
+  const h = await fixture(), { owner, member } = await h.invite(); h.advance(61000); h.controls.existing = true;
+  const resend = await h.send('/api/team/invite', { method: 'POST', token: owner, body: { email: EMAIL, name: 'Member Two' } });
+  assert.equal(resend.status, 200); const result = await resend.json();
+  assert.equal(result.email_request, 'accepted'); assert.equal(result.member.name, 'Member Two');
+  assert.equal(result.member.invited_at, member.invited_at);
+  assert.equal(h.calls.filter(call => call.url.includes(':sendOobCode')).length, 2);
+  assert.equal((await h.login()).status, 200); h.advance(61000);
+  const before = h.calls.filter(call => call.url.includes('googleapis.com')).length;
+  const active = await h.send('/api/team/invite', { method: 'POST', token: owner, body: { email: EMAIL, name: 'Not applied' } });
+  const activeResult = await active.json();
+  assert.equal(activeResult.email_request, 'not_sent_active'); assert.equal(activeResult.member.status, 'active');
+  assert.equal(activeResult.member.name, 'Member Two'); assert.equal(activeResult.member.version, result.member.version);
+  assert.equal(h.calls.filter(call => call.url.includes('googleapis.com')).length, before);
+});
+
+test('activation while a resend waits at Firebase prevents another email request', async () => {
+  const h = await fixture(), { owner, member } = await h.invite(); h.advance(61000); h.controls.existing = true;
+  let release, reached;
+  const paused = new Promise(resolve => { reached = resolve; });
+  h.controls.pauseSignup = () => { reached(); return new Promise(resolve => { release = resolve; }); };
+  const resend = h.send('/api/team/invite', { method: 'POST', token: owner, body: { email: EMAIL } });
+  await paused; assert.equal((await h.login()).status, 200); release();
+  const response = await resend; assert.equal(response.status, 200); const result = await response.json();
+  assert.equal(result.email_request, 'not_sent_active'); assert.equal(result.member.version, member.version);
+  assert.equal(h.calls.filter(call => call.url.includes(':sendOobCode')).length, 1);
+});
+
+test('revoked invitation requires a fresh login after deliberate reinvitation', async () => {
+  const h = await fixture(), { owner, member } = await h.invite(); h.advance(1000); const stale = h.idToken();
+  await h.send('/api/team/revoke', { method: 'POST', token: owner, body: { member_id: member.member_id } });
+  h.advance(61000); h.controls.existing = true; await h.invite();
+  const rejected = await h.login(stale); assert.equal(rejected.status, 403);
+  assert.deepEqual(await rejected.json(), { error: 'fresh_login_required' });
+  assert.equal((await h.login()).status, 200);
+});
+
+test('member names are optional bounded display data and editing never changes access or sends mail', async () => {
+  const h = await fixture(), { owner, member } = await h.invite();
+  assert.equal(member.name, '');
+  const storage = h.env.TEAM_DIRECTORY.get('supercon-team-v1').storage, oldRecords = await storage.get('members');
+  delete oldRecords[0].name; await storage.put('members', oldRecords);
+  assert.equal((await (await h.send('/api/team', { token: owner })).json()).members[0].name, '', 'Legacy records without names remain readable');
+  const pendingRename = await h.send('/api/team/name', { method: 'POST', token: owner, body: { member_id: member.member_id, name: 'Pending Name' } });
+  assert.equal(pendingRename.status, 200); assert.equal((await pendingRename.json()).member.version, member.version);
+  const session = await (await h.login()).json();
+  const before = await teamAccess(h.env, 'lookup', h.now(), { email: EMAIL });
+  const emailCount = h.calls.filter(call => call.url.includes(':sendOobCode')).length;
+  const renamed = await h.send('/api/team/name', { method: 'POST', token: owner, body: { member_id: member.member_id, name: '  李  Example  ' } });
+  assert.equal(renamed.status, 200); const named = (await renamed.json()).member;
+  assert.equal(named.name, '李 Example'); assert.equal(named.version, before.version);
+  assert.equal(named.status, before.status); assert.equal(named.invited_at, before.invited_at);
+  assert.equal(named.activated_at, before.activated_at); assert.equal(named.delivery_status, before.delivery_status);
+  assert.equal(h.calls.filter(call => call.url.includes(':sendOobCode')).length, emailCount);
+  assert.equal((await h.send('/api/session', { token: session.session_token })).status, 200);
+  assert.equal((await h.send('/api/team/name', { method: 'POST', token: session.session_token, body: { member_id: member.member_id, name: 'Self' } })).status, 403);
+  for (const name of ['x'.repeat(81), 'Bad\nName', 'Bad\u0000Name', 'Bad\u0085Name', null, 7]) {
+    for (const [path, body] of [['/api/team/name', { member_id: member.member_id, name }], ['/api/team/invite', { email: EMAIL, name }]]) {
+      const invalid = await h.send(path, { method: 'POST', token: owner, body });
+      assert.equal(invalid.status, 400); assert.deepEqual(await invalid.json(), { error: 'invalid_member_name' });
+    }
+  }
+  assert.equal((await h.send('/api/team/name', { method: 'POST', token: owner, body: { member_id: member.member_id, name: 'Name', role: 'admin' } })).status, 400);
+  await h.send('/api/team/revoke', { method: 'POST', token: owner, body: { member_id: member.member_id } });
+  assert.equal((await h.send('/api/team/name', { method: 'POST', token: owner, body: { member_id: member.member_id, name: 'Hidden' } })).status, 404);
+  assert.equal((await h.send('/api/team/lookup', { method: 'POST', token: owner, body: { email: EMAIL } })).status, 404, 'Internal tombstone lookup is not a public API route');
 });
 
 test('email action bridge uses a fixed fragment and never consumes codes on GET', async () => {

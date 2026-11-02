@@ -15,7 +15,9 @@
     member_required: 'This account has not been invited to the team. Contact the administrator.',
     membership_required: 'This account has not been invited to the team. Contact the administrator.',
     not_invited: 'This account has not been invited to the team. Contact the administrator.',
-    invitation_expired: 'This invitation has expired. Ask the administrator to invite you again.',
+    invitation_not_ready: 'The invitation email has not been accepted by the mail service. Ask the administrator to resend it.',
+    fresh_login_required: 'Sign out and sign in again to accept the latest invitation.',
+    invalid_member_name: 'Use a name of up to 80 characters, without control characters.',
     membership_conflict: 'This account does not match the invitation. Contact the administrator.',
     membership_revoked: 'Team access has been revoked. Contact the administrator.',
     invalid_email_identity: 'Your email identity could not be confirmed. Verify your email, then sign in again.',
@@ -65,7 +67,8 @@
       if (!row || typeof row.member_id !== 'string' || !/^[A-Za-z0-9_-]{43}$/.test(row.member_id) || seen.has(row.member_id) ||
           !email(row.email) || !['invited', 'active', 'revoked'].includes(row.status)) throw new Error('Invalid team member');
       seen.add(row.member_id);
-      return { member_id: row.member_id, email: row.email, status: row.status,
+      if (row.name !== undefined && (typeof row.name !== 'string' || row.name.length > 80 || /[\u0000-\u001f\u007f-\u009f]/.test(row.name))) throw new Error('Invalid member name');
+      return { member_id: row.member_id, name: row.name || '', email: row.email, status: row.status,
         delivery_status: typeof row.delivery_status === 'string' && /^[a-z_-]{1,40}$/.test(row.delivery_status) ? row.delivery_status : 'unknown' };
     });
   }
@@ -197,7 +200,8 @@
         });
       });
       body.appendChild(form);
-      body.appendChild(button('Forgot password or setting up an invitation?', () => openResetRequest(address.value), {class: 'team-account-link'}));
+      body.appendChild(button('Forgot password?', () => openResetRequest(address.value), {class: 'team-account-link'}));
+      body.appendChild(node('p', {class: 'team-account-setup'}, [button('Set password for an invitation', () => openResetRequest(address.value, true), {class: 'team-account-link'})]));
       body.appendChild(node('div', { class: 'team-account-divider', text: 'or' }));
       body.appendChild(button('Continue with GitHub', () => {
         if (busy || typeof env.signInGithub !== 'function') return;
@@ -207,9 +211,9 @@
       else say(message);
       address.focus();
     }
-    function openResetRequest(initialEmail) {
-      if (!open('Set or reset your password')) return;
-      body.appendChild(node('p', {text: 'Use the email address invited by your administrator. If an account is eligible, the account service will send a link.'}));
+    function openResetRequest(initialEmail, invitation = false) {
+      if (!open(invitation ? 'Set up your team password' : 'Reset your password')) return;
+      body.appendChild(node('p', {text: invitation ? 'Use the email address invited by your administrator. Firebase currently labels the setup email as a password reset; use it to choose your own password.' : 'Enter your team email address to request a password reset. If an account is eligible, the account service will send a link.'}));
       const form = node('form', {class: 'team-account-form'});
       const address = field(form, 'Email', 'team-reset-email', 'email', 'username', initialEmail);
       form.appendChild(node('button', {type: 'submit', class: 'btn primary', text: 'Send password link'}));
@@ -291,26 +295,53 @@
     function isAdmin() { return typeof env.canManageTeam === 'function' && env.canManageTeam() === true; }
     async function team(path, method, payload) {
       if (!isAdmin() || typeof env.teamRequest !== 'function') throw Object.assign(new Error('Not authorized'), {code: 'owner_only'});
-      if (!['/api/team', '/api/team/invite', '/api/team/revoke'].includes(path)) throw new Error('Invalid team operation');
+      if (!['/api/team', '/api/team/invite', '/api/team/revoke', '/api/team/name'].includes(path)) throw new Error('Invalid team operation');
       return env.teamRequest(path, method, payload);
     }
     async function openAdmin() {
       if (!isAdmin()) return false;
       if (!open('Manage team')) return false;
       body.appendChild(node('p', {text: 'Invite members to read research notes. Invitations do not grant administrator access or access to the private GitHub repository.'}));
+      body.appendChild(node('p', {class: 'team-account-hint', text: 'Invitations stay valid until revoked. Password-setting links expire; resend an invitation for a fresh link. If a message is missing, check spam.'}));
       const form = node('form', {class: 'team-account-form team-account-invite'});
+      const name = field(form, 'Name (optional)', 'team-invite-name', 'text', 'off');
+      name.removeAttribute('required'); name.setAttribute('maxlength', '80');
       const address = field(form, 'Member email', 'team-invite-email', 'email', 'off');
       form.appendChild(node('button', {type: 'submit', class: 'btn primary', text: 'Invite member'}));
       const list = node('div', {id: 'team-member-list', class: 'team-member-list'});
       async function refresh(expected) {
-        const rows = members(await team('/api/team', 'GET'));
+        const rows = members(await team('/api/team', 'GET')).filter(row => row.status !== 'revoked');
         if (!current(expected) || !isAdmin()) return;
         empty(list);
         if (!rows.length) list.appendChild(node('p', {text: 'No invited members yet.'}));
         rows.forEach(row => {
           const delivery = {pending: 'Email request pending', accepted: 'Email request accepted by the provider; delivery is not confirmed', failed: 'Email request failed'};
-          const card = node('article', {class: 'team-member'}, [node('p', {class: 'team-member-email', text: row.email}),
+          const card = node('article', {class: 'team-member'}, [node('p', {class: 'team-member-email', text: row.name ? row.name + ' · ' + row.email : row.email}),
             node('p', {class: 'team-member-status', text: row.status + ' · ' + (delivery[row.delivery_status] || 'Email request status unknown')})]);
+          if (row.status === 'invited') card.appendChild(button('Resend invitation', () => run(async version => {
+            const result = await team('/api/team/invite', 'POST', {email: row.email});
+            if (!current(version)) return;
+            await refresh(version);
+            if (current(version)) say(result.email_request === 'not_sent_active' ? 'This member has already joined. No invitation email was sent.' : 'Invitation email requested again. Delivery is not confirmed; check spam too. Wait at least one minute before resending.');
+          }), {class: 'btn small'}));
+          const editName = button('Edit name', () => {
+            editName.disabled = true;
+            const editor = node('form', {class: 'team-account-form'});
+            const input = field(editor, 'Member name', 'team-name-' + row.member_id, 'text', 'off', row.name);
+            input.removeAttribute('required'); input.setAttribute('maxlength', '80');
+            editor.appendChild(node('button', {type: 'submit', class: 'btn small', text: 'Save name'}));
+            editor.appendChild(button('Cancel', () => { card.removeChild(editor); editName.disabled = false; }, {class: 'btn small'}));
+            editor.addEventListener('submit', event => {
+              event.preventDefault();
+              run(async version => {
+                await team('/api/team/name', 'POST', {member_id: row.member_id, name: input.value.trim()});
+                if (!current(version)) return;
+                await refresh(version); if (current(version)) say('Member name updated.');
+              });
+            });
+            card.appendChild(editor); input.focus();
+          }, {class: 'btn small'});
+          card.appendChild(editName);
           if (row.status !== 'revoked') card.appendChild(button('Revoke access', () => {
             const confirmation = button('Confirm revoke', () => run(async version => {
               await team('/api/team/revoke', 'POST', {member_id: row.member_id});
@@ -326,10 +357,11 @@
         event.preventDefault(); const target = address.value.trim();
         if (!email(target)) { say('Enter a valid email address.'); return; }
         run(async expected => {
-          await team('/api/team/invite', 'POST', {email: target});
+          const payload = {email: target}; if (name.value.trim()) payload.name = name.value.trim();
+          const result = await team('/api/team/invite', 'POST', payload);
           if (!current(expected)) return;
-          address.value = ''; await refresh(expected);
-          if (current(expected)) say('Invitation updated. Check its delivery status below.');
+          address.value = ''; name.value = ''; await refresh(expected);
+          if (current(expected)) say(result.email_request === 'not_sent_active' ? 'This member has already joined. No invitation email was sent.' : 'Invitation updated. Check its delivery status below.');
         });
       });
       body.appendChild(form); body.appendChild(list);

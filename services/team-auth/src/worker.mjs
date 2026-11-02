@@ -2,7 +2,7 @@ import { APP_ORIGIN, APP_RETURN, OWNER_ID, REPOSITORY_ID, TOKEN_PATTERN, AuthErr
 import { stateAccess } from './state.mjs';
 import { readMemo, verifyMemoAccess } from './memo.mjs';
 import { createFirebaseClient, firebaseConfigured, normalizeEmail } from './firebase.mjs';
-import { teamAccess } from './team.mjs';
+import { normalizeMemberName, teamAccess } from './team.mjs';
 import { createInstallationReader } from './installation.mjs';
 export { AuthState } from './state.mjs';
 export { TeamDirectory } from './team.mjs';
@@ -14,7 +14,7 @@ const PROVIDER_ERRORS = new Map([['incorrect_client_credentials', 'oauth_credent
 const PROVIDER_HTTP_STATUSES = new Set([301, 302, 303, 307, 308, 400, 401, 403, 404, 429, 500, 502, 503, 504]);
 const httpDiagnostic = status => PROVIDER_HTTP_STATUSES.has(status) ? 'provider_http_' + status : 'provider_http_other';
 const CALLBACK_DIAGNOSTICS = new Set(['callback_parameters', 'callback_state', 'code_invalid', 'provider_bad_code', 'transaction_storage', 'provider_denied', 'provider_credentials', 'provider_redirect', 'provider_transport', 'provider_response_json', 'provider_http_other', ...[...PROVIDER_HTTP_STATUSES].map(httpDiagnostic), 'provider_grant_error_unknown', 'provider_email_unverified', 'provider_token_format', 'provider_token_type', 'provider_expiry', 'provider_identity', 'ticket_encryption', 'ticket_storage', 'unexpected']);
-const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/email/action', 'GET'], ['/auth/exchange', 'POST'], ['/auth/firebase', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/api/team', 'GET'], ['/api/team/invite', 'POST'], ['/api/team/revoke', 'POST'], ['/auth/logout', 'POST']]);
+const ROUTES = new Map([['/health', 'GET'], ['/auth/start', 'GET'], ['/auth/github/callback', 'GET'], ['/auth/email/action', 'GET'], ['/auth/exchange', 'POST'], ['/auth/firebase', 'POST'], ['/api/session', 'GET'], ['/api/memo', 'GET'], ['/api/team', 'GET'], ['/api/team/invite', 'POST'], ['/api/team/revoke', 'POST'], ['/api/team/name', 'POST'], ['/auth/logout', 'POST']]);
 const cookie = (value, expiry = 600) => COOKIE + '=' + value + '; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=' + expiry;
 function cookieValue(request) {
   const matches = (request.headers.get('cookie') || '').split(';').map(value => value.trim()).filter(value => value.startsWith(COOKIE + '='));
@@ -286,14 +286,22 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
             const member = await teamAccess(env, 'revoke', now(), { memberId: body.member_id });
             return jsonResponse({ member }, 200, origin);
           }
-          demand(Object.keys(body).length === 1 && typeof body.email === 'string');
+          if (url.pathname === '/api/team/name') {
+            demand(Object.keys(body).length === 2 && typeof body.member_id === 'string' && TOKEN_PATTERN.test(body.member_id));
+            const member = await teamAccess(env, 'name', now(), { memberId: body.member_id, name: normalizeMemberName(body.name) });
+            return jsonResponse({ member }, 200, origin);
+          }
+          demand(Object.keys(body).every(field => ['email', 'name'].includes(field)) && typeof body.email === 'string');
           const email = normalizeEmail(body.email);
+          const name = Object.hasOwn(body, 'name') ? normalizeMemberName(body.name) : undefined;
           await rate(env, 'invite-global', 20, 3600000);
           await rate(env, 'invite-email:' + await sha256(email), 1, 60000);
-          const previous = (await teamAccess(env, 'list', now())).find(member => member.email === email);
-          if (previous?.status === 'active') return jsonResponse({ member: previous }, 200, origin);
+          const previous = await teamAccess(env, 'lookup', now(), { email });
+          if (previous?.status === 'active') return jsonResponse({ member: previous, email_request: 'not_sent_active' }, 200, origin);
           const identity = await firebase.invite(env, email);
-          let member = await teamAccess(env, 'invite', now(), { ...identity, expectedMemberId: previous?.member_id || null, expectedVersion: previous?.version || null });
+          let member = await teamAccess(env, 'invite', now(), { ...identity, ...(name !== undefined ? { name } : {}), expectedMemberId: previous?.member_id || null, expectedVersion: previous?.version || null });
+          // The recipient may activate while the provider request is in flight.
+          if (member.status === 'active') return jsonResponse({ member, email_request: 'not_sent_active' }, 200, origin);
           try {
             await firebase.sendInvitation(env, email, request.headers.get('CF-Connecting-IP') || '');
             member = await teamAccess(env, 'delivery', now(), { memberId: member.member_id, version: member.version, status: 'accepted' });
@@ -301,7 +309,7 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
             try { await teamAccess(env, 'delivery', now(), { memberId: member.member_id, version: member.version, status: 'failed' }); } catch { /* A concurrent revocation wins. */ }
             throw new AuthError('invitation_delivery_failed', 503);
           }
-          return jsonResponse({ member }, 200, origin);
+          return jsonResponse({ member, email_request: 'accepted' }, 200, origin);
         }
         if (url.pathname === '/api/session') {
           if (session.record.provider === 'firebase') await verifyMemoAccess(github, await installationToken(env), { trustedInstallation: true });
