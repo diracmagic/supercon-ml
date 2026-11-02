@@ -1,5 +1,9 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.15 fixes:
+
+- **Desktop team sign-in:** the installed APP opens the fixed hosted sign-in form in the same window before starting GitHub or email authentication. GitHub verification is now stored at the same address that receives the callback, preventing the missing pending-request error. Credentials never move between the bundled and hosted origins; existing PKCE, membership and native-updater checks remain in force.
+
 Version 0.3.14 adds:
 
 - **Team presence:** approved members can open Team to see names with authenticated activity in the last 2½ minutes. Existing checks refresh this private list; leaving or closing the APP may take a short time to disappear. Sign-out and revocation clear access.

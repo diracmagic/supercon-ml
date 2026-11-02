@@ -2,6 +2,7 @@
   'use strict';
 
   const OWNER_ID = '350433501';
+  const TEAM_LOGIN_URL = 'https://diracmagic.github.io/supercon-ml/?team_login=email';
   const PENDING_KEY = 'supercon.github.pending.v1';
   const PROOF_TTL = 10 * 60 * 1000;
   const REQUEST_TIMEOUT = 12000;
@@ -63,6 +64,16 @@
       if (!url.hostname.includes('.') || url.hostname === 'localhost') return '';
       return url.origin;
     } catch (_) { return ''; }
+  }
+
+  function localNativeSignIn(win) {
+    if (!(win.__TAURI__ || win.__TAURI_INTERNALS__)) return false;
+    try {
+      const url = new URL(win.location.href);
+      return !url.username && !url.password && !url.port &&
+        ((url.protocol === 'tauri:' && url.hostname === 'localhost') ||
+          (['http:', 'https:'].includes(url.protocol) && url.hostname === 'tauri.localhost'));
+    } catch (_) { return false; }
   }
 
   function base64url(bytes, encode) {
@@ -558,8 +569,24 @@
       }
     }
 
+    function handoffNativeSignIn() {
+      if (!localNativeSignIn(win)) return false;
+      if (busy || session) return true;
+      // Establish the hosted origin before collecting credentials or creating
+      // PKCE proof. The callback can then read that same origin's sessionStorage.
+      // Never carry a local verifier, identity, query or fragment to the web APP.
+      removePending(); busy = true; renderAccount(); say('Opening team sign-in…');
+      try { win.location.assign(TEAM_LOGIN_URL); }
+      catch (_) {
+        busy = false; renderAccount();
+        say('The team sign-in page could not be opened. Check your connection and try Login for team again.');
+      }
+      return true;
+    }
+
     async function signIn() {
       if (!origin || busy || session) return;
+      if (handoffNativeSignIn()) return;
       const expected = generation;
       busy = true; renderAccount(); say('Opening GitHub sign-in…');
       try {
@@ -834,7 +861,11 @@
           onAuthenticated: openNotes, onEmailAction: function () { logout(); },
           onDismiss: function () { if (emailSignInPending) { emailSignInPending = false; reset(''); } }});
       }
-      loginButton.addEventListener('click', function (event) { event.preventDefault(); if (accountUI) accountUI.openLogin(); else signIn(); });
+      loginButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (handoffNativeSignIn()) return;
+        if (accountUI) accountUI.openLogin(); else signIn();
+      });
       notesButton.addEventListener('click', openNotes); logoutButton.addEventListener('click', logout);
       messagesButton.addEventListener('click', openMessages);
       teamButton.addEventListener('click', function () {

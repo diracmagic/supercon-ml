@@ -55,7 +55,7 @@ function memo(count = 31) {
   })) };
 }
 
-function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?test=1', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI, materialUI, boardUI, crypto = webcrypto } = {}) {
+function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?test=1', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI, materialUI, boardUI, crypto = webcrypto, pageUrl, nativeBridge } = {}) {
   const doc = { events: {}, hidden: false, activeElement: null, readyState: 'complete',
     createElement(tag) { return new Element(tag, doc); },
     getElementById(id) { return flatten(doc.body).find((node) => node.attributes.id === id) || null; },
@@ -69,7 +69,7 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?t
   if (pending) values.set(auth.PENDING_KEY, JSON.stringify(pending));
   const writes = [], requests = [], redirects = [], history = [], events = {}, timers = new Map();
   let tick = TIME, nextTimer = 1;
-  const win = { location: { hash, pathname: '/supercon-ml/', search, assign: (url) => redirects.push(url) },
+  const win = { location: { href: pageUrl || 'https://diracmagic.github.io/supercon-ml/' + search + hash, hash, pathname: '/supercon-ml/', search, assign: (url) => redirects.push(url) },
     history: { replaceState(_state, _title, path) { history.push(path); win.location.hash = ''; } },
     sessionStorage: { getItem: (key) => values.get(key) ?? null, setItem(key, value) { values.set(key, value); writes.push([key, value]); }, removeItem: (key) => values.delete(key) },
     addEventListener(kind, fn) { (events[kind] ||= []).push(fn); },
@@ -78,6 +78,7 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?t
     clearTimeout(id) { timers.delete(id); },
     btoa: (value) => Buffer.from(value, 'binary').toString('base64') };
   if (materialUI) win.SuperconMaterialVisual = materialUI;
+  if (nativeBridge) win[nativeBridge] = {};
   Object.defineProperty(win, 'localStorage', { get() { throw new Error('Auth may not use localStorage'); } });
   const fetch = async (url, options) => {
     requests.push({ url, options });
@@ -138,6 +139,95 @@ test('sign-in redirects within the same tab with challenge and state, storing on
   assert.equal(url.searchParams.get('state'), saved.state);
   assert.equal(url.searchParams.get('challenge'), createHash('sha256').update(saved.verifier).digest('base64url'));
   assert.equal(url.href.includes(saved.verifier), false);
+});
+
+test('native local login moves to the fixed hosted form before credentials or PKCE, without forwarding local state', async () => {
+  for (const nativeBridge of ['__TAURI__', '__TAURI_INTERNALS__']) {
+    for (const base of ['tauri://localhost/', 'http://tauri.localhost/', 'https://tauri.localhost/']) {
+      for (const action of ['button', 'direct']) {
+        let opened = 0;
+        const h = harness({nativeBridge, pageUrl: base + '?email=PRIVATE_EMAIL&next=https://evil.example/#PRIVATE_FRAGMENT', pending: proof(),
+          crypto: {subtle: {digest() {throw new Error('Native local origin must not create a proof');}}, getRandomValues() {throw new Error('Native local origin must not create a proof');}},
+          accountUI: {createAccountUI() {return {openLogin() {opened++;}, reset() {}, handleEmailAction() {return false;}};}}});
+        await h.start();
+        if (action === 'button') h.login.dispatch('click'); else await h.controller.signIn();
+        h.login.dispatch('click'); await h.controller.signIn();
+        assert.deepEqual(h.redirects, ['https://diracmagic.github.io/supercon-ml/?team_login=email'], base + ' ' + action);
+        assert.equal(opened, 0, 'No local form collects an email or password');
+        assert.equal(h.requests.length, 0); assert.equal(h.writes.length, 0, 'No local PKCE verifier is generated');
+        assert.equal(h.values.has(auth.PENDING_KEY), false, 'Discard an obsolete local-origin proof');
+        assert.equal(h.login.disabled, true, 'Repeated clicks cannot start competing sign-in attempts');
+        assert.doesNotMatch(h.redirects[0], /PRIVATE|evil|verifier|team_ticket|team_state/);
+      }
+    }
+  }
+});
+
+test('hosted native windows and ordinary web pages retain the normal explicit sign-in flow', async () => {
+  for (const nativeBridge of [undefined, '__TAURI__', '__TAURI_INTERNALS__']) {
+    let opened = 0, adapter;
+    const h = harness({nativeBridge, pageUrl: 'https://diracmagic.github.io/supercon-ml/?team_login=email',
+      accountUI: {createAccountUI(options) {adapter = options; return {openLogin() {opened++;}, reset() {}, handleEmailAction() {return false;}};}}});
+    await h.start(); assert.equal(h.redirects.length, 0); assert.equal(h.writes.length, 0, 'No automatic OAuth on arrival');
+    h.login.dispatch('click'); assert.equal(opened, 1); assert.equal(h.redirects.length, 0);
+    await adapter.signInGithub();
+    assert.equal(h.writes.length, 1); assert.equal(h.writes[0][0], auth.PENDING_KEY);
+    const proofAtHostedOrigin = JSON.parse(h.writes[0][1]), target = new URL(h.redirects[0]);
+    assert.equal(target.origin, 'https://auth.example.org'); assert.equal(target.pathname, '/auth/start');
+    assert.equal(target.searchParams.get('state'), proofAtHostedOrigin.state);
+    assert.equal(target.searchParams.get('challenge'), createHash('sha256').update(proofAtHostedOrigin.verifier).digest('base64url'));
+    assert.equal(target.href.includes(proofAtHostedOrigin.verifier), false);
+  }
+});
+
+test('native-to-hosted login succeeds with isolated origin storage and a proof generated only after arrival', async () => {
+  const local = harness({pageUrl: 'http://tauri.localhost/', nativeBridge: '__TAURI_INTERNALS__', pending: proof()});
+  await local.start(); await local.controller.signIn();
+  assert.equal(local.values.has(auth.PENDING_KEY), false); assert.equal(local.writes.length, 0); assert.equal(local.requests.length, 0);
+  const hosted = harness({pageUrl: local.redirects[0], nativeBridge: '__TAURI_INTERNALS__'});
+  await hosted.start(); assert.equal(hosted.values.size, 0); assert.equal(hosted.redirects.length, 0);
+  await hosted.controller.signIn();
+  const hostedProof = JSON.parse(hosted.values.get(auth.PENDING_KEY));
+  assert.notEqual(hostedProof.verifier, VERIFIER, 'The obsolete local-origin verifier is never reused');
+  const hash = '#team_ticket=' + TICKET + '&team_state=' + hostedProof.state;
+  const callback = harness({pageUrl: 'https://diracmagic.github.io/supercon-ml/' + hash, nativeBridge: '__TAURI_INTERNALS__', hash,
+    initialStorage: Object.fromEntries(hosted.values)});
+  await callback.start();
+  const exchange = callback.requests.find(request => request.url.endsWith('/auth/exchange'));
+  assert.ok(exchange); assert.deepEqual(JSON.parse(exchange.options.body), {ticket: TICKET, verifier: hostedProof.verifier, state: hostedProof.state});
+  assert.equal(callback.values.has(auth.PENDING_KEY), false); assert.equal(callback.get('team-notes').hidden, false);
+  assert.equal(local.values.size, 0); assert.equal(local.requests.length, 0);
+  assert.equal(callback.writes.length, 0, 'The resulting session token remains in memory only');
+});
+
+test('native-login handoff rejects lookalike origins, credentials and nondefault ports', async () => {
+  for (const pageUrl of ['http://tauri.localhost:8080/', 'https://tauri.localhost:444/', 'tauri://localhost:23/',
+    'http://user:secret@tauri.localhost/', 'tauri://user@localhost/', 'https://tauri.localhost.evil.example/',
+    'http://localhost/', 'tauri://tauri.localhost/', 'https://localhost/', 'file:///app/index.html', 'not a URL']) {
+    let opened = 0;
+    const h = harness({pageUrl, nativeBridge: '__TAURI__', accountUI: {createAccountUI() {return {
+      openLogin() {opened++;}, reset() {}, handleEmailAction() {return false;}};}}});
+    await h.start(); h.login.dispatch('click');
+    assert.equal(opened, 1, pageUrl + ' is not a recognized bundled origin');
+    assert.equal(h.redirects.length, 0); assert.equal(h.requests.length, 0); assert.equal(h.writes.length, 0);
+  }
+  let opened = 0;
+  const ordinary = harness({pageUrl: 'http://tauri.localhost/', accountUI: {createAccountUI() {return {
+    openLogin() {opened++;}, reset() {}, handleEmailAction() {return false;}};}}});
+  await ordinary.start(); ordinary.login.dispatch('click'); assert.equal(opened, 1); assert.equal(ordinary.redirects.length, 0, 'A native bridge is required');
+});
+
+test('failed native navigation displays an actionable error and can be retried without local proof', async () => {
+  const h = harness({pageUrl: 'http://tauri.localhost/', nativeBridge: '__TAURI__'});
+  await h.start(); h.win.location.assign = () => {throw new Error('PRIVATE_NAVIGATION_DETAIL');};
+  await h.controller.signIn();
+  assert.match(h.doc.body.textContent, /team sign-in page could not be opened/);
+  assert.doesNotMatch(h.doc.body.textContent, /PRIVATE_NAVIGATION_DETAIL/);
+  assert.equal(h.login.disabled, false); assert.equal(h.writes.length, 0); assert.equal(h.requests.length, 0);
+  h.win.location.assign = url => h.redirects.push(url);
+  h.login.dispatch('click');
+  assert.deepEqual(h.redirects, ['https://diracmagic.github.io/supercon-ml/?team_login=email']);
+  assert.equal(h.writes.length, 0); assert.equal(h.requests.length, 0);
 });
 
 test('verified owner exchanges the proof, revalidates with the server and displays 31 inline notes safely', async () => {

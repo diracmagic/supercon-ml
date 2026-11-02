@@ -290,7 +290,7 @@ test('service-worker upgrade discards the old memo cache while preserving other 
   const current = /const CACHE = '([^']+)'/.exec(source)[1];
   const old = 'supercon-0.3.9-research31-tc-ranking';
   const previous = 'supercon-0.3.11-team-password';
-  assert.equal(current, 'supercon-0.3.14-team-presence');
+  assert.equal(current, 'supercon-0.3.15-native-signin');
   assert.notEqual(current, old);
   const context = { self: { addEventListener: (kind, fn) => { handlers[kind] = fn; }, clients: { claim: async () => {} } },
     caches: { keys: async () => [old, previous, current, 'unrelated-app'], delete: async (key) => { deleted.push(key); } } };
