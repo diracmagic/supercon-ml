@@ -23,6 +23,7 @@ class Element {
   removeChild(node) { this.children.splice(this.children.indexOf(node), 1); node.parentNode = null; return node; }
   setAttribute(key, value) { this.attributes[key] = String(value); }
   getAttribute(key) { return this.attributes[key] ?? null; }
+  removeAttribute(key) { delete this.attributes[key]; }
   addEventListener(kind, handler) { (this.events[kind] ||= []).push(handler); }
   dispatch(kind) { for (const handler of this.events[kind] || []) handler({target: this, preventDefault() {}}); }
   querySelectorAll(selector) { const tags = selector.split(',').map(tag => tag.toUpperCase()); return flatten(this).slice(1).filter(node => tags.includes(node.tagName)); }
@@ -174,7 +175,7 @@ test('reset requests give the same visible result for unknown and eligible email
   const messages = [];
   for (const unknown of [false, true]) {
     const h = harness({fetch: () => unknown ? json({error: {message: 'EMAIL_NOT_FOUND'}}, 400) : json({})});
-    h.ui.openLogin('member@example.org'); h.click('Forgot password or setting up an invitation?'); h.submit('team-reset-email'); await flush();
+    h.ui.openLogin('member@example.org'); h.click('Forgot password?'); h.submit('team-reset-email'); await flush();
     messages.push(h.get('team-account-status').textContent);
     assert.deepEqual(JSON.parse(h.requests[0].settings.body), {requestType: 'PASSWORD_RESET', email: 'member@example.org', continueUrl: 'https://diracmagic.github.io/supercon-ml/'});
   }
@@ -238,6 +239,55 @@ test('only a current administrator may list, invite or revoke members', async ()
   h.click('Confirm revoke'); await flush();
   assert.equal(h.teamRequests.filter(request => request.path.endsWith('/revoke')).length, 1);
   assert.match(h.doc.body.textContent, /Member access revoked/);
+  assert.doesNotMatch(h.doc.body.textContent, /member@example.org/);
   h.setAdmin(false); h.get('team-invite-email').value = 'nope@example.org'; h.submit('team-invite-email'); await flush();
   assert.equal(h.teamRequests.filter(request => request.path.endsWith('/invite')).length, 1);
+});
+
+test('pending invitations can be resent and active memberships do not advertise resend', async () => {
+  const h = harness({admin: true}); await h.ui.openAdmin();
+  h.click('Resend invitation'); await flush();
+  assert.deepEqual({...h.teamRequests.find(row => row.method === 'POST').payload}, {email: 'member@example.org'});
+  assert.match(h.doc.body.textContent, /Delivery is not confirmed/);
+  const active = harness({admin: true, team: () => ({members: [{member_id: MEMBER, email: 'active@example.org', status: 'active', name: 'Alice'}]})});
+  await active.ui.openAdmin(); assert.doesNotMatch(active.doc.body.textContent, /Resend invitation/);
+  assert.match(active.doc.body.textContent, /Alice · active@example.org/);
+});
+
+test('name editing sends only a name update and displays literal text before the email', async () => {
+  let name = '';
+  const h = harness({admin: true, team: (path, method, payload) => {
+    if (path.endsWith('/name')) name = payload.name;
+    return {members: [{member_id: MEMBER, email: 'member@example.org', status: 'invited', name}]};
+  }});
+  await h.ui.openAdmin(); h.click('Edit name');
+  h.get('team-name-' + MEMBER).value = '<Alice & Bob>';
+  h.submit('team-name-' + MEMBER); await flush();
+  assert.match(h.doc.body.textContent, /<Alice & Bob> · member@example.org/);
+  assert.deepEqual({...h.teamRequests.find(row => row.method === 'POST').payload}, {member_id: MEMBER, name: '<Alice & Bob>'});
+  assert.equal(h.teamRequests.some(row => row.path.endsWith('/invite')), false);
+  h.get('team-invite-name').value = 'Carol'; h.get('team-invite-email').value = 'carol@example.org';
+  h.submit('team-invite-email'); await flush();
+  assert.deepEqual({...h.teamRequests.find(row => row.path.endsWith('/invite')).payload}, {email: 'carol@example.org', name: 'Carol'});
+});
+
+test('resend failures remain visible and do not claim an email was sent', async () => {
+  const h = harness({admin: true, team: (path) => {
+    if (path.endsWith('/invite')) throw Object.assign(new Error('private detail'), {code: 'rate_limited'});
+    return {members: [{member_id: MEMBER, email: 'member@example.org', status: 'invited'}]};
+  }});
+  await h.ui.openAdmin(); h.click('Resend invitation'); await flush();
+  assert.match(h.doc.body.textContent, /Too many attempts/);
+  assert.doesNotMatch(h.doc.body.textContent, /requested again|private detail/);
+});
+
+test('forgot-password and invitation setup have distinct entries without signing in or granting membership', async () => {
+  for (const [label, title] of [['Forgot password?', 'Reset your password'], ['Set password for an invitation', 'Set up your team password']]) {
+    const h = harness(); h.ui.openLogin('member@example.org'); h.click(label);
+    assert.equal(h.get('team-account-title').textContent, title);
+    assert.equal(h.get('team-reset-email').value, 'member@example.org');
+    h.submit('team-reset-email'); await flush();
+    assert.equal(JSON.parse(h.requests[0].settings.body).requestType, 'PASSWORD_RESET');
+    assert.equal(h.authenticated, 0); assert.equal(h.teamRequests.length, 0); assert.equal(h.exchanges.length, 0);
+  }
 });

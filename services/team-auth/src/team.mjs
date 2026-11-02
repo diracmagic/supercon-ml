@@ -1,8 +1,11 @@
 import { AuthError, boundedJson, demand, jsonResponse, plainObject, randomToken } from './security.mjs';
 import { normalizeEmail, UID_PATTERN } from './firebase.mjs';
 
-const INVITE_LIFETIME = 7 * 86400000;
-const publicMember = member => ({ member_id: member.id, email: member.email, status: member.status, invited_at: member.invitedAt, activated_at: member.activatedAt || null, version: member.version, delivery_status: member.deliveryStatus });
+export function normalizeMemberName(value) {
+  demand(typeof value === 'string' && value.length <= 80 && !/[\u0000-\u001f\u007f-\u009f]/.test(value), 'invalid_member_name');
+  return value.trim().replace(/\s+/g, ' ');
+}
+const publicMember = member => ({ member_id: member.id, name: member.name || '', email: member.email, status: member.status, invited_at: member.invitedAt, activated_at: member.activatedAt || null, version: member.version, delivery_status: member.deliveryStatus });
 export class TeamDirectory {
   constructor(state) { this.storage = state.storage; }
   async fetch(request) {
@@ -22,9 +25,22 @@ export class TeamDirectory {
         }
         const members = await transaction.get('members') || [];
         demand(Array.isArray(members) && members.length <= 100, 'team_unavailable', 503);
-        if (operation === '/list') return members.map(publicMember).sort((a, b) => b.invited_at - a.invited_at);
+        if (operation === '/list') return members.filter(member => member.status !== 'revoked').map(publicMember).sort((a, b) => b.invited_at - a.invited_at);
+        // Only the Worker uses this internal lookup; revoked records remain as
+        // tombstones so an old in-flight invitation cannot restore access.
+        if (operation === '/lookup') {
+          const member = members.find(item => item.email === normalizeEmail(body.email));
+          return member ? publicMember(member) : null;
+        }
+        if (operation === '/name') {
+          const member = members.find(item => item.id === body.memberId);
+          demand(member && ['invited', 'active'].includes(member.status), 'member_not_found', 404);
+          member.name = normalizeMemberName(body.name);
+          await transaction.put('members', members); return publicMember(member);
+        }
         if (operation === '/invite') {
           const email = normalizeEmail(body.email);
+          const name = Object.hasOwn(body, 'name') ? normalizeMemberName(body.name) : undefined;
           demand(body.uid === null || (typeof body.uid === 'string' && UID_PATTERN.test(body.uid)));
           let member = members.find(item => item.email === email);
           // An invitation that began before a revoke/reinvite must not overwrite it
@@ -35,9 +51,19 @@ export class TeamDirectory {
             demand(members.length < 100, 'team_capacity', 409);
             member = { id: randomToken(), email, version: 0 }; members.push(member);
           }
-          demand(!members.some(item => item !== member && body.uid && item.uid === body.uid), 'membership_conflict', 409);
-          member.uid = body.uid; member.status = 'invited'; member.version++; member.invitedAt = body.now;
-          member.expiresAt = body.now + INVITE_LIFETIME; member.deliveryStatus = 'pending'; member.activatedAt = null;
+          const resending = member.status === 'invited';
+          demand(!member.uid || !body.uid || member.uid === body.uid, 'membership_conflict', 409);
+          const uid = member.uid || body.uid;
+          demand(!members.some(item => item !== member && uid && item.uid === uid), 'membership_conflict', 409);
+          // A retry must not unbind an existing UID (Firebase returns EMAIL_EXISTS)
+          // or invalidate a previous accepted invitation if the retry fails.
+          member.deliveryAccepted = resending && (member.deliveryAccepted === true || member.deliveryStatus === 'accepted');
+          member.uid = uid; member.status = 'invited'; member.version++;
+          if (name !== undefined) member.name = name;
+          else if (!Object.hasOwn(member, 'name')) member.name = '';
+          if (!resending) member.invitedAt = body.now;
+          delete member.expiresAt;
+          member.deliveryStatus = 'pending'; member.activatedAt = null;
           await transaction.put('members', members); return publicMember(member);
         }
         if (operation === '/delivery' || operation === '/revoke') {
@@ -46,6 +72,7 @@ export class TeamDirectory {
           if (operation === '/delivery') {
             demand(['accepted', 'failed'].includes(body.status) && member.version === body.version, 'membership_changed', 409);
             member.deliveryStatus = body.status;
+            if (body.status === 'accepted') member.deliveryAccepted = true;
           } else { member.status = 'revoked'; member.version++; }
           await transaction.put('members', members); return publicMember(member);
         }
@@ -56,7 +83,10 @@ export class TeamDirectory {
           demand(!member.uid || member.uid === body.uid, 'membership_conflict', 403);
           demand(!members.some(item => item !== member && item.uid === body.uid), 'membership_conflict', 403);
           if (member.status === 'invited') {
-            demand(member.expiresAt > body.now && member.deliveryStatus === 'accepted' && body.authTime >= Math.floor(member.invitedAt / 1000) * 1000, 'invitation_expired', 403);
+            // Membership invitations do not expire. Legacy expiresAt values are
+            // ignored; Firebase still enforces its own one-use email-link expiry.
+            demand(member.deliveryAccepted === true || member.deliveryStatus === 'accepted', 'invitation_not_ready', 403);
+            demand(body.authTime >= Math.floor(member.invitedAt / 1000) * 1000, 'fresh_login_required', 403);
             member.uid = body.uid; member.status = 'active'; member.activatedAt = body.now; await transaction.put('members', members);
           }
           return { id: member.id, uid: member.uid, email: member.email, version: member.version };
@@ -76,9 +106,10 @@ export async function teamAccess(env, operation, now, values = {}) {
   demand(env.TEAM_DIRECTORY, 'team_not_configured', 503);
   const object = env.TEAM_DIRECTORY.get(env.TEAM_DIRECTORY.idFromName('supercon-team-v1'));
   const response = await object.fetch(new Request('https://internal/' + operation, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ now, ...values }) }));
-  const data = await boundedJson(response, 65536, 'team_unavailable');
+  // At the 100-record cap, bounded UTF-8 names and email addresses can exceed 64 KiB.
+  const data = await boundedJson(response, 131072, 'team_unavailable');
   if (!response.ok) {
-    const known = new Set(['rate_limited', 'team_capacity', 'member_not_found', 'membership_changed', 'membership_conflict', 'not_invited', 'invitation_expired', 'membership_revoked']);
+    const known = new Set(['rate_limited', 'team_capacity', 'member_not_found', 'membership_changed', 'membership_conflict', 'not_invited', 'invitation_not_ready', 'fresh_login_required', 'membership_revoked', 'invalid_member_name']);
     throw new AuthError(known.has(data.error) ? data.error : 'team_unavailable', known.has(data.error) ? response.status : 503);
   }
   return data.result;

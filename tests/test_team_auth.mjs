@@ -222,6 +222,7 @@ test('only the verified GitHub owner can use the admin adapter, and all routes a
       url.endsWith('/api/memo') ? response(memo()) : response({members: []})});
   await h.start(); assert.equal(h.get('team-manage').hidden, false); h.get('team-manage').dispatch('click'); assert.equal(opens, 1);
   await adapter.teamRequest('/api/team', 'GET');
+  await adapter.teamRequest('/api/team/name', 'POST', {member_id: 'M'.repeat(43), name: 'Alice'});
   assert.equal(h.requests.at(-1).options.headers.Authorization, 'Bearer ' + TOKEN);
   await assert.rejects(adapter.teamRequest('/api/team/delete', 'POST', {}));
   await assert.rejects(adapter.teamRequest('/api/team', 'POST', {}));
