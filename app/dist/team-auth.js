@@ -9,18 +9,50 @@
   const ACCOUNT_ERRORS = new Set(['admin_only', 'not_invited', 'invitation_expired', 'membership_conflict', 'membership_revoked',
     'invalid_email_identity', 'invalid_email', 'rate_limited', 'team_capacity', 'invitation_delivery_failed',
     'email_not_configured', 'identity_unavailable', 'invalid_session', 'invitation_not_ready', 'fresh_login_required',
-    'invalid_member_name', 'member_not_found']);
+    'invalid_member_name', 'member_not_found', 'invalid_message', 'board_full']);
   const CATEGORY = Object.freeze({ '计算预测': 'Computational prediction', '回溯验证': 'Retrospective validation',
     '实验研究': 'Experimental research', '数据与工具': 'Data and tools', '研究计划': 'Research programme' });
   const STEP_STATUS = Object.freeze({ completed: 'Reported', current: 'Current evidence', not_reported: 'Not reported' });
+  const EXPERIMENTAL_STATUS = Object.freeze({
+    bulk_supported: {label: 'Bulk superconductivity supported', kind: 'supported'},
+    experimental_support: {label: 'Superconductivity: experimental evidence', kind: 'supported'},
+    signal_only: {label: 'Experimental signal · phase/verification limits', kind: 'signal'},
+    negative_test: {label: 'Negative experiment · tested conditions', kind: 'negative'},
+    process_only: {label: 'Experimental process optimisation', kind: 'process'}
+  });
+
+  function experimentalEvidence(entry) {
+    return entry && typeof entry.experimental_status === 'string' && Object.hasOwn(EXPERIMENTAL_STATUS, entry.experimental_status) ? EXPERIMENTAL_STATUS[entry.experimental_status] : null;
+  }
+
+  function noteUpdateDate(entry) {
+    const value = entry && entry.updated_on;
+    if (typeof value !== 'string' || !/^(?!0000)\d{4}-\d{2}-\d{2}$/.test(value)) return '';
+    const date = new Date(value + 'T00:00:00Z');
+    return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value ? value : '';
+  }
   const CALLBACK_ERRORS = Object.freeze({
     oauth_state_invalid: 'The sign-in service could not verify the callback. Start again in this tab and allow cookies for the sign-in service.',
     oauth_denied: 'GitHub authorization was cancelled or denied. Start again when you are ready.',
     oauth_failed: 'GitHub sign-in failed at the authorization service. Please try again.',
     oauth_credentials_invalid: 'GitHub rejected the app credentials. The app administrator needs to check the sign-in configuration.',
     oauth_redirect_invalid: 'GitHub rejected the callback address. The app administrator needs to check the registered sign-in URL.',
-    oauth_exchange_unavailable: 'The sign-in service could not complete the GitHub exchange. Please try again shortly.',
+    oauth_exchange_unavailable: 'The sign-in service could not complete the GitHub exchange. Use Login for team to start a new attempt; do not refresh the old callback page. If this continues, contact the administrator.',
     oauth_identity_unavailable: 'The sign-in service could not verify your GitHub account. Please try again shortly.'
+  });
+  const FRESH_LOGIN = ' Wait a moment, then use Login for team to start a new attempt. Do not refresh the old callback page.';
+  const EXCHANGE_DIAGNOSTICS = Object.freeze({
+    provider_email_unverified: 'GitHub reported that your primary email is not verified. Verify your primary email in GitHub settings, then use Login for team to start a new attempt.',
+    provider_transport: 'The sign-in service could not reach GitHub or the request timed out.' + FRESH_LOGIN,
+    provider_http_429: 'GitHub temporarily limited sign-in requests.' + FRESH_LOGIN,
+    provider_http_500: 'GitHub returned a temporary service error.' + FRESH_LOGIN,
+    provider_http_502: 'GitHub returned a temporary service error.' + FRESH_LOGIN,
+    provider_http_503: 'GitHub returned a temporary service error.' + FRESH_LOGIN,
+    provider_http_504: 'GitHub returned a temporary service error.' + FRESH_LOGIN,
+    provider_response_json: 'The sign-in service received an unreadable response from GitHub. The administrator needs to check the sign-in service. Start any retry through Login for team, not by refreshing the old callback page.',
+    provider_token_format: 'GitHub’s sign-in response could not be validated. The administrator needs to check the sign-in service. Start any retry through Login for team, not by refreshing the old callback page.',
+    provider_token_type: 'GitHub’s sign-in response could not be validated. The administrator needs to check the sign-in service. Start any retry through Login for team, not by refreshing the old callback page.',
+    provider_expiry: 'GitHub’s sign-in response could not be validated. The administrator needs to check the sign-in service. Start any retry through Login for team, not by refreshing the old callback page.'
   });
 
   function apiOrigin(value) {
@@ -53,6 +85,7 @@
   function callbackFailure(received, proof, now) {
     if (!received || received.invalid) return 'The sign-in callback was malformed. Start sign-in again from this tab.';
     // Never reflect an arbitrary provider error, description, ticket or proof.
+    if (received.error === 'oauth_exchange_unavailable' && Object.hasOwn(EXCHANGE_DIAGNOSTICS, received.diagnostic)) return EXCHANGE_DIAGNOSTICS[received.diagnostic];
     if (received.error) return Object.hasOwn(CALLBACK_ERRORS, received.error) ? CALLBACK_ERRORS[received.error] :
       'The sign-in service returned an unrecognized error. Please start sign-in again.';
     if (!/^[A-Za-z0-9_-]{43}$/.test(received.ticket)) return 'The sign-in callback did not include a valid login ticket. Start sign-in again.';
@@ -92,6 +125,27 @@
       const url = new URL(value);
       return url.protocol === 'https:' && !url.username && !url.password ? url.href : '';
     } catch (_) { return ''; }
+  }
+
+  function boardRoute(path, method) {
+    if (typeof path !== 'string') return false;
+    if (method === 'POST') return path === '/api/board';
+    if (method !== 'GET' || !/^\/api\/board(?:\?(?:after|before|limit)=\d+(?:&(?:after|before|limit)=\d+)*)?$/.test(path)) return false;
+    const query = new URLSearchParams(path.split('?')[1] || ''), seen = new Set();
+    for (const [key, value] of query) {
+      if (seen.has(key) || !/^(?:0|[1-9]\d*)$/.test(value) || !Number.isSafeInteger(Number(value))) return false;
+      if (key === 'limit' && (Number(value) < 1 || Number(value) > 50)) return false;
+      if (key === 'before' && Number(value) < 1) return false;
+      seen.add(key);
+    }
+    return !(seen.has('after') && seen.has('before'));
+  }
+
+  async function boardStorageKey(user, crypto) {
+    if (!crypto || !crypto.subtle) throw new Error('Secure browser required');
+    const actor = (user.provider || 'github') + ':' + user.id;
+    const bytes = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(actor)));
+    return Array.from(bytes).map(function (value) { return value.toString(16).padStart(2, '0'); }).join('');
   }
 
   function memoEntries(value) {
@@ -249,9 +303,10 @@
     const noteAnimations = new Set();
     let token = '', session = null, privateMemo = null, generation = 0;
     let expiryTimer = 0, checkTimer = 0, busy = false, initialized = false;
-    let loginButton, controls, status, notesButton, logoutButton, teamButton, dialog, memoBody, memoStatus;
+    let loginButton, controls, status, notesButton, messagesButton, unreadBadge, logoutButton, teamButton, dialog, memoBody, memoStatus;
     let searchInput, categoryInput, memoList, returnFocus, callback;
     let accountUI = null, emailSignInPending = false;
+    let boardUI = null, boardActivation = null, boardGeneration = 0;
 
     function el(tag, attributes, children) {
       const node = doc.createElement(tag);
@@ -275,10 +330,14 @@
     function consumeFragment() {
       const params = new URLSearchParams(win.location.hash.replace(/^#/, ''));
       if (!['team_ticket', 'team_state', 'team_error'].some(function (key) { return params.has(key); })) return null;
+      // Diagnostic query values only select fixed advice; they never affect authentication.
+      const query = new URLSearchParams(win.location.search || '');
+      const diagnostic = query.getAll('login_status').length === 1 ? query.get('login_status') : '';
       win.history.replaceState(null, '', win.location.pathname + win.location.search);
       const duplicate = ['team_ticket', 'team_state', 'team_error'].some(function (key) { return params.getAll(key).length > 1; });
       return { ticket: params.get('team_ticket') || '', state: params.get('team_state') || '',
-        error: params.get('team_error') || '', invalid: duplicate || (params.has('team_ticket') && params.has('team_error')) };
+        error: params.get('team_error') || '', diagnostic: Object.hasOwn(EXCHANGE_DIAGNOSTICS, diagnostic) ? diagnostic : '',
+        invalid: duplicate || (params.has('team_ticket') && params.has('team_error')) };
     }
     callback = consumeFragment();
 
@@ -288,6 +347,7 @@
       loginButton.disabled = busy || !!session || !origin;
       loginButton.setAttribute('title', session ? (session.user.provider === 'firebase' ? 'Signed in with email' : 'Signed in with GitHub') : origin ? 'Sign in to the team' : 'Team sign-in is not configured yet');
       notesButton.hidden = !session || !session.can_read_memo;
+      if (messagesButton) messagesButton.hidden = !session || !session.can_read_memo;
       logoutButton.hidden = !session;
       if (teamButton) teamButton.hidden = !session || !session.can_manage_team;
     }
@@ -301,6 +361,70 @@
       searchInput = null; categoryInput = null; memoList = null;
     }
 
+    function unreadCount(value) {
+      const count = session && session.can_read_memo && Number.isSafeInteger(value) && value > 0 ? value : 0;
+      if (unreadBadge) { unreadBadge.hidden = count === 0; unreadBadge.textContent = count ? 'New' : ''; }
+      if (messagesButton) messagesButton.setAttribute('aria-label', count ? 'Messages, new team messages' : 'Messages');
+    }
+
+    function clearBoard() {
+      boardGeneration++;
+      boardActivation = null;
+      const previous = boardUI; boardUI = null;
+      if (previous) previous.destroy();
+      unreadCount(0);
+    }
+
+    async function boardRequest(path, method, payload, options) {
+      if (!boardRoute(path, method) || !session || !session.can_read_memo || !token) throw new Error('Messages unavailable');
+      if (session.expires_at <= now()) { reset('Your session expired. Sign in again.'); throw new Error('Session expired'); }
+      const expected = generation, boardExpected = boardGeneration, bearer = token;
+      try {
+        const value = await request(path, method, bearer, payload, options);
+        if (generation !== expected || boardGeneration !== boardExpected || token !== bearer || !session || !session.can_read_memo) throw new Error('Request cancelled');
+        if (session.expires_at <= now()) { reset('Your session expired. Sign in again.'); throw new Error('Session expired'); }
+        // The board endpoint verifies the same session and membership. Reuse that
+        // fresh server check, while retaining the original absolute expiry.
+        armSessionChecks();
+        return value;
+      } catch (error) {
+        if (generation === expected && boardGeneration === boardExpected && token === bearer && (error.status === 401 || error.status === 403)) reset('Team access could not be confirmed. Sign in again.');
+        throw error;
+      }
+    }
+
+    async function activateBoard() {
+      if (!session || !session.can_read_memo || !token) { clearBoard(); return; }
+      if (boardUI) return;
+      if (boardActivation) return boardActivation;
+      const boardModule = env.boardUI || win.SuperconTeamBoard;
+      if (!boardModule || typeof boardModule.createTeamBoard !== 'function') return;
+      const expected = generation, boardExpected = boardGeneration, bearer = token, user = session.user;
+      const active = function () { return generation === expected && boardGeneration === boardExpected && token === bearer && session && session.can_read_memo; };
+      const pending = (async function () {
+        const key = await boardStorageKey(user, crypto);
+        if (!active()) return;
+        boardUI = boardModule.createTeamBoard({document: doc, window: win, storageKey: key,
+          request: function (path, method, payload, options) {
+            if (!active()) return Promise.reject(new Error('Request cancelled'));
+            return boardRequest(path, method, payload, options);
+          },
+          onUnread: function (count) { if (active()) unreadCount(count); },
+          onUnauthorized: function () { if (active()) reset('Team access could not be confirmed. Sign in again.'); }});
+        boardUI.activate();
+      })();
+      boardActivation = pending;
+      try { await pending; }
+      catch (_) { if (active()) { clearBoard(); say('Messages could not be opened. Try again.'); } }
+      finally { if (boardActivation === pending) boardActivation = null; }
+    }
+
+    async function openMessages() {
+      if (!session || !session.can_read_memo || !await validateSession()) return;
+      await activateBoard();
+      if (boardUI && session && session.can_read_memo) boardUI.open();
+    }
+
     function reset(message) {
       const wasOpen = !!dialog && dialog.open;
       generation++;
@@ -309,21 +433,28 @@
       cancel(expiryTimer); cancel(checkTimer); expiryTimer = checkTimer = 0;
       token = ''; session = null; busy = false; emailSignInPending = false;
       if (accountUI) accountUI.reset();
-      clearMemo(); renderAccount(); say(message || '');
+      clearBoard(); clearMemo(); renderAccount(); say(message || '');
       if (wasOpen && loginButton) loginButton.focus();
     }
 
-    async function request(path, method, bearer, body) {
-      if (!origin || !/^\/(?:auth\/(?:exchange|logout|firebase)|api\/(?:session|memo|team(?:\/(?:invite|revoke|name))?))$/.test(path)) throw new Error('Request unavailable');
+    async function request(path, method, bearer, body, options) {
+      if (!origin || (!/^\/(?:auth\/(?:exchange|logout|firebase)|api\/(?:session|memo|team(?:\/(?:invite|revoke|name))?))$/.test(path) && !boardRoute(path, method))) throw new Error('Request unavailable');
       const controller = new AbortController();
       activeRequests.add(controller);
-      let timeout;
+      let timeout, rejectAbort;
+      const signal = options && options.signal;
+      const abort = function () { controller.abort(); };
+      const aborted = new Promise(function (_, reject) { rejectAbort = reject; });
+      const cancelRequest = function () { rejectAbort(new Error('Request cancelled')); };
+      controller.signal.addEventListener('abort', cancelRequest, {once: true});
+      if (signal) { signal.addEventListener('abort', abort, {once: true}); if (signal.aborted) controller.abort(); }
       const headers = { Accept: 'application/json' };
       if (bearer) headers.Authorization = 'Bearer ' + bearer;
       if (body !== undefined) headers['Content-Type'] = 'application/json';
       try {
         return await Promise.race([
           (async function () {
+            if (controller.signal.aborted) throw new Error('Request cancelled');
             const response = await fetcher(origin + path, { method: method, headers: headers, credentials: 'omit', cache: 'no-store',
               referrerPolicy: 'no-referrer', redirect: 'error', signal: controller.signal,
               ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
@@ -340,9 +471,14 @@
             if (text.length > 1500000) throw new Error('Response too large');
             return JSON.parse(text);
           })(),
-          new Promise(function (_, reject) { timeout = later(function () { controller.abort(); reject(new Error('Request timed out')); }, REQUEST_TIMEOUT); })
+          new Promise(function (_, reject) { timeout = later(function () { controller.abort(); reject(new Error('Request timed out')); }, REQUEST_TIMEOUT); }),
+          aborted
         ]);
-      } finally { cancel(timeout); activeRequests.delete(controller); }
+      } finally {
+        cancel(timeout); activeRequests.delete(controller);
+        controller.signal.removeEventListener('abort', cancelRequest);
+        if (signal) signal.removeEventListener('abort', abort);
+      }
     }
 
     function armSessionChecks() {
@@ -354,7 +490,7 @@
       checkTimer = later(function () {
         if (doc.hidden) armSessionChecks();
         else validateSession();
-      }, SESSION_CHECK);
+      }, boardUI ? 2 * SESSION_CHECK : SESSION_CHECK);
     }
 
     async function validateSession() {
@@ -369,10 +505,12 @@
         const lostAdmin = session.can_manage_team && !verified.can_manage_team;
         session = verified;
         if (lostAdmin && accountUI) accountUI.reset();
-        if (!session.can_read_memo) clearMemo();
+        if (!session.can_read_memo) { clearMemo(); clearBoard(); }
         renderAccount(); armSessionChecks();
+        if (session.can_read_memo) await activateBoard();
         return true;
-      } catch (_) {
+      } catch (error) {
+        if (generation === expected && error.status === 429) { armSessionChecks(); say('Too many requests. Try again shortly.'); return false; }
         if (generation === expected) reset('Your session could not be confirmed. Sign in again.');
         return false;
       }
@@ -413,7 +551,7 @@
       } catch (error) {
         if (generation === expected) {
           emailSignInPending = false; busy = false; token = ''; session = null;
-          clearMemo(); renderAccount(); say('');
+          clearBoard(); clearMemo(); renderAccount(); say('');
         }
         throw error;
       }
@@ -504,11 +642,12 @@
     }
 
     function memoCard(entry) {
+      const evidence = experimentalEvidence(entry);
       const body = el('div', { class: 'team-notes-detail' });
       const details = el('details', {}, [el('summary', { text: 'Material, progress and sources' }), body]);
       const materialVisual = win.SuperconMaterialVisual;
       if (materialVisual && typeof materialVisual.classifyMaterial === 'function' && typeof materialVisual.createMaterialAnimation === 'function') {
-        const material = materialVisual.createMaterialAnimation({ document: doc, window: win, details: details, kind: materialVisual.classifyMaterial(entry) });
+        const material = materialVisual.createMaterialAnimation({ document: doc, window: win, details: details, kind: materialVisual.classifyMaterial(entry), caption: entry.material_visual_note });
         if (material) { body.appendChild(material.node); noteAnimations.add(material); }
       }
       const animation = createNoteAnimation({ document: doc, window: win, details: details, steps: entry.progress_steps });
@@ -533,13 +672,20 @@
       }
       body.appendChild(el('h4', { text: 'Primary sources' })); body.appendChild(sourceLinks(entry));
       const overview = el('section', { class: 'team-notes-overview', 'aria-label': 'Research team and current status' });
+      if (evidence) overview.appendChild(el('p', {class: 'team-notes-evidence-badge is-' + evidence.kind, text: evidence.label}));
+      if (typeof entry.experimental_note === 'string' && entry.experimental_note.length <= 800 && entry.experimental_note) {
+        overview.appendChild(el('p', {class: 'team-notes-experimental-note', text: entry.experimental_note}));
+      }
+      if (typeof entry.change_summary === 'string' && entry.change_summary.length <= 800 && entry.change_summary) {
+        overview.appendChild(el('p', {class: 'team-notes-change-summary', text: entry.change_summary}));
+      }
       overview.appendChild(el('h4', { text: 'Research team' }));
       overview.appendChild(el('p', { class: 'team-notes-team', text: typeof entry.team === 'string' && entry.team ? entry.team : 'Not specified in this note.' }));
       if (typeof entry.headline === 'string' && entry.headline) overview.appendChild(el('p', { class: 'team-notes-headline', text: 'This study: ' + entry.headline }));
       overview.appendChild(el('p', { class: 'team-notes-stage', text: 'Current status: ' + (typeof entry.stage === 'string' && entry.stage ? entry.stage : 'Not specified in this note.') }));
       const primary = [{ url: entry.url }].concat(Array.isArray(entry.primary_refs) ? entry.primary_refs : []).find(function (ref) { return ref && safeSourceUrl(ref.url); });
       if (primary) overview.appendChild(el('a', { class: 'team-notes-primary-link', href: safeSourceUrl(primary.url), target: '_blank', rel: 'noopener noreferrer', referrerpolicy: 'no-referrer', text: 'Primary source' }));
-      return el('article', { class: 'team-notes-card' }, [
+      return el('article', { class: 'team-notes-card' + (evidence && evidence.kind === 'supported' ? ' is-experimental' : '') }, [
         el('p', { class: 'team-notes-meta', text: '#' + entry.id + ' · ' + (entry.year || '') + ' · ' + (CATEGORY[entry.category] || entry.category || '') }),
         el('h3', { text: entry.heading }), overview, details
       ]);
@@ -549,11 +695,26 @@
       if (!privateMemo || !session || !session.can_read_memo || !memoList) return;
       const query = searchInput.value.trim().toLowerCase(), category = categoryInput.value;
       const rows = privateMemo.entries.filter(function (entry) {
-        return (category === 'all' || category === entry.category) && (!query ||
-          [entry.heading, entry.short, entry.title, entry.team, entry.year, entry.doi, entry.result, entry.boundary].join(' ').toLowerCase().includes(query));
-      });
+        const evidence = experimentalEvidence(entry);
+        return (category === 'all' || category === entry.category || (category === 'experimental_evidence' && evidence && evidence.kind === 'supported')) && (!query ||
+          [entry.heading, entry.short, entry.title, entry.team, entry.year, entry.doi, entry.result, entry.boundary, entry.experimental_note, entry.change_summary].join(' ').toLowerCase().includes(query));
+      }).map(function (entry, index) { return {entry: entry, index: index}; }).sort(function (a, b) {
+        const da = noteUpdateDate(a.entry), db = noteUpdateDate(b.entry);
+        if (da !== db) return da > db ? -1 : 1;
+        return a.entry.id < b.entry.id ? -1 : a.entry.id > b.entry.id ? 1 : a.index - b.index;
+      }).map(function (row) { return row.entry; });
       clearAnimations(); empty(memoList);
-      rows.forEach(function (entry) { memoList.appendChild(memoCard(entry)); });
+      let date, dayList;
+      rows.forEach(function (entry) {
+        const updated = noteUpdateDate(entry);
+        if (!dayList || updated !== date) {
+          date = updated; dayList = el('div', {class: 'team-notes-list'});
+          memoList.appendChild(el('section', {class: 'team-notes-date-group'}, [
+            el('h3', {class: 'team-notes-date-heading', text: updated ? 'Updated ' + updated : 'Update date not recorded'}), dayList
+          ]));
+        }
+        dayList.appendChild(memoCard(entry));
+      });
       memoStatus.textContent = rows.length + ' of ' + privateMemo.entries.length + ' private entries' +
         (privateMemo.reviewed_on ? ' · reviewed ' + privateMemo.reviewed_on : '');
       if (!rows.length) memoList.appendChild(el('p', { class: 'team-notes-empty', text: 'No entries match this search.' }));
@@ -565,11 +726,14 @@
       searchInput = el('input', { id: 'team-notes-search', type: 'search', placeholder: 'Material, author, method or DOI', autocomplete: 'off' });
       categoryInput = el('select', { id: 'team-notes-category' });
       categoryInput.appendChild(el('option', { value: 'all', text: 'All evidence' }));
+      if (privateMemo.entries.some(function (entry) { const evidence = experimentalEvidence(entry); return evidence && evidence.kind === 'supported'; })) {
+        categoryInput.appendChild(el('option', {value: 'experimental_evidence', text: 'Experimental evidence'}));
+      }
       const categories = new Set(privateMemo.entries.map(function (entry) { return entry.category; }).filter(Boolean));
       categories.forEach(function (category) { categoryInput.appendChild(el('option', { value: category, text: CATEGORY[category] || category })); });
       categoryInput.value = 'all';
       searchInput.addEventListener('input', renderMemoRows); categoryInput.addEventListener('change', renderMemoRows);
-      memoList = el('div', { class: 'team-notes-list' });
+      memoList = el('div', { class: 'team-notes-groups' });
       memoBody.appendChild(el('div', { class: 'team-notes-filters' }, [
         el('label', { for: 'team-notes-search' }, [el('span', { text: 'Search notes' }), searchInput]),
         el('label', { for: 'team-notes-category' }, [el('span', { text: 'Evidence category' }), categoryInput])
@@ -609,10 +773,13 @@
       ['href', 'target', 'rel'].forEach(function (name) { loginButton.removeAttribute(name); });
       controls = el('span', { class: 'team-auth-controls' });
       notesButton = el('button', { id: 'team-notes', type: 'button', class: 'btn small', text: 'Notes' });
+      unreadBadge = el('span', {id: 'team-messages-unread', class: 'team-board-badge', 'aria-hidden': 'true'});
+      unreadBadge.hidden = true;
+      messagesButton = el('button', {id: 'team-messages', type: 'button', class: 'btn small', text: 'Messages', 'aria-label': 'Messages'}, [unreadBadge]);
       teamButton = el('button', { id: 'team-manage', type: 'button', class: 'btn small', text: 'Team' });
       logoutButton = el('button', { id: 'team-logout', type: 'button', class: 'btn small', text: 'Sign out' });
-      notesButton.hidden = teamButton.hidden = logoutButton.hidden = true;
-      controls.appendChild(notesButton); controls.appendChild(teamButton); controls.appendChild(logoutButton);
+      notesButton.hidden = messagesButton.hidden = teamButton.hidden = logoutButton.hidden = true;
+      controls.appendChild(notesButton); controls.appendChild(messagesButton); controls.appendChild(teamButton); controls.appendChild(logoutButton);
       status = el('span', { class: 'team-auth-status', role: 'status', 'aria-live': 'polite' });
       loginButton.parentNode.appendChild(controls); loginButton.parentNode.appendChild(status);
       const accountModule = env.accountUI || win.SuperconAccountUI;
@@ -625,6 +792,7 @@
       }
       loginButton.addEventListener('click', function (event) { event.preventDefault(); if (accountUI) accountUI.openLogin(); else signIn(); });
       notesButton.addEventListener('click', openNotes); logoutButton.addEventListener('click', logout);
+      messagesButton.addEventListener('click', openMessages);
       teamButton.addEventListener('click', function () { if (accountUI && session && session.can_manage_team) accountUI.openAdmin(); });
       doc.addEventListener('visibilitychange', function () { if (!doc.hidden && token) validateSession(); });
       win.addEventListener('pagehide', function () { reset(''); });
@@ -639,13 +807,14 @@
         if (!origin) say('Team sign-in is not available yet.');
       }
     }
-    return Object.freeze({ init: init, signIn: signIn, logout: logout, openNotes: openNotes });
+    return Object.freeze({ init: init, signIn: signIn, logout: logout, openNotes: openNotes, openMessages: openMessages });
   }
 
   // No browser secrets are exported. The CommonJS branch is for isolated tests.
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = { apiOrigin: apiOrigin, makeProof: makeProof, validProof: validProof, sessionMetadata: sessionMetadata,
-      safeSourceUrl: safeSourceUrl, memoEntries: memoEntries, createNoteAnimation: createNoteAnimation, createController: createController, PENDING_KEY: PENDING_KEY };
+      safeSourceUrl: safeSourceUrl, memoEntries: memoEntries, createNoteAnimation: createNoteAnimation, createController: createController,
+      boardRoute: boardRoute, boardStorageKey: boardStorageKey, PENDING_KEY: PENDING_KEY };
   } else if (typeof document !== 'undefined' && typeof window !== 'undefined') {
     const controller = createController({ window: window, document: document });
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', controller.init, { once: true });

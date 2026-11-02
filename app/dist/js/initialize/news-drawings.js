@@ -29,8 +29,9 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
     }
     var D = {};
 
-    // Cuprates: a CuO2 plane and the four-lobed d-wave pair state on it
+    // CuO2 plane fragment; the camera moves, no pairing state or phonon is asserted.
     D.cuprate = function (c, C, W, H, t, k) {
+      c.translate(W / 2, H / 2); c.rotate(.035 * Math.sin(t / 3)); c.translate(-W / 2, -H / 2);
       var s = 22 * k, nx = Math.ceil(W / s) + 1, ny = Math.ceil(H / s) + 1, ox = (W - (nx - 1) * s) / 2, oy = (H - (ny - 1) * s) / 2;
       c.strokeStyle = C.grid; c.lineWidth = 1;
       for (var i = 0; i < nx; i++) seg(c, ox + i * s, 0, ox + i * s, H);
@@ -39,15 +40,10 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
         disc(c, ox + i * s + s / 2, oy + j * s, 1.6 * k, C.muted); disc(c, ox + i * s, oy + j * s + s / 2, 1.6 * k, C.muted);
         disc(c, ox + i * s, oy + j * s, 2.8 * k, C.accent);
       }
-      var cx = W / 2, cy = H / 2, a = 0.75 + 0.25 * Math.sin(TAU * t / 3);
-      [[1, 0, C.accent], [0, 1, C.warm], [-1, 0, C.accent], [0, -1, C.warm]].forEach(function (q) {
-        c.beginPath(); c.ellipse(cx + q[0] * 13 * k * a, cy + q[1] * 13 * k * a, (q[0] ? 11 : 6) * k * a, (q[0] ? 6 : 11) * k * a, 0, 0, TAU);
-        c.fillStyle = stAlpha(q[2], 0.42); c.fill();
-      });
-      disc(c, cx, cy, 3.2 * k, C.ink);
     };
-    // Nickelates: two NiO2 layers joined by apical oxygens, with a pair spanning the layers
+    // Only bilayer articles use this projected Ni–O fragment, without a pairing claim.
     D.nickelate = function (c, C, W, H, t, k) {
+      c.translate(1.5 * k * Math.sin(t / 3), 0);
       var n = 5, dx = W * 0.16, x0 = W * 0.18, skew = 10 * k, ys = [H * 0.3, H * 0.7];
       ys.forEach(function (y) {
         c.beginPath(); c.moveTo(x0 - 8 * k, y + 6 * k); c.lineTo(x0 + (n - 1) * dx + 4 * k, y + 6 * k); c.lineTo(x0 + (n - 1) * dx + skew + 12 * k, y - 6 * k); c.lineTo(x0 + skew, y - 6 * k); c.closePath();
@@ -57,12 +53,9 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
         var x = x0 + i * dx + skew / 2;
         c.strokeStyle = C.axis; c.lineWidth = 1.4; seg(c, x, ys[0], x, ys[1]);
         disc(c, x, (ys[0] + ys[1]) / 2, 2 * k, C.muted);
+        if (i < n - 1) ys.forEach(function (y) { c.strokeStyle = C.axis; seg(c, x, y, x + dx, y); disc(c, x + dx / 2, y, 2 * k, C.muted); });
         disc(c, x, ys[0], 3.2 * k, C.accent); disc(c, x, ys[1], 3.2 * k, C.accent);
       }
-      var px = x0 + skew / 2 + md(t * 0.35, 1) * (n - 1) * dx;
-      halo(c, px, ys[0], 9 * k, C.warm, 0.7); halo(c, px, ys[1], 9 * k, C.warm, 0.7);
-      c.strokeStyle = stAlpha(C.warm, 0.8); c.lineWidth = 1.6; c.setLineDash([2 * k, 2 * k]); seg(c, px, ys[0] + 4 * k, px, ys[1] - 4 * k); c.setLineDash([]);
-      disc(c, px, ys[0], 2.6 * k, C.warm); disc(c, px, ys[1], 2.6 * k, C.warm);
     };
     // Iron-based: iron square lattice, arsenic above and below, fluctuating stripe spins
     D.iron = function (c, C, W, H, t, k) {
@@ -105,19 +98,19 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
         c.fillStyle = stAlpha(L[1], 0.55); c.fill();
       });
     };
-    // Kagome: corner-sharing triangles with a breathing charge-density wave
+    // Kagome geometry: both triangle orientations, fixed distances, no assumed CDW.
+    var KAGOME_NEWS = (function () {
+      var points = [], edges = [], basis = [[0, 0], [1, 0], [.5, Math.sqrt(3) / 2]];
+      for (var i = -3; i <= 3; i++) for (var j = -3; j <= 3; j++) basis.forEach(function (q) { points.push([2 * i + j + q[0], Math.sqrt(3) * j + q[1]]); });
+      for (i = 0; i < points.length; i++) for (j = i + 1; j < points.length; j++) if (Math.abs(Math.hypot(points[i][0] - points[j][0], points[i][1] - points[j][1]) - 1) < 1e-6) edges.push([i, j]);
+      return { points: points, edges: edges };
+    })();
     D.kagome = function (c, C, W, H, t, k) {
-      var a = 22 * k, b = 0.5 + 0.5 * Math.sin(TAU * t / 3.5), cx = W / 2, cy = H / 2;
-      for (var i = -3; i <= 3; i++) for (var j = -2; j <= 2; j++) {
-        var x0 = cx + (i + j / 2) * a, y0 = cy + j * a * 0.866;
-        var up = [[x0, y0], [x0 + a / 2, y0], [x0 + a / 4, y0 - a * 0.433]];
-        var big = (i + 2 * j) % 2 === 0, sc = 1 + (big ? 0.12 : -0.12) * b, gx = (up[0][0] + up[1][0] + up[2][0]) / 3, gy = (up[0][1] + up[1][1] + up[2][1]) / 3;
-        var p = up.map(function (q) { return [gx + (q[0] - gx) * sc, gy + (q[1] - gy) * sc]; });
-        c.beginPath(); c.moveTo(p[0][0], p[0][1]); c.lineTo(p[1][0], p[1][1]); c.lineTo(p[2][0], p[2][1]); c.closePath();
-        c.fillStyle = stAlpha(big ? C.warm : C.accent, 0.12 + 0.12 * b * (big ? 1 : 0)); c.fill();
-        c.strokeStyle = stAlpha(C.accent, 0.7); c.lineWidth = 1.2; c.stroke();
-        p.forEach(function (q) { disc(c, q[0], q[1], 2 * k, C.accent); });
-      }
+      var a = 14 * k, points = KAGOME_NEWS.points;
+      c.translate(W / 2, H / 2); c.rotate(.035 * Math.sin(t / 3));
+      c.strokeStyle = stAlpha(C.accent, .7); c.lineWidth = 1.2;
+      KAGOME_NEWS.edges.forEach(function (edge) { var p = points[edge[0]], q = points[edge[1]]; seg(c, p[0] * a, p[1] * a, q[0] * a, q[1] * a); });
+      points.forEach(function (q) { disc(c, q[0] * a, q[1] * a, 2 * k, C.accent); });
     };
     // Heavy fermions: light electrons slow down and dress up as they pass large f-moments
     var HEAVY = (function () { var r = stRng(13), a = []; for (var i = 0; i < 9; i++) a.push([r(), r(), r() * TAU]); return a; })();
@@ -215,7 +208,14 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
       c.beginPath(); c.ellipse(bx, by, R, R * 0.3, 0, 0, TAU); c.strokeStyle = C.grid; c.stroke();
       arrowHead(c, bx, by, bx + Math.sin(a) * R * 0.9, by - Math.cos(a) * R * 0.9, C.warm, 4 * k, 1.6);
     };
-    // Anything else: a magnet floating above a cold superconductor (the Meissner effect)
+    // Neutral animated source icon: no crystal, experimental trace or discovery claim.
+    D.research = function (c, C, W, H, t, k) {
+      var x = W * .24, y = H * .18, width = W * .52, height = H * .64;
+      c.fillStyle = C.surface; c.strokeStyle = C.axis; c.lineWidth = 1.2;
+      c.beginPath(); c.rect(x, y, width, height); c.fill(); c.stroke();
+      for (var i = 0; i < 4; i++) { c.strokeStyle = stAlpha(C.accent, .35 + .35 * (1 + Math.sin(t * 1.4 - i)) / 2); c.lineWidth = i ? 1.5 : 2.5; seg(c, x + 8 * k, y + (12 + i * 10) * k, x + width - (i === 3 ? 20 : 8) * k, y + (12 + i * 10) * k); }
+    };
+    // Legacy illustration remains available for an explicitly reviewed Meissner article.
     D.general = function (c, C, W, H, t, k) {
       var cx = W / 2, by = H * 0.72, f = 3 * k * Math.sin(TAU * t / 3);
       c.beginPath(); c.ellipse(cx, by + 6 * k, W * 0.34, 9 * k, 0, 0, TAU); c.fillStyle = stAlpha(C.accent, 0.35); c.fill();
@@ -228,12 +228,12 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
     };
 
     var ALT = {
-      cuprate: 'A copper-oxide plane with a four-lobed d-wave pair state pulsing on it.',
-      nickelate: 'Two nickel-oxide layers joined by oxygen bridges, with a pair of electrons spanning the layers.',
+      cuprate: 'Idealised CuO₂-plane fragment: a square copper net with oxygen at link midpoints. Only the viewing angle changes; this is not a complete crystal or measured motion.',
+      nickelate: 'Idealised section of a bilayer nickelate, with Ni–O–Ni bridges. The view moves; no pairing mechanism or measured atomic motion is implied.',
       iron: 'An iron square lattice with arsenic above and below and fluctuating stripe-ordered spins.',
       hydride: 'A cage of hydrogen atoms around a metal atom, squeezed between two diamond anvils.',
       moire: 'Two atomic lattices twisted by a small angle, forming a slowly changing moiré pattern.',
-      kagome: 'A kagome lattice of corner-sharing triangles with a breathing charge-density wave.',
+      kagome: 'Idealised kagome plane with corner-sharing triangles and hexagonal holes. The view rotates; no charge-density wave or measured motion is implied.',
       heavy: 'Light electrons slow down and gather clouds around large f-electron moments.',
       triplet: 'A rotating p-wave orbital carrying two parallel spins.',
       topo: 'A nanowire on a superconductor with Majorana modes glowing at its two ends.',
@@ -241,7 +241,8 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
       vortex: 'A triangular lattice of swirling magnetic-flux vortices.',
       ai: 'A crystal structure feeds a small neural network whose layers light up in turn.',
       qubit: 'A cross-shaped superconducting qubit beside a Bloch circle whose arrow swings back and forth.',
-      general: 'A magnet floating above a cold superconductor, the Meissner effect.'
+      general: 'A magnet floating above a cold superconductor, the Meissner effect.',
+      research: 'An animated research-paper icon. No material structure, measurement or superconducting discovery is asserted.'
     };
     Object.keys(D).forEach(function (kind) {
       MINI_DRAW['news-' + kind] = guard(D[kind]);
@@ -250,7 +251,7 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
     });
   })();
 
-  // Which drawing goes with a news item: its first material or physics topic in this order; a qubit for device stories; else the floating magnet.
+  // Available legacy illustrations. Automatic selection is conservative in newsArt().
   NEWS_ART = [['Hydrides', 'hydride'], ['Cuprates', 'cuprate'], ['Nickelates', 'nickelate'], ['Iron-based', 'iron'],
     ['Moiré and 2D', 'moire'], ['Kagome', 'kagome'], ['Heavy fermions', 'heavy'], ['Triplet and ruthenates', 'triplet'],
     ['Topological', 'topo'], ['Electron–phonon', 'eph'], ['Vortices and junctions', 'vortex'], ['AI and data', 'ai']];

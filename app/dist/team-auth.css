@@ -86,3 +86,20 @@
 .team-notes-overview p { margin: 5px 0 9px; }
 .team-notes-team { font-weight: 600; }
 .team-notes-primary-link { display: inline-block; margin-top: 4px; font-size: 12px; }
+.team-notes-card.is-experimental { border-color: #3b8a70; }
+.team-notes-evidence-badge { display: inline-block; padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-weight: 600; line-height: 1.5; }
+.team-notes-evidence-badge.is-supported { color: #26785d; border-color: #3b8a70; background: color-mix(in srgb, #3b8a70 10%, var(--surface)); }
+.team-notes-evidence-badge.is-signal { color: #9b6a12; border-color: #b18136; }
+.team-notes-evidence-badge.is-negative { color: #b14848; }
+.team-notes-experimental-note { font-size: 12px; line-height: 1.65; overflow-wrap: anywhere; color: var(--ink-2); }
+.team-notes-date-group + .team-notes-date-group { margin-top: 26px; }
+.team-notes-date-heading { margin: 4px 0 14px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.team-notes-change-summary { font-size: 11px; line-height: 1.6; color: var(--muted); overflow-wrap: anywhere; }
+[data-theme="dark"] .team-notes-evidence-badge.is-supported { color: #8ad8b8; }
+[data-theme="dark"] .team-notes-evidence-badge.is-signal { color: #e2bc75; }
+[data-theme="dark"] .team-notes-evidence-badge.is-negative { color: #eea3a3; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .team-notes-evidence-badge.is-supported { color: #8ad8b8; }
+  :root:not([data-theme="light"]) .team-notes-evidence-badge.is-signal { color: #e2bc75; }
+  :root:not([data-theme="light"]) .team-notes-evidence-badge.is-negative { color: #eea3a3; }
+}

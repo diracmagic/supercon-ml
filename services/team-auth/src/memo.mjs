@@ -2,6 +2,8 @@ import { AuthError, REPOSITORY_ID, OWNER_ID, demand, encoder, hexHash, plainObje
 
 const PARTS = ['external-research-memo/part-01.json', 'external-research-memo/part-02.json', 'external-research-memo/part-03.json'];
 const TEXT_FIELDS = ['id', 'heading', 'short', 'year', 'stage', 'headline', 'team', 'publication', 'result', 'boundary', 'reference_point', 'title', 'doi', 'category', 'evidence_type', 'pressure', 'tc_criterion', 'verified_version', 'reviewed_on'];
+const MATERIAL_VISUALS = new Set(['hydride_cage', 'octahedral_hydride', 'cuprate_layers', 'nickelate_layers', 'kagome_net', 'boron_carbon_network', 'intermetallic', 'methodology']);
+const EXPERIMENTAL_STATUS = new Set(['bulk_supported', 'experimental_support', 'signal_only', 'negative_test', 'process_only', 'not_experimental']);
 const text = (value, maximum = 12000) => {
   demand(typeof value === 'string' && value.length <= maximum && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(value), 'invalid_memo', 502);
   return value;
@@ -23,6 +25,24 @@ function entry(value) {
     if (Object.hasOwn(value, field)) out[field] = text(value[field]);
   }
   demand(/^[A-Za-z0-9_-]{1,40}$/.test(out.id || '') && out.heading && out.title && out.result && typeof out.boundary === 'string', 'invalid_memo', 502);
+  if (Object.hasOwn(value, 'material_visual')) {
+    demand(typeof value.material_visual === 'string' && MATERIAL_VISUALS.has(value.material_visual), 'invalid_memo', 502);
+    out.material_visual = value.material_visual;
+  }
+  if (Object.hasOwn(value, 'material_visual_note')) out.material_visual_note = text(value.material_visual_note, 800);
+  if (Object.hasOwn(value, 'experimental_status')) {
+    demand(typeof value.experimental_status === 'string' && EXPERIMENTAL_STATUS.has(value.experimental_status), 'invalid_memo', 502);
+    out.experimental_status = value.experimental_status;
+  }
+  if (Object.hasOwn(value, 'experimental_note')) out.experimental_note = text(value.experimental_note, 800);
+  if (Object.hasOwn(value, 'updated_on')) {
+    const day = text(value.updated_on, 10);
+    demand(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(day) && !day.startsWith('0000-'), 'invalid_memo', 502);
+    const parsed = new Date(day + 'T00:00:00.000Z');
+    demand(Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === day, 'invalid_memo', 502);
+    out.updated_on = day;
+  }
+  if (Object.hasOwn(value, 'change_summary')) out.change_summary = text(value.change_summary, 800);
   if (value.url) out.url = safeUrl(value.url);
   demand(Array.isArray(value.primary_refs) && value.primary_refs.length >= 1 && value.primary_refs.length <= 24, 'invalid_memo', 502);
   out.primary_refs = value.primary_refs.map(ref => {

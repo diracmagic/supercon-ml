@@ -27,10 +27,10 @@
       var dd = hi.data, sc = hi.v.scores, fam = dd.families || {}, cu = (sc.by_family || {}).cuprate;
       switch (si) {
         case 0: return 'Hurricane’s data: ' + fmtInt(dd.n) + ' cuprates, iron- and nickel-based compounds, heavy-fermion compounds and other oxides with measured Tc from SuperCon, matched to Materials Project crystal structures by 3DSC. ' +
-          fmtInt(dd.n_sc) + ' of them superconduct; the other ' + fmtInt(dd.n - dd.n_sc) + ' were measured and did not. The baseline sees only the chemical formula.';
+          fmtInt(dd.n_sc) + ' have a positive recorded Tc; the other ' + fmtInt(dd.n - dd.n_sc) + ' have catalogued Tc = 0. Their measurement limits and conditions have not been established here. The baseline sees only the chemical formula.';
         case 1: return 'The baseline describes each compound by 33 numbers from its formula alone: the number of elements, and the mean, spread, minimum and maximum of eight element properties (atomic number, mass, electronegativity, row, group, radius, Mendeleev number, valence). No crystal structure and no physics features.';
-        case 2: return 'Histogram gradient boosting adds up to 800 small decision trees (learning rate 0.04, at most 31 leaves per tree). It learns log(1 + Tc), so the many low-Tc compounds do not dominate; a compound that does not superconduct counts as Tc = 0.';
-        default: return 'Five-fold cross-validation grouped by parent compound, so no test compound shares its parent with the training data. The baseline is off by ' + baseK1(sc.reference_mae) + ' K on average, ' + hurTitle(hi) + ', our AI-designed model, by ' + baseK1(sc.tc_mae) + ' K, better in ' + sc.folds_better + ' of ' + list(sc.folds).length + ' folds' +
+        case 2: return 'Histogram gradient boosting adds up to 800 small decision trees (learning rate 0.04, at most 31 leaves per tree). Learning log(1 + Tc) compresses the largest temperatures and gives more weight to relative differences at low Tc. Catalogued zero values remain zero training targets; their measurement limits are not supplied here.';
+        default: return 'Five-fold cross-validation grouped by the Materials Project chemical-system label, so matching system groups stay in one fold. The baseline is off by ' + baseK1(sc.reference_mae) + ' K on average, ' + hurTitle(hi) + ', our AI-designed model, by ' + baseK1(sc.tc_mae) + ' K, better in ' + sc.folds_better + ' of ' + list(sc.folds).length + ' folds' +
           (cu ? '. Cuprates are hardest: ' + baseK1(cu.mae_ref) + ' K for the baseline, ' + baseK1(cu.mae) + ' K for ' + hurTitle(hi) : '') + '.';
       }
     }
@@ -41,8 +41,8 @@
         (typeof cl.Chevrel === 'number' ? ', among them ' + fmtInt(cl.Chevrel) + ' Chevrel phases and ' + fmtInt(cl.Carbon || 0) + ' carbon-based superconductors' : '') + '. The baseline sees only the chemical formula.';
       case 1: return 'The same 33 numbers from the formula as Hurricane’s baseline: the number of elements, and the mean, spread, minimum and maximum of eight element properties. No crystal structure and no physics features.';
       case 2: return 'A gradient-boosted classifier (up to 400 trees, learning rate 0.05, at most 31 leaves per tree) gives the probability that a material belongs to an unconventional family. At 0.5 or more it goes to Hurricane, otherwise to Storm.';
-      default: return 'Five-fold cross-validation grouped by parent compound. The baseline’s log loss is ' + rs.reference_log_loss.toFixed(3) + ', ' + radTitle(ri) + '’s ' + rs.log_loss.toFixed(3) + ' (lower is better), better in ' + rs.folds_better + ' of ' + list(rs.folds).length + ' folds; it picks the right model ' +
-        pct1(rs.reference_balanced_accuracy) + ' of the time against ' + pct1(rs.balanced_accuracy) + ' for ' + radTitle(ri) + ' (balanced accuracy).';
+      default: return 'Five-fold cross-validation grouped by the Materials Project chemical-system label. The baseline’s log loss is ' + rs.reference_log_loss.toFixed(3) + ', ' + radTitle(ri) + '’s ' + rs.log_loss.toFixed(3) + ' (lower is better), better in ' + rs.folds_better + ' of ' + list(rs.folds).length + ' folds; balanced accuracy is ' +
+        pct1(rs.reference_balanced_accuracy) + ' for the baseline against ' + pct1(rs.balanced_accuracy) + ' for ' + radTitle(ri) + ', averaging the recall of the two classes.';
     }
   };
 

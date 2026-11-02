@@ -177,8 +177,8 @@
   function disagreement(c) {
     if (!number(c.p_lo) || !number(c.p_hi)) return '';
     var models = c.p_spread_method === 'same-background-fold-training-fold-ensemble' ?
-      'Five training-fold models, all excluding this candidate’s background fold, give chances from ' : c.p_spread_method === 'same-held-out-fold-seeds' ?
-      'Models trained with different random seeds, with the same held-out fold excluded, give chances from ' : 'The fitted models give chances from ';
+      'Five training-fold models, all excluding this candidate’s background fold, give model scores from ' : c.p_spread_method === 'same-held-out-fold-seeds' ?
+      'Models trained with different random seeds, with the same held-out fold excluded, give model scores from ' : 'The fitted models give model scores from ';
     return models + (100 * c.p_lo).toFixed(1) + '% to ' + (100 * c.p_hi).toFixed(1) +
       '%. This is model disagreement describing training-data sensitivity, not a confidence interval or a calibrated probability range.';
   }
@@ -186,8 +186,8 @@
     var ensemble = block && block.design && block.design.jackknife;
     return 'Displayed order is predicted Tc if superconducting, highest first; unknown Tc comes last. ' +
       (ensemble && (ensemble.method === 'same-background-fold-training-fold-ensemble' || ensemble.method === 'training-fold-ensemble') ?
-        'The original screening score remains the mean of the ensemble’s joint chance-and-Tc predictions; multiplying the two displayed means can give a different value.' :
-        'The original joint chance-and-Tc screening score is preserved; it does not set this display order.');
+        'The original screening score remains the mean of the ensemble’s classifier-score-times-Tc predictions; multiplying the two displayed means can give a different value.' :
+        'The original classifier-score-times-Tc screening value is preserved; it does not set this display order.');
   }
   function phononSummaryLines(screen) {
     var check = screen && (screen.phonon_checks || screen.phonon_check);

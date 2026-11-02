@@ -26,7 +26,22 @@ class ScreeningPublicationTests(unittest.TestCase):
         cls.literature, _ = load_audit()
 
     def test_screen_publication_does_not_release_a_new_model_or_rewrite_history(self):
-        rest = {k:v for k,v in self.payload.items() if k != 'screen'}
+        rest = copy.deepcopy({k:v for k,v in self.payload.items() if k != 'screen'})
+        correction = json.loads((ROOT / 'results/validation/hurricane-display-cohort-correction.json').read_text(encoding='utf-8'))
+        self.assertEqual(digest(rest), correction['after_non_screen_canonical_sha256'])
+        self.assertEqual(correction['before_non_screen_canonical_sha256'], self.report['unchanged_non_screen_canonical_sha256'])
+        # The original publication audit stays frozen. Reverse only the separately
+        # documented display repair before comparing with its original payload hash.
+        allowed = {'/hurricane/data', '/results', '/model_family', '/stages/7/detail'} | {f'/hurricane/versions/{i}/data' for i in range(5)}
+        self.assertEqual({row['pointer'] for row in correction['corrections']}, allowed)
+        for row in correction['corrections']:
+            parts = row['pointer'].strip('/').split('/')
+            parent = rest
+            for key in parts[:-1]: parent = parent[int(key)] if isinstance(parent, list) else parent[key]
+            key = parts[-1]
+            self.assertEqual(parent[key], row['after'])
+            if row['before_present']: parent[key] = row['before']
+            else: del parent[key]
         self.assertEqual(digest(rest), self.report['unchanged_non_screen_canonical_sha256'])
         self.assertEqual(self.payload['hurricane']['current'], '4.0')
         self.assertEqual(self.screen['models'], ['Radar 1.0', 'Storm 5.0', 'Hurricane 4.0'])

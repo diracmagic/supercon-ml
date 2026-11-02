@@ -442,6 +442,7 @@ def update_progress(out: dict, progress: Path) -> None:
     bg = out["background"]
     entry = {
         "version": ver, "round": ROUND, "date": stamp[:10], "status": "adopted" if out["adopted"] else "experimental",
+        "data": out["data"],
         "summary": f"{best['name']}, {best['settings']}",
         "changes": out["changes"], "spec": out["spec"], "rule": out["rule"],
         "scores": {"tc_mae": r2(sc["tc_mae"]), "reference_mae": r2(ref["scores"]["tc_mae"]), "reference": ref["name"],
@@ -492,11 +493,12 @@ def update_progress(out: dict, progress: Path) -> None:
     released = [v for v in versions if v.get("status") == "adopted"]
     cur = released[-1] if released else None
     block = dict(reg)
-    block.update({"name": H.MODEL, "current": cur["version"] if cur else None, "data": out["data"], "versions": versions})
+    block.update({"name": H.MODEL, "current": cur["version"] if cur else None,
+                  "data": cur.get("data", reg.get("data", {})) if cur else {}, "versions": versions})
     prog["hurricane"] = block
     if out["adopted"]:
         data = out["data"]
-        note = (f"5-fold CV grouped by parent compound; {data['n']:,} cuprates, iron-based, heavy-fermion and other oxides "
+        note = (f"5-fold CV grouped by the Materials Project chemical-system label; {data['n']:,} cuprates, iron-based, heavy-fermion and other oxides "
                 f"from 3DSC (SuperCon + Materials Project), {data['n_sc']:,} superconducting, plus {bg['n']:,} compounds "
                 "with no superconductivity record for the classifier")
         prog["results"] = [r for r in prog.get("results", []) if r.get("tag") != "hurricane"] + [
@@ -506,9 +508,9 @@ def update_progress(out: dict, progress: Path) -> None:
              "mae": r2(ref["scores"]["tc_mae"]), "unit": "K", "note": "Same data and folds"}]
         lof = {r["family"]: r for r in out["lofo"]}
         text = (f"Learns from {data['n']:,} measured Tc values (cuprates, iron-based, heavy-fermion and other oxides; "
-                f"SuperCon with Materials Project structures via 3DSC), including {data['n'] - data['n_sc']:,} materials "
-                f"that did not superconduct, and from {bg['n']:,} compounds with no superconductivity record, counted as "
-                f"probably not superconducting. For compounds whose parent it never saw in training it is off by "
+                f"SuperCon with Materials Project structures via 3DSC), including {data['n'] - data['n_sc']:,} zero-Tc catalog entries "
+                f"with measurement limits not established here, and from {bg['n']:,} compounds with no superconductivity record, counted as "
+                f"probably not superconducting. For held-out chemical-system groups it is off by "
                 f"{sc['tc_mae']:.1f} K on average, against {prev['scores']['tc_mae']:.1f} K for Hurricane "
                 f"{prev['version']} and {ref['scores']['tc_mae']:.1f} K for a composition-only baseline. Among compounds "
                 f"like those it screens, it gives at least an even chance of superconducting to {br['false_alarms']:.0%}, "

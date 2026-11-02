@@ -45,13 +45,16 @@ async function fixtureFiles(change = () => {}) {
     const value = { schema_version: 1, entries: [{ id: 'fake-' + i, heading: 'Invented fixture heading', title: 'Invented test record', result: 'Synthetic test result', boundary: 'Not a scientific claim', doi: null,
       url: 'https://example.org/synthetic', primary_refs: [{ label: 'Invented fixture', url: 'https://example.org/synthetic', private_extra: 'DROP_THIS' }],
       progress_steps: [{ kind: 'test', label: 'Synthetic step', detail: 'Fixture only', status: 'not_reported', secret_extra: 'DROP_THIS' }],
+      material_visual: 'octahedral_hydride', material_visual_note: 'Synthetic motif caption <b>literal text</b>',
+      experimental_status: 'not_experimental', experimental_note: 'Synthetic status caption <b>literal text</b>',
+      ...(i === 0 ? { updated_on: '2026-11-01', change_summary: 'Synthetic change description <b>literal text</b>' } : {}),
       extra: [['Fixture reference', 'https://example.org/extra']], secret_extra: 'DROP_THIS' }] };
     const bytes = encoder.encode(JSON.stringify(value));
     files.set('data/' + PARTS[i], bytes); hashes[PARTS[i]] = await hexHash(bytes);
   }
   const manifest = { schema_version: 1, language: 'en', updated: '2026-01-01', reviewed_on: '2026-01-01', entry_count: 3,
     entry_parts: PARTS, translation: { part_sha256: hashes }, internal_extra: 'DROP_THIS' };
-  change(manifest, files);
+  await change(manifest, files);
   files.set('data/external_research_memo.json', encoder.encode(JSON.stringify(manifest)));
   return files;
 }
@@ -193,9 +196,40 @@ test('owner receives a bounded real-provider identity session and validated memo
   assert.equal(response.headers.has('Access-Control-Allow-Credentials'), false);
   const data = await response.json(); assert.equal(data.entry_count, 3);
   assert.equal(data.entries.every(entry => !Object.hasOwn(entry, 'doi')), true, 'A missing DOI must stay absent');
+  assert.equal(data.entries.every(entry => entry.material_visual === 'octahedral_hydride'), true);
+  assert.equal(data.entries[0].material_visual_note, 'Synthetic motif caption <b>literal text</b>');
+  assert.equal(data.entries[0].experimental_status, 'not_experimental');
+  assert.equal(data.entries[0].experimental_note, 'Synthetic status caption <b>literal text</b>');
+  assert.equal(data.entries[0].updated_on, '2026-11-01');
+  assert.equal(data.entries[0].change_summary, 'Synthetic change description <b>literal text</b>');
+  assert.equal(Object.hasOwn(data.entries[1], 'updated_on'), false, 'Publication/review dates must never become an invented update date');
   assert.deepEqual(Object.keys(data).sort(), ['entries', 'entry_count', 'reviewed_on', 'updated']);
   assert.doesNotMatch(JSON.stringify(data), /DROP_THIS|NEVER_RETURN|ghu_|refresh_token|session_token/);
   assert.equal(h.calls.some(url => url.includes('DO_NOT_FETCH')), false);
+});
+
+for (const [field, value] of [['material_visual', 'arbitrary_crystal'], ['material_visual', { kind: 'kagome_net' }], ['material_visual_note', 'x'.repeat(801)], ['material_visual_note', '<script>\u0000</script>'], ['experimental_status', 'proven_room_temperature'], ['experimental_status', ['bulk_supported']], ['experimental_note', 'x'.repeat(801)], ['experimental_note', '\u0000'], ['updated_on', '11/01/2026'], ['updated_on', '2026-2-03'], ['updated_on', '2026-02-29'], ['updated_on', '2026-04-31'], ['updated_on', '2026-13-01'], ['updated_on', '2026-11-01T00:00:00Z'], ['updated_on', '0000-01-01'], ['updated_on', 20261101], ['change_summary', 'x'.repeat(801)], ['change_summary', '\u0000']]) test('memo rejects invalid typed metadata: ' + field + ' ' + typeof value + (field === 'updated_on' ? ' ' + value : ''), async () => {
+  const h = await harness({ async changeManifest(manifest, files) {
+    const path = 'data/' + PARTS[0], part = JSON.parse(new TextDecoder().decode(files.get(path)));
+    part.entries[0][field] = value;
+    const bytes = encoder.encode(JSON.stringify(part)); files.set(path, bytes);
+    manifest.translation.part_sha256[PARTS[0]] = await hexHash(bytes);
+  } });
+  const { session } = await h.login();
+  const response = await h.send('/api/memo', { token: session.session_token });
+  assert.equal(response.status, 502); assert.deepEqual(await response.json(), { error: 'invalid_memo' });
+});
+
+test('memo accepts actual leap dates without reinterpreting them as publication dates', async () => {
+  const h = await harness({ async changeManifest(manifest, files) {
+    const path = 'data/' + PARTS[0], part = JSON.parse(new TextDecoder().decode(files.get(path)));
+    part.entries[0].updated_on = '2024-02-29';
+    const bytes = encoder.encode(JSON.stringify(part)); files.set(path, bytes);
+    manifest.translation.part_sha256[PARTS[0]] = await hexHash(bytes);
+  } });
+  const { session } = await h.login();
+  const response = await h.send('/api/memo', { token: session.session_token });
+  assert.equal(response.status, 200); assert.equal((await response.json()).entries[0].updated_on, '2024-02-29');
 });
 
 test('ordinary GitHub identity can sign in but can never read owner notes or claim membership', async () => {
@@ -567,7 +601,7 @@ test('expiry alarms remove ciphertext, transaction records and alarm metadata', 
 
 test('deployment declares SQLite state, excludes local secrets and disables application logging', () => {
   const config = JSON.parse(fs.readFileSync(new URL('../wrangler.jsonc', import.meta.url), 'utf8'));
-  assert.deepEqual(config.migrations, [{ tag: 'v1', new_sqlite_classes: ['AuthState'] }, { tag: 'v2', new_sqlite_classes: ['TeamDirectory'] }]);
+  assert.deepEqual(config.migrations, [{ tag: 'v1', new_sqlite_classes: ['AuthState'] }, { tag: 'v2', new_sqlite_classes: ['TeamDirectory'] }, { tag: 'v3', new_sqlite_classes: ['TeamBoardDO'] }]);
   assert.equal(config.observability.enabled, false);
   assert.deepEqual(Object.keys(config.vars || {}).sort(), ['FIREBASE_API_KEY', 'FIREBASE_PROJECT_ID']);
   const ignore = fs.readFileSync(new URL('../.gitignore', import.meta.url), 'utf8');

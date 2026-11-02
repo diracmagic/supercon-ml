@@ -59,14 +59,12 @@ const initializeSuperconCandidates = function initializeSuperconCandidates() {
 
   XT_EL.forEach(function (s, i) { XT_Z[s] = i; });
 
-  /* The McMillan limit: about 40 K, long thought to be the ceiling for conventional superconductors after McMillan's
-     1968 analysis. Two highlights, and nothing else is highlighted however high its prediction:
-     - "worth an experiment": our prediction is above the limit and passes every test we set before suggesting a
-       measurement to experimental groups: more likely than not to superconduct, inside its model's training data, made
-       before (in ICSD) or, after a full DFT calculation, on the convex hull; a Storm candidate also needs the low end of
-       its 90% range, or a full DFT calculation, above the limit. A check below the limit takes it off.
-     - "confirmed": a measurement above the limit that is published (its "ref" is in REFS) and that another group has
-       reproduced ("confirmed": true, with that report in "ref2"). */
+  /* The 40 K screening benchmark is not a universal McMillan upper bound.
+     "worth": predicted Tc >= 40 K, model score >= 0.5, near the training data,
+     and an ICSD-linked structure. Storm also needs its lower interval bound or
+     a matching DFT check to reach 40 K. DFT hull stability does not prove synthesis.
+     "confirmed": an explicit experimental check with two reference fields;
+     the UI still requires readers to inspect conditions and replication evidence. */
   MCMILLAN_K = 40;
   WORTH_P = 0.5;
   WORTH_HULL = 0.005;

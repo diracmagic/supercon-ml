@@ -29,6 +29,7 @@ class Element {
   removeAttribute(key) { delete this.attributes[key]; }
   getAttribute(key) { return this.attributes[key] ?? null; }
   addEventListener(kind, fn) { (this.events[kind] ||= []).push(fn); }
+  removeEventListener(kind, fn) { this.events[kind] = (this.events[kind] || []).filter(value => value !== fn); }
   dispatch(kind) { for (const fn of this.events[kind] || []) fn({ target: this, preventDefault() {} }); }
   focus() { this.doc.activeElement = this; }
   showModal() { this.open = true; }
@@ -47,11 +48,12 @@ function memo(count = 31) {
   })) };
 }
 
-function harness({ apiBase = 'https://auth.example.org', hash = '', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI, materialUI } = {}) {
+function harness({ apiBase = 'https://auth.example.org', hash = '', search = '?test=1', pending = null, initialStorage = {}, fetch: customFetch, session = metadata(), accountUI, materialUI, boardUI } = {}) {
   const doc = { events: {}, hidden: false, activeElement: null, readyState: 'complete',
     createElement(tag) { return new Element(tag, doc); },
     getElementById(id) { return flatten(doc.body).find((node) => node.attributes.id === id) || null; },
     addEventListener(kind, fn) { (doc.events[kind] ||= []).push(fn); },
+    removeEventListener(kind, fn) { doc.events[kind] = (doc.events[kind] || []).filter(value => value !== fn); },
     dispatch(kind) { (doc.events[kind] || []).forEach((fn) => fn()); } };
   doc.body = doc.createElement('body');
   const header = doc.body.appendChild(doc.createElement('div'));
@@ -60,10 +62,13 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', pending = nu
   if (pending) values.set(auth.PENDING_KEY, JSON.stringify(pending));
   const writes = [], requests = [], redirects = [], history = [], events = {}, timers = new Map();
   let tick = TIME, nextTimer = 1;
-  const win = { location: { hash, pathname: '/supercon-ml/', search: '?test=1', assign: (url) => redirects.push(url) },
+  const win = { location: { hash, pathname: '/supercon-ml/', search, assign: (url) => redirects.push(url) },
     history: { replaceState(_state, _title, path) { history.push(path); win.location.hash = ''; } },
     sessionStorage: { getItem: (key) => values.get(key) ?? null, setItem(key, value) { values.set(key, value); writes.push([key, value]); }, removeItem: (key) => values.delete(key) },
     addEventListener(kind, fn) { (events[kind] ||= []).push(fn); },
+    removeEventListener(kind, fn) { events[kind] = (events[kind] || []).filter(value => value !== fn); },
+    setTimeout(fn, ms) { const id = nextTimer++; timers.set(id, {fn, ms}); return id; },
+    clearTimeout(id) { timers.delete(id); },
     btoa: (value) => Buffer.from(value, 'binary').toString('base64') };
   if (materialUI) win.SuperconMaterialVisual = materialUI;
   Object.defineProperty(win, 'localStorage', { get() { throw new Error('Auth may not use localStorage'); } });
@@ -76,7 +81,7 @@ function harness({ apiBase = 'https://auth.example.org', hash = '', pending = nu
     if (url.endsWith('/auth/logout')) return response({}, 204);
     throw new Error('Unexpected test URL');
   };
-  const controller = auth.createController({ window: win, document: doc, config: { apiBase }, crypto: webcrypto, fetch, accountUI,
+  const controller = auth.createController({ window: win, document: doc, config: { apiBase }, crypto: webcrypto, fetch, accountUI, boardUI,
     btoa: win.btoa, now: () => tick,
     setTimeout(fn, ms) { const id = nextTimer++; timers.set(id, { fn, ms }); return id; }, clearTimeout(id) { timers.delete(id); } });
   return { controller, doc, win, login, values, writes, requests, redirects, history, timers, events,
@@ -337,6 +342,59 @@ test('fixed server callback codes give distinct safe diagnostics without attempt
   assert.equal(messages.size, Object.keys(expected).length);
 });
 
+test('allowlisted exchange diagnostics give actionable advice without retrying or changing authentication', async () => {
+  const cases = [
+    ['provider_email_unverified', /Verify your primary email in GitHub settings/],
+    ['provider_transport', /could not reach GitHub or the request timed out/],
+    ['provider_http_429', /temporarily limited sign-in requests/],
+    ...[500, 502, 503, 504].map(status => ['provider_http_' + status, /temporary service error/]),
+    ['provider_response_json', /unreadable response.*administrator needs to check/],
+    ...['provider_token_format', 'provider_token_type', 'provider_expiry'].map(stage => [stage, /could not be validated.*administrator needs to check/])
+  ];
+  for (const [diagnostic, expected] of cases) {
+    const h = harness({hash: '#team_error=oauth_exchange_unavailable&team_state=' + STATE,
+      search: '?login_status=' + diagnostic, pending: proof()});
+    await h.start();
+    assert.match(h.doc.body.textContent, expected);
+    assert.match(h.doc.body.textContent, /Login for team/);
+    assert.equal(h.requests.length, 0); assert.equal(h.redirects.length, 0);
+    assert.equal(h.values.has(auth.PENDING_KEY), false); assert.equal(h.get('team-notes').hidden, true);
+    assert.equal(h.get('team-messages').hidden, true); assert.equal(h.get('team-logout').hidden, true);
+    assert.equal(h.login.disabled, false, 'A fresh login remains available without an automatic retry loop');
+  }
+});
+
+test('unknown, malicious and duplicate exchange diagnostics stay generic and do not invent a cause', async () => {
+  const cases = ['PRIVATE_DIAGNOSTIC_MARKER', '__proto__', 'toString', '<img src=x onerror=alert(1)>', 'provider_http_599'];
+  for (const diagnostic of cases) {
+    const h = harness({hash: '#team_error=oauth_exchange_unavailable&team_state=' + STATE,
+      search: '?login_status=' + encodeURIComponent(diagnostic) + '&error_description=DO_NOT_REFLECT', pending: proof()});
+    await h.start();
+    assert.match(h.doc.body.textContent, /could not complete the GitHub exchange/);
+    assert.doesNotMatch(h.doc.body.textContent, /temporary service error|primary email|administrator needs to check/);
+    assert.equal(h.doc.body.textContent.includes(diagnostic), false); assert.doesNotMatch(h.doc.body.textContent, /DO_NOT_REFLECT/);
+    assert.equal(h.requests.length, 0);
+  }
+  const duplicate = harness({hash: '#team_error=oauth_exchange_unavailable',
+    search: '?login_status=provider_email_unverified&login_status=provider_transport'});
+  await duplicate.start(); assert.match(duplicate.doc.body.textContent, /could not complete the GitHub exchange/);
+  assert.doesNotMatch(duplicate.doc.body.textContent, /primary email|request timed out/);
+});
+
+test('diagnostic advice cannot override another error or turn a valid ticket into a failed login', async () => {
+  const denied = harness({hash: '#team_error=oauth_denied&team_state=' + STATE,
+    search: '?login_status=provider_email_unverified', pending: proof()});
+  await denied.start(); assert.match(denied.doc.body.textContent, /authorization was cancelled or denied/);
+  assert.doesNotMatch(denied.doc.body.textContent, /primary email/); assert.equal(denied.requests.length, 0);
+  const success = harness({hash: '#team_ticket=' + TICKET + '&team_state=' + STATE,
+    search: '?login_status=provider_email_unverified', pending: proof()});
+  await success.start(); assert.equal(success.get('team-notes').hidden, false);
+  assert.ok(success.requests.some(item => item.url.endsWith('/auth/exchange')));
+  assert.doesNotMatch(success.doc.body.textContent, /Verify your primary email/);
+  const forged = harness({search: '?login_status=provider_email_unverified', pending: proof()});
+  await forged.start(); assert.equal(forged.requests.length, 0); assert.doesNotMatch(forged.doc.body.textContent, /Verify your primary email/);
+});
+
 test('client missing, expired, mismatched and malformed proofs have separate diagnostics', async () => {
   const normalHash = '#team_ticket=' + TICKET + '&team_state=' + STATE;
   const cases = [
@@ -434,4 +492,221 @@ test('session expiry is milliseconds only and static evaluation has no DOM side 
   assert.equal(auth.sessionMetadata(metadata({ expires_at: new Date(TIME + 120000).toISOString() }), TIME), null);
   assert.doesNotThrow(() => vm.runInNewContext(source, {}));
   assert.doesNotMatch(source, /localStorage|console\.(?:log|debug|info)|innerHTML\s*=/);
+});
+
+function boardStub() {
+  const instances = [];
+  return {instances, createTeamBoard(options) {
+    const entry = {options, activates: 0, opens: 0, destroys: 0}; instances.push(entry);
+    const privateNode = options.document.createElement('div'); privateNode.textContent = 'Synthetic private board';
+    options.document.body.appendChild(privateNode);
+    return {activate() {entry.activates++;}, open() {entry.opens++;}, deactivate() {}, destroy() {
+      entry.destroys++; privateNode.textContent = ''; if (privateNode.parentNode) privateNode.parentNode.removeChild(privateNode);
+    }};
+  }};
+}
+const loginOptions = {hash: '#team_ticket=' + TICKET + '&team_state=' + STATE, pending: proof()};
+
+test('message routes accept only fixed paths and bounded integer pagination', () => {
+  for (const path of ['/api/board', '/api/board?after=0&limit=50', '/api/board?limit=1&before=99', '/api/board?after=9007199254740991']) {
+    assert.equal(auth.boardRoute(path, 'GET'), true, path);
+  }
+  assert.equal(auth.boardRoute('/api/board', 'POST'), true);
+  for (const path of ['https://evil.example/api/board', '//evil.example/api/board', '/api/board/', '/api/board?',
+    '/api/board?before=1&after=0', '/api/board?before=0', '/api/board?limit=51', '/api/board?limit=0', '/api/board?after=00',
+    '/api/board?after=-1', '/api/board?after=1e3', '/api/board?after=9007199254740992', '/api/board?after=1&after=2',
+    '/api/board?after=%31', '/api/board?after=1#x', '/api/board?next=https://evil.example', '/api/board?after=1&']) {
+    assert.equal(auth.boardRoute(path, 'GET'), false, path);
+  }
+  assert.equal(auth.boardRoute('/api/board?after=1', 'POST'), false);
+  assert.equal(auth.boardRoute('/api/board', 'DELETE'), false);
+});
+
+test('messages activate only for a verified team actor, with opaque storage and fixed-origin requests', async () => {
+  const anonymousBoard = boardStub(), anonymous = harness({boardUI: anonymousBoard});
+  await anonymous.start(); await anonymous.controller.openMessages();
+  assert.equal(anonymousBoard.instances.length, 0); assert.equal(anonymous.get('team-messages').hidden, true);
+  const board = boardStub();
+  const h = harness({...loginOptions, boardUI: board, fetch: (url) =>
+    url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) :
+    url.endsWith('/api/session') ? response(metadata()) : url.endsWith('/api/memo') ? response(memo()) : response({messages: []})});
+  await h.start();
+  assert.equal(board.instances.length, 1); const instance = board.instances[0];
+  assert.equal(instance.activates, 1); assert.equal(h.get('team-messages').hidden, false);
+  assert.equal(instance.options.storageKey, createHash('sha256').update('github:350433501').digest('hex'));
+  instance.options.onUnread(3); assert.equal(h.get('team-messages-unread').textContent, 'New');
+  assert.match(h.get('team-messages').getAttribute('aria-label'), /new team messages/);
+  await h.controller.openMessages(); assert.equal(instance.opens, 1); assert.equal(board.instances.length, 1);
+  await instance.options.request('/api/board?after=0&limit=50', 'GET');
+  const req = h.requests.at(-1);
+  assert.equal(req.url, 'https://auth.example.org/api/board?after=0&limit=50');
+  assert.equal(req.options.headers.Authorization, 'Bearer ' + TOKEN);
+  assert.equal(req.options.cache, 'no-store'); assert.equal(req.options.credentials, 'omit');
+  assert.equal(req.options.redirect, 'error'); assert.equal(req.options.referrerPolicy, 'no-referrer');
+  const count = h.requests.length;
+  await assert.rejects(instance.options.request('https://evil.example/api/board', 'GET'));
+  await assert.rejects(instance.options.request('/api/board?after=0', 'POST', {}));
+  assert.equal(h.requests.length, count);
+  assert.equal(h.writes.length, 0, 'Only the board module may persist a numeric last-seen cursor');
+  await h.controller.logout();
+  assert.equal(instance.destroys, 1); assert.equal(h.get('team-messages').hidden, true);
+  assert.equal(h.get('team-messages-unread').hidden, true); assert.doesNotMatch(h.doc.body.textContent, /Synthetic private board/);
+  instance.options.onUnread(5); assert.equal(h.get('team-messages-unread').hidden, true);
+  await assert.rejects(instance.options.request('/api/board', 'GET'), /cancelled/);
+});
+
+test('email members activate the board with a different opaque actor key', async () => {
+  let account;
+  const member = metadata({user: {id: 'firebase:example_uid', login: 'member@example.org', email: 'member@example.org', provider: 'firebase'}, can_manage_team: false});
+  const board = boardStub(), h = harness({boardUI: board, accountUI: {createAccountUI(options) {account = options;
+    return {openLogin() {}, reset() {}, handleEmailAction() {return false;}};
+  }}, fetch: url => url.endsWith('/auth/firebase') ? response({...member, session_token: TOKEN}) : response(member)});
+  await h.start(); await account.exchangeFirebase('synthetic-id-token');
+  assert.equal(board.instances.length, 1); assert.equal(h.get('team-messages').hidden, false);
+  assert.equal(board.instances[0].options.storageKey, createHash('sha256').update('firebase:firebase:example_uid').digest('hex'));
+  assert.doesNotMatch(board.instances[0].options.storageKey, /member|example_uid/);
+});
+
+test('board cancellation aborts the network request and a late response cannot survive logout', async () => {
+  let finish;
+  const board = boardStub(), h = harness({...loginOptions, boardUI: board, fetch: (url) =>
+    url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) : url.endsWith('/api/session') ? response(metadata()) :
+    url.endsWith('/api/memo') ? response(memo()) : url.endsWith('/api/board') ? new Promise(resolve => {finish = resolve;}) : response({}, 204)});
+  await h.start(); const options = board.instances[0].options, controller = new AbortController();
+  const pending = options.request('/api/board', 'GET', undefined, {signal: controller.signal});
+  const rejected = assert.rejects(pending, /cancelled/); controller.abort(); await rejected;
+  assert.equal(h.requests.at(-1).options.signal.aborted, true);
+  finish(response({messages: [{body: 'LATE_PRIVATE'}]})); await flush();
+  const second = options.request('/api/board', 'GET'); const rejectedSecond = assert.rejects(second, /cancelled/);
+  await h.controller.logout(); await rejectedSecond;
+  finish(response({messages: [{body: 'LATE_PRIVATE'}]})); await flush();
+  assert.equal(h.get('team-messages').hidden, true); assert.doesNotMatch(h.doc.body.textContent, /LATE_PRIVATE|Synthetic private board/);
+});
+
+test('board denial clears private UI while rate limits leave the authenticated team intact', async () => {
+  for (const code of [401, 403, 429]) {
+    const board = boardStub(), h = harness({...loginOptions, boardUI: board, fetch: url =>
+      url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) : url.endsWith('/api/session') ? response(metadata()) :
+      url.endsWith('/api/memo') ? response(memo()) : response({error: 'rate_limited'}, code)});
+    await h.start(); const instance = board.instances[0]; instance.options.onUnread(1);
+    await assert.rejects(instance.options.request('/api/board', 'GET'), error => error.status === code);
+    assert.equal(h.get('team-messages').hidden, code !== 429);
+    assert.equal(instance.destroys, code === 429 ? 0 : 1);
+  }
+});
+
+test('membership loss and timed expiry destroy the board and ignore old notifications', async () => {
+  for (const expiry of [false, true]) {
+    let permitted = true;
+    const board = boardStub(), h = harness({...loginOptions, boardUI: board, fetch: url =>
+      url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) : url.endsWith('/api/session') ? response(metadata({can_read_memo: permitted})) : response(memo())});
+    await h.start(); const instance = board.instances[0]; instance.options.onUnread(1);
+    if (expiry) { h.setTime(TIME + 120001); h.fire(120000); } else { permitted = false; h.doc.dispatch('visibilitychange'); }
+    await flush();
+    assert.equal(instance.destroys, 1); assert.equal(h.get('team-messages').hidden, true);
+    instance.options.onUnread(4); assert.equal(h.get('team-messages-unread').hidden, true);
+    assert.doesNotMatch(h.doc.body.textContent, /Synthetic private board/);
+  }
+});
+
+test('Notes highlight only explicit experimental evidence and keep limitations and citations visible', async () => {
+  const data = memo(7);
+  const statuses = [undefined, 'signal_only', 'experimental_support', 'bulk_supported', 'negative_test', 'process_only', 'unrecognized'];
+  data.entries.forEach((entry, index) => {
+    entry.experimental_status = statuses[index]; entry.experimental_note = 'Bounded sample evidence ' + index + ' <img src=x>';
+    entry.category = '实验研究'; entry.heading = 'Synthetic superconductivity experiment ' + index;
+  });
+  const h = harness({...loginOptions, fetch: url => url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) :
+    url.endsWith('/api/session') ? response(metadata()) : response(data)});
+  await h.start();
+  const cards = () => flatten(h.doc.body).filter(node => /(?:^| )team-notes-card(?: |$)/.test(node.className || ''));
+  assert.deepEqual(cards().map(card => card.children[1].textContent), [0,1,2,3,4,5,6].map(i => 'Synthetic superconductivity experiment ' + i));
+  assert.equal(cards().filter(card => card.className.includes('is-experimental')).length, 2);
+  assert.equal(flatten(h.doc.body).filter(node => /team-notes-evidence-badge/.test(node.className || '')).length, 5);
+  assert.match(cards()[3].textContent, /Bulk superconductivity supported/);
+  for (const card of cards()) {
+    const overview = card.children.find(node => node.className === 'team-notes-overview');
+    assert.match(overview.textContent, /Bounded sample evidence/);
+    assert.ok(overview.children.some(node => node.tagName === 'A' && node.attributes.href.startsWith('https://example.org/paper/')));
+  }
+  assert.equal(flatten(h.doc.body).some(node => node.tagName === 'IMG'), false);
+  const category = h.get('team-notes-category'); category.value = 'experimental_evidence'; category.dispatch('change');
+  assert.equal(cards().length, 2);
+  const search = h.get('team-notes-search'); search.value = 'Bounded sample evidence 2'; search.dispatch('input');
+  assert.equal(cards().length, 1); assert.match(cards()[0].textContent, /Superconductivity: experimental evidence/);
+  category.value = '实验研究'; search.value = 'experiment 1'; search.dispatch('input');
+  assert.equal(cards().length, 1); assert.match(cards()[0].textContent, /Experimental signal · phase\/verification limits/);
+  assert.doesNotMatch(cards()[0].className, /is-experimental/);
+  await h.controller.logout(); assert.doesNotMatch(h.doc.body.textContent, /Bounded sample evidence|Bulk superconductivity supported/);
+});
+
+test('Notes group only explicit update dates, newest first, with stable IDs and no review-date substitution', async () => {
+  const data = memo(7);
+  data.updated = data.reviewed_on = '2026-11-05';
+  data.entries.forEach(entry => { entry.reviewed_on = '2026-11-05'; entry.year = '2026'; });
+  data.entries[0].updated_on = '2026-10-30'; data.entries[0].experimental_status = 'bulk_supported';
+  data.entries[1].updated_on = '2026-11-01'; data.entries[1].experimental_status = 'not_experimental';
+  data.entries[1].change_summary = 'New source checked <img src=x onerror=alert(1)>';
+  data.entries[2].updated_on = '2026-10-30';
+  data.entries[3].updated_on = '2026-11-01';
+  data.entries[4].updated_on = '2026-02-30';
+  data.entries[5].updated_on = undefined;
+  data.entries[6].updated_on = '2026-11-01T00:00:00Z';
+  data.entries.reverse();
+  const h = harness({...loginOptions, fetch: url => url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) :
+    url.endsWith('/api/session') ? response(metadata()) : response(data)});
+  await h.start();
+  const groups = () => flatten(h.doc.body).filter(node => node.className === 'team-notes-date-group');
+  assert.deepEqual(groups().map(group => group.children[0].textContent), ['Updated 2026-11-01', 'Updated 2026-10-30', 'Update date not recorded']);
+  const ids = group => flatten(group).filter(node => node.className === 'team-notes-meta').map(node => node.textContent.slice(0, 3));
+  assert.deepEqual(groups().map(ids), [['#02','#04'], ['#01','#03'], ['#05','#06','#07']]);
+  assert.match(groups()[0].textContent, /New source checked <img src=x onerror=alert\(1\)>/);
+  assert.equal(flatten(h.doc.body).some(node => node.tagName === 'IMG'), false);
+  assert.ok(!groups().some(group => group.children[0].textContent.includes('2026-11-05')), 'A fresh overall review must not refresh old entries');
+  const category = h.get('team-notes-category'); category.value = 'experimental_evidence'; category.dispatch('change');
+  assert.deepEqual(groups().map(group => group.children[0].textContent), ['Updated 2026-10-30']);
+  category.value = 'all'; const search = h.get('team-notes-search'); search.value = 'New source checked'; search.dispatch('input');
+  assert.deepEqual(groups().map(group => group.children[0].textContent), ['Updated 2026-11-01']);
+  assert.deepEqual(groups().map(ids), [['#02']]);
+});
+
+test('the actual board module integrates with authenticated requests, badges, dialogs and logout cleanup', async () => {
+  const boardModule = {exports: {}};
+  vm.runInNewContext(fs.readFileSync(new URL('../app/dist/team-board.js', import.meta.url), 'utf8'), {module: boardModule, AbortController});
+  const h = harness({...loginOptions, boardUI: boardModule.exports, fetch: url =>
+    url.endsWith('/auth/exchange') ? response({...metadata(), session_token: TOKEN}) : url.endsWith('/api/session') ? response(metadata()) :
+    url.endsWith('/api/memo') ? response(memo()) : url.includes('/api/board?') ? response({messages: [
+      {id: 1, body: 'Synthetic integrated message', created_at: TIME - 1000, author: {name: 'Synthetic member', is_self: false}}
+    ], latest_id: 1, has_more: false}) : response({}, 204)});
+  await h.start();
+  assert.equal(h.get('team-messages-unread').textContent, 'New');
+  assert.doesNotMatch(h.doc.body.textContent, /Synthetic integrated message/, 'Closed board keeps message bodies out of the DOM');
+  await h.controller.openMessages(); await flush();
+  assert.equal(h.get('team-board-dialog').open, true);
+  assert.match(h.doc.body.textContent, /Synthetic integrated message/);
+  assert.equal(h.get('team-messages-unread').hidden, true);
+  h.get('team-board-message').value = 'Synthetic unsent draft';
+  await h.controller.logout(); await flush();
+  assert.equal(h.get('team-board-dialog'), null);
+  assert.doesNotMatch(h.doc.body.textContent, /Synthetic integrated message|Synthetic unsent draft/);
+  assert.equal(h.get('team-messages').hidden, true);
+  assert.equal((h.events.online || []).length, 0);
+  assert.equal((h.events.storage || []).length, 0);
+});
+
+test('successful board authorization suppresses duplicate minute checks without extending expiry', async () => {
+  const longSession = metadata({expires_at: TIME + 600000}), board = boardStub();
+  const h = harness({...loginOptions, boardUI: board, fetch: url =>
+    url.endsWith('/auth/exchange') ? response({...longSession, session_token: TOKEN}) : url.endsWith('/api/session') ? response(longSession) :
+    url.endsWith('/api/memo') ? response(memo()) : response({messages: []})});
+  await h.start();
+  const requestsBefore = h.requests.filter(row => row.url.endsWith('/api/session')).length;
+  const adapter = board.instances[0].options;
+  await adapter.request('/api/board?after=0&limit=50', 'GET');
+  h.setTime(TIME + 60000); h.fire(60000); await flush();
+  assert.equal(h.requests.filter(row => row.url.endsWith('/api/session')).length, requestsBefore);
+  await adapter.request('/api/board?after=1&limit=50', 'GET');
+  assert.ok([...h.timers.values()].some(timer => timer.ms === 540000), 'Expiry still uses the original absolute deadline');
+  h.setTime(TIME + 600001); h.fire(540000); await flush();
+  assert.equal(h.get('team-messages').hidden, true); assert.equal(board.instances[0].destroys, 1);
 });

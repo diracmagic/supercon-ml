@@ -789,15 +789,25 @@ const initializeSuperconTheoryDrawings = function initializeSuperconTheoryDrawin
       legend(c, C, lx, ly + 44, rows[2], 12, function (x, y) { spin(c, x, y, -Math.PI / 2, 13, C.warm, 1.4); });
     }
 
-    /* LaH10-type clathrate: a hydrogen cage around La squeezed between two diamond anvils; H vibrates fast
-       (light atoms, high phonon frequencies); readouts once compressed. */
-    var HY_PH = (function () { var r = stRng(9), a = []; for (var i = 0; i < 48; i++) a.push(r() * TAU); return a; })(), HY_X = [], HY_Y = [];
+    /* LaH10 H32 cage topology from Liu et al., PNAS 114, 6990 (2017),
+       doi:10.1073/pnas.1704505114. Approximate reported fractional coordinates:
+       24 cage vertices permuting (±.38, ±.12, ±.12), plus 8 (±.25, ±.25, ±.25).
+       A local coordination fragment, not a full unit cell or measured phonon. */
+    var HY_CAGE = (function () {
+      var points = [], edges = [];
+      for (var x of [-1, 1]) for (var y of [-1, 1]) for (var z of [-1, 1]) {
+        points.push([x * .25, y * .25, z * .25]);
+        points.push([x * .38, y * .12, z * .12], [x * .12, y * .38, z * .12], [x * .12, y * .12, z * .38]);
+      }
+      for (var i = 0; i < points.length; i++) for (var j = i + 1; j < points.length; j++) if (Math.hypot(points[i][0] - points[j][0], points[i][1] - points[j][1], points[i][2] - points[j][2]) < .26) edges.push([i, j]);
+      return { points: points, edges: edges };
+    })();
     function drawHydride(c, C, W, H, t) {
       var P = 8, tt = md(t, P);
       var k = stSpan(tt, 0.8, 2.6) * (1 - stSpan(tt, 6.4, 7.6));
       var m = 10, rw = Math.round(Math.max(textW(c, C, 'Tc ≈ 250 K', 12, '600'), textW(c, C, '~170 GPa', 11.5))) + 2;
       var aw = 34, gw = 2 * aw + 26 + rw, cx = Math.round(Math.max(m + aw, (W - gw) / 2 + aw)), cy = 60;
-      var rc = 24 * (1 - 0.13 * k), gap = lerp(37, 28, k);
+      var gap = lerp(37, 28, k);
       // anvils
       [-1, 1].forEach(function (sd) {
         var yt = sd < 0 ? m : H - m, yc = cy + sd * gap;
@@ -806,36 +816,25 @@ const initializeSuperconTheoryDrawings = function initializeSuperconTheoryDrawin
         c.strokeStyle = stAlpha(C.accent, 0.3);
         seg(c, cx - aw * 0.45, yt, cx - 5, yc); seg(c, cx + aw * 0.45, yt, cx + 5, yc);
       });
-      // cage seen along an axis: outer ring of 12 H, inner hexagon of 6 H, spokes between them
-      var jit = 1.1, f = TAU * 32 / P, px = HY_X, py = HY_Y;
-      for (var i = 0; i < 18; i++) {
-        var outer = i < 12, ang = outer ? i * TAU / 12 : (2 * (i - 12) + 1) * TAU / 12, rr = outer ? rc : rc * 0.6;
-        px[i] = cx + rr * Math.cos(ang) + jit * Math.sin(f * tt + HY_PH[i]);
-        py[i] = cy + rr * Math.sin(ang) + jit * Math.sin(f * tt + HY_PH[i + 21]);
-      }
+      // Rotate only the view; do not invent thermal or eigenmode trajectories.
+      var angle = .55 + .2 * Math.sin(tt * TAU / P), cs = Math.cos(angle), sn = Math.sin(angle);
+      var projected = HY_CAGE.points.map(function (p) { var depth = p[0] * sn + p[2] * cs; return [cx + 60 * (p[0] * cs - p[2] * sn), cy + 53 * p[1] + 22 * depth, depth]; });
       c.strokeStyle = stAlpha(C.ink2, 0.35); c.lineWidth = 1; c.beginPath();
-      for (var j = 0; j < 12; j++) { var nj = (j + 1) % 12; c.moveTo(px[j], py[j]); c.lineTo(px[nj], py[nj]); }
-      for (var q = 0; q < 6; q++) {
-        var o = 12 + q, on = 12 + (q + 1) % 6;
-        c.moveTo(px[o], py[o]); c.lineTo(px[on], py[on]); c.moveTo(px[o], py[o]); c.lineTo(px[2 * q + 1], py[2 * q + 1]);
-      }
+      HY_CAGE.edges.forEach(function (edge) { var a = projected[edge[0]], b = projected[edge[1]]; c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); });
       c.stroke();
+      projected.filter(function (p) { return p[2] < 0; }).forEach(function (p) { dot(c, p[0], p[1], 2.3, stAlpha(C.accent, .5)); });
       dot(c, cx, cy, 8.5, stAlpha(C.aqua, 0.9));
       label(c, C, 'La', cx, cy + 0.5, { size: 10.5, weight: '600', color: C.surface, align: 'center', base: 'middle' });
-      c.fillStyle = C.accent; c.beginPath();
-      for (var h = 0; h < 18; h++) { c.moveTo(px[h] + 2.3, py[h]); c.arc(px[h], py[h], 2.3, 0, TAU); }
-      c.fill();
-      var ra = stSpan(k, 0.75, 1), rx = cx + aw + 26;
-      if (ra > 0.01) {
-        c.globalAlpha = ra;
-        label(c, C, '~170 GPa', rx, 52, { size: 11.5, color: C.ink2 });
-        stText(c, C, 'Tc ≈ 250 K', rx, 74, { size: 12, weight: '600', color: C.accent });
-        c.globalAlpha = 1;
-      }
+      projected.filter(function (p) { return p[2] >= 0; }).forEach(function (p) { dot(c, p[0], p[1], 2.3, C.accent); });
+      var rx = cx + aw + 26;
+      label(c, C, 'H₃₂ cage motif', rx, 32, { size: 10, color: C.ink2 });
+      label(c, C, '~170 GPa', rx, 52, { size: 11.5, color: C.ink2 });
+      stText(c, C, 'Tc ≈ 250 K', rx, 74, { size: 12, weight: '600', color: C.accent });
     }
 
-    /* Bilayer La3Ni2O7 film: two NiO2 planes bridged by apical O (Ni–O–Ni along the vertical); interlayer pairs,
-       one partner in each plane, form across the bilayer; the substrate squeezes the film in-plane (compressive strain). */
+    /* Idealised bilayer Ni–O fragment and compressive-strain context.
+       Interlayer pairing is a theoretical proposal (Lu et al., PRL 132, 146002),
+       not a resolved observation of electron trajectories in a film. */
     var NI_PH = (function () { var r = stRng(3), a = []; for (var i = 0; i < 24; i++) a.push(r()); return a; })();
     function drawNickelate(c, C, W, H, t) {
       var P = 8, tt = md(t, P);
@@ -872,7 +871,7 @@ const initializeSuperconTheoryDrawings = function initializeSuperconTheoryDrawin
       var pull = 1.5 * Math.sin(tt * TAU / 2);
       arrow(c, m + 2 + pull, yA, m + 18 + pull, yA, C.ink2, 5, 1.4);
       arrow(c, W - m - 2 - pull, yA, W - m - 18 - pull, yA, C.ink2, 5, 1.4);
-      label(c, C, 'interlayer pairs', W / 2, 24, { size: 11, weight: '600', color: C.warm, align: 'center' });
+      label(c, C, 'proposed interlayer pairing', W / 2, 24, { size: 10.5, weight: '600', color: C.warm, align: 'center' });
     }
 
     /* Magic-angle graphene device: resistance versus filling of the flat bands at low temperature; a correlated

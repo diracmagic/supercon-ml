@@ -1,0 +1,564 @@
+{
+  "schema_version": 1,
+  "purpose": "Correct Hurricane display cohorts/headlines left by the unadopted H5 rollback and update the stale screening-stage description; no training, prediction, score, adoption or screening-payload changes.",
+  "source_reports": {
+    "results/hurricane_round1.json": "9184732d608fefeacd3d502aa7b92f229c02ca0937e7f8615f32bcc2e20541df",
+    "results/hurricane_round2.json": "08bd9d55df65b8f58a5348ef2d5a5ad008e53de5f9a8b1a52552f170aa37907e",
+    "results/hurricane_round3.json": "aefb757c7a7a86c8a92c143f8602de3261f4cae3f129d95f9998c7a5e126f37e",
+    "results/hurricane_round4.json": "b8bf0d9532c229fd62becfa39a1c54cd011457abe70bfc22d81424b251d61ec2",
+    "results/hurricane_round5.json": "207b95bd5706a0226d7e05016650d96391b4e883225826f27e452d5119f75468"
+  },
+  "before_non_screen_canonical_sha256": "8d8fb48c2f1b33fb8cce80d00f764256ce1bc15dad0d074a8a3aaf80d719aaa0",
+  "after_non_screen_canonical_sha256": "337983d8b31a9f628d346c27730ef1dcaf2453095538e72163373c532fa77e90",
+  "unchanged_screen_canonical_sha256": "3a764122abfc65f974e851cd0446fccaf42a6df9915bf6fd4eca859f9909cdb3",
+  "corrections": [
+    {
+      "pointer": "/hurricane/data",
+      "before_present": true,
+      "before": {
+        "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures), by parent compound",
+        "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+        "doi": "10.1038/s41597-023-02721-y",
+        "licence": "CC BY 4.0",
+        "commit": "8d69ca9",
+        "n": 619,
+        "n_sc": 290,
+        "n_entries": 2123,
+        "n_groups": 476,
+        "families": {
+          "cuprate": {
+            "label": "Cuprates",
+            "n": 160,
+            "n_sc": 84,
+            "max_tc": 132.9
+          },
+          "iron-based": {
+            "label": "Iron- and nickel-based",
+            "n": 111,
+            "n_sc": 73,
+            "max_tc": 56.5
+          },
+          "heavy-fermion": {
+            "label": "Heavy-fermion",
+            "n": 221,
+            "n_sc": 81,
+            "max_tc": 16.6
+          },
+          "other oxide": {
+            "label": "Other oxides",
+            "n": 127,
+            "n_sc": 52,
+            "max_tc": 31.5
+          }
+        },
+        "parent_about": "a parent compound is one Materials Project structure in 3DSC with all the SuperCon entries matched to it: it counts as superconducting if any of them does, and its Tc is the highest they reach"
+      },
+      "after": {
+        "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+        "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+        "doi": "10.1038/s41597-023-02721-y",
+        "licence": "CC BY 4.0",
+        "commit": "8d69ca9",
+        "n": 2123,
+        "n_sc": 1395,
+        "n_groups": 476,
+        "families": {
+          "cuprate": {
+            "label": "Cuprates",
+            "n": 874,
+            "n_sc": 576,
+            "max_tc": 132.9
+          },
+          "iron-based": {
+            "label": "Iron- and nickel-based",
+            "n": 517,
+            "n_sc": 406,
+            "max_tc": 56.5
+          },
+          "heavy-fermion": {
+            "label": "Heavy-fermion",
+            "n": 422,
+            "n_sc": 242,
+            "max_tc": 16.6
+          },
+          "other oxide": {
+            "label": "Other oxides",
+            "n": 310,
+            "n_sc": 171,
+            "max_tc": 31.5
+          }
+        },
+        "context": 3635
+      }
+    },
+    {
+      "pointer": "/hurricane/versions/0/data",
+      "before_present": false,
+      "before": null,
+      "after": {
+        "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+        "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+        "doi": "10.1038/s41597-023-02721-y",
+        "licence": "CC BY 4.0",
+        "commit": "8d69ca9",
+        "n": 2123,
+        "n_sc": 1395,
+        "n_groups": 476,
+        "families": {
+          "cuprate": {
+            "label": "Cuprates",
+            "n": 874,
+            "n_sc": 576,
+            "max_tc": 132.9
+          },
+          "iron-based": {
+            "label": "Iron- and nickel-based",
+            "n": 517,
+            "n_sc": 406,
+            "max_tc": 56.5
+          },
+          "heavy-fermion": {
+            "label": "Heavy-fermion",
+            "n": 422,
+            "n_sc": 242,
+            "max_tc": 16.6
+          },
+          "other oxide": {
+            "label": "Other oxides",
+            "n": 310,
+            "n_sc": 171,
+            "max_tc": 31.5
+          }
+        },
+        "context": 3635
+      }
+    },
+    {
+      "pointer": "/hurricane/versions/1/data",
+      "before_present": false,
+      "before": null,
+      "after": {
+        "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+        "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+        "doi": "10.1038/s41597-023-02721-y",
+        "licence": "CC BY 4.0",
+        "commit": "8d69ca9",
+        "n": 2123,
+        "n_sc": 1395,
+        "n_groups": 476,
+        "families": {
+          "cuprate": {
+            "label": "Cuprates",
+            "n": 874,
+            "n_sc": 576,
+            "max_tc": 132.9
+          },
+          "iron-based": {
+            "label": "Iron- and nickel-based",
+            "n": 517,
+            "n_sc": 406,
+            "max_tc": 56.5
+          },
+          "heavy-fermion": {
+            "label": "Heavy-fermion",
+            "n": 422,
+            "n_sc": 242,
+            "max_tc": 16.6
+          },
+          "other oxide": {
+            "label": "Other oxides",
+            "n": 310,
+            "n_sc": 171,
+            "max_tc": 31.5
+          }
+        },
+        "context": 3635
+      }
+    },
+    {
+      "pointer": "/hurricane/versions/2/data",
+      "before_present": false,
+      "before": null,
+      "after": {
+        "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+        "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+        "doi": "10.1038/s41597-023-02721-y",
+        "licence": "CC BY 4.0",
+        "commit": "8d69ca9",
+        "n": 2123,
+        "n_sc": 1395,
+        "n_groups": 476,
+        "families": {
+          "cuprate": {
+            "label": "Cuprates",
+            "n": 874,
+            "n_sc": 576,
+            "max_tc": 132.9
+          },
+          "iron-based": {
+            "label": "Iron- and nickel-based",
+            "n": 517,
+            "n_sc": 406,
+            "max_tc": 56.5
+          },
+          "heavy-fermion": {
+            "label": "Heavy-fermion",
+            "n": 422,
+            "n_sc": 242,
+            "max_tc": 16.6
+          },
+          "other oxide": {
+            "label": "Other oxides",
+            "n": 310,
+            "n_sc": 171,
+            "max_tc": 31.5
+          }
+        },
+        "context": 3635
+      }
+    },
+    {
+      "pointer": "/hurricane/versions/3/data",
+      "before_present": false,
+      "before": null,
+      "after": {
+        "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+        "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+        "doi": "10.1038/s41597-023-02721-y",
+        "licence": "CC BY 4.0",
+        "commit": "8d69ca9",
+        "n": 2123,
+        "n_sc": 1395,
+        "n_groups": 476,
+        "families": {
+          "cuprate": {
+            "label": "Cuprates",
+            "n": 874,
+            "n_sc": 576,
+            "max_tc": 132.9
+          },
+          "iron-based": {
+            "label": "Iron- and nickel-based",
+            "n": 517,
+            "n_sc": 406,
+            "max_tc": 56.5
+          },
+          "heavy-fermion": {
+            "label": "Heavy-fermion",
+            "n": 422,
+            "n_sc": 242,
+            "max_tc": 16.6
+          },
+          "other oxide": {
+            "label": "Other oxides",
+            "n": 310,
+            "n_sc": 171,
+            "max_tc": 31.5
+          }
+        },
+        "context": 3635
+      }
+    },
+    {
+      "pointer": "/hurricane/versions/4/data",
+      "before_present": false,
+      "before": null,
+      "after": {
+        "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures), by parent compound",
+        "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+        "doi": "10.1038/s41597-023-02721-y",
+        "licence": "CC BY 4.0",
+        "commit": "8d69ca9",
+        "n": 619,
+        "n_sc": 290,
+        "n_entries": 2123,
+        "n_groups": 476,
+        "families": {
+          "cuprate": {
+            "label": "Cuprates",
+            "n": 160,
+            "n_sc": 84,
+            "max_tc": 132.9
+          },
+          "iron-based": {
+            "label": "Iron- and nickel-based",
+            "n": 111,
+            "n_sc": 73,
+            "max_tc": 56.5
+          },
+          "heavy-fermion": {
+            "label": "Heavy-fermion",
+            "n": 221,
+            "n_sc": 81,
+            "max_tc": 16.6
+          },
+          "other oxide": {
+            "label": "Other oxides",
+            "n": 127,
+            "n_sc": 52,
+            "max_tc": 31.5
+          }
+        },
+        "parent_about": "a parent compound is one Materials Project structure in 3DSC with all the SuperCon entries matched to it: it counts as superconducting if any of them does, and its Tc is the highest they reach"
+      }
+    },
+    {
+      "pointer": "/results",
+      "before_present": true,
+      "before": [
+        {
+          "tag": "baseline-eph",
+          "model": "Gradient boosting (composition + structure)",
+          "target": "Tc",
+          "mae": 1.045,
+          "unit": "K",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "baseline-eph",
+          "model": "Gradient boosting for lambda and omega_log, then Allen-Dynes",
+          "target": "Tc",
+          "mae": 1.078,
+          "unit": "K",
+          "note": "Same CV; Tc computed from the two predicted quantities with mu* = 0.1"
+        },
+        {
+          "tag": "baseline-eph",
+          "model": "Gradient boosting (composition + structure)",
+          "target": "lambda",
+          "mae": 0.099,
+          "unit": "",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "baseline-eph",
+          "model": "Gradient boosting (composition + structure)",
+          "target": "omega_log",
+          "mae": 22.1,
+          "unit": "K",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "foundation-eph",
+          "model": "MACE-MP-0 descriptors + gradient boosting",
+          "target": "Tc",
+          "mae": 1.165,
+          "unit": "K",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "foundation-eph",
+          "model": "MACE-MP-0 descriptors, lambda and omega_log, then Allen-Dynes",
+          "target": "Tc",
+          "mae": 1.135,
+          "unit": "K",
+          "note": "Same CV; mu* = 0.1"
+        },
+        {
+          "tag": "foundation-eph",
+          "model": "MACE-MP-0 descriptors + gradient boosting",
+          "target": "lambda",
+          "mae": 0.105,
+          "unit": "",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "foundation-eph",
+          "model": "MACE-MP-0 descriptors + gradient boosting",
+          "target": "omega_log",
+          "mae": 23.1,
+          "unit": "K",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "storm-calibration",
+          "model": "Storm 3.0: Storm 1.0 calibrated to measured Tc",
+          "target": "Tc_exp",
+          "mae": 1.61,
+          "unit": "K",
+          "note": "298 conventional superconductors and non-superconductors from 3DSC matched to Alexandria; grouped CV"
+        },
+        {
+          "tag": "storm-calibration",
+          "model": "Storm 1.0, uncalibrated",
+          "target": "Tc_exp",
+          "mae": 2.24,
+          "unit": "K",
+          "note": "Same materials; Storm predicts DFT Allen-Dynes Tc"
+        },
+        {
+          "tag": "storm-calibration",
+          "model": "DFT electron-phonon labels (Alexandria)",
+          "target": "Tc_exp",
+          "mae": 2.48,
+          "unit": "K",
+          "note": "Same materials; the labels Storm learns from"
+        },
+        {
+          "tag": "hurricane",
+          "model": "Hurricane 5.0 (AI-designed)",
+          "target": "Tc_exp (parent compound)",
+          "mae": 8.46,
+          "unit": "K",
+          "note": "5-fold CV grouped by chemical system; 619 parent compounds from 2,123 3DSC entries, 290 of which superconduct when doped, plus 225 compounds with no superconductivity record for the classifier"
+        }
+      ],
+      "after": [
+        {
+          "tag": "baseline-eph",
+          "model": "Gradient boosting (composition + structure)",
+          "target": "Tc",
+          "mae": 1.045,
+          "unit": "K",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "baseline-eph",
+          "model": "Gradient boosting for lambda and omega_log, then Allen-Dynes",
+          "target": "Tc",
+          "mae": 1.078,
+          "unit": "K",
+          "note": "Same CV; Tc computed from the two predicted quantities with mu* = 0.1"
+        },
+        {
+          "tag": "baseline-eph",
+          "model": "Gradient boosting (composition + structure)",
+          "target": "lambda",
+          "mae": 0.099,
+          "unit": "",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "baseline-eph",
+          "model": "Gradient boosting (composition + structure)",
+          "target": "omega_log",
+          "mae": 22.1,
+          "unit": "K",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "foundation-eph",
+          "model": "MACE-MP-0 descriptors + gradient boosting",
+          "target": "Tc",
+          "mae": 1.165,
+          "unit": "K",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "foundation-eph",
+          "model": "MACE-MP-0 descriptors, lambda and omega_log, then Allen-Dynes",
+          "target": "Tc",
+          "mae": 1.135,
+          "unit": "K",
+          "note": "Same CV; mu* = 0.1"
+        },
+        {
+          "tag": "foundation-eph",
+          "model": "MACE-MP-0 descriptors + gradient boosting",
+          "target": "lambda",
+          "mae": 0.105,
+          "unit": "",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "foundation-eph",
+          "model": "MACE-MP-0 descriptors + gradient boosting",
+          "target": "omega_log",
+          "mae": 23.1,
+          "unit": "K",
+          "note": "5-fold composition-grouped CV on Alexandria"
+        },
+        {
+          "tag": "storm-calibration",
+          "model": "Storm 3.0: Storm 1.0 calibrated to measured Tc",
+          "target": "Tc_exp",
+          "mae": 1.61,
+          "unit": "K",
+          "note": "298 conventional superconductors and non-superconductors from 3DSC matched to Alexandria; grouped CV"
+        },
+        {
+          "tag": "storm-calibration",
+          "model": "Storm 1.0, uncalibrated",
+          "target": "Tc_exp",
+          "mae": 2.24,
+          "unit": "K",
+          "note": "Same materials; Storm predicts DFT Allen-Dynes Tc"
+        },
+        {
+          "tag": "storm-calibration",
+          "model": "DFT electron-phonon labels (Alexandria)",
+          "target": "Tc_exp",
+          "mae": 2.48,
+          "unit": "K",
+          "note": "Same materials; the labels Storm learns from"
+        },
+        {
+          "tag": "hurricane",
+          "model": "Hurricane 4.0 (AI-designed)",
+          "target": "Tc_exp",
+          "mae": 10.43,
+          "unit": "K",
+          "note": "5-fold CV grouped by the Materials Project chemical-system label; 2,123 cuprates, iron-based, heavy-fermion and other oxides from 3DSC (SuperCon + Materials Project), 1,395 superconducting, plus 218 compounds with no superconductivity record for the classifier"
+        },
+        {
+          "tag": "hurricane",
+          "model": "Gradient boosting, composition only (measured-Tc baseline)",
+          "target": "Tc_exp",
+          "mae": 14.98,
+          "unit": "K",
+          "note": "Same data and folds"
+        }
+      ]
+    },
+    {
+      "pointer": "/model_family",
+      "before_present": true,
+      "before": [
+        {
+          "id": "storm",
+          "status": "Storm 5.0 in use",
+          "active": true,
+          "text": "Combines boosted trees that learn from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) with a crystal-graph network that learns from the atoms and their neighbours: 0.90 K off on average against the computed Tc of materials it never saw, against 0.97 K for the trees alone. Calibrated to measured Tc, it is off by 1.56 K against experiment (Storm 3.0: 1.61 K). Since Storm 5.0 it also gives a 90% range for every prediction: for materials it never saw, the range held the computed Tc 90% of the time (84% for the tenth with the highest Tc), and half of the ranges are narrower than 1.8 K. Our AI agent designed it."
+        },
+        {
+          "id": "radar",
+          "status": "Radar 1.0 in use",
+          "active": true,
+          "text": "Reads a material’s composition and crystal structure and gives the probability that it belongs to an unconventional family, then sends it to Hurricane or Storm. It learns from 5,751 SuperCon entries in 3DSC (2,123 unconventional, 3,628 conventional). For parent compounds it never saw it picks the right model 99.5% of the time (balanced accuracy), against 98.2% for a composition-only baseline. Trained without any cuprate, it still sends 100% of cuprates to Hurricane. Our AI agent designed it."
+        },
+        {
+          "id": "hurricane",
+          "status": "Hurricane 5.0 in use",
+          "active": true,
+          "text": "Asks whether a parent compound is worth doping: it learns from 619 parent compounds in 3DSC (290 of which superconduct in some doped form), from what DFT says about their electrons, and from 225 compounds with no superconductivity record. Trained without a whole family it finds 4% of that family's superconducting parents (Hurricane 4.0: 3%), gives 0% of the held-out compounds with no record at least an even chance, and answers \"not known\" far from its training data. Our AI agent designed it."
+        }
+      ],
+      "after": [
+        {
+          "id": "storm",
+          "status": "Storm 5.0 in use",
+          "active": true,
+          "text": "Combines boosted trees that learn from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) with a crystal-graph network that learns from the atoms and their neighbours: 0.90 K off on average against the computed Tc of materials it never saw, against 0.97 K for the trees alone. Calibrated to measured Tc, it is off by 1.56 K against experiment (Storm 3.0: 1.61 K). Since Storm 5.0 it also gives a 90% range for every prediction: for materials it never saw, the range held the computed Tc 90% of the time (84% for the tenth with the highest Tc), and half of the ranges are narrower than 1.8 K. Our AI agent designed it."
+        },
+        {
+          "id": "radar",
+          "status": "Radar 1.0 in use",
+          "active": true,
+          "text": "Reads a material’s composition and crystal structure and gives the probability that it belongs to an unconventional family, then sends it to Hurricane or Storm. It learns from 5,751 SuperCon entries in 3DSC (2,123 unconventional, 3,628 conventional). For parent compounds it never saw it picks the right model 99.5% of the time (balanced accuracy), against 98.2% for a composition-only baseline. Trained without any cuprate, it still sends 100% of cuprates to Hurricane. Our AI agent designed it."
+        },
+        {
+          "id": "hurricane",
+          "status": "Hurricane 4.0 in use",
+          "active": true,
+          "text": "Learns from 2,123 measured Tc values (cuprates, iron-based, heavy-fermion and other oxides; SuperCon with Materials Project structures via 3DSC), including 728 zero-Tc catalog entries with measurement limits not established here, and from 218 compounds with no superconductivity record, counted as probably not superconducting. For held-out chemical-system groups it is off by 10.4 K on average. It gives a chance only to compounds near its training data and answers \"not known\" further away: of the held-out compounds with no record, it gives 0% at least an even chance (Hurricane 2.0: 39%), and trained without a whole family it calls 28% of that family's superconductors unlikely (Hurricane 3.0: 88%). Our AI agent designed it."
+        }
+      ]
+    },
+    {
+      "pointer": "/stages/7/detail",
+      "before_present": true,
+      "before": "Round 4: 50 conventional candidates (Storm) and 50 unconventional ones (Hurricane) proposed by our AI models from JARVIS-DFT, none reported or predicted before and none made of the elements of a known superconductor. All are unchecked predictions; next: full DFT checks of the top conventional ones",
+      "after": "Round 5: 102 Storm candidates and 50 Hurricane candidates retained from JARVIS-DFT. Prior reports and experimental evidence are recorded per candidate; a search with no match is not proof of novelty. 3 sampled-phonon checks completed with MACE; this is bounded structural triage, not DFT or superconductivity validation. The candidate list contains model suggestions, not newly confirmed superconductors."
+    }
+  ]
+}

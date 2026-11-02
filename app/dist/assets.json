@@ -3,7 +3,8 @@
     "styles.css",
     "team-auth.css",
     "team-account.css",
-    "team-material.css"
+    "team-material.css",
+    "team-board.css"
   ],
   "scripts": [
     "team-account.js",
@@ -68,6 +69,7 @@
     "js/initialize/startup.js",
     "team-auth-config.js",
     "team-material.js",
+    "team-board.js",
     "team-auth.js",
     "js/bootstrap.js"
   ]

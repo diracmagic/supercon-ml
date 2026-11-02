@@ -1,5 +1,6 @@
 import { AuthError, boundedJson, demand, jsonResponse, plainObject, randomToken } from './security.mjs';
 import { normalizeEmail, UID_PATTERN } from './firebase.mjs';
+import { boardAccess } from './board.mjs';
 
 export function normalizeMemberName(value) {
   demand(typeof value === 'string' && value.length <= 80 && !/[\u0000-\u001f\u007f-\u009f]/.test(value), 'invalid_member_name');
@@ -7,7 +8,7 @@ export function normalizeMemberName(value) {
 }
 const publicMember = member => ({ member_id: member.id, name: member.name || '', email: member.email, status: member.status, invited_at: member.invitedAt, activated_at: member.activatedAt || null, version: member.version, delivery_status: member.deliveryStatus });
 export class TeamDirectory {
-  constructor(state) { this.storage = state.storage; }
+  constructor(state, env = {}) { this.storage = state.storage; this.env = env; }
   async fetch(request) {
     try {
       demand(request.method === 'POST');
@@ -91,13 +92,17 @@ export class TeamDirectory {
           }
           return { id: member.id, uid: member.uid, email: member.email, version: member.version };
         }
-        if (operation === '/check') {
+        if (operation === '/check' || operation === '/board-identity') {
           const member = members.find(item => item.id === body.memberId);
           demand(member && member.status === 'active' && member.uid === body.uid && member.email === body.email && member.version === body.version, 'membership_revoked', 403);
-          return true;
+          return operation === '/board-identity' ? { name: member.name || 'Team member' } : true;
         }
         throw new AuthError('not_found', 404);
       });
+      // Persist the board fence before acknowledging a completed revocation.
+      // If this RPC fails, membership is already revoked and a retry is safe;
+      // never return a successful revoke while old in-flight posts can commit.
+      if (operation === '/revoke' && this.env.TEAM_BOARD) await boardAccess(this.env, 'revoke', body.now, { memberId: result.member_id, version: result.version });
       return jsonResponse({ result }, 200, null);
     } catch (error) { return jsonResponse({ error: error instanceof AuthError ? error.code : 'team_unavailable' }, error instanceof AuthError ? error.status : 503, null); }
   }

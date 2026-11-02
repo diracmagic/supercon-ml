@@ -65,11 +65,11 @@
       case 1: return name + ' reads ' + n + ' numbers per material: ' + list(sp.inputs).map(function (i) {
           return i.group === 'stage' ? i.n + ' from the ' + i.label + ' (its predicted λ and ω_log and the Allen–Dynes Tc from them)' : i.n + ' ' + lcFirst(i.label);
         }).join(', ') + '. The physics features encode rules of thumb such as Matthias’s valence-electron peaks and the M^−½ scale of phonon frequencies.';
-      case 2: return 'Gradient-boosted decision trees: ' + fmtInt(L0.trees) + ' small trees, each fixing what the previous ones got wrong, with up to ' + L0.leaves + ' leaves per tree and learning rate ' + L0.learning_rate + '. It predicts log(1 + Tc), which keeps the many low-Tc materials from dominating.';
+      case 2: return 'Gradient-boosted decision trees: ' + fmtInt(L0.trees) + ' small trees, each fixing what the previous ones got wrong, with up to ' + L0.leaves + ' leaves per tree and learning rate ' + L0.learning_rate + '. Predicting log(1 + Tc) compresses the largest temperatures and emphasizes relative differences at low Tc.';
       case 3: return 'Two routes to Tc: directly (error ' + fmtVal(sc.tc_mae) + ' K), or by predicting λ (error ' + fmtVal(sc.lambda_mae) + ') and ω_log (error ' + fmtVal(sc.omega_log_mae) + ' K) and putting them into the Allen–Dynes formula (error ' + fmtVal(sc.tc_via_lambda_wlog_mae) + ' K).';
       case 4:
         var pv = stormPrevScores(info);
-        return 'Five-fold cross-validation grouped by chemical system, so no test material shares its elements with training data. ' + name + ' averages ' + fmtVal(sc.tc_mae) + ' K against ' +
+        return 'Five-fold cross-validation grouped by chemical system, so no test material has the same complete set of elements as a training material. Individual elements can occur in both sets. ' + name + ' averages ' + fmtVal(sc.tc_mae) + ' K against ' +
           (pv ? fmtVal(pv.tc_mae) + ' K for ' + pv.name + ' and ' : '') + fmtVal(sc.reference_mae) + ' K for the baseline, and is better than ' +
           (pv ? pv.name + ' in ' + pv.folds_better + ' of ' + list(pv.folds).length : 'the baseline in ' + better) + ' folds. It was picked on these folds, so the locked JARVIS test set will check it once at the end.' + stormExpSentence(info);
       default:

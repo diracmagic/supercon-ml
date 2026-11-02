@@ -7,8 +7,8 @@ const initializeSuperconModelDetails = function initializeSuperconModelDetails()
      Both read only progress.json (the "hurricane" block and ai_model.calibration), so later training rounds
      appear here without an app update. */
   FEAT_LABEL = {
-    tm_d: 'd electrons per transition-metal atom', p_cu: 'holes per Cu (doping p)', dome: 'cuprate Tc dome at p',
-    cu_layers: 'CuO₂ planes (Cu per formula unit)', heavy_block: 'Hg, Tl, Bi, Pb share', fe_based: 'FeAs/FeSe-type layer',
+    tm_d: 'nominal d-count estimate', p_cu: 'nominal holes per Cu estimate', dome: 'empirical cuprate dome feature',
+    cu_layers: 'Cu-count layer proxy (formula coefficient)', heavy_block: 'Hg, Tl, Bi, Pb share', fe_based: 'FeAs/FeSe-type composition flag',
     f_share: 'f-electron atom share', f_count: 'f-electron count', mag3d: 'magnetic 3d share', nonint: 'doping (non-integer stoichiometry)',
     n_atoms_fu: 'atoms per formula unit', oxide: 'oxygen share', chalcogenide: 'S, Se, Te share', pnictide: 'P, As, Sb share',
     halide: 'halogen share', vpa: 'volume per atom', density: 'density', aniso: 'layering (cell anisotropy)', c_over_a: 'c/a',

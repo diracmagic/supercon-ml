@@ -641,6 +641,7 @@ def update_progress(out: dict) -> None:
     sc = best["scores"]
     entry = {
         "version": ver, "round": ROUND, "date": stamp[:10], "status": "adopted" if out["adopted"] else "experimental",
+        "data": out["data"],
         "summary": best["name"] + ("" if best["settings"] == "default" else f", {best['settings']}"),
         "changes": out["changes"], "spec": out["spec"],
         "scores": {"tc_mae": round(sc["tc_mae"], 2), "reference_mae": round(ref["scores"]["tc_mae"], 2),
@@ -677,16 +678,16 @@ def update_progress(out: dict) -> None:
         "about": ("Hurricane is the project's AI-designed Tc model for unconventional superconductors: cuprates, "
                   "iron- and nickel-based pnictides and chalcogenides, heavy-fermion compounds and other oxides. No "
                   "first-principles theory gives their Tc, so it learns from measured Tc (SuperCon, with Materials "
-                  "Project structures, via the 3DSC dataset), including materials that did not superconduct. An AI "
+                  "Project structures, via the 3DSC dataset), including catalogued zero-Tc entries whose measurement limits are not established here. An AI "
                   "agent (Claude) proposes each design; candidates are scored with cross-validation grouped by parent "
                   "compound, and a version is released only if it beats the reference on average and in at least 4 of "
                   "5 folds."),
         "current": released[-1]["version"] if released else None,
-        "data": data,
+        "data": released[-1].get("data", reg.get("data", {})) if released else {},
         "versions": versions,
     }
     # the headline results table: measured-Tc rows (target Tc_exp), so older app versions list them too
-    note = (f"5-fold CV grouped by parent compound; {data['n']:,} cuprates, iron-based, heavy-fermion and other oxides "
+    note = (f"5-fold CV grouped by the Materials Project chemical-system label; {data['n']:,} cuprates, iron-based, heavy-fermion and other oxides "
             f"from 3DSC (SuperCon + Materials Project), {data['n_sc']:,} superconducting")
     prog["results"] = [r for r in prog.get("results", []) if r.get("tag") != "hurricane"] + [
         {"tag": "hurricane", "model": f"{MODEL} {ver} (AI-designed)" + ("" if out["adopted"] else ", experimental"),
@@ -712,8 +713,8 @@ def update_progress(out: dict) -> None:
     lof = {r["family"]: r for r in out["lofo"]}
     cup = lof.get("cuprate")
     text = (f"Learns from {data['n']:,} measured Tc values (cuprates, iron-based, heavy-fermion and other oxides; "
-            f"SuperCon with Materials Project structures via 3DSC), including {data['n'] - data['n_sc']:,} materials that "
-            f"did not superconduct. For compounds whose parent it never saw in training it is off by {sc['tc_mae']:.1f} K "
+            f"SuperCon with Materials Project structures via 3DSC), including {data['n'] - data['n_sc']:,} zero-Tc catalog entries that "
+            f"did not superconduct. For held-out chemical-system groups it is off by {sc['tc_mae']:.1f} K "
             f"on average, against {ref['scores']['tc_mae']:.1f} K for a composition-only baseline.")
     if cup:
         text += (f" Predicting a whole family it never saw is much harder: trained without any cuprate, it misses "

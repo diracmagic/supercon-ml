@@ -476,7 +476,8 @@
 
   const resistanceOf = function resistanceOf(t) {
     var normal = 0.55 + 0.45 * (t / 1.6);
-    return normal / (1 + Math.exp(-(t - 1) / 0.015));
+    // Ideal zero-field, low-current transition; this is not an experimental fit.
+    return t < 1 ? 0 : normal;
   };
 
 
@@ -505,7 +506,7 @@
       }
     }
     var es = demo.electrons;
-    var scatter = (1 - s) * (2 + 5 * Math.min(t, 1.6) / 1.6);
+    var scatter = t < 1 ? 0 : (2 + 5 * Math.min(t, 1.6) / 1.6);
     es.forEach(function (p) {
       if (dt && Math.random() < scatter * dt) {
         var ang = Math.random() * Math.PI * 2, sp = 60 + 50 * Math.random();
@@ -541,7 +542,7 @@
     }
     es.forEach(function (p) { dot(c, p.x, p.y, 3.5, C.accent); });
     var narrow = W < 560;
-    label(c, C, s > 0 ? (narrow ? 'Pairs flow freely' : 'Cooper pairs flow without scattering') : (narrow ? 'Electrons scatter' : 'Electrons scatter off vibrating ions'), left + 10, top + wireH + 20, { size: 12, color: C.ink2 });
+    label(c, C, s > 0 ? (narrow ? 'Lossless current' : 'Lossless current · schematic') : (narrow ? 'Electrons scatter' : 'Electrons scatter off vibrating ions'), left + 10, top + wireH + 20, { size: 12, color: C.ink2 });
     label(c, C, stateText(s), right - 10, top + wireH + 20, { align: 'right', size: 12, weight: '600', color: C.ink });
     var R = resistanceOf(t);
     miniPlot(c, C, { x: 0, y: top + wireH + 30, w: W, h: H - (top + wireH + 30) }, resistanceOf, 1.1, t,
@@ -680,12 +681,12 @@
       c.beginPath(); c.moveTo(e2.x, e2.y - 8); c.quadraticCurveTo(midx, midy, e1.x, e1.y - 8); c.stroke();
       c.setLineDash([]);
       c.font = '600 12px ' + C.font;
-      var tw = c.measureText('Cooper pair').width;
+      var tw = c.measureText('Attractive interaction').width;
       c.fillStyle = C.surface;
       c.beginPath();
       if (c.roundRect) c.roundRect(midx - tw / 2 - 6, midy - 19, tw + 12, 20, 6); else c.rect(midx - tw / 2 - 6, midy - 19, tw + 12, 20);
       c.fill();
-      label(c, C, 'Cooper pair', midx, midy - 4, { align: 'center', size: 12, weight: '600', color: C.ink });
+      label(c, C, 'Attractive interaction', midx, midy - 4, { align: 'center', size: 12, weight: '600', color: C.ink });
       c.globalAlpha = 1;
     }
     [e2, e1].forEach(function (e) {
