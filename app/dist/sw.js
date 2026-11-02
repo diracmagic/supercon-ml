@@ -1,7 +1,7 @@
 // Offline support for the phone web app. Pages from this site load network-first and
 // fall back to the last copy; live data from GitHub always goes straight to the network.
-const APP_VERSION = '0.3.10';
-const CACHE = 'supercon-0.3.10-team-notes';
+const APP_VERSION = '0.3.11';
+const CACHE = 'supercon-0.3.11-team-password';
 const SHELL = ['./', './index.html', './assets.json', './manifest.webmanifest', './progress.json', './icons/icon-192.png', './icons/icon-512.png'];
 
 function shellFiles(manifest) {

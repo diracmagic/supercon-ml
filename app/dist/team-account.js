@@ -275,13 +275,13 @@
         const form = node('form', {class: 'team-account-form'});
         const password = field(form, 'New password', 'team-new-password', 'password', 'new-password');
         const confirmation = field(form, 'Confirm password', 'team-confirm-password', 'password', 'new-password');
-        password.setAttribute('minlength', '15'); confirmation.setAttribute('minlength', '15');
-        form.appendChild(node('p', {class: 'team-account-hint', text: 'Use at least 15 characters. Spaces and pasted passwords are allowed.'}));
+        password.setAttribute('minlength', '8'); confirmation.setAttribute('minlength', '8');
+        form.appendChild(node('p', {class: 'team-account-hint', text: 'Use at least 8 characters. Spaces and pasted passwords are allowed.'}));
         form.appendChild(node('button', {type: 'submit', class: 'btn primary', text: 'Save password'}));
         form.addEventListener('submit', event => {
           event.preventDefault(); const secret = password.value, repeat = confirmation.value;
           password.value = ''; confirmation.value = '';
-          if (secret.length < 15 || secret.length > 128) { say('Use a password between 15 and 128 characters.'); return; }
+          if (secret.length < 8 || secret.length > 128) { say('Use a password between 8 and 128 characters.'); return; }
           if (secret !== repeat) { say('The passwords did not match. Enter them again.'); return; }
           run(async version => {
             await google('resetPassword', {oobCode: action.code, newPassword: secret}); action.code = '';

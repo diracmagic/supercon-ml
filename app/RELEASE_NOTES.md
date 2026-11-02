@@ -1,6 +1,10 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
-Version 0.3.10 adds:
+Version 0.3.11 adds:
+
+- **Team password setup:** new passwords can contain 8–128 characters. Existing passwords remain unchanged.
+
+Version 0.3.10 added:
 
 - **Team access on the web:** invited email/password accounts, administrator-managed display names, resend controls, and hidden revoked members. Membership invitations remain valid until revoked; Firebase password-setting links still expire and can be requested again. Password recovery and invitation setup have separate entries.
 - **Private Notes:** material or research-method illustrations alongside the existing research walkthroughs, source-based team introductions, progress, evidence limits and references. Illustrations are schematic, not verified crystal structures or experimental measurements. Private content stays behind team authentication.
