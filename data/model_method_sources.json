@@ -1,0 +1,512 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-02",
+  "purpose": "Source attribution for existing implemented methods; no protocol/model modification and no novelty priority determination.",
+  "copyright": "Paraphrased factual descriptions and citations only; no paper text, figures, datasets or model weights redistributed.",
+  "attribution_policy": [
+    "Describe independently identified prior work as related prior work; do not invent a historical derivation or claim code reproduction.",
+    "Cite the actual reused dataset/formula/method separately from a related benchmark.",
+    "Do not compare reported accuracy without matching targets, cohorts, units and split definitions.",
+    "DFT-derived Tc and candidate model scores are not experimental discoveries.",
+    "KMeans/PCA/RBF similarities are not mechanisms, calibrated P(SC), or evidence of causal common laws."
+  ],
+  "model_routes": {
+    "Storm6/7": "Alexandria composition/geometry to simplified Allen-Dynes DFT Tc. S6 compares direct and predicted lambda/omega_log components with optional training-only PCA8. S7 adds16 train-only geometry KMeans-RBF features to unchanged S6R2; all challengers report-only.",
+    "Hurricane4": "Released route uses experimental-record classification/conditional Tc prediction plus distance-based abstention; background absence is not verified physical non-superconductivity. Screening averages five legal train-fold models; spread is descriptive.",
+    "Hurricane7/8": "Exploratory recorded-positive-descendant versus unlabeled-parent ranking. H7 uses pairwise Ridge/ElasticNet/PCA8 ablations. H8 adds16 train-only KMeans-RBF similarities to H7R0. Held family and its chemical systems are removed; no calibrated P(SC) or mechanism claim.",
+    "Radar": "Composition/structure classifier of 3DSC family-label routing proxy; not a direct mechanism determination or superconductivity detector.",
+    "CGCNN-style graph branch": "Periodic crystal graph gated-message architecture attributed to Xie/Grossman2018, independently implemented in JAX for electron-phonon targets; descriptor-hybrid variants are not a reproduction.",
+    "MACE descriptor transfer": "Frozen pretrained potential descriptors, not supervised superconductivity pretraining. H6M1 report-only and not adopted; checkpoint provenance must remain separate from current-paper versions."
+  },
+  "code_snapshot": [
+    {
+      "path": "ml/pipeline.py",
+      "lf_sha256": "f2c29ef1032b24208d5d25ee7bb9ea77534b24c0c9234d633054138065ffca68"
+    },
+    {
+      "path": "ml/radar.py",
+      "lf_sha256": "c5664c7c19d6eb18f1598e7f5ce7baef1fb169a7f11004dd3987ff56e8474d57"
+    },
+    {
+      "path": "ml/hurricane.py",
+      "lf_sha256": "c08672379cbf43f4e2be91aebe43984db3a0dbf5db4e5d75e5abcb27b99960fb"
+    },
+    {
+      "path": "ml/hurricane4.py",
+      "lf_sha256": "2d2d12f32ac1bb31c24e4ce8e579c361edd98565e0d29cc764a6ea10070b40d6"
+    },
+    {
+      "path": "ml/hurricane7.py",
+      "lf_sha256": "5b66c6a4488467bb1063b078ea410c54e808bcf3687222088a70a3679080a941"
+    },
+    {
+      "path": "ml/hurricane8.py",
+      "lf_sha256": "d3c24e70eb10bfcf4b933150687c9530e555e3581abae93571a05a5c4101c0b8"
+    },
+    {
+      "path": "ml/storm6.py",
+      "lf_sha256": "96c33baccdf7b53f1af65c50f220158e3542e82493bae3a599b15d7e00e46ab7"
+    },
+    {
+      "path": "ml/storm7.py",
+      "lf_sha256": "93fa7e9fbee7e7ac03301dfebaa893f00c4eaf12410964134ca8972232f2d5ff"
+    },
+    {
+      "path": "ml/unsupervised.py",
+      "lf_sha256": "9b7af191b1dc0cf73e01c722683bb971fcf9df8797c58caf966fd0c4f390eb30"
+    },
+    {
+      "path": "ml/screen.py",
+      "lf_sha256": "42b74504c6cd2d5cbc365504d76b4dba752f3a3df7ff0fc842f02ae7867d8242"
+    },
+    {
+      "path": "ml/gnn.py",
+      "lf_sha256": "6c6a064ffc8f21313a7ede46fe8d5829a133db03c2d4335c1ba83306379044d6"
+    },
+    {
+      "path": "ml/gnn2.py",
+      "lf_sha256": "1b3d41e171a90b46216b065273b171aaed724ef4d3933e1cb7ec920336104402"
+    },
+    {
+      "path": "ml/hurricane6.py",
+      "lf_sha256": "0531968ac59c51487e22e5379dd830251ca5d505225dcfd98051c90423f62e9e"
+    }
+  ],
+  "selected_references": [
+    {
+      "id": "roter2022-clustering",
+      "title": "Clustering superconductors using unsupervised machine learning",
+      "authors": [
+        "B. Roter",
+        "N. Ninkovic",
+        "S. V. Dordevic"
+      ],
+      "year": 2022,
+      "doi": "10.1016/j.physc.2022.1354078",
+      "primary_url": "https://www.sciencedirect.com/science/article/abs/pii/S0921453422000661",
+      "relationship": "direct superconductivity clustering precedent",
+      "models": [
+        "Storm7",
+        "Hurricane8"
+      ],
+      "paper_did": "Clusters superconductors using composition-based k-means, hierarchical and Gaussian-mixture methods, self-organizing maps and other clustering; discusses visualization and physically meaningful groupings.",
+      "our_reuse": "Uses the established idea of label-free material clustering to construct additional supervised-model inputs.",
+      "our_differences": "Our 16 KMeans centers are fitted only on eligible training physical features, then transformed into Gaussian RBF similarities. Storm7 uses geometry; H8 uses its allowed physical main effects. We test added predictive value against unchanged heads, not whether clusters prove mechanisms. No identical published implementation is claimed.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "author full-text HTML and indexed publisher abstract",
+        "locators": [
+          "https://arxiv.org/html/2207.02075v1 ; sections 2, 4 and 5",
+          "Publisher abstract confirms title, DOI and year"
+        ]
+      }
+    },
+    {
+      "id": "roter2020-pca",
+      "title": "Predicting new superconductors and their critical temperatures using machine learning",
+      "authors": [
+        "B. Roter",
+        "S. V. Dordevic"
+      ],
+      "year": 2020,
+      "doi": "10.1016/j.physc.2020.1353689",
+      "primary_url": "https://www.sciencedirect.com/science/article/pii/S0921453420301374",
+      "relationship": "direct superconductivity representation-learning precedent",
+      "models": [
+        "Storm historical PCA",
+        "Storm6 R4",
+        "Hurricane7 R2"
+      ],
+      "paper_did": "Forms element-composition vectors, applies SVD/PCA, and uses the resulting representation in supervised superconductivity classification and critical-temperature regression.",
+      "our_reuse": "PCA-derived features followed by supervised prediction are established in superconductivity ML, not an original method of this project.",
+      "our_differences": "Our representations compress geometry or historical MACE descriptors instead of composition-only element vectors. Preprocessing and PCA are refitted inside the relevant train split. H7 R2 is observed-positive/unlabeled parent ranking, not measured Tc regression.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "indexed publisher abstract and method section snippets; direct publisher open returned403; author abstract accessible",
+        "locators": [
+          "Publisher sections Unsupervised machine learning, Classification models, Regression models",
+          "https://arxiv.org/abs/2002.07266 ; preprint title includes unsupervised, journal title omits it"
+        ]
+      }
+    },
+    {
+      "id": "stanev2018-composition",
+      "title": "Machine learning modeling of superconducting critical temperature",
+      "authors": [
+        "Valentin Stanev",
+        "Corey Oses",
+        "A. Gilad Kusne",
+        "Efrain Rodriguez",
+        "Johnpierre Paglione",
+        "Stefano Curtarolo",
+        "Ichiro Takeuchi"
+      ],
+      "year": 2018,
+      "doi": "10.1038/s41524-018-0085-8",
+      "primary_url": "https://www.nature.com/articles/s41524-018-0085-8",
+      "relationship": "composition/classification-regression and family-specific model precedent",
+      "models": [
+        "Hurricane4",
+        "Radar",
+        "Storm composition baseline"
+      ],
+      "paper_did": "Uses composition-derived descriptors for classification and Tc regression, including separate cuprate, iron-based and low-Tc models, and integrates classification/regression for database screening.",
+      "our_reuse": "Composition descriptors, tree-based prediction and differentiated treatment of superconducting families have direct prior art.",
+      "our_differences": "Radar learns a 3DSC family-label routing proxy rather than the paper's above/below 10 K label; it does not establish pairing mechanism. Hurricane4 adds structure features and abstention. Neither reproduces this paper's model or performance.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "author preprint abstract and institutional/publisher-indexed primary record; direct publisher open blocked",
+        "locators": [
+          "https://arxiv.org/abs/1709.02727 ; abstract and complete author list",
+          "https://www.nist.gov/publications/machine-learning-modeling-superconducting-critical-temperature"
+        ]
+      }
+    },
+    {
+      "id": "konno2021-extrapolation",
+      "title": "Deep learning model for finding new superconductors",
+      "authors": [
+        "Tomohiko Konno",
+        "Hodaka Kurokawa",
+        "Fuyuki Nabeshima",
+        "Yuki Sakishita",
+        "Ryo Ogawa",
+        "Iwao Hosako",
+        "Atsutaka Maeda"
+      ],
+      "year": 2021,
+      "doi": "10.1103/PhysRevB.103.014509",
+      "primary_url": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.103.014509",
+      "relationship": "same-field extrapolation benchmark, not adopted architecture",
+      "models": [
+        "Hurricane4 LOFO",
+        "Hurricane7",
+        "Hurricane8",
+        "Radar LOFO"
+      ],
+      "paper_did": "Encodes compositions as a periodic-table representation and retrospectively tests whether pre-2008 data can retrieve later iron-based superconductors. Also proposes synthetic non-superconductor augmentation.",
+      "our_reuse": "Citation supports the existing research goal of testing discovery outside familiar training materials; no periodic-table CNN or synthetic-negative procedure is adopted here.",
+      "our_differences": "H7/H8 remove the held family and all of its chemical systems; earlier H4/Radar reports use family holdout. These are not the same temporal backtest. The inspected families are exploratory, not a new blind test. H7/H8 retain unlabeled parents as U, not verified negatives; neither test demonstrates an experimental discovery.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "author abstract plus publisher bibliographic record",
+        "locators": [
+          "https://arxiv.org/abs/1812.01995 ; abstract, historic iron-based test and garbage-in description",
+          "APS volume103 issue1 gives article014509 and2021"
+        ]
+      }
+    },
+    {
+      "id": "choudhary2022-components",
+      "title": "Designing high-TC superconductors with BCS-inspired screening, density functional theory, and deep-learning",
+      "authors": [
+        "Kamal Choudhary",
+        "Kevin Garrity"
+      ],
+      "year": 2022,
+      "doi": "10.1038/s41524-022-00933-1",
+      "primary_url": "https://www.nature.com/articles/s41524-022-00933-1",
+      "relationship": "direct component-prediction precedent and JARVIS data context",
+      "models": [
+        "Storm",
+        "Storm6 R1/R3/R4",
+        "Storm component baselines"
+      ],
+      "paper_did": "Compares direct DFT Tc prediction, predicted lambda and omega_log followed by McMillan-Allen-Dynes, and predicted Eliashberg spectra. Uses ALIGNN and handcrafted CFID descriptors.",
+      "our_reuse": "Our direct-versus-components ablation follows an established route; predicting lambda/omega_log before Tc is not new.",
+      "our_differences": "Our CPU challengers use histogram gradient boosting with composition/geometry and training-only PCA; the main labels are recomputed Alexandria simplified Allen-Dynes values. We neither train ALIGNN here nor infer measured superconductivity from a computed Tc. Published MAEs use different datasets/splits.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "indexed publisher full-text sections; direct publisher open blocked",
+        "locators": [
+          "Publisher Fig.6f and Deep-learning training section explicitly compare all three routes",
+          "Publisher version of record22November2022; NIST metadata differs and is not used for journal/year"
+        ]
+      }
+    },
+    {
+      "id": "xie2022-cluster-validation",
+      "title": "Machine learning of superconducting critical temperature from Eliashberg theory",
+      "authors": [
+        "S. R. Xie",
+        "Y. Quan",
+        "A. C. Hire",
+        "B. Deng",
+        "J. M. DeStefano",
+        "I. Salinas",
+        "U. S. Shah",
+        "L. Fanfarillo",
+        "J. Lim",
+        "J. Kim",
+        "G. R. Stewart",
+        "J. J. Hamlin",
+        "P. J. Hirschfeld",
+        "R. G. Hennig"
+      ],
+      "year": 2022,
+      "doi": "10.1038/s41524-021-00666-7",
+      "primary_url": "https://www.nature.com/articles/s41524-021-00666-7",
+      "relationship": "direct superconductivity leave-cluster-out precedent; theory benchmark, not formula adoption",
+      "models": [
+        "Storm validation",
+        "Hurricane LOFO context"
+      ],
+      "paper_did": "Learns corrections to McMillan/Allen-Dynes from spectral moments and Eliashberg targets. Uses k-means-based leave-cluster-out validation and nested validation for predictive models.",
+      "our_reuse": "Cluster-held-out assessment of extrapolation already exists within superconductivity research.",
+      "our_differences": "Our chemically grouped/held-family tests differ from spectral-feature clusters; our inputs are composition/geometry and the Storm target remains simplified Allen-Dynes. We have not implemented their SISSO equation or numerical Eliashberg solver, so cannot claim its physics or accuracy.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "author full-text HTML; publisher-indexed methods and date",
+        "locators": [
+          "https://arxiv.org/html/2106.05235v2 ; II.3 Symbolic Regression and III.2 predictive models",
+          "Publisher gives25January2022 despite DOI containing2021"
+        ]
+      }
+    },
+    {
+      "id": "sommer2023-3dsc",
+      "title": "3DSC - a dataset of superconductors including crystal structures",
+      "authors": [
+        "Timo Sommer",
+        "Roland Willa",
+        "Jörg Schmalian",
+        "Pascal Friederich"
+      ],
+      "year": 2023,
+      "doi": "10.1038/s41597-023-02721-y",
+      "primary_url": "https://www.nature.com/articles/s41597-023-02721-y",
+      "relationship": "directly reused dataset plus structure/grouped-validation precedent",
+      "models": [
+        "Hurricane4",
+        "Hurricane7",
+        "Hurricane8",
+        "Radar"
+      ],
+      "paper_did": "Matches SuperCon entries to crystal structures, tests composition and structure descriptors with gradient boosting, and partitions train/test by chemical system.",
+      "our_reuse": "Hurricane and Radar directly use the pinned 3DSC_MP data and supplied family labels. Composition-plus-structure learning and chemical-system separation are established precedents.",
+      "our_differences": "Our features are not their MAGPIE+DSOAP pipeline. H7/H8 aggregate matched parents and rank recorded-positive descendants against unlabeled parents; their target is not a calibrated superconductivity probability. Structure matches remain a provenance limitation, not measured sample identity.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "indexed publisher methods and institutional primary record; repository data reuse verified locally",
+        "locators": [
+          "Publisher Machine learning results section: grouped chemical systems and XGB/MAGPIE/DSOAP",
+          "https://publikationen.bibliothek.kit.edu/1000165421 ; author list and journalDOI",
+          "Local ml/hurricane.py DSC_COMMIT, DSC_SHA256 and DSC_CITE"
+        ]
+      }
+    },
+    {
+      "id": "gibson2026-ensemble",
+      "title": "Developing a complete AI-accelerated workflow for superconductor discovery",
+      "authors": [
+        "Jason B. Gibson",
+        "Ajinkya C. Hire",
+        "Pawan Prakash",
+        "Philip M. Dee",
+        "Benjamin Geisler",
+        "Jung Soo Kim",
+        "Zhongwei Li",
+        "James J. Hamlin",
+        "Gregory R. Stewart",
+        "P. J. Hirschfeld",
+        "Richard G. Hennig"
+      ],
+      "year": 2026,
+      "doi": "10.1038/s41524-026-01964-8",
+      "primary_url": "https://www.nature.com/articles/s41524-026-01964-8",
+      "relationship": "superconductivity ensemble/screening precedent, not reused BEE-NET implementation",
+      "models": [
+        "Storm ensemble context",
+        "Hurricane screening fold-disagreement context"
+      ],
+      "paper_did": "Uses bootstrapped equivariant-network ensembles to predict Eliashberg spectra, followed by staged computational screening and experiments on selected materials.",
+      "our_reuse": "Ensembling superconductivity predictors and filtering candidates before validation have direct prior art.",
+      "our_differences": "Our five training-fold candidate scores are not BEE-NET bootstrap models; their spread is descriptive disagreement, not a confidence or conformal interval. Storm6/7 conformal bands are separate. We do not reproduce the paper's network, experiments or discovery claims.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "author full-text methods plus publisher/Crossmark metadata; preprint author list differs from final record",
+        "locators": [
+          "https://arxiv.org/html/2503.20005v2 ; MethodsIV.1 explicitly trains100 bootstrap ensemble members",
+          "Publisher Crossmark https://crossmark.crossref.org/dialog/?doi=10.1038%2Fs41524-026-01964-8 verifies2026 journal authors includingPawanPrakash"
+        ]
+      }
+    },
+    {
+      "id": "allen1975-formula",
+      "title": "Transition temperature of strong-coupled superconductors reanalyzed",
+      "authors": [
+        "P. B. Allen",
+        "R. C. Dynes"
+      ],
+      "year": 1975,
+      "doi": "10.1103/PhysRevB.12.905",
+      "primary_url": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.12.905",
+      "relationship": "direct physics-formula foundation; not an AI precedent",
+      "models": [
+        "Storm",
+        "Storm6",
+        "Storm7"
+      ],
+      "paper_did": "Derives an approximate Tc relation from Eliashberg theory including logarithmic phonon frequency and strong-coupling/shape corrections.",
+      "our_reuse": "Our lambda/omega_log-to-Tc calculation is a simplified Allen-Dynes expression, with fixed mu*=0.10 and correction factors f1=f2=1.",
+      "our_differences": "We do not implement the complete strong-coupling corrections or solve Eliashberg equations. Those approximations define the DFT-derived target; they are not experimental measurements or a new learned law.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "original publisher abstract accessible; full text not needed for this scoped attribution",
+        "locators": [
+          "APS original abstract, title, authors and1975 publication record",
+          "Local ml/pipeline.py allen_dynes and ml/storm6.py protocol mu_star/f1/f2"
+        ]
+      }
+    },
+    {
+      "id": "lei2018-conformal",
+      "title": "Distribution-Free Predictive Inference for Regression",
+      "authors": [
+        "Jing Lei",
+        "Max G'Sell",
+        "Alessandro Rinaldo",
+        "Ryan J. Tibshirani",
+        "Larry Wasserman"
+      ],
+      "year": 2018,
+      "doi": "10.1080/01621459.2017.1307116",
+      "primary_url": "https://doi.org/10.1080/01621459.2017.1307116",
+      "relationship": "general statistical method foundation; NOT a superconductivity-specific precedent",
+      "models": [
+        "Storm6",
+        "Storm7",
+        "Storm interval context"
+      ],
+      "paper_did": "Develops and compares full/split conformal predictive inference and related jackknife methods, separating regression fitting from calibration.",
+      "our_reuse": "Our proper-training/calibration split and finite-sample calibration order statistic use standard split-conformal ideas.",
+      "our_differences": "Storm6/7 calibrate maximum log-scale residual per chemical system, requiring exchangeability at the system level. This paper alone does not validate our grouped adaptation or guarantee coverage under family/database shift. Five-fold candidate min/max spread is not this method, nor jackknife+.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Related prior work identified in this retrospective audit; no claim that the original implementation was copied from or historically inspired by this paper.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "author-hosted primary manuscript and author abstract accessible",
+        "locators": [
+          "https://www.stat.cmu.edu/~ryantibs/papers/conformal-jasa.pdf ; abstract and split-conformal sections",
+          "https://arxiv.org/abs/1604.04173",
+          "Local ml/storm6.py group_quantile, split_ranges and evaluate_fold"
+        ]
+      }
+    },
+    {
+      "id": "xie2018-cgcnn",
+      "title": "Crystal Graph Convolutional Neural Networks for an Accurate and Interpretable Prediction of Material Properties",
+      "authors": [
+        "Tian Xie",
+        "Jeffrey C. Grossman"
+      ],
+      "year": 2018,
+      "journal": "Physical Review Letters120,145301",
+      "doi": "10.1103/PhysRevLett.120.145301",
+      "primary_url": "https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.120.145301",
+      "relationship": "direct architecture attribution; general crystal-property ML, not a superconductivity-discovery paper",
+      "models": [
+        "Storm graph branch",
+        "ml/gnn.py",
+        "ml/gnn2.py"
+      ],
+      "paper_did": "Introduces periodic crystal graphs, convolutional updates from neighboring atoms/bonds, gated nonlinear message functions and pooled crystal representations for DFT-property prediction.",
+      "our_reuse": "The local source explicitly identifies its architecture as CGCNN-style. It uses gated message passing and pooling on periodic crystal graphs.",
+      "our_differences": "Our JAX implementation restricts each atom to 12 nearest neighbors within 8 angstrom, uses Gaussian edge distances and supervised electron-phonon targets. Later hybrid variants add composition/structure/physics descriptors to the readout. This is an adaptation, not a reproduction of their code, benchmark or claimed accuracy; these settings are not asserted to be uniquely novel.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Already explicitly cited in ml/gnn.py before this audit; source and local reuse independently checked now.",
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "original publisher abstract and author-hosted full PDF text accessed; scoped architecture review",
+        "locators": [
+          "https://gg.mit.edu/wp-content/uploads/2018/06/PhysRevLett.120.145301-2.pdf ; crystal-graph formulation, pooling and gated convolution",
+          "ml/gnn.py:1-16,32-38,202; ml/gnn2.py hybrid readout"
+        ]
+      }
+    },
+    {
+      "id": "batatia2025-mace-mp",
+      "title": "A foundation model for atomistic materials chemistry",
+      "authors": [
+        "Ilyes Batatia",
+        "Philipp Benner",
+        "Yuan Chiang",
+        "Alin M. Elena",
+        "Dávid P. Kovács"
+      ],
+      "authors_truncated": true,
+      "authors_display": "Ilyes Batatia et al.",
+      "year": 2025,
+      "journal": "The Journal of Chemical Physics163,184110",
+      "doi": "10.1063/5.0297006",
+      "primary_url": "https://doi.org/10.1063/5.0297006",
+      "preprint_url": "https://arxiv.org/abs/2401.00096",
+      "preprint_history": "v1 submitted2023-12-29; v2 revised2024-03-01; v3 revised2025-09-04. The arXiv identifier is not the journal publication year.",
+      "relationship": "direct pretrained checkpoint reuse; interatomic-potential paper, not a supervised superconductivity predictor",
+      "models": [
+        "Hurricane6 M1",
+        "historical Storm frozen-MACE descriptor experiments"
+      ],
+      "paper_did": "Develops the MACE-MP-0 family of pretrained interatomic potentials for energies/forces and atomistic simulation across diverse chemical systems.",
+      "our_reuse": "H6 loads an existing fixed medium MACE-MP-0 checkpoint without retraining the potential; invariant atomic descriptors are pooled as mean/std/max and appended to the superconductivity challenger inputs.",
+      "our_differences": "The potential was not trained to predict superconductivity. H6 is a report-only LOFO descriptor-transfer experiment and was not adopted. Its pinned 2023 checkpoint must not be conflated with the journal paper's newer 0b3 evaluations; neither force accuracy nor clustering establishes Tc or pairing mechanism.",
+      "not_a_novelty_claim": true,
+      "attribution_timing": "Existing third-party checkpoint is explicitly loaded in source; this audit supplies formal publication and version provenance.",
+      "checkpoint_used": {
+        "url": "https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model",
+        "identity_policy": "H6 records actual checkpointSHA256 via checkpoint_identity(); use the research artifact hash for the run, do not invent or replace it with a paper hash.",
+        "version_note": "Publisher MethodsB distinguishes early models later named0a from newer 0b3; this audit does not relabel the exact binary beyond its fixed URL."
+      },
+      "evidence_access": {
+        "checked_on": "2026-11-02",
+        "level": "author abstract/version history and indexed publisher MethodsA-C read; direct publisher full page inaccessible; not a whole-paper review",
+        "locators": [
+          "https://arxiv.org/abs/2401.00096 ; abstract and submission history",
+          "https://doi.org/10.1063/5.0297006 ; indexed MethodsA architecture/B model versions/C hyperparameters",
+          "https://pubmed.ncbi.nlm.nih.gov/41230846/ ; journal DOI/year bibliographic cross-check",
+          "ml/hurricane6.py:47,247-255,286-297; ml/pipeline.py:368-392"
+        ]
+      }
+    }
+  ],
+  "disclosure_gaps": [
+    "No exact superconductivity paper for this particular16-prototype Gaussian-RBF augmentation was established; do not infer originality from this limited search.",
+    "No direct prior reproduction of the exact Radar learned routing label was established; cite Stanev as related family-specific classification/regression and Sommer as actual dataset, not as the inventor of this exact router.",
+    "No superconductivity-specific split-conformal guarantee was verified here; cite Lei as general statistics and report measured group/row coverage with distribution-shift limitations.",
+    "This12-reference audit includes CGCNN and MACE but does not replace existing gradient-boosting, scikit-learn, Alexandria and other dataset/software citations. Keep those existing citations."
+  ],
+  "ui_guidance": {
+    "KMeans/PCA": "Related prior work: Roter et al.(2022) and Roter & Dordevic(2020). Our comparison uses train-only physical representations and unchanged supervised baselines; similarity is not mechanism.",
+    "component_route": "Related prior work: Choudhary & Garrity(2022); formula: Allen & Dynes(1975). We compare direct versus predicted-component routes on DFT-derived targets.",
+    "validation": "Chemical-system separation follows established materials benchmarks including3DSC; family/cluster extrapolation is discussed by Konno(2021) and Xie et al.(2022). Reused families are exploratory.",
+    "uncertainty": "Fold disagreement and split-conformal intervals are different quantities. Cite ensemble precedent separately from the statistical interval method."
+  },
+  "revision": {
+    "added_on": "2026-11-02",
+    "prior10_reference_sha256": "52b2a6df55d6b9d10d1da7601c7aa6650cbd384e5d3ea4a6028ca09a66484526",
+    "added": [
+      "xie2018-cgcnn",
+      "batatia2025-mace-mp"
+    ],
+    "source_or_protocol_changes": false,
+    "sealed": true
+  }
+}

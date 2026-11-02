@@ -118,21 +118,20 @@
       rows = rows.slice(0, 8);
     }
     rows.forEach(function (r) {
-      ol.appendChild(h('li', null,
-        h('p', { class: 'adv-meta' }, h('span', { text: fmtMonth(r.d) }), h('span', { class: 'kind kind-' + r.k, text: KIND_LABEL[r.k] || r.k }), h('span', { text: advTopic(r) })),
-        richText(h('h3'), r.h),
-        richText(h('p', { class: 'adv-text' }), r.x),
-        newsArticleFigure(r),
-        h('p', { class: 'adv-ref' }, recentLink(r))));
+      ol.appendChild(h('li', { class: 'news-item article-item' }, newsArticleFigure(r),
+        h('div', { class: 'news-body' },
+          h('p', { class: 'adv-meta' }, h('span', { text: fmtMonth(r.d) }), h('span', { class: 'kind kind-' + r.k, text: KIND_LABEL[r.k] || r.k }), h('span', { text: advTopic(r) })),
+          richText(h('h3'), r.h), richText(h('p', { class: 'adv-text' }), r.x),
+          h('p', { class: 'adv-ref' }, recentLink(r)))));
     });
     var aiList = $('#ai-adv-list'), aiMore = $('#ai-adv-more');
     if (aiList && aiMore) {
       clear(aiList); clear(aiMore);
       var aiRows = RECENT.filter(function (r) { return list(r.cards).indexOf('ai') >= 0; }).slice().sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
       (paperState.aiAdvAll ? aiRows : aiRows.slice(0, 8)).forEach(function (r) {
-        aiList.appendChild(h('li', { class: 'ai-selected-item article-item' },
+        aiList.appendChild(h('li', { class: 'ai-selected-item article-item' }, newsArticleFigure(r, aiArticleArt({ title: r.h, summary: r.x })),
           h('div', { class: 'news-body' }, h('p', { class: 'adv-meta' }, h('span', { text: fmtMonth(r.d) }), h('span', { class: 'kind kind-' + r.k, text: KIND_LABEL[r.k] || r.k })),
-            richText(h('h3'), r.h), richText(h('p', { class: 'adv-text' }), r.x), newsArticleFigure(r), h('p', { class: 'adv-ref' }, recentLink(r)))));
+            richText(h('h3'), r.h), richText(h('p', { class: 'adv-text' }), r.x), h('p', { class: 'adv-ref' }, recentLink(r)))));
       });
       if (!aiRows.length) aiList.appendChild(h('li', { class: 'empty', text: 'No selected AI research is available yet.' }));
       if (!paperState.aiAdvAll && aiRows.length > 8) aiMore.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.aiAdvAll = true; renderAdvances(); } }, 'Show all ' + aiRows.length));
@@ -174,8 +173,8 @@
     rows.slice(0, paperState.newsShown).forEach(function (n) {
       var meta = h('p', { class: 'paper-meta' }, h('span', { class: 'src src-news', text: n.source }), h('span', { text: fmtDayISO(n.date) }));
       list(n.topics).forEach(function (t) { meta.appendChild(h('span', { class: 'topic', text: t })); });
-      ol.appendChild(h('li', { class: 'news-item article-item' },
-        h('div', { class: 'news-body' }, meta, h('h3', null, h('a', { href: n.url, text: n.title })), n.summary ? h('p', { class: 'paper-intro', text: n.summary }) : null, newsArticleFigure(n))));
+      ol.appendChild(h('li', { class: 'news-item article-item' }, newsArticleFigure(n),
+        h('div', { class: 'news-body' }, meta, h('h3', null, h('a', { href: n.url, text: n.title })), n.summary ? h('p', { class: 'paper-intro', text: n.summary }) : null)));
     });
     miniKick();
     if (rows.length > paperState.newsShown) {
@@ -253,8 +252,8 @@
       body.push(h('p', { class: 'paper-intro muted', text: 'Published in ' + (p.journal || p.source) + '. The abstract is on the publisher’s page.' }));
     }
     if (isArxiv && p.journal_ref) body.push(h('p', { class: 'paper-authors', text: 'Published as ' + p.journal_ref }));
-    if (!withoutFigure) body.push(newsArticleFigure(p));
-    return h('li', { class: 'article-item' }, body);
+    if (withoutFigure) return h('li', null, body);
+    return h('li', { class: 'news-item article-item' }, newsArticleFigure(p), h('div', { class: 'news-body' }, body));
   };
 
   const fmtDayISO = function fmtDayISO(s) {

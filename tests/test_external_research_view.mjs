@@ -156,8 +156,8 @@ test('News & Papers separates explicit public AI identities from general superco
   assert.match(h.get('news-list').textContent, /A cuprate measurement/);
   assert.equal(h.get('ai-list').children[0].querySelector('a').getAttribute('href'), ai.url);
   const canvases = flatten(h.get('ai-list')).filter(node => node.tagName === 'canvas');
-  assert.deepEqual(canvases.map(node => node.getAttribute('data-news-art')), ['news-research', 'news-hydride']);
-  assert.equal(flatten(h.get('ai-list')).filter(node => node.tagName === 'figure').length, 2, 'Each public AI item receives its own source-bound figure');
+  assert.deepEqual(canvases.map(node => node.getAttribute('data-news-art')), ['news-features', 'news-hydride']);
+  assert.equal(flatten(h.get('ai-list')).filter(node => String(node.className || '').split(' ').includes('news-art')).length, 2, 'Each public AI item receives one compact topic thumbnail');
   assert.equal(h.get('news-list').querySelector('canvas').getAttribute('data-news-art'), 'news-cuprate');
   assert.equal(h.requests.length, 0, 'Rendering public records cannot fetch private content');
 });
@@ -201,39 +201,14 @@ test('empty, missing, loading and failed public feeds have distinct honest state
   assert.equal(h.context.paperState.data.updated, '2026-11-01T00:00:00Z', 'A failed refresh retains the actual prior data and its date');
 });
 
-test('AI workflow explanations remain schematic, preserve explicit kinds and respect manual reduced-motion controls', () => {
-  const h = harness({ feed: [{ title: 'Model candidate', url: 'https://example.org/predict', date: '2026-11-01', ai_kind: 'prediction', kind_of: 'news' }] });
-  const workflow = h.get('ai-list').querySelector('.ai-workflow');
-  const group = workflow.querySelector('.ai-workflow-steps');
-  const play = flatten(workflow).find(node => node.tagName === 'button' && node.textContent === 'Play explanation');
-  assert.equal(play.disabled, true);
-  assert.match(workflow.textContent, /not a record of completed research steps/);
-  assert.match(workflow.textContent, /Reduced motion/);
-  group.children[2].dispatch('click');
-  assert.equal(group.children[2].getAttribute('aria-pressed'), 'true');
-  assert.match(workflow.querySelector('.ai-workflow-detail').textContent, /does not say those tests occurred/);
+test('article lists keep compact thumbnails without detailed-diagram expansion', () => {
+  const h = harness({ feed: [{ title: 'A generated candidate', url: 'https://example.org/predict', date: '2026-11-01', ai_kind: 'prediction', kind_of: 'news' }] });
+  const list = h.get('ai-list');
+  assert.equal(list.querySelector('.ai-workflow'), null);
+  assert.equal(list.querySelector('.article-figure-evidence'), null);
+  assert.equal(flatten(list).filter(node => node.tagName === 'canvas').length, 1);
   assert.equal(h.intervals.size, 0);
-  for (const kind of ['prediction', 'generation', 'experiment', 'data', 'review']) {
-    assert.equal(h.run('aiWorkflowInfo({ai_kind:' + JSON.stringify(kind) + '}).kind'), kind);
-  }
-  for (const kind of ['unknown', 'constructor', '__proto__']) assert.equal(h.run('aiWorkflowInfo({ai_kind:' + JSON.stringify(kind) + '}).kind'), 'analysis');
-  assert.match(h.run('aiWorkflowInfo({ai_kind:"experiment"}).steps[2][1]'), /does not by itself identify the predicted phase/);
-});
-
-test('workflow playback pauses, stops when leaving News and never changes evidence claims', () => {
-  const h = harness({ moving: true, feed: [{ title: 'Prediction', url: 'https://example.org/one', date: '2026-11-01', ai_kind: 'prediction', kind_of: 'news' }] });
-  const workflow = h.get('ai-list').querySelector('.ai-workflow'); workflow.open = true;
-  const group = workflow.querySelector('.ai-workflow-steps');
-  const play = flatten(workflow).find(node => node.tagName === 'button' && node.textContent === 'Play explanation');
-  play.dispatch('click'); assert.equal(h.intervals.size, 1);
-  [...h.intervals.values()][0]();
-  assert.equal(group.children[1].getAttribute('aria-pressed'), 'true');
-  assert.match(workflow.querySelector('.ai-workflow-detail').textContent, /not a measured superconducting transition/);
-  play.dispatch('click'); assert.equal(h.intervals.size, 0);
-  play.dispatch('click'); h.context.view = 'progress'; [...h.intervals.values()][0]();
-  assert.equal(h.intervals.size, 0);
-  assert.equal(group.children[1].getAttribute('aria-pressed'), 'true');
-  assert.match(workflow.textContent, /Illustrative schematic/);
+  assert.doesNotMatch(list.textContent, /What this drawing uses|Explore the AI workflow|Related concept/);
 });
 
 test('existing mini-animation engine stays static with reduced motion and animates only its active views', () => {
@@ -259,7 +234,7 @@ test('the checked-in public feed supplies animated AI entries without private me
   assert.ok(data.ai.length > 0);
   const list = h.get('ai-list');
   assert.equal(flatten(list).filter(node => node.tagName === 'canvas').length, list.children.length);
-  assert.equal(flatten(list).filter(node => node.className === 'ai-workflow').length, list.children.length);
+  assert.equal(flatten(list).filter(node => node.className === 'ai-workflow').length, 0);
   assert.equal(h.get('ai-private-notes'), null);
   assert.equal(h.requests.length, 0);
 });
@@ -291,7 +266,7 @@ test('service-worker upgrade discards the old memo cache while preserving other 
   const current = /const CACHE = '([^']+)'/.exec(source)[1];
   const old = 'supercon-0.3.9-research31-tc-ranking';
   const previous = 'supercon-0.3.11-team-password';
-  assert.equal(current, 'supercon-0.3.16-desktop-session');
+  assert.equal(current, 'supercon-0.3.17-compact-news');
   assert.notEqual(current, old);
   const context = { self: { addEventListener: (kind, fn) => { handlers[kind] = fn; }, clients: { claim: async () => {} } },
     caches: { keys: async () => [old, previous, current, 'unrelated-app'], delete: async (key) => { deleted.push(key); } } };

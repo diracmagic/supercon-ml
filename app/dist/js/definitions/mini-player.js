@@ -3,8 +3,10 @@
 
   const miniCanvas = function miniCanvas(kind, article) {
     var info = article ? newsArticleDescribe(article) : null;
-    var cv = h('canvas', { class: 'mini' + (info ? ' article-scene' : ''), role: 'img',
-      'aria-label': info ? info.title + '. ' + info.scope + ' ' + info.evidence : MINI_ALT[kind] || '',
+    var description = MINI_ALT[kind] || 'Research-paper illustration; no material structure or measured result is depicted.';
+    var cv = h('canvas', { class: 'mini', role: 'img',
+      'aria-label': info ? info.title + '. ' + description + ' ' + info.evidence : description,
+      title: info ? info.title : description,
       'data-article-key': info ? info.key : '', 'data-news-art': kind });
     var it = { cv: cv, kind: kind, article: info, t: 0, vis: !window.IntersectionObserver, W: 0, H: 0, dpr: 0, ctx: null };
     MINI.items.push(it);
@@ -58,8 +60,8 @@
       c.fillStyle = C.surface2;
       c.fillRect(0, 0, W, H);
       var fn = MINI_DRAW[it.kind];
-      if (it.article) { c.save(); newsArticleDraw(c, C, W, H, moving ? it.t : 1.2, it.article); c.restore(); }
-      else if (fn) { c.save(); fn(c, C, W, H, moving ? it.t : (MINI_STATIC[it.kind] || 4)); c.restore(); }
+      if (fn) { c.save(); fn(c, C, W, H, moving ? it.t : (MINI_STATIC[it.kind] || 4)); c.restore(); }
+      else if (it.article) { c.save(); newsArticleDraw(c, C, W, H, moving ? it.t : 1.2, it.article); c.restore(); }
       any = true;
     });
     if (moving && any) MINI.raf = requestAnimationFrame(miniFrame);

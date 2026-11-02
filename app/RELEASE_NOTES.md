@@ -1,5 +1,10 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.17 adds:
+
+- **Compact News & papers animations:** small animations appear directly on article cards, without a separate expanded drawing view. Original-source links remain available.
+- **Model methods and references:** model explanations cite the research they draw on and distinguish our inputs, training and validation from the cited methods.
+
 Version 0.3.16 adds:
 
 - **Desktop sign-in returns automatically:** after GitHub or email sign-in, the app hands the verified team session back to its installed home screen. Notes, Messages and Team remain available there alongside native updates. Credentials stay in process memory; closing the desktop process or signing out ends the local session. Cancellation and expired or revoked membership cannot restore private access.
