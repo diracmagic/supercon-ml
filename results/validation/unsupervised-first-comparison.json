@@ -1,0 +1,544 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-02",
+  "status": "completed_independently_audited_report_only",
+  "source_commit": "4833b21bed522550294cb7182859908edee9a466",
+  "ci": {
+    "run_id": 41442253721,
+    "url": "https://github.com/diracmagic/supercon-ml/actions/runs/41442253721"
+  },
+  "pull_request": "https://github.com/diracmagic/supercon-ml/pull/17",
+  "protocols": {
+    "storm7": {
+      "path": "results/validation/unsupervised-protocols-v1-final/storm7/protocol.json",
+      "sha256_exact_file_bytes": "33a265a303d8c42f4c4cd674bf868afc6ea1f4d47dd9ca7717d68aa020bfca7a",
+      "matches_real_run_protocol": true
+    },
+    "hurricane8": {
+      "path": "results/validation/unsupervised-protocols-v1-final/hurricane8/protocol.json",
+      "sha256_exact_file_bytes": "65a97626f4e19683c696ba6f9ec758083d7f5bc7f9ed657862d663e5d7d1b24a",
+      "matches_real_run_protocol": true
+    }
+  },
+  "adopted": false,
+  "model_release_changed": false,
+  "conclusion": "Neither first train-only RBF prototype comparison demonstrates substantive improvement. All primary paired 95% intervals include zero. Report every design; no winner selected and no model released.",
+  "comparison_scope": {
+    "representation": "16 train-only KMeans RBF similarities; representation fitting receives only X, never targets. Training-only median/mean/std, informative-column filtering, clipping and bandwidth estimation.",
+    "primary": "Within-run paired U1 minus U0 on identical current inputs, folds and supervised-head settings in the same runtime.",
+    "validation_status": "Exploratory: folds and Hurricane families have been inspected before; not a new independent blind test.",
+    "bootstrap": "1000 paired whole-chemical-system bootstrap resamples of fixed predictions; does not remove prior model-selection or family-inspection bias.",
+    "meaning": "Material similarities do not establish a superconductivity mechanism or calibrated superconductivity probabilities.",
+    "new_measured_normal_state_training_records": 0,
+    "new_feedback_training_records": 0,
+    "data_collection": "Licensed experimental data acquisition continues separately. New resistivity, magnetic and heat-capacity records were not mixed into either frozen comparison."
+  },
+  "storm7": {
+    "run_id": "20261102T120933136767Z-1793621373136791053",
+    "target": "Recomputed simplified Allen-Dynes DFT Tc in kelvin, mu*=0.1 and f1=f2=1; not measured experimental Tc.",
+    "designs": {
+      "U0": "Storm6 R2 feature-map and head implementation: D plus 19 geometry features, direct Tc.",
+      "U1": "Identical raw features and direct head, with 16 train-only geometry prototype similarities appended."
+    },
+    "cohort": {
+      "rows_per_design": 7582,
+      "chemical_systems": 4288,
+      "tail_rows": 759,
+      "point_ood_rows": 365,
+      "proper_ood_rows": 343
+    },
+    "metrics": {
+      "U0": {
+        "point": {
+          "n": 7582,
+          "mae_k": 0.9674607593639637,
+          "rmse_k": 2.0039066176622087,
+          "r2": 0.7056916755534612,
+          "median_absolute_error_k": 0.35316351042716604,
+          "within_1k_fraction": 0.735689791611712,
+          "within_2k_fraction": 0.8662621999472435,
+          "fold_mae_k": [
+            1.0435941880839146,
+            0.9870151065571906,
+            0.8615102747276369,
+            0.9574002865104602,
+            0.9877208223549211
+          ],
+          "tail_n": 759,
+          "tail_mae_k": 3.6789857276879574,
+          "chemical_systems": 4288,
+          "ood": {
+            "n": 365,
+            "mae_k": 1.3294280869520085
+          },
+          "within_training_distance": {
+            "n": 7217,
+            "mae_k": 0.9491542504863639
+          }
+        },
+        "split_center": {
+          "n": 7582,
+          "mae_k": 1.02449084855589,
+          "rmse_k": 2.1154486468307816,
+          "r2": 0.6720160729063327,
+          "median_absolute_error_k": 0.36833228632777587,
+          "within_1k_fraction": 0.7267211817462411,
+          "within_2k_fraction": 0.8567660247955684,
+          "fold_mae_k": [
+            1.0986998923195341,
+            1.0601601720527871,
+            0.9018470979855643,
+            1.0216164712011346,
+            1.0400581300863523
+          ],
+          "tail_n": 759,
+          "tail_mae_k": 3.9344312106006023,
+          "chemical_systems": 4288,
+          "ood": {
+            "n": 343,
+            "mae_k": 1.6733398425896953
+          },
+          "within_training_distance": {
+            "n": 7239,
+            "mae_k": 0.9937469329662234
+          }
+        },
+        "intervals": {
+          "row_coverage": 0.9398575573727249,
+          "group_simultaneous_coverage": 0.9043843283582089,
+          "tail_coverage": 0.8260869565217391,
+          "finite_interval_rows": 7582,
+          "unbounded_interval_rows": 0,
+          "mean_width_k": 5.444019283156755,
+          "median_width_k": 2.8968328596365063,
+          "interval_score_k": 8.118263380471204,
+          "ood": {
+            "n": 343,
+            "row_coverage": 0.8571428571428571
+          },
+          "within_training_distance": {
+            "n": 7239,
+            "row_coverage": 0.943776764746512
+          }
+        },
+        "paired_vs_Storm4": {
+          "delta_mae_k_new_minus_reference": 0.06954857637105766,
+          "percentile_95_interval_k": [
+            0.047029566522917975,
+            0.0903680063194413
+          ],
+          "repetitions": 1000,
+          "unit": "chemical-system cluster",
+          "selection_adjusted": false
+        }
+      },
+      "U1": {
+        "point": {
+          "n": 7582,
+          "mae_k": 0.9747182910305756,
+          "rmse_k": 2.0275547879719804,
+          "r2": 0.6987044037396025,
+          "median_absolute_error_k": 0.35106365576542475,
+          "within_1k_fraction": 0.7348984436824056,
+          "within_2k_fraction": 0.865075178053284,
+          "fold_mae_k": [
+            1.057531974493954,
+            0.9781722249462496,
+            0.8609595520947453,
+            0.9771533767036232,
+            0.9997174221535027
+          ],
+          "tail_n": 759,
+          "tail_mae_k": 3.730214469929258,
+          "chemical_systems": 4288,
+          "ood": {
+            "n": 365,
+            "mae_k": 1.3438150003532932
+          },
+          "within_training_distance": {
+            "n": 7217,
+            "mae_k": 0.9560512134494767
+          }
+        },
+        "split_center": {
+          "n": 7582,
+          "mae_k": 1.0349643412115666,
+          "rmse_k": 2.1346436303473473,
+          "r2": 0.6660370021868637,
+          "median_absolute_error_k": 0.3751531562203055,
+          "within_1k_fraction": 0.7240833553152203,
+          "within_2k_fraction": 0.8539963070429966,
+          "fold_mae_k": [
+            1.118195344812004,
+            1.0690903231731868,
+            0.9179780766506189,
+            1.008488443225048,
+            1.0609921059373686
+          ],
+          "tail_n": 759,
+          "tail_mae_k": 4.057806508270893,
+          "chemical_systems": 4288,
+          "ood": {
+            "n": 343,
+            "mae_k": 1.6484542095501609
+          },
+          "within_training_distance": {
+            "n": 7239,
+            "mae_k": 1.0058958200290637
+          }
+        },
+        "intervals": {
+          "row_coverage": 0.9361646003692957,
+          "group_simultaneous_coverage": 0.8971548507462687,
+          "tail_coverage": 0.8234519104084321,
+          "finite_interval_rows": 7582,
+          "unbounded_interval_rows": 0,
+          "mean_width_k": 5.41809139020668,
+          "median_width_k": 2.9188843035169243,
+          "interval_score_k": 8.193505049163177,
+          "ood": {
+            "n": 343,
+            "row_coverage": 0.8483965014577259
+          },
+          "within_training_distance": {
+            "n": 7239,
+            "row_coverage": 0.9403232490675507
+          }
+        },
+        "paired_vs_Storm4": {
+          "delta_mae_k_new_minus_reference": 0.07680610803766982,
+          "percentile_95_interval_k": [
+            0.050101714019495994,
+            0.10057262534039044
+          ],
+          "repetitions": 1000,
+          "unit": "chemical-system cluster",
+          "selection_adjusted": false
+        }
+      }
+    },
+    "paired_U1_minus_U0": {
+      "overall": {
+        "delta_mae_k_new_minus_reference": 0.007257531666612158,
+        "percentile_95_interval_k": [
+          -0.00355736023799987,
+          0.016609831510670154
+        ],
+        "repetitions": 1000,
+        "unit": "chemical-system cluster",
+        "selection_adjusted": false
+      },
+      "tail": {
+        "delta_mae_k_new_minus_reference": 0.05122874224130057,
+        "percentile_95_interval_k": [
+          -0.02418576333306888,
+          0.12661635098008064
+        ],
+        "repetitions": 1000,
+        "unit": "chemical-system cluster",
+        "selection_adjusted": false
+      },
+      "ood": {
+        "delta_mae_k_new_minus_reference": 0.014386913401284597,
+        "percentile_95_interval_k": [
+          -0.049440272938543375,
+          0.07283826451619571
+        ],
+        "repetitions": 1000,
+        "unit": "chemical-system cluster",
+        "selection_adjusted": false
+      }
+    },
+    "interval_definition": "Nominal 90% split-conformal intervals use a separate proper-training center and maximum absolute log1p residual per calibration chemical system. Point metrics use full outer-training heads; their OOD masks have a different denominator.",
+    "saved_Storm4_context": {
+      "n": 7582,
+      "mae_k": 0.8979121829929059,
+      "rmse_k": 1.9246074842055396,
+      "r2": 0.7285236960294272,
+      "median_absolute_error_k": 0.2825528508155092,
+      "within_1k_fraction": 0.7492745977314693,
+      "within_2k_fraction": 0.8712740701661831,
+      "fold_mae_k": [
+        0.9706529181198547,
+        0.9726446663149395,
+        0.7853852117203383,
+        0.8735181157890837,
+        0.8872627251717324
+      ],
+      "tail_n": 759,
+      "tail_mae_k": 3.295492111314325,
+      "chemical_systems": 4288,
+      "ood": {
+        "n": 365,
+        "mae_k": 1.3510124589033177
+      },
+      "within_training_distance": {
+        "n": 7217,
+        "mae_k": 0.8749966224127063
+      }
+    },
+    "context_interpretation": "Saved Storm4 is historical context, not the primary causal comparison. Both new designs have higher overall MAE than this saved reference.",
+    "conclusion": "U1 overall, high-Tc-tail and OOD point MAE all increase slightly; every corresponding paired 95% interval includes zero. Nominal 90% group coverage changes from 0.9043843283582089 to 0.8971548507462687. No demonstrated substantive gain.",
+    "adopted": false,
+    "audit": {
+      "status": "passed_with_historical_reproduction_limitation",
+      "numeric_comparisons_passed": 7126,
+      "artifact_files_sha256_verified": 20,
+      "audit_file_sha256": "f4e0324677740881cfc83c0e457b285325771625c46e5054e13bd53d95dd7582",
+      "local_replay_script": "work/tmp/audit_storm7_independent.py",
+      "local_audit_file": "work/tmp/storm7-independent-audit.json",
+      "no_model_refit": true,
+      "scope": "Independently reconstructed fold/system separation, 10 prototype training states and hashes/statistics, shared OOD masks, calibration residuals/group maxima/quantiles/bounds, all reported metrics and paired bootstrap.",
+      "limitations": [
+        "KMeans was not refitted: saved centers, training membership/hashes, preprocessing, distances,bandwidth,inertia and occupancy reconstructed; optimizer global optimality not certified",
+        "HGB heads were not refitted and are not serialized; predictions and calibration arithmetic independently checked, not an independent refit",
+        "Historical folds reused; bootstrap is descriptive, not independent blind validation",
+        "U1/U0 share the identical current input, folds, environment and head settings; savedStorm4/oldS6 are historical context",
+        "Frozen comparison usesDFT Tc; no measured normal-state records trained"
+      ]
+    },
+    "historical_S6_R2_reproduction": {
+      "old_r2_mae_k": 0.9614769512927321,
+      "new_u0_mae_k": 0.9674607593639637,
+      "target_identity": {
+        "ids_aligned": 7582,
+        "exact_equal_rows": 7281,
+        "within_1e_minus_12_rows": 7582,
+        "max_absolute_target_difference_K": 3.552713678800501e-15
+      },
+      "predictions_exactly_equal": false,
+      "maximum_absolute_prediction_difference_k": 5.433285736146834,
+      "D_columns_equal": true,
+      "id_order_hash_equal": true,
+      "structure_target_sha256_old": "dc4d15179f7078dd5c499ee620c5900c15c0f85fca7b761ad20e4707aeb1747f",
+      "structure_target_sha256_new": "1c3779aa5b1d33d0977ebbc9179382f23cedc9e448fac015c215c867053a6e19",
+      "reported_versions_old": {
+        "sklearn": "1.9.1",
+        "numpy": "2.4.6",
+        "pandas": "3.1.0"
+      },
+      "reported_versions_new": {
+        "sklearn": "1.9.1",
+        "numpy": "2.4.6",
+        "pandas": "3.1.0"
+      },
+      "params_equal": true,
+      "geometry_diagnostic_differences_by_key": {
+        "id": 0,
+        "status": 0,
+        "structure_valid": 0,
+        "cached": 0,
+        "n_sites": 0,
+        "directed_contact_edges": 0,
+        "isolated_sites": 0,
+        "coverage": 0,
+        "components": 0,
+        "cutoff_sensitivity": 0,
+        "dimensionality_changes_with_cutoff": 0,
+        "near_cutoff_fraction_of_searched_edges": 0,
+        "finite_features": 0,
+        "missing_features": 0,
+        "proxy_disclaimer": 0,
+        "unavailable_properties": 0,
+        "cache_key": 1193,
+        "generation": 0
+      },
+      "geometry_generation_old": {
+        "version": "periodic-local-geometry-v1",
+        "settings": {
+          "cutoff_scale": 1.25,
+          "sensitivity_fraction": 0.05,
+          "max_atoms": 2048,
+          "max_neighbor_edges": 500000,
+          "min_separation_angstrom": 0.0001
+        },
+        "ase": "3.29.0",
+        "radii_sha256": "66a3533de486f2db9792644024e4f9652e56d7dfc1945f9435da72043a897c1f"
+      },
+      "geometry_generation_new": {
+        "version": "periodic-local-geometry-v1",
+        "settings": {
+          "cutoff_scale": 1.25,
+          "sensitivity_fraction": 0.05,
+          "max_atoms": 2048,
+          "max_neighbor_edges": 500000,
+          "min_separation_angstrom": 0.0001
+        },
+        "ase": "3.29.0",
+        "radii_sha256": "66a3533de486f2db9792644024e4f9652e56d7dfc1945f9435da72043a897c1f"
+      },
+      "atomic_table_source": "pipeline.element_table reads pymatgen.core.periodic_table.Element; exact table bytes/pymatgen version are absent from historical/current run report",
+      "limitation": "1193 geometry cache keys differ though generation/diagnostic fields are equal; keys bind cell/fractional/elements. Historical raw structures/D/geometry matrices were not exported, so magnitude and cause cannot be determined. Same-runtime synthetic equality does not establish cross-run reproduction."
+    },
+    "historical_reproduction_interpretation": "Same-runtime synthetic U0 equality establishes implementation-path equivalence only. Historical S6 R2 predictions are not reproduced exactly across runs. Joint structure/target and geometry cache hashes differ, while reported package versions, feature names and head parameters match; historical full input matrices are unavailable, so the source of the numerical discrepancy remains unresolved. Do not attribute it to a package upgrade or physical structural change. This does not alter the paired current-run U1-versus-U0 comparison."
+  },
+  "hurricane8": {
+    "run_id": "20261102T120920849338Z-1793621360851448976",
+    "target": "P/U catalogue ranking; U is unlabelled, never experimental negative. Scores are not calibrated probabilities.",
+    "designs": {
+      "U0": "Hurricane7 R0 main-effect pairwise Ridge baseline.",
+      "U1": "Identical pair generation, weights, Ridge head and inner alpha selection, plus 16 training-only physical-feature prototype similarities."
+    },
+    "cohort": {
+      "parents": 615,
+      "positive": 288,
+      "unlabeled": 327,
+      "chemical_systems": 472
+    },
+    "evaluation": "Leave one family and its chemical systems out. Inner selection is also grouped by chemical system; no held-family representation fitting. Equal-family observed-P/U AUC and recall at a 20% ranking budget with fractional boundary ties.",
+    "macro": {
+      "U0": {
+        "observed_pu_auc": 0.6040009458817508,
+        "recall_at_budget": 0.24774029982363316
+      },
+      "U1": {
+        "observed_pu_auc": 0.6008997675251545,
+        "recall_at_budget": 0.25380939412802156
+      }
+    },
+    "per_family": {
+      "U0": {
+        "cuprate": {
+          "n": 158,
+          "n_positive": 84,
+          "n_unlabeled": 74,
+          "observed_pu_auc": 0.5685328185328186,
+          "recall_at_budget": 0.20238095238095238,
+          "budget": 32,
+          "expected_recorded_positives_at_budget": 17.0
+        },
+        "iron-based": {
+          "n": 110,
+          "n_positive": 72,
+          "n_unlabeled": 38,
+          "observed_pu_auc": 0.564327485380117,
+          "recall_at_budget": 0.20833333333333334,
+          "budget": 22,
+          "expected_recorded_positives_at_budget": 15.0
+        },
+        "heavy-fermion": {
+          "n": 221,
+          "n_positive": 81,
+          "n_unlabeled": 140,
+          "observed_pu_auc": 0.6227513227513227,
+          "recall_at_budget": 0.24691358024691357,
+          "budget": 45,
+          "expected_recorded_positives_at_budget": 20.0
+        },
+        "other oxide": {
+          "n": 126,
+          "n_positive": 51,
+          "n_unlabeled": 75,
+          "observed_pu_auc": 0.6603921568627451,
+          "recall_at_budget": 0.3333333333333333,
+          "budget": 26,
+          "expected_recorded_positives_at_budget": 17.0
+        }
+      },
+      "U1": {
+        "cuprate": {
+          "n": 158,
+          "n_positive": 84,
+          "n_unlabeled": 74,
+          "observed_pu_auc": 0.5165701415701416,
+          "recall_at_budget": 0.23809523809523808,
+          "budget": 32,
+          "expected_recorded_positives_at_budget": 20.0
+        },
+        "iron-based": {
+          "n": 110,
+          "n_positive": 72,
+          "n_unlabeled": 38,
+          "observed_pu_auc": 0.6366959064327485,
+          "recall_at_budget": 0.2361111111111111,
+          "budget": 22,
+          "expected_recorded_positives_at_budget": 17.0
+        },
+        "heavy-fermion": {
+          "n": 221,
+          "n_positive": 81,
+          "n_unlabeled": 140,
+          "observed_pu_auc": 0.6338624338624339,
+          "recall_at_budget": 0.24691358024691357,
+          "budget": 45,
+          "expected_recorded_positives_at_budget": 20.0
+        },
+        "other oxide": {
+          "n": 126,
+          "n_positive": 51,
+          "n_unlabeled": 75,
+          "observed_pu_auc": 0.6164705882352941,
+          "recall_at_budget": 0.29411764705882354,
+          "budget": 26,
+          "expected_recorded_positives_at_budget": 15.0
+        }
+      }
+    },
+    "paired_U1_minus_U0": {
+      "unit": "chemical-system clusters across all held families",
+      "seed": 7,
+      "chemical_systems": 472,
+      "requested_resamples": 1000,
+      "valid_resamples": 1000,
+      "quantities": {
+        "observed_pu_auc": {
+          "delta_new_minus_reference": -0.0031011783565962903,
+          "lower95": -0.027277006205176795,
+          "upper95": 0.02239836523889876,
+          "valid_resamples": 1000,
+          "requested_resamples": 1000
+        },
+        "recall_at_budget": {
+          "delta_new_minus_reference": 0.0060690943043884005,
+          "lower95": -0.027122548816885535,
+          "upper95": 0.02697012769490175,
+          "valid_resamples": 1000,
+          "requested_resamples": 1000
+        }
+      }
+    },
+    "conclusion": "Observed-P/U AUC decreases by 0.0031011783565962903 and recall increases by 0.0060690943043884005. Both paired 95% intervals include zero. This is no demonstrated substantive gain; a small catalog-recall change does not establish discovery of a new superconducting family.",
+    "adopted": false,
+    "historical_H7_R0_reproduction": {
+      "source_commit": "83f4f5ffa85ecff844779125772f480f33634025",
+      "input_route": "recomputed_original_CIF_features",
+      "features_bitwise_identical": false,
+      "maximum_absolute_feature_difference": 1.7763568394002505e-14,
+      "feature_nonidentical_cells": 3225,
+      "macro": {
+        "observed_pu_auc": 0.6040009458817508,
+        "recall_at_budget": 0.24774029982363316
+      },
+      "maximum_absolute_score_difference": 1.2698175844150228e-15,
+      "score_atol": 1e-10,
+      "score_rtol": 1e-09,
+      "metric_atol": 1e-12,
+      "interpretation": "Numerical reproduction diagnostic, not a new scientific adoption threshold."
+    },
+    "audit": {
+      "status": "passed",
+      "checks": {
+        "passed": 3440,
+        "failed": 0
+      },
+      "audit_file_sha256": "c5368dfece4bee6d82c8e0202fdbc916f49da9e4cb83119460571235a2b2894e",
+      "local_audit_file": "work/tmp/hurricane8-independent-audit.json",
+      "method": "Independent tie-group Mann-Whitney calculation, descending fractional budget allocation, whole-system paired resampling; no model imports or model fitting.",
+      "limitations": [
+        "Inner predictions are not saved: inner AUC values cannot be independently recomputed, only partitions, denominators, family averaging and alpha selection.",
+        "Prototype hashes, input statistics, centroid consistency and score reconstruction corroborate training provenance; they do not cryptographically prove how an optimizer executed.",
+        "Original CIF bytes are not included in this result artifact; their declared IDs/hashes are cross-checked against the historical H7 manifest, not newly computed from raw CIF files.",
+        "Nearest training representatives are explanatory neighbours, not measured prototype materials.",
+        "Bootstrap conditions on fixed exploratory predictions. Previously inspected families are not a new blind test.",
+        "No precursor or feedback records were trained in H8; no mechanism or experimental superconductivity is established."
+      ]
+    }
+  },
+  "decision": {
+    "substantive_gain_demonstrated": false,
+    "automatic_winner_selection": false,
+    "adopted": false,
+    "Hurricane_current_release": "Hurricane 4.0 remains in use.",
+    "follow_up": "Continue licensed sample-matched normal-state data collection and source adjudication; do not repeatedly poll this completed research run or adjust frozen thresholds after seeing outcomes."
+  }
+}
