@@ -1,5 +1,6 @@
 import { APP_ORIGIN, APP_RETURN, OWNER_ID, REPOSITORY_ID, TOKEN_PATTERN, AuthError, boundedJson, demand, decryptToken, encryptionKey, encryptToken, equalSecret, jsonResponse, plainObject, randomToken, securityHeaders, sha256 } from './security.mjs';
 import { stateAccess } from './state.mjs';
+import { cooldownSeconds, githubCooldown, providerCooldownUntil } from './oauth-cooldown.mjs';
 import { readMemo, verifyMemoAccess } from './memo.mjs';
 import { createFirebaseClient, firebaseConfigured, normalizeEmail } from './firebase.mjs';
 import { normalizeMemberName, teamAccess } from './team.mjs';
@@ -37,9 +38,10 @@ function redirect(location, origin, cookieHeader) {
   if (cookieHeader) headers.set('Set-Cookie', cookieHeader);
   return new Response(null, { status: 303, headers });
 }
-function returnToApp(values, origin, diagnostic) {
+function returnToApp(values, origin, diagnostic, retryAfter) {
   const destination = new URL(APP_RETURN);
   if (diagnostic) destination.searchParams.set('login_status', CALLBACK_DIAGNOSTICS.has(diagnostic) ? diagnostic : 'unexpected');
+  if (diagnostic === 'provider_http_429' && values.team_error === 'oauth_exchange_unavailable' && Number.isInteger(retryAfter) && retryAfter >= 1 && retryAfter <= 86400) destination.searchParams.set('login_retry_after', String(retryAfter));
   destination.hash = new URLSearchParams(values).toString();
   return redirect(destination.href, origin, cookie('', 0));
 }
@@ -158,6 +160,8 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
           parameters(url, ['challenge', 'state']);
           const challenge = url.searchParams.get('challenge'), clientState = url.searchParams.get('state');
           demand(TOKEN_PATTERN.test(challenge) && TOKEN_PATTERN.test(clientState));
+          const retryAfter = cooldownSeconds(await githubCooldown(env, now()), now());
+          if (retryAfter) return returnToApp({ team_error: 'oauth_exchange_unavailable', team_state: clientState }, origin, 'provider_http_429', retryAfter);
           const serverState = randomToken(), browserCookie = randomToken(), verifier = randomToken();
           const callback = url.origin + '/auth/github/callback';
           const record = { kind: 'transaction', expiresAt: now() + TEN_MINUTES, clientChallenge: challenge, clientState,
@@ -169,7 +173,7 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
           return redirect(authorize.href, origin, cookie(browserCookie));
         }
         if (url.pathname === '/auth/github/callback') {
-          let clientState, stage = 'callback_parameters';
+          let clientState, retryAfter, stage = 'callback_parameters';
           try {
             callbackParameters(url);
             stage = 'callback_state';
@@ -186,6 +190,9 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
             const code = url.searchParams.get('code');
             // OAuth codes are opaque VSCHAR strings (RFC 6749), not our base64url tickets.
             demand(typeof code === 'string' && /^[\x20-\x7e]{1,2048}$/.test(code), 'oauth_failed');
+            stage = 'provider_http_429';
+            retryAfter = cooldownSeconds(await githubCooldown(env, now()), now());
+            if (retryAfter) throw new AuthError('oauth_exchange_unavailable');
             let response;
             stage = 'provider_transport';
             try {
@@ -193,6 +200,14 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
                 body: new URLSearchParams({ client_id: env.GITHUB_CLIENT_ID, client_secret: env.GITHUB_CLIENT_SECRET, code, redirect_uri: transaction.callback, code_verifier: transaction.verifier, repository_id: String(REPOSITORY_ID) }) });
             } catch { throw new AuthError('oauth_exchange_unavailable'); }
             stage = httpDiagnostic(response.status);
+            if (response.status === 429) {
+              // Consume no provider body and never retry this one-use code.
+              const observedAt = now(), until = providerCooldownUntil(response.headers, observedAt);
+              // An already failed response stream must not erase a known 429.
+              try { await response.body?.cancel(); } catch { /* No response text is needed. */ }
+              retryAfter = cooldownSeconds(await githubCooldown(env, observedAt, until), now());
+              throw new AuthError('oauth_exchange_unavailable');
+            }
             // Reject before parsing: a 307 must never forward the code/client secret.
             if (response.status >= 300 && response.status < 400) { await response.body?.cancel(); throw new AuthError('oauth_exchange_unavailable'); }
             stage = 'provider_response_json';
@@ -233,7 +248,7 @@ export function createHandler({ fetchImpl = (...args) => fetch(...args), now = (
             return returnToApp({ team_ticket: ticket, team_state: clientState }, origin);
           } catch (error) {
             const code = error instanceof AuthError && OAUTH_ERRORS.has(error.code) ? error.code : 'oauth_failed';
-            return returnToApp({ team_error: code, ...(clientState ? { team_state: clientState } : {}) }, origin, stage);
+            return returnToApp({ team_error: code, ...(clientState ? { team_state: clientState } : {}) }, origin, stage, retryAfter);
           }
         }
         // Cross-site APIs deliberately use bearer sessions without cookies.

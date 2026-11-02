@@ -17,17 +17,68 @@ test('ideal zero-resistance illustration has no finite-resistance tail below Tc'
   assert.match(captions, /not literal trajectories of a Cooper pair/);
 });
 
-test('automatic topics cannot imply hydride cages, pressure, triplet pairing, CDW or Majorana observation', () => {
+test('topic illustrations retain material distinctions without inventing cages, pressure or observed modes', () => {
   const context = vm.createContext({ list: value => Array.isArray(value) ? value : [] });
   vm.runInContext(read('js/definitions/news-drawings.js'), context);
   const art = entry => vm.runInContext('newsArt(' + JSON.stringify(entry) + ')', context);
-  for (const topics of [['Hydrides'], ['Nickelates'], ['Triplet and ruthenates'], ['Topological'], ['Iron-based'], ['Heavy fermions'], ['Hydrides', 'Cuprates']]) assert.equal(art({ topics, title: 'Superconductivity study' }), 'news-research');
-  assert.equal(art({ topics: ['Nickelates'], title: 'Infinite-layer nickelate film' }), 'news-research');
+  const expected = { Hydrides: 'hydride', Nickelates: 'layered', Topological: 'topo', 'Iron-based': 'iron', 'Heavy fermions': 'heavy' };
+  for (const [topic, motif] of Object.entries(expected)) assert.equal(art({ topics: [topic], title: 'Superconductivity study' }), 'news-' + motif);
+  assert.equal(art({ topics: ['Triplet and ruthenates'], title: 'Superconductivity study' }), 'news-research');
+  assert.equal(art({ topics: ['Hydrides', 'Cuprates'], title: 'Superconductivity study' }), 'news-features');
+  assert.equal(art({ topics: ['Nickelates'], title: 'Infinite-layer nickelate film' }), 'news-layered');
   assert.equal(art({ topics: ['Nickelates'], title: 'Bilayer nickelate film' }), 'news-nickelate');
-  assert.equal(art({ topics: ['Nickelates'], title: 'Bilayer and infinite-layer nickelates' }), 'news-research');
+  assert.equal(art({ topics: ['Nickelates'], title: 'Bilayer and infinite-layer nickelates' }), 'news-layered');
   assert.equal(art({ topics: ['Kagome'], title: 'Kagome superconductor' }), 'news-kagome');
   assert.equal(art({ topics: ['Cuprates'], title: 'Cuprate normal-state study' }), 'news-cuprate');
   assert.equal(art({ title: 'No superconductivity detected in a tested candidate' }), 'news-research');
+});
+
+test('article subject selects distinct AI, model and superconductivity illustrations', () => {
+  const context = vm.createContext({ list: value => Array.isArray(value) ? value : [] });
+  vm.runInContext(read('js/definitions/news-drawings.js') + read('js/definitions/ai-view.js'), context);
+  const art = entry => vm.runInContext('aiArticleArt(' + JSON.stringify(entry) + ')', context);
+  const examples = [
+    ['Structured Extraction and Retrieval-Augmented Question Answering over Superconductivity Literature', 'literature'],
+    ['Competition between stripes and superconductivity in the Hubbard model', 'stripes'],
+    ['Learning the Geometry of Materials Space with Trained Neural Tangent Kernels', 'features'],
+    ['ALIGNN 2.0 unified line-graph neural network', 'graph'],
+    ['Guided diffusion for the discovery of new superconductors', 'search'],
+    ['Orbital-projected density of states', 'spectrum'],
+    ['Storm 5.0: a 90% range for every prediction', 'interval'],
+    ['Storm 1.0: an AI agent designs a better Tc model', 'tree'],
+    ['Hurricane 2.0: predicting unconventional Tc in two parts', 'two-stage'],
+    ['Radar 1.0: a router between Storm and Hurricane', 'routing'],
+    ['Unusual quantum states in six-layer graphene', 'layered-six'],
+    ['Terahertz light probes superconducting vortices', 'vortex'],
+    ['UTe2 reveals two flavors under extreme pressure', 'pressure']
+  ];
+  for (const [title, kind] of examples) assert.equal(art({ title, topics: ['AI and data'] }), 'news-' + kind, title);
+  assert.equal(art({ title: 'New superconductors in a structure type', ai_kind: 'experiment' }), 'news-measurement');
+  assert.equal(art({ title: 'Layered material', topics: ['Moiré and 2D'], abstract: 'Twisted layers are examined.' }), 'news-moire');
+  assert.doesNotMatch(read('js/definitions/papers-view.js'), /miniCanvas\('news-ai'\)/, 'Selected advances must also use their subject');
+});
+
+test('every registered news motif produces finite foreground drawing at thumbnail sizes and reduced motion time', () => {
+  const context = vm.createContext({ MINI_DRAW: {}, MINI_STATIC: {}, MINI_ALT: {}, NEWS_ART: null, stAlpha: value => value, stRng: () => () => .5, mix: a => a, stRound: () => {} });
+  vm.runInContext(read('js/initialize/news-drawings.js'), context);
+  vm.runInContext('initializeSuperconNewsDrawings()', context);
+  const methods = ['save', 'restore', 'setLineDash', 'translate', 'rotate', 'beginPath', 'closePath', 'stroke', 'fill', 'fillRect', 'strokeRect', 'rect', 'moveTo', 'lineTo', 'arc', 'ellipse', 'fillText'];
+  for (const [kind, draw] of Object.entries(context.MINI_DRAW)) {
+    assert.ok(context.MINI_ALT[kind], kind + ' has a description');
+    for (const [width, height] of [[112, 84], [168, 126]]) for (const time of [0, 1.2, 5]) {
+      let paint = 0;
+      const canvas = Object.fromEntries(methods.map(method => [method, (...args) => { for (const arg of args) if (typeof arg === 'number') assert.ok(Number.isFinite(arg), kind + ' ' + method); if (['stroke', 'fill', 'fillRect', 'strokeRect', 'fillText'].includes(method)) paint++; }]));
+      draw(canvas, { surface: '#fff', accent: '#368', ink: '#123', ink2: '#234', axis: '#678', grid: '#abc', muted: '#789', warm: '#c63' }, width, height, time);
+      assert.ok(paint >= 2, kind + ' must visibly paint rather than show an empty canvas');
+    }
+  }
+  assert.match(context.MINI_ALT['news-hydride'], /unbonded/);
+  assert.match(context.MINI_ALT['news-topo'], /not evidence/);
+  assert.match(context.MINI_ALT['news-spectrum'], /not measured/);
+  let sheetCount = 0;
+  const sheets = Object.fromEntries(methods.map(method => [method, () => { if (method === 'closePath') sheetCount++; }]));
+  context.MINI_DRAW['news-layered-six'](sheets, { accent: '#368' }, 112, 84, 1.2);
+  assert.equal(sheetCount, 6, 'An explicitly six-layer graphene article shows six sheets without assuming twist');
 });
 
 test('kagome news drawing has both corner-sharing orientations and no fabricated CDW distortion', () => {

@@ -44,7 +44,7 @@
   const EXCHANGE_DIAGNOSTICS = Object.freeze({
     provider_email_unverified: 'GitHub reported that your primary email is not verified. Verify your primary email in GitHub settings, then use Login for team to start a new attempt.',
     provider_transport: 'The sign-in service could not reach GitHub or the request timed out.' + FRESH_LOGIN,
-    provider_http_429: 'GitHub temporarily limited sign-in requests.' + FRESH_LOGIN,
+    provider_http_429: 'GitHub temporarily limited sign-in requests. Wait at least one minute, then use Login for team to start a new attempt. Do not refresh the old callback page.',
     provider_http_500: 'GitHub returned a temporary service error.' + FRESH_LOGIN,
     provider_http_502: 'GitHub returned a temporary service error.' + FRESH_LOGIN,
     provider_http_503: 'GitHub returned a temporary service error.' + FRESH_LOGIN,
@@ -85,6 +85,16 @@
   function callbackFailure(received, proof, now) {
     if (!received || received.invalid) return 'The sign-in callback was malformed. Start sign-in again from this tab.';
     // Never reflect an arbitrary provider error, description, ticket or proof.
+    if (received.error === 'oauth_exchange_unavailable' && received.diagnostic === 'provider_http_429' &&
+        Number.isSafeInteger(received.retryAfter) && received.retryAfter >= 1 && received.retryAfter <= 86400) {
+      const minutes = Math.ceil(received.retryAfter / 60);
+      const hours = received.retryAfter / 3600;
+      const wait = Number.isInteger(hours) ? hours + (hours === 1 ? ' hour' : ' hours') :
+        received.retryAfter < 60 ? received.retryAfter + (received.retryAfter === 1 ? ' second' : ' seconds') :
+        minutes + (minutes === 1 ? ' minute' : ' minutes');
+      return 'GitHub temporarily limited sign-in requests. GitHub sign-in is paused for this app. Wait at least ' + wait +
+        ', then use Login for team to start a new attempt. Do not refresh the old callback page.';
+    }
     if (received.error === 'oauth_exchange_unavailable' && Object.hasOwn(EXCHANGE_DIAGNOSTICS, received.diagnostic)) return EXCHANGE_DIAGNOSTICS[received.diagnostic];
     if (received.error) return Object.hasOwn(CALLBACK_ERRORS, received.error) ? CALLBACK_ERRORS[received.error] :
       'The sign-in service returned an unrecognized error. Please start sign-in again.';
@@ -333,10 +343,13 @@
       // Diagnostic query values only select fixed advice; they never affect authentication.
       const query = new URLSearchParams(win.location.search || '');
       const diagnostic = query.getAll('login_status').length === 1 ? query.get('login_status') : '';
+      const retryText = query.getAll('login_retry_after').length === 1 ? query.get('login_retry_after') : '';
+      const retryAfter = /^[1-9]\d{0,4}$/.test(retryText) && Number(retryText) <= 86400 ? Number(retryText) : null;
       win.history.replaceState(null, '', win.location.pathname + win.location.search);
       const duplicate = ['team_ticket', 'team_state', 'team_error'].some(function (key) { return params.getAll(key).length > 1; });
       return { ticket: params.get('team_ticket') || '', state: params.get('team_state') || '',
         error: params.get('team_error') || '', diagnostic: Object.hasOwn(EXCHANGE_DIAGNOSTICS, diagnostic) ? diagnostic : '',
+        retryAfter: retryAfter,
         invalid: duplicate || (params.has('team_ticket') && params.has('team_error')) };
     }
     callback = consumeFragment();

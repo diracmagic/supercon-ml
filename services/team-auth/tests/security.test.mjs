@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { createHandler, AuthState } from '../src/worker.mjs';
+import { githubCooldown, providerCooldownUntil } from '../src/oauth-cooldown.mjs';
 import { APP_ORIGIN, APP_RETURN, OWNER_ID, REPOSITORY_ID, base64url, encoder, hexHash, randomToken, sha256 } from '../src/security.mjs';
 
 const BACKEND = 'https://auth.example.test';
@@ -96,6 +97,7 @@ async function harness(options = {}) {
       assert.equal(body.get('repository_id'), String(REPOSITORY_ID));
       assert.equal(await sha256(body.get('code_verifier')), grant.challenge, 'Provider PKCE must validate');
       grants.delete(body.get('code'));
+      if (controls.tokenRateLimited) return new Response(new ReadableStream({ cancel() { controls.rateBodyCancelled = (controls.rateBodyCancelled || 0) + 1; if (controls.rateCancelRejects) throw new Error('DO_NOT_REFLECT_STREAM_ERROR'); } }), { status: 429, headers: controls.rateHeaders || {} });
       if (controls.tokenRedirect) return redirectResponse(controls.tokenRedirect);
       if (controls.tokenThrow) throw new Error('DO_NOT_REFLECT_TRANSPORT_DETAIL');
       if (controls.tokenMalformed) return new Response('DO_NOT_REFLECT_NON_JSON', { status: 502 });
@@ -137,7 +139,7 @@ async function harness(options = {}) {
       size: controls.oversize ? 9999999 : bytes.length, sha: controls.wrongBlob ? '0'.repeat(40) : await hexHash(blob, 'SHA-1'),
       download_url: 'https://untrusted.example.test/DO_NOT_FETCH' });
   }
-  const handler = createHandler({ fetchImpl: upstream, now: () => clock });
+  let handler = createHandler({ fetchImpl: upstream, now: () => clock });
   const send = (route, { method = 'GET', body, token, origin = APP_ORIGIN, headers = {}, cookie: cookieHeader } = {}) => {
     const all = new Headers(headers);
     if (origin !== null) all.set('Origin', origin);
@@ -179,7 +181,8 @@ async function harness(options = {}) {
     const flow = await ticket(role); const response = await exchange(flow); assert.equal(response.status, 200);
     return { ...flow, session: await response.json() };
   }
-  return { env, namespace, controls, calls, files, send, start, callback, ticket, exchange, login, advance: milliseconds => { clock += milliseconds; }, now: () => clock };
+  return { env, namespace, controls, calls, files, send, start, callback, ticket, exchange, login, advance: milliseconds => { clock += milliseconds; }, now: () => clock,
+    restart() { handler = createHandler({ fetchImpl: upstream, now: () => clock }); for (const value of namespace.objects.values()) value.object = new AuthState({ storage: value.storage }); } };
 }
 
 test('owner receives a bounded real-provider identity session and validated memo fields only', async () => {
@@ -362,6 +365,125 @@ test('exchange diagnostics expose only fixed transport, JSON, HTTP, grant and to
   }
 });
 
+test('429 cancels the provider body, persists a bounded pause and never retries a one-use code', async () => {
+  const h = await harness({ controls: { tokenRateLimited: true, rateHeaders: { 'retry-after': '120' } } });
+  const flow = await h.start(), result = await h.callback(flow), target = new URL(result.response.headers.get('location'));
+  assert.equal(result.diagnostic, 'provider_http_429');
+  assert.equal(result.fields.get('team_error'), 'oauth_exchange_unavailable');
+  assert.equal(target.searchParams.get('login_retry_after'), '120');
+  assert.equal(result.fields.get('team_state'), flow.state);
+  assert.equal(h.controls.rateBodyCancelled, 1);
+  assert.deepEqual(h.calls, ['https://github.com/login/oauth/access_token']);
+  assert.match(result.response.headers.get('cache-control'), /private, no-store/);
+  assert.match(result.response.headers.get('set-cookie'), /Max-Age=0/);
+  assert.equal((await h.callback(flow)).fields.get('team_error'), 'oauth_state_invalid');
+  assert.equal(h.calls.length, 1);
+  const stored = [...h.namespace.objects].filter(([id]) => id.startsWith('provider-cooldown:'));
+  assert.equal(stored.length, 1);
+  assert.deepEqual([...stored[0][1].storage.values], [['cooldownUntil', h.now() + 120000]]);
+  assert.doesNotMatch(target.href + stored[0][1].storage.values.get('cooldownUntil'), /FAKE_SECRET|fake_code|ghu_/);
+});
+
+test('a failed 429 response cancellation still persists cooldown and prevents another provider request', async () => {
+  const h = await harness({ controls: { tokenRateLimited: true, rateCancelRejects: true, rateHeaders: { 'retry-after': '90' } } });
+  const flow = await h.start(), result = await h.callback(flow);
+  assert.equal(result.diagnostic, 'provider_http_429');
+  assert.equal(result.fields.get('team_error'), 'oauth_exchange_unavailable');
+  assert.equal(new URL(result.response.headers.get('location')).searchParams.get('login_retry_after'), '90');
+  assert.equal(await githubCooldown(h.env, h.now()), h.now() + 90000);
+  assert.equal(h.controls.rateBodyCancelled, 1);
+  const blocked = await h.send('/auth/start?challenge=' + randomToken() + '&state=' + randomToken(), { origin: null });
+  assert.equal(new URL(blocked.headers.get('location')).searchParams.get('login_status'), 'provider_http_429');
+  assert.equal((await h.callback(flow)).fields.get('team_error'), 'oauth_state_invalid');
+  assert.deepEqual(h.calls, ['https://github.com/login/oauth/access_token']);
+  assert.doesNotMatch(result.response.headers.get('location'), /DO_NOT_REFLECT/);
+});
+
+test('shared cooldown survives Worker and DO recreation and blocks start before a transaction exists', async () => {
+  const h = await harness({ controls: { tokenRateLimited: true } });
+  await h.callback(await h.start()); h.restart(); h.advance(1000);
+  const count = h.namespace.objects.size, state = randomToken();
+  const response = await h.send('/auth/start?challenge=' + randomToken() + '&state=' + state, { origin: null });
+  const target = new URL(response.headers.get('location'));
+  assert.equal(target.origin + target.pathname, APP_RETURN);
+  assert.equal(target.searchParams.get('login_status'), 'provider_http_429');
+  assert.equal(target.searchParams.get('login_retry_after'), '59');
+  assert.equal(new URLSearchParams(target.hash.slice(1)).get('team_state'), state);
+  assert.equal(h.namespace.objects.size, count);
+  assert.equal(h.calls.length, 1);
+  h.controls.tokenRateLimited = false; h.advance(59000);
+  assert.ok((await h.callback(await h.start())).fields.get('team_ticket'));
+  assert.equal(h.calls.filter(url => url.endsWith('/access_token')).length, 2);
+});
+
+test('a pending callback consumes its valid transaction then respects an intervening cooldown', async () => {
+  const h = await harness({ controls: { tokenRateLimited: true } });
+  const first = await h.start(), pending = await h.start();
+  await h.callback(first);
+  const blocked = await h.callback(pending);
+  assert.equal(blocked.diagnostic, 'provider_http_429');
+  assert.equal(new URL(blocked.response.headers.get('location')).searchParams.get('login_retry_after'), '60');
+  assert.equal(h.calls.length, 1);
+  assert.equal((await h.callback(pending)).fields.get('team_error'), 'oauth_state_invalid');
+  assert.equal(h.calls.length, 1);
+});
+
+test('only a real token-endpoint 429 activates cooldown; non429 errors leave starts available', async () => {
+  for (const controls of [{ tokenError: 'provider_http_429' }, { tokenError: 'unknown', tokenStatus: 503 }, { tokenMalformed: true }]) {
+    const h = await harness({ controls }); await h.callback(await h.start());
+    assert.equal(await githubCooldown(h.env, h.now()), 0);
+    await h.start();
+  }
+  // HTTP status has priority over even a misleading provider error body.
+  const h = await harness({ controls: { tokenError: 'incorrect_client_credentials', tokenStatus: 429 } });
+  const result = await h.callback(await h.start());
+  assert.equal(result.diagnostic, 'provider_http_429');
+  assert.equal(result.fields.get('team_error'), 'oauth_exchange_unavailable');
+  assert.equal(new URL(result.response.headers.get('location')).searchParams.get('login_retry_after'), '60');
+});
+
+test('cooldown updates are atomic, monotonic and persist no provider data', async () => {
+  const h = await harness(), now = h.now();
+  await Promise.all([120000, 180000, 60000, 90000].map(delay => githubCooldown(h.env, now, now + delay)));
+  h.restart();
+  assert.equal(await githubCooldown(h.env, now), now + 180000);
+  assert.equal(await githubCooldown(h.env, now, now + 60000), now + 180000);
+  await assert.rejects(githubCooldown(h.env, now, now + 86400001));
+  h.advance(180000);
+  assert.equal(await githubCooldown(h.env, h.now()), 0);
+});
+
+test('provider wait parsing honors seconds, HTTP dates and reset epochs with strict bounds and fallback', () => {
+  const now = Date.UTC(2026, 10, 1), wait = headers => providerCooldownUntil(new Headers(headers), now) - now;
+  assert.equal(wait({ 'retry-after': '120' }), 120000);
+  assert.equal(wait({ 'retry-after': new Date(now + 90000).toUTCString() }), 90000);
+  assert.equal(wait({ 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': String(now / 1000 + 180) }), 180000);
+  assert.equal(wait({ 'retry-after': '90', 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': String(now / 1000 + 180) }), 180000);
+  assert.equal(wait({ 'retry-after': '60', 'x-ratelimit-remaining': '4999', 'x-ratelimit-reset': String(now / 1000 + 3600) }), 60000);
+  for (const remaining of [undefined, '', 'unknown', '-1', '0.0', '00', '1']) {
+    const headers = { 'x-ratelimit-reset': String(now / 1000 + 3600), ...(remaining !== undefined ? { 'x-ratelimit-remaining': remaining } : {}) };
+    assert.equal(wait(headers), 60000);
+    assert.equal(wait({ ...headers, 'retry-after': '90' }), 90000);
+  }
+  assert.equal(wait({ 'retry-after': '999999999999999' }), 86400000);
+  assert.equal(wait({ 'retry-after': new Date(now + 172800000).toUTCString() }), 86400000);
+  assert.equal(wait({ 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': String(now / 1000 + 172800) }), 86400000);
+  for (const value of ['', '0', '-1', '1.5', '1e3', '120, 3600', '2026-11-02', 'Mon, 32 Nov 2026 00:00:00 GMT', 'DO_NOT_REFLECT', '99999999999999999999']) assert.equal(wait({ 'retry-after': value }), 60000, value);
+  assert.equal(wait({ 'retry-after': new Date(now - 1000).toUTCString(), 'x-ratelimit-reset': '1' }), 60000);
+  assert.equal(wait({ 'x-ratelimit-reset': 'garbage' }), 60000);
+});
+
+test('unavailable cooldown storage fails closed before redirect or token request', async () => {
+  const h = await harness(); const pending = await h.start();
+  h.controls.storageFailKind = 'provider-cooldown'; h.controls.storageFailOperation = 'cooldown';
+  const start = await h.send('/auth/start?challenge=' + randomToken() + '&state=' + randomToken(), { origin: null });
+  assert.notEqual(start.status, 303);
+  assert.equal(start.headers.get('location'), null);
+  const callback = await h.callback(pending);
+  assert.equal(callback.fields.has('team_ticket'), false);
+  assert.equal(h.calls.length, 0);
+});
+
 test('manual token redirects are cancelled without forwarding the code or client secret', { timeout: 5000 }, async () => {
   for (const tokenRedirect of [302, 307]) {
     const h = await harness({ controls: { tokenRedirect } }), result = await h.callback(await h.start());
@@ -493,7 +615,8 @@ test('GitHub token and refresh token never persist in plaintext or reach the bro
   assert.match(snapshot, /ciphertext/);
   assert.doesNotMatch(snapshot, /ghu_FAKE_|REFRESH_MUST_NEVER_PERSIST/);
   assert.doesNotMatch(JSON.stringify(flow.session), /ghu_FAKE_|REFRESH_MUST_NEVER_PERSIST/);
-  assert.ok([...h.namespace.objects.values()].every(item => item.storage.alarmAt !== null));
+  assert.ok([...h.namespace.objects].filter(([id]) => !id.startsWith('provider-cooldown:')).every(([, item]) => item.storage.alarmAt !== null));
+  assert.equal([...h.namespace.objects].find(([id]) => id.startsWith('provider-cooldown:'))[1].storage.values.size, 0, 'A successful login persists no cooldown or provider data');
 });
 
 test('revoked provider token invalidates and deletes the application session', async () => {

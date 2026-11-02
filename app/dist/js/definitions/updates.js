@@ -1,7 +1,12 @@
 'use strict';
 // updates: shared lexical function definitions; no startup side effects.
 
-  const isDesktop = function isDesktop() { return !!(window.__TAURI__ || window.__TAURI_INTERNALS__); };
+  const isDesktop = function isDesktop() {
+    if (!(window.__TAURI__ || window.__TAURI_INTERNALS__)) return false;
+    var here = window.location || {};
+    return !here.port && ((here.protocol === 'tauri:' && here.hostname === 'localhost') ||
+      ((here.protocol === 'http:' || here.protocol === 'https:') && here.hostname === 'tauri.localhost'));
+  };
 
   const verParts = function verParts(s) { var m = /(\d+)\.(\d+)\.(\d+)/.exec(String(s || '')); return m ? [+m[1], +m[2], +m[3]] : null; };
 
@@ -58,27 +63,35 @@
   };
 
   const checkUpdate = function checkUpdate(manual, fresh) {
-    if (!isDesktop() || UPD.busy) return;
+    if (!isDesktop()) return;
+    if (UPD.busy) {
+      if (manual) { flashNote('Checking the current release…', 0); renderUpdate(); }
+      return;
+    }
     var cached = updRead('update');
     if (!manual && !fresh && cached && cached.t && Date.now() - cached.t < UPD_EVERY) { UPD.info = cached; renderUpdate(); downloadUpdate(false); return; }
-    UPD.busy = true;
+    UPD.busy = true; UPD.checkError = '';
     if (manual) { store.set('updateLater', ''); UPD.dismissed = false; flashNote('Checking for updates…', 0); }
-    getJSON(API + '/releases/latest', { headers: { Accept: 'application/vnd.github+json' }, timeout: 12000 })
+    renderUpdate();
+    return getJSON(API + '/releases/latest', { headers: { Accept: 'application/vnd.github+json' }, timeout: 12000 })
       .then(function (rel) {
+        if (!rel || !/^app-v\d+\.\d+\.\d+$/.test(rel.tag_name || '') || !Array.isArray(rel.assets)) throw new Error('Release unavailable');
         var v = (verParts(rel && rel.tag_name) || []).join('.'), want = installerName(), url = '';
         (rel && rel.assets || []).forEach(function (a) { if (a && a.name === want && /^https:\/\//.test(a.browser_download_url || '')) url = a.browser_download_url; });
         var page = rel && /^https:\/\//.test(rel.html_url || '') ? rel.html_url : REPO_URL + '/releases/latest';
         // An unknown computer gets the release page; a known one waits until its installer is uploaded.
         UPD.info = { t: Date.now(), v: v, page: page, url: want ? url : page, news: releaseHighlights(rel && rel.body, v) };
         store.set('update', JSON.stringify(UPD.info));
-        if (manual) flashNote(updAvailable() ? '' : 'You have the latest version.', 6000);
-      }, function () {
-        if (manual) flashNote('Couldn’t reach GitHub to check for updates. Try again later.', 8000);
+        if (manual) flashNote(updAvailable() ? '' : verNewer(v, APP_VERSION) ? 'Version ' + v + ' is published; the installer for this computer is still being prepared.' : 'You have the latest version.', 6000);
+      }).catch(function () {
+        UPD.checkError = 'Couldn’t verify the latest release. Retry download to check and download it inside the app.';
+        if (manual) flashNote(UPD.checkError, 8000);
       })
       .then(function () { UPD.busy = false; renderUpdate(); downloadUpdate(false); });
   };
 
   const nativeUpdateCall = function nativeUpdateCall(command, args) {
+    if (!isDesktop()) return Promise.reject(new Error('update_origin_denied'));
     var invoke = window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke;
     if (typeof invoke !== 'function') invoke = window.__TAURI_INTERNALS__ && window.__TAURI_INTERNALS__.invoke;
     if (typeof invoke !== 'function') return Promise.reject(new Error('update_native_unavailable'));
@@ -89,6 +102,8 @@
     var code = typeof error === 'string' ? error : error && error.message;
     var messages = {
       update_busy: 'An update is already being prepared. Try again shortly.',
+      update_unavailable: 'The current release could not be verified with GitHub. Check your connection and retry.',
+      update_download_failed: 'The installer download failed. Check your connection and available disk space, then retry.',
       update_not_newer: 'This installed app is already current. Check again for the latest release.',
       update_release_changed: 'The published version changed. Check again before downloading.',
       update_asset_unavailable: 'The installer for this computer is not available yet.',
@@ -105,10 +120,10 @@
 
   const downloadUpdate = function downloadUpdate(retry) {
     if (!updAvailable() || UPD.downloading || UPD.installing) return;
-    var version = UPD.info.v;
+    var version = UPD.info.v, refreshRelease = false;
     if (UPD.download && UPD.download.version === version) return;
     if (!retry && UPD.downloadAttempted === version) return;
-    UPD.downloadAttempted = version; UPD.downloading = true; UPD.downloadError = ''; UPD.installError = '';
+    UPD.downloadAttempted = version; UPD.downloading = true; UPD.downloadError = ''; UPD.installError = ''; UPD.checkError = '';
     UPD.download = null; UPD.installConfirm = false; UPD.launched = false; renderUpdate();
     return nativeUpdateCall('download_app_update', { expectedVersion: version }).then(function (artifact) {
       if (!artifact || artifact.version !== version || !['windows', 'macos'].includes(artifact.platform) ||
@@ -116,10 +131,13 @@
         typeof artifact.downloadId !== 'string' || !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(artifact.downloadId)) throw new Error('update_integrity_failed');
       if (UPD.info && UPD.info.v === version) UPD.download = artifact;
     }).catch(function (error) {
+      var code = typeof error === 'string' ? error : error && error.message;
+      refreshRelease = code === 'update_release_changed';
       if (UPD.info && UPD.info.v === version) UPD.downloadError = updateFailureText(error);
     }).then(function () {
       UPD.downloading = false; renderUpdate();
-      if (UPD.info && UPD.info.v !== version) downloadUpdate(false);
+      if (refreshRelease && UPD.info && UPD.info.v === version) checkUpdate(true, true);
+      else if (UPD.info && UPD.info.v !== version) downloadUpdate(false);
     });
   };
 
@@ -152,14 +170,24 @@
     if (!el) return;
     clear(el);
     var info = UPD.info, kind = '';
-    if (UPD.web && !UPD.dismissed) kind = 'web';
+    if (UPD.returnToApp) kind = 'return';
+    else if (UPD.web && !UPD.dismissed) kind = 'web';
     else if (updAvailable() && !UPD.dismissed) {
       var later = updRead('updateLater');
       if (!(later && later.v === info.v && Date.now() < later.until)) kind = 'desktop';
     }
     el.hidden = !kind;
     updateWebBadge(kind === 'web');
-    if (kind === 'web') {
+    if (kind === 'return') {
+      var installer = installerName(), local = installer.indexOf('windows') >= 0 ? 'http://tauri.localhost/' :
+        installer.indexOf('macos') >= 0 ? 'tauri://localhost/' : '';
+      append(el, [glyph('refresh', 'upd-glyph'), h('div', {class: 'upd-body'},
+        h('p', {class: 'upd-title', text: 'Return to the installed app to update.'}),
+        h('p', {class: 'upd-hint', role: 'status', text: 'Sign-in opened the web version in this window. Downloading and installing updates is available from the installed app’s home screen.'}),
+        local ? h('div', {class: 'upd-actions'}, h('button', {class: 'btn primary', type: 'button', onclick: function () {
+          window.location.replace(local);
+        }}, 'Return to installed app')) : h('p', {class: 'upd-hint', text: 'Close and reopen the installed app to return to its home screen.'}))]);
+    } else if (kind === 'web') {
       append(el, [glyph('refresh', 'upd-glyph'), h('div', { class: 'upd-body' },
         h('p', { class: 'upd-title', text: UPD.web === 'new' ? 'A new version of Supercon Progress is available.' : 'Supercon Progress ' + UPD.web + ' is available.' }),
         h('div', { class: 'upd-actions' },
@@ -170,6 +198,7 @@
       var actions = h('div', { class: 'upd-actions' }), status = '';
       if (UPD.downloading) status = 'Downloading and verifying the update inside the app…';
       else if (UPD.installing) status = 'Opening the installer…';
+      else if (UPD.busy) status = 'Checking the current release…';
       else if (UPD.launched) status = artifact && artifact.platform === 'macos'
         ? 'The installer is open. Drag Supercon Progress into Applications to replace it, then reopen the app.'
         : 'The installer is open. Follow its prompts to finish, then reopen the app.';
@@ -179,12 +208,17 @@
           actions.appendChild(h('button', { class: 'btn primary', type: 'button', onclick: installUpdate }, 'Confirm installation'));
           actions.appendChild(h('button', { class: 'btn', type: 'button', onclick: function () { UPD.installConfirm = false; renderUpdate(); } }, 'Cancel'));
         } else actions.appendChild(h('button', { class: 'btn primary', type: 'button', onclick: function () { UPD.installConfirm = true; renderUpdate(); } }, 'Install update'));
-      } else actions.appendChild(h('button', { class: 'btn primary', type: 'button', onclick: function () { UPD.downloadAttempted = ''; checkUpdate(true, true); } }, UPD.downloadError ? 'Retry download' : 'Download update'));
+      }
+      if (!UPD.downloading && !UPD.installing && !UPD.launched && !artifact) {
+        // Native download verifies release metadata itself. A click must not be
+        // swallowed by a separate background release check already in progress.
+        actions.appendChild(h('button', { class: 'btn primary', type: 'button', onclick: function () { return downloadUpdate(true); } }, UPD.downloadError ? 'Retry download' : 'Download update'));
+      }
       actions.appendChild(h('button', { class: 'btn', type: 'button', onclick: function () { store.set('updateLater', JSON.stringify({ v: info.v, until: Date.now() + UPD_LATER })); renderUpdate(); } }, 'Later'));
       append(el, [glyph('download', 'upd-glyph'), h('div', { class: 'upd-body' },
         h('p', { class: 'upd-title', text: 'Supercon Progress ' + info.v + ' is available. You have ' + APP_VERSION + '.' }),
         info.news && info.news.length ? h('p', { class: 'upd-news', text: 'New: ' + info.news.join(' · ') }) : null,
-        actions, h('p', { class: 'upd-hint', role: 'status', text: UPD.downloadError || UPD.installError || status }))]);
+        actions, h('p', { class: 'upd-hint', role: 'status', text: UPD.downloading || UPD.installing || UPD.busy ? status : UPD.downloadError || UPD.installError || UPD.checkError || status }))]);
     }
     renderUpdateFoot();
   };

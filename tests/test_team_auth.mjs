@@ -402,6 +402,40 @@ test('diagnostic advice cannot override another error or turn a valid ticket int
   await forged.start(); assert.equal(forged.requests.length, 0); assert.doesNotMatch(forged.doc.body.textContent, /Verify your primary email/);
 });
 
+test('trusted-category cooldown advice accepts only a bounded canonical delay and never retries automatically', async () => {
+  for (const [seconds, text] of [[1, '1 second'], [59, '59 seconds'], [60, '1 minute'], [61, '2 minutes'], [3600, '1 hour'], [86400, '24 hours']]) {
+    const h = harness({hash: '#team_error=oauth_exchange_unavailable&team_state=' + STATE,
+      search: '?login_status=provider_http_429&login_retry_after=' + seconds, pending: proof()});
+    await h.start();
+    assert.ok(h.doc.body.textContent.includes('Wait at least ' + text + ','));
+    assert.match(h.doc.body.textContent, /GitHub sign-in is paused for this app/);
+    assert.equal(h.requests.length, 0); assert.equal(h.redirects.length, 0); assert.equal(h.timers.size, 0);
+    assert.equal(h.get('team-notes').hidden, true); assert.equal(h.get('team-messages').hidden, true);
+    assert.equal(h.get('team-logout').hidden, true); assert.equal(h.values.has(auth.PENDING_KEY), false);
+  }
+});
+
+test('invalid cooldown query values and unrelated fields cannot claim a countdown or grant access', async () => {
+  for (const value of ['0', '-1', '+60', '060', '1.5', '1e3', '86401', '999999999999999999999', ' 60', '60\n', '60\u0000', '<img src=x>', '__proto__']) {
+    const h = harness({hash: '#team_error=oauth_exchange_unavailable', search: '?login_status=provider_http_429&login_retry_after=' + encodeURIComponent(value)});
+    await h.start();
+    assert.match(h.doc.body.textContent, /Wait at least one minute/);
+    assert.doesNotMatch(h.doc.body.textContent, /paused for this app|<img|__proto__/);
+    assert.equal(h.requests.length, 0); assert.equal(h.get('team-notes').hidden, true);
+  }
+  for (const search of ['?login_status=provider_http_429&login_retry_after=60&login_retry_after=120',
+    '?login_status=provider_http_429&retry_after=120&unknown=<script>PRIVATE</script>',
+    '?login_status=provider_transport&login_retry_after=120', '?login_retry_after=120']) {
+    const h = harness({hash: '#team_error=oauth_exchange_unavailable', search}); await h.start();
+    assert.doesNotMatch(h.doc.body.textContent, /paused for this app|120|PRIVATE|<script>/);
+    assert.equal(h.requests.length, 0); assert.equal(h.redirects.length, 0);
+  }
+  const success = harness({hash: '#team_ticket=' + TICKET + '&team_state=' + STATE,
+    search: '?login_status=provider_http_429&login_retry_after=120', pending: proof()});
+  await success.start(); assert.equal(success.get('team-notes').hidden, false);
+  assert.doesNotMatch(success.doc.body.textContent, /paused for this app|temporarily limited/);
+});
+
 test('client missing, expired, mismatched and malformed proofs have separate diagnostics', async () => {
   const normalHash = '#team_ticket=' + TICKET + '&team_state=' + STATE;
   const cases = [

@@ -221,6 +221,19 @@ fence is rejected, even following an object restart or later reinvitation. A pos
 that commits before the fence is an accepted in-flight operation and receives its
 success receipt; it is not falsely reported as a failed post after committing.
 
+A token-endpoint HTTP 429 stores an application-wide cooldown deadline in the
+existing `AUTH_STATE` namespace. Valid `Retry-After` seconds/HTTP dates are respected;
+future `x-ratelimit-reset` epochs also apply when `x-ratelimit-remaining` is exactly
+`0` (the longer applicable wait wins), capped at 24 hours;
+missing or invalid hints use 60 seconds. This conservative pause does not identify
+the provider's quota scope or guarantee success afterward. It blocks new GitHub
+redirects and pending exchanges, consumes verified callback transactions once,
+and never retries a one-use code. Only a deadline persists, with atomic maximum
+updates; no provider response body or headers are stored. The APP receives the
+fixed 429 diagnostic and bounded `login_retry_after` seconds. Email login is
+unaffected. Existing in-flight provider requests may finish; no automatic retry
+or background request is introduced.
+
 Tests use a memory Durable Object adapter and a fake GitHub transport containing
 only invented records. They exercise callback cookies/state, both PKCE stages,
 parallel replay, expiry, owner/non-owner access, upstream identity substitution,
