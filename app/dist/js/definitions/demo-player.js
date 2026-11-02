@@ -104,6 +104,9 @@
     var radRow = h('div', { class: 'demo-controls', id: 'demo-rad-row' },
       h('button', { class: 'btn', type: 'button', id: 'rad-play', onclick: function () { demo.radPlay = !demo.radPlay; syncControls(); kick(); } }),
       h('span', { class: 'demo-readout', id: 'rad-readout' }));
+    var unsupRow = h('div', { class: 'demo-controls', id: 'demo-unsup-row' },
+      h('button', { class: 'btn', type: 'button', id: 'unsup-play', onclick: function () { demo.unsupPlay = !demo.unsupPlay; syncControls(); kick(); } }),
+      h('span', { class: 'demo-readout', text: 'Completed comparison / no new model adopted' }));
     var caption = h('p', { class: 'demo-caption', id: 'demo-caption' });
     var zoo = h('div', { class: 'zoo', id: 'demo-zoo' });
     var refs = h('div', { class: 'demo-refs', id: 'demo-refs' });
@@ -111,7 +114,7 @@
       h('div', { class: 'card-head' }, h('div', null,
         h('h2', null, 'Hello ', h('span', { class: 'hs-accent', text: 'Super' })),
         h('p', { text: 'Our project in 90 seconds, how our AI models work, and the physics behind it.' }))),
-      tabs, stage, tempRow, adRow, storyRow, modelRow, stormRow, hurRow, radRow, caption, zoo, refs
+      tabs, stage, tempRow, adRow, storyRow, modelRow, stormRow, hurRow, radRow, unsupRow, caption, zoo, refs
     ]);
     $('#story-prev').innerHTML = G.prev;
     $('#story-next').innerHTML = G.next;
@@ -153,7 +156,7 @@
     if (window.ResizeObserver) new ResizeObserver(function () { sizeCanvas(); kick(); }).observe(stage);
     else window.addEventListener('resize', function () { sizeCanvas(); kick(); });
     demo.built = true;
-    if (!motionOK()) { demo.auto = false; demo.storyPlay = false; demo.modelPlay = false; demo.stormPlay = false; demo.hurPlay = false; demo.radPlay = false; demo.predPlay = false; }
+    if (!motionOK()) { demo.auto = false; demo.storyPlay = false; demo.modelPlay = false; demo.stormPlay = false; demo.hurPlay = false; demo.radPlay = false; demo.predPlay = false; demo.unsupPlay = false; }
     syncControls();
     sizeCanvas();
   };
@@ -273,12 +276,17 @@
     $('#demo-storm-row').hidden = !d.storm;
     $('#demo-hur-row').hidden = !d.hurricane;
     $('#demo-rad-row').hidden = !d.radar;
+    $('#demo-unsup-row').hidden = !d.unsupervised;
     $('#demo-zoo').hidden = !d.model && !d.storm && !d.hurricane && !d.radar;
     if (d.model || d.storm || d.hurricane || d.radar) renderZoo();
     if (d.storm) renderStormSeg();
-    var cap = d.story ? storyCaption(demo.scene) : d.model ? modelCaption(demo.modelVariant, demo.modelStage) : d.storm ? stormCaption(demo.stormStage) : d.hurricane ? hurCaption(demo.hurStage) : d.radar ? radCaption(demo.radStage) : d.id === 'allen-dynes' ? predCaption() : d.caption;
+    var cap = d.unsupervised ? unsupervisedCaption() : d.story ? storyCaption(demo.scene) : d.model ? modelCaption(demo.modelVariant, demo.modelStage) : d.storm ? stormCaption(demo.stormStage) : d.hurricane ? hurCaption(demo.hurStage) : d.radar ? radCaption(demo.radStage) : d.id === 'allen-dynes' ? predCaption() : d.caption;
     richText($('#demo-caption'), cap);
     renderRefs($('#demo-refs'), d.story ? STORY[demo.scene].refs : d.model ? MODEL_REFS[demo.modelVariant] || d.refs : d.id === 'allen-dynes' && demo.predMode !== 'formula' ? (demo.predMode === 'storm' ? d.stormRefs : d.hurRefs) || d.refs : d.refs);
+    if (d.unsupervised) renderUnsupervisedReferences($('#demo-refs'));
+    var up = $('#unsup-play');
+    up.textContent = demo.unsupPlay ? 'Pause highlights' : 'Play highlights';
+    up.hidden = !motionOK();
     var walk = d.id === 'allen-dynes' && demo.predMode !== 'formula';
     [].forEach.call(document.querySelectorAll('#pred-seg button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-pred') === demo.predMode ? 'true' : 'false'); });
     $('#pred-sliders').hidden = walk;
@@ -413,11 +421,12 @@
     else if (d.storm) drawStorm(c, C);
     else if (d.hurricane) drawHurricane(c, C);
     else if (d.radar) drawRadar(c, C);
+    else if (d.unsupervised) drawUnsupervisedResults(c, C);
     else if (d.id === 'resistance') drawResistance(c, C, dt);
     else if (d.id === 'meissner') drawMeissner(c, C, dt);
     else if (d.id === 'pairs') drawPairs(c, C, dt);
     else drawPredict(c, C);
-    var paused = (d.story && !demo.storyPlay) || (d.model && !demo.modelPlay) || (d.storm && !demo.stormPlay) || (d.hurricane && !demo.hurPlay) || (d.radar && !demo.radPlay) ||
+    var paused = (d.unsupervised && !demo.unsupPlay) || (d.story && !demo.storyPlay) || (d.model && !demo.modelPlay) || (d.storm && !demo.stormPlay) || (d.hurricane && !demo.hurPlay) || (d.radar && !demo.radPlay) ||
       (d.id === 'allen-dynes' && demo.predMode !== 'formula' && !demo.predPlay);
     if (moving && !paused) demo.raf = requestAnimationFrame(frame);
   };

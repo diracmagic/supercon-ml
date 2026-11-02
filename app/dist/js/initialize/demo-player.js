@@ -12,6 +12,7 @@ const initializeSuperconDemoPlayer = function initializeSuperconDemoPlayer() {
       refs: ['sommer2023', 'jain2013', 'presland1991', 'friedman2001', 'sklearn2011', 'schilling1993', 'deng2026'] },
     { id: 'radar', label: 'Our AI model: Radar', radar: true, height: 440, narrowHeight: 560,
       refs: ['sommer2023', 'jain2013', 'friedman2001', 'sklearn2011', 'steglich1979', 'kamihara2008', 'ortiz2020'] },
+    { id: 'unsupervised', label: 'Unsupervised results', unsupervised: true, height: 510, narrowHeight: 600 },
     { id: 'model', label: 'Baselines', model: true, height: 440, narrowHeight: 540,
       refs: ['alexandria2024', 'friedman2001', 'sklearn2011', 'mace2022', 'macemp2023', 'allendynes1975'] },
     { id: 'resistance', label: 'Zero resistance', temp: true, height: 360, refs: ['onnes1911', 'bcs1957'],
@@ -31,7 +32,7 @@ const initializeSuperconDemoPlayer = function initializeSuperconDemoPlayer() {
   view = ['candidates', 'demos', 'learn', 'papers'].indexOf(store.get('view')) >= 0 ? store.get('view') : 'progress';
 
   demo = {
-    id: 'story', t: 1.4, auto: true, clock: 0, raf: 0, last: 0, built: false,
+    id: 'story', t: 1.4, auto: true, clock: 0, raf: 0, last: 0, built: false, unsupPlay: true,
     scene: 0, sceneT: 0, storyPlay: true, modelStage: 0, modelT: 0, modelPlay: true, modelNodes: [],
     stormStage: 0, stormT: 0, stormPlay: true, stormVer: '', stormNodes: [],
     hurStage: 0, hurT: 0, hurPlay: true, hurNodes: [],

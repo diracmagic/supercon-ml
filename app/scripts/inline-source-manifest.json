@@ -214,7 +214,7 @@
     "mix": "a15cdbb299a0d77c2bac40ec03f4f0bd51cc027fc10396d8d7ffd17652b18eda",
     "rampColor": "fbddbdbd469e975da1f7151004d7d217b42b9fcc119107ff072a0b0ddadfd921",
     "motionOK": "90671dc94a592e1d8a7d22316909a18ff22186391a2aa08fb585106a158ff6ac",
-    "buildDemos": "f0dde2aba5b9f61aa1069d3213fc2bead6b26f0775a9a7a8f6367a6f29afcde9",
+    "buildDemos": "767efabbd9d1387565ba613d97f189ef0be465933e817aeebac0d0fb0f5b4801",
     "hitModelNode": "3d4b723b84c6964d50f96fa41ba27f321a1c5acac7572f091e68fc1a029670f8",
     "setModelVariant": "3fce51e2501404615ed2cec51d25766444c8f244c52dd14ef6797b5f9a707588",
     "renderZoo": "386f878970f07d93b1d5cd63770216d26f5f2a7ac9c5c16ca34f108cd753754e",
@@ -224,11 +224,11 @@
     "radarZooRow": "e8b36306598bd25a90476895e4971079787af3427467490c86de03ccab1ad214",
     "stormZooRow": "cd5349743a816c86921d4005c5c6844705adf96146551675c6e0917a1062caf6",
     "selectDemo": "18b65129dd53d2b145d59c0e93d0d464389de5126d0e2e2e71714c91f28f8668",
-    "syncControls": "d66d86aa953293b85c0abb73a5f453e78223cda81cda90b32f1ce67455258d16",
+    "syncControls": "af28b174d97329cdacd2f49808b7e23ae8b8a10ee4955da4255363dc5060a726",
     "sizeCanvas": "2e9a8031c191e825d25ff9853fcbf08fd3a1a6d52aa7a8bb48e58f86eb3e8734",
     "demosVisible": "30d57ffd1688e680f8038fc8512b8a369a2c14f6a81b9d5758d0d5c989af9e5f",
     "kick": "3417a15a9ccfb942998cb827ea29d2c218c202812d257e45441bb469f940d796",
-    "frame": "cd43a78ab940778deac4340979fe59ecbc28ad06307255218b304e7ab11188c0",
+    "frame": "eaea0e85b025b1cc318f54c71110156e96ddcce3c6f787889ca2a0d179095d7c",
     "dot": "3f409cd4229c2284fe4a2b527f63e6dbcc5a0a8bdacdb0859c0ab4f2066ec90b",
     "label": "d927d299ce5bbf652cf3ec5879b7bfbaa4ef277c3fdb2b142c04a30dc80e4402",
     "stateText": "cf809813690bc299ca2b02fb6c5c1ae81dcec1154747ebead7adc27dfc075c17",
@@ -422,6 +422,10 @@
     "drawPredHurVisual": "4ca08639ad06506962f96b384de4d14601b5281ae0d138a8639f99f06f1cdef6",
     "setPredMode": "6c4c4a48ffcfdf2a49134f54f24f3858d0cb3f5d160bb15d01f14afeadbf3f7c",
     "predNext": "a4b1ce35704b1a900b488a942aea61370163a0b0fe1b12e9a8944a70df46839d",
+    "unsupervisedResults": "f41e770df7cb8166572cbc41b1a094ee301ce7d00a839e98722c91b6ad7ec297",
+    "unsupervisedCaption": "c6ce25a16cca6c89665c7528b30ea0eb8ed128823893e42d29fc310f623276c3",
+    "renderUnsupervisedReferences": "0b82a0fc5010ba8edb4f93267ef658105445b3befbc069a423e1dda9bd367ff1",
+    "drawUnsupervisedResults": "9a03acf33bb7c737448ab6895081b7b47b531eed677a19a77e5de20f1fe5654f",
     "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca",
     "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
     "newsArticleDraw": "aad50f6cbfc164970f29ca1d87851ddc88036222cdc8055400ff64ffc2436d77",
@@ -590,7 +594,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "a60de862a57fcfcf967fd9c40ec4d78e4dab79ced02265a2e71be7d129cf1735",
+    "70941a9dcdfc394562834d237f04e4acbde3936931eb16e5a4a552cf5850177b",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -610,11 +614,11 @@
     "8c8ad5ce79662ffb032e333083ccb29d04c720badf155e72fe9cfc8f43bb14ad",
     "7407255858fbd03edd2f84f2c381be1adf3d94926b9a77d18fed7cd5e986aa7b",
     "fe3d37d1703da711e8f70e8407a25693ddf4c14b54bf0cfaf0efe1d8b5d25dc7",
-    "4e8db21882a75eda710ecd0fa9c0152d9ae38b9545343da9415aa3319f8264df",
+    "d01779e993a847d4e751d9f7f4e4607b8659b09df43a31ad2c2d204f0419c42a",
     "dfb1ad620b505fc6a955e18dc9f4b0540ec2984185966a64f9c921df125f098a",
     "c53cc4ca4f2ec1b16fdc583ff565d2fef7333698875c98fffdedb01ba98a7828",
     "35d4c74c0d808be476aae636d471b0879d16b638ffda80e03e0cf5d03e2e91f0",
-    "f67d03437048e79687ad5ca03332ffc88b1488d4bea4bdde958cf3304bcc4c69",
+    "79931fb8e9f494785ac3b99919303a9768de7b25ef0f89b042b3e430a2fa00ca",
     "7c844c16d1416a71e0210685783ad7009d8ef79bc4bd8e6e6025b45e926711e0",
     "44637b87ff57e2d6886d38bd43a91a25e3ea0d3786cb749c1a049d109613ae16",
     "bb27b94a417ca05a074271b9d47c89f5e216d9c1efb646b7cd61249d92a41e63",
@@ -787,6 +791,7 @@
     "js/definitions/hurricane-tour.js",
     "js/definitions/radar-demo.js",
     "js/definitions/prediction-demo.js",
+    "js/definitions/unsupervised-results.js",
     "js/definitions/news-drawings.js",
     "js/definitions/mini-player.js",
     "js/definitions/theory-view.js",
@@ -843,7 +848,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-02",
-    "purpose": "Release0.3.17: restore original compact news/article animation thumbnails with no detailed-figure expansion; retain full phone navigation; cite12 primary method sources and distinguish project implementations and experimental results",
+    "purpose": "Release0.3.18: English audited unsupervised-learning results demo; fixed true metric values and paired intervals, graceful highlights only, references and method differences below the animation; no production-model changes",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -879,58 +884,38 @@
       "explicit installation confirmation and no browser download fallback",
       "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
       "private team content excluded from public method sources",
+      "same original miniature animations and reduced-motion lifecycle",
+      "private team content excluded from public method sources",
       "same original miniature animations and reduced-motion lifecycle"
     ],
-    "previous_css_sha256": "cac0d82163ef9c1a3e89df59527abeb5b3aeed3e8f541c6a92db2b4ee8b40d85",
+    "previous_css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
     "functions_added": [
-      "modelMethodSources",
-      "modelMethodsCard"
+      "drawUnsupervisedResults",
+      "renderUnsupervisedReferences",
+      "unsupervisedCaption",
+      "unsupervisedResults"
     ],
-    "functions_removed": [
-      "aiWorkflow",
-      "aiWorkflowInfo"
-    ],
-    "previous_removed_functions": {
-      "aiWorkflow": "f61b1965222b44feadb05d62ad32350e0b3fd6a6dff0541f020fd1ed427ea2d4",
-      "aiWorkflowInfo": "3f40c7e3e1a501bddb6bf55bdb2a92f9dd2ac9f5010039062320d8acd60b9c2e"
-    },
+    "functions_removed": [],
+    "previous_removed_functions": {},
     "functions_changed": [
-      "newsArt",
-      "newsArticleDraw",
-      "newsArticleFigure",
-      "miniCanvas",
-      "miniFrame",
-      "renderAdvances",
-      "renderNews",
-      "paperItem",
-      "modelFamily",
-      "radFamilyEntry",
-      "hurFamilyEntry",
-      "renderAuthors",
-      "renderDetails",
-      "aiAnimatedItem"
+      "buildDemos",
+      "syncControls",
+      "frame"
     ],
     "initializers_changed": [
-      0
+      0,
+      20,
+      24
     ],
     "previous_function_changes": {
-      "newsArt": "38a5d06c7a524c201478d376fb2489cff38b70c995c1ca8e97d4d7987f3823a9",
-      "newsArticleDraw": "82a25bfaff22d302c1f628f3825c9e6548fb724ee88f1d3b843562e5a375e58c",
-      "newsArticleFigure": "3d6bbecece45f6bec433e543840eddeb1af76fd9713abf3ac3d5659cab208f73",
-      "miniCanvas": "f386399c4c40a069eb9ba331a1a788174e2f932cdc52f51d152a66cba063c51f",
-      "miniFrame": "cb66776935552a977d6ef8526dcca320bb2b2dd9bde4497f1926c23e8f504424",
-      "renderAdvances": "75f54972b08a418b421e24c361372b7064866fa1e2c339fd5107050e80e65cfb",
-      "renderNews": "6021e25c7de5067d12e32e0a39919394aee84a9372e15cb8de52be872ab6d203",
-      "paperItem": "a27a1d37a0ce3e8262340aad6676636a02a339b5157fb5a58bbce66905b93985",
-      "modelFamily": "ce2b8bc70c72e5e45f46e79fb941ddf6147634a4c9160578532b959c6a38d6af",
-      "radFamilyEntry": "d7f5a55a4d53b5f2499cdbaafd6c6cc34761fbb31089139eda3e89d89db31026",
-      "hurFamilyEntry": "af7d3018caf58ebfc5764b24a3566b1bef7fee2361b62508b1505744d8d906f6",
-      "renderAuthors": "0c1d687b80311225a5e37da1ad6a05f77202389499a3bdad7ada6efe0ef21b1a",
-      "renderDetails": "79196a129a363f46261430fa41ccc536bd9e6b2b4fee0e5eb8562d4806149b54",
-      "aiAnimatedItem": "9980109628f47e047a5332599c431adbdf6161f9384876c12d3389931c692d89"
+      "buildDemos": "f0dde2aba5b9f61aa1069d3213fc2bead6b26f0775a9a7a8f6367a6f29afcde9",
+      "syncControls": "d66d86aa953293b85c0abb73a5f453e78223cda81cda90b32f1ce67455258d16",
+      "frame": "cd43a78ab940778deac4340979fe59ecbc28ad06307255218b304e7ab11188c0"
     },
     "previous_initialization_changes": {
-      "0": "f1666a8d438f88013913d090ff782fb122f2d2d3525fd25004c5aeb4e9eac2e9"
+      "0": "a60de862a57fcfcf967fd9c40ec4d78e4dab79ced02265a2e71be7d129cf1735",
+      "20": "4e8db21882a75eda710ecd0fa9c0152d9ae38b9545343da9415aa3319f8264df",
+      "24": "f67d03437048e79687ad5ca03332ffc88b1488d4bea4bdde958cf3304bcc4c69"
     },
     "additional_source_sha256": {
       "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
@@ -1021,7 +1006,12 @@
       "path": "review-history-12.json",
       "sha256": "a64b462f6f04b350189f24d28563216df9764c8d9ee0c6fd01b8c9d543ed4732",
       "count": 1
+    },
+    {
+      "path": "review-history-13.json",
+      "sha256": "287660d1834b2ffbf7c0cca6320c1b47b547115618183b6b3689f79364932734",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 16
+  "reviewed_revision_count": 17
 }

@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-02",
+      "purpose": "Release0.3.17: restore original compact news/article animation thumbnails with no detailed-figure expansion; retain full phone navigation; cite12 primary method sources and distinguish project implementations and experimental results",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup",
+        "fixed authenticated board routes and bounded integer pagination",
+        "actor-bound private request lifecycle, absolute session expiry and logout cleanup",
+        "only opaque actor hashes and numeric last-seen cursors may persist for unread state",
+        "Notes update dates come only from explicit per-entry update metadata",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle"
+      ],
+      "previous_css_sha256": "cac0d82163ef9c1a3e89df59527abeb5b3aeed3e8f541c6a92db2b4ee8b40d85",
+      "functions_added": [
+        "modelMethodSources",
+        "modelMethodsCard"
+      ],
+      "functions_removed": [
+        "aiWorkflow",
+        "aiWorkflowInfo"
+      ],
+      "previous_removed_functions": {
+        "aiWorkflow": "f61b1965222b44feadb05d62ad32350e0b3fd6a6dff0541f020fd1ed427ea2d4",
+        "aiWorkflowInfo": "3f40c7e3e1a501bddb6bf55bdb2a92f9dd2ac9f5010039062320d8acd60b9c2e"
+      },
+      "functions_changed": [
+        "newsArt",
+        "newsArticleDraw",
+        "newsArticleFigure",
+        "miniCanvas",
+        "miniFrame",
+        "renderAdvances",
+        "renderNews",
+        "paperItem",
+        "modelFamily",
+        "radFamilyEntry",
+        "hurFamilyEntry",
+        "renderAuthors",
+        "renderDetails",
+        "aiAnimatedItem"
+      ],
+      "initializers_changed": [
+        0
+      ],
+      "previous_function_changes": {
+        "newsArt": "38a5d06c7a524c201478d376fb2489cff38b70c995c1ca8e97d4d7987f3823a9",
+        "newsArticleDraw": "82a25bfaff22d302c1f628f3825c9e6548fb724ee88f1d3b843562e5a375e58c",
+        "newsArticleFigure": "3d6bbecece45f6bec433e543840eddeb1af76fd9713abf3ac3d5659cab208f73",
+        "miniCanvas": "f386399c4c40a069eb9ba331a1a788174e2f932cdc52f51d152a66cba063c51f",
+        "miniFrame": "cb66776935552a977d6ef8526dcca320bb2b2dd9bde4497f1926c23e8f504424",
+        "renderAdvances": "75f54972b08a418b421e24c361372b7064866fa1e2c339fd5107050e80e65cfb",
+        "renderNews": "6021e25c7de5067d12e32e0a39919394aee84a9372e15cb8de52be872ab6d203",
+        "paperItem": "a27a1d37a0ce3e8262340aad6676636a02a339b5157fb5a58bbce66905b93985",
+        "modelFamily": "ce2b8bc70c72e5e45f46e79fb941ddf6147634a4c9160578532b959c6a38d6af",
+        "radFamilyEntry": "d7f5a55a4d53b5f2499cdbaafd6c6cc34761fbb31089139eda3e89d89db31026",
+        "hurFamilyEntry": "af7d3018caf58ebfc5764b24a3566b1bef7fee2361b62508b1505744d8d906f6",
+        "renderAuthors": "0c1d687b80311225a5e37da1ad6a05f77202389499a3bdad7ada6efe0ef21b1a",
+        "renderDetails": "79196a129a363f46261430fa41ccc536bd9e6b2b4fee0e5eb8562d4806149b54",
+        "aiAnimatedItem": "9980109628f47e047a5332599c431adbdf6161f9384876c12d3389931c692d89"
+      },
+      "previous_initialization_changes": {
+        "0": "f1666a8d438f88013913d090ff782fb122f2d2d3525fd25004c5aeb4e9eac2e9"
+      },
+      "additional_source_sha256": {
+        "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
+        "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
+        "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
+        "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
+        "team-material.js": "c795117547162024a4f9f813310a6d871879e99e36f95a594cc25126dc524383",
+        "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
+        "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
+        "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
+      }
+    }
+  ]
+}
