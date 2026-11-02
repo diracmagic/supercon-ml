@@ -1,0 +1,13 @@
+.team-material { margin: 16px 0; padding: 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.team-material h4 { margin: 0 0 5px; font-size: 13px; }
+.team-material-label { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.team-material-diagram { display: block; width: 100%; max-height: 220px; margin: 8px auto; overflow: hidden; }
+.team-material-bond { stroke: var(--axis, #94a3b8); stroke-width: 1.7; opacity: .7; }
+.team-material-site { stroke: var(--surface); stroke-width: 1.8; }
+.team-material-site-0 { fill: var(--accent); }
+.team-material-site-1 { fill: var(--ink-2); }
+.team-material-explanation, .team-material-caption { margin: 8px 0; font-size: 11px; line-height: 1.65; color: var(--ink-2); overflow-wrap: anywhere; }
+.team-material-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 11px; }
+.team-material-status { color: var(--muted); font-size: 10px; }
+.team-material-controls .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 480px) { .team-material { padding: 11px; } .team-material-diagram { max-height: 190px; } }

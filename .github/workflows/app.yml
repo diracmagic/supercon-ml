@@ -2,6 +2,10 @@ name: Desktop app
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'app/**'
+      - '.github/workflows/app.yml'
   push:
     branches: [main]
     paths:
@@ -9,10 +13,10 @@ on:
       - '.github/workflows/app.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: desktop-app
+  group: desktop-app-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -64,6 +68,9 @@ jobs:
       - name: List the third-party licences
         run: node scripts/third-party-notices.mjs
 
+      - name: Test native update validation
+        run: cargo test --manifest-path src-tauri/Cargo.toml
+
       - name: Build installers
         run: npx tauri build ${{ matrix.build-args }}
 
@@ -89,6 +96,8 @@ jobs:
   release:
     name: Publish release
     needs: build
+    permissions:
+      contents: write
     # Every push to app/ checks that the installers still build; only a commit whose message contains
     # [release], or a manual run, publishes them. Push the version bump last, with [release].
     if: github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]'))

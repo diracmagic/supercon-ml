@@ -569,19 +569,25 @@
     "isDesktop": "1ef3564734c9a180cce69bbbe3b08f1e8a8c200ddb1f6a0c11185145262b47b4",
     "verParts": "a634b152b51e34960e0591fae1d1aaa64daef8bffef42e9ccfd7c11101af245a",
     "verNewer": "ec93c2248acce0885686f062e927eb16ac560b92cbf259fd046fa55816403631",
+    "webReleaseVersion": "45e2525b172698a69b4c6fdea1237fbc2e9e41de4ed1e7a80a0de77885586a76",
+    "updateWebBadge": "c828b0c57efc8b4a4ab0156e45b62c8e2e90716f4e5e35a5a954eccab90d7ed3",
     "installerName": "fa1899fa5b0e619ae17c2f163c40db688247d809a1b3bdaf30df6766ee251e34",
     "releaseHighlights": "2543030e0630c68938fa7c42fc8a17154717a66b2a187e1ec12a8db0b20a8a48",
     "updRead": "01dbea619170c44e5d8a6cbedca0b0c8f74ea5fa7aa2fd67a6336e9921dba8ad",
     "updAvailable": "40d37eb032c9aad94da35cbdd67b2eb10401ae8e35210e4e8187b95fa33fefd7",
-    "checkUpdate": "1a61633aaa8682cbe9554235f9516956837872bd37f8ebef35b9df325f00d6cb",
+    "checkUpdate": "6c7816af72515c27ef1292ce49ab8166a030ad6171ec759abcd82b8878d7c1d3",
+    "nativeUpdateCall": "e6904ef5d7bb46f48db145c96951e383ca7f312aca38741c0f026733bcfd461d",
+    "updateFailureText": "f481801ebbc0cc7fa6efe6e52b776013d438ae0db78bf0572c3ba14437e3a616",
+    "downloadUpdate": "578ad06cfa33ebd3c2e8302cc28449028faeb8d5f6f5fd9bf09da09f0698e5db",
+    "installUpdate": "466b7e4677fc5b3a72918c039d8bb3599a5484b40bf547f06585a102e89b344d",
     "flashNote": "a40bc3e6cc19fa5244a1d26e13d3933804346a31f99e3ea1160f292f518acd68",
-    "renderUpdate": "2548dfc5ffd799f5eb2bfd2dc4afedf17717a8aa1630f642962d29067b17cfe9",
+    "renderUpdate": "cf2f0d1a0f45056fe4e591f0a9e94f46a7df0b17a0891ce19809296b40b26f7f",
     "renderUpdateFoot": "aa84c81c187fd3390dee3a81ba9a825d20ba1f79eaa454f1c8c81b381951cb8a",
     "render": "77a5e9284915980da80b209caaa9e4a5758068618979f71d49ae51dba883f47a",
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "d8f46f7dad1304951755c94af4b45cfb7e8096d3a1b763cc96a36961582fd938",
+    "55a98646a46d4772f9848e5244a48480465f87ee567f88015bbd913ade686183",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -736,11 +742,11 @@
     "1f7f158e17ddb0e500431f6447271dff7df5700139a1fb39c6447d06bad848f7",
     "8fd6b59911650bcf5b2a3abe75f27b71f6c1e2517658405c30c42899d2c78735",
     "a291254788eb4dd503fb4957204a41278e3d696ccf6027b15702759f9dd851c4",
-    "9da4693c82589667eae015397dc5f929078ed44c72e5c6f28a875fc02dc8022e",
-    "92179c834ce934ca9645ebb1bd8722e381c16d6d7b3a489d991ff2b096df3595",
+    "02508772bb52e10428355090f4dc975b89ea4fa51a7d70371f1f50a82b2f161a",
+    "28cbbccfb0c3edab41fc57c1af7933cd3e06f7c1e33ca7338111ae74b1efd6fa",
     "7b55f2ca3addb3ab58271d05667b44799cff46c59c7df9406df1a2f3a80b1bfa",
-    "28296f6aaa9698b755035740a294065860b6465c434aa09073686a0d1f95c53e",
-    "ca262f5610cb1d13a31dd7da6e90c18c91c558e79920af81d059db802ddca1f6",
+    "66fccc7771ec59929b31ec9cd7c1c9adae8c10d4f580341563acb9ccc724c782",
+    "b933a1f55f9a053e79d4c2325b37a21f30ee608859bf5a757c501df3cc0e0810",
     "8f73a31ed4956c44b2ddb8d437ef50db1e2c96ee881c043a0dfd534a8df766ef",
     "0e6f328284f917e72d5c150e6f3692b167c2e42ff85e4db92a734a71bc9a9e73",
     "c92ceb6490894ce3d91cfa7d753fc238cba3a80aa1f51f506ec2a9b61d068e21",
@@ -822,6 +828,7 @@
     "js/initialize/updates.js",
     "js/initialize/startup.js",
     "team-auth-config.js",
+    "team-material.js",
     "team-auth.js",
     "js/bootstrap.js"
   ],
@@ -832,22 +839,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-01",
-    "purpose": "Hide revoked members, resend pending invitations, edit display names, and separate forgotten-password and invitation-setup entries while retaining administrator-only access and non-expiring membership invitations with provider-managed password links.",
-    "functions_changed": [],
-    "initializers_changed": [],
-    "scripts_changed": [],
-    "additional_source_sha256": {
-      "team-auth.js": "e491cdb7d6c11b2f032d2c6a3c59fac48361788c1530b7ac7ac12eb5bdcdb113",
-      "team-auth.css": "80703a82c2d1865b7bc8fc8d3650fb76aa4b469190ad22a306110aa700780d2a",
-      "team-account.js": "a461252488decec7a3c579a9de76c90b0fec4de577dd92a9a760362352e3e90d",
-      "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0"
-    },
-    "previous_additional_source_sha256": {
-      "team-auth.js": "b829f35da94e04131b20a38c9b0856fb7aefaf16c9e807f627cd200d9f19b5ff",
-      "team-auth.css": "80703a82c2d1865b7bc8fc8d3650fb76aa4b469190ad22a306110aa700780d2a",
-      "team-account.js": "92ad1eb91134df362d1d521ead52aa3d52e3773812e3bd67225c587ec1f148f5",
-      "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0"
-    },
+    "purpose": "Release 0.3.10: source-based private Notes material illustrations and team introductions, mobile and desktop update controls.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -865,19 +857,58 @@
       "no password, identity token, session token or private memo in browser storage",
       "email action URL stripping and no-referrer policy",
       "manual private-note animation with reduced motion and cleanup"
-    ]
+    ],
+    "functions_changed": [
+      "webReleaseVersion",
+      "updateWebBadge",
+      "checkUpdate",
+      "nativeUpdateCall",
+      "updateFailureText",
+      "downloadUpdate",
+      "installUpdate",
+      "renderUpdate"
+    ],
+    "initializers_changed": [
+      0,
+      155,
+      156,
+      158,
+      159
+    ],
+    "additional_source_sha256": {
+      "team-auth.js": "8c4f618e4043ab6a33adc65f85fc9727c29bf1d0f28133c4134f641569075032",
+      "team-auth.css": "366ed5aa2c848ba650d382fac7ef39cd08799bcf75b76dbf2cb8d6c466466e6e",
+      "team-account.js": "a461252488decec7a3c579a9de76c90b0fec4de577dd92a9a760362352e3e90d",
+      "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
+      "team-material.js": "155bdeb1bb5e2eb7187f01f2ff53dce85d6430b9a4fa4e59b520eff66e404ce3",
+      "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266"
+    },
+    "previous_function_changes": {
+      "checkUpdate": "1a61633aaa8682cbe9554235f9516956837872bd37f8ebef35b9df325f00d6cb",
+      "renderUpdate": "2548dfc5ffd799f5eb2bfd2dc4afedf17717a8aa1630f642962d29067b17cfe9"
+    },
+    "previous_initialization_changes": {
+      "0": "d8f46f7dad1304951755c94af4b45cfb7e8096d3a1b763cc96a36961582fd938",
+      "155": "9da4693c82589667eae015397dc5f929078ed44c72e5c6f28a875fc02dc8022e",
+      "156": "92179c834ce934ca9645ebb1bd8722e381c16d6d7b3a489d991ff2b096df3595",
+      "158": "28296f6aaa9698b755035740a294065860b6465c434aa09073686a0d1f95c53e",
+      "159": "ca262f5610cb1d13a31dd7da6e90c18c91c558e79920af81d059db802ddca1f6"
+    }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
   "styles": [
     "styles.css",
     "team-auth.css",
-    "team-account.css"
+    "team-account.css",
+    "team-material.css"
   ],
   "additional_source_sha256": {
-    "team-auth.js": "e491cdb7d6c11b2f032d2c6a3c59fac48361788c1530b7ac7ac12eb5bdcdb113",
-    "team-auth.css": "80703a82c2d1865b7bc8fc8d3650fb76aa4b469190ad22a306110aa700780d2a",
+    "team-auth.js": "8c4f618e4043ab6a33adc65f85fc9727c29bf1d0f28133c4134f641569075032",
+    "team-auth.css": "366ed5aa2c848ba650d382fac7ef39cd08799bcf75b76dbf2cb8d6c466466e6e",
     "team-account.js": "a461252488decec7a3c579a9de76c90b0fec4de577dd92a9a760362352e3e90d",
-    "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0"
+    "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
+    "team-material.js": "155bdeb1bb5e2eb7187f01f2ff53dce85d6430b9a4fa4e59b520eff66e404ce3",
+    "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266"
   },
   "reviewed_revision_history_files": [
     {
@@ -899,7 +930,12 @@
       "path": "review-history-04.json",
       "sha256": "60487eb4c9b96a8862d1dcad366a991071b51c0745a6a53772fa89a7002129d9",
       "count": 1
+    },
+    {
+      "path": "review-history-05.json",
+      "sha256": "f147a03dd92620a19a40b5373b1f06379271ca0c83a50ccfd5d038c44130a264",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 8
+  "reviewed_revision_count": 9
 }

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-01",
+      "purpose": "Hide revoked members, resend pending invitations, edit display names, and separate forgotten-password and invitation-setup entries while retaining administrator-only access and non-expiring membership invitations with provider-managed password links.",
+      "functions_changed": [],
+      "initializers_changed": [],
+      "scripts_changed": [],
+      "additional_source_sha256": {
+        "team-auth.js": "e491cdb7d6c11b2f032d2c6a3c59fac48361788c1530b7ac7ac12eb5bdcdb113",
+        "team-auth.css": "80703a82c2d1865b7bc8fc8d3650fb76aa4b469190ad22a306110aa700780d2a",
+        "team-account.js": "a461252488decec7a3c579a9de76c90b0fec4de577dd92a9a760362352e3e90d",
+        "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0"
+      },
+      "previous_additional_source_sha256": {
+        "team-auth.js": "b829f35da94e04131b20a38c9b0856fb7aefaf16c9e807f627cd200d9f19b5ff",
+        "team-auth.css": "80703a82c2d1865b7bc8fc8d3650fb76aa4b469190ad22a306110aa700780d2a",
+        "team-account.js": "92ad1eb91134df362d1d521ead52aa3d52e3773812e3bd67225c587ec1f148f5",
+        "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0"
+      },
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup"
+      ]
+    }
+  ]
+}
