@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-03T16:14:00+00:00",
+ "updated": "2026-11-03T19:16:59+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2342,6 +2342,24 @@
  ],
  "journals": [
   {
+   "id": "10.1103/k5r2-q11w",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Kekulé Superconductivity Induced by Quantum Geometry in Haldane Phases",
+   "authors": [
+    "Yafis Barlas",
+    "Fan Zhang",
+    "Enrico Rossi"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/k5r2-q11w",
+   "doi": "10.1103/k5r2-q11w",
+   "topics": [],
+   "kind": ""
+  },
+  {
    "id": "10.1103/lrhl-j9bt",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2379,6 +2397,24 @@
    "topics": [
     "Vortices and junctions"
    ],
+   "kind": ""
+  },
+  {
+   "id": "10.1103/qp2j-p4xh",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Phonon-driven nodal surface superconductivity of Fermi arcs",
+   "authors": [
+    "Francesco Buccheri",
+    "Alessandro De Martino",
+    "Jeroen van den Brink"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/qp2j-p4xh",
+   "doi": "10.1103/qp2j-p4xh",
+   "topics": [],
    "kind": ""
   },
   {
@@ -3004,27 +3040,6 @@
    "kind": ""
   },
   {
-   "id": "10.1038/s41467-026-73705-w",
-   "source": "Nat. Commun.",
-   "journal": "Nature Communications",
-   "title": "Addendum: Magnetic field screening in hydrogen-rich high-temperature superconductors",
-   "authors": [
-    "V. S. Minkov",
-    "E. F. Talantsev",
-    "S. L. Bud’ko",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-06",
-   "abstract": "",
-   "url": "https://doi.org/10.1038/s41467-026-73705-w",
-   "doi": "10.1038/s41467-026-73705-w",
-   "topics": [
-    "Hydrides"
-   ],
-   "kind": ""
-  },
-  {
    "id": "10.1038/s41467-026-78385-0",
    "source": "Nat. Commun.",
    "journal": "Nature Communications",
@@ -3042,6 +3057,27 @@
    "doi": "10.1038/s41467-026-78385-0",
    "topics": [
     "Kagome"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-73705-w",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Addendum: Magnetic field screening in hydrogen-rich high-temperature superconductors",
+   "authors": [
+    "V. S. Minkov",
+    "E. F. Talantsev",
+    "S. L. Bud’ko",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-10-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-73705-w",
+   "doi": "10.1038/s41467-026-73705-w",
+   "topics": [
+    "Hydrides"
    ],
    "kind": ""
   },
@@ -3080,24 +3116,6 @@
    "abstract": "",
    "url": "https://doi.org/10.1103/xfg2-227f",
    "doi": "10.1103/xfg2-227f",
-   "topics": [],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/k5r2-q11w",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Kekulé superconductivity induced by quantum geometry in Haldane phases",
-   "authors": [
-    "Yafis Barlas",
-    "Fan Zhang",
-    "Enrico Rossi"
-   ],
-   "n_authors": 3,
-   "date": "2026-10-02",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/k5r2-q11w",
-   "doi": "10.1103/k5r2-q11w",
    "topics": [],
    "kind": ""
   },
@@ -3328,28 +3346,6 @@
    "doi": "10.1038/s41563-026-02750-z",
    "topics": [
     "Nickelates"
-   ],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/sfxm-n236",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Quantum Oscillation and Topology Change of the Uncondensed Landau Fermi Surface in Superconducting CeCoIn 5",
-   "authors": [
-    "Sangyun Lee",
-    "Ammar Jahin",
-    "Duk Y. Kim",
-    "et al."
-   ],
-   "n_authors": 9,
-   "date": "2026-09-21",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/sfxm-n236",
-   "doi": "10.1103/sfxm-n236",
-   "topics": [
-    "Heavy fermions",
-    "Topological"
    ],
    "kind": ""
   },
