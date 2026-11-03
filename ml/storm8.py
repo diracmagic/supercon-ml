@@ -35,7 +35,7 @@ P = S.P
 VERSION = "storm8-electronic-ground-state-v1"
 DESIGNS = {"P0": "Unchanged Storm6 R2 raw D+geometry direct Tc (Storm7 U0)",
            "P1": "Same plus Alexandria PBE N(E_F) per atom, N(E_F) per cubic angstrom and band gap",
-           "PM": "Missingness control: P0 plus one indicator (1 if all three electronic inputs are available), no values"}
+           "PM": "Missingness control: P0 plus one 0/1 availability indicator per electronic column, never a value"}
 RULE_DESIGNS = ("P0", "P1")  # The prespecified rule compares these two; PM is descriptive attribution evidence.
 ELECTRONIC_COLUMNS = ["dos_ef_per_atom", "dos_ef_per_cubic_angstrom", "band_gap_ev"]
 PARAMS, SMOKE_PARAMS, SEED = dict(S.PARAMS), dict(S.SMOKE_PARAMS), S.SEED
@@ -118,11 +118,14 @@ def freeze_protocol(output_dir, *, smoke=False):
         "primary_comparison": "P1 minus P0 material-weighted MAE, 1000 paired chemical-system bootstrap, seed 7",
         "estimand": ("P1 minus P0 on all retained rows compares the pipeline with the Alexandria inputs as available (NaN where "
                      "unavailable) against the unchanged baseline. It does not by itself attribute a gain to the physical values: "
-                     "PM (P0 plus the availability indicator only) is reported alongside as the missingness control, and a gain "
-                     "is attributed to the values only if P1 also improves on PM. Coverage and mismatch reasons are reported "
-                     "overall, per held-out fold, in the top-10% tail and in the OOD subgroup. The coverage floor is a policy choice"),
-        "real_entry_point": ("A real run refuses to load data unless the protocol it generates equals the reviewed frozen file "
-                             "results/validation/storm8-protocol-v1/protocol.json byte for byte; CI compares it as well"),
+                     "PM (P0 plus the per-column availability indicators, which carry every missingness pattern P1 can see but "
+                     "no value) is reported alongside as the missingness control, and a gain is attributed to the values only if "
+                     "P1 also improves on PM. Coverage and mismatch reasons are reported overall, per held-out fold, in the top-10% "
+                     "tail and in the OOD subgroup. The coverage floor is a policy choice"),
+        "real_entry_point": ("A real run reads the reviewed frozen file results/validation/storm8-protocol-v1/protocol.json before "
+                             "generating anything, refuses an alias to its own output, and refuses to load data unless the protocol "
+                             "it generates equals those pre-existing reviewed bytes; CI compares it as well"),
+        "shifted_forecasts": "The P0 and P1 forecasts of both 1-ulp refits are saved per row (shifted-forecasts.csv) as each completes",
         "bootstrap": ("storm6.paired_bootstrap: chemical systems resampled with replacement with all their rows; delta = sum of "
                       "row (|y-P1| - |y-P0|) over sampled rows / number of sampled rows; 1000 draws from numpy default_rng(7); "
                       "2.5 and 97.5 percentiles; not selection-adjusted"),
@@ -221,7 +224,8 @@ def same_structure(atoms, record, tol=STRUCTURE_TOL):
                 return "mismatch_occupancy"
             raise
         nsites = record["nsites"]
-        if isinstance(nsites, bool) or int(nsites) != nsites or int(nsites) != len(e2) or len(C2) != len(e2):
+        if isinstance(nsites, bool) or not isinstance(nsites, (int, float)) or not math.isfinite(nsites) \
+                or int(nsites) != nsites or int(nsites) != len(e2) or len(C2) != len(e2):
             return "mismatch_nsites"
         X2 = C2 @ np.linalg.inv(L2)
     except (KeyError, TypeError, ValueError, IndexError, np.linalg.LinAlgError):
@@ -301,18 +305,29 @@ def fetch_electronic(ids, cache_dir, *, get=None, offline=False, retries=4, paus
             raise ValueError("cached OPTIMADE manifest belongs to a different request")
         if snapshot_dir is not None:
             Path(snapshot_dir).mkdir(parents=True, exist_ok=True)
-        for entry in manifest["pages"]:
-            body = (raw_dir / f"{entry['sha256']}.json").read_bytes()
-            if hashlib.sha256(body).hexdigest() != entry["sha256"]:
-                raise ValueError("cached OPTIMADE response bytes changed")
-            if snapshot_dir is not None:
-                (Path(snapshot_dir) / f"{entry['sha256']}.json").write_bytes(body)
-            bodies.append(body)
+        verified = []
+
+        def cached_progress(status, error=None):
+            if progress_path is not None:
+                _json(progress_path, {"request_sha256": request_sha, "endpoint": OPTIMADE_URL, "status": status,
+                                      "reused_cache": True, "pages_expected": len(manifest["pages"]), "pages_completed": len(verified),
+                                      "error": error, "pages": verified, "updated_at": dt.datetime.now(dt.timezone.utc).isoformat()})
+        cached_progress("partial")
+        try:
+            for entry in manifest["pages"]:
+                body = (raw_dir / f"{entry['sha256']}.json").read_bytes()
+                if hashlib.sha256(body).hexdigest() != entry["sha256"]:
+                    raise ValueError(f"cached OPTIMADE response bytes changed: {entry['sha256']}")
+                if snapshot_dir is not None:
+                    (Path(snapshot_dir) / f"{entry['sha256']}.json").write_bytes(body)
+                bodies.append(body)
+                verified.append(entry)
+                cached_progress("partial")
+        except Exception as error:
+            cached_progress("failed", f"{type(error).__name__}: {error}")
+            raise
         manifest = dict(manifest, reused_cache=True)
-        if progress_path is not None:
-            _json(progress_path, {"request_sha256": request_sha, "endpoint": OPTIMADE_URL, "status": "completed",
-                                  "reused_cache": True, "pages_completed": len(bodies), "pages": manifest["pages"],
-                                  "updated_at": dt.datetime.now(dt.timezone.utc).isoformat()})
+        cached_progress("completed")
     else:
         if offline:
             raise ValueError("offline mode and no cached OPTIMADE responses for this request")
@@ -422,10 +437,10 @@ def forecast(design, Dtr, Gtr, Etr, ytr, Dte, Gte, Ete, *, fold, params):
         keep = np.isfinite(Etr).any(axis=0)
         A, B = np.column_stack([A, Etr[:, keep]]), np.column_stack([B, Ete[:, keep]])
         identity["electronic_keep"] = keep.tolist()
-    elif design == "PM":  # Availability only: a single 0/1 column, never a value.
-        A = np.column_stack([A, np.isfinite(Etr).all(axis=1).astype(float)])
-        B = np.column_stack([B, np.isfinite(Ete).all(axis=1).astype(float)])
-        identity["electronic_keep"] = "availability_indicator"
+    elif design == "PM":  # Availability only: one 0/1 column per electronic column, never a value.
+        A = np.column_stack([A, np.isfinite(Etr).astype(float)])
+        B = np.column_stack([B, np.isfinite(Ete).astype(float)])
+        identity["electronic_keep"] = "availability_indicators_per_column"
     model = HistGradientBoostingRegressor(random_state=SEED + fold, **params)
     prediction = np.clip(np.expm1(model.fit(A, np.log1p(ytr)).predict(B)), 0, None)
     if not np.isfinite(prediction).all():
@@ -470,9 +485,11 @@ def _ulp_shift(X, direction):
     return X
 
 
-def shifted_refits(D, G, E, y, splits, reference, *, params):
-    """P0 and P1 refit after shifting every finite input by one ulp up, then down; the P1-P0 deltas enter the rule."""
-    out = {}
+def shifted_refits(D, G, E, y, splits, reference, *, params, ids=None, fold_of=None, save_to=None):
+    """P0 and P1 refit after shifting every finite input by one ulp up, then down; the P1-P0 deltas enter the rule.
+    With save_to, every completed forecast vector is written to that CSV at once (aligned IDs and folds), so the
+    gate can be audited without refitting."""
+    out, saved = {}, {}
     for name, direction in (("plus_1ulp", 1), ("minus_1ulp", -1)):
         Ds, Gs, Es = (_ulp_shift(X, direction) for X in (D, G, E))
         entry, preds = {}, {}
@@ -486,6 +503,12 @@ def shifted_refits(D, G, E, y, splits, reference, *, params):
             entry[design] = {"mae_k": float(np.mean(np.abs(y - pred))),
                              "mae_change_k": float(np.mean(np.abs(y - pred)) - np.mean(np.abs(y - reference[design]))),
                              "max_abs_forecast_change_k": float(change.max()), "rows_changed": int((change > 0).sum())}
+            saved[f"{design.lower()}_{name}_k"] = pred
+            if save_to is not None:
+                table = pd.DataFrame({"id": ids, "fold": fold_of, "tc_target_dft_k": y})
+                for column in ("p0_plus_1ulp_k", "p1_plus_1ulp_k", "p0_minus_1ulp_k", "p1_minus_1ulp_k"):
+                    table[column] = saved.get(column, np.full(len(y), np.nan))
+                table.to_csv(save_to, index=False)
         entry["delta_mae_k_P1_minus_P0"] = float(np.mean(np.abs(y - preds["P1"])) - np.mean(np.abs(y - preds["P0"])))
         out[name] = entry
     return out
@@ -498,11 +521,16 @@ def run(smoke=False, output_dir=None, *, offline=False, reviewed_protocol=REVIEW
     out = Path(output_dir) if output_dir is not None else P.RESULTS / "storm8" / identity["run_id"]
     if (out / "run.json").exists() or (out / "report.json").exists():
         raise ValueError("Storm8 run directory is non-overwriting; use a new directory")
-    protocol, digest = freeze_protocol(out, smoke=smoke)  # Must precede data, inputs and targets.
-    if not smoke:  # Every real entry point needs the reviewed frozen protocol, byte for byte.
+    if not smoke:  # Every real entry point needs a pre-existing reviewed frozen protocol, read before anything is generated.
         reviewed = Path(reviewed_protocol)
-        if not reviewed.is_file() or reviewed.read_bytes() != (out / "protocol.json").read_bytes():
-            raise ValueError(f"Real Storm8 run refused: the generated protocol does not equal the reviewed frozen file {reviewed}")
+        if reviewed.resolve() == (out / "protocol.json").resolve():
+            raise ValueError("Real Storm8 run refused: the reviewed protocol path must not be the run's own output")
+        if not reviewed.is_file():
+            raise ValueError(f"Real Storm8 run refused: no reviewed frozen file at {reviewed}")
+        reviewed_bytes = reviewed.read_bytes()
+    protocol, digest = freeze_protocol(out, smoke=smoke)  # Must precede data, inputs and targets.
+    if not smoke and reviewed_bytes != (out / "protocol.json").read_bytes():
+        raise ValueError(f"Real Storm8 run refused: the generated protocol does not equal the reviewed frozen file {reviewed}")
     _json(out / "run.json", {**identity, "protocol_sha256": digest, "reviewed_protocol": None if smoke else str(reviewed_protocol)})
     report = {**identity, "version": VERSION, "protocol_sha256": digest, "smoke": bool(smoke), "adopted": False,
               "report_only": True, "status": "preparing", "output_dir": str(out), "target": protocol["target"],
@@ -586,7 +614,8 @@ def run(smoke=False, output_dir=None, *, offline=False, reviewed_protocol=REVIEW
         report["paired_P1_minus_P0"] = paired
         _json(out / "report.json", report)
         try:
-            shifted = shifted_refits(D, G, E, y, splits, predictions, params=params)
+            shifted = shifted_refits(D, G, E, y, splits, predictions, params=params, ids=ids, fold_of=fold_of,
+                                     save_to=out / "shifted-forecasts.csv")
             report["refits_under_1ulp_shifts"] = shifted
             deltas = {k: v["delta_mae_k_P1_minus_P0"] for k, v in shifted.items()}
         except (ValueError, RuntimeError, FloatingPointError, MemoryError) as error:
