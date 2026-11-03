@@ -38,6 +38,7 @@ DESIGNS = {"P0": "Unchanged Storm6 R2 raw D+geometry direct Tc (Storm7 U0)",
 ELECTRONIC_COLUMNS = ["dos_ef_per_atom", "dos_ef_per_cubic_angstrom", "band_gap_ev"]
 PARAMS, SMOKE_PARAMS, SEED = dict(S.PARAMS), dict(S.SMOKE_PARAMS), S.SEED
 MIN_EFFECT_K = 0.03
+COVERAGE_FLOOR = 0.90  # Fraction of cohort rows with all three electronic inputs; below it no conclusion about P1.
 STORM7_U0_MAE_K = 0.9674607593639637
 STORM7_INPUT_SHA256 = {"D": "ba387c1da55e6bf82904234f0ad750c2584c72288a089502ffad0564ee8fa741",
                        "geometry": "a5c514f1f4bb7b68818ebf7e74b662fa6d591f706444492bc2f99dddb910bc5f",
@@ -110,16 +111,24 @@ def freeze_protocol(output_dir, *, smoke=False):
         "bootstrap": ("storm6.paired_bootstrap: chemical systems resampled with replacement with all their rows; delta = sum of "
                       "row (|y-P1| - |y-P0|) over sampled rows / number of sampled rows; 1000 draws from numpy default_rng(7); "
                       "2.5 and 97.5 percentiles; not selection-adjusted"),
-        "decision_rule": {"prespecified_gain_rule_met": (f"point delta <= -{MIN_EFFECT_K} K and upper 95% bound < 0: an observed "
-                                                         f"improvement of at least {MIN_EFFECT_K} K whose interval excludes no "
-                                                         f"improvement; not a 95%-supported improvement of {MIN_EFFECT_K} K"),
-                          "otherwise": "rule not met", "adopted": "false in every case; report-only"},
+        "decision_rule": {"prespecified_gain_rule_met": "all three conditions below",
+                          "coverage": (f"at least {COVERAGE_FLOOR:.0%} of cohort rows have all three electronic inputs; "
+                                       "otherwise no conclusion about P1 is drawn"),
+                          "main": (f"point delta <= -{MIN_EFFECT_K} K and upper 95% bound < 0: an observed improvement of at "
+                                   f"least {MIN_EFFECT_K} K whose interval excludes no improvement; not a 95%-supported "
+                                   f"improvement of {MIN_EFFECT_K} K"),
+                          "robustness": ("after shifting every finite D, geometry and electronic input by +1 ulp, and separately "
+                                         "by -1 ulp, and refitting both designs on the same folds, the point delta is "
+                                         f"<= -{MIN_EFFECT_K} K in both refits (Storm forecasts are sensitive to 1-ulp input "
+                                         "changes, and the fixed-forecast bootstrap does not include refit instability)"),
+                          "otherwise": "rule not met; or no conclusion when the coverage floor is not met",
+                          "adopted": "false in every case; report-only"},
         "secondary": "Top-10% target MAE and Storm6 OOD subgroup MAE (paired), electronic-input coverage by status",
         "descriptive_only": ["Spearman correlation of dos_ef_per_atom with DFT lambda and omega_log",
                              "P0 MAE versus Storm7 U0 (0.9674607593639637 K) as a reproduction check",
-                             "P0 refit change under monotone +1 and -1 ulp shifts of all finite D/geometry inputs",
+                             "Per-design forecast and MAE changes in the +1 and -1 ulp refits (their P1-P0 deltas enter the rule)",
                              "Bitwise equality of D, geometry and ID order with the saved Storm7 inputs (storm7_input_sha256)"],
-        "storm7_input_sha256": STORM7_INPUT_SHA256,
+        "storm7_input_sha256": STORM7_INPUT_SHA256, "coverage_floor": COVERAGE_FLOOR, "min_effect_k": MIN_EFFECT_K,
         "package_specification": "ml/requirements.txt (lower bounds only; hash above); exact versions recorded in the run, not pinned",
         "numerics": ("numpy AVX-512 dispatch disabled and OPENBLAS_CORETYPE=Haswell: a mitigation, not validated as guaranteeing "
                      "equality across hardware; hardware and loaded libraries recorded in the artifact"),
@@ -129,7 +138,7 @@ def freeze_protocol(output_dir, *, smoke=False):
                         "N(E_F) of a new candidate needs a DFT calculation; Alexandria provides it for its entries only",
                         "N(E_F) is one factor of lambda; electron-phonon matrix elements remain unmodelled",
                         "Inputs are PBE ground-state descriptors; labels are PBEsol/Quantum ESPRESSO electron-phonon results",
-                        "The chemical-system bootstrap does not include refit instability; package versions are not pinned",
+                        "The chemical-system bootstrap does not include refit instability; the two 1-ulp refits probe it but do not bound it; package versions are not pinned",
                         "DFT labels and experimental measurements remain separate"],
         "publication": "Both designs reported; adopted=false always; no winner or release rule",
     }
@@ -330,8 +339,10 @@ def electronic_inputs(ids, structures, records):
 
 
 def synthetic_electronic(D):
-    """Smoke-only stand-in; one row in five missing to exercise NaN handling."""
-    E = np.column_stack([np.exp(.3 * D[:, 3]), .1 * np.exp(.3 * D[:, 3]), np.clip(D[:, 4], 0, None)])
+    """Smoke-only stand-in; one row in five missing for NaN handling. The synthetic target depends on D only, so the
+    smoke head may never split on these columns and P1 can equal P0 there; the unit tests cover the P1 path."""
+    noise = np.random.default_rng(SEED).normal(size=(len(D), 2))
+    E = np.column_stack([np.exp(.3 * D[:, 3] + .3 * noise[:, 0]), .1 * np.exp(.3 * D[:, 3] + .3 * noise[:, 1]), np.clip(D[:, 4], 0, None)])
     E[::5] = np.nan
     return E, ["synthetic" if i % 5 else "synthetic_missing" for i in range(len(D))]
 
@@ -355,11 +366,22 @@ def forecast(design, Dtr, Gtr, Etr, ytr, Dte, Gte, Ete, *, fold, params):
     return prediction, identity
 
 
-def decision(paired):
+def decision(paired, *, coverage, shifted_deltas):
+    """Three prespecified conditions; adopted is False whatever the outcome."""
     delta, (low, high) = paired["delta_mae_k_new_minus_reference"], paired["percentile_95_interval_k"]
-    return {"prespecified_gain_rule_met": bool(delta <= -MIN_EFFECT_K and high < 0),
-            "rule": f"point delta <= -{MIN_EFFECT_K} K and upper 95% bound < 0 (not a 95%-supported {MIN_EFFECT_K} K gain)",
-            "delta_mae_k": delta, "percentile_95_interval_k": [low, high], "adopted": False}
+    covered = bool(coverage >= COVERAGE_FLOOR)
+    main = bool(delta <= -MIN_EFFECT_K and high < 0)
+    robust = bool(len(shifted_deltas) == 2 and all(d <= -MIN_EFFECT_K for d in shifted_deltas.values()))
+    if not covered:
+        conclusion = "no conclusion about P1: electronic-input coverage below the floor"
+    else:
+        conclusion = "prespecified gain rule met" if main and robust else "prespecified gain rule not met"
+    return {"prespecified_gain_rule_met": covered and main and robust, "conclusion": conclusion,
+            "conditions": {"coverage_floor_met": covered, "main_rule_met": main, "robust_under_1ulp_refits": robust},
+            "rule": (f"coverage >= {COVERAGE_FLOOR}; point delta <= -{MIN_EFFECT_K} K and upper 95% bound < 0 "
+                     f"(not a 95%-supported {MIN_EFFECT_K} K gain); delta <= -{MIN_EFFECT_K} K in both 1-ulp-shifted refits"),
+            "coverage_all_three": float(coverage), "coverage_floor": COVERAGE_FLOOR, "delta_mae_k": delta,
+            "percentile_95_interval_k": [low, high], "shifted_delta_mae_k": dict(shifted_deltas), "adopted": False}
 
 
 def _spearman(a, b):
@@ -376,16 +398,24 @@ def _ulp_shift(X, direction):
     return X
 
 
-def refit_instability(D, G, y, splits, reference, *, params):
-    """Descriptive: P0 refit after shifting every finite D/geometry value by one ulp up, then down."""
-    out, E = {}, np.full((len(y), len(ELECTRONIC_COLUMNS)), np.nan)
+def shifted_refits(D, G, E, y, splits, reference, *, params):
+    """Both designs refit after shifting every finite input by one ulp up, then down; the P1-P0 deltas enter the rule."""
+    out = {}
     for name, direction in (("plus_1ulp", 1), ("minus_1ulp", -1)):
-        Ds, Gs, pred = _ulp_shift(D, direction), _ulp_shift(G, direction), np.full(len(y), np.nan)
-        for fold, (train, test) in enumerate(splits):
-            pred[test], _ = forecast("P0", Ds[train], Gs[train], E[train], y[train], Ds[test], Gs[test], E[test], fold=fold, params=params)
-        change = np.abs(pred - reference)
-        out[name] = {"mae_change_k": float(np.mean(np.abs(y - pred)) - np.mean(np.abs(y - reference))),
-                     "max_abs_forecast_change_k": float(change.max()), "rows_changed": int((change > 0).sum())}
+        Ds, Gs, Es = (_ulp_shift(X, direction) for X in (D, G, E))
+        entry, preds = {}, {}
+        for design in DESIGNS:
+            pred = np.full(len(y), np.nan)
+            for fold, (train, test) in enumerate(splits):
+                pred[test], _ = forecast(design, Ds[train], Gs[train], Es[train], y[train], Ds[test], Gs[test], Es[test],
+                                         fold=fold, params=params)
+            preds[design] = pred
+            change = np.abs(pred - reference[design])
+            entry[design] = {"mae_k": float(np.mean(np.abs(y - pred))),
+                             "mae_change_k": float(np.mean(np.abs(y - pred)) - np.mean(np.abs(y - reference[design]))),
+                             "max_abs_forecast_change_k": float(change.max()), "rows_changed": int((change > 0).sum())}
+        entry["delta_mae_k_P1_minus_P0"] = float(np.mean(np.abs(y - preds["P1"])) - np.mean(np.abs(y - preds["P0"])))
+        out[name] = entry
     return out
 
 
@@ -468,9 +498,11 @@ def run(smoke=False, output_dir=None, *, offline=False):
         paired = {name: S.paired_bootstrap(y[mask], predictions["P1"][mask], predictions["P0"][mask], groups[mask])
                   for name, mask in (("overall", np.ones(len(y), bool)), ("tail", tail), ("ood", ood)) if mask.any()}
         report["paired_P1_minus_P0"] = paired
-        report["decision"] = decision(paired["overall"])
-        report["refit_instability_P0"] = {"descriptive_only": True,
-                                          **refit_instability(D, G, y, splits, predictions["P0"], params=params)}
+        _json(out / "report.json", report)
+        shifted = shifted_refits(D, G, E, y, splits, predictions, params=params)
+        report["refits_under_1ulp_shifts"] = shifted
+        report["decision"] = decision(paired["overall"], coverage=report["electronic_inputs"]["coverage_all_three"],
+                                      shifted_deltas={k: v["delta_mae_k_P1_minus_P0"] for k, v in shifted.items()})
         if "lambda" in frame:
             report["descriptive_only"] = {
                 "spearman_dos_ef_per_atom_vs_lambda": _spearman(E[:, 0], frame["lambda"].to_numpy(float)),
