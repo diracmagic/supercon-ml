@@ -34,7 +34,9 @@ import storm6 as S
 P = S.P
 VERSION = "storm8-electronic-ground-state-v1"
 DESIGNS = {"P0": "Unchanged Storm6 R2 raw D+geometry direct Tc (Storm7 U0)",
-           "P1": "Same plus Alexandria PBE N(E_F) per atom, N(E_F) per cubic angstrom and band gap"}
+           "P1": "Same plus Alexandria PBE N(E_F) per atom, N(E_F) per cubic angstrom and band gap",
+           "PM": "Missingness control: P0 plus one indicator (1 if all three electronic inputs are available), no values"}
+RULE_DESIGNS = ("P0", "P1")  # The prespecified rule compares these two; PM is descriptive attribution evidence.
 ELECTRONIC_COLUMNS = ["dos_ef_per_atom", "dos_ef_per_cubic_angstrom", "band_gap_ev"]
 PARAMS, SMOKE_PARAMS, SEED = dict(S.PARAMS), dict(S.SMOKE_PARAMS), S.SEED
 MIN_EFFECT_K = 0.03
@@ -48,7 +50,8 @@ EXPECTED_XC = "gga_x_pbe + gga_c_pbe"
 RESPONSE_FIELDS = ["id", "nsites", "lattice_vectors", "species", "species_at_sites", "cartesian_site_positions",
                    "chemical_formula_reduced", "last_modified", "_alexandria_xc_functional", "_alexandria_dos_ef",
                    "_alexandria_band_gap", "_alexandria_magnetization"]
-STRUCTURE_TOL = {"cell_metric_relative": 1e-4, "site_angstrom": 1e-3}
+STRUCTURE_TOL = {"cell_metric_relative": 1e-5, "site_angstrom": 1e-3}  # Sampled PBE cells agree with the dataset to 4e-7 in volume.
+REVIEWED_PROTOCOL = Path(__file__).resolve().parents[1] / "results" / "validation" / "storm8-protocol-v1" / "protocol.json"
 BATCH = 25
 MAX_PAGES_PER_BATCH = 5
 USER_AGENT = "supercon-ml-storm8/1 (+https://github.com/diracmagic/supercon-ml)"
@@ -93,13 +96,18 @@ def freeze_protocol(output_dir, *, smoke=False):
                                "entries (24/24 sampled IDs; PBEsol entries are separate relaxations). Labels are Quantum ESPRESSO "
                                "electron-phonon results listed by Alexandria under PBEsol (10.1002/adfm.202404043). Existing and new "
                                "inputs are PBE descriptors: cross-functional with the labels by construction"),
-            "structure_check": {"rule": ("_alexandria_xc_functional equals the PBE value; equal species counts; lattice metric "
-                                         "L L^T within cell_metric_relative times its largest diagonal entry; every site matched "
-                                         "one-to-one to a same-element site under periodic images within site_angstrom after at "
-                                         "most one rigid origin shift; invariant to rotation, lattice-vector order, site order "
-                                         "and origin"),
+            "structure_check": {"rule": ("_alexandria_xc_functional equals the PBE value; nsites equals both site-array lengths; "
+                                         "every site fully occupied by one element with a finite concentration of 1; equal species "
+                                         "counts; every entry of the lattice metric L L^T agrees within cell_metric_relative times "
+                                         "sqrt(G_ii G_jj) (per-axis relative lengths and angles), for some lattice-vector order; "
+                                         "every site matched one-to-one to a same-element site under periodic images after at most "
+                                         "one rigid origin shift, with the Cartesian residual in both cells within site_angstrom; "
+                                         "invariant to rotation, lattice-vector order, site order and origin; other basis changes "
+                                         "count as mismatches and their coverage cost is reported"),
                                 "tolerances": STRUCTURE_TOL, "uses": "IDs and structures only, never labels"},
             "mismatch": "All three inputs NaN; the row is kept and its status names the reason",
+            "acquisition_evidence": ("Every raw page is copied into the run directory as soon as it arrives, with an incremental "
+                                     "request manifest (url, sha256, bytes, status completed/partial/failed) that survives failures"),
             "dos_convention": "Alexandria's published value, states/(eV calculation cell); no per-spin split documented; negative values are missing",
             "magnetization": "Recorded per row, descriptive only",
             "fetch_order": "By ID only, after the protocol is frozen and before any target is used for fitting",
@@ -108,6 +116,13 @@ def freeze_protocol(output_dir, *, smoke=False):
         "outer": "Unchanged GroupKFold5 chemical-system splits, original row order",
         "ood": "Unchanged Storm6 D-only nearest different-system training distance, 95th percentile, full outer training set",
         "primary_comparison": "P1 minus P0 material-weighted MAE, 1000 paired chemical-system bootstrap, seed 7",
+        "estimand": ("P1 minus P0 on all retained rows compares the pipeline with the Alexandria inputs as available (NaN where "
+                     "unavailable) against the unchanged baseline. It does not by itself attribute a gain to the physical values: "
+                     "PM (P0 plus the availability indicator only) is reported alongside as the missingness control, and a gain "
+                     "is attributed to the values only if P1 also improves on PM. Coverage and mismatch reasons are reported "
+                     "overall, per held-out fold, in the top-10% tail and in the OOD subgroup. The coverage floor is a policy choice"),
+        "real_entry_point": ("A real run refuses to load data unless the protocol it generates equals the reviewed frozen file "
+                             "results/validation/storm8-protocol-v1/protocol.json byte for byte; CI compares it as well"),
         "bootstrap": ("storm6.paired_bootstrap: chemical systems resampled with replacement with all their rows; delta = sum of "
                       "row (|y-P1| - |y-P0|) over sampled rows / number of sampled rows; 1000 draws from numpy default_rng(7); "
                       "2.5 and 97.5 percentiles; not selection-adjusted"),
@@ -124,8 +139,9 @@ def freeze_protocol(output_dir, *, smoke=False):
                           "otherwise": "rule not met; or no conclusion when the coverage floor is not met",
                           "adopted": "false in every case; report-only"},
         "secondary": "Top-10% target MAE and Storm6 OOD subgroup MAE (paired), electronic-input coverage by status",
-        "descriptive_only": ["Spearman correlation of dos_ef_per_atom with DFT lambda and omega_log",
+        "descriptive_only": ["Spearman correlation of dos_ef_per_atom with DFT lambda and omega_log (None when undefined)",
                              "P0 MAE versus Storm7 U0 (0.9674607593639637 K) as a reproduction check",
+                             "PM minus P0 and P1 minus PM paired comparisons (missingness control)",
                              "Per-design forecast and MAE changes in the +1 and -1 ulp refits (their P1-P0 deltas enter the rule)",
                              "Bitwise equality of D, geometry and ID order with the saved Storm7 inputs (storm7_input_sha256)"],
         "storm7_input_sha256": STORM7_INPUT_SHA256, "coverage_floor": COVERAGE_FLOOR, "min_effect_k": MIN_EFFECT_K,
@@ -140,7 +156,7 @@ def freeze_protocol(output_dir, *, smoke=False):
                         "Inputs are PBE ground-state descriptors; labels are PBEsol/Quantum ESPRESSO electron-phonon results",
                         "The chemical-system bootstrap does not include refit instability; the two 1-ulp refits probe it but do not bound it; package versions are not pinned",
                         "DFT labels and experimental measurements remain separate"],
-        "publication": "Both designs reported; adopted=false always; no winner or release rule",
+        "publication": "All three designs reported; adopted=false always; no winner or release rule",
     }
     payload = (json.dumps(protocol, sort_keys=True, separators=(",", ":"), allow_nan=False) + "\n").encode()
     path = out / "protocol.json"
@@ -152,8 +168,9 @@ def freeze_protocol(output_dir, *, smoke=False):
     return protocol, digest
 
 
-def _sites_match(X1, e1, X2, e2, L, tol):
-    """One-to-one same-element site match under periodic images, allowing one rigid shift of the origin."""
+def _sites_match(X1, e1, X2, e2, cells, tol):
+    """One-to-one same-element site match under periodic images after at most one rigid origin shift.
+    The residual of a pair is its Cartesian distance in every cell of 'cells', so strain in either cell counts."""
     from scipy.optimize import linear_sum_assignment
     rare = min(sorted(set(e1)), key=e1.count)
     first = e1.index(rare)
@@ -163,7 +180,8 @@ def _sites_match(X1, e1, X2, e2, L, tol):
             A = X1[[i for i, e in enumerate(e1) if e == element]]
             B = X2[[i for i, e in enumerate(e2) if e == element]] - shift
             delta = A[:, None, :] - B[None, :, :]
-            distance = np.linalg.norm((delta - np.round(delta)) @ L, axis=-1)
+            delta -= np.round(delta)
+            distance = np.max([np.linalg.norm(delta @ L, axis=-1) for L in cells], axis=0)
             rows, cols = linear_sum_assignment(distance)
             if distance[rows, cols].max() > tol:
                 matched = False
@@ -171,6 +189,19 @@ def _sites_match(X1, e1, X2, e2, L, tol):
         if matched:
             return True
     return False
+
+
+def _occupied_elements(record):
+    """Element per site for a fully ordered record; raises ValueError('occupancy') for anything else."""
+    species, elements = {s["name"]: s for s in record["species"]}, []
+    for name in record["species_at_sites"]:
+        s = species[name]
+        symbols, concentration = list(s["chemical_symbols"]), [float(c) for c in s["concentration"]]
+        if len(symbols) != 1 or len(concentration) != 1 or not math.isfinite(concentration[0]) \
+                or abs(concentration[0] - 1) > 1e-6 or symbols[0] in ("X", "vacancy"):
+            raise ValueError("occupancy")
+        elements.append(str(symbols[0]))
+    return elements
 
 
 def same_structure(atoms, record, tol=STRUCTURE_TOL):
@@ -183,12 +214,15 @@ def same_structure(atoms, record, tol=STRUCTURE_TOL):
         if atoms.get("cartesian"):
             X1 = X1 @ np.linalg.inv(L1)
         L2, C2 = np.asarray(record["lattice_vectors"], float), np.asarray(record["cartesian_site_positions"], float)
-        species, e2 = {s["name"]: s for s in record["species"]}, []
-        for name in record["species_at_sites"]:
-            s = species[name]
-            if len(s["chemical_symbols"]) != 1 or abs(float(s["concentration"][0]) - 1) > 1e-6:
-                return "mismatch_unreadable"
-            e2.append(str(s["chemical_symbols"][0]))
+        try:
+            e2 = _occupied_elements(record)
+        except ValueError as error:
+            if str(error) == "occupancy":
+                return "mismatch_occupancy"
+            raise
+        nsites = record["nsites"]
+        if isinstance(nsites, bool) or int(nsites) != nsites or int(nsites) != len(e2) or len(C2) != len(e2):
+            return "mismatch_nsites"
         X2 = C2 @ np.linalg.inv(L2)
     except (KeyError, TypeError, ValueError, IndexError, np.linalg.LinAlgError):
         return "mismatch_unreadable"
@@ -198,12 +232,13 @@ def same_structure(atoms, record, tol=STRUCTURE_TOL):
     if Counter(e1) != Counter(e2):
         return "mismatch_species"
     G1, cell_matched = L1 @ L1.T, False
+    scale = np.sqrt(np.outer(np.diag(G1), np.diag(G1)))
     for order in ((0, 1, 2), (0, 2, 1), (1, 0, 2), (1, 2, 0), (2, 0, 1), (2, 1, 0)):
         Lp = L2[list(order)]
-        if np.max(np.abs(G1 - Lp @ Lp.T)) > tol["cell_metric_relative"] * np.max(np.diag(G1)):
+        if np.max(np.abs(G1 - Lp @ Lp.T) / scale) > tol["cell_metric_relative"]:
             continue
         cell_matched = True
-        if _sites_match(X1, e1, X2[:, list(order)], e2, L1, tol["site_angstrom"]):
+        if _sites_match(X1, e1, X2[:, list(order)], e2, (L1, Lp), tol["site_angstrom"]):
             return "ok"
     return "mismatch_sites" if cell_matched else "mismatch_cell"
 
@@ -241,8 +276,11 @@ def _next_link(doc):
     return link or None
 
 
-def fetch_electronic(ids, cache_dir, *, get=None, offline=False, retries=4, pause=1.0):
-    """Fetch OPTIMADE records by ID only. Returns ({id: attributes}, manifest, [raw response bytes])."""
+def fetch_electronic(ids, cache_dir, *, get=None, offline=False, retries=4, pause=1.0, snapshot_dir=None, progress_path=None):
+    """Fetch OPTIMADE records by ID only. Returns ({id: attributes}, manifest, [raw response bytes]).
+
+    With snapshot_dir and progress_path, every page is copied there as soon as it arrives and a progress manifest
+    (status completed / partial / failed) is rewritten after every page, so a later failure loses no evidence."""
     get = get or _http_get
     ids = [str(i) for i in ids]
     bad = [i for i in ids if not ID_PATTERN.fullmatch(i)]
@@ -261,32 +299,57 @@ def fetch_electronic(ids, cache_dir, *, get=None, offline=False, retries=4, paus
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         if manifest.get("request_sha256") != request_sha:
             raise ValueError("cached OPTIMADE manifest belongs to a different request")
+        if snapshot_dir is not None:
+            Path(snapshot_dir).mkdir(parents=True, exist_ok=True)
         for entry in manifest["pages"]:
             body = (raw_dir / f"{entry['sha256']}.json").read_bytes()
             if hashlib.sha256(body).hexdigest() != entry["sha256"]:
                 raise ValueError("cached OPTIMADE response bytes changed")
+            if snapshot_dir is not None:
+                (Path(snapshot_dir) / f"{entry['sha256']}.json").write_bytes(body)
             bodies.append(body)
         manifest = dict(manifest, reused_cache=True)
+        if progress_path is not None:
+            _json(progress_path, {"request_sha256": request_sha, "endpoint": OPTIMADE_URL, "status": "completed",
+                                  "reused_cache": True, "pages_completed": len(bodies), "pages": manifest["pages"],
+                                  "updated_at": dt.datetime.now(dt.timezone.utc).isoformat()})
     else:
         if offline:
             raise ValueError("offline mode and no cached OPTIMADE responses for this request")
-        pages = []
-        for start in range(0, len(ids), BATCH):
-            url, seen = _batch_url(ids[start:start + BATCH]), set()
-            while url:
-                if url in seen or len(seen) >= MAX_PAGES_PER_BATCH:
-                    raise ValueError("OPTIMADE pagination did not terminate")
-                seen.add(url)
-                body = _get_with_retries(get, url, retries, pause)
-                digest = hashlib.sha256(body).hexdigest()
-                (raw_dir / f"{digest}.json").write_bytes(body)
-                pages.append({"url": url, "sha256": digest, "bytes": len(body)})
-                bodies.append(body)
-                url = _next_link(json.loads(body))
+        pages, batches = [], list(range(0, len(ids), BATCH))
+        if snapshot_dir is not None:
+            Path(snapshot_dir).mkdir(parents=True, exist_ok=True)
+
+        def progress(status, error=None):
+            if progress_path is not None:
+                _json(progress_path, {"request_sha256": request_sha, "endpoint": OPTIMADE_URL, "status": status,
+                                      "batches_total": len(batches), "pages_completed": len(pages), "error": error,
+                                      "pages": pages, "updated_at": dt.datetime.now(dt.timezone.utc).isoformat()})
+        progress("partial")
+        try:
+            for start in batches:
+                url, seen = _batch_url(ids[start:start + BATCH]), set()
+                while url:
+                    if url in seen or len(seen) >= MAX_PAGES_PER_BATCH:
+                        raise ValueError("OPTIMADE pagination did not terminate")
+                    seen.add(url)
+                    body = _get_with_retries(get, url, retries, pause)
+                    digest = hashlib.sha256(body).hexdigest()
+                    (raw_dir / f"{digest}.json").write_bytes(body)
+                    if snapshot_dir is not None:
+                        (Path(snapshot_dir) / f"{digest}.json").write_bytes(body)
+                    pages.append({"url": url, "sha256": digest, "bytes": len(body), "batch_start": start})
+                    bodies.append(body)
+                    progress("partial")
+                    url = _next_link(json.loads(body))
+        except Exception as error:
+            progress("failed", f"{type(error).__name__}: {error}")
+            raise
         manifest = {"request_sha256": request_sha, "endpoint": OPTIMADE_URL, "response_fields": RESPONSE_FIELDS,
                     "batch": BATCH, "n_ids": len(ids), "pages": pages,
                     "fetched_at": dt.datetime.now(dt.timezone.utc).isoformat()}
         manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        progress("completed")
         manifest = dict(manifest, reused_cache=False)
     records = {}
     for body in bodies:
@@ -354,11 +417,15 @@ def forecast(design, Dtr, Gtr, Etr, ytr, Dte, Gte, Ete, *, fold, params):
     fmap = S.FeatureMap("R2").fit(Dtr, Gtr)
     A, B = fmap.transform(Dtr, Gtr), fmap.transform(Dte, Gte)
     identity = {"raw_keep": fmap.keep.tolist(), "fit_rows": len(Dtr), "electronic_keep": None}
+    Etr, Ete = S._finite_or_nan(Etr), S._finite_or_nan(Ete)
     if design == "P1":
-        Etr, Ete = S._finite_or_nan(Etr), S._finite_or_nan(Ete)
         keep = np.isfinite(Etr).any(axis=0)
         A, B = np.column_stack([A, Etr[:, keep]]), np.column_stack([B, Ete[:, keep]])
         identity["electronic_keep"] = keep.tolist()
+    elif design == "PM":  # Availability only: a single 0/1 column, never a value.
+        A = np.column_stack([A, np.isfinite(Etr).all(axis=1).astype(float)])
+        B = np.column_stack([B, np.isfinite(Ete).all(axis=1).astype(float)])
+        identity["electronic_keep"] = "availability_indicator"
     model = HistGradientBoostingRegressor(random_state=SEED + fold, **params)
     prediction = np.clip(np.expm1(model.fit(A, np.log1p(ytr)).predict(B)), 0, None)
     if not np.isfinite(prediction).all():
@@ -374,6 +441,8 @@ def decision(paired, *, coverage, shifted_deltas):
     robust = bool(len(shifted_deltas) == 2 and all(d <= -MIN_EFFECT_K for d in shifted_deltas.values()))
     if not covered:
         conclusion = "no conclusion about P1: electronic-input coverage below the floor"
+    elif len(shifted_deltas) != 2:
+        conclusion = "undetermined: the 1-ulp refits are unavailable"
     else:
         conclusion = "prespecified gain rule met" if main and robust else "prespecified gain rule not met"
     return {"prespecified_gain_rule_met": covered and main and robust, "conclusion": conclusion,
@@ -385,10 +454,13 @@ def decision(paired, *, coverage, shifted_deltas):
 
 
 def _spearman(a, b):
+    """Spearman correlation, or None when it is undefined (fewer than 3 finite pairs or a constant input)."""
     mask = np.isfinite(a) & np.isfinite(b)
     if mask.sum() < 3:
         return None
-    return float(pd.Series(a[mask]).rank().corr(pd.Series(b[mask]).rank()))
+    with np.errstate(invalid="ignore", divide="ignore"):
+        value = pd.Series(a[mask]).rank().corr(pd.Series(b[mask]).rank())
+    return float(value) if np.isfinite(value) else None
 
 
 def _ulp_shift(X, direction):
@@ -399,12 +471,12 @@ def _ulp_shift(X, direction):
 
 
 def shifted_refits(D, G, E, y, splits, reference, *, params):
-    """Both designs refit after shifting every finite input by one ulp up, then down; the P1-P0 deltas enter the rule."""
+    """P0 and P1 refit after shifting every finite input by one ulp up, then down; the P1-P0 deltas enter the rule."""
     out = {}
     for name, direction in (("plus_1ulp", 1), ("minus_1ulp", -1)):
         Ds, Gs, Es = (_ulp_shift(X, direction) for X in (D, G, E))
         entry, preds = {}, {}
-        for design in DESIGNS:
+        for design in RULE_DESIGNS:
             pred = np.full(len(y), np.nan)
             for fold, (train, test) in enumerate(splits):
                 pred[test], _ = forecast(design, Ds[train], Gs[train], Es[train], y[train], Ds[test], Gs[test], Es[test],
@@ -419,7 +491,7 @@ def shifted_refits(D, G, E, y, splits, reference, *, params):
     return out
 
 
-def run(smoke=False, output_dir=None, *, offline=False):
+def run(smoke=False, output_dir=None, *, offline=False, reviewed_protocol=REVIEWED_PROTOCOL):
     import sklearn
     from sklearn.model_selection import GroupKFold
     started, identity = time.time(), S.run_identity()
@@ -427,7 +499,11 @@ def run(smoke=False, output_dir=None, *, offline=False):
     if (out / "run.json").exists() or (out / "report.json").exists():
         raise ValueError("Storm8 run directory is non-overwriting; use a new directory")
     protocol, digest = freeze_protocol(out, smoke=smoke)  # Must precede data, inputs and targets.
-    _json(out / "run.json", {**identity, "protocol_sha256": digest})
+    if not smoke:  # Every real entry point needs the reviewed frozen protocol, byte for byte.
+        reviewed = Path(reviewed_protocol)
+        if not reviewed.is_file() or reviewed.read_bytes() != (out / "protocol.json").read_bytes():
+            raise ValueError(f"Real Storm8 run refused: the generated protocol does not equal the reviewed frozen file {reviewed}")
+    _json(out / "run.json", {**identity, "protocol_sha256": digest, "reviewed_protocol": None if smoke else str(reviewed_protocol)})
     report = {**identity, "version": VERSION, "protocol_sha256": digest, "smoke": bool(smoke), "adopted": False,
               "report_only": True, "status": "preparing", "output_dir": str(out), "target": protocol["target"],
               "designs": {d: {"status": "pending", "name": n} for d, n in DESIGNS.items()},
@@ -443,16 +519,14 @@ def run(smoke=False, output_dir=None, *, offline=False):
             E, status = synthetic_electronic(D)
             optimade, electronic_diagnostics = {"synthetic": True}, {}
         else:
-            records, optimade, bodies = fetch_electronic(ids, P.CACHE / "alexandria-optimade", offline=offline)
+            records, optimade, _ = fetch_electronic(ids, P.CACHE / "alexandria-optimade", offline=offline,
+                                                    snapshot_dir=out / "optimade", progress_path=out / "optimade-progress.json")
             E, status, electronic_diagnostics = electronic_inputs(ids, list(frame["atoms"]), records)
-            snapshot = out / "optimade"
-            snapshot.mkdir()
-            for page, body in zip(optimade["pages"], bodies):
-                (snapshot / f"{page['sha256']}.json").write_bytes(body)
         _json(out / "optimade-manifest.json", optimade)
         pd.DataFrame(E, columns=ELECTRONIC_COLUMNS).assign(id=ids, status=status).to_csv(out / "electronic-inputs.csv", index=False)
+        available = np.isfinite(E).all(axis=1)
         report["electronic_inputs"] = {"rows": len(ids), "status_counts": dict(Counter(status)),
-                                       "coverage_all_three": float(np.isfinite(E).all(axis=1).mean()), **electronic_diagnostics}
+                                       "coverage_all_three": float(available.mean()), **electronic_diagnostics}
         stage = "folds_and_ood"
         splits = list(GroupKFold(n_splits=5).split(D, groups=groups))
         fold_of, ood = np.zeros(len(y), int), np.zeros(len(y), bool)
@@ -460,6 +534,11 @@ def run(smoke=False, output_dir=None, *, offline=False):
             fold_of[test] = fold + 1
             _, ood[test], _ = S.ood_distance(D[train], D[test], groups[train])
         tail = y >= np.quantile(y, .9)
+        status_array = np.asarray(status)
+        report["electronic_inputs"]["coverage_by"] = {
+            "fold": {str(f): float(available[fold_of == f].mean()) for f in range(1, 6)},
+            "tail": float(available[tail].mean()), "ood": float(available[ood].mean()) if ood.any() else None,
+            "status_counts_by_fold": {str(f): dict(Counter(status_array[fold_of == f].tolist())) for f in range(1, 6)}}
         _json(out / "input-manifest.json", {"n": len(y), "chemical_systems": len(np.unique(groups)),
                                             "details": extra[1] if extra else {"synthetic": True},
                                             "electronic_columns": ELECTRONIC_COLUMNS})
@@ -494,23 +573,38 @@ def run(smoke=False, output_dir=None, *, offline=False):
         except (ValueError, RuntimeError, FloatingPointError) as error:
             entry.update(status="failed", reason=f"{type(error).__name__}: {error}")
         _json(out / "report.json", report)
-    if set(predictions) == set(DESIGNS):
+    # Primary per-row evidence is saved as soon as it exists, before any optional or secondary computation.
+    for i in range(len(y)):
+        rows.append({"id": ids[i], "chemsys": groups[i], "fold": int(fold_of[i]), "tc_target_dft_k": y[i],
+                     **{f"{d.lower()}_pred_k": predictions[d][i] if d in predictions else math.nan for d in DESIGNS},
+                     "all_electronic_inputs_available": bool(available[i]), "ood": bool(ood[i])})
+    pd.DataFrame(rows).to_csv(out / "predictions.csv", index=False)
+    masks = (("overall", np.ones(len(y), bool)), ("tail", tail), ("ood", ood))
+    if all(d in predictions for d in RULE_DESIGNS):
         paired = {name: S.paired_bootstrap(y[mask], predictions["P1"][mask], predictions["P0"][mask], groups[mask])
-                  for name, mask in (("overall", np.ones(len(y), bool)), ("tail", tail), ("ood", ood)) if mask.any()}
+                  for name, mask in masks if mask.any()}
         report["paired_P1_minus_P0"] = paired
         _json(out / "report.json", report)
-        shifted = shifted_refits(D, G, E, y, splits, predictions, params=params)
-        report["refits_under_1ulp_shifts"] = shifted
+        try:
+            shifted = shifted_refits(D, G, E, y, splits, predictions, params=params)
+            report["refits_under_1ulp_shifts"] = shifted
+            deltas = {k: v["delta_mae_k_P1_minus_P0"] for k, v in shifted.items()}
+        except (ValueError, RuntimeError, FloatingPointError, MemoryError) as error:
+            report["refits_under_1ulp_shifts"] = {"status": "failed", "reason": f"{type(error).__name__}: {error}"}
+            deltas = {}
         report["decision"] = decision(paired["overall"], coverage=report["electronic_inputs"]["coverage_all_three"],
-                                      shifted_deltas={k: v["delta_mae_k_P1_minus_P0"] for k, v in shifted.items()})
-        if "lambda" in frame:
-            report["descriptive_only"] = {
-                "spearman_dos_ef_per_atom_vs_lambda": _spearman(E[:, 0], frame["lambda"].to_numpy(float)),
-                "spearman_dos_ef_per_atom_vs_log_omega_log": _spearman(E[:, 0], np.log(frame["wlog"].to_numpy(float)))}
-        for i in range(len(y)):
-            rows.append({"id": ids[i], "chemsys": groups[i], "fold": int(fold_of[i]), "tc_target_dft_k": y[i],
-                         "p0_pred_k": predictions["P0"][i], "p1_pred_k": predictions["P1"][i], "ood": bool(ood[i])})
-        pd.DataFrame(rows).to_csv(out / "predictions.csv", index=False)
+                                      shifted_deltas=deltas)
+        _json(out / "report.json", report)
+    if "PM" in predictions and all(d in predictions for d in RULE_DESIGNS):
+        report["missingness_control"] = {
+            "descriptive_only": True,
+            "PM_minus_P0": S.paired_bootstrap(y, predictions["PM"], predictions["P0"], groups),
+            "P1_minus_PM": S.paired_bootstrap(y, predictions["P1"], predictions["PM"], groups),
+            "reading": "A gain is attributed to the electronic values only if P1 also improves on PM"}
+    if "lambda" in frame:
+        report["descriptive_only"] = {
+            "spearman_dos_ef_per_atom_vs_lambda": _spearman(E[:, 0], frame["lambda"].to_numpy(float)),
+            "spearman_dos_ef_per_atom_vs_log_omega_log": _spearman(E[:, 0], np.log(frame["wlog"].to_numpy(float)))}
     report["status"] = "completed" if all(v["status"] == "completed" for v in report["designs"].values()) else "incomplete"
     report["seconds"] = round(time.time() - started, 3)
     _json(out / "report.json", report)
@@ -528,11 +622,13 @@ def main():
     parser.add_argument("--protocol", action="store_true")
     parser.add_argument("--offline", action="store_true", help="use cached OPTIMADE responses only")
     parser.add_argument("--output-dir", type=Path)
+    parser.add_argument("--reviewed-protocol", type=Path, default=REVIEWED_PROTOCOL,
+                        help="frozen protocol a real run must reproduce byte for byte")
     args = parser.parse_args()
     if args.protocol:
         freeze_protocol(args.output_dir or P.RESULTS / "storm8" / S.run_identity()["run_id"], smoke=args.smoke)
     else:
-        run(smoke=args.smoke, output_dir=args.output_dir, offline=args.offline)
+        run(smoke=args.smoke, output_dir=args.output_dir, offline=args.offline, reviewed_protocol=args.reviewed_protocol)
 
 
 if __name__ == "__main__":
