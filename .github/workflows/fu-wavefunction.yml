@@ -1,0 +1,117 @@
+name: Fu lattice wavefunction pilot
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/fu-wavefunction-pilot]
+    paths:
+      - 'ml/fu_wavefunction.py'
+      - 'ml/fu_graphlets.py'
+      - 'ml/fu_experiment.py'
+      - 'ml/fu-requirements.txt'
+      - 'tests/test_fu_*.py'
+      - 'protocol/fu-lattice-v*.json'
+      - '.github/workflows/fu-wavefunction.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fu-lattice-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  OMP_NUM_THREADS: '2'
+  OPENBLAS_NUM_THREADS: '2'
+  MKL_NUM_THREADS: '2'
+  OPENBLAS_CORETYPE: Haswell
+  PYTHONHASHSEED: '0'
+  JAX_PLATFORMS: cpu
+  JAX_ENABLE_X64: 'true'
+
+jobs:
+  solver:
+    if: github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, '[skip fu]')
+    name: Antisymmetric wavefunction and exact-solver audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: ml/fu-requirements.txt
+      - name: Install pinned CPU environment
+        run: pip install -r ml/fu-requirements.txt
+      - name: Record actual loaded numerical libraries
+        run: |
+          mkdir -p results/fu-hardware
+          lscpu > results/fu-hardware/cpu.txt
+          pip freeze > results/fu-hardware/packages.txt
+          python - <<'PY' > results/fu-hardware/runtime.txt
+          import numpy, scipy.linalg, sklearn, jax, json, threadpoolctl
+          numpy.show_runtime()
+          print(json.dumps(threadpoolctl.threadpool_info(), indent=2))
+          print(jax.devices())
+          assert jax.default_backend() == 'cpu'
+          PY
+      - name: Verify physics and crystal mapping
+        run: |
+          python -c "import jax, optax, jarvis; assert jax.default_backend() == 'cpu'"
+          python -m unittest discover -s tests -p 'test_fu_wavefunction.py' -v
+          python -m unittest discover -s tests -p 'test_fu_graphlets.py' -v
+          python -m unittest discover -s tests -p 'test_fu_experiment.py' -v
+      - name: Optimize frozen Hamiltonian bank and enforce quality gates
+        run: python ml/fu_wavefunction.py --bank --protocol protocol/fu-lattice-v2.json --output-dir results/fu-solver
+      - name: Preserve solver bank and failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fu-bank-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            results/fu-solver/
+            results/fu-hardware/
+          if-no-files-found: warn
+          retention-days: 30
+
+  materials:
+    name: ${{ matrix.model }} four-arm research comparison
+    needs: solver
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        model: [storm, hurricane]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: ml/fu-requirements.txt
+      - name: Install same pinned CPU environment
+        run: pip install -r ml/fu-requirements.txt
+      - name: Read the audited shared wavefunction bank
+        uses: actions/download-artifact@v4
+        with:
+          name: fu-bank-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/fu-bank
+      - name: Restore original structure sources
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/supercon-data
+          key: fu-${{ matrix.model }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: supercon-cache-
+      - name: Frozen full-cohort comparison, never a release
+        run: |
+          python ml/fu_experiment.py --model ${{ matrix.model }} --protocol protocol/fu-lattice-v2.json --bank-dir "$RUNNER_TEMP/fu-bank/fu-solver" --output-dir results/fu-${{ matrix.model }}
+      - name: Preserve all designs and partial evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fu-${{ matrix.model }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: results/fu-${{ matrix.model }}/
+          if-no-files-found: warn
+          retention-days: 30

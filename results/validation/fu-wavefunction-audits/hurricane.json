@@ -1,0 +1,435 @@
+{
+  "audit_version": "independent-hurricane-arithmetic-v1",
+  "refitting_performed": false,
+  "model_code_imported": false,
+  "checks": {
+    "all_artifact_manifest_hashes": {
+      "passed": true,
+      "detail": {
+        "listed_files": 1048,
+        "mismatches": []
+      }
+    },
+    "manifest_covers_all_artifact_files": {
+      "passed": true,
+      "detail": {
+        "unlisted": [],
+        "missing": []
+      }
+    },
+    "github_archive_digest": {
+      "passed": true,
+      "detail": {
+        "sha256": "d754174e334a91216420ff2c3665d0f4489b1a1dc6fd7deaeea67605bf8b6cce",
+        "source": "GitHub Actions run41578153170, source79f6ebe05de381108cf2f04c7cd3430039633c67"
+      }
+    },
+    "download_provenance_source_commit": {
+      "passed": true,
+      "detail": null
+    },
+    "local_source_hashes_match_CI_manifest": {
+      "passed": true,
+      "detail": {
+        "files": 31,
+        "mismatches": []
+      }
+    },
+    "frozen_v2_protocol": {
+      "passed": true,
+      "detail": null
+    },
+    "report_real_report_only_unadopted": {
+      "passed": true,
+      "detail": null
+    },
+    "complete_passing_bank": {
+      "passed": true,
+      "detail": null
+    },
+    "fixed_parent_cohort": {
+      "passed": true,
+      "detail": {
+        "rows": 615,
+        "systems": 472,
+        "positive": 288,
+        "unlabeled": 327,
+        "families": {
+          "cuprate": 158,
+          "heavy-fermion": 221,
+          "iron-based": 110,
+          "other oxide": 126
+        }
+      }
+    },
+    "mixed_family_exclusions": {
+      "passed": true,
+      "detail": null
+    },
+    "baseline_snapshot_identity": {
+      "passed": true,
+      "detail": null
+    },
+    "all_original_cif_bytes": {
+      "passed": true,
+      "detail": {
+        "saved_cifs": 615,
+        "unique_cif_files": 615,
+        "mismatches": []
+      }
+    },
+    "pinned_3DSC_snapshot": {
+      "passed": true,
+      "detail": null
+    },
+    "actual_structure_rows": {
+      "passed": true,
+      "detail": null
+    },
+    "mapping_coverage": {
+      "passed": true,
+      "detail": {
+        "coverage": 0.991869918699187,
+        "mapped": 610,
+        "rows": 615
+      }
+    },
+    "mapping_frequencies_and_flags": {
+      "passed": true,
+      "detail": null
+    },
+    "added_lookup_binding": {
+      "passed": true,
+      "detail": null
+    },
+    "all_four_prediction_cohorts": {
+      "passed": true,
+      "detail": {
+        "rows": 2460,
+        "mismatches": []
+      }
+    },
+    "all_outer_family_system_isolation": {
+      "passed": true,
+      "detail": {
+        "folds": 4,
+        "errors": []
+      }
+    },
+    "all_inner_fit_provenance_isolation": {
+      "passed": true,
+      "detail": {
+        "inner_fold_records": 192,
+        "errors": []
+      }
+    },
+    "inner_objective_alpha_selection": {
+      "passed": true,
+      "detail": {
+        "errors": [],
+        "scope": "Recomputed saved per-family inner objective and alpha rule; inner predictions were not saved, so no independent inner metric recomputation"
+      }
+    },
+    "all_outer_preprocessing_train_only": {
+      "passed": true,
+      "detail": {
+        "errors": []
+      }
+    },
+    "all_outer_scores_reconstructed_without_fitting": {
+      "passed": true,
+      "detail": {
+        "max_abs_error": 0.0,
+        "outer_heads": 16
+      }
+    },
+    "macro_metrics_recomputed": {
+      "passed": true,
+      "detail": {
+        "max_abs_report_error": 0.0
+      }
+    },
+    "bootstrap_system_metadata_recovered_without_executing_pickle": {
+      "passed": true,
+      "detail": {
+        "recovery": "NPY header and pickletools Unicode opcode inspection only; no unpickling executed",
+        "saved_dtype": "object",
+        "unique_systems": 472
+      }
+    },
+    "bootstrap_design": {
+      "passed": true,
+      "detail": {
+        "shape": [
+          1000,
+          472
+        ],
+        "seed": 7,
+        "shared_comparison_draws": true
+      }
+    },
+    "all_family_metrics_recomputed": {
+      "passed": true,
+      "detail": {
+        "max_abs_report_error": 0.0
+      }
+    },
+    "all_six_1000_cluster_bootstraps_recomputed": {
+      "passed": true,
+      "detail": {
+        "max_abs_report_error": 1.0842021724855044e-16,
+        "comparisons": 6,
+        "metrics_per_comparison": 2
+      }
+    }
+  },
+  "failures": [],
+  "source_commit": "79f6ebe05de381108cf2f04c7cd3430039633c67",
+  "source_commit_verification_scope": "GitHub download provenance supplied by root, plus independent archive digest and every available local source file hash; no remote refetch",
+  "passed": true,
+  "recomputed_family_metrics": {
+    "Q0": {
+      "cuprate": {
+        "observed_pu_auc": 0.5685328185328186,
+        "recall_at_budget": 0.20238095238095238,
+        "n": 158,
+        "n_positive": 84,
+        "budget": 32
+      },
+      "heavy-fermion": {
+        "observed_pu_auc": 0.6227513227513227,
+        "recall_at_budget": 0.24691358024691357,
+        "n": 221,
+        "n_positive": 81,
+        "budget": 45
+      },
+      "iron-based": {
+        "observed_pu_auc": 0.564327485380117,
+        "recall_at_budget": 0.20833333333333334,
+        "n": 110,
+        "n_positive": 72,
+        "budget": 22
+      },
+      "other oxide": {
+        "observed_pu_auc": 0.6603921568627451,
+        "recall_at_budget": 0.3333333333333333,
+        "n": 126,
+        "n_positive": 51,
+        "budget": 26
+      }
+    },
+    "QG": {
+      "cuprate": {
+        "observed_pu_auc": 0.597972972972973,
+        "recall_at_budget": 0.2261904761904762,
+        "n": 158,
+        "n_positive": 84,
+        "budget": 32
+      },
+      "heavy-fermion": {
+        "observed_pu_auc": 0.6204585537918871,
+        "recall_at_budget": 0.24691358024691357,
+        "n": 221,
+        "n_positive": 81,
+        "budget": 45
+      },
+      "iron-based": {
+        "observed_pu_auc": 0.5625,
+        "recall_at_budget": 0.20833333333333334,
+        "n": 110,
+        "n_positive": 72,
+        "budget": 22
+      },
+      "other oxide": {
+        "observed_pu_auc": 0.6222222222222222,
+        "recall_at_budget": 0.29411764705882354,
+        "n": 126,
+        "n_positive": 51,
+        "budget": 26
+      }
+    },
+    "QE": {
+      "cuprate": {
+        "observed_pu_auc": 0.5802767052767053,
+        "recall_at_budget": 0.23809523809523808,
+        "n": 158,
+        "n_positive": 84,
+        "budget": 32
+      },
+      "heavy-fermion": {
+        "observed_pu_auc": 0.61657848324515,
+        "recall_at_budget": 0.2345679012345679,
+        "n": 221,
+        "n_positive": 81,
+        "budget": 45
+      },
+      "iron-based": {
+        "observed_pu_auc": 0.547514619883041,
+        "recall_at_budget": 0.20833333333333334,
+        "n": 110,
+        "n_positive": 72,
+        "budget": 22
+      },
+      "other oxide": {
+        "observed_pu_auc": 0.625359477124183,
+        "recall_at_budget": 0.29411764705882354,
+        "n": 126,
+        "n_positive": 51,
+        "budget": 26
+      }
+    },
+    "QN": {
+      "cuprate": {
+        "observed_pu_auc": 0.5802767052767053,
+        "recall_at_budget": 0.23809523809523808,
+        "n": 158,
+        "n_positive": 84,
+        "budget": 32
+      },
+      "heavy-fermion": {
+        "observed_pu_auc": 0.61657848324515,
+        "recall_at_budget": 0.2345679012345679,
+        "n": 221,
+        "n_positive": 81,
+        "budget": 45
+      },
+      "iron-based": {
+        "observed_pu_auc": 0.547514619883041,
+        "recall_at_budget": 0.20833333333333334,
+        "n": 110,
+        "n_positive": 72,
+        "budget": 22
+      },
+      "other oxide": {
+        "observed_pu_auc": 0.625359477124183,
+        "recall_at_budget": 0.29411764705882354,
+        "n": 126,
+        "n_positive": 51,
+        "budget": 26
+      }
+    }
+  },
+  "recomputed_macro": {
+    "Q0": {
+      "observed_pu_auc": 0.6040009458817508,
+      "recall_at_budget": 0.24774029982363316
+    },
+    "QG": {
+      "observed_pu_auc": 0.6007884372467706,
+      "recall_at_budget": 0.24388875920738667
+    },
+    "QE": {
+      "observed_pu_auc": 0.5924323213822698,
+      "recall_at_budget": 0.2437785299304907
+    },
+    "QN": {
+      "observed_pu_auc": 0.5924323213822698,
+      "recall_at_budget": 0.2437785299304907
+    }
+  },
+  "recomputed_contrasts": {
+    "QN-Q0": {
+      "observed_pu_auc": {
+        "delta_new_minus_reference": -0.01156862449948104,
+        "lower95": -0.03217852226460813,
+        "upper95": 0.01387149877100528,
+        "valid_resamples": 1000
+      },
+      "recall_at_budget": {
+        "delta_new_minus_reference": -0.003961769893142453,
+        "lower95": -0.03310925442580965,
+        "upper95": 0.02525817166299407,
+        "valid_resamples": 1000
+      }
+    },
+    "QG-Q0": {
+      "observed_pu_auc": {
+        "delta_new_minus_reference": -0.003212508634980238,
+        "lower95": -0.024745349467655043,
+        "upper95": 0.023886621292100594,
+        "valid_resamples": 1000
+      },
+      "recall_at_budget": {
+        "delta_new_minus_reference": -0.003851540616246485,
+        "lower95": -0.030585868228469835,
+        "upper95": 0.027158673672276087,
+        "valid_resamples": 1000
+      }
+    },
+    "QE-Q0": {
+      "observed_pu_auc": {
+        "delta_new_minus_reference": -0.01156862449948104,
+        "lower95": -0.03217852226460813,
+        "upper95": 0.01387149877100528,
+        "valid_resamples": 1000
+      },
+      "recall_at_budget": {
+        "delta_new_minus_reference": -0.003961769893142453,
+        "lower95": -0.03310925442580965,
+        "upper95": 0.02525817166299407,
+        "valid_resamples": 1000
+      }
+    },
+    "QN-QG": {
+      "observed_pu_auc": {
+        "delta_new_minus_reference": -0.008356115864500802,
+        "lower95": -0.015481796189729155,
+        "upper95": -0.002639017620222876,
+        "valid_resamples": 1000
+      },
+      "recall_at_budget": {
+        "delta_new_minus_reference": -0.00011022927689596784,
+        "lower95": -0.011034743591296772,
+        "upper95": 0.006759070714550206,
+        "valid_resamples": 1000
+      }
+    },
+    "QE-QG": {
+      "observed_pu_auc": {
+        "delta_new_minus_reference": -0.008356115864500802,
+        "lower95": -0.015481796189729155,
+        "upper95": -0.002639017620222876,
+        "valid_resamples": 1000
+      },
+      "recall_at_budget": {
+        "delta_new_minus_reference": -0.00011022927689596784,
+        "lower95": -0.011034743591296772,
+        "upper95": 0.006759070714550206,
+        "valid_resamples": 1000
+      }
+    },
+    "QN-QE": {
+      "observed_pu_auc": {
+        "delta_new_minus_reference": 0.0,
+        "lower95": 0.0,
+        "upper95": 0.0,
+        "valid_resamples": 1000
+      },
+      "recall_at_budget": {
+        "delta_new_minus_reference": 0.0,
+        "lower95": 0.0,
+        "upper95": 0.0,
+        "valid_resamples": 1000
+      }
+    }
+  },
+  "QN_QE_score_max_abs_difference": 7.038813976123492e-14,
+  "QN_QE_ranks_identical_per_family": true,
+  "frozen_effect_assessment": {
+    "observed_practical_gain": false,
+    "beyond_graph_control": false,
+    "verdict": "No demonstrated Hurricane benefit. QN has lower AUC than graph control under this fixed-prediction bootstrap. P/U ranking only, not calibrated p(SC)."
+  },
+  "implementation_observations": [
+    {
+      "severity": "artifact-portability",
+      "finding": "Saved bootstrap system-name metadata uses an object array, so that field cannot be loaded with allow_pickle=False. Numeric draws are unaffected; exact system order independently recovered by inspecting Unicode pickle opcodes without executing pickle. Future serialization should cast system names to Unicode dtype before saving; no rerun is needed to assess these results."
+    }
+  ],
+  "limitations": [
+    "Previously inspected families: exploratory fixed-prediction bootstrap, not a new blind test.",
+    "Inner row predictions were not saved; isolation, objective arithmetic and selection provenance checked, without independent recomputation of inner AUC.",
+    "No refitting, new neural optimization or source modification performed."
+  ],
+  "original_full_local_audit_sha256": "2bde9b02647edbdfdb6f7a6d0b42b785173ba64cb40c955793b073467781d051"
+}

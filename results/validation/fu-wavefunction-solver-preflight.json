@@ -1,0 +1,35 @@
+{
+  "version": "fu-solver-preflight-v1",
+  "adopted": false,
+  "material_models_fitted": 0,
+  "material_effect_status": "pending",
+  "studies": [
+    {
+      "solver_revision": 1,
+      "protocol_sha256": "c4e40277a96a0af5dd69a765db8cf487beabd7b7421550fa74a3e4a8cc4f423d",
+      "source_sha256": "2811f9a7226b25a6e231f13d19ac8f1abc4057a9d6a48176143338eb8967955e",
+      "status": "quality_gate_failed",
+      "cases": 99,
+      "passed": 82,
+      "failures": 17,
+      "seconds": 23.807318300008774,
+      "worst_energy_error_per_site": 0.1435550079070321,
+      "minimum_ground_subspace_fidelity": 0.09630145973091123,
+      "bank_json_sha256": "0bfb84809dc8068b5943510fefc315739f02846e693a6310a025092b5bee370f"
+    },
+    {
+      "solver_revision": 2,
+      "protocol_sha256": "fa46fbc0cce710e7dad454fa4f0c27bfa5477cc36d39b1a451cc1e99b6f88d60",
+      "source_sha256": "e17add19e6ac360d92d46586c82a82f11bc4aa6a994221240f7727086711af55",
+      "status": "passed",
+      "cases": 99,
+      "passed": 99,
+      "failures": 0,
+      "seconds": 196.59248979995027,
+      "worst_energy_error_per_site": 1.1636586860763742e-07,
+      "minimum_ground_subspace_fidelity": 0.999999735805217,
+      "bank_json_sha256": "86097e8334566182ccd2c578cfa44c3a985dd0b8c11869a3f8bceea3b10f552a"
+    }
+  ],
+  "snapshot_scope": "Physics preflight before any realmaterial headfit; full later materialresults are in fu-wavefunction-first-comparison.json"
+}
