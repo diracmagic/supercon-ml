@@ -290,10 +290,10 @@ test('the testable tier needs 2 K, an even chance, proximity, an ICSD structure 
   const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
   const context = { candidateData: candidates, CHECK_LABEL: { dft: 'Computed', experiment: 'Measured' }, MCMILLAN_K: 40, WORTH_P: .5, TESTABLE_K: 2,
     REFS: { first: {}, second: {} } };
-  vm.runInNewContext(source + '\nglobalThis.rules = {candTestableTests, candMcm};', context);
+  vm.runInNewContext(source + '\nglobalThis.rules = {candTestableTests, candTestableNote, candMcm, candMcmBanner};', context);
   const low = {formula: 'Example', tc: 3.1, lo: 1.2, hi: 6.7, p_sc: .63, novelty: .9, ehull: 0, icsd: true};
   assert.equal(context.rules.candMcm(low, false), 'testable');
-  assert.deepEqual({ ...context.rules.candTestableTests(low, false) }, { reach: true, likely: true, inside: true, made: true, measured: false });
+  assert.deepEqual({ ...context.rules.candTestableTests(low, false) }, { reach: true, likely: true, inside: true, made: true, measured: false, contradicted: false });
   assert.equal(context.rules.candMcm({...low, tc: 1.9}, false), '');
   assert.equal(context.rules.candMcm({...low, p_sc: .49}, false), '');
   assert.equal(context.rules.candMcm({...low, icsd: false}, false), '');
@@ -302,10 +302,28 @@ test('the testable tier needs 2 K, an even chance, proximity, an ICSD structure 
   assert.equal(context.rules.candMcm({...low, check: {kind: 'experiment', tc: 2.8, superconducts: true}}, false), '');
   assert.equal(context.rules.candMcm({...low, check: {kind: 'experiment', superconducts: false}}, false), '');
   assert.equal(context.rules.candMcm({...low, check: {kind: 'dft', tc: 3.0, superconducts: true}}, false), 'testable');
+  // Codex R-006 F-21: a matching DFT check that reports no superconductivity, or a Tc below the tier, withdraws the recommendation.
+  assert.equal(context.rules.candMcm({...low, check: {kind: 'dft', tc: 0, superconducts: false}}, false), '');
+  assert.equal(context.rules.candMcm({...low, check: {kind: 'dft', tc: 1.0, superconducts: true}}, false), '');
+  assert.equal(context.rules.candTestableTests({...low, check: {kind: 'dft', superconducts: false}}, false).contradicted, true);
   assert.equal(context.rules.candMcm({...low, tc: 55, lo: 45, hi: 65}, false), 'worth');
+  // F-19: a 55 K forecast whose 90% range starts at 20 K falls to the lower tier and is never described as below 40 K.
+  const wide = {...low, tc: 55, lo: 20, hi: 80};
+  assert.equal(context.rules.candMcm(wide, false), 'testable');
+  const note = context.rules.candTestableNote(wide, false);
+  assert.match(note, /does not meet the full 40 K screening criteria \(its point prediction reaches 40 K, but the low end of its 90% range does not\)/);
+  assert.doesNotMatch(note, /does not reach|below 40 K|None reaches/);
+  assert.match(context.rules.candTestableNote({...wide, lo: 45, check: {kind: 'dft', tc: 30, superconducts: true}}, false), /\(a matching DFT check puts it below 40 K\)/);
+  assert.doesNotMatch(context.rules.candTestableNote(low, false), /\(/);
+  assert.match(context.rules.candTestableNote(low, false), /ICSD-linked structure/);
+  assert.doesNotMatch(context.rules.candTestableNote(low, false), /made before/);
+  assert.match(context.rules.candMcmBanner.toString(), /None meets the full 40 K screening criteria/);
+  assert.doesNotMatch(context.rules.candMcmBanner.toString(), /None reaches the 40 K benchmark/);
+  assert.doesNotMatch(source, /structure made before|has been made before/);
   const hurricane = {formula: 'Example', tc: 1.0, tc_sc: 4.4, lo: .7, hi: 15, p_sc: .55, novelty: .5, icsd: true};
   assert.equal(context.rules.candMcm(hurricane, true), 'testable');
   assert.equal(context.rules.candMcm({...hurricane, tc_sc: 1.5}, true), '');
+  assert.equal(context.rules.candMcm({...hurricane, check: {kind: 'dft', superconducts: false}}, true), '');
 });
 
 test('literature lookup uses exact ids and gives inline records precedence over the static table', () => {
