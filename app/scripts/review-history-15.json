@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-02",
+      "purpose": "Release0.3.19: staged unsupervised result animation with growing baseline/comparison bars and true paired intervals, previous/play/next controls, fixed labels, reduced-motion complete summary and source references below; original demos and production models preserved",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup",
+        "fixed authenticated board routes and bounded integer pagination",
+        "actor-bound private request lifecycle, absolute session expiry and logout cleanup",
+        "only opaque actor hashes and numeric last-seen cursors may persist for unread state",
+        "Notes update dates come only from explicit per-entry update metadata",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle"
+      ],
+      "previous_css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
+      "functions_added": [
+        "drawUnsupervisedSummary",
+        "goUnsupervisedStep"
+      ],
+      "functions_removed": [],
+      "previous_removed_functions": {},
+      "functions_changed": [
+        "buildDemos",
+        "syncControls",
+        "frame",
+        "unsupervisedResults",
+        "drawUnsupervisedResults"
+      ],
+      "initializers_changed": [
+        0,
+        24
+      ],
+      "previous_function_changes": {
+        "buildDemos": "767efabbd9d1387565ba613d97f189ef0be465933e817aeebac0d0fb0f5b4801",
+        "syncControls": "af28b174d97329cdacd2f49808b7e23ae8b8a10ee4955da4255363dc5060a726",
+        "frame": "eaea0e85b025b1cc318f54c71110156e96ddcce3c6f787889ca2a0d179095d7c",
+        "unsupervisedResults": "f41e770df7cb8166572cbc41b1a094ee301ce7d00a839e98722c91b6ad7ec297",
+        "drawUnsupervisedResults": "9a03acf33bb7c737448ab6895081b7b47b531eed677a19a77e5de20f1fe5654f"
+      },
+      "previous_initialization_changes": {
+        "0": "70941a9dcdfc394562834d237f04e4acbde3936931eb16e5a4a552cf5850177b",
+        "24": "79931fb8e9f494785ac3b99919303a9768de7b25ef0f89b042b3e430a2fa00ca"
+      },
+      "additional_source_sha256": {
+        "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
+        "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
+        "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
+        "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
+        "team-material.js": "c795117547162024a4f9f813310a6d871879e99e36f95a594cc25126dc524383",
+        "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
+        "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
+        "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
+      }
+    }
+  ]
+}
