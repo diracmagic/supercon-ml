@@ -1,0 +1,117 @@
+name: Storm8 electronic inputs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/storm8]
+    paths:
+      - 'ml/storm8.py'
+      - 'tests/test_storm8.py'
+      - '.github/workflows/storm8.yml'
+      - 'results/validation/storm8-protocol-v1/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: storm8
+  cancel-in-progress: false
+
+env:
+  OMP_NUM_THREADS: '2'
+  OPENBLAS_NUM_THREADS: '2'
+  MKL_NUM_THREADS: '2'
+  PYTHONHASHSEED: '0'
+  # Mitigation, not validated as guaranteeing equality across hardware: use one floating-point path on hosted
+  # runners. AVX-512 and AVX2 paths can round differently in the last bits, and Storm forecasts are sensitive to
+  # 1-ulp input changes. numpy's AVX-512 dispatch is switched off after installation.
+  OPENBLAS_CORETYPE: 'Haswell'
+  MKL_CBWR: 'AVX2'
+
+jobs:
+  storm8:
+    name: Storm8 report-only
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      # Pushes run the tests and the synthetic smoke only. The real experiment needs [storm8-run] in the
+      # commit message (after the protocol is frozen in results/validation/storm8-protocol-v1) or a manual run.
+      REAL_RUN: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[storm8-run]') }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: ml/requirements.txt
+
+      - name: Install research dependencies
+        run: pip install -r ml/requirements.txt
+
+      - name: Use the same numerical path on every runner
+        run: |
+          python - <<'PY' >> "$GITHUB_ENV"
+          try:
+              from numpy._core import _multiarray_umath as m
+          except ImportError:
+              from numpy.core import _multiarray_umath as m
+          print('NPY_DISABLE_CPU_FEATURES=' + ' '.join(f for f in m.__cpu_dispatch__ if f.startswith(('X86_V4', 'AVX512'))))
+          PY
+
+      - name: Record the runner's CPU and numerical path
+        run: |
+          mkdir -p "$RUNNER_TEMP/hardware"
+          {
+            echo "NPY_DISABLE_CPU_FEATURES=$NPY_DISABLE_CPU_FEATURES OPENBLAS_CORETYPE=$OPENBLAS_CORETYPE MKL_CBWR=$MKL_CBWR"
+            lscpu
+            python -c "import numpy; numpy.show_runtime()"
+            python -m threadpoolctl -i numpy scipy.linalg sklearn.ensemble || true
+            pip freeze
+          } 2>&1 | tee "$RUNNER_TEMP/hardware/runtime.txt"
+          python - <<'PY'
+          import os
+          try:
+              from numpy._core import _multiarray_umath as m
+          except ImportError:
+              from numpy.core import _multiarray_umath as m
+          still_on = [f for f in os.environ.get('NPY_DISABLE_CPU_FEATURES', '').split() if m.__cpu_features__.get(f)]
+          assert not still_on, f'numpy dispatch not disabled: {still_on}'
+          PY
+
+      - name: Unit tests
+        run: python -m unittest discover -s tests -p 'test_storm8.py' -v
+
+      - name: Synthetic smoke, not scientific evidence
+        run: python ml/storm8.py --smoke --output-dir "$RUNNER_TEMP/storm8-smoke"
+
+      - name: Freeze the real protocol before loading targets
+        if: env.REAL_RUN == 'true'
+        run: |
+          python ml/storm8.py --protocol --output-dir "$RUNNER_TEMP/storm8-protocol"
+          cmp "$RUNNER_TEMP/storm8-protocol/protocol.json" results/validation/storm8-protocol-v1/protocol.json
+
+      - name: Restore the Alexandria dataset
+        if: env.REAL_RUN == 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/supercon-data
+          key: storm8-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: supercon-cache-
+
+      - name: Real fixed-cohort experiment, no model release
+        if: env.REAL_RUN == 'true'
+        run: python ml/storm8.py
+
+      - name: Preserve complete and partial evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: storm8-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            results/storm8/
+            ${{ runner.temp }}/storm8-protocol/
+            ${{ runner.temp }}/storm8-smoke/
+            ${{ runner.temp }}/hardware/
+          if-no-files-found: warn
+          retention-days: 30
