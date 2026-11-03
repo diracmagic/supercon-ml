@@ -78,6 +78,7 @@ class Storm8Tests(unittest.TestCase):
         np.testing.assert_array_equal(self.forecast("P0"), reference)
 
     def test_all_missing_electronic_inputs_reduce_p1_to_p0(self):
+        self.assertFalse(np.array_equal(self.forecast("P1"), self.forecast("P0")))  # the P1 path is exercised here
         np.testing.assert_array_equal(self.forecast("P1", E=np.full_like(self.E, np.nan)), self.forecast("P0"))
 
     def test_test_labels_cannot_change_forecasts(self):
@@ -160,10 +161,21 @@ class Storm8Tests(unittest.TestCase):
     def test_decision_rule(self):
         def paired(delta, low, high):
             return {"delta_mae_k_new_minus_reference": delta, "percentile_95_interval_k": [low, high]}
-        self.assertTrue(S.decision(paired(-.05, -.08, -.02))["prespecified_gain_rule_met"])
-        self.assertFalse(S.decision(paired(-.02, -.04, -.01))["prespecified_gain_rule_met"])
-        self.assertFalse(S.decision(paired(-.05, -.09, .01))["prespecified_gain_rule_met"])
-        self.assertFalse(S.decision(paired(-.05, -.08, -.02))["adopted"])
+
+        def verdict(delta=-.05, low=-.08, high=-.02, coverage=.95, plus=-.04, minus=-.05):
+            return S.decision(paired(delta, low, high), coverage=coverage, shifted_deltas={"plus_1ulp": plus, "minus_1ulp": minus})
+        met = verdict()
+        self.assertTrue(met["prespecified_gain_rule_met"])
+        self.assertEqual(met["conclusion"], "prespecified gain rule met")
+        self.assertFalse(met["adopted"])
+        self.assertFalse(verdict(delta=-.02, low=-.04, high=-.01)["prespecified_gain_rule_met"])  # point effect too small
+        self.assertFalse(verdict(high=.01)["prespecified_gain_rule_met"])  # interval includes no improvement
+        self.assertFalse(verdict(plus=-.02)["prespecified_gain_rule_met"])  # not robust to a 1-ulp refit
+        below = verdict(coverage=.85)
+        self.assertFalse(below["prespecified_gain_rule_met"])
+        self.assertIn("no conclusion", below["conclusion"])
+        self.assertEqual(below["conditions"], {"coverage_floor_met": False, "main_rule_met": True, "robust_under_1ulp_refits": True})
+        self.assertFalse(S.decision(paired(-.05, -.08, -.02), coverage=1.0, shifted_deltas={})["prespecified_gain_rule_met"])
 
     def test_array_hash_ignores_nan_payload_and_memory_order(self):
         X = np.arange(6.).reshape(2, 3)
@@ -190,7 +202,11 @@ class Storm8Tests(unittest.TestCase):
             self.assertEqual(set(report["designs"]), {"P0", "P1"})
             self.assertIn("overall", report["paired_P1_minus_P0"])
             self.assertIn("prespecified_gain_rule_met", report["decision"])
-            self.assertEqual(set(report["refit_instability_P0"]), {"descriptive_only", "plus_1ulp", "minus_1ulp"})
+            self.assertEqual(set(report["decision"]["conditions"]), {"coverage_floor_met", "main_rule_met", "robust_under_1ulp_refits"})
+            self.assertEqual(set(report["refits_under_1ulp_shifts"]), {"plus_1ulp", "minus_1ulp"})
+            for shift in report["refits_under_1ulp_shifts"].values():
+                self.assertEqual(set(shift), {"P0", "P1", "delta_mae_k_P1_minus_P0"})
+                self.assertAlmostEqual(shift["delta_mae_k_P1_minus_P0"], shift["P1"]["mae_k"] - shift["P0"]["mae_k"])
             self.assertEqual(set(report["input_reproduction"]["bitwise_equal_to_storm7"]), {"D", "geometry", "ids"})
             self.assertTrue((Path(tmp) / "run" / "artifact-manifest.json").is_file())
             with self.assertRaisesRegex(ValueError, "non-overwriting"):
