@@ -178,8 +178,8 @@
     "loadBundled": "217120e7973e57b1b4eb4bc5a85baef89523f486a8cd6c4761941fd47022bbd2",
     "loadLive": "77d6a5ee12c6376fad7366e205925821e7e6dbd0e0822677d9fa6760019dd202",
     "classify": "40ed4577d615f20ca88d3f463c88ee087a5bb920eecd530ff9a84ca898c2e0ff",
-    "loadGitHub": "cefaf75951bf503fac330bd1d26c4c0ecbfd48c0922863ca684400a669ade3de",
-    "refreshAll": "6e96eaa0eb43a1bd72cd57cf0d35938a561d92df2b03c4cabff94218bfe91688",
+    "loadGitHub": "37f42698b8cce90869a5412e708dec4be64898a8be6b295812b886ca61e74206",
+    "refreshAll": "bcf7d3fb78a9fee64c4d375ab53d883a0e431ded3bf515faa6df42e2293cbdb5",
     "runState": "dc1a3ba998e3fbb33568c4b07f4676a73d1ad9851a841d02d0e8a0785defcb89",
     "bestBaseline": "377ab5478e3e622c2df27253bc43717ebb2e15dbcd4b290fab1d45398917d53d",
     "unreleased": "5abac579c3a8352bfa836245e1422d63f0ba2589d0e4c9d415d7111fbd67f4ca",
@@ -596,7 +596,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "7c2899ecedad41943d6cd43b3161f094bf29ac779a9586b268c269d6bff0dbbc",
+    "63f03f795694d67d78d0cae3dbe4081e57a1b7196f5d54036d636c0b07fb6ae5",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -756,7 +756,7 @@
     "7b55f2ca3addb3ab58271d05667b44799cff46c59c7df9406df1a2f3a80b1bfa",
     "a8038582931f8cc94702e04a8c6e2d06fed5ed4a98272c051b6db53399525274",
     "b933a1f55f9a053e79d4c2325b37a21f30ee608859bf5a757c501df3cc0e0810",
-    "8f73a31ed4956c44b2ddb8d437ef50db1e2c96ee881c043a0dfd534a8df766ef",
+    "28c2932f964ce20123eb336bc9684f37d14b906daa06a89b02938cdd881dc348",
     "0e6f328284f917e72d5c150e6f3692b167c2e42ff85e4db92a734a71bc9a9e73",
     "c92ceb6490894ce3d91cfa7d753fc238cba3a80aa1f51f506ec2a9b61d068e21",
     "05586ab41978928da1093779677e76cd550e8c70c8d86f44a948f2ab4d47abba",
@@ -850,7 +850,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-02",
-    "purpose": "Release0.3.19: staged unsupervised result animation with growing baseline/comparison bars and true paired intervals, previous/play/next controls, fixed labels, reduced-motion complete summary and source references below; original demos and production models preserved",
+    "purpose": "Release0.3.20: fewer unauthenticated GitHub API requests; runs and commits refresh at most every 15 minutes (5 while a run is active) and not in the background, the refresh button forces a full refresh; progress data, models and results unchanged",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -893,33 +893,24 @@
       "same original miniature animations and reduced-motion lifecycle"
     ],
     "previous_css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
-    "functions_added": [
-      "drawUnsupervisedSummary",
-      "goUnsupervisedStep"
-    ],
+    "functions_added": [],
     "functions_removed": [],
     "previous_removed_functions": {},
     "functions_changed": [
-      "buildDemos",
-      "syncControls",
-      "frame",
-      "unsupervisedResults",
-      "drawUnsupervisedResults"
+      "loadGitHub",
+      "refreshAll"
     ],
     "initializers_changed": [
       0,
-      24
+      160
     ],
     "previous_function_changes": {
-      "buildDemos": "767efabbd9d1387565ba613d97f189ef0be465933e817aeebac0d0fb0f5b4801",
-      "syncControls": "af28b174d97329cdacd2f49808b7e23ae8b8a10ee4955da4255363dc5060a726",
-      "frame": "eaea0e85b025b1cc318f54c71110156e96ddcce3c6f787889ca2a0d179095d7c",
-      "unsupervisedResults": "f41e770df7cb8166572cbc41b1a094ee301ce7d00a839e98722c91b6ad7ec297",
-      "drawUnsupervisedResults": "9a03acf33bb7c737448ab6895081b7b47b531eed677a19a77e5de20f1fe5654f"
+      "loadGitHub": "cefaf75951bf503fac330bd1d26c4c0ecbfd48c0922863ca684400a669ade3de",
+      "refreshAll": "6e96eaa0eb43a1bd72cd57cf0d35938a561d92df2b03c4cabff94218bfe91688"
     },
     "previous_initialization_changes": {
-      "0": "70941a9dcdfc394562834d237f04e4acbde3936931eb16e5a4a552cf5850177b",
-      "24": "79931fb8e9f494785ac3b99919303a9768de7b25ef0f89b042b3e430a2fa00ca"
+      "0": "7c2899ecedad41943d6cd43b3161f094bf29ac779a9586b268c269d6bff0dbbc",
+      "160": "8f73a31ed4956c44b2ddb8d437ef50db1e2c96ee881c043a0dfd534a8df766ef"
     },
     "additional_source_sha256": {
       "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
@@ -1020,7 +1011,12 @@
       "path": "review-history-14.json",
       "sha256": "e86e637c0db6e238e42ee5728f5f1d610fef2cc864d2f89800e882f71e2edc4c",
       "count": 1
+    },
+    {
+      "path": "review-history-15.json",
+      "sha256": "87f710d3fc9084b89dad313686ff4aab9150bf2d65a9bcb4e8844660122b3d17",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 18
+  "reviewed_revision_count": 19
 }
