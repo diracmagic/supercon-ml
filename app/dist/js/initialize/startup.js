@@ -3,7 +3,7 @@
 const initializeSuperconStartup = function initializeSuperconStartup() {
 
 
-  $('#btn-refresh').addEventListener('click', function () { refreshAll(); });
+  $('#btn-refresh').addEventListener('click', function () { refreshAll(true); });
 
   $('#btn-theme').addEventListener('click', function () {
     theme = theme === 'system' ? 'light' : theme === 'light' ? 'dark' : 'system';
