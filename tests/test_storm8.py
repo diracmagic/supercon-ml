@@ -185,7 +185,12 @@ class Storm8Tests(unittest.TestCase):
             other.write_bytes(b"{}\n")
             with self.assertRaisesRegex(ValueError, "does not equal the reviewed frozen file"):
                 S.run(smoke=False, output_dir=Path(tmp) / "run2", reviewed_protocol=other)
-            self.assertFalse((Path(tmp) / "run2" / "run.json").exists())
+            self.assertFalse((Path(tmp) / "run2").exists())  # Codex round 4: differing bytes write nothing either
+            # The in-memory protocol is what the frozen file and the run compare against.
+            protocol, payload, digest = S.build_protocol()
+            self.assertEqual(sorted(Path(tmp).iterdir()), [other])
+            frozen, frozen_digest = S.freeze_protocol(Path(tmp) / "frozen")
+            self.assertEqual((frozen, frozen_digest, (Path(tmp) / "frozen" / "protocol.json").read_bytes()), (protocol, digest, payload))
 
     def test_electronic_inputs_normalise_and_flag_every_row(self):
         a, b = atoms(["Al", "V", "V", "V"]), atoms(["Nb"])
