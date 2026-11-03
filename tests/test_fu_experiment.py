@@ -132,7 +132,7 @@ class ExperimentIsolationTests(unittest.TestCase):
 
     def test_shared_bootstrap_and_all_contrasts(self):
         y = np.array([1., 3., 2., 5.])
-        groups = np.array(["a", "a", "b", "c"])
+        groups = np.array(["a", "a", "b", "c"], dtype=object)
         predictions = {arm: y + offset for arm, offset in zip(F.ARMS, [1., .8, .6, .4])}
         with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
             result = F.storm_contrasts(y, predictions, groups, {"overall": np.ones(4, bool)},
@@ -143,6 +143,10 @@ class ExperimentIsolationTests(unittest.TestCase):
                 self.assertAlmostEqual(result[a + "-" + b]["overall"]["delta_new_minus_reference"], expected)
             with np.load(Path(temporary) / "bootstrap-draws.npz", allow_pickle=False) as draws:
                 self.assertEqual(draws["draws"].shape, (20, 3))
+                for name in draws.files:
+                    self.assertNotEqual(draws[name].dtype.kind, "O")
+                self.assertEqual(draws["systems"].tolist(), ["a", "b", "c"])
+                np.testing.assert_array_equal(draws["draws"], np.random.default_rng(7).integers(0, 3, (20, 3)))
 
     def test_complete_synthetic_adapters_have_every_arm_and_contrast(self):
         # This fixture does not run a quantum solver or access real targets.

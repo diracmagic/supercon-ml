@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "errors": [],
+  "workflow_run_id": 41578153170,
+  "published_commit": "79f6ebe05de381108cf2f04c7cd3430039633c67",
+  "published_source_git_blob": "6669373644b492bc6aef2d4953a20a1a213a45cb",
+  "local_source_git_blob": "6669373644b492bc6aef2d4953a20a1a213a45cb",
+  "source_sha256": "afd57d6a5df2841d9ead353b63cb48b2185fc7ea257ef5cf400ba99e64f40cea",
+  "protocol_sha256": "fa46fbc0cce710e7dad454fa4f0c27bfa5477cc36d39b1a451cc1e99b6f88d60",
+  "builtin_check_bank_prior_command": {
+    "passed": true,
+    "errors": []
+  },
+  "no_fitting_performed": true,
+  "hamiltonians_checked": 99,
+  "seed_states_checked": 396,
+  "selected_states_passed": 99,
+  "all_seed_states_passed": 394,
+  "independent_methods": {
+    "hamiltonian": "ordered occupation-list exterior-algebra signs, independent of production bitcount construction",
+    "wavefunction": "NumPy attention forward with explicit per-configuration/per-head stable softmax, independent of JAX production forward",
+    "ed": "complete NumPy eigh and degenerate-ground projector",
+    "features": "direct fourteen-observable recomputation with each solver own U0 energies"
+  },
+  "selected_margins": {
+    "max_energy_per_site_error": 1.1636117536184543e-07,
+    "max_normalized_residual": 0.0010039853840590137,
+    "min_ground_subspace_fidelity": 0.9999997358164283
+  },
+  "max_normalized_state_difference": 7.4518253022755595e-16,
+  "max_report_metric_difference": 1.1546319456101628e-14,
+  "max_exact_lookup_difference": 1.1546319456101628e-14,
+  "max_neural_lookup_difference": 2.6645352591003757e-15,
+  "feature_differences": {
+    "exact_features": 0.0,
+    "neural_features": 0.0
+  },
+  "cloud_solver_seconds": 137.248018714,
+  "cloud_projection_seconds": 544.8864707546115,
+  "cloud_max_single_fit_seconds": 1.038358240000008,
+  "cloud_hardware": {
+    "python": "3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]",
+    "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "processor": "x86_64",
+    "cpu_count": 4,
+    "numpy": "2.5.4",
+    "jax": "0.12.0.1",
+    "jaxlib": "0.12.0.1",
+    "optax": "0.2.8",
+    "jax_devices": [
+      "cpu:0"
+    ],
+    "jax_enable_x64": true,
+    "environment": {
+      "NPY_DISABLE_CPU_FEATURES": null,
+      "OPENBLAS_CORETYPE": "Haswell",
+      "MKL_CBWR": null,
+      "OMP_NUM_THREADS": "2",
+      "OPENBLAS_NUM_THREADS": "2",
+      "MKL_NUM_THREADS": "2",
+      "JAX_PLATFORMS": "cpu"
+    },
+    "numpy_runtime": "[{'numpy_version': '2.5.4',\n  'python': '3.12.15 (main, Oct  1 2026, 02:35:59) [GCC 13.3.0]',\n  'uname': uname_result(system='Linux', node='runnervm48cm3', release='7.0.0-1017-azure', version='#17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026', machine='x86_64')},\n {'simd_extensions': {'baseline': ['X86_V2'],\n                      'found': ['X86_V3'],\n                      'not_found': ['X86_V4', 'AVX512_ICL', 'AVX512_SPR']}},\n {'ignore_floating_point_errors_in_matmul': False},\n {'architecture': 'Haswell',\n  'filepath': '/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so',\n  'internal_api': 'openblas',\n  'num_threads': 2,\n  'prefix': 'libscipy_openblas',\n  'threading_layer': 'pthreads',\n  'user_api': 'blas',\n  'version': '0.3.34.106.0'}]\n",
+    "threadpools": [
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 2,
+        "prefix": "libscipy_openblas",
+        "filepath": "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-f48b354e.so",
+        "version": "0.3.34.106.0",
+        "threading_layer": "pthreads",
+        "architecture": "Haswell"
+      }
+    ]
+  },
+  "local_audit_python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "local_audit_numpy": "2.5.4",
+  "audit_seconds": 1.6902608000673354,
+  "limitations": [
+    "This verifies saved checkpoints and finite Hubbard surrogate physics; it does not establish superconductivity in the original materials.",
+    "Hardware-specific training trajectory equivalence is not claimed; cloud NPY_DISABLE_CPU_FEATURES is unset, runtime reports X86_V3 and no X86_V4/AVX512, OpenBLAS Haswell with two threads."
+  ],
+  "original_full_local_audit_sha256": "73600e2f0d5a462534fe54824d1f8a01fc4e52a7a769d2eaefb3393a15a2c199"
+}

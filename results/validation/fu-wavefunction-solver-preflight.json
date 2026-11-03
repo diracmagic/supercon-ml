@@ -30,5 +30,6 @@
       "minimum_ground_subspace_fidelity": 0.999999735805217,
       "bank_json_sha256": "86097e8334566182ccd2c578cfa44c3a985dd0b8c11869a3f8bceea3b10f552a"
     }
-  ]
+  ],
+  "snapshot_scope": "Physics preflight before any realmaterial headfit; full later materialresults are in fu-wavefunction-first-comparison.json"
 }

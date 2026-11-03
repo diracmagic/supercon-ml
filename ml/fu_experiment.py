@@ -339,7 +339,9 @@ def _summary(point, values, repetitions):
 
 
 def cluster_draws(groups, repetitions, out):
-    unique, inverse = np.unique(groups, return_inverse=True)
+    # Pandas string columns can arrive as object arrays; store names as Unicode
+    # so every NPZ member remains readable without enabling pickle.
+    unique, inverse = np.unique(np.asarray(groups, dtype=str), return_inverse=True)
     draws = np.random.default_rng(7).integers(0, len(unique), size=(repetitions, len(unique)))
     np.savez_compressed(out / "bootstrap-draws.npz", systems=unique, draws=draws)
     return unique, inverse, draws

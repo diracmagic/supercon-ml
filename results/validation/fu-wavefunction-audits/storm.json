@@ -1,0 +1,360 @@
+{
+  "audit_version": "independent-storm-arithmetic-v1",
+  "refitting_performed": false,
+  "model_code_imported": false,
+  "checks": {
+    "all_artifact_manifest_hashes": {
+      "passed": true,
+      "detail": {
+        "listed_files": 438,
+        "mismatches": [],
+        "unlisted": []
+      }
+    },
+    "github_archive_digest": {
+      "passed": true,
+      "detail": {
+        "artifact_id": 13205082696,
+        "zip_bytes": 26039199,
+        "zip_sha256": "c4052ebf0d51322e95dbe3967ac12937fb900a4c7afa703dee3fe7e390d419b7",
+        "github_digest": "sha256:c4052ebf0d51322e95dbe3967ac12937fb900a4c7afa703dee3fe7e390d419b7"
+      }
+    },
+    "local_source_matches_CI_manifest": {
+      "passed": true,
+      "detail": {
+        "files": 31,
+        "mismatches": []
+      }
+    },
+    "frozen_v2_unadopted_real_report": {
+      "passed": true,
+      "detail": null
+    },
+    "fixed_7582_4288_cohort": {
+      "passed": true,
+      "detail": {
+        "rows": 7582,
+        "systems": 4288
+      }
+    },
+    "raw_archive_hash": {
+      "passed": true,
+      "detail": null
+    },
+    "raw_source_cleaning_and_row_order": {
+      "passed": true,
+      "detail": null
+    },
+    "target_formula_from_raw_source": {
+      "passed": true,
+      "detail": {
+        "formula": "simplified Allen-Dynes mu*=0.1,f1=f2=1; omega_log K",
+        "max_abs_error_k": 3.552713678800501e-15
+      }
+    },
+    "all_actual_raw_structure_coordinates": {
+      "passed": true,
+      "detail": null
+    },
+    "mapping_coverage": {
+      "passed": true,
+      "detail": {
+        "coverage": 0.9985491954629385,
+        "mapped": 7571,
+        "rows": 7582
+      }
+    },
+    "motif_frequencies_and_flags": {
+      "passed": true,
+      "detail": null
+    },
+    "raw_coordinate_periodic_mapping_spotchecks": {
+      "passed": true,
+      "detail": {
+        "method": "independent explicit integer-image enumeration and all24 canonical graph permutations",
+        "rows": [
+          {
+            "id": "agm003769282",
+            "sites": 8,
+            "max_abs_error": 0.0
+          },
+          {
+            "id": "agm001291361",
+            "sites": 4,
+            "max_abs_error": 1.1102230246251565e-15
+          },
+          {
+            "id": "agm001121549",
+            "sites": 4,
+            "max_abs_error": 5.551115123125783e-17
+          },
+          {
+            "id": "agm001304857",
+            "sites": 4,
+            "max_abs_error": 1.1102230246251565e-15
+          },
+          {
+            "id": "agm005113713",
+            "sites": 4,
+            "max_abs_error": 0.0
+          },
+          {
+            "id": "agm003273421",
+            "sites": 4,
+            "max_abs_error": 5.551115123125783e-17
+          },
+          {
+            "id": "agm003202579",
+            "sites": 6,
+            "max_abs_error": 0.0
+          }
+        ]
+      }
+    },
+    "all_four_prediction_cohorts": {
+      "passed": true,
+      "detail": {
+        "rows": 30328,
+        "errors": []
+      }
+    },
+    "outer_proper_calibration_isolation": {
+      "passed": true,
+      "detail": {
+        "folds": 5,
+        "errors": []
+      }
+    },
+    "all40_head_fit_ids_masks_train_only": {
+      "passed": true,
+      "detail": {
+        "errors": []
+      }
+    },
+    "all_calibration_predictions_targets_residuals": {
+      "passed": true,
+      "detail": {
+        "rows": 24068,
+        "errors": []
+      }
+    },
+    "all20_groupmax_conformal_quantiles": {
+      "passed": true,
+      "detail": {
+        "errors": []
+      }
+    },
+    "all_intervals_centered_on_proper_train_predictions": {
+      "passed": true,
+      "detail": {
+        "errors": []
+      }
+    },
+    "all_arm_MAE_and_interval_metrics_recomputed": {
+      "passed": true,
+      "detail": {
+        "max_abs_report_error": 0.0,
+        "target_top10pct_rows": 759,
+        "ood_rows": 365
+      }
+    },
+    "shared_OOD_masks_distances_all_arms": {
+      "passed": true,
+      "detail": null
+    },
+    "bootstrap_design": {
+      "passed": true,
+      "detail": null
+    },
+    "all_six_1000_cluster_bootstraps_recomputed": {
+      "passed": true,
+      "detail": {
+        "max_abs_report_error": 0.0,
+        "comparisons": 6,
+        "subgroups": 3
+      }
+    }
+  },
+  "failures": [],
+  "recomputed_metrics": {
+    "Q0": {
+      "mae_k": 0.9637577581913324,
+      "tail_mae_k": 3.6776853458845555,
+      "ood_mae_k": 1.3332719504040382,
+      "row_coverage": 0.936824056977051,
+      "group_simultaneous_coverage": 0.8992537313432836,
+      "tail_coverage": 0.8247694334650857,
+      "mean_width_k": 5.386323457707558,
+      "median_width_k": 2.890007504640015,
+      "interval_score_k": 8.072356652316929
+    },
+    "QG": {
+      "mae_k": 0.9663614955259064,
+      "tail_mae_k": 3.7109309806034974,
+      "ood_mae_k": 1.3158916342491036,
+      "row_coverage": 0.94051701398048,
+      "group_simultaneous_coverage": 0.9060167910447762,
+      "tail_coverage": 0.8313570487483531,
+      "mean_width_k": 5.529381362456439,
+      "median_width_k": 2.972326901380131,
+      "interval_score_k": 8.171670058137913
+    },
+    "QE": {
+      "mae_k": 0.9694556230186182,
+      "tail_mae_k": 3.7167409726200864,
+      "ood_mae_k": 1.3442158045531778,
+      "row_coverage": 0.9385386441572144,
+      "group_simultaneous_coverage": 0.9020522388059702,
+      "tail_coverage": 0.8287220026350461,
+      "mean_width_k": 5.438519419489492,
+      "median_width_k": 2.9395011826349,
+      "interval_score_k": 8.19457940921504
+    },
+    "QN": {
+      "mae_k": 0.9699762145268583,
+      "tail_mae_k": 3.723046864235197,
+      "ood_mae_k": 1.3517060762145738,
+      "row_coverage": 0.940385122658929,
+      "group_simultaneous_coverage": 0.9050839552238806,
+      "tail_coverage": 0.8287220026350461,
+      "mean_width_k": 5.531536113245484,
+      "median_width_k": 2.988825261731618,
+      "interval_score_k": 8.243892905415203
+    }
+  },
+  "recomputed_contrasts": {
+    "QN-Q0": {
+      "overall": {
+        "delta_new_minus_reference": 0.006218456335526026,
+        "lower95": -0.002408014169604368,
+        "upper95": 0.015163804670766487,
+        "valid_resamples": 1000
+      },
+      "target_top10pct": {
+        "delta_new_minus_reference": 0.045361518350641936,
+        "lower95": -0.01281325588504524,
+        "upper95": 0.10734638537863173,
+        "valid_resamples": 1000
+      },
+      "ood": {
+        "delta_new_minus_reference": 0.018434125810535874,
+        "lower95": -0.02547687625235031,
+        "upper95": 0.06090149073808544,
+        "valid_resamples": 1000
+      }
+    },
+    "QG-Q0": {
+      "overall": {
+        "delta_new_minus_reference": 0.002603737334573971,
+        "lower95": -0.006089507276673612,
+        "upper95": 0.010932277299788174,
+        "valid_resamples": 1000
+      },
+      "target_top10pct": {
+        "delta_new_minus_reference": 0.03324563471894264,
+        "lower95": -0.03558367970430977,
+        "upper95": 0.09704960125359123,
+        "valid_resamples": 1000
+      },
+      "ood": {
+        "delta_new_minus_reference": -0.017380316154934433,
+        "lower95": -0.0650441350603,
+        "upper95": 0.030847380146601447,
+        "valid_resamples": 1000
+      }
+    },
+    "QE-Q0": {
+      "overall": {
+        "delta_new_minus_reference": 0.005697864827285928,
+        "lower95": -0.0028486029334486803,
+        "upper95": 0.013723751905776434,
+        "valid_resamples": 1000
+      },
+      "target_top10pct": {
+        "delta_new_minus_reference": 0.03905562673553143,
+        "lower95": -0.027426705141484528,
+        "upper95": 0.09750753838567375,
+        "valid_resamples": 1000
+      },
+      "ood": {
+        "delta_new_minus_reference": 0.010943854149139681,
+        "lower95": -0.03636895892867545,
+        "upper95": 0.06233307240429469,
+        "valid_resamples": 1000
+      }
+    },
+    "QN-QG": {
+      "overall": {
+        "delta_new_minus_reference": 0.0036147190009520533,
+        "lower95": -0.0034057807428964975,
+        "upper95": 0.011028109363689143,
+        "valid_resamples": 1000
+      },
+      "target_top10pct": {
+        "delta_new_minus_reference": 0.01211588363169929,
+        "lower95": -0.04585190445943539,
+        "upper95": 0.07248392898062277,
+        "valid_resamples": 1000
+      },
+      "ood": {
+        "delta_new_minus_reference": 0.03581444196547031,
+        "lower95": -0.009166480843969463,
+        "upper95": 0.0797165669762167,
+        "valid_resamples": 1000
+      }
+    },
+    "QE-QG": {
+      "overall": {
+        "delta_new_minus_reference": 0.003094127492711956,
+        "lower95": -0.004154457715208313,
+        "upper95": 0.010757349496916577,
+        "valid_resamples": 1000
+      },
+      "target_top10pct": {
+        "delta_new_minus_reference": 0.0058099920165887945,
+        "lower95": -0.052580181487662234,
+        "upper95": 0.06330622327053051,
+        "valid_resamples": 1000
+      },
+      "ood": {
+        "delta_new_minus_reference": 0.028324170304074112,
+        "lower95": -0.011188240078909135,
+        "upper95": 0.06980802387102936,
+        "valid_resamples": 1000
+      }
+    },
+    "QN-QE": {
+      "overall": {
+        "delta_new_minus_reference": 0.0005205915082400991,
+        "lower95": -0.005733954550206899,
+        "upper95": 0.006600808340672644,
+        "valid_resamples": 1000
+      },
+      "target_top10pct": {
+        "delta_new_minus_reference": 0.006305891615110498,
+        "lower95": -0.03884153695756312,
+        "upper95": 0.055306139219340085,
+        "valid_resamples": 1000
+      },
+      "ood": {
+        "delta_new_minus_reference": 0.007490271661396198,
+        "lower95": -0.03168177633336241,
+        "upper95": 0.05125554979941957,
+        "valid_resamples": 1000
+      }
+    }
+  },
+  "frozen_effect_assessment": {
+    "observed_practical_gain": false,
+    "beyond_graph_control": false,
+    "verdict": "No demonstrated Storm gain; QN point MAE is higher than the fresh baseline."
+  },
+  "limitations": [
+    "Previously inspected chemical-system folds; fixed-prediction bootstrap is exploratory.",
+    "No HGB refitting; saved tree models are not provided, so center values are accepted as recorded predictions while fit IDs, masks and interval algebra are independently checked.",
+    "OOD flags were checked against saved distances/thresholds and across arms; all nearest-neighbor distances were not recomputed."
+  ],
+  "passed": true,
+  "original_full_local_audit_sha256": "1bcddf4fac63c23e32585226da0ec8a47ea804f9cf4be2a19a96913374a56374"
+}

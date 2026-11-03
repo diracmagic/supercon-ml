@@ -37,4 +37,21 @@ Storm retains the 7,582-material/4,288-system cohort, chemical-system holdouts, 
 
 The quality gate requires an energy error per site <=0.0025t, state residual <=0.05t and ground-subspace overlap >=0.95, with an explicit variational-bound tolerance. Degeneracy is checked against the whole ground space. Failed neural states are never replaced with exact states under the QN name. Runtime estimates and timings apply to the recorded local CPU environment, not every runner.
 
-The workflow first validates a shared wavefunction bank, then starts the two material comparisons. Full-cohort material results are pending. The four locally available original CIFs support mapping checks, not a full-cohort result. Exact parsed structures, source/CIF hashes, weights, traces, Hamiltonians, splits, per-row predictions and package/hardware records are retained as research evidence. No unknown-license external wavefunction dataset was downloaded.
+The workflow first validates a shared wavefunction bank, then starts the two material comparisons. Full-cohort material comparisons completed in [CI run41578153170](https://github.com/diracmagic/supercon-ml/actions/runs/41578153170), scientific source `79f6ebe05de381108cf2f04c7cd3430039633c67`. The four locally available original CIFs support mapping checks, not a full-cohort result. Exact parsed structures, source/CIF hashes, weights, traces, Hamiltonians, splits, per-row predictions and package/hardware records are retained as research evidence. No unknown-license external wavefunction dataset was downloaded.
+
+## First full-cohort results
+
+| Same-run metric | Q0 baseline | QG topology | QE exact surrogate | QN neural surrogate |
+|---|---:|---:|---:|---:|
+| Storm DFT-Tc MAE, K (lower is better) |0.963758|0.966361|0.969456|0.969976|
+| Storm top-decile MAE, K |3.677685|3.710931|3.716741|3.723047|
+| Hurricane equal-family observed-P/U AUC (higher is better) |0.604001|0.600788|0.592432|0.592432|
+| Hurricane equal-family recall at20% ranking budget |24.7740%|24.3889%|24.3779%|24.3779%|
+
+QN minus Q0 gives Storm MAE **+0.006218 K**, paired95% interval **[-0.002408,+0.015164] K**, and Hurricane AUC **-0.011569**, interval **[-0.032179,+0.013871]**. Neither meets the prespecified practical-gain rule. All comparisons reuse historical folds and are exploratory. The same-run Q0 is the reference; historical cross-run MAE changes are not credited to this method.
+
+The exact surrogate also supplies no improvement. Hurricane QN and QE produce identical rankings; QN is worse than graph-only QG in this exploratory AUC comparison (difference-0.008356, interval[-0.015482,-0.002639]). These results assess this unweighted structural surrogate, rather than every possible material-specific variational-wavefunction calculation.
+
+Storm's neural-arm group interval coverage rises from89.9254% to90.5084%, while mean width rises from5.3863 to5.5315K and interval score worsens from8.0724 to8.2439K. Coverage alone is not a reliability improvement. Mapping covers7571/7582 Storm structures and610/615 Hurricane parents; every original row remains in all arms.
+
+No model is adopted or released. A future attempt to add new electronic information requires justified material-specific Hamiltonian parameters or independently computed electronic/phonon data; this graph transformation does not provide them.
