@@ -2,7 +2,7 @@ Desktop app that shows the live progress of [supercon-ml](https://github.com/dir
 
 Version 0.3.21 adds:
 
-- **Testable predictions:** Candidates gains a second, lower tier below the 40 K benchmark. A candidate is marked a testable prediction when its predicted Tc is at least 2 K (within reach of a standard 1.8 K cryostat), its superconductivity model score is at least 0.5, it lies near the training data, its structure has been made before (ICSD) and no experimental check is recorded yet. The 40 K tier, the lists, the models and the results are unchanged.
+- **Testable predictions:** Candidates gains a second, lower tier below the 40 K benchmark. A candidate is marked a testable prediction when its predicted Tc is at least 2 K (within reach of a standard 1.8 K cryostat), its superconductivity model score is at least 0.5, it lies near the training data, it has an ICSD-linked structure, no experimental check is recorded yet, and no matching DFT check reports no superconductivity or a Tc below 2 K (such a check withdraws the recommendation; it is not an experimental result). A candidate predicted above 40 K that misses the full 40 K criteria is described as such, not as below 40 K. The 40 K tier, the lists, the models and the results are unchanged.
 
 Version 0.3.20 adds:
 
