@@ -7,6 +7,7 @@ import urllib.parse
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "ml"))
 import storm6 as S6
@@ -125,9 +126,10 @@ class Storm8Tests(unittest.TestCase):
         self.assertEqual(S.same_structure(long, swollen), "mismatch_cell")
         self.assertEqual(S.same_structure(thin, record(thin)), "ok")
         # F-9: a site count that contradicts the site arrays. F-10: non-finite or partial occupancy.
-        counted = record(base)
-        counted["nsites"] = 999
-        self.assertEqual(S.same_structure(base, counted), "mismatch_nsites")
+        for bad_count in (999, float("inf"), float("nan"), "4", None, 4.5):
+            counted = record(base)
+            counted["nsites"] = bad_count
+            self.assertEqual(S.same_structure(base, counted), "mismatch_nsites", repr(bad_count))
         for concentration in ([float("nan")], [.5], [1.0, 0.0]):
             occupied = record(base)
             occupied["species"][0]["concentration"] = concentration
@@ -135,30 +137,55 @@ class Storm8Tests(unittest.TestCase):
                 occupied["species"][0]["chemical_symbols"] = [occupied["species"][0]["chemical_symbols"][0], "vacancy"]
             self.assertEqual(S.same_structure(base, occupied), "mismatch_occupancy")
 
-    def test_missingness_control_uses_availability_only(self):
+    def test_missingness_control_uses_per_column_availability_only(self):
         E = self.E.copy()
-        E[::3] = np.nan
+        E[::3, 0] = np.nan  # partial patterns [0,1,1], and below [1,0,0] and [0,0,0]
+        E[1::3, 1:] = np.nan
+        E[2::9] = np.nan
         pm = S.forecast("PM", self.D[self.train], self.G[self.train], E[self.train], self.y[self.train],
                         self.D[self.test], self.G[self.test], E[self.test], fold=0, params=S.SMOKE_PARAMS)
-        self.assertEqual(pm[1]["electronic_keep"], "availability_indicator")
-        scaled = E * 1e3  # The indicator cannot see the values, only whether they are there.
+        self.assertEqual(pm[1]["electronic_keep"], "availability_indicators_per_column")
+        scaled = np.where(np.isfinite(E), 0.0, np.nan)  # The indicators see the missingness pattern, never a value.
         np.testing.assert_array_equal(pm[0], self.forecast("PM", E=scaled))
-        np.testing.assert_array_equal(self.forecast("PM"), self.forecast("P0"))  # constant indicator: no split possible
+        np.testing.assert_array_equal(self.forecast("PM"), self.forecast("P0"))  # all available: constant columns, no split
+        informative = self.E.copy()
+        informative[self.E[:, 0] > np.median(self.E[:, 0])] = np.nan  # missingness that carries target information
+        self.assertFalse(np.array_equal(self.forecast("PM", E=informative), self.forecast("P0")))  # the pattern is used
+
+    def test_shifted_refits_save_every_forecast_vector_as_it_completes(self):
+        splits = [(np.arange(100), np.arange(100, 200)), (np.arange(100, 200), np.arange(100))]
+        reference = {d: np.zeros(200) for d in S.RULE_DESIGNS}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "shifted-forecasts.csv"
+            out = S.shifted_refits(self.D, self.G, self.E, self.y, splits, reference, params=S.SMOKE_PARAMS,
+                                   ids=np.array([f"m{i}" for i in range(200)]), fold_of=np.array([1] * 100 + [2] * 100), save_to=path)
+            table = pd.read_csv(path)
+            self.assertEqual(list(table.columns), ["id", "fold", "tc_target_dft_k", "p0_plus_1ulp_k", "p1_plus_1ulp_k", "p0_minus_1ulp_k", "p1_minus_1ulp_k"])
+            self.assertTrue(np.isfinite(table[["p0_plus_1ulp_k", "p1_plus_1ulp_k", "p0_minus_1ulp_k", "p1_minus_1ulp_k"]].to_numpy()).all())
+            for name in ("plus_1ulp", "minus_1ulp"):
+                p0, p1 = table[f"p0_{name}_k"].to_numpy(), table[f"p1_{name}_k"].to_numpy()
+                self.assertAlmostEqual(out[name]["delta_mae_k_P1_minus_P0"], np.mean(np.abs(self.y - p1)) - np.mean(np.abs(self.y - p0)))
+                self.assertAlmostEqual(out[name]["P0"]["mae_k"], np.mean(np.abs(self.y - p0)))
 
     def test_spearman_is_none_when_undefined(self):
         self.assertIsNone(S._spearman(np.zeros(5), np.arange(5.)))
         self.assertIsNone(S._spearman(np.array([1., np.nan, 2.]), np.array([1., 2., 3.])))
         self.assertAlmostEqual(S._spearman(np.arange(5.), np.arange(5.) ** 2), 1.0)
 
-    def test_real_run_requires_the_reviewed_protocol(self):
+    def test_real_run_requires_a_pre_existing_reviewed_protocol(self):
         with tempfile.TemporaryDirectory() as tmp:
-            with self.assertRaisesRegex(ValueError, "reviewed frozen file"):
+            with self.assertRaisesRegex(ValueError, "no reviewed frozen file"):
                 S.run(smoke=False, output_dir=Path(tmp) / "run", reviewed_protocol=Path(tmp) / "missing.json")
-            self.assertFalse((Path(tmp) / "run" / "run.json").exists())  # refused before any data or target was touched
+            self.assertFalse((Path(tmp) / "run").exists())  # refused before anything was generated
+            # Codex R-006 F-17: an alias to the run's own (not yet existing) output must not satisfy the check.
+            with self.assertRaisesRegex(ValueError, "own output"):
+                S.run(smoke=False, output_dir=Path(tmp) / "run", reviewed_protocol=Path(tmp) / "run" / "protocol.json")
+            self.assertFalse((Path(tmp) / "run").exists())
             other = Path(tmp) / "other.json"
             other.write_bytes(b"{}\n")
-            with self.assertRaisesRegex(ValueError, "reviewed frozen file"):
+            with self.assertRaisesRegex(ValueError, "does not equal the reviewed frozen file"):
                 S.run(smoke=False, output_dir=Path(tmp) / "run2", reviewed_protocol=other)
+            self.assertFalse((Path(tmp) / "run2" / "run.json").exists())
 
     def test_electronic_inputs_normalise_and_flag_every_row(self):
         a, b = atoms(["Al", "V", "V", "V"]), atoms(["Nb"])
@@ -190,10 +217,17 @@ class Storm8Tests(unittest.TestCase):
             again, cached, _ = S.fetch_electronic(ids, tmp, get=refuse, offline=True)
             self.assertEqual(again, got)
             self.assertTrue(cached["reused_cache"])
-            raw = Path(tmp) / "raw" / f"{manifest['pages'][0]['sha256']}.json"
+            # Codex R-006 F-18: a corrupt second cached page keeps the first page's evidence and records the failure.
+            raw = Path(tmp) / "raw" / f"{manifest['pages'][1]['sha256']}.json"
             raw.write_bytes(raw.read_bytes() + b" ")
+            snapshot, progress = Path(tmp) / "run" / "optimade", Path(tmp) / "run" / "optimade-progress.json"
             with self.assertRaisesRegex(ValueError, "changed"):
-                S.fetch_electronic(ids, tmp, get=refuse, offline=True)
+                S.fetch_electronic(ids, tmp, get=refuse, offline=True, snapshot_dir=snapshot, progress_path=progress)
+            state = json.loads(progress.read_text())
+            self.assertEqual((state["status"], state["reused_cache"], state["pages_completed"], state["pages_expected"]), ("failed", True, 1, len(manifest["pages"])))
+            self.assertEqual(state["pages"][0]["url"], manifest["pages"][0]["url"])
+            self.assertIn(manifest["pages"][1]["sha256"], state["error"])
+            self.assertEqual([p.name for p in snapshot.glob("*.json")], [f"{manifest['pages'][0]['sha256']}.json"])
 
     def test_fetch_preserves_partial_evidence_on_failure(self):
         ids = [f"agm{i:09d}" for i in range(60)]
