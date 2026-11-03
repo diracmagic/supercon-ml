@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-03T04:13:28+00:00",
+ "updated": "2026-11-03T07:36:12+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -64,6 +64,114 @@
   "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.03405",
+   "source": "arXiv",
+   "title": "Acoustic damping limits superfluid helium as a thermal bath for mechanical resonators",
+   "authors": [
+    "Yunhu Huang",
+    "Mehri Ebrahimi",
+    "Alireza Rashedi",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-02",
+   "updated": "2026-11-02",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Thermalization is a persistent problem for cryogenic mechanical resonators. The weak supports used to obtain high mechanical quality factors are also poor thermal links, while the optical or microwave fields used for readout and control can heat the resonator above the cryostat temperature. Superfluid helium is therefore an appealing exchange medium: it has excellent low-temperature thermal transport and an inviscid superfluid component, suggesting cooling of mechanical devices without the damping associated with an ordinary fluid. Here we test this idea by immersing a \\qty{250}{\\micro\\meter}-diameter yttrium iron garnet sphere in liquid \\textsuperscript{4}He and reading out a \\(\\sim\\qty{12.47}{\\mega\\hertz}\\) mechanical mode using cavity magnomechanics. The mechanical linewidth increases from \\qty{6.1}{\\hertz} in vacuum to \\qty{9.1}{\\kilo\\hertz} after filling the cavity with liquid helium in the normal state, and reaches \\qty{17.5}{\\kilo\\hertz} deep in the superfluid at \\qty{84}{\\milli\\kelvin}. Thus the mechanical quality factor is reduced by more than three orders of magnitude, and crossing into the superfluid does not recover low dissipation. At the same time, the magnon linewidth remains strongly dependent on microwave power at the lowest temperatures, showing that the sphere is not perfectly anchored to the cryostat despite the large mechanical damping. The result follows f",
+   "url": "https://arxiv.org/abs/2611.03405",
+   "pdf": "https://arxiv.org/pdf/2611.03405",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.02841",
+   "source": "arXiv",
+   "title": "Superinsulation, electric confinement in condensed matter",
+   "authors": [
+    "M. Cristina Diamantini",
+    "Carlo A. Trugenberger"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-02",
+   "updated": "2026-11-02",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Superinsulation is the confining phase of condensed matter systems. It is a genuine quantum state of matter, dual to superconductivity, just as confinement in particle physics is dual to the Higgs phase. In contrast to hadron physics, the gauge field that becomes confining is not colour SU(3) but the conventional U(1) electromagnetic field. Superinsulation arises in superconductors with an emergent granular condensate when core-less XY vortices between condensate grains become tensionless, unobservable Dirac strings and magnetic monopoles are liberated and condense. This magnetic condensate confines electric fields into flux tubes, strings that generate a linear potential between Cooper pairs. These dual Abrikosov flux tubes give rise to infinite electrical resistance, persisting up to a finite deconfinement temperature. We shall review the theoretical framework of superinsulation together with its experimental validation, including the direct observation of the linear confining potential and we shall stress how phase-only approaches and disorder-based ideas for the phases around the superconductor-to-insulator transition are hard to reconcile with recent experimental observations.",
+   "url": "https://arxiv.org/abs/2611.02841",
+   "pdf": "https://arxiv.org/pdf/2611.02841",
+   "journal_ref": "Int. J. Mod. Phys. B, 2630014 (2026)",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el",
+    "hep-th"
+   ]
+  },
+  {
+   "id": "2611.02469",
+   "source": "arXiv",
+   "title": "Observation of Superconductivity in a Cu-Rich High-Entropy Alloy",
+   "authors": [
+    "Arumugam Sonachalam"
+   ],
+   "n_authors": 1,
+   "date": "2026-11-02",
+   "updated": "2026-11-02",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "A Cu-rich multielement alloy containing Zn, Sn, Ag, and Au was synthesized and studied to explore its structural and physical properties. The alloy was prepared by vacuum-sealed melting of high-purity elements followed by rapid quenching in cold water. Powder X-ray diffraction confirms that the alloy crystallizes in a face-centered cubic (fcc) Cu-type structure. Field-emission scanning electron microscopy and energy-dispersive X-ray spectroscopy (EDS) mapping show uniform distribution of all constituent elements. Magnetic measurements indicate the appearance of a superconducting transition at low temperature, while electrical resistivity remains metallic without reaching zero resistance. This difference between magnetic and transport behaviour suggests that the superconducting state may be limited to local or partial regions within the sample. These findings indicate that the Cu-rich multielement alloy exhibits unusual low-temperature properties and may represent a new class of compositionally complex Cu-based materials with superconducting characteristics.",
+   "url": "https://arxiv.org/abs/2611.02469",
+   "pdf": "https://arxiv.org/pdf/2611.02469",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.02352",
+   "source": "arXiv",
+   "title": "Imaging the Current Distribution in Superconducting Transition-Edge Sensors with Scanning SQUID Microscopy",
+   "authors": [
+    "Samantha Walker",
+    "Austin Kaczmarek",
+    "Douglas A. Bennett",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-11-02",
+   "updated": "2026-11-02",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Transition-edge sensors (TESs) exploit the resistive transition of a superconductor to detect minute changes in temperature. While significant progress has been made in understanding the temperature- and current-dependent resistive transition in these devices, important aspects of TES behavior under bias remain unresolved. In particular, existing TES models largely neglect spatial variations in the superconducting state and current distribution arising from device geometry and proximity effects associated with the superconducting leads and normal metal features. Using scanning superconducting quantum interference device (SQUID) microscopy (SSM), we directly image local superconducting properties and transport current in two molybdenum-gold (MoAu) X-ray TES designs. We measure the local diamagnetic response to identify superconducting regions in devices voltage-biased within the transition and the Oersted field generated by the transport current to reconstruct the corresponding current distribution. We observe bias-dependent reconfigurations of the current distribution that track current-induced changes in superconducting regions, highlighting the importance of mesoscale spatial variations for TES device physics, operation, and design.",
+   "url": "https://arxiv.org/abs/2611.02352",
+   "pdf": "https://arxiv.org/pdf/2611.02352",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "astro-ph.IM",
+    "physics.ins-det"
+   ]
+  },
   {
    "id": "2611.01764",
    "source": "arXiv",
@@ -1282,14 +1390,15 @@
    "authors": [
     "R. L. de Almeida",
     "J. Albino Aguiar",
-    "J. A. H. Coaquira"
+    "C. A. C. Passos",
+    "et al."
    ],
-   "n_authors": 3,
+   "n_authors": 5,
    "date": "2026-10-27",
-   "updated": "2026-10-27",
+   "updated": "2026-11-02",
    "category": "cond-mat.supr-con",
    "cross_list": false,
-   "abstract": "To address the complex interplay of microstructural evolution, phase separation, superconductivity coherence and quantum fluctuations, we prepared Cuxwt%Nb series of granular samples by rapidly cooling, where the niobium concentration varied (x = 3, 5, 15, 20). By employing this method, we successfully obtained samples characterized by well-defined precipitates of niobium, featuring regular sizes and grain spacing. The goal was to establish a systematic and robust method approach for obtaining samples with different of sub-micrometric precipitates distributions but also to investigate their superconducting properties. Structural characterization by optical and Scanning Electron Microscopy, dc Mdc[H,T] ac inductive , as well the magneto-transport measures rhodc[H,T], Rdc[V,I.H,T], I[V,H,T] and [H,T,I] were done. Also, using a micro Hall sensor with 10 measuring transverse voltage bridges regularly distributed, we were able to obtain the real external applied magnetic field value inside of the chamber sample space. Thus e studied the dependence of configuration of the Nb grains in the superconducting coupling order parameter properties that connects the grains superconductors to the normal Cu matrix. We verify through magnetization and transport measures the signature of the double transition. This, when we apply current of different intensities, in the transport measures, and di",
+   "abstract": "We investigate the superconducting behavior, phase coherence, and quantum fluctuation properties of three-dimensional arrays of nanometric Nb Josephson junctions embedded in a normal Cu matrix (Cu-x wt%Nb, x = 3, 5, 15, and 20), with emphasis on the 5 and 15 compositions. Magnetic properties were measured by dc magnetization as a function of temperature and magnetic field using a SQUID magnetometer and by ac susceptibility. Transport properties, including magnetoresistance, V(I) curves, and the critical current Ic(H,T), were measured at fields up to 90 kOe. A micro-Hall sensor with ten transverse voltage bridges (5.0 ×0.2 ×0.01 μm³) was used to calibrate the magnetic field actually applied to the sample. Magnetization and transport measurements reveal a double superconducting transition that depends on the applied field and current: Tc(H), with Tc(0) = 8.2 K, is associated with the intragranular response of the Nb grains, whereas the lower Tc(H) is associated with Josephson coupling between grains through the Cu matrix. The response combines that of bulk Nb with signatures of weakly coupled grains, consistent with a collection of superconducting grains embedded in a nonsuperconducting matrix. The characteristic fields Hc₁ = 400.03 Oe and Hc₂ = 15 kOe (grains), and Hc₁j = 99.93 Oe and Hc₂j = 199.25 Oe (intergranular coupling), were determined. The critical current Ic(H,T) exhibi",
    "url": "https://arxiv.org/abs/2610.36482",
    "pdf": "https://arxiv.org/pdf/2610.36482",
    "journal_ref": "",
@@ -1371,7 +1480,7 @@
    ],
    "n_authors": 15,
    "date": "2026-10-26",
-   "updated": "2026-10-26",
+   "updated": "2026-11-01",
    "category": "cond-mat.supr-con",
    "cross_list": false,
    "abstract": "The superconducting diode effect (SDE) is characterized by unequal critical current magnitudes for opposite-polarity current flow, owing to broken spatial-inversion and time-reversal symmetries. For a superconducting pair wavefunction to spontaneously break inversion symmetry implies the formation of Cooper pairs with nonzero momentum, yielding a nonuniform superconducting state. For singlet superconductors, the formation of such a (FFLO) state has long been understood to provide an escape from high field Pauli pair-breaking – how and why such an effect might occur for equal spin pairing is an open question. Here we report the observation of a large SDE in bulk specimens of the three-dimensional heavy-fermion triplet superconductor UTe₂, with a peak diode efficiency of 33% at the high magnetic field strength of 33.6 T, representing the highest-field observation of the SDE to date. Crucially, this nonreciprocal transport is strictly confined to a narrow field regime where superconductivity coexists with a field-induced spin-polarized state near a first-order metamagnetic phase boundary. The absence of the SDE away from this slender phase-intersection argues strongly against purely extrinsic vortex pinning asymmetries. Instead, our findings indicate spontaneous inversion symmetry breaking accompanied by finite-momentum Cooper pairing. We model this behavior using a phenomenologic",
@@ -2229,117 +2338,6 @@
     "cond-mat.dis-nn",
     "cond-mat.supr-con",
     "quant-ph"
-   ]
-  },
-  {
-   "id": "2610.30056",
-   "source": "arXiv",
-   "title": "High-fidelity and robust controlled-Z gates for superconducting transmon qubits. I. Intrinsic errors and decoherence",
-   "authors": [
-    "Chia-Hsien Huang",
-    "Hsi-Sheng Goan"
-   ],
-   "n_authors": 2,
-   "date": "2026-10-21",
-   "updated": "2026-10-21",
-   "category": "quant-ph",
-   "cross_list": true,
-   "abstract": "Fault-tolerant quantum computing requires quantum gates that combine short duration, high fidelity, and robustness to noise. As quantum processors scale, robustness becomes increasingly important because exhaustive characterization and frequent recalibration of individual gates become impractical. We present a comprehensive optimal-control framework for controlled-Z (CZ) gates between directly coupled, frequency-tunable transmons that systematically accounts for intrinsic Hamiltonian errors and realistic decoherence mechanisms, including energy relaxation and dephasing. Using smooth, single-shot flux pulses, we obtain 12-ns CZ gates–-close to the theoretical speed limit of 11.6 ns–-with intrinsic errors suppressed to the 2×10⁻⁵ level. We construct dephasing noise models, calibrated against published experimental measurements, that capture fast dephasing from room-temperature control electronics and slow dephasing from 1/f flux noise. Using these models, we identify dephasing sweet spots that suppress sensitivity to dephasing noise. We further exploit transmon asymmetry as a design parameter to access distinct noise-resilient operating regimes. These results establish an experimentally applicable framework for balancing gate speed, fidelity, and noise robustness while reducing characterization and recalibration overhead.",
-   "url": "https://arxiv.org/abs/2610.30056",
-   "pdf": "https://arxiv.org/pdf/2610.30056",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "theory",
-   "categories": [
-    "quant-ph",
-    "cond-mat.mes-hall",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.29973",
-   "source": "arXiv",
-   "title": "NTL amplification in a SuperCDMS-style detector fabricated from a University of South Dakota-grown germanium crystal",
-   "authors": [
-    "Dongming Mei",
-    "Gerardo Gonzalez",
-    "William Baker",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-21",
-   "updated": "2026-10-21",
-   "category": "physics.ins-det",
-   "cross_list": true,
-   "abstract": "Neganov-Trofimov-Luke (NTL) amplification enables eV-sub-keV detection thresholds for low-mass dark-matter and coherent elastic neutrino-nucleus scattering experiments. We evaluated two University of South Dakota (USD)-grown germanium crystals fabricated as SuperCDMS-style four-channel athermal-phonon detectors and operated near 10 mK. The crystals had electrically active impurity concentrations near 10¹0 mathrm⁻3 and etch-pit densities of 300-7000 mathrm⁻2. Contact-free biasing produced no resolvable amplification. However, after depositing a 600 nm aluminum bias contact, Detector~2 exhibited clear voltage-dependent NTL gain. The reconstructed channel-B energy increased from approximately 3.9 keV at 0 V to 34.9 keV at 40 V, corresponding to an 8.9-fold enhancement. Statistical centroid uncertainties were below 0.3%, while low-bias fits yielded effective prompt- and NTL-phonon response coefficients of (6.77±0.82)% and (4.77±0.20)%, respectively, excluding systematic uncertainties. These results demonstrate the feasibility of USD-grown germanium for SuperCDMS-style high-voltage phonon detectors and highlight the importance of both crystal quality and contact fabrication in achieving NTL amplification.",
-   "url": "https://arxiv.org/abs/2610.29973",
-   "pdf": "https://arxiv.org/pdf/2610.29973",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Iron-based"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "physics.ins-det",
-    "cond-mat.supr-con",
-    "hep-ex",
-    "nucl-ex"
-   ]
-  },
-  {
-   "id": "2610.29892",
-   "source": "arXiv",
-   "title": "Unambiguous determination of the THz conductivity in driven YBa₂Cu₃O₆₊ₓ",
-   "authors": [
-    "K. Kaj",
-    "K. H. Martens",
-    "D. Choi",
-    "et al."
-   ],
-   "n_authors": 8,
-   "date": "2026-10-21",
-   "updated": "2026-10-21",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Mid-infrared pump, THz probe experiments in YBa₂Cu₃O₆₊ₓ yield evidence of a high-temperature transient state of the material with the optical properties of a superconductor. However, there are ambiguities in the extracted transient c-axis THz optical properties, primarily resulting from the sublinear growth of the THz response with increasing mid-infrared pump fluence. It was proposed that this effect may be related to saturation of the material's response, which would then perturb its spatial profile and lead one to overestimate the induced change in the transient optical properties. Yet, sublinear growth of the signal could also arise from other effects unrelated to saturation, for example from a change in reflectivity or deposition depth for the pump pulses. Here, we remove this ambiguity by experimentally measuring the fluence-dependent complex optical constants at the 15-20 THz frequencies of the pump. We show that the observed sublinear growth is to be attributed in large part to the enhanced reflection and reduced penetration depth of the pump field at high fluences. When taking into account these findings, we confirm the original interpretation of a light-induced superconducting state both qualitatively and quantitatively.",
-   "url": "https://arxiv.org/abs/2610.29892",
-   "pdf": "https://arxiv.org/pdf/2610.29892",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Cuprates"
-   ],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.str-el",
-    "physics.optics"
-   ]
-  },
-  {
-   "id": "2610.29644",
-   "source": "arXiv",
-   "title": "Geometrization of continuum mechanics and nonequilibrium thermodynamics: Heat conduction",
-   "authors": [
-    "Ilya Peshkov"
-   ],
-   "n_authors": 1,
-   "date": "2026-10-21",
-   "updated": "2026-10-21",
-   "category": "math-ph",
-   "cross_list": true,
-   "abstract": "We propose a geometric formulation of non-equilibrium heat conduction. It combines the variational (Hamiltonian) structure of symmetric hyperbolic thermodynamically compatible (SHTC) equations with the exterior calculus of differential forms. The central object is the thermal impulse one-form on the four-dimensional matter-time manifold. Its time component is the temperature, and for reversible (ballistic) heat transport it is the exact differential of a scalar potential (i.e. it is holonomic). Non-equilibrium effects are described by a second one-form, the small-scale thermal impulse, which is not required to be exact. Its time component is a fluctuating temperature, and its exterior derivative, the four-thermal vorticity, satisfies a Bianchi-type kinematic identity. The variational principle together with this identity yields a non-equilibrium two-temperature model. Its field equations have the same structure as Maxwell's equations in a medium, with the thermal impulse field, the thermal vorticity field and a thermal Poynting vector contributing to the heat flux. Dissipation is introduced through relaxation terms that conserve the total energy and produce entropy. A formal asymptotic analysis shows that, in the relaxation limit, the model reduces to a Guyer-Krumhansl-type heat conduction with independent transverse and longitudinal length scales. The transverse nonlocal term ",
-   "url": "https://arxiv.org/abs/2610.29644",
-   "pdf": "https://arxiv.org/pdf/2610.29644",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "theory",
-   "categories": [
-    "math-ph",
-    "cond-mat.supr-con"
    ]
   }
  ],
