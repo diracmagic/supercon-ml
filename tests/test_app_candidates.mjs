@@ -275,15 +275,37 @@ test('literature statuses preserve unknown outcomes and a missing record stays u
 
 test('DFT hull stability cannot stand in for an experimentally linked crystal structure', () => {
   const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
-  const context = { candidateData: candidates, CHECK_LABEL: { dft: 'Computed' }, MCMILLAN_K: 40, WORTH_P: .5,
+  const context = { candidateData: candidates, CHECK_LABEL: { dft: 'Computed', experiment: 'Measured' }, MCMILLAN_K: 40, WORTH_P: .5, TESTABLE_K: 2,
     REFS: { first: {}, second: {} } };
-  vm.runInNewContext(source + '\nglobalThis.rules = {candWorthTests, candMcm};', context);
+  vm.runInNewContext(source + '\nglobalThis.rules = {candWorthTests, candTestableTests, candMcm};', context);
   const hypothetical = {formula: 'Example', tc: 55, lo: 45, hi: 65, p_sc: .8, novelty: .2,
     ehull: 0, icsd: false, check: {kind: 'dft', tc: 52, superconducts: true}};
   assert.equal(context.rules.candWorthTests(hypothetical, false).made, false);
   assert.equal(context.rules.candMcm(hypothetical, false), '');
   assert.equal(context.rules.candMcm({...hypothetical, icsd: true}, false), 'worth');
   assert.equal(context.rules.candMcm({...hypothetical, icsd: true, outside: true}, false), '');
+});
+
+test('the testable tier needs 2 K, an even chance, proximity, an ICSD structure and no measurement, and never outranks 40 K', () => {
+  const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
+  const context = { candidateData: candidates, CHECK_LABEL: { dft: 'Computed', experiment: 'Measured' }, MCMILLAN_K: 40, WORTH_P: .5, TESTABLE_K: 2,
+    REFS: { first: {}, second: {} } };
+  vm.runInNewContext(source + '\nglobalThis.rules = {candTestableTests, candMcm};', context);
+  const low = {formula: 'Example', tc: 3.1, lo: 1.2, hi: 6.7, p_sc: .63, novelty: .9, ehull: 0, icsd: true};
+  assert.equal(context.rules.candMcm(low, false), 'testable');
+  assert.deepEqual({ ...context.rules.candTestableTests(low, false) }, { reach: true, likely: true, inside: true, made: true, measured: false });
+  assert.equal(context.rules.candMcm({...low, tc: 1.9}, false), '');
+  assert.equal(context.rules.candMcm({...low, p_sc: .49}, false), '');
+  assert.equal(context.rules.candMcm({...low, icsd: false}, false), '');
+  assert.equal(context.rules.candMcm({...low, outside: true}, false), '');
+  assert.equal(context.rules.candMcm({...low, novelty: 1.2}, false), '');
+  assert.equal(context.rules.candMcm({...low, check: {kind: 'experiment', tc: 2.8, superconducts: true}}, false), '');
+  assert.equal(context.rules.candMcm({...low, check: {kind: 'experiment', superconducts: false}}, false), '');
+  assert.equal(context.rules.candMcm({...low, check: {kind: 'dft', tc: 3.0, superconducts: true}}, false), 'testable');
+  assert.equal(context.rules.candMcm({...low, tc: 55, lo: 45, hi: 65}, false), 'worth');
+  const hurricane = {formula: 'Example', tc: 1.0, tc_sc: 4.4, lo: .7, hi: 15, p_sc: .55, novelty: .5, icsd: true};
+  assert.equal(context.rules.candMcm(hurricane, true), 'testable');
+  assert.equal(context.rules.candMcm({...hurricane, tc_sc: 1.5}, true), '');
 });
 
 test('literature lookup uses exact ids and gives inline records precedence over the static table', () => {
