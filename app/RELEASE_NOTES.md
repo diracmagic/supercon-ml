@@ -1,5 +1,9 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.20 adds:
+
+- **Fewer GitHub requests:** GitHub runs and commits now refresh every 15 minutes (every 5 while a run is active) instead of every 3, and not while the app is in the background. GitHub allows 60 such requests per hour for each network address, and two open copies of the app used them all. Progress data still refreshes every few minutes, and the refresh button always fetches everything.
+
 Version 0.3.19 adds:
 
 - **Animated unsupervised results:** replaces the highlight-only view with a step-by-step animation of the audited Storm 7 and Hurricane 8 results. The underlying audited values remain fixed during animation. No new model was adopted.
