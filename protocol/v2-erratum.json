@@ -1,0 +1,8 @@
+{
+  "protocol_sha256": "fa46fbc0cce710e7dad454fa4f0c27bfa5477cc36d39b1a451cc1e99b6f88d60",
+  "recorded_at_local": "2026-11-02T22:16:54.044375-06:00",
+  "field": "solver.selection",
+  "issue": "The phrase two fixed seeds was inherited from v1; v2 initialization_seeds explicitly lists four.",
+  "authoritative_execution": "Use all four explicit seeds [7,107,207,307], select lowest finite final energy.",
+  "scope": "Metadata wording erratum only. No seed, optimizer, accuracy gate, runtime gate, downstream arm or decision rule changes. No material outcomes observed."
+}
