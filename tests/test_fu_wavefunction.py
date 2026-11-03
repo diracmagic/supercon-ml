@@ -1,5 +1,6 @@
 """Independent physics and fermionic-function checks, without model-target fits."""
 import itertools
+import importlib.util
 from pathlib import Path
 import sys
 import unittest
@@ -70,6 +71,8 @@ class FermionPhysicsTests(unittest.TestCase):
             trial = np.arange(1, len(keep) + 1, dtype=float)
             self.assertGreaterEqual(F.rayleigh_quotient(trial, dimer), analytic - 1e-12)
 
+    @unittest.skipUnless(importlib.util.find_spec("jax") and importlib.util.find_spec("optax"),
+                         "JAX/Optax physics checks run in the mandatory dedicated Fu workflow")
     def test_antisymmetry_pooling_and_pauli_zero(self):
         params = F.initialize_parameters(7)
         original = np.asarray([0, 3, 4, 7])
@@ -108,6 +111,8 @@ class FermionPhysicsTests(unittest.TestCase):
         self.assertAlmostEqual(F.learning_rate_at_step(1999, v2), .00001, places=14)
         self.assertGreater(F.learning_rate_at_step(100, v2), F.learning_rate_at_step(1000, v2))
 
+    @unittest.skipUnless(importlib.util.find_spec("jax") and importlib.util.find_spec("optax"),
+                         "JAX/Optax physics checks run in the mandatory dedicated Fu workflow")
     def test_saved_state_reconstruction_and_corruption_rejection(self):
         params = F.initialize_parameters(7)
         H, basis = F.build_hamiltonian(0, 0, 1, 1)

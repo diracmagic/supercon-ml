@@ -1,6 +1,7 @@
 """Meaningful mapping/QC tests; no supervised fitting or material labels."""
 from itertools import permutations
 import unittest
+import importlib.util
 
 from ase import Atoms
 from ase.build import bulk
@@ -76,6 +77,8 @@ class CrystalMappingTests(unittest.TestCase):
         changed, _ = self.assertMapped(crystal)
         np.testing.assert_array_equal(changed, reference)
 
+    @unittest.skipUnless(importlib.util.find_spec("jarvis"),
+                         "JARVIS adapter is exercised in the mandatory dedicated Fu workflow")
     def test_jarvis_object_and_complete_tetrahedral_graph(self):
         from jarvis.core.atoms import Atoms as JarvisAtoms
 
