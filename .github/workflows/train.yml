@@ -30,9 +30,10 @@ env:
   OMP_NUM_THREADS: '2'
   OPENBLAS_NUM_THREADS: '2'
   MKL_NUM_THREADS: '2'
-  # One floating-point path on every hosted runner. Runners differ (AVX-512 Intel or AVX2 AMD); numpy's dispatched
-  # exp/log and OpenBLAS's kernels then differ in the last bits, which alone moved Storm's MAE by 0.006 K between two
-  # runs of the same code (reproduction check, 2026-11-02). numpy's AVX-512 dispatch is switched off after installation.
+  # Mitigation, not validated as guaranteeing equality across hardware: one floating-point path on hosted runners.
+  # Runners differ (AVX-512 Intel or AVX2 AMD), and numpy's dispatched exp/log and OpenBLAS's kernels can then differ
+  # in the last bits; Storm forecasts are sensitive to 1-ulp input changes (R-006 checks, 2026-11-02). numpy's
+  # AVX-512 dispatch is switched off after installation.
   OPENBLAS_CORETYPE: 'Haswell'
   MKL_CBWR: 'AVX2'
 
@@ -80,7 +81,7 @@ jobs:
             echo "NPY_DISABLE_CPU_FEATURES=$NPY_DISABLE_CPU_FEATURES OPENBLAS_CORETYPE=$OPENBLAS_CORETYPE MKL_CBWR=$MKL_CBWR"
             lscpu
             python -c "import numpy; numpy.show_runtime()"
-            python -c "import json, threadpoolctl; print(json.dumps(threadpoolctl.threadpool_info(), indent=1))" || true
+            python -m threadpoolctl -i numpy scipy.linalg sklearn.ensemble || true
             pip freeze
           } 2>&1 | tee "$RUNNER_TEMP/hardware/runtime.txt"
           python - <<'PY'
