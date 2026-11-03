@@ -2,7 +2,7 @@
   "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
-  "css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
+  "css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
   "scope_checks": {
     "top_level_this": false,
     "top_level_return": false,
@@ -140,6 +140,7 @@
     "MCMILLAN_K",
     "WORTH_P",
     "WORTH_HULL",
+    "TESTABLE_K",
     "XT",
     "XT_SPEED",
     "XT_YAW0",
@@ -529,10 +530,11 @@
     "candTcSc": "926f2b6451e3b222b3fb628e60083d69d89b06c94ef862fae8a4c922ecc5e903",
     "candChecked": "70cb0908e9f2a96af6bb9b845b7a4fa1b1c1bd0789e73c977c643ff2df0ccce1",
     "candWorthTests": "2373b5402943b14ad2866a5828c257dcd438fa56325d3e544337e94c29353ef8",
-    "candMcm": "168c23bd4b82c2f48fceac98cf6e3fb900489192ea3006aa0fdc992bef3d6ac0",
+    "candTestableTests": "293e966f535f5a612b29ed099436e72decb70ad149e38d7615fad2aab3809600",
+    "candMcm": "9bd4163c820e2b43e81fda456cc3b1e571f0609127b43e6ad0003f3af8dcc689",
     "candMcmAll": "237ba9bbda1bb89b49921802d39e52508b72f97c811e8aa73d3ec651edacad5e",
-    "candMcmChips": "0256efd4e4b30697cf060a63f1d76ff007f675d787416d2389068b57a986c813",
-    "candMcmBanner": "bf0ff8ebc3c9f4a927ebf4427b56bebf1faeb8caa97c5f0552e4f39a6ffc8a41",
+    "candMcmChips": "97811282238f8930ce6ec4a90746849a033e741afb1ed031eacf9a97b5286ae3",
+    "candMcmBanner": "a3a55dac272bbcfd150a165bbfe965b2702efe62e724f14bd14a71411796a407",
     "candGo": "6ef03d9a920451afffb40d428e50ea9ccf8cc8934b368e4d95e3c6a339dc883a",
     "candRemarks": "a5a3de38e7af03677a7b004160b1edaf48cbc82907b3aa30414ba9ea9aba7e75",
     "candListedText": "e798428b8f91bf42469a328f27918bb7074c83ada058449e4e635239b4fa3bd7",
@@ -545,10 +547,10 @@
     "candTrack": "c64ec36a1ea20b3f8ab0859989c36d15348bd7dcd87c1028425ad15f2ff380f3",
     "candArchive": "b168ca844115c6815c7b6e9c35471a050324a69a7246811172d33d6f11472338",
     "candModel": "f91855703dfffa4949bde6c1b4301c1de8d1699614e2d803da641cb6032ea5b5",
-    "renderCandidates": "a31d52a7a1de9391aff4da7b2d449e46ca953beac8b3d677d6ced2305243729c",
+    "renderCandidates": "bfc4b1d9e3526d4ce43086ed9522721ecef3bb5eaf893528086be154c0a78222",
     "candTellUs": "c4e2ef3c3b7fd11b4442678f2be13a5525d91d7c7077fab18746c0d26602bd32",
     "candSelect": "73ef0bc4418f1763c2307f182641dc7c83f3ae236802832c3268e8b4d5698dc9",
-    "candViewer": "dd832d9b522491d8a559f35507e3017a9fb9bb11ae454a3f5810e7058d594bb8",
+    "candViewer": "1f3852a087bf897137f16f4117ace538e4ee045a14803b12e39500b64b24891e",
     "xtSync": "7bedc96ae35c90d7b5a1389626b937ffd45e248ce351eeec1852985a0b166131",
     "xtAlt": "608c859a749f06a481d273b00fd8bf598bdbbbdf19a01e7cde2c902c4b9ad1a2",
     "xtCellText": "f28c04f54b64dc1090578798659b982707134aebf852a52a6ba68adda2fb4c8a",
@@ -596,7 +598,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "63f03f795694d67d78d0cae3dbe4081e57a1b7196f5d54036d636c0b07fb6ae5",
+    "aabbf5952eac498e1aa37831edd991acd2e9f5d9be20baa9b22152cb99f6a43a",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -743,6 +745,7 @@
     "457e9f69fb97f7e12a378c9df1d83c772607062f2e1dac5fad8e192b0c956608",
     "177d79d4f41d3addc452ae81e460da767fbeddb7afd95d31a3cff48c8fed5d60",
     "a576ba3c8950d65d90e9ea595d872d59d4f6dc8bae8f1307edfd0fb7bb1f7e50",
+    "edcb33c84871297de54f816b6dd87e30bf82d7b57f9e1d5442eb31a6a84d726b",
     "f582291a43015f3f28d28c49a8f23e7029ccc535ec4ae4427ffde5464a06530b",
     "8d90ee676e9dc7dff8e86a0ee77242cc3027d3ac2d3f1c2b16f7757540e2bfb5",
     "293c5cf8c3cee4301d7d10ecdce880f5b9260b63c28c01a805e9b15ec7cf1321",
@@ -849,8 +852,8 @@
     "initialization": "8e4e0a8ac6baf038aae01f9e1ffdd3511623ae2eaa0f048b5af620cb4da5b0a6"
   },
   "reviewed_revision": {
-    "reviewed_on": "2026-11-02",
-    "purpose": "Release0.3.20: fewer unauthenticated GitHub API requests; runs and commits refresh at most every 15 minutes (5 while a run is active) and not in the background, the refresh button forces a full refresh; progress data, models and results unchanged",
+    "reviewed_on": "2026-11-03",
+    "purpose": "Release0.3.21: Candidates gains a lower 'testable prediction' tier (predicted Tc >= 2 K, model score >= 0.5, near the training data, ICSD-linked, no experimental check yet) with its own banner, row badge, detail note and dashed styling; the 40 K tier, the lists, the models and the results are unchanged",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -890,27 +893,34 @@
       "private team content excluded from public method sources",
       "same original miniature animations and reduced-motion lifecycle",
       "private team content excluded from public method sources",
-      "same original miniature animations and reduced-motion lifecycle"
+      "same original miniature animations and reduced-motion lifecycle",
+      "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier"
     ],
     "previous_css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
-    "functions_added": [],
+    "functions_added": [
+      "candTestableTests"
+    ],
     "functions_removed": [],
     "previous_removed_functions": {},
     "functions_changed": [
-      "loadGitHub",
-      "refreshAll"
+      "candMcm",
+      "candMcmChips",
+      "candMcmBanner",
+      "renderCandidates",
+      "candViewer"
     ],
     "initializers_changed": [
-      0,
-      160
+      0
     ],
     "previous_function_changes": {
-      "loadGitHub": "cefaf75951bf503fac330bd1d26c4c0ecbfd48c0922863ca684400a669ade3de",
-      "refreshAll": "6e96eaa0eb43a1bd72cd57cf0d35938a561d92df2b03c4cabff94218bfe91688"
+      "candMcm": "168c23bd4b82c2f48fceac98cf6e3fb900489192ea3006aa0fdc992bef3d6ac0",
+      "candMcmChips": "0256efd4e4b30697cf060a63f1d76ff007f675d787416d2389068b57a986c813",
+      "candMcmBanner": "bf0ff8ebc3c9f4a927ebf4427b56bebf1faeb8caa97c5f0552e4f39a6ffc8a41",
+      "renderCandidates": "a31d52a7a1de9391aff4da7b2d449e46ca953beac8b3d677d6ced2305243729c",
+      "candViewer": "dd832d9b522491d8a559f35507e3017a9fb9bb11ae454a3f5810e7058d594bb8"
     },
     "previous_initialization_changes": {
-      "0": "7c2899ecedad41943d6cd43b3161f094bf29ac779a9586b268c269d6bff0dbbc",
-      "160": "8f73a31ed4956c44b2ddb8d437ef50db1e2c96ee881c043a0dfd534a8df766ef"
+      "0": "63f03f795694d67d78d0cae3dbe4081e57a1b7196f5d54036d636c0b07fb6ae5"
     },
     "additional_source_sha256": {
       "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
@@ -921,7 +931,13 @@
       "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
       "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
       "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
-    }
+    },
+    "initializers_added": [
+      147
+    ],
+    "bindings_added": [
+      "TESTABLE_K"
+    ]
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
   "styles": [
@@ -1014,9 +1030,9 @@
     },
     {
       "path": "review-history-15.json",
-      "sha256": "87f710d3fc9084b89dad313686ff4aab9150bf2d65a9bcb4e8844660122b3d17",
-      "count": 1
+      "sha256": "75f160d6d3940dd24ba16c0a24be963f956b5e3753967e7cffa5c962a436cdd4",
+      "count": 2
     }
   ],
-  "reviewed_revision_count": 19
+  "reviewed_revision_count": 20
 }
