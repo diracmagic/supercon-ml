@@ -3,7 +3,7 @@
 const initializeSuperconCore = function initializeSuperconCore() {
 
 
-  APP_VERSION = '0.3.20';
+  APP_VERSION = '0.3.21';
 
   REPO = 'diracmagic/supercon-ml';
 
