@@ -72,9 +72,8 @@ def array_sha256(X):
     return hashlib.sha256(np.where(np.isnan(X), np.nan, X).tobytes()).hexdigest()
 
 
-def freeze_protocol(output_dir, *, smoke=False):
-    out = Path(output_dir)
-    out.mkdir(parents=True, exist_ok=True)
+def build_protocol(*, smoke=False):
+    """The protocol, its canonical bytes and their SHA-256, computed in memory: nothing is written."""
     sources = [Path(__file__), Path(S.__file__), Path(P.__file__), Path(S.MF.__file__), P.ROOT / "ml" / "requirements.txt"]
     protocol = {
         "version": VERSION, "adopted": False, "report_only": True, "smoke": bool(smoke),
@@ -122,9 +121,9 @@ def freeze_protocol(output_dir, *, smoke=False):
                      "no value) is reported alongside as the missingness control, and a gain is attributed to the values only if "
                      "P1 also improves on PM. Coverage and mismatch reasons are reported overall, per held-out fold, in the top-10% "
                      "tail and in the OOD subgroup. The coverage floor is a policy choice"),
-        "real_entry_point": ("A real run reads the reviewed frozen file results/validation/storm8-protocol-v1/protocol.json before "
-                             "generating anything, refuses an alias to its own output, and refuses to load data unless the protocol "
-                             "it generates equals those pre-existing reviewed bytes; CI compares it as well"),
+        "real_entry_point": ("A real run reads the reviewed frozen file results/validation/storm8-protocol-v1/protocol.json and "
+                             "compares it with the protocol built in memory before writing anything, refuses an alias to its own "
+                             "output, and refuses to load data unless the bytes are equal; CI compares it as well"),
         "shifted_forecasts": "The P0 and P1 forecasts of both 1-ulp refits are saved per row (shifted-forecasts.csv) as each completes",
         "bootstrap": ("storm6.paired_bootstrap: chemical systems resampled with replacement with all their rows; delta = sum of "
                       "row (|y-P1| - |y-P0|) over sampled rows / number of sampled rows; 1000 draws from numpy default_rng(7); "
@@ -162,11 +161,17 @@ def freeze_protocol(output_dir, *, smoke=False):
         "publication": "All three designs reported; adopted=false always; no winner or release rule",
     }
     payload = (json.dumps(protocol, sort_keys=True, separators=(",", ":"), allow_nan=False) + "\n").encode()
+    return protocol, payload, hashlib.sha256(payload).hexdigest()
+
+
+def freeze_protocol(output_dir, *, smoke=False):
+    protocol, payload, digest = build_protocol(smoke=smoke)
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
     path = out / "protocol.json"
     if path.exists() and path.read_bytes() != payload:
         raise ValueError("Refusing to overwrite a different frozen Storm8 protocol")
     path.write_bytes(payload)
-    digest = hashlib.sha256(payload).hexdigest()
     (out / "protocol.sha256").write_text(digest + "\n", encoding="utf-8")
     return protocol, digest
 
@@ -521,16 +526,18 @@ def run(smoke=False, output_dir=None, *, offline=False, reviewed_protocol=REVIEW
     out = Path(output_dir) if output_dir is not None else P.RESULTS / "storm8" / identity["run_id"]
     if (out / "run.json").exists() or (out / "report.json").exists():
         raise ValueError("Storm8 run directory is non-overwriting; use a new directory")
-    if not smoke:  # Every real entry point needs a pre-existing reviewed frozen protocol, read before anything is generated.
+    if not smoke:  # Every real entry point needs a pre-existing reviewed frozen protocol, read and compared before anything is written.
         reviewed = Path(reviewed_protocol)
         if reviewed.resolve() == (out / "protocol.json").resolve():
             raise ValueError("Real Storm8 run refused: the reviewed protocol path must not be the run's own output")
         if not reviewed.is_file():
             raise ValueError(f"Real Storm8 run refused: no reviewed frozen file at {reviewed}")
         reviewed_bytes = reviewed.read_bytes()
+        if build_protocol(smoke=False)[1] != reviewed_bytes:
+            raise ValueError(f"Real Storm8 run refused: the generated protocol does not equal the reviewed frozen file {reviewed}")
     protocol, digest = freeze_protocol(out, smoke=smoke)  # Must precede data, inputs and targets.
     if not smoke and reviewed_bytes != (out / "protocol.json").read_bytes():
-        raise ValueError(f"Real Storm8 run refused: the generated protocol does not equal the reviewed frozen file {reviewed}")
+        raise ValueError(f"Real Storm8 run refused: the written protocol does not equal the reviewed frozen file {reviewed}")
     _json(out / "run.json", {**identity, "protocol_sha256": digest, "reviewed_protocol": None if smoke else str(reviewed_protocol)})
     report = {**identity, "version": VERSION, "protocol_sha256": digest, "smoke": bool(smoke), "adopted": False,
               "report_only": True, "status": "preparing", "output_dir": str(out), "target": protocol["target"],
