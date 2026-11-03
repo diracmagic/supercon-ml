@@ -2,6 +2,7 @@ import json
 import sys
 import tempfile
 import unittest
+import urllib.error
 import urllib.parse
 from pathlib import Path
 
@@ -113,6 +114,51 @@ class Storm8Tests(unittest.TestCase):
         broken = record(base)
         del broken["species"]
         self.assertEqual(S.same_structure(base, broken), "mismatch_unreadable")
+        # Codex R-006 F-8: short-axis strain of an anisotropic cell, which the old largest-axis tolerance accepted.
+        thin = {"lattice_mat": np.diag([3., 3., 30.]).tolist(), "elements": ["Si", "Si"], "coords": [[0, 0, 0], [.4, 0, 0]], "cartesian": False}
+        strained = record(thin)
+        strained["lattice_vectors"] = np.diag([3.01, 3., 30.]).tolist()
+        self.assertEqual(S.same_structure(thin, strained), "mismatch_cell")
+        long = {"lattice_mat": np.diag([100., 3., 3.]).tolist(), "elements": ["Si", "Si"], "coords": [[0, 0, 0], [.4, 0, 0]], "cartesian": False}
+        swollen = record(long)
+        swollen["lattice_vectors"] = np.diag([100., 3.1, 3.1]).tolist()
+        self.assertEqual(S.same_structure(long, swollen), "mismatch_cell")
+        self.assertEqual(S.same_structure(thin, record(thin)), "ok")
+        # F-9: a site count that contradicts the site arrays. F-10: non-finite or partial occupancy.
+        counted = record(base)
+        counted["nsites"] = 999
+        self.assertEqual(S.same_structure(base, counted), "mismatch_nsites")
+        for concentration in ([float("nan")], [.5], [1.0, 0.0]):
+            occupied = record(base)
+            occupied["species"][0]["concentration"] = concentration
+            if len(concentration) == 2:
+                occupied["species"][0]["chemical_symbols"] = [occupied["species"][0]["chemical_symbols"][0], "vacancy"]
+            self.assertEqual(S.same_structure(base, occupied), "mismatch_occupancy")
+
+    def test_missingness_control_uses_availability_only(self):
+        E = self.E.copy()
+        E[::3] = np.nan
+        pm = S.forecast("PM", self.D[self.train], self.G[self.train], E[self.train], self.y[self.train],
+                        self.D[self.test], self.G[self.test], E[self.test], fold=0, params=S.SMOKE_PARAMS)
+        self.assertEqual(pm[1]["electronic_keep"], "availability_indicator")
+        scaled = E * 1e3  # The indicator cannot see the values, only whether they are there.
+        np.testing.assert_array_equal(pm[0], self.forecast("PM", E=scaled))
+        np.testing.assert_array_equal(self.forecast("PM"), self.forecast("P0"))  # constant indicator: no split possible
+
+    def test_spearman_is_none_when_undefined(self):
+        self.assertIsNone(S._spearman(np.zeros(5), np.arange(5.)))
+        self.assertIsNone(S._spearman(np.array([1., np.nan, 2.]), np.array([1., 2., 3.])))
+        self.assertAlmostEqual(S._spearman(np.arange(5.), np.arange(5.) ** 2), 1.0)
+
+    def test_real_run_requires_the_reviewed_protocol(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(ValueError, "reviewed frozen file"):
+                S.run(smoke=False, output_dir=Path(tmp) / "run", reviewed_protocol=Path(tmp) / "missing.json")
+            self.assertFalse((Path(tmp) / "run" / "run.json").exists())  # refused before any data or target was touched
+            other = Path(tmp) / "other.json"
+            other.write_bytes(b"{}\n")
+            with self.assertRaisesRegex(ValueError, "reviewed frozen file"):
+                S.run(smoke=False, output_dir=Path(tmp) / "run2", reviewed_protocol=other)
 
     def test_electronic_inputs_normalise_and_flag_every_row(self):
         a, b = atoms(["Al", "V", "V", "V"]), atoms(["Nb"])
@@ -148,6 +194,32 @@ class Storm8Tests(unittest.TestCase):
             raw.write_bytes(raw.read_bytes() + b" ")
             with self.assertRaisesRegex(ValueError, "changed"):
                 S.fetch_electronic(ids, tmp, get=refuse, offline=True)
+
+    def test_fetch_preserves_partial_evidence_on_failure(self):
+        ids = [f"agm{i:09d}" for i in range(60)]
+        records = {i: record(atoms(["Nb"]), 1.0 + k) for k, i in enumerate(ids)}
+        calls = []
+
+        def flaky(url):
+            calls.append(url)
+            if len(calls) == 2:
+                raise urllib.error.URLError("connection lost")
+            return FakeOptimade(records)(url)
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshot, progress = Path(tmp) / "run" / "optimade", Path(tmp) / "run" / "optimade-progress.json"
+            with self.assertRaises(urllib.error.URLError):
+                S.fetch_electronic(ids, Path(tmp) / "cache", get=flaky, retries=0, pause=0, snapshot_dir=snapshot, progress_path=progress)
+            state = json.loads(progress.read_text())
+            self.assertEqual((state["status"], state["pages_completed"], len(state["pages"])), ("failed", 1, 1))
+            self.assertIn("URLError", state["error"])
+            self.assertTrue((snapshot / f"{state['pages'][0]['sha256']}.json").is_file())
+            self.assertFalse(list((Path(tmp) / "cache").glob("manifest-*.json")))  # no complete manifest was claimed
+            got, manifest, _ = S.fetch_electronic(ids, Path(tmp) / "cache", get=FakeOptimade(records), pause=0,
+                                                  snapshot_dir=snapshot, progress_path=progress)
+            self.assertEqual(len(got), 60)
+            self.assertEqual(json.loads(progress.read_text())["status"], "completed")
+            self.assertEqual({p.name for p in snapshot.glob("*.json")}, {f"{p['sha256']}.json" for p in manifest["pages"]})
+            self.assertIn(f"{state['pages'][0]['sha256']}.json", {p.name for p in snapshot.glob("*.json")})  # kept by content hash
 
     def test_fetch_rejects_filter_injection_and_unrequested_records(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -199,8 +271,12 @@ class Storm8Tests(unittest.TestCase):
             report = S.run(smoke=True, output_dir=Path(tmp) / "run")
             self.assertEqual(report["status"], "completed")
             self.assertFalse(report["adopted"])
-            self.assertEqual(set(report["designs"]), {"P0", "P1"})
+            self.assertEqual(set(report["designs"]), {"P0", "P1", "PM"})
             self.assertIn("overall", report["paired_P1_minus_P0"])
+            self.assertEqual(set(report["missingness_control"]), {"descriptive_only", "PM_minus_P0", "P1_minus_PM", "reading"})
+            self.assertEqual(set(report["electronic_inputs"]["coverage_by"]["fold"]), {"1", "2", "3", "4", "5"})
+            header = (Path(tmp) / "run" / "predictions.csv").read_text().splitlines()[0]
+            self.assertEqual(header, "id,chemsys,fold,tc_target_dft_k,p0_pred_k,p1_pred_k,pm_pred_k,all_electronic_inputs_available,ood")
             self.assertIn("prespecified_gain_rule_met", report["decision"])
             self.assertEqual(set(report["decision"]["conditions"]), {"coverage_floor_met", "main_rule_met", "robust_under_1ulp_refits"})
             self.assertEqual(set(report["refits_under_1ulp_shifts"]), {"plus_1ulp", "minus_1ulp"})
