@@ -530,11 +530,12 @@
     "candTcSc": "926f2b6451e3b222b3fb628e60083d69d89b06c94ef862fae8a4c922ecc5e903",
     "candChecked": "70cb0908e9f2a96af6bb9b845b7a4fa1b1c1bd0789e73c977c643ff2df0ccce1",
     "candWorthTests": "2373b5402943b14ad2866a5828c257dcd438fa56325d3e544337e94c29353ef8",
-    "candTestableTests": "293e966f535f5a612b29ed099436e72decb70ad149e38d7615fad2aab3809600",
-    "candMcm": "9bd4163c820e2b43e81fda456cc3b1e571f0609127b43e6ad0003f3af8dcc689",
+    "candTestableTests": "060dae447a93728bacd7412cfe566bf27e6ba0c7155a1172cdae977f472a5b87",
+    "candTestableNote": "0dfe5631e35bf77774e9c6e6b2e88c24c7b03dc94cd978d298c57f4c06bcaf12",
+    "candMcm": "00bc7f55dceb627ce8220600bb5cf25352f983a343cd06489c8b8bbe64de720e",
     "candMcmAll": "237ba9bbda1bb89b49921802d39e52508b72f97c811e8aa73d3ec651edacad5e",
     "candMcmChips": "97811282238f8930ce6ec4a90746849a033e741afb1ed031eacf9a97b5286ae3",
-    "candMcmBanner": "a3a55dac272bbcfd150a165bbfe965b2702efe62e724f14bd14a71411796a407",
+    "candMcmBanner": "f34145627a722794118783cbf08cf32fb1b12129e9d6d0b51ad691b2677cb9d9",
     "candGo": "6ef03d9a920451afffb40d428e50ea9ccf8cc8934b368e4d95e3c6a339dc883a",
     "candRemarks": "a5a3de38e7af03677a7b004160b1edaf48cbc82907b3aa30414ba9ea9aba7e75",
     "candListedText": "e798428b8f91bf42469a328f27918bb7074c83ada058449e4e635239b4fa3bd7",
@@ -547,10 +548,10 @@
     "candTrack": "c64ec36a1ea20b3f8ab0859989c36d15348bd7dcd87c1028425ad15f2ff380f3",
     "candArchive": "b168ca844115c6815c7b6e9c35471a050324a69a7246811172d33d6f11472338",
     "candModel": "f91855703dfffa4949bde6c1b4301c1de8d1699614e2d803da641cb6032ea5b5",
-    "renderCandidates": "bfc4b1d9e3526d4ce43086ed9522721ecef3bb5eaf893528086be154c0a78222",
+    "renderCandidates": "05cb354fce97babfdd8de7924bdb02839882481c9d33c2c42239d623b2895139",
     "candTellUs": "c4e2ef3c3b7fd11b4442678f2be13a5525d91d7c7077fab18746c0d26602bd32",
     "candSelect": "73ef0bc4418f1763c2307f182641dc7c83f3ae236802832c3268e8b4d5698dc9",
-    "candViewer": "1f3852a087bf897137f16f4117ace538e4ee045a14803b12e39500b64b24891e",
+    "candViewer": "18ac4cad6b535c60f111fe7116fccb8512e7c5e223faebae22bc064518787a99",
     "xtSync": "7bedc96ae35c90d7b5a1389626b937ffd45e248ce351eeec1852985a0b166131",
     "xtAlt": "608c859a749f06a481d273b00fd8bf598bdbbbdf19a01e7cde2c902c4b9ad1a2",
     "xtCellText": "f28c04f54b64dc1090578798659b982707134aebf852a52a6ba68adda2fb4c8a",
@@ -853,7 +854,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-03",
-    "purpose": "Release0.3.21: Candidates gains a lower 'testable prediction' tier (predicted Tc >= 2 K, model score >= 0.5, near the training data, ICSD-linked, no experimental check yet) with its own banner, row badge, detail note and dashed styling; the 40 K tier, the lists, the models and the results are unchanged",
+    "purpose": "Release0.3.21: Candidates gains a lower testable prediction tier (predicted Tc >= 2 K, model score >= 0.5, near the training data, ICSD-linked structure, no experimental check yet, and no matching DFT check reporting no superconductivity or a Tc below 2 K, which withdraws the recommendation without being an experimental result) with its own banner, row badge, detail note and dashed styling; a prediction above 40 K that misses the full 40 K criteria is described as such, never as below 40 K; the 40 K tier, the lists, the models and the results are unchanged",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -898,7 +899,8 @@
     ],
     "previous_css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
     "functions_added": [
-      "candTestableTests"
+      "candTestableTests",
+      "candTestableNote"
     ],
     "functions_removed": [],
     "previous_removed_functions": {},
