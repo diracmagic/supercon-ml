@@ -30,6 +30,11 @@ env:
   OMP_NUM_THREADS: '2'
   OPENBLAS_NUM_THREADS: '2'
   MKL_NUM_THREADS: '2'
+  # One floating-point path on every hosted runner. Runners differ (AVX-512 Intel or AVX2 AMD); numpy's dispatched
+  # exp/log and OpenBLAS's kernels then differ in the last bits, which alone moved Storm's MAE by 0.006 K between two
+  # runs of the same code (reproduction check, 2026-11-02). numpy's AVX-512 dispatch is switched off after installation.
+  OPENBLAS_CORETYPE: 'Haswell'
+  MKL_CBWR: 'AVX2'
 
 jobs:
   models:
@@ -57,6 +62,36 @@ jobs:
           if [[ " $STAGES " == *" gnn "* || " $STAGES " == *" gnn2 "* || " $STAGES " == *" gnn2final "* || " $STAGES " == *" storm4 "* || " $STAGES " == *" screen "* || " $STAGES " == *" gnnsmoke "* ]]; then
             pip install "jax[cpu]" optax
           fi
+
+      - name: Use the same numerical path on every runner
+        run: |
+          python - <<'PY' >> "$GITHUB_ENV"
+          try:
+              from numpy._core import _multiarray_umath as m
+          except ImportError:
+              from numpy.core import _multiarray_umath as m
+          print('NPY_DISABLE_CPU_FEATURES=' + ' '.join(f for f in m.__cpu_dispatch__ if f.startswith(('X86_V4', 'AVX512'))))
+          PY
+
+      - name: Record the runner's CPU and numerical path
+        run: |
+          mkdir -p "$RUNNER_TEMP/hardware"
+          {
+            echo "NPY_DISABLE_CPU_FEATURES=$NPY_DISABLE_CPU_FEATURES OPENBLAS_CORETYPE=$OPENBLAS_CORETYPE MKL_CBWR=$MKL_CBWR"
+            lscpu
+            python -c "import numpy; numpy.show_runtime()"
+            python -c "import json, threadpoolctl; print(json.dumps(threadpoolctl.threadpool_info(), indent=1))" || true
+            pip freeze
+          } 2>&1 | tee "$RUNNER_TEMP/hardware/runtime.txt"
+          python - <<'PY'
+          import os
+          try:
+              from numpy._core import _multiarray_umath as m
+          except ImportError:
+              from numpy.core import _multiarray_umath as m
+          still_on = [f for f in os.environ.get('NPY_DISABLE_CPU_FEATURES', '').split() if m.__cpu_features__.get(f)]
+          assert not still_on, f'numpy dispatch not disabled: {still_on}'
+          PY
 
       - uses: actions/setup-node@v4
         with:
@@ -220,6 +255,16 @@ jobs:
             results/
             progress/
           retention-days: 14
+
+      - name: Preserve the runner's CPU and numerical path
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-hardware-${{ github.run_number }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/hardware/
+          if-no-files-found: warn
+          retention-days: 90
 
       - name: Commit results and progress
         if: success() && github.ref == 'refs/heads/main'
