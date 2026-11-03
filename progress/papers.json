@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-03T07:36:12+00:00",
+ "updated": "2026-11-03T16:14:00+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -56,7 +56,6 @@
   "Nat. Mater.",
   "Nat. Commun.",
   "npj Quantum Mater.",
-  "Nature News",
   "Phys.org",
   "Physics World",
   "APS Physics",
@@ -2343,6 +2342,46 @@
  ],
  "journals": [
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
+   "id": "10.1103/g262-dlhf",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "From Coherent to Fermionized Microwave Photons in a Superconducting Transmission Line",
+   "authors": [
+    "Alberto Tabarelli de Fatis",
+    "Stephanie Matern",
+    "Gianluca Rastelli",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "We investigate superconducting transmission lines as a novel platform for realizing a quantum fluid of microwave photons in a propagating geometry.",
+   "url": "https://doi.org/10.1103/g262-dlhf",
+   "doi": "10.1103/g262-dlhf",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1103/djwx-lqsx",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2805,25 +2844,6 @@
    "kind": ""
   },
   {
-   "id": "10.1103/g262-dlhf",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "From coherent to fermionized microwave photons in a superconducting transmission line",
-   "authors": [
-    "Alberto Tabarelli de Fatis",
-    "Stephanie Matern",
-    "Gianluca Rastelli",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-09",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/g262-dlhf",
-   "doi": "10.1103/g262-dlhf",
-   "topics": [],
-   "kind": ""
-  },
-  {
    "id": "10.1103/73y1-qmwg",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2984,27 +3004,6 @@
    "kind": ""
   },
   {
-   "id": "10.1038/s41467-026-78385-0",
-   "source": "Nat. Commun.",
-   "journal": "Nature Communications",
-   "title": "Chiral-nematic Fermi liquid state as the parent state of kagome metals and superconductors",
-   "authors": [
-    "Zihao Huang",
-    "Zhan Wang",
-    "Hengxin Tan",
-    "et al."
-   ],
-   "n_authors": 11,
-   "date": "2026-10-06",
-   "abstract": "",
-   "url": "https://doi.org/10.1038/s41467-026-78385-0",
-   "doi": "10.1038/s41467-026-78385-0",
-   "topics": [
-    "Kagome"
-   ],
-   "kind": ""
-  },
-  {
    "id": "10.1038/s41467-026-73705-w",
    "source": "Nat. Commun.",
    "journal": "Nature Communications",
@@ -3022,6 +3021,27 @@
    "doi": "10.1038/s41467-026-73705-w",
    "topics": [
     "Hydrides"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-78385-0",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Chiral-nematic Fermi liquid state as the parent state of kagome metals and superconductors",
+   "authors": [
+    "Zihao Huang",
+    "Zhan Wang",
+    "Hengxin Tan",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-10-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-78385-0",
+   "doi": "10.1038/s41467-026-78385-0",
+   "topics": [
+    "Kagome"
    ],
    "kind": ""
   },
@@ -3370,26 +3390,6 @@
    "doi": "10.1038/s41467-026-76586-1",
    "topics": [
     "Moiré and 2D"
-   ],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/r62x-kt5j",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Giant Domain Walls and Intrinsic Heterogeneity in 214 Cuprate Superconductors",
-   "authors": [
-    "Evie Ladbrook",
-    "Jon P. Wright",
-    "Mark S. Senn"
-   ],
-   "n_authors": 3,
-   "date": "2026-09-17",
-   "abstract": "Structural phase transitions generate complex microstructures that often govern material functionality, yet directly resolving their three-dimensional organization in bulk samples remains challenging.",
-   "url": "https://doi.org/10.1103/r62x-kt5j",
-   "doi": "10.1103/r62x-kt5j",
-   "topics": [
-    "Cuprates"
    ],
    "kind": ""
   },
@@ -4777,17 +4777,6 @@
    "url": "https://phys.org/news/2026-09-quantum-phases-chromium-based-material.html",
    "topics": [
     "Triplet and ruthenates",
-    "Quantum devices"
-   ]
-  },
-  {
-   "id": "https://physicsworld.com/a/noise-that-entangles-may-accelerate-the-dawn-of-quantum-technologies/",
-   "source": "Physics World",
-   "title": "Noise that entangles may accelerate the dawn of quantum technologies",
-   "date": "2026-09-07",
-   "summary": "Two superconducting qubits, a metre of cable apart, have been driven into an entangled state not in spite of their environment, but by it The post Noise that entangles may accelerate the dawn of quantum technologies appeared first on Physics World.",
-   "url": "https://physicsworld.com/a/noise-that-entangles-may-accelerate-the-dawn-of-quantum-technologies/",
-   "topics": [
     "Quantum devices"
    ]
   },
