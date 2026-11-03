@@ -1,5 +1,9 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.21 adds:
+
+- **Testable predictions:** Candidates gains a second, lower tier below the 40 K benchmark. A candidate is marked a testable prediction when its predicted Tc is at least 2 K (within reach of a standard 1.8 K cryostat), its superconductivity model score is at least 0.5, it lies near the training data, its structure has been made before (ICSD) and no experimental check is recorded yet. The 40 K tier, the lists, the models and the results are unchanged.
+
 Version 0.3.20 adds:
 
 - **Fewer GitHub requests:** GitHub runs and commits now refresh every 15 minutes (every 5 while a run is active) instead of every 3, and not while the app is in the background. GitHub allows 60 such requests per hour for each network address, and two open copies of the app used them all. Progress data still refreshes every few minutes, and the refresh button always fetches everything.
