@@ -258,6 +258,8 @@ def composition(row) -> tuple[dict, dict]:
         el, raw = str(row.get(a, "")).strip(), str(row.get(b, "")).strip()
         if not el:
             continue
+        if el not in ELEMENTS and el.capitalize() in ELEMENTS:
+            el = el.capitalize()           # the datasheet writes a few symbols in capitals (IN, LI, TI)
         x = number(raw)
         if el not in ELEMENTS or x is None or x <= 0:
             raise ValueError(f"row {row.get('num')}: bad element field {el!r} {raw!r}")
@@ -549,7 +551,8 @@ def observation(row) -> dict:
            "symmetry": SYMMETRY.get(str(row.get("str1", "")).strip()), "space_group": str(row.get("spaceg", "")).strip(),
            "lattice": {k: number(row.get(k)) for k in ("lata", "latb", "latc")}, "lattice_unit": str(row.get("ulat", "")).strip(),
            "shape": shape, "form": SHAPE.get(shape, "unspecified"),
-           "evidence": evidence["kind"], "tc": evidence["tc"], "tc_fields": evidence["channels"], "tc_width": number(row.get("tcwidth")),
+           "evidence": evidence["kind"], "tc": evidence["tc"], "tc_raw": number(row.get("tc")), "tc_fields": evidence["channels"],
+           "tc_width": number(row.get("tcwidth")),
            "tc_method": TC_METHOD.get(str(row.get("tcmeth", "")).strip().split(",")[0].strip('" '), None),
            "floor": evidence["floor"], "pressure": {"pmax": pmax, "dtcdp": dtcdp,
                                                     "status": "pressure study" if ((pmax or 0) > 0 or dtcdp) else "unknown, assumed ambient (A2)"},
@@ -711,11 +714,15 @@ class UnionFind:
             self.parent[max(ra, rb)] = min(ra, rb)
 
 
-def components(units: list, *, extra_nodes=()) -> dict:
+EDGES = ("bin", "parent", "elements", "links")
+
+
+def components(units: list, *, extra_nodes=(), edges=EDGES) -> dict:
     """Connected components over MDR units and extra nodes (3DSC rows, MP ids, background compounds, anchors), with
     edges for equal approximate composition bin (canonical), equal resolved parent, explicit links and equal element
     set within a family (design 3). Edges group records for isolation only; they never merge label observations.
-    extra_nodes: dicts with id, kind, canonical, parent, elements, family, links ((kind, id) pairs). Target-blind."""
+    extra_nodes: dicts with id, kind, canonical, parent, elements, family, links ((kind, id) pairs). `edges` selects
+    the edge types (the audit reports the ablation of each type). Target-blind."""
     uf, nodes = UnionFind(), {}
     for u in units:
         nodes[("unit",) + tuple(u["key"])] = u
@@ -727,11 +734,11 @@ def components(units: list, *, extra_nodes=()) -> dict:
     by_canonical, by_parent, by_elements = defaultdict(list), defaultdict(list), defaultdict(list)
     for key, n in nodes.items():
         uf.find(key)
-        if n.get("canonical"):
+        if "bin" in edges and n.get("canonical"):
             by_canonical[n["canonical"]].append(key)
-        if n.get("parent") and not str(n["parent"]).startswith("unresolved"):   # an unresolved sentinel makes no edge
+        if "parent" in edges and n.get("parent") and not str(n["parent"]).startswith("unresolved"):   # no sentinel edge
             by_parent[n["parent"]].append(key)
-        if n.get("elements") and n.get("family") not in (None, "other", "mixed"):
+        if "elements" in edges and n.get("elements") and n.get("family") not in (None, "other", "mixed"):
             by_elements[(n["family"], tuple(sorted(n["elements"])))].append(key)
     for index in (by_canonical, by_parent, by_elements):
         for keys in index.values():
@@ -742,7 +749,8 @@ def components(units: list, *, extra_nodes=()) -> dict:
             target = tuple(link)
             if target not in nodes:
                 raise ValueError(f"provenance link to an unknown node {target}")
-            uf.union(key, target)
+            if "links" in edges:
+                uf.union(key, target)
     members = defaultdict(list)
     for key in nodes:
         members[uf.find(key)].append(key)
@@ -823,7 +831,7 @@ def temporal_split(observations: list, *, cutoff=2017, thresholds=EVENT_K) -> di
 
 
 # ---------------------------------------------------------------- audit (count-only) and smoke
-def audit(observations: list, *, primary_tsv: str | None = None, dsc_canonicals: set | None = None) -> dict:
+def audit(observations: list, *, primary_tsv: str | None = None, dsc_canonicals: set | None = None, unreadable: list = ()) -> dict:
     """Counts and examples for every rule; no model is fitted and no model effect is computed (design 7, step 3).
     Provisional statuses (quarantines, unresolved mappings, assumptions) are reported next to the admitted units,
     never folded into them."""
@@ -859,7 +867,7 @@ def audit(observations: list, *, primary_tsv: str | None = None, dsc_canonicals:
                                   for o in sorted(quarantined, key=lambda o: -(o["tc"] or 0))[:10]]
     out["replicated_extremes"] = sum("replicated extreme" in o["flags"] for o in observations)
     if primary_tsv is not None:
-        out["primary_tsv_crosscheck"] = crosscheck_primary(observations, primary_tsv)
+        out["primary_tsv_crosscheck"] = crosscheck_primary(observations, primary_tsv, unreadable)
     if dsc_canonicals is not None:
         out["overlap_with_3dsc_canonicals"] = sum(o["canonical"] in dsc_canonicals for o in admitted)
     modelled = [u for u in units if u["family"] in EVENT_K]
@@ -867,9 +875,25 @@ def audit(observations: list, *, primary_tsv: str | None = None, dsc_canonicals:
     assignment = assign_folds(comps)
     man = manifest(modelled, comps, assignment)
     out["components"] = {"n": len(comps), "largest": max((c["size"] for c in comps.values()), default=0),
-                         "purged": sum(c["purged"] for c in comps.values())}
+                         "purged": sum(c["purged"] for c in comps.values()),
+                         "largest_by_family": {fam: max((c["size"] for c in comps.values() if fam in c["families"]), default=0) for fam in EVENT_K}}
     out["support"] = support(man["rows"])
     out["manifest_sha256"] = man["sha256"]
+    # Edge ablation (count-only): how each edge type shapes the isolation graph and the fold feasibility (design 3).
+    ablation = {}
+    for label, edge_set in {"full": EDGES, "without element-set edge": ("bin", "parent", "links"),
+                            "without parent edge": ("bin", "elements", "links"), "bin and links only": ("bin", "links"),
+                            "parent and links only": ("parent", "links")}.items():
+        c = components(modelled, edges=edge_set)
+        a = assign_folds(c)
+        rows = manifest(modelled, c, a)["rows"]
+        sup = support(rows)
+        ablation[label] = {"components": len(c), "largest": max((v["size"] for v in c.values()), default=0),
+                           "largest_by_family": {fam: max((v["size"] for v in c.values() if fam in v["families"]), default=0) for fam in EVENT_K},
+                           "min_components_per_fold": {fam: min((cell["components"] for cell in sup.get(fam, {}).values()), default=0) for fam in EVENT_K},
+                           "positives_per_fold": {fam: [sup.get(fam, {}).get(f, {}).get("positives", 0) for f in range(1, 6)] for fam in EVENT_K},
+                           "negatives_per_fold": {fam: [sup.get(fam, {}).get(f, {}).get("negatives", 0) for f in range(1, 6)] for fam in EVENT_K}}
+    out["component_edge_ablation"] = ablation
     split = temporal_split(observations)
     out["temporal"] = {"cutoff": split["cutoff"], "train_units": len(split["train_units"]), "test_new_units": len(split["test_new_units"]),
                        "test_new_parent_units": len(split["test_new_parent_units"]), "repeat_report_units": len(split["repeat_report_units"]),
@@ -878,8 +902,9 @@ def audit(observations: list, *, primary_tsv: str | None = None, dsc_canonicals:
     return json.loads(json.dumps(out, default=lambda v: dict(v) if isinstance(v, Counter) else list(v) if isinstance(v, set) else str(v)))
 
 
-def crosscheck_primary(observations: list, primary_tsv: str) -> dict:
-    """primary.tsv is a preview of the same rows: every num must agree on element, str3 and tc (design 1)."""
+def crosscheck_primary(observations: list, primary_tsv: str, unreadable: list = ()) -> dict:
+    """primary.tsv is a preview of the same rows: every num must agree on str3 and tc (design 1). Rows the parser
+    could not read are counted apart from rows the preview holds and the table lacks."""
     lines = primary_tsv.split("\n")
     symbols = lines[2].rstrip("\r").split("\t")
     pos = {s.strip(): i for i, s in enumerate(symbols)}
@@ -889,15 +914,20 @@ def crosscheck_primary(observations: list, primary_tsv: str) -> dict:
             cells = line.rstrip("\r").split("\t")
             preview[cells[pos["num"]].strip()] = {k: cells[pos[k]].strip() for k in ("element", "str3", "tc") if k in pos and pos[k] < len(cells)}
     by_num = {o["num"]: o for o in observations}
-    mismatches = []
+    unreadable_nums = {u["num"] for u in unreadable}
+    mismatches, counts = [], Counter()
     for num, p in preview.items():
         o = by_num.get(num)
         if o is None:
-            mismatches.append({"num": num, "problem": "preview row absent from the table"})
+            kind = "preview row unreadable in the table" if num in unreadable_nums else "preview row absent from the table"
+            counts[kind] += 1
+            mismatches.append({"num": num, "problem": kind})
             continue
-        if p.get("str3", "") != o["structure_name"] or (number(p.get("tc")) != o["tc"]):
+        if p.get("str3", "") != o["structure_name"] or number(p.get("tc")) != o["tc_raw"]:
+            counts["str3 or tc differ"] += 1
             mismatches.append({"num": num, "problem": "str3 or tc differ", "preview": p, "table": {"str3": o["structure_name"], "tc": o["tc"]}})
-    return {"preview_rows": len(preview), "mismatches": len(mismatches), "examples": mismatches[:10]}
+    return {"preview_rows": len(preview), "mismatches": len(mismatches), "by_kind": dict(counts),
+            "examples": [m for m in mismatches if m["problem"] != "preview row unreadable in the table"][:10]}
 
 
 def synthetic_table() -> str:
@@ -988,7 +1018,7 @@ def main(argv=None):
                   "utf8_replacement_characters": text.count("\ufffd"), "table_notes": notes,
                   "year_columns_agree": sum(o.get("year_reference_block") == o["year"] for o in observations),
                   "year_columns_differ": sum(o.get("year_reference_block") not in (None, o["year"]) for o in observations),
-                  **audit(observations, primary_tsv=primary.decode("utf-8", errors="replace")), "unreadable": unreadable[:50],
+                  **audit(observations, primary_tsv=primary.decode("utf-8", errors="replace"), unreadable=unreadable), "unreadable": unreadable[:50],
                   "unreadable_count": len(unreadable),
                   "unreadable_reasons": dict(Counter(re.sub(r"row \S+: ", "", u["error"]).split(" '")[0] for u in unreadable))}
     else:
