@@ -429,7 +429,7 @@
     "goUnsupervisedStep": "b59008ef9e888e7d23b18f55369f9adab44a25c856eccd74b9fa2e3093e4219d",
     "drawUnsupervisedSummary": "a42be1773e6e4a350df168b134e3b6048cf421f7ecf3124a389ca547fbc974e9",
     "drawUnsupervisedResults": "bb2727f13a6d443652ea6c5c30fa49414f7234470ad896919e2c2e119e7b9e56",
-    "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca",
+    "newsArt": "1c23ffe4c350ba81861b93c65b719eb6006bbce78edd152254002a6cdf9b7108",
     "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
     "newsArticleDraw": "aad50f6cbfc164970f29ca1d87851ddc88036222cdc8055400ff64ffc2436d77",
     "newsArticleFigure": "7325a250f2a0b34f8d82310df1325824394a0aef1e8c6c53672ea73a7d4de0a0",
@@ -599,7 +599,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "aabbf5952eac498e1aa37831edd991acd2e9f5d9be20baa9b22152cb99f6a43a",
+    "5715a9f23032bfc36da187f3b8874ec572cc9537a4179af25c4dd572f0b8dcbb",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -693,7 +693,7 @@
     "2e0249a6b72fb9ef6112f6a2110b97c8d8b80156f28deab716e2a183174f97fb",
     "671b018385222ea678f14f0298ac56d9e34630a74af34bd3d638cc21ec441abc",
     "51f5aac9acc34abd27da94b5e604fdf3eb104079fb934be5d2d98dde5d0d2fc3",
-    "4dbcdaade7a35acbd2f17518bb4e7d3b72631efaf67de032acd32f54a571db83",
+    "f6cf58092f28fb67aefe843ad85202d01bb823566bd023e0c92bd3c9d25fd0d6",
     "68d7edfdb3dcf9adbc0ba373a2777a28c4bdf7bdfd887f28f388b5f6a91c125f",
     "d721dba6f4810e19f56e720b38b34219a938edd98b3d6a4b6c78c2ff0ea39fb5",
     "c80dca0462243ef6f13586e90ee65bb8836fa33ecaba1ace42b9a0f7ae3bc2ab",
@@ -853,8 +853,8 @@
     "initialization": "8e4e0a8ac6baf038aae01f9e1ffdd3511623ae2eaa0f048b5af620cb4da5b0a6"
   },
   "reviewed_revision": {
-    "reviewed_on": "2026-11-03",
-    "purpose": "Release0.3.21: Candidates gains a lower testable prediction tier (predicted Tc >= 2 K, model score >= 0.5, near the training data, ICSD-linked structure, no experimental check yet, and no matching DFT check reporting no superconductivity or a Tc below 2 K, which withdraws the recommendation without being an experimental result) with its own banner, row badge, detail note and dashed styling; a prediction above 40 K that misses the full 40 K criteria is described as such, never as below 40 K; the 40 K tier, the lists, the models and the results are unchanged",
+    "reviewed_on": "2026-11-04",
+    "purpose": "Release0.3.22: News & papers gains 25 labelled subject schematics (detector, diode, spin fluctuations, multigap, Zeeman, tunnelling gap, FFLO/PDW, TRSB, Kekule, optical cavity, accelerating cavity, transmission line, magnet, cable, flux ring, cold atoms, penetration depth and coherence length, interface, proximity, monolayer, heat flow, timeline, magnetism, competing orders, molecular spins), each with alt text stating what is not shown, and a neutral page-and-magnifier icon; newsArt picks them from headline subjects ahead of broad feed topics, fixes singular vortex (optical vortex beams stay light), detector/diode/qubit topic mismatches, partial-pressure and mass-generation false matches, magic-angle and hexalayer graphene and La3Ni2O7 bilayer films, uses curated material cards and an explicit summary setting only as fallbacks, and keeps retractions neutral; feeds, content schema, models and results are unchanged",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -897,32 +897,23 @@
       "same original miniature animations and reduced-motion lifecycle",
       "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier"
     ],
-    "previous_css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
-    "functions_added": [
-      "candTestableTests",
-      "candTestableNote"
-    ],
+    "previous_css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
+    "functions_added": [],
     "functions_removed": [],
     "previous_removed_functions": {},
     "functions_changed": [
-      "candMcm",
-      "candMcmChips",
-      "candMcmBanner",
-      "renderCandidates",
-      "candViewer"
+      "newsArt"
     ],
     "initializers_changed": [
-      0
+      0,
+      94
     ],
     "previous_function_changes": {
-      "candMcm": "168c23bd4b82c2f48fceac98cf6e3fb900489192ea3006aa0fdc992bef3d6ac0",
-      "candMcmChips": "0256efd4e4b30697cf060a63f1d76ff007f675d787416d2389068b57a986c813",
-      "candMcmBanner": "bf0ff8ebc3c9f4a927ebf4427b56bebf1faeb8caa97c5f0552e4f39a6ffc8a41",
-      "renderCandidates": "a31d52a7a1de9391aff4da7b2d449e46ca953beac8b3d677d6ced2305243729c",
-      "candViewer": "dd832d9b522491d8a559f35507e3017a9fb9bb11ae454a3f5810e7058d594bb8"
+      "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca"
     },
     "previous_initialization_changes": {
-      "0": "63f03f795694d67d78d0cae3dbe4081e57a1b7196f5d54036d636c0b07fb6ae5"
+      "0": "aabbf5952eac498e1aa37831edd991acd2e9f5d9be20baa9b22152cb99f6a43a",
+      "94": "4dbcdaade7a35acbd2f17518bb4e7d3b72631efaf67de032acd32f54a571db83"
     },
     "additional_source_sha256": {
       "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
@@ -933,13 +924,7 @@
       "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
       "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
       "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
-    },
-    "initializers_added": [
-      147
-    ],
-    "bindings_added": [
-      "TESTABLE_K"
-    ]
+    }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
   "styles": [
@@ -1034,7 +1019,12 @@
       "path": "review-history-15.json",
       "sha256": "75f160d6d3940dd24ba16c0a24be963f956b5e3753967e7cffa5c962a436cdd4",
       "count": 2
+    },
+    {
+      "path": "review-history-16.json",
+      "sha256": "b9d092ad3e85e7f85a26c9d36b31b35750e83fb1ac94a41d894199cb348fd3bf",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 20
+  "reviewed_revision_count": 21
 }
