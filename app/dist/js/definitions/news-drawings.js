@@ -13,29 +13,46 @@
     if (/holographic/i.test(head)) return 'news-features';
     // A detector or a diode named in the headline outranks the material that hosts it.
     if (/\bdetectors?\b|(?:photon|particle|radiation) detection|\bbolometers?\b|transition[- ]edge sensor|\bSNSPDs?\b|dark matter|\baxions?\b/i.test(head)) return 'news-detector';
-    if (/\bdiodes?\b|non-?reciprocal|rectification/i.test(head)) return 'news-diode';
+    if (/\bdiodes?\b|non-?reciprocal|rectification|magnetochiral/i.test(head)) return 'news-diode';
+    if (/weak[- ]links?/i.test(head)) return 'news-junction';
+    // Method-specific lattice numerics outrank the model they solve.
+    if (/neural[- ]network (?:quantum states?|wave ?functions?)|\bNQS\b/i.test(head)) return 'news-nqs';
+    if (/\bcylinders?\b/i.test(head) && /Hubbard|t-J\b|\blegs?\b/i.test(head)) return 'news-cylinder';
+    if (/ultracold|cold atoms?|optical lattices?|quantum gas/i.test(head)) return 'news-coldatoms';
     if (/stripes?(?![- ]domain)|Hubbard|Kondo[- ]Heisenberg/i.test(head)) return 'news-stripes';
     if (/geometry of materials|common features|representation|tangent kernel/i.test(head)) return 'news-features';
     if (/density of states|spectroscop|Raman|muon stopping|ultrasound/i.test(head)) return 'news-spectrum';
     // A twisted-light vortex beam is an optical probe, not flux vortices in the sample.
     if (/optical vort|vortex beams?|vortex light/i.test(head)) return 'news-light';
     if (/vort(?:ex|ices)|fluxons?|Abrikosov/i.test(head)) return 'news-vortex';
+    if (/quasiparticle interference|\bQPI\b|\bripples?\b/i.test(head)) return 'news-qpi';
+    if (/re-?entrant|\brevives?\b|field[- ](?:boosted|stabili[sz]ed|enhanced|induced superconduct)/i.test(head)) return 'news-reentrant';
+    if (/domain walls?|heterogene|inhomogene|patchwork|mosaic|\bpuddles?\b|granular/i.test(head)) return 'news-domains';
+    if (/\bdisorder|\bdirty\b/i.test(head)) return 'news-disorder';
     if (/graphene/i.test(head)) {
+      if (/proximiti/i.test(head)) return 'news-proximity';
+      if (/interfaces?/i.test(head)) return 'news-interface';
       var grapheneText = body.replace(/\b(?:without|no|absence of)\s+(?:a\s+)?moir[eé](?:\s+pattern)?\b/gi, '');
       if (/twist|moir[eé]|magic[- ]angle/i.test(grapheneText)) return 'news-moire';
       return /(?:six|6)[- ]layer|hexalayer/i.test(head) ? 'news-layered-six' : 'news-layered';
     }
-    if (/electron[– -]phonon|phonon|breathing mode|\bbipolarons?\b|\bpolarons?\b/i.test(head) && !/qubit|transmon/i.test(head)) return 'news-eph';
+    if (/electron[– -]phonon|phonon|breathing mode|\bbipolarons?\b|\bpolarons?\b|thermal bosons?/i.test(head) && !/qubit|transmon/i.test(head)) return 'news-eph';
     if (/magnon|spin wave|spin[- ]fluctuat|paramagnon/i.test(head) && !/circuit|qubit/i.test(head)) return 'news-spinfluct';
     if (/graph neural|line[- ]graph|ALIGNN|crystal[- ]graph|graph networks?/i.test(head)) return 'news-graph';
     if (/\bgenerative\b|\bgenerat(?:e|es|ed|ing)\b|diffusion(?: models?| and| for| transformer)|inverse design|structure search|physics judge/i.test(head)) return 'news-search';
-    if (/terahertz|picosecond|femtosecond|laser|light pulse|light[- ]induced|photo-?(?:galvanic|current|induced)|mid-infrared|^light\b|optical(?:ly)? (?:pump|driv)/i.test(head)) return 'news-light';
+    if (/terahertz|picosecond|femtosecond|laser|light pulse|light[- ]induced|photo-?(?:galvanic|current|induced)|mid-infrared|^light\b|optical(?:ly)? (?:pump|driv)|Floquet/i.test(head)) return 'news-light';
+    if (/\b(?:half[- ])?domes?\b|phase diagram/i.test(head)) return 'news-dome';
     var pressureText = head.replace(/\bambient[- ]pressure\b|\b(?:without|no)\s+(?:applied\s+|external\s+)?pressure\b|\bpressure[- ]free\b|\b(?:partial|vapou?r|gas)\s+pressures?\b/gi, '');
     if (/pressur(?:e|i[sz]ed|i[sz]ing)|diamond anvil|\bGPa\b|\bsqueez/i.test(pressureText)) return 'news-pressure';
-    if (/\bs\s?±|\bs\+-|s[- ]plus[- ]minus|sign[- ](?:revers|chang)/i.test(head)) return 'news-multigap';
+    if (/\bs\s?±|\bs\+-|s[- ]plus[- ]minus|sign[- ](?:revers|chang)|nodeless/i.test(head)) return 'news-multigap';
+    if (/\bd[- ]wave\b/i.test(head)) return 'news-dwave';
+    if (/(?:superconducting|leading[- ]edge|spectral) gap\b|pseudogap/i.test(head)) return 'news-gapdos';
     if (/nanowire/i.test(head)) return 'news-topo';
     if (/kagome/i.test(head)) return 'news-kagome';
-    if (/cuprate|CuO[₂2]|Zhang[– -]Rice/i.test(head)) return 'news-cuprate';
+    if (/Zhang[– -]Rice/i.test(head)) return 'news-zr';
+    if (/apical/i.test(head)) return 'news-apical';
+    if (/coexist\w*[^.]*antiferromagnet|antiferromagnet\w*[^.]*coexist/i.test(head)) return 'news-competition';
+    if (/cuprate|CuO[₂2]/i.test(head)) return 'news-cuprate';
     var bilayerNi = /\bbilayer\b|\bdouble[- ]layer\b|Ni\s?[₂2]\s?O\s?[₇7]/i.test(body) && !/\binfinite[- ]layer\b|monolayer[- ]trilayer/i.test(body);
     if (/nickelate|Ni\s?[₂2]\s?O\s?[₇7]/i.test(head)) return bilayerNi ? 'news-nickelate' : 'news-layered';
     if (n.ai_kind === 'experiment') return 'news-measurement';
@@ -61,14 +78,16 @@
     if (/penetration depth|coherence length|superfluid (?:density|stiffness)|phase stiffness|London (?:length|depth)|accommodate magnetic|field penetration|field screening/i.test(head)) return 'news-penetration';
     if (/multi[- ]?gap|two[- ]gap|multi[- ]?band|two[- ]band|nodeless|Leggett/i.test(head)) return 'news-multigap';
     if (/tunnell?ing (?:spectroscop|measures|gap|conductance)|\bgaps?\b|pseudogap/i.test(head.replace(/\bband[- ]gaps?\b/gi, ''))) return 'news-gapdos';
-    if (/Josephson|Andreev|weak[- ]links?|\bjunctions?\b|co-?tunnel|three[- ]terminal|quantum dots?/i.test(head)) return 'news-junction';
+    if (/Andreev/i.test(head)) return 'news-andreev';
+    if (/Josephson|weak[- ]links?|\bjunctions?\b|co-?tunnel|three[- ]terminal|quantum dots?/i.test(head)) return 'news-junction';
     if (/\btwist(?:ed)?\b|twist[- ]angle|moir[eé]|magic[- ]angle/i.test(head)) return 'news-moire';
+    if (/charge[- ]density[- ]waves?|\bCDW\b/i.test(head)) return 'news-stripes';
     if (/competi(?:tion|ng)|rivalry|coexist|tetracritic|multi-?component|phase transition between|two (?:superconducting |competing |quantum )?(?:states|orders|phases)|\bnematic\b|intertwined orders?/i.test(head)) return 'news-competition';
     if (/altermagnet|antiferromagnet|ferromagnet|magnetic order|magnetism|exchange[- ]coupled|odd[- ]parity magnets?|N[eé]el/i.test(head)) return 'news-magnetism';
     if (/proximit/i.test(head)) return 'news-proximity';
     if (/thermoelectric|thermal (?:transport|conductivity|Hall)|heat (?:transport|conduction|flow)|Nernst|Seebeck|thermali[sz]ation/i.test(head)) return 'news-thermal';
     if (/\bmonolayer\b(?!s)|atom(?:ically|ic)?[- ]thin|single[- ]layer|one[- ]atom[- ]thick/i.test(head)) return 'news-monolayer';
-    if (/interfaces?|thin[- ]films?|\bfilms?\b|heterostructures?|epitax|substrates?|\bgrowth\b/i.test(head) || /[A-Z][a-z]?(?:[A-Z][a-z]?|\d)+\s?\/\s?[A-Z][a-z]?(?:[A-Z][a-z]?|\d)+/.test(head)) return 'news-interface';
+    if (/interfaces?|thin[- ]films?|\bfilms?\b|heterostructures?|epitax|substrates?|\bgrowth\b|surface superconduct/i.test(head) || /[A-Z][a-z]?(?:[A-Z][a-z]?|\d)+\s?\/\s?[A-Z][a-z]?(?:[A-Z][a-z]?|\d)+/.test(head)) return 'news-interface';
     var materialTopics = ['Hydrides', 'Cuprates', 'Nickelates', 'Iron-based', 'Moiré and 2D', 'Kagome', 'Heavy fermions'];
     if (materialTopics.filter(function (topic) { return tp.indexOf(topic) >= 0; }).length > 1) return 'news-features';
     if (tp.indexOf('Cuprates') >= 0) return 'news-cuprate';
@@ -102,6 +121,7 @@
     if (cards.indexOf('magnet') >= 0) return 'news-coil';
     // Only an explicit experimental setting in the summary picks a scene when the headline is generic.
     if (/ultracold|cold atoms?|optical lattices?|quantum gas microscope|Fermi gas/i.test(text)) return 'news-coldatoms';
+    if (/patchwork|mosaic of|heterogeneous (?:mixture|crystal|structure)/i.test(text)) return 'news-domains';
     if (/\b(?:high|hydrostatic|extreme)[- ]pressure\b|diamond[- ]anvil|\b\d+(?:\.\d+)?\s?GPa\b/i.test(text) && !/ambient[- ]pressure|without (?:applied )?pressure/i.test(text)) return 'news-pressure';
     if (/(?:\b\d+|\bten|\btwenty|\bthirty|\bforty|\bfifty|\bhundred)[- ]years? (?:of|after|later|on)\b|\bafter (?:\w+ )?years\b|anniversary|history of|retrospective|decades? of/i.test(head)) return 'news-timeline';
     return 'news-research';
@@ -190,7 +210,8 @@
       (normalized.match(/\b[A-Z][A-Za-z0-9]*(?:\.[0-9]+)?\b/g) || []).forEach(function (token) {
         if (blocked.test(token) || materialSeen[token] || token.length > 30) return;
         var parts = token.match(/[A-Z][a-z]?(?:\d+(?:\.\d+)?)?/g) || [];
-        if (parts.join('') !== token || parts.length < 2 || parts.some(function (part) { return symbols.indexOf(part.match(/^[A-Z][a-z]?/)[0]) < 0; })) return;
+        // Capitals alone (NUS, FP, II) are acronyms unless a count says otherwise.
+        if (parts.join('') !== token || parts.length < 2 || !/[a-z\d]/.test(token) || parts.some(function (part) { return symbols.indexOf(part.match(/^[A-Z][a-z]?/)[0]) < 0; })) return;
         materialSeen[token] = true;
         materials.push({ text: token, field: f.field, components: parts.map(function (part) { var m = /^([A-Z][a-z]?)(.*)$/.exec(part); return { element: m[1], count: m[2] || '1' }; }) });
       });
@@ -248,9 +269,86 @@
     c.globalAlpha = 1;
   };
 
+  // One look per article and theme for the session. A badge comes only from the
+  // article's own wording: the headline first, then facts that passed the negation
+  // and history checks. Colour set and framing are neutral variants, assigned in
+  // turn, so thumbnails that share a theme are never drawn alike.
+  const newsArtLook = function newsArtLook(item, info, kind) {
+    var reg = MINI.looks || (MINI.looks = { ids: Object.create(null), n: Object.create(null) }), id = kind + '\n' + info.key;
+    if (reg.ids[id]) return reg.ids[id];
+    var i = reg.n[kind] || 0, hash = 2166136261, head = info.title, bare = String(kind).replace(/^news-/, ''), parts = [];
+    reg.n[kind] = i + 1;
+    for (var q = 0; q < info.key.length; q++) hash = Math.imul(hash ^ info.key.charCodeAt(q), 16777619) >>> 0;
+    var look = { v: i % 6, p: (i + Math.floor(i / 12)) % 4, ph: hash % 1000 / 160, notice: '', probe: '', from: '', comp: [], formula: '', tc: 0, gpa: 0, tesla: 0, text: '' };
+    var probes = [['stm', /\bSTM\b|\bSTS\b|scanning[- ]tunnell?ing|tunnell?ing (?:microscop|spectroscop)|quasiparticle interference|\bQPI\b/i],
+      ['arpes', /\bARPES\b|photo-?emission/i], ['neutron', /\bneutrons?\b/i], ['muon', /\bmuons?\b|[μµ]SR\b|\bmuSR\b/i],
+      ['nmr', /\bNMR\b|\bNQR\b|nuclear magnetic resonance|Knight shift/i], ['raman', /\bRaman\b/i],
+      ['xray', /\bX-ray|\bRIXS\b|diffraction|synchrotron|tomograph|3D imaging/i],
+      ['optics', /optical (?:\w+ )?(?:conductivit|respons|Hall|absorption|spectroscop)|reflectivit|infrared|\bTHz\b|terahertz|millimet(?:er|re)[- ]wave|ellipsometr/i],
+      ['pulse', /\blasers?\b|ultrafast|picosecond|femtosecond|pump[- ]probe|light[- ](?:induced|driven|pulse)|optical(?:ly)? (?:pump|driv)|Floquet/i],
+      ['anvil', /diamond[- ]anvil|\bGPa\b|(?:high|hydrostatic|extreme|external|applied)[- ]pressure|pressur(?:i[sz]ed|e[- ](?:induced|driven|quench|tuning))|under pressure|squeez/i],
+      ['strain', /\bstrain(?:ed|ing)?\b/i],
+      ['field', /magnetic[- ]fields?|\btesla\b|\bhigh[- ]fields?\b|field[- ](?:induced|boosted|stabili[sz]ed|tuned|tunable)|magneti[sz]ation|susceptibilit/i],
+      ['heat', /specific heat|heat capacit|calorimetr|thermal (?:conductivit|transport)|thermoelectric|Nernst/i],
+      ['contacts', /resistiv|resistance|electrical transport|magnetotransport|critical current|Hall (?:effect|resistance|response)|current[- ]voltage|four[- ](?:probe|terminal)/i],
+      ['gate', /\bgat(?:e|ed|ing)\b|electrostatic|ionic[- ]liquid|field[- ]effect/i],
+      ['dope', /\bdop(?:ed|ing|ants?)\b|substitution|intercalat|oxygen content/i],
+      ['calc', /\bDFT\b|density[- ]functional|first[- ]principles|ab initio|Eliashberg|\bDMRG\b|Monte Carlo|exact diagonali|tensor[- ]network|numerics?\b|numerical|simulations?\b|mean[- ]field|calculat(?:ions?|ed|ing)\b|comput(?:ed|ations?|ational)\b/i],
+      ['ml', /machine[- ]learning|neural|deep learning|language models?|generative|\bAI\b/i],
+      ['phonon', /phonons?|electron[- ]boson|lattice vibration/i],
+      ['device', /\bdevices?\b|\bjunctions?\b|\bqubits?\b|\bSQUIDs?\b|nanowires?|transmons?/i],
+      ['edge', /topological|Majorana|edge (?:states?|modes?|currents?)/i],
+      ['film', /\bfilms?\b|epitax|\bMBE\b|heterostructures?|substrates?/i]];
+    // A badge that repeats what the theme already draws adds clutter, not information.
+    var skip = { stm: /^(?:qpi|gapdos)$/, anvil: /^pressure$/, pulse: /^(?:light|cavity)$/, optics: /^(?:light|cavity)$/,
+      field: /^(?:coil|cable|zeeman|penetration|vortex|ring|reentrant)$/, heat: /^thermal$/, contacts: /^(?:measurement|diode)$/,
+      ml: /^(?:features|graph|search|literature|tree|interval|routing|two-stage|ai|nqs)$/, phonon: /^eph$/,
+      device: /^(?:junction|qubit|andreev|diode|detector|ring|resonator)$/, edge: /^topo$/, film: /^(?:interface|monolayer)$/ };
+    var usable = function (pid) { return !(skip[pid] && skip[pid].test(bare)); };
+    look.notice = /^(?:(?:author|publisher)(?:['’]s)? )?(?:correction|erratum|corrigendum)\b/i.test(head) ? 'fix' :
+      /^(?:reply|response|comment)\b/i.test(head) ? 'reply' : /^addendum\b/i.test(head) ? 'add' :
+      /^retraction\b|\bretract(?:ed|ion|s)?\b|expression of concern/i.test(head) ? 'retract' : '';
+    var scan = head.replace(/\bambient[- ]pressure\b|\b(?:without|no)\s+(?:applied\s+|external\s+)?pressure\b|\bpressure[- ]free\b|\b(?:partial|vapou?r|gas)\s+pressures?\b/gi, '');
+    for (var a = 0; a < probes.length && !look.probe; a++) if (probes[a][1].test(scan) && usable(probes[a][0])) { look.probe = probes[a][0]; look.from = 'title'; }
+    var byFact = { spectrum: 'spectro', pressure: 'anvil', strain: 'strain', light: 'pulse', magnetic: 'field', thermal: 'heat', 'four-probe': 'contacts', transport: 'contacts',
+      doping: 'dope', calculation: 'calc', network: 'ml', generation: 'ml', literature: 'ml', phonon: 'phonon', junction: 'device', boundary: 'edge' };
+    // Body facts: a sample condition first, then a measurement, a drive, a device and finally a method.
+    var rank = ['pressure', 'spectrum', 'magnetic', 'thermal', 'light', 'strain', 'four-probe', 'transport', 'doping', 'junction', 'phonon', 'calculation', 'network', 'generation', 'literature', 'boundary'];
+    info.facts.filter(function (f) { return f.field !== 'title' && byFact[f.id]; }).sort(function (x, y) { return rank.indexOf(x.id) - rank.indexOf(y.id); }).forEach(function (f) {
+      if (look.probe) return;
+      var pid = byFact[f.id], generic = pid;
+      for (var b = 0; b < probes.length; b++) if (probes[b][1].test(f.text) || probes[b][1].test(f.excerpt || '')) { pid = probes[b][0]; break; }
+      if (!usable(pid)) pid = generic;
+      if (usable(pid)) { look.probe = pid; look.from = f.field; }
+    });
+    var mat = info.materials.filter(function (m) { return m.field === 'title'; })[0];
+    if (mat) {
+      look.formula = mat.text;
+      look.comp = mat.components.slice(0, 4).map(function (x) { return { el: x.element, n: Math.max(.2, parseFloat(x.count) || 1) }; });
+    }
+    var tc = /(?:^|[^\w.])(\d+(?:\.\d+)?)\s?(m?K)(?![-\w])/.exec(head), gpa = /(\d+(?:\.\d+)?)\s?GPa(?![-\w])/.exec(head), tesla = /(\d+(?:\.\d+)?)\s?(?:T|tesla)(?![-\w])/.exec(head);
+    if (tc) look.tc = parseFloat(tc[1]) / (tc[2] === 'mK' ? 1000 : 1);
+    if (gpa) look.gpa = parseFloat(gpa[1]);
+    if (tesla) look.tesla = parseFloat(tesla[1]);
+    var names = { stm: 'scanning-tunnelling tip', arpes: 'photoemission', neutron: 'neutron scattering', muon: 'muon spin rotation', nmr: 'nuclear magnetic resonance',
+      raman: 'Raman scattering', xray: 'X-ray probe', optics: 'optical spectroscopy', pulse: 'light pulse', anvil: 'pressure cell', strain: 'strain', field: 'magnetic field',
+      heat: 'heat measurement', contacts: 'electrical contacts', gate: 'electrostatic gate', dope: 'chemical substitution', calc: 'calculation', ml: 'machine-learning model',
+      phonon: 'lattice vibration', device: 'device', edge: 'boundary current', film: 'thin film', spectro: 'spectroscopy',
+      fix: 'correction notice', reply: 'reply or comment', add: 'addendum', retract: 'retraction' };
+    if (look.notice) parts.push('Badge: ' + names[look.notice] + '.');
+    else if (look.probe) parts.push('Badge: ' + names[look.probe] + ', named in the ' + look.from + '.');
+    if (look.formula) parts.push('Element dots: ' + look.comp.map(function (x) { return x.el; }).join(', ') + ' from ' + look.formula + ' in the title.');
+    if (tc) parts.push('Thermometer: ' + tc[1] + ' ' + tc[2] + ' in the title, on a logarithmic scale.');
+    parts.push('Colours and framing only tell thumbnails apart.');
+    look.text = parts.join(' ');
+    reg.ids[id] = look;
+    return look;
+  };
+
   const newsArticleFigure = function newsArticleFigure(item, kind) {
     var info = newsArticleDescribe(item);
     var art = kind || (item.ai_kind && typeof aiArticleArt === 'function' ? aiArticleArt(item) : newsArt(item));
+    info.look = newsArtLook(item, info, art);
     return h('div', { class: 'news-art', 'data-article-key': info.key, 'data-source-url': info.url,
-      title: info.title }, miniCanvas(art, item));
+      title: info.title }, miniCanvas(art, item, info));
   };
