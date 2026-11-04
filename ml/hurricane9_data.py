@@ -968,10 +968,13 @@ def main(argv=None):
         data = fetch(DATA_FILE, args.cache, offline=args.offline)
         primary = fetch("primary.tsv", args.cache, offline=args.offline)
         hashes = {name: fetch(name, args.cache, offline=args.offline) and SOURCES[name]["sha256"] for name in SOURCES}
-        observations, unreadable = load_observations(data.decode("utf-8", errors="strict"))
+        text = data.decode("utf-8", errors="replace")   # the pinned bytes are hashed above; undecodable bytes are counted
+        observations, unreadable = load_observations(text)
         report = {"smoke": False, "sources_verified": hashes, "licence": LICENCE, "attribution": ATTRIBUTION,
-                  **audit(observations, primary_tsv=primary.decode("utf-8")), "unreadable": unreadable[:50],
-                  "unreadable_count": len(unreadable)}
+                  "utf8_replacement_characters": text.count("\ufffd"),
+                  **audit(observations, primary_tsv=primary.decode("utf-8", errors="replace")), "unreadable": unreadable[:50],
+                  "unreadable_count": len(unreadable),
+                  "unreadable_reasons": dict(Counter(re.sub(r"row \S+: ", "", u["error"]).split(" '")[0] for u in unreadable))}
     else:
         parser.error("choose --audit or --smoke")
     report["seconds"] = round(time.time() - started, 3)
