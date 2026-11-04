@@ -226,6 +226,194 @@ const initializeSuperconNewsLooks = function initializeSuperconNewsLooks() {
       c.strokeStyle = C.ink2; c.lineWidth = 1.6; seg(c, cx + R * Math.cos(th), cy - R * Math.sin(th), cx + (R + gap) * Math.cos(th), cy - (R + gap) * Math.sin(th));
       disc(c, cx + R * Math.cos(th), cy - R * Math.sin(th), 2.6 * k, C.gold || C.warm);
     };
+    // ---------- second drawings of busy subjects ----------
+    // A page that already shows a subject's first drawing gives the next article on that subject
+    // a different picture of the same idea.
+    // Parity plot: estimates against reference values gather around the diagonal; one point shows its error.
+    D['features-2'] = function (c, C, W, H, t, k) {
+      var x0 = W * .16, y0 = H * .86, x1 = W * .88, y1 = H * .12, w = x1 - x0, h = y0 - y1, rng = stRng(7), f = .3 + .7 * (.5 + .5 * Math.cos(TAU * t / 9)), hi = Math.floor(md(t * 1.2, 14)), i;
+      axes(c, C, x0, y0, x1 + 2 * k, y1, k);
+      c.setLineDash([3 * k, 3 * k]); c.strokeStyle = stAlpha(C.muted, .85); c.lineWidth = 1.1; seg(c, x0, y0, x1 - 3 * k, y1 + 3 * k); c.setLineDash([]);
+      for (i = 0; i < 14; i++) {
+        var u = .08 + .82 * rng(), e = (rng() - .5) * .42 * f, v = Math.min(.96, Math.max(.04, u + e)), x = x0 + w * u, y = y0 - h * v;
+        if (i === hi) { halo(c, x, y, 6 * k, C.warm, .6); c.strokeStyle = stAlpha(C.warm, .7); c.lineWidth = 1.2; seg(c, x, y, x, y0 - h * u); }
+        disc(c, x, y, 2.2 * k, i === hi ? C.warm : stAlpha(C.accent, .85));
+      }
+    };
+    // Crystal graph: atoms of a repeating cell are nodes, pulses pass messages and a pooled readout fills.
+    D['graph-2'] = function (c, C, W, H, t, k) {
+      var ox = W * .08, oy = H * .16, a = W * .52, b = H * .66, sk = W * .1, ph = md(t / 3, 1), pool = [W * .86, H * .28];
+      var P = function (u, v) { return [ox + sk * (1 - v) + a * u, oy + b * v]; };
+      var at = [[.18, .22, 0], [.64, .16, 1], [.42, .52, 0], [.84, .6, 1], [.2, .84, 1]], E = [[0, 1], [0, 2], [1, 2], [1, 3], [2, 3], [2, 4], [0, 4]];
+      c.setLineDash([2.5 * k, 2.5 * k]); c.strokeStyle = stAlpha(C.muted, .75); c.lineWidth = 1; poly(c, [P(0, 0), P(1, 0), P(1, 1), P(0, 1)], true); c.stroke();
+      // Bonds that leave the cell continue into its periodic images.
+      c.strokeStyle = stAlpha(C.ink2, .35); c.setLineDash([1.5 * k, 2 * k]);
+      [[1, 1.1, .02], [3, 1.08, .78], [4, .06, 1.1]].forEach(function (e) { var p = P(at[e[0]][0], at[e[0]][1]), q = P(e[1], e[2]); seg(c, p[0], p[1], q[0], q[1]); });
+      c.setLineDash([]);
+      E.forEach(function (e, i) {
+        var p = P(at[e[0]][0], at[e[0]][1]), q = P(at[e[1]][0], at[e[1]][1]), s = md(ph * 2 + i * .29, 1);
+        if (i % 2) s = 1 - s;
+        c.strokeStyle = stAlpha(C.ink2, .45); c.lineWidth = 1.2; seg(c, p[0], p[1], q[0], q[1]);
+        disc(c, p[0] + (q[0] - p[0]) * s, p[1] + (q[1] - p[1]) * s, 1.6 * k, C.warm);
+      });
+      at.forEach(function (q) { var p = P(q[0], q[1]); disc(c, p[0], p[1], (q[2] ? 3 : 4) * k, q[2] ? C.warm : C.accent); });
+      var fill = ph < .7 ? ph / .7 : 1, bx = pool[0] - 4 * k, by = pool[1] + 9 * k, bh = H * .5;
+      arrow(c, W * .7, H * .5, pool[0] - 5 * k, pool[1] + 4 * k, stAlpha(C.ink2, .5), 3 * k, 1.2);
+      halo(c, pool[0], pool[1], 7 * k, C.gold || C.warm, .3 + .4 * fill); disc(c, pool[0], pool[1], 3.6 * k, C.accent);
+      c.strokeStyle = stAlpha(C.ink2, .5); c.lineWidth = 1; c.strokeRect(bx, by, 8 * k, bh);
+      c.fillStyle = stAlpha(C.accent, .55); c.fillRect(bx, by + bh * (1 - fill), 8 * k, bh * fill);
+    };
+    // Boosting: small trees are added in turn, each nudging a running estimate toward the target mark.
+    D['tree-2'] = function (c, C, W, H, t, k) {
+      var est = [.14, .5, .68, .76], target = .8, p = md(t / 1.6, 4), step = Math.floor(p), ty = H * .14, by = H * .44, i;
+      [.2, .5, .8].forEach(function (u, i) {
+        var x = W * u, on = i < step, col = on ? C.accent : stAlpha(C.muted, .6);
+        c.strokeStyle = on ? stAlpha(C.ink2, .6) : stAlpha(C.muted, .45); c.lineWidth = 1.2;
+        seg(c, x, ty, x - 9 * k, by); seg(c, x, ty, x + 9 * k, by);
+        disc(c, x, ty, 3.4 * k, col); disc(c, x - 9 * k, by, 2.8 * k, i === step - 1 ? C.warm : col); disc(c, x + 9 * k, by, 2.8 * k, col);
+        if (i) { var px = W * (u - .15), py = (ty + by) / 2; c.strokeStyle = stAlpha(C.ink2, .55); c.lineWidth = 1.3; seg(c, px - 3 * k, py, px + 3 * k, py); seg(c, px, py - 3 * k, px, py + 3 * k); }
+      });
+      var y = H * .76, x0 = W * .1, x1 = W * .9, X = function (v) { return x0 + (x1 - x0) * v; }, from = est[Math.max(0, step - 1)], g = Math.min(1, (p - step) * 4), now = from + (est[step] - from) * g;
+      c.strokeStyle = stAlpha(C.muted, .6); c.lineWidth = 1.2; seg(c, x0, y, x1, y);
+      c.setLineDash([2 * k, 2 * k]); c.strokeStyle = C.warm; seg(c, X(target), y - 8 * k, X(target), y + 8 * k); c.setLineDash([]);
+      for (i = 0; i < step; i++) disc(c, X(est[i]), y, 1.8 * k, stAlpha(C.accent, .35));
+      halo(c, X(now), y, 7 * k, C.accent, .45); disc(c, X(now), y, 3 * k, C.accent);
+    };
+    // Screening funnel: many candidates enter, fewer pass each filter and the few left collect at the outlet.
+    D['search-2'] = function (c, C, W, H, t, k) {
+      var cx = W * .5, top = H * .12, bot = H * .7, wt = W * .34, wb = W * .06, lv = [.36, .68], rng = stRng(19), i;
+      var half = function (y) { return wt + (wb - wt) * Math.min(1, Math.max(0, (y - top) / (bot - top))); };
+      poly(c, [[cx - wt, top], [cx + wt, top], [cx + wb, bot], [cx - wb, bot]], true);
+      c.fillStyle = stAlpha(C.accent, .1); c.fill(); c.strokeStyle = stAlpha(C.accent, .6); c.lineWidth = 1.3; c.stroke();
+      c.strokeStyle = stAlpha(C.ink2, .5); c.lineWidth = 1; c.setLineDash([2 * k, 2 * k]);
+      lv.forEach(function (u) { var y = top + (bot - top) * u; seg(c, cx - half(y), y, cx + half(y), y); });
+      c.setLineDash([]);
+      halo(c, cx, H * .86, 8 * k, C.gold || C.warm, .55);
+      for (i = 0; i < 12; i++) {
+        var off = rng(), lane = rng() * 1.6 - .8, pass = i % 5 === 0 ? 2 : i % 2 ? 0 : 1, f = md(t / 4.5 + off, 1) * 1.3, stop = pass < 2 ? lv[pass] : 1.3;
+        var u = Math.min(f, stop), y = top + (bot - top) * u - 2.5 * k, x = cx + lane * half(y), a = f > stop ? Math.max(0, 1 - (f - stop) * 5) : 1;
+        if (pass === 2 && u > 1) { y = Math.min(H * .86, bot + (u - 1) * (bot - top)); x = cx + lane * wb * Math.max(0, 1 - (u - 1) * 4); }
+        if (a > .02) disc(c, x, y, 2.1 * k, stAlpha(pass === 2 ? C.warm : C.ink2, (pass === 2 ? .95 : .55) * a));
+      }
+    };
+    // Neutral source icon: a fanned stack of papers whose lines are read in turn.
+    D['research-2'] = function (c, C, W, H, t, k) {
+      var w = W * .3, h = H * .66, line = Math.floor(md(t * 1.1, 5));
+      [2, 0, 1].forEach(function (i) {
+        var front = i === 1;
+        c.save(); c.translate(W * .5 + (i - 1) * 12 * k, H * .5 + Math.abs(i - 1) * 2 * k); c.rotate((i - 1) * .14);
+        c.fillStyle = C.surface || '#ffffff'; c.fillRect(-w / 2, -h / 2, w, h);
+        c.strokeStyle = stAlpha(C.ink2, front ? .6 : .4); c.lineWidth = 1.1; c.strokeRect(-w / 2, -h / 2, w, h);
+        if (front) { c.fillStyle = stAlpha(C.accent, .75); c.fillRect(-w / 2 + 5 * k, -h / 2 + h * .1, w * .46, 3.2 * k); }
+        for (var j = 0; j < 5; j++) {
+          var y = -h / 2 + h * (.3 + j * .14), on = front && j === line;
+          c.strokeStyle = on ? C.warm : stAlpha(C.ink2, front ? .35 : .2); c.lineWidth = on ? 2 : 1.3;
+          seg(c, -w / 2 + 5 * k, y, w / 2 - (j === 4 ? 12 : 5) * k, y);
+        }
+        if (front) {
+          var d = 1.5 * k * Math.sin(TAU * t / 3);
+          poly(c, [[w / 2 - 10 * k, -h / 2], [w / 2 - 4 * k, -h / 2], [w / 2 - 4 * k, -h / 2 + 13 * k + d], [w / 2 - 7 * k, -h / 2 + 10 * k + d], [w / 2 - 10 * k, -h / 2 + 13 * k + d]], true);
+          c.fillStyle = C.warm; c.fill();
+        }
+        c.restore();
+      });
+    };
+    // Two overlapping domes, one for each order; the dot sweeps the tuning axis at low temperature.
+    D['competition-2'] = function (c, C, W, H, t, k) {
+      var x0 = W * .12, x1 = W * .9, y0 = H * .86, y1 = H * .1, w = x1 - x0, h = y0 - y1, i;
+      var dome = function (m, s, a) { return function (u) { var q = (u - m) / s; return q * q < 1 ? a * (1 - q * q) : 0; }; };
+      var A = dome(.36, .3, .8), B = dome(.66, .27, .58);
+      [[A, .36, .3, C.accent], [B, .66, .27, C.warm]].forEach(function (d) {
+        var pts = [];
+        for (i = 0; i <= 30; i++) { var u = d[1] - d[2] + 2 * d[2] * i / 30; pts.push([x0 + w * u, y0 - h * d[0](u)]); }
+        poly(c, pts, true); c.fillStyle = stAlpha(d[3], .2); c.fill(); c.strokeStyle = d[3]; c.lineWidth = 1.8; poly(c, pts); c.stroke();
+      });
+      axes(c, C, x0, y0, x1 + 2 * k, y1, k);
+      var v = .5 - .5 * Math.cos(TAU * t / 8), x = x0 + w * v, y = y0 - h * .1, inA = A(v) > .1, inB = B(v) > .1;
+      c.strokeStyle = stAlpha(C.ink2, .4); c.lineWidth = 1; c.setLineDash([2 * k, 2 * k]); seg(c, x, y0, x, y0 - h * Math.max(A(v), B(v), .1)); c.setLineDash([]);
+      if (inA && inB) halo(c, x, y, 8 * k, C.gold || C.warm, .7);
+      disc(c, x, y, 3 * k, inA ? C.accent : inB ? C.warm : C.surface || '#ffffff'); circ(c, x, y, 3 * k, C.ink2, 1.2);
+    };
+    // A single vortex threading a slab: flux passes through the normal core while supercurrent circulates around it.
+    D['vortex-2'] = function (c, C, W, H, t, k) {
+      var cx = W * .5, cy = H * .6, rx = W * .42, ry = H * .2, d = 6 * k, i;
+      c.strokeStyle = stAlpha(C.warm, .45); c.lineWidth = 1.6; seg(c, cx, H * .98, cx, cy);
+      poly(c, [[cx - rx, cy], [cx, cy + ry], [cx, cy + ry + d], [cx - rx, cy + d]], true); c.fillStyle = stAlpha(C.accent, .32); c.fill();
+      poly(c, [[cx, cy + ry], [cx + rx, cy], [cx + rx, cy + d], [cx, cy + ry + d]], true); c.fillStyle = stAlpha(C.accent, .24); c.fill();
+      poly(c, [[cx - rx, cy], [cx, cy - ry], [cx + rx, cy], [cx, cy + ry]], true); c.fillStyle = stAlpha(C.accent, .16); c.fill(); c.strokeStyle = stAlpha(C.accent, .6); c.lineWidth = 1.1; c.stroke();
+      for (i = 1; i <= 2; i++) {
+        var ex = rx * .27 * i, ey = ry * .27 * i, a0 = t * (2.4 - .7 * i) + i, a1 = a0 + TAU * .72, col = stAlpha(C.accent, 1 - .25 * i);
+        c.beginPath(); c.ellipse(cx, cy, ex, ey, 0, a0, a1); c.strokeStyle = col; c.lineWidth = 1.5; c.stroke();
+        var hx = cx + ex * Math.cos(a1), hy = cy + ey * Math.sin(a1), tx = -ex * Math.sin(a1), ty = ey * Math.cos(a1), tl = Math.sqrt(tx * tx + ty * ty) || 1;
+        arrow(c, hx - tx / tl * 4 * k, hy - ty / tl * 4 * k, hx + tx / tl * 1.5 * k, hy + ty / tl * 1.5 * k, col, 3.2 * k, 1.5);
+      }
+      halo(c, cx, cy, 7 * k, C.gold || C.warm, .6 + .3 * Math.sin(TAU * t / 2)); disc(c, cx, cy, 2.4 * k, C.ink2);
+      arrow(c, cx, cy - 2 * k, cx, H * .08, C.warm, 4 * k, 1.8);
+    };
+    // Wire on a superconductor with a mode at each end, the picture used for proposed Majorana end states.
+    D['topo-2'] = function (c, C, W, H, t, k) {
+      var y = H * .56, x0 = W * .14, x1 = W * .86, g = .6 + .4 * Math.sin(TAU * t / 2.4), i;
+      c.fillStyle = stAlpha(C.accent, .18); c.fillRect(W * .06, y + 5 * k, W * .88, H * .28);
+      c.strokeStyle = stAlpha(C.accent, .55); c.lineWidth = 1.1; c.strokeRect(W * .06, y + 5 * k, W * .88, H * .28);
+      c.strokeStyle = stAlpha(C.ink2, .55); c.lineWidth = 7 * k; seg(c, x0, y, x1, y);
+      c.strokeStyle = C.surface || '#ffffff'; c.lineWidth = 4.4 * k; seg(c, x0, y, x1, y);
+      c.beginPath();
+      for (i = 0; i <= 48; i++) { var u = i / 48, amp = Math.exp(-u * 9) + Math.exp(-(1 - u) * 9), x = x0 + (x1 - x0) * u, yy = y - 7 * k - 24 * k * amp * g; if (i) c.lineTo(x, yy); else c.moveTo(x, yy); }
+      c.strokeStyle = C.warm; c.lineWidth = 1.6; c.stroke();
+      [x0, x1].forEach(function (x) { halo(c, x, y, 8 * k, C.gold || C.warm, .4 + .4 * g); disc(c, x, y, 2.6 * k, C.warm); });
+    };
+    // A lattice squeezed from four sides: the spacing shrinks and relaxes as the push rises and falls.
+    D['pressure-2'] = function (c, C, W, H, t, k) {
+      var sq = .5 + .5 * Math.sin(TAU * t / 4), s = (15 - 4 * sq) * k, nx = 4, ny = 3, cx = W / 2, cy = H / 2, i, j;
+      var ox = cx - (nx - 1) * s / 2, oy = cy - (ny - 1) * s / 2, gx = (nx - 1) * s / 2 + 9 * k, gy = (ny - 1) * s / 2 + 8 * k, L = 11 * k, col = stAlpha(C.ink2, .45 + .45 * sq);
+      c.strokeStyle = stAlpha(C.warm, .2 + .55 * sq); c.lineWidth = 1.4;
+      for (i = 0; i < nx; i++) for (j = 0; j < ny; j++) { var x = ox + i * s, y = oy + j * s; if (i < nx - 1) seg(c, x, y, x + s, y); if (j < ny - 1) seg(c, x, y, x, y + s); }
+      for (i = 0; i < nx; i++) for (j = 0; j < ny; j++) disc(c, ox + i * s, oy + j * s, 3 * k, (i + j) % 2 ? C.accent : stAlpha(C.ink2, .75));
+      arrow(c, cx - gx - L, cy, cx - gx, cy, col, 3.6 * k, 1.6); arrow(c, cx + gx + L, cy, cx + gx, cy, col, 3.6 * k, 1.6);
+      arrow(c, cx, cy - gy - L, cx, cy - gy, col, 3.6 * k, 1.6); arrow(c, cx, cy + gy + L, cx, cy + gy, col, 3.6 * k, 1.6);
+    };
+    // Two domains of opposite chirality; along the wall between them their edge currents run the same way.
+    D['trsb-2'] = function (c, C, W, H, t, k) {
+      var cy = H * .52, R = Math.min(W * .21, H * .34), q;
+      [W * .5 - R * .98, W * .5 + R * .98].forEach(function (x, i) {
+        var col = i ? C.warm : C.accent, s = i ? -1 : 1, ex = R * .74, ey = R * .66;
+        c.beginPath(); c.ellipse(x, cy, R, R * .9, 0, 0, TAU); c.fillStyle = stAlpha(col, .15); c.fill(); c.strokeStyle = stAlpha(col, .45); c.lineWidth = 1; c.stroke();
+        for (q = 0; q < 2; q++) {
+          var a0 = s * t * 1.3 + q * Math.PI, a1 = a0 + s * TAU * .3;
+          c.beginPath(); c.ellipse(x, cy, ex, ey, 0, Math.min(a0, a1), Math.max(a0, a1)); c.strokeStyle = col; c.lineWidth = 1.8; c.stroke();
+          var tx = -ex * Math.sin(a1) * s, ty = ey * Math.cos(a1) * s, tl = Math.sqrt(tx * tx + ty * ty) || 1, hx = x + ex * Math.cos(a1), hy = cy + ey * Math.sin(a1);
+          arrow(c, hx - tx / tl * 4 * k, hy - ty / tl * 4 * k, hx + tx / tl * 1.5 * k, hy + ty / tl * 1.5 * k, col, 3.4 * k, 1.8);
+        }
+      });
+      halo(c, W * .5, cy, 7 * k, C.gold || C.warm, .35 + .25 * Math.sin(TAU * t / 2));
+      arrow(c, W * .5, cy - R * .5, W * .5, cy + R * .5, stAlpha(C.ink2, .6), 3.4 * k, 1.4);
+    };
+    // A chain of antiparallel spins precessing with a steady phase lag: an antiferromagnetic spin wave.
+    D['spinfluct-2'] = function (c, C, W, H, t, k) {
+      var n = 8, y = H * .5, L = 20 * k, x0 = W * .12, dx = W * .76 / (n - 1), up = [], dn = [], i;
+      c.strokeStyle = stAlpha(C.muted, .5); c.lineWidth = 1; seg(c, x0 - 5 * k, y, x0 + dx * (n - 1) + 5 * k, y);
+      for (i = 0; i < n; i++) {
+        var x = x0 + i * dx, s = i % 2 ? 1 : -1, ph = t * 2.1 - i * .62, rx = 4.5 * k, ry = 1.8 * k, tip = y + s * L, tx = x + rx * Math.cos(ph), ty = tip + ry * Math.sin(ph);
+        c.beginPath(); c.ellipse(x, tip, rx, ry, 0, 0, TAU); c.strokeStyle = stAlpha(C.muted, .5); c.lineWidth = .9; c.stroke();
+        arrow(c, x, y, tx, ty, s < 0 ? C.accent : C.warm, 3.4 * k, 1.5);
+        disc(c, x, y, 2 * k, stAlpha(C.ink2, .65));
+        (s < 0 ? up : dn).push([tx, ty]);
+      }
+      c.lineWidth = 1; c.strokeStyle = stAlpha(C.accent, .45); poly(c, up); c.stroke(); c.strokeStyle = stAlpha(C.warm, .45); poly(c, dn); c.stroke();
+    };
+    // Tilted washboard: the junction's phase, drawn as a ball, rocks in a well and now and then slips to the next one.
+    D['junction-2'] = function (c, C, W, H, t, k) {
+      var x0 = W * .06, x1 = W * .94, w = x1 - x0, A = 7 * k, n = 2.5, tilt = H * .4, i;
+      var U = function (u) { return H * .3 + tilt * u - A * Math.cos(TAU * n * u); };
+      c.strokeStyle = stAlpha(C.muted, .4); c.lineWidth = 1; c.setLineDash([2 * k, 2 * k]); seg(c, x0, H * .3, x1, H * .3 + tilt); c.setLineDash([]);
+      c.beginPath(); for (i = 0; i <= 80; i++) { if (i) c.lineTo(x0 + w * i / 80, U(i / 80)); else c.moveTo(x0, U(0)); }
+      c.strokeStyle = C.accent; c.lineWidth = 1.8; c.stroke();
+      // Wells sit where the curve dips; the tilt shifts each a little downhill.
+      var shift = tilt / (4 * Math.PI * Math.PI * n * n * A), w0 = .5 / n + shift, w1 = 1.5 / n + shift, f = md(t / 6, 1);
+      var um = f < .72 ? w0 + .045 * Math.sin(TAU * f * 4 / .72) * (1 - f) : w0 + (w1 - w0) * (1 - Math.cos(Math.PI * (f - .72) / .28)) / 2;
+      var bx = x0 + w * um, by = U(um) - 3.4 * k;
+      halo(c, bx, by, 7 * k, C.gold || C.warm, .5); disc(c, bx, by, 3.2 * k, C.warm);
+    };
     var ALT = {
       zr: 'Copper–oxygen plane with Zhang–Rice singlets: a hole on the four oxygens around a copper binds to that copper’s spin (shaded diamonds) on alternating plaquettes. Placement and timing are illustrative, not the article’s images or calculation.',
       domains: 'Two domains of different local orientation meet at a wandering wall where small superconducting puddles glow. Domain shapes, sizes and motion are illustrative, not the article’s maps.',
@@ -237,7 +425,19 @@ const initializeSuperconNewsLooks = function initializeSuperconNewsLooks() {
       nqs: 'Neural-network wavefunction cartoon: spins on lattice sites feed a small network whose output is the wavefunction amplitude. Network size, connections and spins are illustrative, not the article’s architecture or results.',
       disorder: 'Lattice with displaced sites, vacancies and impurity atoms, through which bound pairs keep moving. Positions and motion are illustrative, not a measured disorder level or pairing strength.',
       apical: 'Copper–oxygen octahedron: the apical oxygens above and below the copper move in and out of the CuO₂ plane. The motion is exaggerated and illustrative, not the article’s structure or a measured vibration.',
-      dwave: 'Schematic d-wave gap on a circular Fermi surface: four lobes of alternating sign with nodes on the diagonals; the bar shows the gap where the dot sits. Sizes are illustrative, not a measured gap map.'
+      dwave: 'Schematic d-wave gap on a circular Fermi surface: four lobes of alternating sign with nodes on the diagonals; the bar shows the gap where the dot sits. Sizes are illustrative, not a measured gap map.',
+      'features-2': 'Parity-plot schematic: a model’s estimates against reference values gather around the dashed diagonal, and one point shows its error. Points are illustrative, not the article’s data or accuracy.',
+      'graph-2': 'Crystal-graph schematic: atoms of a repeating cell are nodes and neighbours share edges; pulses pass messages and a pooled readout fills a bar. Positions are not crystallographic coordinates, and the bar is not a predicted value.',
+      'tree-2': 'Boosting schematic: small trees are added one after another, each nudging a running estimate (dot) toward a target mark. Trees and steps are illustrative, not the fitted model.',
+      'search-2': 'Screening-funnel schematic: many candidates enter, fewer pass each filter and the few left collect at the outlet. Symbols are not generated or synthesized crystal structures; pass rates are illustrative.',
+      'research-2': 'An animated stack of research papers whose lines are read in turn. No material structure, measurement or superconducting discovery is asserted.',
+      'competition-2': 'Schematic phase diagram with two overlapping domes, one for each order; the dot sweeps the tuning axis at low temperature and glows where both appear. Shapes are illustrative, not a measured phase diagram.',
+      'vortex-2': 'A single vortex threading a superconducting slab: magnetic flux passes through the normal core while supercurrent circulates around it. Sizes and speeds are illustrative, not a measured or computed vortex.',
+      'topo-2': 'Wire on a superconductor with a mode glowing at each end, the picture used for proposed Majorana end states. Illustrative only; this is not evidence that the article’s system hosts such modes.',
+      'pressure-2': 'A lattice squeezed from four sides: the spacing shrinks and relaxes as the push rises and falls. No crystal structure, pressure value or measured transition is depicted.',
+      'trsb-2': 'Two domains of opposite chirality, each with a circulating edge current; along the wall between them the two currents run the same way. This is not the article’s pairing state or measured field.',
+      'spinfluct-2': 'A chain of antiparallel spins precessing with a steady phase lag, the classic picture of an antiferromagnetic spin wave. No measured spectrum or pairing mechanism is shown.',
+      'junction-2': 'Tilted-washboard picture of a Josephson junction: the phase, drawn as a ball, rocks in a well and now and then slips to the next; the tilt stands for the bias current. This is not the article’s device or measured switching.'
     };
     Object.keys(D).forEach(function (kind) {
       MINI_DRAW['news-' + kind] = guard(D[kind]);
@@ -258,7 +458,7 @@ const initializeSuperconNewsLooks = function initializeSuperconNewsLooks() {
     // Mirror and close-up framings; plots, timelines and labelled drawings keep their orientation.
     var FLIP = [0, 1, 0, 1, 0, 1], ZOOM = [[1, .5, .5], [1, .5, .5], [1.16, .3, .45], [1.16, .3, .45], [1.26, .5, .5], [1.26, .64, .55]],
       KEEP = [[1, .5, .5], [1.14, .22, .5], [1.16, .78, .5], [1.2, .5, .25], [1.2, .5, .8], [1.3, .5, .5]],
-      FIXED = /^(?:hydride|two-stage|timeline|competition|dome|reentrant|spectrum|gapdos|ring|interval|routing|tree|features|measurement|research|literature|search|graph|ai|general|penetration)$/;
+      FIXED = /^(?:hydride|two-stage|timeline|competition|dome|reentrant|spectrum|gapdos|ring|interval|routing|tree|features|measurement|research|literature|search|graph|ai|general|penetration|features-2|tree-2|research-2|competition-2|junction-2)$/;
     function frame(c, W, H, v, keep) {
       var z = (keep ? KEEP : ZOOM)[v] || KEEP[0];
       if (!keep && FLIP[v]) { c.translate(W, 0); c.scale(-1, 1); }
