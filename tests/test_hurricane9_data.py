@@ -69,6 +69,7 @@ class Hurricane9DataTests(unittest.TestCase):
         self.assertNotEqual(a[1]["exact"], b[1]["exact"])
         self.assertEqual(H.canonical(a[0]), H.canonical(b[0]))
         self.assertEqual(H.composition(row(ma1="Ba", ma2="0.60", mb1="K", mb2="0.4", mc1="Bi", mc2="1.0", mo1="O", mo2="3"))[1]["exact"], "Ba0.6 Bi1 K0.4 O3")
+        self.assertEqual(H.composition(row(ma1="IN", ma2="0.02", mb1="Ce", mb2="1", mc1="In", mc2="4.98"))[0], {"In": 5.0, "Ce": 1.0})   # capitalised symbols
         with self.assertRaisesRegex(ValueError, "bad element"):
             H.composition(row(ma1="Xx", ma2="1"))
         with self.assertRaisesRegex(ValueError, "oxygen expression"):
@@ -247,6 +248,12 @@ class Hurricane9DataTests(unittest.TestCase):
         self.assertNotEqual(by_member[("unit",) + u4["key"]], la_sr)                 # the iron pnictide is not joined to the cuprates
         self.assertEqual(by_member[("3dsc", "row-88")], by_member[("unit",) + u6["key"]])   # element set within the family, not the sentinel
         self.assertNotEqual(by_member[("unit",) + u6["key"]], by_member[("unit",) + u7["key"]])   # two unresolved parents share no edge
+        # Edge ablation: without the element-set edge row-88 stands alone; without the parent edge La-Ba-Cu-O leaves the La-Sr pair.
+        no_elements = {tuple(m): cid for cid, c in H.components(units, extra_nodes=extra, edges=("bin", "parent", "links")).items() for m in c["members"]}
+        self.assertNotEqual(no_elements[("3dsc", "row-88")], no_elements[("unit",) + u6["key"]])
+        self.assertEqual(no_elements[("mp", "mp-19")], no_elements[("unit",) + u1["key"]])
+        no_parent = {tuple(m): cid for cid, c in H.components(units, extra_nodes=extra, edges=("bin", "elements", "links")).items() for m in c["members"]}
+        self.assertNotEqual(no_parent[("unit",) + u3["key"]], no_parent[("unit",) + u1["key"]])
         ce = by_member[("unit",) + u5["key"]]
         self.assertTrue(comps[ce]["purged"])                                          # anchor member purges the component
         self.assertEqual(comps[ce]["purge_reason"], "anchor or prior-claim member")
