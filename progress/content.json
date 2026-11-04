@@ -1,6 +1,6 @@
 { "contact": {"service": "web3forms", "key": "faf83c4e-b4d7-4414-9bce-30a992bf46e8"},
   "schema": 1,
-  "updated": "2026-10-31",
+  "updated": "2026-11-04",
   "about": "Curated recent advances for the Supercon Progress app. Each entry needs a reference in refs (a DOI, or an https link for preprints and project pages). Entries are merged with the ones built into the app: an entry with the same ref replaces the built-in one, and refs listed in hide are removed. cards: the Theory & materials cards it belongs to (their animation ids, e.g. zr, mott, stripes, dwave, phase), or ai for the AI × superconductors view. kind: experiment, theory, computation or news. Texts are summaries in our own words.",
   "refs": {
     "ye2026": {
@@ -46,9 +46,153 @@
     "storm5_2026": {
       "t": "Hello Super: Storm 5.0, github.com/diracmagic/supercon-ml (2026)",
       "u": "https://github.com/diracmagic/supercon-ml#storm-the-model-for-conventional-superconductors"
+    },
+    "kamat2026": {
+      "t": "S. Kamat et al., Nat. Phys. (2026)",
+      "d": "10.1038/s41567-026-03504-z"
+    },
+    "huang2026": {
+      "t": "Q. Huang et al., Phys. Rev. Lett. (2026)",
+      "d": "10.1103/fz8w-w61f"
+    },
+    "duffy2026": {
+      "t": "C. M. Duffy et al., Nat. Phys. (2026)",
+      "d": "10.1038/s41567-026-03454-6"
+    },
+    "jdeng2026": {
+      "t": "J. Deng et al., Nat. Phys. (2026)",
+      "d": "10.1038/s41567-026-03443-9"
+    },
+    "liu2026": {
+      "t": "Y. Liu et al., Phys. Rev. X (2026)",
+      "d": "10.1103/b884-4h1s"
+    },
+    "vaxevani2026": {
+      "t": "K. Vaxevani et al., Nature 658, 617 (2026)",
+      "d": "10.1038/s41586-026-11117-y"
+    },
+    "wang2026": {
+      "t": "Z. Wang et al., Nature 657, 912 (2026)",
+      "d": "10.1038/s41586-026-11037-x"
+    },
+    "kataria2026": {
+      "t": "A. Kataria et al., Phys. Rev. Lett. 137, 136002 (2026)",
+      "d": "10.1103/drzq-lfn5"
+    },
+    "barlas2026": {
+      "t": "Y. Barlas, F. Zhang & E. Rossi, Phys. Rev. Lett. 137, 196002 (2026)",
+      "d": "10.1103/k5r2-q11w"
+    },
+    "kawamura2026": {
+      "t": "M. Kawamura et al., Phys. Rev. Lett. 137, 196001 (2026)",
+      "d": "10.1103/lrhl-j9bt"
     }
   },
   "recent": [
+    {
+      "d": "2026-11",
+      "k": "theory",
+      "cards": [
+        "moire"
+      ],
+      "ref": "barlas2026",
+      "h": "Band quantum geometry selects Kekulé superconductivity in Haldane phases",
+      "x": "A theory of spin-polarized rhombohedral graphene in a Haldane phase finds that the quantum geometry of its bands favours pairing within each valley and selects a chiral Kekulé state: a pair-density wave modulated on the scale of the lattice. The authors suggest kagome metals as another place to look for it."
+    },
+    {
+      "d": "2026-11",
+      "k": "computation",
+      "cards": [
+        "eliashberg",
+        "london"
+      ],
+      "ref": "kawamura2026",
+      "h": "Coherence length and penetration depth computed from first principles",
+      "x": "Superconducting density functional theory, extended to Cooper pairs with finite momentum, yields Tc, the coherence length and the London penetration depth without adjustable parameters for Al, In, Sn, Ta, Pb, Nb, V₃Si and compressed H₃S. For Nb it gives Tc = 8.1 K against 9.5 K measured and ξ₀ = 34 nm against about 39 nm; H₃S comes out at 181 K against 184 K. Every material is correctly classed as type I or type II; the largest relative error is for Al (1.6 K against 1.1 K)."
+    },
+    {
+      "d": "2026-10",
+      "k": "experiment",
+      "cards": [
+        "triplet",
+        "heavy"
+      ],
+      "ref": "kamat2026",
+      "h": "Two superconducting orders meet at a tetracritical point in UTe₂",
+      "x": "Ultrasound measurements under hydrostatic pressure up to about 1 GPa trace two superconducting transitions in UTe₂ whose lines cross near 0.2 GPa and 1.6 K, a tetracritical point. Below it the two orders coexist as one multicomponent state, and a similar state appears at ambient pressure between about 12 and 18 T with the field along the b axis. Whether the combined state breaks time-reversal symmetry is not established."
+    },
+    {
+      "d": "2026-10",
+      "k": "experiment",
+      "cards": [
+        "nickelate",
+        "dwave"
+      ],
+      "ref": "huang2026",
+      "h": "Terahertz light reveals clean d-wave pairing in a samarium nickelate",
+      "x": "Ultrafast terahertz spectroscopy of an infinite-layer samarium nickelate film with a Tc of 20 K finds a superfluid density that falls linearly as the temperature rises, consistent with d-wave pairing in the clean limit. The extracted gap is 2.5 meV, a gap-to-Tc ratio of about 3."
+    },
+    {
+      "d": "2026-10",
+      "k": "experiment",
+      "cards": [
+        "spinglue",
+        "strange"
+      ],
+      "ref": "duffy2026",
+      "h": "Spin fluctuations set Tc in electron-doped cuprates",
+      "x": "Transport measurements on La₂₋ₓCeₓCuO₄ films at 19 dopings isolate a scattering rate that grows linearly with temperature and varies around the Fermi surface, which the authors attribute to spin fluctuations at the antiferromagnetic wavevector. Its strength falls about tenfold as Tc drops from about 25 K to zero and tracks Tc across the doping range, which the authors take as evidence that these fluctuations mediate the pairing."
+    },
+    {
+      "d": "2026-10",
+      "k": "experiment",
+      "cards": [
+        "moire"
+      ],
+      "ref": "jdeng2026",
+      "h": "Superconducting-like states and an electrically switchable orbital magnet in six-layer graphene",
+      "x": "Transport down to 9 mK in rhombohedral six-layer graphene finds two superconducting-like states. In the first, the resistivity drops sharply near 170 mK and survives in-plane fields of about 6 T, far above the Pauli limit of about 0.3 T expected from its Tc. The resistance never fully reaches zero, hence the cautious name. The same device hosts a ferroelectric orbital magnet whose hysteresis can be reversed with an electric field."
+    },
+    {
+      "d": "2026-10",
+      "k": "experiment",
+      "cards": [
+        "nickelate"
+      ],
+      "ref": "liu2026",
+      "h": "Oxygen content traces a superconducting half-dome in bilayer nickelate films",
+      "x": "Compressively strained bilayer nickelate films on SrLaAlO₄, such as La₂PrNi₂O₇₊δ, superconduct best, with onsets above 40 K, at ideal oxygen content. Adding oxygen suppresses superconductivity toward a metal, while removing it drives a granular superconductor–insulator transition and turns the Hall coefficient from negative to positive. Together they trace half of a superconducting dome."
+    },
+    {
+      "d": "2026-10",
+      "k": "experiment",
+      "cards": [
+        "field"
+      ],
+      "ref": "vaxevani2026",
+      "h": "Even and odd molecular spin chains couple differently to a superconductor",
+      "x": "Chains of spin-1 [3]triangulene molecules assembled on a superconducting Au/Nb(110) surface behave as Haldane chains with a free spin at each end. In chains with an odd number of units the end spins combine to a total spin of 1, which binds Yu–Shiba–Rusinov states inside the superconducting gap; in even chains they pair into a spin-0 state that no longer couples to the superconductor. Singlet–triplet excitations measure the exchange between the end spins."
+    },
+    {
+      "d": "2026-09",
+      "k": "experiment",
+      "cards": [
+        "triplet"
+      ],
+      "ref": "kataria2026",
+      "h": "A type-I superconductor that breaks time-reversal symmetry: YbSb₂",
+      "x": "Zero-field muon-spin relaxation on YbSb₂, a type-I superconductor with Tc ≈ 0.95 K and a critical field of about 51 G, picks up a spontaneous internal field of about 0.44 G that appears with superconductivity, the sign of broken time-reversal symmetry. It is the first type-I superconductor reported to do so. A nonunitary triplet state is proposed but not tested."
+    },
+    {
+      "d": "2026-08",
+      "k": "experiment",
+      "cards": [
+        "field"
+      ],
+      "ref": "wang2026",
+      "h": "A dark optical cavity raises the Tc of NbSe₂",
+      "x": "Thin NbSe₂ placed in terahertz split-ring resonators, with no light shone on it, showed a Tc about 0.13 K (roughly 2%) higher in a 12-layer device, and the shift depended on the resonator frequency. The authors present it as evidence for, and a proof-of-principle demonstration of, superconductivity tuned by the vacuum fluctuations of a cavity."
+    },
     {
       "d": "2026-10",
       "k": "computation",
