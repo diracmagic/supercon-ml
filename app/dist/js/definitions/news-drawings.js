@@ -2,7 +2,7 @@
 // news-drawings: shared lexical function definitions; no startup side effects.
 
   const newsArt = function newsArt(n) {
-    var tp = list(n.topics), head = String(n.title || n.h || ''), body = head + ' ' + String(n.summary || n.x || '') + ' ' + String(n.abstract || '');
+    var tp = list(n.topics), cards = list(n.cards), head = String(n.title || n.h || ''), text = String(n.summary || n.x || '') + ' ' + String(n.abstract || ''), body = head + ' ' + text;
     // Match the stated subject before broad tags. These are labelled subject schematics,
     // never reconstructed structures, measured traces or evidence of superconductivity.
     if (/\bStorm\b/i.test(head) && /range|interval|conformal/i.test(head)) return 'news-interval';
@@ -11,33 +11,68 @@
     if (/\bStorm\b/i.test(head) && !/graph|network/i.test(head)) return 'news-tree';
     if (/literature|retrieval[- ]augmented|question answering|text mining|language model|corpus|structured extraction/i.test(head)) return 'news-literature';
     if (/holographic/i.test(head)) return 'news-features';
-    if (/stripes?|Hubbard|Kondo[- ]Heisenberg/i.test(head)) return 'news-stripes';
+    // A detector or a diode named in the headline outranks the material that hosts it.
+    if (/\bdetectors?\b|(?:photon|particle|radiation) detection|\bbolometers?\b|transition[- ]edge sensor|\bSNSPDs?\b|dark matter|\baxions?\b/i.test(head)) return 'news-detector';
+    if (/\bdiodes?\b|non-?reciprocal|rectification/i.test(head)) return 'news-diode';
+    if (/stripes?(?![- ]domain)|Hubbard|Kondo[- ]Heisenberg/i.test(head)) return 'news-stripes';
     if (/geometry of materials|common features|representation|tangent kernel/i.test(head)) return 'news-features';
     if (/density of states|spectroscop|Raman|muon stopping|ultrasound/i.test(head)) return 'news-spectrum';
-    if (/vorti(?:ces|ex)/i.test(head)) return 'news-vortex';
+    // A twisted-light vortex beam is an optical probe, not flux vortices in the sample.
+    if (/optical vort|vortex beams?|vortex light/i.test(head)) return 'news-light';
+    if (/vort(?:ex|ices)|fluxons?|Abrikosov/i.test(head)) return 'news-vortex';
     if (/graphene/i.test(head)) {
       var grapheneText = body.replace(/\b(?:without|no|absence of)\s+(?:a\s+)?moir[eé](?:\s+pattern)?\b/gi, '');
-      if (/twist|moir[eé]/i.test(grapheneText)) return 'news-moire';
-      return /(?:six|6)[- ]layer/i.test(head) ? 'news-layered-six' : 'news-layered';
+      if (/twist|moir[eé]|magic[- ]angle/i.test(grapheneText)) return 'news-moire';
+      return /(?:six|6)[- ]layer|hexalayer/i.test(head) ? 'news-layered-six' : 'news-layered';
     }
-    if (/electron[– -]phonon|phonon|breathing mode/i.test(head)) return 'news-eph';
-    if (/magnon|spin wave/i.test(head) && !/circuit|qubit/i.test(head)) return 'news-stripes';
-    if (/graph neural|line[- ]graph|ALIGNN|crystal[- ]graph/i.test(head)) return 'news-graph';
-    if (/generat|diffusion|inverse design|structure search|physics judge/i.test(head)) return 'news-search';
-    if (/terahertz|picosecond|laser|light pulse/i.test(head)) return 'news-light';
-    var pressureText = head.replace(/\bambient[- ]pressure\b|\b(?:without|no)\s+(?:applied\s+|external\s+)?pressure\b|\bpressure[- ]free\b/gi, '');
-    if (/pressure|diamond anvil|\bGPa\b/i.test(pressureText)) return 'news-pressure';
+    if (/electron[– -]phonon|phonon|breathing mode|\bbipolarons?\b|\bpolarons?\b/i.test(head) && !/qubit|transmon/i.test(head)) return 'news-eph';
+    if (/magnon|spin wave|spin[- ]fluctuat|paramagnon/i.test(head) && !/circuit|qubit/i.test(head)) return 'news-spinfluct';
+    if (/graph neural|line[- ]graph|ALIGNN|crystal[- ]graph|graph networks?/i.test(head)) return 'news-graph';
+    if (/\bgenerative\b|\bgenerat(?:e|es|ed|ing)\b|diffusion(?: models?| and| for| transformer)|inverse design|structure search|physics judge/i.test(head)) return 'news-search';
+    if (/terahertz|picosecond|femtosecond|laser|light pulse|light[- ]induced|photo-?(?:galvanic|current|induced)|mid-infrared|^light\b|optical(?:ly)? (?:pump|driv)/i.test(head)) return 'news-light';
+    var pressureText = head.replace(/\bambient[- ]pressure\b|\b(?:without|no)\s+(?:applied\s+|external\s+)?pressure\b|\bpressure[- ]free\b|\b(?:partial|vapou?r|gas)\s+pressures?\b/gi, '');
+    if (/pressur(?:e|i[sz]ed|i[sz]ing)|diamond anvil|\bGPa\b|\bsqueez/i.test(pressureText)) return 'news-pressure';
+    if (/\bs\s?±|\bs\+-|s[- ]plus[- ]minus|sign[- ](?:revers|chang)/i.test(head)) return 'news-multigap';
     if (/nanowire/i.test(head)) return 'news-topo';
     if (/kagome/i.test(head)) return 'news-kagome';
     if (/cuprate|CuO[₂2]|Zhang[– -]Rice/i.test(head)) return 'news-cuprate';
-    if (/nickelate/i.test(head)) return /\bbilayer\b|\bdouble[- ]layer\b/i.test(body) && !/\binfinite[- ]layer\b/i.test(body) ? 'news-nickelate' : 'news-layered';
+    var bilayerNi = /\bbilayer\b|\bdouble[- ]layer\b|Ni\s?[₂2]\s?O\s?[₇7]/i.test(body) && !/\binfinite[- ]layer\b|monolayer[- ]trilayer/i.test(body);
+    if (/nickelate|Ni\s?[₂2]\s?O\s?[₇7]/i.test(head)) return bilayerNi ? 'news-nickelate' : 'news-layered';
     if (n.ai_kind === 'experiment') return 'news-measurement';
     if (n.ai_kind === 'generation') return 'news-search';
     if (n.ai_kind === 'data' || n.ai_kind === 'review') return 'news-literature';
+    // Further headline subjects with their own schematic, ahead of broad topic tags.
+    // A retraction or null result keeps the neutral icon rather than a material motif.
+    if (/retract|withdrawn|debunk|no superconductivity|not superconduct|absence of superconductivity/i.test(head)) return 'news-research';
+    if (/Majorana|Kitaev/i.test(head)) return 'news-topo';
+    if (/qubit|transmon|fluxonium|quantum (?:processor|computer|computing|information|memory|random[- ]access)|superconducting (?:circuit|processor)|circuit QED|\bQRAM\b/i.test(head)) return 'news-qubit';
+    if (/time[- ]reversal|\bTRSB\b|chiral (?:\w+[- ])?superconduct/i.test(head)) return 'news-trsb';
+    if (/kekul/i.test(head)) return 'news-kekule';
+    if (/FFLO|Fulde|Larkin|Ovchinnikov|pair[- ]density[- ]waves?|\bPDW\b|pair[- ]density modulation|finite[- ]momentum pair|varies with the lattice/i.test(head)) return 'news-fflo';
+    if (/Zeeman|spin[- ]imbalanc|Pauli[- ]limit|Ising superconduct/i.test(head)) return 'news-zeeman';
+    if (/molecul|triangulene|Shiba|\bYSR\b|adatoms?|magnetic impurit|spin chains?/i.test(head)) return 'news-molecule';
+    if (/\bSRF\b|accelerator|cryomodule|radio[- ]frequency|beam acceleration/i.test(head)) return 'news-rf';
+    if (/transmission lines?|microwave photons?|\bresonators?\b|kinetic[- ]inductance/i.test(head)) return 'news-resonator';
+    if (/cavit(?:y|ies)|vacuum[- ](?:fluctuation|enhanced)|vacuumtronic|Casimir|light[- ]matter|polaritons?|split[- ]ring/i.test(head)) return 'news-cavity';
+    if (/\bmagnets?\b|solenoids?|\bcoils?\b|\bMRI\b|\bfusion\b|maglev|superconducting (?:magnetic )?mirror/i.test(head) && !/odd[- ]parity magnet/i.test(head)) return 'news-coil';
+    if (/\bcables?\b|\btapes?\b|\bwires?\b|\bkA\b|current leads?|powering|power (?:lines?|links?|transmission)/i.test(head)) return 'news-cable';
+    if (/Little[- ]Parks|flux(?:oid)? quantiz|fluxoid|\brings?\b|\bSQUIDs?\b|\bh\/[246]e\b/i.test(head)) return 'news-ring';
+    if (/ultracold|cold atoms?|optical lattices?|atomic gas|Fermi gas|Bose[- ]Einstein|tweezers?|atom by atom|quantum gas/i.test(head)) return 'news-coldatoms';
+    if (/penetration depth|coherence length|superfluid (?:density|stiffness)|phase stiffness|London (?:length|depth)|accommodate magnetic|field penetration|field screening/i.test(head)) return 'news-penetration';
+    if (/multi[- ]?gap|two[- ]gap|multi[- ]?band|two[- ]band|nodeless|Leggett/i.test(head)) return 'news-multigap';
+    if (/tunnell?ing (?:spectroscop|measures|gap|conductance)|\bgaps?\b|pseudogap/i.test(head.replace(/\bband[- ]gaps?\b/gi, ''))) return 'news-gapdos';
+    if (/Josephson|Andreev|weak[- ]links?|\bjunctions?\b|co-?tunnel|three[- ]terminal|quantum dots?/i.test(head)) return 'news-junction';
+    if (/\btwist(?:ed)?\b|twist[- ]angle|moir[eé]|magic[- ]angle/i.test(head)) return 'news-moire';
+    if (/competi(?:tion|ng)|rivalry|coexist|tetracritic|multi-?component|phase transition between|two (?:superconducting |competing |quantum )?(?:states|orders|phases)|\bnematic\b|intertwined orders?/i.test(head)) return 'news-competition';
+    if (/altermagnet|antiferromagnet|ferromagnet|magnetic order|magnetism|exchange[- ]coupled|odd[- ]parity magnets?|N[eé]el/i.test(head)) return 'news-magnetism';
+    if (/proximit/i.test(head)) return 'news-proximity';
+    if (/thermoelectric|thermal (?:transport|conductivity|Hall)|heat (?:transport|conduction|flow)|Nernst|Seebeck|thermali[sz]ation/i.test(head)) return 'news-thermal';
+    if (/\bmonolayer\b(?!s)|atom(?:ically|ic)?[- ]thin|single[- ]layer|one[- ]atom[- ]thick/i.test(head)) return 'news-monolayer';
+    if (/interfaces?|thin[- ]films?|\bfilms?\b|heterostructures?|epitax|substrates?|\bgrowth\b/i.test(head) || /[A-Z][a-z]?(?:[A-Z][a-z]?|\d)+\s?\/\s?[A-Z][a-z]?(?:[A-Z][a-z]?|\d)+/.test(head)) return 'news-interface';
     var materialTopics = ['Hydrides', 'Cuprates', 'Nickelates', 'Iron-based', 'Moiré and 2D', 'Kagome', 'Heavy fermions'];
     if (materialTopics.filter(function (topic) { return tp.indexOf(topic) >= 0; }).length > 1) return 'news-features';
     if (tp.indexOf('Cuprates') >= 0) return 'news-cuprate';
-    if (tp.indexOf('Nickelates') >= 0 && /\bbilayer\b|\bdouble[- ]layer\b/i.test(body) && !/\binfinite[- ]layer\b/i.test(body)) return 'news-nickelate';
+    if (tp.indexOf('Nickelates') >= 0 && bilayerNi) return 'news-nickelate';
     if (tp.indexOf('Nickelates') >= 0) return 'news-layered';
     if (tp.indexOf('Kagome') >= 0) return 'news-kagome';
     if (tp.indexOf('Moiré and 2D') >= 0 && /\btwist(?:ed|ing)?\b/i.test(body)) return 'news-moire';
@@ -54,7 +89,21 @@
     if (/qubit|transmon|fluxonium|quantum (processor|computer|computing|information|memory|technolog)|superconducting circuit|circuit QED|single-photon/i.test(head) ||
         /qubit|transmon|fluxonium|circuit QED/i.test(body)) return 'news-qubit';
     if (/meissner|levitat/i.test(head)) return 'news-general';
-    if (/experiment|measur|resistance|critical.current|magnet|two (?:quantum |superconducting )states|two flavors/i.test(head)) return 'news-measurement';
+    if (/experiment|measur|resistance|critical.current|magnet|shot noise|two (?:quantum |superconducting )states|two flavors/i.test(head)) return 'news-measurement';
+    // Curated entries carry Theory & materials cards; only material cards choose a structure.
+    if (cards.indexOf('hydride') >= 0) return 'news-hydride';
+    if (cards.indexOf('nickelate') >= 0) return bilayerNi ? 'news-nickelate' : 'news-layered';
+    if (cards.indexOf('iron') >= 0) return 'news-iron';
+    if (cards.indexOf('rebco') >= 0 || cards.indexOf('hg1223') >= 0) return 'news-cuprate';
+    if (cards.indexOf('heavy') >= 0) return 'news-heavy';
+    if (cards.indexOf('mgb2') >= 0) return 'news-multigap';
+    if (cards.indexOf('josephson') >= 0) return 'news-junction';
+    if (cards.indexOf('topo') >= 0) return 'news-topo';
+    if (cards.indexOf('magnet') >= 0) return 'news-coil';
+    // Only an explicit experimental setting in the summary picks a scene when the headline is generic.
+    if (/ultracold|cold atoms?|optical lattices?|quantum gas microscope|Fermi gas/i.test(text)) return 'news-coldatoms';
+    if (/\b(?:high|hydrostatic|extreme)[- ]pressure\b|diamond[- ]anvil|\b\d+(?:\.\d+)?\s?GPa\b/i.test(text) && !/ambient[- ]pressure|without (?:applied )?pressure/i.test(text)) return 'news-pressure';
+    if (/(?:\b\d+|\bten|\btwenty|\bthirty|\bforty|\bfifty|\bhundred)[- ]years? (?:of|after|later|on)\b|\bafter (?:\w+ )?years\b|anniversary|history of|retrospective|decades? of/i.test(head)) return 'news-timeline';
     return 'news-research';
   };
 
