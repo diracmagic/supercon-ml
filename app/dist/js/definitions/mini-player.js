@@ -33,6 +33,7 @@
   const miniOn = function miniOn() { return (view === 'learn' || view === 'papers' || view === 'authors') && !document.hidden; };
 
   const miniKick = function miniKick() {
+    newsArtAssign();
     if (MINI.raf || !miniOn()) return;
     MINI.last = 0;
     MINI.raf = requestAnimationFrame(miniFrame);
