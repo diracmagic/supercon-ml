@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-04T01:28:35+00:00",
+ "updated": "2026-11-04T04:18:31+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,7 +47,6 @@
   ]
  },
  "sources_ok": [
-  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -60,8 +59,7 @@
   "Phys.org",
   "Physics World",
   "APS Physics",
-  "Quanta Magazine",
-  "arXiv AI"
+  "Quanta Magazine"
  ],
  "arxiv": [
   {
@@ -2361,25 +2359,6 @@
    "kind": ""
   },
   {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
-  },
-  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2399,6 +2378,25 @@
     "Vortices and junctions"
    ],
    "kind": ""
+  },
+  {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -3041,27 +3039,6 @@
    "kind": ""
   },
   {
-   "id": "10.1038/s41467-026-78385-0",
-   "source": "Nat. Commun.",
-   "journal": "Nature Communications",
-   "title": "Chiral-nematic Fermi liquid state as the parent state of kagome metals and superconductors",
-   "authors": [
-    "Zihao Huang",
-    "Zhan Wang",
-    "Hengxin Tan",
-    "et al."
-   ],
-   "n_authors": 11,
-   "date": "2026-10-06",
-   "abstract": "",
-   "url": "https://doi.org/10.1038/s41467-026-78385-0",
-   "doi": "10.1038/s41467-026-78385-0",
-   "topics": [
-    "Kagome"
-   ],
-   "kind": ""
-  },
-  {
    "id": "10.1038/s41467-026-73705-w",
    "source": "Nat. Commun.",
    "journal": "Nature Communications",
@@ -3079,6 +3056,27 @@
    "doi": "10.1038/s41467-026-73705-w",
    "topics": [
     "Hydrides"
+   ],
+   "kind": ""
+  },
+  {
+   "id": "10.1038/s41467-026-78385-0",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Chiral-nematic Fermi liquid state as the parent state of kagome metals and superconductors",
+   "authors": [
+    "Zihao Huang",
+    "Zhan Wang",
+    "Hengxin Tan",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-10-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1038/s41467-026-78385-0",
+   "doi": "10.1038/s41467-026-78385-0",
+   "topics": [
+    "Kagome"
    ],
    "kind": ""
   },
