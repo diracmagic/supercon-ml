@@ -98,7 +98,29 @@ test('headline subjects pick their own schematic and known mismatches stay fixed
     [{ title: 'Monolayer superconductors enter the circuit', topics: ['Moiré and 2D'] }, 'monolayer'],
     [{ title: 'Magnetic Exchange-Coupled Superconducting Devices with Broken Symmetry for Cryogenic Memory' }, 'magnetism'],
     [{ title: 'Tilt-Controlled Multi-Gap Superconductivity in Type-II Weyl Semimetals' }, 'multigap'],
-    [{ h: 'Tunnelling measures the gap of H₃S', cards: ['eliashberg', 'hydride'] }, 'gapdos']
+    [{ h: 'Tunnelling measures the gap of H₃S', cards: ['eliashberg', 'hydride'] }, 'gapdos'],
+    [{ title: 'Neural-network wavefunctions find stripes and d-wave pairing almost tied' }, 'nqs'],
+    [{ title: 'Competition between charge-density-wave and superconducting orders on eight-leg square Hubbard cylinders' }, 'cylinder'],
+    [{ title: 'High magnetic fields revive superconductivity in nickelates', topics: ['Nickelates'] }, 'reentrant'],
+    [{ title: 'Mirror-selective quasiparticle interference in bilayer nickelate superconductor' }, 'qpi'],
+    [{ title: 'Giant Domain Walls and Intrinsic Heterogeneity in 214 Cuprate Superconductors' }, 'domains'],
+    [{ title: 'Protection of Unconventional Superconductivity from Disorder' }, 'disorder'],
+    [{ title: 'Superconducting half-dome in bilayer nickelates' }, 'dome'],
+    [{ title: 'Evidence for clean d-wave superconductivity in the samarium nickelates' }, 'dwave'],
+    [{ title: 'Checkerboard-type Zhang-Rice states in overdoped cuprate superconductors' }, 'zr'],
+    [{ title: 'Role of the Apical Oxygen in Cuprate High-Temperature Superconductors' }, 'apical'],
+    [{ title: 'Conductance measurements cannot distinguish crossed Andreev reflection from elastic co-tunnelling' }, 'andreev'],
+    [{ title: 'Cold atoms show the first fragments of charge stripes' }, 'coldatoms'],
+    [{ title: 'Observation of superconductivity-induced leading-edge gap in a bilayer nickelate' }, 'gapdos'],
+    [{ title: 'A nodeless gap in ambient-pressure nickelate films' }, 'multigap'],
+    [{ title: 'Coexistence of high temperature superconductivity and antiferromagnetic order in a cuprate' }, 'competition'],
+    [{ title: 'Higher-order electrical magnetochiral anisotropy effect in high-temperature cuprate superconductors' }, 'diode'],
+    [{ title: 'Superconducting weak links at substrate steps in bilayer nickelate films' }, 'junction'],
+    [{ title: 'Flux-Floquet Instability in Fluctuating Superconductors' }, 'light'],
+    [{ title: 'Enhancing superconductivity using thermal bosons' }, 'eph'],
+    [{ title: 'Coherent Electronic Lensing in Proximitized Graphene' }, 'proximity'],
+    [{ title: 'Anomalous charge density wave in a two-dimensional superatomic superconductor' }, 'stripes'],
+    [{ title: 'Chemists overturn 40-year assumption', summary: 'A patchwork of different crystal structures throughout its bulk.' }, 'domains']
   ];
   for (const [entry, motif] of cases) assert.equal(art(entry), 'news-' + motif, entry.title || entry.h);
   assert.notEqual(art({ title: 'Superconductivity in Sr₂RuO₄', cards: ['triplet'] }), 'news-triplet', 'A card alone never asserts a pairing state');
@@ -107,7 +129,8 @@ test('headline subjects pick their own schematic and known mismatches stay fixed
 test('every motif the classifier can choose is registered with a description', () => {
   const context = vm.createContext({ MINI_DRAW: {}, MINI_STATIC: {}, MINI_ALT: {}, NEWS_ART: null, stAlpha: value => value, stRng: () => () => .5, mix: a => a, stRound: () => {} });
   vm.runInContext(read('js/initialize/news-drawings.js'), context);
-  vm.runInContext('initializeSuperconNewsDrawings()', context);
+  vm.runInContext(read('js/initialize/news-looks.js'), context);
+  vm.runInContext('initializeSuperconNewsDrawings(); initializeSuperconNewsLooks()', context);
   const source = read('js/definitions/news-drawings.js'), start = source.indexOf('const newsArt = function newsArt(n) {');
   const classifier = source.slice(start, source.indexOf('\n  };\n', start));
   const chosen = [...new Set([...classifier.matchAll(/'(news-[a-z-]+)'/g)].map(m => m[1]))];
@@ -116,13 +139,15 @@ test('every motif the classifier can choose is registered with a description', (
     assert.equal(typeof context.MINI_DRAW[kind], 'function', kind);
     assert.ok(context.MINI_ALT[kind], kind + ' has a description');
   }
-  for (const kind of ['news-diode', 'news-gapdos', 'news-ring', 'news-competition', 'news-penetration', 'news-cavity']) assert.match(context.MINI_ALT[kind], /not|No /, kind + ' says what is not shown');
+  for (const kind of ['news-diode', 'news-gapdos', 'news-ring', 'news-competition', 'news-penetration', 'news-cavity', 'news-zr', 'news-domains', 'news-dome', 'news-qpi',
+    'news-andreev', 'news-reentrant', 'news-cylinder', 'news-nqs', 'news-disorder', 'news-apical', 'news-dwave']) assert.match(context.MINI_ALT[kind], /not|No /, kind + ' says what is not shown');
 });
 
 test('every registered news motif produces finite foreground drawing at thumbnail sizes and reduced motion time', () => {
   const context = vm.createContext({ MINI_DRAW: {}, MINI_STATIC: {}, MINI_ALT: {}, NEWS_ART: null, stAlpha: value => value, stRng: () => () => .5, mix: a => a, stRound: () => {} });
   vm.runInContext(read('js/initialize/news-drawings.js'), context);
-  vm.runInContext('initializeSuperconNewsDrawings()', context);
+  vm.runInContext(read('js/initialize/news-looks.js'), context);
+  vm.runInContext('initializeSuperconNewsDrawings(); initializeSuperconNewsLooks()', context);
   const methods = ['save', 'restore', 'setLineDash', 'translate', 'rotate', 'beginPath', 'closePath', 'stroke', 'fill', 'fillRect', 'strokeRect', 'rect', 'moveTo', 'lineTo', 'arc', 'ellipse', 'fillText'];
   for (const [kind, draw] of Object.entries(context.MINI_DRAW)) {
     assert.ok(context.MINI_ALT[kind], kind + ' has a description');
@@ -140,6 +165,9 @@ test('every registered news motif produces finite foreground drawing at thumbnai
   const sheets = Object.fromEntries(methods.map(method => [method, () => { if (method === 'closePath') sheetCount++; }]));
   context.MINI_DRAW['news-layered-six'](sheets, { accent: '#368' }, 112, 84, 1.2);
   assert.equal(sheetCount, 6, 'An explicitly six-layer graphene article shows six sheets without assuming twist');
+  const dashes = info => { let n = 0; const canvas = Object.fromEntries(methods.map(method => [method, (...args) => { if (method === 'setLineDash' && args[0].length) n++; }]));
+    context.MINI_DRAW['news-dome'](canvas, { accent: '#368', warm: '#c63', ink2: '#234' }, 112, 84, 1.2, info); return n; };
+  assert.ok(dashes({ title: 'Superconducting half-dome in bilayer nickelates' }) > dashes({ title: 'Superconducting dome in a kagome metal' }), 'Only a named half-dome leaves the far side dashed');
 });
 
 test('kagome news drawing has both corner-sharing orientations and no fabricated CDW distortion', () => {
