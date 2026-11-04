@@ -205,13 +205,6 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
       c.beginPath(); c.ellipse(bx, by, R, R * 0.3, 0, 0, TAU); c.strokeStyle = C.grid; c.stroke();
       arrowHead(c, bx, by, bx + Math.sin(a) * R * 0.9, by - Math.cos(a) * R * 0.9, C.warm, 4 * k, 1.6);
     };
-    // Neutral animated source icon: no crystal, experimental trace or discovery claim.
-    D.research = function (c, C, W, H, t, k) {
-      var x = W * .24, y = H * .18, width = W * .52, height = H * .64;
-      c.fillStyle = C.surface; c.strokeStyle = C.axis; c.lineWidth = 1.2;
-      c.beginPath(); c.rect(x, y, width, height); c.fill(); c.stroke();
-      for (var i = 0; i < 4; i++) { c.strokeStyle = stAlpha(C.accent, .35 + .35 * (1 + Math.sin(t * 1.4 - i)) / 2); c.lineWidth = i ? 1.5 : 2.5; seg(c, x + 8 * k, y + (12 + i * 10) * k, x + width - (i === 3 ? 20 : 8) * k, y + (12 + i * 10) * k); }
-    };
     // Legacy illustration remains available for an explicitly reviewed Meissner article.
     D.general = function (c, C, W, H, t, k) {
       var cx = W / 2, by = H * 0.72, f = 3 * k * Math.sin(TAU * t / 3);
@@ -318,6 +311,417 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
       points.forEach(function (p, i) { disc(c, W * p[0], H * p[1], 4 * k, i === Math.floor(md(t, 7)) ? C.warm : C.accent); });
     };
 
+    // Detector schematic: an absorber read out by superconducting sensors; the event repeats.
+    D.detector = function (c, C, W, H, t, k) {
+      var x0 = W * .12, x1 = W * .88, y0 = H * .44, y1 = H * .88, cx = W / 2, cy = (y0 + y1) / 2, ph = md(t / 3.2, 1), gold = C.gold || C.warm;
+      c.fillStyle = stAlpha(C.muted, .16); c.strokeStyle = stAlpha(C.ink2, .5); c.lineWidth = 1.2;
+      c.beginPath(); c.rect(x0, y0, x1 - x0, y1 - y0); c.fill(); c.stroke();
+      c.strokeStyle = stAlpha(C.muted, .3); c.lineWidth = 1;
+      for (var row = 1; row < 4; row++) seg(c, x0 + 3 * k, y0 + (y1 - y0) * row / 4, x1 - 3 * k, y0 + (y1 - y0) * row / 4);
+      var a = Math.min(1, ph / .28), sx = W * .2, sy = H * .02, r = ph < .28 ? 0 : (ph - .28) / .72;
+      if (ph < .55) { c.setLineDash([2.5 * k, 2.5 * k]); c.strokeStyle = stAlpha(C.warm, .9 - ph); c.lineWidth = 1.4; seg(c, sx, sy, sx + (cx - sx) * a, sy + (cy - sy) * a); c.setLineDash([]); }
+      if (ph < .28) { halo(c, sx + (cx - sx) * a, sy + (cy - sy) * a, 6 * k, C.warm, .7); disc(c, sx + (cx - sx) * a, sy + (cy - sy) * a, 2.2 * k, C.warm); }
+      for (var i = 0; i < 3; i++) {
+        var q = r - i * .13; if (q <= 0) continue;
+        c.beginPath(); c.ellipse(cx, cy, q * (x1 - x0) / 2, q * (y1 - y0) / 2, 0, 0, TAU); c.strokeStyle = stAlpha(C.accent, .9 * (1 - q)); c.lineWidth = 1.6; c.stroke();
+      }
+      if (r > 0 && r < .4) halo(c, cx, cy, 8 * k, C.warm, 1 - r / .4);
+      for (var j = 0; j < 4; j++) {
+        var px = x0 + (x1 - x0) * (.14 + j * .24), lit = r > 0 ? Math.max(0, 1 - Math.abs(r * (x1 - x0) / 2 - Math.abs(px - cx)) / (10 * k)) : 0;
+        if (lit > .05) halo(c, px, y0 - 1.5 * k, 7 * k, gold, lit);
+        c.strokeStyle = lit > .05 ? gold : C.accent; c.lineWidth = 1.3; c.beginPath(); c.moveTo(px - 5 * k, y0 - 1 * k);
+        for (var z = 0; z < 4; z++) { c.lineTo(px - 5 * k + (z + .5) * 2.5 * k, y0 - (z % 2 ? 1 : 5) * k); }
+        c.lineTo(px + 5 * k, y0 - 1 * k); c.stroke();
+      }
+    };
+    // Superconducting diode: carriers pass freely one way and dissipate the other way.
+    D.diode = function (c, C, W, H, t, k) {
+      var y = H * .48, x0 = W * .1, x1 = W * .9, ph = md(t / 6, 1), fwd = ph < .5, e = Math.sin(Math.PI * (fwd ? ph : ph - .5) / .5);
+      stRound(c, x0, y - 8 * k, x1 - x0, 16 * k, 8 * k); c.fillStyle = stAlpha(fwd ? C.accent : C.warm, fwd ? .2 : .1 + .12 * e); c.fill();
+      c.strokeStyle = stAlpha(C.accent, .7); c.lineWidth = 1.2; c.stroke();
+      for (var i = 0; i < 8; i++) {
+        var u = md(i / 8 + t * (fwd ? .22 : .07), 1), x = fwd ? x0 + 4 * k + (x1 - x0 - 8 * k) * u : x1 - 4 * k - (x1 - x0 - 8 * k) * u;
+        disc(c, x, y + (fwd ? 0 : 2.6 * k * Math.sin(t * 11 + i * 2.3)), 2.3 * k, fwd ? C.accent : C.warm);
+      }
+      if (fwd) arrowHead(c, W * .28, H * .2, W * .72, H * .2, stAlpha(C.accent, .3 + .65 * e), 5.5 * k, 2.2);
+      else { arrowHead(c, W * .64, H * .2, W * .36, H * .2, stAlpha(C.warm, .3 + .65 * e), 4 * k, 1.4); for (var j = 0; j < 3; j++) halo(c, W * (.3 + j * .2), y, 7 * k, C.warm, .45 * e); }
+      c.fillStyle = stAlpha(C.accent, .8); c.fillRect(W * .5, H * .8, W * .32, 4 * k);
+      c.fillStyle = stAlpha(C.warm, .8); c.fillRect(W * .5 - W * .17, H * .8, W * .17, 4 * k);
+      c.fillStyle = C.ink2; c.fillRect(W * .5 - .6, H * .76, 1.2, 4 * k + H * .08);
+    };
+    // Spin fluctuations: antiferromagnetically correlated spins whose tilts ripple across a square net.
+    D.spinfluct = function (c, C, W, H, t, k) {
+      var s = 20 * k, nx = Math.floor(W * .84 / s) + 1, ny = Math.floor(H * .78 / s) + 1, ox = (W - (nx - 1) * s) / 2, oy = (H - (ny - 1) * s) / 2;
+      c.strokeStyle = stAlpha(C.muted, .35); c.lineWidth = 1;
+      for (var i = 0; i < nx; i++) seg(c, ox + i * s, oy, ox + i * s, oy + (ny - 1) * s);
+      for (var j = 0; j < ny; j++) seg(c, ox, oy + j * s, ox + (nx - 1) * s, oy + j * s);
+      for (i = 0; i < nx; i++) for (j = 0; j < ny; j++) {
+        var x = ox + i * s, y = oy + j * s, w = Math.sin(i * .95 + j * .55 - t * 1.7), up = (i + j) % 2 ? 1 : -1;
+        if (w > .6) halo(c, x, y, 7 * k, C.gold || C.warm, (w - .6) * 1.6);
+        spinAt(c, x, y, -Math.PI / 2 * up + .45 * w, 13 * k, up > 0 ? C.warm : C.accent);
+      }
+    };
+    // Gaps on several Fermi pockets: ring thickness stands for gap size, no sign or node is drawn.
+    D.multigap = function (c, C, W, H, t, k) {
+      var b = Math.min(W * .4, H * .42), cx = W / 2, cy = H / 2, br = .78 + .22 * Math.sin(TAU * t / 4), a = t * .9;
+      c.setLineDash([2 * k, 3 * k]); c.strokeStyle = stAlpha(C.muted, .55); c.lineWidth = 1; c.strokeRect(cx - b, cy - b, 2 * b, 2 * b); c.setLineDash([]);
+      function ring(x, y, r, a0, a1, gap, col) {
+        c.beginPath(); c.arc(x, y, r, a0, a1); c.strokeStyle = stAlpha(col, .3); c.lineWidth = gap; c.stroke();
+        c.beginPath(); c.arc(x, y, r, a0, a1); c.strokeStyle = col; c.lineWidth = 1.3; c.stroke();
+      }
+      ring(cx, cy, b * .42, 0, TAU, 10 * k * br, C.accent);
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (d) { var a0 = Math.atan2(-d[1], -d[0]) - Math.PI / 4; ring(cx + d[0] * b, cy + d[1] * b, b * .36, a0, a0 + Math.PI / 2, 4.5 * k * br, C.warm); });
+      halo(c, cx + Math.cos(a) * b * .42, cy + Math.sin(a) * b * .42, 5 * k, C.accent, .8); disc(c, cx + Math.cos(a) * b * .42, cy + Math.sin(a) * b * .42, 2 * k, C.surface);
+    };
+    // Zeeman splitting: a field separates spin-up and spin-down Fermi circles; a pair links k and -k across them.
+    D.zeeman = function (c, C, W, H, t, k) {
+      var cx = W * .56, cy = H / 2, r0 = Math.min(W, H) * .28, d = .1 + .09 * (1 + Math.sin(TAU * t / 5)) / 2, a = t * .7;
+      [[1 + d, C.warm, -1], [1 - d, C.accent, 1]].forEach(function (s) {
+        var r = r0 * s[0];
+        c.beginPath(); c.arc(cx, cy, r, 0, TAU); c.fillStyle = stAlpha(s[1], .1); c.fill(); c.strokeStyle = s[1]; c.lineWidth = 1.5; c.stroke();
+        for (var i = 0; i < 4; i++) { var q = i * Math.PI / 2 + Math.PI / 4; spinAt(c, cx + Math.cos(q) * r, cy + Math.sin(q) * r, s[2] * Math.PI / 2, 8 * k, s[1]); }
+      });
+      var p = [cx + Math.cos(a) * r0 * (1 + d), cy + Math.sin(a) * r0 * (1 + d)], q = [cx - Math.cos(a) * r0 * (1 - d), cy - Math.sin(a) * r0 * (1 - d)];
+      c.setLineDash([2 * k, 2 * k]); c.strokeStyle = stAlpha(C.ink2, .6); c.lineWidth = 1.2; seg(c, p[0], p[1], q[0], q[1]); c.setLineDash([]);
+      disc(c, p[0], p[1], 2.4 * k, C.warm); disc(c, q[0], q[1], 2.4 * k, C.accent);
+      arrowHead(c, W * .12, H * .8, W * .12, H * .8 - (14 + 60 * d) * k, stAlpha(C.ink2, .75), 4 * k, 1.8);
+    };
+    // Tunnelling-style density of states with a gap and two coherence peaks; the dot sweeps the bias.
+    D.gapdos = function (c, C, W, H, t, k) {
+      var x0 = W * .08, x1 = W * .92, y0 = H * .82, top = H * .12, mid = W / 2, d = W * .13;
+      function Y(x) {
+        var e = (x - mid) / d, g = .09, ar = e * e - g * g - 1, ai = -2 * e * g, m = Math.hypot(ar, ai), sr = Math.sqrt((m + ar) / 2), si = (ai < 0 ? -1 : 1) * Math.sqrt(Math.max(0, (m - ar) / 2));
+        var n = Math.abs((e * sr - g * si) / (sr * sr + si * si || 1));
+        return y0 - (y0 - top) * Math.min(1, n / 3.2);
+      }
+      c.strokeStyle = stAlpha(C.ink2, .5); c.lineWidth = 1; seg(c, x0, y0, x1, y0); c.setLineDash([1.5 * k, 2.5 * k]); seg(c, mid, y0, mid, top); c.setLineDash([]);
+      c.beginPath(); c.moveTo(x0, y0);
+      for (var i = 0; i <= 90; i++) { var x = x0 + (x1 - x0) * i / 90; c.lineTo(x, Y(x)); }
+      c.lineTo(x1, y0); c.closePath(); c.fillStyle = stAlpha(C.accent, .14); c.fill();
+      c.beginPath();
+      for (i = 0; i <= 90; i++) { x = x0 + (x1 - x0) * i / 90; if (i) c.lineTo(x, Y(x)); else c.moveTo(x, Y(x)); }
+      c.strokeStyle = C.accent; c.lineWidth = 1.7; c.stroke();
+      var sx = mid + (x1 - x0) * .44 * Math.sin(TAU * t / 6);
+      c.strokeStyle = stAlpha(C.warm, .55); c.setLineDash([2 * k, 2 * k]); seg(c, sx, top, sx, y0); c.setLineDash([]);
+      halo(c, sx, Y(sx), 6 * k, C.warm, .7); disc(c, sx, Y(sx), 2.3 * k, C.warm);
+    };
+    // Spatially modulated pair amplitude (FFLO / pair-density-wave type); pairs drift to suggest finite momentum.
+    D.fflo = function (c, C, W, H, t, k) {
+      var y = H * .5, x0 = W * .05, x1 = W * .95, A = H * .26, q = TAU * 2.25 / (x1 - x0), sh = t * .35;
+      function f(x) { return Math.cos(q * (x - x0) - sh); }
+      [[1, C.accent], [-1, C.warm]].forEach(function (s) {
+        c.beginPath(); c.moveTo(x0, y);
+        for (var i = 0; i <= 90; i++) { var x = x0 + (x1 - x0) * i / 90; c.lineTo(x, y - A * Math.max(0, s[0] * f(x)) * s[0]); }
+        c.lineTo(x1, y); c.closePath(); c.fillStyle = stAlpha(s[1], .2); c.fill();
+      });
+      c.beginPath();
+      for (var i = 0; i <= 90; i++) { var x = x0 + (x1 - x0) * i / 90; if (i) c.lineTo(x, y - A * f(x)); else c.moveTo(x, y - A * f(x)); }
+      c.strokeStyle = C.accent; c.lineWidth = 1.6; c.stroke();
+      c.strokeStyle = stAlpha(C.ink2, .45); c.lineWidth = 1; seg(c, x0, y, x1, y);
+      for (var j = 0; j < 6; j++) {
+        var px = x0 + (x1 - x0) * md(j / 6 + t * .06, 1), p = f(px) * f(px), py = H * .88;
+        if (p < .08) continue;
+        c.strokeStyle = stAlpha(C.ink2, .6 * p); c.lineWidth = 1; seg(c, px - 3 * k, py, px + 3 * k, py);
+        disc(c, px - 3 * k, py, 2 * k, stAlpha(C.accent, p)); disc(c, px + 3 * k, py, 2 * k, stAlpha(C.warm, p));
+      }
+    };
+    // Broken time-reversal symmetry: one circulation is chosen over its faint, dashed time-reversed partner.
+    D.trsb = function (c, C, W, H, t, k) {
+      var cx = W / 2, cy = H * .56, R = Math.min(W * .3, H * .36), a = t * 1.2;
+      c.beginPath(); c.ellipse(cx, cy, R, R * .55, 0, 0, TAU); c.fillStyle = stAlpha(C.accent, .18); c.fill(); c.strokeStyle = stAlpha(C.accent, .55); c.lineWidth = 1.2; c.stroke();
+      c.setLineDash([2 * k, 3 * k]); c.strokeStyle = stAlpha(C.muted, .6); c.lineWidth = 1.1;
+      c.beginPath(); c.ellipse(cx, cy, R * 1.3, R * .74, 0, -a, -a - TAU * .55, true); c.stroke(); c.setLineDash([]);
+      for (var i = 0; i < 2; i++) {
+        var a0 = a + i * Math.PI, a1 = a0 + TAU * .32;
+        c.beginPath(); c.ellipse(cx, cy, R * .78, R * .43, 0, a0, a1); c.strokeStyle = C.accent; c.lineWidth = 2; c.stroke();
+        arrowHead(c, cx + Math.cos(a1 - .15) * R * .78, cy + Math.sin(a1 - .15) * R * .43, cx + Math.cos(a1) * R * .78, cy + Math.sin(a1) * R * .43, C.accent, 4 * k, 2);
+      }
+      for (var j = 0; j < 3; j++) {
+        var x = cx + (j - 1) * R * .6, l = (8 + 4 * Math.sin(TAU * t / 2.5 + j * 2.1)) * k;
+        arrowHead(c, x, cy - R * .62, x, cy - R * .62 - l, stAlpha(C.warm, .85), 3.6 * k, 1.6);
+      }
+    };
+    // Kekulé bond pattern on a honeycomb: every third hexagon carries the strong bonds (a tripled cell).
+    var KEKULE = (function () {
+      var bonds = {}, sites = {}, out = { weak: [], strong: [], rings: [], sites: [] }, s3 = Math.sqrt(3);
+      for (var i = -6; i <= 6; i++) for (var j = -6; j <= 6; j++) {
+        var hx = s3 * (i + j / 2), hy = 1.5 * j, strong = ((i - j) % 3 + 3) % 3 === 0, v = [];
+        if (Math.hypot(hx, hy) > 7.5) continue;
+        for (var m = 0; m < 6; m++) v.push([hx + Math.cos(Math.PI / 6 + m * Math.PI / 3), hy + Math.sin(Math.PI / 6 + m * Math.PI / 3)]);
+        if (strong) out.rings.push([hx, hy]);
+        for (m = 0; m < 6; m++) {
+          var p = v[m], q = v[(m + 1) % 6], key = Math.round((p[0] + q[0]) * 50) + ',' + Math.round((p[1] + q[1]) * 50);
+          if (!bonds[key] || strong) bonds[key] = [p, q, strong];
+          sites[Math.round(p[0] * 100) + ',' + Math.round(p[1] * 100)] = p;
+        }
+      }
+      Object.keys(bonds).forEach(function (key) { (bonds[key][2] ? out.strong : out.weak).push(bonds[key]); });
+      Object.keys(sites).forEach(function (key) { out.sites.push(sites[key]); });
+      return out;
+    })();
+    D.kekule = function (c, C, W, H, t, k) {
+      var a = 11 * k, g = .55 + .45 * Math.sin(TAU * t / 3.5);
+      c.translate(W / 2, H / 2); c.rotate(.04 * Math.sin(t / 3));
+      KEKULE.rings.forEach(function (r) { c.beginPath(); c.arc(r[0] * a, r[1] * a, a * .62, 0, TAU); c.fillStyle = stAlpha(C.accent, .1 + .14 * g); c.fill(); });
+      c.strokeStyle = stAlpha(C.muted, .5); c.lineWidth = 1;
+      KEKULE.weak.forEach(function (b) { seg(c, b[0][0] * a, b[0][1] * a, b[1][0] * a, b[1][1] * a); });
+      c.strokeStyle = stAlpha(C.accent, .55 + .45 * g); c.lineWidth = 1.4 + 1.2 * g;
+      KEKULE.strong.forEach(function (b) { seg(c, b[0][0] * a, b[0][1] * a, b[1][0] * a, b[1][1] * a); });
+      KEKULE.sites.forEach(function (p) { disc(c, p[0] * a, p[1] * a, 1.5 * k, C.ink2); });
+    };
+    // Optical cavity: two mirrors and a standing mode around a thin sample; flickering dots suggest vacuum fluctuations.
+    D.cavity = function (c, C, W, H, t, k) {
+      var xl = W * .14, xr = W * .86, y0 = H * .12, y1 = H * .88, cy = H / 2, amp = Math.cos(TAU * t / 2.6), E = (y1 - y0) * .34, gold = C.gold || C.warm;
+      c.fillStyle = stAlpha(C.ink2, .6); c.fillRect(xl - 5 * k, y0, 5 * k, y1 - y0); c.fillRect(xr, y0, 5 * k, y1 - y0);
+      c.setLineDash([2 * k, 3 * k]); c.strokeStyle = stAlpha(C.warm, .35); c.lineWidth = 1;
+      [1, -1].forEach(function (s) { c.beginPath(); for (var i = 0; i <= 50; i++) { var u = i / 50, x = xl + (xr - xl) * u, y = cy - s * E * Math.sin(Math.PI * u); if (i) c.lineTo(x, y); else c.moveTo(x, y); } c.stroke(); });
+      c.setLineDash([]);
+      for (var j = 0; j < 7; j++) {
+        var n = Math.floor(t * .8 + j * .37), p = md(t * .8 + j * .37, 1), u = md(Math.sin(n * 12.9898 + j * 78.233) * 43758.5453, 1), v = md(Math.sin(n * 39.346 + j * 11.135) * 24634.634, 1);
+        var gx = xl + (xr - xl) * (.1 + .8 * u), gy = y0 + (y1 - y0) * (.12 + .76 * v), s = Math.sin(Math.PI * p);
+        halo(c, gx, gy, 4 * k * s, gold, .55 * s);
+      }
+      c.beginPath();
+      for (var i = 0; i <= 60; i++) { var u2 = i / 60, x = xl + (xr - xl) * u2, y = cy - E * Math.sin(Math.PI * u2) * amp; if (i) c.lineTo(x, y); else c.moveTo(x, y); }
+      c.strokeStyle = C.warm; c.lineWidth = 1.8; c.stroke();
+      c.fillStyle = C.accent; c.fillRect(W / 2 - 2 * k, cy - 14 * k, 4 * k, 28 * k);
+    };
+    // Accelerating structure: superconducting cells whose fields alternate while a bunch crosses in step.
+    D.rf = function (c, C, W, H, t, k) {
+      var n = 4, x0 = W * .08, x1 = W * .92, cw = (x1 - x0) / n, cy = H / 2, ry = H * .32, ph = TAU * t / 2;
+      c.setLineDash([2 * k, 2.5 * k]); c.strokeStyle = stAlpha(C.ink2, .45); c.lineWidth = 1; seg(c, W * .02, cy, W * .98, cy); c.setLineDash([]);
+      for (var i = 0; i < n; i++) {
+        var x = x0 + (i + .5) * cw, f = Math.cos(ph + i * Math.PI);
+        c.beginPath(); c.ellipse(x, cy, cw * .5, ry, 0, 0, TAU); c.fillStyle = stAlpha(C.accent, .12); c.fill(); c.strokeStyle = stAlpha(C.accent, .8); c.lineWidth = 1.4; c.stroke();
+        if (Math.abs(f) > .08) arrowHead(c, x - f * cw * .3, cy - ry * .45, x + f * cw * .3, cy - ry * .45, stAlpha(C.warm, .25 + .7 * Math.abs(f)), 3.5 * k, 1.4);
+      }
+      var bx = x0 + cw * md(t + .5, n), bunch = Math.max(.3, Math.sin(Math.PI * bx / W));
+      halo(c, bx, cy, 7 * k, C.gold || C.warm, .9 * bunch); disc(c, bx, cy, 2.4 * k, C.warm);
+    };
+    // Coplanar transmission line with a microwave packet travelling along the centre conductor.
+    D.resonator = function (c, C, W, H, t, k) {
+      var y = H / 2, x0 = W * .05, x1 = W * .95, gap = 6 * k, px = x0 + (x1 - x0) * md(t / 3.5, 1);
+      c.fillStyle = stAlpha(C.muted, .25); c.fillRect(x0, H * .14, x1 - x0, y - gap - H * .14); c.fillRect(x0, y + gap, x1 - x0, H * .86 - y - gap);
+      c.fillStyle = stAlpha(C.accent, .8); c.fillRect(x0, y - 2.5 * k, x1 - x0, 5 * k);
+      c.beginPath();
+      for (var i = 0; i <= 100; i++) { var x = x0 + (x1 - x0) * i / 100, env = Math.exp(-Math.pow((x - px) / (13 * k), 2)), yy = y - 15 * k * env * Math.sin((x - px) / (2.6 * k)); if (i) c.lineTo(x, yy); else c.moveTo(x, yy); }
+      c.strokeStyle = C.warm; c.lineWidth = 1.6; c.stroke();
+      halo(c, px, y, 8 * k, C.gold || C.warm, .5);
+    };
+    // Superconducting magnet: current circulates in the windings and field lines thread the bore.
+    D.coil = function (c, C, W, H, t, k) {
+      var cx = W / 2, cy = H / 2, n = 6, sp = W * .085, rx = 4.5 * k, ry = H * .27, x0 = cx - sp * (n - 1) / 2, f = .45 + .35 * Math.sin(TAU * t / 3);
+      c.strokeStyle = stAlpha(C.warm, f); c.lineWidth = 1.2;
+      [[.47, .43], [.43, .34]].forEach(function (e, i) {
+        c.beginPath(); c.ellipse(cx, cy, W * e[0], H * e[1], 0, 0, TAU); c.stroke();
+        arrowHead(c, cx + 3 * k, cy - H * e[1], cx - 3 * k, cy - H * e[1], stAlpha(C.warm, f), 3.2 * k, 1.2);
+        arrowHead(c, cx + 3 * k, cy + H * e[1], cx - 3 * k, cy + H * e[1], stAlpha(C.warm, f), 3.2 * k, 1.2);
+      });
+      c.strokeStyle = stAlpha(C.accent, .35); c.lineWidth = 1.3;
+      for (var i = 0; i < n; i++) { c.beginPath(); c.ellipse(x0 + i * sp, cy, rx, ry, 0, Math.PI / 2, Math.PI * 1.5); c.stroke(); }
+      arrowHead(c, W * .14, cy, W * .86, cy, C.warm, 4.5 * k, 1.8);
+      for (i = 0; i < n; i++) {
+        var x = x0 + i * sp, a = -Math.PI / 2 + md(t * 1.1 + i * .3, 1) * Math.PI;
+        c.beginPath(); c.ellipse(x, cy, rx, ry, 0, -Math.PI / 2, Math.PI / 2); c.strokeStyle = C.accent; c.lineWidth = 2.2; c.stroke();
+        disc(c, x + rx * Math.cos(a), cy + ry * Math.sin(a), 1.9 * k, C.gold || C.warm);
+      }
+    };
+    // Superconducting cable: current flows along the conductor and rings of field surround it.
+    D.cable = function (c, C, W, H, t, k) {
+      var y = H / 2, x0 = W * .08, x1 = W * .9, r = 9 * k, loops = [.25, .5, .75];
+      function loop(u, i, front) {
+        var x = x0 + (x1 - x0) * u, p = .35 + .4 * (1 + Math.sin(TAU * t / 3 - i * 1.4)) / 2;
+        c.beginPath(); c.ellipse(x, y, 5 * k, r * 2.5, 0, front ? -Math.PI / 2 : Math.PI / 2, front ? Math.PI / 2 : Math.PI * 1.5); c.strokeStyle = stAlpha(C.warm, front ? p : p * .5); c.lineWidth = 1.4; c.stroke();
+        if (front) arrowHead(c, x + 5 * k * Math.cos(.35), y + r * 2.5 * Math.sin(.35), x + 5 * k * Math.cos(.6), y + r * 2.5 * Math.sin(.6), stAlpha(C.warm, p), 3 * k, 1.3);
+      }
+      loops.forEach(function (u, i) { loop(u, i, false); });
+      c.fillStyle = stAlpha(C.accent, .2); c.fillRect(x0, y - r, x1 - x0, 2 * r);
+      c.strokeStyle = C.accent; c.lineWidth = 1.3; seg(c, x0, y - r, x1, y - r); seg(c, x0, y + r, x1, y + r);
+      c.beginPath(); c.ellipse(x1, y, 4 * k, r, 0, 0, TAU); c.fillStyle = C.surface; c.fill(); c.stroke();
+      for (var s = 0; s < 3; s++) {
+        c.beginPath();
+        for (var i = 0; i <= 40; i++) { var x = x0 + (x1 - x0) * i / 40, yy = y + r * .62 * Math.sin((x - x0) / (9 * k) + s * 2.1); if (i) c.lineTo(x, yy); else c.moveTo(x, yy); }
+        c.strokeStyle = stAlpha(C.accent, .55); c.lineWidth = 1; c.stroke();
+      }
+      for (var j = 0; j < 5; j++) { var cxp = x0 + (x1 - x0) * md(j / 5 + t * .2, 1); disc(c, cxp, y + r * .62 * Math.sin((cxp - x0) / (9 * k) + j * 2.1), 1.8 * k, C.gold || C.warm); }
+      loops.forEach(function (u, i) { loop(u, i, true); });
+    };
+    // Flux through a superconducting ring and an illustrative response repeating with each flux quantum.
+    D.ring = function (c, C, W, H, t, k) {
+      var cx = W * .27, cy = H * .5, R = Math.min(W * .17, H * .28), phi = md(t / 8, 1) * 3, frac = phi - Math.round(phi), dir = frac >= 0 ? 1 : -1, gold = C.gold || C.warm;
+      c.beginPath(); c.arc(cx, cy, R, 0, TAU); c.strokeStyle = stAlpha(C.accent, .3); c.lineWidth = 8 * k; c.stroke();
+      c.beginPath(); c.arc(cx, cy, R, 0, TAU); c.strokeStyle = C.accent; c.lineWidth = 1.3; c.stroke();
+      halo(c, cx, cy, R * .7, gold, .25 + .5 * Math.abs(frac));
+      c.beginPath(); c.arc(cx, cy, 3.5 * k, 0, TAU); c.strokeStyle = C.warm; c.lineWidth = 1.3; c.stroke(); disc(c, cx, cy, 1.4 * k, C.warm);
+      if (Math.abs(frac) > .04) for (var i = 0; i < 2; i++) { var a = i * Math.PI + t; arrowHead(c, cx + Math.cos(a) * R, cy + Math.sin(a) * R, cx + Math.cos(a + dir * .5) * R, cy + Math.sin(a + dir * .5) * R, C.surface, 3.4 * k, 1.4); }
+      var px0 = W * .54, px1 = W * .94, py = H * .74, A = H * .4;
+      c.strokeStyle = stAlpha(C.ink2, .5); c.lineWidth = 1; seg(c, px0, py, px1, py);
+      c.beginPath();
+      for (var j = 0; j <= 90; j++) { var p = 3 * j / 90, d = p - Math.round(p), y = py - A * (.3 + .7 * (1 - 4 * d * d)); if (j) c.lineTo(px0 + (px1 - px0) * j / 90, y); else c.moveTo(px0, y); }
+      c.strokeStyle = C.accent; c.lineWidth = 1.5; c.stroke();
+      var mx = px0 + (px1 - px0) * phi / 3, my = py - A * (.3 + .7 * (1 - 4 * frac * frac));
+      halo(c, mx, my, 5 * k, C.warm, .7); disc(c, mx, my, 2.2 * k, C.warm);
+    };
+    // Ultracold atoms in the wells of an optical lattice; two spin states in two colours, some hopping.
+    D.coldatoms = function (c, C, W, H, t, k) {
+      var x0 = W * .04, x1 = W * .96, base = H * .76, A = H * .3, n = 5, wl = (x1 - x0) / n;
+      function V(x) { return base - A * (1 + Math.cos(TAU * (x - x0) / wl)) / 2; }
+      c.beginPath(); c.moveTo(x0, H * .94);
+      for (var i = 0; i <= 100; i++) { var x = x0 + (x1 - x0) * i / 100; c.lineTo(x, V(x)); }
+      c.lineTo(x1, H * .94); c.closePath(); c.fillStyle = stAlpha(C.accent, .1); c.fill();
+      c.beginPath();
+      for (i = 0; i <= 100; i++) { x = x0 + (x1 - x0) * i / 100; if (i) c.lineTo(x, V(x)); else c.moveTo(x, V(x)); }
+      c.strokeStyle = stAlpha(C.accent, .7); c.lineWidth = 1.4; c.stroke();
+      for (var w = 0; w < n; w++) {
+        var wx = x0 + (w + .5) * wl, wy = V(wx) - 3.5 * k, pair = w % 2 === 0;
+        if (pair) halo(c, wx, wy - 1 * k, 7 * k, C.gold || C.warm, .45 + .25 * Math.sin(t * 2 + w));
+        disc(c, wx - (pair ? 3 * k : 0), wy + 1.2 * k * Math.sin(t * 3 + w), 2.6 * k, C.accent);
+        if (pair) disc(c, wx + 3 * k, wy + 1.2 * k * Math.sin(t * 3 + w + 1), 2.6 * k, C.warm);
+      }
+      var hp = md(t / 2.5, 1), hw = Math.floor(md(t / 2.5, n * 2) / 2) % (n - 1), hx = x0 + (hw + .5 + hp) * wl, hy = V(hx) - 3.5 * k;
+      disc(c, hx, hy, 2.6 * k, (hw % 2) ? C.accent : C.warm);
+    };
+    // Field (warm) decays over the penetration depth while the pair amplitude (blue) recovers over the coherence length.
+    D.penetration = function (c, C, W, H, t, k) {
+      var xb = W * .36, x0 = W * .06, x1 = W * .94, y0 = H * .84, top = H * .14, s = Math.sin(TAU * t / 6), lam = (15 + 4 * s) * k, xi = (8 - 2.5 * s) * k, hgt = (y0 - top) * .82;
+      c.fillStyle = stAlpha(C.accent, .14); c.fillRect(xb, top - 4 * k, x1 - xb, y0 - top + 4 * k);
+      for (var i = 0; i < 9; i++) {
+        var fx = x0 + i * 4.5 * k + md(t * 6 * k, 4.5 * k); if (fx > xb + lam * 2.5) break;
+        var B = fx < xb ? 1 : Math.exp(-(fx - xb) / lam);
+        c.strokeStyle = stAlpha(C.warm, .15 + .25 * B); c.lineWidth = 1; seg(c, fx, top, fx, y0);
+      }
+      c.strokeStyle = stAlpha(C.ink2, .5); c.lineWidth = 1; seg(c, x0, y0, x1, y0); seg(c, xb, top - 4 * k, xb, y0);
+      [[C.warm, function (x) { return x < xb ? 1 : Math.exp(-(x - xb) / lam); }], [C.accent, function (x) { return x < xb ? 0 : Math.tanh((x - xb) / xi); }]].forEach(function (L) {
+        c.beginPath();
+        for (var j = 0; j <= 80; j++) { var x = x0 + (x1 - x0) * j / 80, y = y0 - hgt * L[1](x); if (j) c.lineTo(x, y); else c.moveTo(x, y); }
+        c.strokeStyle = L[0]; c.lineWidth = 1.8; c.stroke();
+      });
+    };
+    // Thin film on a substrate in perspective; the interface glows and carriers move along it.
+    D.interface = function (c, C, W, H, t, k) {
+      var x0 = W * .1, x1 = W * .72, dx = W * .16, dy = H * .17, ys = H * .56, fh = 10 * k, sh = H * .24, g = .5 + .5 * Math.sin(TAU * t / 3);
+      function quad(p, fill) { c.beginPath(); c.moveTo(p[0], p[1]); c.lineTo(p[2], p[3]); c.lineTo(p[4], p[5]); c.lineTo(p[6], p[7]); c.closePath(); c.fillStyle = fill; c.fill(); }
+      quad([x0, ys, x1, ys, x1, ys + sh, x0, ys + sh], stAlpha(C.muted, .3));
+      quad([x1, ys, x1 + dx, ys - dy, x1 + dx, ys - dy + sh, x1, ys + sh], stAlpha(C.muted, .45));
+      quad([x0, ys - fh, x1, ys - fh, x1, ys, x0, ys], stAlpha(C.accent, .5));
+      quad([x1, ys - fh, x1 + dx, ys - fh - dy, x1 + dx, ys - dy, x1, ys], stAlpha(C.accent, .65));
+      quad([x0, ys - fh, x1, ys - fh, x1 + dx, ys - fh - dy, x0 + dx, ys - fh - dy], stAlpha(C.accent, .22));
+      c.strokeStyle = stAlpha(C.warm, .45 + .5 * g); c.lineWidth = 2; seg(c, x0, ys, x1, ys); seg(c, x1, ys, x1 + dx, ys - dy);
+      for (var i = 0; i < 6; i++) { var u = md(i / 6 + t * .12, 1), x = x0 + (x1 - x0) * u; halo(c, x, ys, 4 * k, C.warm, .5); disc(c, x, ys, 1.6 * k, C.gold || C.warm); }
+      c.strokeStyle = stAlpha(C.ink2, .25); c.lineWidth = 1;
+      for (var j = 1; j < 4; j++) seg(c, x0, ys + sh * j / 4, x1, ys + sh * j / 4);
+    };
+    // Proximity effect: pairs from a superconductor (left) leak into a neighbour where the pair amplitude decays.
+    D.proximity = function (c, C, W, H, t, k) {
+      var xb = W * .44, x0 = W * .06, x1 = W * .94, y0 = H * .84, top = H * .16, L = 16 * k;
+      function f(x) { return x < xb ? 1 : Math.exp(-(x - xb) / L); }
+      c.fillStyle = stAlpha(C.accent, .2); c.fillRect(x0, top, xb - x0, y0 - top);
+      c.fillStyle = stAlpha(C.muted, .18); c.fillRect(xb, top, x1 - xb, y0 - top);
+      c.strokeStyle = stAlpha(C.ink2, .5); c.lineWidth = 1; seg(c, xb, top, xb, y0);
+      c.beginPath();
+      for (var i = 0; i <= 80; i++) { var x = x0 + (x1 - x0) * i / 80, y = y0 - (y0 - top) * .55 * f(x) - 4 * k; if (i) c.lineTo(x, y); else c.moveTo(x, y); }
+      c.strokeStyle = C.accent; c.lineWidth = 1.7; c.stroke();
+      for (var j = 0; j < 5; j++) {
+        var px = x0 + 4 * k + (x1 - x0) * .9 * md(j / 5 + t * .09, 1), a = f(px), py = top + (y0 - top) * (.16 + .1 * j);
+        if (a < .06) continue;
+        c.strokeStyle = stAlpha(C.ink2, .6 * a); seg(c, px - 3 * k, py, px + 3 * k, py);
+        disc(c, px - 3 * k, py, 2 * k, stAlpha(C.accent, a)); disc(c, px + 3 * k, py, 2 * k, stAlpha(C.warm, a));
+      }
+    };
+    // A single atomic sheet in perspective; a soft wave crosses it.
+    D.monolayer = function (c, C, W, H, t, k) {
+      var cx = W / 2, cy = H * .52, w = W * .34, d = H * .3, tl = 1 + .08 * Math.sin(TAU * t / 6), wave = md(t / 3, 1) * 2.6 - 1.3;
+      function P(u, v) { return [cx + (u * .82 + v * .42) * w, cy + (v * .62 * tl - u * .12) * d]; }
+      var p = [P(-1, -1), P(1, -1), P(1, 1), P(-1, 1)];
+      c.beginPath(); c.moveTo(p[0][0], p[0][1]); for (var i = 1; i < 4; i++) c.lineTo(p[i][0], p[i][1]); c.closePath();
+      c.fillStyle = stAlpha(C.accent, .14); c.fill(); c.strokeStyle = stAlpha(C.accent, .7); c.lineWidth = 1.2; c.stroke();
+      for (var a = 0; a < 6; a++) for (var b = 0; b < 5; b++) {
+        var u = -1 + (a + (b % 2) * .5 + .25) * 2 / 6.5, v = -1 + (b + .5) * 2 / 5, q = P(u, v), near = Math.max(0, 1 - Math.abs(u + v * .4 - wave) / .32);
+        if (near > .05) halo(c, q[0], q[1], 5 * k, C.gold || C.warm, .55 * near);
+        disc(c, q[0], q[1], 2.2 * k, near > .5 ? C.warm : C.accent);
+      }
+    };
+    // Heat flows along a sample from a hot (warm) end to a cold (blue) end.
+    D.thermal = function (c, C, W, H, t, k) {
+      var x0 = W * .1, x1 = W * .9, y = H * .56, h = 18 * k, n = 16, sw = (x1 - x0) / n;
+      for (var i = 0; i < n; i++) { var u = i / (n - 1); c.fillStyle = stAlpha(C.warm, .75 * (1 - u)); c.fillRect(x0 + i * sw, y - h / 2, sw + .6, h); c.fillStyle = stAlpha(C.accent, .75 * u); c.fillRect(x0 + i * sw, y - h / 2, sw + .6, h); }
+      c.strokeStyle = stAlpha(C.ink2, .5); c.lineWidth = 1; c.strokeRect(x0, y - h / 2, x1 - x0, h);
+      for (var j = 0; j < 7; j++) { var p = md(j / 7 + t * .16, 1), x = x0 + (x1 - x0) * p; disc(c, x, y + h * .28 * Math.sin(t * 4 + j * 1.9), (2.6 - 1.2 * p) * k, stAlpha(C.surface, .85)); }
+      for (var a = 0; a < 3; a++) { var s = md(t / 2 + a / 3, 1); arrowHead(c, W * (.22 + .2 * a), H * .2, W * (.36 + .2 * a), H * .2, stAlpha(C.ink2, .3 + .5 * Math.sin(Math.PI * s)), 3.8 * k, 1.5); }
+    };
+    // Neutral timeline: milestone flags rise in turn; positions carry no dates or values.
+    D.timeline = function (c, C, W, H, t, k) {
+      var x0 = W * .1, x1 = W * .9, y = H * .74, n = 5, p = md(t / 7 + .5, 1) * 1.2;
+      arrowHead(c, x0, y, x1 + 2 * k, y, stAlpha(C.ink2, .6), 4 * k, 1.4);
+      for (var i = 0; i < n; i++) {
+        var u = (i + .5) / n, x = x0 + (x1 - x0) * u, on = Math.max(0, Math.min(1, (p - u) * 5)), hgt = (18 + 7 * (i % 3)) * k * on;
+        if (on > 0) {
+          c.strokeStyle = stAlpha(C.ink2, .7); c.lineWidth = 1.2; seg(c, x, y, x, y - hgt);
+          c.beginPath(); c.moveTo(x, y - hgt); c.lineTo(x + 9 * k * on, y - hgt + 3.5 * k); c.lineTo(x, y - hgt + 7 * k); c.closePath(); c.fillStyle = i % 2 ? C.warm : C.accent; c.fill();
+          if (on < 1) halo(c, x, y, 7 * k, C.gold || C.warm, 1 - on);
+        }
+        disc(c, x, y, 2.4 * k, on > 0 ? C.ink2 : stAlpha(C.muted, .7));
+      }
+    };
+    // A magnetic material (spins, warm) beside a superconducting region (blue) where pairs move.
+    D.magnetism = function (c, C, W, H, t, k) {
+      var xb = W * .5, top = H * .14, bot = H * .86;
+      c.fillStyle = stAlpha(C.warm, .1); c.fillRect(W * .05, top, xb - W * .05, bot - top);
+      c.fillStyle = stAlpha(C.accent, .18); c.fillRect(xb, top, W * .45, bot - top);
+      c.strokeStyle = stAlpha(C.ink2, .5); c.lineWidth = 1; seg(c, xb, top, xb, bot);
+      for (var i = 0; i < 3; i++) for (var j = 0; j < 3; j++) spinAt(c, W * (.13 + i * .13), top + (bot - top) * (.2 + j * .3), -Math.PI / 2 + .8 * Math.sin(t * .8 + i * .9 + j * .5), 12 * k, C.warm);
+      for (var p = 0; p < 4; p++) {
+        var px = xb + 8 * k + (W * .45 - 16 * k) * md(p / 4 + t * .08, 1), py = top + (bot - top) * (.22 + .19 * p);
+        c.strokeStyle = stAlpha(C.ink2, .6); seg(c, px - 3 * k, py, px + 3 * k, py);
+        disc(c, px - 3 * k, py, 2 * k, C.accent); disc(c, px + 3 * k, py, 2 * k, C.warm);
+      }
+    };
+    // Schematic phase diagram: two transition lines cross, giving regions for each order and one with both.
+    D.competition = function (c, C, W, H, t, k) {
+      var x0 = W * .12, x1 = W * .92, y0 = H * .86, y1 = H * .1, h = y0 - y1;
+      var A0 = y0 - h * .82, A1 = y0 - h * .12, B0 = y0 - h * .12, B1 = y0 - h * .82, xc = (x0 + x1) / 2, yc = (A0 + A1) / 2;
+      function tri(pts, fill) { c.beginPath(); c.moveTo(pts[0][0], pts[0][1]); for (var i = 1; i < pts.length; i++) c.lineTo(pts[i][0], pts[i][1]); c.closePath(); c.fillStyle = fill; c.fill(); }
+      tri([[x0, A0], [xc, yc], [x0, B0]], stAlpha(C.accent, .22));
+      tri([[x1, B1], [xc, yc], [x1, A1]], stAlpha(C.warm, .22));
+      tri([[x0, B0], [xc, yc], [x1, A1], [x1, y0], [x0, y0]], stAlpha(C.accent, .16));
+      tri([[x0, B0], [xc, yc], [x1, A1], [x1, y0], [x0, y0]], stAlpha(C.warm, .14));
+      c.lineWidth = 1.8; c.strokeStyle = C.accent; seg(c, x0, A0, x1, A1); c.strokeStyle = C.warm; seg(c, x0, B0, x1, B1);
+      arrowHead(c, x0, y0, x1 + 3 * k, y0, stAlpha(C.ink2, .6), 3.5 * k, 1.2); arrowHead(c, x0, y0, x0, y1 - 3 * k, stAlpha(C.ink2, .6), 3.5 * k, 1.2);
+      halo(c, xc, yc, 7 * k, C.gold || C.warm, .5 + .4 * Math.sin(TAU * t / 2));
+      var a = TAU * t / 7, mx = xc + Math.cos(a) * (x1 - x0) * .3, my = yc + Math.sin(a) * h * .3;
+      disc(c, mx, my, 3 * k, C.surface); c.beginPath(); c.arc(mx, my, 3 * k, 0, TAU); c.strokeStyle = C.ink2; c.lineWidth = 1.3; c.stroke();
+    };
+    // Magnetic molecules on a superconducting surface; glows mark possible in-gap bound states.
+    D.molecule = function (c, C, W, H, t, k) {
+      var sy = H * .68, r = 7 * k, xs = [.28, .5, .72], gold = C.gold || C.warm;
+      c.fillStyle = stAlpha(C.accent, .22); c.fillRect(W * .04, sy, W * .92, H * .26);
+      c.strokeStyle = stAlpha(C.accent, .7); c.lineWidth = 1.2; seg(c, W * .04, sy, W * .96, sy);
+      for (var i = 0; i < 12; i++) disc(c, W * (.08 + i * .076), sy + 7 * k, 1.4 * k, stAlpha(C.accent, .6));
+      xs.forEach(function (u, i) { halo(c, W * u, sy + 2 * k, 11 * k, gold, .35 + .3 * Math.sin(TAU * t / 2.4 + i * 1.3)); });
+      c.strokeStyle = stAlpha(C.ink2, .6); c.lineWidth = 1.4; seg(c, W * xs[0] + r, sy - 12 * k, W * xs[2] - r, sy - 12 * k);
+      xs.forEach(function (u, i) {
+        var x = W * u, y = sy - 12 * k;
+        c.beginPath(); for (var m = 0; m < 6; m++) { var a = Math.PI / 6 + m * Math.PI / 3; if (m) c.lineTo(x + r * Math.cos(a), y + r * Math.sin(a)); else c.moveTo(x + r * Math.cos(a), y + r * Math.sin(a)); }
+        c.closePath(); c.fillStyle = C.surface; c.fill(); c.strokeStyle = C.ink2; c.lineWidth = 1.3; c.stroke();
+        spinAt(c, x, y - 15 * k, -Math.PI / 2 + .5 * Math.sin(t * 1.3 + i * 2), 13 * k, C.warm);
+      });
+    };
+    // Neutral animated source icon: a page and a magnifier, no crystal, trace or discovery claim.
+    D.research = function (c, C, W, H, t, k) {
+      var x = W * .27, y = H * .12, w = W * .42, h = H * .76, f = 9 * k, lines = [.3, .44, .56, .68, .8];
+      c.beginPath(); c.moveTo(x, y); c.lineTo(x + w - f, y); c.lineTo(x + w, y + f); c.lineTo(x + w, y + h); c.lineTo(x, y + h); c.closePath();
+      c.fillStyle = C.surface; c.fill(); c.strokeStyle = stAlpha(C.ink2, .55); c.lineWidth = 1.2; c.stroke();
+      c.beginPath(); c.moveTo(x + w - f, y); c.lineTo(x + w - f, y + f); c.lineTo(x + w, y + f); c.closePath(); c.fillStyle = stAlpha(C.muted, .35); c.fill();
+      c.fillStyle = stAlpha(C.accent, .75); c.fillRect(x + 6 * k, y + h * .12, w * .5, 3.5 * k);
+      var mx = x + w * (.52 + .3 * Math.sin(TAU * t / 6)), my = y + h * (.56 + .16 * Math.cos(TAU * t / 6));
+      lines.forEach(function (u, i) {
+        var ly = y + h * u, near = Math.max(0, 1 - Math.abs(ly - my) / (9 * k));
+        c.strokeStyle = near > .1 ? stAlpha(C.warm, .5 + .5 * near) : stAlpha(C.ink2, .35); c.lineWidth = 1.5;
+        seg(c, x + 6 * k, ly, x + w - (i === lines.length - 1 ? 16 : 6) * k, ly);
+      });
+      c.beginPath(); c.arc(mx, my, 8.5 * k, 0, TAU); c.fillStyle = stAlpha(C.accent, .12); c.fill(); c.strokeStyle = C.accent; c.lineWidth = 1.8; c.stroke();
+      c.lineWidth = 2.6; seg(c, mx + 6.2 * k, my + 6.2 * k, mx + 12 * k, my + 12 * k);
+    };
     var ALT = {
       cuprate: 'Idealised CuO₂-plane fragment: a square copper net with oxygen at link midpoints. Only the viewing angle changes; this is not a complete crystal or measured motion.',
       nickelate: 'Idealised section of a bilayer nickelate, with Ni–O–Ni bridges. The view moves; no pairing mechanism or measured atomic motion is implied.',
@@ -334,7 +738,6 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
       ai: 'A crystal structure feeds a small neural network whose layers light up in turn.',
       qubit: 'A cross-shaped superconducting qubit beside a Bloch circle whose arrow swings back and forth.',
       general: 'A magnet floating above a cold superconductor, the Meissner effect.',
-      research: 'An animated research-paper icon. No material structure, measurement or superconducting discovery is asserted.',
       layered: 'Layered-material schematic with four illustrative sheets. The sheet count and spacing are not the article’s measured structure; no twist is implied.',
       'layered-six': 'Six graphene layers, matching the layer count named in the article. Spacing and viewing angle are schematic; no twist, atomic stacking registry or measured motion is implied.',
       stripes: 'Qualitative lattice-model/stripe-analysis motif. Site shading illustrates a possible modulation, not a measured density, established ground state or electron motion.',
@@ -349,7 +752,33 @@ const initializeSuperconNewsDrawings = function initializeSuperconNewsDrawings()
       interval: 'Illustrative prediction intervals around model estimates. Their lengths are not the paper’s numerical intervals or a coverage measurement.',
       routing: 'Model-routing schematic: an input follows one of two model branches. This is not an accuracy or mechanism claim.',
       'two-stage': 'Two-stage prediction schematic: an SC catalog-label score and a conditional Tc estimate. The score is not a universally calibrated probability.',
-      tree: 'Illustrative decision-tree branches used in a boosted-tree model. Not a neural network or a rendering of the fitted tree.'
+      tree: 'Illustrative decision-tree branches used in a boosted-tree model. Not a neural network or a rendering of the fitted tree.',
+      research: 'An animated research-paper icon with a magnifier. No material structure, measurement or superconducting discovery is asserted.',
+      detector: 'Particle-detector schematic: an absorber with superconducting sensors on top; an incoming particle deposits energy and the spreading signal reaches the sensors. No detector geometry, signal size or sensitivity from the article is shown.',
+      diode: 'Superconducting-diode schematic: current flows without loss one way (blue) but turns dissipative at a lower current the other way (warm); the bars compare the two critical currents. Directions and sizes are illustrative, not measured.',
+      spinfluct: 'Square lattice of antiferromagnetically correlated spins whose tilts ripple across the plane, a cartoon of spin fluctuations or spin waves. No measured spectrum, correlation length or pairing mechanism is shown.',
+      multigap: 'Fermi pockets ringed by superconducting gaps of different size (band thickness); colours only distinguish the pockets. Shapes and sizes are illustrative; no measured gap map, node or sign structure is asserted.',
+      zeeman: 'Zeeman-split Fermi circles: a magnetic field (arrow) separates spin-up (warm) and spin-down (blue) electrons, and a dashed pair joins opposite momenta across the split. Field and splitting are illustrative, not the article’s values.',
+      gapdos: 'Tunnelling-style density of states with a gap and two coherence peaks; the dot sweeps the bias. A textbook shape, not the article’s measured spectrum; no nodal or nodeless gap is implied.',
+      fflo: 'Pair amplitude modulated in space (pair-density-wave or FFLO type), with pairs drifting to suggest finite momentum. Period, amplitude and motion are illustrative, not measured.',
+      trsb: 'Broken time-reversal symmetry cartoon: one circulation sense is chosen over its time-reversed partner (faint, dashed), with weak spontaneous fields (arrows). Not the article’s pairing state or measured field.',
+      kekule: 'Honeycomb lattice with a Kekulé bond pattern: every third hexagon carries the strong bonds, tripling the unit cell. It illustrates the proposed lattice-scale modulation, not a calculated pair amplitude.',
+      cavity: 'Optical-cavity schematic: two mirrors hold a standing electromagnetic mode around a thin sample; flickering dots suggest vacuum fluctuations. No pump light, resonator design or measured Tc change is depicted.',
+      rf: 'Superconducting accelerating cavity: the field in neighbouring cells alternates while a particle bunch crosses in step. Cell count, fields and timing are illustrative, not the article’s design or gradient.',
+      resonator: 'Superconducting transmission line (centre conductor between ground planes) carrying a microwave packet. Wavelength, packet shape and speed are illustrative, not measured.',
+      coil: 'Superconducting-magnet schematic: current circulates in the windings and field lines pass through the bore and return outside. Winding count and field lines are illustrative, not the article’s magnet design or field.',
+      cable: 'Superconducting-cable schematic: current flows along twisted strands and rings of magnetic field surround the conductor. Strand count, current and field are illustrative, not design values.',
+      ring: 'Superconducting ring threaded by magnetic flux, beside an illustrative response that repeats with each flux quantum. The curve is schematic, not the article’s measured oscillation.',
+      coldatoms: 'Ultracold atoms in the wells of an optical lattice, two spin states in two colours, one atom hopping. Positions and pairing are illustrative, not the article’s images or data.',
+      penetration: 'Superconductor boundary: the magnetic field (warm) decays over the penetration depth while the pair amplitude (blue) recovers over the coherence length. Lengths are illustrative, not computed or measured values.',
+      interface: 'Thin film on a substrate with the interface highlighted; moving dots suggest carriers in the interface layer. Thicknesses, materials and motion are illustrative, not the article’s structure.',
+      proximity: 'Proximity-effect schematic: pairs from a superconductor (left) leak into a neighbouring material, where the pair amplitude decays. The decay length and motion are illustrative.',
+      monolayer: 'A single atomic sheet seen in perspective, with a soft wave crossing it. The lattice pattern and tilt are illustrative; no specific crystal or measured property is shown.',
+      thermal: 'Heat flowing along a sample from a hot end (warm) to a cold end (blue). Gradient and flow are illustrative, not measured transport data.',
+      timeline: 'Neutral timeline: milestone flags rise in turn. Positions and heights carry no dates, values or ranking.',
+      magnetism: 'A magnetic material (spins, warm) beside a superconducting region (blue) carrying pairs. The spin arrangement is illustrative, not the article’s magnetic order.',
+      competition: 'Schematic phase diagram: two transition lines cross, giving a region for each order and one where both coexist; the ring wanders through them. Axes and lines are illustrative, not a measured phase diagram.',
+      molecule: 'Magnetic molecules on a superconducting surface, each with a spin; glows beneath them mark possible in-gap bound states. Counts, spins and glows are illustrative, not measured spectra.'
     };
     Object.keys(D).forEach(function (kind) {
       MINI_DRAW['news-' + kind] = guard(D[kind]);
