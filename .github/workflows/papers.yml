@@ -55,3 +55,29 @@ jobs:
               exit 1
             fi
           fi
+
+      # A daily curation task proposes "Recent advances" on the branch claude/news-curation (never on main).
+      # Only entries that pass the app's content schema and are new to main are added; see feed/sync_curation.py.
+      - name: Merge curated advances
+        if: github.ref == 'refs/heads/main'
+        run: |
+          if ! git fetch --depth=1 origin claude/news-curation; then
+            echo "No curation branch yet"
+            exit 0
+          fi
+          git show FETCH_HEAD:progress/content.json > "$RUNNER_TEMP/curated.json"
+          for i in 1 2 3; do
+            git fetch --depth=1 origin main && git reset --hard FETCH_HEAD
+            python feed/sync_curation.py progress/content.json "$RUNNER_TEMP/curated.json"
+            if git diff --quiet -- progress/content.json; then
+              exit 0
+            fi
+            git add progress/content.json
+            git commit -m "Add curated advances"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Curated advances were checked, but publishing failed after 3 attempts" >&2
+          exit 1
