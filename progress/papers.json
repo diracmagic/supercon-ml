@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-04T04:18:31+00:00",
+ "updated": "2026-11-04T07:39:50+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,6 +47,7 @@
   ]
  },
  "sources_ok": [
+  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -59,9 +60,160 @@
   "Phys.org",
   "Physics World",
   "APS Physics",
-  "Quanta Magazine"
+  "Quanta Magazine",
+  "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.04982",
+   "source": "arXiv",
+   "title": "Ta-based S-I-S junctions for integrated superconducting Electronics",
+   "authors": [
+    "Trent Borman",
+    "Cameron Bullock",
+    "Cole Chason",
+    "et al."
+   ],
+   "n_authors": 27,
+   "date": "2026-11-03",
+   "updated": "2026-11-03",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "In this work, we have presented S-I-S Josephson junctions with rmα-Ta electrodes and a rmTaOₓ barrier. We grew base and top α-Ta electrodes using seed layer engineering, showing both Nb and rmTaNₓ are viable seed layer choices, and particularly emphasize that at room temperature a re-seed layer is required to nucleate rmα-Ta for the top electrode. However, we note that the choice of seed layer can have subtle implications on the electrical tunneling behavior of the junctions. We used room-temperature probing of variable junction areas, combined with Ambegaokar-Baratoff physics, to characterize the wafer scale critical current densities. For 0.4 μm² junctions, we found junction spreads as low as 2.0% across the 20 x 20 mm chip relevant for device performance. The entire process was carried out using standard industry foundry processing using 150 mm wafer tooling, which is an important step towards proving that Ta-based junctions can be implemented at scale. We have successfully fabricated and tested junctions with rmα-Ta electrodes and a rmTaOₓ insulating tunnel barrier, demonstrating that this is a material platform which merits further investigation and studies for potential application in classical and quantum superconducting technologies.",
+   "url": "https://arxiv.org/abs/2611.04982",
+   "pdf": "https://arxiv.org/pdf/2611.04982",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci"
+   ]
+  },
+  {
+   "id": "2611.04821",
+   "source": "arXiv",
+   "title": "Nonreciprocal charge transport in quantum materials: From superconductors to magnetic systems",
+   "authors": [
+    "Boning Yu",
+    "Yalei Huang",
+    "Alltrin Dhanarajagopal",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "updated": "2026-11-03",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Nonreciprocal charge transport, where current flows preferentially in one direction, has become a key topic across quantum materials. This review covers some recent progress in bulk crystals, artificial heterostructures, van der Waals systems, high-temperature superconductors, and magnetic materials. The review discusses both intrinsic origins, such as band-structure effects, and extrinsic ones, including vortex motion, device geometry, and heating artifacts. A central focus is the superconducting diode effect due to its application potential, which shows different critical currents for opposite directions. The review also examines how symmetry breaking, spin-orbit coupling, and magnetic order contribute to the observed responses. However, there remain challenges when many exciting findings lack a unified picture, and the field continues to debate the relative importance of various mechanisms. The review highlights key open questions and suggests future directions, including better experimental standards and device integration. This review aims to give a balanced view of what is known, what is uncertain, and where the field might go next.",
+   "url": "https://arxiv.org/abs/2611.04821",
+   "pdf": "https://arxiv.org/pdf/2611.04821",
+   "journal_ref": "J. Phys.: Condens. Matter 38 (2026) 443002",
+   "doi": "10.1088/1361-648X/aeb784",
+   "topics": [
+    "Moiré and 2D",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.04815",
+   "source": "arXiv",
+   "title": "Intra-unit-cell Josephson scanning tunneling spectroscopy of the cuprate Bi₁.₂Pb₀.₈Sr₂CaCu₂O₈₊δ",
+   "authors": [
+    "Fengyu Yao",
+    "Jiong Mei",
+    "Wenjin Mao",
+    "et al."
+   ],
+   "n_authors": 18,
+   "date": "2026-11-03",
+   "updated": "2026-11-03",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "The predominantly dₓ₂₋y₂-wave pairing symmetry of cuprate superconductors is well established, yet its microscopic manifestation in local Cooper-pair tunneling remains less explored. Here, we investigate Bi₁.₂Pb₀.₈Sr₂CaCu₂O₈₊δ, using Josephson scanning tunneling spectroscopy with a conventional s-wave superconducting Pb tip. We observe a zero-bias conductance enhancement whose approximately quadratic dependence on junction conductance is consistent with phase-diffusive Josephson tunneling. Atomic-resolution conductance maps and site-resolved spectra reveal a pronounced intra-unit-cell modulation, with enhanced Josephson response near oxygen sites and strong suppression near copper sites and along diagonal directions. Microscopic calculations incorporating the bilayer electronic structure and realistic Wannier-based tunneling matrix elements reproduce the observed spatial pattern through interference between pairing contributions of opposite signs. Our results reveal how the sign-changing d-wave superconducting order parameter manifests itself in atomic-scale Josephson tunneling, providing complementary evidence for unconventional pairing symmetry in cuprates.",
+   "url": "https://arxiv.org/abs/2611.04815",
+   "pdf": "https://arxiv.org/pdf/2611.04815",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.03978",
+   "source": "arXiv",
+   "title": "Constraining the Superconducting Gap of Monolayer FeSe/SrTiO₃ via Statistical Analysis and Tip-Height-Dependent Tunneling Spectroscopy",
+   "authors": [
+    "Dongwon Shin",
+    "Xiyou Peng",
+    "Kaleb McClure",
+    "et al."
+   ],
+   "n_authors": 9,
+   "date": "2026-11-02",
+   "updated": "2026-11-02",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Monolayer FeSe grown on SrTiO₃ (001) exemplifies interface-enhanced superconductivity, exhibiting a transition temperature nearly ten times that of bulk FeSe. Yet, its tunneling spectra lack clearly identifiable superconducting coherence peaks, preventing an unambiguous determination of the gap magnitude. Here, we use ultralow-temperature scanning tunneling spectroscopy as a function of temperature, tip-sample separation, and lateral position to disentangle tunneling contributions by statistical analysis. Decay rates extracted by regression of tip-height-dependent spectroscopy reveal three energy regimes: Andreev-reflection-dominated tunneling below 6 meV, mixed Andreev and quasiparticle tunneling between 6 and 13 meV, and predominantly quasiparticle tunneling above 13 meV. Spatially resolved spectroscopy and correlation analysis further reveal that the tunneling conductance is predominantly localized near defects below 6 meV but becomes spatially extended at higher energies. Together, these results constrain the superconducting gap to lie between 6 and 13 meV. Our findings establish statistical analysis of spectroscopy as a powerful approach to constraining superconducting gap structures when complex spectral features prevent the unambiguous identification of coherence peaks.",
+   "url": "https://arxiv.org/abs/2611.03978",
+   "pdf": "https://arxiv.org/pdf/2611.03978",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Iron-based",
+    "Moiré and 2D"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall"
+   ]
+  },
+  {
+   "id": "2611.03833",
+   "source": "arXiv",
+   "title": "Repulsion-Driven Topological Superconductivity in Twisted MoTe₂",
+   "authors": [
+    "Tianle Wang",
+    "Tomohiro Soejima",
+    "Norman Y. Yao",
+    "et al."
+   ],
+   "n_authors": 7,
+   "date": "2026-11-02",
+   "updated": "2026-11-02",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "We show that a microscopic model of twisted MoTe₂ with screened Coulomb interactions produces topological superconductivity. Using the density matrix renormalization group (DMRG) on infinite cylinders, we find that the narrow Chern band of twisted MoTe₂ has Cooper pair correlations that strengthen with cylinder circumference, consistent with two dimensional superconductivity. The superconductor has chiral f-wave pairing around the valley center, and its topology produces chiral Majorana edge modes and non-Abelian vortex cores. At zero displacement field, the superconductor spans fillings -0.78≲ν≲-0.72, close to the experimental range, and extends in a dome to finite displacement field. We then predict how its stiffness evolves with the filling and the tunable displacement field. The interplay with screening length is also examined. Nearby, we find a fractional Chern insulator, a topological charge density wave, a metal, and a charge-ordered state. The last is a candidate for the reentrant integer Hall regime in experiments. These results establish a route from repulsive interactions in microscopic models of moiré materials to chiral topological uperconductors with chiral Majorana edge modes.",
+   "url": "https://arxiv.org/abs/2611.03833",
+   "pdf": "https://arxiv.org/pdf/2611.03833",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Topological",
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2611.03405",
    "source": "arXiv",
@@ -1920,10 +2072,10 @@
    ],
    "n_authors": 1,
    "date": "2026-10-24",
-   "updated": "2026-10-24",
+   "updated": "2026-11-03",
    "category": "cond-mat.supr-con",
    "cross_list": false,
-   "abstract": "Can the correlations favoring electron crystallization also generate superconductivity in the neighboring metal? We investigate this possibility in rhombohedral tetralayer graphene with repulsive Coulomb interactions. Self-consistent Hartree–Fock calculations identify a commensurate triangular Wigner-crystal state. To investigate pairing on the metallic side, we construct a crossing-symmetric particle–hole vertex using coupled parquet and Bethe–Salpeter equations, incorporating exchange vertex corrections beyond polarization-bubble screening. Near crystallization, the enhanced electronic correlations generate an effective attraction favoring chiral f-wave pairing. Superconductivity is confined to a narrow metallic region adjacent to the crystal, qualitatively consistent with the superconducting sleeve observed near an insulating regime in rhombohedral graphene. These results connect the emergence of chiral pairing and its location in the phase diagram to the electronic correlations favoring crystallization.",
+   "abstract": "It was experimentally observed that Wigner-crystal and chiral superconducting phases occur adjacent to each other in rhombohedral graphene. In this Letter, we explore electronic correlations underlying the two phases and identify the pairing mechanism of chiral superconductivity. Exchange correlations play an essential role in both phases. First, we use self-consistent Hartree-Fock calculations to identify a Wigner-crystal state. Second, to investigate the pairing mechanism, we go beyond charge screening and construct a particle-hole-renormalized interaction through the coupled parquet and Bethe-Salpeter equations. This interaction incorporates exchange correlations while preserving crossing symmetry. Within this framework, we find that electronic correlations in the quarter metal are strongly enhanced near the crystal phase boundary, generating an effective attraction that favors superconducting pairing. Consequently, chiral superconductivity (CSC) emerges in a narrow sliver adjacent to the crystal. Furthermore, we identify the winding number of the superconducting order parameter as -3, indicating its f-wave nature. These results connect the emergence of chiral pairing and its location in the phase diagram to the electronic correlations favoring crystallization.",
    "url": "https://arxiv.org/abs/2610.33808",
    "pdf": "https://arxiv.org/pdf/2610.33808",
    "journal_ref": "",
@@ -2193,149 +2345,6 @@
    "kind": "computation",
    "categories": [
     "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.30766",
-   "source": "arXiv",
-   "title": "Coulomb-Driven Electronic Textures in Lightly Hole-Doped Cuprates",
-   "authors": [
-    "Wei-Wei Yang",
-    "Yang Shen",
-    "Yuxin Wang",
-    "et al."
-   ],
-   "n_authors": 6,
-   "date": "2026-10-22",
-   "updated": "2026-10-22",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Motivated by recent experiments on Ca₂CuO₂Cl₂, we present a comprehensive study of the interplay between dopants and localized Zhang-Rice singlets in lightly hole-doped cuprates. Owing to the poorly screened Coulomb potential, the interactions between dopants and localized Zhang-Rice singlets favor asymmetric electronic configurations characterized by effective electric \"dipoles\". Using the MPS-based Lanczos method, we show that these localized holes give rise to in-gap bound states within the charge-transfer gap. When tunneling matrix-element effects are included, the bound states exhibit a characteristic 4a₀ ×2a₀ internal structure, consistent with experimental observations. Our results suggest that Coulomb interactions between dopants and localized Zhang-Rice singlets, together with tunneling matrix-element effects, provide a microscopic mechanism for the observed 4a₀ electronic structures.",
-   "url": "https://arxiv.org/abs/2610.30766",
-   "pdf": "https://arxiv.org/pdf/2610.30766",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Cuprates"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.30581",
-   "source": "arXiv",
-   "title": "Cluster property and entanglement in the superconducting state",
-   "authors": [
-    "Katsuhiko Higuchi",
-    "Masahiko Higuchi"
-   ],
-   "n_authors": 2,
-   "date": "2026-10-22",
-   "updated": "2026-10-22",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We present the conditions for satisfying the cluster property in the superconducting state. Using these conditions, we show that the cluster property employed when deriving the order parameter of the superconducting state (OPSS) holds true, and that the OPSS is given by S⟨Ψ| hatψ(x)hatψ(x') | Ψ⟩S, where |Ψ⟩S is the superconducting state, and where hatψ(x) is the field operator of superconducting electrons. This provides a resolution to the long-standing concern raised by Leggett et al.\\ regarding particle-number fluctuation in the superconducting state. In addition, by considering the entanglement between two particles composed of the maximum geminal of the BCS ground state [J.\\ Phys. Commun. 5, 095003 (2021)], it is confirmed that the larger the deviation from the conditions for satisfying the cluster property becomes, the greater the magnitude of the entanglement becomes. This shows not only the effectiveness of the conditions for satisfying the cluster property but also the justification of the OPSS that has been commonly used.",
-   "url": "https://arxiv.org/abs/2610.30581",
-   "pdf": "https://arxiv.org/pdf/2610.30581",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con",
-    "quant-ph"
-   ]
-  },
-  {
-   "id": "2610.30556",
-   "source": "arXiv",
-   "title": "Field-free superconducting diode and tunable vortex dynamics in NbN/FePt stripe-domain heterostructures",
-   "authors": [
-    "Juan C. Zapata",
-    "Emilio De Biasi",
-    "Martin Sirena",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-22",
-   "updated": "2026-10-22",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We demonstrate reconfigurable, field-free superconducting diode behavior in NbN/FePt and NbN/AlN/FePt heterostructures with remanent stripe domains in the FePt layer. NbN films 10 nm thick are capped either directly with FePt or through a thin AlN spacer, which reduces electronic proximity effects while preserving magnetic coupling through stray fields. At zero applied magnetic field, the superconducting diode efficiency reaches approximately 50–60% in NbN/FePt when the stripes are perpendicular to the current and is strongly reduced when they are parallel. The diode effect persists in NbN/AlN/FePt with efficiencies reaching approximately 35–40%, supporting a magnetic origin of the nonreciprocity. We interpret the response as asymmetric vortex transport in the remanent magnetic landscape, with preferential edge vorticity and a Lorentz force that favors inward flux injection or outward motion depending on current polarity. Under applied perpendicular magnetic fields, the interplay between the external field and the magnetic stray fields modifies the flux-flow instability and the apparent instability velocity inferred from transport, with values below those reported for bare NbN films. These results show that stripe-domain ferromagnetic overlayers provide a reconfigurable route to control superconducting nonreciprocity and flux-flow stability in NbN-based heterostructures.",
-   "url": "https://arxiv.org/abs/2610.30556",
-   "pdf": "https://arxiv.org/pdf/2610.30556",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci"
-   ]
-  },
-  {
-   "id": "2610.30547",
-   "source": "arXiv",
-   "title": "Anisotropic thermoelectric transport in the Sr2RuO4-Ru eutectic system",
-   "authors": [
-    "Takeru Ito",
-    "Shogo Yoshida",
-    "Hiroshi Yaguchi",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-22",
-   "updated": "2026-10-22",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "The Sr2RuO4-Ru eutectic system, in which metallic Ru inclusions are embedded in a Sr2RuO4 matrix, exhibits an enhanced superconducting onset temperature of about 3 K, known as the 3-K phase. Here we investigate the in-plane thermoelectric response of this eutectic system in the normal state and find a pronounced anisotropy in the thermopower for thermal gradients applied parallel and perpendicular to the Ru lamellae. To clarify its origin, we combine thermopower measurements with electronic-structure-based transport calculations and finite-element modeling of the local strain distribution generated by the thermal-expansion mismatch between Sr2RuO4 and Ru. The calculations show that uniaxial compression of Sr2RuO4 produces a sizable thermopower anisotropy through modification of the Fermi surfaces. When an idealized spatially inhomogeneous strain field around the Ru lamellae is included, the observed sign and qualitative magnitude of the anisotropy are reproduced more closely than in a simple unstrained two-component model. These results are consistent with a substantial contribution from strain-induced changes in the Sr2RuO4 electronic structure near the interfaces, although contributions from interfacial phase mixing and three-dimensional transport connectivity cannot be excluded.",
-   "url": "https://arxiv.org/abs/2610.30547",
-   "pdf": "https://arxiv.org/pdf/2610.30547",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Triplet and ruthenates"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.30321",
-   "source": "arXiv",
-   "title": "Extreme competition between stripes and superconductivity in the hole-doped Hubbard model",
-   "authors": [
-    "Ao Chen",
-    "Johnnie Gray",
-    "Si-Jing Du",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-21",
-   "updated": "2026-10-26",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "The two-dimensional Hubbard model was originally proposed as the minimal model of uniform d-wave superconductivity in the cuprate high-temperature superconductors, but recent calculations with relevant parameters in a realistic doping regime have often found other ground states. Further, uncertainty remains over such results due to the intrinsic bias of different computational methods. Here we address this uncertainty through state-of-the-art neural tensor network and neural backflow state simulations, enabled by large-scale GPU computation, that together reach an unprecedented variational accuracy on lattices with up to 1024 sites. At 1/8 doping in the pure Hubbard model, as well as with next-nearest-neighbor hopping relevant to the hole-doped cuprates, we reveal a near degeneracy among a low-energy uniform d-wave state, superconducting stripes, and non-superconducting stripe states on the milli-t energy scale. Our work rebalances the narrative that the Hubbard model supports a single dominant order in relevant parameter regimes towards a picture of extreme competition between stripes and superconductivity.",
-   "url": "https://arxiv.org/abs/2610.30321",
-   "pdf": "https://arxiv.org/pdf/2610.30321",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Cuprates",
-    "Moiré and 2D"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.dis-nn",
-    "cond-mat.supr-con",
-    "quant-ph"
    ]
   }
  ],
@@ -4899,39 +4908,6 @@
    "categories": [
     "cs.IR",
     "cs.CL"
-   ],
-   "kind_of": "paper"
-  },
-  {
-   "id": "2610.30321",
-   "source": "arXiv",
-   "title": "Extreme competition between stripes and superconductivity in the hole-doped Hubbard model",
-   "authors": [
-    "Ao Chen",
-    "Johnnie Gray",
-    "Si-Jing Du",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-21",
-   "updated": "2026-10-26",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "The two-dimensional Hubbard model was originally proposed as the minimal model of uniform d-wave superconductivity in the cuprate high-temperature superconductors, but recent calculations with relevant parameters in a realistic doping regime have often found other ground states. Further, uncertainty remains over such results due to the intrinsic bias of different computational methods. Here we address this uncertainty through state-of-the-art neural tensor network and neural backflow state simulations, enabled by large-scale GPU computation, that together reach an unprecedented variational accuracy on lattices with up to 1024 sites. At 1/8 doping in the pure Hubbard model, as well as with next-nearest-neighbor hopping relevant to the hole-doped cuprates, we reveal a near degeneracy among a low-energy uniform d-wave state, superconducting stripes, and non-superconducting stripe states on the milli-t energy scale. Our work rebalances the narrative that the Hubbard model supports a single dominant order in relevant parameter regimes towards a picture of extreme competition between stripes and superconductivity.",
-   "url": "https://arxiv.org/abs/2610.30321",
-   "pdf": "https://arxiv.org/pdf/2610.30321",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Cuprates",
-    "Moiré and 2D"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.dis-nn",
-    "cond-mat.supr-con",
-    "quant-ph"
    ],
    "kind_of": "paper"
   },
