@@ -93,7 +93,7 @@ REQUIRED_FIELDS = {
     "mh2": "composition of MA8", "mi1": "element name of materials", "mi2": "composition of MA9",
     "mj1": "element name of materials", "mj2": "composition of MA10", "mo1": "oxygen", "mo2": "common formula of oxygen",
     "oz": "measured value of Oxygen content", "shape": "shape", "year": "publication year of reference",
-    "str1": "\"*crystal structure, symmetry\"", "str3": "common name of structure", "spaceg": "space group",
+    "str1": "*crystal structure, symmetry", "str3": "common name of structure", "spaceg": "space group",
     "tblno": "international table number", "ulat": "unit of lattice constant", "lata": "lattice constant a",
     "latb": "lattice constant b", "latc": "lattice constant c", "utc": "unit of Tc", "t1": "transition temperature (R = 0)",
     "t2": "transition temperature (mid point)", "t3": "transition temperature (R = 100%)",
@@ -186,13 +186,25 @@ def fetch(name: str, cache_dir, *, get=None, offline=False) -> bytes:
     return data
 
 
+def _cells(line: str) -> list:
+    """Tab-separated cells; a cell the datasheet wrapped in double quotes (values with commas, such as the common
+    formula "(Ba,La)2CuO4" or the structure name "(Cu,C)1223") is unwrapped, with doubled quotes restored."""
+    out = []
+    for c in line.rstrip("\r").split("\t"):
+        s = c.strip()
+        if len(s) >= 2 and s[0] == '"' and s[-1] == '"':
+            s = s[1:-1].replace('""', '"').strip()
+        out.append(s)
+    return out
+
+
 def parse_table(text: str) -> pd.DataFrame:
     """The oxide-and-metallic table: three header lines (column numbers, long names, symbols), then rows.
     Columns are located by symbol; each required symbol's long name must match the readme label."""
     lines = text.split("\n")
     if len(lines) < 4:
         raise ValueError("MDR table: fewer than four lines")
-    numbers, long_names, symbols = (lines[i].rstrip("\r").split("\t") for i in range(3))
+    numbers, long_names, symbols = (_cells(lines[i]) for i in range(3))
     if not all(n.strip().isdigit() for n in numbers if n.strip()):
         raise ValueError("MDR table: the first header line must hold column numbers")
     if len(long_names) != len(symbols):
@@ -217,7 +229,7 @@ def parse_table(text: str) -> pd.DataFrame:
     for k, line in enumerate(lines[3:], start=4):
         if not line.strip():
             continue
-        cells = line.rstrip("\r").split("\t")
+        cells = _cells(line)
         if len(cells) < len(symbols):
             cells += [""] * (len(symbols) - len(cells))
         rows.append({s: cells[i].strip() for s, i in position.items()} | {s: cells[i].strip() for s, i in extra.items()} | {"line": k})
