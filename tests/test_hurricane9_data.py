@@ -70,6 +70,23 @@ class Hurricane9DataTests(unittest.TestCase):
         self.assertEqual(H.canonical(a[0]), H.canonical(b[0]))
         self.assertEqual(H.composition(row(ma1="Ba", ma2="0.60", mb1="K", mb2="0.4", mc1="Bi", mc2="1.0", mo1="O", mo2="3"))[1]["exact"], "Ba0.6 Bi1 K0.4 O3")
         self.assertEqual(H.composition(row(ma1="IN", ma2="0.02", mb1="Ce", mb2="1", mc1="In", mc2="4.98"))[0], {"In": 5.0, "Ce": 1.0})   # capitalised symbols
+        # F-45: the coefficient text is normalised without any Decimal context, so every written digit survives.
+        long_a, long_b = "0.12345678901234567890123456781", "0.12345678901234567890123456782"
+        self.assertNotEqual(H._decimal_text(long_a), H._decimal_text(long_b))
+        self.assertEqual((H._decimal_text(long_a), H._decimal_text("007"), H._decimal_text(".5"), H._decimal_text("1e-3"), H._decimal_text("1.50E+2"), H._decimal_text("0.0")),
+                         (long_a, "7", "0.5", "0.001", "150", "0"))
+        ca = H.composition(row(ma1="Fe", ma2="1", mb1="Co", mb2=long_a, mc1="Se", mc2="1"))[1]["exact"]
+        cb = H.composition(row(ma1="Fe", ma2="1", mb1="Co", mb2=long_b, mc1="Se", mc2="1"))[1]["exact"]
+        self.assertNotEqual(ca, cb)
+        # The numeric identity (the key of the exact 3DSC match) writes the instantiated oxygen number, or nothing when unknown.
+        self.assertEqual(measured["numeric_exact"], "Ba2 Cu3 Y1 O6.93")
+        self.assertEqual(fixed["numeric_exact"], "Ba2 Cu3 Y1 O7")
+        self.assertIsNone(unknown["numeric_exact"])
+        self.assertEqual(H.formula_identity("Ba2Cu3O6.93Y1"), "Ba2 Cu3 Y1 O6.93")
+        self.assertEqual(H.formula_identity("B0.015C0.985Cu1Sr2O5"), "B0.015 C0.985 Cu1 Sr2 O5")
+        self.assertEqual(H.formula_identity("Nb3Sn"), "Nb3 Sn1")
+        with self.assertRaisesRegex(ValueError, "cannot parse"):
+            H.formula_identity("Sr(GePd)2")
         with self.assertRaisesRegex(ValueError, "bad element"):
             H.composition(row(ma1="Xx", ma2="1"))
         with self.assertRaisesRegex(ValueError, "oxygen expression"):
@@ -86,8 +103,18 @@ class Hurricane9DataTests(unittest.TestCase):
                  ("Bi2Sr2CaCu2O8+d", "Bi2Sr2Ca1Cu2O8.2"): "Bi2CaCu2O8Sr2", ("(Ba,La,)2CuO4", "Ba0.2La1.8Cu1O4"): "CuLa2O4"}
         for (name, formula), expected in named.items():
             self.assertEqual(H.parent(H.parse_formula(formula), name), (expected, "common formula"), name)
-        # A common formula may write a nominal oxygen count that the fields do not instantiate (YBa2Cu3Oz rows).
-        self.assertEqual(H.parent({"Y": 1.0, "Ba": 2.0, "Cu": 3.0}, "YBa2Cu3O7-X", "unknown"), ("Ba2Cu3O7Y", "common formula"))
+        # F-44: a common formula may write a nominal oxygen count that the fields do not instantiate (fields 'Oz'): the
+        # route says so; a common formula whose oxygen token has no count ('YBa2Cu3Oz', 'Ox') resolves no parent, and the
+        # uninstantiated oxygen is never dropped to make an oxygen-free parent.
+        self.assertEqual(H.parent({"Y": 1.0, "Ba": 2.0, "Cu": 3.0}, "YBa2Cu3O7-X", "unknown"),
+                         ("Ba2Cu3O7Y", "common formula (nominal oxygen count written by the common formula only)"))
+        self.assertEqual(H.parent({"Y": 1.0, "Ba": 2.0, "Cu": 3.0, "O": 7.0}, "YBa2Cu3O7-X", "variable"), ("Ba2Cu3O7Y", "common formula"))
+        self.assertIsNone(H.parent_from_name("YBa2Cu3Oz", {"Y": 1.0, "Ba": 2.0, "Cu": 3.0}))
+        self.assertIsNone(H.parent_from_name("YBa2Cu3Ox", {"Y": 1.0, "Ba": 2.0, "Cu": 3.0, "O": 6.9}))
+        self.assertEqual(H.parent({"Y": 1.0, "Ba": 2.0, "Cu": 3.0}, "YBa2Cu3Oz", "unknown"),
+                         ("unresolved", "unresolved: oxygen content not instantiated by any source field"))
+        unknown_o = H.observation(row(ma1="Y", ma2="1", mb1="Ba", mb2="2", mc1="Cu", mc2="3", mo1="O", mo2="z", str3="Y123", name="YBa2Cu3Oz", tc="91"))
+        self.assertEqual((unknown_o["parent"], unknown_o["status"], unknown_o["oxygen"]["status"]), ("unresolved", "admitted", "unknown"))
         self.assertIsNone(H.parent_from_name("(La,Sr)2CuO4", {"La": 2.0, "Cu": 1.0, "O": 4.0}))   # a member missing from the fields
         self.assertIsNone(H.parent_from_name("", {"La": 2.0}))
         # Coefficient route (blank or unreadable name), with the declared examples and the F-27 counterexample.
@@ -172,11 +199,55 @@ class Hurricane9DataTests(unittest.TestCase):
         obs = [H.observation(row(num="1", refno="R1", tc="150", **hg)), H.observation(row(num="2", refno="R2", tc="148", **hg)),
                H.observation(row(num="3", refno="R3", tc="120", **hg)), H.observation(row(num="4", refno="R4", **dict(YBCO, shape="1", tc="275")))]
         self.assertEqual([o["status"] for o in obs], ["quarantined", "quarantined", "admitted", "quarantined"])
-        self.assertEqual(H.lift_replicated_extremes(obs), 2)
-        self.assertEqual([o["status"] for o in obs], ["admitted", "admitted", "admitted", "quarantined"])
-        self.assertEqual(obs[0]["flags"], ["replicated extreme"])
+        lifted = H.apply_replication_lift(obs)
+        self.assertEqual([o["status"] for o in lifted], ["admitted", "admitted", "admitted", "quarantined"])
+        self.assertEqual((lifted[0]["flags"], lifted[0]["reason"], lifted[0]["quarantine_reasons"]), (["replicated extreme"], "", []))
+        self.assertEqual([o["status"] for o in obs], ["quarantined", "quarantined", "admitted", "quarantined"])   # the inputs are not modified
+        self.assertEqual(obs[0]["flags"], [])
         same_ref = [H.observation(row(num="5", refno="R9", tc="150", **hg)), H.observation(row(num="6", refno="R9", tc="149", **hg))]
-        self.assertEqual(H.lift_replicated_extremes(same_ref), 0)    # one reference twice is not a replication
+        self.assertEqual([o["status"] for o in H.apply_replication_lift(same_ref)], ["quarantined"] * 2)   # one reference twice is not a replication
+
+    def test_replication_never_lifts_a_criterion_conflict(self):
+        # F-39 (Codex's counterexample): two references at 150 and 149 K whose own onset is 20 K fail the criterion policy;
+        # both reasons are recorded, and replication removes neither.
+        hg = dict(ma1="Hg", ma2="1", mb1="Ba", mb2="2", mc1="Ca", mc2="2", md1="Cu", md2="3", mo1="O", mo2="8+d", str3="Hg1223", shape="1")
+        pair = [H.observation(row(num="1", refno="R1", tc="150", t3="20", **hg)), H.observation(row(num="2", refno="R2", tc="149", t3="20", **hg))]
+        self.assertEqual(pair[0]["quarantine_reasons"], ["criterion conflict: recommended tc 150 above the resistive onset t3=20",
+                                                         "extreme value, unverified: tc above the review ceiling of 140 K"])
+        self.assertEqual(pair[0]["reason"], "; ".join(pair[0]["quarantine_reasons"]))
+        self.assertEqual([o["status"] for o in H.apply_replication_lift(pair)], ["quarantined", "quarantined"])
+        self.assertEqual(H.canonical_units(pair), [])
+        # A conflicting report is no witness either: one clean extreme plus one conflicting one is not a replication.
+        mixed = [H.observation(row(num="3", refno="R1", tc="150", **hg)), H.observation(row(num="4", refno="R2", tc="149", t3="20", **hg))]
+        self.assertEqual([o["status"] for o in H.apply_replication_lift(mixed)], ["quarantined", "quarantined"])
+        # A criterion conflict alone is quarantined with one reason; an extreme alone with one reason.
+        self.assertEqual(H.observation(row(num="5", tc="100", t3="20", **hg))["quarantine_reasons"], ["criterion conflict: recommended tc 100 above the resistive onset t3=20"])
+        self.assertEqual(len(H.observation(row(num="6", tc="150", **hg))["quarantine_reasons"]), 1)
+        report = H.audit(pair)
+        self.assertEqual((report["quarantined_with_several_reasons"], report["replicated_extremes"], report["extremes_not_lifted"]), (2, 0, 2))
+        self.assertEqual(report["quarantine_reasons"]["extreme value, unverified: tc above the review ceiling of 140 K"], 2)
+
+    def test_replication_is_window_local_and_future_reports_do_not_change_training(self):
+        # F-40 (Codex's counterexample): a 2019 report must not lift a 2010 extreme into the pre-2018 training window.
+        hg = dict(ma1="Hg", ma2="1", mb1="Ba", mb2="2", mc1="Ca", mc2="2", md1="Cu", md2="3", mo1="O", mo2="8+d", str3="Hg1223", shape="1")
+        past = H.observation(row(num="1", refno="R1", year="2010", tc="150", **hg))
+        future = H.observation(row(num="2", refno="R2", year="2019", tc="149", **hg))
+        with_future = H.temporal_split([past, future], cutoff=2017)
+        without_future = H.temporal_split([past], cutoff=2017)
+        self.assertEqual((len(with_future["train_units"]), len(without_future["train_units"])), (0, 0))
+        self.assertEqual(H.manifest(with_future["train_units"], {}, {})["sha256"], H.manifest(without_future["train_units"], {}, {})["sha256"])
+        self.assertEqual((len(with_future["test_new_units"]), len(with_future["repeat_report_units"])), (0, 0))   # the lone 2019 extreme is not lifted either
+        # The whole cohort (no window) lifts the pair, and the recorded statuses stay as recorded.
+        whole = H.canonical_units([past, future])
+        self.assertEqual((len(whole), whole[0]["tc_k"], whole[0]["observation_flags"]), (1, 149.5, ["replicated extreme"]))
+        self.assertEqual((past["status"], future["status"]), ("quarantined", "quarantined"))
+        self.assertEqual(len(H.canonical_units([past, future], lift=False)), 0)
+        # Two pre-cutoff references lift inside the training window; a later third report never changes that median.
+        both_past = [past, H.observation(row(num="3", refno="R3", year="2012", tc="148", **hg))]
+        a = H.temporal_split(both_past, cutoff=2017)["train_units"]
+        b = H.temporal_split(both_past + [H.observation(row(num="4", refno="R4", year="2020", tc="130", **hg))], cutoff=2017)
+        self.assertEqual((len(a), a[0]["tc_k"], len(b["train_units"]), b["train_units"][0]["tc_k"], len(b["repeat_report_units"])), (1, 149.0, 1, 149.0, 1))
+        self.assertEqual(H.audit(both_past)["temporal"]["train_replicated_extremes"], 1)
 
     def test_event_labels_are_censoring_aware(self):
         positive = H.observation(row(**dict(LSCO, tc="38")))
@@ -190,9 +261,9 @@ class Hurricane9DataTests(unittest.TestCase):
 
     def test_units_use_the_representative_target_and_keep_flags(self):
         base = dict(LSCO, mo2="4-Y")
-        obs = [H.observation(row(num="1", year="1987", tc="36", **base)), H.observation(row(num="2", year="1990", tc="40", **base)),
-               H.observation(row(num="3", year="2001", tc="38", **base)),
-               H.observation(row(num="4", year="1995", tcn="4.2", **base)),                       # a sample that did not superconduct
+        obs = [H.observation(row(num="1", refno="R1", year="1987", tc="36", **base)), H.observation(row(num="2", refno="R2", year="1990", tc="40", **base)),
+               H.observation(row(num="3", refno="R3", year="2001", tc="38", **base)),
+               H.observation(row(num="4", refno="R4", year="1995", tcn="4.2", **base)),          # a sample that did not superconduct
                H.observation(row(num="5", year="1995", tc="37", **dict(base, shape="3"))),        # single crystal: another unit
                H.observation(row(num="6", year="1995", tc="30", **dict(base, mo2="4"))),          # fixed oxygen: another unit
                H.observation(row(num="7", year="1999", tc="25", **dict(base, shape="4")))]        # film: excluded, not a unit
@@ -213,6 +284,18 @@ class Hurricane9DataTests(unittest.TestCase):
         self.assertEqual((negative_only["event"], negative_only["tc_k"], negative_only["floor_k"]), (0, None, 2.0))
         censored_only = H.canonical_units([H.observation(row(num="9", year="2000", tcn="77", **base))])[0]
         self.assertEqual(censored_only["event"], "censored")
+        # F-41: the 30 K event uses the same censoring-aware rule: a floor below or at 30 K supports event 0, above it is censored;
+        # a positive labels by its stored target. Floor-only units never carry a regression target.
+        high = lambda **f: H.canonical_units([H.observation(row(num="9", year="2000", **dict(base, **f)))])[0]
+        self.assertEqual([high(tcn=t)["high_tc_event"] for t in ("1.8", "30", "30.5", "77")], [0, 0, "censored", "censored"])
+        self.assertEqual([high(tc=t)["high_tc_event"] for t in ("28", "30", "38")], [0, 1, 1])
+        self.assertEqual((high(tcn="1.8")["event"], high(tcn="1.8")["tc_k"]), (0, None))
+        self.assertEqual(main["high_tc_event"], 1)
+        self.assertEqual(H.unit_event(None, 1.8, 30.0), 0)
+        # F-43: reference numbers and every member are kept, in a report-order-independent order.
+        self.assertEqual((main["refnos"], main["references"]), (["R1", "R2", "R3", "R4"], 4))
+        reversed_main = next(u for u in H.canonical_units(obs[::-1]) if u["form_class"] == "bulk-specified" and u["oxygen_status"] == "variable")
+        self.assertEqual((reversed_main["members"], reversed_main["refnos"], reversed_main["tc_k"]), (main["members"], main["refnos"], main["tc_k"]))
         # Source precision separates units; the approximate bin does not merge them.
         pair = H.canonical_units([H.observation(row(num="10", tc="8", ma1="Fe", ma2="1", mb1="Co", mb2="0.0101", mc1="Se", mc2="1", str3="FeSe")),
                                   H.observation(row(num="11", tc="9", ma1="Fe", ma2="1", mb1="Co", mb2="0.0104", mc1="Se", mc2="1", str3="FeSe"))])
@@ -266,6 +349,130 @@ class Hurricane9DataTests(unittest.TestCase):
         self.assertEqual(H.manifest(units, comps, assignment)["sha256"], man["sha256"])   # deterministic
         with self.assertRaisesRegex(ValueError, "unknown node"):
             H.components(units, extra_nodes=[{"kind": "3dsc", "id": "x", "links": [("mp", "missing")]}])
+        # The manifest carries the member data numbers, the reference numbers and every resolved parent claim.
+        r1 = next(r for r in man["rows"] if r["members"] == ["1"])
+        self.assertEqual((r1["parents"], r1["refnos"], r1["parent_route"]), (["CuLa2O4"], [""], "coefficients (multiplier 2)"))
+        self.assertEqual(set(man["rows"][0]), {"exact", "canonical", "oxygen_status", "structure_name", "form_class", "family", "parent", "parents",
+                                               "parent_route", "members", "refnos", "component", "fold", "purged", "event_threshold_k", "event",
+                                               "high_tc_event", "tc_k", "flags", "assumptions", "earliest_year"})
+
+    def test_conflicting_parent_claims_are_kept_and_anchor_purge_is_order_invariant(self):
+        # F-43 (Codex's counterexample): the same unit reported under '(La,Sr)2CuO4' and 'LaSrCuO4' claims two parents.
+        base = dict(ma1="La", ma2="1.85", mb1="Sr", mb2="0.15", mc1="Cu", mc2="1", mo1="O", mo2="4", str3="T", shape="1")
+        first = H.observation(row(num="1", refno="R1", year="1990", tc="38", name="(La,Sr)2CuO4", **base))
+        second = H.observation(row(num="2", refno="R2", year="1991", tc="37", name="LaSrCuO4", **base))
+        anchor = {"kind": "anchor", "id": "synthetic-La2CuO4", "parent": "CuLa2O4", "canonical": "Cu0.5 La1 O2", "elements": ["Cu", "La", "O"], "family": "cuprate"}
+        results = []
+        for order in ([first, second], [second, first]):
+            units = H.canonical_units(order)
+            self.assertEqual(len(units), 1)
+            u = units[0]
+            self.assertEqual((u["parent"], u["parents"], u["parent_route"]), ("ambiguous: CuLa2O4 | CuLaO4Sr", ["CuLa2O4", "CuLaO4Sr"], "conflicting parent claims"))
+            self.assertEqual(u["parent_claims"], [{"parent": "CuLa2O4", "route": "common formula", "refnos": ["R1"]},
+                                                  {"parent": "CuLaO4Sr", "route": "common formula", "refnos": ["R2"]}])
+            comps = H.components(units, extra_nodes=[anchor])
+            self.assertEqual(len(comps), 1)                                  # the anchor is linked through every claim
+            self.assertTrue(next(iter(comps.values()))["purged"])
+            assignment = H.assign_folds(comps)
+            results.append(H.manifest(units, comps, assignment)["sha256"])
+        self.assertEqual(results[0], results[1])                               # report order changes nothing
+        # An agreeing pair keeps one parent; the sentinel of a conflict makes no equal-parent edge of its own.
+        agree = H.canonical_units([first, H.observation(row(num="3", refno="R3", year="1992", tc="39", name="(La,Sr)2CuO4", **base))])[0]
+        self.assertEqual((agree["parent"], agree["parents"], agree["parent_route"]), ("CuLa2O4", ["CuLa2O4"], "common formula"))
+        self.assertEqual(H.node_parents({"parent": "ambiguous: A | B"}), [])
+        self.assertEqual(H.node_parents({"parents": ["CuLa2O4", "CuLaO4Sr"]}), ["CuLa2O4", "CuLaO4Sr"])
+        # A known parent in the training window counts through every claim (temporal new-parent rule).
+        split = H.temporal_split([first, second, H.observation(row(num="4", refno="R4", year="2019", tc="30", name="LaSrCuO4", **dict(base, mb2="0.2", ma2="1.8")))], cutoff=2017)
+        self.assertEqual((len(split["test_new_units"]), len(split["test_new_parent_units"])), (1, 0))
+
+    def test_support_grids_are_complete_and_count_eligible_components_only(self):
+        # F-42 (Codex's counterexample): 20 positives in one component, 20 negatives in another, 8 censored-only components,
+        # all cuprate in fold 1: the labelled population holds 2 components, every other fold is reported as 0.
+        rows = ([{"family": "cuprate", "fold": 1, "purged": False, "component": "P", "event": 1, "tc_k": 40.0}] * 20 +
+                [{"family": "cuprate", "fold": 1, "purged": False, "component": "N", "event": 0, "tc_k": None}] * 20 +
+                [{"family": "cuprate", "fold": 1, "purged": False, "component": f"X{i}", "event": "censored", "tc_k": None} for i in range(8)] +
+                [{"family": "cuprate", "fold": 2, "purged": True, "component": "Q", "event": 1, "tc_k": 50.0}])
+        sup = H.support(rows)
+        cell = sup["per_fold"]["cuprate"][1]
+        self.assertEqual(cell, {"units": 48, "positives": 20, "negatives": 20, "censored": 8, "regression_units": 20,
+                                "components": 10, "labelled_components": 2, "regression_components": 1})
+        self.assertEqual(sup["per_fold"]["cuprate"][3]["units"], 0)
+        self.assertEqual(sorted(sup["per_fold"]), sorted(H.EVENT_K))
+        self.assertEqual(sup["per_fold"]["heavy-fermion"][5]["labelled_components"], 0)
+        self.assertEqual(min(sup["per_fold"]["cuprate"][f]["labelled_components"] for f in sup["folds"]), 0)
+        self.assertEqual(sup["pooled_oof"]["cuprate"]["labelled_components"], 2)
+        self.assertEqual((sup["training"]["cuprate"][1]["positives"], sup["training"]["cuprate"][2]["positives"]), (0, 20))
+        gate = H.support_gate(sup)
+        self.assertTrue(gate["cuprate"]["auc"].startswith("unsupported: pooled out-of-fold labelled_components 2 < 10; training side of fold 1 positives 0 < 20"))
+        self.assertEqual(gate["heavy-fermion"]["mae"].split(";")[0], "unsupported: pooled out-of-fold regression_units 0 < 20")
+        # A grid that meets the gate everywhere: 12 labelled components per fold, 10 positives and 10 negatives in each.
+        full = [{"family": "iron-nickel", "fold": f, "purged": False, "component": f"C{f}{i}", "event": i % 2, "tc_k": 20.0 if i % 2 else None}
+                for f in H.FOLDS for i in range(12)]
+        g = H.support_gate(H.support(full))
+        self.assertEqual(g["iron-nickel"], {"auc": "supported", "mae": "supported"})   # 6 positives per fold: 30 pooled, 24 on every training side
+        short = H.support_gate(H.support([r for r in full if r["fold"] != 5] + [dict(r, event="censored", tc_k=None) for r in full if r["fold"] == 5]))
+        self.assertEqual(short["iron-nickel"]["auc"], "unsupported: training side of fold 1 positives 18 < 20; training side of fold 1 negatives 18 < 20; "
+                         "training side of fold 2 positives 18 < 20; training side of fold 2 negatives 18 < 20; training side of fold 3 positives 18 < 20; "
+                         "training side of fold 3 negatives 18 < 20; training side of fold 4 positives 18 < 20; training side of fold 4 negatives 18 < 20")
+        self.assertEqual(g["cuprate"]["auc"].split(";")[0], "unsupported: pooled out-of-fold positives 0 < 20")
+
+    def test_external_nodes_and_exact_3dsc_match(self):
+        observations, _ = H.load_observations(H.synthetic_table())
+        units = H.modelled_units(observations)
+        self.assertEqual(len(units), 7)   # every synthetic unit is in a modelled family
+        nodes, match = H.dsc_nodes(H.synthetic_dsc_csv(), units)
+        self.assertEqual((match["rows"], match["mp_ids"], match["units_considered"], match["rows_matched_exactly"], match["units_matched_exactly"],
+                          match["rows_matched_approximately_only"], match["rows_unmatched"]), (3, 2, 7, 1, 1, 1, 1))
+        with self.assertRaisesRegex(ValueError, "unknown node"):   # a link may only point at a unit of the graph
+            H.components([u for u in units if u["exact"] != "Cu1 La2 O4"], extra_nodes=nodes)
+        self.assertEqual(match["units_matched_exactly_by_family"], {"cuprate": 1})
+        la2cuo4 = next(n for n in nodes if n["kind"] == "3dsc" and n["formula"] == "Cu1La2O4")
+        self.assertTrue(la2cuo4["exact_match"])
+        self.assertEqual(la2cuo4["links"][0], ("mp", "mp-19"))
+        self.assertEqual(la2cuo4["links"][1][0], "unit")
+        self.assertEqual(next(n for n in nodes if n["kind"] == "mp")["parent"], "CuLa2O4")
+        anchors = H.anchor_nodes({"materials": [{"name": "CeCoIn5", "family": "heavy-fermion", "composition": {"Ce": 1, "Co": 1, "In": 5}}]})
+        self.assertEqual((anchors[0]["kind"], anchors[0]["parent"], anchors[0]["family"], anchors[0]["canonical"]), ("anchor", "CeCoIn5", "heavy-fermion", "Ce0.2 Co0.2 In1"))
+        claims = H.prior_claim_nodes({"materials": [{"formula": "YRu3B2", "kind": "discovery"}, {"system": ["Nb", "Sn"], "kind": "known"}]})
+        self.assertEqual((claims[0]["parent"], claims[1]["any_family"], claims[1]["elements"]), ("B2Ru3Y", True, ["Nb", "Sn"]))
+        background = H.background_nodes("jid,formula,chemsys\nJVASP-1,LaFeAsO,As-Fe-La-O\n")
+        self.assertEqual((background[0]["id"], background[0]["family"], background[0]["parent"]), ("JVASP-1", "iron-nickel", "AsFeLaO"))
+        negatives = H.negative_report_nodes({"records": [{"id": "n1", "composition": {"Ba": 1, "Ti": 2, "Sb": 1, "Bi": 1, "O": 1}}]})
+        self.assertEqual(negatives[0]["kind"], "negative-report")
+        # In the graph: the exact 3DSC row and its MP id join the La2CuO4 unit; the anchor purges CeCoIn5's component; the
+        # system claim joins an unmodelled Nb-Sn node whatever the family; a prior claim purges too.
+        extra = nodes + anchors + claims + background + negatives + [{"kind": "mp", "id": "mp-nb3sn", "canonical": "Nb1 Sn0.333", "parent": "Nb3Sn", "elements": ["Nb", "Sn"], "family": "other"}]
+        modelled = [u for u in units if u["family"] in H.EVENT_K]
+        comps = H.components(modelled, extra_nodes=extra)
+        by_member = {tuple(m): cid for cid, c in comps.items() for m in c["members"]}
+        la = next(u for u in modelled if u["exact"] == "Cu1 La2 O4")
+        self.assertEqual(by_member[("3dsc", "0")], by_member[("unit",) + la["key"]])
+        self.assertEqual(by_member[("mp", "mp-19")], by_member[("unit",) + la["key"]])
+        self.assertEqual(by_member[("3dsc", "2")], by_member[("prior-claim", "1:Nb-Sn")])
+        self.assertEqual(by_member[("mp", "mp-nb3sn")], by_member[("prior-claim", "1:Nb-Sn")])
+        self.assertTrue(comps[by_member[("prior-claim", "1:Nb-Sn")]]["purged"])
+        ce = next(u for u in modelled if u["exact"] == "Ce1 Co1 In5")
+        self.assertTrue(comps[by_member[("unit",) + ce["key"]]]["purged"])
+        self.assertEqual(by_member[("background", "JVASP-1")], by_member[("unit",) + next(u for u in modelled if "Fe" in u["elements"])["key"]])
+        report = H.audit(observations, extra_nodes=extra)
+        self.assertEqual(report["components"]["purged_units"], 1)
+        self.assertEqual(report["components"]["purged_units_by_family"], {"heavy-fermion": 1})
+        self.assertEqual(report["components"]["purge_detail"][0]["protected_nodes"], ["anchor:0:CeCoIn5"])
+        self.assertEqual(report["components"]["purge_detail"][0]["units_by_family"], {"heavy-fermion": 1})
+        self.assertGreaterEqual(report["components"]["with_external_nodes"], 3)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "data").mkdir()
+            (root / "results").mkdir()
+            (root / "data" / "hurricane_anchors.json").write_text(json.dumps({"materials": [{"name": "CeCoIn5", "composition": {"Ce": 1, "Co": 1, "In": 5}}]}), encoding="utf-8")
+            (root / "data" / "prior_claims.json").write_text(json.dumps({"materials": [{"system": ["Nb", "Sn"]}]}), encoding="utf-8")
+            (root / "results" / "hurricane_round4_background.csv").write_text("jid,formula,chemsys\nJVASP-1,LaFeAsO,As-Fe-La-O\n", encoding="utf-8")
+            built, info = H.project_nodes(root, units, H.synthetic_dsc_csv())
+            self.assertEqual((info["anchors"], info["prior_claims"], info["background"], info["files"]["data/hosono2015_negatives.json"], info["3dsc"]["rows_matched_exactly"]), (1, 1, 1, "missing", 1))
+            self.assertEqual(info["by_kind"], {"anchor": 1, "prior-claim": 1, "background": 1, "3dsc": 3, "mp": 2})
+            self.assertEqual(len(info["files"]["data/hurricane_anchors.json"]["sha256"]), 64)
+            with self.assertRaisesRegex(ValueError, "SHA-256"):
+                H.fetch_dsc(tmp, get=lambda url: b"not the file")
 
     def test_assign_folds_balances_components_by_family(self):
         comps = {f"C{i}": {"size": 1, "families": {"cuprate": 1}, "purged": False} for i in range(10)}
