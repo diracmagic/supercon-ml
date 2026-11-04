@@ -50,6 +50,13 @@ class FeedFilterTest(unittest.TestCase):
                       "Electrolyte gating of superconducting films", "Superconducting NbSe2 membranes"):
             self.assertFalse(papers.is_ion_conductor(title), title)
 
+    def test_unconventional_superconductors_are_not_tagged_electron_phonon(self):
+        topics = lambda text: papers.tags_for(text)[0]
+        self.assertNotIn("Electron–phonon", topics("Understanding the normal state of unconventional superconductors"))
+        self.assertNotIn("Electron–phonon", topics("Magic-angle graphene provides evidence for unconventional superconductivity"))
+        self.assertIn("Electron–phonon", topics("A conventional superconductor with a large isotope effect"))
+        self.assertIn("Electron–phonon", topics("Phonon-mediated pairing in MgB2"))
+
 
 class CurationMergeTest(unittest.TestCase):
     def setUp(self):
