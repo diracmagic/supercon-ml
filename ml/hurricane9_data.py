@@ -197,11 +197,14 @@ def parse_table(text: str) -> pd.DataFrame:
         raise ValueError("MDR table: the first header line must hold column numbers")
     if len(long_names) != len(symbols):
         raise ValueError("MDR table: long-name and symbol header lines differ in length")
-    position = {}
+    position, duplicates = {}, {}
     for i, s in enumerate(symbols):
         s = s.strip()
-        if s in position:
-            raise ValueError(f"MDR table: duplicate symbol {s!r}")
+        if s in position:   # Ver.220808 writes 'year' twice (material block and reference block), with one long name
+            if long_names[i].strip().lower() != long_names[position[s]].strip().lower():
+                raise ValueError(f"MDR table: duplicate symbol {s!r} with two different long names")
+            duplicates.setdefault(s, []).append(i)
+            continue
         position[s] = i
     for symbol, label in REQUIRED_FIELDS.items():
         if symbol not in position:
@@ -209,6 +212,7 @@ def parse_table(text: str) -> pd.DataFrame:
         found = long_names[position[symbol]].strip().lower()
         if not found.startswith(label.lower()):
             raise ValueError(f"MDR table: field {symbol!r} is labelled {found!r}, expected {label!r}")
+    extra = {f"{s}__{k + 2}": i for s, idx in duplicates.items() for k, i in enumerate(idx)}   # later occurrences, for the audit
     rows = []
     for k, line in enumerate(lines[3:], start=4):
         if not line.strip():
@@ -216,10 +220,12 @@ def parse_table(text: str) -> pd.DataFrame:
         cells = line.rstrip("\r").split("\t")
         if len(cells) < len(symbols):
             cells += [""] * (len(symbols) - len(cells))
-        rows.append({s: cells[i].strip() for s, i in position.items()} | {"line": k})
+        rows.append({s: cells[i].strip() for s, i in position.items()} | {s: cells[i].strip() for s, i in extra.items()} | {"line": k})
     df = pd.DataFrame(rows)
-    if df.empty or df["num"].duplicated().any():
-        raise ValueError("MDR table: empty or duplicate data numbers")
+    if df.empty:
+        raise ValueError("MDR table: no data rows")
+    df.attrs["duplicate_symbols"] = {s: [position[s]] + idx for s, idx in duplicates.items()}
+    df.attrs["duplicate_num_rows"] = int(df["num"].duplicated().sum())
     return df
 
 
@@ -938,17 +944,24 @@ def synthetic_table() -> str:
     return f"{numbers}\n{longs}\n{syms}\n{body}\n"
 
 
-def load_observations(text: str) -> tuple[list, list]:
+def load_observations(text: str, notes: dict | None = None) -> tuple[list, list]:
     """Parse and build observations; rows whose fields cannot be read are reported, not dropped silently. The
-    replication lift of extreme values (section 2.2) runs once over the whole table."""
+    replication lift of extreme values (section 2.2) runs once over the whole table. `notes`, when given, receives
+    the table's header notes (duplicate symbols, duplicate data numbers)."""
     table = parse_table(text)
     observations, unreadable = [], []
     for _, row in table.iterrows():
         try:
-            observations.append(observation(row))
+            obs = observation(row)
         except ValueError as err:
             unreadable.append({"num": str(row.get("num")), "line": int(row.get("line")), "error": str(err)})
+            continue
+        if "year__2" in row:   # the reference block's own year column, kept for the agreement count only
+            obs["year_reference_block"] = number(row.get("year__2"))
+        observations.append(obs)
     lift_replicated_extremes(observations)
+    if notes is not None:
+        notes.update(table.attrs)
     return observations, unreadable
 
 
@@ -969,9 +982,12 @@ def main(argv=None):
         primary = fetch("primary.tsv", args.cache, offline=args.offline)
         hashes = {name: fetch(name, args.cache, offline=args.offline) and SOURCES[name]["sha256"] for name in SOURCES}
         text = data.decode("utf-8", errors="replace")   # the pinned bytes are hashed above; undecodable bytes are counted
-        observations, unreadable = load_observations(text)
+        notes = {}
+        observations, unreadable = load_observations(text, notes)
         report = {"smoke": False, "sources_verified": hashes, "licence": LICENCE, "attribution": ATTRIBUTION,
-                  "utf8_replacement_characters": text.count("\ufffd"),
+                  "utf8_replacement_characters": text.count("\ufffd"), "table_notes": notes,
+                  "year_columns_agree": sum(o.get("year_reference_block") == o["year"] for o in observations),
+                  "year_columns_differ": sum(o.get("year_reference_block") not in (None, o["year"]) for o in observations),
                   **audit(observations, primary_tsv=primary.decode("utf-8", errors="replace")), "unreadable": unreadable[:50],
                   "unreadable_count": len(unreadable),
                   "unreadable_reasons": dict(Counter(re.sub(r"row \S+: ", "", u["error"]).split(" '")[0] for u in unreadable))}
