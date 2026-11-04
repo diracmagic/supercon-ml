@@ -12,7 +12,7 @@ class Element {
   addEventListener() {}
 }
 const flatten = node => [node,...node.children.flatMap(flatten)];
-const methods = ['setTransform','clearRect','save','restore','setLineDash','translate','rotate','beginPath','closePath','stroke','fill','fillRect','strokeRect','rect','moveTo','lineTo','arc','ellipse','fillText'];
+const methods = ['setTransform','clearRect','save','restore','setLineDash','translate','rotate','scale','beginPath','closePath','stroke','fill','fillRect','strokeRect','rect','moveTo','lineTo','arc','ellipse','fillText'];
 function recorder() {
   const calls=[];
   return {calls, canvas:Object.fromEntries(methods.map(name=>[name,(...args)=>{
@@ -24,10 +24,10 @@ function harness() {
   const document={hidden:false,createElement:tag=>new Element(tag),createTextNode:text=>Object.assign(new Element('#text'),{textContent:text})};
   const context=vm.createContext({console,URL,document,Node:Element,window:{devicePixelRatio:1},
     stAlpha:value=>value,stRng:()=>()=>.5,mix:a=>a,stRound:()=>{},
-    colors:()=>({surface:'#fff',surface2:'#fafafa',accent:'#368',ink:'#123',ink2:'#234',axis:'#678',grid:'#abc',muted:'#789',warm:'#c63'}),
+    colors:()=>({surface:'#fff',surface2:'#fafafa',accent:'#368',ink:'#123',ink2:'#234',axis:'#678',grid:'#abc',muted:'#789',warm:'#c63',aqua:'#1a7',gold:'#b81'}),
     motionOK:()=>false,requestAnimationFrame:()=>1});
-  for(const file of ['js/bindings.js','js/definitions/core.js','js/definitions/content.js','js/initialize/content.js','js/definitions/news-drawings.js','js/definitions/ai-view.js','js/definitions/mini-player.js','js/initialize/news-drawings.js']) vm.runInContext(read(file),context);
-  vm.runInContext("store={get(){return ''}}; REPO_URL='https://github.com/diracmagic/supercon-ml';initializeSuperconContent(); MINI={items:[],raf:0,last:0};MINI_DRAW={};MINI_STATIC={};MINI_ALT={};view='papers';initializeSuperconNewsDrawings();",context);
+  for(const file of ['js/bindings.js','js/definitions/core.js','js/definitions/content.js','js/initialize/content.js','js/definitions/news-drawings.js','js/definitions/ai-view.js','js/definitions/mini-player.js','js/initialize/news-drawings.js','js/initialize/news-looks.js']) vm.runInContext(read(file),context);
+  vm.runInContext("store={get(){return ''}}; REPO_URL='https://github.com/diracmagic/supercon-ml';initializeSuperconContent(); MINI={items:[],raf:0,last:0};MINI_DRAW={};MINI_STATIC={};MINI_ALT={};view='papers';initializeSuperconNewsDrawings();initializeSuperconNewsLooks();",context);
   context.content=JSON.parse(fs.readFileSync(new URL('../progress/content.json',import.meta.url),'utf8'));
   vm.runInContext('applyContent(content)',context);
   const describe=article=>{context.article=article;return JSON.parse(vm.runInContext('JSON.stringify(newsArticleDescribe(article))',context));};
@@ -65,7 +65,7 @@ test('every public feed and Recent entry retains one compact original-theme thum
     audit.push({channel,key:info.key,title:info.title,source_url:info.url,theme:kind,evidence:info.evidence});
   }
   assert.ok(kinds.size>=10,'Existing subject animations remain varied; no unique crystal is invented for every article');
-  if(process.env.ARTICLE_AUDIT_PATH) fs.writeFileSync(process.env.ARTICLE_AUDIT_PATH,JSON.stringify({feed_updated:feed.updated,row_count:rows.length,theme_count:kinds.size,compact_canvas_count:rows.length,limitations:['Original topic schematics may be shared by related articles.','Titles and source links retain individual identity; drawings are not measured structures or traces.','Feed text is not independent full-paper verification.'],rows:audit},null,2)+'\n');
+  if(process.env.ARTICLE_AUDIT_PATH) fs.writeFileSync(process.env.ARTICLE_AUDIT_PATH,JSON.stringify({feed_updated:feed.updated,row_count:rows.length,theme_count:kinds.size,compact_canvas_count:rows.length,limitations:['Related articles may share a topic schematic; badges, element dots and neutral colour or framing variants keep each thumbnail distinct.','Titles and source links retain individual identity; drawings are not measured structures or traces.','Feed text is not independent full-paper verification.'],rows:audit},null,2)+'\n');
 });
 
 test('explicit theme and AI selection are preserved without an expanded drawing or related illustration',()=>{
@@ -156,4 +156,50 @@ test('original theme drawing takes priority over article fallback through reduce
   c.view='papers';it.vis=false;vm.runInContext('miniFrame(1250)',c);assert.equal(original.length,2);
   it.vis=true;it.kind='unknown-theme';c.motionOK=()=>false;vm.runInContext('miniFrame(1300)',c);assert.deepEqual(fallback,[1.2]);assert.equal(original.length,2);
   it.cv.isConnected=false;vm.runInContext('miniFrame(1350)',c);assert.equal(fallback.length,1);
+});
+
+test('no two News & papers thumbnails are drawn alike, and every badge comes from the article text',()=>{
+  const h=harness(),feed=JSON.parse(fs.readFileSync(new URL('../progress/papers.json',import.meta.url),'utf8'));
+  const rows=['news','arxiv','journals','ai'].flatMap(channel=>feed[channel]||[]).concat(h.recent);
+  const drawn=new Map(),seen=new Set();
+  for(const item of rows){
+    const figure=h.figure(item),canvas=flatten(figure).find(n=>n.tagName==='canvas'),id=canvas.getAttribute('data-news-art')+'\n'+canvas.getAttribute('data-article-key');
+    if(seen.has(id))continue;
+    seen.add(id);
+    // Record colours and line styles as well as geometry: a colour set alone may tell two drawings apart.
+    const calls=[],canvasNode=flatten(figure).find(n=>n.tagName==='canvas');
+    canvasNode.getContext=()=>new Proxy({},{get:(_t,name)=>(...args)=>{calls.push([name,...args]);},set:(_t,name,value)=>{calls.push(['='+String(name),value]);return true;}});
+    h.context.node=canvasNode;
+    vm.runInContext('MINI.items=MINI.items.filter(function(it){return it.cv===node;});MINI.items[0].W=0;miniFrame(1200)',h.context);
+    const info=h.describe(item),key=JSON.stringify(calls);
+    assert.equal(drawn.has(key),false,'Same drawing for '+info.title+' and '+drawn.get(key));
+    drawn.set(key,info.title);
+    const look=JSON.parse(vm.runInContext('JSON.stringify(MINI.items[0].article.look)',h.context));
+    if(look.formula) assert.ok(info.materials.some(m=>m.field==='title'&&m.text===look.formula),info.title);
+    if(look.probe) assert.ok(look.from==='title'||info.facts.some(f=>f.field===look.from),info.title);
+    if(look.tc) assert.match(info.title,/\d\s?m?K/);
+    assert.match(canvas.getAttribute('aria-label'),/Colours and framing only tell thumbnails apart\./);
+  }
+  assert.ok(drawn.size>250);
+});
+
+test('badges, element dots and thermometers are read from the article and respect negation',()=>{
+  const h=harness();
+  const look=(article,kind)=>{h.render(h.figure(article,kind));return JSON.parse(vm.runInContext('JSON.stringify(MINI.items[0].article.look)',h.context));};
+  const stm=look({title:'STM imaging of pair density waves in La₃Ni₂O₇ films near 80 K',url:'https://example.org/a'});
+  assert.equal(stm.probe,'stm');assert.equal(stm.from,'title');assert.equal(stm.formula,'La3Ni2O7');assert.equal(stm.tc,80);
+  assert.deepEqual(stm.comp.map(e=>[e.el,e.n]),[['La',3],['Ni',2],['O',7]]);
+  assert.notEqual(look({title:'Nickelate films without applied pressure',abstract:'Earlier research required high pressure.',url:'https://example.org/b'}).probe,'anvil');
+  assert.equal(look({title:'Author Correction: Magnetic field screening in hydrides',url:'https://example.org/c'}).notice,'fix');
+  assert.equal(look({title:'Reply to: Conductance measurements in junctions',url:'https://example.org/d'}).notice,'reply');
+  assert.equal(look({title:'Addendum: Magnetic field screening',url:'https://example.org/e'}).notice,'add');
+  assert.equal(look({title:'The lutetium hydride room-temperature claim is retracted',url:'https://example.org/f'}).notice,'retract');
+  assert.equal(look({title:'Charge order in 1T-TaS₂ flakes',url:'https://example.org/g'}).tesla,0,'A polytype is not a field value');
+  assert.equal(look({title:'Superconductivity near 80 mK in a twisted bilayer',url:'https://example.org/h'}).tc,.08);
+  assert.equal(look({title:'Pressure-induced superconductivity',url:'https://example.org/i'},'news-pressure').probe,'','A badge never repeats what the theme draws');
+  const a=look({title:'First cuprate study',url:'https://example.org/j'},'news-cuprate'),b=look({title:'Second cuprate study',url:'https://example.org/k'},'news-cuprate');
+  assert.notDeepEqual([a.v,a.p],[b.v,b.p]);
+  assert.deepEqual(look({title:'First cuprate study',url:'https://example.org/j'},'news-cuprate'),a,'An article keeps its look when a list is redrawn');
+  assert.equal(h.describe({title:'Scientists from NUS report a new superconductor'}).materials.length,0);
+  assert.deepEqual(h.describe({title:'Superconductivity in FeSe and NbN films'}).materials.map(m=>m.text),['FeSe','NbN']);
 });
