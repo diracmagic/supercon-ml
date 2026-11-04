@@ -58,6 +58,67 @@ test('article subject selects distinct AI, model and superconductivity illustrat
   assert.doesNotMatch(read('js/definitions/papers-view.js'), /miniCanvas\('news-ai'\)/, 'Selected advances must also use their subject');
 });
 
+test('headline subjects pick their own schematic and known mismatches stay fixed', () => {
+  const context = vm.createContext({ list: value => Array.isArray(value) ? value : [] });
+  vm.runInContext(read('js/definitions/news-drawings.js'), context);
+  const art = entry => vm.runInContext('newsArt(' + JSON.stringify(entry) + ')', context);
+  const cases = [
+    [{ title: 'Approaching Landauer’s limit in a single superconducting vortex memory bit', topics: ['Topological'] }, 'vortex'],
+    [{ title: 'Orbital angular momentum transfer from terahertz vortex beam to a superconductor' }, 'light'],
+    [{ title: 'NTL amplification in a SuperCDMS-style detector', topics: ['Iron-based'] }, 'detector'],
+    [{ title: 'Single-photon detection in few-layer NbSe2 superconducting nanowires' }, 'detector'],
+    [{ title: 'Field-free superconducting diode and tunable vortex dynamics in NbN/FePt stripe-domain heterostructures' }, 'diode'],
+    [{ title: 'Parity-Resolved Many-Body Kinetics of a Topological Qubit under Nonequilibrium Phonon Pulses', topics: ['Topological', 'Electron–phonon'] }, 'qubit'],
+    [{ title: 'Growth Phase Map of Tantalum as a Function of Oxygen Partial Pressure' }, 'interface'],
+    [{ title: 'Superconductivity from doping symmetric mass generation insulators: application to La3Ni2O7 under pressure' }, 'pressure'],
+    [{ title: 'Magic-angle graphene provides evidence for unconventional superconductivity' }, 'moire'],
+    [{ title: 'Superconductivity and ferroelectric orbital magnetism in semimetallic rhombohedral hexalayer graphene' }, 'layered-six'],
+    [{ title: 'High-temperature superconductivity at 100K in La3−xNdxNi2O7', topics: ['Nickelates'] }, 'nickelate'],
+    [{ h: 'The lutetium hydride room-temperature claim is retracted', cards: ['field', 'hydride'] }, 'research'],
+    [{ h: 'Possible superconductivity near room temperature in LaSc₂H₂₄', cards: ['hydride'] }, 'hydride'],
+    [{ h: 'Sr₂RuO₄ after thirty years', cards: ['triplet'] }, 'timeline'],
+    [{ h: 'Two superconducting orders meet at a tetracritical point in UTe₂' }, 'competition'],
+    [{ h: 'Spin fluctuations set Tc in electron-doped cuprates' }, 'spinfluct'],
+    [{ h: 'Even and odd molecular spin chains couple differently to a superconductor' }, 'molecule'],
+    [{ h: 'A dark optical cavity raises the Tc of NbSe₂' }, 'cavity'],
+    [{ h: 'A type-I superconductor that breaks time-reversal symmetry: YbSb₂' }, 'trsb'],
+    [{ h: 'Band quantum geometry selects Kekulé superconductivity in Haldane phases' }, 'kekule'],
+    [{ h: 'Coherence length and penetration depth computed from first principles' }, 'penetration'],
+    [{ title: 'Orbital-driven Fulde–Ferrell–Larkin–Ovchinnikov state in a layer-locked 3D Ising superconductor' }, 'fflo'],
+    [{ title: 'A First-Order Phase Transition in Spin-Imbalanced BCS Theory of Superconductivity' }, 'zeeman'],
+    [{ title: 'Universal Scaling of the Little-Parks Oscillation Amplitude' }, 'ring'],
+    [{ h: 'An MgB₂ line carries 94 kA for the High-Luminosity LHC', cards: ['mgb2'] }, 'cable'],
+    [{ h: 'A REBCO fusion magnet reaches 20 tesla', cards: ['rebco'] }, 'coil'],
+    [{ title: 'From coherent to fermionized microwave photons in a superconducting transmission line' }, 'resonator'],
+    [{ title: 'A pathway to improve Nb₃Sn for SRF accelerator cavities via Zr inclusion', topics: ['Electron–phonon'] }, 'rf'],
+    [{ title: 'A Map to a Long-Sought Quantum Simulator', summary: 'Ultracold atoms in an optical lattice could emulate a model of quantum matter.' }, 'coldatoms'],
+    [{ title: 'Superconducting proximity effect in a strongly correlated charge-transfer insulator' }, 'proximity'],
+    [{ title: 'Enhanced superconductivity at quantum-critical KTaO3 interfaces' }, 'interface'],
+    [{ title: 'Anisotropic thermoelectric transport in the Sr2RuO4-Ru eutectic system' }, 'thermal'],
+    [{ title: 'Monolayer superconductors enter the circuit', topics: ['Moiré and 2D'] }, 'monolayer'],
+    [{ title: 'Magnetic Exchange-Coupled Superconducting Devices with Broken Symmetry for Cryogenic Memory' }, 'magnetism'],
+    [{ title: 'Tilt-Controlled Multi-Gap Superconductivity in Type-II Weyl Semimetals' }, 'multigap'],
+    [{ h: 'Tunnelling measures the gap of H₃S', cards: ['eliashberg', 'hydride'] }, 'gapdos']
+  ];
+  for (const [entry, motif] of cases) assert.equal(art(entry), 'news-' + motif, entry.title || entry.h);
+  assert.notEqual(art({ title: 'Superconductivity in Sr₂RuO₄', cards: ['triplet'] }), 'news-triplet', 'A card alone never asserts a pairing state');
+});
+
+test('every motif the classifier can choose is registered with a description', () => {
+  const context = vm.createContext({ MINI_DRAW: {}, MINI_STATIC: {}, MINI_ALT: {}, NEWS_ART: null, stAlpha: value => value, stRng: () => () => .5, mix: a => a, stRound: () => {} });
+  vm.runInContext(read('js/initialize/news-drawings.js'), context);
+  vm.runInContext('initializeSuperconNewsDrawings()', context);
+  const source = read('js/definitions/news-drawings.js'), start = source.indexOf('const newsArt = function newsArt(n) {');
+  const classifier = source.slice(start, source.indexOf('\n  };\n', start));
+  const chosen = [...new Set([...classifier.matchAll(/'(news-[a-z-]+)'/g)].map(m => m[1]))];
+  assert.ok(chosen.length >= 50);
+  for (const kind of chosen) {
+    assert.equal(typeof context.MINI_DRAW[kind], 'function', kind);
+    assert.ok(context.MINI_ALT[kind], kind + ' has a description');
+  }
+  for (const kind of ['news-diode', 'news-gapdos', 'news-ring', 'news-competition', 'news-penetration', 'news-cavity']) assert.match(context.MINI_ALT[kind], /not|No /, kind + ' says what is not shown');
+});
+
 test('every registered news motif produces finite foreground drawing at thumbnail sizes and reduced motion time', () => {
   const context = vm.createContext({ MINI_DRAW: {}, MINI_STATIC: {}, MINI_ALT: {}, NEWS_ART: null, stAlpha: value => value, stRng: () => () => .5, mix: a => a, stRound: () => {} });
   vm.runInContext(read('js/initialize/news-drawings.js'), context);
