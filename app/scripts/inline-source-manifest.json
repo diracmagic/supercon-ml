@@ -429,15 +429,16 @@
     "goUnsupervisedStep": "b59008ef9e888e7d23b18f55369f9adab44a25c856eccd74b9fa2e3093e4219d",
     "drawUnsupervisedSummary": "a42be1773e6e4a350df168b134e3b6048cf421f7ecf3124a389ca547fbc974e9",
     "drawUnsupervisedResults": "bb2727f13a6d443652ea6c5c30fa49414f7234470ad896919e2c2e119e7b9e56",
-    "newsArt": "1c23ffe4c350ba81861b93c65b719eb6006bbce78edd152254002a6cdf9b7108",
-    "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
+    "newsArt": "75f07a3971731fa0df8b0c41d57e408658d418296fe7478d95d7fd0b7f7d1566",
+    "newsArticleDescribe": "a6592aba85b0fe450d20cbb5dbb265acec3a752d677aa847200e083069897ed1",
     "newsArticleDraw": "aad50f6cbfc164970f29ca1d87851ddc88036222cdc8055400ff64ffc2436d77",
-    "newsArticleFigure": "7325a250f2a0b34f8d82310df1325824394a0aef1e8c6c53672ea73a7d4de0a0",
-    "miniCanvas": "c06597b876eef6baebaba0ea2c096877073d4eb839124dcd4e67543c5873c778",
+    "newsArtLook": "7c3e415bf3bd983f02838033cc4a2b554346f5b66cbfc77dfc5842d93ede8870",
+    "newsArticleFigure": "eebaef55d7b95195e9da7682559c9fc2de8f7b34643708bc573db4aea20fea1f",
+    "miniCanvas": "7ac39fb690dd6f0b539e74414e68a554af2deddda71559d779d7330bfecfa6e8",
     "miniPrune": "c7a65acf48aa9003887f8c937d6174f9a1124e12436d2c90785be2c5d5846612",
     "miniOn": "9bf40eaa15ff576fcde21d9755d13cff9d210f7fba8def43ca7fc3b5686d82c3",
     "miniKick": "7497222fad6455672ca786c27ed6b624495c6aaffb75b17aea8610c3b4066003",
-    "miniFrame": "e8a0edb5c29576c9050bea23c540cfbff7d8f9c3b061567471b6f5f62ae9b7f3",
+    "miniFrame": "3d4689ef99717ccd46be853bed9a3a4edc767618bf1d57f801d36a33a8bb4f9e",
     "richText": "bf8290778526c81e6699f7a5699cecb67e5e2d6f05eada39b11791ab3a2a7332",
     "buildLearn": "3a95cbd1736ec72870ff49b2de9c014a0e284c49d4acf88f90d7a1fb602c6b3a",
     "latestList": "f6174e0847417d7a2a6a7c7aacf11bdac91c7f4d97fc1b706bbf819e226b0579",
@@ -693,8 +694,9 @@
     "2e0249a6b72fb9ef6112f6a2110b97c8d8b80156f28deab716e2a183174f97fb",
     "671b018385222ea678f14f0298ac56d9e34630a74af34bd3d638cc21ec441abc",
     "51f5aac9acc34abd27da94b5e604fdf3eb104079fb934be5d2d98dde5d0d2fc3",
-    "f6cf58092f28fb67aefe843ad85202d01bb823566bd023e0c92bd3c9d25fd0d6",
+    "5e6ce403d4b67b48517f402aee16b3f8c9c174485a30ee915e5d2b5ff83f1a3a",
     "68d7edfdb3dcf9adbc0ba373a2777a28c4bdf7bdfd887f28f388b5f6a91c125f",
+    "0c0b935aa794a7356a533adee0f643bbc8b436e0ed35f0945ec489839848f974",
     "d721dba6f4810e19f56e720b38b34219a938edd98b3d6a4b6c78c2ff0ea39fb5",
     "c80dca0462243ef6f13586e90ee65bb8836fa33ecaba1ace42b9a0f7ae3bc2ab",
     "9100652666e8292731175f4f4046aaa2faf9663b3d4888084bf17d4999733d5f",
@@ -828,6 +830,7 @@
     "js/initialize/nobel-drawings.js",
     "js/initialize/mechanism-drawings.js",
     "js/initialize/news-drawings.js",
+    "js/initialize/news-looks.js",
     "js/initialize/mini-player.js",
     "js/initialize/theory-view.js",
     "js/initialize/papers-view.js",
@@ -854,7 +857,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-04",
-    "purpose": "Release0.3.22: News & papers gains 25 labelled subject schematics (detector, diode, spin fluctuations, multigap, Zeeman, tunnelling gap, FFLO/PDW, TRSB, Kekule, optical cavity, accelerating cavity, transmission line, magnet, cable, flux ring, cold atoms, penetration depth and coherence length, interface, proximity, monolayer, heat flow, timeline, magnetism, competing orders, molecular spins), each with alt text stating what is not shown, and a neutral page-and-magnifier icon; newsArt picks them from headline subjects ahead of broad feed topics, fixes singular vortex (optical vortex beams stay light), detector/diode/qubit topic mismatches, partial-pressure and mass-generation false matches, magic-angle and hexalayer graphene and La3Ni2O7 bilayer films, uses curated material cards and an explicit summary setting only as fallbacks, and keeps retractions neutral; feeds, content schema, models and results are unchanged",
+    "purpose": "Release0.3.22: News & papers thumbnails gain 36 labelled subject schematics in this release: 25 in js/initialize/news-drawings.js (detector, diode, spin fluctuations, multigap, Zeeman, tunnelling gap, FFLO/PDW, TRSB, Kekule, optical cavity, accelerating cavity, transmission line, magnet, cable, flux ring, cold atoms, penetration depth and coherence length, interface, proximity, monolayer, heat flow, timeline, magnetism, competing orders, molecular spins) and 11 in the new js/initialize/news-looks.js (Zhang-Rice singlets, domain walls, superconducting dome, quasiparticle interference, crossed Andreev reflection, re-entrant field pocket, Hubbard cylinder, neural-network wavefunction, disorder, apical oxygen, d-wave gap), each with alt text stating what is not shown, and a neutral page-and-magnifier icon; newsArt picks them from headline subjects ahead of broad feed topics and fixes known mismatches; newsArtLook gives every article one look per session: a badge for a method or notice named in its own text (headline first, then facts that passed the negation and history checks, never one the theme already draws), element dots for a formula in its headline and a thermometer for a temperature in its headline, plus neutral colour-set, mirror and close-up variants assigned in turn so that no two thumbnails are drawn alike; digit-free capitals are no longer read as formulas and motif descriptions no longer name colours; feeds, content schema, models and results are unchanged",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -895,21 +898,32 @@
       "same original miniature animations and reduced-motion lifecycle",
       "private team content excluded from public method sources",
       "same original miniature animations and reduced-motion lifecycle",
-      "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier"
+      "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
+      "news thumbnail badges come only from the article's own text after the negation and history checks; colour and framing variants carry no meaning"
     ],
     "previous_css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
-    "functions_added": [],
+    "functions_added": [
+      "newsArtLook"
+    ],
     "functions_removed": [],
     "previous_removed_functions": {},
     "functions_changed": [
-      "newsArt"
+      "newsArt",
+      "newsArticleDescribe",
+      "newsArticleFigure",
+      "miniCanvas",
+      "miniFrame"
     ],
     "initializers_changed": [
       0,
       94
     ],
     "previous_function_changes": {
-      "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca"
+      "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca",
+      "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
+      "newsArticleFigure": "7325a250f2a0b34f8d82310df1325824394a0aef1e8c6c53672ea73a7d4de0a0",
+      "miniCanvas": "c06597b876eef6baebaba0ea2c096877073d4eb839124dcd4e67543c5873c778",
+      "miniFrame": "e8a0edb5c29576c9050bea23c540cfbff7d8f9c3b061567471b6f5f62ae9b7f3"
     },
     "previous_initialization_changes": {
       "0": "aabbf5952eac498e1aa37831edd991acd2e9f5d9be20baa9b22152cb99f6a43a",
@@ -924,7 +938,10 @@
       "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
       "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
       "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
-    }
+    },
+    "initializers_added": [
+      96
+    ]
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
   "styles": [
