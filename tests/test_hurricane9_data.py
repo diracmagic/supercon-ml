@@ -37,6 +37,16 @@ class Hurricane9DataTests(unittest.TestCase):
         # A missing symbol is refused.
         with self.assertRaisesRegex(ValueError, "missing"):
             H.parse_table("\n".join([lines[0], lines[1], lines[2].replace("\ttcn\t", "\ttcx\t")] + lines[3:]))
+        # Ver.220808 repeats 'year' in the reference block with the same long name: accepted, first occurrence used,
+        # the later one kept apart for the agreement count; a duplicate with a different long name is refused.
+        dup = "\n".join([lines[0] + "\t999", lines[1] + "\tpublication year of reference", lines[2] + "\tyear"] + [l + "\t1990" for l in lines[3:] if l]) + "\n"
+        table = H.parse_table(dup)
+        self.assertEqual((table.attrs["duplicate_symbols"], table["year__2"].iloc[0], table["year"].iloc[0]), ({"year": [symbols.index("year"), len(symbols)]}, "1990", "1987"))
+        notes = {}
+        observations, _ = H.load_observations(dup, notes)
+        self.assertEqual((notes["duplicate_symbols"], notes["duplicate_num_rows"], observations[0]["year"], observations[0]["year_reference_block"]), ({"year": [symbols.index("year"), len(symbols)]}, 0, 1987.0, 1990.0))
+        with self.assertRaisesRegex(ValueError, "two different long names"):
+            H.parse_table("\n".join([lines[0] + "\t999", lines[1] + "\tyear of something else", lines[2] + "\tyear"] + lines[3:]))
 
     def test_composition_oxygen_status_and_lossless_identity(self):
         comp, oxygen = H.composition(row(ma1="La", ma2="1.85", mb1="Sr", mb2="0.15", mc1="Cu", mc2="1", mo1="O", mo2="4-Y"))
