@@ -865,6 +865,10 @@ def audit(observations: list, *, primary_tsv: str | None = None, dsc_canonicals:
     admitted = [o for o in observations if o["status"] == "admitted"]
     out["admitted_by_family"] = Counter(o["family"] for o in admitted)
     out["admitted_explicit_unit_by_family"] = Counter(o["family"] for o in admitted if "A1" not in o["assumptions"])
+    out["admitted_stated_form_by_family"] = Counter(o["family"] for o in admitted if "A3" not in o["assumptions"])
+    out["admitted_positives_stated_form_share_by_family"] = {
+        fam: round(sum(1 for o in admitted if o["family"] == fam and o["tc"] is not None and "A3" not in o["assumptions"])
+                   / max(1, sum(1 for o in admitted if o["family"] == fam and o["tc"] is not None)), 4) for fam in EVENT_K}
     out["event_labels"] = {fam: Counter(str(event_label(o, t)) for o in admitted if o["family"] == fam) for fam, t in EVENT_K.items()}
     units = canonical_units(observations)
     bins = Counter(u["canonical"] for u in units)
