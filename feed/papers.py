@@ -104,7 +104,7 @@ TOPICS = [
     ("Heavy fermions", r"heavy[- ]fermion|Kondo|CeCoIn|CeRh[_]?2As|UTe[_]?2|uranium ditelluride|UPt[_]?3|URhGe|UCoGe|CeCu[_]?2Si"),
     ("Triplet and ruthenates", r"Sr[_]?2RuO[_]?4|ruthenate|spin-triplet|triplet pairing|odd-parity"),
     ("Topological", r"topolog|Majorana|Kitaev"),
-    ("Electron–phonon", r"electron-phonon|electron–phonon|phonon-mediated|Eliashberg|MgB[_]?2|Nb[_]?3Sn|NbTi|conventional superconduct|McMillan|Allen-Dynes"),
+    ("Electron–phonon", r"electron-phonon|electron–phonon|phonon-mediated|Eliashberg|MgB[_]?2|Nb[_]?3Sn|NbTi|\bconventional superconduct|McMillan|Allen-Dynes"),
     ("Vortices and junctions", r"Josephson|SQUID|diode effect|vortex|vortices|Meissner|flux quant|Abrikosov"),
     ("AI and data", r"machine learning|machine-learning|deep learning|neural network|data-driven|high-throughput|large language model|generative model"),
 ]
