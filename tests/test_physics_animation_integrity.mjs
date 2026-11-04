@@ -141,6 +141,14 @@ test('every motif the classifier can choose is registered with a description', (
   }
   for (const kind of ['news-diode', 'news-gapdos', 'news-ring', 'news-competition', 'news-penetration', 'news-cavity', 'news-zr', 'news-domains', 'news-dome', 'news-qpi',
     'news-andreev', 'news-reentrant', 'news-cylinder', 'news-nqs', 'news-disorder', 'news-apical', 'news-dwave']) assert.match(context.MINI_ALT[kind], /not|No /, kind + ' says what is not shown');
+  // Second drawings of busy subjects: each has its first drawing, its own description and says what is not shown.
+  const twins = Object.keys(context.MINI_DRAW).filter(kind => /^news-.+-2$/.test(kind));
+  assert.ok(twins.length >= 12, twins.join(' '));
+  for (const kind of twins) {
+    assert.equal(typeof context.MINI_DRAW[kind.slice(0, -2)], 'function', kind + ' extends a registered subject');
+    assert.match(context.MINI_ALT[kind], /not|No /, kind + ' says what is not shown');
+    assert.notEqual(context.MINI_ALT[kind], context.MINI_ALT[kind.slice(0, -2)], kind + ' is described on its own');
+  }
 });
 
 test('every registered news motif produces finite foreground drawing at thumbnail sizes and reduced motion time', () => {
