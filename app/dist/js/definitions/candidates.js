@@ -56,12 +56,40 @@
     };
   };
 
+  // The lower tier: a prediction a laboratory could check at modest cost. It is not a 40 K claim.
+  // A matching DFT check that reports no superconductivity, or a Tc below the tier, withdraws the
+  // recommendation (the forecast is contradicted by a direct calculation of the same quantity); it is not an experimental negative.
+  const candTestableTests = function candTestableTests(c, hur) {
+    var k = candChecked(c), tc = hur ? candTcSc(c) : c.tc;
+    return {
+      reach: candNum(tc) && tc >= TESTABLE_K,
+      likely: candNum(c.p_sc) && c.p_sc >= WORTH_P,
+      inside: candNum(c.novelty) && c.novelty <= 1 && c.outside !== true,
+      made: c.icsd === true,
+      measured: !!(k && k.kind === 'experiment'),
+      contradicted: !!(k && k.kind === 'dft' && (k.superconducts === false || (candNum(k.tc) && k.tc < TESTABLE_K)))
+    };
+  };
+
+  // The detail note of a testable prediction: it says which part of the full 40 K criteria is not met, never that a
+  // prediction above 40 K is below it.
+  const candTestableNote = function candTestableNote(c, hur) {
+    var t = candWorthTests(c, hur), tc = hur ? candTcSc(c) : c.tc;
+    return 'Testable prediction: ' + (hur ? 'Hurricane puts its Tc, if it superconducts,' : 'Storm puts its Tc') + ' at or above ' + TESTABLE_K +
+      ' K, within reach of a standard 1.8 K cryostat; it has an ICSD-linked structure, it lies near the training data, no experimental check is recorded yet and no matching DFT check reports no superconductivity or a Tc below ' + TESTABLE_K + ' K. ' +
+      'It does not meet the full 40 K screening criteria' +
+      (candNum(tc) && tc >= MCMILLAN_K ? (t.settled ? ' (a matching DFT check puts it below 40 K)' : ' (its point prediction reaches 40 K, but the low end of its 90% range does not)') : '') +
+      ', and it is not an experimental finding.';
+  };
+
   const candMcm = function candMcm(c, hur) {
     var k = candChecked(c);
     if (k && k.kind === 'experiment' && k.superconducts !== false && candNum(k.tc) && k.tc >= MCMILLAN_K && k.confirmed === true &&
       typeof k.ref === 'string' && REFS[k.ref] && typeof k.ref2 === 'string' && REFS[k.ref2]) return 'confirmed';
     var t = candWorthTests(c, hur);
-    return t.above && t.likely && t.inside && t.made && !t.settled ? 'worth' : '';
+    if (t.above && t.likely && t.inside && t.made && !t.settled) return 'worth';
+    var u = candTestableTests(c, hur);
+    return u.reach && u.likely && u.inside && u.made && !u.measured && !u.contradicted ? 'testable' : '';
   };
 
   const candMcmAll = function candMcmAll(sc) {
@@ -77,7 +105,7 @@
     list.slice(0, 8).forEach(function (x) {
       var c = x.c, tc = x.level === 'confirmed' ? candChecked(c).tc : x.kind === 'hurricane' ? candTcSc(c) : c.tc;
       chips.appendChild(h('button', { class: 'btn small cand-mcm-chip' + (x.level === 'confirmed' ? ' is-done' : ''), type: 'button', onclick: function () { candGo(x.kind, candId(c)); } },
-        hurSub(c.formula) + ' · ' + candK(tc) + (x.level === 'worth' ? ' predicted' : ' measured')));
+        hurSub(c.formula) + ' · ' + candK(tc) + (x.level === 'confirmed' ? ' measured' : ' predicted')));
     });
     return chips;
   };
@@ -85,7 +113,8 @@
   const candMcmBanner = function candMcmBanner(sc) {
     var all = candMcmAll(sc);
     if (!all.length) return null;
-    var done = all.filter(function (x) { return x.level === 'confirmed'; }), worth = all.filter(function (x) { return x.level === 'worth'; }), out = [];
+    var done = all.filter(function (x) { return x.level === 'confirmed'; }), worth = all.filter(function (x) { return x.level === 'worth'; }),
+      testable = all.filter(function (x) { return x.level === 'testable'; }), out = [];
     if (done.length) {
       out.push(h('div', { class: 'cand-mcm-banner is-done', role: 'note' },
         h('p', null, h('b', { text: done.length === 1 ? 'An experimentally checked candidate at or above 40 K.' : done.length + ' experimentally checked candidates at or above 40 K.' }), ' ',
@@ -99,6 +128,13 @@
           h('a', { href: refUrl(REFS.allendynes1975), text: REFS.allendynes1975.t }), '). ' +
           (worth.length === 1 ? 'It is still a prediction, and we suggest it' : 'They are still predictions, and we suggest them') + ' to experimental groups: if you can measure ' + (worth.length === 1 ? 'it' : 'one') + ', ',
           contactLink('write to us', 'experiment'), '.'), candMcmChips(worth)));
+    }
+    if (testable.length) {
+      out.push(h('div', { class: 'cand-mcm-banner is-testable', role: 'note' },
+        h('p', null, h('b', { text: 'Testable predictions.' }), ' ',
+          (testable.length === 1 ? 'One candidate meets' : testable.length + ' candidates meet') + ' our lower tier: a predicted Tc of at least ' + TESTABLE_K + ' K, within reach of a standard 1.8 K cryostat; a superconductivity model score of at least 0.5; proximity to the training data; an ICSD-linked structure; no experimental check recorded yet; and no matching DFT check reporting no superconductivity or a Tc below ' + TESTABLE_K + ' K. ' +
+          (worth.length ? 'Unlike the candidates above, these' : 'None meets the full 40 K screening criteria; these') + ' are the predictions a laboratory could check at modest cost. A model score is not an experimentally established probability. If you can measure ' + (testable.length === 1 ? 'it' : 'one') + ', ',
+          contactLink('write to us', 'experiment'), '.'), candMcmChips(testable)));
     }
     return out;
   };
@@ -375,7 +411,7 @@
         h('div', { class: 'cand-main' }, h('b', null, name), sub ? h('div', { class: 'dt-cell-sub', text: sub }) : null,
           h('div', { class: 'dt-cell-sub', text: candidateData.literatureText(c) }),
           candRemarksEl(c, hur, block, true),
-          mcm ? h('span', { class: 'cand-mcm' + (mcm === 'confirmed' ? ' is-done' : ''), text: mcm === 'confirmed' ? 'At least 40 K: experimental check recorded' : 'Worth an experiment: predicted at least 40 K' }) : null),
+          mcm ? h('span', { class: 'cand-mcm' + (mcm === 'confirmed' ? ' is-done' : mcm === 'testable' ? ' is-testable' : ''), text: mcm === 'confirmed' ? 'At least 40 K: experimental check recorded' : mcm === 'worth' ? 'Worth an experiment: predicted at least 40 K' : 'Testable prediction: at least ' + TESTABLE_K + ' K, ICSD-linked structure' }) : null),
         h('div', { class: 'cand-tc' }, h('b', { text: candK(tc) }), range ? h('div', { class: 'dt-cell-sub', text: range }) : null),
         hur ? null : h('div', { class: 'cand-cal' }, h('span', { class: 'cand-label', text: 'Calibrated ' }), candNum(c.tc_cal) ? candK(c.tc_cal) : '—'),
         h('div', { class: 'cand-p' }, h('span', { class: 'cand-label', text: 'Superconductivity score ' }), candPct(c.p_sc),
@@ -431,6 +467,9 @@
     var nWorth = rows.filter(function (c) { return candMcm(c, hur) === 'worth'; }).length;
     lead += 'We highlight a candidate as worth an experiment only when its predicted Tc reaches our 40 K screening benchmark, its superconductivity model score is at least 0.5, it lies near the training data, and its structure is linked to ICSD' +
       (hur ? '' : '; a Storm candidate also needs the low end of its 90% range, or a matching DFT calculation, to reach 40 K') + '. The benchmark is not a universal physical limit; a model score is not an experimentally established probability. DFT stability alone does not demonstrate synthesis. ' + (nWorth ? (nWorth === 1 ? 'One candidate on this list passes these criteria.' : nWorth + ' candidates on this list pass these criteria.') : 'None on this list passes these criteria yet.') + ' ';
+    var nTestable = rows.filter(function (c) { return candMcm(c, hur) === 'testable'; }).length;
+    lead += 'A lower tier, testable prediction, marks the candidates a laboratory could check at modest cost: a predicted Tc of at least ' + TESTABLE_K + ' K (within reach of a standard 1.8 K cryostat), a model score of at least 0.5, proximity to the training data, an ICSD-linked structure, no experimental check recorded yet, and no matching DFT check reporting no superconductivity or a Tc below ' + TESTABLE_K + ' K (such a check withdraws the recommendation without being an experimental result). ' +
+      (nTestable ? (nTestable === 1 ? 'One candidate on this list meets it.' : nTestable + ' candidates on this list meet it.') : 'None on this list meets it yet.') + ' ';
     el.appendChild(richText(h('p', { class: 'note' }), lead));
     el.appendChild(candTellUs());
     el.appendChild(h('p', { class: 'note xt-credit' }, 'Positions and the cell come from the stored database structure, which may be computationally relaxed rather than measured. Atom sizes use covalent radii (', h('a', { href: refUrl(REFS.cordero2008), text: REFS.cordero2008.t }), '). Lines show nearby atoms selected by a distance threshold, not calculated chemical bonds. Rotation changes the viewing angle; it does not represent atomic motion.'));
@@ -506,6 +545,8 @@
     } else if (mcm === 'worth') {
       box.appendChild(h('p', { class: 'xt-mcm' }, 'Worth an experiment: ' + (hur ? 'Hurricane puts its Tc, if it superconducts,' : 'Storm puts its Tc') +
         ' at or above our 40 K screening benchmark, and it passes the displayed screening criteria. This is not a physical upper limit or an experimental finding. If you can measure it, ', contactLink('write to us', 'experiment'), '.'));
+    } else if (mcm === 'testable') {
+      box.appendChild(h('p', { class: 'xt-mcm is-testable' }, candTestableNote(c, hur) + ' If you can measure it, ', contactLink('write to us', 'experiment'), '.'));
     }
     if (hur) {
       var types = list(c.types).filter(function (t) { return CAND_TYPE[t]; }).map(function (t) { return CAND_TYPE[t]; });

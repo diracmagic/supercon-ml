@@ -175,8 +175,15 @@
     return { kind: 'error' };
   };
 
-  const loadGitHub = function loadGitHub() {
+  const loadGitHub = function loadGitHub(force) {
     if (state.gh && state.gh.kind === 'rate' && Date.now() < state.gh.until) return Promise.resolve();
+    // GitHub allows 60 unauthenticated API requests per hour for each network address, shared by every copy of
+    // this app there. Runs and commits refresh at most every 15 minutes (5 while a run is active) and not while the
+    // app is in the background; the refresh button always asks. Progress data comes from raw files instead.
+    var active = (state.runs || []).some(function (r) { return r && r.status !== 'completed'; });
+    var hidden = typeof document !== 'undefined' && document.hidden;
+    if (force !== true && (hidden || (state.ghAt && Date.now() - state.ghAt < (active ? 5 : 15) * 60 * 1000))) return Promise.resolve();
+    state.ghAt = Date.now();
     var opts = { headers: { Accept: 'application/vnd.github+json' } };
     return Promise.all([
       getJSON(API + '/actions/runs?per_page=5', opts).then(function (v) { return { ok: v }; }, function (e) { return { err: e }; }),
@@ -192,11 +199,11 @@
     });
   };
 
-  const refreshAll = function refreshAll() {
+  const refreshAll = function refreshAll(force) {
     if (state.busy) return Promise.resolve();
     state.busy = true;
     setBusy(true);
-    return Promise.all([loadLive(), loadGitHub()]).then(function (res) {
+    return Promise.all([loadLive(), loadGitHub(force === true)]).then(function (res) {
       state.live = res[0];
       state.loaded = true;
       state.checkedAt = new Date();

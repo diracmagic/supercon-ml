@@ -12,7 +12,7 @@ class Element {
   addEventListener() {}
 }
 const flatten = node => [node,...node.children.flatMap(flatten)];
-const methods = ['setTransform','clearRect','save','restore','setLineDash','translate','rotate','beginPath','closePath','stroke','fill','fillRect','strokeRect','rect','moveTo','lineTo','arc','ellipse','fillText'];
+const methods = ['setTransform','clearRect','save','restore','setLineDash','translate','rotate','scale','beginPath','closePath','stroke','fill','fillRect','strokeRect','rect','moveTo','lineTo','arc','ellipse','fillText'];
 function recorder() {
   const calls=[];
   return {calls, canvas:Object.fromEntries(methods.map(name=>[name,(...args)=>{
@@ -24,10 +24,10 @@ function harness() {
   const document={hidden:false,createElement:tag=>new Element(tag),createTextNode:text=>Object.assign(new Element('#text'),{textContent:text})};
   const context=vm.createContext({console,URL,document,Node:Element,window:{devicePixelRatio:1},
     stAlpha:value=>value,stRng:()=>()=>.5,mix:a=>a,stRound:()=>{},
-    colors:()=>({surface:'#fff',surface2:'#fafafa',accent:'#368',ink:'#123',ink2:'#234',axis:'#678',grid:'#abc',muted:'#789',warm:'#c63'}),
+    colors:()=>({surface:'#fff',surface2:'#fafafa',accent:'#368',ink:'#123',ink2:'#234',axis:'#678',grid:'#abc',muted:'#789',warm:'#c63',aqua:'#1a7',gold:'#b81'}),
     motionOK:()=>false,requestAnimationFrame:()=>1});
-  for(const file of ['js/bindings.js','js/definitions/core.js','js/definitions/content.js','js/initialize/content.js','js/definitions/news-drawings.js','js/definitions/ai-view.js','js/definitions/mini-player.js','js/initialize/news-drawings.js']) vm.runInContext(read(file),context);
-  vm.runInContext("store={get(){return ''}}; REPO_URL='https://github.com/diracmagic/supercon-ml';initializeSuperconContent(); MINI={items:[],raf:0,last:0};MINI_DRAW={};MINI_STATIC={};MINI_ALT={};view='papers';initializeSuperconNewsDrawings();",context);
+  for(const file of ['js/bindings.js','js/definitions/core.js','js/definitions/content.js','js/initialize/content.js','js/definitions/news-drawings.js','js/definitions/ai-view.js','js/definitions/mini-player.js','js/initialize/news-drawings.js','js/initialize/news-looks.js']) vm.runInContext(read(file),context);
+  vm.runInContext("store={get(){return ''}}; REPO_URL='https://github.com/diracmagic/supercon-ml';initializeSuperconContent(); MINI={items:[],raf:0,last:0};MINI_DRAW={};MINI_STATIC={};MINI_ALT={};view='papers';initializeSuperconNewsDrawings();initializeSuperconNewsLooks();",context);
   context.content=JSON.parse(fs.readFileSync(new URL('../progress/content.json',import.meta.url),'utf8'));
   vm.runInContext('applyContent(content)',context);
   const describe=article=>{context.article=article;return JSON.parse(vm.runInContext('JSON.stringify(newsArticleDescribe(article))',context));};
@@ -65,7 +65,7 @@ test('every public feed and Recent entry retains one compact original-theme thum
     audit.push({channel,key:info.key,title:info.title,source_url:info.url,theme:kind,evidence:info.evidence});
   }
   assert.ok(kinds.size>=10,'Existing subject animations remain varied; no unique crystal is invented for every article');
-  if(process.env.ARTICLE_AUDIT_PATH) fs.writeFileSync(process.env.ARTICLE_AUDIT_PATH,JSON.stringify({feed_updated:feed.updated,row_count:rows.length,theme_count:kinds.size,compact_canvas_count:rows.length,limitations:['Original topic schematics may be shared by related articles.','Titles and source links retain individual identity; drawings are not measured structures or traces.','Feed text is not independent full-paper verification.'],rows:audit},null,2)+'\n');
+  if(process.env.ARTICLE_AUDIT_PATH) fs.writeFileSync(process.env.ARTICLE_AUDIT_PATH,JSON.stringify({feed_updated:feed.updated,row_count:rows.length,theme_count:kinds.size,compact_canvas_count:rows.length,limitations:['Related articles may share a topic schematic; badges, element dots and neutral colour or framing variants keep each thumbnail distinct.','Titles and source links retain individual identity; drawings are not measured structures or traces.','Feed text is not independent full-paper verification.'],rows:audit},null,2)+'\n');
 });
 
 test('explicit theme and AI selection are preserved without an expanded drawing or related illustration',()=>{
@@ -79,7 +79,8 @@ test('explicit theme and AI selection are preserved without an expanded drawing 
 });
 
 test('curated metadata and explicit ambient pressure or moire exclusions select faithful compact subjects',()=>{
-  const h=harness(),kind=item=>h.figure(item).children[0].getAttribute('data-news-art');
+  // One article alone on a page: its own first subject.
+  const h=harness(),kind=item=>{vm.runInContext('MINI.items=[]',h.context);return h.figure(item).children[0].getAttribute('data-news-art');};
   assert.equal(kind({h:'Vortices split into fractional vortices',x:'A scanning experiment.'}),'news-vortex');
   assert.equal(kind({h:'A single CuO₂ plane still superconducts',x:'A cuprate film.'}),'news-cuprate');
   assert.equal(kind({h:'Ambient-pressure nickelate films',x:'A bilayer nickelate.'}),'news-nickelate');
@@ -156,4 +157,141 @@ test('original theme drawing takes priority over article fallback through reduce
   c.view='papers';it.vis=false;vm.runInContext('miniFrame(1250)',c);assert.equal(original.length,2);
   it.vis=true;it.kind='unknown-theme';c.motionOK=()=>false;vm.runInContext('miniFrame(1300)',c);assert.deepEqual(fallback,[1.2]);assert.equal(original.length,2);
   it.cv.isConnected=false;vm.runInContext('miniFrame(1350)',c);assert.equal(fallback.length,1);
+});
+
+test('no two News & papers thumbnails are drawn alike, and every badge comes from the article text',()=>{
+  const h=harness(),feed=JSON.parse(fs.readFileSync(new URL('../progress/papers.json',import.meta.url),'utf8'));
+  const rows=['news','arxiv','journals','ai'].flatMap(channel=>feed[channel]||[]).concat(h.recent);
+  const drawn=new Map(),seen=new Set();
+  for(const item of rows){
+    const figure=h.figure(item),canvas=flatten(figure).find(n=>n.tagName==='canvas'),id=canvas.getAttribute('data-news-art')+'\n'+canvas.getAttribute('data-article-key');
+    if(seen.has(id))continue;
+    seen.add(id);
+    // Record colours and line styles as well as geometry: a colour set alone may tell two drawings apart.
+    const calls=[],canvasNode=flatten(figure).find(n=>n.tagName==='canvas');
+    canvasNode.getContext=()=>new Proxy({},{get:(_t,name)=>(...args)=>{calls.push([name,...args]);},set:(_t,name,value)=>{calls.push(['='+String(name),value]);return true;}});
+    h.context.node=canvasNode;
+    vm.runInContext('MINI.items=MINI.items.filter(function(it){return it.cv===node;});MINI.items[0].W=0;miniFrame(1200)',h.context);
+    const info=h.describe(item),key=JSON.stringify(calls);
+    assert.equal(drawn.has(key),false,'Same drawing for '+info.title+' and '+drawn.get(key));
+    drawn.set(key,info.title);
+    const look=JSON.parse(vm.runInContext('JSON.stringify(MINI.items[0].article.look)',h.context));
+    if(look.formula) assert.ok(info.materials.some(m=>m.field==='title'&&m.text===look.formula),info.title);
+    if(look.probe) assert.ok(look.from==='title'||info.facts.some(f=>f.field===look.from),info.title);
+    if(look.tc) assert.match(info.title,/\d\s?m?K/);
+    assert.match(canvas.getAttribute('aria-label'),/Colours and framing only tell thumbnails apart\./);
+  }
+  assert.ok(drawn.size>250);
+});
+
+test('badges, element dots and thermometers are read from the article and respect negation',()=>{
+  const h=harness();
+  const look=(article,kind)=>{h.render(h.figure(article,kind));return JSON.parse(vm.runInContext('JSON.stringify(MINI.items[0].article.look)',h.context));};
+  const stm=look({title:'STM imaging of pair density waves in La₃Ni₂O₇ films near 80 K',url:'https://example.org/a'});
+  assert.equal(stm.probe,'stm');assert.equal(stm.from,'title');assert.equal(stm.formula,'La3Ni2O7');assert.equal(stm.tc,80);
+  assert.deepEqual(stm.comp.map(e=>[e.el,e.n]),[['La',3],['Ni',2],['O',7]]);
+  assert.notEqual(look({title:'Nickelate films without applied pressure',abstract:'Earlier research required high pressure.',url:'https://example.org/b'}).probe,'anvil');
+  assert.equal(look({title:'Author Correction: Magnetic field screening in hydrides',url:'https://example.org/c'}).notice,'fix');
+  assert.equal(look({title:'Reply to: Conductance measurements in junctions',url:'https://example.org/d'}).notice,'reply');
+  assert.equal(look({title:'Addendum: Magnetic field screening',url:'https://example.org/e'}).notice,'add');
+  assert.equal(look({title:'The lutetium hydride room-temperature claim is retracted',url:'https://example.org/f'}).notice,'retract');
+  assert.equal(look({title:'Charge order in 1T-TaS₂ flakes',url:'https://example.org/g'}).tesla,0,'A polytype is not a field value');
+  assert.equal(look({title:'Superconductivity near 80 mK in a twisted bilayer',url:'https://example.org/h'}).tc,.08);
+  assert.equal(look({title:'Pressure-induced superconductivity',url:'https://example.org/i'},'news-pressure').probe,'','A badge never repeats what the theme draws');
+  const a=look({title:'First cuprate study',url:'https://example.org/j'},'news-cuprate'),b=look({title:'Second cuprate study',url:'https://example.org/k'},'news-cuprate');
+  assert.notDeepEqual([a.v,a.p],[b.v,b.p]);
+  assert.deepEqual(look({title:'First cuprate study',url:'https://example.org/j'},'news-cuprate'),a,'An article keeps its look when a list is redrawn');
+  assert.equal(h.describe({title:'Scientists from NUS report a new superconductor'}).materials.length,0);
+  assert.deepEqual(h.describe({title:'Superconductivity in FeSe and NbN films'}).materials.map(m=>m.text),['FeSe','NbN']);
+});
+
+test('articles on one subject shown together get different subjects that each article names',()=>{
+  const h=harness(),items=[
+    {title:'UTe₂ reveals two flavors of superconductivity under extreme pressure',url:'https://example.org/p1'},
+    {title:'Superconductivity near 80 K in pressurised La₃Ni₂O₇',url:'https://example.org/p2'},
+    {title:'Pressure makes a van der Waals heavy-fermion metal superconduct',url:'https://example.org/p3'},
+    {title:'Hydrostatic pressure-induced superconductivity in the topological phase of Bi₂Se₃',url:'https://example.org/p4'},
+    {title:'Superconductivity under pressure in a kagome metal',url:'https://example.org/p5'}];
+  const kinds=items.map(item=>h.figure(item).children[0].getAttribute('data-news-art'));
+  assert.equal(kinds[0],'news-pressure','The first keeps its own first subject');
+  assert.equal(new Set(kinds).size,items.length,kinds.join(' '));
+  items.forEach((item,i)=>{
+    h.context.item=item;h.context.primary=vm.runInContext('newsArt(item)',h.context);
+    assert.ok(vm.runInContext('newsArtChoices(item,newsArticleDescribe(item),primary)',h.context).includes(kinds[i]),item.title);
+  });
+  assert.deepEqual(kinds.slice(1),['news-nickelate','news-heavy','news-topo','news-kagome']);
+  // A retraction never borrows a material subject, even when the neutral icon is already shown.
+  const retracted=['The lutetium hydride room-temperature claim is retracted','A room-temperature superconductivity claim is retracted']
+    .map((title,i)=>h.figure({title,url:'https://example.org/r'+i}).children[0].getAttribute('data-news-art'));
+  assert.deepEqual(retracted,['news-research','news-research']);
+  // A hedged mention is not a subject: "whether ... breaks time-reversal symmetry is not established".
+  h.context.item={h:'Two superconducting orders meet at a tetracritical point in UTe₂',x:'Whether the combined state breaks time-reversal symmetry is not established.'};
+  assert.equal(vm.runInContext('newsArtChoices(item,newsArticleDescribe(item),newsArt(item)).indexOf("news-trsb")',h.context),-1);
+  // A card alone never asserts a pairing state, also as an alternative.
+  h.context.item={h:'Superconductivity in Sr₂RuO₄',x:'A new measurement.',cards:['triplet','dwave']};
+  assert.equal(vm.runInContext('newsArtChoices(item,newsArticleDescribe(item),"news-research").some(function(k){return k==="news-triplet"||k==="news-dwave";})',h.context),false);
+});
+
+test('subjects are settled in page order whichever list was filled first',()=>{
+  const h=harness(),canvas=figure=>flatten(figure).find(n=>n.tagName==='canvas');
+  const storm=h.figure({h:'Storm 4.0: boosted trees and a crystal-graph network together',x:'A model.',ref:'storm4'},'news-graph');
+  const alignn=h.figure({title:'ALIGNN 2.0: A Unified Line-Graph Neural Network Framework for Materials Screening, Inverse Design and Spectroscopy',url:'https://example.org/alignn'},'news-graph');
+  assert.equal(canvas(storm).getAttribute('data-news-art'),'news-graph');
+  assert.notEqual(canvas(alignn).getAttribute('data-news-art'),'news-graph','A list filled later avoids a subject already shown');
+  // ALIGNN sits higher on the page: it takes its own first subject and Storm 4.0 moves to the next one it names.
+  const order=[canvas(alignn),canvas(storm)];
+  order.forEach(cv=>{cv.compareDocumentPosition=other=>order.indexOf(other)>order.indexOf(cv)?4:2;});
+  vm.runInContext('newsArtAssign()',h.context);
+  assert.equal(canvas(alignn).getAttribute('data-news-art'),'news-graph');
+  assert.equal(canvas(storm).getAttribute('data-news-art'),'news-tree');
+  assert.match(canvas(storm).getAttribute('aria-label'),/decision-tree branches/);
+  vm.runInContext('newsArtAssign()',h.context);
+  assert.equal(canvas(storm).getAttribute('data-news-art'),'news-tree','Settling again changes nothing');
+});
+
+
+test('a busy subject gets a second drawing, an article above makes room, and a repeat avoids its own list',()=>{
+  const h=harness(),canvas=figure=>flatten(figure).find(n=>n.tagName==='canvas'),kind=figure=>canvas(figure).getAttribute('data-news-art');
+  // Two articles whose headlines name only boosted trees: the second gets the other drawing of that subject.
+  const a=h.figure({h:'Storm 3.0: Storm calibrated to measured Tc',x:'A model.'}),b=h.figure({h:'Storm 2.0: Storm with more descriptors',x:'A model.'});
+  assert.deepEqual([kind(a),kind(b)],['news-tree','news-tree-2']);
+  assert.match(canvas(b).getAttribute('aria-label'),/Boosting schematic/);
+  // Settlement with stated choices, page order and lists.
+  const settle=rows=>{
+    vm.runInContext('MINI.items=[]',h.context);
+    const cvs=rows.map((_r,i)=>canvas(h.figure({title:'Article '+i,url:'https://example.org/s'+i}))),lists={};
+    cvs.forEach((cv,i)=>{cv.compareDocumentPosition=other=>cvs.indexOf(other)>i?4:2;cv.closest=()=>(lists[rows[i][0]]=lists[rows[i][0]]||{});});
+    h.context.choices=rows.map(r=>r[1].map(k=>'news-'+k));
+    vm.runInContext('MINI.items.forEach(function(it,i){it.article.choices=choices[i];});newsArtAssign()',h.context);
+    return cvs.map(cv=>cv.getAttribute('data-news-art').replace('news-',''));
+  };
+  // The second article names only kagome: the first moves to the other subject it names.
+  assert.deepEqual(settle([['x',['kagome','heavy']],['x',['kagome']]]),['heavy','kagome']);
+  // No article is moved onto the page icon to make room; the later one repeats instead.
+  assert.deepEqual(settle([['x',['features','research']],['x',['features']]]),['features','features']);
+  // A repeat takes a subject its own list does not show yet.
+  assert.deepEqual(settle([['one',['kagome']],['two',['heavy']],['two',['heavy','kagome']]]),['kagome','heavy','kagome']);
+});
+
+test('summary wording selects a subject only when it states what the article is about',()=>{
+  const h=harness(),choices=item=>{h.context.item=item;return vm.runInContext('newsArtChoices(item,newsArticleDescribe(item),newsArt(item))',h.context).map(k=>k.replace('news-',''));};
+  assert.ok(!choices({h:'Spinons may help electrons pair along stripes',x:'Superconductors are materials that carry electricity with zero resistance below specific temperatures.'}).includes('measurement'));
+  assert.ok(choices({h:'Nickelate films pass 60 K at ambient pressure',x:'Films showed a superconducting onset above 60 K, with zero resistance up to 37 K.'}).includes('measurement'));
+  assert.ok(!choices({title:'Approaching Landauer’s limit in a single superconducting vortex memory bit',url:'https://example.org/v',
+    abstract:'These findings open possibilities for memory elements that could function as topological quantum computing qubits.'}).includes('qubit'));
+  assert.ok(!choices({title:'Topological spin liquids in a ladder',url:'https://example.org/l',abstract:'We map the whole phase diagram and find a spin gap.'}).some(k=>k==='dome'||k==='gapdos'));
+  assert.ok(!choices({title:'Superconducting-like states and an electrically switchable orbital magnet in six-layer graphene',url:'https://example.org/m'}).includes('coil'));
+  assert.ok(!choices({title:'Structural phase transitions in a metal',url:'https://example.org/s',abstract:'Structural phase transitions generate complex microstructures.'}).includes('search'));
+  assert.ok(!choices({title:'Fast electron-phonon calculations',url:'https://example.org/f',abstract:'The method reduces computational cost by two orders of magnitude.'}).includes('competition'));
+  const gauge={title:'Evidence for an effective gauge field in flakes of superconducting 4Hb-TaS2',url:'https://example.org/g',
+    abstract:'Understanding the normal state of unconventional superconductors is central.',topics:['Electron–phonon']};
+  h.context.item=gauge;
+  assert.notEqual(vm.runInContext('newsArt(item)',h.context),'news-eph');
+  assert.ok(!choices(gauge).includes('eph'),'An "unconventional superconductors" tag is not electron–phonon');
+  assert.ok(choices({title:'Isotope effect in a conventional superconductor',url:'https://example.org/i',topics:['Electron–phonon']}).includes('eph'));
+  // A more specific second drawing needs its own words: end modes on a wire, chirality, an antiferromagnet, a Josephson junction.
+  assert.ok(choices({title:'Majorana zero modes at the ends of a proximitized nanowire',url:'https://example.org/t1'}).includes('topo-2'));
+  assert.ok(!choices({title:'Topological Chern bands in a twisted bilayer',url:'https://example.org/t2'}).includes('topo-2'));
+  assert.ok(!choices({title:'Electron–magnon coupling in ferromagnetic iron',url:'https://example.org/t3'}).includes('spinfluct-2'));
+  assert.ok(choices({title:'Paramagnons in an antiferromagnetic cuprate',url:'https://example.org/t4'}).includes('spinfluct-2'));
 });

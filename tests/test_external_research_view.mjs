@@ -42,7 +42,7 @@ function harness({ feed = [], content = false, moving = false, allPapers = false
   };
   const context = vm.createContext({ document, Node: Element, URL, console, window: { Intl },
     AI_POLL_MS: null, AI_KIND_LABEL: null, aiState: null, MODEL_GLYPH: {},
-    state: { data: {} }, paperState: { data: data || { ai: feed }, failed: false, busy: false, built: false, kind: 'all', src: 'all', topic: 'all', shown: 20, newsSrc: 'all', newsShown: 10 }, learn: { built: false },
+    state: { data: {} }, paperState: { data: data || { ai: feed }, failed: false, busy: false, built: false, kind: 'all', src: 'all', topic: 'all', shown: 5, advShown: 5, aiAdvShown: 5, newsSrc: 'all', newsShown: 5 }, learn: { built: false },
     store: { get() { return ''; }, set() {} }, view: 'papers', motionOK: () => moving,
     NEWS_ART: [['Hydrides', 'hydride'], ['Cuprates', 'cuprate'], ['AI and data', 'ai']], RECENT: [], THEORIES: [], MATERIALS: [],
     PAPER_SOURCES: [['all', 'All'], ['arXiv', 'arXiv']], KIND_LABEL: {}, MONTHS: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -130,11 +130,15 @@ test('automatic feed still filters, sorts and expands current papers and news', 
   feed.push({ title: 'Latest experiment news', url: 'https://example.org/news', date: '2026-11-01', source: 'Test news', kind_of: 'news', ai_kind: 'experiment', topics: [] });
   feed.push({ title: 'Unsafe URL', url: 'javascript:alert(1)', date: '2026-11-02' });
   const h = harness({ feed });
-  assert.equal(h.get('ai-list').children.length, 12);
+  assert.equal(h.get('ai-list').children.length, 5, 'The list opens with five items');
   assert.match(h.get('ai-list').children[0].textContent, /Latest experiment news/);
   assert.doesNotMatch(h.root.textContent, /Unsafe URL/);
+  assert.match(h.get('ai-more').textContent, /Show more \(9 left\)/);
+  h.get('ai-more').children[0].dispatch('click');
+  assert.equal(h.get('ai-list').children.length, 10, 'Show more adds five');
   h.get('ai-more').children[0].dispatch('click');
   assert.equal(h.get('ai-list').children.length, 14);
+  assert.equal(h.get('ai-more').children.length, 0);
   const experiments = h.get('ai-filter').children.find((node) => node.textContent.startsWith('Experiments'));
   experiments.dispatch('click');
   assert.equal(h.get('ai-list').children.length, 1);
@@ -160,6 +164,41 @@ test('News & Papers separates explicit public AI identities from general superco
   assert.equal(flatten(h.get('ai-list')).filter(node => String(node.className || '').split(' ').includes('news-art')).length, 2, 'Each public AI item receives one compact topic thumbnail');
   assert.equal(h.get('news-list').querySelector('canvas').getAttribute('data-news-art'), 'news-cuprate');
   assert.equal(h.requests.length, 0, 'Rendering public records cannot fetch private content');
+});
+
+test('every News & Papers list opens with five items and Show more adds five at a time', () => {
+  const day = i => '2026-10-' + String(i + 10).padStart(2, '0');
+  const papers = Array.from({ length: 12 }, (_, i) => ({ id: 'p' + i, source: 'arXiv', title: 'Superconductivity paper ' + i, url: 'https://arxiv.org/abs/2610.' + (10000 + i), date: day(i), topics: [] }));
+  const news = Array.from({ length: 12 }, (_, i) => ({ title: 'Superconductor story ' + i, url: 'https://example.org/story/' + i, date: day(i), source: 'Public news', topics: [] }));
+  const h = harness({ allPapers: true, data: { ai: [], arxiv: papers, news } });
+  assert.equal(h.get('news-list').children.length, 5);
+  assert.match(h.get('news-more').textContent, /Show more \(7 left\)/);
+  h.get('news-more').children[0].dispatch('click');
+  assert.equal(h.get('news-list').children.length, 10);
+  assert.equal(h.get('feed-list').children.length, 5);
+  assert.match(h.get('feed-more').textContent, /Show more \(7 left\)/);
+  h.get('feed-more').children[0].dispatch('click');
+  assert.equal(h.get('feed-list').children.length, 10);
+  h.context.RECENT = Array.from({ length: 12 }, (_, i) => ({ d: '2026-0' + (1 + (i % 9)), k: 'experiment', cards: [i < 6 ? 'field' : 'ai'], h: 'Advance ' + i, x: 'A result.', ref: 'r' + i }));
+  h.run('renderAdvances();');
+  assert.equal(h.get('adv-list').children.length, 5);
+  assert.equal(h.get('ai-adv-list').children.length, 5);
+  assert.match(h.get('adv-more').textContent, /Show more \(1 left\)/);
+  assert.match(h.get('ai-adv-more').textContent, /Show more \(1 left\)/);
+  h.get('adv-more').children[0].dispatch('click');
+  assert.equal(h.get('adv-list').children.length, 6);
+  assert.equal(h.get('adv-more').children.length, 0);
+  assert.equal(h.get('ai-adv-list').children.length, 5, 'Each list keeps its own count');
+});
+
+test('a preprint and its journal version are listed once in New papers', () => {
+  const doi = '10.1038/s41467-026-77988-x';
+  const h = harness({ allPapers: true, data: { ai: [], news: [],
+    arxiv: [{ id: '2610.37753', source: 'arXiv', title: "Approaching Landauer's limit in a single superconducting vortex memory bit", doi, url: 'https://arxiv.org/abs/2610.37753', date: '2026-10-27', topics: [] },
+      { id: '2610.40000', source: 'arXiv', title: 'Another vortex paper', url: 'https://arxiv.org/abs/2610.40000', date: '2026-10-20', topics: [] }],
+    journals: [{ id: doi, source: 'Nat. Commun.', title: 'Approaching Landauer’s limit in a single superconducting vortex memory bit', doi, url: 'https://doi.org/' + doi, date: '2026-09-24', topics: [] }] } });
+  assert.equal(h.get('feed-list').children.length, 2);
+  assert.equal((h.get('feed-list').textContent.match(/Landauer/g) || []).length, 1);
 });
 
 test('AI feed deduplicates DOI, canonical URLs and arXiv versions without title-based merging', () => {
@@ -266,7 +305,7 @@ test('service-worker upgrade discards the old memo cache while preserving other 
   const current = /const CACHE = '([^']+)'/.exec(source)[1];
   const old = 'supercon-0.3.9-research31-tc-ranking';
   const previous = 'supercon-0.3.11-team-password';
-  assert.equal(current, 'supercon-0.3.19-unsupervised-animation');
+  assert.equal(current, 'supercon-0.3.22-news-animations');
   assert.notEqual(current, old);
   const context = { self: { addEventListener: (kind, fn) => { handlers[kind] = fn; }, clients: { claim: async () => {} } },
     caches: { keys: async () => [old, previous, current, 'unrelated-app'], delete: async (key) => { deleted.push(key); } } };

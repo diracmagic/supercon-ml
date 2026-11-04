@@ -18,6 +18,7 @@ initializeSuperconTheoryDrawings2();
 initializeSuperconNobelDrawings();
 initializeSuperconMechanismDrawings();
 initializeSuperconNewsDrawings();
+initializeSuperconNewsLooks();
 initializeSuperconMiniPlayer();
 initializeSuperconTheoryView();
 initializeSuperconPapersView();

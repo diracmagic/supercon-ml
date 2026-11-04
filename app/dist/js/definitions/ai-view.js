@@ -60,7 +60,7 @@
     [['all', 'All'], ['paper', 'Papers'], ['news', 'News'], ['prediction', 'Predictions'], ['experiment', 'Experiments']].forEach(function (f) {
       if ((f[0] === 'prediction' || f[0] === 'experiment') && !counts[f[0]]) return;
       bar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'aria-pressed': aiState.kind === f[0] ? 'true' : 'false',
-        text: f[1] + (counts[f[0]] ? ' ' + counts[f[0]] : ''), onclick: function () { aiState.kind = f[0]; aiState.shown = 12; renderAIList(); } }));
+        text: f[1] + (counts[f[0]] ? ' ' + counts[f[0]] : ''), onclick: function () { aiState.kind = f[0]; aiState.shown = 5; renderAIList(); } }));
     });
     var rows = items.filter(function (x) {
       return aiState.kind === 'all' || (aiState.kind === 'prediction' || aiState.kind === 'experiment' ? x.ai_kind === aiState.kind : (aiState.kind === 'news') === (x.kind_of === 'news'));
@@ -77,7 +77,7 @@
       ol.appendChild(li);
     });
     if (rows.length > aiState.shown) {
-      more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { aiState.shown += 12; renderAIList(); } },
+      more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { aiState.shown += 5; renderAIList(); } },
         'Show more (' + (rows.length - aiState.shown) + ' left)'));
     }
     renderTicker(items.slice(0, 6));

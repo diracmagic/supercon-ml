@@ -673,6 +673,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .cand-row.is-mcm { box-shadow: inset 3px 0 0 var(--warm); }
 .cand-mcm { display: inline-block; margin-top: 4px; padding: 1px 8px; border: 1px solid var(--warm); border-radius: 10px; background: var(--accent-wash); background: color-mix(in srgb, var(--warm) 10%, transparent); color: var(--ink); font-size: 11.5px; font-weight: 600; line-height: 1.5; }
 .cand-mcm.is-done { background: var(--warm); color: #141414; }
+.cand-mcm.is-testable, .cand-mcm-banner.is-testable, .cand-mcm-chip.is-testable { border-style: dashed; }
 .cand-mcm-banner { margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--warm); border-radius: 10px; background: var(--accent-wash); background: color-mix(in srgb, var(--warm) 8%, var(--surface)); font-size: 13px; line-height: 1.5; color: var(--ink-2); }
 .cand-mcm-banner.is-done { border-width: 2px; }
 .cand-mcm-banner p { margin: 0; }
@@ -681,6 +682,7 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .cand-mcm-chip { border-color: var(--warm); }
 .cand-mcm-chip.is-done { background: var(--warm); color: #141414; }
 .cand-mcm-chip sub, .cand-mcm sub { font-size: 0.72em; }
+.xt-mcm.is-testable { border-left-style: dashed; }
 .xt-mcm { margin: 6px 0 0; padding: 6px 9px; border-left: 3px solid var(--warm); border-radius: 0 6px 6px 0; background: var(--accent-wash); background: color-mix(in srgb, var(--warm) 8%, transparent); font-size: 12.5px; line-height: 1.5; color: var(--ink); }
 /* the remarks that go with every candidate, folded away until clicked */
 .xt-remarks { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--grid); }

@@ -68,5 +68,10 @@ const initializeSuperconCandidates = function initializeSuperconCandidates() {
   MCMILLAN_K = 40;
   WORTH_P = 0.5;
   WORTH_HULL = 0.005;
+  /* "testable": a second, lower tier for predictions a laboratory could check at
+     modest cost: predicted Tc >= 2 K (within reach of a standard 1.8 K cryostat),
+     model score >= 0.5, near the training data, an ICSD-linked structure, and no
+     experimental check recorded yet. It never replaces the 40 K benchmark. */
+  TESTABLE_K = 2;
 
 };

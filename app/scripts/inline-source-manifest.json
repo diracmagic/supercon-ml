@@ -2,7 +2,7 @@
   "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
-  "css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
+  "css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
   "scope_checks": {
     "top_level_this": false,
     "top_level_return": false,
@@ -140,6 +140,7 @@
     "MCMILLAN_K",
     "WORTH_P",
     "WORTH_HULL",
+    "TESTABLE_K",
     "XT",
     "XT_SPEED",
     "XT_YAW0",
@@ -178,8 +179,8 @@
     "loadBundled": "217120e7973e57b1b4eb4bc5a85baef89523f486a8cd6c4761941fd47022bbd2",
     "loadLive": "77d6a5ee12c6376fad7366e205925821e7e6dbd0e0822677d9fa6760019dd202",
     "classify": "40ed4577d615f20ca88d3f463c88ee087a5bb920eecd530ff9a84ca898c2e0ff",
-    "loadGitHub": "cefaf75951bf503fac330bd1d26c4c0ecbfd48c0922863ca684400a669ade3de",
-    "refreshAll": "6e96eaa0eb43a1bd72cd57cf0d35938a561d92df2b03c4cabff94218bfe91688",
+    "loadGitHub": "37f42698b8cce90869a5412e708dec4be64898a8be6b295812b886ca61e74206",
+    "refreshAll": "bcf7d3fb78a9fee64c4d375ab53d883a0e431ded3bf515faa6df42e2293cbdb5",
     "runState": "dc1a3ba998e3fbb33568c4b07f4676a73d1ad9851a841d02d0e8a0785defcb89",
     "bestBaseline": "377ab5478e3e622c2df27253bc43717ebb2e15dbcd4b290fab1d45398917d53d",
     "unreleased": "5abac579c3a8352bfa836245e1422d63f0ba2589d0e4c9d415d7111fbd67f4ca",
@@ -428,15 +429,18 @@
     "goUnsupervisedStep": "b59008ef9e888e7d23b18f55369f9adab44a25c856eccd74b9fa2e3093e4219d",
     "drawUnsupervisedSummary": "a42be1773e6e4a350df168b134e3b6048cf421f7ecf3124a389ca547fbc974e9",
     "drawUnsupervisedResults": "bb2727f13a6d443652ea6c5c30fa49414f7234470ad896919e2c2e119e7b9e56",
-    "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca",
-    "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
+    "newsArt": "eca7b3114684c4aa582271aaddb0ac33a34c6aff35841249698bda7d78534378",
+    "newsArticleDescribe": "a6592aba85b0fe450d20cbb5dbb265acec3a752d677aa847200e083069897ed1",
     "newsArticleDraw": "aad50f6cbfc164970f29ca1d87851ddc88036222cdc8055400ff64ffc2436d77",
-    "newsArticleFigure": "7325a250f2a0b34f8d82310df1325824394a0aef1e8c6c53672ea73a7d4de0a0",
-    "miniCanvas": "c06597b876eef6baebaba0ea2c096877073d4eb839124dcd4e67543c5873c778",
+    "newsArtChoices": "4ece18940767ca7adde77309feae5e4936bc4ad972c19a0871f8cb2be4f31883",
+    "newsArtLook": "ceb918f862ab7ce48480b8172cba8637b7ea880f5da0b6d8839a733d2137737b",
+    "newsArticleFigure": "51ee1dbdaddeddcaca154933a31c30867a0cf68ca2659897d76070a5a3e1348c",
+    "newsArtAssign": "d0c45a0e72e1931e5b4bef06b408649dc58798913e8522e12f6c5f9e8ddcb753",
+    "miniCanvas": "7ac39fb690dd6f0b539e74414e68a554af2deddda71559d779d7330bfecfa6e8",
     "miniPrune": "c7a65acf48aa9003887f8c937d6174f9a1124e12436d2c90785be2c5d5846612",
     "miniOn": "9bf40eaa15ff576fcde21d9755d13cff9d210f7fba8def43ca7fc3b5686d82c3",
-    "miniKick": "7497222fad6455672ca786c27ed6b624495c6aaffb75b17aea8610c3b4066003",
-    "miniFrame": "e8a0edb5c29576c9050bea23c540cfbff7d8f9c3b061567471b6f5f62ae9b7f3",
+    "miniKick": "dc97b33d3b0b7017a0a0fcdacaa97fcc8aa25af7bf02c414a7aeca4f1a61d9e3",
+    "miniFrame": "3d4689ef99717ccd46be853bed9a3a4edc767618bf1d57f801d36a33a8bb4f9e",
     "richText": "bf8290778526c81e6699f7a5699cecb67e5e2d6f05eada39b11791ab3a2a7332",
     "buildLearn": "3a95cbd1736ec72870ff49b2de9c014a0e284c49d4acf88f90d7a1fb602c6b3a",
     "latestList": "f6174e0847417d7a2a6a7c7aacf11bdac91c7f4d97fc1b706bbf819e226b0579",
@@ -448,12 +452,12 @@
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
     "feedIsAI": "e1dd033fa1f10a99be06bc5795efe53a5966a9428e8126ed1bad8c0750736f2c",
     "loadPapers": "2a9c0019c267bbaa5225d0901df24cddc8c0d4160f4f0b2d6a9debba04a2ca27",
-    "buildPapers": "7dbfabc8d5f0ae3fe7495fe1db4ec60a2f46c73c9d34e83e6644bcd977a43327",
-    "renderAdvances": "981010443fe904f01015408f37693e6f727416ad463a6b3ada45200b06ee7dea",
+    "buildPapers": "027b910314acfe95778ef8967a619fa902eea23d102ba770deb646510ebba7c6",
+    "renderAdvances": "78dcbaf824dedc93d728566b3eba4b0da949cbfe9c21bac6b646f230af585680",
     "advTopic": "d51c2c2c5b972a1cea9e4e06874989c165c7333b707fa4e3cc9e33090e70ee94",
-    "renderNews": "8785a2bada0701d709f161e188929bf4dc1293a58a29e9f29272a856ca350ece",
-    "feedItems": "44cbf44ae60423c9c15413f53b114383fd03d8604c3ef1aae1a5f25e9209d575",
-    "renderFeed": "4a0cee3108bcaf4daf7b18ee18b802234145c2c3018d766e079d5d5b4cd7130d",
+    "renderNews": "6715e9a68732bc0bc4f99738b9149df63344002d00ebea33ecad50812798355b",
+    "feedItems": "edc9d87f35d939a57f3aee527b4429b218e37fb9aab88c2b25114a713753a724",
+    "renderFeed": "a2947d6d6d50d2365bcac22aa7996b76c858bd96fda954e8888ae569f1027fef",
     "firstSentence": "2f1906d4010a04e0b71dd080e1880cda26beb0491050ef461736d6c74713fa1c",
     "paperItem": "4d89ee3e78b82b26fa9b90809df22cb604abd0eda38453c154e7a94c3577072c",
     "fmtDayISO": "69642cce9642daa98ecb272710f9d02070c23cf85331d7f5e801d66529b34011",
@@ -509,7 +513,7 @@
     "aiItems": "8d45676cbb96999978aae3c177cd833fa63efafec62a48a24bdc102c7b62ea02",
     "buildAI": "fc6fb62bb27ab1c97d373354d8836f54a7953ecc5df9fd8e7537ab48a394b3c2",
     "renderAI": "5e79835f3b3e18c3dea3af9ba58efae7b542a286668153f976e663fa68cb981c",
-    "renderAIList": "01c651ebdb2038d9251022fefd3e4783bc70ed19a9e2d163d35224e96f864bc6",
+    "renderAIList": "ee69cea0d42f55f8fc9739a2ca81e99bca5b36d6027d4c8b047a2c01ad27c169",
     "aiArticleArt": "b4ee827a36a97150281bc6421e96825290e97aaf33a0d2ce72404920963fed18",
     "aiAnimatedItem": "b8f0c74ac6ea8fa8dc429091f2a4311aaac04a9889b7f537ee034f50be636a5a",
     "aiNewsItem": "e3683704b2898ccd5f3a72dd4e868843d7bd520f9eca0a30b31f7aabf158fcfe",
@@ -529,10 +533,12 @@
     "candTcSc": "926f2b6451e3b222b3fb628e60083d69d89b06c94ef862fae8a4c922ecc5e903",
     "candChecked": "70cb0908e9f2a96af6bb9b845b7a4fa1b1c1bd0789e73c977c643ff2df0ccce1",
     "candWorthTests": "2373b5402943b14ad2866a5828c257dcd438fa56325d3e544337e94c29353ef8",
-    "candMcm": "168c23bd4b82c2f48fceac98cf6e3fb900489192ea3006aa0fdc992bef3d6ac0",
+    "candTestableTests": "060dae447a93728bacd7412cfe566bf27e6ba0c7155a1172cdae977f472a5b87",
+    "candTestableNote": "0dfe5631e35bf77774e9c6e6b2e88c24c7b03dc94cd978d298c57f4c06bcaf12",
+    "candMcm": "00bc7f55dceb627ce8220600bb5cf25352f983a343cd06489c8b8bbe64de720e",
     "candMcmAll": "237ba9bbda1bb89b49921802d39e52508b72f97c811e8aa73d3ec651edacad5e",
-    "candMcmChips": "0256efd4e4b30697cf060a63f1d76ff007f675d787416d2389068b57a986c813",
-    "candMcmBanner": "bf0ff8ebc3c9f4a927ebf4427b56bebf1faeb8caa97c5f0552e4f39a6ffc8a41",
+    "candMcmChips": "97811282238f8930ce6ec4a90746849a033e741afb1ed031eacf9a97b5286ae3",
+    "candMcmBanner": "f34145627a722794118783cbf08cf32fb1b12129e9d6d0b51ad691b2677cb9d9",
     "candGo": "6ef03d9a920451afffb40d428e50ea9ccf8cc8934b368e4d95e3c6a339dc883a",
     "candRemarks": "a5a3de38e7af03677a7b004160b1edaf48cbc82907b3aa30414ba9ea9aba7e75",
     "candListedText": "e798428b8f91bf42469a328f27918bb7074c83ada058449e4e635239b4fa3bd7",
@@ -545,10 +551,10 @@
     "candTrack": "c64ec36a1ea20b3f8ab0859989c36d15348bd7dcd87c1028425ad15f2ff380f3",
     "candArchive": "b168ca844115c6815c7b6e9c35471a050324a69a7246811172d33d6f11472338",
     "candModel": "f91855703dfffa4949bde6c1b4301c1de8d1699614e2d803da641cb6032ea5b5",
-    "renderCandidates": "a31d52a7a1de9391aff4da7b2d449e46ca953beac8b3d677d6ced2305243729c",
+    "renderCandidates": "05cb354fce97babfdd8de7924bdb02839882481c9d33c2c42239d623b2895139",
     "candTellUs": "c4e2ef3c3b7fd11b4442678f2be13a5525d91d7c7077fab18746c0d26602bd32",
     "candSelect": "73ef0bc4418f1763c2307f182641dc7c83f3ae236802832c3268e8b4d5698dc9",
-    "candViewer": "dd832d9b522491d8a559f35507e3017a9fb9bb11ae454a3f5810e7058d594bb8",
+    "candViewer": "18ac4cad6b535c60f111fe7116fccb8512e7c5e223faebae22bc064518787a99",
     "xtSync": "7bedc96ae35c90d7b5a1389626b937ffd45e248ce351eeec1852985a0b166131",
     "xtAlt": "608c859a749f06a481d273b00fd8bf598bdbbbdf19a01e7cde2c902c4b9ad1a2",
     "xtCellText": "f28c04f54b64dc1090578798659b982707134aebf852a52a6ba68adda2fb4c8a",
@@ -596,7 +602,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "7c2899ecedad41943d6cd43b3161f094bf29ac779a9586b268c269d6bff0dbbc",
+    "5715a9f23032bfc36da187f3b8874ec572cc9537a4179af25c4dd572f0b8dcbb",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -690,8 +696,9 @@
     "2e0249a6b72fb9ef6112f6a2110b97c8d8b80156f28deab716e2a183174f97fb",
     "671b018385222ea678f14f0298ac56d9e34630a74af34bd3d638cc21ec441abc",
     "51f5aac9acc34abd27da94b5e604fdf3eb104079fb934be5d2d98dde5d0d2fc3",
-    "4dbcdaade7a35acbd2f17518bb4e7d3b72631efaf67de032acd32f54a571db83",
+    "5e6ce403d4b67b48517f402aee16b3f8c9c174485a30ee915e5d2b5ff83f1a3a",
     "68d7edfdb3dcf9adbc0ba373a2777a28c4bdf7bdfd887f28f388b5f6a91c125f",
+    "f0736793a7f7ee024245f291213aa2cdfdbaa52f5d8c3b22d1c8767204c4ad23",
     "d721dba6f4810e19f56e720b38b34219a938edd98b3d6a4b6c78c2ff0ea39fb5",
     "c80dca0462243ef6f13586e90ee65bb8836fa33ecaba1ace42b9a0f7ae3bc2ab",
     "9100652666e8292731175f4f4046aaa2faf9663b3d4888084bf17d4999733d5f",
@@ -705,7 +712,7 @@
     "7da3c1c570bf6542972451e158b6aeb7ad5a8c5e3f026f418d067c4af205cbf6",
     "d7d4d2e0b6518ddcc735aceb0209abc592bf8c7185d052c1af45339787335597",
     "82ebf90b32996ff30dd491fef0b56ca6ff0310040cbf97a3a8319d4f71a1a6e5",
-    "df312e73ae465c93592ff4220e5c6dcbfce1fd6989f19daf376d6edb355f83be",
+    "ab184963ee9ec8858ba1df3ac962b3207266eb38d10dd9b7067da6191bfdc3cb",
     "aeb3cbf709fb4340b793026541cef68cb8f653616f9bc9a4c0991a2f7a74cead",
     "e7a732fd438d4fc2f3da23326245dcfab215d70ea1c57f3122ad513b70561cc5",
     "d5593f52592652d33361c9338c2844ab21b5032570bdfc52edb38a8c15b6e30f",
@@ -726,7 +733,7 @@
     "e4cac75a0e61cf1f5501269217529f938cffecac10f53dfaa7b5f763c1551d0d",
     "429484f87b2e2cd35b8bd89b582198ad75a7b15325dbf230b37f5915dc699ab2",
     "6d2b1fa4fe9618d1871b5da231525f92f103534808f63f83a941711aa30485f4",
-    "c890d9668faf4d8d42856c7cb0305c554580570246158cdd675ae4244b6718f8",
+    "aafaeea8c807024385b19e2671c5f6bdcc7ff752f2edb8e0ae70a63d29fa7df0",
     "a1a3d76a5e3190d283bbadbaf08ca1b586c9314e0e60ea63bea19e9590704e17",
     "ea1eb542bd9d06f3b1568a8779d98aff7588606ecef90d5fe142ddff001e5990",
     "98a495bf500f47899e6144a5721427a81478893b86ee6e032fedb264e9695cd5",
@@ -743,6 +750,7 @@
     "457e9f69fb97f7e12a378c9df1d83c772607062f2e1dac5fad8e192b0c956608",
     "177d79d4f41d3addc452ae81e460da767fbeddb7afd95d31a3cff48c8fed5d60",
     "a576ba3c8950d65d90e9ea595d872d59d4f6dc8bae8f1307edfd0fb7bb1f7e50",
+    "edcb33c84871297de54f816b6dd87e30bf82d7b57f9e1d5442eb31a6a84d726b",
     "f582291a43015f3f28d28c49a8f23e7029ccc535ec4ae4427ffde5464a06530b",
     "8d90ee676e9dc7dff8e86a0ee77242cc3027d3ac2d3f1c2b16f7757540e2bfb5",
     "293c5cf8c3cee4301d7d10ecdce880f5b9260b63c28c01a805e9b15ec7cf1321",
@@ -756,7 +764,7 @@
     "7b55f2ca3addb3ab58271d05667b44799cff46c59c7df9406df1a2f3a80b1bfa",
     "a8038582931f8cc94702e04a8c6e2d06fed5ed4a98272c051b6db53399525274",
     "b933a1f55f9a053e79d4c2325b37a21f30ee608859bf5a757c501df3cc0e0810",
-    "8f73a31ed4956c44b2ddb8d437ef50db1e2c96ee881c043a0dfd534a8df766ef",
+    "28c2932f964ce20123eb336bc9684f37d14b906daa06a89b02938cdd881dc348",
     "0e6f328284f917e72d5c150e6f3692b167c2e42ff85e4db92a734a71bc9a9e73",
     "c92ceb6490894ce3d91cfa7d753fc238cba3a80aa1f51f506ec2a9b61d068e21",
     "05586ab41978928da1093779677e76cd550e8c70c8d86f44a948f2ab4d47abba",
@@ -824,6 +832,7 @@
     "js/initialize/nobel-drawings.js",
     "js/initialize/mechanism-drawings.js",
     "js/initialize/news-drawings.js",
+    "js/initialize/news-looks.js",
     "js/initialize/mini-player.js",
     "js/initialize/theory-view.js",
     "js/initialize/papers-view.js",
@@ -849,8 +858,8 @@
     "initialization": "8e4e0a8ac6baf038aae01f9e1ffdd3511623ae2eaa0f048b5af620cb4da5b0a6"
   },
   "reviewed_revision": {
-    "reviewed_on": "2026-11-02",
-    "purpose": "Release0.3.19: staged unsupervised result animation with growing baseline/comparison bars and true paired intervals, previous/play/next controls, fixed labels, reduced-motion complete summary and source references below; original demos and production models preserved",
+    "reviewed_on": "2026-11-04",
+    "purpose": "Release0.3.22: News & papers thumbnails gain 36 labelled subject schematics in this release: 25 in js/initialize/news-drawings.js (detector, diode, spin fluctuations, multigap, Zeeman, tunnelling gap, FFLO/PDW, TRSB, Kekule, optical cavity, accelerating cavity, transmission line, magnet, cable, flux ring, cold atoms, penetration depth and coherence length, interface, proximity, monolayer, heat flow, timeline, magnetism, competing orders, molecular spins) and 11 in the new js/initialize/news-looks.js (Zhang-Rice singlets, domain walls, superconducting dome, quasiparticle interference, crossed Andreev reflection, re-entrant field pocket, Hubbard cylinder, neural-network wavefunction, disorder, apical oxygen, d-wave gap), each with alt text stating what is not shown, and a neutral page-and-magnifier icon; newsArt picks them from headline subjects ahead of broad feed topics and fixes known mismatches; newsArtLook gives every article one look per session: a badge for a method or notice named in its own text (headline first, then facts that passed the negation and history checks, never one the theme already draws), element dots for a formula in its headline and a thermometer for a temperature in its headline, plus neutral colour-set, mirror and close-up variants assigned in turn so that no two thumbnails are drawn alike; digit-free capitals are no longer read as formulas and motif descriptions no longer name colours; every News & papers list now opens with five entries and a Show more button adds five at a time; a page shows each subject once while an article names another subject (newsArtChoices lists the subjects an article names in its headline, headline formula, feed topics, curated cards and specific summary wording; newsArtAssign settles them in page order and lets an article above move to another subject it names to make room), with second drawings for twelve busy subjects (parity plot, crystal graph, boosting, screening funnel, paper stack, two domes, single vortex, wire end modes, squeezed lattice, chiral domains, antiferromagnetic spin wave, tilted washboard); a repeat prefers a subject its own list does not show; a preprint and its journal version are listed once; summary asides, outlooks and the textbook zero-resistance definition no longer select a subject, and an electron-phonon feed tag is checked against the article words; feeds, content schema, models and results are unchanged",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -890,36 +899,58 @@
       "private team content excluded from public method sources",
       "same original miniature animations and reduced-motion lifecycle",
       "private team content excluded from public method sources",
-      "same original miniature animations and reduced-motion lifecycle"
+      "same original miniature animations and reduced-motion lifecycle",
+      "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
+      "news thumbnail badges come only from the article's own text after the negation and history checks; colour and framing variants carry no meaning",
+      "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one"
     ],
-    "previous_css_sha256": "bcfcb2649933c2efb3c3e3c6b82487d018f5cf02f4b7c6c3554b166b94b9ad6f",
+    "previous_css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
     "functions_added": [
-      "drawUnsupervisedSummary",
-      "goUnsupervisedStep"
+      "newsArtLook",
+      "newsArtChoices",
+      "newsArtAssign"
     ],
     "functions_removed": [],
     "previous_removed_functions": {},
     "functions_changed": [
-      "buildDemos",
-      "syncControls",
-      "frame",
-      "unsupervisedResults",
-      "drawUnsupervisedResults"
+      "newsArt",
+      "newsArticleDescribe",
+      "newsArticleFigure",
+      "miniCanvas",
+      "miniFrame",
+      "miniKick",
+      "buildPapers",
+      "renderAdvances",
+      "renderNews",
+      "feedItems",
+      "renderFeed",
+      "renderAIList"
     ],
     "initializers_changed": [
       0,
-      24
+      94,
+      110,
+      131
     ],
     "previous_function_changes": {
-      "buildDemos": "767efabbd9d1387565ba613d97f189ef0be465933e817aeebac0d0fb0f5b4801",
-      "syncControls": "af28b174d97329cdacd2f49808b7e23ae8b8a10ee4955da4255363dc5060a726",
-      "frame": "eaea0e85b025b1cc318f54c71110156e96ddcce3c6f787889ca2a0d179095d7c",
-      "unsupervisedResults": "f41e770df7cb8166572cbc41b1a094ee301ce7d00a839e98722c91b6ad7ec297",
-      "drawUnsupervisedResults": "9a03acf33bb7c737448ab6895081b7b47b531eed677a19a77e5de20f1fe5654f"
+      "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca",
+      "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
+      "newsArticleFigure": "7325a250f2a0b34f8d82310df1325824394a0aef1e8c6c53672ea73a7d4de0a0",
+      "miniCanvas": "c06597b876eef6baebaba0ea2c096877073d4eb839124dcd4e67543c5873c778",
+      "miniFrame": "e8a0edb5c29576c9050bea23c540cfbff7d8f9c3b061567471b6f5f62ae9b7f3",
+      "miniKick": "7497222fad6455672ca786c27ed6b624495c6aaffb75b17aea8610c3b4066003",
+      "buildPapers": "7dbfabc8d5f0ae3fe7495fe1db4ec60a2f46c73c9d34e83e6644bcd977a43327",
+      "renderAdvances": "981010443fe904f01015408f37693e6f727416ad463a6b3ada45200b06ee7dea",
+      "renderNews": "8785a2bada0701d709f161e188929bf4dc1293a58a29e9f29272a856ca350ece",
+      "feedItems": "44cbf44ae60423c9c15413f53b114383fd03d8604c3ef1aae1a5f25e9209d575",
+      "renderFeed": "4a0cee3108bcaf4daf7b18ee18b802234145c2c3018d766e079d5d5b4cd7130d",
+      "renderAIList": "01c651ebdb2038d9251022fefd3e4783bc70ed19a9e2d163d35224e96f864bc6"
     },
     "previous_initialization_changes": {
-      "0": "70941a9dcdfc394562834d237f04e4acbde3936931eb16e5a4a552cf5850177b",
-      "24": "79931fb8e9f494785ac3b99919303a9768de7b25ef0f89b042b3e430a2fa00ca"
+      "0": "aabbf5952eac498e1aa37831edd991acd2e9f5d9be20baa9b22152cb99f6a43a",
+      "94": "4dbcdaade7a35acbd2f17518bb4e7d3b72631efaf67de032acd32f54a571db83",
+      "110": "df312e73ae465c93592ff4220e5c6dcbfce1fd6989f19daf376d6edb355f83be",
+      "131": "c890d9668faf4d8d42856c7cb0305c554580570246158cdd675ae4244b6718f8"
     },
     "additional_source_sha256": {
       "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
@@ -930,7 +961,10 @@
       "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
       "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
       "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
-    }
+    },
+    "initializers_added": [
+      96
+    ]
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
   "styles": [
@@ -1020,7 +1054,17 @@
       "path": "review-history-14.json",
       "sha256": "e86e637c0db6e238e42ee5728f5f1d610fef2cc864d2f89800e882f71e2edc4c",
       "count": 1
+    },
+    {
+      "path": "review-history-15.json",
+      "sha256": "75f160d6d3940dd24ba16c0a24be963f956b5e3753967e7cffa5c962a436cdd4",
+      "count": 2
+    },
+    {
+      "path": "review-history-16.json",
+      "sha256": "b9d092ad3e85e7f85a26c9d36b31b35750e83fb1ac94a41d894199cb348fd3bf",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 18
+  "reviewed_revision_count": 21
 }
