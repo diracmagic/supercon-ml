@@ -11,7 +11,7 @@ const initializeSuperconAiView = function initializeSuperconAiView() {
   // set by the feed (feed/papers.py, ai_kind): new candidates predicted, or AI-guided candidates made and measured
   AI_KIND_LABEL = { prediction: 'AI prediction', experiment: 'AI + experiment' };
 
-  aiState = { built: false, kind: 'all', shown: 12, timer: 0, tick: 0, tickTimer: 0,
+  aiState = { built: false, kind: 'all', shown: 5, timer: 0, tick: 0, tickTimer: 0,
     seen: store.get('aiSeen') || '', newest: '' };
 
 };

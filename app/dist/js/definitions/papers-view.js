@@ -80,7 +80,7 @@
         h('button', { class: 'btn small', type: 'button', id: 'feed-refresh', onclick: function () { loadPapers(true); } }, 'Refresh')),
       h('div', { class: 'fam-filter', role: 'group', 'aria-label': 'Filter by source', id: 'feed-src' }),
       h('div', { class: 'feed-tools' },
-        h('label', { class: 'feed-topic' }, h('span', { text: 'Topic' }), h('select', { id: 'feed-topic', onchange: function (e) { paperState.topic = e.target.value; paperState.shown = 20; renderFeed(); } }))),
+        h('label', { class: 'feed-topic' }, h('span', { text: 'Topic' }), h('select', { id: 'feed-topic', onchange: function (e) { paperState.topic = e.target.value; paperState.shown = 5; renderFeed(); } }))),
       h('ol', { class: 'feed-list', id: 'feed-list' }),
       h('div', { class: 'feed-more', id: 'feed-more' }),
       h('p', { class: 'note', text: 'Updated automatically every three hours by a GitHub Actions workflow. arXiv abstracts are shown in full; for journal papers we show only the first sentence of the abstract the publisher shares through Crossref, and the rest is on the publisher’s page. Topic and type tags are assigned from keywords, so treat them as a rough guide.' }));
@@ -108,14 +108,16 @@
     if (paperState.kind === 'ai') paperState.kind = 'all';
     [['all', 'All'], ['experiment', 'Experiment'], ['theory', 'Theory and computation']].forEach(function (f) {
       bar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'aria-pressed': paperState.kind === f[0] ? 'true' : 'false', text: f[1],
-        onclick: function () { paperState.kind = f[0]; renderAdvances(); } }));
+        onclick: function () { paperState.kind = f[0]; paperState.advShown = 5; renderAdvances(); } }));
     });
     var rows = RECENT.filter(function (r) {
       return list(r.cards).indexOf('ai') < 0 && (paperState.kind === 'all' || (paperState.kind === 'experiment' ? r.k === 'experiment' : r.k === 'theory' || r.k === 'computation'));
     }).slice().sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
-    if (!paperState.advAll && rows.length > 8) {
-      more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.advAll = true; renderAdvances(); } }, 'Show all ' + rows.length));
-      rows = rows.slice(0, 8);
+    var advShown = paperState.advShown || 5;
+    if (rows.length > advShown) {
+      more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.advShown = advShown + 5; renderAdvances(); } },
+        'Show more (' + (rows.length - advShown) + ' left)'));
+      rows = rows.slice(0, advShown);
     }
     rows.forEach(function (r) {
       ol.appendChild(h('li', { class: 'news-item article-item' }, newsArticleFigure(r),
@@ -128,13 +130,15 @@
     if (aiList && aiMore) {
       clear(aiList); clear(aiMore);
       var aiRows = RECENT.filter(function (r) { return list(r.cards).indexOf('ai') >= 0; }).slice().sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
-      (paperState.aiAdvAll ? aiRows : aiRows.slice(0, 8)).forEach(function (r) {
+      var aiShown = paperState.aiAdvShown || 5;
+      aiRows.slice(0, aiShown).forEach(function (r) {
         aiList.appendChild(h('li', { class: 'ai-selected-item article-item' }, newsArticleFigure(r, aiArticleArt({ title: r.h, summary: r.x })),
           h('div', { class: 'news-body' }, h('p', { class: 'adv-meta' }, h('span', { text: fmtMonth(r.d) }), h('span', { class: 'kind kind-' + r.k, text: KIND_LABEL[r.k] || r.k })),
             richText(h('h3'), r.h), richText(h('p', { class: 'adv-text' }), r.x), h('p', { class: 'adv-ref' }, recentLink(r)))));
       });
       if (!aiRows.length) aiList.appendChild(h('li', { class: 'empty', text: 'No selected AI research is available yet.' }));
-      if (!paperState.aiAdvAll && aiRows.length > 8) aiMore.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.aiAdvAll = true; renderAdvances(); } }, 'Show all ' + aiRows.length));
+      if (aiRows.length > aiShown) aiMore.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.aiAdvShown = aiShown + 5; renderAdvances(); } },
+        'Show more (' + (aiRows.length - aiShown) + ' left)'));
       miniPrune(); miniKick();
     }
   };
@@ -167,7 +171,7 @@
     if (paperState.newsSrc !== 'all' && !srcs[paperState.newsSrc]) paperState.newsSrc = 'all';
     [['all', 'All ' + items.length]].concat(Object.keys(srcs).sort().map(function (k) { return [k, k + ' ' + srcs[k]]; })).forEach(function (f) {
       bar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'aria-pressed': paperState.newsSrc === f[0] ? 'true' : 'false', text: f[1],
-        onclick: function () { paperState.newsSrc = f[0]; paperState.newsShown = 10; renderNews(); } }));
+        onclick: function () { paperState.newsSrc = f[0]; paperState.newsShown = 5; renderNews(); } }));
     });
     var rows = items.filter(function (n) { return paperState.newsSrc === 'all' || n.source === paperState.newsSrc; });
     rows.slice(0, paperState.newsShown).forEach(function (n) {
@@ -178,16 +182,22 @@
     });
     miniKick();
     if (rows.length > paperState.newsShown) {
-      more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.newsShown += 10; renderNews(); } }, 'Show more (' + (rows.length - paperState.newsShown) + ' left)'));
+      more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.newsShown += 5; renderNews(); } }, 'Show more (' + (rows.length - paperState.newsShown) + ' left)'));
     }
   };
 
 
   const feedItems = function feedItems() {
-    var d = paperState.data;
+    var d = paperState.data, seen = Object.create(null);
     if (!d) return [];
     return list(d.arxiv).concat(list(d.journals)).filter(function (p) { return p && p.title; })
-      .sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
+      .sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; })
+      .filter(function (p) {
+        // A preprint and its journal version share a DOI: list the paper once, newest record first.
+        var keys = feedIdentityKeys(p), duplicate = keys.some(function (key) { return seen[key]; });
+        keys.forEach(function (key) { seen[key] = true; });
+        return !duplicate;
+      });
   };
 
   const renderFeed = function renderFeed() {
@@ -201,7 +211,7 @@
     if (paperState.src !== 'all' && !counts[paperState.src]) paperState.src = 'all';
     fs.short.filter(function (s) { return s[0] === 'all' || s[0] === 'arXiv' || counts[s[0]]; }).forEach(function (s) {
       srcBar.appendChild(h('button', { class: 'demo-tab', type: 'button', 'aria-pressed': paperState.src === s[0] ? 'true' : 'false',
-        text: s[1] + (counts[s[0]] ? ' ' + counts[s[0]] : ''), onclick: function () { paperState.src = s[0]; paperState.shown = 20; renderFeed(); } }));
+        text: s[1] + (counts[s[0]] ? ' ' + counts[s[0]] : ''), onclick: function () { paperState.src = s[0]; paperState.shown = 5; renderFeed(); } }));
     });
     var topics = {};
     all.forEach(function (p) { list(p.topics).forEach(function (t) { topics[t] = (topics[t] || 0) + 1; }); });
@@ -223,7 +233,7 @@
     rows.slice(0, paperState.shown).forEach(function (p) { ol.appendChild(paperItem(p)); });
     miniPrune(); miniKick();
     if (rows.length > paperState.shown) {
-      more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.shown += 20; renderFeed(); } },
+      more.appendChild(h('button', { class: 'btn small', type: 'button', onclick: function () { paperState.shown += 5; renderFeed(); } },
         'Show more (' + (rows.length - paperState.shown) + ' left)'));
     }
   };
