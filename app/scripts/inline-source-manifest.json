@@ -2,7 +2,7 @@
   "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
-  "css_sha256": "364677f5449e2a90f1263d3b1cfba5311947b6e4b8d804643672f434c742101c",
+  "css_sha256": "db7f825520cb87f73b6c2edd0189bdd1358c894c6c5371b53e8f07983589f6b1",
   "scope_checks": {
     "top_level_this": false,
     "top_level_return": false,
@@ -453,7 +453,7 @@
     "tcEntry": "66e6173a4a39ea9567b81957e14fd558830b20fe519164d3f778caaada4713f2",
     "tcMark": "ff31866875375a8dace90a9cae48186fad67196d09d50a83e43bf6b5952515b6",
     "renderTcDetail": "b85e553fde0484c602b25529038fe51fa5a4e4a21826733282ca3a4efc432fb3",
-    "renderTcChart": "d7ecb0bed5de29ad461ab2e91afc2f32326546e56eca85d74471816ddaa8e564",
+    "renderTcChart": "c4b147063f467726de20f6f02efbd25c1943e0c226ee2ae8ed98926c9ec01da1",
     "feedSources": "5062cab0f6475f9bb2215f1c0e6f10c5a4b3ed082ba0075111c257cad3dd62df",
     "andList": "493d94564d20115c8ba90a741e1634a264cb33d6f7b955914bd58a06db8fa89d",
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
@@ -871,7 +871,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-05",
-    "purpose": "Web-only change, no version bump: where a name on the Tc chart sits. Mercury's 4.2 K lies exactly on the liquid-helium line and the record staircase starts at the same dot, so a name level with it lay across both; MgB2 sat above and well left of its dot on a phone. Every spot is now scored and the lowest wins, rather than the first that fits: distance to the nearest edge of the box plus a quarter of the distance to its middle, which keeps a long name from hanging off one end of its own dot, with extra cost for sitting nearer another material's dot than its own and for lying across a line. The close centred spots are in the listed set now. The five era-opening names are placed most-crowded-first, since placed fourth MgB2 found its neighbourhood taken, scoring near and far together, with a second pass that may cross the axis notes. A narrow chart is 430 px tall, not 330. Where a name still cannot sit within thirteen pixels, a thread in the family colour runs from dot to name and fades with it: on a phone MgB2 has no free space nearer than sixteen pixels. Mercury now sits below its dot and clear of both lines at every width, MgB2 directly below at 560 px and above; names placed went 38 to 41 at 1100 px and 18 to 25 at 414. The data, the models and the results are unchanged.",
+    "purpose": "Web-only change, no version bump: where a name on the Tc chart sits. Mercury's 4.2 K lies exactly on the liquid-helium line and the record staircase starts at the same dot, so a name level with it lay across both; MgB2 sat above and well left of its dot on a phone. Every spot is now scored and the lowest wins, rather than the first that fits: distance to the nearest edge of the box plus a quarter of the distance to its middle, which keeps a long name from hanging off one end of its own dot, with extra cost for sitting nearer another material's dot than its own and for lying across a line. The close centred spots above and below the dot are in the listed set now. The five era-opening names are placed most-crowded-first, since placed fourth MgB2 found its neighbourhood taken, scoring near and far together, with a second pass that may cross the axis notes. A narrow chart is 430 px tall, not 330, which gives the crowded 1986 to 2008 region room and took YBa2Cu3O7 from 28 px to 9 px at 414. Mercury now sits below its dot and clear of both lines at every width, MgB2 directly below its dot at 560 px and above; on a phone MgB2 stays about sixteen pixels up and to the left because every nearer spot would cover one of the twenty-five dots around it, and nearness alone has to carry it. Names placed went from 38 to 41 at 1100 px and 18 to 25 at 414. The data, the models and the results are unchanged.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
