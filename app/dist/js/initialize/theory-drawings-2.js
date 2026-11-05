@@ -27,6 +27,8 @@ const initializeSuperconTheoryDrawings2 = function initializeSuperconTheoryDrawi
     organic: 'Flat organic molecules stand in two herringbone stacks with a layer of anions between them, and one electron hops from molecule to molecule along a stack, the conduction path of a molecular metal. The molecules are drawn as plain tilted slabs rather than their real atomic skeletons, and no measured structure, pressure or pairing mechanism is shown.',
     fulleride: 'C₆₀ balls sit in a row with alkali ions in the spaces between them, the arrangement of a doped fulleride. The balls turn, one of them swells and shrinks to suggest a vibration inside the molecule, and an electron hops from ball to ball. The cages are drawn as patterned spheres, not as the 60 carbon positions, and the vibration is schematic rather than a measured mode.',
     graphite: 'Graphite sheets seen edge-on, with calcium atoms in the galleries between them moving up and down across the gap, and an electron running along a sheet; a plan view beside it shows one carbon hexagon with calcium above its centre. The spacing and the motion are schematic, not measured coordinates or a measured phonon of CaC₆.',
+    ute2: 'The uranium sublattice of UTe₂ turns in view: the nearest uranium atoms form a two-leg ladder running along the a axis, with legs of about 4.2 Å and rungs of about 3.8 Å, the distances reported for the body-centred orthorhombic Immm structure, and a chain of Te(2) atoms runs along the b axis beside it. Only the viewing angle changes; no distance in the drawing moves. The two marked Te(1) atoms show that a second, inequivalent tellurium site exists and are not at measured coordinates; the eightfold UTe₈ prism around each uranium is not drawn, and nothing here depicts the spin-triplet pairing, which is a candidate rather than an established fact.',
+    sro: 'An idealised Sr₂RuO₄ layer stack seen from the side: ruthenium–oxygen planes of corner-sharing octahedra, with apical oxygen above and below each ruthenium and strontium in the layers between the planes. The octahedra are drawn untilted, and a soft band sweeps across to pick out the layering and carries no physical meaning. It is a schematic of the layered perovskite, not measured coordinates or a measured distortion, and it shows nothing about the pairing symmetry.',
     diamond: 'A carbon network with tetrahedral bonds, in which a few sites are replaced by boron. Each boron leaves a hole that hops away through the carbon bonds, which is how heavy boron doping turns diamond into a metal and then a superconductor. The lattice is a flat schematic of a three-dimensional structure; the boron sites and hole paths are illustrative, not measured positions.'
   };
 
@@ -227,18 +229,100 @@ const initializeSuperconTheoryDrawings2 = function initializeSuperconTheoryDrawi
       lab(c, C, 'boron, with its hole', W - 10, H - 11, C.warm, 10.5, 'right');
     }
 
+    // The UTe2 uranium sublattice, at the U-U distances Honda et al. (arXiv:2211.02361) and the
+    // Lewin et al. review (arXiv:2402.06850) report: a two-leg ladder along a, legs 4.16 A, rungs 3.78 A.
+    // Only the viewing angle turns; no distance changes. Te(1) is indicative, not measured coordinates.
+    function drawUTe2(c, C, W, H, t) {
+      var LEG = 4.16, RUNG = 3.78, BSTEP = 6.13;
+      var ay = md(t, 36) * 0.34, ax = 0.88, ca = Math.cos(ay), sa = Math.sin(ay), cb = Math.cos(ax), sb = Math.sin(ax);
+      function pr(p) {
+        var x = p[0] * ca + p[2] * sa, z = p[2] * ca - p[0] * sa;
+        return [x, p[1] * cb - z * sb, p[1] * sb + z * cb];
+      }
+      var uM = [], i, k;
+      for (i = 0; i < 5; i++) for (k = 0; k < 2; k++) uM.push([(i - 2) * LEG, 0, (k ? 0.5 : -0.5) * RUNG]);
+      var te2M = [-1, 0, 1].map(function (j2) { return [0.5 * LEG, j2 * BSTEP, 0]; });
+      var te1M = [[-1.5 * LEG, 0.52 * BSTEP, 0.5 * RUNG], [1.5 * LEG, -0.52 * BSTEP, -0.5 * RUNG]];
+      var all = uM.concat(te2M, te1M).map(pr);
+      var xs = all.map(function (p) { return p[0]; }), ys = all.map(function (p) { return p[1]; });
+      var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
+      var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+      var padX = 16, padT = 24, padB = 26;
+      var R = Math.min((W - 2 * padX) / Math.max(0.1, x1 - x0), (H - padT - padB) / Math.max(0.1, y1 - y0));
+      var ox = (W - (x1 + x0) * R) / 2, oy = (padT + (H - padB) - (y1 + y0) * R) / 2;
+      function at(p) { var q = pr(p); return [ox + q[0] * R, oy + q[1] * R, q[2]]; }
+      var u = uM.map(function (p, n) { return { p: at(p), i: Math.floor(n / 2), k: n % 2 }; });
+      c.strokeStyle = C.accent; c.lineWidth = 2.2;
+      for (i = 0; i < u.length; i++) for (k = i + 1; k < u.length; k++) {
+        var A = u[i], B = u[k];
+        if ((A.k === B.k && Math.abs(A.i - B.i) === 1) || (A.i === B.i && A.k !== B.k))
+          seg(c, A.p[0], A.p[1], B.p[0], B.p[1]);
+      }
+      var te2 = te2M.map(at);
+      c.strokeStyle = C.aqua; c.lineWidth = 1.6;
+      seg(c, te2[0][0], te2[0][1], te2[2][0], te2[2][1]);
+      te2.forEach(function (p) { ring(c, p[0], p[1], 4, C.surface, 1.3, C.aqua); });
+      te1M.map(at).forEach(function (p) { ring(c, p[0], p[1], 3.6, C.warm, 1.6, C.surface); });
+      u.forEach(function (a) { ring(c, a.p[0], a.p[1], 5, C.surface, 1.4, C.accent); });
+      lab(c, C, 'U two-leg ladder along a', 10, 13, C.accent);
+      lab(c, C, 'Te(2) chain along b', W - 10, 13, C.aqua, 10.5, 'right');
+      lab(c, C, 'legs 4.2 Å · rungs 3.8 Å', 10, H - 11, C.muted, 9.5);
+      lab(c, C, 'view angle only', W - 10, H - 11, C.muted, 9.5, 'right');
+    }
+
+    // Sr2RuO4 as the layered K2NiF4 perovskite: RuO2 planes of corner-sharing octahedra,
+    // apical oxygen above and below each Ru, strontium in the layers between. Drawn untilted.
+    function drawSro(c, C, W, H, t) {
+      var m = 12, n = Math.max(3, Math.floor((W - 2 * m) / 46)), b = (W - 2 * m) / n;
+      var planes = [H * 0.29, H * 0.75], i, j, px;
+      planes.forEach(function (py) {
+        for (i = 0; i < n; i++) {
+          px = m + b * (i + 0.5);
+          c.strokeStyle = C.axis; c.lineWidth = 1.4;
+          c.beginPath();
+          c.moveTo(px - b / 2, py); c.lineTo(px, py - b * 0.36);
+          c.lineTo(px + b / 2, py); c.lineTo(px, py + b * 0.36);
+          c.closePath(); c.stroke();
+          ring(c, px, py - b * 0.36, 3, null, 0, C.aqua);
+          ring(c, px, py + b * 0.36, 3, null, 0, C.aqua);
+          ring(c, px - b / 2, py, 3, null, 0, C.aqua);
+          ring(c, px, py, 3.6, null, 0, C.accent);
+        }
+        ring(c, m + b * n, py, 3, null, 0, C.aqua);
+      });
+      var mid = (planes[0] + planes[1]) / 2;
+      for (i = 0; i < n; i++) {
+        px = m + b * (i + 0.5);
+        ring(c, px, mid - b * 0.21, 4.4, C.surface, 1.3, C.warm);
+        ring(c, px, mid + b * 0.21, 4.4, C.surface, 1.3, C.warm);
+      }
+      // A soft band picks out the layering; it carries no physical meaning.
+      var sweep = md(t, 7) / 7, bx = m + sweep * (W - 2 * m);
+      c.save();
+      c.globalAlpha = 0.16; c.fillStyle = C.accent;
+      c.fillRect(Math.max(m, bx - 26), planes[0] - b * 0.5, Math.min(52, W - m - bx + 26), planes[1] - planes[0] + b);
+      c.restore();
+      lab(c, C, 'RuO₂ planes', 10, 13, C.accent);
+      lab(c, C, 'Sr between the planes', W - 10, H - 11, C.warm, 10.5, 'right');
+      lab(c, C, 'no tilt, idealised', 10, H - 11, C.muted, 9.5);
+    }
+
     MINI_DRAW.perovskite = g2(drawPerovskite);
     MINI_DRAW.chevrel = g2(drawChevrel);
     MINI_DRAW.organic = g2(drawOrganic);
     MINI_DRAW.fulleride = g2(drawFulleride);
     MINI_DRAW.graphite = g2(drawGraphite);
     MINI_DRAW.diamond = g2(drawDiamond);
+    MINI_DRAW.ute2 = g2(drawUTe2);
+    MINI_DRAW.sro = g2(drawSro);
     MINI_STATIC.perovskite = 0.75;
     MINI_STATIC.chevrel = 3.2;
     MINI_STATIC.organic = 1.8;
     MINI_STATIC.fulleride = 1.1;
     MINI_STATIC.graphite = 1.4;
     MINI_STATIC.diamond = 1.6;
+    MINI_STATIC.ute2 = 4.4;
+    MINI_STATIC.sro = 2.1;
   })();
 
 };
