@@ -183,7 +183,12 @@
           h('p', { class: 'tcd-meta' }, h('i', { class: 'key ' + fam.cls }), fam.label + ' · ' + d.y +
             (d.p ? ' · under high pressure' : '') + (d.pre ? ' · preprint' : ''))),
         h('button', { class: 'btn small', type: 'button', 'aria-label': 'Close these material details',
-          onclick: function () { learn.tcSel = ''; renderTcDetail(); tcMark(); } }, 'Close')),
+          onclick: function () {
+            learn.tcSel = ''; renderTcDetail(); tcMark();
+            // Closing hands the keyboard back to the chart, which is where the next dot is chosen.
+            var sv = $('#tc-chart svg');
+            if (sv && sv.focus) { try { sv.focus({ preventScroll: true }); } catch (err) { sv.focus(); } }
+          } }, 'Close')),
       h('div', { class: 'tcd-body' },
         h('div', { class: 'tcd-art' },
           d.a && MINI_DRAW[d.a] ? miniCanvas(d.a) : null,
@@ -191,6 +196,7 @@
         h('div', { class: 'tcd-text' },
           richText(h('p', { class: 'tcd-tc' }), 'Tc ' + d.tc + ' K'),
           note ? richText(h('p', { class: 'tcd-note' }), note) : null,
+          TC_BG[d.n] ? richText(h('p', { class: 'tcd-bg' }), TC_BG[d.n]) : null,
           r ? h('p', { class: 'tcd-ref' }, h('span', { class: 'tcd-cite', text: r.t }),
             url ? h('a', { class: 'tcd-link', href: url, text: 'Open the paper' }) : null)
             : h('p', { class: 'tcd-ref' }, h('span', { class: 'tcd-cite', text: 'This entry cites no single reporting paper.' }))))
@@ -283,7 +289,15 @@
     if (q) svg.appendChild(s('path', { d: 'M' + X(LAST).toFixed(1) + ' ' + Y(133).toFixed(1) + 'V' + Y(q.tc).toFixed(1),
       class: 'record-line', 'stroke-dasharray': '3 3', 'clip-path': 'url(#tc-sweep-clip)' }));
     var pts = TC_DATA.filter(function (d) { return !learn.tcHidden[d.f]; }).map(function (d) {
-      return { d: d, x: X(d.y), y: Y(d.tc), el: null, tx: null };
+      return { d: d, x: X(d.y), y: Y(d.tc), el: null, tx: null, halo: null, mark: false };
+    });
+    // A material switched off in the legend cannot stay open in the panel below.
+    if (learn.tcSel && !pts.filter(function (p) { return p.d.n === learn.tcSel; }).length) learn.tcSel = '';
+    // Every halo is drawn before every dot, so one material's glow never covers its neighbour.
+    pts.forEach(function (p) {
+      p.halo = s('circle', { cx: p.x, cy: p.y, r: 5, opacity: '0', 'data-tc': p.d.n,
+        class: 'tc-halo ' + FAMILIES[p.d.f].cls });
+      svg.appendChild(p.halo);
     });
     pts.forEach(function (p) {
       p.el = s('circle', { cx: p.x, cy: p.y, r: 5, 'data-tc': p.d.n,
@@ -292,7 +306,8 @@
     });
     // Every material carries its name, but only a few show at once: the names twinkle in and
     // out like stars, so all of them can be read over a cycle without crowding the chart.
-    var taken = pts.map(function (p) { return { x: p.x - 6, y: p.y - 6, w: 12, h: 12 }; }).concat(guards);
+    var dotBoxes = pts.map(function (p) { return { x: p.x - 6, y: p.y - 6, w: 12, h: 12 }; });
+    var taken = dotBoxes.concat(guards), markRects = [];
     function hits(r, list) {
       for (var i = 0; i < list.length; i++) {
         var q = list[i];
@@ -300,51 +315,88 @@
       }
       return false;
     }
-    function spotFor(p) {
+    // wide: the era-opening names are placed first and must not be left off, so they are
+    // allowed to sit further from their dot than a twinkling name ever would.
+    function spotFor(p, wide, avoid) {
       var name = p.d.n, text = name === 'Hg-1223, pressure-quenched' ? 'Hg-1223 (2026)' : name + (p.d.pre ? ' (preprint)' : '');
-      var w = text.length * 6.1 + 4, hgt = 13, found = null;
+      // Measured against the rendered boxes: subscripts and the bold landmark names run up to
+      // 9% wider than a flat 6.1 px a character, which used to let a name land on another one.
+      var w = text.length * 6.7 + 6, hgt = 15, found = null;
       [[9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end'], [0, -11, 'middle'], [0, 18, 'middle']]
+        .concat(wide ? [[0, -21, 'middle'], [0, 27, 'middle'], [14, -16, 'start'], [-14, -16, 'end'],
+          [14, 22, 'start'], [-14, 22, 'end'], [0, -31, 'middle'], [0, 37, 'middle']] : [])
         .forEach(function (o) {
           if (found) return;
           var lx = p.x + o[0], rx = o[2] === 'start' ? lx : o[2] === 'end' ? lx - w : lx - w / 2;
           var r = { x: rx, y: p.y + o[1] - hgt / 2, w: w, h: hgt };
           if (r.x < m.l + 2 || r.x + r.w > m.l + pw - 2 || r.y < 6 || r.y + r.h > m.t + ph - 2) return;
-          if (!hits(r, taken)) found = { o: o, r: r, text: text };
+          if (!hits(r, avoid || taken)) found = { o: o, r: r, text: text };
         });
       return found;
     }
-    pts.forEach(function (p) {
-      p.lab = spotFor(p);
+    function place(p, wide, avoid) {
+      p.lab = spotFor(p, wide, avoid);
       if (!p.lab) return;
       p.tx = s('text', { x: p.x + p.lab.o[0], y: p.y + p.lab.o[1] + 4, 'text-anchor': p.lab.o[2],
-        class: 'tc-label', opacity: '0', 'aria-hidden': 'true' }, p.lab.text);
+        class: 'tc-label' + (p.mark ? ' mark' : ''), opacity: '0', 'data-tc': p.d.n, 'aria-hidden': 'true' }, p.lab.text);
       svg.appendChild(p.tx);
+    }
+    // The few that opened an era are placed before anything else and their space is then
+    // reserved, so their names can stay on the chart for good without a twinkling one ever
+    // landing on top of them. Every one of them tries the close positions first, so an early
+    // name does not take a distant slot that a later one needs near its own dot.
+    // On a phone the last of them may find nothing left; rather than drop the name, the third
+    // pass lets it sit over the axis notes and the record staircase, which its outline survives.
+    // No pass ever lets a name sit on a dot.
+    var marks = [];
+    [0, 1, 2].forEach(function (pass) {
+      TC_LANDMARK.forEach(function (n) {
+        pts.forEach(function (p) {
+          if (p.d.n !== n || p.tx) return;
+          p.mark = true; place(p, pass > 0, pass > 1 ? dotBoxes.concat(markRects) : null);
+          if (!p.lab) return;
+          taken.push(p.lab.r); markRects.push(p.lab.r);   // only these reserve their space
+          p.phase = (p.d.y % 7) * 0.9;
+          marks.push(p);
+        });
+      });
     });
+    pts.forEach(function (p) { if (!p.tx) { p.mark = false; place(p, false, null); } });
     // Curated names come round first, then the rest in the order they were found.
     var rot = [], live = [], cursor = 0, started = 0, clock = 0, pinned = null;
     var FADE = 0.6, HOLD = 2.4, LIFE = FADE * 2 + HOLD;
-    var twinkling = motionOK(), atOnce = narrow ? 2 : W > 900 ? 5 : 4, apart = Math.min(185, pw / 5.5);
+    var twinkling = motionOK(), atOnce = narrow ? 2 : W > 900 ? 5 : 4;
     TC_LABELS.forEach(function (n) {
-      pts.forEach(function (p) { if (p.d.n === n && p.lab && rot.indexOf(p) < 0) rot.push(p); });
+      pts.forEach(function (p) { if (p.d.n === n && p.lab && !p.mark && rot.indexOf(p) < 0) rot.push(p); });
     });
-    pts.forEach(function (p) { if (p.lab && rot.indexOf(p) < 0) rot.push(p); });
+    pts.forEach(function (p) { if (p.lab && !p.mark && rot.indexOf(p) < 0) rot.push(p); });
     if (!twinkling) {
       var used = [];
-      TC_LABELS.forEach(function (n) {
-        if (narrow && !TC_LABELS_NARROW[n]) return;
+      TC_LANDMARK.concat(TC_LABELS).forEach(function (n) {
+        if (narrow && !TC_LABELS_NARROW[n] && TC_LANDMARK.indexOf(n) < 0) return;
         var p = null;
         pts.forEach(function (c) { if (c.d.n === n) p = c; });
         if (!p || !p.lab || hits(p.lab.r, used)) return;
         used.push(p.lab.r); p.still = true;
       });
     }
+    // A dot lights up with its own name and goes dark again with it, so there is never any
+    // doubt about which dot a name belongs to.
+    function glow(p, a) {
+      p.halo.setAttribute('opacity', (a * 0.38).toFixed(3));
+      p.halo.setAttribute('r', (5 + 7 * a).toFixed(2));
+    }
     function twinkleStep(dt) {
       var i, e;
       clock += dt;
       for (i = live.length - 1; i >= 0; i--) {
         e = live[i]; e.age += dt;
-        if (e.age >= e.life || e.p.d.y > learn.tcYear) { e.p.tx.setAttribute('opacity', '0'); live.splice(i, 1); }
+        if (e.age >= e.life || e.p.d.y > learn.tcYear) {
+          e.p.tx.setAttribute('opacity', '0'); glow(e.p, 0); live.splice(i, 1);
+        }
       }
+      var busy = live.map(function (q) { return q.p.lab.r; });
+      if (pinned && pinned.lab) busy.push(pinned.lab.r);
       // The rotation moves on by one name at a time, so every one of them gets its turn; among
       // the next few it picks the one furthest from the names already up, which keeps them spread.
       while (live.length < atOnce) {
@@ -354,7 +406,7 @@
           if (c.d.y > learn.tcYear || c.d.n === learn.tcSel) continue;
           if (c.shown !== undefined && clock - c.shown < 24) continue;   // every name has its turn before any repeats
           for (i = 0; i < live.length; i++) if (live[i].p === c) skip = true;
-          if (skip || hits(c.lab.r, live.map(function (q) { return q.p.lab.r; }))) continue;
+          if (skip || hits(c.lab.r, busy)) continue;
           seen++;
           near = 1e9;
           for (i = 0; i < live.length; i++) {
@@ -368,6 +420,7 @@
         // Staggered starts and uneven lifetimes keep the names from blinking in step.
         var jit = ((p.d.y * 37 + Math.round(p.d.tc * 10)) % 11) / 10;
         live.push({ p: p, age: started < atOnce ? -0.8 * started : 0, life: LIFE * (0.8 + 0.5 * jit) });
+        busy.push(p.lab.r);
         p.shown = clock;
         started++; cursor = (cursor + 1) % rot.length;
       }
@@ -375,18 +428,29 @@
         var a = q.age <= 0 ? 0 : q.age < FADE ? q.age / FADE
           : q.age > q.life - FADE ? Math.max(0, (q.life - q.age) / FADE) : 1;
         q.p.tx.setAttribute('opacity', a.toFixed(3));
+        glow(q.p, a);
+      });
+      // The names that opened an era never leave, and their dots keep a slow pulse of their own.
+      marks.forEach(function (p) {
+        var on = p.d.y <= learn.tcYear;
+        p.tx.setAttribute('opacity', on ? '1' : '0');
+        glow(p, on ? 0.5 + 0.35 * Math.sin(clock * 1.9 + p.phase) : 0);
       });
       // The chosen material keeps its name on screen for as long as it stays chosen.
       if (pinned && pinned.d.n !== learn.tcSel) {
         var held = false;
         for (i = 0; i < live.length; i++) if (live[i].p === pinned) held = true;
-        if (!held) pinned.tx.setAttribute('opacity', '0');
+        if (!held && !pinned.mark) { pinned.tx.setAttribute('opacity', '0'); glow(pinned, 0); }
         pinned = null;
       }
       if (learn.tcSel) {
         var sel = null;
         pts.forEach(function (c) { if (c.d.n === learn.tcSel && c.tx) sel = c; });
-        if (sel) { sel.tx.setAttribute('opacity', '1'); pinned = sel; }
+        if (sel) {
+          sel.tx.setAttribute('opacity', '1');
+          if (!sel.mark) glow(sel, 0.55);
+          pinned = sel;
+        }
       }
     }
     var sweepLine = s('line', { y1: m.t, y2: m.t + ph, class: 'tc-sweep', visibility: 'hidden' });
@@ -494,9 +558,21 @@
     function pick(p) {
       if (!p) return;
       learn.tcSel = p.d.n;
+      // The hover card has no pointerleave to dismiss it on a touch screen, so it would sit over
+      // the neighbouring dots. Everything it said is in the panel below; the thin ring stays.
+      tip.hidden = true;
       tcMark(); renderTcDetail();
       var panel = $('#tc-detail');
       if (panel && panel.scrollIntoView) panel.scrollIntoView({ block: 'nearest' });
+    }
+    // Arrow keys walk the dots that have arrived, so the sweep is not read out ahead of itself.
+    function move(dir) {
+      var n = order.length, i = cur < 0 ? (dir > 0 ? -1 : n) : cur, k;
+      for (k = 0; k < n; k++) {
+        i += dir;
+        if (i < 0 || i >= n) return;
+        if (order[i].d.y <= learn.tcYear) { show(order[i]); return; }
+      }
     }
     function nearest(evt) {
       var box = svg.getBoundingClientRect();
@@ -514,8 +590,8 @@
     svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
     svg.addEventListener('blur', hide);
     svg.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { show(order[Math.min(order.length - 1, cur + 1)]); e.preventDefault(); }
-      else if (e.key === 'ArrowLeft') { show(order[Math.max(0, cur < 0 ? 0 : cur - 1)]); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { move(1); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { move(-1); e.preventDefault(); }
       else if (e.key === 'Enter' || e.key === ' ') { if (cur >= 0) { pick(order[cur]); e.preventDefault(); } }
       else if (e.key === 'Escape') hide();
     });
