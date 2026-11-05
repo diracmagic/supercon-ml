@@ -371,6 +371,7 @@ i.fam-3, .key.fam-3 { background: var(--series-3); }
 .tc-range:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 .tc-readout { flex: none; font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
 .plot .grid-line.faint { stroke-opacity: 0.45; }
+.plot .axis-line.minor { stroke-opacity: 0.55; }
 .plot .tc-sweep { stroke: var(--accent); stroke-width: 1.5; stroke-opacity: 0.55; }
 .plot .tc-sweep-year { font-size: 12px; font-weight: 600; fill: var(--accent); font-variant-numeric: tabular-nums; }
 .plot .tc-dot { transition: none; }
