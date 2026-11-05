@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-05T13:36:07+00:00",
+ "updated": "2026-11-05T22:07:32+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,7 +47,6 @@
   ]
  },
  "sources_ok": [
-  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -2357,6 +2356,27 @@
  ],
  "journals": [
   {
+   "id": "10.1126/science.adt3444",
+   "source": "Science",
+   "journal": "Science",
+   "title": "Equivalence of pseudogap and pairing energy in a cuprate high-temperature superconductor",
+   "authors": [
+    "Jiasen Niu",
+    "Maialen Ortego Larrazabal",
+    "Thomas Gozlinski",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-11-05",
+   "abstract": "The pseudogap stands out in the phase diagram of the cuprate high-temperature superconductors because its origin and relationship to superconductivity remain elusive.",
+   "url": "https://doi.org/10.1126/science.adt3444",
+   "doi": "10.1126/science.adt3444",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "experiment"
+  },
+  {
    "id": "10.1103/xlxf-y4vg",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2373,6 +2393,27 @@
    "url": "https://doi.org/10.1103/xlxf-y4vg",
    "doi": "10.1103/xlxf-y4vg",
    "topics": [],
+   "kind": ""
+  },
+  {
+   "id": "10.1103/mvnb-m6fd",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Gossamer Superconductivity in Moiré WSe 2 Bilayer",
+   "authors": [
+    "Hui-Ke Jin",
+    "Guangyue Ji",
+    "Zhan Wang",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-11-05",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/mvnb-m6fd",
+   "doi": "10.1103/mvnb-m6fd",
+   "topics": [
+    "Moiré and 2D"
+   ],
    "kind": ""
   },
   {
@@ -2775,27 +2816,6 @@
     "Electron–phonon"
    ],
    "kind": "experiment"
-  },
-  {
-   "id": "10.1103/mvnb-m6fd",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Gossamer superconductivity in Moiré WSe 2 bilayer",
-   "authors": [
-    "Hui-Ke Jin",
-    "Guangyue Ji",
-    "Zhan Wang",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-16",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/mvnb-m6fd",
-   "doi": "10.1103/mvnb-m6fd",
-   "topics": [
-    "Moiré and 2D"
-   ],
-   "kind": ""
   },
   {
    "id": "10.1038/s41467-026-78384-1",
