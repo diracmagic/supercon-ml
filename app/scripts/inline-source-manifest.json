@@ -453,7 +453,7 @@
     "tcEntry": "66e6173a4a39ea9567b81957e14fd558830b20fe519164d3f778caaada4713f2",
     "tcMark": "ff31866875375a8dace90a9cae48186fad67196d09d50a83e43bf6b5952515b6",
     "renderTcDetail": "b85e553fde0484c602b25529038fe51fa5a4e4a21826733282ca3a4efc432fb3",
-    "renderTcChart": "39b8d3d9750f99ad903ec2905449f71553ae67cc9c03f669b4eee10ba7e10457",
+    "renderTcChart": "80d284c903887c9874b68ed60fc6e6fb876a18dabbdefc1659358d08ee4e8316",
     "feedSources": "5062cab0f6475f9bb2215f1c0e6f10c5a4b3ed082ba0075111c257cad3dd62df",
     "andList": "493d94564d20115c8ba90a741e1634a264cb33d6f7b955914bd58a06db8fa89d",
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
@@ -871,7 +871,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-05",
-    "purpose": "Release 0.3.29, three fixes on the Tc chart. Choosing a name often did nothing: a twinkling name was fully readable for only about two and a half seconds, less than the time it takes to see it and reach for the pointer, and once it had faded the hit test fell through to the nearest dot within twenty-eight pixels, so a name that vanished mid-reach opened nothing or opened a different material; the rotation now stands still while the pointer is in the chart and for five seconds after a tap, names hold a second longer, and a name gone under two and a half seconds is still its own target, a readable name always taking precedence, while one gone longer is not and a name whose year the slider has passed is still removed. Three different things were drawn with dashes, the horizontal reference temperatures, a preprint ring and a six-pixel rise above the record for the 2026 pressure-quenched cuprate, and the legend named only the last, so that name was read as the meaning of all of them; the invisible rise is removed, the 2026 result keeping its dot, its name and its account in the panel, and the legend now names the dashed horizontals and the preprint ring, the reference lines drawn at half opacity. Long names trailed up to seventy-eight pixels from their dot, so they try the centred spots first, and no name is placed where another material's dot is nearer than its own unless nothing else fits. The data, the models and the results are unchanged.",
+    "purpose": "Web-only change after 0.3.29, no version bump: the era-opening names on the Tc chart sit beside their own dots. Mercury stands on the record staircase at the far left of the plot, where the staircase guard blocked every close position an end or middle anchor could not reach either, so it was pushed out to a distant fallback at up to twenty-one pixels; the staircase is now held apart from the axis notes and captions, and the five landmark names are offered the close positions over a clear background, then the close positions over the staircase and the notes, and only then the distant ones, because a name crossing a line is easier to read as its dot's name than a clear one half an inch away and the white outline behind these names carries them over a line. Mercury is now nine pixels from its dot at every width. With the close positions taken earlier, MgB2 on a small chart could find nothing at all among the listed offsets, having twenty-five dots within seventy pixels of its own, so a last-resort sweep now searches outward from the dot in rings and takes the first opening wide enough, preferring one whose own dot is nearest. All five landmark names are placed at every width tested from 390 to 1400 pixels, with no name overlaps in 721 frames and the glow still paired exactly with the name. The data, the models and the results are unchanged.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -918,22 +918,18 @@
       "only a name that is readable at that moment can be chosen, so the chart has no invisible hit targets",
       "choosing a name opens the material that name belongs to, never the nearest dot to it"
     ],
-    "previous_css_sha256": "d271fe98367461205c0a9129f1074a6296306b4dd83d0489eaa8e7f44112b627",
+    "previous_css_sha256": "db7f825520cb87f73b6c2edd0189bdd1358c894c6c5371b53e8f07983589f6b1",
     "functions_added": [],
     "functions_removed": [],
     "previous_removed_functions": [],
     "functions_changed": [
       "renderTcChart"
     ],
-    "initializers_changed": [
-      0
-    ],
+    "initializers_changed": [],
     "previous_function_changes": {
-      "renderTcChart": "74dd839b656fe7a78e3afd9c6853654b251e501a64c5b4cc95a4fbab7ce99320"
+      "renderTcChart": "39b8d3d9750f99ad903ec2905449f71553ae67cc9c03f669b4eee10ba7e10457"
     },
-    "previous_initialization_changes": {
-      "0": "51a6a31031f19c6c1c6a7bcc169e2ba0d208dc30fde9569cda1add28cce6e475"
-    }
+    "previous_initialization_changes": {}
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
   "styles": [
@@ -1068,7 +1064,12 @@
       "path": "review-history-23.json",
       "sha256": "cd5fd0380dcfd11fc3ae4506992765a892e982767243bba006f81320d9f841e4",
       "count": 1
+    },
+    {
+      "path": "review-history-24.json",
+      "sha256": "e1c7dbf7812bea4b2d030800f3f2545bcce684a9fe8a00622d7526c7b0514c17",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 28
+  "reviewed_revision_count": 29
 }
