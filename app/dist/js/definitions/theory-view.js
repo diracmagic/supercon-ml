@@ -223,9 +223,15 @@
     });
     legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-ring' }), 'Under high pressure'));
     legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-step' }), 'Ambient-pressure record'));
-    // The dashed rise above the record was unlabelled, which left it reading as part of the record.
-    if (!learn.table && !learn.tcHidden.cuprate)
-      legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-step dash' }), 'Quenched from pressure (onset)'));
+    // Three different things on this chart are drawn with dashes, and the legend used to name
+    // only one of them, so that name was read as the meaning of all of them. Each kind of dash
+    // now says what it is: the long horizontals are reference temperatures, a dashed ring is a
+    // preprint. Nothing dashed is left for the reader to guess at.
+    if (!learn.table) {
+      legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-ref' }), 'Reference temperature'));
+      if (TC_DATA.filter(function (d) { return d.pre && !learn.tcHidden[d.f]; }).length)
+        legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-pre' }), 'Preprint, not peer reviewed'));
+    }
     if (learn.table) {
       var tbl = h('table', { class: 'tbl' });
       var thead = h('thead', null, h('tr', null, h('th', { text: 'Material' }), h('th', { text: 'Year' }), richText(h('th'), 'Tc (K)'), h('th', { text: 'Family' }), h('th', { text: 'Notes' }), h('th', { text: 'Reference' })));
@@ -290,12 +296,12 @@
       guards.push({ x: X(d.y), y: Y(d.tc) - 4, w: Math.max(1, x2 - X(d.y)), h: 8 });
     });
     svg.appendChild(s('path', { d: path, class: 'record-line', 'clip-path': 'url(#tc-sweep-clip)' }));
-    // The quenched onset rises above the standing ambient record, so it is drawn as a dashed
-    // rise from that record rather than as a step of it. It starts at the record's own Tc.
-    var q = tcEntry('Hg-1223, pressure-quenched'), top = rec.length ? rec[rec.length - 1] : null;
-    if (q && top && !learn.tcHidden[q.f])
-      svg.appendChild(s('path', { d: 'M' + X(LAST).toFixed(1) + ' ' + Y(top.tc).toFixed(1) + 'V' + Y(q.tc).toFixed(1),
-        class: 'record-line', 'stroke-dasharray': '3 3', 'clip-path': 'url(#tc-sweep-clip)' }));
+    // The 2026 pressure-quenched onset used to be drawn as a dashed rise from the top of the
+    // staircase. On a logarithmic axis 133 K to 151 K is six pixels, so the mark itself could
+    // not be seen while the legend entry naming it claimed every other dash on the chart. The
+    // result keeps its own dot above the record, its own name and its own account in the panel,
+    // where the caution about a metastable state belongs; the staircase stays what it says it
+    // is, the record in a stable material.
     var pts = TC_DATA.filter(function (d) { return !learn.tcHidden[d.f]; }).map(function (d) {
       return { d: d, x: X(d.y), y: Y(d.tc), el: null, tx: null, halo: null, mark: false };
     });
@@ -323,24 +329,50 @@
       }
       return false;
     }
+    // How far a dot lies from the nearest edge of a name's box, which is what the eye uses to
+    // decide whose name it is.
+    function boxGap(r, x, y) {
+      var cx = Math.max(r.x, Math.min(x, r.x + r.w)), cy = Math.max(r.y, Math.min(y, r.y + r.h));
+      return Math.sqrt((cx - x) * (cx - x) + (cy - y) * (cy - y));
+    }
+    // A name belongs to one dot. A spot that puts it nearer to another material's dot than to
+    // its own reads as a label on the wrong material, however close to its own it may be.
+    function ownsIt(r, p) {
+      var mine = boxGap(r, p.x, p.y), i;
+      for (i = 0; i < pts.length; i++)
+        if (pts[i] !== p && boxGap(r, pts[i].x, pts[i].y) < mine + 4) return false;
+      return true;
+    }
     // wide: the era-opening names are placed first and must not be left off, so they are
-    // allowed to sit further from their dot than a twinkling name ever would.
+    // allowed to sit a little further from their dot than a twinkling name ever would.
     function spotFor(p, wide, avoid) {
       var name = p.d.n, text = name === 'Hg-1223, pressure-quenched' ? 'Hg-1223 (2026)' : name + (p.d.pre ? ' (preprint)' : '');
       // Measured against the rendered boxes: subscripts and the bold landmark names run up to
       // 9% wider than a flat 6.1 px a character, which used to let a name land on another one.
-      var w = text.length * 6.7 + 6, hgt = 15, found = null;
-      [[9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end'], [0, -11, 'middle'], [0, 18, 'middle']]
-        .concat(wide ? [[0, -21, 'middle'], [0, 27, 'middle'], [14, -16, 'start'], [-14, -16, 'end'],
-          [14, 22, 'start'], [-14, 22, 'end'], [0, -31, 'middle'], [0, 37, 'middle']] : [])
+      var w = text.length * 6.7 + 6, hgt = 15, found = null, nextBest = null;
+      var near = [[9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end'], [0, -11, 'middle'], [0, 18, 'middle']];
+      // Beside its dot, a long name trails seventy pixels away from it and the dot ends up
+      // against one end of a word that is hard to read as its label. Centred above or below,
+      // the dot sits under the middle of its own name and the two read as one thing, so the
+      // long names try the centred spots first and keep the others as a fallback.
+      if (w > 86) near = [[0, -11, 'middle'], [0, 18, 'middle'], [0, -19, 'middle'], [0, 26, 'middle'],
+        [9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end']];
+      near.concat(wide ? [[0, -21, 'middle'], [0, 27, 'middle'], [14, -16, 'start'], [-14, -16, 'end'],
+        [14, 22, 'start'], [-14, 22, 'end']] : [])
         .forEach(function (o) {
           if (found) return;
           var lx = p.x + o[0], rx = o[2] === 'start' ? lx : o[2] === 'end' ? lx - w : lx - w / 2;
           var r = { x: rx, y: p.y + o[1] - hgt / 2, w: w, h: hgt };
           if (r.x < m.l + 2 || r.x + r.w > m.l + pw - 2 || r.y < 6 || r.y + r.h > m.t + ph - 2) return;
-          if (!hits(r, avoid || taken)) found = { o: o, r: r, text: text };
+          if (hits(r, avoid || taken)) return;
+          var cand = { o: o, r: r, text: text };
+          // The offsets are tried nearest first, so the first spot that is unmistakably this
+          // material's is the closest one that is also unambiguous. A name is never dropped
+          // for want of one: if no spot is clear of its neighbours, the nearest that fits wins.
+          if (!nextBest) nextBest = cand;
+          if (ownsIt(r, p)) found = cand;
         });
-      return found;
+      return found || nextBest;
     }
     function place(p, wide, avoid) {
       p.lab = spotFor(p, wide, avoid);
@@ -372,7 +404,7 @@
     pts.forEach(function (p) { if (!p.tx) { p.mark = false; place(p, false, null); } });
     // Curated names come round first, then the rest in the order they were found.
     var rot = [], live = [], cursor = 0, started = 0, clock = 0, pinned = null;
-    var FADE = 0.6, HOLD = 2.4, LIFE = FADE * 2 + HOLD;
+    var FADE = 0.6, HOLD = 3.4, LIFE = FADE * 2 + HOLD;
     var twinkling = motionOK(), atOnce = narrow ? 2 : W > 900 ? 5 : 4;
     TC_LABELS.forEach(function (n) {
       pts.forEach(function (p) { if (p.d.n === n && p.lab && !p.mark && rot.indexOf(p) < 0) rot.push(p); });
@@ -394,12 +426,18 @@
       p.halo.setAttribute('opacity', (a * 0.38).toFixed(3));
       p.halo.setAttribute('r', (5 + 7 * a).toFixed(2));
     }
+    // Reaching for a name takes a moment, and a name that fades during that moment cannot be
+    // used. So the rotation stands still while the pointer is in the chart, and for a few
+    // seconds after a tap, because a touch screen has no pointer to hold over anything.
+    var inside = false, holdTill = 0, GRACE = 2.4;
+    function hold() { holdTill = clock + 5; }
     function twinkleStep(dt) {
-      var i, e;
+      var i, e, frozen = inside || clock < holdTill;
       clock += dt;
       for (i = live.length - 1; i >= 0; i--) {
-        e = live[i]; e.age += dt;
-        if (e.age >= e.life || e.p.d.y > learn.tcYear) {
+        e = live[i]; e.age += frozen ? 0 : dt;
+        // A name for a year the slider has been dragged back past goes either way.
+        if ((e.age >= e.life && !frozen) || e.p.d.y > learn.tcYear) {
           e.p.tx.setAttribute('opacity', '0'); glow(e.p, 0); live.splice(i, 1);
         }
       }
@@ -407,7 +445,7 @@
       if (pinned && pinned.lab) busy.push(pinned.lab.r);
       // The rotation moves on by one name at a time, so every one of them gets its turn; among
       // the next few it picks the one furthest from the names already up, which keeps them spread.
-      while (live.length < atOnce) {
+      while (!frozen && live.length < atOnce) {
         var best = -1, bestFar = -1, seen = 0, k, at, c, skip, near, dx, dy;
         for (k = 0; k < rot.length && seen < 8; k++) {
           at = (cursor + k) % rot.length; c = rot[at]; skip = false;
@@ -437,6 +475,7 @@
           : q.age > q.life - FADE ? Math.max(0, (q.life - q.age) / FADE) : 1;
         q.p.tx.setAttribute('opacity', a.toFixed(3));
         glow(q.p, a);
+        if (a >= 0.25) q.p.lit = clock;   // when this name was last readable
       });
       // The names that opened an era never leave, and their dots keep a slow pulse of their own.
       marks.forEach(function (p) {
@@ -593,17 +632,19 @@
       }
     }
     // A name is a target too. The dots are small and several of them sit almost on top of one
-    // another, so a name that can be read at that moment can be used to reach its material;
-    // a name that has faded out cannot, or the chart would be full of invisible targets.
+    // another, so a name that can be read at that moment can be used to reach its material. A
+    // name that has only just gone counts as well, since the hand was already on its way to it;
+    // one gone longer than that does not, or the chart would be full of invisible targets.
     function labelAt(px, py) {
-      var hit = null;
+      var hit = null, gone = null;
       pts.forEach(function (p) {
-        if (hit || !p.tx || p.d.y > learn.tcYear) return;
-        if (parseFloat(p.tx.getAttribute('opacity') || '0') < 0.25) return;
+        if (!p.tx || p.d.y > learn.tcYear) return;
         var r = p.lab.r;
-        if (px >= r.x - 3 && px <= r.x + r.w + 3 && py >= r.y - 3 && py <= r.y + r.h + 3) hit = p;
+        if (px < r.x - 3 || px > r.x + r.w + 3 || py < r.y - 3 || py > r.y + r.h + 3) return;
+        if (parseFloat(p.tx.getAttribute('opacity') || '0') >= 0.25) { if (!hit) hit = p; }
+        else if (!gone && p.lit !== undefined && clock - p.lit < GRACE) gone = p;
       });
-      return hit;
+      return hit || gone;   // a name that is there now comes before one that has just gone
     }
     function nearest(evt) {
       var box = svg.getBoundingClientRect();
@@ -618,14 +659,17 @@
       });
       return best;
     }
+    svg.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') inside = true; });
     svg.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'mouse') inside = true;
       var p = nearest(e);
       svg.style.cursor = p ? 'pointer' : '';
       if (p) show(p); else hide();
     });
-    svg.addEventListener('pointerdown', function (e) { var p = nearest(e); if (p) { show(p); pick(p); } else hide(); });
-    svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
-    svg.addEventListener('blur', hide);
+    svg.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') hold(); var p = nearest(e); if (p) { show(p); pick(p); } else hide(); });
+    svg.addEventListener('pointerleave', function (e) { inside = false; if (e.pointerType === 'mouse') hide(); });
+    svg.addEventListener('pointercancel', function () { inside = false; });
+    svg.addEventListener('blur', function () { inside = false; hide(); });
     svg.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { move(1); e.preventDefault(); }
       else if (e.key === 'ArrowLeft') { move(-1); e.preventDefault(); }

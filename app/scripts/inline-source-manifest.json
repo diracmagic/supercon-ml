@@ -2,7 +2,7 @@
   "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
-  "css_sha256": "d271fe98367461205c0a9129f1074a6296306b4dd83d0489eaa8e7f44112b627",
+  "css_sha256": "db7f825520cb87f73b6c2edd0189bdd1358c894c6c5371b53e8f07983589f6b1",
   "scope_checks": {
     "top_level_this": false,
     "top_level_return": false,
@@ -453,7 +453,7 @@
     "tcEntry": "66e6173a4a39ea9567b81957e14fd558830b20fe519164d3f778caaada4713f2",
     "tcMark": "ff31866875375a8dace90a9cae48186fad67196d09d50a83e43bf6b5952515b6",
     "renderTcDetail": "b85e553fde0484c602b25529038fe51fa5a4e4a21826733282ca3a4efc432fb3",
-    "renderTcChart": "74dd839b656fe7a78e3afd9c6853654b251e501a64c5b4cc95a4fbab7ce99320",
+    "renderTcChart": "39b8d3d9750f99ad903ec2905449f71553ae67cc9c03f669b4eee10ba7e10457",
     "feedSources": "5062cab0f6475f9bb2215f1c0e6f10c5a4b3ed082ba0075111c257cad3dd62df",
     "andList": "493d94564d20115c8ba90a741e1634a264cb33d6f7b955914bd58a06db8fa89d",
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
@@ -609,7 +609,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "51a6a31031f19c6c1c6a7bcc169e2ba0d208dc30fde9569cda1add28cce6e475",
+    "926b7ed9f5959699d73837c67a0f2423c305f35e71b38d8749e156a3ee211f42",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -871,7 +871,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-05",
-    "purpose": "Release 0.3.28: on the Tc chart a material's name is now a target as well as its dot, because the dots are five pixels across and several sit almost on top of one another, so a tap between two of them picked whichever was nearer rather than the one meant; the chart's hit test looks for a readable name first and falls back to the nearest dot as before, so choosing a name opens that material even when another material's dot is closer to the name than its own is; a name below a quarter opacity is not a target, so the chart gains no invisible places to tap, and a name whose year the sweep has not reached is not one either; the name under the pointer is underlined and the cursor becomes a pointer; the card's own description now says the name can be chosen; the data, the models and the results are unchanged",
+    "purpose": "Release 0.3.29, three fixes on the Tc chart. Choosing a name often did nothing: a twinkling name was fully readable for only about two and a half seconds, less than the time it takes to see it and reach for the pointer, and once it had faded the hit test fell through to the nearest dot within twenty-eight pixels, so a name that vanished mid-reach opened nothing or opened a different material; the rotation now stands still while the pointer is in the chart and for five seconds after a tap, names hold a second longer, and a name gone under two and a half seconds is still its own target, a readable name always taking precedence, while one gone longer is not and a name whose year the slider has passed is still removed. Three different things were drawn with dashes, the horizontal reference temperatures, a preprint ring and a six-pixel rise above the record for the 2026 pressure-quenched cuprate, and the legend named only the last, so that name was read as the meaning of all of them; the invisible rise is removed, the 2026 result keeping its dot, its name and its account in the panel, and the legend now names the dashed horizontals and the preprint ring, the reference lines drawn at half opacity. Long names trailed up to seventy-eight pixels from their dot, so they try the centred spots first, and no name is placed where another material's dot is nearer than its own unless nothing else fits. The data, the models and the results are unchanged.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -918,23 +918,21 @@
       "only a name that is readable at that moment can be chosen, so the chart has no invisible hit targets",
       "choosing a name opens the material that name belongs to, never the nearest dot to it"
     ],
-    "previous_css_sha256": "983e8b0993e8b02b6cb66712cf425803514571caf544b56e5ffc92a220df9144",
+    "previous_css_sha256": "d271fe98367461205c0a9129f1074a6296306b4dd83d0489eaa8e7f44112b627",
     "functions_added": [],
     "functions_removed": [],
     "previous_removed_functions": [],
     "functions_changed": [
-      "buildLearn",
       "renderTcChart"
     ],
     "initializers_changed": [
       0
     ],
     "previous_function_changes": {
-      "buildLearn": "34c755566788098c3f31f6c9512868477aaa6e332dae5cc4c9422526fc7a38a4",
-      "renderTcChart": "b59a758fcbef686e6d89ab5860dbb9d34dbedca193149121cda78a2e65b4a9bf"
+      "renderTcChart": "74dd839b656fe7a78e3afd9c6853654b251e501a64c5b4cc95a4fbab7ce99320"
     },
     "previous_initialization_changes": {
-      "0": "30d29827e228632985682bee7911d00d48543b469babf6122c2d5317ffe402c8"
+      "0": "51a6a31031f19c6c1c6a7bcc169e2ba0d208dc30fde9569cda1add28cce6e475"
     }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -1065,7 +1063,12 @@
       "path": "review-history-22.json",
       "sha256": "a5f1f8b2a5c59333673464b2d66ee61984bbab3cbe0b05a8483c6b0e8eb3b91a",
       "count": 1
+    },
+    {
+      "path": "review-history-23.json",
+      "sha256": "cd5fd0380dcfd11fc3ae4506992765a892e982767243bba006f81320d9f841e4",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 27
+  "reviewed_revision_count": 28
 }
