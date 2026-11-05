@@ -229,8 +229,15 @@
     // preprint. Nothing dashed is left for the reader to guess at.
     if (!learn.table) {
       legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-ref' }), 'Reference temperature'));
-      if (TC_DATA.filter(function (d) { return d.pre && !learn.tcHidden[d.f]; }).length)
-        legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-pre' }), 'Preprint, not peer reviewed'));
+      if (TC_DATA.filter(function (d) { return d.pre && !learn.tcHidden[d.f]; }).length) {
+        // A CSS dashed border is laid out one side at a time, so on a round box ten pixels
+        // across it comes out as four lopsided arcs rather than a dashed ring. The dot this
+        // stands for is an SVG circle with a dash pattern, so the swatch is one too, and
+        // pathLength makes the dashes come out even however big the circle is drawn.
+        var ring = s('svg', { class: 'lg-svg', width: '12', height: '12', viewBox: '0 0 12 12', 'aria-hidden': 'true' });
+        ring.appendChild(s('circle', { cx: '6', cy: '6', r: '4', pathLength: '24', class: 'lg-pre' }));
+        legend.appendChild(h('span', { class: 'lg' }, ring, 'Preprint, not peer reviewed'));
+      }
     }
     if (learn.table) {
       var tbl = h('table', { class: 'tbl' });
