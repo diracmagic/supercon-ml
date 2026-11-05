@@ -357,6 +357,41 @@ i.fam-3, .key.fam-3 { background: var(--series-3); }
 .plot .tc-label { font-size: 11.5px; font-weight: 600; fill: var(--ink); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; stroke-linejoin: round; }
 .tc-tip { white-space: normal; min-width: 180px; }
 .tip-ref { margin-top: 4px; font-size: 11px; color: var(--muted); }
+/* v0.3.23: the Tc chart arrives year by year and every dot opens its structure and paper */
+.tc-legend .lg-btn { appearance: none; border: 1px solid transparent; background: none; padding: 2px 7px 2px 4px; border-radius: 999px;
+  font: inherit; font-size: 12px; color: var(--ink-2); cursor: pointer; transition: background-color .15s, border-color .15s, opacity .15s; }
+.tc-legend .lg-btn:hover { background: var(--hover); }
+.tc-legend .lg-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tc-legend .lg-btn[aria-pressed="false"] { opacity: 0.45; border-color: var(--border); text-decoration: line-through; }
+.tc-controls { display: flex; align-items: center; gap: 10px; margin: 2px 0 8px; flex-wrap: wrap; }
+.tc-controls .tc-play { flex: none; display: inline-flex; align-items: center; gap: 6px; }
+.tc-play-icon { display: inline-flex; }
+.tc-play-icon svg { width: 13px; height: 13px; display: block; }
+.tc-range { flex: 1 1 180px; min-width: 140px; max-width: 420px; height: 20px; accent-color: var(--accent); cursor: pointer; }
+.tc-range:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.tc-readout { flex: none; font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.plot .grid-line.faint { stroke-opacity: 0.45; }
+.plot .tc-sweep { stroke: var(--accent); stroke-width: 1.5; stroke-opacity: 0.55; }
+.plot .tc-sweep-year { font-size: 12px; font-weight: 600; fill: var(--accent); font-variant-numeric: tabular-nums; }
+.plot .tc-dot { transition: none; }
+.plot .tc-dot.sel { stroke: var(--ink); stroke-width: 2.5; }
+.tip-hint { margin-top: 4px; font-size: 11px; color: var(--accent); }
+.tc-detail { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); animation: tcd-in .22s ease-out; }
+@keyframes tcd-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.tcd-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.tcd-name { margin: 0; font-size: 16px; line-height: 1.35; }
+.tcd-meta { margin: 3px 0 0; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-2); }
+.tcd-meta .key { flex: none; width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.tcd-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 14px; margin-top: 10px; align-items: start; }
+.tcd-art canvas.mini { display: block; width: 100%; height: 160px; border-radius: 8px; border: 1px solid var(--border); }
+.tcd-cap { margin: 5px 0 0; font-size: 11px; color: var(--muted); line-height: 1.5; }
+.tcd-tc { margin: 0; font-size: 20px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.tcd-note { margin: 5px 0 0; font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+.tcd-ref { margin: 9px 0 0; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.tcd-cite { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.tcd-link { font-size: 12.5px; font-weight: 600; }
+@media (max-width: 560px) { .tcd-body { grid-template-columns: minmax(0, 1fr); } .tcd-art canvas.mini { height: 140px; } }
+@media (prefers-reduced-motion: reduce) { .tc-detail { animation: none; } }
 .tbl td.num { font-variant-numeric: tabular-nums; }
 .phone-row { display: flex; align-items: center; gap: 14px; }
 .phone-row .qr { width: 112px; height: 112px; flex: none; border-radius: 8px; border: 1px solid var(--border); }
