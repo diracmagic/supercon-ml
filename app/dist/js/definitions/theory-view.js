@@ -24,7 +24,8 @@
     append(chartCard, [
       h('div', { class: 'card-head' },
         h('div', null, richText(h('h2'), 'Tc through the years'),
-          h('p', { text: 'Every dot is a superconductor. Press play to watch them arrive year by year, and choose one to see its structure and the paper that reported it.' })),
+          h('p', { text: 'Every dot is a superconductor. Press play to watch them arrive year by year, and choose one — ' +
+            'the dot or the name beside it — to see its structure and the paper that reported it.' })),
         toggle),
       h('div', { class: 'tc-legend', id: 'tc-legend' }),
       h('div', { class: 'tc-controls', id: 'tc-controls' }),
@@ -541,8 +542,18 @@
 
     /* ---------- hover, keyboard and selection ---------- */
     var order = pts.slice().sort(function (a, b) { return a.d.y - b.d.y || a.d.tc - b.d.tc; }), cur = -1;
+    // The name under the pointer is underlined, so it reads as something that can be chosen.
+    var hot = null;
+    function setHot(p) {
+      var q = p && p.tx ? p : null;
+      if (q === hot) return;
+      if (hot && hot.tx && hot.tx.classList) hot.tx.classList.remove('hot');
+      hot = q;
+      if (hot && hot.tx.classList) hot.tx.classList.add('hot');
+    }
     function show(p) {
       if (!p) return;
+      setHot(p);
       cur = order.indexOf(p);
       ring.setAttribute('cx', p.x); ring.setAttribute('cy', p.y); ring.setAttribute('visibility', 'visible');
       clear(tip);
@@ -561,7 +572,7 @@
       tip.style.left = Math.min(Math.max(p.x, tw / 2 + 4), W - tw / 2 - 4) + 'px';
       tip.style.top = (p.y < 130 ? p.y + 150 : p.y) + 'px';
     }
-    function hide() { cur = -1; ring.setAttribute('visibility', 'hidden'); tip.hidden = true; }
+    function hide() { cur = -1; setHot(null); ring.setAttribute('visibility', 'hidden'); tip.hidden = true; }
     function pick(p) {
       if (!p) return;
       learn.tcSel = p.d.n;
@@ -581,9 +592,24 @@
         if (order[i].d.y <= learn.tcYear) { show(order[i]); return; }
       }
     }
+    // A name is a target too. The dots are small and several of them sit almost on top of one
+    // another, so a name that can be read at that moment can be used to reach its material;
+    // a name that has faded out cannot, or the chart would be full of invisible targets.
+    function labelAt(px, py) {
+      var hit = null;
+      pts.forEach(function (p) {
+        if (hit || !p.tx || p.d.y > learn.tcYear) return;
+        if (parseFloat(p.tx.getAttribute('opacity') || '0') < 0.25) return;
+        var r = p.lab.r;
+        if (px >= r.x - 3 && px <= r.x + r.w + 3 && py >= r.y - 3 && py <= r.y + r.h + 3) hit = p;
+      });
+      return hit;
+    }
     function nearest(evt) {
       var box = svg.getBoundingClientRect();
       var px = (evt.clientX - box.left) * (W / box.width), py = (evt.clientY - box.top) * (Hh / box.height);
+      var named = labelAt(px, py);
+      if (named) return named;
       var best = null, bd = 28 * 28;
       pts.forEach(function (p) {
         if (p.d.y > learn.tcYear) return;
@@ -592,7 +618,11 @@
       });
       return best;
     }
-    svg.addEventListener('pointermove', function (e) { var p = nearest(e); if (p) show(p); else hide(); });
+    svg.addEventListener('pointermove', function (e) {
+      var p = nearest(e);
+      svg.style.cursor = p ? 'pointer' : '';
+      if (p) show(p); else hide();
+    });
     svg.addEventListener('pointerdown', function (e) { var p = nearest(e); if (p) { show(p); pick(p); } else hide(); });
     svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
     svg.addEventListener('blur', hide);
