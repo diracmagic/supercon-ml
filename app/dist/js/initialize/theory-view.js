@@ -5,38 +5,59 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
 
   /* ---------- Theory & materials view ---------- */
   // f: 'conv' = conventional (phonon-driven), 'cuprate', 'other' = other unconventional. p: needs high pressure. pre: preprint.
+  // a: the structure animation the detail panel plays for this entry (a key of MINI_DRAW).
   TC_DATA = [
-    { n: 'Mercury', y: 1911, tc: 4.2, f: 'conv', ref: 'onnes1911', note: 'the first superconductor' },
-    { n: 'Niobium', y: 1930, tc: 9.2, f: 'conv', note: 'highest Tc of any element at ambient pressure' },
-    { n: 'Nb₃Sn', y: 1954, tc: 18, f: 'conv', ref: 'matthias1954', note: 'A15 compound used in high-field magnets' },
-    { n: 'NbTi', y: 1962, tc: 10, f: 'conv', note: 'the wire inside most MRI magnets' },
-    { n: 'Nb₃Ge', y: 1973, tc: 22.3, f: 'conv', ref: 'gavaler1973', note: 'record for 13 years' },
-    { n: 'CeCu₂Si₂', y: 1979, tc: 0.6, f: 'other', ref: 'steglich1979', note: 'first heavy-fermion superconductor' },
-    { n: 'La–Ba–Cu–O', y: 1986, tc: 35, f: 'cuprate', ref: 'bednorz1986', note: 'start of the cuprate era (onset)' },
-    { n: 'YBa₂Cu₃O₇', y: 1987, tc: 93, f: 'cuprate', ref: 'wu1987', note: 'first above liquid-nitrogen temperature' },
-    { n: 'Bi-2223', y: 1988, tc: 110, f: 'cuprate', ref: 'maeda1988', note: 'first cuprate wires and tapes' },
-    { n: 'Tl-2223', y: 1988, tc: 125, f: 'cuprate', ref: 'parkin1988' },
-    { n: 'Hg-1223', y: 1993, tc: 133, f: 'cuprate', ref: 'schilling1993', note: 'ambient-pressure record until 2026' },
-    { n: 'Hg-1223 under pressure', y: 1994, tc: 164, f: 'cuprate', p: true, ref: 'gao1994', note: 'at about 30 GPa' },
-    { n: 'Sr₂RuO₄', y: 1994, tc: 1, f: 'other', ref: 'maeno1994', note: 'layered perovskite without copper' },
-    { n: 'MgB₂', y: 2001, tc: 39, f: 'conv', ref: 'nagamatsu2001', note: 'highest conventional Tc at ambient pressure' },
-    { n: 'LaFeAsO₁₋ₓFₓ', y: 2008, tc: 26, f: 'other', ref: 'kamihara2008', note: 'start of the iron-based era' },
-    { n: 'SmFeAsO₁₋ₓFₓ', y: 2008, tc: 55, f: 'other', ref: 'ren2008', note: 'iron-based bulk record' },
-    { n: 'FeSe', y: 2008, tc: 8, f: 'other', ref: 'hsu2008' },
-    { n: 'H₃S', y: 2015, tc: 203, f: 'conv', p: true, ref: 'drozdov2015', note: 'at about 155 GPa' },
-    { n: 'Magic-angle graphene', y: 2018, tc: 1.7, f: 'other', ref: 'cao2018', note: 'two sheets twisted by about 1.1°' },
-    { n: 'LaH₁₀', y: 2019, tc: 250, f: 'conv', p: true, ref: 'drozdov2019', note: 'at about 170 GPa' },
-    { n: 'Infinite-layer nickelate', y: 2019, tc: 15, f: 'other', ref: 'li2019', note: 'Nd₀.₈Sr₀.₂NiO₂ films (onset)' },
-    { n: 'UTe₂', y: 2019, tc: 1.6, f: 'other', ref: 'ran2019', note: 'spin-triplet candidate' },
-    { n: 'CsV₃Sb₅', y: 2020, tc: 2.5, f: 'other', ref: 'ortiz2020', note: 'kagome metal' },
-    { n: 'La₃Ni₂O₇', y: 2023, tc: 80, f: 'other', p: true, ref: 'sun2023', note: 'at about 14 GPa' },
-    { n: '(La,Pr)₃Ni₂O₇ films', y: 2025, tc: 40, f: 'other', ref: 'zhou2025', note: 'onset at ambient pressure' },
-    { n: 'LaSc₂H₂₄', y: 2025, tc: 298, f: 'conv', p: true, pre: true, ref: 'song2025', note: 'onset 271–298 K at 195–266 GPa; preprint, not yet peer reviewed' },
-    { n: 'Nickelate films (2026)', y: 2026, tc: 63, f: 'other', ref: 'zhou2026', note: 'onset at ambient pressure; zero resistance up to 37 K' },
-    { n: 'Hg-1223, pressure-quenched', y: 2026, tc: 151, f: 'cuprate', ref: 'deng2026', note: 'onset; metastable state kept at ambient pressure' }
+    { n: 'Mercury', y: 1911, tc: 4.2, f: 'conv', a: 'onnes', ref: 'onnes1911', note: 'the first superconductor' },
+    { n: 'Niobium', y: 1930, tc: 9.2, f: 'conv', a: 'magnet', note: 'highest Tc of any element at ambient pressure' },
+    { n: 'V₃Si', y: 1953, tc: 17.1, f: 'conv', a: 'magnet', ref: 'hardy1953', note: 'first A15 superconductor, found in a search through silicides and germanides' },
+    { n: 'Nb₃Sn', y: 1954, tc: 18, f: 'conv', a: 'magnet', ref: 'matthias1954', note: 'A15 compound used in high-field magnets' },
+    { n: 'NbTi', y: 1962, tc: 10, f: 'conv', a: 'magnet', note: 'the wire inside most MRI magnets' },
+    { n: 'SrTiO₃', y: 1964, tc: 0.3, f: 'conv', a: 'perovskite', ref: 'schooley1964', note: 'first superconducting oxide, from a doped semiconductor' },
+    { n: 'PbMo₆S₈', y: 1972, tc: 15, f: 'conv', a: 'chevrel', ref: 'matthias1972', note: 'Chevrel phase; the first ternary system, and it keeps superconducting in very strong magnetic fields' },
+    { n: 'Nb₃Ge', y: 1973, tc: 22.3, f: 'conv', a: 'magnet', ref: 'gavaler1973', note: 'record for 13 years' },
+    { n: 'BaPb₁₋ₓBiₓO₃', y: 1975, tc: 13, f: 'conv', a: 'perovskite', ref: 'sleight1975', note: 'an oxide perovskite a decade before the cuprates' },
+    { n: 'CeCu₂Si₂', y: 1979, tc: 0.6, f: 'other', a: 'heavy', ref: 'steglich1979', note: 'first heavy-fermion superconductor' },
+    { n: '(TMTSF)₂PF₆', y: 1980, tc: 0.9, f: 'other', a: 'organic', p: true, ref: 'jerome1980', note: 'first organic superconductor, at about 12 kbar' },
+    { n: 'UBe₁₃', y: 1983, tc: 0.9, f: 'other', a: 'heavy', ref: 'ott1983', note: 'heavy-fermion superconductivity in a uranium compound' },
+    { n: 'UPt₃', y: 1984, tc: 0.5, f: 'other', a: 'heavy', ref: 'stewart1984', note: 'superconductivity alongside spin fluctuations' },
+    { n: 'La–Ba–Cu–O', y: 1986, tc: 35, f: 'cuprate', a: 'cuprate', ref: 'bednorz1986', note: 'start of the cuprate era (onset)' },
+    { n: 'YBa₂Cu₃O₇', y: 1987, tc: 93, f: 'cuprate', a: 'rebco', ref: 'wu1987', note: 'first above liquid-nitrogen temperature' },
+    { n: 'Bi-2223', y: 1988, tc: 110, f: 'cuprate', a: 'cuprate', ref: 'maeda1988', note: 'first cuprate wires and tapes' },
+    { n: 'Tl-2223', y: 1988, tc: 125, f: 'cuprate', a: 'cuprate', ref: 'parkin1988' },
+    { n: 'Ba₀.₆K₀.₄BiO₃', y: 1988, tc: 30, f: 'conv', a: 'perovskite', ref: 'cava1988', note: 'near 30 K in a cubic perovskite with no copper' },
+    { n: 'κ-(BEDT-TTF)₂Cu(NCS)₂', y: 1988, tc: 10.4, f: 'other', a: 'organic', ref: 'urayama1988', note: 'organic superconductor above 10 K at ambient pressure' },
+    { n: 'Nd₁.₈₅Ce₀.₁₅CuO₄', y: 1989, tc: 24, f: 'cuprate', a: 'cuprate', ref: 'tokura1989', note: 'the electron-doped side of the cuprates' },
+    { n: 'K₃C₆₀', y: 1991, tc: 18, f: 'conv', a: 'fulleride', ref: 'hebard1991', note: 'potassium between C₆₀ balls; the pairing is attributed to vibrations inside the molecule' },
+    { n: 'Cs–Rb–C₆₀', y: 1991, tc: 33, f: 'conv', a: 'fulleride', ref: 'tanigaki1991', note: 'highest-Tc fulleride at ambient pressure' },
+    { n: 'Hg-1223', y: 1993, tc: 133, f: 'cuprate', a: 'hg1223', ref: 'schilling1993', note: 'ambient-pressure record until 2026' },
+    { n: 'Hg-1223 under pressure', y: 1994, tc: 164, f: 'cuprate', a: 'hg1223', p: true, ref: 'gao1994', note: 'at about 30 GPa' },
+    { n: 'Sr₂RuO₄', y: 1994, tc: 1, f: 'other', a: 'triplet', ref: 'maeno1994', note: 'layered perovskite without copper' },
+    { n: 'UGe₂', y: 2000, tc: 0.8, f: 'other', a: 'heavy', p: true, ref: 'saxena2000', note: 'superconducts inside a ferromagnet, at about 1.2 GPa' },
+    { n: 'MgB₂', y: 2001, tc: 39, f: 'conv', a: 'mgb2', ref: 'nagamatsu2001', note: 'highest conventional Tc at ambient pressure' },
+    { n: 'CeCoIn₅', y: 2001, tc: 2.3, f: 'other', a: 'heavy', ref: 'petrovic2001', note: 'the heavy-fermion 115 family this project screens against' },
+    { n: 'PuCoGa₅', y: 2002, tc: 18.5, f: 'other', a: 'heavy', ref: 'sarrao2002', note: 'highest Tc of any heavy-fermion superconductor' },
+    { n: 'Boron-doped diamond', y: 2004, tc: 4, f: 'conv', a: 'diamond', ref: 'ekimov2004', note: 'heavy boron doping turns an insulator into a superconductor' },
+    { n: 'CaC₆', y: 2005, tc: 11.5, f: 'conv', a: 'graphite', ref: 'weller2005', note: 'calcium between graphite sheets' },
+    { n: 'LaFeAsO₁₋ₓFₓ', y: 2008, tc: 26, f: 'other', a: 'iron', ref: 'kamihara2008', note: 'start of the iron-based era' },
+    { n: 'SmFeAsO₁₋ₓFₓ', y: 2008, tc: 55, f: 'other', a: 'iron', ref: 'ren2008', note: 'iron-based bulk record' },
+    { n: 'Ba₀.₆K₀.₄Fe₂As₂', y: 2008, tc: 38, f: 'other', a: 'iron', ref: 'rotter2008', note: 'the hole-doped 122 iron arsenides' },
+    { n: 'FeSe', y: 2008, tc: 8, f: 'other', a: 'iron', ref: 'hsu2008' },
+    { n: 'FeSe monolayer', y: 2012, tc: 65, f: 'other', a: 'iron', ref: 'wang2012', note: 'a single unit cell on SrTiO₃; the gap closes near 65 K, far above bulk FeSe' },
+    { n: 'H₃S', y: 2015, tc: 203, f: 'conv', a: 'hydride', p: true, ref: 'drozdov2015', note: 'at about 155 GPa' },
+    { n: 'Magic-angle graphene', y: 2018, tc: 1.7, f: 'other', a: 'magic', ref: 'cao2018', note: 'two sheets twisted by about 1.1°' },
+    { n: 'LaH₁₀', y: 2019, tc: 250, f: 'conv', a: 'hydride', p: true, ref: 'drozdov2019', note: 'at about 170 GPa' },
+    { n: 'Infinite-layer nickelate', y: 2019, tc: 15, f: 'other', a: 'nickelate', ref: 'li2019', note: 'Nd₀.₈Sr₀.₂NiO₂ films (onset)' },
+    { n: 'UTe₂', y: 2019, tc: 1.6, f: 'other', a: 'triplet', ref: 'ran2019', note: 'spin-triplet candidate' },
+    { n: 'CsV₃Sb₅', y: 2020, tc: 2.5, f: 'other', a: 'news-kagome', ref: 'ortiz2020', note: 'kagome metal' },
+    { n: 'CaH₆', y: 2022, tc: 215, f: 'conv', a: 'hydride', p: true, ref: 'ma2022', note: 'a clathrate calcium hydride at about 172 GPa' },
+    { n: 'La₃Ni₂O₇', y: 2023, tc: 80, f: 'other', a: 'nickelate', p: true, ref: 'sun2023', note: 'at about 14 GPa' },
+    { n: '(La,Pr)₃Ni₂O₇ films', y: 2025, tc: 40, f: 'other', a: 'nickelate', ref: 'zhou2025', note: 'onset at ambient pressure' },
+    { n: 'LaSc₂H₂₄', y: 2025, tc: 298, f: 'conv', a: 'hydride', p: true, pre: true, ref: 'song2025', note: 'onset 271–298 K at 195–266 GPa; preprint, not yet peer reviewed' },
+    { n: 'Nickelate films (2026)', y: 2026, tc: 63, f: 'other', a: 'nickelate', ref: 'zhou2026', note: 'onset at ambient pressure; zero resistance up to 37 K' },
+    { n: 'Hg-1223, pressure-quenched', y: 2026, tc: 151, f: 'cuprate', a: 'hg1223', ref: 'deng2026', note: 'onset; metastable state kept at ambient pressure' }
   ];
 
-  TC_RECORD = ['Mercury', 'Niobium', 'Nb₃Sn', 'Nb₃Ge', 'La–Ba–Cu–O', 'YBa₂Cu₃O₇', 'Bi-2223', 'Tl-2223', 'Hg-1223'];
+  TC_RECORD = ['Mercury', 'Niobium', 'V₃Si', 'Nb₃Sn', 'Nb₃Ge', 'La–Ba–Cu–O', 'YBa₂Cu₃O₇', 'Bi-2223', 'Tl-2223', 'Hg-1223'];
 
   FAMILIES = {
     conv: { label: 'Conventional (phonons)', cls: 'fam-1' },
@@ -44,13 +65,12 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
     other: { label: 'Other unconventional', cls: 'fam-3' }
   };
 
-  TC_LABELS = {
-    'YBa₂Cu₃O₇': [-8, -10, 'end'], 'Hg-1223': [-8, -10, 'end'], 'MgB₂': [8, -8, 'start'], 'H₃S': [-8, -10, 'end'],
-    'LaH₁₀': [-8, -10, 'end'], 'La₃Ni₂O₇': [-8, -10, 'end'], 'LaSc₂H₂₄': [-10, 16, 'end'], 'Hg-1223, pressure-quenched': [-8, -10, 'end'],
-    'Nb₃Ge': [-8, -10, 'end']
-  };
+  // Chart labels in the order they are placed; the chart drops any that would collide.
+  TC_LABELS = ['Mercury', 'YBa₂Cu₃O₇', 'Hg-1223', 'LaSc₂H₂₄', 'LaH₁₀', 'H₃S', 'CaH₆', 'MgB₂', 'Nb₃Ge',
+    'Hg-1223, pressure-quenched', 'SrTiO₃', 'K₃C₆₀', 'La₃Ni₂O₇', 'CeCu₂Si₂', 'CaC₆', '(TMTSF)₂PF₆',
+    'Magic-angle graphene', 'PbMo₆S₈', 'Nd₁.₈₅Ce₀.₁₅CuO₄', 'UPt₃'];
 
-  TC_LABELS_NARROW = { 'YBa₂Cu₃O₇': 1, 'H₃S': 1, 'LaH₁₀': 1, 'MgB₂': 1 };
+  TC_LABELS_NARROW = { 'Mercury': 1, 'YBa₂Cu₃O₇': 1, 'H₃S': 1, 'LaH₁₀': 1, 'MgB₂': 1 };
 
 
   THEORIES = [
@@ -155,6 +175,8 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
   ];
 
 
-  learn = { built: false, table: false, fam: 'all' };
+  // tcHidden: families switched off in the chart legend. tcYear/tcPlay/tcRaf drive the year sweep;
+  // tcSel is the material whose structure animation and paper the detail panel shows.
+  learn = { built: false, table: false, fam: 'all', tcHidden: {}, tcYear: 0, tcPlay: false, tcRaf: 0, tcLast: 0, tcSel: '' };
 
 };

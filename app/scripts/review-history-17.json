@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-04",
+      "purpose": "Release0.3.22: News & papers thumbnails gain 36 labelled subject schematics in this release: 25 in js/initialize/news-drawings.js (detector, diode, spin fluctuations, multigap, Zeeman, tunnelling gap, FFLO/PDW, TRSB, Kekule, optical cavity, accelerating cavity, transmission line, magnet, cable, flux ring, cold atoms, penetration depth and coherence length, interface, proximity, monolayer, heat flow, timeline, magnetism, competing orders, molecular spins) and 11 in the new js/initialize/news-looks.js (Zhang-Rice singlets, domain walls, superconducting dome, quasiparticle interference, crossed Andreev reflection, re-entrant field pocket, Hubbard cylinder, neural-network wavefunction, disorder, apical oxygen, d-wave gap), each with alt text stating what is not shown, and a neutral page-and-magnifier icon; newsArt picks them from headline subjects ahead of broad feed topics and fixes known mismatches; newsArtLook gives every article one look per session: a badge for a method or notice named in its own text (headline first, then facts that passed the negation and history checks, never one the theme already draws), element dots for a formula in its headline and a thermometer for a temperature in its headline, plus neutral colour-set, mirror and close-up variants assigned in turn so that no two thumbnails are drawn alike; digit-free capitals are no longer read as formulas and motif descriptions no longer name colours; every News & papers list now opens with five entries and a Show more button adds five at a time; a page shows each subject once while an article names another subject (newsArtChoices lists the subjects an article names in its headline, headline formula, feed topics, curated cards and specific summary wording; newsArtAssign settles them in page order and lets an article above move to another subject it names to make room), with second drawings for twelve busy subjects (parity plot, crystal graph, boosting, screening funnel, paper stack, two domes, single vortex, wire end modes, squeezed lattice, chiral domains, antiferromagnetic spin wave, tilted washboard); a repeat prefers a subject its own list does not show; a preprint and its journal version are listed once; summary asides, outlooks and the textbook zero-resistance definition no longer select a subject, and an electron-phonon feed tag is checked against the article words; feeds, content schema, models and results are unchanged",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup",
+        "fixed authenticated board routes and bounded integer pagination",
+        "actor-bound private request lifecycle, absolute session expiry and logout cleanup",
+        "only opaque actor hashes and numeric last-seen cursors may persist for unread state",
+        "Notes update dates come only from explicit per-entry update metadata",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
+        "news thumbnail badges come only from the article's own text after the negation and history checks; colour and framing variants carry no meaning",
+        "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one"
+      ],
+      "previous_css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
+      "functions_added": [
+        "newsArtLook",
+        "newsArtChoices",
+        "newsArtAssign"
+      ],
+      "functions_removed": [],
+      "previous_removed_functions": {},
+      "functions_changed": [
+        "newsArt",
+        "newsArticleDescribe",
+        "newsArticleFigure",
+        "miniCanvas",
+        "miniFrame",
+        "miniKick",
+        "buildPapers",
+        "renderAdvances",
+        "renderNews",
+        "feedItems",
+        "renderFeed",
+        "renderAIList"
+      ],
+      "initializers_changed": [
+        0,
+        94,
+        110,
+        131
+      ],
+      "previous_function_changes": {
+        "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca",
+        "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
+        "newsArticleFigure": "7325a250f2a0b34f8d82310df1325824394a0aef1e8c6c53672ea73a7d4de0a0",
+        "miniCanvas": "c06597b876eef6baebaba0ea2c096877073d4eb839124dcd4e67543c5873c778",
+        "miniFrame": "e8a0edb5c29576c9050bea23c540cfbff7d8f9c3b061567471b6f5f62ae9b7f3",
+        "miniKick": "7497222fad6455672ca786c27ed6b624495c6aaffb75b17aea8610c3b4066003",
+        "buildPapers": "7dbfabc8d5f0ae3fe7495fe1db4ec60a2f46c73c9d34e83e6644bcd977a43327",
+        "renderAdvances": "981010443fe904f01015408f37693e6f727416ad463a6b3ada45200b06ee7dea",
+        "renderNews": "8785a2bada0701d709f161e188929bf4dc1293a58a29e9f29272a856ca350ece",
+        "feedItems": "44cbf44ae60423c9c15413f53b114383fd03d8604c3ef1aae1a5f25e9209d575",
+        "renderFeed": "4a0cee3108bcaf4daf7b18ee18b802234145c2c3018d766e079d5d5b4cd7130d",
+        "renderAIList": "01c651ebdb2038d9251022fefd3e4783bc70ed19a9e2d163d35224e96f864bc6"
+      },
+      "previous_initialization_changes": {
+        "0": "aabbf5952eac498e1aa37831edd991acd2e9f5d9be20baa9b22152cb99f6a43a",
+        "94": "4dbcdaade7a35acbd2f17518bb4e7d3b72631efaf67de032acd32f54a571db83",
+        "110": "df312e73ae465c93592ff4220e5c6dcbfce1fd6989f19daf376d6edb355f83be",
+        "131": "c890d9668faf4d8d42856c7cb0305c554580570246158cdd675ae4244b6718f8"
+      },
+      "additional_source_sha256": {
+        "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
+        "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
+        "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
+        "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
+        "team-material.js": "c795117547162024a4f9f813310a6d871879e99e36f95a594cc25126dc524383",
+        "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
+        "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
+        "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
+      },
+      "initializers_added": [
+        96
+      ]
+    }
+  ]
+}

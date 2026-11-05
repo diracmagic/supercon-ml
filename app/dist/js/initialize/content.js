@@ -166,6 +166,32 @@ const initializeSuperconContent = function initializeSuperconContent() {
 
   REFS.nobel2025 = { t: 'The Nobel Prize in Physics 2025, NobelPrize.org', u: 'https://www.nobelprize.org/prizes/physics/2025/summary/' };
 
+  /* ---------- classic superconductors on the Tc chart (DOIs checked against Crossref, 5 Nov 2026) ---------- */
+  [
+    ['hardy1953', 'G. F. Hardy & J. K. Hulm, Phys. Rev. 89, 884 (1953)', '10.1103/PhysRev.89.884'],
+    ['schooley1964', 'J. F. Schooley, W. R. Hosler & M. L. Cohen, Phys. Rev. Lett. 12, 474 (1964)', '10.1103/PhysRevLett.12.474'],
+    ['chevrel1971', 'R. Chevrel, M. Sergent & J. Prigent, J. Solid State Chem. 3, 515 (1971)', '10.1016/0022-4596(71)90095-8'],
+    ['matthias1972', 'B. T. Matthias et al., Science 175, 1465 (1972)', '10.1126/science.175.4029.1465'],
+    ['sleight1975', 'A. W. Sleight, J. L. Gillson & P. E. Bierstedt, Solid State Commun. 17, 27 (1975)', '10.1016/0038-1098(75)90327-0'],
+    ['jerome1980', 'D. Jérome et al., J. Phys. Lett. 41, L95 (1980)', '10.1051/jphyslet:0198000410409500'],
+    ['ott1983', 'H. R. Ott et al., Phys. Rev. Lett. 50, 1595 (1983)', '10.1103/PhysRevLett.50.1595'],
+    ['stewart1984', 'G. R. Stewart et al., Phys. Rev. Lett. 52, 679 (1984)', '10.1103/PhysRevLett.52.679'],
+    ['cava1988', 'R. J. Cava et al., Nature 332, 814 (1988)', '10.1038/332814a0'],
+    ['urayama1988', 'H. Urayama et al., Chem. Lett. 17, 55 (1988)', '10.1246/cl.1988.55'],
+    ['tokura1989', 'Y. Tokura, H. Takagi & S. Uchida, Nature 337, 345 (1989)', '10.1038/337345a0'],
+    ['hebard1991', 'A. F. Hebard et al., Nature 350, 600 (1991)', '10.1038/350600a0'],
+    ['tanigaki1991', 'K. Tanigaki et al., Nature 352, 222 (1991)', '10.1038/352222a0'],
+    ['saxena2000', 'S. S. Saxena et al., Nature 406, 587 (2000)', '10.1038/35020500'],
+    ['petrovic2001', 'C. Petrovic et al., J. Phys.: Condens. Matter 13, L337 (2001)', '10.1088/0953-8984/13/17/103'],
+    ['sarrao2002', 'J. L. Sarrao et al., Nature 420, 297 (2002)', '10.1038/nature01212'],
+    ['ekimov2004', 'E. A. Ekimov et al., Nature 428, 542 (2004)', '10.1038/nature02449'],
+    ['weller2005', 'T. E. Weller et al., Nat. Phys. 1, 39 (2005)', '10.1038/nphys0010'],
+    ['emery2005', 'N. Emery et al., Phys. Rev. Lett. 95, 087003 (2005)', '10.1103/PhysRevLett.95.087003'],
+    ['rotter2008', 'M. Rotter, M. Tegel & D. Johrendt, Phys. Rev. Lett. 101, 107006 (2008)', '10.1103/PhysRevLett.101.107006'],
+    ['wang2012', 'Q.-Y. Wang et al., Chin. Phys. Lett. 29, 037402 (2012)', '10.1088/0256-307X/29/3/037402'],
+    ['ma2022', 'L. Ma et al., Phys. Rev. Lett. 128, 167001 (2022)', '10.1103/PhysRevLett.128.167001']
+  ].forEach(function (r) { REFS[r[0]] = { t: r[1], d: r[2] }; });
+
 
   // One entry per result. cards: the Theory & materials cards (by animation kind) it belongs to; 'field' = field-wide.
   RECENT = [

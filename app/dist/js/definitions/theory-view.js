@@ -24,10 +24,12 @@
     append(chartCard, [
       h('div', { class: 'card-head' },
         h('div', null, richText(h('h2'), 'Tc through the years'),
-          h('p', { text: 'Every dot is a superconductor; hover or tap for details and the original paper.' })),
+          h('p', { text: 'Every dot is a superconductor. Press play to watch them arrive year by year, and choose one to see its structure and the paper that reported it.' })),
         toggle),
       h('div', { class: 'tc-legend', id: 'tc-legend' }),
-      h('div', { class: 'chart', id: 'tc-chart' })
+      h('div', { class: 'tc-controls', id: 'tc-controls' }),
+      h('div', { class: 'chart', id: 'tc-chart' }),
+      h('div', { class: 'tc-detail', id: 'tc-detail', hidden: true })
     ]);
     var famBar = h('div', { class: 'fam-filter', role: 'group', 'aria-label': 'Filter materials by family', id: 'mat-filter' });
     [['all', 'All']].concat(Object.keys(FAMILIES).map(function (k) { return [k, FAMILIES[k].label]; })).forEach(function (f) {
@@ -145,13 +147,72 @@
   };
 
 
-  const renderTcChart = function renderTcChart() {
-    var host = $('#tc-chart'), legend = $('#tc-legend');
+  const tcStop = function tcStop() {
+    if (learn.tcRaf) cancelAnimationFrame(learn.tcRaf);
+    learn.tcRaf = 0; learn.tcLast = 0;
+  };
+
+  const tcEntry = function tcEntry(name) {
+    var found = null;
+    TC_DATA.forEach(function (d) { if (d.n === name) found = d; });
+    return found;
+  };
+
+  // The chosen dot keeps its ring without rebuilding the chart, so a running sweep is not disturbed.
+  const tcMark = function tcMark() {
+    var host = $('#tc-chart');
     if (!host) return;
+    Array.prototype.forEach.call(host.querySelectorAll('.tc-dot'), function (el) {
+      if (el.classList) el.classList.toggle('sel', el.getAttribute('data-tc') === learn.tcSel);
+    });
+  };
+
+  const renderTcDetail = function renderTcDetail() {
+    var el = $('#tc-detail');
+    if (!el) return;
+    var d = tcEntry(learn.tcSel);
+    clear(el);
+    el.hidden = !d;
+    if (!d) { miniPrune(); return; }
+    var r = d.ref ? REFS[d.ref] : null, url = r ? refUrl(r) : '', fam = FAMILIES[d.f];
+    var note = d.note ? d.note.charAt(0).toUpperCase() + d.note.slice(1) + '.' : '';
+    append(el, [
+      h('div', { class: 'tcd-head' },
+        h('div', null,
+          h('h3', { class: 'tcd-name', text: d.n }),
+          h('p', { class: 'tcd-meta' }, h('i', { class: 'key ' + fam.cls }), fam.label + ' · ' + d.y +
+            (d.p ? ' · under high pressure' : '') + (d.pre ? ' · preprint' : ''))),
+        h('button', { class: 'btn small', type: 'button', 'aria-label': 'Close these material details',
+          onclick: function () { learn.tcSel = ''; renderTcDetail(); tcMark(); } }, 'Close')),
+      h('div', { class: 'tcd-body' },
+        h('div', { class: 'tcd-art' },
+          d.a && MINI_DRAW[d.a] ? miniCanvas(d.a) : null,
+          h('p', { class: 'tcd-cap', text: 'Labelled schematic of an idealised structure, not measured coordinates.' })),
+        h('div', { class: 'tcd-text' },
+          richText(h('p', { class: 'tcd-tc' }), 'Tc ' + d.tc + ' K'),
+          note ? richText(h('p', { class: 'tcd-note' }), note) : null,
+          r ? h('p', { class: 'tcd-ref' }, h('span', { class: 'tcd-cite', text: r.t }),
+            url ? h('a', { class: 'tcd-link', href: url, text: 'Open the paper' }) : null)
+            : h('p', { class: 'tcd-ref' }, h('span', { class: 'tcd-cite', text: 'This entry cites no single reporting paper.' }))))
+    ]);
+    miniPrune(); miniKick();
+  };
+
+  const renderTcChart = function renderTcChart() {
+    var host = $('#tc-chart'), legend = $('#tc-legend'), bar = $('#tc-controls');
+    if (!host) return;
+    tcStop();
     clear(host); clear(legend);
+    if (bar) clear(bar);
     var tg = $('#tc-toggle');
     clear(tg); tg.appendChild(document.createTextNode(learn.table ? 'Chart' : 'Table'));
-    Object.keys(FAMILIES).forEach(function (k) { legend.appendChild(h('span', { class: 'lg' }, h('i', { class: FAMILIES[k].cls }), FAMILIES[k].label)); });
+    Object.keys(FAMILIES).forEach(function (k) {
+      var on = !learn.tcHidden[k];
+      legend.appendChild(h('button', { class: 'lg lg-btn', type: 'button', 'aria-pressed': on ? 'true' : 'false',
+        title: (on ? 'Hide ' : 'Show ') + FAMILIES[k].label,
+        onclick: function () { learn.tcHidden[k] = on; renderTcChart(); } },
+        h('i', { class: FAMILIES[k].cls }), FAMILIES[k].label));
+    });
     legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-ring' }), 'Under high pressure'));
     legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-step' }), 'Ambient-pressure record'));
     if (learn.table) {
@@ -169,54 +230,171 @@
       return;
     }
     var W = Math.max(300, Math.round(host.getBoundingClientRect().width || 900));
-    var narrow = W < 560, Hh = narrow ? 300 : 380;
-    var m = { l: 46, r: narrow ? 12 : 24, t: 16, b: 34 }, pw = W - m.l - m.r, ph = Hh - m.t - m.b;
-    var X0 = 1905, X1 = 2030, YMAX = 320;
+    var narrow = W < 560, Hh = narrow ? 330 : 410;
+    var m = { l: 46, r: narrow ? 14 : 26, t: 28, b: 38 }, pw = W - m.l - m.r, ph = Hh - m.t - m.b;
+    // Tc spans three decades once the low-Tc classics are included, so the temperature axis is logarithmic.
+    var X0 = 1906, X1 = 2031, YMIN = 0.2, YMAX = 330, LAST = 2026;
+    var lo = Math.log(YMIN), span = Math.log(YMAX) - lo;
     function X(y) { return m.l + (y - X0) / (X1 - X0) * pw; }
-    function Y(v) { return m.t + ph - Math.min(v, YMAX) / YMAX * ph; }
+    function Y(v) { return m.t + ph - (Math.log(Math.max(YMIN, Math.min(YMAX, v))) - lo) / span * ph; }
     var svg = s('svg', { class: 'plot', width: W, height: Hh, viewBox: '0 0 ' + W + ' ' + Hh, role: 'img', tabindex: '0',
-      'aria-label': 'Critical temperature of notable superconductors by year of discovery, from mercury at 4.2 K in 1911 to hydrides above 200 K under pressure' });
-    [50, 100, 150, 200, 250, 300].forEach(function (v) {
-      svg.appendChild(s('line', { x1: m.l, x2: m.l + pw, y1: Y(v), y2: Y(v), class: 'grid-line' }));
-      svg.appendChild(s('text', { x: m.l - 8, y: Y(v) + 4, 'text-anchor': 'end', class: 'tick' }, String(v)));
+      'aria-label': 'Critical temperature of ' + TC_DATA.length + ' notable superconductors against the year they were reported, on a logarithmic temperature axis, ' +
+        'from strontium titanate at 0.3 K and mercury at 4.2 K in 1911 to cuprates above liquid nitrogen and hydrides above 200 K under pressure. ' +
+        'Use the left and right arrow keys to move along the dots and Enter to open the structure and paper of one.' });
+    var defs = s('defs', {}), clip = s('clipPath', { id: 'tc-sweep-clip' });
+    var clipRect = s('rect', { x: m.l - 7, y: 0, width: pw + 14, height: Hh });
+    clip.appendChild(clipRect); defs.appendChild(clip); svg.appendChild(defs);
+    [0.3, 1, 3, 10, 30, 100, 300].forEach(function (v) {
+      var major = v === 1 || v === 10 || v === 100;
+      svg.appendChild(s('line', { x1: m.l, x2: m.l + pw, y1: Y(v), y2: Y(v), class: major ? 'grid-line' : 'grid-line faint' }));
+      if (major || !narrow) svg.appendChild(s('text', { x: m.l - 8, y: Y(v) + 4, 'text-anchor': 'end', class: 'tick' }, String(v)));
     });
-    svg.appendChild(s('text', { x: m.l - 8, y: Y(0) + 4, 'text-anchor': 'end', class: 'tick' }, '0'));
-    svg.appendChild(s('line', { x1: m.l, x2: m.l + pw, y1: Y(0), y2: Y(0), class: 'axis-line' }));
+    svg.appendChild(s('line', { x1: m.l, x2: m.l + pw, y1: m.t + ph, y2: m.t + ph, class: 'axis-line' }));
     (narrow ? [1920, 1960, 2000] : [1910, 1930, 1950, 1970, 1990, 2010, 2030]).forEach(function (y) {
       svg.appendChild(s('text', { x: X(y), y: m.t + ph + 18, 'text-anchor': 'middle', class: 'tick' }, String(y)));
     });
-    svg.appendChild(s('text', { x: m.l - 8, y: m.t + 2, 'text-anchor': 'end', class: 'tick' }, 'K'));
-    [[77, 'liquid nitrogen 77 K'], [295, 'room temperature']].forEach(function (rl) {
-      svg.appendChild(s('line', { x1: m.l, x2: m.l + pw, y1: Y(rl[0]), y2: Y(rl[0]), class: 'ref-line', 'stroke-dasharray': '4 4' }));
-      svg.appendChild(s('text', { x: m.l + 6, y: Y(rl[0]) - 5, class: 'ref-label' }, rl[1]));
+    svg.appendChild(s('text', { x: m.l - 8, y: m.t - 10, 'text-anchor': 'end', class: 'tick' }, 'K'));
+    svg.appendChild(s('text', { x: m.l + pw, y: m.t - 10, 'text-anchor': 'end', class: 'tick' }, 'logarithmic temperature axis'));
+    // Everything a material label must not cover: the axis notes, the reference captions and the record staircase.
+    var guards = [{ x: m.l + pw - 160, y: m.t - 22, w: 160, h: 16 }];
+    [[4.2, 'liquid helium 4.2 K', 1], [77, 'liquid nitrogen 77 K', 0], [295, 'room temperature', 0]].forEach(function (rl) {
+      var ly = Y(rl[0]), right = rl[2], tw = rl[1].length * 5.6 + 6;
+      var tx = right ? m.l + pw - 6 - tw : m.l + 6, ty = ly - m.t < 16 ? ly + 13 : ly - 5;
+      svg.appendChild(s('line', { x1: m.l, x2: m.l + pw, y1: ly, y2: ly, class: 'ref-line', 'stroke-dasharray': '4 4' }));
+      svg.appendChild(s('text', { x: right ? m.l + pw - 6 : m.l + 6, y: ty, 'text-anchor': right ? 'end' : 'start', class: 'ref-label' }, rl[1]));
+      guards.push({ x: tx, y: ty - 11, w: tw, h: 14 });
     });
     var rec = TC_DATA.filter(function (d) { return TC_RECORD.indexOf(d.n) >= 0; });
     var path = '';
     rec.forEach(function (d, i) {
       path += (i ? 'H' + X(d.y).toFixed(1) + 'V' : 'M' + X(d.y).toFixed(1) + ' ') + Y(d.tc).toFixed(1);
     });
-    path += 'H' + X(2026).toFixed(1);
-    svg.appendChild(s('path', { d: path, class: 'record-line' }));
-    var q = TC_DATA.filter(function (d) { return d.n === 'Hg-1223, pressure-quenched'; })[0];
-    if (q) svg.appendChild(s('path', { d: 'M' + X(2026).toFixed(1) + ' ' + Y(133).toFixed(1) + 'V' + Y(q.tc).toFixed(1), class: 'record-line', 'stroke-dasharray': '3 3' }));
-    var pts = TC_DATA.map(function (d) { return { d: d, x: X(d.y), y: Y(d.tc) }; });
-    pts.forEach(function (p) {
-      var cls = 'tc-dot ' + FAMILIES[p.d.f].cls + (p.d.p ? ' hp' : '') + (p.d.pre ? ' pre' : '');
-      svg.appendChild(s('circle', { cx: p.x, cy: p.y, r: 5, class: cls }));
+    path += 'H' + X(LAST).toFixed(1);
+    rec.forEach(function (d, i) {
+      var x2 = i + 1 < rec.length ? X(rec[i + 1].y) : X(LAST);
+      guards.push({ x: X(d.y), y: Y(d.tc) - 4, w: Math.max(1, x2 - X(d.y)), h: 8 });
+    });
+    svg.appendChild(s('path', { d: path, class: 'record-line', 'clip-path': 'url(#tc-sweep-clip)' }));
+    var q = tcEntry('Hg-1223, pressure-quenched');
+    if (q) svg.appendChild(s('path', { d: 'M' + X(LAST).toFixed(1) + ' ' + Y(133).toFixed(1) + 'V' + Y(q.tc).toFixed(1),
+      class: 'record-line', 'stroke-dasharray': '3 3', 'clip-path': 'url(#tc-sweep-clip)' }));
+    var pts = TC_DATA.filter(function (d) { return !learn.tcHidden[d.f]; }).map(function (d) {
+      return { d: d, x: X(d.y), y: Y(d.tc), el: null, tx: null };
     });
     pts.forEach(function (p) {
-      var lab = TC_LABELS[p.d.n];
-      if (!lab || (narrow && !TC_LABELS_NARROW[p.d.n])) return;
-      var text = p.d.n === 'Hg-1223, pressure-quenched' ? 'Hg-1223 (2026)' : p.d.n + (p.d.pre ? ' (preprint)' : '');
-      svg.appendChild(s('text', { x: p.x + lab[0], y: p.y + lab[1], 'text-anchor': lab[2], class: 'tc-label' }, text));
+      p.el = s('circle', { cx: p.x, cy: p.y, r: 5, 'data-tc': p.d.n,
+        class: 'tc-dot ' + FAMILIES[p.d.f].cls + (p.d.p ? ' hp' : '') + (p.d.pre ? ' pre' : '') + (p.d.n === learn.tcSel ? ' sel' : '') });
+      svg.appendChild(p.el);
     });
+    // Labels are placed around their dot in the first free position, so none covers a dot or another label.
+    var taken = pts.map(function (p) { return { x: p.x - 6, y: p.y - 6, w: 12, h: 12 }; }).concat(guards);
+    function free(r) {
+      if (r.x < m.l + 2 || r.x + r.w > m.l + pw - 2 || r.y < 6 || r.y + r.h > m.t + ph - 2) return false;
+      for (var i = 0; i < taken.length; i++) {
+        var q = taken[i];
+        if (r.x < q.x + q.w && q.x < r.x + r.w && r.y < q.y + q.h && q.y < r.y + r.h) return false;
+      }
+      return true;
+    }
+    TC_LABELS.forEach(function (name) {
+      if (narrow && !TC_LABELS_NARROW[name]) return;
+      var p = null;
+      pts.forEach(function (c) { if (c.d.n === name) p = c; });
+      if (!p) return;
+      var text = name === 'Hg-1223, pressure-quenched' ? 'Hg-1223 (2026)' : name + (p.d.pre ? ' (preprint)' : '');
+      var w = text.length * 6.1 + 4, hgt = 13, spot = null;
+      [[9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end'], [0, -11, 'middle'], [0, 18, 'middle']]
+        .forEach(function (o) {
+          if (spot) return;
+          var lx = p.x + o[0], rx = o[2] === 'start' ? lx : o[2] === 'end' ? lx - w : lx - w / 2;
+          var r = { x: rx, y: p.y + o[1] - hgt / 2, w: w, h: hgt };
+          if (free(r)) spot = { o: o, r: r };
+        });
+      if (!spot) return;
+      taken.push(spot.r);
+      p.tx = s('text', { x: p.x + spot.o[0], y: p.y + spot.o[1] + 4, 'text-anchor': spot.o[2], class: 'tc-label' }, text);
+      svg.appendChild(p.tx);
+    });
+    var sweepLine = s('line', { y1: m.t, y2: m.t + ph, class: 'tc-sweep', visibility: 'hidden' });
+    var sweepYear = s('text', { y: m.t - 5, 'text-anchor': 'middle', class: 'tc-sweep-year', visibility: 'hidden' }, '');
+    svg.appendChild(sweepLine); svg.appendChild(sweepYear);
     var ring = s('circle', { r: 9, class: 'hover-dot', visibility: 'hidden' });
     svg.appendChild(ring);
     var tip = h('div', { class: 'tooltip tc-tip', hidden: true });
     host.appendChild(svg);
     host.appendChild(tip);
+
+    /* ---------- the year sweep ---------- */
+    if (!learn.tcYear) { learn.tcYear = motionOK() ? X0 : LAST; learn.tcPlay = motionOK(); }
+    var readout = h('span', { class: 'tc-readout', role: 'status' });
+    var playBtn = h('button', { class: 'btn small tc-play', type: 'button' });
+    var slider = h('input', { type: 'range', class: 'tc-range', min: String(X0), max: String(LAST), step: '1',
+      value: String(Math.round(learn.tcYear)), 'aria-label': 'Show superconductors reported up to this year' });
+    function recordBy(year) {
+      var best = 0;
+      rec.forEach(function (d) { if (d.y <= year && !d.p && d.tc > best) best = d.tc; });
+      return best;
+    }
+    function apply() {
+      var yr = learn.tcYear, done = yr >= LAST;
+      clipRect.setAttribute('width', Math.max(0, X(yr) - (m.l - 7)).toFixed(1));
+      pts.forEach(function (p) {
+        var k = Math.max(0, Math.min(1, (yr - p.d.y + 1.4) / 1.4));
+        p.el.setAttribute('opacity', k.toFixed(3));
+        p.el.setAttribute('r', (2.2 + 2.8 * k).toFixed(2));
+        if (p.tx) p.tx.setAttribute('opacity', (k * k).toFixed(3));
+      });
+      sweepLine.setAttribute('visibility', done ? 'hidden' : 'visible');
+      sweepYear.setAttribute('visibility', done ? 'hidden' : 'visible');
+      if (!done) {
+        sweepLine.setAttribute('x1', X(yr).toFixed(1)); sweepLine.setAttribute('x2', X(yr).toFixed(1));
+        sweepYear.setAttribute('x', Math.min(Math.max(X(yr), m.l + 16), m.l + pw - 16).toFixed(1));
+        sweepYear.textContent = String(Math.round(yr));
+      }
+      if (slider.value !== String(Math.round(yr))) slider.value = String(Math.round(yr));
+      var best = recordBy(yr), seen = 0;
+      pts.forEach(function (p) { if (p.d.y <= yr) seen++; });
+      clear(readout);
+      readout.appendChild(document.createTextNode(done ? seen + ' superconductors shown' :
+        Math.round(yr) + ' · ' + seen + ' shown · ambient-pressure record ' + (best ? best + ' K' : 'none yet')));
+    }
+    function syncPlay() {
+      clear(playBtn);
+      var done = learn.tcYear >= LAST && !learn.tcPlay;
+      playBtn.appendChild(glyph(learn.tcPlay ? 'pause' : done ? 'refresh' : 'play', 'tc-play-icon'));
+      playBtn.appendChild(document.createTextNode(learn.tcPlay ? 'Pause' : done ? 'Replay' : 'Play'));
+      playBtn.setAttribute('aria-label', learn.tcPlay ? 'Pause the year-by-year animation' :
+        done ? 'Play the year-by-year animation again from 1911' : 'Play the year-by-year animation');
+    }
+    function step(ts) {
+      learn.tcRaf = 0;
+      if (!svg.isConnected || view !== 'learn' || !learn.tcPlay) { learn.tcLast = 0; return; }
+      if (document.hidden) { learn.tcLast = 0; learn.tcRaf = requestAnimationFrame(step); return; }
+      var dt = learn.tcLast ? Math.min(0.08, (ts - learn.tcLast) / 1000) : 0;
+      learn.tcLast = ts;
+      learn.tcYear = Math.min(LAST, learn.tcYear + dt * 9.5);
+      apply();
+      if (learn.tcYear >= LAST) { learn.tcPlay = false; learn.tcLast = 0; syncPlay(); return; }
+      learn.tcRaf = requestAnimationFrame(step);
+    }
+    function run() { tcStop(); if (learn.tcPlay) learn.tcRaf = requestAnimationFrame(step); }
+    playBtn.addEventListener('click', function () {
+      if (learn.tcPlay) learn.tcPlay = false;
+      else { if (learn.tcYear >= LAST) learn.tcYear = X0; learn.tcPlay = true; }
+      syncPlay(); apply(); run();
+    });
+    slider.addEventListener('input', function () {
+      learn.tcPlay = false; tcStop();
+      learn.tcYear = Math.max(X0, Math.min(LAST, Number(slider.value) || X0));
+      syncPlay(); apply();
+    });
+    if (bar) append(bar, [playBtn, slider, readout]);
+    syncPlay(); apply(); run();
+
+    /* ---------- hover, keyboard and selection ---------- */
     var order = pts.slice().sort(function (a, b) { return a.d.y - b.d.y || a.d.tc - b.d.tc; }), cur = -1;
     function show(p) {
+      if (!p) return;
       cur = order.indexOf(p);
       ring.setAttribute('cx', p.x); ring.setAttribute('cy', p.y); ring.setAttribute('visibility', 'visible');
       clear(tip);
@@ -226,29 +404,43 @@
         richText(h('span', { class: 'tip-row' }), 'Tc ' + p.d.tc + ' K · ' + p.d.y + (p.d.p ? ' · high pressure' : '')),
         h('span', { class: 'tip-row' }, h('i', { class: 'key ' + FAMILIES[p.d.f].cls }), FAMILIES[p.d.f].label),
         p.d.note ? richText(h('span', { class: 'tip-row' }), p.d.note) : null,
-        r ? h('span', { class: 'tip-row tip-ref', text: r.t }) : null
+        r ? h('span', { class: 'tip-row tip-ref', text: r.t }) : null,
+        h('span', { class: 'tip-row tip-hint', text: 'Choose it for its structure and paper' })
       ]);
       tip.hidden = false;
       var tw = Math.min(260, W - 16);
       tip.style.maxWidth = tw + 'px';
       tip.style.left = Math.min(Math.max(p.x, tw / 2 + 4), W - tw / 2 - 4) + 'px';
-      tip.style.top = (p.y < 120 ? p.y + 150 : p.y) + 'px';
+      tip.style.top = (p.y < 130 ? p.y + 150 : p.y) + 'px';
     }
     function hide() { cur = -1; ring.setAttribute('visibility', 'hidden'); tip.hidden = true; }
+    function pick(p) {
+      if (!p) return;
+      learn.tcSel = p.d.n;
+      tcMark(); renderTcDetail();
+      var panel = $('#tc-detail');
+      if (panel && panel.scrollIntoView) panel.scrollIntoView({ block: 'nearest' });
+    }
     function nearest(evt) {
       var box = svg.getBoundingClientRect();
       var px = (evt.clientX - box.left) * (W / box.width), py = (evt.clientY - box.top) * (Hh / box.height);
       var best = null, bd = 28 * 28;
-      pts.forEach(function (p) { var dd = (p.x - px) * (p.x - px) + (p.y - py) * (p.y - py); if (dd < bd) { bd = dd; best = p; } });
+      pts.forEach(function (p) {
+        if (p.d.y > learn.tcYear) return;
+        var dd = (p.x - px) * (p.x - px) + (p.y - py) * (p.y - py);
+        if (dd < bd) { bd = dd; best = p; }
+      });
       return best;
     }
     svg.addEventListener('pointermove', function (e) { var p = nearest(e); if (p) show(p); else hide(); });
-    svg.addEventListener('pointerdown', function (e) { var p = nearest(e); if (p) show(p); else hide(); });
+    svg.addEventListener('pointerdown', function (e) { var p = nearest(e); if (p) { show(p); pick(p); } else hide(); });
     svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
     svg.addEventListener('blur', hide);
     svg.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { show(order[Math.min(order.length - 1, cur + 1)]); e.preventDefault(); }
       else if (e.key === 'ArrowLeft') { show(order[Math.max(0, cur < 0 ? 0 : cur - 1)]); e.preventDefault(); }
+      else if (e.key === 'Enter' || e.key === ' ') { if (cur >= 0) { pick(order[cur]); e.preventDefault(); } }
       else if (e.key === 'Escape') hide();
     });
+    renderTcDetail();
   };
