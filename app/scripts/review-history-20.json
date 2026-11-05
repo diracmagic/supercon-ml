@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-05",
+      "purpose": "Release0.3.25: every material on the Tc chart now carries its name and the names twinkle instead of being permanently placed, so all 48 can be read without crowding: four or five fade in and out at a time (two on a phone), staggered starts and uneven lifetimes keep them out of step, the rotation moves on one name at a time with a cooldown so each has its turn before any repeats, among the next few candidates the one furthest from the names already up is chosen, a name appears only once its year has arrived and the chosen material's name is pinned while its panel is open; with reduced motion the chart keeps the previous fixed set of names and no fading; the chart's frame loop now also drives the names, so it runs while the view is open, restarts when the view is returned to and when the year slider is moved, and still stops when the view is left; the year axis is marked every decade with a half-decade tick between, and every twenty years on a narrow screen; the data, the models and the results are unchanged",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup",
+        "fixed authenticated board routes and bounded integer pagination",
+        "actor-bound private request lifecycle, absolute session expiry and logout cleanup",
+        "only opaque actor hashes and numeric last-seen cursors may persist for unread state",
+        "Notes update dates come only from explicit per-entry update metadata",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
+        "news thumbnail badges come only from the article's own text after the negation and history checks; colour and framing variants carry no meaning",
+        "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one",
+        "every Tc, year, family and pressure flag on the chart is reported as the cited paper states it, and every added entry carries a Crossref-checked DOI",
+        "the new structure animations are labelled schematics with alt text naming what is not shown: no measured coordinates, measured vibration or pairing mechanism is claimed",
+        "the year sweep honours reduced motion, pauses while the page is hidden and cancels its frame loop when the view is left or the chart is rebuilt",
+        "a material's own panel shows only its own structure: no other material's lattice appears in it",
+        "the UTe2 drawing uses only U-U distances its cited sources report, changes nothing but the viewing angle, marks the indicative Te(1) positions as such and depicts no pairing symmetry",
+        "the twinkling names are decorative repeats of what the table, the tooltip and the detail panel already say, so they are hidden from assistive technology and the chart keeps its own description",
+        "a name is never shown for a material the year sweep has not reached yet"
+      ],
+      "previous_css_sha256": "9b93a08a1f4f384b00982ba8ad974a7b9f7a6560f98b8366c08ab258a459c1b6",
+      "functions_added": [],
+      "functions_removed": [],
+      "previous_removed_functions": [],
+      "functions_changed": [
+        "renderTcChart",
+        "setView"
+      ],
+      "initializers_changed": [
+        0
+      ],
+      "previous_function_changes": {
+        "renderTcChart": "c9e4edecd6928209d147df5eadcb16bca53971d674eb1ee678a9a4b8497e61d5",
+        "setView": "0e1000e0272ea187f4f509025bf64e050ab6c9158198ceb5ea06d7eabe8bef4c"
+      },
+      "previous_initialization_changes": {
+        "0": "a9a64a9522a9fdf424470777e180434052f5a8c4708aa20ed5d775b78faaa7ec"
+      }
+    }
+  ]
+}
