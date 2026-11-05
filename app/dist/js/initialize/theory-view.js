@@ -72,6 +72,167 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
 
   TC_LABELS_NARROW = { 'Mercury': 1, 'YBa₂Cu₃O₇': 1, 'H₃S': 1, 'LaH₁₀': 1, 'MgB₂': 1 };
 
+  // The five that opened an era: their names stay on the chart and their dots keep pulsing.
+  TC_LANDMARK = ['Mercury', 'La–Ba–Cu–O', 'YBa₂Cu₃O₇', 'MgB₂', 'H₃S'];
+
+  // Background for the detail panel: what the material is, why it mattered and what it left behind.
+  TC_BG = {
+    'Mercury': 'Heike Kamerlingh Onnes had liquefied helium in Leiden three years earlier, which gave him the only laboratory in ' +
+      'the world cold enough to ask what a metal does near absolute zero. In 1911 the resistance of his frozen mercury ' +
+      'thread did not level off but vanished, and he soon named the new state superconductivity. Everything else on ' +
+      'this chart descends from that one measurement.',
+    'Niobium': 'Of all the elements, niobium holds its superconducting state to the highest temperature at ordinary pressure. ' +
+      'That is why it is still the metal of choice whenever the part has to be made of a pure element, as accelerator ' +
+      'cavities are, and both classic magnet conductors, NbTi and Nb₃Sn, are built on it.',
+    'V₃Si': 'The first superconductor found in the A15 structure, where chains of transition-metal atoms run along the edges ' +
+      'of a cube. A15 compounds went on to hold the temperature record for three decades, so this one matters as the ' +
+      'start of a long run rather than as a high point of its own.',
+    'Nb₃Sn': 'Another A15 compound, and the one that turned superconductivity into a technology: it keeps superconducting in ' +
+      'magnetic fields strong enough to be useful, which pure elements do not. It is brittle and has to be reacted into ' +
+      'its final form after the coil is wound, yet it is still the conductor of the highest-field research magnets and ' +
+      'of the ITER coils.',
+    'NbTi': 'A ductile niobium–titanium alloy with a lower transition temperature than Nb₃Sn, but one that can be drawn into ' +
+      'kilometres of wire and wound like copper. That practicality, not its temperature, is why it is the ' +
+      'superconductor inside most hospital MRI scanners and in the LHC dipole magnets.',
+    'SrTiO₃': 'The first oxide found to superconduct, and still one of the strangest: it does so with far fewer mobile ' +
+      'electrons than a superconductor is usually thought to need. It returned to prominence decades later as the ' +
+      'substrate that lifts the gap of an FeSe monolayer far above anything bulk FeSe shows.',
+    'PbMo₆S₈': 'A Chevrel phase, built from Mo₆S₈ clusters rather than simple close-packed layers. Its transition temperature is ' +
+      'unremarkable, but it survives very large magnetic fields, which kept it in contention for high-field magnet wire ' +
+      'long after hotter superconductors had appeared.',
+    'Nb₃Ge': 'The last A15 compound to hold the record, and it held it from 1973 until 1986. Thirteen years without progress ' +
+      'hardened a widespread expectation that superconductivity could not survive far above twenty or thirty kelvin, ' +
+      'which is part of why the cuprates landed as hard as they did.',
+    'BaPb₁₋ₓBiₓO₃': 'A bismuth perovskite with no copper and no magnetic ions, superconducting well above what its low carrier ' +
+      'density would suggest. It is one of the oxides that made searching oxides look worthwhile at all, and Bednorz ' +
+      'and Müller cite exactly this kind of compound as what pointed them towards copper oxides.',
+    'CeCu₂Si₂': 'Frank Steglich’s group found superconductivity in a cerium compound whose conduction electrons behave as though ' +
+      'they were hundreds of times heavier than free electrons. Magnetic moments were supposed to destroy pairing, so ' +
+      'whatever holds these pairs together cannot be the ordinary phonon mechanism. Unconventional superconductivity ' +
+      'begins here as a subject.',
+    '(TMTSF)₂PF₆': 'The first organic superconductor: a salt of flat organic molecules stacked into conducting chains, ' +
+      'superconducting under about a gigapascal of pressure. It put carbon-based molecular solids on this chart at all, ' +
+      'and opened the quasi-one-dimensional Bechgaard salts.',
+    'UBe₁₃': 'The second heavy-fermion superconductor, and the one that made the first look like a family rather than an ' +
+      'accident. Its behaviour below the transition does not match a simple isotropic energy gap, early evidence that ' +
+      'the pairs form in a state of lower symmetry.',
+    'UPt₃': 'UPt₃ has more than one superconducting phase in its temperature–field diagram, separated by sharp boundaries. A ' +
+      'single-component order parameter cannot produce that, so it became the textbook case for multi-component, ' +
+      'unconventional pairing.',
+    'La–Ba–Cu–O': 'Georg Bednorz and Alex Müller at IBM Zurich were searching oxides rather than metals, against the prevailing ' +
+      'view, and in 1986 found superconductivity in a layered barium–lanthanum copper oxide above the long-standing A15 ' +
+      'ceiling. The result was reproduced within months and won the 1987 Nobel Prize in Physics. It set off the fastest ' +
+      'burst of activity the field has ever seen.',
+    'YBa₂Cu₃O₇': 'Replacing lanthanum with yttrium pushed the transition above 77 K, the boiling point of liquid nitrogen — a ' +
+      'coolant that costs less than milk, rather than liquid helium. That single step took superconductivity out of ' +
+      'specialised cryogenic laboratories, and YBCO is still the compound behind today’s coated-conductor tapes.',
+    'Bi-2223': 'A bismuth–strontium–calcium copper oxide with three CuO₂ layers in each block. The chemistry is awkward, but the ' +
+      'powder can be packed into silver tubes and drawn out, which made it the first high-temperature superconductor ' +
+      'sold as practical wire.',
+    'Tl-2223': 'The thallium member of the three-layer cuprates, and the record holder until the mercury compounds arrived five ' +
+      'years later. Thallium is toxic and volatile, so this material counted for more as a step in the search than as ' +
+      'something anyone wanted to build with.',
+    'Ba₀.₆K₀.₄BiO₃': 'A cubic bismuth oxide with no copper, no layers and no magnetic ions, yet superconducting above anything the ' +
+      'conventional metals of its day could reach. It is the standing argument that a relatively high transition ' +
+      'temperature in an oxide does not by itself require copper.',
+    'κ-(BEDT-TTF)₂Cu(NCS)₂': 'A layered organic charge-transfer salt sitting close to a Mott insulating state, with a phase diagram that reads ' +
+      'like a miniature of the cuprates’. Its energy scales are small and its response to pressure is large, which ' +
+      'makes it a convenient tunable model for correlated superconductivity.',
+    'Nd₁.₈₅Ce₀.₁₅CuO₄': 'Most cuprates are doped by taking electrons away; this one is doped by adding them. Superconductivity on the ' +
+      'electron-doped side showed that the cuprate phase diagram has two branches, and comparing them remains one of ' +
+      'the sharpest tests any theory of these materials has to pass.',
+    'K₃C₆₀': 'Putting potassium between C₆₀ molecules turns an insulating molecular crystal first into a metal and then into a ' +
+      'superconductor. The carriers live on the carbon balls themselves, so the fullerides are a rare molecular solid ' +
+      'with a transition temperature in the same range as the A15 metals.',
+    'Cs–Rb–C₆₀': 'Larger alkali ions push the C₆₀ molecules further apart, which narrows the conduction band and raises the ' +
+      'transition temperature. This mixed caesium–rubidium fulleride was the highest of the family at ordinary ' +
+      'pressure, and the trend it traced is the clearest handle anyone has on tuning these materials.',
+    'Hg-1223': 'The mercury cuprates reached the highest transition temperature ever measured at ordinary pressure, and more ' +
+      'than thirty years later nothing has beaten it. Everything plotted above this point needs either high pressure or ' +
+      'a caveat.',
+    'Hg-1223 under pressure': 'Squeezing the same mercury cuprate raises its transition substantially, and this measurement stood as the record ' +
+      'for any material of any kind until the hydrides. Pressure shortens bonds without changing the chemistry, which ' +
+      'is why it is the first thing anyone tries on a promising compound.',
+    'Sr₂RuO₄': 'A layered perovskite with the same structure as the parent of the first cuprates, but with ruthenium where the ' +
+      'copper would be. It was studied for decades as a likely spin-triplet superconductor; a 2019 ' +
+      'nuclear-magnetic-resonance measurement overturned the central evidence for that picture, so its pairing state is ' +
+      'an open question rather than a settled one.',
+    'UGe₂': 'Superconductivity and ferromagnetism were long thought to exclude each other, since the magnetism inside the ' +
+      'material should tear ordinary pairs apart. Under pressure UGe₂ does both at once, which is hard to explain ' +
+      'unless the two electrons of a pair have parallel rather than opposite spins.',
+    'MgB₂': 'Magnesium diboride had been sitting on chemistry shelves since the 1950s before anyone thought to measure it ' +
+      'cold; when Akimitsu’s group did, in 2001, it superconducted at nearly double the previous conventional record. ' +
+      'It is phonon-driven and unusual in having two distinct energy gaps, it is cheap, and it is now wound into ' +
+      'magnets for MRI and other instruments.',
+    'CeCoIn₅': 'The hottest heavy-fermion superconductor known at ordinary pressure when it was found, and layered, which makes ' +
+      'it far easier to study than the earlier members of the family. It sits beside a magnetic quantum critical point, ' +
+      'the clearest sign that magnetism rather than phonons binds its pairs.',
+    'PuCoGa₅': 'Chemically the plutonium cousin of CeCoIn₅, but superconducting at about eight times the temperature, far above ' +
+      'any other heavy fermion. It is difficult to work with because the plutonium decays and damages its own crystal ' +
+      'from the inside as the sample ages.',
+    'Boron-doped diamond': 'Diamond is the textbook insulator; drive enough boron into it and it becomes a metal, and then a superconductor. ' +
+      'The transition temperature is low, but the result established heavily doped wide-gap semiconductors as a ' +
+      'legitimate place to look.',
+    'CaC₆': 'Graphite is already layered, and slipping calcium atoms between the sheets donates electrons into them and turns ' +
+      'the stack superconducting. It has the highest transition temperature of the graphite intercalation compounds, ' +
+      'and it is the closest classical relative of the twisted-graphene work that came later.',
+    'LaFeAsO₁₋ₓFₓ': 'Hideo Hosono’s group was working on transparent conductors, not superconductors, when fluorine-doped LaFeAsO ' +
+      'superconducted at a temperature no iron compound was expected to reach. Iron is magnetic, so this was as ' +
+      'unwelcome to theory as the cuprates had been, and it opened the second large family of high-temperature ' +
+      'superconductors.',
+    'SmFeAsO₁₋ₓFₓ': 'Swapping lanthanum for a smaller rare earth compresses the structure and lifts the transition sharply; samarium ' +
+      'gives the highest value reached in any bulk iron-based superconductor. Walking along the rare-earth series is ' +
+      'one of the cleanest chemical trends in the subject.',
+    'Ba₀.₆K₀.₄Fe₂As₂': 'The 122 iron arsenides can be grown as large, clean single crystals, which the oxide-bearing 1111 compounds ' +
+      'cannot. That is why this hole-doped compound, rather than the one that started the family, became the material ' +
+      'most of the experimental work was done on.',
+    'FeSe': 'The simplest iron-based superconductor there is: iron and selenium in stacked layers with nothing in between. ' +
+      'Its transition temperature is modest as grown but rises several-fold under pressure, and far more than that in a ' +
+      'single layer, which makes it the favourite test case for what actually controls pairing in this family.',
+    'FeSe monolayer': 'A film one unit cell thick, grown on strontium titanate, behaves nothing like bulk FeSe: its superconducting gap ' +
+      'survives to a far higher temperature. The substrate is doing something — transferring charge, straining the ' +
+      'film, or lending it phonons — and deciding which is an open problem in interface superconductivity.',
+    'H₃S': 'Compressing hydrogen sulfide to around a million and a half atmospheres makes it superconduct above 200 K, the ' +
+      'first material of any kind to do so. The pairing is conventional and phonon-driven: the idea that hydrogen-rich ' +
+      'compounds squeezed hard enough would behave like metallic hydrogen was predicted first and confirmed afterwards, ' +
+      'which is rare in this field.',
+    'Magic-angle graphene': 'Stack two graphene sheets and rotate one by about a degree, and the moiré pattern flattens the electronic bands ' +
+      'until the electrons interact more strongly than they move. One device can then be tuned by a gate voltage from ' +
+      'insulating to superconducting, so the whole phase diagram can be swept in a single clean sample.',
+    'LaH₁₀': 'A lanthanum hydride in which hydrogen forms a cage around each metal atom, superconducting close to room ' +
+      'temperature but only at pressures like those deep inside the Earth. It is the clearest confirmation of the ' +
+      'clathrate-hydride predictions, and the reason the search has moved to ternary hydrides that might survive at ' +
+      'lower pressure.',
+    'Infinite-layer nickelate': 'Nickel sits next to copper in the periodic table, and people had been trying to build a cuprate analogue out of ' +
+      'it for decades. Thin films of strontium-doped NdNiO₂, with oxygen chemically stripped away to leave flat NiO₂ ' +
+      'planes, finally did superconduct — so far as films, not as bulk crystals.',
+    'UTe₂': 'A uranium compound whose superconductivity survives magnetic fields far beyond what ordinary spin-singlet pairs ' +
+      'tolerate, which is why it is studied as a spin-triplet candidate. Crystal quality changes the results ' +
+      'considerably, and the pairing state is not settled.',
+    'CsV₃Sb₅': 'A metal whose vanadium atoms form a kagome lattice of corner-sharing triangles, a geometry that frustrates ' +
+      'magnetism and produces unusual electronic bands. It superconducts at a low temperature while also showing charge ' +
+      'order, and how the two are related is actively disputed.',
+    'CaH₆': 'A calcium hydride with hydrogen caged around each calcium atom, proposed by computational structure searching in ' +
+      '2012 and made in the laboratory a decade later. It is a clean example of how this corner of the field now works: ' +
+      'the computer proposes the compound, the diamond anvil cell checks it.',
+    'La₃Ni₂O₇': 'A bilayer nickelate that superconducts above the boiling point of liquid nitrogen when compressed, far hotter ' +
+      'than the infinite-layer nickelate films. It made nickelates the most active new direction in high-Tc research ' +
+      'and sent everyone looking for a way to reach the same state without the pressure.',
+    '(La,Pr)₃Ni₂O₇ films': 'Growing the bilayer nickelate on a substrate with a smaller lattice squeezes it in the plane, which does some of ' +
+      'what hydrostatic pressure does. That is how superconductivity in this family was first brought to ordinary ' +
+      'pressure, though so far with a lower onset than under compression.',
+    'LaSc₂H₂₄': 'A preprint reporting a room-temperature onset in a scandium-bearing lanthanum hydride under extreme pressure. It ' +
+      'has not been peer reviewed or independently reproduced, and claims in this corner of the field have been ' +
+      'retracted before, so it is plotted here as a claim and not as a result.',
+    'Nickelate films (2026)': 'The strained-film route to ambient-pressure nickelate superconductivity, pushed further. The onset and the ' +
+      'temperature at which the resistance actually reaches zero are far apart in these films, which usually points to ' +
+      'an inhomogeneous sample rather than one clean transition.',
+    'Hg-1223, pressure-quenched': 'Pressure raises the transition temperature of the mercury cuprate; the open question has always been whether the ' +
+      'squeezed state can be kept once the pressure is let off. This work reports holding a metastable high-temperature ' +
+      'state at ordinary pressure, which, if it stands, matters more for what it says about the mechanism than for the ' +
+      'number itself.'
+  };
+
 
   THEORIES = [
     { anim: 'london', name: 'London equations', year: '1935', who: 'Fritz & Heinz London',
