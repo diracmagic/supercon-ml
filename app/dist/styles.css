@@ -340,6 +340,7 @@ h1, h2, h3, p { margin: 0; }
 .tc-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
 .tc-legend i.lg-ring { border: 2px solid var(--ink-2); background: var(--surface); }
 .tc-legend i.lg-step { width: 16px; height: 2px; border-radius: 1px; background: var(--ink-2); }
+.tc-legend i.lg-step.dash { background: none; border-top: 2px dashed var(--ink-2); height: 0; border-radius: 0; }
 i.fam-1, .key.fam-1 { background: var(--series-1); }
 i.fam-2, .key.fam-2 { background: var(--series-2); }
 i.fam-3, .key.fam-3 { background: var(--series-3); }
