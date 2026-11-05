@@ -2,7 +2,7 @@
   "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
-  "css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
+  "css_sha256": "9b93a08a1f4f384b00982ba8ad974a7b9f7a6560f98b8366c08ab258a459c1b6",
   "scope_checks": {
     "top_level_this": false,
     "top_level_return": false,
@@ -442,11 +442,15 @@
     "miniKick": "dc97b33d3b0b7017a0a0fcdacaa97fcc8aa25af7bf02c414a7aeca4f1a61d9e3",
     "miniFrame": "3d4689ef99717ccd46be853bed9a3a4edc767618bf1d57f801d36a33a8bb4f9e",
     "richText": "bf8290778526c81e6699f7a5699cecb67e5e2d6f05eada39b11791ab3a2a7332",
-    "buildLearn": "3a95cbd1736ec72870ff49b2de9c014a0e284c49d4acf88f90d7a1fb602c6b3a",
+    "buildLearn": "34c755566788098c3f31f6c9512868477aaa6e332dae5cc4c9422526fc7a38a4",
     "latestList": "f6174e0847417d7a2a6a7c7aacf11bdac91c7f4d97fc1b706bbf819e226b0579",
     "nobelList": "9575f063c495d60e92fab3a7e7946b1341d92fd1ca43e3bf6bd42fcd42f94515",
     "renderMaterials": "37065aacd5f3a43306fd92730443e9d0b6c095003dd99f9898a8c1f2b0ef1246",
-    "renderTcChart": "34ccb99dd8f0abcc89968ed1611c9ff0d582f733a7e5f9fd55d668247fa75657",
+    "tcStop": "c8257379caf3d4e069b460cafead4d231e1602a434c6949cfe975af4bbafebfc",
+    "tcEntry": "66e6173a4a39ea9567b81957e14fd558830b20fe519164d3f778caaada4713f2",
+    "tcMark": "ff31866875375a8dace90a9cae48186fad67196d09d50a83e43bf6b5952515b6",
+    "renderTcDetail": "0559d974056052ed71a963e52eac7ba311fc46d8ca9e9482d95c44cc52034606",
+    "renderTcChart": "c9e4edecd6928209d147df5eadcb16bca53971d674eb1ee678a9a4b8497e61d5",
     "feedSources": "5062cab0f6475f9bb2215f1c0e6f10c5a4b3ed082ba0075111c257cad3dd62df",
     "andList": "493d94564d20115c8ba90a741e1634a264cb33d6f7b955914bd58a06db8fa89d",
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
@@ -602,7 +606,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "5715a9f23032bfc36da187f3b8874ec572cc9537a4179af25c4dd572f0b8dcbb",
+    "93693de4db0e8cc9ad2b7f83e4c4eeea082bdfa73f47c63bba8c84b48a5c5b7e",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -636,6 +640,7 @@
     "8a94a8b937456021b8c37a0b3fd649fb154369de328ed9d9f9a90fe18fa60405",
     "88d1dcde4b28e127b7bc985a0e508228f4e3b01fd551d01835fdbb19309f2d24",
     "27be302db89a99af68d693fb39be3bbd5b9619649ec3a823c1c93c8efed1854f",
+    "e0895dea775168e7c1b49c877ccf4de1d3c4d3492b8260a72ed04696742dfdf5",
     "6e3497b37c424dde7c5d2951f08edd2ef93170880ca7e5c7dac1e7956a555075",
     "c21f54bf13f6b3e527bffc487d38dd29505616ce8b278979a672fc20477e8165",
     "4750d7f87f9a15dba92095cd71c2b03eb4ee8dc4856416e68517fc0a25694e92",
@@ -693,7 +698,8 @@
     "45a218bb020e80ae28c8d3425b3533a565ca73b5e42c81895352cbcd4034d850",
     "c5fd2616474319977fb9e202447a9b3a96e875d172b89fbfae4b660d3a027485",
     "1f052bbebba762d9165ba49fb52c301ba48721e98b00947075d43978764b5eb5",
-    "2e0249a6b72fb9ef6112f6a2110b97c8d8b80156f28deab716e2a183174f97fb",
+    "088ad86db18695c59d4f457dec92ee954da7823b023857c5fc592d0befcdfd6d",
+    "1aa7ea3ef7c151c14038819296d8a04067003ee276f4d9ad87cece17b352e642",
     "671b018385222ea678f14f0298ac56d9e34630a74af34bd3d638cc21ec441abc",
     "51f5aac9acc34abd27da94b5e604fdf3eb104079fb934be5d2d98dde5d0d2fc3",
     "5e6ce403d4b67b48517f402aee16b3f8c9c174485a30ee915e5d2b5ff83f1a3a",
@@ -702,15 +708,15 @@
     "d721dba6f4810e19f56e720b38b34219a938edd98b3d6a4b6c78c2ff0ea39fb5",
     "c80dca0462243ef6f13586e90ee65bb8836fa33ecaba1ace42b9a0f7ae3bc2ab",
     "9100652666e8292731175f4f4046aaa2faf9663b3d4888084bf17d4999733d5f",
-    "66bc5818f2d21f1328b61d9341789dd6ab81cccc301ce0a697b512c770910f4e",
-    "4d76f4eb6eab0443e4316ca5a17919fc34c493525d153e1c7a66820af9c0989d",
+    "07aa832c65b6651b7cfe576bbe4043136775a2c2fa6d29c3d3c6435e1017b89b",
+    "266a3e7c0f96df6750e9d9a4cd7ae2ee89043dd92601d47d1d57a4a15bb34418",
     "98e7d95f55dc2f7341e5c3aaa01291f9355494b94188b2b1e8373d8cb12e1b6a",
-    "e543e894c514b0179fe8eb164f77850466bb8b21be043deb73a4bbf3428bb5fd",
-    "485a8bf0b9bdbeef8e723cb558ac4d50ad3dfcc23e53c8b3f9138f76b181abda",
+    "3aa02ffd58ac3c6e43924bfd4894df5d84b527d91683fe9ac8496df002620c65",
+    "600d5ad17906d8615b0da58fdf02a84a7eba539965c172e2129cfc9899bf8ed1",
     "1a218ce034a7e77917633ac149a6017ab32cd7a73deccf8d281110c31173aabd",
     "c987802ecbfc5ce4f63e50ba018102fc787af62560ad9f91d0b2420b2d0e645d",
     "7da3c1c570bf6542972451e158b6aeb7ad5a8c5e3f026f418d067c4af205cbf6",
-    "d7d4d2e0b6518ddcc735aceb0209abc592bf8c7185d052c1af45339787335597",
+    "c2629b366e8d0ad6305a2fc2b789d7a21cb032a02b12688a08dc653ffe84ad51",
     "82ebf90b32996ff30dd491fef0b56ca6ff0310040cbf97a3a8319d4f71a1a6e5",
     "ab184963ee9ec8858ba1df3ac962b3207266eb38d10dd9b7067da6191bfdc3cb",
     "aeb3cbf709fb4340b793026541cef68cb8f653616f9bc9a4c0991a2f7a74cead",
@@ -858,8 +864,8 @@
     "initialization": "8e4e0a8ac6baf038aae01f9e1ffdd3511623ae2eaa0f048b5af620cb4da5b0a6"
   },
   "reviewed_revision": {
-    "reviewed_on": "2026-11-04",
-    "purpose": "Release0.3.22: News & papers thumbnails gain 36 labelled subject schematics in this release: 25 in js/initialize/news-drawings.js (detector, diode, spin fluctuations, multigap, Zeeman, tunnelling gap, FFLO/PDW, TRSB, Kekule, optical cavity, accelerating cavity, transmission line, magnet, cable, flux ring, cold atoms, penetration depth and coherence length, interface, proximity, monolayer, heat flow, timeline, magnetism, competing orders, molecular spins) and 11 in the new js/initialize/news-looks.js (Zhang-Rice singlets, domain walls, superconducting dome, quasiparticle interference, crossed Andreev reflection, re-entrant field pocket, Hubbard cylinder, neural-network wavefunction, disorder, apical oxygen, d-wave gap), each with alt text stating what is not shown, and a neutral page-and-magnifier icon; newsArt picks them from headline subjects ahead of broad feed topics and fixes known mismatches; newsArtLook gives every article one look per session: a badge for a method or notice named in its own text (headline first, then facts that passed the negation and history checks, never one the theme already draws), element dots for a formula in its headline and a thermometer for a temperature in its headline, plus neutral colour-set, mirror and close-up variants assigned in turn so that no two thumbnails are drawn alike; digit-free capitals are no longer read as formulas and motif descriptions no longer name colours; every News & papers list now opens with five entries and a Show more button adds five at a time; a page shows each subject once while an article names another subject (newsArtChoices lists the subjects an article names in its headline, headline formula, feed topics, curated cards and specific summary wording; newsArtAssign settles them in page order and lets an article above move to another subject it names to make room), with second drawings for twelve busy subjects (parity plot, crystal graph, boosting, screening funnel, paper stack, two domes, single vortex, wire end modes, squeezed lattice, chiral domains, antiferromagnetic spin wave, tilted washboard); a repeat prefers a subject its own list does not show; a preprint and its journal version are listed once; summary asides, outlooks and the textbook zero-resistance definition no longer select a subject, and an electron-phonon feed tag is checked against the article words; feeds, content schema, models and results are unchanged",
+    "reviewed_on": "2026-11-05",
+    "purpose": "Release0.3.23: Tc through the years gains 20 more classic superconductors (V3Si, SrTiO3, PbMo6S8, BaPb1-xBixO3, (TMTSF)2PF6, UBe13, UPt3, Ba0.6K0.4BiO3, kappa-(BEDT-TTF)2Cu(NCS)2, Nd1.85Ce0.15CuO4, K3C60, Cs-Rb-C60, UGe2, CeCoIn5, PuCoGa5, boron-doped diamond, CaC6, Ba0.6K0.4Fe2As2, the FeSe monolayer and CaH6), each with a Crossref-checked DOI, so the chart holds 48 entries; the temperature axis becomes logarithmic because Tc now spans 0.3 K to 298 K, with liquid-helium, liquid-nitrogen and room-temperature reference lines; the chart plays year by year with a play, pause, replay and year slider, a sweep line and a readout of how many are shown and the ambient-pressure record so far; the legend filters families; each dot opens a detail panel with the material's structure animation, its note and a link to the reporting paper; six new labelled schematics (perovskite, Chevrel cluster, molecular stacks, fulleride, intercalated graphite, boron-doped diamond) join the existing ones, each with alt text saying what is not shown; V3Si joins the ambient-pressure record staircase; models, candidate lists and results are unchanged",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -902,68 +908,49 @@
       "same original miniature animations and reduced-motion lifecycle",
       "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
       "news thumbnail badges come only from the article's own text after the negation and history checks; colour and framing variants carry no meaning",
-      "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one"
+      "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one",
+      "every Tc, year, family and pressure flag on the chart is reported as the cited paper states it, and every added entry carries a Crossref-checked DOI",
+      "the new structure animations are labelled schematics with alt text naming what is not shown: no measured coordinates, measured vibration or pairing mechanism is claimed",
+      "the year sweep honours reduced motion, pauses while the page is hidden and cancels its frame loop when the view is left or the chart is rebuilt"
     ],
     "previous_css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
     "functions_added": [
-      "newsArtLook",
-      "newsArtChoices",
-      "newsArtAssign"
+      "tcStop",
+      "tcEntry",
+      "tcMark",
+      "renderTcDetail"
     ],
     "functions_removed": [],
-    "previous_removed_functions": {},
+    "previous_removed_functions": [],
     "functions_changed": [
-      "newsArt",
-      "newsArticleDescribe",
-      "newsArticleFigure",
-      "miniCanvas",
-      "miniFrame",
-      "miniKick",
-      "buildPapers",
-      "renderAdvances",
-      "renderNews",
-      "feedItems",
-      "renderFeed",
-      "renderAIList"
+      "buildLearn",
+      "renderTcChart"
     ],
     "initializers_changed": [
       0,
-      94,
-      110,
-      131
+      92,
+      102,
+      103,
+      105,
+      106,
+      110
     ],
     "previous_function_changes": {
-      "newsArt": "4a3009822bb34e7b2e77bf962a86d6ca31ab67a1085b5df0b861cb1fb1ff88ca",
-      "newsArticleDescribe": "bf8733795304ab66071b7689d3d2d7bf66837f37a87aae8d0894a7d456f34ee6",
-      "newsArticleFigure": "7325a250f2a0b34f8d82310df1325824394a0aef1e8c6c53672ea73a7d4de0a0",
-      "miniCanvas": "c06597b876eef6baebaba0ea2c096877073d4eb839124dcd4e67543c5873c778",
-      "miniFrame": "e8a0edb5c29576c9050bea23c540cfbff7d8f9c3b061567471b6f5f62ae9b7f3",
-      "miniKick": "7497222fad6455672ca786c27ed6b624495c6aaffb75b17aea8610c3b4066003",
-      "buildPapers": "7dbfabc8d5f0ae3fe7495fe1db4ec60a2f46c73c9d34e83e6644bcd977a43327",
-      "renderAdvances": "981010443fe904f01015408f37693e6f727416ad463a6b3ada45200b06ee7dea",
-      "renderNews": "8785a2bada0701d709f161e188929bf4dc1293a58a29e9f29272a856ca350ece",
-      "feedItems": "44cbf44ae60423c9c15413f53b114383fd03d8604c3ef1aae1a5f25e9209d575",
-      "renderFeed": "4a0cee3108bcaf4daf7b18ee18b802234145c2c3018d766e079d5d5b4cd7130d",
-      "renderAIList": "01c651ebdb2038d9251022fefd3e4783bc70ed19a9e2d163d35224e96f864bc6"
+      "buildLearn": "3a95cbd1736ec72870ff49b2de9c014a0e284c49d4acf88f90d7a1fb602c6b3a",
+      "renderTcChart": "34ccb99dd8f0abcc89968ed1611c9ff0d582f733a7e5f9fd55d668247fa75657"
     },
     "previous_initialization_changes": {
-      "0": "aabbf5952eac498e1aa37831edd991acd2e9f5d9be20baa9b22152cb99f6a43a",
-      "94": "4dbcdaade7a35acbd2f17518bb4e7d3b72631efaf67de032acd32f54a571db83",
-      "110": "df312e73ae465c93592ff4220e5c6dcbfce1fd6989f19daf376d6edb355f83be",
-      "131": "c890d9668faf4d8d42856c7cb0305c554580570246158cdd675ae4244b6718f8"
-    },
-    "additional_source_sha256": {
-      "team-auth.js": "e51863907c8c07f6555afe360fda35cdb7cc5091dac4cf5b703aedb59878e034",
-      "team-auth.css": "34b887d1fd80f6359a5dc248ea95500f02241efd38d2655f2f5dbc3c29ad1a50",
-      "team-account.js": "3b606b81df6716c9b9a263d9c4e42fbd94d7f6d6fdb249abf60c4fd89261c58b",
-      "team-account.css": "f162c89ca106f1da1fcf4f883a93168e2432f640c6935fa87621e1a1488cbfc0",
-      "team-material.js": "c795117547162024a4f9f813310a6d871879e99e36f95a594cc25126dc524383",
-      "team-material.css": "d4048e482c7dc416b5baeb0531f0130578f313492b5fc32654985d68ca070266",
-      "team-board.js": "6f1353ca02952d4e7318e83fe0099dfd4fa325d92ad217c25d091f454d811603",
-      "team-board.css": "ace23e9d6bb35a2d648d4c3094b53ed675a715d06eb6dac6c9f55a4915ef331f"
+      "0": "5715a9f23032bfc36da187f3b8874ec572cc9537a4179af25c4dd572f0b8dcbb",
+      "92": "671b018385222ea678f14f0298ac56d9e34630a74af34bd3d638cc21ec441abc",
+      "102": "98e7d95f55dc2f7341e5c3aaa01291f9355494b94188b2b1e8373d8cb12e1b6a",
+      "103": "e543e894c514b0179fe8eb164f77850466bb8b21be043deb73a4bbf3428bb5fd",
+      "105": "1a218ce034a7e77917633ac149a6017ab32cd7a73deccf8d281110c31173aabd",
+      "106": "c987802ecbfc5ce4f63e50ba018102fc787af62560ad9f91d0b2420b2d0e645d",
+      "110": "ab184963ee9ec8858ba1df3ac962b3207266eb38d10dd9b7067da6191bfdc3cb"
     },
     "initializers_added": [
-      96
+      34,
+      93
     ]
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -1064,7 +1051,12 @@
       "path": "review-history-16.json",
       "sha256": "b9d092ad3e85e7f85a26c9d36b31b35750e83fb1ac94a41d894199cb348fd3bf",
       "count": 1
+    },
+    {
+      "path": "review-history-17.json",
+      "sha256": "e738363478b5e999f8aead45e2ceb0a1906c4d35d90d1079c8420bc544a1d77d",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 21
+  "reviewed_revision_count": 22
 }
