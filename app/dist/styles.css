@@ -770,3 +770,13 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .method-sources p { margin: 5px 0; font-size: 13px; line-height: 1.55; }
 .method-sources .method-scope { color: var(--ink); font-weight: 600; }
 .method-sources .method-relation { color: var(--ink-2); font-size: 12px; }
+
+/* v0.3.26: a dot glows with its own name, and the names that opened an era stay put */
+/* A soft filled glow, not a ring: an open ring already means "under high pressure" on this chart. */
+.plot .tc-halo { stroke: none; pointer-events: none; }
+.plot .tc-halo.fam-1 { fill: var(--series-1); }
+.plot .tc-halo.fam-2 { fill: var(--series-2); }
+.plot .tc-halo.fam-3 { fill: var(--series-3); }
+.plot .tc-label.mark { font-weight: 700; stroke-width: 3.5px; }
+.tcd-bg { margin: 7px 0 0; font-size: 13px; line-height: 1.65; color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .plot .tc-halo { display: none; } }
