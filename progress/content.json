@@ -1,6 +1,6 @@
 { "contact": {"service": "web3forms", "key": "faf83c4e-b4d7-4414-9bce-30a992bf46e8"},
   "schema": 1,
-  "updated": "2026-11-04",
+  "updated": "2026-11-05",
   "about": "Curated recent advances for the Supercon Progress app. Each entry needs a reference in refs (a DOI, or an https link for preprints and project pages). Entries are merged with the ones built into the app: an entry with the same ref replaces the built-in one, and refs listed in hide are removed. cards: the Theory & materials cards it belongs to (their animation ids, e.g. zr, mott, stripes, dwave, phase), or ai for the AI × superconductors view. kind: experiment, theory, computation or news. Texts are summaries in our own words.",
   "refs": {
     "ye2026": {
@@ -86,9 +86,54 @@
     "kawamura2026": {
       "t": "M. Kawamura et al., Phys. Rev. Lett. 137, 196001 (2026)",
       "d": "10.1103/lrhl-j9bt"
+    },
+    "buccheri2026": {
+      "t": "F. Buccheri et al., Phys. Rev. Lett. (2026)",
+      "d": "10.1103/qp2j-p4xh"
+    },
+    "maccari2026": {
+      "t": "I. Maccari et al., Phys. Rev. Lett. (2026)",
+      "d": "10.1103/djwx-lqsx"
+    },
+    "room2026": {
+      "t": "T. Rõõm et al., Phys. Rev. Lett. 137, 176001 (2026)",
+      "d": "10.1103/wrds-99zb"
     }
   },
   "recent": [
+    {
+      "d": "2026-11",
+      "k": "theory",
+      "cards": [
+        "topo",
+        "bcs"
+      ],
+      "ref": "buccheri2026",
+      "h": "Bulk phonons and weak screening can make Fermi-arc surface superconductivity nodal",
+      "x": "A continuum theory of time-reversal-invariant Weyl semimetals shows that Fermi-arc surface electrons can pair through phonons, mostly bulk ones for PtBi₂-like parameters, while the bulk itself stays normal. Pairing within a single arc favours a nodeless gap, whereas pairing between the two disconnected arcs gives a gap that changes sign along the arc. When the surface screens Coulomb repulsion poorly, the nodeless channel is suppressed and only the sign-changing one survives, with nodes at the arc centres, in line with ARPES on PtBi₂, where arc superconductivity appears below about 14 K. The authors propose tuning the screening, for example with a surface coating or gating, to engineer the critical temperature and the size and symmetry of the gap."
+    },
+    {
+      "d": "2026-10",
+      "k": "theory",
+      "cards": [
+        "magic",
+        "moire"
+      ],
+      "ref": "maccari2026",
+      "h": "Twist-angle disorder can make a fully gapped moiré superconductor look nodal",
+      "x": "Elasticity theory shows that even a small density of random lattice defects leaves moiré graphene with twist-angle variations that are correlated over long distances, decaying only logarithmically. Modelling twisted bilayer graphene as a network of superconducting islands whose local Tc, up to about 4 K, follows the local twist angle, the authors find that the BKT jump in the superfluid stiffness smears into a percolative crossover and that a fully gapped s-wave state can show a roughly linear-in-T drop in stiffness at low temperature, the signature usually read as nodal pairing. They argue that existing stiffness data on twisted graphene should be re-examined, and propose the real part of the microwave conductivity, which keeps a residual at low temperature when correlated disorder matters, as a diagnostic."
+    },
+    {
+      "d": "2026-10",
+      "k": "experiment",
+      "cards": [
+        "iron",
+        "gl"
+      ],
+      "ref": "room2026",
+      "h": "Circularly polarized terahertz light tells electron and hole vortex-core states apart in FeTe₁₋ₓSeₓ",
+      "x": "Terahertz Faraday-rotation spectroscopy on 40 nm FeTe₁₋ₓSeₓ films (x = 0.15 and 0.38, Tc about 13 K) resolves transitions between the Caroli–de Gennes–Matricon bound states inside vortex cores. Because electron-like and hole-like states absorb light of opposite circular polarization, the lifetime, vortex mass, coherence length and upper critical field of each band can be obtained separately. The fitted resonances lie at 0.36 THz for electrons and 0.99 THz for holes at x = 0.15 and at 0.89 and 0.72 THz at x = 0.38, while the electron-to-hole carrier ratio in the cores falls from about 4:1 to about 1:1. The analysis treats the two condensates as independent and leaves coupling between them to future work."
+    },
     {
       "d": "2026-11",
       "k": "theory",
