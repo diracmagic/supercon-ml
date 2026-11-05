@@ -192,7 +192,8 @@
       h('div', { class: 'tcd-body' },
         h('div', { class: 'tcd-art' },
           d.a && MINI_DRAW[d.a] ? miniCanvas(d.a) : null,
-          h('p', { class: 'tcd-cap', text: 'Labelled schematic of an idealised structure, not measured coordinates.' })),
+          h('p', { class: 'tcd-cap',
+            text: (d.a && MINI_CAP[d.a]) || 'Labelled schematic of an idealised structure, not measured coordinates.' })),
         h('div', { class: 'tcd-text' },
           richText(h('p', { class: 'tcd-tc' }), 'Tc ' + d.tc + ' K'),
           note ? richText(h('p', { class: 'tcd-note' }), note) : null,
@@ -221,6 +222,9 @@
     });
     legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-ring' }), 'Under high pressure'));
     legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-step' }), 'Ambient-pressure record'));
+    // The dashed rise above the record was unlabelled, which left it reading as part of the record.
+    if (!learn.table && !learn.tcHidden.cuprate)
+      legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-step dash' }), 'Quenched from pressure (onset)'));
     if (learn.table) {
       var tbl = h('table', { class: 'tbl' });
       var thead = h('thead', null, h('tr', null, h('th', { text: 'Material' }), h('th', { text: 'Year' }), richText(h('th'), 'Tc (K)'), h('th', { text: 'Family' }), h('th', { text: 'Notes' }), h('th', { text: 'Reference' })));
@@ -285,9 +289,12 @@
       guards.push({ x: X(d.y), y: Y(d.tc) - 4, w: Math.max(1, x2 - X(d.y)), h: 8 });
     });
     svg.appendChild(s('path', { d: path, class: 'record-line', 'clip-path': 'url(#tc-sweep-clip)' }));
-    var q = tcEntry('Hg-1223, pressure-quenched');
-    if (q) svg.appendChild(s('path', { d: 'M' + X(LAST).toFixed(1) + ' ' + Y(133).toFixed(1) + 'V' + Y(q.tc).toFixed(1),
-      class: 'record-line', 'stroke-dasharray': '3 3', 'clip-path': 'url(#tc-sweep-clip)' }));
+    // The quenched onset rises above the standing ambient record, so it is drawn as a dashed
+    // rise from that record rather than as a step of it. It starts at the record's own Tc.
+    var q = tcEntry('Hg-1223, pressure-quenched'), top = rec.length ? rec[rec.length - 1] : null;
+    if (q && top && !learn.tcHidden[q.f])
+      svg.appendChild(s('path', { d: 'M' + X(LAST).toFixed(1) + ' ' + Y(top.tc).toFixed(1) + 'V' + Y(q.tc).toFixed(1),
+        class: 'record-line', 'stroke-dasharray': '3 3', 'clip-path': 'url(#tc-sweep-clip)' }));
     var pts = TC_DATA.filter(function (d) { return !learn.tcHidden[d.f]; }).map(function (d) {
       return { d: d, x: X(d.y), y: Y(d.tc), el: null, tx: null, halo: null, mark: false };
     });
