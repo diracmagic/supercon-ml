@@ -32,6 +32,30 @@ const initializeSuperconTheoryDrawings2 = function initializeSuperconTheoryDrawi
     diamond: 'A carbon network with tetrahedral bonds, in which a few sites are replaced by boron. Each boron leaves a hole that hops away through the carbon bonds, which is how heavy boron doping turns diamond into a metal and then a superconductor. The lattice is a flat schematic of a three-dimensional structure; the boron sites and hole paths are illustrative, not measured positions.'
   };
 
+  // One line under each drawing in the Tc chart's detail panel, saying what that drawing is.
+  // Not every one of them is a structure: some are a measurement, a device or a plot, and the
+  // panel used to call all of them structures. Anything not listed here falls back to the
+  // structure wording in renderTcDetail.
+  MINI_CAP = {
+    onnes: 'Schematic of the 1911 measurement, not the recorded data.',
+    magnet: 'Labelled schematic of a solenoid magnet, not a measured winding or field.',
+    perovskite: 'Labelled schematic of an idealised structure; the tilt is exaggerated and is not a measured vibration.',
+    chevrel: 'Labelled schematic of an idealised cluster, not measured coordinates.',
+    heavy: 'Schematic of the heavy-electron mechanism, not measured trajectories.',
+    organic: 'Labelled schematic of an idealised structure; the hopping shown is illustrative, not measured.',
+    cuprate: 'Labelled schematic of idealised planes; the pairs shown are illustrative, not measured.',
+    rebco: 'Labelled schematic of a coated-conductor tape, not measured layer thicknesses.',
+    fulleride: 'Labelled schematic of an idealised structure; the vibration and hopping are illustrative, not measured.',
+    hg1223: 'Schematic of pressure and Tc over time, not the recorded data.',
+    mgb2: 'Labelled schematic of an idealised structure showing one phonon, neither of them measured.',
+    diamond: 'Labelled schematic of an idealised structure; the boron sites and hole paths are illustrative, not measured.',
+    graphite: 'Labelled schematic of an idealised structure; the spacing and the motion are schematic, not measured.',
+    iron: 'Labelled schematic of an idealised structure; the spin pattern is illustrative, not measured.',
+    hydride: 'Labelled schematic from calculated coordinates, not a measured structure or trajectory.',
+    magic: 'Schematic of resistance against filling, not measured data.',
+    nickelate: 'Labelled schematic of an idealised structure with one proposed pairing scenario, not measured coordinates or an established mechanism.'
+  };
+
   /* ---------- structure animations for the classic superconductors on the Tc chart ----------
      Each one is a labelled schematic of an idealised structure. None is measured atomic
      coordinates, a measured vibration or evidence for a pairing mechanism. */
