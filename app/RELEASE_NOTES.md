@@ -1,5 +1,10 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.24 adds:
+
+- **UTe₂ and Sr₂RuO₄ get their own structures:** choosing either on the Tc chart used to play a shared pairing-symmetry cartoon that also contained the kagome lattice of CsV₃Sb₅, a different material. Each now has its own drawing. UTe₂ shows the uranium two-leg ladder along the a axis of its body-centred orthorhombic structure, with legs of about 4.2 Å and rungs of about 3.8 Å and a chain of Te(2) along b; only the viewing angle turns, no distance in the drawing moves, the two marked Te(1) atoms are indicative rather than measured positions, and nothing in it depicts the spin-triplet pairing, which remains a candidate. Sr₂RuO₄ shows its layered perovskite: RuO₂ planes of corner-sharing octahedra with apical oxygen and strontium in the layers between, drawn untilted. The shared drawing stays where it belongs, on the Spin-triplet candidates card in Theory & materials, which is about all three materials at once.
+- **UTe₂'s later crystals:** its note now records that cleaner crystals reached about 2.1 K after the 1.6 K of the 2019 report it cites.
+
 Version 0.3.23 adds:
 
 - **Twenty more classic superconductors:** Tc through the years now holds 48 of them. The new ones are V₃Si, the first A15; SrTiO₃, the first superconducting oxide; the Chevrel phase PbMo₆S₈; the oxide perovskites BaPb₁₋ₓBiₓO₃ and Ba₀.₆K₀.₄BiO₃, the second of them near 30 K without copper; the organic superconductors (TMTSF)₂PF₆ and κ-(BEDT-TTF)₂Cu(NCS)₂; the heavy fermions UBe₁₃, UPt₃, UGe₂, CeCoIn₅ and PuCoGa₅, the last of them the highest-Tc of that family; the electron-doped cuprate Nd₁.₈₅Ce₀.₁₅CuO₄; the fullerides K₃C₆₀ and Cs–Rb–C₆₀; boron-doped diamond; CaC₆; the hole-doped iron arsenide Ba₀.₆K₀.₄Fe₂As₂; the single-unit-cell FeSe monolayer on SrTiO₃; and the clathrate hydride CaH₆. Every one cites the paper that reported it, with a DOI checked against Crossref, and V₃Si takes its place on the ambient-pressure record staircase.
