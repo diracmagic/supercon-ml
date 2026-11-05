@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-05",
+      "purpose": "Release0.3.23: Tc through the years gains 20 more classic superconductors (V3Si, SrTiO3, PbMo6S8, BaPb1-xBixO3, (TMTSF)2PF6, UBe13, UPt3, Ba0.6K0.4BiO3, kappa-(BEDT-TTF)2Cu(NCS)2, Nd1.85Ce0.15CuO4, K3C60, Cs-Rb-C60, UGe2, CeCoIn5, PuCoGa5, boron-doped diamond, CaC6, Ba0.6K0.4Fe2As2, the FeSe monolayer and CaH6), each with a Crossref-checked DOI, so the chart holds 48 entries; the temperature axis becomes logarithmic because Tc now spans 0.3 K to 298 K, with liquid-helium, liquid-nitrogen and room-temperature reference lines; the chart plays year by year with a play, pause, replay and year slider, a sweep line and a readout of how many are shown and the ambient-pressure record so far; the legend filters families; each dot opens a detail panel with the material's structure animation, its note and a link to the reporting paper; six new labelled schematics (perovskite, Chevrel cluster, molecular stacks, fulleride, intercalated graphite, boron-doped diamond) join the existing ones, each with alt text saying what is not shown; V3Si joins the ambient-pressure record staircase; models, candidate lists and results are unchanged",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup",
+        "fixed authenticated board routes and bounded integer pagination",
+        "actor-bound private request lifecycle, absolute session expiry and logout cleanup",
+        "only opaque actor hashes and numeric last-seen cursors may persist for unread state",
+        "Notes update dates come only from explicit per-entry update metadata",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
+        "news thumbnail badges come only from the article's own text after the negation and history checks; colour and framing variants carry no meaning",
+        "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one",
+        "every Tc, year, family and pressure flag on the chart is reported as the cited paper states it, and every added entry carries a Crossref-checked DOI",
+        "the new structure animations are labelled schematics with alt text naming what is not shown: no measured coordinates, measured vibration or pairing mechanism is claimed",
+        "the year sweep honours reduced motion, pauses while the page is hidden and cancels its frame loop when the view is left or the chart is rebuilt"
+      ],
+      "previous_css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
+      "functions_added": [
+        "tcStop",
+        "tcEntry",
+        "tcMark",
+        "renderTcDetail"
+      ],
+      "functions_removed": [],
+      "previous_removed_functions": [],
+      "functions_changed": [
+        "buildLearn",
+        "renderTcChart"
+      ],
+      "initializers_changed": [
+        0,
+        92,
+        102,
+        103,
+        105,
+        106,
+        110
+      ],
+      "previous_function_changes": {
+        "buildLearn": "3a95cbd1736ec72870ff49b2de9c014a0e284c49d4acf88f90d7a1fb602c6b3a",
+        "renderTcChart": "34ccb99dd8f0abcc89968ed1611c9ff0d582f733a7e5f9fd55d668247fa75657"
+      },
+      "previous_initialization_changes": {
+        "0": "5715a9f23032bfc36da187f3b8874ec572cc9537a4179af25c4dd572f0b8dcbb",
+        "92": "671b018385222ea678f14f0298ac56d9e34630a74af34bd3d638cc21ec441abc",
+        "102": "98e7d95f55dc2f7341e5c3aaa01291f9355494b94188b2b1e8373d8cb12e1b6a",
+        "103": "e543e894c514b0179fe8eb164f77850466bb8b21be043deb73a4bbf3428bb5fd",
+        "105": "1a218ce034a7e77917633ac149a6017ab32cd7a73deccf8d281110c31173aabd",
+        "106": "c987802ecbfc5ce4f63e50ba018102fc787af62560ad9f91d0b2420b2d0e645d",
+        "110": "ab184963ee9ec8858ba1df3ac962b3207266eb38d10dd9b7067da6191bfdc3cb"
+      },
+      "initializers_added": [
+        34,
+        93
+      ]
+    }
+  ]
+}
