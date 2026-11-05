@@ -2,7 +2,7 @@
   "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
-  "css_sha256": "d271fe98367461205c0a9129f1074a6296306b4dd83d0489eaa8e7f44112b627",
+  "css_sha256": "db7f825520cb87f73b6c2edd0189bdd1358c894c6c5371b53e8f07983589f6b1",
   "scope_checks": {
     "top_level_this": false,
     "top_level_return": false,
@@ -453,7 +453,7 @@
     "tcEntry": "66e6173a4a39ea9567b81957e14fd558830b20fe519164d3f778caaada4713f2",
     "tcMark": "ff31866875375a8dace90a9cae48186fad67196d09d50a83e43bf6b5952515b6",
     "renderTcDetail": "b85e553fde0484c602b25529038fe51fa5a4e4a21826733282ca3a4efc432fb3",
-    "renderTcChart": "51517385dbf81477d518c89d76baee85d969c6a4e12ac56e6349696202ca0e03",
+    "renderTcChart": "39b8d3d9750f99ad903ec2905449f71553ae67cc9c03f669b4eee10ba7e10457",
     "feedSources": "5062cab0f6475f9bb2215f1c0e6f10c5a4b3ed082ba0075111c257cad3dd62df",
     "andList": "493d94564d20115c8ba90a741e1634a264cb33d6f7b955914bd58a06db8fa89d",
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
@@ -871,7 +871,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-05",
-    "purpose": "Release 0.3.29: choosing a name on the Tc chart often did nothing, because a twinkling name was fully readable for only about two and a half seconds, which is less than the time it takes to see a name, reach for the pointer and press it, and once the name had faded the chart's hit test fell through to the nearest dot within twenty-eight pixels, so a name that vanished mid-reach either opened nothing or opened a different material; the rotation now stands still while the pointer is anywhere in the chart and for five seconds after a tap, since a touch screen has no pointer to hold over anything, each name holds a second longer before it fades, and a name that dropped out of sight less than two and a half seconds ago is still a target of its own, with a readable name always taking precedence over one that has just gone; a name gone longer than that is still not a target, so the chart gains no invisible places to tap, and a name whose year the slider has been dragged back past is still removed even while the rotation is held; the data, the models and the results are unchanged",
+    "purpose": "Release 0.3.29, three fixes on the Tc chart. Choosing a name often did nothing: a twinkling name was fully readable for only about two and a half seconds, less than the time it takes to see it and reach for the pointer, and once it had faded the hit test fell through to the nearest dot within twenty-eight pixels, so a name that vanished mid-reach opened nothing or opened a different material; the rotation now stands still while the pointer is in the chart and for five seconds after a tap, names hold a second longer, and a name gone under two and a half seconds is still its own target, a readable name always taking precedence, while one gone longer is not and a name whose year the slider has passed is still removed. Three different things were drawn with dashes, the horizontal reference temperatures, a preprint ring and a six-pixel rise above the record for the 2026 pressure-quenched cuprate, and the legend named only the last, so that name was read as the meaning of all of them; the invisible rise is removed, the 2026 result keeping its dot, its name and its account in the panel, and the legend now names the dashed horizontals and the preprint ring, the reference lines drawn at half opacity. Long names trailed up to seventy-eight pixels from their dot, so they try the centred spots first, and no name is placed where another material's dot is nearer than its own unless nothing else fits. The data, the models and the results are unchanged.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
