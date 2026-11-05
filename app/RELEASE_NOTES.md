@@ -1,5 +1,9 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.29 fixes:
+
+- **A name stays long enough to be chosen.** Choosing a name on the Tc chart often did nothing: a twinkling name was readable for about two and a half seconds, which is less time than it takes to see it, reach for the mouse and press, and once it had faded the chart fell back to the nearest dot — so a name that vanished mid-reach either did nothing or opened a different material. Now the rotation stands still while the pointer is anywhere in the chart, so a name can be read and reached at leisure; names stay up a second longer before fading; and a name that has only just gone still counts as its own target for a moment afterwards, because the hand was already on its way to it. A touch screen has no pointer to hold over anything, so a tap holds the names still for a few seconds instead. A name gone longer than that is still not a target, so the chart gains no invisible places to tap, and dragging the year slider back still clears the names it has gone past.
+
 Version 0.3.28 adds:
 
 - **The name opens the material, not just the dot.** The dots on the Tc chart are five pixels across and several of them sit almost on top of each other, so the right one was hard to hit — and when two were close, tapping between them picked whichever was nearer rather than the one meant. Any name that can be read at that moment is now a target of its own: choosing it opens that material, even when another material’s dot is closer to the name than its own is. The name under the pointer is underlined and the cursor changes, so it reads as something that can be chosen. A name that has faded out is not a target, so the chart has no invisible places to tap.
