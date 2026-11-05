@@ -104,8 +104,8 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
       'hardened a widespread expectation that superconductivity could not survive far above twenty or thirty kelvin, ' +
       'which is part of why the cuprates landed as hard as they did.',
     'BaPb₁₋ₓBiₓO₃': 'A bismuth perovskite with no copper and no magnetic ions, superconducting well above what its low carrier ' +
-      'density would suggest. It is one of the oxides that made searching oxides look worthwhile at all, and Bednorz ' +
-      'and Müller cite exactly this kind of compound as what pointed them towards copper oxides.',
+      'density would suggest. It is one of the oxides that made searching oxides look worthwhile at all, and it is ' +
+      'the kind of compound that pointed Bednorz and Müller towards copper oxides.',
     'CeCu₂Si₂': 'Frank Steglich’s group found superconductivity in a cerium compound whose conduction electrons behave as though ' +
       'they were hundreds of times heavier than free electrons. Magnetic moments were supposed to destroy pairing, so ' +
       'whatever holds these pairs together cannot be the ordinary phonon mechanism. Unconventional superconductivity ' +
@@ -128,7 +128,7 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
       'specialised cryogenic laboratories, and YBCO is still the compound behind today’s coated-conductor tapes.',
     'Bi-2223': 'A bismuth–strontium–calcium copper oxide with three CuO₂ layers in each block. The chemistry is awkward, but the ' +
       'powder can be packed into silver tubes and drawn out, which made it the first high-temperature superconductor ' +
-      'sold as practical wire.',
+      'to be made into practical wire.',
     'Tl-2223': 'The thallium member of the three-layer cuprates, and the record holder until the mercury compounds arrived five ' +
       'years later. Thallium is toxic and volatile, so this material counted for more as a step in the search than as ' +
       'something anyone wanted to build with.',
@@ -147,9 +147,9 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
     'Cs–Rb–C₆₀': 'Larger alkali ions push the C₆₀ molecules further apart, which narrows the conduction band and raises the ' +
       'transition temperature. This mixed caesium–rubidium fulleride was the highest of the family at ordinary ' +
       'pressure, and the trend it traced is the clearest handle anyone has on tuning these materials.',
-    'Hg-1223': 'The mercury cuprates reached the highest transition temperature ever measured at ordinary pressure, and more ' +
-      'than thirty years later nothing has beaten it. Everything plotted above this point needs either high pressure or ' +
-      'a caveat.',
+    'Hg-1223': 'The mercury cuprates reached the highest transition temperature of any material that superconducts at ' +
+      'ordinary pressure in its stable form, and more than thirty years later nothing has displaced it. Everything ' +
+      'plotted above this point needs either high pressure or a caveat.',
     'Hg-1223 under pressure': 'Squeezing the same mercury cuprate raises its transition substantially, and this measurement stood as the record ' +
       'for any material of any kind until the hydrides. Pressure shortens bonds without changing the chemistry, which ' +
       'is why it is the first thing anyone tries on a promising compound.',
@@ -161,7 +161,8 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
       'material should tear ordinary pairs apart. Under pressure UGe₂ does both at once, which is hard to explain ' +
       'unless the two electrons of a pair have parallel rather than opposite spins.',
     'MgB₂': 'Magnesium diboride had been sitting on chemistry shelves since the 1950s before anyone thought to measure it ' +
-      'cold; when Akimitsu’s group did, in 2001, it superconducted at nearly double the previous conventional record. ' +
+      'cold; when Akimitsu’s group did, in 2001, it superconducted at 39 K, far above the A15 compounds that had held ' +
+      'the conventional record for thirty years. ' +
       'It is phonon-driven and unusual in having two distinct energy gaps, it is cheap, and it is now wound into ' +
       'magnets for MRI and other instruments.',
     'CeCoIn₅': 'The hottest heavy-fermion superconductor known at ordinary pressure when it was found, and layered, which makes ' +
@@ -175,11 +176,12 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
       'legitimate place to look.',
     'CaC₆': 'Graphite is already layered, and slipping calcium atoms between the sheets donates electrons into them and turns ' +
       'the stack superconducting. It has the highest transition temperature of the graphite intercalation compounds, ' +
-      'and it is the closest classical relative of the twisted-graphene work that came later.',
-    'LaFeAsO₁₋ₓFₓ': 'Hideo Hosono’s group was working on transparent conductors, not superconductors, when fluorine-doped LaFeAsO ' +
-      'superconducted at a temperature no iron compound was expected to reach. Iron is magnetic, so this was as ' +
-      'unwelcome to theory as the cuprates had been, and it opened the second large family of high-temperature ' +
-      'superconductors.',
+      'and it is the conventional, phonon-driven way of making carbon sheets superconduct, a different route from ' +
+      'the twisting that came later.',
+    'LaFeAsO₁₋ₓFₓ': 'Hideo Hosono’s group came to these layered oxypnictides from transparent oxide semiconductors, and had already ' +
+      'seen a few kelvin of superconductivity in the phosphide LaFePO. Fluorine-doped LaFeAsO then superconducted at ' +
+      'a temperature no iron compound was expected to reach; iron is magnetic, so this was as unwelcome to theory as ' +
+      'the cuprates had been, and it opened the second large family of high-temperature superconductors.',
     'SmFeAsO₁₋ₓFₓ': 'Swapping lanthanum for a smaller rare earth compresses the structure and lifts the transition sharply; samarium ' +
       'gives the highest value reached in any bulk iron-based superconductor. Walking along the rare-earth series is ' +
       'one of the cleanest chemical trends in the subject.',
@@ -225,8 +227,8 @@ const initializeSuperconTheoryView = function initializeSuperconTheoryView() {
       'has not been peer reviewed or independently reproduced, and claims in this corner of the field have been ' +
       'retracted before, so it is plotted here as a claim and not as a result.',
     'Nickelate films (2026)': 'The strained-film route to ambient-pressure nickelate superconductivity, pushed further. The onset and the ' +
-      'temperature at which the resistance actually reaches zero are far apart in these films, which usually points to ' +
-      'an inhomogeneous sample rather than one clean transition.',
+      'temperature at which the resistance actually reaches zero are far apart in these films, so the onset plotted ' +
+      'here is not a bulk transition temperature.',
     'Hg-1223, pressure-quenched': 'Pressure raises the transition temperature of the mercury cuprate; the open question has always been whether the ' +
       'squeezed state can be kept once the pressure is let off. This work reports holding a metastable high-temperature ' +
       'state at ordinary pressure, which, if it stands, matters more for what it says about the mechanism than for the ' +

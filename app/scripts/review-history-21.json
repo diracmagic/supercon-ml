@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-05",
+      "purpose": "Release 0.3.26: on the Tc chart the five materials that opened an era (mercury 1911, La-Ba-Cu-O 1986, YBa2Cu3O7 1987, MgB2 2001, H3S 2015) are placed before any other name and their space is reserved, so their names stay on screen in bold for as long as their year has arrived and no twinkling name can land on top of them; they are allowed a wider set of offsets so they are not dropped on a narrow screen, and they are excluded from the twinkling rotation, which continues unchanged for the other 43; every dot now carries a halo that fades in and out in step with its own name, drawn as a filled glow rather than a ring because an open ring already means under high pressure, and hidden entirely under reduced motion; the detail panel adds a two-to-three sentence background for every one of the 48 materials, beside the structure animation, the measured Tc, the note and the paper; choosing a material now dismisses the hover card, which a touch screen could not dismiss by itself and which covered the neighbouring dots, and closing the panel returns focus to the chart; the arrow keys no longer reach materials the year sweep has not arrived at, a material whose family is switched off in the legend no longer stays open in the panel, and a pinned name is now counted as occupied space so a twinkling name cannot be written over it; the data, the models and the results are unchanged",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup",
+        "fixed authenticated board routes and bounded integer pagination",
+        "actor-bound private request lifecycle, absolute session expiry and logout cleanup",
+        "only opaque actor hashes and numeric last-seen cursors may persist for unread state",
+        "Notes update dates come only from explicit per-entry update metadata",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
+        "news thumbnail badges come only from the article's own text after the negation and history checks; colour and framing variants carry no meaning",
+        "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one",
+        "every Tc, year, family and pressure flag on the chart is reported as the cited paper states it, and every added entry carries a Crossref-checked DOI",
+        "the new structure animations are labelled schematics with alt text naming what is not shown: no measured coordinates, measured vibration or pairing mechanism is claimed",
+        "the year sweep honours reduced motion, pauses while the page is hidden and cancels its frame loop when the view is left or the chart is rebuilt",
+        "a material's own panel shows only its own structure: no other material's lattice appears in it",
+        "the UTe2 drawing uses only U-U distances its cited sources report, changes nothing but the viewing angle, marks the indicative Te(1) positions as such and depicts no pairing symmetry",
+        "the twinkling names are decorative repeats of what the table, the tooltip and the detail panel already say, so they are hidden from assistive technology and the chart keeps its own description",
+        "a name is never shown for a material the year sweep has not reached yet",
+        "the five permanent names and the twinkling ones alike are decorative repeats of what the table, the tooltip and the detail panel already say, so they stay hidden from assistive technology and the chart keeps its own description",
+        "a dot's halo is shown only while that same dot's own name is shown, and both are suppressed until the year sweep reaches the material",
+        "each material's background text describes only what its cited sources and its own note support, names no Tc or pressure the entry does not already carry, and marks a preprint claim as a claim"
+      ],
+      "previous_css_sha256": "0fd6c0593fcd00d20a4f105cf6c9b08d52eb6f1f71a242ed499c33c40198bca7",
+      "functions_added": [],
+      "functions_removed": [],
+      "previous_removed_functions": [],
+      "functions_changed": [
+        "renderTcDetail",
+        "renderTcChart"
+      ],
+      "initializers_changed": [
+        0
+      ],
+      "previous_function_changes": {
+        "renderTcDetail": "0559d974056052ed71a963e52eac7ba311fc46d8ca9e9482d95c44cc52034606",
+        "renderTcChart": "e8f8f45c6a747088826046a895cc88d901d4d771c90efd02871fda2e0be2202f"
+      },
+      "previous_initialization_changes": {
+        "0": "e4cd41c53e78b21ae698ccfdf1f71f7584b78800d11242006614f950f428e03d"
+      },
+      "initializers_added": [
+        107,
+        108
+      ],
+      "bindings_added": [
+        "TC_LANDMARK",
+        "TC_BG"
+      ]
+    }
+  ]
+}

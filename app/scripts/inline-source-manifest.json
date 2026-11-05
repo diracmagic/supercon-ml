@@ -2,7 +2,7 @@
   "source": "Reviewed frontend AST baseline after intentional revisions; original extraction and prior revision provenance retained.",
   "original_html_sha256": "a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b",
   "original_script_sha256": "79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b",
-  "css_sha256": "a27dcce9a9da001b60341207abd17b6196c8987f23105ef37fc19fc64997d8ea",
+  "css_sha256": "983e8b0993e8b02b6cb66712cf425803514571caf544b56e5ffc92a220df9144",
   "scope_checks": {
     "top_level_this": false,
     "top_level_return": false,
@@ -90,6 +90,7 @@
     "MINI_DRAW",
     "MINI_STATIC",
     "MINI_ALT",
+    "MINI_CAP",
     "NEWS_ART",
     "MINI",
     "TC_DATA",
@@ -451,8 +452,8 @@
     "tcStop": "c8257379caf3d4e069b460cafead4d231e1602a434c6949cfe975af4bbafebfc",
     "tcEntry": "66e6173a4a39ea9567b81957e14fd558830b20fe519164d3f778caaada4713f2",
     "tcMark": "ff31866875375a8dace90a9cae48186fad67196d09d50a83e43bf6b5952515b6",
-    "renderTcDetail": "f537b8003ad5763458333571f5654c69053c4d45336f29db88c26f79965bc342",
-    "renderTcChart": "fe7194573e3ca0e468bb2dc9eb64d67fb120f96f4bdd61de6ac6f14d43832793",
+    "renderTcDetail": "b85e553fde0484c602b25529038fe51fa5a4e4a21826733282ca3a4efc432fb3",
+    "renderTcChart": "b59a758fcbef686e6d89ab5860dbb9d34dbedca193149121cda78a2e65b4a9bf",
     "feedSources": "5062cab0f6475f9bb2215f1c0e6f10c5a4b3ed082ba0075111c257cad3dd62df",
     "andList": "493d94564d20115c8ba90a741e1634a264cb33d6f7b955914bd58a06db8fa89d",
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
@@ -608,7 +609,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "cabf0ba977f845312578e3c1b27d5bdbead3c76786ac5ad8433217924424c1de",
+    "30d29827e228632985682bee7911d00d48543b469babf6122c2d5317ffe402c8",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -701,6 +702,7 @@
     "c5fd2616474319977fb9e202447a9b3a96e875d172b89fbfae4b660d3a027485",
     "1f052bbebba762d9165ba49fb52c301ba48721e98b00947075d43978764b5eb5",
     "5ea73a6381f3a205a886adbb74aa251c84f6482c6cc908a7b8a14b896ba4fa3a",
+    "60284694708220b3ae51f5a0c5ea7609c52c373367d2468d5bae0edf5aedd66e",
     "63f0ce868a10252cb5923907908082882a726b7a89386e5e9a7b3b4a76ae0603",
     "671b018385222ea678f14f0298ac56d9e34630a74af34bd3d638cc21ec441abc",
     "51f5aac9acc34abd27da94b5e604fdf3eb104079fb934be5d2d98dde5d0d2fc3",
@@ -716,7 +718,7 @@
     "3aa02ffd58ac3c6e43924bfd4894df5d84b527d91683fe9ac8496df002620c65",
     "600d5ad17906d8615b0da58fdf02a84a7eba539965c172e2129cfc9899bf8ed1",
     "5bb8f45091cca1bb2093047ccde325c1d647c8d95efd72caa5f9f951cf76ef1d",
-    "2edc02b900dbe91e4b6b5a18fd1d1a5c4443be20330210ba974718d0e0ef7fa4",
+    "fa295f9ba90ae30ac78fec1591784fa004b2405a508a16157985487969c48dbc",
     "1a218ce034a7e77917633ac149a6017ab32cd7a73deccf8d281110c31173aabd",
     "c987802ecbfc5ce4f63e50ba018102fc787af62560ad9f91d0b2420b2d0e645d",
     "7da3c1c570bf6542972451e158b6aeb7ad5a8c5e3f026f418d067c4af205cbf6",
@@ -869,7 +871,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-05",
-    "purpose": "Release 0.3.26: on the Tc chart the five materials that opened an era (mercury 1911, La-Ba-Cu-O 1986, YBa2Cu3O7 1987, MgB2 2001, H3S 2015) are placed before any other name and their space is reserved, so their names stay on screen in bold for as long as their year has arrived and no twinkling name can land on top of them; they are allowed a wider set of offsets so they are not dropped on a narrow screen, and they are excluded from the twinkling rotation, which continues unchanged for the other 43; every dot now carries a halo that fades in and out in step with its own name, drawn as a filled glow rather than a ring because an open ring already means under high pressure, and hidden entirely under reduced motion; the detail panel adds a two-to-three sentence background for every one of the 48 materials, beside the structure animation, the measured Tc, the note and the paper; choosing a material now dismisses the hover card, which a touch screen could not dismiss by itself and which covered the neighbouring dots, and closing the panel returns focus to the chart; the arrow keys no longer reach materials the year sweep has not arrived at, a material whose family is switched off in the legend no longer stays open in the panel, and a pinned name is now counted as occupied space so a twinkling name cannot be written over it; the data, the models and the results are unchanged",
+    "purpose": "Release 0.3.27: the Tc chart's detail panel gave every drawing the same caption calling it an idealised structure, but six of the twenty are not structures (the 1911 mercury measurement, a solenoid magnet, a coated-conductor tape, a plot of pressure and Tc over time, a heavy-electron mechanism cartoon and a resistance-against-filling trace), so each drawing now carries its own caption from a new MINI_CAP map with the structure wording as the fallback; the magic-angle trace itself is unchanged and correct, with the correlated-insulator peak at half filling and superconducting domes either side; the dashed rise above the ambient-pressure record, the 2026 pressure-quenched Hg-1223 onset, is now named in the legend, starts from the record's own Tc instead of a hard-coded 133 K and is hidden with the cuprates; and six material backgrounds are corrected for accuracy (MgB2's margin over the previous conventional record, Hosono's earlier LaFePO result, the scope of the Hg-1223 record claim, CaC6 and twisted graphene, how Bi-2223 reached practical wire, and the 2026 nickelate films onset); the data, the models and the results are unchanged",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -895,19 +897,6 @@
       "native fixed-repository installer selection and SHA-256 verification",
       "explicit installation confirmation and no browser download fallback",
       "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
-      "native fixed-repository installer selection and SHA-256 verification",
-      "explicit installation confirmation and no browser download fallback",
-      "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
-      "native fixed-repository installer selection and SHA-256 verification",
-      "explicit installation confirmation and no browser download fallback",
-      "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
-      "native fixed-repository installer selection and SHA-256 verification",
-      "explicit installation confirmation and no browser download fallback",
-      "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
-      "private team content excluded from public method sources",
-      "same original miniature animations and reduced-motion lifecycle",
-      "private team content excluded from public method sources",
-      "same original miniature animations and reduced-motion lifecycle",
       "private team content excluded from public method sources",
       "same original miniature animations and reduced-motion lifecycle",
       "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
@@ -922,9 +911,12 @@
       "a name is never shown for a material the year sweep has not reached yet",
       "the five permanent names and the twinkling ones alike are decorative repeats of what the table, the tooltip and the detail panel already say, so they stay hidden from assistive technology and the chart keeps its own description",
       "a dot's halo is shown only while that same dot's own name is shown, and both are suppressed until the year sweep reaches the material",
-      "each material's background text describes only what its cited sources and its own note support, names no Tc or pressure the entry does not already carry, and marks a preprint claim as a claim"
+      "each material's background text describes only what its cited sources and its own note support, names no Tc or pressure the entry does not already carry, and marks a preprint claim as a claim",
+      "every drawing's caption names what that drawing actually is, and a drawing is called a structure only when it is one",
+      "the dashed rise above the ambient-pressure record is named in the legend and drawn only when its own material is on the chart",
+      "each material background is consistent with the families and values this chart itself plots and passes no judgement on a recent sample"
     ],
-    "previous_css_sha256": "0fd6c0593fcd00d20a4f105cf6c9b08d52eb6f1f71a242ed499c33c40198bca7",
+    "previous_css_sha256": "a27dcce9a9da001b60341207abd17b6196c8987f23105ef37fc19fc64997d8ea",
     "functions_added": [],
     "functions_removed": [],
     "previous_removed_functions": [],
@@ -933,22 +925,22 @@
       "renderTcChart"
     ],
     "initializers_changed": [
-      0
+      0,
+      109
     ],
     "previous_function_changes": {
-      "renderTcDetail": "0559d974056052ed71a963e52eac7ba311fc46d8ca9e9482d95c44cc52034606",
-      "renderTcChart": "e8f8f45c6a747088826046a895cc88d901d4d771c90efd02871fda2e0be2202f"
+      "renderTcDetail": "f537b8003ad5763458333571f5654c69053c4d45336f29db88c26f79965bc342",
+      "renderTcChart": "fe7194573e3ca0e468bb2dc9eb64d67fb120f96f4bdd61de6ac6f14d43832793"
     },
     "previous_initialization_changes": {
-      "0": "e4cd41c53e78b21ae698ccfdf1f71f7584b78800d11242006614f950f428e03d"
+      "0": "cabf0ba977f845312578e3c1b27d5bdbead3c76786ac5ad8433217924424c1de",
+      "109": "1a218ce034a7e77917633ac149a6017ab32cd7a73deccf8d281110c31173aabd"
     },
     "initializers_added": [
-      107,
-      108
+      93
     ],
     "bindings_added": [
-      "TC_LANDMARK",
-      "TC_BG"
+      "MINI_CAP"
     ]
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -1069,7 +1061,12 @@
       "path": "review-history-20.json",
       "sha256": "9198e91dc85fac9a6d7159907d982668ea9243d2eb5a3972f14302b07a8c6203",
       "count": 1
+    },
+    {
+      "path": "review-history-21.json",
+      "sha256": "1dc1c745cf3ac0307596abcb2a5d6d3b1c6d2773f28198378e6840ac75a53c94",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 25
+  "reviewed_revision_count": 26
 }
