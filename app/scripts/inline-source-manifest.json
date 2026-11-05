@@ -606,7 +606,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "93693de4db0e8cc9ad2b7f83e4c4eeea082bdfa73f47c63bba8c84b48a5c5b7e",
+    "a9a64a9522a9fdf424470777e180434052f5a8c4708aa20ed5d775b78faaa7ec",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -698,8 +698,8 @@
     "45a218bb020e80ae28c8d3425b3533a565ca73b5e42c81895352cbcd4034d850",
     "c5fd2616474319977fb9e202447a9b3a96e875d172b89fbfae4b660d3a027485",
     "1f052bbebba762d9165ba49fb52c301ba48721e98b00947075d43978764b5eb5",
-    "088ad86db18695c59d4f457dec92ee954da7823b023857c5fc592d0befcdfd6d",
-    "1aa7ea3ef7c151c14038819296d8a04067003ee276f4d9ad87cece17b352e642",
+    "5ea73a6381f3a205a886adbb74aa251c84f6482c6cc908a7b8a14b896ba4fa3a",
+    "63f0ce868a10252cb5923907908082882a726b7a89386e5e9a7b3b4a76ae0603",
     "671b018385222ea678f14f0298ac56d9e34630a74af34bd3d638cc21ec441abc",
     "51f5aac9acc34abd27da94b5e604fdf3eb104079fb934be5d2d98dde5d0d2fc3",
     "5e6ce403d4b67b48517f402aee16b3f8c9c174485a30ee915e5d2b5ff83f1a3a",
@@ -708,7 +708,7 @@
     "d721dba6f4810e19f56e720b38b34219a938edd98b3d6a4b6c78c2ff0ea39fb5",
     "c80dca0462243ef6f13586e90ee65bb8836fa33ecaba1ace42b9a0f7ae3bc2ab",
     "9100652666e8292731175f4f4046aaa2faf9663b3d4888084bf17d4999733d5f",
-    "07aa832c65b6651b7cfe576bbe4043136775a2c2fa6d29c3d3c6435e1017b89b",
+    "34e2f6c32b14f62ee8cb2100a5b2fb1df5f6864423c5105110b734f5fc523a52",
     "266a3e7c0f96df6750e9d9a4cd7ae2ee89043dd92601d47d1d57a4a15bb34418",
     "98e7d95f55dc2f7341e5c3aaa01291f9355494b94188b2b1e8373d8cb12e1b6a",
     "3aa02ffd58ac3c6e43924bfd4894df5d84b527d91683fe9ac8496df002620c65",
@@ -865,7 +865,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-05",
-    "purpose": "Release0.3.23: Tc through the years gains 20 more classic superconductors (V3Si, SrTiO3, PbMo6S8, BaPb1-xBixO3, (TMTSF)2PF6, UBe13, UPt3, Ba0.6K0.4BiO3, kappa-(BEDT-TTF)2Cu(NCS)2, Nd1.85Ce0.15CuO4, K3C60, Cs-Rb-C60, UGe2, CeCoIn5, PuCoGa5, boron-doped diamond, CaC6, Ba0.6K0.4Fe2As2, the FeSe monolayer and CaH6), each with a Crossref-checked DOI, so the chart holds 48 entries; the temperature axis becomes logarithmic because Tc now spans 0.3 K to 298 K, with liquid-helium, liquid-nitrogen and room-temperature reference lines; the chart plays year by year with a play, pause, replay and year slider, a sweep line and a readout of how many are shown and the ambient-pressure record so far; the legend filters families; each dot opens a detail panel with the material's structure animation, its note and a link to the reporting paper; six new labelled schematics (perovskite, Chevrel cluster, molecular stacks, fulleride, intercalated graphite, boron-doped diamond) join the existing ones, each with alt text saying what is not shown; V3Si joins the ambient-pressure record staircase; models, candidate lists and results are unchanged",
+    "purpose": "Release0.3.24: UTe2 and Sr2RuO4 get their own structure drawings on the Tc chart, replacing a shared pairing-symmetry cartoon that also showed the kagome lattice of CsV3Sb5, a different material; UTe2 shows the uranium two-leg ladder along the a axis of the body-centred orthorhombic Immm structure at the reported U-U distances of about 4.2 A along the legs and 3.8 A across the rungs, with a Te(2) chain along b, two indicative Te(1) markers and a turning view that changes no distance; Sr2RuO4 shows its layered perovskite of corner-sharing RuO6 octahedra with apical oxygen and strontium between the planes, drawn untilted; the shared triplet drawing is unchanged and still serves the Spin-triplet candidates card, which covers all three materials; UTe2's note records that cleaner crystals later reached about 2.1 K after the 1.6 K of the cited 2019 report; the chart, its data, the models and the results are otherwise unchanged",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -911,47 +911,28 @@
       "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one",
       "every Tc, year, family and pressure flag on the chart is reported as the cited paper states it, and every added entry carries a Crossref-checked DOI",
       "the new structure animations are labelled schematics with alt text naming what is not shown: no measured coordinates, measured vibration or pairing mechanism is claimed",
-      "the year sweep honours reduced motion, pauses while the page is hidden and cancels its frame loop when the view is left or the chart is rebuilt"
+      "the year sweep honours reduced motion, pauses while the page is hidden and cancels its frame loop when the view is left or the chart is rebuilt",
+      "a material's own panel shows only its own structure: no other material's lattice appears in it",
+      "the UTe2 drawing uses only U-U distances its cited sources report, changes nothing but the viewing angle, marks the indicative Te(1) positions as such and depicts no pairing symmetry"
     ],
-    "previous_css_sha256": "d340c41160bb95d6958bb36e5cb705ab64f5c38256c12fa348b4603237a048d7",
-    "functions_added": [
-      "tcStop",
-      "tcEntry",
-      "tcMark",
-      "renderTcDetail"
-    ],
+    "previous_css_sha256": "9b93a08a1f4f384b00982ba8ad974a7b9f7a6560f98b8366c08ab258a459c1b6",
+    "functions_added": [],
     "functions_removed": [],
     "previous_removed_functions": [],
-    "functions_changed": [
-      "buildLearn",
-      "renderTcChart"
-    ],
+    "functions_changed": [],
     "initializers_changed": [
       0,
       92,
-      102,
-      103,
-      105,
-      106,
-      110
+      93,
+      102
     ],
-    "previous_function_changes": {
-      "buildLearn": "3a95cbd1736ec72870ff49b2de9c014a0e284c49d4acf88f90d7a1fb602c6b3a",
-      "renderTcChart": "34ccb99dd8f0abcc89968ed1611c9ff0d582f733a7e5f9fd55d668247fa75657"
-    },
+    "previous_function_changes": {},
     "previous_initialization_changes": {
-      "0": "5715a9f23032bfc36da187f3b8874ec572cc9537a4179af25c4dd572f0b8dcbb",
-      "92": "671b018385222ea678f14f0298ac56d9e34630a74af34bd3d638cc21ec441abc",
-      "102": "98e7d95f55dc2f7341e5c3aaa01291f9355494b94188b2b1e8373d8cb12e1b6a",
-      "103": "e543e894c514b0179fe8eb164f77850466bb8b21be043deb73a4bbf3428bb5fd",
-      "105": "1a218ce034a7e77917633ac149a6017ab32cd7a73deccf8d281110c31173aabd",
-      "106": "c987802ecbfc5ce4f63e50ba018102fc787af62560ad9f91d0b2420b2d0e645d",
-      "110": "ab184963ee9ec8858ba1df3ac962b3207266eb38d10dd9b7067da6191bfdc3cb"
-    },
-    "initializers_added": [
-      34,
-      93
-    ]
+      "0": "93693de4db0e8cc9ad2b7f83e4c4eeea082bdfa73f47c63bba8c84b48a5c5b7e",
+      "92": "088ad86db18695c59d4f457dec92ee954da7823b023857c5fc592d0befcdfd6d",
+      "93": "1aa7ea3ef7c151c14038819296d8a04067003ee276f4d9ad87cece17b352e642",
+      "102": "07aa832c65b6651b7cfe576bbe4043136775a2c2fa6d29c3d3c6435e1017b89b"
+    }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
   "styles": [
@@ -1056,7 +1037,12 @@
       "path": "review-history-17.json",
       "sha256": "e738363478b5e999f8aead45e2ceb0a1906c4d35d90d1079c8420bc544a1d77d",
       "count": 1
+    },
+    {
+      "path": "review-history-18.json",
+      "sha256": "01b8356d0c5bf52db125a8a73de1f55aa5c4f4f851e3bd5d5c675ae71b60a838",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 22
+  "reviewed_revision_count": 23
 }
