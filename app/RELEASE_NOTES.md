@@ -1,5 +1,13 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.26 adds:
+
+- **Five names that never leave:** mercury (1911), La–Ba–Cu–O (1986), YBa₂Cu₃O₇ (1987), MgB₂ (2001) and H₃S (2015) each opened an era, so their names are now placed first on the Tc chart, their space is reserved so no other name can land on it, and they stay on screen in bold while their dots keep a slow pulse. The other 43 materials go on twinkling in turn around them.
+- **A dot lights up with its own name:** when a name fades in, the dot it belongs to gains a soft halo in its family colour and fades back to nothing with it, so there is never any doubt which dot is being named. The halo is a filled glow rather than a ring, because an open ring already means “under high pressure” on this chart. With reduced motion there are no halos at all and the fixed set of names is shown as before.
+- **Background on every material:** choosing a dot now opens two or three sentences on what the material is, why it mattered when it was found and what it left behind, beside the structure animation, the measured Tc and the paper. All 48 entries have one.
+- **The hover card no longer sits on top of the chart:** a touch screen has no pointer-leave, so after a tap the card stayed where it was and covered the neighbouring dots. Choosing a material now dismisses it — everything it said is in the panel below — and closing the panel hands the keyboard back to the chart.
+- **Three smaller fixes on the chart:** the arrow keys no longer walk onto materials whose year the sweep has not reached; a material whose family is switched off in the legend no longer stays open in the panel below with no dot to match it; and a pinned name can no longer be written over by a twinkling one.
+
 Version 0.3.25 adds:
 
 - **Every name, never a crowd:** the Tc chart has 48 materials and could only ever label about sixteen of them without the names colliding. Now each one carries its name and they twinkle: four or five fade in and out at a time, spread across the chart and out of step with each other, so the whole list can be read over about three quarters of a minute and nothing is ever buried under text. Choosing a dot pins its name until you close the panel, and a name only appears once its year has arrived. With reduced motion the chart shows the fixed set of names it used before, with no fading.
