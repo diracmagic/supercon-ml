@@ -223,9 +223,15 @@
     });
     legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-ring' }), 'Under high pressure'));
     legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-step' }), 'Ambient-pressure record'));
-    // The dashed rise above the record was unlabelled, which left it reading as part of the record.
-    if (!learn.table && !learn.tcHidden.cuprate)
-      legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-step dash' }), 'Quenched from pressure (onset)'));
+    // Three different things on this chart are drawn with dashes, and the legend used to name
+    // only one of them, so that name was read as the meaning of all of them. Each kind of dash
+    // now says what it is: the long horizontals are reference temperatures, a dashed ring is a
+    // preprint. Nothing dashed is left for the reader to guess at.
+    if (!learn.table) {
+      legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-ref' }), 'Reference temperature'));
+      if (TC_DATA.filter(function (d) { return d.pre && !learn.tcHidden[d.f]; }).length)
+        legend.appendChild(h('span', { class: 'lg' }, h('i', { class: 'lg-pre' }), 'Preprint, not peer reviewed'));
+    }
     if (learn.table) {
       var tbl = h('table', { class: 'tbl' });
       var thead = h('thead', null, h('tr', null, h('th', { text: 'Material' }), h('th', { text: 'Year' }), richText(h('th'), 'Tc (K)'), h('th', { text: 'Family' }), h('th', { text: 'Notes' }), h('th', { text: 'Reference' })));
@@ -290,12 +296,12 @@
       guards.push({ x: X(d.y), y: Y(d.tc) - 4, w: Math.max(1, x2 - X(d.y)), h: 8 });
     });
     svg.appendChild(s('path', { d: path, class: 'record-line', 'clip-path': 'url(#tc-sweep-clip)' }));
-    // The quenched onset rises above the standing ambient record, so it is drawn as a dashed
-    // rise from that record rather than as a step of it. It starts at the record's own Tc.
-    var q = tcEntry('Hg-1223, pressure-quenched'), top = rec.length ? rec[rec.length - 1] : null;
-    if (q && top && !learn.tcHidden[q.f])
-      svg.appendChild(s('path', { d: 'M' + X(LAST).toFixed(1) + ' ' + Y(top.tc).toFixed(1) + 'V' + Y(q.tc).toFixed(1),
-        class: 'record-line', 'stroke-dasharray': '3 3', 'clip-path': 'url(#tc-sweep-clip)' }));
+    // The 2026 pressure-quenched onset used to be drawn as a dashed rise from the top of the
+    // staircase. On a logarithmic axis 133 K to 151 K is six pixels, so the mark itself could
+    // not be seen while the legend entry naming it claimed every other dash on the chart. The
+    // result keeps its own dot above the record, its own name and its own account in the panel,
+    // where the caution about a metastable state belongs; the staircase stays what it says it
+    // is, the record in a stable material.
     var pts = TC_DATA.filter(function (d) { return !learn.tcHidden[d.f]; }).map(function (d) {
       return { d: d, x: X(d.y), y: Y(d.tc), el: null, tx: null, halo: null, mark: false };
     });
@@ -323,24 +329,50 @@
       }
       return false;
     }
+    // How far a dot lies from the nearest edge of a name's box, which is what the eye uses to
+    // decide whose name it is.
+    function boxGap(r, x, y) {
+      var cx = Math.max(r.x, Math.min(x, r.x + r.w)), cy = Math.max(r.y, Math.min(y, r.y + r.h));
+      return Math.sqrt((cx - x) * (cx - x) + (cy - y) * (cy - y));
+    }
+    // A name belongs to one dot. A spot that puts it nearer to another material's dot than to
+    // its own reads as a label on the wrong material, however close to its own it may be.
+    function ownsIt(r, p) {
+      var mine = boxGap(r, p.x, p.y), i;
+      for (i = 0; i < pts.length; i++)
+        if (pts[i] !== p && boxGap(r, pts[i].x, pts[i].y) < mine + 4) return false;
+      return true;
+    }
     // wide: the era-opening names are placed first and must not be left off, so they are
-    // allowed to sit further from their dot than a twinkling name ever would.
+    // allowed to sit a little further from their dot than a twinkling name ever would.
     function spotFor(p, wide, avoid) {
       var name = p.d.n, text = name === 'Hg-1223, pressure-quenched' ? 'Hg-1223 (2026)' : name + (p.d.pre ? ' (preprint)' : '');
       // Measured against the rendered boxes: subscripts and the bold landmark names run up to
       // 9% wider than a flat 6.1 px a character, which used to let a name land on another one.
-      var w = text.length * 6.7 + 6, hgt = 15, found = null;
-      [[9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end'], [0, -11, 'middle'], [0, 18, 'middle']]
-        .concat(wide ? [[0, -21, 'middle'], [0, 27, 'middle'], [14, -16, 'start'], [-14, -16, 'end'],
-          [14, 22, 'start'], [-14, 22, 'end'], [0, -31, 'middle'], [0, 37, 'middle']] : [])
+      var w = text.length * 6.7 + 6, hgt = 15, found = null, nextBest = null;
+      var near = [[9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end'], [0, -11, 'middle'], [0, 18, 'middle']];
+      // Beside its dot, a long name trails seventy pixels away from it and the dot ends up
+      // against one end of a word that is hard to read as its label. Centred above or below,
+      // the dot sits under the middle of its own name and the two read as one thing, so the
+      // long names try the centred spots first and keep the others as a fallback.
+      if (w > 86) near = [[0, -11, 'middle'], [0, 18, 'middle'], [0, -19, 'middle'], [0, 26, 'middle'],
+        [9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end']];
+      near.concat(wide ? [[0, -21, 'middle'], [0, 27, 'middle'], [14, -16, 'start'], [-14, -16, 'end'],
+        [14, 22, 'start'], [-14, 22, 'end']] : [])
         .forEach(function (o) {
           if (found) return;
           var lx = p.x + o[0], rx = o[2] === 'start' ? lx : o[2] === 'end' ? lx - w : lx - w / 2;
           var r = { x: rx, y: p.y + o[1] - hgt / 2, w: w, h: hgt };
           if (r.x < m.l + 2 || r.x + r.w > m.l + pw - 2 || r.y < 6 || r.y + r.h > m.t + ph - 2) return;
-          if (!hits(r, avoid || taken)) found = { o: o, r: r, text: text };
+          if (hits(r, avoid || taken)) return;
+          var cand = { o: o, r: r, text: text };
+          // The offsets are tried nearest first, so the first spot that is unmistakably this
+          // material's is the closest one that is also unambiguous. A name is never dropped
+          // for want of one: if no spot is clear of its neighbours, the nearest that fits wins.
+          if (!nextBest) nextBest = cand;
+          if (ownsIt(r, p)) found = cand;
         });
-      return found;
+      return found || nextBest;
     }
     function place(p, wide, avoid) {
       p.lab = spotFor(p, wide, avoid);
