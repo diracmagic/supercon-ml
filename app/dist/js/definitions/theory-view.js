@@ -247,7 +247,7 @@
       return;
     }
     var W = Math.max(300, Math.round(host.getBoundingClientRect().width || 900));
-    var narrow = W < 560, Hh = narrow ? 330 : 410;
+    var narrow = W < 560, Hh = narrow ? 430 : 410;
     var m = { l: 46, r: narrow ? 14 : 26, t: 28, b: 38 }, pw = W - m.l - m.r, ph = Hh - m.t - m.b;
     // Tc spans three decades once the low-Tc classics are included, so the temperature axis is logarithmic.
     var X0 = 1906, X1 = 2031, YMIN = 0.2, YMAX = 330, LAST = 2026;
@@ -277,13 +277,14 @@
     svg.appendChild(s('text', { x: m.l - 8, y: m.t - 10, 'text-anchor': 'end', class: 'tick' }, 'K'));
     svg.appendChild(s('text', { x: m.l + pw, y: m.t - 10, 'text-anchor': 'end', class: 'tick' }, 'logarithmic temperature axis'));
     // Everything a material label must not cover: the axis notes, the reference captions and the record staircase.
-    var guards = [{ x: m.l + pw - 160, y: m.t - 22, w: 160, h: 16 }];
+    var guards = [{ x: m.l + pw - 160, y: m.t - 22, w: 160, h: 16 }], lines = [];
     [[4.2, 'liquid helium 4.2 K', 1], [77, 'liquid nitrogen 77 K', 0], [295, 'room temperature', 0]].forEach(function (rl) {
       var ly = Y(rl[0]), right = rl[2], tw = rl[1].length * 5.6 + 6;
       var tx = right ? m.l + pw - 6 - tw : m.l + 6, ty = ly - m.t < 16 ? ly + 13 : ly - 5;
       svg.appendChild(s('line', { x1: m.l, x2: m.l + pw, y1: ly, y2: ly, class: 'ref-line', 'stroke-dasharray': '4 4' }));
       svg.appendChild(s('text', { x: right ? m.l + pw - 6 : m.l + 6, y: ty, 'text-anchor': right ? 'end' : 'start', class: 'ref-label' }, rl[1]));
       guards.push({ x: tx, y: ty - 11, w: tw, h: 14 });
+      lines.push({ x: m.l, w: pw, y: ly });
     });
     var rec = TC_DATA.filter(function (d) { return TC_RECORD.indexOf(d.n) >= 0; });
     var path = '';
@@ -298,7 +299,19 @@
     rec.forEach(function (d, i) {
       var x2 = i + 1 < rec.length ? X(rec[i + 1].y) : X(LAST);
       recBands.push({ x: X(d.y), y: Y(d.tc) - 4, w: Math.max(1, x2 - X(d.y)), h: 8 });
+      lines.push({ x: X(d.y), w: Math.max(1, x2 - X(d.y)), y: Y(d.tc) });
     });
+    // A name lying across one of these reads as though the line were struck through it, so a
+    // spot that keeps clear of them is worth a few pixels of extra distance from the dot.
+    // Mercury is the reason: its 4.2 K sits exactly on the liquid-helium line, and the record
+    // staircase starts at the same dot, so a name level with it lies on both at once.
+    function crossesLine(r) {
+      for (var i = 0; i < lines.length; i++) {
+        var l = lines[i];
+        if (r.y < l.y && l.y < r.y + r.h && r.x < l.x + l.w && l.x < r.x + r.w) return true;
+      }
+      return false;
+    }
     svg.appendChild(s('path', { d: path, class: 'record-line', 'clip-path': 'url(#tc-sweep-clip)' }));
     // The 2026 pressure-quenched onset used to be drawn as a dashed rise from the top of the
     // staircase. On a logarithmic axis 133 K to 151 K is six pixels, so the mark itself could
@@ -347,89 +360,108 @@
         if (pts[i] !== p && boxGap(r, pts[i].x, pts[i].y) < mine + 4) return false;
       return true;
     }
-    // wide: the era-opening names are placed first and must not be left off, so they are
-    // allowed to sit a little further from their dot than a twinkling name ever would.
+    // Every spot a name could take is scored and the best one wins, rather than the first that
+    // happens to fit. The base is how far the dot is from the nearest edge of the box, plus a
+    // quarter of how far it is from the middle of it, which is what keeps a long name from
+    // being hung off one end of its own dot. Two things cost more than a few pixels would:
+    // sitting nearer to another material's dot than to its own, and lying across a line.
+    function cost(r, p) {
+      var mid = Math.sqrt((r.x + r.w / 2 - p.x) * (r.x + r.w / 2 - p.x) + (r.y + r.h / 2 - p.y) * (r.y + r.h / 2 - p.y));
+      return boxGap(r, p.x, p.y) + mid / 4 + (ownsIt(r, p) ? 0 : 24) + (crossesLine(r) ? 10 : 0);
+    }
+    // wide: the era-opening names are placed before anything else and must not be left off, so
+    // they may also take the distant spots and, failing those, anywhere the sweep can find.
     function spotFor(p, wide, avoid) {
       var name = p.d.n, text = name === 'Hg-1223, pressure-quenched' ? 'Hg-1223 (2026)' : name + (p.d.pre ? ' (preprint)' : '');
       // Measured against the rendered boxes: subscripts and the bold landmark names run up to
       // 9% wider than a flat 6.1 px a character, which used to let a name land on another one.
-      var w = text.length * 6.7 + 6, hgt = 15, found = null, nextBest = null;
-      var near = [[9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end'], [0, -11, 'middle'], [0, 18, 'middle']];
-      // Beside its dot, a long name trails seventy pixels away from it and the dot ends up
-      // against one end of a word that is hard to read as its label. Centred above or below,
-      // the dot sits under the middle of its own name and the two read as one thing, so the
-      // long names try the centred spots first and keep the others as a fallback.
-      if (w > 86) near = [[0, -11, 'middle'], [0, 18, 'middle'], [0, -19, 'middle'], [0, 26, 'middle'],
-        [9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end']];
-      near.concat(wide ? [[0, -21, 'middle'], [0, 27, 'middle'], [14, -16, 'start'], [-14, -16, 'end'],
-        [14, 22, 'start'], [-14, 22, 'end']] : [])
-        .forEach(function (o) {
-          if (found) return;
-          var lx = p.x + o[0], rx = o[2] === 'start' ? lx : o[2] === 'end' ? lx - w : lx - w / 2;
-          var r = { x: rx, y: p.y + o[1] - hgt / 2, w: w, h: hgt };
-          if (r.x < m.l + 2 || r.x + r.w > m.l + pw - 2 || r.y < 6 || r.y + r.h > m.t + ph - 2) return;
-          if (hits(r, avoid || taken)) return;
-          var cand = { o: o, r: r, text: text };
-          // The offsets are tried nearest first, so the first spot that is unmistakably this
-          // material's is the closest one that is also unambiguous. A name is never dropped
-          // for want of one: if no spot is clear of its neighbours, the nearest that fits wins.
-          if (!nextBest) nextBest = cand;
-          if (ownsIt(r, p)) found = cand;
-        });
-      // On a small chart every listed position for an era-opening name can be taken: MgB2 at
-      // 390 px has twenty-five dots within seventy pixels of its own. Rather than lose the
-      // name, the space around the dot is swept outwards and the first opening wide enough is
-      // used, so all five of them are on the chart at every size.
-      if (wide && !found && !nextBest) {
-        var list = avoid || taken, rad, k, ang, cos, lx, rx, r2, o2;
-        for (rad = 14; rad <= 78 && !found; rad += 6) {
+      var w = text.length * 6.7 + 6, hgt = 15, best = null, low = 1e9, list = avoid || taken;
+      function offer(o) {
+        var lx = p.x + o[0], rx = o[2] === 'start' ? lx : o[2] === 'end' ? lx - w : lx - w / 2;
+        var r = { x: rx, y: p.y + o[1] - hgt / 2, w: w, h: hgt };
+        if (r.x < m.l + 2 || r.x + r.w > m.l + pw - 2 || r.y < 6 || r.y + r.h > m.t + ph - 2) return;
+        if (hits(r, list)) return;
+        var c = cost(r, p);
+        if (c < low) { low = c; best = { o: o, r: r, text: text }; }
+      }
+      [[0, 14, 'middle'], [0, -14, 'middle'], [9, -4, 'start'], [-9, -4, 'end'],
+        [9, 11, 'start'], [-9, 11, 'end'], [0, 21, 'middle'], [0, -21, 'middle']].forEach(offer);
+      if (wide) {
+        [[14, -16, 'start'], [-14, -16, 'end'], [14, 22, 'start'], [-14, 22, 'end'],
+          [0, 28, 'middle'], [0, -28, 'middle'], [0, 35, 'middle'], [0, -35, 'middle']].forEach(offer);
+        // On a small chart every listed spot for an era-opening name can be taken: MgB2 at
+        // 390 px has twenty-five dots within seventy pixels of its own. Only then is the space
+        // around the dot swept outwards, so all five are always on the chart. The sweep stays
+        // a last resort: offered alongside the listed spots it wins often enough to shuffle
+        // the others out of the places they need.
+        var rad, k, ang, cos;
+        for (rad = 14; rad <= 78 && !best; rad += 6) {
           for (k = 0; k < 16; k++) {
             ang = k * Math.PI / 8; cos = Math.cos(ang);
-            o2 = [Math.round(cos * rad), Math.round(Math.sin(ang) * rad),
-              cos > 0.35 ? 'start' : cos < -0.35 ? 'end' : 'middle'];
-            lx = p.x + o2[0]; rx = o2[2] === 'start' ? lx : o2[2] === 'end' ? lx - w : lx - w / 2;
-            r2 = { x: rx, y: p.y + o2[1] - hgt / 2, w: w, h: hgt };
-            if (r2.x < m.l + 2 || r2.x + r2.w > m.l + pw - 2 || r2.y < 6 || r2.y + r2.h > m.t + ph - 2) continue;
-            if (hits(r2, list)) continue;
-            var cand2 = { o: o2, r: r2, text: text };
-            if (!nextBest) nextBest = cand2;
-            if (ownsIt(r2, p)) { found = cand2; break; }
+            offer([Math.round(cos * rad), Math.round(Math.sin(ang) * rad),
+              cos > 0.35 ? 'start' : cos < -0.35 ? 'end' : 'middle']);
           }
         }
       }
-      return found || nextBest;
+      return best;
     }
     function place(p, wide, avoid) {
       p.lab = spotFor(p, wide, avoid);
       if (!p.lab) return;
       p.tx = s('text', { x: p.x + p.lab.o[0], y: p.y + p.lab.o[1] + 4, 'text-anchor': p.lab.o[2],
         class: 'tc-label' + (p.mark ? ' mark' : ''), opacity: '0', 'data-tc': p.d.n, 'aria-hidden': 'true' }, p.lab.text);
+      // Where a name could not be put near its dot it gets a thread back to it, so the pairing
+      // is shown rather than left to nearness. On a phone MgB2 has no free space within sixteen
+      // pixels of its own dot: every closer spot would cover one of the twenty-five dots around
+      // it. The thread starts outside the dot so it never touches it.
+      var g = boxGap(p.lab.r, p.x, p.y);
+      if (g > 13) {
+        var r = p.lab.r;
+        var ex = Math.max(r.x, Math.min(p.x, r.x + r.w)), ey = Math.max(r.y, Math.min(p.y, r.y + r.h));
+        var dx = (ex - p.x) / g, dy = (ey - p.y) / g;
+        p.lead = s('line', { x1: (p.x + dx * 6).toFixed(1), y1: (p.y + dy * 6).toFixed(1),
+          x2: ex.toFixed(1), y2: ey.toFixed(1),
+          class: 'tc-lead ' + FAMILIES[p.d.f].cls, opacity: '0' });
+        svg.appendChild(p.lead);
+      }
       svg.appendChild(p.tx);
+    }
+    // A name and its thread appear and vanish together.
+    function fade(p, v) {
+      p.tx.setAttribute('opacity', v);
+      if (p.lead) p.lead.setAttribute('opacity', v);
     }
     // The few that opened an era are placed before anything else and their space is then
     // reserved, so their names can stay on the chart for good without a twinkling one ever
     // landing on top of them.
-    // Closeness comes before tidiness, in four passes. A name crossing the record staircase or
-    // an axis note is easier to read as its own dot's name than a name sitting half an inch
-    // away with clear space around it, and the white outline behind these names carries them
-    // over a line without trouble. So each one is offered the close positions over a clear
-    // background, then the close positions over the staircase and the notes, and only then
-    // the distant positions. Mercury sits on the record line at the very left of the plot,
-    // where everything but one distant spot used to be blocked, and MgB2 on a narrow screen
-    // was pushed out to where another material's dot was nearer to its name than its own.
-    // No pass ever lets a name sit on a dot or on another of these names.
-    var marks = [];
-    [0, 1, 2, 3].forEach(function (pass) {
-      TC_LANDMARK.forEach(function (n) {
-        pts.forEach(function (p) {
-          if (p.d.n !== n || p.tx) return;
-          p.mark = true;
-          place(p, pass > 1, (pass % 2 ? dotBoxes : dotBoxes.concat(guards)).concat(markRects));
-          if (!p.lab) return;
-          taken.push(p.lab.r); markRects.push(p.lab.r);   // only these reserve their space
-          p.phase = (p.d.y % 7) * 0.9;
-          marks.push(p);
-        });
+    // Every spot each of them could take is scored together, near and far, so a close one is
+    // not taken merely because it was tried first when a slightly further one is unmistakably
+    // this material's or keeps clear of a line. These names may cross the record staircase,
+    // which the outline behind them carries, and on the second pass the axis notes too, rather
+    // than be left off a crowded chart. Neither pass lets a name sit on a dot or on another of
+    // these names.
+    // They are placed one after another, each reserving its box, so the one with the least
+    // room around it goes first. Placed fourth of five, MgB2 on a phone found its whole
+    // neighbourhood already taken and ended up fifty pixels from its own dot; it has
+    // twenty-five dots within seventy pixels, more than any of the other four.
+    var marks = [], landmarks = [];
+    TC_LANDMARK.forEach(function (n) {
+      pts.forEach(function (p) { if (p.d.n === n) landmarks.push(p); });
+    });
+    landmarks.forEach(function (p) {
+      p.crowd = 0;
+      pts.forEach(function (q) { if (q !== p && Math.abs(q.x - p.x) < 60 && Math.abs(q.y - p.y) < 40) p.crowd++; });
+    });
+    landmarks.sort(function (a, b) { return b.crowd - a.crowd; });
+    [0, 1].forEach(function (pass) {
+      landmarks.forEach(function (p) {
+        if (p.tx) return;
+        p.mark = true;
+        place(p, true, (pass ? dotBoxes : dotBoxes.concat(guards)).concat(markRects));
+        if (!p.lab) return;
+        taken.push(p.lab.r); markRects.push(p.lab.r);   // only these reserve their space
+        p.phase = (p.d.y % 7) * 0.9;
+        marks.push(p);
       });
     });
     pts.forEach(function (p) { if (!p.tx) { p.mark = false; place(p, false, null); } });
@@ -469,7 +501,7 @@
         e = live[i]; e.age += frozen ? 0 : dt;
         // A name for a year the slider has been dragged back past goes either way.
         if ((e.age >= e.life && !frozen) || e.p.d.y > learn.tcYear) {
-          e.p.tx.setAttribute('opacity', '0'); glow(e.p, 0); live.splice(i, 1);
+          fade(e.p, '0'); glow(e.p, 0); live.splice(i, 1);
         }
       }
       var busy = live.map(function (q) { return q.p.lab.r; });
@@ -504,28 +536,28 @@
       live.forEach(function (q) {
         var a = q.age <= 0 ? 0 : q.age < FADE ? q.age / FADE
           : q.age > q.life - FADE ? Math.max(0, (q.life - q.age) / FADE) : 1;
-        q.p.tx.setAttribute('opacity', a.toFixed(3));
+        fade(q.p, a.toFixed(3));
         glow(q.p, a);
         if (a >= 0.25) q.p.lit = clock;   // when this name was last readable
       });
       // The names that opened an era never leave, and their dots keep a slow pulse of their own.
       marks.forEach(function (p) {
         var on = p.d.y <= learn.tcYear;
-        p.tx.setAttribute('opacity', on ? '1' : '0');
+        fade(p, on ? '1' : '0');
         glow(p, on ? 0.5 + 0.35 * Math.sin(clock * 1.9 + p.phase) : 0);
       });
       // The chosen material keeps its name on screen for as long as it stays chosen.
       if (pinned && pinned.d.n !== learn.tcSel) {
         var held = false;
         for (i = 0; i < live.length; i++) if (live[i].p === pinned) held = true;
-        if (!held && !pinned.mark) { pinned.tx.setAttribute('opacity', '0'); glow(pinned, 0); }
+        if (!held && !pinned.mark) { fade(pinned, '0'); glow(pinned, 0); }
         pinned = null;
       }
       if (learn.tcSel) {
         var sel = null;
         pts.forEach(function (c) { if (c.d.n === learn.tcSel && c.tx) sel = c; });
         if (sel) {
-          sel.tx.setAttribute('opacity', '1');
+          fade(sel, '1');
           if (!sel.mark) glow(sel, 0.55);
           pinned = sel;
         }
@@ -558,7 +590,7 @@
         var k = Math.max(0, Math.min(1, (yr - p.d.y + 1.4) / 1.4));
         p.el.setAttribute('opacity', k.toFixed(3));
         p.el.setAttribute('r', (2.2 + 2.8 * k).toFixed(2));
-        if (p.tx && !twinkling) p.tx.setAttribute('opacity', p.still && p.d.y <= yr ? '1' : '0');
+        if (p.tx && !twinkling) fade(p, p.still && p.d.y <= yr ? '1' : '0');
       });
       sweepLine.setAttribute('visibility', done ? 'hidden' : 'visible');
       sweepYear.setAttribute('visibility', done ? 'hidden' : 'visible');
