@@ -291,9 +291,13 @@
       path += (i ? 'H' + X(d.y).toFixed(1) + 'V' : 'M' + X(d.y).toFixed(1) + ' ') + Y(d.tc).toFixed(1);
     });
     path += 'H' + X(LAST).toFixed(1);
+    // The staircase is kept clear of the twinkling names, but it is the one thing a name may
+    // cross when the alternative is sitting far from its dot, so it is held apart from the
+    // notes and captions a name must never cover.
+    var recBands = [];
     rec.forEach(function (d, i) {
       var x2 = i + 1 < rec.length ? X(rec[i + 1].y) : X(LAST);
-      guards.push({ x: X(d.y), y: Y(d.tc) - 4, w: Math.max(1, x2 - X(d.y)), h: 8 });
+      recBands.push({ x: X(d.y), y: Y(d.tc) - 4, w: Math.max(1, x2 - X(d.y)), h: 8 });
     });
     svg.appendChild(s('path', { d: path, class: 'record-line', 'clip-path': 'url(#tc-sweep-clip)' }));
     // The 2026 pressure-quenched onset used to be drawn as a dashed rise from the top of the
@@ -321,7 +325,7 @@
     // Every material carries its name, but only a few show at once: the names twinkle in and
     // out like stars, so all of them can be read over a cycle without crowding the chart.
     var dotBoxes = pts.map(function (p) { return { x: p.x - 6, y: p.y - 6, w: 12, h: 12 }; });
-    var taken = dotBoxes.concat(guards), markRects = [];
+    var taken = dotBoxes.concat(guards, recBands), markRects = [];
     function hits(r, list) {
       for (var i = 0; i < list.length; i++) {
         var q = list[i];
@@ -372,6 +376,27 @@
           if (!nextBest) nextBest = cand;
           if (ownsIt(r, p)) found = cand;
         });
+      // On a small chart every listed position for an era-opening name can be taken: MgB2 at
+      // 390 px has twenty-five dots within seventy pixels of its own. Rather than lose the
+      // name, the space around the dot is swept outwards and the first opening wide enough is
+      // used, so all five of them are on the chart at every size.
+      if (wide && !found && !nextBest) {
+        var list = avoid || taken, rad, k, ang, cos, lx, rx, r2, o2;
+        for (rad = 14; rad <= 78 && !found; rad += 6) {
+          for (k = 0; k < 16; k++) {
+            ang = k * Math.PI / 8; cos = Math.cos(ang);
+            o2 = [Math.round(cos * rad), Math.round(Math.sin(ang) * rad),
+              cos > 0.35 ? 'start' : cos < -0.35 ? 'end' : 'middle'];
+            lx = p.x + o2[0]; rx = o2[2] === 'start' ? lx : o2[2] === 'end' ? lx - w : lx - w / 2;
+            r2 = { x: rx, y: p.y + o2[1] - hgt / 2, w: w, h: hgt };
+            if (r2.x < m.l + 2 || r2.x + r2.w > m.l + pw - 2 || r2.y < 6 || r2.y + r2.h > m.t + ph - 2) continue;
+            if (hits(r2, list)) continue;
+            var cand2 = { o: o2, r: r2, text: text };
+            if (!nextBest) nextBest = cand2;
+            if (ownsIt(r2, p)) { found = cand2; break; }
+          }
+        }
+      }
       return found || nextBest;
     }
     function place(p, wide, avoid) {
@@ -383,17 +408,23 @@
     }
     // The few that opened an era are placed before anything else and their space is then
     // reserved, so their names can stay on the chart for good without a twinkling one ever
-    // landing on top of them. Every one of them tries the close positions first, so an early
-    // name does not take a distant slot that a later one needs near its own dot.
-    // On a phone the last of them may find nothing left; rather than drop the name, the third
-    // pass lets it sit over the axis notes and the record staircase, which its outline survives.
-    // No pass ever lets a name sit on a dot.
+    // landing on top of them.
+    // Closeness comes before tidiness, in four passes. A name crossing the record staircase or
+    // an axis note is easier to read as its own dot's name than a name sitting half an inch
+    // away with clear space around it, and the white outline behind these names carries them
+    // over a line without trouble. So each one is offered the close positions over a clear
+    // background, then the close positions over the staircase and the notes, and only then
+    // the distant positions. Mercury sits on the record line at the very left of the plot,
+    // where everything but one distant spot used to be blocked, and MgB2 on a narrow screen
+    // was pushed out to where another material's dot was nearer to its name than its own.
+    // No pass ever lets a name sit on a dot or on another of these names.
     var marks = [];
-    [0, 1, 2].forEach(function (pass) {
+    [0, 1, 2, 3].forEach(function (pass) {
       TC_LANDMARK.forEach(function (n) {
         pts.forEach(function (p) {
           if (p.d.n !== n || p.tx) return;
-          p.mark = true; place(p, pass > 0, pass > 1 ? dotBoxes.concat(markRects) : null);
+          p.mark = true;
+          place(p, pass > 1, (pass % 2 ? dotBoxes : dotBoxes.concat(guards)).concat(markRects));
           if (!p.lab) return;
           taken.push(p.lab.r); markRects.push(p.lab.r);   // only these reserve their space
           p.phase = (p.d.y % 7) * 0.9;
