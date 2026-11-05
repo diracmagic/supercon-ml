@@ -250,9 +250,13 @@
       if (major || !narrow) svg.appendChild(s('text', { x: m.l - 8, y: Y(v) + 4, 'text-anchor': 'end', class: 'tick' }, String(v)));
     });
     svg.appendChild(s('line', { x1: m.l, x2: m.l + pw, y1: m.t + ph, y2: m.t + ph, class: 'axis-line' }));
-    (narrow ? [1920, 1960, 2000] : [1910, 1930, 1950, 1970, 1990, 2010, 2030]).forEach(function (y) {
-      svg.appendChild(s('text', { x: X(y), y: m.t + ph + 18, 'text-anchor': 'middle', class: 'tick' }, String(y)));
-    });
+    var ystep = W < 820 ? 20 : 10, yy;
+    for (yy = 1910; yy <= 2030; yy += ystep) {
+      svg.appendChild(s('line', { x1: X(yy), x2: X(yy), y1: m.t + ph, y2: m.t + ph + 4, class: 'axis-line' }));
+      svg.appendChild(s('text', { x: X(yy), y: m.t + ph + 18, 'text-anchor': 'middle', class: 'tick' }, String(yy)));
+    }
+    for (yy = 1910 + ystep / 2; yy < 2030; yy += ystep)
+      svg.appendChild(s('line', { x1: X(yy), x2: X(yy), y1: m.t + ph, y2: m.t + ph + 2.5, class: 'axis-line minor' }));
     svg.appendChild(s('text', { x: m.l - 8, y: m.t - 10, 'text-anchor': 'end', class: 'tick' }, 'K'));
     svg.appendChild(s('text', { x: m.l + pw, y: m.t - 10, 'text-anchor': 'end', class: 'tick' }, 'logarithmic temperature axis'));
     // Everything a material label must not cover: the axis notes, the reference captions and the record staircase.
@@ -286,35 +290,105 @@
         class: 'tc-dot ' + FAMILIES[p.d.f].cls + (p.d.p ? ' hp' : '') + (p.d.pre ? ' pre' : '') + (p.d.n === learn.tcSel ? ' sel' : '') });
       svg.appendChild(p.el);
     });
-    // Labels are placed around their dot in the first free position, so none covers a dot or another label.
+    // Every material carries its name, but only a few show at once: the names twinkle in and
+    // out like stars, so all of them can be read over a cycle without crowding the chart.
     var taken = pts.map(function (p) { return { x: p.x - 6, y: p.y - 6, w: 12, h: 12 }; }).concat(guards);
-    function free(r) {
-      if (r.x < m.l + 2 || r.x + r.w > m.l + pw - 2 || r.y < 6 || r.y + r.h > m.t + ph - 2) return false;
-      for (var i = 0; i < taken.length; i++) {
-        var q = taken[i];
-        if (r.x < q.x + q.w && q.x < r.x + r.w && r.y < q.y + q.h && q.y < r.y + r.h) return false;
+    function hits(r, list) {
+      for (var i = 0; i < list.length; i++) {
+        var q = list[i];
+        if (r.x < q.x + q.w && q.x < r.x + r.w && r.y < q.y + q.h && q.y < r.y + r.h) return true;
       }
-      return true;
+      return false;
     }
-    TC_LABELS.forEach(function (name) {
-      if (narrow && !TC_LABELS_NARROW[name]) return;
-      var p = null;
-      pts.forEach(function (c) { if (c.d.n === name) p = c; });
-      if (!p) return;
-      var text = name === 'Hg-1223, pressure-quenched' ? 'Hg-1223 (2026)' : name + (p.d.pre ? ' (preprint)' : '');
-      var w = text.length * 6.1 + 4, hgt = 13, spot = null;
+    function spotFor(p) {
+      var name = p.d.n, text = name === 'Hg-1223, pressure-quenched' ? 'Hg-1223 (2026)' : name + (p.d.pre ? ' (preprint)' : '');
+      var w = text.length * 6.1 + 4, hgt = 13, found = null;
       [[9, -4, 'start'], [-9, -4, 'end'], [9, 11, 'start'], [-9, 11, 'end'], [0, -11, 'middle'], [0, 18, 'middle']]
         .forEach(function (o) {
-          if (spot) return;
+          if (found) return;
           var lx = p.x + o[0], rx = o[2] === 'start' ? lx : o[2] === 'end' ? lx - w : lx - w / 2;
           var r = { x: rx, y: p.y + o[1] - hgt / 2, w: w, h: hgt };
-          if (free(r)) spot = { o: o, r: r };
+          if (r.x < m.l + 2 || r.x + r.w > m.l + pw - 2 || r.y < 6 || r.y + r.h > m.t + ph - 2) return;
+          if (!hits(r, taken)) found = { o: o, r: r, text: text };
         });
-      if (!spot) return;
-      taken.push(spot.r);
-      p.tx = s('text', { x: p.x + spot.o[0], y: p.y + spot.o[1] + 4, 'text-anchor': spot.o[2], class: 'tc-label' }, text);
+      return found;
+    }
+    pts.forEach(function (p) {
+      p.lab = spotFor(p);
+      if (!p.lab) return;
+      p.tx = s('text', { x: p.x + p.lab.o[0], y: p.y + p.lab.o[1] + 4, 'text-anchor': p.lab.o[2],
+        class: 'tc-label', opacity: '0', 'aria-hidden': 'true' }, p.lab.text);
       svg.appendChild(p.tx);
     });
+    // Curated names come round first, then the rest in the order they were found.
+    var rot = [], live = [], cursor = 0, started = 0, clock = 0, pinned = null;
+    var FADE = 0.6, HOLD = 2.4, LIFE = FADE * 2 + HOLD;
+    var twinkling = motionOK(), atOnce = narrow ? 2 : W > 900 ? 5 : 4, apart = Math.min(185, pw / 5.5);
+    TC_LABELS.forEach(function (n) {
+      pts.forEach(function (p) { if (p.d.n === n && p.lab && rot.indexOf(p) < 0) rot.push(p); });
+    });
+    pts.forEach(function (p) { if (p.lab && rot.indexOf(p) < 0) rot.push(p); });
+    if (!twinkling) {
+      var used = [];
+      TC_LABELS.forEach(function (n) {
+        if (narrow && !TC_LABELS_NARROW[n]) return;
+        var p = null;
+        pts.forEach(function (c) { if (c.d.n === n) p = c; });
+        if (!p || !p.lab || hits(p.lab.r, used)) return;
+        used.push(p.lab.r); p.still = true;
+      });
+    }
+    function twinkleStep(dt) {
+      var i, e;
+      clock += dt;
+      for (i = live.length - 1; i >= 0; i--) {
+        e = live[i]; e.age += dt;
+        if (e.age >= e.life || e.p.d.y > learn.tcYear) { e.p.tx.setAttribute('opacity', '0'); live.splice(i, 1); }
+      }
+      // The rotation moves on by one name at a time, so every one of them gets its turn; among
+      // the next few it picks the one furthest from the names already up, which keeps them spread.
+      while (live.length < atOnce) {
+        var best = -1, bestFar = -1, seen = 0, k, at, c, skip, near, dx, dy;
+        for (k = 0; k < rot.length && seen < 8; k++) {
+          at = (cursor + k) % rot.length; c = rot[at]; skip = false;
+          if (c.d.y > learn.tcYear || c.d.n === learn.tcSel) continue;
+          if (c.shown !== undefined && clock - c.shown < 24) continue;   // every name has its turn before any repeats
+          for (i = 0; i < live.length; i++) if (live[i].p === c) skip = true;
+          if (skip || hits(c.lab.r, live.map(function (q) { return q.p.lab.r; }))) continue;
+          seen++;
+          near = 1e9;
+          for (i = 0; i < live.length; i++) {
+            dx = live[i].p.x - c.x; dy = (live[i].p.y - c.y) * 1.7;
+            near = Math.min(near, Math.sqrt(dx * dx + dy * dy));
+          }
+          if (near > bestFar) { bestFar = near; best = at; }
+        }
+        if (best < 0) break;
+        var p = rot[best];
+        // Staggered starts and uneven lifetimes keep the names from blinking in step.
+        var jit = ((p.d.y * 37 + Math.round(p.d.tc * 10)) % 11) / 10;
+        live.push({ p: p, age: started < atOnce ? -0.8 * started : 0, life: LIFE * (0.8 + 0.5 * jit) });
+        p.shown = clock;
+        started++; cursor = (cursor + 1) % rot.length;
+      }
+      live.forEach(function (q) {
+        var a = q.age <= 0 ? 0 : q.age < FADE ? q.age / FADE
+          : q.age > q.life - FADE ? Math.max(0, (q.life - q.age) / FADE) : 1;
+        q.p.tx.setAttribute('opacity', a.toFixed(3));
+      });
+      // The chosen material keeps its name on screen for as long as it stays chosen.
+      if (pinned && pinned.d.n !== learn.tcSel) {
+        var held = false;
+        for (i = 0; i < live.length; i++) if (live[i].p === pinned) held = true;
+        if (!held) pinned.tx.setAttribute('opacity', '0');
+        pinned = null;
+      }
+      if (learn.tcSel) {
+        var sel = null;
+        pts.forEach(function (c) { if (c.d.n === learn.tcSel && c.tx) sel = c; });
+        if (sel) { sel.tx.setAttribute('opacity', '1'); pinned = sel; }
+      }
+    }
     var sweepLine = s('line', { y1: m.t, y2: m.t + ph, class: 'tc-sweep', visibility: 'hidden' });
     var sweepYear = s('text', { y: m.t - 5, 'text-anchor': 'middle', class: 'tc-sweep-year', visibility: 'hidden' }, '');
     svg.appendChild(sweepLine); svg.appendChild(sweepYear);
@@ -342,7 +416,7 @@
         var k = Math.max(0, Math.min(1, (yr - p.d.y + 1.4) / 1.4));
         p.el.setAttribute('opacity', k.toFixed(3));
         p.el.setAttribute('r', (2.2 + 2.8 * k).toFixed(2));
-        if (p.tx) p.tx.setAttribute('opacity', (k * k).toFixed(3));
+        if (p.tx && !twinkling) p.tx.setAttribute('opacity', p.still && p.d.y <= yr ? '1' : '0');
       });
       sweepLine.setAttribute('visibility', done ? 'hidden' : 'visible');
       sweepYear.setAttribute('visibility', done ? 'hidden' : 'visible');
@@ -368,25 +442,28 @@
     }
     function step(ts) {
       learn.tcRaf = 0;
-      if (!svg.isConnected || view !== 'learn' || !learn.tcPlay) { learn.tcLast = 0; return; }
-      if (document.hidden) { learn.tcLast = 0; learn.tcRaf = requestAnimationFrame(step); return; }
+      if (!svg.isConnected || view !== 'learn') { learn.tcLast = 0; return; }
       var dt = learn.tcLast ? Math.min(0.08, (ts - learn.tcLast) / 1000) : 0;
       learn.tcLast = ts;
-      learn.tcYear = Math.min(LAST, learn.tcYear + dt * 9.5);
-      apply();
-      if (learn.tcYear >= LAST) { learn.tcPlay = false; learn.tcLast = 0; syncPlay(); return; }
-      learn.tcRaf = requestAnimationFrame(step);
+      if (learn.tcPlay) {
+        learn.tcYear = Math.min(LAST, learn.tcYear + dt * 9.5);
+        apply();
+        if (learn.tcYear >= LAST) { learn.tcPlay = false; syncPlay(); }
+      }
+      if (twinkling) twinkleStep(dt);
+      if (learn.tcPlay || twinkling) learn.tcRaf = requestAnimationFrame(step);
+      else learn.tcLast = 0;
     }
-    function run() { tcStop(); if (learn.tcPlay) learn.tcRaf = requestAnimationFrame(step); }
+    function run() { tcStop(); if (learn.tcPlay || twinkling) learn.tcRaf = requestAnimationFrame(step); }
     playBtn.addEventListener('click', function () {
       if (learn.tcPlay) learn.tcPlay = false;
       else { if (learn.tcYear >= LAST) learn.tcYear = X0; learn.tcPlay = true; }
       syncPlay(); apply(); run();
     });
     slider.addEventListener('input', function () {
-      learn.tcPlay = false; tcStop();
+      learn.tcPlay = false;
       learn.tcYear = Math.max(X0, Math.min(LAST, Number(slider.value) || X0));
-      syncPlay(); apply();
+      syncPlay(); apply(); run();
     });
     if (bar) append(bar, [playBtn, slider, readout]);
     syncPlay(); apply(); run();

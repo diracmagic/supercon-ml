@@ -1,5 +1,10 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.25 adds:
+
+- **Every name, never a crowd:** the Tc chart has 48 materials and could only ever label about sixteen of them without the names colliding. Now each one carries its name and they twinkle: four or five fade in and out at a time, spread across the chart and out of step with each other, so the whole list can be read over about three quarters of a minute and nothing is ever buried under text. Choosing a dot pins its name until you close the panel, and a name only appears once its year has arrived. With reduced motion the chart shows the fixed set of names it used before, with no fading.
+- **A finer year axis:** the years are marked every decade instead of every twenty years, with a half-decade tick between them, and every ten years on a phone.
+
 Version 0.3.24 adds:
 
 - **UTe₂ and Sr₂RuO₄ get their own structures:** choosing either on the Tc chart used to play a shared pairing-symmetry cartoon that also contained the kagome lattice of CsV₃Sb₅, a different material. Each now has its own drawing. UTe₂ shows the uranium two-leg ladder along the a axis of its body-centred orthorhombic structure, with legs of about 4.2 Å and rungs of about 3.8 Å and a chain of Te(2) along b; only the viewing angle turns, no distance in the drawing moves, the two marked Te(1) atoms are indicative rather than measured positions, and nothing in it depicts the spin-triplet pairing, which remains a candidate. Sr₂RuO₄ shows its layered perovskite: RuO₂ planes of corner-sharing octahedra with apical oxygen and strontium in the layers between, drawn untilted. The shared drawing stays where it belongs, on the Spin-triplet candidates card in Theory & materials, which is about all three materials at once.

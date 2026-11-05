@@ -52,6 +52,8 @@
       kick();
     }
     if (v === 'learn' && !learn.built) buildLearn();
+    // Returning to the view restarts the chart's own frame loop, which stops when the view is left.
+    else if (v === 'learn' && !learn.table) renderTcChart();
     if (v === 'learn') { miniKick(); loadContent(false); }
     if (v === 'papers') {
       if (!paperState.built) buildPapers();
