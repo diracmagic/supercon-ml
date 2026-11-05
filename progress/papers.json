@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-05T04:17:44+00:00",
+ "updated": "2026-11-05T13:36:07+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2357,6 +2357,44 @@
  ],
  "journals": [
   {
+   "id": "10.1103/xlxf-y4vg",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Superconducting Proximity Effect in a Strongly Correlated Charge-Transfer Insulator",
+   "authors": [
+    "Mengya Ren",
+    "Yaoyao Chen",
+    "Yi-Xin Dai",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-11-05",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/xlxf-y4vg",
+   "doi": "10.1103/xlxf-y4vg",
+   "topics": [],
+   "kind": ""
+  },
+  {
+   "id": "10.1103/t2qc-469r",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Searching for Axion Dark Matter via Superconductor-Spin Hybrid Magnetometers",
+   "authors": [
+    "Runqi Kang",
+    "Jian Zhang",
+    "Liangliang Rong",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-05",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/t2qc-469r",
+   "doi": "10.1103/t2qc-469r",
+   "topics": [],
+   "kind": ""
+  },
+  {
    "id": "10.1103/k5r2-q11w",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2717,25 +2755,6 @@
    "kind": ""
   },
   {
-   "id": "10.1103/t2qc-469r",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Searching for axion dark matter via superconductor-spin hybrid magnetometers",
-   "authors": [
-    "Runqi Kang",
-    "Jiang Zhang",
-    "Liangliang Rong",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-19",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/t2qc-469r",
-   "doi": "10.1103/t2qc-469r",
-   "topics": [],
-   "kind": ""
-  },
-  {
    "id": "10.1038/s41567-026-03454-6",
    "source": "Nat. Phys.",
    "journal": "Nature Physics",
@@ -2853,25 +2872,6 @@
    "abstract": "",
    "url": "https://doi.org/10.1103/7bh1-v73z",
    "doi": "10.1103/7bh1-v73z",
-   "topics": [],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/xlxf-y4vg",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Superconducting proximity effect in a strongly correlated charge-transfer insulator",
-   "authors": [
-    "Mengya Ren",
-    "Yaoyao Chen",
-    "Yi-Xin Dai",
-    "et al."
-   ],
-   "n_authors": 14,
-   "date": "2026-10-13",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/xlxf-y4vg",
-   "doi": "10.1103/xlxf-y4vg",
    "topics": [],
    "kind": ""
   },
