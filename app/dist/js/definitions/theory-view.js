@@ -410,26 +410,7 @@
       if (!p.lab) return;
       p.tx = s('text', { x: p.x + p.lab.o[0], y: p.y + p.lab.o[1] + 4, 'text-anchor': p.lab.o[2],
         class: 'tc-label' + (p.mark ? ' mark' : ''), opacity: '0', 'data-tc': p.d.n, 'aria-hidden': 'true' }, p.lab.text);
-      // Where a name could not be put near its dot it gets a thread back to it, so the pairing
-      // is shown rather than left to nearness. On a phone MgB2 has no free space within sixteen
-      // pixels of its own dot: every closer spot would cover one of the twenty-five dots around
-      // it. The thread starts outside the dot so it never touches it.
-      var g = boxGap(p.lab.r, p.x, p.y);
-      if (g > 13) {
-        var r = p.lab.r;
-        var ex = Math.max(r.x, Math.min(p.x, r.x + r.w)), ey = Math.max(r.y, Math.min(p.y, r.y + r.h));
-        var dx = (ex - p.x) / g, dy = (ey - p.y) / g;
-        p.lead = s('line', { x1: (p.x + dx * 6).toFixed(1), y1: (p.y + dy * 6).toFixed(1),
-          x2: ex.toFixed(1), y2: ey.toFixed(1),
-          class: 'tc-lead ' + FAMILIES[p.d.f].cls, opacity: '0' });
-        svg.appendChild(p.lead);
-      }
       svg.appendChild(p.tx);
-    }
-    // A name and its thread appear and vanish together.
-    function fade(p, v) {
-      p.tx.setAttribute('opacity', v);
-      if (p.lead) p.lead.setAttribute('opacity', v);
     }
     // The few that opened an era are placed before anything else and their space is then
     // reserved, so their names can stay on the chart for good without a twinkling one ever
@@ -501,7 +482,7 @@
         e = live[i]; e.age += frozen ? 0 : dt;
         // A name for a year the slider has been dragged back past goes either way.
         if ((e.age >= e.life && !frozen) || e.p.d.y > learn.tcYear) {
-          fade(e.p, '0'); glow(e.p, 0); live.splice(i, 1);
+          e.p.tx.setAttribute('opacity', '0'); glow(e.p, 0); live.splice(i, 1);
         }
       }
       var busy = live.map(function (q) { return q.p.lab.r; });
@@ -536,28 +517,28 @@
       live.forEach(function (q) {
         var a = q.age <= 0 ? 0 : q.age < FADE ? q.age / FADE
           : q.age > q.life - FADE ? Math.max(0, (q.life - q.age) / FADE) : 1;
-        fade(q.p, a.toFixed(3));
+        q.p.tx.setAttribute('opacity', a.toFixed(3));
         glow(q.p, a);
         if (a >= 0.25) q.p.lit = clock;   // when this name was last readable
       });
       // The names that opened an era never leave, and their dots keep a slow pulse of their own.
       marks.forEach(function (p) {
         var on = p.d.y <= learn.tcYear;
-        fade(p, on ? '1' : '0');
+        p.tx.setAttribute('opacity', on ? '1' : '0');
         glow(p, on ? 0.5 + 0.35 * Math.sin(clock * 1.9 + p.phase) : 0);
       });
       // The chosen material keeps its name on screen for as long as it stays chosen.
       if (pinned && pinned.d.n !== learn.tcSel) {
         var held = false;
         for (i = 0; i < live.length; i++) if (live[i].p === pinned) held = true;
-        if (!held && !pinned.mark) { fade(pinned, '0'); glow(pinned, 0); }
+        if (!held && !pinned.mark) { pinned.tx.setAttribute('opacity', '0'); glow(pinned, 0); }
         pinned = null;
       }
       if (learn.tcSel) {
         var sel = null;
         pts.forEach(function (c) { if (c.d.n === learn.tcSel && c.tx) sel = c; });
         if (sel) {
-          fade(sel, '1');
+          sel.tx.setAttribute('opacity', '1');
           if (!sel.mark) glow(sel, 0.55);
           pinned = sel;
         }
@@ -590,7 +571,7 @@
         var k = Math.max(0, Math.min(1, (yr - p.d.y + 1.4) / 1.4));
         p.el.setAttribute('opacity', k.toFixed(3));
         p.el.setAttribute('r', (2.2 + 2.8 * k).toFixed(2));
-        if (p.tx && !twinkling) fade(p, p.still && p.d.y <= yr ? '1' : '0');
+        if (p.tx && !twinkling) p.tx.setAttribute('opacity', p.still && p.d.y <= yr ? '1' : '0');
       });
       sweepLine.setAttribute('visibility', done ? 'hidden' : 'visible');
       sweepYear.setAttribute('visibility', done ? 'hidden' : 'visible');
