@@ -781,3 +781,6 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .plot .tc-label.mark { font-weight: 700; stroke-width: 3.5px; }
 .tcd-bg { margin: 7px 0 0; font-size: 13px; line-height: 1.65; color: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .plot .tc-halo { display: none; } }
+
+/* v0.3.28: a material's name on the Tc chart can be chosen as well as its dot */
+.plot .tc-label.hot { text-decoration: underline; text-underline-offset: 2px; }
