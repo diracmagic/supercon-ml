@@ -1,5 +1,9 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.28 adds:
+
+- **The name opens the material, not just the dot.** The dots on the Tc chart are five pixels across and several of them sit almost on top of each other, so the right one was hard to hit — and when two were close, tapping between them picked whichever was nearer rather than the one meant. Any name that can be read at that moment is now a target of its own: choosing it opens that material, even when another material’s dot is closer to the name than its own is. The name under the pointer is underlined and the cursor changes, so it reads as something that can be chosen. A name that has faded out is not a target, so the chart has no invisible places to tap.
+
 Version 0.3.27 fixes:
 
 - **The caption under each drawing now says what the drawing is.** Every material in the Tc chart carried the same line, “Labelled schematic of an idealised structure, not measured coordinates”, but six of the twenty drawings are not structures: mercury plays the 1911 measurement, NbTi and Nb₃Sn a solenoid magnet, YBa₂Cu₃O₇ a coated-conductor tape, Hg-1223 a plot of pressure and Tc over time, the heavy fermions a mechanism cartoon, and magic-angle graphene a resistance-against-filling trace. Each drawing now carries its own line. The trace itself was right: in magic-angle graphene the correlated-insulator peak does sit at half filling, with superconducting domes on either side, and the alt text said so all along.
