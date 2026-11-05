@@ -372,7 +372,7 @@
     pts.forEach(function (p) { if (!p.tx) { p.mark = false; place(p, false, null); } });
     // Curated names come round first, then the rest in the order they were found.
     var rot = [], live = [], cursor = 0, started = 0, clock = 0, pinned = null;
-    var FADE = 0.6, HOLD = 2.4, LIFE = FADE * 2 + HOLD;
+    var FADE = 0.6, HOLD = 3.4, LIFE = FADE * 2 + HOLD;
     var twinkling = motionOK(), atOnce = narrow ? 2 : W > 900 ? 5 : 4;
     TC_LABELS.forEach(function (n) {
       pts.forEach(function (p) { if (p.d.n === n && p.lab && !p.mark && rot.indexOf(p) < 0) rot.push(p); });
@@ -394,12 +394,18 @@
       p.halo.setAttribute('opacity', (a * 0.38).toFixed(3));
       p.halo.setAttribute('r', (5 + 7 * a).toFixed(2));
     }
+    // Reaching for a name takes a moment, and a name that fades during that moment cannot be
+    // used. So the rotation stands still while the pointer is in the chart, and for a few
+    // seconds after a tap, because a touch screen has no pointer to hold over anything.
+    var inside = false, holdTill = 0, GRACE = 2.4;
+    function hold() { holdTill = clock + 5; }
     function twinkleStep(dt) {
-      var i, e;
+      var i, e, frozen = inside || clock < holdTill;
       clock += dt;
       for (i = live.length - 1; i >= 0; i--) {
-        e = live[i]; e.age += dt;
-        if (e.age >= e.life || e.p.d.y > learn.tcYear) {
+        e = live[i]; e.age += frozen ? 0 : dt;
+        // A name for a year the slider has been dragged back past goes either way.
+        if ((e.age >= e.life && !frozen) || e.p.d.y > learn.tcYear) {
           e.p.tx.setAttribute('opacity', '0'); glow(e.p, 0); live.splice(i, 1);
         }
       }
@@ -407,7 +413,7 @@
       if (pinned && pinned.lab) busy.push(pinned.lab.r);
       // The rotation moves on by one name at a time, so every one of them gets its turn; among
       // the next few it picks the one furthest from the names already up, which keeps them spread.
-      while (live.length < atOnce) {
+      while (!frozen && live.length < atOnce) {
         var best = -1, bestFar = -1, seen = 0, k, at, c, skip, near, dx, dy;
         for (k = 0; k < rot.length && seen < 8; k++) {
           at = (cursor + k) % rot.length; c = rot[at]; skip = false;
@@ -437,6 +443,7 @@
           : q.age > q.life - FADE ? Math.max(0, (q.life - q.age) / FADE) : 1;
         q.p.tx.setAttribute('opacity', a.toFixed(3));
         glow(q.p, a);
+        if (a >= 0.25) q.p.lit = clock;   // when this name was last readable
       });
       // The names that opened an era never leave, and their dots keep a slow pulse of their own.
       marks.forEach(function (p) {
@@ -593,17 +600,19 @@
       }
     }
     // A name is a target too. The dots are small and several of them sit almost on top of one
-    // another, so a name that can be read at that moment can be used to reach its material;
-    // a name that has faded out cannot, or the chart would be full of invisible targets.
+    // another, so a name that can be read at that moment can be used to reach its material. A
+    // name that has only just gone counts as well, since the hand was already on its way to it;
+    // one gone longer than that does not, or the chart would be full of invisible targets.
     function labelAt(px, py) {
-      var hit = null;
+      var hit = null, gone = null;
       pts.forEach(function (p) {
-        if (hit || !p.tx || p.d.y > learn.tcYear) return;
-        if (parseFloat(p.tx.getAttribute('opacity') || '0') < 0.25) return;
+        if (!p.tx || p.d.y > learn.tcYear) return;
         var r = p.lab.r;
-        if (px >= r.x - 3 && px <= r.x + r.w + 3 && py >= r.y - 3 && py <= r.y + r.h + 3) hit = p;
+        if (px < r.x - 3 || px > r.x + r.w + 3 || py < r.y - 3 || py > r.y + r.h + 3) return;
+        if (parseFloat(p.tx.getAttribute('opacity') || '0') >= 0.25) { if (!hit) hit = p; }
+        else if (!gone && p.lit !== undefined && clock - p.lit < GRACE) gone = p;
       });
-      return hit;
+      return hit || gone;   // a name that is there now comes before one that has just gone
     }
     function nearest(evt) {
       var box = svg.getBoundingClientRect();
@@ -618,14 +627,17 @@
       });
       return best;
     }
+    svg.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') inside = true; });
     svg.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'mouse') inside = true;
       var p = nearest(e);
       svg.style.cursor = p ? 'pointer' : '';
       if (p) show(p); else hide();
     });
-    svg.addEventListener('pointerdown', function (e) { var p = nearest(e); if (p) { show(p); pick(p); } else hide(); });
-    svg.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') hide(); });
-    svg.addEventListener('blur', hide);
+    svg.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') hold(); var p = nearest(e); if (p) { show(p); pick(p); } else hide(); });
+    svg.addEventListener('pointerleave', function (e) { inside = false; if (e.pointerType === 'mouse') hide(); });
+    svg.addEventListener('pointercancel', function () { inside = false; });
+    svg.addEventListener('blur', function () { inside = false; hide(); });
     svg.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { move(1); e.preventDefault(); }
       else if (e.key === 'ArrowLeft') { move(-1); e.preventDefault(); }
