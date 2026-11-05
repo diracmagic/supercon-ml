@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-05",
+      "purpose": "Release 0.3.29, three fixes on the Tc chart. Choosing a name often did nothing: a twinkling name was fully readable for only about two and a half seconds, less than the time it takes to see it and reach for the pointer, and once it had faded the hit test fell through to the nearest dot within twenty-eight pixels, so a name that vanished mid-reach opened nothing or opened a different material; the rotation now stands still while the pointer is in the chart and for five seconds after a tap, names hold a second longer, and a name gone under two and a half seconds is still its own target, a readable name always taking precedence, while one gone longer is not and a name whose year the slider has passed is still removed. Three different things were drawn with dashes, the horizontal reference temperatures, a preprint ring and a six-pixel rise above the record for the 2026 pressure-quenched cuprate, and the legend named only the last, so that name was read as the meaning of all of them; the invisible rise is removed, the 2026 result keeping its dot, its name and its account in the panel, and the legend now names the dashed horizontals and the preprint ring, the reference lines drawn at half opacity. Long names trailed up to seventy-eight pixels from their dot, so they try the centred spots first, and no name is placed where another material's dot is nearer than its own unless nothing else fits. The data, the models and the results are unchanged.",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup",
+        "fixed authenticated board routes and bounded integer pagination",
+        "actor-bound private request lifecycle, absolute session expiry and logout cleanup",
+        "only opaque actor hashes and numeric last-seen cursors may persist for unread state",
+        "Notes update dates come only from explicit per-entry update metadata",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
+        "news thumbnail badges come only from the article's own text after the negation and history checks; colour and framing variants carry no meaning",
+        "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one",
+        "every Tc, year, family and pressure flag on the chart is reported as the cited paper states it, and every added entry carries a Crossref-checked DOI",
+        "the new structure animations are labelled schematics with alt text naming what is not shown: no measured coordinates, measured vibration or pairing mechanism is claimed",
+        "the year sweep honours reduced motion, pauses while the page is hidden and cancels its frame loop when the view is left or the chart is rebuilt",
+        "a material's own panel shows only its own structure: no other material's lattice appears in it",
+        "the UTe2 drawing uses only U-U distances its cited sources report, changes nothing but the viewing angle, marks the indicative Te(1) positions as such and depicts no pairing symmetry",
+        "the twinkling names are decorative repeats of what the table, the tooltip and the detail panel already say, so they are hidden from assistive technology and the chart keeps its own description",
+        "a name is never shown for a material the year sweep has not reached yet",
+        "the five permanent names and the twinkling ones alike are decorative repeats of what the table, the tooltip and the detail panel already say, so they stay hidden from assistive technology and the chart keeps its own description",
+        "a dot's halo is shown only while that same dot's own name is shown, and both are suppressed until the year sweep reaches the material",
+        "each material's background text describes only what its cited sources and its own note support, names no Tc or pressure the entry does not already carry, and marks a preprint claim as a claim",
+        "every drawing's caption names what that drawing actually is, and a drawing is called a structure only when it is one",
+        "the dashed rise above the ambient-pressure record is named in the legend and drawn only when its own material is on the chart",
+        "each material background is consistent with the families and values this chart itself plots and passes no judgement on a recent sample",
+        "only a name that is readable at that moment can be chosen, so the chart has no invisible hit targets",
+        "choosing a name opens the material that name belongs to, never the nearest dot to it"
+      ],
+      "previous_css_sha256": "d271fe98367461205c0a9129f1074a6296306b4dd83d0489eaa8e7f44112b627",
+      "functions_added": [],
+      "functions_removed": [],
+      "previous_removed_functions": [],
+      "functions_changed": [
+        "renderTcChart"
+      ],
+      "initializers_changed": [
+        0
+      ],
+      "previous_function_changes": {
+        "renderTcChart": "74dd839b656fe7a78e3afd9c6853654b251e501a64c5b4cc95a4fbab7ce99320"
+      },
+      "previous_initialization_changes": {
+        "0": "51a6a31031f19c6c1c6a7bcc169e2ba0d208dc30fde9569cda1add28cce6e475"
+      }
+    }
+  ]
+}
