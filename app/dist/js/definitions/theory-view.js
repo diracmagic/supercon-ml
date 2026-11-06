@@ -471,6 +471,16 @@
         used.push(p.lab.r); p.still = true;
       });
     }
+    // Keep every other placement and reduced-motion choice intact; only bring MgB2's
+    // up-left phone label six pixels right and two down when that space is clear.
+    marks.forEach(function (p) {
+      if (p.d.n !== 'MgB₂' || p.lab.o[0] !== -14 || p.lab.o[1] !== -16) return;
+      var r = { x: p.lab.r.x + 6, y: p.lab.r.y + 2, w: p.lab.r.w, h: p.lab.r.h };
+      var otherNames = pts.filter(function (q) { return q !== p && q.lab; }).map(function (q) { return q.lab.r; });
+      if (hits(r, dotBoxes.concat(guards, otherNames))) return;
+      p.lab.o = [-8, -14, 'end']; p.lab.r = r;
+      p.tx.setAttribute('x', p.x - 8); p.tx.setAttribute('y', p.y - 10);
+    });
     // A dot lights up with its own name and goes dark again with it, so there is never any
     // doubt about which dot a name belongs to.
     function glow(p, a) {
@@ -544,7 +554,7 @@
       if (learn.tcSel) {
         var sel = null;
         pts.forEach(function (c) { if (c.d.n === learn.tcSel && c.tx) sel = c; });
-        if (sel) {
+        if (sel && (sel.d.n !== 'Magic-angle graphene' || sel.d.y <= learn.tcYear)) {
           sel.tx.setAttribute('opacity', '1');
           if (!sel.mark) glow(sel, 0.55);
           pinned = sel;
@@ -576,6 +586,13 @@
       clipRect.setAttribute('width', Math.max(0, X(yr) - (m.l - 7)).toFixed(1));
       pts.forEach(function (p) {
         var k = Math.max(0, Math.min(1, (yr - p.d.y + 1.4) / 1.4));
+        if (p.d.n === 'Magic-angle graphene' && yr < p.d.y) {
+          k = 0;
+          if (p.tx) p.tx.setAttribute('opacity', '0');
+          glow(p, 0);
+          if (pinned === p) pinned = null;
+          if (order && cur >= 0 && order[cur] === p) hide();
+        }
         p.el.setAttribute('opacity', k.toFixed(3));
         p.el.setAttribute('r', (2.2 + 2.8 * k).toFixed(2));
         if (p.tx && !twinkling) p.tx.setAttribute('opacity', p.still && p.d.y <= yr ? '1' : '0');
