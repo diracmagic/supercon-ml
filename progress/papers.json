@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-06T04:16:25+00:00",
+ "updated": "2026-11-06T07:39:16+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2365,6 +2365,28 @@
  ],
  "journals": [
   {
+   "id": "10.1038/s41467-026-77617-7",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Resolving phonons in superconductor Bi2Sr2CaCu2O8+δ at sub-unit-cell resolution",
+   "authors": [
+    "Xiaowen Zhang",
+    "Jiade Li",
+    "Xiaoyue Gao",
+    "et al."
+   ],
+   "n_authors": 13,
+   "date": "2026-11-06",
+   "abstract": "The role of phonons in cuprates remains controversial, with their complex lattice structure complicating the investigation.",
+   "url": "https://doi.org/10.1038/s41467-026-77617-7",
+   "doi": "10.1038/s41467-026-77617-7",
+   "topics": [
+    "Cuprates",
+    "Electron–phonon"
+   ],
+   "kind": "experiment"
+  },
+  {
    "id": "10.1126/science.adt3444",
    "source": "Science",
    "journal": "Science",
@@ -4292,27 +4314,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1038/s41467-026-75295-z",
-   "source": "Nat. Commun.",
-   "journal": "Nature Communications",
-   "title": "Superconducting coherence boosted by outer-layer metallic screening in multilayered cuprates",
-   "authors": [
-    "Junhyeok Jeong",
-    "Kifu Kurokawa",
-    "Shiro Sakai",
-    "et al."
-   ],
-   "n_authors": 16,
-   "date": "2026-07-14",
-   "abstract": "In multilayered high- T c cuprates, the inner CuO ₂ planes (IPs) are spatially separated from dopant layers and thus remain cleaner than the outer planes (OPs).",
-   "url": "https://doi.org/10.1038/s41467-026-75295-z",
-   "doi": "10.1038/s41467-026-75295-z",
-   "topics": [
-    "Cuprates"
-   ],
-   "kind": "theory"
   },
   {
    "id": "10.1038/s41535-026-00913-4",
