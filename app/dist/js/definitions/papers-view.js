@@ -43,7 +43,7 @@
 
 
   const loadPapers = function loadPapers(force) {
-    if (paperState.busy || (!force && paperState.data && Date.now() - paperState.at < 10 * 60 * 1000)) return Promise.resolve();
+    if (paperState.busy || (!force && paperState.data && Date.now() - paperState.at < AI_POLL_MS)) return Promise.resolve();
     paperState.busy = true;
     if (paperState.built) renderFeed();
     if (aiState.built) renderAIList();

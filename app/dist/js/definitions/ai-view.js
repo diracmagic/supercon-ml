@@ -22,7 +22,6 @@
           h('p', { text: 'New papers and news, newest first. Tags are assigned automatically; consult the original source for its evidence and limitations.' })),
         h('button', { class: 'btn small', type: 'button', id: 'ai-refresh', onclick: function () { loadPapers(true); loadContent(true); } }, 'Refresh')),
       h('p', { class: 'ai-status', id: 'ai-status' }),
-      h('div', { class: 'ai-ticker', id: 'ai-ticker' }),
       h('div', { class: 'fam-filter', role: 'group', 'aria-label': 'Filter by kind', id: 'ai-filter' }),
       h('ol', { class: 'feed-list', id: 'ai-list' }),
       h('div', { class: 'feed-more', id: 'ai-more' }),
@@ -46,7 +45,7 @@
     st.appendChild(h('span', { class: 'live-dot' + (d && !paperState.failed ? '' : ' off'), 'aria-hidden': 'true' }));
     st.appendChild(document.createTextNode(paperState.busy ? 'Checking for new items…' :
       paperState.failed ? (d && d.updated ? 'Couldn’t refresh. Showing the feed updated ' + rel(parseDate(d.updated)) + '.' : 'Couldn’t reach the feed. Check the connection and press Refresh.') :
-      d && d.updated ? 'Feed updated ' + rel(parseDate(d.updated)) + ' · checks every 10 minutes while News & Papers is open' :
+      d && d.updated ? 'Feed updated ' + rel(parseDate(d.updated)) + ' · checks every 2 hours while News & Papers is open' :
       'Loading the feed…'));
     if (d && !Array.isArray(d.ai)) {
       ol.appendChild(h('li', { class: 'empty', text: 'The AI list starts with the next feed update, within three hours.' }));
