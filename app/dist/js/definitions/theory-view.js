@@ -416,7 +416,8 @@
       p.lab = spotFor(p, wide, avoid);
       if (!p.lab) return;
       p.tx = s('text', { x: p.x + p.lab.o[0], y: p.y + p.lab.o[1] + 4, 'text-anchor': p.lab.o[2],
-        class: 'tc-label' + (p.mark ? ' mark' : ''), opacity: '0', 'data-tc': p.d.n, 'aria-hidden': 'true' }, p.lab.text);
+        class: 'tc-label' + (p.mark ? ' mark' : ''), opacity: '0', 'data-tc': p.d.n, 'aria-hidden': 'true' },
+        p.d.n === 'Hg-1223 under pressure' ? 'Hg-1223' : p.lab.text);
       svg.appendChild(p.tx);
     }
     // The few that opened an era are placed before anything else and their space is then
@@ -687,8 +688,6 @@
       // the neighbouring dots. Everything it said is in the panel below; the thin ring stays.
       tip.hidden = true;
       tcMark(); renderTcDetail();
-      var panel = $('#tc-detail');
-      if (panel && panel.scrollIntoView) panel.scrollIntoView({ block: 'nearest' });
     }
     // Arrow keys walk the dots that have arrived, so the sweep is not read out ahead of itself.
     function move(dir) {
@@ -708,6 +707,11 @@
       pts.forEach(function (p) {
         if (!p.tx || p.d.y > learn.tcYear) return;
         var r = p.lab.r;
+        // Keep its original layout reservation; only the shortened, visible name is clickable.
+        if (p.d.n === 'Hg-1223 under pressure') {
+          var box = p.tx.getBBox();
+          r = { x: box.x, y: box.y, w: box.width, h: box.height };
+        }
         if (px < r.x - 3 || px > r.x + r.w + 3 || py < r.y - 3 || py > r.y + r.h + 3) return;
         if (parseFloat(p.tx.getAttribute('opacity') || '0') >= 0.25) { if (!hit) hit = p; }
         else if (!gone && p.lit !== undefined && clock - p.lit < GRACE) gone = p;
