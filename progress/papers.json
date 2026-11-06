@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-06T07:39:16+00:00",
+ "updated": "2026-11-06T16:07:39+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -4562,6 +4562,15 @@
   }
  ],
  "news": [
+  {
+   "id": "https://phys.org/news/2026-11-paired-electron-pairing-room-temperature.html",
+   "source": "Phys.org",
+   "title": "Paired but out of step: Why electron pairing alone is not enough for room-temperature superconductivity",
+   "date": "2026-11-06",
+   "summary": "Levitating trains, ultra-efficient energy storage, and quantum computers: superconductivity could unlock a wealth of possibilities for the future. New research led by scientists from Utrecht, Leiden, and Munich has now shed light on one of the key requirements for achieving…",
+   "url": "https://phys.org/news/2026-11-paired-electron-pairing-room-temperature.html",
+   "topics": []
+  },
   {
    "id": "https://phys.org/news/2026-11-laser-superconductivity-nanoscale.html",
    "source": "Phys.org",
