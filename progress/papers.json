@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-05T22:07:32+00:00",
+ "updated": "2026-11-06T04:16:25+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,6 +47,7 @@
   ]
  },
  "sources_ok": [
+  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -63,6 +64,295 @@
   "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.08475",
+   "source": "arXiv",
+   "title": "Direct transition from a fractional Chern insulator to a topological superconductor",
+   "authors": [
+    "Taige Wang"
+   ],
+   "n_authors": 1,
+   "date": "2026-11-05",
+   "updated": "2026-11-05",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "We find numerical evidence for a direct continuous transition from a Laughlin fractional Chern insulator (FCI) to a c₋=3/2 topological superconductor (TSC), driven by increasing bandwidth at filling ν=1/3 in a repulsively interacting Chern band. At the critical point, the electron correlation length diverges at momentum away from the reference Fermi surface. We develop a generalized theory of superconducting-vortex proliferation for this transition. Magnetic translation organizes the vortices into six valleys, so translation-preserving proliferation requires additional gauge fields. The resulting theory reproduces the momentum structure of the critical spectrum and captures the divergent electron correlation. Upon doping away from commensurate filling, the theory gives rise to a superconducting dome. These results are consistent with an anyonic origin of the topological superconductivity in the absence of a weak-coupling Fermi-surface instability.",
+   "url": "https://arxiv.org/abs/2611.08475",
+   "pdf": "https://arxiv.org/pdf/2611.08475",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Topological",
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.08239",
+   "source": "arXiv",
+   "title": "Experimental Evidence for Type-I Superconductivity in OsB₂",
+   "authors": [
+    "Yogesh Singh"
+   ],
+   "n_authors": 1,
+   "date": "2026-11-05",
+   "updated": "2026-11-05",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Since the discovery of superconductivity in MgB₂, metal diborides have attracted significant attention. Among these, osmium diboride (OsB₂), crystallizing in an orthorhombic structure (space group Pmmn) with puckered boron layers, has been classified as a low-κ Type-II superconductor (Tc ≈2.1 K). Here, we report experimental evidence establishing that OsB₂ is in fact a rare nonelemental Type-I superconductor. Our identification is supported by three primary experimental hallmarks: (i) a pronounced Differential Paramagnetic Effect (DPE) peak in AC susceptibility (χac) measurements under static DC magnetic fields, signaling the intermediate state; (ii) a field-induced crossover to a divergent first-order phase transition in specific heat (C/T); and (iii) pronounced magnetic hysteresis in field-ramped transitions indicative of supercooling.",
+   "url": "https://arxiv.org/abs/2611.08239",
+   "pdf": "https://arxiv.org/pdf/2611.08239",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci"
+   ]
+  },
+  {
+   "id": "2611.08037",
+   "source": "arXiv",
+   "title": "Microscopic Origin and Josephson Signatures of d-Wave Superconductivity in Monolayer FeSe",
+   "authors": [
+    "Jiong Mei",
+    "Lili Wang",
+    "Yu-Jie Sun",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-05",
+   "updated": "2026-11-05",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Monolayer FeSe on SrTiO₃ exhibits high-temperature superconductivity with an electron-only Fermi surface, raising fundamental questions about its unconventional pairing mechanism. Motivated by recent Josephson scanning tunneling microscopy evidence for nodeless d-wave superconductivity, we investigate the microscopic role of the Fe dₓy orbital using an experimentally constrained multiorbital theory. A tight-binding model fitted to quasiparticle interference and angle-resolved photoemission spectroscopy reveals substantial dₓy character near the Fermi level and dominant nearest-neighbor hopping, in contrast to the conventional kinetic-frustration picture of iron-based superconductors. Both itinerant spin-fluctuation calculations and strong-coupling exchange approaches favor a robust d-wave pairing state, whose interband pairing components allow a fully gapped quasiparticle spectrum. We further establish a symmetry-based selection rule for spatial Josephson tunneling, revealing characteristic bond-centered maxima and mirror-enforced interference zeros that distinguish d-wave pairing from competing s-wave states. These symmetry-enforced nodal lines survive near Fe-site impurities, while a pronounced contrast between the d- and s-wave Josephson patterns persists around vortices despite the loss of mirror protection. Our results connect the unconventional dₓy electronic structure to",
+   "url": "https://arxiv.org/abs/2611.08037",
+   "pdf": "https://arxiv.org/pdf/2611.08037",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Iron-based",
+    "Moiré and 2D",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.07989",
+   "source": "arXiv",
+   "title": "Pressure-Induced Phase Transition and Superconducting Properties of LiPdH₂: A First-Principles Study",
+   "authors": [
+    "Zahra Alizadeh",
+    "Yue-Wen Fang",
+    "M. R. Mohammadizadeh"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-05",
+   "updated": "2026-11-05",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "We present a detailed first-principles investigation of the superconducting hydride LiPdH₂, focusing on the competition between its tetragonal P4/mmm and rhombohedral Rbar3m phases. Our results reveal a pressure-induced phase transition near 220 GPa, where Rbar3m overtakes P4/mmm in thermodynamic stability. The Rbar3m phase is predicted to be superconducting, with Trmc values of up to 46 K in the harmonic approximation and 28 K at the anharmonic level. In contrast, although the P4/mmm phase is stable up to 200 GPa, it maintains a more rigid electronic character with weaker hydrogen involvement, resulting in lower superconducting performance. Ionic quantum and anharmonic effects play a decisive role in stabilizing P4/mmm and shaping its superconducting properties, whereas these effects diminish rapidly with pressure. These findings highlight the interplay between structural stability, hydrogen orbital activity, and quantum effect in optimizing the superconductivity of hydrogen-based superconductors.",
+   "url": "https://arxiv.org/abs/2611.07989",
+   "pdf": "https://arxiv.org/pdf/2611.07989",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Hydrides",
+    "Moiré and 2D"
+   ],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci"
+   ]
+  },
+  {
+   "id": "2611.07708",
+   "source": "arXiv",
+   "title": "Signature of charge-3e tunneling in twisted cuprate Josephson junctions",
+   "authors": [
+    "Yuying Zhu",
+    "Heng Wang",
+    "Zechao Wang",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-11-05",
+   "updated": "2026-11-05",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Cooper pairing is a fundamental aspect of superconductivity and results in charge transport with a basic unit of 2e (e is the electron charge). This basic unit can manifest itself as the denominator in the formula for Shapiro steps of ac Josephson effect-nhf/(2e), where h is the Planck constant, f is the ac frequency and n is an integer. Violation of this standard formula may suggest unconventional physics, such as nhf/4e for charge-4e superconductivity. Here, we report discovery of a new sequence of nhf/3e in twisted cuprate Josephson junctions. The microwave frequency/power, temperature, and current annealing dependences of this exotic sequence consistently point to hf/3e as the unit for Shapiro steps, indicating a Josephson tunneling process involving a trio of electrons (3e). This bunching of an odd number of charges distinguishes itself from well-established superconducting processes, which are carried by composite bosons made of an even number of charges. The unusual observations highlight the important interplay between competing charge orders in twisted bilayer systems.",
+   "url": "https://arxiv.org/abs/2611.07708",
+   "pdf": "https://arxiv.org/pdf/2611.07708",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "Moiré and 2D",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.07645",
+   "source": "arXiv",
+   "title": "Majorana corner modes and tunable braiding in an altermagnet-superconductor heterostructure",
+   "authors": [
+    "Yingli Gao",
+    "Kai Zhang",
+    "Ling-Zheng Meng",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-11-05",
+   "updated": "2026-11-05",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Zeeman fields are usually required for realizing and manipulating Majorana corner modes at the cost of suppressed superconducting pairing. Altermagnetism offers a new route toward realizing Majorana corner modes under zero net external magnetic fields. Here we propose a theoretical scheme to host Majorana corner modes in a honeycomb-lattice altermagnet-superconductor heterostructure. In contrast to previous studies on square lattices, altermagnetism yields distinct effective low-energy edge masses on various inequivalent edges of the honeycomb lattice. Within a low-energy edge-theory framework, we establish the conditions under which Majorana corner modes emerge for both bearded and zigzag edge terminations. We further explicitly construct a complete set of Clifford gates by tuning the altermagnetic anisotropy and chemical potential of the heterostructure. Our results provide a promising platform for the realization and manipulation of Majorana corner modes.",
+   "url": "https://arxiv.org/abs/2611.07645",
+   "pdf": "https://arxiv.org/pdf/2611.07645",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Topological"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con",
+    "quant-ph"
+   ]
+  },
+  {
+   "id": "2611.07601",
+   "source": "arXiv",
+   "title": "Fermi-volume anomaly in quartet condensates",
+   "authors": [
+    "Yixin Guo"
+   ],
+   "n_authors": 1,
+   "date": "2026-11-05",
+   "updated": "2026-11-05",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "We investigate the relation between density and Fermi volume in a four-component Fermi system with quartet order. For a regular zero-temperature branch without pair order, we express the correction to the Fermi-volume count in terms of the response of the Luttinger-Ward functional to a phase winding of the quartet source. Its leading term is a weighted difference between four-particle and four-hole states. For a Gaussian vertex and parabolic dispersion, we find that the correction expands the Fermi volume in one dimension and contracts it in three dimensions in the parameter range studied. The sign in two dimensions depends on the momentum cutoff. We solve the one-dimensional Dyson equation at fixed density and compare the counting correction obtained from the Fermi points with that evaluated from the dressed spectra at low temperature. At fixed quartet amplitude and peak normalization of the vertex, the correction depends strongly on the vertex width, whereas the fermionic entropy changes little. We also examine the linear pairing response, which can limit the continuation of the unpaired branch to zero temperature.",
+   "url": "https://arxiv.org/abs/2611.07601",
+   "pdf": "https://arxiv.org/pdf/2611.07601",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.quant-gas",
+    "cond-mat.str-el",
+    "nucl-th"
+   ]
+  },
+  {
+   "id": "2611.07302",
+   "source": "arXiv",
+   "title": "Electrically tunable superconducting dimensionality in stripe-ordered monolayer MoTe₂",
+   "authors": [
+    "Tianyu Qiu",
+    "Ziyi Han",
+    "Fei Yang",
+    "et al."
+   ],
+   "n_authors": 20,
+   "date": "2026-11-05",
+   "updated": "2026-11-05",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Dimensionality governs the stability of collective quantum states, including whether Cooper pairs can establish the phase coherence required for superconductivity. In solids, however, electronic dimensionality is usually encoded in the crystal structure and is difficult to control reversibly. Here we show evidence that monolayer 1T′-MoTe₂ develops a stripe charge-density wave that reorganizes its low-energy electronic states into quasi-one-dimensional channels. Raman spectroscopy and scanning tunneling microscopy identify the stripe order, whereas directional transport and tunneling spectroscopy reveal superconducting correlations confined to the stripe direction and insulating behavior perpendicular to it. Electrostatic doping weakens the transverse insulating response and drives the system into phase-coherent two-dimensional superconductivity. These results show that stripe charge order can reconfigure superconducting dimensionality and make it electrically tunable within a single crystalline layer.",
+   "url": "https://arxiv.org/abs/2611.07302",
+   "pdf": "https://arxiv.org/pdf/2611.07302",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall",
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.07116",
+   "source": "arXiv",
+   "title": "Universal Negative Correlation between Nonreciprocity and Superconducting Transition Width in FeTe-Based Heterostructures",
+   "authors": [
+    "Annie G. Wang",
+    "Saswata Mandal",
+    "Zi-Jie Yan",
+    "et al."
+   ],
+   "n_authors": 13,
+   "date": "2026-11-04",
+   "updated": "2026-11-04",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Nonreciprocal charge transport in noncentrosymmetric superconductors probes broken symmetries and superconducting fluctuations and underpins the superconducting diode effect. Despite extensive studies, the factors governing its magnitude remain unclear. In this work, we use molecular beam epitaxy (MBE) to synthesize a broad family of FeTe-based superconducting heterostructures with top layers spanning topologically trivial versus nontrivial, layered versus nonlayered, and magnetic versus nonmagnetic materials. Through systematic first- and second-harmonic transport measurements, we find that the magnetochiral anisotropy coefficient γ is insensitive to the top-layer crystal structure, lattice constant, thickness, topology, and magnetism, but exhibits a negative correlation with the superconducting transition width ΔT. Control measurements on superconducting stoichiometric FeTe films reveal much weaker nonreciprocity, confirming the essential role of interfacial inversion-symmetry breaking. Combined with a disorder-based theoretical model, our results establish a universal relationship: for comparable inversion-symmetry breaking, reduced interfacial disorder sharpens the superconducting transition and strongly enhances nonreciprocal transport in the Berezinskii-Kosterlitz-Thouless (BKT) transition regime. These findings identify ΔT as a unifying parameter governing nonreciprocity",
+   "url": "https://arxiv.org/abs/2611.07116",
+   "pdf": "https://arxiv.org/pdf/2611.07116",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Iron-based",
+    "Topological",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall"
+   ]
+  },
+  {
+   "id": "2611.07014",
+   "source": "arXiv",
+   "title": "Stability and Relaxation of Electron-Phonon Systems at Strong Coupling",
+   "authors": [
+    "Noga Bashan",
+    "Erez Berg"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-04",
+   "updated": "2026-11-04",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "We study the kinetic properties of Migdal-Eliashberg theory (MET) for electron-phonon interactions at strong coupling. Previously, the system was found to be dynamically unstable at large couplings within a Markovian quantum Boltzmann approximation. Using the quasiclassical Kadanoff-Baym equation, we show that this instability is absent when non-Markovian effects are taken into account. We also analyze the long-time relaxation dynamics at strong-couplin, and find a clear imprint of the non-Markovian nature of the dynamics: in an intermediate temperature range between the Debye frequency and the coupling strength, the relaxation rate becomes linear in temperature with Planckian slope, while the leading relaxation mode acquires a large imaginary component, producing strongly oscillatory decay. Our results imply that any instability which preempts superconductivity must arise from effects beyond MET, such as phonon softening or polaronic effects at finite electronic bandwidth. This shows that the characteristic phonon frequency is not a fundamental bound on Tc, and leaves open a route to higher Tc in multi-orbital electron-phonon systems.",
+   "url": "https://arxiv.org/abs/2611.07014",
+   "pdf": "https://arxiv.org/pdf/2611.07014",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.mtrl-sci",
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2611.06424",
    "source": "arXiv",
@@ -912,10 +1202,10 @@
    ],
    "n_authors": 2,
    "date": "2026-10-29",
-   "updated": "2026-10-29",
+   "updated": "2026-11-05",
    "category": "cond-mat.supr-con",
    "cross_list": false,
-   "abstract": "We study a spinless π-flux lattice superconductor whose normal-state momentum-space fundamental domain is a Klein bottle. Within this model, a glide lift and a hidden antiunitary symmetry independently force the Bogoliubov–de Gennes (BdG) Chern number to vanish. A diagonal pairing breaks the antiunitary obstruction exactly when its real part is nonzero; this is necessary, not sufficient, for a chiral phase. We derive explicit Pfaffians determining Chern parity and identify three analytic families of gap closings in a real-pairing section. For a chiral state on a closed real-space Klein bottle, the prescribed pairing and gluing produce a ΔC=2 chirality wall. A translation-invariant unfolding resolves two co-propagating Majorana branches. Their finite-size levels depend on circumference and holonomy; the near-zero pair is lifted at first order by allowed local seam perturbations. A cut-cylinder control has the same low-energy channel count, so gluing reconnects existing gapless content. We also distinguish literal gluing from deck projection: particle–hole symmetry exchanges the deck eigenblocks, precluding their interpretation as independent BdG quotient Hamiltonians. The contribution is a model-specific account of pairing compatibility and closed-surface seam spectra. The energy cost is evaluated for a fixed pairing background; neither a protected zero mode nor a self-consisten",
+   "abstract": "We study a spinless π-flux lattice superconductor whose normal-state momentum-space fundamental domain is a Klein bottle. Within this model, a glide lift and a hidden antiunitary symmetry independently force the Bogoliubov–de Gennes (BdG) Chern number to vanish. A diagonal pairing breaks the antiunitary obstruction exactly when its real part is nonzero; this is necessary, not sufficient, for a chiral phase. We derive explicit Pfaffians determining Chern parity and identify three analytic families of gap closings in a real-pairing section. For a chiral state on a closed real-space Klein bottle, the prescribed pairing and gluing produce a ΔC=2 chirality wall. A translation-invariant unfolding resolves two co-propagating Majorana branches. Their finite-size levels depend on circumference and holonomy; the near-zero pair is lifted at first order by allowed local seam perturbations. A cut-cylinder control has the same low-energy channel count, so gluing reconnects existing gapless content. We also distinguish literal gluing from deck projection: particle–hole symmetry exchanges the deck eigenblocks, precluding their interpretation as independent BdG quotient Hamiltonians. Finite odd-frequency correlations track holonomy and local splitting, while cylinder and ordinary-wall controls show that their presence is not specific to Klein gluing. The contribution is a model-specific account",
    "url": "https://arxiv.org/abs/2610.40251",
    "pdf": "https://arxiv.org/pdf/2610.40251",
    "journal_ref": "",
@@ -1403,10 +1693,10 @@
    ],
    "n_authors": 2,
    "date": "2026-10-28",
-   "updated": "2026-10-28",
+   "updated": "2026-11-05",
    "category": "cond-mat.supr-con",
    "cross_list": false,
-   "abstract": "The superconducting diode effect is often associated with finite-momentum pairing, although model studies indicate that rectification reflects the asymmetry of the free energy about its minimum rather than the equilibrium pair momentum itself. Using a Wannier-based, self-consistent finite-mathbfQ Bogoliubov-de Gennes approach with a Fermi-surface-adaptive quadrature that converges the critical currents, we show that the layer parity and orientation of magnetic proximity select the diode response of monolayer NbSe₂. For in-plane exchange, the equilibrium pair momentum mathbfQrmeq and the diode efficiency are both linear in the layer-odd exchange contrast: parallel proximity on the two Se sublayers is reciprocal, and antiparallel proximity doubles the response. An out-of-plane component separates the two observables. It leaves mathbfQrmeq nearly unchanged but, through pair breaking, suppresses the efficiency by more than an order of magnitude and, at low temperature, reverses it. Purely out-of-plane exchange, for which C₃ symmetry forbids a helical term, keeps mathbfQrmeq=0 yet produces a trigonal diode effect, controlled by the layer-even exchange and larger than the in-plane one above 0.65~meV at low temperature. Magnetic layer parity thus selects between a helical and a trigonal diode channel. The trigonal channel is an intrinsic, symmetry-allowed contribution to the field-fre",
+   "abstract": "The superconducting diode effect is often associated with finite-momentum pairing, although model studies indicate that rectification reflects the asymmetry of the free energy about its minimum rather than the equilibrium pair momentum itself. Using a Wannier-based, self-consistent finite-mathbfQ Bogoliubov-de Gennes approach with a Fermi-surface-adaptive quadrature that converges the critical currents, we show that the layer parity and orientation of magnetic proximity select the diode response of monolayer NbSe₂. For in-plane exchange, the equilibrium pair momentum mathbfQrmeq and the diode efficiency are both linear in the layer-odd exchange contrast: parallel proximity on the two Se sublayers is reciprocal, and antiparallel proximity doubles the response. An out-of-plane component separates the two observables. It leaves mathbfQrmeq nearly unchanged but, through pair breaking, suppresses the efficiency by more than an order of magnitude and, at low temperature, reverses it. Purely out-of-plane exchange, for which C₃ symmetry forbids a helical term, keeps mathbfQrmeq=0 yet produces a trigonal diode effect, controlled by the layer-even exchange and larger than the in-plane one above 0.65~meV at 0.58~K. Magnetic layer parity thus selects between a helical and a trigonal diode channel. This trigonal channel provides a candidate intrinsic contribution to the field-free rectifica",
    "url": "https://arxiv.org/abs/2610.38449",
    "pdf": "https://arxiv.org/pdf/2610.38449",
    "journal_ref": "",
@@ -2070,287 +2360,6 @@
    "categories": [
     "cond-mat.supr-con",
     "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2610.34342",
-   "source": "arXiv",
-   "title": "Fermionic superfluid transition and pairing scale separation in the kagome flat band",
-   "authors": [
-    "Xiang Li",
-    "Yu Wang"
-   ],
-   "n_authors": 2,
-   "date": "2026-10-25",
-   "updated": "2026-10-25",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "Flat-band systems provide a promising platform for exploring exotic correlated phases owing to quenched kinetic energy and enhanced interaction effects. In this work, we investigate the flat-band superfluid transition in the attractive kagome Hubbard model using large-scale determinant quantum Monte Carlo simulations accelerated by fast Fourier transforms and delay updates. Through systematic calculations of the transition temperature, spin susceptibility, and density compressibility, we establish the finite-temperature phase diagram at the flat-band filling ρ=5/3 and find a clear linear scaling of the superfluid transition temperature with the interaction strength, Tc=0.0314|U|. Our results reveal a wide separation of temperature scales between local pair formation and global phase coherence, which stabilizes a broad intermediate supercompressible bosonic fluid region of preformed pairs that bridges the normal Fermi gas and the flat-band superfluid. We further demonstrate that both the transition temperature and density compressibility are significantly enhanced in the flat band compared to van Hove fillings. Our findings highlight the essential role of flat-band-enhanced pair-density fluctuations in separating the pairing and phase-coherence scales, offering clear experimental signatures for probing flat-band superfluidity and superconductivity in cold-atom and kagome-materia",
-   "url": "https://arxiv.org/abs/2610.34342",
-   "pdf": "https://arxiv.org/pdf/2610.34342",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Kagome"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.quant-gas",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.34319",
-   "source": "arXiv",
-   "title": "Phase fluctuations dominated superconductivity in a thick Granular Boron-Doped Diamond film",
-   "authors": [
-    "Sulagna Dutta",
-    "Subhajit Chatterjee",
-    "Vivas Bagwe",
-    "et al."
-   ],
-   "n_authors": 8,
-   "date": "2026-10-25",
-   "updated": "2026-10-25",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We investigate the superconducting properties of a 1.2-μm-thick granular boron-doped diamond film, where tightly packed grains form a disordered network of Josephson junctions. The film exhibits a sharp superconducting transition at a critical temperature, T_c ~ 3 K. Its transport properties are well described by the Ambegaokar-Halperin theory of phase fluctuations. Direct measurements of the penetration depth using a two-coil mutual inductance technique reveal classic phase-fluctuation-dominated behavior: below T_c, the superfluid density (n_s) varies linearly over a wide temperature range - a hallmark of thermal phase fluctuations - before crossing over to a T^2 dependence at ultra-low temperatures. Both the large low-temperature penetration depth, λ(0) ~ 8.8 μm, and the slope of the linear ns variation in the thermal regime reveal a remarkably low superfluid stiffness in the range of 0.5-0.8 K. These results establish granular boron-doped diamond films as an excellent model system for investigating the role of long-wavelength phase fluctuations in three-dimensional superconductors.",
-   "url": "https://arxiv.org/abs/2610.34319",
-   "pdf": "https://arxiv.org/pdf/2610.34319",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci"
-   ]
-  },
-  {
-   "id": "2610.34318",
-   "source": "arXiv",
-   "title": "Universal Scaling of the Little-Parks Oscillation Amplitude",
-   "authors": [
-    "Yuelin Shen",
-    "Zixuan Huang",
-    "Xiaoying Xu",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-25",
-   "updated": "2026-10-25",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The Little-Parks effect played a pivotal role in establishing fluxoid quantization in doubly connected superconductors and providing early evidence for electron pairing, central to BCS theory. More recently, it has emerged as an important phase-sensitive probe of superconducting order. Yet the amplitude of the Little-Parks oscillation has never been fully understood theoretically, as the conventional mean-field Ginzburg-Landau description does not account for its pronounced temperature dependence. Here, we develop a universal theoretical framework incorporating thermal fluctuations in reduced-dimensional superconducting rings. By analyzing Little-Parks measurements across multiple superconductors, we show that the resulting scaling quantitatively captures the temperature-dependent oscillation amplitudes over a broad range of materials and device geometries, resolving the long-standing discrepancy between theory and experiment.",
-   "url": "https://arxiv.org/abs/2610.34318",
-   "pdf": "https://arxiv.org/pdf/2610.34318",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.34315",
-   "source": "arXiv",
-   "title": "Tilt-Controlled Multi-Gap Superconductivity in Type-II Weyl Semimetals",
-   "authors": [
-    "Mingyu Lee",
-    "Myungjun Kang",
-    "Sangmo Cheon"
-   ],
-   "n_authors": 3,
-   "date": "2026-10-25",
-   "updated": "2026-10-25",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "In type-II Weyl semimetals, strongly tilted Weyl cones produce coexisting electron and hole pockets, a natural multi-band setting for superconductivity, yet how the tilt controls the number and relative size of the superconducting gaps remains unclear. Here we classify the symmetry-allowed on-site pairing channels of a simple time-reversal symmetric tilted Weyl-semimetal model with D₄ symmetry and identify the fully symmetric A₁ channel as the leading instability for attractive on-site interactions, supporting a fully gapped two-gap state. The tilt acts as a microscopic control parameter, redistributing the band-resolved pairing susceptibility between the two Fermi-surface sectors rather than simply rescaling the total density of states. Once the tilt sufficiently enhances the secondary channel, a robust secondary gap develops and can exceed the primary gap even at weaker effective coupling, while inter-gap coupling locks both gaps to a common critical superconducting temperature. The Weyl cone tilt thus controls the emergence and hierarchy of multi-gap superconductivity.",
-   "url": "https://arxiv.org/abs/2610.34315",
-   "pdf": "https://arxiv.org/pdf/2610.34315",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.34168",
-   "source": "arXiv",
-   "title": "Field misalignment effect on the in-plane magnetoresistance in the high-temperature superconductor FeSe/SrTiO3",
-   "authors": [
-    "Jie Liu",
-    "Zihan Cui",
-    "Xiaorong Liu",
-    "et al."
-   ],
-   "n_authors": 7,
-   "date": "2026-10-25",
-   "updated": "2026-10-25",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The azimuthal angular dependence of the in-plane magnetoresistance provides a powerful probe for detecting rotational symmetry breaking in superconductors, which has significant implications for understanding the superconducting pairing symmetry and the intertwined orders. However, in two-dimensional or layered superconductors with strong anisotropy between in-plane and out-of-plane critical fields, measuring the in-plane magnetoresistance is particularly challenging as it is extremely sensitive to the field misalignment. Here we perform systematic electrical transport measurements on ultrathin FeSe films grown on SrTiO3 substrates. By remounting the same FeSe film to change the field misalignment, two qualitatively different angular dependences of the in-plane magnetoresistance are observed in the superconducting transition region, indicating the extreme sensitivity of the measurement to field misalignment. The observed anisotropic in-plane magnetoresistance can be well captured by our geometric model considering the field misalignment effect. Our work provides a practical framework for disentangling the misalignment effect and investigating the in-plane rotational symmetry breaking in two-dimensional or layered superconductors.",
-   "url": "https://arxiv.org/abs/2610.34168",
-   "pdf": "https://arxiv.org/pdf/2610.34168",
-   "journal_ref": "Physical Review B 114, 225413 (2026)",
-   "doi": "10.1103/cnsg-z5kp",
-   "topics": [
-    "Iron-based",
-    "Moiré and 2D"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci"
-   ]
-  },
-  {
-   "id": "2610.33814",
-   "source": "arXiv",
-   "title": "Scattering and Schmid-Bulgadaev Transition in Qubits Based on Josephson Junction Chains",
-   "authors": [
-    "Sviatoslav D. Krasin",
-    "Alexey Radkevich",
-    "Emil Rizvanov",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-24",
-   "updated": "2026-10-24",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "A Josephson junction subject to an ohmic dissipative environment undergoes a zero-temperature quantum phase transition called Schmid-Bulgadaev transition form an insulating state to a superconducting state upon increasing the impedance of the environment above the resistance quantum. Superconducting qubits based on Josephson junction chains represent a system where it is possible to dynamically explore both sides of this transition by probing the scattering of individual plasma modes of the junction chain on a SQUID at the boundary which was achieved in recent experiments. Here, we provide a theoretical analysis of the scattering in the system paying special attention to the non-perturbative superconducting regime. We find that in this regime, a specific diagrammatic resummation must be performed in order to correctly account for fluctuation renormalization of the SQUID's potential. We find analytic expressions for the modes' frequency shifts and quality factors which together provide a full description of scattering. We argue that the non-perturbative nature of the superconducting phase manifests itself through a power-law dependence of the frequency shifts on the SQUID flux and through non-monotonous dependence of the quality factors on the mode frequency. Our predictions may be readily verified in modern low-temperature experiments.",
-   "url": "https://arxiv.org/abs/2610.33814",
-   "pdf": "https://arxiv.org/pdf/2610.33814",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.33808",
-   "source": "arXiv",
-   "title": "Chiral Superconductivity Adjacent to a Wigner Crystal in Rhombohedral Graphene",
-   "authors": [
-    "Ke Wang"
-   ],
-   "n_authors": 1,
-   "date": "2026-10-24",
-   "updated": "2026-11-03",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "It was experimentally observed that Wigner-crystal and chiral superconducting phases occur adjacent to each other in rhombohedral graphene. In this Letter, we explore electronic correlations underlying the two phases and identify the pairing mechanism of chiral superconductivity. Exchange correlations play an essential role in both phases. First, we use self-consistent Hartree-Fock calculations to identify a Wigner-crystal state. Second, to investigate the pairing mechanism, we go beyond charge screening and construct a particle-hole-renormalized interaction through the coupled parquet and Bethe-Salpeter equations. This interaction incorporates exchange correlations while preserving crossing symmetry. Within this framework, we find that electronic correlations in the quarter metal are strongly enhanced near the crystal phase boundary, generating an effective attraction that favors superconducting pairing. Consequently, chiral superconductivity (CSC) emerges in a narrow sliver adjacent to the crystal. Furthermore, we identify the winding number of the superconducting order parameter as -3, indicating its f-wave nature. These results connect the emergence of chiral pairing and its location in the phase diagram to the electronic correlations favoring crystallization.",
-   "url": "https://arxiv.org/abs/2610.33808",
-   "pdf": "https://arxiv.org/pdf/2610.33808",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D"
-   ],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2610.33463",
-   "source": "arXiv",
-   "title": "Chemical Substitution as a Route to Anomalous Surface Superconductivity in NiBi₃",
-   "authors": [
-    "Anupam Barik",
-    "Subhadip Chakrabarty",
-    "Achintya Low",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-24",
-   "updated": "2026-10-24",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Stabilizing two-dimensional superconductivity in a bulk superconducting material provides a unique route to exploring the interplay between superconducting condensates of different dimensionalities. Here, we present evidence for a distinct surface-associated superconducting state in Pb-substituted NiBi₃. NiBi₂.₈Pb₀.₂ exhibits a resistive onset at Tc,onset*≈8.1~K, nearly twice the bulk superconducting transition temperature of approximately 4.1~K. The absence of a corresponding Meissner response or specific-heat anomaly at the higher-temperature transition supports its non-bulk origin. A cusp-like angular dependence of the critical field, well described by the two-dimensional Tinkham model, together with nonlinear current–voltage characteristics and signatures of a Berezinskii–Kosterlitz–Thouless transition, establishes the low-dimensional character of this superconducting state. Remarkably, the surface-associated superconductivity persists well beyond the bulk upper critical field, reaching a maximum ratio of Hc₃/Hc₂≈4.3, far exceeding the conventional Saint-James–de Gennes value of 1.695. These results demonstrate that Pb substitution can stabilize an anomalously enhanced low-dimensional superconducting state in NiBi₃, providing a platform for investigating superconductivity at the boundary of a bulk superconductor.",
-   "url": "https://arxiv.org/abs/2610.33463",
-   "pdf": "https://arxiv.org/pdf/2610.33463",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D",
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci"
-   ]
-  },
-  {
-   "id": "2610.32839",
-   "source": "arXiv",
-   "title": "Finite-Temperature Transconductance of Multiterminal Josephson Junctions with Topological Andreev Spectra",
-   "authors": [
-    "Gleb S. Seleznev",
-    "David C. Ohnmacht",
-    "Wolfgang Belzig"
-   ],
-   "n_authors": 3,
-   "date": "2026-10-23",
-   "updated": "2026-10-23",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Multiterminal Josephson junctions (MTJJs) provide a controllable platform for engineering topological Andreev spectra. At zero temperature, Andreev bound states (ABSs) with nonzero Chern numbers give rise to quantized transconductance between superconducting terminals. We derive the finite-temperature transconductance of MTJJs using linear-response theory. We first demonstrate the destructive role of temperature: changes in the thermal occupations of the ABSs destroy exact transconductance quantization. We then show that finite temperature can also play a constructive role by making the transconductance sensitive to finite-energy topological crossings hidden from the zero-temperature response. Our results establish the thermal limitations of transconductance quantization and identify finite-temperature transport as a probe of otherwise inaccessible topology in Andreev spectra.",
-   "url": "https://arxiv.org/abs/2610.32839",
-   "pdf": "https://arxiv.org/pdf/2610.32839",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Topological",
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mes-hall"
-   ]
-  },
-  {
-   "id": "2610.32791",
-   "source": "arXiv",
-   "title": "Ginzburg-Landau Theory with Elastic Incompatibility Describes the Liquid-G-phase-Crystal State Diagram",
-   "authors": [
-    "Alessio Zaccone",
-    "Konrad Samwer"
-   ],
-   "n_authors": 2,
-   "date": "2026-10-23",
-   "updated": "2026-10-23",
-   "category": "cond-mat.mtrl-sci",
-   "cross_list": true,
-   "abstract": "We derive a mechanically consistent Ginzburg-Landau theory for the metastable heterogeneous G state reported in deeply undercooled metallic liquids. The central result is that type-II-like mixed-state physics can emerge structurally with the random internal stress field playing the role of the magnetic field. Frozen eigenstrain due to elastic incompatibility between ordered cores and the amorphous matrix generates incompatible stress, while the non-affine internal strain in the liquid-like matrix in between the ordered cores relaxes that stress over a finite screening length λσ (analogous to the London length in the superconducting problem). Structural order heals over a distinct mechanically-dressed length ξG; their ratio κG=λσ/ξG provides the structural counterpart of the Ginzburg-Landau parameter. Because the matrix is transiently rigid yet locally relaxational only over an intermediate time window, the same mechanism selects crystal for slow protocols, a heterogeneous G state at intermediate rates, and a homogeneous L-like glass under rapid arrest. Residual incompatibility frustrates coarsening, allowing finite ordered cores and screened, orientation-dependent core interactions. The resulting texture is an inverted Abrikosov analogue: structural order resides in the cores, whereas incompatible-stress screening is carried by the surrounding disordered matrix. The theory yiel",
-   "url": "https://arxiv.org/abs/2610.32791",
-   "pdf": "https://arxiv.org/pdf/2610.32791",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.mtrl-sci",
-    "cond-mat.other",
-    "cond-mat.soft",
-    "cond-mat.supr-con",
-    "physics.app-ph"
    ]
   }
  ],
