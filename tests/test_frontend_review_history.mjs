@@ -33,10 +33,10 @@ function reviewedCopy(run) {
   }
 }
 
-test('external review history keeps the original provenance and all thirty-one published prior revisions', () => {
+test('external review history keeps the original provenance and all thirty-two published prior revisions', () => {
   const baseline = JSON.parse(fs.readFileSync(path.join(app, 'scripts/inline-source-manifest.json'), 'utf8'));
   const entries = baseline.reviewed_revision_history_files;
-  assert.equal(entries.length, 27);
+  assert.equal(entries.length, 28);
   const revisions = entries.flatMap(entry => {
     const historyText = fs.readFileSync(path.join(app, 'scripts', entry.path), 'utf8');
     assert.equal(hash(historyText), entry.sha256);
@@ -44,8 +44,8 @@ test('external review history keeps the original provenance and all thirty-one p
     assert.equal(history.revisions.length, entry.count);
     return history.revisions;
   });
-  assert.equal(revisions.length, 31);
-  assert.equal(baseline.reviewed_revision_count, 32);
+  assert.equal(revisions.length, 32);
+  assert.equal(baseline.reviewed_revision_count, 33);
   assert.equal(baseline.reviewed_revision_history, undefined, 'History has one unambiguous order');
   assert.equal(baseline.original_html_sha256, 'a9126c038c44c5babd60aa94a002525040e4db5a636a89cd725199616197d93b');
   assert.equal(baseline.original_script_sha256, '79fde250a59921ecf98ec98503fd7e8ff4ca55e949a48d03cd44ea81128c523b');
@@ -116,7 +116,7 @@ test('additional authentication implementation is reviewed while public endpoint
   fs.writeFileSync(config, "'use strict';\nglobalThis.SuperconTeamConfig = Object.freeze({apiBase: 'https://configured.example.org'});\n");
   let result = verify();
   assert.equal(result.status, 0, result.stderr || result.stdout);
-  assert.equal(JSON.parse(result.stdout).reviewedRevisionCount, 32);
+  assert.equal(JSON.parse(result.stdout).reviewedRevisionCount, 33);
   fs.appendFileSync(path.join(directory, 'dist/team-auth.js'), '\n// unreviewed implementation edit\n');
   result = verify();
   assert.notEqual(result.status, 0);
