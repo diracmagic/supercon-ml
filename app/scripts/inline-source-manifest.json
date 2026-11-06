@@ -453,7 +453,7 @@
     "tcEntry": "66e6173a4a39ea9567b81957e14fd558830b20fe519164d3f778caaada4713f2",
     "tcMark": "ff31866875375a8dace90a9cae48186fad67196d09d50a83e43bf6b5952515b6",
     "renderTcDetail": "b85e553fde0484c602b25529038fe51fa5a4e4a21826733282ca3a4efc432fb3",
-    "renderTcChart": "0ca50f34c403d9c91a9cb68356a4dd14166dda5d12c5d0b2645e92ce8fb9cd19",
+    "renderTcChart": "1607c8f148f152e2aa450527ed2835a455cc99d3228abeae3762b7741c7158e0",
     "feedSources": "5062cab0f6475f9bb2215f1c0e6f10c5a4b3ed082ba0075111c257cad3dd62df",
     "andList": "493d94564d20115c8ba90a741e1634a264cb33d6f7b955914bd58a06db8fa89d",
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
@@ -871,7 +871,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-05",
-    "purpose": "Web-only change, no version bump: where a name on the Tc chart sits, and the preprint swatch in the legend. Mercury's 4.2 K lies exactly on the liquid-helium line and the record staircase starts at the same dot, so a name level with it lay across both; MgB2 sat above and well left of its dot on a phone. Every spot is now scored and the lowest wins, rather than the first that fits: distance to the nearest edge of the box plus a quarter of the distance to its middle, which keeps a long name from hanging off one end of its own dot, with extra cost for sitting nearer another material's dot than its own and for lying across a line. The close centred spots are in the listed set now, and the five era-opening names are placed most-crowded-first, since placed fourth MgB2 found its neighbourhood taken. A narrow chart is 430 px tall, not 330. Mercury now sits below its dot and clear of both lines at every width, MgB2 directly below at 560 px and above; on a phone MgB2 stays about sixteen pixels up and left because every nearer spot would cover one of the twenty-five dots around it. Names placed went 38 to 41 at 1100 px and 18 to 25 at 414. Separately, the legend's preprint swatch was a ten pixel box with a dashed CSS border and a round corner radius, which browsers lay out one side at a time, drawing four lopsided arcs instead of a dashed ring; it is an SVG circle now, like the dot it stands for, with pathLength set so the dashes come out even. The data, the models and the results are unchanged.",
+    "purpose": "Only two requested Tc chart fixes, web/phone only, no version bump. After all existing label placement and reduced-motion choices, move only the up-left MgB2 label six pixels right and two down if clear of every existing dot, caption and other label; update its click rectangle with it. Preserve all other placements. Magic-angle graphene stays invisible before its existing 2018 year, including its dot, selected label, halo and stale hover when scrubbing back or replaying. No other material appearance timing, app content, styles, scientific data, models or results change.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -918,7 +918,7 @@
       "only a name that is readable at that moment can be chosen, so the chart has no invisible hit targets",
       "choosing a name opens the material that name belongs to, never the nearest dot to it"
     ],
-    "previous_css_sha256": "db7f825520cb87f73b6c2edd0189bdd1358c894c6c5371b53e8f07983589f6b1",
+    "previous_css_sha256": "f20c189b8c4de62630f061050efb02e2e43a19c0fced85b3848eb29182a8d73d",
     "functions_added": [],
     "functions_removed": [],
     "previous_removed_functions": [],
@@ -927,7 +927,7 @@
     ],
     "initializers_changed": [],
     "previous_function_changes": {
-      "renderTcChart": "80d284c903887c9874b68ed60fc6e6fb876a18dabbdefc1659358d08ee4e8316"
+      "renderTcChart": "0ca50f34c403d9c91a9cb68356a4dd14166dda5d12c5d0b2645e92ce8fb9cd19"
     },
     "previous_initialization_changes": {}
   },
@@ -1074,7 +1074,12 @@
       "path": "review-history-25.json",
       "sha256": "019737d07c0e9da105d26b8e50e3b0b967c6e4d6747669a736180f2a020cc766",
       "count": 1
+    },
+    {
+      "path": "review-history-26.json",
+      "sha256": "f2dd7c4ac1e5744164b39bf8af73bf1dd3be309ae11029661f7d361dd1919509",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 30
+  "reviewed_revision_count": 31
 }
