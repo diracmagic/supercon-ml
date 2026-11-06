@@ -342,7 +342,8 @@ h1, h2, h3, p { margin: 0; }
 .tc-legend i.lg-step { width: 16px; height: 2px; border-radius: 1px; background: var(--ink-2); }
 .tc-legend i.lg-step.dash { background: none; border-top: 2px dashed var(--ink-2); height: 0; border-radius: 0; }
 .tc-legend i.lg-ref { width: 16px; height: 0; border-radius: 0; border-top: 1px dashed var(--ink-2); opacity: 0.7; }
-.tc-legend i.lg-pre { border: 2px dashed var(--ink-2); background: var(--surface); }
+.tc-legend .lg-svg { display: inline-block; vertical-align: middle; flex: none; }
+.tc-legend circle.lg-pre { fill: var(--surface); stroke: var(--ink-2); stroke-width: 2; stroke-dasharray: 2 2; }
 i.fam-1, .key.fam-1 { background: var(--series-1); }
 i.fam-2, .key.fam-2 { background: var(--series-2); }
 i.fam-3, .key.fam-3 { background: var(--series-3); }
