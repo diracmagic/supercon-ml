@@ -453,7 +453,7 @@
     "tcEntry": "66e6173a4a39ea9567b81957e14fd558830b20fe519164d3f778caaada4713f2",
     "tcMark": "ff31866875375a8dace90a9cae48186fad67196d09d50a83e43bf6b5952515b6",
     "renderTcDetail": "b85e553fde0484c602b25529038fe51fa5a4e4a21826733282ca3a4efc432fb3",
-    "renderTcChart": "39dfe2d0c62d648da11f783b6ec04be0ff641b88b2bef7c7d0caddb1a3a02fd4",
+    "renderTcChart": "cb1c7a506981428673f9abcb2abd094cc3c8b017ee79a04ad63d1b6261dfe3ff",
     "feedSources": "5062cab0f6475f9bb2215f1c0e6f10c5a4b3ed082ba0075111c257cad3dd62df",
     "andList": "493d94564d20115c8ba90a741e1634a264cb33d6f7b955914bd58a06db8fa89d",
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
@@ -871,7 +871,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-05",
-    "purpose": "Only the two requested Tc chart changes, web/phone only, no version bump. Render the existing Hg-1223 under pressure entry as Hg-1223 in its animated SVG label only; retain its original layout reservation and all other placements and label rotation, with the shortened visible text used for its hit target. Preserve its data identity, year, temperature, pressure flag, tooltip, table and detail panel. Remove only the chart pick handler scrollIntoView so selecting its dots or labels keeps the page in place while still updating details. All other APP content, styles, controls, data and models remain unchanged.",
+    "purpose": "Only the requested Tc chart hover change, web/phone only, no version bump. The chart hover/keyboard tooltip keeps its existing material name line and removes temperature, year, family, note, reference and instruction rows. This tooltip alone has min-width zero so its box fits the name. Preserve pointer highlight/ring, year gating, all plotted data and label geometry/rotation, clicks and complete material details below the chart, and the existing no-scroll selection. No other APP content, shared styles, controls, scientific data or models change.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -927,7 +927,7 @@
     ],
     "initializers_changed": [],
     "previous_function_changes": {
-      "renderTcChart": "1607c8f148f152e2aa450527ed2835a455cc99d3228abeae3762b7741c7158e0"
+      "renderTcChart": "39dfe2d0c62d648da11f783b6ec04be0ff641b88b2bef7c7d0caddb1a3a02fd4"
     },
     "previous_initialization_changes": {}
   },
@@ -1084,7 +1084,12 @@
       "path": "review-history-27.json",
       "sha256": "e524d4d79f0cd611209ab0ac7c6f41b16d8139e10b747ec732c7204abcc1a275",
       "count": 1
+    },
+    {
+      "path": "review-history-28.json",
+      "sha256": "e54265debad6baf3e43f1eb1cb0e35a42a9d884670730ab206d8494bdb710513",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 32
+  "reviewed_revision_count": 33
 }

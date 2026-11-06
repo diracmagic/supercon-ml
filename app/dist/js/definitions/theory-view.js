@@ -568,6 +568,7 @@
     var ring = s('circle', { r: 9, class: 'hover-dot', visibility: 'hidden' });
     svg.appendChild(ring);
     var tip = h('div', { class: 'tooltip tc-tip', hidden: true });
+    tip.style.minWidth = '0';
     host.appendChild(svg);
     host.appendChild(tip);
 
@@ -665,15 +666,7 @@
       cur = order.indexOf(p);
       ring.setAttribute('cx', p.x); ring.setAttribute('cy', p.y); ring.setAttribute('visibility', 'visible');
       clear(tip);
-      var r = p.d.ref ? REFS[p.d.ref] : null;
-      append(tip, [
-        h('b', { text: p.d.n }),
-        richText(h('span', { class: 'tip-row' }), 'Tc ' + p.d.tc + ' K · ' + p.d.y + (p.d.p ? ' · high pressure' : '')),
-        h('span', { class: 'tip-row' }, h('i', { class: 'key ' + FAMILIES[p.d.f].cls }), FAMILIES[p.d.f].label),
-        p.d.note ? richText(h('span', { class: 'tip-row' }), p.d.note) : null,
-        r ? h('span', { class: 'tip-row tip-ref', text: r.t }) : null,
-        h('span', { class: 'tip-row tip-hint', text: 'Choose it for its structure and paper' })
-      ]);
+      tip.appendChild(h('b', { text: p.d.n }));
       tip.hidden = false;
       var tw = Math.min(260, W - 16);
       tip.style.maxWidth = tw + 'px';
