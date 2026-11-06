@@ -458,7 +458,7 @@
     "andList": "493d94564d20115c8ba90a741e1634a264cb33d6f7b955914bd58a06db8fa89d",
     "feedIdentityKeys": "bd3fd2be780cd90c6126f796849f38f393f09d97550e0016b4c9eb778c10a42a",
     "feedIsAI": "e1dd033fa1f10a99be06bc5795efe53a5966a9428e8126ed1bad8c0750736f2c",
-    "loadPapers": "2a9c0019c267bbaa5225d0901df24cddc8c0d4160f4f0b2d6a9debba04a2ca27",
+    "loadPapers": "793a160a0cb1698e7599a68c75b7278ad07988cc05634ed0e84bbce85c72635f",
     "buildPapers": "027b910314acfe95778ef8967a619fa902eea23d102ba770deb646510ebba7c6",
     "renderAdvances": "78dcbaf824dedc93d728566b3eba4b0da949cbfe9c21bac6b646f230af585680",
     "advTopic": "d51c2c2c5b972a1cea9e4e06874989c165c7333b707fa4e3cc9e33090e70ee94",
@@ -518,9 +518,9 @@
     "hurricaneDetails": "d3c750d224a750377ecc860cbf87a46695e36042d639c4ab4459041ac5fe15bf",
     "calibrationDetails": "bedb4390cdc574379086732be016e4539a6c1c0e9292364b16b8572e1b4ce9b3",
     "aiItems": "8d45676cbb96999978aae3c177cd833fa63efafec62a48a24bdc102c7b62ea02",
-    "buildAI": "fc6fb62bb27ab1c97d373354d8836f54a7953ecc5df9fd8e7537ab48a394b3c2",
+    "buildAI": "dee5dae37f195ec85bcc0961342ed97617dc4a7cb6b9898a0831a9f507adc258",
     "renderAI": "5e79835f3b3e18c3dea3af9ba58efae7b542a286668153f976e663fa68cb981c",
-    "renderAIList": "ee69cea0d42f55f8fc9739a2ca81e99bca5b36d6027d4c8b047a2c01ad27c169",
+    "renderAIList": "b336cd1e296c4796ed32b0500503f909eaa40ae159083732933acb571643fd00",
     "aiArticleArt": "b4ee827a36a97150281bc6421e96825290e97aaf33a0d2ce72404920963fed18",
     "aiAnimatedItem": "b8f0c74ac6ea8fa8dc429091f2a4311aaac04a9889b7f537ee034f50be636a5a",
     "aiNewsItem": "e3683704b2898ccd5f3a72dd4e868843d7bd520f9eca0a30b31f7aabf158fcfe",
@@ -743,7 +743,7 @@
     "c42ab2e72e25a1799e019bb2c2ba666e685019d9ed110f6d8f8b6eec10a635ba",
     "1ea4345ea7546714c3457cbc5dc3914eeef86de494ad5f9cb5e2b854285e4e24",
     "e4cac75a0e61cf1f5501269217529f938cffecac10f53dfaa7b5f763c1551d0d",
-    "429484f87b2e2cd35b8bd89b582198ad75a7b15325dbf230b37f5915dc699ab2",
+    "345a73d9fe2e7461bf47edf3979fe2954213c3ce781144df1b6d73317918d396",
     "6d2b1fa4fe9618d1871b5da231525f92f103534808f63f83a941711aa30485f4",
     "aafaeea8c807024385b19e2671c5f6bdcc7ff752f2edb8e0ae70a63d29fa7df0",
     "a1a3d76a5e3190d283bbadbaf08ca1b586c9314e0e60ea63bea19e9590704e17",
@@ -871,7 +871,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-05",
-    "purpose": "Only the requested Tc chart hover change, web/phone only, no version bump. The chart hover/keyboard tooltip keeps its existing material name line and removes temperature, year, family, note, reference and instruction rows. This tooltip alone has min-width zero so its box fits the name. Preserve pointer highlight/ring, year gating, all plotted data and label geometry/rotation, clicks and complete material details below the chart, and the existing no-scroll selection. No other APP content, shared styles, controls, scientific data or models change.",
+    "purpose": "Only remove the News & Papers rotating headline strip and change APP automatic feed checks from ten minutes to two hours. Remove its DOM node so its existing guarded ticker renderer starts no headline interval; retain all article lists, filters, thumbnails, manual Refresh and timer start/stop/visibility guards. Use the same two-hour constant for the interval and reentry cache age, and update the visible check-frequency text. Leave shared CSS, the backend three-hour collection schedule, feed records, all other APP content and scientific models unchanged. Web/phone only; no version bump.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -923,13 +923,25 @@
     "functions_removed": [],
     "previous_removed_functions": [],
     "functions_changed": [
-      "renderTcChart"
+      "buildAI",
+      "loadPapers",
+      "renderAIList"
     ],
-    "initializers_changed": [],
+    "initializers_changed": [
+      {
+        "file": "js/initialize/ai-view.js",
+        "before_ast_sha256": "93da63578b08d245a6e03ab1d885c042c8bd98873c62900369f9ce36a120a7d4",
+        "after_ast_sha256": "89b97055f2f1f031fc0be497ebb4ffcce3d5d70be9b7005e67f6c854f7b65d82"
+      }
+    ],
     "previous_function_changes": {
-      "renderTcChart": "39dfe2d0c62d648da11f783b6ec04be0ff641b88b2bef7c7d0caddb1a3a02fd4"
+      "buildAI": "fc6fb62bb27ab1c97d373354d8836f54a7953ecc5df9fd8e7537ab48a394b3c2",
+      "loadPapers": "2a9c0019c267bbaa5225d0901df24cddc8c0d4160f4f0b2d6a9debba04a2ca27",
+      "renderAIList": "ee69cea0d42f55f8fc9739a2ca81e99bca5b36d6027d4c8b047a2c01ad27c169"
     },
-    "previous_initialization_changes": {}
+    "previous_initialization_changes": {
+      "134": "429484f87b2e2cd35b8bd89b582198ad75a7b15325dbf230b37f5915dc699ab2"
+    }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
   "styles": [
@@ -1089,7 +1101,12 @@
       "path": "review-history-28.json",
       "sha256": "e54265debad6baf3e43f1eb1cb0e35a42a9d884670730ab206d8494bdb710513",
       "count": 1
+    },
+    {
+      "path": "review-history-29.json",
+      "sha256": "5c0fbd8c20e89e6b64124e4ff721aac5459251338defda6f46058b85d4685ba4",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 33
+  "reviewed_revision_count": 34
 }

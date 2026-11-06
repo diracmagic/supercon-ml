@@ -5,8 +5,8 @@ const initializeSuperconAiView = function initializeSuperconAiView() {
 
   /* ---------- AI × superconductors: a live list of AI and machine-learning papers and news, and our models ----------
      The list comes from the paper feed's "ai" section (refreshed every three hours by GitHub Actions); while this view is open
-     it checks for a newer feed every ten minutes, rolls the newest headlines and marks what arrived since the last visit. */
-  AI_POLL_MS = 10 * 60 * 1000;
+     it checks for a newer feed every two hours and marks what arrived since the last visit. */
+  AI_POLL_MS = 2 * 60 * 60 * 1000;
 
   // set by the feed (feed/papers.py, ai_kind): new candidates predicted, or AI-guided candidates made and measured
   AI_KIND_LABEL = { prediction: 'AI prediction', experiment: 'AI + experiment' };
