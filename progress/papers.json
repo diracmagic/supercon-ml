@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-06T16:07:39+00:00",
+ "updated": "2026-11-06T19:16:49+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2365,6 +2365,25 @@
  ],
  "journals": [
   {
+   "id": "10.1103/f4k3-gjrv",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Disorder-governed superconductivity and Uemura scaling in Sn 1 − δ Te",
+   "authors": [
+    "Mingtao Li",
+    "Yiming Wang",
+    "Di Peng",
+    "et al."
+   ],
+   "n_authors": 12,
+   "date": "2026-11-06",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/f4k3-gjrv",
+   "doi": "10.1103/f4k3-gjrv",
+   "topics": [],
+   "kind": ""
+  },
+  {
    "id": "10.1038/s41467-026-77617-7",
    "source": "Nat. Commun.",
    "journal": "Nature Communications",
@@ -3374,25 +3393,6 @@
     "Topological"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/drzq-lfn5",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Observation of Time-Reversal Symmetry Breaking in the Type-I Superconductor YbSb 2",
-   "authors": [
-    "Anshu Kataria",
-    "Shashank Srivastava",
-    "Dibyendu Samanta",
-    "et al."
-   ],
-   "n_authors": 12,
-   "date": "2026-09-23",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/drzq-lfn5",
-   "doi": "10.1103/drzq-lfn5",
-   "topics": [],
-   "kind": "experiment"
   },
   {
    "id": "10.1038/s41563-026-02750-z",
