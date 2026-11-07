@@ -1,0 +1,58 @@
+name: Hurricane 9 count-only audit
+
+# Read-only data audit for Hurricane 9 (design note v0.4, section 7 step 2; permitted by the R-009 round-2 review):
+# downloads the pinned MDR SuperCon Datasheet files and the pinned 3DSC_MP table (size and SHA-256 verified before
+# parsing), reads the project's anchor, prior-claim, background and negative-report files for identities, runs
+# `python ml/hurricane9_data.py --audit` (counts, statuses, hashes, provenance graph, support grids and gate; no
+# model is fitted and no model effect is computed), prints the report into the job log and uploads it as an
+# artifact. It commits nothing and never redistributes the data table. Runs when this file changes on the branch;
+# change AUDIT_TAG to re-run.
+
+on:
+  push:
+    branches: [claude/hurricane9]
+    paths:
+      - '.github/workflows/hurricane9-audit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Count-only audit of the pinned MDR table
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      AUDIT_TAG: 'h9-audit-5'
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install numpy pandas
+
+      - name: Reachability of mdr.nims.go.jp (the 1.8 KB schema record, pinned hash)
+        run: |
+          curl -sSL --max-time 120 -o schema.yml "https://mdr.nims.go.jp/filesets/a937a66f-b7a2-4ce8-99f5-f5d9102f639e/download"
+          echo "b484be5962a552f0a3fd757ecf90182226a5ea72533d3430c3003622592f12c1  schema.yml" | sha256sum -c -
+
+      - name: Count-only audit (downloads the pinned files, verifies them, builds the provenance graph, no fit)
+        run: |
+          mkdir -p audit
+          python ml/hurricane9_data.py --audit --cache mdr-cache --output audit/hurricane9-audit.json
+          echo "=== audit sha256"; sha256sum audit/hurricane9-audit.json
+          echo "=== source files (bytes, sha256)"; cd mdr-cache && for f in *; do printf '%s %s %s\n' "$(sha256sum "$f" | cut -c1-64)" "$(stat -c %s "$f")" "$f"; done
+
+      - name: Module and source identity
+        run: |
+          git rev-parse HEAD
+          sha256sum ml/hurricane9_data.py tests/test_hurricane9_data.py .github/workflows/hurricane9-audit.yml
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hurricane9-audit-${{ github.run_id }}
+          path: audit/hurricane9-audit.json
+          retention-days: 90
