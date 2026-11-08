@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-07T21:54:36+00:00",
+ "updated": "2026-11-08T01:30:57+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -56,7 +56,6 @@
   "Nat. Mater.",
   "Nat. Commun.",
   "npj Quantum Mater.",
-  "Nature News",
   "Phys.org",
   "Physics World",
   "APS Physics",
@@ -4541,24 +4540,6 @@
    "doi": "10.1038/s41535-026-00898-0",
    "topics": [],
    "kind": ""
-  },
-  {
-   "id": "10.1038/s41535-026-00910-7",
-   "source": "npj Quantum Mater.",
-   "journal": "npj Quantum Materials",
-   "title": "Competition between charge-density-wave and superconducting orders on eight-leg square Hubbard cylinders",
-   "authors": [
-    "Hong-Chen Jiang",
-    "Thomas P. Devereaux",
-    "Steven A. Kivelson"
-   ],
-   "n_authors": 3,
-   "date": "2026-06-10",
-   "abstract": "The issue of whether d -wave superconductivity (SC) occurs in the square-lattice Hubbard model with U of order of the bandwidth has been one of the most debated issues to emerge from the study of high temperature SC.",
-   "url": "https://doi.org/10.1038/s41535-026-00910-7",
-   "doi": "10.1038/s41535-026-00910-7",
-   "topics": [],
-   "kind": "theory"
   }
  ],
  "news": [
