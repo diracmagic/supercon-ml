@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-09T04:24:59+00:00",
+ "updated": "2026-11-09T07:50:32+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,6 +47,7 @@
   ]
  },
  "sources_ok": [
+  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -59,9 +60,178 @@
   "Phys.org",
   "Physics World",
   "APS Physics",
-  "Quanta Magazine"
+  "Quanta Magazine",
+  "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.09857",
+   "source": "arXiv",
+   "title": "Energy- and momentum-resolved Cooper-pair emission from a cuprate superconductor",
+   "authors": [
+    "Henry Amir",
+    "Jack Zwettler",
+    "Ka Ho Wong",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-11-06",
+   "updated": "2026-11-06",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Superconductivity arises from Cooper pairing, but conventional photoemission probes electrons individually rather than as pairs. Here we report the observation of Cooper-pair emission from an optimally doped cuprate superconductor using two-electron angle-resolved photoemission (2e-ARPES). Below the superconducting transition, we observe a distinct two-electron emission peak at zero pair binding energy and zero pair momentum that disappears in the normal state, revealing the characteristic fingerprint of a Cooper pair. Unexpectedly, the joint energy distribution broadens markedly along the relative-energy axis as temperature decreases, while the total energy width remains nearly unchanged. This anomalous behavior cannot be explained by instrumental resolution, static disorder or thermal broadening, and instead points to scattering processes involving collective excitations of the superconductor. Our results establish 2e-ARPES as a probe of both Cooper-pair emission and the many-body dynamics of the superconducting state.",
+   "url": "https://arxiv.org/abs/2611.09857",
+   "pdf": "https://arxiv.org/pdf/2611.09857",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.09572",
+   "source": "arXiv",
+   "title": "Inverse design of superconductors and semiconductors with differentiable foundation models",
+   "authors": [
+    "Cristóbal Méndez",
+    "Justin Tahmassebpur",
+    "Tomás A. Arias"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-06",
+   "updated": "2026-11-06",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "Designing a crystal for a target property requires choosing its elements, stoichiometry, and atomic structure together, yet gradients exist only for the continuous structural variables. We introduce differentiable Equiformer fast effective-atom theory (DEFEAT), which lets a pretrained EquiformerV3 foundation model accept continuous species weights and site occupancies without retraining on fractional data, thereby enabling gradient-based materials optimization. Gradients from fine-tuned property models and a machine-learned energy penalty then guide updates to composition, atom count, atomic positions, and lattice vectors in a single optimization. In a search for phonon-mediated superconductors, density-functional perturbation theory on 45 structurally novel designs gives isotropic Allen-Dynes critical temperatures above 10 K for 39; the highest is 24.0 K for ZrTiNb2CN3, and H4LiPd3 (23.2 K) lies on the static DFT hull. In searches for photovoltaic absorbers, SCAN calculations confirm ten novel crystal structures with band gaps within 20% of a 1.34 eV target on their respective raw or empirically corrected scales, all within 70 meV/atom of the DFT hull, and show that the systematic gap error of the training functional propagates into the designs unless the objective corrects for it. Quasiharmonic free energies from machine-learned potentials further show that finite-temperature",
+   "url": "https://arxiv.org/abs/2611.09572",
+   "pdf": "https://arxiv.org/pdf/2611.09572",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.09547",
+   "source": "arXiv",
+   "title": "Josephson current along the domain walls in Weyl fully compensated ferrimagnet Ti₂MnAl",
+   "authors": [
+    "V. D. Esin",
+    "N. N. Orlova",
+    "A. R. Banschikova",
+    "et al."
+   ],
+   "n_authors": 7,
+   "date": "2026-11-06",
+   "updated": "2026-11-06",
+   "category": "cond-mat.mes-hall",
+   "cross_list": true,
+   "abstract": "We experimentally investigate Josephson current in planar Nb-Ti₂MnAl-Nb proximity devices, which are formed as junctions between superconducting niobium leads and single crystal flakes of the Weyl fully compensated ferrimagnet Ti₂MnAl. We demonstrate well developed Josephson effect for 2~μm distance between the niobium contacts on the Ti₂MnAl surface. The measured critical current dependence on the magnetic field Ic(B) shows strong anisotropy for two magnetic field orientations in respect to the Nb-Ti₂MnAl-Nb junction plane. For the parallel magnetic field, one can see standard Fraunhofer-like Ic(B) suppression pattern. In contrast, Ic(B) is qualitatively different in normal magnetic field, indicating non-trivial distribution of the Josephson current within the junction plane. From this anisotropy, long-range supercurrent and fast aperiodic fluctuations in Ic(B) we conclude that Josephson current is transferred by the chiral surface states, which emerge along the domain walls in topological compensated ferrimagnet Ti₂MnAl. The conclusion on the domain walls is supported by magnetization data for small Ti₂MnAl flakes.",
+   "url": "https://arxiv.org/abs/2611.09547",
+   "pdf": "https://arxiv.org/pdf/2611.09547",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Topological",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.mes-hall",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.09510",
+   "source": "arXiv",
+   "title": "Superconducting Fluctuation Driven Quantum Transport in Bi₂Sr₂CaCu₂O₈₊δ Thin Films",
+   "authors": [
+    "Sohini Guin",
+    "Naresh Shyaga",
+    "Jagadish Rajendran",
+    "et al."
+   ],
+   "n_authors": 9,
+   "date": "2026-11-06",
+   "updated": "2026-11-06",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Superconducting fluctuations (SF), arising from Cooper-pair-driven interactions and electron-electron interactions within the transition regime, can dominate the magnetoconductance (MC) of superconducting thin films near their transition temperature. In some systems, this fluctuation-dominated regime is preceded by a narrow window in which quantum interference effects are manifested as weak antilocalization (WAL) or weak localization (WL). Here, we report magnetotransport measurements on thin films of the high-temperature superconductor Bi₂Sr₂CaCu₂O₈₊δ (BSCCO) that establish SF as the dominant mechanism governing MC across the transition regime. In the narrow temperature window well above Tc where SF does not exist, a cusp in MC can be attributed to WAL-like signature well described by the Hikami–Larkin–Nagaoka (HLN) framework. Closer to the transition (TBKT), we observe signatures consistent with Berezinskii–Kosterlitz–Thouless (BKT) correlations, underscoring that the dominant physics is set by collective, pairing-driven behavior rather than single-particle quantum interference. Measurements on non-superconducting control samples show no WAL-like features, indicating that the WAL over narrow temperature window, emerges only in conjunction with superconducting fluctuations. Hall measurements further reveal a concomitant sign reversal of the dominant carrier response, pointing ",
+   "url": "https://arxiv.org/abs/2611.09510",
+   "pdf": "https://arxiv.org/pdf/2611.09510",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.09499",
+   "source": "arXiv",
+   "title": "Driving Atomic Spins through Their Substrate Electrons",
+   "authors": [
+    "Samir Lounis"
+   ],
+   "n_authors": 1,
+   "date": "2026-11-06",
+   "updated": "2026-11-06",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Coherent control of single spins on surfaces has relied on decoupling them from the substrate with insulating films, which protects the spin but also removes any electronic means of addressing it. Here we show that a local electric potential can drive an adatom spin through the substrate electrons themselves. An exact reciprocity relation fixes the torque, which equals the change of the local electron density when the moment rotates; the drive map is thus a ground-state property that can be measured independently. The relation also implies sharp selection rules, since point-contact spins, spin-1/2 and the central transition of half-integer spins remain dark. On a normal metal the hybridization responsible for the drive also destroys coherence, but on a superconductor the drive survives while substrate damping is confined to subgap transitions. For atomically sharp tips we find Rabi frequencies of several MHz at RF amplitudes of tens of mV, with substrate-limited linewidths below 0.1~MHz, so that strong hybridization, usually the enemy of spin coherence, becomes an asset.",
+   "url": "https://arxiv.org/abs/2611.09499",
+   "pdf": "https://arxiv.org/pdf/2611.09499",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.09320",
+   "source": "arXiv",
+   "title": "Thermodynamic Phase Diagrams in λ-(BETS)₂GaBrₓCl₄₋ₓ under Physical and Chemical Pressure",
+   "authors": [
+    "Aulia Anisa Firdaus",
+    "Arifa Diana Agustin",
+    "Fathan Muyassar Santana",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-11-06",
+   "updated": "2026-11-06",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "The evolution of electron correlation in the superconducting state of the mixed-crystal series λ-(BETS)₂GaBrₓCl₄₋ₓ was investigated by magnetic and transport measurements. Br concentrations evaluated by electron-probe microanalysis agree well with single-crystal X-ray diffraction refinement. Demagnetization-corrected susceptibility and magnetization of crystals with xc₍rf₎ = 0.22, 0.24, 0.42, and 0.63 all show a diamagnetic superconducting transition. The lower critical field Hc₁, determined from the deviation from the Meissner response, shows a dome-like maximum at xc₍rf₎ = 0.24. The upper critical field Hc₂, obtained from the first high-field magnetoresistance measurements in this system, decreases with increasing Br concentration up to xc₍rf₎ = 0.42, establishing the high-field superconducting boundary on the chemical-pressure side. Combining these results with reported transport data under chemical and physical pressure, we propose a pressure-temperature phase diagram for λ-(BETS)₂GaCl₄. Its double-dome-like structure has a local minimum near x = 0, where a quantum-critical point was proposed at P ≈ 0.13 GPa, separating a low-pressure regime of superconductivity coexisting with magnetism and an unconventional metallic state from a higher-pressure regime with conventional metallic behavior. A low-temperature resistivity upturn, previously reported only under physical pressur",
+   "url": "https://arxiv.org/abs/2611.09320",
+   "pdf": "https://arxiv.org/pdf/2611.09320",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.str-el"
+   ]
+  },
   {
    "id": "2611.08475",
    "source": "arXiv",
@@ -2194,171 +2364,6 @@
     "cond-mat.supr-con",
     "cond-mat.str-el"
    ]
-  },
-  {
-   "id": "2610.35768",
-   "source": "arXiv",
-   "title": "Growth Phase Map of α and \\b{eta} Tantalum as a Function of Growth Temperature and Oxygen Partial Pressure",
-   "authors": [
-    "Marius O. Eji",
-    "Tyler J. Kirkpatrick",
-    "Ty J. Cawein",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-26",
-   "updated": "2026-10-26",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Tantalum thin films are used in low-loss superconducting quantum circuits, yet the growth conditions governing selection of α-Ta(110), α-Ta(111), and metastable β-Ta on c-plane sapphire remain uncertain. We deposited 100 nm Ta films by dc magnetron sputtering on Al₂O₃(0001) at 300-900 °C while varying the O₂ partial pressure from a 5.5×10⁻¹¹ Torr ultrahigh-vacuum baseline to 2.23×10⁻⁴ Torr. Absorption-corrected X-ray diffraction texture coefficients were used to construct a ternary phase-orientation growth map in terms of temperature and the oxygen-to-Ta impingement flux ratio (2ΦO_₂/ΦTa≤4.8×10⁻⁶ to 19). Without added oxygen, α-Ta(110) dominated at every temperature. At an O₂ pressure of only 2.5×10⁻⁹ Torr (2ΦO_₂/ΦTa=2.2×10⁻⁴), α-Ta(111) accounted for 98-99% of the normalized texture weight from 300 to 700 °C, decreasing to 65% at 900 °C. Substantial β-Ta formed only at the highest oxygen dose, dominating at 300 °C and disappearing at 900 °C. The apparent β(001)/α(110) selection energy of 1.07±0.16 eV is comparable to the activation energy for oxygen diffusion in Ta, consistent with oxygen transport influencing phase selection. Oxygen also produced orientation-dependent changes in crystallite size and microstrain. These findings establish oxygen-controlled processing windows for phase- and orientation-selective growth of Ta films for superconducting devices.",
-   "url": "https://arxiv.org/abs/2610.35768",
-   "pdf": "https://arxiv.org/pdf/2610.35768",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci",
-    "quant-ph"
-   ]
-  },
-  {
-   "id": "2610.35737",
-   "source": "arXiv",
-   "title": "Local Broadband Gigahertz Spectroscopy via SQUID-on-Tip DC Readout",
-   "authors": [
-    "Senne Vervoort",
-    "Lukas Nulens",
-    "Julia Baumgarten",
-    "et al."
-   ],
-   "n_authors": 8,
-   "date": "2026-10-26",
-   "updated": "2026-10-26",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Superconducting microwave circuits are shaped by their local electromagnetic environment, yet standard microwave measurements do not resolve the local fields and device features that govern their behavior. Here, we combine microwave spectroscopy, nanoscale magnetic sensing, and topographic imaging in a single tapping-mode SQUID-on-tip microscope. The nonlinear Josephson response converts local GHz excitations into Shapiro steps, enabling quantitative measurements of microwave frequency signals and their excitation strength using only DC readout. Applied to a superconducting coplanar waveguide resonator, local spectroscopy reproduces the power-dependent resonance and nonlinear bifurcation observed in microwave transmission measurements. Spatially resolved measurements map the microwave response while simultaneously recording topography and static magnetic features, including vortices and Meissner screening currents. Electromagnetic simulations reveal how coupling through the superconducting probe leads limits spatial resolution and guides localized detector designs. Together, these capabilities establish a platform for correlating microwave circuit dynamics with the local structural and magnetic environment of superconducting devices.",
-   "url": "https://arxiv.org/abs/2610.35737",
-   "pdf": "https://arxiv.org/pdf/2610.35737",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.35381",
-   "source": "arXiv",
-   "title": "Momentum-resolved thermodynamics and barrier-free order-parameter collapse in spin-orbit-coupled superconductors under a Zeeman field",
-   "authors": [
-    "Xusheng Wang",
-    "Gaomin Tang",
-    "Lianyi He",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-26",
-   "updated": "2026-10-26",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Spin-orbit coupling (SOC) can enhance the critical Zeeman field of clean superconductors beyond the Pauli limit. We develop a momentum decomposition of the zero-temperature free energy to investigate spin-singlet s-wave superconductors with general time-reversal-symmetric SOC. The SOC component perpendicular to the Zeeman field enhances the critical field and suppresses first-order features, whereas the parallel component favors Pauli-limited thermodynamic behavior. Applying this framework to Rashba superconductors and Ising superconductors with weak Rashba SOC, we identify the origin of the abrupt collapse of the superconducting order parameter at the critical field. Competing angular contributions produce a nearly flat free-energy landscape, allowing a barrier-free order-parameter collapse distinct from the conventional Pauli-limited first-order transition.",
-   "url": "https://arxiv.org/abs/2610.35381",
-   "pdf": "https://arxiv.org/pdf/2610.35381",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.35268",
-   "source": "arXiv",
-   "title": "Higher-harmonic spin-wave excitation by a superconducting antenna with vortices",
-   "authors": [
-    "Anton Pokusinskyi",
-    "Paweł Gruszecki",
-    "Julia Kharlan",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-26",
-   "updated": "2026-10-26",
-   "category": "cond-mat.mes-hall",
-   "cross_list": true,
-   "abstract": "The interaction between superconductivity and magnetism provides new routes for controlling nonlinear excitations in hybrid systems. While dc-driven Abrikosov vortices (fluxons) are known to interact with spin waves, the ability of confined, nearly harmonic vortex oscillations to generate higher-frequency spin-wave modes remains unexplored. Here, by combining time-dependent Ginzburg–Landau modeling with spectral analysis of the microwave near field, we demonstrate higher-harmonic spin-wave excitation driven by a superconducting microstrip antenna in the Shubnikov phase. Unlike conventional harmonic-generation mechanisms associated with nonlinear magnetization dynamics, the magnetic layer remains a linear receiver, whereas the superconducting antenna generates the nonlinear microwave field. We show that nearly sinusoidal vortex motion and the accompanying redistribution of superconducting screening currents produce higher harmonics that couple to spin-wave modes. This response arises from spatial-to-temporal transduction, whereby harmonic vortex motion and the associated redistribution of screening currents convert a spatially nonuniform magnetic-field profile into higher temporal harmonics. Magnetic flux quanta thus act as active nonlinear elements for frequency conversion, extending the accessible spin-wave frequency range in superconducting–magnonic hybrids.",
-   "url": "https://arxiv.org/abs/2610.35268",
-   "pdf": "https://arxiv.org/pdf/2610.35268",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.mes-hall",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.34796",
-   "source": "arXiv",
-   "title": "Magnetic susceptibility and superfluid density of inhomogeneous superconducting films: the Tc-mosaic model",
-   "authors": [
-    "Ruslan Prozorov"
-   ],
-   "n_authors": 1,
-   "date": "2026-10-26",
-   "updated": "2026-10-26",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Whole-sample and mutual-inductance part-sample measurements of the linear magnetic susceptibility, χ, of superconducting films are routinely used to obtain the London penetration depth, λ(T), assuming uniform superconductivity. However, spatially resolved probes show that many films of current interest are inhomogeneous on micrometer scales. Here we ask whether a distribution of local transition temperatures in a fully gapped film can produce an apparent line-nodal, T-linear λ(T). The film is modeled as a random Voronoi mosaic of domains with Tc distributed between Tc,min and Tc,maₓ with s-wave (also d-wave, for comparison) London response inside each domain. We show that detectable screening appears only below the percolation temperature, Tp, and the transition broadens with the spread of Tc. For s-wave domains, λ(T) remains activated for any Tc,min>0. Only for Tc,min=0 does it become a power law, Δλ∝Tⁿ with n≈1.7, but then the onset of screening drops to Tp=Tc,maₓ/2. Weighting the Tc distribution towards Tc→0 (more low-Tc domains) can bring n closer to 1 (n≈1.2), but simultaneously pushes the apparent transition, Tp, more than an order of magnitude below Tc,maₓ. For d-wave domains, the linear term survives, and its relative slope is enhanced almost fourfold for Tc,min=0. Hence, a T-linear λ(T) measured in a film with screening onset within a factor of a few of Tc,maₓ by whole",
-   "url": "https://arxiv.org/abs/2610.34796",
-   "pdf": "https://arxiv.org/pdf/2610.34796",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.34382",
-   "source": "arXiv",
-   "title": "Nodeless d-wave pairing in monolayer FeSe revealed by intra-unit-cell Josephson interferometry",
-   "authors": [
-    "Runxin Li",
-    "Yuchen Huo",
-    "Jiong Mei",
-    "et al."
-   ],
-   "n_authors": 16,
-   "date": "2026-10-25",
-   "updated": "2026-10-25",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The Josephson effect provides a direct phase-sensitive probe of superconducting order and has played a central role in identifying unconventional pairing symmetries1-6. Conventional Josephson interferometry, however, extracts phase information through engineered junction geometries and crystallographic orientations, rather than by resolving the internal phase structure of the pair state within a single unit cell. Here, we use a superconducting Nb tip to realize atomic-scale Josephson interferometry in monolayer FeSe/SrTiO3. Despite a fully gapped quasiparticle spectrum, the local Josephson response exhibits a striking intra-unit-cell pattern, with maxima centred on Fe-Fe bonds and robust nodal lines along the Fe-Se directions. We show that these nodal lines arise from destructive interference between Josephson tunnelling amplitudes associated with opposite-sign pairing components. Microscopic calculations reproduce the observed spatial pattern and identify it as a fingerprint of nodeless d-wave pairing. Our results establish intra-unit-cell Josephson interferometry as a local phase-sensitive probe of pairing symmetry in unconventional superconductors.",
-   "url": "https://arxiv.org/abs/2610.34382",
-   "pdf": "https://arxiv.org/pdf/2610.34382",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Iron-based",
-    "Moiré and 2D",
-    "Electron–phonon"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.str-el"
-   ]
   }
  ],
  "journals": [
@@ -2502,25 +2507,6 @@
    "kind": ""
   },
   {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
-  },
-  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2540,6 +2526,25 @@
     "Vortices and junctions"
    ],
    "kind": ""
+  },
+  {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -4911,6 +4916,36 @@
   }
  ],
  "ai": [
+  {
+   "id": "2611.09572",
+   "source": "arXiv",
+   "title": "Inverse design of superconductors and semiconductors with differentiable foundation models",
+   "authors": [
+    "Cristóbal Méndez",
+    "Justin Tahmassebpur",
+    "Tomás A. Arias"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-06",
+   "updated": "2026-11-06",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "Designing a crystal for a target property requires choosing its elements, stoichiometry, and atomic structure together, yet gradients exist only for the continuous structural variables. We introduce differentiable Equiformer fast effective-atom theory (DEFEAT), which lets a pretrained EquiformerV3 foundation model accept continuous species weights and site occupancies without retraining on fractional data, thereby enabling gradient-based materials optimization. Gradients from fine-tuned property models and a machine-learned energy penalty then guide updates to composition, atom count, atomic positions, and lattice vectors in a single optimization. In a search for phonon-mediated superconductors, density-functional perturbation theory on 45 structurally novel designs gives isotropic Allen-Dynes critical temperatures above 10 K for 39; the highest is 24.0 K for ZrTiNb2CN3, and H4LiPd3 (23.2 K) lies on the static DFT hull. In searches for photovoltaic absorbers, SCAN calculations confirm ten novel crystal structures with band gaps within 20% of a 1.34 eV target on their respective raw or empirically corrected scales, all within 70 meV/atom of the DFT hull, and show that the systematic gap error of the training functional propagates into the designs unless the objective corrects for it. Quasiharmonic free energies from machine-learned potentials further show that finite-temperature",
+   "url": "https://arxiv.org/abs/2611.09572",
+   "pdf": "https://arxiv.org/pdf/2611.09572",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.supr-con"
+   ],
+   "kind_of": "paper",
+   "ai_kind": "prediction"
+  },
   {
    "id": "2611.05784",
    "source": "arXiv",
