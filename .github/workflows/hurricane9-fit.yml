@@ -1,11 +1,12 @@
 name: Hurricane 9 first fit
 
-# Two stages, one file. Stage 1 (this version): the synthetic tests, a smoke run on invented rows and a dry run on the
-# pinned MDR SuperCon Datasheet that takes every step of the run except the fit. The dry run prints counts only: no
-# model is fitted, no prediction is made and no Tc value is related to an input. Stage 2 (after the protocol hash is
-# declared in results/validation/hurricane9-r007-declaration-v1.md) adds the run itself, which refuses to read any
-# data unless it is given that hash. Report-only: adopted is false; nothing is committed, released or listed; the
-# data table is downloaded (size and SHA-256 verified before parsing) and never redistributed.
+# Two stages, one file. Stage 1 (commit abf0818, run 42900971572) was a dry run that took every step except the fit
+# and printed counts only. Stage 2 (this version) is the run declared in
+# results/validation/hurricane9-r007-declaration-v1.md: the synthetic tests, a smoke run on invented rows, then
+# ml/hurricane9.py --run, which refuses to read any data unless it is given the declared protocol hash.
+# Report-only: adopted is false; nothing is committed, released or listed; the data table is downloaded (size and
+# SHA-256 verified before parsing) and never redistributed. The report is printed into the job log in numbered pieces;
+# the report and one prediction row per test unit are kept as an artifact for audit.
 # Runs when this file changes on the branch; change FIT_TAG to re-run.
 
 on:
@@ -19,12 +20,13 @@ permissions:
 
 jobs:
   fit:
-    name: Stage 1, dry run on the pinned MDR table (counts only)
+    name: Stage 2, the declared run (report-only)
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
-      FIT_TAG: 'h9-fit-stage1-1'
+      FIT_TAG: 'h9-fit-stage2-1'
       PYTHONHASHSEED: '0'
+      PROTOCOL_SHA256: '37478fec876263854a3286539aac92820039d8f5a37a5bc87cd8844d40654987'
     steps:
       - uses: actions/checkout@v4
 
@@ -45,19 +47,21 @@ jobs:
           python ml/hurricane9.py --smoke --output-dir smoke > smoke.log
           tail -n 1 smoke.log
 
-      - name: Protocol as it stands (not yet declared)
-        run: python ml/hurricane9.py --protocol | tail -n 1
+      - name: The protocol hash of the code is the one in the declaration file
+        run: |
+          python ml/hurricane9.py --protocol | tail -n 1
+          grep -c "$PROTOCOL_SHA256" results/validation/hurricane9-r007-declaration-v1.md
 
-      - name: Dry run on the pinned table (downloads, verifies, counts; fits nothing)
-        run: python ml/hurricane9.py --preflight --cache mdr-cache --output-dir fit
+      - name: The declared run (downloads and verifies the table, fits, reports; refuses another protocol hash)
+        run: python ml/hurricane9.py --run --expect-protocol-sha256 "$PROTOCOL_SHA256" --cache mdr-cache --output-dir fit
 
       - name: Module and source identity
         run: |
           git rev-parse HEAD
-          sha256sum ml/hurricane9.py ml/hurricane9_counts.py ml/hurricane9_data.py ml/hurricane.py ml/hurricane2.py ml/pipeline.py tests/test_hurricane9.py .github/workflows/hurricane9-fit.yml fit/*
+          sha256sum ml/hurricane9.py ml/hurricane9_counts.py ml/hurricane9_data.py ml/hurricane.py ml/hurricane2.py ml/pipeline.py tests/test_hurricane9.py results/validation/hurricane9-r007-declaration-v1.md .github/workflows/hurricane9-fit.yml fit/*
 
       - uses: actions/upload-artifact@v4
         with:
-          name: hurricane9-preflight
+          name: hurricane9-fit
           path: fit/
           retention-days: 90
