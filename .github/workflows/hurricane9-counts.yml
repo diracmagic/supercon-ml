@@ -1,0 +1,53 @@
+name: Hurricane 9 support counts
+
+# Count-only: rolling publication-year windows and coverage of the measured sample fields in the pinned MDR SuperCon
+# Datasheet (size and SHA-256 verified before parsing). The data rules of ml/hurricane9_data.py are reused unchanged;
+# no model is fitted, no prediction is made and no Tc value is related to an input. The report is printed into the
+# job log in numbered pieces and uploaded as an artifact. Commits nothing and never redistributes the data table.
+# Runs when this file changes on the branch; change COUNTS_TAG to re-run.
+
+on:
+  push:
+    branches: [claude/hurricane9]
+    paths:
+      - '.github/workflows/hurricane9-counts.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  counts:
+    name: Support counts on the pinned MDR table
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      COUNTS_TAG: 'h9-counts-1'
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install numpy pandas
+
+      - name: Synthetic tests of the counting rules
+        run: python -m unittest discover -s tests -p 'test_hurricane9_counts.py' -v
+
+      - name: Support counts (downloads the pinned table, verifies it, counts; no fit)
+        run: |
+          mkdir -p audit
+          python ml/hurricane9_counts.py --audit --cache mdr-cache --output audit/hurricane9-counts.json
+          echo "=== report file sha256"; sha256sum audit/hurricane9-counts.json
+
+      - name: Module and source identity
+        run: |
+          git rev-parse HEAD
+          sha256sum ml/hurricane9_counts.py ml/hurricane9_data.py tests/test_hurricane9_counts.py .github/workflows/hurricane9-counts.yml
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hurricane9-counts-${{ github.run_id }}
+          path: audit/hurricane9-counts.json
+          retention-days: 90
