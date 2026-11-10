@@ -129,6 +129,53 @@ class Hurricane9CountsTests(unittest.TestCase):
         pressed = observations(rows + [dict(num="40", refno="P1", **LSCO, ma2="1.85", mb2="0.15", year="1990", tc="40", pmax="2")])
         self.assertEqual(C.field_coverage(pressed, H.canonical_units(pressed, lift=True))["all_rows"]["cuprate"], {"rows": 12, "pressure_study": 1, "pmax_positive": 1, "dtcdp_stated": 0})
 
+    def test_a_window_counts_its_own_series_and_measured_fields(self):
+        y123 = dict(name="YBa2Cu3O7-x", ma1="Y", ma2="1", mb1="Ba", mb2="2", mc1="Cu", mc2="3", mo1="O", mo2="7-X", str3="Y123", shape="1", ulat="A")
+        rows = [dict(num=str(i), refno=f"Y{i}", **y123, oz=f"6.{4 + i}", lata="3.84", latc=f"11.{80 - i}", year="1988", tc=f"{50 + 7 * i}.5")
+                for i in range(1, 6)]
+        rows += [dict(num=str(10 + i), refno=f"L{i}", **LSCO, ma2=f"1.{95 - 5 * i}", mb2=f"0.{5 + 5 * i:02d}", latc="13.2", year="1992", tc=f"{20 + i}.5")
+                 for i in range(1, 6)]
+        rows += [dict(num="30", refno="Y9", **y123, oz="6.95", lata="3.82", latc="11.69", year="1993", tc="92.5")]   # a later Y123 unit
+        obs = observations(rows)
+        first = window(obs, 1985)["new_parent_units"]["cuprate"]
+        # 1986 to 1990: the five Y123 units are one new-parent series with a varying c axis and a measured oxygen content
+        self.assertEqual((first["units"], first["with_tc_value_and_lattice_c"], first["with_tc_value_and_oxygen_measured"], first["with_tc_value_and_both"]), (5, 5, 5, 5))
+        self.assertEqual((first["series"]["parents_with_min_units"], first["series"]["parents_with_min_units_and_varying_lattice_c"],
+                          first["series"]["units_in_varying_lattice_c_series"], first["series"]["units_in_oxygen_measured_series"]), (1, 1, 5, 5))
+        second = window(obs, 1990)
+        # 1991 to 1995: the La-Sr series is a new parent with one c value; the 1993 Y123 unit is new but its parent is known
+        cell = second["new_parent_units"]["cuprate"]
+        self.assertEqual((second["new_units"]["cuprate"]["units"], cell["units"], cell["with_tc_value_and_lattice_c"], cell["with_tc_value_and_oxygen_measured"]), (6, 5, 5, 0))
+        self.assertEqual((cell["series"]["parents_with_min_units_having_lattice_c"], cell["series"]["parents_with_min_units_and_varying_lattice_c"]), (1, 0))
+        # the training side of a window counts only what was reported up to the cutoff
+        self.assertEqual(second["train_measured"]["cuprate"], {"with_tc_value_and_lattice_c": 5, "with_tc_value_and_oxygen_measured": 5, "with_tc_value_and_both": 5})
+        self.assertEqual(window(obs, 1995)["train_measured"]["cuprate"]["with_tc_value_and_lattice_c"], 11)
+
+    def test_lattice_lengths_are_counted_by_stated_unit_and_size(self):
+        y123 = dict(name="YBa2Cu3O7-x", ma1="Y", ma2="1", mb1="Ba", mb2="2", mc1="Cu", mc2="3", mo1="O", mo2="7-X", str3="Y123", shape="1")
+        rows = [dict(num="1", refno="U1", **y123, oz="6.9", lata="3.82", latc="11.68", ulat="A", year="1988", tc="91.5"),
+                dict(num="2", refno="U2", **y123, oz="6.8", lata="0.382", latc="1.168", ulat="nm", year="1988", tc="88.5"),
+                dict(num="3", refno="U3", **y123, oz="6.7", latc="11.71", year="1988", tc="80.5"),
+                dict(num="4", refno="U4", **y123, oz="6.6", lata="3.84", latc="11.73", ulat="A", year="1988", tc="250")]   # quarantined: not counted
+        self.assertEqual(C.lattice_magnitudes(observations(rows)),
+                         {"a": {"A": {"2.5 to 20": 1}, "nm": {"below 1": 1}},
+                          "c": {"A": {"2.5 to 20": 1}, "nm": {"1 to 2.5": 1}, "not stated": {"2.5 to 20": 1}}})
+
+    def test_early_high_tc_units_are_listed_by_identity_and_year_only(self):
+        y123 = dict(name="YBa2Cu3O7-x", ma1="Y", ma2="1", mb1="Ba", mb2="2", mc1="Cu", mc2="3", mo1="O", mo2="7", str3="Y123", shape="1")
+        fe = dict(name="LaFeAsO1-xFx", ma1="La", ma2="1", mb1="Fe", mb2="1", mc1="As", mc2="1", md1="F", mo1="O", str3="ZrCuSiAs", shape="1")
+        rows = [dict(num="1", refno="E1", **y123, year="1978", tc="91.234"),                                # a year that cannot be right
+                dict(num="2", refno="E2", **y123, year="1988", tc="92.345"),                                # the same unit, dated correctly
+                dict(num="3", refno="E3", **fe, md2="0.11", mo2="0.89", year="2001", tc="35.456"),
+                dict(num="4", refno="E4", **fe, md2="0.05", mo2="0.95", year="2001", tc="12.567"),          # below 30 K: not listed
+                dict(num="5", refno="E5", **fe, md2="0.12", mo2="0.88", year="2008", tc="36.678")]          # in its era: not listed
+        listed = C.early_high_tc_units(H.canonical_units(observations(rows), lift=True))
+        self.assertEqual([(r["family"], r["exact"], r["earliest_year"], r["latest_year"], r["reports"], r["references"]) for r in listed],
+                         [("cuprate", "Ba2 Cu3 Y1 O7", 1978, 1988, 2, 2), ("iron-nickel", "As1 F0.11 Fe1 La1 O0.89", 2001, 2001, 1, 1)])
+        text = json.dumps(C.report(observations(rows)))
+        for tc in ("91.234", "92.345", "35.456", "12.567", "36.678"):
+            self.assertNotIn(tc, text)
+
     def test_the_report_holds_counts_only(self):
         rep = C.report(observations(ROWS))
 
