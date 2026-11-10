@@ -31,7 +31,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import hurricane9_data as H  # noqa: E402
 
-VERSION = "hurricane9-counts-v1"
+VERSION = "hurricane9-counts-v2"
 CUTOFFS = (1985, 1990, 1995, 2000, 2005, 2010, 2015, 2020)   # T: train on reports with year <= T
 WIDTH = 5                                                    # test on reports with T < year <= T + WIDTH; windows do not overlap
 OPEN_CUTOFF = 2017                                           # the design note's single cutoff, open-ended (cross-check)
@@ -39,6 +39,8 @@ BIN = 5                                                      # years per bin of 
 MIN_UNITS, MIN_DISTINCT = 5, 3                               # a parent series that could show a trend along its doping
 FAMILIES = tuple(H.EVENT_K) + ("other",)
 PIECE = 2000                                                 # characters of the report per printed line
+EARLY = {"cuprate": 1985, "iron-nickel": 2005}               # a 30 K positive dated up to this year is listed for a year check
+MAGNITUDES = ((1.0, "below 1"), (2.5, "1 to 2.5"), (20.0, "2.5 to 20"), (100.0, "20 to 100"))   # upper bounds of the bins
 
 
 def _cell(units: list) -> dict:
@@ -56,13 +58,66 @@ def _by_family(units: list) -> dict:
     return {fam: _cell([u for u in units if u["family"] == fam]) for fam in FAMILIES}
 
 
+def _positive(v) -> bool:
+    return v is not None and v > 0
+
+
+def _carried(units: list, observations: list) -> list:
+    """Each unit with the c-axis lengths and the measured-oxygen flag of its own reports. The reports of a unit are found
+    by the unit key after the same replication lift that built the units, never by the data number (the table repeats
+    a few data numbers). The observations must be the ones the units were built from."""
+    reports_of = defaultdict(list)
+    for o in H.apply_replication_lift(observations):
+        if o["status"] == "admitted":
+            reports_of[H.unit_key(o)].append(o)
+    out = []
+    for u in units:
+        obs = reports_of[u["key"]]
+        out.append({"unit": u, "reports": len(obs),
+                    "c": sorted({round(o["lattice"]["latc"], 3) for o in obs if _positive(o["lattice"]["latc"])}),
+                    "a_and_c": any(_positive(o["lattice"]["lata"]) and _positive(o["lattice"]["latc"]) for o in obs),
+                    "oxygen": any(o["oxygen"]["status"] == "measured" for o in obs)})
+    return out
+
+
+def _series(carried: list) -> dict:
+    """Parent series: Tc-bearing units under one resolved parent claim (ambiguous and unresolved units form no series)."""
+    tc = [c for c in carried if c["unit"]["tc_k"] is not None]
+    groups = defaultdict(list)
+    for c in tc:
+        if len(c["unit"]["parents"]) == 1:
+            groups[c["unit"]["parents"][0]].append(c)
+    with_c = {p: [c for c in g if c["c"]] for p, g in groups.items()}
+    with_o = {p: [c for c in g if c["oxygen"]] for p, g in groups.items()}
+    varying = {p: g for p, g in with_c.items() if len(g) >= MIN_UNITS and len({v for c in g for v in c["c"]}) >= MIN_DISTINCT}
+    return {"parents_with_a_tc_bearing_unit": len(groups),
+            "parents_with_min_units": sum(len(g) >= MIN_UNITS for g in groups.values()),
+            "units_in_those": sum(len(g) for g in groups.values() if len(g) >= MIN_UNITS),
+            "parents_with_min_units_having_lattice_c": sum(len(g) >= MIN_UNITS for g in with_c.values()),
+            "parents_with_min_units_and_varying_lattice_c": len(varying),
+            "units_in_varying_lattice_c_series": sum(len(g) for g in varying.values()),
+            "parents_with_min_units_having_oxygen_measured": sum(len(g) >= MIN_UNITS for g in with_o.values()),
+            "units_in_oxygen_measured_series": sum(len(g) for g in with_o.values() if len(g) >= MIN_UNITS)}
+
+
+def _measured(carried: list) -> dict:
+    tc = [c for c in carried if c["unit"]["tc_k"] is not None]
+    return {"with_tc_value_and_lattice_c": sum(bool(c["c"]) for c in tc),
+            "with_tc_value_and_oxygen_measured": sum(c["oxygen"] for c in tc),
+            "with_tc_value_and_both": sum(bool(c["c"]) and c["oxygen"] for c in tc)}
+
+
 def window_counts(observations: list, cutoff: int, width: int | None) -> dict:
     """Train on reports with year <= cutoff, test on the reports of the next width years (all later years when
     width is None). Admission, lift and aggregation run inside each side on its own reports, as in H.temporal_split."""
     dated = [o for o in observations if o["year"] is not None]
     last = None if width is None else cutoff + width
-    before = H.canonical_units([o for o in dated if o["year"] <= cutoff], lift=True)
-    after = H.canonical_units([o for o in dated if o["year"] > cutoff and (last is None or o["year"] <= last)], lift=True)
+    before_reports = [o for o in dated if o["year"] <= cutoff]
+    after_reports = [o for o in dated if o["year"] > cutoff and (last is None or o["year"] <= last)]
+    before = H.canonical_units(before_reports, lift=True)
+    after = H.canonical_units(after_reports, lift=True)
+    carried_before = _carried(before, before_reports)
+    carried_after = {c["unit"]["key"]: c for c in _carried(after, after_reports)}
     known_keys = {u["key"] for u in before}
     known_parents = {p for u in before for p in u["parents"]}
     element_sets = {(u["family"], tuple(u["elements"])) for u in before}
@@ -73,6 +128,7 @@ def window_counts(observations: list, cutoff: int, width: int | None) -> dict:
     no_parent = [u for u in new if not u["parents"]]
     out = {"cutoff": cutoff, "window": [cutoff + 1, last], "train": _by_family(before), "new_units": _by_family(new),
            "repeat_units": _by_family(repeat), "new_units_without_resolved_parent": _by_family(no_parent),
+           "train_measured": {fam: _measured([c for c in carried_before if c["unit"]["family"] == fam]) for fam in FAMILIES},
            "new_parent_units": {}}
     for fam in FAMILIES:
         members = [u for u in new_parent if u["family"] == fam]
@@ -85,6 +141,9 @@ def window_counts(observations: list, cutoff: int, width: int | None) -> dict:
         positives = [u for u, a, b in zip(members, same_elements, same_structure) if u["event"] == 1 and not a and not b]
         cell["positive_with_no_earlier_relative"] = len(positives)
         cell["parents_of_positives_with_no_earlier_relative"] = len({p for u in positives for p in u["parents"]})
+        mine = [carried_after[u["key"]] for u in members]
+        cell.update(_measured(mine))
+        cell["series"] = _series(mine)
         out["new_parent_units"][fam] = cell
     return out
 
@@ -103,10 +162,6 @@ def first_report_histogram(units: list, bin_years: int = BIN) -> dict:
                     "parents": dict(sorted(Counter(label(y) for y in first_parent.values()).items())),
                     "undated_units": sum(u["family"] == fam and u["earliest_year"] is None for u in units)}
     return out
-
-
-def _positive(v) -> bool:
-    return v is not None and v > 0
 
 
 FIELDS = {
@@ -131,12 +186,9 @@ FIELDS = {
 
 def field_coverage(observations: list, units: list) -> dict:
     """How many admitted reports, units and parent series carry each measured field (counts only). The units are the
-    whole-cohort units of the observations; the reports of a unit are found by the unit key after the same replication
-    lift that built the units, never by the data number (the table repeats a few data numbers)."""
+    whole-cohort units of the observations."""
     admitted = [o for o in H.apply_replication_lift(observations) if o["status"] == "admitted"]
-    reports_of = defaultdict(list)
-    for o in admitted:
-        reports_of[H.unit_key(o)].append(o)
+    carried = _carried(units, observations)
     reports = {}
     for fam in FAMILIES:
         members = [o for o in admitted if o["family"] == fam]
@@ -150,38 +202,40 @@ def field_coverage(observations: list, units: list) -> dict:
                          "dtcdp_stated": sum(bool(o["pressure"]["dtcdp"]) for o in members)}
     unit_rows, series = {}, {}
     for fam in FAMILIES:
-        members = [u for u in units if u["family"] == fam]
-        carried = []
-        for u in members:
-            obs = reports_of[u["key"]]
-            carried.append({"unit": u, "c": sorted({round(o["lattice"]["latc"], 3) for o in obs if _positive(o["lattice"]["latc"])}),
-                            "a_and_c": any(FIELDS["lattice_a_and_c"](o) for o in obs),
-                            "oxygen": any(FIELDS["oxygen_measured"](o) for o in obs)})
-        tc = [c for c in carried if c["unit"]["tc_k"] is not None]
-        unit_rows[fam] = {"units": len(members), "units_with_tc_value": len(tc),
-                          "lattice_c": sum(bool(c["c"]) for c in carried), "lattice_a_and_c": sum(c["a_and_c"] for c in carried),
-                          "oxygen_measured": sum(c["oxygen"] for c in carried),
-                          "with_tc_value_and_lattice_c": sum(bool(c["c"]) for c in tc),
-                          "with_tc_value_and_oxygen_measured": sum(c["oxygen"] for c in tc),
-                          "with_tc_value_and_both": sum(bool(c["c"]) and c["oxygen"] for c in tc)}
-        groups = defaultdict(list)
-        for c in tc:
-            if len(c["unit"]["parents"]) == 1:   # one resolved parent claim; ambiguous and unresolved units form no series
-                groups[c["unit"]["parents"][0]].append(c)
-        with_c = {p: [c for c in g if c["c"]] for p, g in groups.items()}
-        with_o = {p: [c for c in g if c["oxygen"]] for p, g in groups.items()}
-        varying = {p: g for p, g in with_c.items() if len(g) >= MIN_UNITS and len({v for c in g for v in c["c"]}) >= MIN_DISTINCT}
-        series[fam] = {"parents_with_a_tc_bearing_unit": len(groups),
-                       "parents_with_min_units": sum(len(g) >= MIN_UNITS for g in groups.values()),
-                       "units_in_those": sum(len(g) for g in groups.values() if len(g) >= MIN_UNITS),
-                       "parents_with_min_units_having_lattice_c": sum(len(g) >= MIN_UNITS for g in with_c.values()),
-                       "parents_with_min_units_and_varying_lattice_c": len(varying),
-                       "units_in_varying_lattice_c_series": sum(len(g) for g in varying.values()),
-                       "parents_with_min_units_having_oxygen_measured": sum(len(g) >= MIN_UNITS for g in with_o.values()),
-                       "units_in_oxygen_measured_series": sum(len(g) for g in with_o.values() if len(g) >= MIN_UNITS)}
+        mine = [c for c in carried if c["unit"]["family"] == fam]
+        unit_rows[fam] = {"units": len(mine), "units_with_tc_value": sum(c["unit"]["tc_k"] is not None for c in mine),
+                          "lattice_c": sum(bool(c["c"]) for c in mine), "lattice_a_and_c": sum(c["a_and_c"] for c in mine),
+                          "oxygen_measured": sum(c["oxygen"] for c in mine), **_measured(mine)}
+        series[fam] = _series(mine)
     return {"min_units": MIN_UNITS, "min_distinct_values": MIN_DISTINCT, "admitted_reports_after_lift": len(admitted),
-            "reports_matched_to_units": sum(len(reports_of[u["key"]]) for u in units), "admitted_reports": reports,
+            "reports_matched_to_units": sum(c["reports"] for c in carried), "admitted_reports": reports,
             "all_rows": all_rows, "units": unit_rows, "parent_series": series}
+
+
+def lattice_magnitudes(observations: list) -> dict:
+    """How the lattice lengths are written: per stated unit string, the admitted reports by the size of a and of c.
+    Only the size class of an input field is counted, to choose a unit rule before any use."""
+    def size(v):
+        return next((label for bound, label in MAGNITUDES if v < bound), "100 or more")
+    out = {"a": defaultdict(Counter), "c": defaultdict(Counter)}
+    for o in H.apply_replication_lift(observations):
+        if o["status"] != "admitted":
+            continue
+        unit = o["lattice_unit"] or "not stated"
+        for axis, field in (("a", "lata"), ("c", "latc")):
+            if _positive(o["lattice"][field]):
+                out[axis][unit][size(o["lattice"][field])] += 1
+    return {axis: {unit: dict(sorted(sizes.items())) for unit, sizes in sorted(units.items())} for axis, units in out.items()}
+
+
+def early_high_tc_units(units: list, early: dict = EARLY) -> list:
+    """Units that pass the 30 K event with a first report dated before their family's high-Tc era: identities and years
+    only, for a check of the year field before a temporal test relies on it."""
+    rows = [{"family": u["family"], "exact": u["exact"], "structure_name": u["structure_name"], "earliest_year": u["earliest_year"],
+             "latest_year": u["latest_year"], "reports": u["n_observations"], "references": u["references"]}
+            for u in units if u["family"] in early and u["high_tc_event"] == 1 and u["earliest_year"] is not None
+            and u["earliest_year"] <= early[u["family"]]]
+    return sorted(rows, key=lambda r: (r["family"], r["earliest_year"], r["exact"]))
 
 
 def report(observations: list, *, cutoffs=CUTOFFS, width=WIDTH, open_cutoff=OPEN_CUTOFF) -> dict:
@@ -202,7 +256,9 @@ def report(observations: list, *, cutoffs=CUTOFFS, width=WIDTH, open_cutoff=OPEN
             "first_report": first_report_histogram(units),
             "rolling": {"cutoffs": list(cutoffs), "width": width, "windows": [window_counts(observations, t, width) for t in cutoffs]},
             "open_window": mine, "open_window_agrees_with_temporal_split": bool(agree),
-            "coverage": field_coverage(observations, units)}
+            "coverage": field_coverage(observations, units),
+            "lattice_magnitudes": lattice_magnitudes(observations),
+            "early_high_tc_units": early_high_tc_units(units)}
 
 
 def main(argv=None):
