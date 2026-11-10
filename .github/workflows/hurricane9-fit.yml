@@ -1,0 +1,63 @@
+name: Hurricane 9 first fit
+
+# Two stages, one file. Stage 1 (this version): the synthetic tests, a smoke run on invented rows and a dry run on the
+# pinned MDR SuperCon Datasheet that takes every step of the run except the fit. The dry run prints counts only: no
+# model is fitted, no prediction is made and no Tc value is related to an input. Stage 2 (after the protocol hash is
+# declared in results/validation/hurricane9-r007-declaration-v1.md) adds the run itself, which refuses to read any
+# data unless it is given that hash. Report-only: adopted is false; nothing is committed, released or listed; the
+# data table is downloaded (size and SHA-256 verified before parsing) and never redistributed.
+# Runs when this file changes on the branch; change FIT_TAG to re-run.
+
+on:
+  push:
+    branches: [claude/hurricane9]
+    paths:
+      - '.github/workflows/hurricane9-fit.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  fit:
+    name: Stage 1, dry run on the pinned MDR table (counts only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      FIT_TAG: 'h9-fit-stage1-1'
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install numpy pandas scikit-learn pymatgen
+
+      - name: Library versions
+        run: pip freeze
+
+      - name: Synthetic tests of the data rules, the counts and the fit module
+        run: python -m unittest discover -s tests -p 'test_hurricane9*.py' -v
+
+      - name: Smoke run on invented rows (not a result; only its last line is shown)
+        run: |
+          python ml/hurricane9.py --smoke --output-dir smoke > smoke.log
+          tail -n 1 smoke.log
+
+      - name: Protocol as it stands (not yet declared)
+        run: python ml/hurricane9.py --protocol | tail -n 1
+
+      - name: Dry run on the pinned table (downloads, verifies, counts; fits nothing)
+        run: python ml/hurricane9.py --preflight --cache mdr-cache --output-dir fit
+
+      - name: Module and source identity
+        run: |
+          git rev-parse HEAD
+          sha256sum ml/hurricane9.py ml/hurricane9_counts.py ml/hurricane9_data.py ml/hurricane.py ml/hurricane2.py ml/pipeline.py tests/test_hurricane9.py .github/workflows/hurricane9-fit.yml fit/*
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hurricane9-preflight
+          path: fit/
+          retention-days: 90
