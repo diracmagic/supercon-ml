@@ -109,7 +109,9 @@ PROTOCOL = {
         {"id": "C3", "text": "the previous recipe on all data beats the nearest known compound", "contrast": ["data", "R1"],
          "family": "cuprate", "cutoffs": WINDOWS["cuprate"], "rows": "all"},
         {"id": "C4", "text": "a design without element identities ranks the 30 K event above chance in a family it never saw",
-         "design": "transfer", "windows": NEW_FAMILY, "rows": "every new-parent unit of the window, all families, with a 30 K event of 0 or 1"}],
+         "design": "transfer", "windows": NEW_FAMILY,
+         "rows": "the new family's units that pass the 30 K event against the units of any family that do not, among the new-parent units of "
+                 "the window; units of other families that pass it are left out"}],
     "decision": "a contrast is pooled over the windows that define both designs and is met when the pooled difference is positive, its "
                 f"interval excludes zero and those windows hold at least {MIN_PARENTS} parent clusters; C4 is met per window when the AUC "
                 "interval lies above 0.5; no correction for the five claims; everything else is descriptive",
@@ -450,12 +452,16 @@ def window_metrics(rows: list, pred: dict, score: dict, family: str) -> dict:
     return out
 
 
-def new_family_auc(rows: list, tc: np.ndarray, seed: int) -> dict:
-    """AUC of the 30 K event among every new-parent unit of the window (all families), with a parent-bootstrap interval."""
+def new_family_auc(rows: list, tc: np.ndarray, seed: int, family: str) -> dict:
+    """AUC of the new family's units that pass the 30 K event against the units of any family that do not, among the
+    new-parent units of the window, with a parent-bootstrap interval. Units of other families that pass the event are
+    left out: they are not the family the claim is about."""
     label = np.array([r["unit"]["high_tc_event"] if r["unit"]["high_tc_event"] in (0, 1) else -1 for r in rows])
-    keep = (label >= 0) & np.isfinite(tc)
+    other = (label == 1) & np.array([r["unit"]["family"] != family for r in rows], bool)
+    keep = (label >= 0) & np.isfinite(tc) & ~other
     label, tc = label[keep], tc[keep]
-    out = {"units": int(len(label)), "positives": int((label == 1).sum()), "negatives": int((label == 0).sum()), "auc": auc(tc, label)}
+    out = {"units": int(len(label)), "positives": int((label == 1).sum()), "negatives": int((label == 0).sum()),
+           "positives_of_other_families_left_out": int(other.sum()), "auc": auc(tc, label)}
     if out["auc"] is None:
         return dict(out, lower95=None, upper95=None, above_chance=False)
     cluster = clusters([r for r, k in zip(rows, keep) if k])
@@ -573,7 +579,7 @@ def evaluate(observations: list, supported: set, table=None) -> tuple[dict, list
             if c == t:
                 idx = [i for i, r in enumerate(w["test"]) if r["unit"]["family"] == family]
                 inside = window_metrics([w["test"][i] for i in idx], {n: p[idx] for n, p in pred.items()}, {n: s[idx] for n, s in score.items()}, family)
-                report["new_family"][f"{family}:{t}"] = {"thirty_kelvin_auc": {n: new_family_auc(w["test"], pred[n], SEED) for n in ["transfer"] + LADDER + ["R1"]},
+                report["new_family"][f"{family}:{t}"] = {"thirty_kelvin_auc": {n: new_family_auc(w["test"], pred[n], SEED, family) for n in ["transfer"] + LADDER + ["R1"]},
                                                          "inside_the_family": inside}
     names = ["R0", "R1"] + LADDER
     pairs = [("measured", "previous"), ("data", "previous"), ("names", "data"), ("measured", "names"), ("data", "R1"), ("measured", "R1")]
@@ -595,7 +601,8 @@ def evaluate(observations: list, supported: set, table=None) -> tuple[dict, list
             for family, c in claim["windows"]:
                 r = report["new_family"].get(f"{family}:{c}", {}).get("thirty_kelvin_auc", {}).get(claim["design"], {})
                 report["claims"].append({"id": f"{claim['id']}:{family}:{c}", "text": claim["text"], "units": r.get("units"),
-                                         "positives": r.get("positives"), "negatives": r.get("negatives"), "auc": r.get("auc"),
+                                         "positives": r.get("positives"), "negatives": r.get("negatives"),
+                                         "positives_of_other_families_left_out": r.get("positives_of_other_families_left_out"), "auc": r.get("auc"),
                                          "lower95": r.get("lower95"), "upper95": r.get("upper95"), "met": bool(r.get("above_chance", False))})
     return report, saved
 
