@@ -245,6 +245,20 @@ class Hurricane9FitTests(unittest.TestCase):
         self.assertEqual(sorted(family["pooled_product"]["mae_k"]["values"]), sorted(F.LADDER))
         self.assertEqual(sorted(family["pooled_all"]["mae_k"]["values"]), sorted(["R0", "R1"] + F.LADDER))
 
+    def test_the_new_family_auc_counts_only_the_new_familys_positives(self):
+        unit = lambda family, event, parent: {"unit": {"family": family, "high_tc_event": event, "parents": [parent]}}
+        rows = ([unit("cuprate", 1, f"c{i}") for i in range(12)] + [unit("cuprate", 0, f"n{i}") for i in range(6)] + [unit("other", 0, f"o{i}") for i in range(6)]
+                + [unit("other-oxide", 1, f"x{i}") for i in range(3)] + [unit("other", None, "u")])
+        tc = np.array([50.0] * 12 + [5.0] * 12 + [90.0] * 3 + [1.0])
+        out = F.new_family_auc(rows, tc, 7, "cuprate")     # the three other-oxide units that pass the event are left out
+        self.assertEqual((out["units"], out["positives"], out["negatives"], out["positives_of_other_families_left_out"], out["auc"]), (24, 12, 12, 3, 1.0))
+        self.assertTrue(out["above_chance"])
+        self.assertEqual(F.new_family_auc(rows, tc, 7, "other-oxide")["positives"], 3)
+        none = F.new_family_auc(rows, np.full(len(rows), np.nan), 7, "cuprate")
+        self.assertEqual((none["auc"], none["above_chance"], none["positives_of_other_families_left_out"]), (None, False, 3))
+        claim = next(c for c in self.report["claims"] if c["id"] == "C4:cuprate:1985")
+        self.assertEqual(claim["positives_of_other_families_left_out"], 0)
+
     def test_the_report_has_no_non_finite_number(self):
         self.assertEqual(F.clean({"a": float("nan"), "b": [np.float64(1.5), np.int64(2), np.bool_(True), float("inf")], 3: None}),
                          {"a": None, "b": [1.5, 2, True, None], "3": None})
