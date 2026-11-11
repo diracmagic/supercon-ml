@@ -14,10 +14,15 @@ stability, and left out nine in ten of its entries with an ICSD number. This rou
 - Four open sources: JARVIS-DFT 3D, the Materials Project (a dated build, its entries under CC BY only), the Alexandria
   convex hull (a dated release) and the Crystallography Open Database (its own table, with the compositions as
   measured). SOURCES gives each one's licence and reference.
+- One calculation speaks for each composition (Hurricane reads the composition and nothing else): of the calculated
+  entries of that composition, one marked experimental before any other, then one near its source's convex hull. Its
+  band gap must be at most 1 eV, so a hypothetical metallic structure does not bring in a compound that is an
+  insulator as it was made.
 - Two tracks. A compound with an experimental structure in one of the sources is kept whatever a calculation says about
-  its stability. A compound known from calculation only is kept if its database puts it within 50 meV/atom of its
-  convex hull; for JARVIS-DFT that distance is computed here from the file's formation energies, and the ehull field
-  is not read.
+  its stability. A compound known from calculation only is kept if its source puts that calculation within
+  50 meV/atom of its convex hull; for JARVIS-DFT the distance is computed here from the file's formation energies, and
+  the ehull field is not read. A measured COD composition takes the gap of the calculation of the same material; if
+  there is none it stays, marked "no calculated band gap".
 - Nothing about the model changes. The chance of a compound comes from the five classifiers of the release's guard:
   the classifier of a compound's fold (a hash of its chemical system) learned from no background compound of that
   system. For the compounds of the released background these are the chances the release run committed; the run
@@ -33,6 +38,7 @@ from __future__ import annotations
 import argparse
 import bz2
 import collections
+import copy
 import csv
 import functools
 import gzip
@@ -45,6 +51,7 @@ import os
 import platform
 import re
 import sys
+import tempfile
 import time
 import urllib.parse
 import urllib.request
@@ -75,6 +82,10 @@ MP_BUCKET = "https://materialsproject-build.s3.amazonaws.com"
 ALEXANDRIA_RELEASE = "2025.07.02"
 ALEXANDRIA_URL = f"https://alexandria.icams.rub.de/data/pbe/{ALEXANDRIA_RELEASE}/convex_hull.json.bz2"
 COD_HOST, COD_USER, COD_DB = "www.crystallography.net", "cod_reader", "cod"      # the COD's public read-only database
+# What the count-only run of 2026-11-11 read. A run that reads anything else stops and writes nothing.
+JARVIS_ROWS_SHA256 = None
+MP_FILES_SHA256 = "c4464ec53f0c2d27395bc622bc43faa18985d1d0bb53ace5f0d0f6b6f74ffd45"       # of the SHA-256 of the build's 21 summary files, in order
+ALEXANDRIA_SHA256 = "8e3206c2f3623c0931ce5b0c3aa62ba83905b4838e4660fd6f2067c55c5bbb8e"
 DECLARATION = P.ROOT / "results" / "validation" / "hurricane9-screen7-declaration-v1.md"
 RELEASED, BACKGROUND = S6.RELEASED, S6.BACKGROUND
 COD_SNAPSHOT = "screen_round7_cod.csv.gz"
@@ -87,17 +98,21 @@ SOURCES = {
              "cite": "K. Choudhary et al., The joint automated repository for various integrated simulations (JARVIS) for data-driven "
                      "materials design, npj Comput. Mater. 6, 173 (2020)", "doi": "10.1038/s41524-020-00440-1",
              "experimental": "the entry has an ICSD number", "gap": "optb88vdw_bandgap",
+             "sha256": JARVIS_ROWS_SHA256, "sha256_of": "one line for each row in the file's order: identifier, formation energy per atom, "
+                                                        "band gap, atoms per cell, whether it has an ICSD number",
              "hull": "computed in the run from the file's formation energies; the file's ehull field is not read"},
     MP: {"what": f"Materials Project, build {MP_VERSION}, summary collection from its AWS Open Data bucket", "licence": "CC BY 4.0",
          "cite": "A. Jain et al., Commentary: The Materials Project: A materials genome approach to accelerating materials innovation, "
                  "APL Mater. 1, 011002 (2013)", "doi": "10.1063/1.4812323", "url": MP_BUCKET + f"/collections/{MP_VERSION}/summary/",
          "left_out": "entries not marked BY-C (those marked BY-NC come from GNoME) and deprecated entries",
-         "experimental": "theoretical is false", "gap": "band_gap", "hull": "energy_above_hull"},
+         "experimental": "theoretical is false", "gap": "band_gap", "hull": "energy_above_hull",
+         "sha256": MP_FILES_SHA256, "sha256_of": "the SHA-256 of each summary file of the build, in order, written one after the other"},
     ALEX: {"what": f"Alexandria PBE convex hull, release {ALEXANDRIA_RELEASE}", "licence": "CC BY 4.0", "url": ALEXANDRIA_URL,
            "cite": "J. Schmidt et al., Machine-learning-assisted determination of the global zero-temperature phase diagram of materials, "
                    "Adv. Mater. 35, 2210788 (2023)", "doi": "10.1002/adma.202210788",
            "experimental": "none: the release does not say which entries are experimental", "gap": "band_gap_ind",
-           "hull": "e_above_hull, or e_phase_separation (not below zero) where that is empty"},
+           "hull": "e_above_hull, or e_phase_separation (not below zero) where that is empty", "sha256": ALEXANDRIA_SHA256,
+           "sha256_of": "the file convex_hull.json.bz2"},
     COD: {"what": "Crystallography Open Database, its own table, read once from its public read-only database; the usable rows are "
                   "stored in results/" + COD_SNAPSHOT + " and every run screens the stored rows", "licence": "public domain",
           "cite": "S. Grazulis et al., Crystallography Open Database - an open-access collection of crystal structures, J. Appl. Cryst. 42, "
@@ -105,7 +120,7 @@ SOURCES = {
           "url": "https://www.crystallography.net/cod/",
           "experimental": "every entry, except those marked theoretical, retracted, with errors or warnings, on hold or as a duplicate, "
                           "those without coordinates and those determined above 0.1 GPa",
-          "gap": "none of its own: the gap of a calculated entry of the same elements with every share within 2 at.%",
+          "gap": "none of its own: the gap of the reference calculation of the same material",
           "hull": "none; not needed for an experimental structure"},
 }
 PROTOCOL = {
@@ -115,23 +130,32 @@ PROTOCOL = {
               "status": "the version in use; this run releases, tunes and compares nothing"},
     "sources": SOURCES,
     "pool": {
-        "size": f"{ELEMENTS[0]} to {ELEMENTS[1]} elements; no hydrogen, noble gas or short-lived radioactive element; at most {MAX_ATOMS} "
-                f"atoms in the primitive cell; every element in at least {MIN_ELEMENT} of the released training rows",
-        "gap": f"a band gap of at most {GAP_MAX:g} eV in the source's own calculation; a COD entry takes the gap of a calculated entry of "
-               "the same material, is left out if every such entry has a wider gap, and stays, marked, if there is none",
+        "unit": "a composition (shares to four decimals); Hurricane reads nothing else, so each composition is judged once",
         "same_material": f"the same elements and every share within {NEAR * 100:g} at.% (screen.NEAR)",
-        "experimental": "a compound for which a source holds an experimental structure of the same material; no rule on the distance "
-                        "to a convex hull",
-        "computed": f"any other compound, if its source puts it at most {EHULL_MAX * 1000:g} meV/atom above its convex hull",
+        "reference": "the calculated entry that speaks for a composition: among the entries of that composition in JARVIS-DFT, the "
+                     "Materials Project and Alexandria that have a band gap, one marked experimental before any other, then one that "
+                     f"its source puts at most {EHULL_MAX * 1000:g} meV/atom above its convex hull before one further away, then by "
+                     "source in the order " + ", ".join(ORDER[:3]) + ", then the one closest to its source's hull, then the "
+                     "identifier. Distances to a hull are compared as numbers within one source only",
+        "size": f"{ELEMENTS[0]} to {ELEMENTS[1]} elements; no hydrogen, noble gas or short-lived radioactive element; at most {MAX_ATOMS} "
+                f"atoms in the primitive cell of the entry that stands for the compound; every element in at least {MIN_ELEMENT} of the "
+                "released training rows",
+        "gap": f"the reference calculation has a band gap of at most {GAP_MAX:g} eV. A COD entry takes the reference calculation of the "
+               "same material (of several, the first in the order above): it is left out if that gap is wider, and stays, marked, if "
+               "no calculated entry of the same material has a gap",
+        "experimental": "a compound for which a source holds an experimental structure of the same material (an entry marked "
+                        "experimental in JARVIS-DFT or the Materials Project, or a usable COD entry); no rule on the distance to a "
+                        "convex hull. The structure named is one with the space group of the reference calculation if there is one",
+        "computed": f"any other compound, if its reference calculation lies at most {EHULL_MAX * 1000:g} meV/atom above the convex hull "
+                    "of its source",
         "jarvis_hull": "the lowest energy that a mixture of JARVIS-DFT entries of the same overall composition can have, from the "
                        "file's formation energies with the elements at zero (a linear programme); an entry's distance is its "
                        "formation energy minus that",
         "left_out": "as round 6: every material that SuperCon, 3DSC, the computed-Tc data or the list of others' claims has, every "
-                    "compound made of exactly the elements of a known superconductor (screen.known_lists), and every compound whose "
-                    "composition the datasheet lists",
-        "one_per_composition": "of the entries of one composition (shares to four decimals): a calculated entry before a COD entry, "
-                               "an entry that is itself experimental before one that is not, then by source in the order "
-                               + ", ".join(ORDER) + ", then the lowest hull distance, then the identifier"},
+                    "compound made of exactly the elements of a known superconductor (screen.known_lists), every composition for "
+                    "which JARVIS-DFT gives a computed Tc, and every compound whose composition the datasheet lists",
+        "one_per_composition": "the reference calculation, with its cell and atoms, stands for its composition; a measured COD "
+                               "composition that no calculated entry has stands for itself (of several COD entries, the lowest number)"},
     "routing": "Radar refitted on its 3DSC rows, as screen.radar_scores, with each entry's cell, atoms per cell and space group; a "
                "compound is sent to Hurricane when the probability of an unconventional family is at least one half",
     "chance": "the classifiers of hurricane9_release.guard, one for each of five folds by a hash of the chemical system "
@@ -155,8 +179,8 @@ PROTOCOL = {
 CAVEAT = S6.CAVEAT
 NOT_KNOWN = S6.NOT_KNOWN
 NO_GAP = "no calculated band gap"
-COLUMNS = ["id", "source", "formula", "chemsys", "track", "experimental", "labels", "nat", "spg", "spg_number", "ehull", "gap", "magmom",
-           "p_unconventional", "family", "hurricane_tc", "p_sc", "tc_sc", "lo", "hi", "types", "novelty", "nearest_training",
+COLUMNS = ["id", "source", "formula", "chemsys", "track", "experimental", "labels", "nat", "spg", "spg_number", "ehull", "gap", "gap_from",
+           "magmom", "p_unconventional", "family", "hurricane_tc", "p_sc", "tc_sc", "lo", "hi", "types", "novelty", "nearest_training",
            "nearest_training_tc", "not_known"]
 COD_COLUMNS = ["file", "a", "b", "c", "alpha", "beta", "gamma", "vol", "nel", "sg", "sgNumber", "formula", "calcformula", "cellformula", "Z",
                "cellpressure", "diffrpressure", "year", "doi", "method", "flags", "status", "duplicateof", "onhold"]
@@ -346,8 +370,14 @@ def spg_symbol(number) -> str | None:
 
 
 # ---------------------------------------------------------------- reading the sources
+def source_folder() -> Path:
+    """Where a run keeps the files it downloads from the Materials Project and Alexandria: a temporary folder, not the
+    data cache that the workflow saves after every run (the two dated sources are 0.6 GB together)."""
+    return Path(os.environ.get("SUPERCON_POOL_SOURCES") or Path(os.environ.get("RUNNER_TEMP") or tempfile.gettempdir()) / "supercon-pool-sources")
+
+
 def fetch(url: str, path: Path) -> Path:
-    """A file from the cache, or from the network into it."""
+    """A file from the folder, or from the network into it."""
     if not path.is_file():
         path.parent.mkdir(parents=True, exist_ok=True)
         req = urllib.request.Request(url, headers={"User-Agent": "supercon-ml (github.com/diracmagic/supercon-ml)"})
@@ -360,6 +390,12 @@ def fetch(url: str, path: Path) -> Path:
                 fh.write(chunk)
         tmp.replace(path)
     return path
+
+
+def same_source(name: str, got: str, want) -> None:
+    """Stop unless a source is, hash for hash, the one the protocol names."""
+    if want is not None and got != want:
+        raise SystemExit(f"{name} is not what this protocol names (SHA-256 {got}, not {want}); nothing is written")
 
 
 def sha256_file(path: Path) -> str:
@@ -390,10 +426,11 @@ def read_mp(cache: Path, keep=None) -> tuple[list, dict]:
     keys = mp_keys()
     if not keys:
         raise SystemExit(f"the Materials Project bucket lists no summary file for build {MP_VERSION}; nothing is written")
-    out, n, h = [], 0, hashlib.sha256()
-    for key, _ in keys:
-        path = fetch(MP_BUCKET + "/" + key, cache / "mp" / MP_VERSION / key.split("/")[-1])
-        h.update(sha256_file(path).encode())
+    paths = [fetch(MP_BUCKET + "/" + key, cache / "mp" / MP_VERSION / key.split("/")[-1]) for key, _ in keys]
+    digest = hashlib.sha256("".join(sha256_file(path) for path in paths).encode()).hexdigest()
+    same_source(f"the Materials Project build {MP_VERSION}", digest, MP_FILES_SHA256)
+    out, n = [], 0
+    for path in paths:
         with gzip.open(path, "rt", encoding="utf-8") as fh:
             for line in fh:
                 if line.strip():
@@ -402,7 +439,7 @@ def read_mp(cache: Path, keep=None) -> tuple[list, dict]:
                     if rec is not None:
                         out.append(rec if keep is None or keep(rec) else slim(rec))
     return out, {"build": MP_VERSION, "files": len(keys), "bytes": sum(s for _, s in keys), "documents": n, "used": len(out),
-                 "sha256_of_the_files_sha256": h.hexdigest()}
+                 "sha256_of_the_files_sha256": digest}
 
 
 class Finite(io.RawIOBase):
@@ -439,6 +476,8 @@ def read_alexandria(cache: Path, keep=None) -> tuple[list, dict]:
     """Every record of the Alexandria convex-hull file, read as a stream; keep(record) says whose cell and atoms are kept."""
     import ijson
     path = fetch(ALEXANDRIA_URL, cache / "alexandria" / ALEXANDRIA_RELEASE / "convex_hull.json.bz2")
+    digest = sha256_file(path)
+    same_source(f"the Alexandria release {ALEXANDRIA_RELEASE}", digest, ALEXANDRIA_SHA256)
     out, n = [], 0
     with bz2.open(path, "rb") as raw:
         for entry in ijson.items(io.BufferedReader(Finite(raw), buffer_size=1 << 20), "entries.item", use_float=True):
@@ -446,7 +485,7 @@ def read_alexandria(cache: Path, keep=None) -> tuple[list, dict]:
             rec = alexandria_record(entry)
             if rec is not None:
                 out.append(rec if keep is None or keep(rec) else slim(rec))
-    return out, {"release": ALEXANDRIA_RELEASE, "bytes": path.stat().st_size, "sha256": sha256_file(path), "entries": n, "used": len(out)}
+    return out, {"release": ALEXANDRIA_RELEASE, "bytes": path.stat().st_size, "sha256": digest, "entries": n, "used": len(out)}
 
 
 def query_cod() -> list:
@@ -547,18 +586,20 @@ def hull_energies(entries: list, targets: list) -> np.ndarray:
 
 
 def jarvis_records(rows, counts: dict) -> tuple[list, dict]:
-    """Every JARVIS-DFT row as a record. The rows that can enter the pool by size, gap and elements get their distance
-    to the hull of the file's own formation energies; the file's ehull field is not read."""
+    """Every JARVIS-DFT row as a record, with its distance to the hull of the file's own formation energies; the file's
+    ehull field is not read. The rows that cannot enter the pool by size, gap or elements lose their cell and atoms."""
     recs = [jarvis_record(r) for _, r in rows.iterrows()]
+    digest = hashlib.sha256("".join(f"{r['id']}|{r['e_form']!r}|{r['gap']!r}|{r['nat']!r}|{int(r['experimental'])}\n" for r in recs).encode()).hexdigest()
+    same_source("JARVIS-DFT 3D as jarvis-tools serves it", digest, JARVIS_ROWS_SHA256)
     can = [size_ok(r) and gap_ok(r) and covered(r, counts) for r in recs]
-    need = [i for i, r in enumerate(recs) if can[i] and r["e_form"] is not None]
+    need = [i for i, r in enumerate(recs) if r["e_form"] is not None]
     entries = [(r["comp"], r["e_form"]) for r in recs if r["e_form"] is not None]
     t0 = time.time()
     hull = hull_energies(entries, [recs[i]["comp"] for i in need])
     for i, e in zip(need, hull):
         recs[i]["hull"] = max(recs[i]["e_form"] - float(e), 0.0)
     within = sum(1 for i in need if recs[i]["hull"] <= EHULL_MAX)
-    info = {"rows": len(recs), "with_a_formation_energy": len(entries), "hull_distance_computed_for": len(need),
+    info = {"rows": len(recs), "rows_sha256": digest, "with_a_formation_energy": len(entries), "hull_distance_computed_for": len(need),
             "of_them_within_50_meV": within, "seconds": round(time.time() - t0, 1), "against_pymatgen": hull_check(recs, need)}
     for r, ok in zip(recs, can):
         if not ok:
@@ -611,57 +652,115 @@ def tag(r: dict) -> str:
     return f"{r['db']} {r['id']}"
 
 
+class Materials:
+    """Entries grouped by their set of elements, to find those of the same material: the same elements and every share
+    within NEAR (the rule of screen.Known)."""
+
+    def __init__(self):
+        self.by_set = {}
+
+    def add(self, comp: dict, item) -> None:
+        key = tuple(sorted(comp))
+        tot = float(sum(comp.values()))
+        bucket = self.by_set.setdefault(key, [[], [], None])
+        bucket[0].append([comp[e] / tot for e in key])
+        bucket[1].append(item)
+        bucket[2] = None
+
+    def near(self, comp: dict) -> list:
+        key = tuple(sorted(comp))
+        bucket = self.by_set.get(key)
+        if bucket is None:
+            return []
+        if bucket[2] is None:
+            bucket[2] = np.asarray(bucket[0], float)
+        tot = float(sum(comp.values()))
+        hit = np.flatnonzero(np.max(np.abs(bucket[2] - np.array([comp[e] / tot for e in key])), axis=1) <= NEAR + 1e-9)
+        return [bucket[1][int(i)] for i in hit]
+
+
+def by_id(r: dict) -> tuple:
+    return (len(r["id"]), r["id"])          # numbers in their order
+
+
+def reference_order(r: dict) -> tuple:
+    """Which calculated entry speaks for a material: one marked experimental before any other, then one that its source
+    puts within EHULL_MAX of its convex hull before one further away, then by source in the order of ORDER, then the one
+    closest to its source's hull. Distances are compared as numbers within one source only."""
+    hull = math.inf if r["hull"] is None else r["hull"]
+    return (not r["experimental"], not hull <= EHULL_MAX, ORDER.index(r["db"]), hull, by_id(r))
+
+
+def experimental_structure(near: list, ref: dict):
+    """Of the experimental structures of a material, the one to name next to its reference calculation: one with the
+    reference's space group first, then by source, then the identifier."""
+    if not near:
+        return None
+    return min(near, key=lambda e: (e["spg_number"] is None or e["spg_number"] != ref["spg_number"], ORDER.index(e["db"]), by_id(e)))
+
+
 def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=None) -> tuple[list, dict]:
     """The pool: one record per composition, each with its track ("experimental" or "computed"), the experimental
-    structure that puts it on the first track, and its marks. calculated: the records of the three calculated sources,
-    all of them (those that do not enter still say which materials have an experimental structure and which a wide
-    gap); cod: the usable COD records."""
-    import screen as SC
-    seen, narrow, wide = SC.Known("experimental"), SC.Known("narrow gap"), SC.Known("wide gap")
+    structure that puts it on the first track, and its marks. calculated: every record of the three calculated sources
+    (those that cannot enter still say which materials have an experimental structure, and a wide gap of the entry that
+    speaks for a material keeps that material out); cod: the usable COD records."""
+    made = Materials()                       # the experimental structures
     for r in calculated:
         if r["experimental"]:
-            seen.add(r["comp"], tag(r))
-        if r["gap"] is not None:
-            (narrow if r["gap"] <= GAP_MAX else wide).add(r["comp"], tag(r))
+            made.add(r["comp"], r)
     for r in cod:
-        seen.add(r["comp"], tag(r))
+        made.add(r["comp"], r)
     steps = {db: collections.Counter() for db in ORDER}
-    cands = []
+    groups, with_tc = collections.defaultdict(list), set()
     for r in calculated:
-        st = steps[r["db"]]
-        st["entries"] += 1
-        if not size_ok(r):
+        steps[r["db"]]["entries"] += 1
+        key = P._composition_key(r["comp"])
+        if r.get("jarvis_tc") is not None:
+            with_tc.add(key)
+        if r["gap"] is not None:
+            groups[key].append(r)
+    refs, cands, other_group = Materials(), [], 0
+    for key, members in groups.items():      # the reference calculation of each composition decides for it
+        ref = min(members, key=reference_order)
+        refs.add(ref["comp"], ref)
+        st = steps[ref["db"]]
+        st["reference calculations, one per composition"] += 1
+        if not size_ok(ref):
             continue
         st["size and elements"] += 1
-        if not gap_ok(r):
+        if not gap_ok(ref):
             continue
         st["band gap at most 1 eV"] += 1
-        if not covered(r, counts):
+        if not covered(ref, counts):
             continue
         st["elements the training data cover"] += 1
-        evidence = seen.match(r["comp"])
-        if evidence is None and not (r["hull"] is not None and r["hull"] <= EHULL_MAX):
+        evidence = ref if ref["experimental"] else experimental_structure(made.near(ref["comp"]), ref)
+        if evidence is None and not (ref["hull"] is not None and ref["hull"] <= EHULL_MAX):
             continue
         st["an experimental structure, or within 50 meV/atom of the hull"] += 1
-        cands.append(dict(r, track="experimental" if evidence else "computed", evidence=evidence, gap_from=None, labels=[]))
-    for r in cod:
+        same = None if evidence is None or evidence is ref else bool(evidence["spg_number"] is not None and evidence["spg_number"] == ref["spg_number"])
+        cands.append(dict(ref, key=key, track="experimental" if evidence else "computed", evidence=tag(evidence) if evidence else None,
+                          same_space_group=same, gap_from=None, labels=[]))
+    for r in cod:                            # a measured composition takes the gap of the reference calculation of the same material
         st = steps[COD]
         st["entries"] += 1
         if not size_ok(r):
             continue
         st["size and elements"] += 1
-        hit = narrow.match(r["comp"])
-        if hit is None and wide.match(r["comp"]) is not None:
-            continue
-        st["band gap at most 1 eV, or no calculated gap"] += 1
         if not covered(r, counts):
             continue
         st["elements the training data cover"] += 1
-        cands.append(dict(r, track="experimental", evidence=tag(r), gap_from=hit, labels=[] if hit else [NO_GAP]))
+        near = refs.near(r["comp"])
+        ref = min(near, key=reference_order) if near else None
+        if ref is not None and not gap_ok(ref):
+            continue
+        st["band gap of the reference calculation at most 1 eV, or no calculation"] += 1
+        cands.append(dict(r, key=P._composition_key(r["comp"]), gap=None if ref is None else ref["gap"], track="experimental", evidence=tag(r),
+                          same_space_group=None, gap_from=tag(ref) if ref else None, labels=[] if ref else [NO_GAP]))
     excluded, kept = collections.Counter(), []
     for r in cands:
         reason = next((k.name for k in known if k.match(r["comp"])), None)
-        if reason is None and r.get("jarvis_tc") is not None:
+        if reason is None and r["key"] in with_tc:
             reason = "computed"
         if reason is None and datasheet is not None and datasheet.match(r["comp"]) is not None:
             reason = "datasheet"
@@ -672,10 +771,10 @@ def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=N
         kept.append(r)
     groups = collections.defaultdict(list)
     for r in kept:
-        groups[P._composition_key(r["comp"])].append(r)
+        groups[r.pop("key")].append(r)
     pool = []
-    for members in groups.values():
-        members.sort(key=lambda r: (r["db"] == COD, not r["experimental"], ORDER.index(r["db"]), math.inf if r["hull"] is None else r["hull"], r["id"]))
+    for members in groups.values():          # the reference calculation, with its cell and atoms, before a COD entry of that composition
+        members.sort(key=lambda r: (r["db"] == COD, ORDER.index(r["db"]), by_id(r)))
         first = dict(members[0])
         first["track"] = "experimental" if any(m["track"] == "experimental" for m in members) else "computed"
         first["evidence"] = next((m["evidence"] for m in members if m["evidence"]), None)
@@ -683,12 +782,14 @@ def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=N
         first["chemsys"] = "-".join(sorted(first["comp"]))
         pool.append(first)
         steps[first["db"]]["one per composition"] += 1
-    pool.sort(key=lambda r: (ORDER.index(r["db"]), r["id"]))
+        other_group += first["same_space_group"] is False
+    pool.sort(key=lambda r: (ORDER.index(r["db"]), by_id(r)))
     info = {"steps": {db: dict(steps[db]) for db in ORDER}, "excluded": dict(excluded) | {"total": int(sum(excluded.values()))},
             "pool": len(pool), "tracks": dict(collections.Counter(r["track"] for r in pool)),
             "chemical_systems": len({r["chemsys"] for r in pool}),
             "by_source": {t: dict(collections.Counter(r["db"] for r in pool if r["track"] == t)) for t in PROTOCOL["listed"]["tracks"]},
-            "no_calculated_gap": sum(1 for r in pool if NO_GAP in r["labels"])}
+            "no_calculated_gap": sum(1 for r in pool if NO_GAP in r["labels"]),
+            "experimental_structure_in_another_space_group": int(other_group)}
     return pool, info
 
 
@@ -804,7 +905,7 @@ def table_rows(sent: list, p_unc: np.ndarray, sc: dict, width: float) -> list:
         spg = r["spg"] or ""
         rows.append({"id": r["id"], "source": r["db"], "formula": pretty(r["comp"]), "chemsys": r["chemsys"], "track": r["track"],
                      "experimental": r["evidence"] or "", "labels": ";".join(r["labels"]), "nat": round(float(r["nat"]), 3), "spg": spg,
-                     "spg_number": r["spg_number"], "ehull": r["hull"], "gap": r["gap"], "magmom": r["magmom"],
+                     "spg_number": r["spg_number"], "ehull": r["hull"], "gap": r["gap"], "gap_from": r["gap_from"] or "", "magmom": r["magmom"],
                      "p_unconventional": float(p_unc[i]), "family": SC.family_guess(r["comp"]), "hurricane_tc": p * tc_sc, "p_sc": p, "tc_sc": tc_sc,
                      "lo": max(math.expm1(math.log1p(tc_sc) - width), 0.0), "hi": math.expm1(math.log1p(tc_sc) + width),
                      "types": ";".join(k for k, v in H2.structure_types(r["comp"]).items() if v > 0), "novelty": float(new["ratio"][i]),
@@ -831,6 +932,22 @@ def listed_rows(rows: list, track: str) -> list:
     return out
 
 
+def corrected_check(r: dict, check, records: dict):
+    """A recorded check with the correction of the literature audit (hurricane9_screen.corrected_check). The audit keyed
+    its two corrections by JARVIS-DFT entry; a check is matched by composition, so here the correction follows it to an
+    entry of the same composition in another source."""
+    fixed = S6.corrected_check(r["id"], check, records)
+    if not check or fixed is not check:
+        return fixed
+    key = P._composition_key(r["comp"])
+    for row in records.values():
+        c = row.get("check_correction")
+        if c and isinstance(c.get("check"), dict) and check.get("doi") == c.get("replaces_doi") and isinstance(row.get("composition"), dict) \
+                and P._composition_key(row["composition"]) == key:
+            return copy.deepcopy(c["check"])
+    return check
+
+
 def candidates(rows: list, track: str, seen: tuple, now: dict, checks: tuple, records: dict) -> list:
     """The published records of one track's list, with the fields the earlier rounds gave a Hurricane candidate and,
     new in this round, the source of the entry, the experimental structure and the marks."""
@@ -841,11 +958,14 @@ def candidates(rows: list, track: str, seen: tuple, now: dict, checks: tuple, re
         spg = f"{r['spg']} ({r['spg_number']})" if r["spg"] and r["spg_number"] else (r["spg"] or None)
         src = page(tag(r))
         exp = page(r["evidence"])
+        if exp and r.get("same_space_group") is not None:
+            exp["same_space_group"] = bool(r["same_space_group"])      # of the named experimental structure and the calculated entry shown
         c = {"rank": rank, "formula": row["formula"], "id": r["id"], "url": src.get("url"), "spg": spg, "ehull": SC._r(r["hull"], 3) if r["hull"] is not None else None,
              "icsd": bool(exp and exp["source"] in (JARVIS, MP)), "track": track, "source": src, "experimental": exp,
              "labels": list(r["labels"]) or None, "tc": SC._r(row["hurricane_tc"], 2), "tc_sc": SC._r(row["tc_sc"], 2), "lo": SC._r(row["lo"], 2),
              "hi": SC._r(row["hi"], 2), "p_sc": SC._r(row["p_sc"], 3), "p_unconventional": SC._r(row["p_unconventional"], 3),
              "family": row["family"] if row["family"] != "other" else None, "gap": SC._r(r["gap"], 2) if r["gap"] is not None else None,
+             "gap_from": page(r["gap_from"]),
              "magnetic": True if r["magmom"] is not None and abs(r["magmom"]) > SC.MAGMOM_MAX else None,
              "types": [t for t in row["types"].split(";") if t] or None, "novelty": SC._r(row["novelty"], 2),
              "nearest": {"formula": row["nearest_training"], "tc": SC._r(row["nearest_training_tc"], 2)},
@@ -854,7 +974,7 @@ def candidates(rows: list, track: str, seen: tuple, now: dict, checks: tuple, re
                        "frac": np.round(np.asarray(r["frac"], float), 5).tolist()}
              if r.get("elements") is not None and r.get("frac") is not None else None,
              "published": r.get("published"), "year": r.get("year"), "doi": r.get("doi"),
-             "check": S6.corrected_check(r["id"], SC.check_for(checks[0], checks[1], r["comp"]), records)}
+             "check": corrected_check(r, SC.check_for(checks[0], checks[1], r["comp"]), records)}
         out.append({k: v for k, v in c.items() if v is not None})
     return out
 
@@ -862,7 +982,6 @@ def candidates(rows: list, track: str, seen: tuple, now: dict, checks: tuple, re
 # ---------------------------------------------------------------- the published block
 def first_listings(results: Path, prog: dict) -> tuple[dict, dict]:
     """hurricane9_screen.first_listings, reading the dates of both lists of a published block of this round."""
-    import copy
     prog = copy.deepcopy(prog)
     h = (prog.get("screen") or {}).get("hurricane") or {}
     if h.get("candidates_computed"):
@@ -884,7 +1003,8 @@ def track_counts(rows: list, pool: list, lists: dict) -> dict:
 TRACK_ABOUT = {
     "experimental": "compounds for which one of the sources holds an experimental structure; kept whatever a calculation says about "
                     "their stability",
-    "computed": f"compounds known from calculation only, at most {int(EHULL_MAX * 1000)} meV/atom above the convex hull of their source",
+    "computed": f"compounds with no experimental structure in any of the sources, whose calculated entry lies at most "
+                f"{int(EHULL_MAX * 1000)} meV/atom above the convex hull of its source",
 }
 
 
@@ -901,13 +1021,19 @@ def block(rows: list, lists: dict, pool: list, info: dict, bg: dict, sc: dict, r
     rule = (f"{ELEMENTS[0]} to {ELEMENTS[1]} elements, up to {MAX_ATOMS} atoms in the primitive cell, a band gap of at most {GAP_MAX:g} eV, magnetic "
             f"or not, elements Hurricane's training data covers; a compound with an experimental structure in one of the sources is kept "
             f"whatever a calculation says about its stability, any other compound only within {int(EHULL_MAX * 1000)} meV/atom of the convex "
-            f"hull of its source; of the {len(pool):,} compounds Radar sends {n_sent:,} to Hurricane, and each list holds one per chemical "
-            f"system, except the {n_unknown:,} too far from Hurricane's training data for it to give a chance")
+            f"hull of its source; the list holds the {n_sent:,} that Radar sends to Hurricane, one per chemical system on each track, except "
+            f"the {n_unknown:,} too far from Hurricane's training data for it to give a chance")
     r3 = lambda v: None if v is None else round(float(v), 3)   # noqa: E731
     return {
         "model": f"{HU.MODEL} {R.MODEL_VERSION}", "design": "H90", "two_part": "mean", "round": ROUND, "date": stamp[:10],
         "pool": {"source": ", ".join(ORDER), "what": "compounds with no superconductivity record that Radar sends to Hurricane",
-                 "n_screened": len(pool), "n_sent": n_sent, "rule": rule, "chemical_systems": info.get("chemical_systems")},
+                 "n_screened": len(pool), "n_sent": n_sent, "rule": rule, "chemical_systems": info.get("chemical_systems"),
+                 "no_calculated_gap": info.get("no_calculated_gap"),
+                 "experimental_structure_in_another_space_group": info.get("experimental_structure_in_another_space_group"),
+                 "about": "each compound is a composition, judged once. The calculated entry that speaks for it is one marked "
+                          "experimental before any other, then one near its source's convex hull; a measured COD composition takes the "
+                          "band gap of the calculation of the same material and is marked if there is none. The experimental structure "
+                          "named with a compound can have another space group than the calculated structure shown"},
         "excluded": dict(info.get("excluded") or {}),
         "range": {"level": rng.get("level", 1 - R.ALPHA), "width_log": round(float(rng["width_log"]), 4), "of": "the Tc if it superconducts",
                   "from": "its errors on parent compounds first reported after its training data end"},
@@ -997,12 +1123,13 @@ def write_table(path: Path, rows: list) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-POOL_COLUMNS = ["id", "source", "formula", "chemsys", "track", "experimental", "labels", "p_unconventional", "sent", "not_known"]
+POOL_COLUMNS = ["id", "source", "formula", "chemsys", "track", "experimental", "labels", "gap", "gap_from", "ehull", "p_unconventional", "sent",
+                "not_known"]
 
 
 def write_pool(path: Path, pool: list, rows: list) -> str:
-    """Every compound of the pool: where it comes from, its track, Radar's routing and, if it was sent, whether Hurricane
-    knows it. The same pool gives the same file (no time stamp inside)."""
+    """Every compound of the pool: where it comes from, its track, the gap and hull distance that let it in, Radar's
+    routing and, if it was sent, whether Hurricane knows it. The same pool gives the same file (no time stamp inside)."""
     known = {(r["source"], r["id"]): r["not_known"] for r in rows}
     buf = io.StringIO()
     writer = csv.writer(buf, lineterminator="\n")
@@ -1010,6 +1137,7 @@ def write_pool(path: Path, pool: list, rows: list) -> str:
     for r in pool:
         sent = r["p_unconventional"] >= 0.5
         writer.writerow([r["id"], r["db"], pretty(r["comp"]), r["chemsys"], r["track"], r["evidence"] or "", ";".join(r["labels"]),
+                         "" if r["gap"] is None else round(r["gap"], 4), r["gap_from"] or "", "" if r["hull"] is None else round(r["hull"], 4),
                          round(float(r["p_unconventional"]), 4), sent, known.get((r["db"], r["id"]), "") if sent else ""])
     with open(path, "wb") as fh, gzip.GzipFile(filename="", fileobj=fh, mode="wb", mtime=0) as gz:
         gz.write(buf.getvalue().encode("utf-8"))
@@ -1126,6 +1254,36 @@ def routing_check(pool: list, p_unc, bg: dict) -> dict:
     return {"compounds_compared": len(diffs), "largest_difference": worst}
 
 
+# Well-known compounds, to see in the count-only report what the pool's rules do with them: insulators that must stay
+# out, and metals, narrow-gap compounds and correlated oxides that the gap rule is meant to let through.
+PROBES = ("K2SO4 NaCl KCl MgO CaO Al2O3 SiO2 TiO2 CaF2 BaF2 LiF CaCO3 BaSO4 MgAl2O4 Y2O3 La2O3 CeO2 BaTiO3 CaTiO3 LaAlO3 Y3Al5O12 ZnO ZnS GaN AlN "
+          "BN SiC Si3N4 NiO CoO MnO CuO Cu2O Fe2O3 Fe3O4 LaNiO3 La2NiO4 LaCuO3 La2CuO4 CaRuO3 FeSi CoSi PbTe Bi2Te3 CrN TiN LaFeO3 LaMnO3 LaCoO3 "
+          "Sr2IrO4 Na2IrO3 RuCl3 Ca2RuO4 LaTiO3 YTiO3 V2O3 VO2 NbO2 Ti2O3 CrO2 Fe2P Mn3Si Ce3Al Cu3N").split()
+
+
+def probe_report(calculated: list, pool: list, known: list, datasheet) -> list:
+    """For each probe: the calculated entry that speaks for it (source and identifier, gap, hull distance, whether it is
+    marked experimental), and whether the composition is in the pool."""
+    import screen as SC
+    comps = {f: SC.H.parse_formula(f) for f in PROBES}
+    keys = {P._composition_key(c): f for f, c in comps.items()}
+    groups = collections.defaultdict(list)
+    for r in calculated:
+        f = keys.get(P._composition_key(r["comp"]))
+        if f is not None and r["gap"] is not None:
+            groups[f].append(r)
+    in_pool = {P._composition_key(r["comp"]): r for r in pool}
+    out = []
+    for f, comp in comps.items():
+        ref = min(groups[f], key=reference_order) if groups.get(f) else None
+        mine = in_pool.get(P._composition_key(comp))
+        reason = next((k.name for k in known if k.match(comp)), None) or ("datasheet" if datasheet.match(comp) is not None else None)
+        out.append([f, None if ref is None else tag(ref), None if ref is None else ref["gap"],
+                    None if ref is None or ref["hull"] is None else round(ref["hull"], 4), None if ref is None else ref["experimental"],
+                    f"in the pool, {mine['track']}" if mine else f"left out: {reason}" if reason else "left out by the rules"])
+    return out
+
+
 def dry_counts() -> dict:
     """The sizes of the pool from the real sources, and nothing else: no Radar, no model, no list, nothing written. The
     COD is read from the stored rows if they are there, else from its database without storing them."""
@@ -1137,9 +1295,9 @@ def dry_counts() -> dict:
     can = lambda r: size_ok(r) and gap_ok(r) and covered(r, counts)   # noqa: E731
     jar, j_info = jarvis_records(SC.load_rows(), counts)
     P.log(f"JARVIS-DFT: {j_info}")
-    mp, m_info = read_mp(P.CACHE / "pool-sources", can)
+    mp, m_info = read_mp(source_folder(), can)
     P.log(f"Materials Project: {m_info}")
-    alex, a_info = read_alexandria(P.CACHE / "pool-sources", can)
+    alex, a_info = read_alexandria(source_folder(), can)
     P.log(f"Alexandria: {a_info}")
     if (P.RESULTS / COD_SNAPSHOT).is_file():
         cod, c_info = read_cod(P.RESULTS)
@@ -1149,7 +1307,8 @@ def dry_counts() -> dict:
         c_info = {"rows_read": len(rows), "used": len(cod), "left_out": dict(sorted(reasons.items())), "stored": False}
     P.log(f"COD: {c_info}")
     known_sources = []
-    pool, info = assemble(jar + mp + alex, cod, counts, SC.known_lists(known_sources), datasheet_list(observations))
+    known, sheet = SC.known_lists(known_sources), datasheet_list(observations)
+    pool, info = assemble(jar + mp + alex, cod, counts, known, sheet)
     with open(P.RESULTS / BACKGROUND, newline="", encoding="utf-8") as fh:
         released = {r["jid"] for r in csv.DictReader(fh)}
     jarvis_hull = {r["id"]: r["hull"] for r in jar if r["id"] in released}
@@ -1168,13 +1327,22 @@ def dry_counts() -> dict:
                                    "hull_distance_beyond": sum(1 for v in jarvis_hull.values() if v is not None and v > EHULL_MAX),
                                    "no_hull_distance": sum(1 for v in jarvis_hull.values() if v is None)},
            "minutes": round((time.time() - started) / 60, 1)}
-    examples = collections.defaultdict(list)             # a few entries of each source and track, to see that they were read as meant
-    for r in pool:
-        mine = examples[f"{r['db']}, {r['track']}"]
-        if len(mine) < 6:
+    kinds = (("fluoride", {"F"}), ("chloride, bromide or iodide", {"Cl", "Br", "I"}), ("oxide", {"O"}), ("sulfide, selenide or telluride", {"S", "Se", "Te"}),
+             ("nitride, phosphide, arsenide or antimonide", {"N", "P", "As", "Sb"}), ("boride, carbide, silicide or germanide", {"B", "C", "Si", "Ge"}))
+    kind = lambda r: next((name for name, els in kinds if els & set(r["comp"])), "none of these (intermetallic)")   # noqa: E731
+    out["pool_by_kind"] = {t: dict(collections.Counter(kind(r) for r in pool if r["track"] == t)) for t in PROTOCOL["listed"]["tracks"]}
+    out["no_calculated_gap_by_kind"] = dict(collections.Counter(kind(r) for r in pool if NO_GAP in r["labels"]))
+    out["cod_entries_with_a_reference_gap"] = sum(1 for r in pool if r["db"] == COD and r["gap_from"])
+    out["probes (formula, what speaks for it, gap, hull distance, marked experimental, result)"] = probe_report(jar + mp + alex, pool, known, sheet)
+    out["experimental_named_by"] = dict(collections.Counter((r["evidence"] or "").rsplit(" ", 1)[0] for r in pool if r["track"] == "experimental"))
+    examples = collections.defaultdict(list)             # a seeded sample of each source and track, to see that they were read as meant
+    order = np.random.default_rng(F.SEED).permutation(len(pool))
+    for r in (pool[int(i)] for i in order):
+        mine = examples[f"{r['db']}, {r['track']}" + (", " + NO_GAP if NO_GAP in r["labels"] else "")]
+        if len(mine) < 8:
             mine.append([r["id"], pretty(r["comp"]), round(r["nat"], 2), r["gap"], None if r["hull"] is None else round(r["hull"], 4), r["spg"],
-                         r["evidence"], r["gap_from"], ";".join(r["labels"])])
-    out["examples (id, formula, atoms per cell, gap, hull distance, space group, experimental structure, gap from, marks)"] = dict(examples)
+                         r["evidence"], r["same_space_group"], r["gap_from"], ";".join(r["labels"])])
+    out["examples (id, formula, atoms per cell, gap, hull distance, space group, experimental structure, same space group, gap from, marks)"] = dict(examples)
     try:
         import resource
         out["peak_memory_mb"] = round(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024)
@@ -1229,9 +1397,9 @@ def run(smoke: bool = False, output_dir: Path | None = None) -> dict:
         can = lambda r: size_ok(r) and gap_ok(r) and covered(r, counts)   # noqa: E731
         jar, j_info = jarvis_records(SC.load_rows(), counts)
         P.log(f"JARVIS-DFT: {j_info}")
-        mp, m_info = read_mp(P.CACHE / "pool-sources", can)
+        mp, m_info = read_mp(source_folder(), can)
         P.log(f"Materials Project: {m_info}")
-        alex, a_info = read_alexandria(P.CACHE / "pool-sources", can)
+        alex, a_info = read_alexandria(source_folder(), can)
         P.log(f"Alexandria: {a_info}")
         if not (P.RESULTS / COD_SNAPSHOT).is_file():
             P.log(f"COD: stored {cod_snapshot(P.RESULTS)['rows_stored']:,} rows")

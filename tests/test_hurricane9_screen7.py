@@ -244,9 +244,10 @@ class Hurricane9Screen7Tests(unittest.TestCase):
         self.assertEqual(set(got), {"Materials Project mp-exp", "Alexandria agm-near", "JARVIS-DFT JVASP-9", "COD 1"})
         self.assertEqual({k: r["track"] for k, r in got.items()}, {"Materials Project mp-exp": "experimental", "Alexandria agm-near": "computed",
                                                                   "JARVIS-DFT JVASP-9": "experimental", "COD 1": "experimental"})
-        self.assertEqual(got["JARVIS-DFT JVASP-9"]["evidence"], "COD 1")
-        self.assertEqual(got["COD 1"]["gap_from"], "JARVIS-DFT JVASP-9")           # the measured composition takes the calculated gap
+        self.assertEqual((got["JARVIS-DFT JVASP-9"]["evidence"], got["JARVIS-DFT JVASP-9"]["same_space_group"]), ("COD 1", True))
+        self.assertEqual((got["COD 1"]["gap_from"], got["COD 1"]["gap"]), ("JARVIS-DFT JVASP-9", 0.0))    # the measured composition takes the calculated gap
         self.assertEqual(got["COD 1"]["labels"], [])
+        self.assertIsNone(got["Materials Project mp-exp"]["same_space_group"])      # it is the experimental structure itself
         self.assertEqual(info["excluded"], {"computed": 1, "total": 1})
         self.assertEqual(info["tracks"], {"experimental": 3, "computed": 1})
 
@@ -272,22 +273,102 @@ class Hurricane9Screen7Tests(unittest.TestCase):
         self.assertEqual([r["id"] for r in pool], ["mp-4"])
         self.assertEqual(info["excluded"], {"supercon": 1, "system": 1, "datasheet": 1, "total": 3})
 
-    def test_one_record_stands_for_a_composition_by_source_order_then_hull(self):
+    def test_the_reference_calculation_speaks_for_its_composition(self):
         comp = {"Ca": 1, "Fe": 2, "As": 2}
-        calc = [rec(S.ALEX, "agm-1", comp, hull=0.0), rec(S.MP, "mp-b", comp, hull=0.04), rec(S.MP, "mp-a", comp, hull=0.01),
-                rec(S.JARVIS, "JVASP-2", comp, hull=0.03, jarvis_tc=None), rec(S.JARVIS, "JVASP-1", comp, hull=0.2, jarvis_tc=None)]   # the far JARVIS entry is not a candidate
+        # a made compound whose experimental entry is an insulator stays out, whatever a hypothetical structure of it says
+        calc = [rec(S.MP, "mp-real", comp, gap=3.0, hull=0.0, experimental=True), rec(S.JARVIS, "JVASP-hyp", comp, hull=0.0, jarvis_tc=None)]
+        cod = [rec(S.COD, 5, comp, gap=None, hull=None, experimental=True)]
+        pool, info = S.assemble(calc, cod, self.counts, [], None)
+        self.assertEqual(pool, [])
+        self.assertEqual(info["steps"]["Materials Project"]["reference calculations, one per composition"], 1)
+        self.assertNotIn("band gap at most 1 eV", info["steps"]["Materials Project"])
+        self.assertNotIn("band gap of the reference calculation at most 1 eV, or no calculation", info["steps"]["COD"])
+        # no entry marked experimental: one near its hull before one further away, then the order of the sources, then the hull
+        calc = [rec(S.ALEX, "agm-1", comp, hull=0.0), rec(S.MP, "mp-b", comp, hull=0.04, gap=2.0), rec(S.MP, "mp-a", comp, hull=0.01),
+                rec(S.JARVIS, "JVASP-2", comp, hull=0.03, jarvis_tc=None), rec(S.JARVIS, "JVASP-1", comp, hull=0.2, gap=3.0, jarvis_tc=None)]
         pool, info = S.assemble(calc, [], self.counts, [], None)
-        self.assertEqual([(r["db"], r["id"], r["track"]) for r in pool], [("JARVIS-DFT", "JVASP-2", "computed")])
-        self.assertEqual(pool[0]["also"], ["Materials Project mp-a", "Materials Project mp-b", "Alexandria agm-1"])
+        self.assertEqual([(r["db"], r["id"], r["track"], r["evidence"]) for r in pool], [("JARVIS-DFT", "JVASP-2", "computed", None)])
         self.assertEqual(info["steps"]["JARVIS-DFT"]["one per composition"], 1)
-        self.assertEqual(info["steps"]["Materials Project"]["no superconductivity record"], 2)
-        # an entry that is itself experimental stands for the composition before a calculated one of an earlier source,
-        # and a calculated entry (with its cell and gap) before the COD entry that makes the compound experimental
+        self.assertEqual(info["steps"]["Materials Project"]["entries"], 2)
+        # the JARVIS entries are far from their hull, the Materials Project has one near its own: that one speaks, and it is an insulator
+        calc[3] = rec(S.JARVIS, "JVASP-2", comp, hull=0.3, jarvis_tc=None)
+        calc[2] = rec(S.MP, "mp-a", comp, hull=0.01, gap=2.5)
+        self.assertEqual(S.assemble(calc, [], self.counts, [], None)[0], [])
+        # the same with a narrow gap: the Materials Project entry stands for the compound
+        calc[2] = rec(S.MP, "mp-a", comp, hull=0.01)
+        pool, _ = S.assemble(calc, [], self.counts, [], None)
+        self.assertEqual([(r["db"], r["id"], r["track"]) for r in pool], [("Materials Project", "mp-a", "computed")])
+        # an entry marked experimental speaks before a calculated one of an earlier source; the COD entry of that composition is named with it
         calc = [rec(S.JARVIS, "JVASP-3", comp, hull=0.0, jarvis_tc=None), rec(S.MP, "mp-c", comp, hull=0.3, experimental=True)]
         cod = [rec(S.COD, 5, comp, gap=None, hull=None, experimental=True)]
         pool, _ = S.assemble(calc, cod, self.counts, [], None)
         self.assertEqual([(r["db"], r["id"], r["track"], r["evidence"]) for r in pool], [("Materials Project", "mp-c", "experimental", "Materials Project mp-c")])
-        self.assertEqual(pool[0]["also"], ["JARVIS-DFT JVASP-3", "COD 5"])
+        self.assertEqual(pool[0]["also"], ["COD 5"])
+        # a composition is left out if JARVIS-DFT gives any entry of it a computed Tc, whichever entry speaks for it
+        calc = [rec(S.JARVIS, "JVASP-4", comp, hull=0.2, jarvis_tc=3.0), rec(S.MP, "mp-d", comp, hull=0.0)]
+        pool, info = S.assemble(calc, [], self.counts, [], None)
+        self.assertEqual((pool, info["excluded"]), ([], {"computed": 1, "total": 1}))
+
+    def test_the_experimental_structure_named_has_the_reference_s_space_group_if_one_has(self):
+        comp = {"Nb": 1, "Se": 2}
+        calc = [rec(S.JARVIS, "JVASP-9", comp, hull=0.0, jarvis_tc=None)]                     # space group 123
+        other = S.record(S.COD, 7, comp, 3, None, None, None, True, [[4, 0, 0], [0, 4, 0], [0, 0, 4]], 194, "P63/mmc")
+        same = S.record(S.COD, 8, comp, 3, None, None, None, True, [[4, 0, 0], [0, 4, 0], [0, 0, 4]], 123, "P4/mmm")
+        pool, info = S.assemble(calc, [other], self.counts, [], None)
+        self.assertEqual((pool[0]["evidence"], pool[0]["same_space_group"], info["experimental_structure_in_another_space_group"]), ("COD 7", False, 1))
+        pool, info = S.assemble(calc, [other, same], self.counts, [], None)
+        self.assertEqual((pool[0]["evidence"], pool[0]["same_space_group"], info["experimental_structure_in_another_space_group"]), ("COD 8", True, 0))
+        self.assertEqual(pool[0]["also"], ["COD 7", "COD 8"])
+
+    def test_a_published_candidate_says_whose_gap_it_shows_and_how_its_experimental_structure_compares(self):
+        comp = {"Nb": 1, "Se": 2}
+        calc = [rec(S.JARVIS, "JVASP-9", comp, gap=0.3, hull=0.2, jarvis_tc=None, elements=["Nb", "Se", "Se"], frac=[[0, 0, 0], [0.5, 0.5, 0.25], [0.5, 0.5, 0.75]])]
+        cod = [S.record(S.COD, 7, {"Nb": 1, "Se": 2.02}, 3.02, None, None, None, True, [[4, 0, 0], [0, 4, 0], [0, 0, 4]], 194, "P63/mmc", published="Nb Se2.02", year=1990)]
+        pool, _ = S.assemble(calc, cod, self.counts, [], None)
+        rows = [{"track": r["track"], "not_known": False, "chemsys": r["chemsys"], "formula": plain(r["comp"]), "hurricane_tc": 5.0 - i, "tc_sc": 10.0, "lo": 5.0,
+                 "hi": 20.0, "p_sc": 0.5, "p_unconventional": 0.9, "family": "other", "types": "", "novelty": 0.5, "nearest_training": "NbSe2",
+                 "nearest_training_tc": 7.0, "_record": r} for i, r in enumerate(pool)]
+        rows[1]["chemsys"] = "another"                     # so that both are listed
+        now = {"date": "2026-11-12", "at": "2026-11-12T00:00:00+00:00", "round": 7, "file": "screen_round7.json"}
+        got = S.candidates(rows, "experimental", ({}, {}), now, (SC.Known("checks"), {}), {})
+        calc_c, cod_c = got
+        self.assertEqual((calc_c["id"], calc_c["experimental"]), ("JVASP-9", {"source": "COD", "id": "7", "url": "https://www.crystallography.net/cod/7.html",
+                                                                              "same_space_group": False}))
+        self.assertEqual((calc_c["icsd"], calc_c["gap"], calc_c["ehull"]), (False, 0.3, 0.2))
+        self.assertNotIn("gap_from", calc_c)
+        self.assertEqual(sorted(calc_c["atoms"]), ["elements", "frac", "lattice"])
+        self.assertEqual((cod_c["id"], cod_c["gap"], cod_c["gap_from"]), ("7", 0.3, {"source": "JARVIS-DFT", "id": "JVASP-9",
+                                                                                   "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-9.html"}))
+        self.assertEqual(cod_c["experimental"], {"source": "COD", "id": "7", "url": "https://www.crystallography.net/cod/7.html"})
+        self.assertEqual((cod_c["published"], cod_c["year"], cod_c["spg"]), ("Nb Se2.02", 1990, "P63/mmc (194)"))
+        self.assertNotIn("atoms", cod_c)
+        self.assertNotIn("labels", cod_c)
+        self.assertNotIn("ehull", cod_c)
+
+    def test_materials_are_matched_within_two_atomic_percent(self):
+        m = S.Materials()
+        m.add({"Nb": 1, "Se": 2}, "a")
+        m.add({"Nb": 1, "Se": 2.02}, "b")
+        m.add({"Nb": 1, "Se": 3}, "c")
+        m.add({"Nb": 1, "S": 2}, "d")
+        self.assertEqual(m.near({"Nb": 2, "Se": 4}), ["a", "b"])
+        self.assertEqual(m.near({"Nb": 1, "Se": 2.1}), ["a", "b"])              # 1.1 at.% from NbSe2
+        self.assertEqual(m.near({"Nb": 1, "Se": 2.2}), ["b"])                   # 2.1 at.% from NbSe2, 1.9 from NbSe2.02
+        self.assertEqual(m.near({"Nb": 1, "Se": 2.5}), [])
+        self.assertEqual(m.near({"Nb": 1, "Te": 2}), [])
+        m.add({"Nb": 1.02, "Se": 2}, "e")                                        # added after a search
+        self.assertEqual(m.near({"Nb": 1, "Se": 2}), ["a", "b", "e"])
+
+    def test_a_correction_of_the_literature_audit_follows_its_check_to_another_source(self):
+        records = {"JVASP-1": {"composition": {"Ce": 4, "Ga": 24, "Cu": 2},
+                               "check_correction": {"replaces_doi": "10.1/old", "check": {"kind": "experiment", "superconducts": None, "note": "unknown"}}}}
+        check = {"kind": "experiment", "superconducts": False, "doi": "10.1/old"}
+        mine = rec(S.MP, "mp-9", {"Ce": 2, "Ga": 12, "Cu": 1})
+        self.assertEqual(S.corrected_check(mine, check, records), records["JVASP-1"]["check_correction"]["check"])
+        self.assertIs(S.corrected_check(rec(S.MP, "mp-8", {"Ce": 2, "Ga": 12, "Ni": 1}), check, records), check)
+        self.assertIs(S.corrected_check(mine, dict(check, doi="10.1/other"), records).get("superconducts"), False)
+        self.assertIsNone(S.corrected_check(mine, None, records))
+        self.assertEqual(S.corrected_check(rec(S.JARVIS, "JVASP-1", {"Ce": 2, "Ga": 12, "Cu": 1}), check, records)["note"], "unknown")
 
     # ------------------------------------------------------------ the sources
     def test_the_hull_of_formation_energies(self):
@@ -297,6 +378,40 @@ class Hurricane9Screen7Tests(unittest.TestCase):
         self.assertAlmostEqual(hull[1], -0.5)                    # half AB, half A
         self.assertAlmostEqual(hull[2], -2 / 3)                  # two thirds AB, one third B: AB2 lies 0.47 above
         self.assertEqual(hull[3], 0.0)                           # nothing but the elements
+
+    def test_jarvis_rows_get_the_hull_of_their_own_formation_energies_and_must_be_the_rows_named(self):
+        import pandas as pd
+
+        def row(ident, elements, e_form, gap=0.0, icsd=False):
+            atoms = {"lattice_mat": [[4, 0, 0], [0, 4, 0], [0, 0, 4]], "elements": elements, "coords": [[0, 0, i / len(elements)] for i in range(len(elements))]}
+            return {"id": ident, "atoms": atoms, "gap": gap, "ehull": 9.9, "magmom": 0.0, "spg": "P4/mmm", "spg_number": 123.0, "icsd": icsd,
+                    "jarvis_tc": float("nan"), "e_form": e_form, "comp": SC.counts_of(elements), "nat": len(elements)}
+        rows = pd.DataFrame([row("J-1", ["La", "Cu"], -1.0, icsd=True), row("J-2", ["La", "La", "Cu", "Cu"], -0.4), row("J-3", ["La", "Cu", "Cu"], -0.2, gap=3.0),
+                             row("J-4", ["La", "La", "La", "Cu"], 0.3), row("J-5", ["La", "Zr"], -0.5), row("J-6", ["La", "O"], float("nan"))])
+        with patch.object(S, "JARVIS_ROWS_SHA256", None):
+            recs, info = S.jarvis_records(rows, self.counts)
+        got = {r["id"]: r for r in recs}
+        self.assertEqual([round(got[k]["hull"], 4) for k in ("J-1", "J-2", "J-3", "J-4")], [0.0, 0.6, 0.4667, 0.8])     # the file's ehull field (9.9) is not read
+        self.assertAlmostEqual(got["J-5"]["hull"], 0.0)
+        self.assertIsNone(got["J-6"]["hull"])                                    # no formation energy, no distance
+        self.assertEqual((info["rows"], info["hull_distance_computed_for"], info["of_them_within_50_meV"]), (6, 5, 2))
+        self.assertTrue(got["J-1"]["experimental"] and got["J-1"]["elements"] == ("La", "Cu"))
+        self.assertIsNone(got["J-3"]["lattice"])                                 # a wide gap: it cannot enter, and keeps no cell
+        self.assertIsNone(got["J-5"]["lattice"])                                 # an element the training data do not cover
+        with patch.object(S, "JARVIS_ROWS_SHA256", info["rows_sha256"]):
+            self.assertEqual(S.jarvis_records(rows, self.counts)[1]["rows_sha256"], info["rows_sha256"])
+        changed = rows.copy()
+        changed.loc[1, "e_form"] = -0.41
+        with patch.object(S, "JARVIS_ROWS_SHA256", info["rows_sha256"]):
+            with self.assertRaisesRegex(SystemExit, "is not what this protocol names"):
+                S.jarvis_records(changed, self.counts)
+
+    def test_a_source_file_other_than_the_one_named_stops_the_run(self):
+        S.same_source("a file", "abc", None)
+        S.same_source("a file", "abc", "abc")
+        with self.assertRaisesRegex(SystemExit, "a file is not what this protocol names"):
+            S.same_source("a file", "abd", "abc")
+        self.assertEqual({len(v["sha256"]) for k, v in S.PROTOCOL["sources"].items() if k != "COD" and v["sha256"]} - {64}, set())
 
     def test_a_materials_project_document_is_used_only_if_marked_by_c_current_and_ordered(self):
         site = lambda el, occ=1.0, abc=(0, 0, 0): {"species": [{"element": el, "occu": occ}], "abc": list(abc)}   # noqa: E731
@@ -402,8 +517,10 @@ class Hurricane9Screen7Tests(unittest.TestCase):
                 S.read_cod(Path(tmp))
 
     def test_the_pool_file_has_no_time_stamp(self):
-        pool = [dict(rec(S.MP, "mp-1", {"La": 2, "Cu": 1, "O": 4}), track="experimental", evidence="COD 7", labels=[], chemsys="Cu-La-O", p_unconventional=0.7),
-                dict(rec(S.COD, 7, {"La": 2, "Cu": 1, "O": 4.02}, gap=None), track="experimental", evidence="COD 7", labels=[S.NO_GAP], chemsys="Cu-La-O", p_unconventional=0.2)]
+        pool = [dict(rec(S.MP, "mp-1", {"La": 2, "Cu": 1, "O": 4}, gap=0.25, hull=0.0123), track="experimental", evidence="COD 7", gap_from=None, labels=[],
+                     chemsys="Cu-La-O", p_unconventional=0.7),
+                dict(rec(S.COD, 7, {"La": 2, "Cu": 1, "O": 4.02}, gap=None, hull=None), track="experimental", evidence="COD 7", gap_from=None, labels=[S.NO_GAP],
+                     chemsys="Cu-La-O", p_unconventional=0.2)]
         rows = [{"source": "Materials Project", "id": "mp-1", "not_known": True}]
         with tempfile.TemporaryDirectory() as tmp:
             a = S.write_pool(Path(tmp) / "a.csv.gz", pool, rows)
@@ -411,8 +528,8 @@ class Hurricane9Screen7Tests(unittest.TestCase):
             self.assertEqual(a, b)
             with gzip.open(Path(tmp) / "a.csv.gz", "rt", encoding="utf-8", newline="") as fh:
                 got = list(csv.DictReader(fh))
-        self.assertEqual([(r["id"], r["source"], r["sent"], r["not_known"], r["labels"]) for r in got],
-                         [("mp-1", "Materials Project", "True", "True", ""), ("7", "COD", "False", "", S.NO_GAP)])
+        self.assertEqual([(r["id"], r["source"], r["sent"], r["not_known"], r["labels"], r["gap"], r["ehull"]) for r in got],
+                         [("mp-1", "Materials Project", "True", "True", "", "0.25", "0.0123"), ("7", "COD", "False", "", S.NO_GAP, "", "")])
 
 
 if __name__ == "__main__":
