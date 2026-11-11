@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-11T04:21:26+00:00",
+ "updated": "2026-11-11T07:40:06+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,6 +47,7 @@
   ]
  },
  "sources_ok": [
+  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -58,9 +59,212 @@
   "Nature News",
   "Phys.org",
   "APS Physics",
-  "Quanta Magazine"
+  "Quanta Magazine",
+  "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.14231",
+   "source": "arXiv",
+   "title": "From Growth to Devices: Oxygen-Controlled Superconductivity in BSCCO Thin Films",
+   "authors": [
+    "Sohini Guin",
+    "Ramesh Kumar Guin",
+    "Pankaj Bhardwaj",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-11-10",
+   "updated": "2026-11-10",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Realizing device-compatible high-Tc superconductors requires simultaneous control of oxygen stoichiometry and tolerance to nanofabrication. Here, we investigate sputtered Bi₂Sr₂Can₋₁CunO₂n₊₄₊δ (BSCCO) thin films and establish a direct link between annealing conditions, oxygen incorporation, and superconducting transport. By independently varying the annealing temperature and duration, we identify an optimal annealing condition of 860,°C for 3\\,h, which yields the highest superconducting transition temperature and the narrowest transition among the investigated samples. X-ray diffraction, electron microscopy, and X-ray photoemission spectroscopy reveal a non-monotonic evolution of lattice oxygen, which governs hole doping in the CuO₂ planes and produces the characteristic dome-like dependence of Tc on doping concentration. We further translate these optimized films into micro-devices to assess fabrication-induced effects, via micro-bridges as well as a planar Josephson junction. We demonstrate devices fabricated via both lift-off and focused ion beam (FIB) patterning methods – proving the fabrication compatibility of these films. Importantly, we demonstrate their air-stability for extended periods of time (2 months). The combined insights offer practical guidelines for integrating cuprate thin films into superconducting electronics and quantum device architectures.",
+   "url": "https://arxiv.org/abs/2611.14231",
+   "pdf": "https://arxiv.org/pdf/2611.14231",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.14185",
+   "source": "arXiv",
+   "title": "Thermodynamic signatures of a nearby quantum critical endpoint in UTe₂ under intense magnetic field",
+   "authors": [
+    "M. Gen",
+    "K. Somesh",
+    "A. Miyake",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-11-10",
+   "updated": "2026-11-10",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "Several unconventional superconducting phases have been discovered in the vicinity of metamagnetism in the heavy-fermion paramagnet UTe₂ under magnetic field. To describe the mechanism of magnetic-field-induced superconductivity, a challenge is to characterize the quantum critical magnetic properties at the metamagnetic transition. In this work, we investigate the thermodynamic properties of UTe₂ under magnetic fields up to 60~T applied in the crystallographic b-c plane. Magnetization and magnetostriction experiments have been performed under magnetic fields tilted by an angle θ≲42° from b toward c. They support that a quantum critical endpoint at the field angle θQCEP≃(70±10)° and magnetic field μ₀HQCEP≃(75±10)~T terminates the metamagnetic transition line. A pseudo-gap in the magnetic susceptibility is related with the metamagnetic transition observed in magnetic fields for θ<θQCEP. The possible relation between the quantum critical endpoint and the development of magnetic-field-induced superconductivity is discussed.",
+   "url": "https://arxiv.org/abs/2611.14185",
+   "pdf": "https://arxiv.org/pdf/2611.14185",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Heavy fermions",
+    "Electron–phonon"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.14101",
+   "source": "arXiv",
+   "title": "Particle-hole asymmetry and a fluctuating pair-density-wave state in a lightly doped Mott insulator on the square lattice",
+   "authors": [
+    "Hao-Xin Wang",
+    "Zheng-Yuan Yue",
+    "Wen-Yuan Liu",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-10",
+   "updated": "2026-11-10",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "Whether a lightly doped Mott insulator on the square lattice supports robust d-wave superconductivity remains a central question in strongly correlated physics and in the microscopic theory of cuprate superconductivity. Experiments and numerical studies reveal a pronounced particle-hole asymmetry, pointing to a delicate competition among d-wave superconductivity, pair-density wave (PDW), stripe, charge-density wave (CDW), and antiferromagnetic correlations. Here we combine large-scale DMRG and finite-size PEPS to study the square-lattice t-J model at low doping, δ≤0.1, while tuning the next-nearest-neighbor hopping t' from the electron-like (t'>0) to the hole-like (t'<0) regime. The electron-like side supports robust, nearly uniform d-wave pairing, whereas decreasing t' induces a period-two plaquette modulation and ultimately produces, on the hole-like side, a charge-dominated state with a strongly suppressed static pairing amplitude. DMRG calculations on open strips and squares, together with PEPS calculations on open squares up to 16×16 sites, support this evolution. On squares with C₄-symmetric Hamiltonians, both methods find that the pair correlations of the hole-like state select the plaquette momenta (π,0) and (0,π) and decay within a few lattice spacings, while the dominant charge-density modulation forms a bidirectional checkerboard whose period extrapolates to about 4a",
+   "url": "https://arxiv.org/abs/2611.14101",
+   "pdf": "https://arxiv.org/pdf/2611.14101",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con",
+    "physics.comp-ph"
+   ]
+  },
+  {
+   "id": "2611.13579",
+   "source": "arXiv",
+   "title": "Hidden interfacial magnetism in RuO₂ heterostructures revealed by a superconducting spin switch",
+   "authors": [
+    "Tetsuma Mandokoro",
+    "Hisakazu Matsuki",
+    "Shutaro Karube",
+    "et al."
+   ],
+   "n_authors": 13,
+   "date": "2026-11-10",
+   "updated": "2026-11-10",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "RuO₂, once the flagship altermagnetic candidate, is now believed to be nonmagnetic in the bulk, yet weak, static and spatially inhomogeneous magnetism emerges at its surfaces and interfaces. Where this magnetism resides, what stabilises it, and whether it is connected to these states remain open questions. Here we address these questions at the Nb/RuO₂ interface using a superconducting spin switch. A GdN/Nb/RuO₂ trilayer allows interfacial exchange-field alignment to tune the superconducting transition temperature of Nb, probing interfacial magnetism inaccessible to conventional magnetometry. The switch reveals a hidden magnetic subsystem, which we attribute to a thin RuOₓ redox layer formed as Nb scavenges oxygen from RuO₂. This layer behaves as a weak and magnetically hard ferromagnet with vacancy-induced anisotropy. Furthermore, supercurrent amplifies the switching efficiency, making the probe sensitivity tunable in situ. Superconducting spin switches thus emerge as a quantitative low-temperature probe of hidden magnetism at buried interfaces.",
+   "url": "https://arxiv.org/abs/2611.13579",
+   "pdf": "https://arxiv.org/pdf/2611.13579",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "",
+   "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.13157",
+   "source": "arXiv",
+   "title": "Mimicking the zero-field Josephson diode effect with remanent magnetization and self-field",
+   "authors": [
+    "Nathan Satchell",
+    "Arjun Sapkota",
+    "Pukar Sedai",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-11-09",
+   "updated": "2026-11-09",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "A Josephson junction whose critical current is larger in one direction than in the other is a diode. With a magnetized barrier, a junction can be a diode at zero applied field, and this is commonly attributed to an intrinsic Josephson diode effect, in which the magnetic barrier breaks time-reversal symmetry. Here we show that the same signatures arise from two ordinary ingredients: the magnetic field of the bias current in the electrodes and the remanent magnetization of the barrier. In cross-type Nb/Pd₈₉Ni₁₁/Nb junctions, the self-field displaces the interference patterns of the two current polarities in opposite directions. An in-plane remanent magnetization translates the pattern and brings the resulting asymmetry to zero field, where the junction mimics a nonvolatile diode with an asymmetry of 10 to 12% and a polarity set by the magnetization direction. Reversing the current or the field cannot distinguish this mimic from an intrinsic effect, but the wiring can: moving the current lead to the other arm of the electrode across the field reverses the self-field diode, in applied field and at zero field alike, whereas an intrinsic diode would be unchanged. This gives a simple dc test for Josephson diodes in the current-perpendicular-to-plane geometry.",
+   "url": "https://arxiv.org/abs/2611.13157",
+   "pdf": "https://arxiv.org/pdf/2611.13157",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall"
+   ]
+  },
+  {
+   "id": "2611.13091",
+   "source": "arXiv",
+   "title": "Chiral Superconductivity Indifferent to Parent Topology in the Square-Lattice Hofstadter-Hubbard Model",
+   "authors": [
+    "Jia-Xin Zhang",
+    "Wen O. Wang",
+    "Leon Balents",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-11-09",
+   "updated": "2026-11-09",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "We study a π-flux square-lattice t-t' Hofstadter-Hubbard model proposed to be realizable in twisted moiré bilayers. By tuning U and t' at half filling, ground-state density-matrix renormalization group simulations (DMRG) and a parton analysis identify an integer quantum Hall (IQH) phase, a chiral spin liquid (CSL), and an antiferromagnet (AFM) in the phase diagram, while charge and spin fluctuations from finite-temperature determinant quantum Monte Carlo (DQMC) suggest a closing charge gap but an open spin gap at the IQH-CSL boundary, consistent with the topological criticality expected there. This model therefore produces a phase diagram hosting weakly correlated band topology (IQH), intrinsic topological order (CSL), and conventional symmetry breaking (AFM) side by side. Upon doping any of these three parent phases, a single chiral topological superconductor with spin Chern number Cs=-2 occupies nearly the entire phase diagram. DMRG, DQMC, and weak-coupling perturbation theory agree on its pairing symmetry. This shows that doping the topological band of our model robustly induces the same paired state throughout the phase diagram regardless of the character of the underlying correlated half-filled state and its magnetic fluctuations, whether an IQH, a spin liquid or a weakly fluctuating AFM.",
+   "url": "https://arxiv.org/abs/2611.13091",
+   "pdf": "https://arxiv.org/pdf/2611.13091",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Topological"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.13076",
+   "source": "arXiv",
+   "title": "Hidden Spin-Supercurrent Counterflow in Conventional Superconductors",
+   "authors": [
+    "Johanne Bratland Tjernshaugen",
+    "Jacob Linder"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-09",
+   "updated": "2026-11-09",
+   "category": "cond-mat.mes-hall",
+   "cross_list": true,
+   "abstract": "Resistive spin currents conventionally vary in space through spin relaxation or torque, which removes angular momentum from the transported spin. We here demonstrate a qualitatively different mechanism in a conventional superconductor exposed to a spin-splitting field. Spin injection across a spin-mixing interface activates a spin-supercurrent contribution, allowing the resistive spin current to vary spatially while the total spin current remains conserved. Even without a net spin-bias across the superconductor, finite and oppositely directed resistive and condensate spin currents arise. This produces a hidden spin-supercurrent counterflow with vanishing total spin and charge currents. The mechanism persists away from exact compensation and remains sizable over broad parameter ranges. The counterflow may be accessible through spin-to-charge conversion, either as a modification of the electrical response of spin-Hall injectors or through a local quasiparticle inverse spin-Hall signal. Our results establish condensate-mediated spin-current compensation as a previously overlooked alternative to spin relaxation.",
+   "url": "https://arxiv.org/abs/2611.13076",
+   "pdf": "https://arxiv.org/pdf/2611.13076",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.mes-hall",
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2611.12788",
    "source": "arXiv",
@@ -656,6 +860,37 @@
    "categories": [
     "cond-mat.supr-con",
     "cond-mat.mes-hall"
+   ]
+  },
+  {
+   "id": "2611.12946",
+   "source": "arXiv",
+   "title": "Goldstone-Mediated Chiral Superconductivity in Self-Doped Electron Crystals",
+   "authors": [
+    "Shuchen Zhang",
+    "Zhihuan Dong",
+    "Zhaoyu Han",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-06",
+   "updated": "2026-11-06",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Motivated by the observation of superconductivity in rhombohedral graphene in the proximity of electronic crystalline phases, we study the possibility of pairing mediated by electronic phonons. We focus on the vicinity of the phase boundary between trivial and topological electron crystals, where self-doping generically gives rise to a small Fermi sea of carriers with Dirac dispersion. We compute the Goldstone phonon spectra of the self-doped crystal (SDC) using a self-consistent approach, and subsequently derive the effective electronic-phonon-mediated interaction between itinerant carriers at the Fermi surface. Remarkably, we find that the Coulomb repulsion can be overscreened by the Goldstone phonons, leading to a chiral topological superconductor with an unpaired Majorana edge mode. Our conclusions are robust across the λ-jellium model and a simplified model of rhombohedral graphene, and we propose characteristic non-linear I-V signals as a test of our prediction. More generally, our results outline an intriguing route for unconventional superconductivity where both electronic correlations and topology play key roles.",
+   "url": "https://arxiv.org/abs/2611.12946",
+   "pdf": "https://arxiv.org/pdf/2611.12946",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Topological",
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.str-el"
    ]
   },
   {
@@ -2132,237 +2367,6 @@
    "categories": [
     "cond-mat.mes-hall",
     "cond-mat.str-el",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.39979",
-   "source": "arXiv",
-   "title": "Evidence for an effective gauge field in flakes of superconducting 4Hb-TaS2",
-   "authors": [
-    "Shalev Gur",
-    "T. R. Devidas",
-    "Eylon Persky",
-    "et al."
-   ],
-   "n_authors": 12,
-   "date": "2026-10-29",
-   "updated": "2026-10-29",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Understanding the normal state of unconventional superconductors is central to uncovering the origin of superconductivity itself. Unconventional superconductivity often emerges from correlated electronic states characterized by intertwined symmetry-breaking orders. A striking example is 4Hb-TaS2, whose superconducting state exhibits a remarkable range of phenomena, including an unusual magnetic memory effect. Previous experiments showed that magnetic memory can be encoded above Tc and later revealed through spontaneous vortices below Tc, suggesting time-reversal symmetry breaking. However, since memory and vorticity are intertwined, this prevents establishing whether the effect results from trapped flux, weak conventional magnetism, or a true hidden electronic order. Here, we show that magnetic memory persists in the vortex-free Meissner regime of exfoliated 4Hb-TaS2 flakes, where it appears as a stable remanent modification of the superconducting screening response. Our results rule out explanations based on trapped vortices. Furthermore, the spatial profile of the flux generated by trained samples at zero field is inconsistent with conventional weak magnetism, suggesting a hidden electronic phase that imprints an effective flux on the superconducting condensate.",
-   "url": "https://arxiv.org/abs/2610.39979",
-   "pdf": "https://arxiv.org/pdf/2610.39979",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Electron–phonon",
-    "Vortices and junctions"
-   ],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.39978",
-   "source": "arXiv",
-   "title": "Electronic liquid crystals and superconductivity from doping a moiré Mott insulator",
-   "authors": [
-    "Yichi Zhang",
-    "Yiyu Xia",
-    "Zhongdong Han",
-    "et al."
-   ],
-   "n_authors": 10,
-   "date": "2026-10-29",
-   "updated": "2026-11-04",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "Electronic liquid crystals, such as stripe phases and nematics, are self-organized states of matter with spontaneously broken rotational symmetry. They are expected to emerge in a doped Mott insulator as a compromise between short- and long-range Coulomb interactions, and are believed to be intimately connected to the emergence of high temperature superconductivity either as a competing order or an intertwined order. Moiré semiconductors provide a controllable platform to explore the relationship between stripe phases and superconductivity near a Mott insulator. Here we report the generic appearance of stripe phases in a doped moiré Mott insulator and the observation of a stripe to-superconductor quantum phase transition in twisted bilayer WSe2. The stripe phases were revealed by electrical transport studies as a thermodynamic phase transition from a high temperature isotropic phase to a low-temperature anisotropic phase accompanied by a Fermi surface reconstruction. Near the stripe-to-superconductor transition, we also observed an additional thermodynamic phase transition from metallic stripes to pinned insulating stripes. The stripe-to-superconductor transition further exhibits an intriguing self-similarity that highlights the intimate relationship between the two orders. Our results pave the path for studying intertwined orders in moiré materials.",
-   "url": "https://arxiv.org/abs/2610.39978",
-   "pdf": "https://arxiv.org/pdf/2610.39978",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.39969",
-   "source": "arXiv",
-   "title": "Selective effects of selenium substitution on superconductivity and magnetic memory in 4Hb-TaS2",
-   "authors": [
-    "Shalev Gur",
-    "Sajilesh K. P.",
-    "Shubam Purwar",
-    "et al."
-   ],
-   "n_authors": 8,
-   "date": "2026-10-29",
-   "updated": "2026-10-29",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Disorder plays a central role in correlated quantum materials, but its effects can be highly selective when several electronic orders coexist. The van der Waals heterostructure 4Hb-TaS2 provides such a case, combining superconductivity, charge-order tendencies, strong scattering, and magnetic memory manifested through spontaneous vortices. Here we use Se substitution as a controlled local perturbation of the disorder landscape in 4Hb-TaS2. We find that superconductivity remains remarkably robust while the magnetic memory is strongly suppressed at higher Se concentrations. These results show that Se substitution does not create the hidden magnetic memory, but instead selectively weakens its macroscopic manifestation. More broadly, they reveal a sharp separation between robust superconducting and hidden-memory phases, and a highly disorder-sensitive spontaneous-vortex response in 4Hb-TaS2.",
-   "url": "https://arxiv.org/abs/2610.39969",
-   "pdf": "https://arxiv.org/pdf/2610.39969",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D",
-    "Vortices and junctions"
-   ],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.39942",
-   "source": "arXiv",
-   "title": "Majorana Zero Modes in Fractional Vortices",
-   "authors": [
-    "Lecheng Fang",
-    "Haotian Li",
-    "Haijiao Ji",
-    "et al."
-   ],
-   "n_authors": 6,
-   "date": "2026-10-29",
-   "updated": "2026-10-29",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Majorana zero modes (MZMs) are promising for topological quantum computation, with vortices in topological superconductors serving as a leading platform. Recent experiments show that integer Abrikosov vortices in iron-based superconductors can split into fractional vortices (FVs) carrying fractional flux quanta. We show that due to topological protection, MZMs hosted by FVs are spatially unfolded over the FV cores, while fermionic bound states remain localized at individual FV cores. This yields zero-bias conductance peaks in both local tunneling and nonlocal crossed Andreev reflection, offering an alternative MZM signature.",
-   "url": "https://arxiv.org/abs/2610.39942",
-   "pdf": "https://arxiv.org/pdf/2610.39942",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Iron-based",
-    "Topological",
-    "Vortices and junctions"
-   ],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.39694",
-   "source": "arXiv",
-   "title": "Exceptional Superconducting Interfaces between Graphene and Atomic Chains in A15-MoRe",
-   "authors": [
-    "Hiroto Ogura",
-    "Yuto Tsukidate",
-    "Shun Kondo",
-    "et al."
-   ],
-   "n_authors": 14,
-   "date": "2026-10-29",
-   "updated": "2026-10-29",
-   "category": "cond-mat.mtrl-sci",
-   "cross_list": true,
-   "abstract": "Realizing highly transparent and magnetic-field-resilient superconducting contacts is a critical bottleneck for the advancement of two-dimensional (2D) quantum devices. Molybdenum-rhenium (MoRe) alloys have been empirically favored as they uniquely yield ballistic, highly transparent contacts to graphene that survive in high-magnetic-field regimes; however, the microscopic origin of this anomalous transparency has remained a long-standing puzzle. Here, we resolve this paradox by revealing that pristine graphene/MoRe interfaces are governed by the classical A15 superconducting phase. Combining low-temperature transport, X-ray diffraction, and atomic-resolution electron microscopy, we demonstrate that as-deposited MoRe spontaneously forms the A15 phase in direct contact with graphene, whereas thermal annealing triggers a phase transition to a hexagonal close-packed (hcp) structure that severely degrades the Josephson transparency. Crucially, the one-dimensional (1D) transition-metal atomic chains unique to the A15 structure exhibit a near-perfect lattice match (mismatch < 1%) with graphene edges. First-principles calculations further prove that the d-orbitals of these historically renowned 1D chains possibly hybridize with graphene's Dirac cone near the K point. These findings not only uncover the structural and electronic origins of optimal MoRe contacts but also establish A15-p",
-   "url": "https://arxiv.org/abs/2610.39694",
-   "pdf": "https://arxiv.org/pdf/2610.39694",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.mtrl-sci",
-    "cond-mat.mes-hall",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.39523",
-   "source": "arXiv",
-   "title": "Thermalization-Controlled Superconducting Diode-Like Transport in Disordered Molybdenum and NbN Thin Films",
-   "authors": [
-    "Akhilesh Kumar",
-    "Shivani Soni",
-    "Gomathi Natarajan",
-    "et al."
-   ],
-   "n_authors": 8,
-   "date": "2026-10-29",
-   "updated": "2026-10-29",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Superconducting diode effects are characterized by direction-dependent critical currents in the superconducting state. Here, we investigate diode-like transport in 128-nm-thick Mo thin film deposited on Si_SiO2 substrate by DC magnetron sputtering. The thin film exhibit a superconducting transition temperature TC of 5.8 K. Pronounced current-direction asymmetry and hysteresis are observed in current-voltage characteristics measured in a closed-cycle refrigerator. In contrast, the same thin film exhibits a substantially more symmetric response in a 14T cryogenic system with improved sample thermalization. We attribute this strong dependence on the measurement environment to electrothermal effects arising from current-induced Joule heating and finite thermal relaxation. As the current approaches the superconducting-to-resistive switching condition, the emergence of a resistive component leads to a rapid increase in Joule heating, raising the sample temperature and modifying the switching condition. Conversely, during the resistive-to-superconducting transition, residual heating and finite thermal relaxation reduce the switching current. Since P is equal to I2R it is independent of current polarity, the observed asymmetry is not associated with polarity-dependent Joule heating but with the interplay of thermal relaxation, sweep history, and thermal boundary conditions. The suppres",
-   "url": "https://arxiv.org/abs/2610.39523",
-   "pdf": "https://arxiv.org/pdf/2610.39523",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2610.39338",
-   "source": "arXiv",
-   "title": "Position- and Temperature-Dependent Responsivity in a KID-Based Phonon-Mediated Detector",
-   "authors": [
-    "Z. J. Smith",
-    "O. Wen",
-    "S. Q. Dang",
-    "et al."
-   ],
-   "n_authors": 38,
-   "date": "2026-10-29",
-   "updated": "2026-10-29",
-   "category": "physics.ins-det",
-   "cross_list": true,
-   "abstract": "We report on the position- and temperature-dependent response of a kinetic inductance phonon-mediated (KIPM) detector. To study position-dependence, we used a controllable mirror attached to a micro-electromechanical system (MEMS) to steer optical light with a 100 μm spot size over the backside of the cryogenic detector. With both pulsed and continuous operation of the LED, we observe features of the detector housing and find that the signal is strongest when the LED is pointed directly at the KID. The \"off-KID\" response is measured to be 34% of the \"on-KID\" response and is largely independent of direction. We model phonon propagation and collection in the KIPM detector with G4CMP and assert that the isotropic angular dependence is unlikely to be due to discrete phonon absorption \"sinks\", such as the microwave feedline or the device mounting points, but can be explained instead by an isotropic energy loss in the crystal. We furthermore utilize the temperature flexibility of the MEMS and KIPM detector system to investigate temperature-dependent responsivity, both at the sensor level (i.e., frequency shifts in the KID) and at the detector level (i.e., position dependence). We fit the KID's response to a two-component heat capacity and present the model as an alternative way to understand the KID's response to absorbed energy. We show on- and off-KID data at a range of temperature",
-   "url": "https://arxiv.org/abs/2610.39338",
-   "pdf": "https://arxiv.org/pdf/2610.39338",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": "theory",
-   "categories": [
-    "physics.ins-det",
-    "cond-mat.supr-con",
-    "hep-ex"
-   ]
-  },
-  {
-   "id": "2610.39192",
-   "source": "arXiv",
-   "title": "Local Josephson response near nonmagnetic impurities and vortices in a two-orbital s± superconductor",
-   "authors": [
-    "Yuanyuan Zhao"
-   ],
-   "n_authors": 1,
-   "date": "2026-10-29",
-   "updated": "2026-10-29",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We study the local Josephson response near nonmagnetic impurities and vortices in a self-consistent two-orbital s± superconductor. For a local s-wave tip that couples equally to the two orbitals, anomalous spectral contributions of opposite sign nearly cancel in the clean sample. Nonmagnetic impurities redistribute these contributions and can reverse the local coupling without a corresponding π phase shift of the bond pair fields. Negative coupling appears at off-center sites at weaker impurity potentials than at the impurity site. The impurity-induced change is concentrated at lower quasiparticle energies, while states over a broader energy range contribute to the total clean and impurity couplings. In zero field, the coupling also changes sign as the tip gap is varied, and increasing the tunneling strength can reverse the m=1 sine component of the current without changing the sample state. At the chosen coherence-peak energy, increasing impurity strength mainly changes the relative intensities of existing quasiparticle-interference features. In a self-consistent two-vortex state, the Josephson response develops a spatially varying phase relative to the condensate. The response and condensate share the winding close to each core, while larger loops enclose additional winding of the Josephson response. The local Josephson sign and phase reflect the anomalous spectrum and the ti",
-   "url": "https://arxiv.org/abs/2610.39192",
-   "pdf": "https://arxiv.org/pdf/2610.39192",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "",
-   "categories": [
     "cond-mat.supr-con"
    ]
   }
@@ -4468,6 +4472,27 @@
    "kind": "experiment"
   },
   {
+   "id": "10.1126/science.adw8329",
+   "source": "Science",
+   "journal": "Science",
+   "title": "Nodeless superconducting gap and electron-boson coupling in (La,Pr,Sm) ₃ Ni ₂ O ₇ films",
+   "authors": [
+    "Jianchang Shen",
+    "Guangdi Zhou",
+    "Yu Miao",
+    "et al."
+   ],
+   "n_authors": 21,
+   "date": "2026-06-25",
+   "abstract": "The discovery of superconductivity in Ruddlesden-Popper bilayer nickelate films under ambient pressure provides an opportunity to directly investigate electronic energy scales of the superconducting state and the pairing mechanism.",
+   "url": "https://doi.org/10.1126/science.adw8329",
+   "doi": "10.1126/science.adw8329",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": "experiment"
+  },
+  {
    "id": "10.1126/science.adp4440",
    "source": "Science",
    "journal": "Science",
@@ -4488,27 +4513,6 @@
     "Nickelates"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1126/science.adw8329",
-   "source": "Science",
-   "journal": "Science",
-   "title": "Nodeless superconducting gap and electron-boson coupling in (La,Pr,Sm) ₃ Ni ₂ O ₇ films",
-   "authors": [
-    "Jianchang Shen",
-    "Guangdi Zhou",
-    "Yu Miao",
-    "et al."
-   ],
-   "n_authors": 21,
-   "date": "2026-06-25",
-   "abstract": "The discovery of superconductivity in Ruddlesden-Popper bilayer nickelate films under ambient pressure provides an opportunity to directly investigate electronic energy scales of the superconducting state and the pairing mechanism.",
-   "url": "https://doi.org/10.1126/science.adw8329",
-   "doi": "10.1126/science.adw8329",
-   "topics": [
-    "Nickelates"
-   ],
-   "kind": "experiment"
   },
   {
    "id": "10.1038/s41535-026-00896-2",
