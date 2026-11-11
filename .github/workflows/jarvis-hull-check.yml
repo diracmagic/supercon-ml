@@ -1,0 +1,39 @@
+name: JARVIS-DFT hull check (count-only)
+
+# Asks the JARVIS-DFT 3D file what its `ehull` field holds: how it relates to the file's own formation energies, and
+# what the distance to the convex hull is when it is computed from them (`python ml/jarvis_hull_check.py`). No model
+# is loaded or fitted; it commits nothing and uploads nothing. Runs when this file or the module changes on the branch.
+
+on:
+  push:
+    branches: [claude/pool-census]
+    paths:
+      - '.github/workflows/jarvis-hull-check.yml'
+      - 'ml/jarvis_hull_check.py'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Count-only check of the JARVIS-DFT hull field
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install "jarvis-tools>=2024.10.10" "pymatgen>=2024.9.10" numpy
+
+      - name: Check (counts only; no model, no fit)
+        run: python ml/jarvis_hull_check.py
+
+      - name: Module identity
+        run: |
+          git rev-parse HEAD
+          sha256sum ml/jarvis_hull_check.py .github/workflows/jarvis-hull-check.yml
