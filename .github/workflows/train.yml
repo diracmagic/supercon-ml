@@ -196,6 +196,10 @@ jobs:
         if: success() && contains(format(' {0} ', env.STAGES), ' hurricane7 ')
         run: python ml/pipeline.py hurricane7
 
+      - name: Hurricane 9.0, the release run (datasheet units, the declared time-window test, the guard against false alarms)
+        if: success() && contains(format(' {0} ', env.STAGES), ' hurricane9 ')
+        run: python ml/pipeline.py hurricane9
+
       - name: Check incremental descriptor caches before saving
         id: cache-integrity
         if: always() && steps.data-cache.outcome == 'success'
