@@ -117,7 +117,8 @@ class Hurricane9ReleaseTests(unittest.TestCase):
         self.assertEqual((e["scores"]["kind"], len(e["scores"]["folds"]), len(e["scores"]["fold_labels"])), ("time-windows", 13, 13))
         self.assertEqual([c["id"] for c in e["temporal"]["claims"]], ["C0", "C1", "C2", "C3", "C4:cuprate:1985", "C4:iron-nickel:2005"])
         self.assertEqual(sorted(e["data"]["families"]), ["cuprate", "heavy-fermion", "iron-based", "other oxide"])
-        self.assertEqual([m["status"] for m in self.progress["model_family"] if m["id"] == "hurricane"], ["Hurricane 4.0 in use"])
+        source = json.loads(self.before)      # an entry that misses the rule leaves the published summary rows as they were
+        self.assertEqual((self.progress["model_family"], self.progress["results"]), (source["model_family"], source["results"]))
         won = json.loads(json.dumps(self.out))
         won["adopted"] = True
         won["evidence"]["overall"].update(released_measure_k=16.0, released_measure_previous_k=21.5)
@@ -127,7 +128,10 @@ class Hurricane9ReleaseTests(unittest.TestCase):
             R.update_progress(won, path)
             prog = json.loads(path.read_text(encoding="utf-8"))
         self.assertEqual((prog["hurricane"]["current"], prog["hurricane"]["data"]["kind"]), ("9.0", "datasheet"))
-        self.assertEqual([m["status"] for m in prog["model_family"] if m["id"] == "hurricane"], ["Hurricane 9.0 in use"])
+        card = [m for m in prog["model_family"] if m["id"] == "hurricane"]
+        self.assertEqual([(m["status"], m["force"]) for m in card], [("Hurricane 9.0 in use", True)])
+        self.assertNotIn(" 0% ", card[0]["text"])
+        self.assertEqual((R.share_text(0.0), R.share_text(0.0017), R.share_text(0.04)), ("none", "under 1%", "4%"))
         self.assertIn("Hurricane 9.0 for unconventional ones", [s for s in prog["stages"] if s["id"] == "ai-models"][0]["detail"])
         self.assertEqual([v["version"] for v in prog["hurricane"]["versions"]][-2:], ["5.0", "9.0"])
         self.assertTrue(any(r["model"].startswith("Hurricane 9.0") for r in prog["results"]))
