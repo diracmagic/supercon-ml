@@ -28,6 +28,33 @@ class ScreeningPublicationTests(unittest.TestCase):
     def test_screen_publication_does_not_release_a_new_model_or_rewrite_history(self):
         rest = copy.deepcopy({k:v for k,v in self.payload.items() if k != 'screen'})
         correction = json.loads((ROOT / 'results/validation/hurricane-display-cohort-correction.json').read_text(encoding='utf-8'))
+        # A later model release is not the screen publication rewriting history. The release run of Hurricane 9.0 has its
+        # own record, written before that run, of what it may change outside the screen block. Before the run the
+        # recorded values are the published ones; after it, putting them back and taking the round-9 entries out again
+        # must give the audited payload, so the release added a version and changed nothing else.
+        release = json.loads((ROOT / 'results/validation/hurricane9-release-publication.json').read_text(encoding='utf-8'))
+        self.assertEqual(release['audited_non_screen_canonical_sha256'], correction['after_non_screen_canonical_sha256'])
+        released = self.payload['hurricane']['current'] != '4.0'
+        def locate(pointer):
+            parts, parent = pointer.strip('/').split('/'), rest
+            for key in parts[:-1]: parent = parent[int(key)] if isinstance(parent, list) else parent[key]
+            return parent, parts[-1]
+        for row in release['replaced']:
+            parent, key = locate(row['pointer'])
+            if released: parent[key] = copy.deepcopy(row['before'])
+            else: self.assertEqual(parent[key], row['before'])
+        for row in release['appended']:
+            parent, key = locate(row['pointer'])
+            where = row['where']
+            kept = [item for item in parent[key] if not (item.get('round') == where['round'] if 'round' in where
+                                                         else str(item.get('event', '')).startswith(where['event_prefix']))]
+            self.assertEqual(len(parent[key]) - len(kept), 1 if released else 0)
+            parent[key] = kept
+        if released:
+            self.assertEqual(self.payload['hurricane']['current'], release['release']['version'])
+            entry = next(v for v in self.payload['hurricane']['versions'] if v['round'] == release['release']['round'])
+            self.assertEqual((entry['version'], entry['status']), (release['release']['version'], 'adopted'))
+            self.assertEqual(entry['temporal']['protocol']['sha256'], release['release']['protocol_sha256'])
         self.assertEqual(digest(rest), correction['after_non_screen_canonical_sha256'])
         self.assertEqual(correction['before_non_screen_canonical_sha256'], self.report['unchanged_non_screen_canonical_sha256'])
         # The original publication audit stays frozen. Reverse only the separately
@@ -43,7 +70,7 @@ class ScreeningPublicationTests(unittest.TestCase):
             if row['before_present']: parent[key] = row['before']
             else: del parent[key]
         self.assertEqual(digest(rest), self.report['unchanged_non_screen_canonical_sha256'])
-        self.assertEqual(self.payload['hurricane']['current'], '4.0')
+        self.assertEqual(self.payload['hurricane']['current'], release['release']['version'] if released else '4.0')
         self.assertEqual(self.screen['models'], ['Radar 1.0', 'Storm 5.0', 'Hurricane 4.0'])
         self.assertEqual(self.screen['hurricane']['model'], 'Hurricane 4.0')
         self.assertTrue(all(v.get('status') != 'adopted' for v in self.payload['hurricane']['versions'] if v['version'] in {'5.0','6.0'}))
