@@ -722,6 +722,10 @@ ol.nobel.related .nobel-year { width: 48px; height: 48px; font-size: 13px; }
 .cand-mcm-chip { border-color: var(--warm); }
 .cand-mcm-chip.is-done { background: var(--warm); color: #141414; }
 .cand-mcm-chip sub, .cand-mcm sub { font-size: 0.72em; }
+.cand-hur-top { margin: 0 0 12px; padding: 10px 12px; border: 1px solid var(--accent); border-radius: 10px; background: var(--accent-wash); font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+.cand-hur-top p { margin: 0; }
+.cand-hur-top b { color: var(--ink); }
+.cand-hur-chip { border-color: var(--accent); }
 .xt-mcm.is-testable { border-left-style: dashed; }
 .xt-mcm { margin: 6px 0 0; padding: 6px 9px; border-left: 3px solid var(--warm); border-radius: 0 6px 6px 0; background: var(--accent-wash); background: color-mix(in srgb, var(--warm) 8%, transparent); font-size: 12.5px; line-height: 1.5; color: var(--ink); }
 /* the remarks that go with every candidate, folded away until clicked */

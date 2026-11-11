@@ -14,6 +14,26 @@
 
   const hurTitle = function hurTitle(info) { return info.name + ' ' + info.v.version; };
 
+  // round 9 on: a version checked on time windows instead of folds (scores.kind says so), with its "temporal" block
+  const hurTW = function hurTW(v) { return !!(v && v.scores && v.scores.kind === 'time-windows' && v.temporal && v.temporal.families); };
+
+  // The baseline demos compare with a version that was scored on folds; from round 9 on the version in use is checked
+  // on time windows, so they show the latest released version that still has folds.
+  const hurFoldInfo = function hurFoldInfo() {
+    var info = hurInfo();
+    if (!info || !hurTW(info.v)) return info;
+    var vs = info.versions.filter(function (x) { return !hurTW(x) && x.status === 'adopted'; }), v = vs[vs.length - 1];
+    return v ? { hu: info.hu, v: v, name: info.name, data: v.data || {}, versions: info.versions } : null;
+  };
+
+  const hurR2 = function hurR2(x) { return typeof x === 'number' ? x.toFixed(2).replace('-', '−') : '—'; };
+
+  // a pooled rank correlation of the time-window test: family f, predictor k ("data", "previous", "R1")
+  const hurRank = function hurRank(v, f, k) {
+    var x = ((v.temporal.families[f] || {}).spearman || {})[k];
+    return x && typeof x.estimate === 'number' ? x.estimate : null;
+  };
+
   const hurColor = function hurColor(C, f) { return { 'cuprate': C.accent, 'iron-based': C.warm, 'heavy-fermion': C.aqua || C.accent, 'other oxide': C.gold || C.ink2 }[f] || C.muted; };
 
   const hurFamilies = function hurFamilies(info) {
@@ -68,6 +88,7 @@
     if (!info) return 'Hurricane is our AI-designed model for unconventional superconductors. Its data and scores load with the live progress data.';
     var v = info.v, sc = v.scores || {}, dd = info.data, name = hurTitle(info), nf = list(sc.folds).length, ok = v.status === 'adopted';
     var non = (dd.n || 0) - (dd.n_sc || 0), rl = hurRel(v), bgn = rl && rl.background && typeof rl.background.n === 'number' ? rl.background.n : 0;
+    if (hurTW(v) && si !== 2) return hurWindowCaption(si, info);   // the inputs (stage 2) read the same either way
     switch (si) {
       case 0:
         return 'No first-principles theory gives Tc for cuprates, iron-based or heavy-fermion superconductors, so Hurricane learns from measurements: ' +
@@ -148,6 +169,59 @@
   };
 
 
+  // round 9 on: the captions of a version that learns from the NIMS datasheet and is checked on time windows
+  const hurWindowCaption = function hurWindowCaption(si, info) {
+    var v = info.v, sc = v.scores || {}, dd = info.data, name = hurTitle(info), ok = v.status === 'adopted', rl = hurRel(v) || {}, bg = rl.background || {};
+    var tp = v.temporal, cu = tp.families.cuprate || {}, pv = v.previous && v.previous.version ? 'Hurricane ' + v.previous.version : 'the previous model';
+    var dP = (cu.difference || {})['data-previous'] || {}, dN = (cu.difference || {})['data-R1'] || {};
+    switch (si) {
+      case 0:
+        return 'No first-principles theory gives Tc for cuprates, iron-based or heavy-fermion superconductors, so Hurricane learns from measurements. Since version ' + v.version +
+          ' they come from the NIMS SuperCon datasheet: ' + fmtInt(dd.n) + ' compositions, ' + fmtInt(dd.n_sc) + ' with a measured Tc and ' + fmtInt(dd.n_negative) +
+          ' measured down to 4.2 K (1 K for heavy-fermion compounds) without superconductivity' + (list(dd.years).length === 2 ? ', from reports dated ' + dd.years[0] + ' to ' + dd.years[1] : '') +
+          '. Each family is read from the datasheet’s own structure name and composition; single entries have not been checked against their papers. Hurricane reads the composition only.' +
+          (typeof bg.n_used === 'number' ? ' Its classifier also learns from ' + fmtInt(bg.n_used) + ' compounds with no superconductivity record in the checked sources, assigned weak zero labels. These are unlabelled background compounds, not experimentally established negatives.' : '') +
+          (rl.abstain ? ' Far from everything it learned from, it answers “not known” instead of giving a chance.' : '');
+      case 1:
+        var before = info.versions.filter(function (x) { return v.previous && x.version === v.previous.version && x.data && x.data.n; })[0], times = before && dd.n ? dd.n / before.data.n : 0;
+        return 'In round ' + v.round + ' the AI agent (Claude) changed the data, not the recipe. It trained the recipe of ' + pv + ' on the datasheet' + (times > 1.5 ? ', ' + times.toFixed(1) + ' times as many entries' : '') +
+          ', and fixed the test before the first fit: train on reports dated up to a year, then rank the parent compounds first reported in the next ' + (tp.width || 5) + ' years by Tc. On new cuprate parents the rank correlation with measured Tc rose from ' +
+          hurR2(hurRank(v, 'cuprate', 'previous')) + ' to ' + hurR2(hurRank(v, 'cuprate', 'data')) + (typeof dP.lower95 === 'number' ? ' (95% interval of the gain: ' + hurR2(dP.lower95) + ' to ' + hurR2(dP.upper95) + ')' : '') +
+          '. The datasheet’s structure names and measured lattice lengths added nothing. A simple rule, the Tc of the nearest known compound, reaches ' + hurR2(hurRank(v, 'cuprate', 'R1')) +
+          (dN.met === true ? ', and Hurricane beats it. ' : ', and Hurricane does not clearly beat it. ') +
+          (ok ? 'It passed the rule fixed before the run and became ' + name + '.' : 'It did not pass the rule fixed before the run, so ' + pv + ' stays in use.');
+      case 3:
+        var f = list(sc.folds), r = list(sc.reference_folds), nw = 0, fam = sc.by_family || {}, parts = [], fwin = (tp.answers || {}).family_windows || {};
+        f.forEach(function (x, i) { if (typeof x === 'number' && typeof r[i] === 'number') nw++; });
+        HUR_FAMS.forEach(function (k) { if (fam[k] && typeof fam[k].mae === 'number') parts.push(hurFamText(k) + ' ' + hurK(fam[k].mae) + ' K'); });
+        return name + ' is checked on compounds it could not have seen: trained on reports dated up to a year, it is asked about the parent compounds first reported in the next ' + (tp.width || 5) +
+          '. Over ' + f.length + ' such windows it is off by ' + hurK(sc.tc_mae) + ' K on average, against ' + hurK(sc.reference_mae) + ' K for the same recipe trained on the data of ' + pv +
+          ', and better in ' + sc.folds_better + ' of the ' + nw + ' windows that both can answer.' + (typeof sc.sc_mae === 'number' ? ' For superconductors alone the error is ' + hurK(sc.sc_mae) + ' K.' : '') +
+          (parts.length ? ' By family: ' + parts.join(', ') + '.' : '') + ' Against the Tc of the nearest known compound the gain is ' + (dN.met === true ? 'clear' : 'not clear') +
+          ': for new cuprate parents the rank correlations are ' + hurR2(hurRank(v, 'cuprate', 'data')) + ' and ' + hurR2(hurRank(v, 'cuprate', 'R1')) + '.' +
+          (typeof fwin.alarms_on_negatives === 'number' ? ' It also gives at least an even chance to ' + radPct(fwin.alarms_on_negatives) + ' of the new parents’ compositions that were measured not to superconduct: inside a family it knows, it often cannot tell which ones fail.' : '');
+      case 4:
+        var lo = list(v.lofo), txt = 'A harder test: train only on reports dated before a family was found, then ask about its first ' + (tp.width || 5) + ' years. ';
+        lo.forEach(function (x) {
+          txt += 'Trained on reports up to ' + x.trained_up_to + ', ' + name + ' never predicts more than ' + hurK(x.max_pred) + ' K for the ' + hurFamText(x.family) + ' of ' + list(x.years).join(' to ') +
+            ', which reach ' + Math.round(x.max_tc) + ' K; it gives ' + radPct(x.found) + ' of the superconductors among them at least an even chance, calls ' + radPct(x.dismissed) + ' unlikely and answers “not known” for ' + radPct(x.unknown) + '. ';
+        });
+        var auc = lo.filter(function (x) { return x.auc_30k && x.auc_30k.transfer && typeof x.auc_30k.transfer.auc === 'number'; }).map(function (x) { return hurR2(x.auc_30k.transfer.auc) + ' for ' + hurFamText(x.family); });
+        var nwin = (tp.answers || {}).new_family_windows || {};
+        if (typeof nwin.alarms_on_negatives === 'number') txt += 'Of the compositions in these windows that were measured not to superconduct, it gives ' + radPct(nwin.alarms_on_negatives) + ' at least an even chance. ';
+        return txt + (auc.length ? 'A variant that reads no element names ranks which of the new compounds pass 30 K somewhat better than chance (AUC ' + auc.join(', ') + '; 0.5 is chance). ' : '') +
+          'These tests do not support reliable discovery of new high-Tc families. Further physical information and independent experimental tests are needed.';
+      default:
+        var an = v.anchors || {}, rows = list(an.table), held = rows.filter(function (x) { return x.in_training === true; }).length, out = rows.filter(function (x) { return x.use === 'exclude'; });
+        return 'Measurements kept apart as a check, each graded by reliability. ' + (held ? held + ' of them are compounds the datasheet already lists, so they are shown and not scored. ' : '') +
+          (typeof an.mae === 'number' ? 'The ' + an.n_scored + ' scored entries, replicated ambient-pressure bulk measurements outside its training data, are off by ' + hurK(an.mae) + ' K on average' +
+            (rows.some(function (x) { return x.use === 'score' && x.unknown === true; }) ? ', including internal outputs for abstained entries' : '') + (an.scored_as_check ? '. ' : ', too few to count as a check yet. ') : 'None is scored yet. ') +
+          'Abstentions are displayed as unknown, without a numerical prediction.' +
+          (out.length ? ' ' + out.map(function (x) { return hurShortName(x.name); }).join(', ') + ' is left out because it was ' + (out[0].status || 'refuted') + '.' : '');
+    }
+  };
+
+
   const hitHurNode = function hitHurNode(p) {
     var nodes = demo.hurNodes || [];
     for (var i = 0; i < nodes.length; i++) {
@@ -184,7 +258,7 @@
       label(c, C, 'Hurricane’s results load with the live progress data.', W / 2, B.y + B.h / 2, { align: 'center', base: 'middle', size: 13, color: C.muted });
       return;
     }
-    [drawHurData, drawHurDesign, drawHurPhysics, drawHurCheck, drawHurFamily, drawHurLater][si](c, C, B, t, narrow, info);
+    [drawHurData, hurTW(info.v) ? drawHurWindowDesign : drawHurDesign, drawHurPhysics, drawHurCheck, drawHurFamily, drawHurLater][si](c, C, B, t, narrow, info);
     c.globalAlpha = 1;
     c.setLineDash([]);
   };
@@ -192,8 +266,8 @@
 
   /* 0 · the measured data, family by family */
   const drawHurData = function drawHurData(c, C, B, t, narrow, info) {
-    var dd = info.data, fams = hurFamilies(info);
-    stormHeader(c, C, B, fmtInt(dd.n) + ' measured Tc values', narrow ? '' : '3DSC: SuperCon Tc with Materials Project structures');
+    var dd = info.data, fams = hurFamilies(info), tw = hurTW(info.v);
+    stormHeader(c, C, B, fmtInt(dd.n) + (tw ? ' measured compositions' : ' measured Tc values'), narrow ? '' : tw ? 'NIMS SuperCon datasheet' : '3DSC: SuperCon Tc with Materials Project structures');
     if (!fams.length) return;
     var L = narrow ? { x: B.x, y: B.y + 30, w: B.w, h: Math.min(190, B.h * 0.48) } : { x: B.x, y: B.y + 34, w: Math.round(B.w * 0.55), h: B.h - 34 };
     var R = narrow ? { x: B.x, y: L.y + L.h + 10, w: B.w, h: B.y + B.h - (L.y + L.h + 10) } : { x: L.x + L.w + 34, y: B.y + 34, w: B.w - L.w - 34, h: B.h - 34 };
@@ -213,7 +287,7 @@
       c.fillStyle = col; c.fillRect(L.x + 16, y + 20, sw * g, 10);
       if (g > 0.85) {
         c.globalAlpha = a * stSpan(g, 0.85, 1);
-        label(c, C, fmtInt(f.n_sc) + ' superconducting, up to ' + (f.max_tc >= 10 ? Math.round(f.max_tc) : f.max_tc.toFixed(1)) + ' K', L.x + 16, y + 43, { size: 11, color: C.muted });
+        label(c, C, fmtInt(f.n_sc) + (tw ? ' with a measured Tc, up to ' : ' superconducting, up to ') + (f.max_tc >= 10 ? Math.round(f.max_tc) : f.max_tc.toFixed(1)) + ' K', L.x + 16, y + 43, { size: 11, color: C.muted });
       }
     });
     c.globalAlpha = 1;
@@ -237,8 +311,10 @@
     }
     var y77 = Math.round(Y(77)) + 0.5;
     c.setLineDash([4, 4]); c.strokeStyle = C.ink2; c.beginPath(); c.moveTo(P.x, y77); c.lineTo(P.x + P.w, y77); c.stroke(); c.setLineDash([]);
-    label(c, C, 'liquid nitrogen, 77 K', P.x + P.w, y77 - 5, { align: 'right', size: 10.5, color: C.ink2 });
-    var cw = P.w / fams.length, bwid = Math.min(34, cw * 0.46);
+    var cw = P.w / fams.length, bwid = Math.min(34, cw * 0.46), free = -1;
+    fams.forEach(function (f, i) { if (f.max_tc < 70) free = i; });   // the right-most family whose bar stays under the line
+    if (free < 0 || free === fams.length - 1) label(c, C, 'liquid nitrogen, 77 K', P.x + P.w, y77 - 5, { align: 'right', size: 10.5, color: C.ink2 });
+    else label(c, C, 'liquid nitrogen, 77 K', P.x + cw * (free + 0.5), y77 - 5, { align: 'center', size: 10.5, color: C.ink2 });
     fams.forEach(function (f, i) {
       var g = stSpan(t, 2.5 + 0.3 * i, 3.5 + 0.3 * i), x = P.x + cw * (i + 0.5), hgt = (P.y + P.h - Y(f.max_tc)) * g;
       c.fillStyle = hurColor(C, f.id); c.fillRect(x - bwid / 2, P.y + P.h - hgt, bwid, hgt);
@@ -248,7 +324,7 @@
     });
     if (!narrow && t > 4) {
       c.globalAlpha = stSpan(t, 4, 4.6);
-      stParaRich(c, C, 'Pale: catalogued Tc = 0. Measurement limits and conditions are not established here.', L.x, L.y + fams.length * rh + 6, L.w, 16, { size: 11.5, color: C.muted });
+      stParaRich(c, C, tw ? 'Pale: no Tc value. A composition counts as not superconducting only where a measurement reached 4.2 K (1 K for heavy-fermion compounds).' : 'Pale: catalogued Tc = 0. Measurement limits and conditions are not established here.', L.x, L.y + fams.length * rh + 6, L.w, 16, { size: 11.5, color: C.muted });
     }
     c.globalAlpha = 1;
   };
@@ -333,6 +409,77 @@
       c.globalAlpha = stSpan(t, 4.6, 5.2);
       var ok = v.status === 'adopted';
       stTag(c, C, ok ? 'Released as ' + hurTitle(info) : hurTitle(info) + ' stays experimental', T.x + T.w, axisY + 32, { align: 'right', size: 12, bg: ok ? C.accent : C.surface, ring: ok ? null : C.grid, color: ok ? '#ffffff' : C.ink });
+      c.globalAlpha = 1;
+    }
+  };
+
+
+  /* 1 · round 9 on: the test fixed before the fit (a sliding time window) and the designs ranked by it */
+  const drawHurWindowDesign = function drawHurWindowDesign(c, C, B, t, narrow, info) {
+    var v = info.v, tp = v.temporal, cu = tp.families.cuprate || {}, wd = tp.width || 5, cuts = list(cu.windows);
+    var rows = list(v.search && v.search.leaderboard).filter(function (r) { return typeof r.spearman === 'number'; });
+    stormHeader(c, C, B, 'Round ' + v.round + ': new data, the same recipe', narrow ? '' : 'rank correlation with measured Tc, new cuprate parents');
+    // left: the window slides; training data end at the cutoff and the next years are asked
+    var L = narrow ? { x: B.x, y: B.y + 26, w: B.w, h: 66 } : { x: B.x, y: B.y + 34, w: Math.round(B.w * 0.3), h: B.h - 40 };
+    if (cuts.length) {
+      var y0 = cuts[0] - 6, y1 = cuts[cuts.length - 1] + wd + 1, k = Math.min(cuts.length - 1, Math.floor((motionOK() ? t : 0) / 1.4) % cuts.length), cut = cuts[k];
+      var ax = narrow ? L.y + 44 : L.y + Math.min(120, L.h * 0.45), X = function (yr) { return L.x + 4 + (yr - y0) / (y1 - y0) * (L.w - 8); };
+      c.lineWidth = 1; c.strokeStyle = C.axis; c.beginPath(); c.moveTo(X(y0), Math.round(ax) + 0.5); c.lineTo(X(y1), Math.round(ax) + 0.5); c.stroke();
+      cuts.concat([cuts[cuts.length - 1] + wd]).forEach(function (yr) {
+        var gx = Math.round(X(yr)) + 0.5;
+        c.strokeStyle = C.axis; c.beginPath(); c.moveTo(gx, ax); c.lineTo(gx, ax + 4); c.stroke();
+        label(c, C, String(yr), gx, ax + 16, { align: 'center', size: 10.5, color: C.muted });
+      });
+      c.fillStyle = C.axis; c.fillRect(X(y0), ax - 14, X(cut) - X(y0), 10);
+      c.fillStyle = C.accent; c.fillRect(X(cut) + 1, ax - 14, X(cut + wd) - X(cut) - 1, 10);
+      label(c, C, 'trained on reports up to ' + cut, X(y0), ax - 20, { size: 11, color: C.ink2 });
+      if (narrow) label(c, C, 'asked: ' + (cut + 1) + '–' + (cut + wd), L.x + L.w, ax - 20, { align: 'right', size: 11, weight: '600', color: C.accent });
+      else {
+        label(c, C, 'asked about the parent compounds', L.x, ax + 40, { size: 11, weight: '600', color: C.accent });
+        label(c, C, 'first reported in ' + (cut + 1) + '–' + (cut + wd), L.x, ax + 55, { size: 11, weight: '600', color: C.accent });
+        stParaRich(c, C, 'The test was fixed before the first fit. Claude proposed the designs.', L.x, ax + 78, L.w - 6, 15, { size: 11, color: C.muted });
+      }
+    }
+    var T = narrow ? { x: B.x, y: L.y + L.h + 8, w: B.w, h: B.y + B.h - (L.y + L.h + 8) } : { x: L.x + L.w + 28, y: B.y + 30, w: B.w - L.w - 28, h: B.h - 30 };
+    if (!rows.length) return;
+    var near = hurRank(v, 'cuprate', 'R1'), hi = typeof near === 'number' ? near : 0;
+    rows.forEach(function (r) { hi = Math.max(hi, r.spearman); });
+    var a1v = Math.max(0.2, Math.ceil(hi * 10 + 0.5) / 10), rh = Math.min(narrow ? 46 : 44, (T.h - 62) / rows.length), bx = T.x + 6, bw = T.w - 60;
+    function BX(x) { return bx + Math.max(0, x) / a1v * bw; }
+    var axisY = T.y + rows.length * rh + 4;
+    c.lineWidth = 1;
+    for (var tv = 0; tv <= a1v + 1e-9; tv += 0.2) {
+      var gx = Math.round(BX(tv)) + 0.5;
+      c.strokeStyle = tv ? C.grid : C.axis; c.beginPath(); c.moveTo(gx, T.y); c.lineTo(gx, axisY); c.stroke();
+      label(c, C, tv.toFixed(1), gx, axisY + 13, { align: 'center', size: 10.5, color: C.muted });
+    }
+    var won = rows.filter(function (r) { return r.passed === true; })[0] || null;
+    rows.forEach(function (r, i) {
+      var a = stSpan(t, 0.4 + 0.45 * i, 0.9 + 0.45 * i);
+      if (a <= 0) return;
+      var y = T.y + i * rh, isW = r === won && t > 3.6, isB = r.id === (v.search.reference_id || 'previous'), size = narrow ? 11 : 12;
+      c.globalAlpha = a;
+      if (isW) { stRound(c, T.x - 4, y + 1, T.w + 4, rh - 2, 7); c.fillStyle = stAlpha(C.accent, 0.1); c.fill(); }
+      label(c, C, hurFit(c, C, r.name + (r.settings ? ' · ' + r.settings : ''), T.w - 12, size, isW ? '600' : '400'), bx, y + 15, { size: size, color: isB ? C.ink2 : C.ink, weight: isW ? '600' : '400' });
+      var g = stSpan(t, 0.6 + 0.45 * i, 1.4 + 0.45 * i), w = Math.max(2, (BX(r.spearman) - bx) * g), col = isW ? C.accent : isB ? C.axis : mix(C.accent, C.surface2, 0.45);
+      c.fillStyle = col; c.fillRect(bx, y + 22, w, 10);
+      if (g > 0.8) label(c, C, hurR2(r.spearman), bx + w + 7, y + 31, { size: 11, weight: isW ? '600' : '400', color: isW ? C.accent : C.ink2 });
+      c.globalAlpha = 1;
+    });
+    if (typeof near === 'number' && t > 2.6) {
+      c.globalAlpha = stSpan(t, 2.6, 3.2);
+      var xn = Math.round(BX(near)) + 0.5;
+      c.setLineDash([3, 3]); c.strokeStyle = C.warm; c.lineWidth = 1.5;
+      c.beginPath(); c.moveTo(xn, T.y); c.lineTo(xn, axisY); c.stroke(); c.setLineDash([]);
+      var lab = (narrow ? 'nearest known compound: ' : 'the Tc of the nearest known compound: ') + hurR2(near);
+      stFont(c, C, 11, '600');
+      label(c, C, lab, Math.max(T.x + c.measureText(lab).width, Math.min(xn, T.x + T.w - 4)), axisY + 30, { align: 'right', size: 11, weight: '600', color: C.warm });
+      c.globalAlpha = 1;
+    }
+    if (t > 4.4) {
+      c.globalAlpha = stSpan(t, 4.4, 5);
+      var ok = v.status === 'adopted';
+      stTag(c, C, ok ? 'Released as ' + hurTitle(info) : hurTitle(info) + ' stays experimental', T.x + T.w, axisY + 52, { align: 'right', size: 12, bg: ok ? C.accent : C.surface, ring: ok ? null : C.grid, color: ok ? '#ffffff' : C.ink });
       c.globalAlpha = 1;
     }
   };
@@ -460,11 +607,13 @@
 
   /* 3 · fold by fold against the composition-only baseline, and family by family */
   const drawHurCheck = function drawHurCheck(c, C, B, t, narrow, info) {
-    var sc = info.v.scores, f = list(sc.folds), r = list(sc.reference_folds), n = f.length;
-    stormHeader(c, C, B, (narrow ? 'Better in ' : 'Better than composition only in ') + sc.folds_better + ' of ' + n + ' folds', narrow ? '' : 'error for held-out chemical-system groups');
+    var sc = info.v.scores, f = list(sc.folds), r = list(sc.reference_folds), n = f.length, tw = hurTW(info.v), labels = list(sc.fold_labels), step = tw ? 0.22 : 0.45, both = 0;
+    f.forEach(function (x, j) { if (typeof x === 'number' && typeof r[j] === 'number') both++; });
+    if (tw) stormHeader(c, C, B, (narrow ? 'Better in ' : 'Better than the previous data in ') + sc.folds_better + ' of ' + both + ' windows', narrow ? '' : 'error on parent compounds reported after its training data end');
+    else stormHeader(c, C, B, (narrow ? 'Better in ' : 'Better than composition only in ') + sc.folds_better + ' of ' + n + ' folds', narrow ? '' : 'error for held-out chemical-system groups');
     var F = narrow ? { x: B.x, y: B.y + 28, w: B.w, h: Math.min(200, B.h * 0.47) } : { x: B.x, y: B.y + 30, w: Math.round(B.w * 0.5), h: B.h - 30 };
     var G = narrow ? { x: B.x, y: F.y + F.h + 18, w: B.w, h: B.y + B.h - (F.y + F.h + 18) } : { x: F.x + F.w + 36, y: B.y + 30, w: B.w - F.w - 36, h: B.h - 30 };
-    var P = { x: F.x + 30, y: F.y + 8, w: F.w - 34, h: F.h - 8 - 46 };
+    var P = { x: F.x + 30, y: F.y + 8, w: F.w - 34, h: F.h - 8 - (tw ? 60 : 46) };
     var top = 0;
     f.concat(r).forEach(function (v) { top = Math.max(top, v); });
     var tstep = niceStep(top * 1.1 || 1, 3);
@@ -476,16 +625,27 @@
       c.strokeStyle = g ? C.grid : C.axis; c.beginPath(); c.moveTo(P.x, yy); c.lineTo(P.x + P.w, yy); c.stroke();
       label(c, C, fmtTick(g), P.x - 6, yy + 4, { align: 'right', size: 10.5, color: C.muted });
     }
-    var gw = P.w / Math.max(1, n), bw = Math.min(24, gw * 0.3);
+    var gw = P.w / Math.max(1, n), bw = Math.min(24, gw * 0.3), runs = [];
     for (var i = 0; i < n; i++) {
-      var a = stSpan(t, 0.3 + 0.45 * i, 0.9 + 0.45 * i), gx = P.x + gw * (i + 0.5);
-      var hr = (P.y + P.h - Y(r[i])) * a, hf = (P.y + P.h - Y(f[i])) * stSpan(t, 0.6 + 0.45 * i, 1.2 + 0.45 * i);
+      var a = stSpan(t, 0.3 + step * i, 0.9 + step * i), gx = P.x + gw * (i + 0.5);
+      var hr = (P.y + P.h - Y(r[i])) * a, hf = (P.y + P.h - Y(f[i])) * stSpan(t, 0.6 + step * i, 1.2 + step * i);
       c.fillStyle = C.axis; c.fillRect(gx - bw - 1, P.y + P.h - hr, bw, hr);
       c.fillStyle = C.accent; c.fillRect(gx + 1, P.y + P.h - hf, bw, hf);
-      label(c, C, 'fold ' + (i + 1), gx, P.y + P.h + 15, { align: 'center', size: 10.5, color: C.muted });
-      if (t > 1.2 + 0.45 * i && f[i] < r[i]) label(c, C, '✓', gx + 1 + bw / 2, P.y + P.h - hf - 6, { align: 'center', size: 11, weight: '600', color: C.accent });
+      if (tw) {   // a window is named by its family and its years: "cuprate 1991-1995"
+        var m = /^(.*) (\d{4})-(\d{4})$/.exec(String(labels[i] || '')), last = runs[runs.length - 1];
+        if (m) {
+          label(c, C, '’' + m[2].slice(2), gx, P.y + P.h + 14, { align: 'center', size: 9.5, color: C.muted });
+          if (last && last.fam === m[1]) last.x1 = gx; else runs.push({ fam: m[1], x0: gx, x1: gx });
+        }
+      } else label(c, C, 'fold ' + (i + 1), gx, P.y + P.h + 15, { align: 'center', size: 10.5, color: C.muted });
+      if (t > 1.2 + step * i && typeof f[i] === 'number' && typeof r[i] === 'number' && f[i] < r[i]) label(c, C, '✓', gx + 1 + bw / 2, P.y + P.h - hf - 6, { align: 'center', size: 11, weight: '600', color: C.accent });
     }
-    var ky = P.y + P.h + 36, t1 = 'composition only ' + hurK(sc.reference_mae) + ' K', t2 = hurTitle(info) + ' ' + hurK(sc.tc_mae) + ' K';
+    runs.forEach(function (g) {   // the family under its windows
+      c.strokeStyle = hurColor(C, g.fam); c.lineWidth = 2; c.beginPath(); c.moveTo(g.x0 - gw * 0.4, P.y + P.h + 20.5); c.lineTo(g.x1 + gw * 0.4, P.y + P.h + 20.5); c.stroke(); c.lineWidth = 1;
+      var nm = { 'cuprate': 'Cuprates', 'iron-based': 'Fe, Ni', 'heavy-fermion': 'Heavy f.', 'other oxide': 'Oxides' }[g.fam] || g.fam;
+      label(c, C, hurFit(c, C, nm, g.x1 - g.x0 + gw, 10), (g.x0 + g.x1) / 2, P.y + P.h + 33, { align: 'center', size: 10, color: C.ink2 });
+    });
+    var ky = P.y + P.h + (tw ? 50 : 36), t1 = (tw ? 'previous data ' : 'composition only ') + hurK(sc.reference_mae) + ' K', t2 = hurTitle(info) + ' ' + hurK(sc.tc_mae) + ' K';
     stFont(c, C, 11);
     var w1 = c.measureText(t1).width, w2 = c.measureText(t2).width, two = 14 + w1 + 18 + 14 + w2 > F.w;
     c.fillStyle = C.axis; c.fillRect(F.x, ky - 8, 10, 10);
@@ -494,7 +654,7 @@
     c.fillStyle = C.accent; c.fillRect(kx, ky2 - 8, 10, 10);
     label(c, C, t2, kx + 14, ky2 + 1, { size: 11, weight: '600', color: C.accent });
     // by family
-    var fam = sc.by_family || {}, keys = HUR_FAMS.filter(function (k) { return fam[k]; });
+    var fam = sc.by_family || {}, keys = HUR_FAMS.filter(function (k) { return fam[k] && (!tw || typeof fam[k].mae === 'number'); });
     var ga = stSpan(t, 3.0, 3.6);
     if (!keys.length || ga <= 0) return;
     c.globalAlpha = ga;
@@ -525,15 +685,16 @@
 
   /* 4 · leave one family out */
   const drawHurFamily = function drawHurFamily(c, C, B, t, narrow, info) {
-    var lo = list(info.v.lofo);
-    stormHeader(c, C, B, 'Trained without a whole family', narrow ? '' : 'error for the family left out (K)');
+    var lo = list(info.v.lofo), tw = hurTW(info.v);
+    stormHeader(c, C, B, tw ? 'Before a family was found' : 'Trained without a whole family', narrow ? '' : tw ? 'error on the family’s first years (K)' : 'error for the family left out (K)');
     if (!lo.length) return;
     var Rw = narrow ? 0 : Math.min(230, Math.round(B.w * 0.3));
     var L = narrow ? { x: B.x, y: B.y + 30, w: B.w, h: Math.min(268, B.h * 0.62) } : { x: B.x, y: B.y + 30, w: B.w - Rw - 36, h: B.h - 30 - 30 };
     var mx = 0;
     lo.forEach(function (r) { mx = Math.max(mx, r.mae || 0, r.mae_median || 0, r.mae_cv || 0); });
     var rh = Math.min(narrow ? 58 : 70, L.h / lo.length), nameW = narrow ? 0 : Math.min(176, L.w * 0.33), bx = L.x + nameW, bwMax = L.w - nameW - 60;
-    var kinds = [['mae_cv', 'with the family in training', C.accent], ['mae', 'family left out', C.warm], ['mae_median', 'guessing the median of the rest', C.axis]];
+    var kinds = tw ? [['mae', 'trained only on earlier reports', C.warm], ['mae_median', 'guessing the median of the families known then', C.axis]]
+      : [['mae_cv', 'with the family in training', C.accent], ['mae', 'family left out', C.warm], ['mae_median', 'guessing the median of the rest', C.axis]];
     lo.forEach(function (r, i) {
       var a = stSpan(t, 0.3 + 0.5 * i, 0.9 + 0.5 * i);
       if (a <= 0) return;
@@ -542,13 +703,13 @@
       dot(c, L.x + 5, y + 9, 4.5, col);
       label(c, C, narrow ? famLabel(r.family) : hurFit(c, C, famLabel(r.family), nameW - 22, 12, '600'), L.x + 15, y + 13, { size: 12, weight: '600', color: C.ink });
       var by = narrow ? y + 20 : y + 4;
-      if (!narrow) label(c, C, fmtInt(r.n) + ' compounds', L.x + 15, y + 28, { size: 10.5, color: C.muted });
+      if (!narrow) label(c, C, fmtInt(r.n) + ' compounds' + (tw && list(r.years).length === 2 ? ', ' + r.years[0] + '–' + r.years[1] : ''), L.x + 15, y + 28, { size: 10.5, color: C.muted });
       kinds.forEach(function (kd, j) {
-        var g = stSpan(t, 0.6 + 0.5 * i + 0.15 * j, 1.3 + 0.5 * i + 0.15 * j), val = r[kd[0]];
+        var g = stSpan(t, 0.6 + 0.5 * i + 0.15 * j, 1.3 + 0.5 * i + 0.15 * j), val = r[kd[0]], out = kd[0] === 'mae';
         if (typeof val !== 'number') return;
         var w = Math.max(2, bwMax * val / (mx || 1) * g);
         c.fillStyle = kd[2]; c.fillRect(bx, by + j * 12, w, 9);
-        if (g > 0.8) label(c, C, hurK(val) + ' K', bx + w + 6, by + j * 12 + 8, { size: 10.5, weight: j === 1 ? '600' : '400', color: j === 1 ? C.warm : C.ink2 });
+        if (g > 0.8) label(c, C, hurK(val) + ' K', bx + w + 6, by + j * 12 + 8, { size: 10.5, weight: out ? '600' : '400', color: out ? C.warm : C.ink2 });
       });
     });
     c.globalAlpha = 1;
@@ -562,6 +723,23 @@
       lx += w;
     });
     c.globalAlpha = 1;
+    if (tw && !narrow && t > 2.2) {   // round 9 on: what it answered for the superconductors of the family
+      var ay = ly + 32, shares = [['found', 'an even chance or more', C.accent], ['dismissed', 'called unlikely', C.warm], ['unknown', 'not known', C.axis]];
+      c.globalAlpha = stSpan(t, 2.2, 2.8);
+      label(c, C, 'What it answers for the family’s superconductors', L.x, ay, { size: 12, weight: '600', color: C.ink });
+      lo.forEach(function (r, i) {
+        var y3 = ay + 14 + i * 36, x3 = bx, ga = stSpan(t, 2.4 + 0.3 * i, 3.2 + 0.3 * i), txt = [];
+        label(c, C, hurFit(c, C, famLabel(r.family), nameW - 8, 11.5), L.x, y3 + 9, { size: 11.5, color: C.ink2 });
+        shares.forEach(function (sh) {
+          if (typeof r[sh[0]] !== 'number') return;
+          c.fillStyle = sh[2]; c.fillRect(x3, y3, bwMax * r[sh[0]] * ga, 10);
+          x3 += bwMax * r[sh[0]] * ga;
+          txt.push(radPct(r[sh[0]]) + ' ' + sh[1]);
+        });
+        label(c, C, txt.join(' · '), bx, y3 + 24, { size: 10.5, color: C.muted });
+      });
+      c.globalAlpha = 1;
+    }
     // the highest family: what it is, and what a model trained without it predicts
     var hi = lo.slice().sort(function (p, q) { return (q.max_tc || 0) - (p.max_tc || 0); })[0];
     var ca = stSpan(t, 3.6, 4.2);
@@ -569,7 +747,7 @@
     c.globalAlpha = ca;
     var R = narrow ? { x: B.x, y: ly + 18, w: B.w, h: B.y + B.h - (ly + 18) } : { x: B.x + B.w - Rw, y: B.y + 30, w: Rw, h: B.h - 30 };
     if (R.h < 70) { c.globalAlpha = 1; return; }
-    stParaRich(c, C, 'Trained without ' + hurFamText(hi.family), R.x, R.y + 6, R.w, 16, { size: 12, weight: '600', color: C.ink });
+    stParaRich(c, C, tw ? 'Trained on reports up to ' + hi.trained_up_to + ': ' + hurFamText(hi.family) : 'Trained without ' + hurFamText(hi.family), R.x, R.y + 6, R.w, 16, { size: 12, weight: '600', color: C.ink });
     var P = narrow ? { x: R.x + 8, y: R.y + 20, w: R.w - 16, h: R.h - 24 } : { x: R.x + 10, y: R.y + 46, w: R.w - 20, h: R.h - 78 };
     if (narrow) {
       // horizontal: measured range against the highest prediction
@@ -599,7 +777,7 @@
   /* 5 · materials it never trained on, mostly found after its data were collected */
   const drawHurLater = function drawHurLater(c, C, B, t, narrow, info) {
     var an = info.v.anchors || {}, rows = list(an.table);
-    stormHeader(c, C, B, 'Materials it never trained on', narrow ? '' : 'measured and predicted Tc, square-root scale');
+    stormHeader(c, C, B, hurTW(info.v) ? 'Measurements kept apart as a check' : 'Materials it never trained on', narrow ? '' : 'measured and predicted Tc, square-root scale');
     if (!rows.length) return;
     var nameW = narrow ? Math.min(112, B.w * 0.36) : Math.min(240, B.w * 0.3), gradeW = narrow ? 56 : 104;
     var P = { x: B.x + nameW + 10, y: B.y + 34, w: B.w - nameW - 10 - gradeW - 12, h: B.h - 34 - (narrow ? 66 : 48) };
@@ -633,7 +811,7 @@
         if (hasP && g > 0) dot(c, X(r.pred), cy2, 4.5, C.surface, C.accent);
         label(c, C, r.status || 'no Tc', P.x + (hasP && X(r.pred) < P.x + 70 ? 16 + (X(r.pred) - P.x) : 4), cy2 + 4, { size: 11, color: C.warm, weight: '600' });
       }
-      var use = r.unknown === true ? 'unknown' : scored ? 'scored' : r.use === 'exclude' ? 'left out' : 'shown';
+      var use = r.unknown === true ? 'unknown' : r.in_training === true ? 'in its data' : scored ? 'scored' : r.use === 'exclude' ? 'left out' : 'shown';
       stTag(c, C, narrow ? use : use + ' · ' + (r.status === 'single report' ? 'single' : r.status), B.x + B.w, cy2, { align: 'right', size: 10.5, bg: scored ? C.track : C.surface, ring: scored ? null : C.grid, color: scored ? C.ink : C.ink2 });
     });
     c.globalAlpha = 1;

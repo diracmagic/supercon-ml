@@ -10,7 +10,7 @@ const initializeSuperconBaselineDemos = function initializeSuperconBaselineDemos
     { node: 'Data', short: 'Data', title: 'Input: measured Tc' },
     { node: '33 numbers', short: 'Features', title: '33 numbers from the formula' },
     { node: 'Boosted trees', short: 'Trees', title: 'Gradient-boosted trees' },
-    { node: 'Score', short: 'Score', title: 'Against Hurricane in use', titleFn: function () { var hi = hurInfo(); return 'Against ' + (hi ? hurTitle(hi) : 'Hurricane'); } }
+    { node: 'Score', short: 'Score', title: 'Against Hurricane in use', titleFn: function () { var hi = hurFoldInfo(); return 'Against ' + (hi ? hurTitle(hi) : 'Hurricane'); } }
   ];
 
   MODEL_STAGES.radar = [

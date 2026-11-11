@@ -290,6 +290,25 @@
   };
 
 
+  // Hurricane's predictions first, whichever list is open: the compounds on its list with the highest model score, each
+  // with the Tc it predicts if the compound superconducts. Ranked by the score so that a high Tc with almost no chance does not lead.
+  const candHurTop = function candHurTop(sc, rows) {
+    var block = candBlock(sc, 'hurricane'), best = list(rows).filter(function (c) { return candNum(c.p_sc) && candNum(candTcSc(c)); }).map(function (c, i) { return [c, i]; })
+      .sort(function (a, b) { return b[0].p_sc - a[0].p_sc || candTcSc(b[0]) - candTcSc(a[0]) || a[1] - b[1]; }).slice(0, 5).map(function (x) { return x[0]; });
+    if (!block || !best.length) return null;
+    var chips = h('div', { class: 'cand-mcm-chips' });
+    best.forEach(function (c) {
+      chips.appendChild(h('button', { class: 'btn small cand-hur-chip', type: 'button', onclick: function () { candGo('hurricane', candId(c)); } },
+        hurSub(c.formula) + ' · score ' + candPct(c.p_sc) + ' · ' + candK(candTcSc(c)) + ' if it superconducts'));
+    });
+    var now = hurInfo(), older = now && now.hu.current && typeof block.model === 'string' && block.model !== hurTitle(now);
+    return h('div', { class: 'cand-hur-top', role: 'note' },
+      h('p', null, h('b', { text: cText(block.model || 'Hurricane', 40) + '’s predictions for the unconventional families.' }), ' Of the ' + fmtInt(list(rows).length) +
+        ' compounds on its list, the ones it gives the highest model score, each with the Tc it predicts if the compound superconducts. A score is not an experimentally established probability, and none of these is a measurement.' +
+        (older ? ' This list was screened with ' + cText(block.model, 40) + '; ' + hurTitle(now) + ', now in use, has not screened the pool yet.' : '')), chips);
+  };
+
+
   const renderCandidates = function renderCandidates(d) {
     var el = $('#candidates-card');
     if (!el) return;
@@ -304,11 +323,13 @@
     clear(el);
     el.appendChild(h('div', { class: 'card-head' }, h('div', null,
       h('h2', { text: 'Superconductivity candidates from our AI models' }),
-      richText(h('p'), 'These model predictions include matching checks and bounded literature-search records when available. Radar sorts the materials: Storm ranks the ones that look like conventional superconductors, which pair through phonons, and Hurricane the ones that look like the unconventional families. Literature searches and direct validation checks are shown separately.'))));
+      richText(h('p'), 'These model predictions include matching checks and bounded literature-search records when available. Radar sorts the materials: Hurricane ranks the ones that look like the unconventional families (cuprates, iron-based and heavy-fermion compounds and other oxides), and Storm the ones that look like conventional superconductors, which pair through phonons. Literature searches and direct validation checks are shown separately.'))));
+    var top = candHurTop(sc, gotH.rows);
+    if (top) el.appendChild(top);
     var banner = candMcmBanner(sc);
     if (banner) append(el, banner);
     var seg = h('div', { class: 'seg cand-seg', role: 'group', 'aria-label': 'Which list to show' });
-    [['storm', 'Conventional', 'found by Storm', gotS.rows.length], ['hurricane', 'Unconventional', 'found by Hurricane', gotH.rows.length]].forEach(function (k) {
+    [['hurricane', 'Unconventional', 'found by Hurricane', gotH.rows.length], ['storm', 'Conventional', 'found by Storm', gotS.rows.length]].forEach(function (k) {
       seg.appendChild(h('button', { type: 'button', 'aria-pressed': kind === k[0] ? 'true' : 'false', 'data-kind': k[0], onclick: function () { candKind(k[0]); } },
         h('b', { text: k[1] }), h('span', { class: 'cand-seg-sub', text: '· ' + k[2] }), k[3] ? h('span', { class: 'cand-seg-n', text: String(k[3]) }) : null));
     });
@@ -443,8 +464,17 @@
         (hur ? '' : 'Those selected literature records do not establish the same frequencies for untested candidates. ');
     }
     // round 3 on: Hurricane also learned from compounds with no superconductivity record, and was released for fewer false alarms
-    var rel = hur && block && block.reliability, nk = hur && block && block.not_known;
-    if (rel && candNum(rel.dismissed) && candNum(rel.false_alarms)) {   // round 4 on: "not known" far from the training data
+    var rel = hur && block && block.reliability, nk = hur && block && block.not_known, hv9 = hur ? candHurVersion(block) : null;
+    if (rel && hv9 && hurTW(hv9) && candNum(rel.false_alarms)) {   // round 9 on: the NIMS datasheet, checked on time windows
+      var nLik9 = rows.filter(function (c) { return candNum(c.p_sc) && c.p_sc >= 0.5; }).length, cu9 = hurRank(hv9, 'cuprate', 'data'), nr9 = hurRank(hv9, 'cuprate', 'R1');
+      lead += (block.model || 'Hurricane') + ' reads the composition only and provides a score only for compounds near its training data' +
+        (nk && candNum(nk.n) && candNum(nk.of) ? ': ' + fmtInt(nk.n) + ' of the ' + fmtInt(nk.of) + ' compounds Radar sent it lie too far, so it does not judge them and they are not on this list' : '') +
+        '. It learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted as probably not superconducting; of the held-out compounds of that kind it gave ' +
+        (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' a model score of at least 0.5, and the published screening predictions give ' + (nLik9 === 0 ? 'none' : nLik9 === 1 ? 'one' : fmtInt(nLik9)) + ' of the ' + fmtInt(rows.length) + ' on this list such a score. ' +
+        (candNum(cu9) && candNum(nr9) ? 'Asked about cuprate parent compounds first reported after its training data end, it ranks them by Tc with a rank correlation of ' + cu9.toFixed(2) + ', against ' + nr9.toFixed(2) + ' for the Tc of the nearest known compound: its Tc is a rough guide, not a measurement. ' : '') +
+        (candNum(rel.dismissed) ? 'Trained only on reports dated before a family was found, it calls ' + candPct(rel.dismissed) + ' of that family’s first superconductors unlikely' +
+          (candNum(rel.unknown_lofo) && candNum(rel.found) ? ', answers “not known” for ' + candPct(rel.unknown_lofo) + ' and gives ' + candPct(rel.found) + ' a model score of at least 0.5' : '') + ': it would be slow to recognize a new family. ' : '');
+    } else if (rel && candNum(rel.dismissed) && candNum(rel.false_alarms)) {   // round 4 on: "not known" far from the training data
       lead += (block.model || 'Hurricane') + ' provides a score only for compounds near its training data' +
         (nk && candNum(nk.n) && candNum(nk.of) ? ': ' + fmtInt(nk.n) + ' of the ' + fmtInt(nk.of) + ' compounds Radar sent it lie too far, so it does not judge them and they are not on this list' : '') +
         '. It learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted as probably not superconducting. In cross-validation it gave ' +

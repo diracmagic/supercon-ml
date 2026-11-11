@@ -14,7 +14,7 @@ const initializeSuperconCandidates = function initializeSuperconCandidates() {
      negatives and unresolved outcomes remain alongside predictions, with source and sample conditions. */
   CAND_SHOWN = 10;
 
-  CAND_KINDS = ['storm', 'hurricane'];
+  CAND_KINDS = ['hurricane', 'storm'];   // Hurricane's predictions come first, in the lists and in the banners
 
   CAND_TRACKS = [
     ['storm_in_domain', 'In training domain', 'Prioritise candidates near Storm’s training data.'],
@@ -25,7 +25,7 @@ const initializeSuperconCandidates = function initializeSuperconCandidates() {
 
   candidateData = window.SuperconCandidates;
 
-  candState = { all: false, archive: false, sel: { storm: '', hurricane: '' }, key: '', kind: store.get('cand-kind') === 'hurricane' ? 'hurricane' : 'storm',
+  candState = { all: false, archive: false, sel: { storm: '', hurricane: '' }, key: '', kind: store.get('cand-kind') === 'storm' ? 'storm' : 'hurricane',
     track: candidateData.tracks.indexOf(store.get('cand-track')) >= 0 ? store.get('cand-track') : 'storm_in_domain', notesOpen: false };
 
   CHECK_LABEL = { dft: 'DFT check', experiment: 'Measured' };

@@ -62,6 +62,16 @@
     if (!hi) return { id: 'hurricane', name: 'Hurricane', status: 'Up next', role: role,
       text: 'No first-principles theory gives their Tc, so Hurricane will learn from measured Tc in the literature. Every measurement is graded as replicated, single report, preprint, retracted or refuted: unconfirmed claims count less and retracted ones not at all. Our AI agent will design it the same way as Storm.' };
     var sc = hi.v.scores || {}, dd = hi.data || {}, inUse = !!hi.hu.current;
+    if (hurTW(hi.v)) {   // round 9 on: the NIMS datasheet, checked on time windows
+      var rl9 = hurRel(hi.v) || {}, near = (((hi.v.temporal.families.cuprate || {}).difference || {})['data-R1'] || {}).met === true;
+      return { id: 'hurricane', name: 'Hurricane', on: inUse, live: true, status: inUse ? hurTitle(hi) + ' in use' : hurTitle(hi) + ' experimental', role: role,
+        text: 'Learns from ' + fmtInt(dd.n) + ' measured compositions in the NIMS SuperCon datasheet, ' + fmtInt(dd.n_negative) + ' of them measured not to superconduct, and reads the composition only. ' +
+          'Asked about cuprate parent compounds first reported in the five years after its training data end, it ranks them by Tc with a rank correlation of ' + hurR2(hurRank(hi.v, 'cuprate', 'data')) +
+          ', against ' + hurR2(hurRank(hi.v, 'cuprate', 'previous')) + ' for the same recipe on the previous model’s data and ' + hurR2(hurRank(hi.v, 'cuprate', 'R1')) + ' for the Tc of the nearest known compound, which it ' +
+          (near ? 'beats' : 'does not clearly beat') + '. It gives a chance only to compounds near its training data and answers “not known” further away: of the held-out compounds with no superconductivity record that Radar sends it, it answers “not known” for ' +
+          radPct(rl9.unknown_sent) + ' and gives ' + (rl9.false_alarms === 0 ? 'none' : radPct(rl9.false_alarms)) + ' at least an even chance. Sources and implementation differences are listed under Cite.',
+        act: ['See how Hurricane works', function () { setView('demos'); selectDemo('hurricane'); window.scrollTo(0, 0); }] };
+    }
     return { id: 'hurricane', name: 'Hurricane', on: inUse, live: true, status: inUse ? hurTitle(hi) + ' in use' : hurTitle(hi) + ' experimental', role: role,
       text: 'Learns from ' + fmtInt(dd.n) + ' catalogued Tc values (SuperCon with Materials Project structures, via 3DSC), including zero labels whose measurement limits are not established here. For held-out chemical-system groups it is off by ' +
         hurK(sc.tc_mae) + ' K on average, against ' + (hi.v.previous && typeof hi.v.previous.tc_mae === 'number' ? hurK(hi.v.previous.tc_mae) + ' K for Hurricane ' + hi.v.previous.version + ' and ' : '') +

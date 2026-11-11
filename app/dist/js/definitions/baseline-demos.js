@@ -17,7 +17,7 @@
   };
 
   const modelCaption = function modelCaption(variant, si) {
-    var st = MODEL_STAGES[variant][si], hi = hurInfo(), ri = radInfo();
+    var st = MODEL_STAGES[variant][si], hi = hurFoldInfo(), ri = radInfo(), now = hurInfo();
     if (variant === 'baseline' || variant === 'foundation') {
       var sl = si === MODEL_STAGES[variant].length - 1 ? baseStormLine(variant) : '';
       return st.text + (sl ? ' ' + sl + '.' : '');
@@ -31,7 +31,8 @@
         case 1: return 'The baseline describes each compound by 33 numbers from its formula alone: the number of elements, and the mean, spread, minimum and maximum of eight element properties (atomic number, mass, electronegativity, row, group, radius, Mendeleev number, valence). No crystal structure and no physics features.';
         case 2: return 'Histogram gradient boosting adds up to 800 small decision trees (learning rate 0.04, at most 31 leaves per tree). Learning log(1 + Tc) compresses the largest temperatures and gives more weight to relative differences at low Tc. Catalogued zero values remain zero training targets; their measurement limits are not supplied here.';
         default: return 'Five-fold cross-validation grouped by the Materials Project chemical-system label, so matching system groups stay in one fold. The baseline is off by ' + baseK1(sc.reference_mae) + ' K on average, ' + hurTitle(hi) + ', our AI-designed model, by ' + baseK1(sc.tc_mae) + ' K, better in ' + sc.folds_better + ' of ' + list(sc.folds).length + ' folds' +
-          (cu ? '. Cuprates are hardest: ' + baseK1(cu.mae_ref) + ' K for the baseline, ' + baseK1(cu.mae) + ' K for ' + hurTitle(hi) : '') + '.';
+          (cu ? '. Cuprates are hardest: ' + baseK1(cu.mae_ref) + ' K for the baseline, ' + baseK1(cu.mae) + ' K for ' + hurTitle(hi) : '') + '.' +
+          (now && now.v !== hi.v ? ' ' + hurTitle(now) + ', now in use, learns from other data and is checked on parent compounds reported after its training data end; its own demo shows how.' : '');
       }
     }
     if (!ri) return 'Radar’s baseline loads with the live progress data.';
@@ -49,7 +50,7 @@
 
   /* 0 · the data: families (Hurricane) or classes (Radar) */
   const drawBaseData = function drawBaseData(c, C, D, t, narrow, variant) {
-    var rows = [], hi = hurInfo(), ri = radInfo(), vmax = 1, i;
+    var rows = [], hi = hurFoldInfo(), ri = radInfo(), vmax = 1, i;
     if (variant === 'hurricane' && hi) {
       hurFamilies(hi).forEach(function (f) { rows.push({ label: HUR_FAM_SHORT[f.id] || f.label, n: f.n, sc: f.n_sc, note: 'up to ' + Math.round(f.max_tc) + ' K', col: hurColor(C, f.id) }); });
     } else if (variant === 'radar' && ri) {
@@ -132,7 +133,7 @@
 
   /* 3 · fold by fold against the model in use */
   const drawBaseScore = function drawBaseScore(c, C, D, t, narrow, variant) {
-    var hi = hurInfo(), ri = radInfo(), f, r, unit, name, refMean, mean, fmt, extra = [];
+    var hi = hurFoldInfo(), ri = radInfo(), f, r, unit, name, refMean, mean, fmt, extra = [];
     if (variant === 'hurricane' && hi) {
       var sc = hi.v.scores; f = list(sc.folds); r = list(sc.reference_folds); refMean = sc.reference_mae; mean = sc.tc_mae; name = hurTitle(hi); unit = ' K'; fmt = baseK1;
       var bf = sc.by_family || {};
