@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-05",
+      "purpose": "Only remove the News & Papers rotating headline strip and change APP automatic feed checks from ten minutes to two hours. Remove its DOM node so its existing guarded ticker renderer starts no headline interval; retain all article lists, filters, thumbnails, manual Refresh and timer start/stop/visibility guards. Use the same two-hour constant for the interval and reentry cache age, and update the visible check-frequency text. Leave shared CSS, the backend three-hour collection schedule, feed records, all other APP content and scientific models unchanged. Web/phone only; no version bump.",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "private source and bundle exclusion",
+        "public feed provenance and deduplication",
+        "reduced motion and timer lifecycle",
+        "candidate predictions and five-fold probability ranges",
+        "fixed callback error messages without reflecting provider text or secrets",
+        "fixed Firebase project and Worker route allowlists",
+        "server-verified membership and owner-only team administration",
+        "no password, identity token, session token or private memo in browser storage",
+        "email action URL stripping and no-referrer policy",
+        "manual private-note animation with reduced motion and cleanup",
+        "fixed authenticated board routes and bounded integer pagination",
+        "actor-bound private request lifecycle, absolute session expiry and logout cleanup",
+        "only opaque actor hashes and numeric last-seen cursors may persist for unread state",
+        "Notes update dates come only from explicit per-entry update metadata",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "native fixed-repository installer selection and SHA-256 verification",
+        "explicit installation confirmation and no browser download fallback",
+        "bounded allowlisted sign-in retry diagnostics without reflecting provider text",
+        "private team content excluded from public method sources",
+        "same original miniature animations and reduced-motion lifecycle",
+        "the 40 K benchmark and its worth-an-experiment criteria are unchanged by the lower testable tier",
+        "news thumbnail badges come only from the article's own text after the negation and history checks; colour and framing variants carry no meaning",
+        "news thumbnail subjects come only from what the article names; a second drawing shows the same subject and a repeat never replaces an article's own subject with an unrelated one",
+        "every Tc, year, family and pressure flag on the chart is reported as the cited paper states it, and every added entry carries a Crossref-checked DOI",
+        "the new structure animations are labelled schematics with alt text naming what is not shown: no measured coordinates, measured vibration or pairing mechanism is claimed",
+        "the year sweep honours reduced motion, pauses while the page is hidden and cancels its frame loop when the view is left or the chart is rebuilt",
+        "a material's own panel shows only its own structure: no other material's lattice appears in it",
+        "the UTe2 drawing uses only U-U distances its cited sources report, changes nothing but the viewing angle, marks the indicative Te(1) positions as such and depicts no pairing symmetry",
+        "the twinkling names are decorative repeats of what the table, the tooltip and the detail panel already say, so they are hidden from assistive technology and the chart keeps its own description",
+        "a name is never shown for a material the year sweep has not reached yet",
+        "the five permanent names and the twinkling ones alike are decorative repeats of what the table, the tooltip and the detail panel already say, so they stay hidden from assistive technology and the chart keeps its own description",
+        "a dot's halo is shown only while that same dot's own name is shown, and both are suppressed until the year sweep reaches the material",
+        "each material's background text describes only what its cited sources and its own note support, names no Tc or pressure the entry does not already carry, and marks a preprint claim as a claim",
+        "every drawing's caption names what that drawing actually is, and a drawing is called a structure only when it is one",
+        "the dashed rise above the ambient-pressure record is named in the legend and drawn only when its own material is on the chart",
+        "each material background is consistent with the families and values this chart itself plots and passes no judgement on a recent sample",
+        "only a name that is readable at that moment can be chosen, so the chart has no invisible hit targets",
+        "choosing a name opens the material that name belongs to, never the nearest dot to it"
+      ],
+      "previous_css_sha256": "f20c189b8c4de62630f061050efb02e2e43a19c0fced85b3848eb29182a8d73d",
+      "functions_added": [],
+      "functions_removed": [],
+      "previous_removed_functions": [],
+      "functions_changed": [
+        "buildAI",
+        "loadPapers",
+        "renderAIList"
+      ],
+      "initializers_changed": [
+        {
+          "file": "js/initialize/ai-view.js",
+          "before_ast_sha256": "93da63578b08d245a6e03ab1d885c042c8bd98873c62900369f9ce36a120a7d4",
+          "after_ast_sha256": "89b97055f2f1f031fc0be497ebb4ffcce3d5d70be9b7005e67f6c854f7b65d82"
+        }
+      ],
+      "previous_function_changes": {
+        "buildAI": "fc6fb62bb27ab1c97d373354d8836f54a7953ecc5df9fd8e7537ab48a394b3c2",
+        "loadPapers": "2a9c0019c267bbaa5225d0901df24cddc8c0d4160f4f0b2d6a9debba04a2ca27",
+        "renderAIList": "ee69cea0d42f55f8fc9739a2ca81e99bca5b36d6027d4c8b047a2c01ad27c169"
+      },
+      "previous_initialization_changes": {
+        "134": "429484f87b2e2cd35b8bd89b582198ad75a7b15325dbf230b37f5915dc699ab2"
+      }
+    }
+  ]
+}

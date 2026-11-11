@@ -12,16 +12,28 @@ function infoFor(data) {
   return context.info;
 }
 
-test('the active Hurricane animation uses H4 entry counts and family sizes', () => {
-  const info = infoFor(structuredClone(progress));
+// Hurricane 4.0 stays in the version list after a later release; these tests read its own entry by naming it.
+function withH4(data) { data.hurricane.current = '4.0'; return data; }
+
+test('the Hurricane 4.0 animation uses H4 entry counts and family sizes', () => {
+  const info = infoFor(withH4(structuredClone(progress)));
   assert.equal(info.v.version, '4.0');
   assert.equal(info.data.n, 2123);
   assert.equal(info.data.n_sc, 1395);
   assert.equal(info.data.families.cuprate.n, 874);
 });
 
+test('the active Hurricane animation uses the entry of the version in use', () => {
+  const info = infoFor(structuredClone(progress));
+  const entry = progress.hurricane.versions.find(v => v.version === progress.hurricane.current);
+  assert.equal(info.v.version, progress.hurricane.current);
+  assert.equal(info.v.status, 'adopted');
+  assert.deepEqual(info.data, entry.data);
+  assert.equal(Object.values(info.data.families).reduce((sum, row) => sum + row.n, 0), info.data.n);
+});
+
 test('version-bound cohort wins over stale global metadata and switches with the version', () => {
-  const data = structuredClone(progress);
+  const data = withH4(structuredClone(progress));
   const h5 = data.hurricane.versions.find(v => v.version === '5.0');
   data.hurricane.data = h5.data;
   assert.equal(infoFor(data).data.n, 2123);
@@ -36,7 +48,7 @@ test('version-bound cohort wins over stale global metadata and switches with the
 test('older progress payloads without per-version metadata remain readable', () => {
   const data = structuredClone(progress);
   data.hurricane.versions.forEach(v => delete v.data);
-  assert.equal(infoFor(data).data.n, 2123);
+  assert.equal(infoFor(data).data.n, progress.hurricane.data.n);
 });
 
 function numericalExamples(info) {
@@ -46,7 +58,7 @@ function numericalExamples(info) {
 }
 
 test('the numerical Hurricane demonstration excludes actual H4 abstentions', () => {
-  const info = infoFor(structuredClone(progress));
+  const info = infoFor(withH4(structuredClone(progress)));
   const ute = info.v.anchors.table.find(row => row.name === 'UTe2');
   assert.equal(ute.unknown, true);
   assert.equal(typeof ute.p_sc, 'number', 'A saved internal score must not override abstention');
