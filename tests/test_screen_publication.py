@@ -1,5 +1,6 @@
 """The shipped payload must use the audited screen, not a browser-only fixture."""
 import copy
+import csv
 import hashlib
 import json
 from pathlib import Path
@@ -20,10 +21,27 @@ class ScreeningPublicationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.payload = json.loads((ROOT / 'progress/progress.json').read_text(encoding='utf-8'))
-        cls.screen = cls.payload['screen']
+        cls.deployed = cls.payload['screen']
         cls.report = json.loads((ROOT / 'results/validation/screening-app-publication.json').read_text(encoding='utf-8'))
         cls.audit = json.loads((ROOT / 'results/validation/screening-ci61.json').read_text(encoding='utf-8'))
         cls.literature, _ = load_audit()
+        # Screening round 6 replaces Hurricane's list (screened by Hurricane 4.0) with the list of the version in use.
+        # Its record, written before that run, names the two fields of the screen block the run may replace and keeps
+        # the audited list. Before the run the deployed screen is the audited one; after it, putting the two recorded
+        # values back must give the audited screen, so every check of the round-5 audit below still runs on the
+        # payload that audit saw, and Storm's list is bound to it hash for hash.
+        cls.round6 = json.loads((ROOT / 'results/validation/hurricane9-screen-publication.json').read_text(encoding='utf-8'))
+        cls.rescreened = cls.deployed['hurricane']['model'] != 'Hurricane 4.0'
+        cls.screen = copy.deepcopy(cls.deployed)
+        for row in cls.round6['replaced_in_screen']:
+            key = row['pointer'].strip('/')
+            before = json.loads((ROOT / row['before_file']).read_text(encoding='utf-8')) if 'before_file' in row else copy.deepcopy(row['before'])
+            if 'before_file' in row:
+                assert digest(before) == row['before_canonical_sha256'], 'the archived list is not the audited one'
+            if cls.rescreened:
+                cls.screen[key] = before
+            else:
+                assert cls.screen[key] == before, f'{key} differs from the record written before screening round 6'
 
     def test_screen_publication_does_not_release_a_new_model_or_rewrite_history(self):
         rest = copy.deepcopy({k:v for k,v in self.payload.items() if k != 'screen'})
@@ -39,17 +57,26 @@ class ScreeningPublicationTests(unittest.TestCase):
             parts, parent = pointer.strip('/').split('/'), rest
             for key in parts[:-1]: parent = parent[int(key)] if isinstance(parent, list) else parent[key]
             return parent, parts[-1]
-        for row in release['replaced']:
-            parent, key = locate(row['pointer'])
-            if released: parent[key] = copy.deepcopy(row['before'])
-            else: self.assertEqual(parent[key], row['before'])
-        for row in release['appended']:
-            parent, key = locate(row['pointer'])
-            where = row['where']
-            kept = [item for item in parent[key] if not (item.get('round') == where['round'] if 'round' in where
-                                                         else str(item.get('event', '')).startswith(where['event_prefix']))]
-            self.assertEqual(len(parent[key]) - len(kept), 1 if released else 0)
-            parent[key] = kept
+        def restore(rows, done):
+            for row in rows:
+                parent, key = locate(row['pointer'])
+                key = int(key) if isinstance(parent, list) else key
+                if done: parent[key] = copy.deepcopy(row['before'])
+                else: self.assertEqual(parent[key], row['before'])
+        def take_out(rows, done):
+            for row in rows:
+                parent, key = locate(row['pointer'])
+                where = row['where']
+                kept = [item for item in parent[key] if not (item.get('round') == where['round'] if 'round' in where
+                                                             else str(item.get('event', '')).startswith(where['event_prefix']))]
+                self.assertEqual(len(parent[key]) - len(kept), 1 if done else 0)
+                parent[key] = kept
+        # Screening round 6 comes after the release and is undone first: one line of the screen stage and one log entry.
+        self.assertTrue(released or not self.rescreened)
+        restore(self.round6['replaced_outside_screen'], self.rescreened)
+        take_out(self.round6['appended'], self.rescreened)
+        restore(release['replaced'], released)
+        take_out(release['appended'], released)
         if released:
             self.assertEqual(self.payload['hurricane']['current'], release['release']['version'])
             entry = next(v for v in self.payload['hurricane']['versions'] if v['round'] == release['release']['round'])
@@ -87,6 +114,7 @@ class ScreeningPublicationTests(unittest.TestCase):
         self.assertEqual({k:len(v) for k,v in self.screen['tracks'].items()},
                          {'storm_in_domain':50,'storm_exploration':50,'borides':2,'carbides':0})
         self.assertEqual(set().union(*(set(v) for v in self.screen['tracks'].values())), {c['id'] for c in storm})
+        self.assertEqual(self.deployed['candidates'], storm)      # Storm's deployed list is the audited one in either state
 
     def test_five_fold_probabilities_are_the_audited_values_not_old_scores(self):
         audit = self.audit['hurricane']
@@ -105,16 +133,20 @@ class ScreeningPublicationTests(unittest.TestCase):
         self.assertNotIn(yb['p_sc'], (0.61, 0.165, 0.03))
 
     def test_ce_literature_corrections_replace_old_false_negative_in_raw_payload(self):
-        rows = {c['id']:c for c in self.screen['hurricane']['candidates']}
-        for candidate_id in ('JVASP-165558', 'JVASP-165420'):
-            check = rows[candidate_id]['check']
-            self.assertEqual(check, self.literature[candidate_id]['check_correction']['check'])
-            self.assertIsNone(check['superconducts'])
-            self.assertNotIn('below', check)
-            self.assertIn('unknown', check['note'].lower())
+        for screen in (self.screen, self.deployed):          # the audited list, and the deployed one where it lists them
+            rows = {c['id']:c for c in screen['hurricane']['candidates']}
+            for candidate_id in ('JVASP-165558', 'JVASP-165420'):
+                if screen is self.deployed and candidate_id not in rows:
+                    continue
+                check = rows[candidate_id]['check']
+                self.assertEqual(check, self.literature[candidate_id]['check_correction']['check'])
+                self.assertIsNone(check['superconducts'])
+                self.assertNotIn('below', check)
+                self.assertIn('unknown', check['note'].lower())
 
     def test_numeric_predictions_ranks_and_phonons_remain_bound_to_reviewed_screen(self):
         self.assertEqual(digest(self.screen), self.report['deployed_screen_canonical_sha256'])
+        self.assertEqual(self.round6['audited_screen_canonical_sha256'], self.report['deployed_screen_canonical_sha256'])
         scientific = copy.deepcopy(self.screen)
         paths = []
         def walk(value):
@@ -138,6 +170,49 @@ class ScreeningPublicationTests(unittest.TestCase):
         self.assertEqual([p['verdict'] for p in phonons['materials']],
                          ['imaginary_modes_sampled','imaginary_modes_sampled','no_significant_imaginary_modes_sampled'])
         self.assertIn('or superconductivity test', phonons['scope'])
+
+    def test_screening_round_6_replaces_hurricanes_list_only_and_binds_it_to_the_release_run(self):
+        import hurricane9_release as R
+        import hurricane9_screen as S
+        record = self.round6['screening']
+        self.assertEqual((record['protocol'], record['protocol_sha256'], record['round']), (S.PROTOCOL['name'], S.protocol_sha256(), S.ROUND))
+        self.assertIn(S.protocol_sha256(), (ROOT / record['declaration']).read_text(encoding='utf-8'))
+        self.assertEqual([row['pointer'] for row in self.round6['replaced_in_screen']], ['/models', '/hurricane'])
+        self.assertEqual({k: v for k, v in self.deployed.items() if k not in ('models', 'hurricane')},
+                         {k: v for k, v in self.screen.items() if k not in ('models', 'hurricane')})
+        result = ROOT / f'results/screen_round{S.ROUND}.json'
+        if not self.rescreened:
+            self.assertEqual(self.deployed, self.screen)
+            return
+        block = self.deployed['hurricane']
+        self.assertEqual(self.payload['hurricane']['current'], R.MODEL_VERSION)
+        self.assertEqual((block['model'], block['round']), (f"Hurricane {R.MODEL_VERSION}", S.ROUND))
+        self.assertEqual(self.deployed['models'], ['Radar 1.0', 'Storm 5.0', block['model']])
+        out = json.loads(result.read_text(encoding='utf-8'))
+        self.assertEqual((out['round'], out['smoke'], out['protocol']['sha256'], out['hurricane']), (S.ROUND, False, S.protocol_sha256(), block))
+        self.assertEqual(out['protocol']['release_protocol_sha256'], R.protocol_sha256())
+        with open(ROOT / 'results' / S.BACKGROUND, newline='', encoding='utf-8') as fh:
+            released = {r['jid']: r for r in csv.DictReader(fh)}
+        with open(ROOT / f'results/screen_round{S.ROUND}_hurricane.csv', newline='', encoding='utf-8') as fh:
+            table = {r['jid']: r for r in csv.DictReader(fh)}
+        self.assertEqual(set(table), {k for k, r in released.items() if r['sent'] == 'True'})
+        self.assertEqual(block['pool']['n_sent'], len(table))
+        self.assertEqual(block['pool']['n_screened'], len(released))
+        self.assertEqual(block['not_known']['n'], sum(r['not_known'] == 'True' for r in table.values()))
+        cands = block['candidates']
+        self.assertEqual([c['rank'] for c in cands], list(range(1, len(cands) + 1)))
+        self.assertLessEqual(len(cands), S.TOP_N)
+        self.assertEqual(len({table[c['id']]['chemsys'] for c in cands}), len(cands))
+        self.assertEqual(len(cands), min(S.TOP_N, len({r['chemsys'] for r in table.values() if r['not_known'] == 'False'})))
+        for c in cands:
+            # every published chance is the cross-fitted chance the release run committed for that compound
+            self.assertEqual((released[c['id']]['sent'], released[c['id']]['not_known']), ('True', 'False'))
+            self.assertAlmostEqual(c['p_sc'], float(released[c['id']]['p_sc']), delta=6e-4)
+            self.assertAlmostEqual(c['p_sc'], float(table[c['id']]['p_sc']), delta=6e-4)
+            self.assertLessEqual(c['novelty'], 1.0)
+            self.assertTrue(0 <= c['p_sc'] <= 1 and c['lo'] <= c['tc_sc'] <= c['hi'])
+            self.assertNotIn('p_lo', c)
+        self.assertEqual({c['id'] for c in self.deployed['candidates']} - set(self.literature), set())
 
 
 if __name__ == '__main__':

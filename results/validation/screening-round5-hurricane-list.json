@@ -1,0 +1,5676 @@
+{
+      "model": "Hurricane 4.0",
+      "design": "H20",
+      "two_part": "mean",
+      "pool": {
+        "source": "JARVIS-DFT",
+        "what": "compounds with no superconductivity record that Radar sends to Hurricane",
+        "n_screened": 1714,
+        "n_sent": 354,
+        "rule": "within 50 meV/atom of the convex hull, a band gap of at most 1 eV, magnetic or not, 2 to 5 elements, up to 40 atoms in the cell, elements Hurricane's training data covers; the list holds the 354 that Radar sends to Hurricane, one per chemical system, except the 279 too far from Hurricane's training data for it to give a chance"
+      },
+      "excluded": {
+        "supercon": 67,
+        "computed": 140,
+        "prior": 0,
+        "system": 124,
+        "total": 331
+      },
+      "range": {
+        "level": 0.9,
+        "design": "U2",
+        "width_log": 1.1404,
+        "oof_coverage": 0.901,
+        "of": "the Tc if it superconducts"
+      },
+      "check": {
+        "n": 1984,
+        "n_sc": 1293,
+        "share_sc": 0.652,
+        "n_likely": 1205,
+        "share_sc_likely": 0.818,
+        "share_sc_unlikely": 0.394,
+        "about": "out of fold on the 3DSC entries: of the compounds Hurricane gave at least an even chance, the share that superconduct, against the share among the others; 139 of the 2,123 entries lie outside the training part of their fold and get no chance"
+      },
+      "novelty": {
+        "level": 0.95,
+        "outside": 0,
+        "about": "each candidate's distance, in its model's standardized inputs, to the nearest material the model learned from; beyond the distance that separates 95% of the training materials from their nearest neighbour in another chemical system or parent compound, it lies outside the training data"
+      },
+      "caveat": "Hurricane learned measured Tc from cuprates, iron-based, heavy-fermion compounds and other oxides; it gives the chance that a compound superconducts and its Tc if it does. Many of these compounds would need doping or pressure, and a candidate is a prediction until an experiment checks it",
+      "candidates": [
+        {
+          "rank": 1,
+          "formula": "YbIn5Rh",
+          "id": "JVASP-16400",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-16400.html",
+          "spg": "P4/mmm (123)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 1.64,
+          "tc_sc": 4.35,
+          "lo": 0.71,
+          "hi": 15.73,
+          "p_sc": 0.35,
+          "p_lo": 0.076,
+          "p_hi": 0.487,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "types": [
+            "115_heavy_fermion"
+          ],
+          "novelty": 0.5,
+          "nearest": {
+            "formula": "Ce0.225Co1In5Yb0.775",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 2,
+            "file": "screen_round2.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.6693,
+                -0.0,
+                -0.0
+              ],
+              [
+                -0.0,
+                4.6693,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                7.5184
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "Rh"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.5,
+                0.0,
+                0.29907
+              ],
+              [
+                0.0,
+                0.5,
+                0.29907
+              ],
+              [
+                0.5,
+                0.0,
+                0.70093
+              ],
+              [
+                0.0,
+                0.5,
+                0.70093
+              ],
+              [
+                0.0,
+                0.0,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble",
+          "check": {
+            "kind": "experiment",
+            "superconducts": false,
+            "note": "The authors describe the YbRhIn5 spacer as a normal metal in this thin-film stack. No standalone YbRhIn5 transition-temperature limit is assigned here. The passage does not specify an applied pressure. This observation does not exclude superconductivity in other crystal phases, doped compositions or pressure conditions, and is not a direct validation of the JARVIS structure.",
+            "doi": "10.1038/s41467-024-47875-4",
+            "cite": "T. Asaba et al., Nat. Commun. 15, 3861 (2024)"
+          }
+        },
+        {
+          "rank": 2,
+          "formula": "Tl3O",
+          "id": "JVASP-185426",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-185426.html",
+          "spg": "Cm (8)",
+          "ehull": 0.015,
+          "icsd": false,
+          "tc": 1.06,
+          "tc_sc": 3.3,
+          "lo": 0.37,
+          "hi": 12.44,
+          "p_sc": 0.319,
+          "p_lo": 0.097,
+          "p_hi": 0.508,
+          "p_unconventional": 0.999,
+          "family": "other oxide",
+          "gap": 0.0,
+          "novelty": 0.99,
+          "nearest": {
+            "formula": "Tl2O3",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                -4.0746,
+                3.0697,
+                3.2968
+              ],
+              [
+                3.0697,
+                -4.0746,
+                3.2968
+              ],
+              [
+                2.8166,
+                2.8166,
+                -4.2368
+              ]
+            ],
+            "elements": [
+              "Tl",
+              "Tl",
+              "Tl",
+              "O"
+            ],
+            "frac": [
+              [
+                0.79444,
+                0.4615,
+                0.66232
+              ],
+              [
+                0.4615,
+                0.79444,
+                0.66232
+              ],
+              [
+                0.12357,
+                0.12357,
+                0.62975
+              ],
+              [
+                0.13049,
+                0.13049,
+                0.0556
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 3,
+          "formula": "YbIn5Co",
+          "id": "JVASP-17895",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17895.html",
+          "spg": "P4/mmm (123)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.44,
+          "tc_sc": 2.59,
+          "lo": 0.15,
+          "hi": 10.24,
+          "p_sc": 0.195,
+          "p_lo": 0.037,
+          "p_hi": 0.531,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "types": [
+            "115_heavy_fermion"
+          ],
+          "novelty": 0.19,
+          "nearest": {
+            "formula": "Ce0.225Co1In5Yb0.775",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.5808,
+                0.0,
+                -0.0
+              ],
+              [
+                0.0,
+                4.5808,
+                -0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                7.5413
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "Co"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.5,
+                0.0,
+                0.69466
+              ],
+              [
+                0.0,
+                0.5,
+                0.30534
+              ],
+              [
+                0.5,
+                0.0,
+                0.30534
+              ],
+              [
+                0.0,
+                0.5,
+                0.69466
+              ],
+              [
+                0.0,
+                0.0,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble",
+          "check": {
+            "kind": "experiment",
+            "superconducts": false,
+            "below": 0.02,
+            "note": "The introduction cites prior work reporting no transition to 0.020 K. This is not a new temperature limit for every strained film. Applied pressure is unspecified in the passage; the statement does not exclude superconductivity in other phases, doping or pressure conditions.",
+            "doi": "10.1103/PhysRevB.86.144526",
+            "cite": "M. Shimozawa et al., Phys. Rev. B 86, 144526 (2012)"
+          }
+        },
+        {
+          "rank": 4,
+          "formula": "SrZnO",
+          "id": "JVASP-183451",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-183451.html",
+          "spg": "P-6m2 (187)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.35,
+          "tc_sc": 3.24,
+          "lo": 0.36,
+          "hi": 12.26,
+          "p_sc": 0.108,
+          "p_lo": 0.014,
+          "p_hi": 0.288,
+          "p_unconventional": 1.0,
+          "family": "other oxide",
+          "gap": 0.9,
+          "novelty": 0.89,
+          "nearest": {
+            "formula": "Cu2S2Sr2Zn1O2",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 2,
+            "file": "screen_round2.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.6393,
+                0.0,
+                -0.0
+              ],
+              [
+                -2.3197,
+                4.0178,
+                -0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                3.3716
+              ]
+            ],
+            "elements": [
+              "Sr",
+              "Zn",
+              "O"
+            ],
+            "frac": [
+              [
+                0.33333,
+                0.66667,
+                0.5
+              ],
+              [
+                0.66667,
+                0.33333,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 5,
+          "formula": "Yb2BiPb",
+          "id": "JVASP-157048",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-157048.html",
+          "spg": "Fm-3m (225)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.35,
+          "tc_sc": 1.24,
+          "lo": 0.0,
+          "hi": 6.01,
+          "p_sc": 0.254,
+          "p_lo": 0.091,
+          "p_hi": 0.479,
+          "p_unconventional": 0.992,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.83,
+          "nearest": {
+            "formula": "Pb3Yb1",
+            "tc": 0.23
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                -0.0,
+                3.8947,
+                3.8947
+              ],
+              [
+                3.8947,
+                0.0,
+                3.8947
+              ],
+              [
+                3.8947,
+                3.8947,
+                -0.0
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Bi",
+              "Pb"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ],
+              [
+                0.25,
+                0.25,
+                0.25
+              ],
+              [
+                0.75,
+                0.75,
+                0.75
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 6,
+          "formula": "Yb3Ce",
+          "id": "JVASP-128322",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-128322.html",
+          "spg": "Pm-3m (221)",
+          "ehull": 0.005,
+          "icsd": false,
+          "tc": 0.34,
+          "tc_sc": 1.51,
+          "lo": 0.0,
+          "hi": 6.85,
+          "p_sc": 0.233,
+          "p_lo": 0.032,
+          "p_hi": 0.467,
+          "p_unconventional": 0.997,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.85,
+          "nearest": {
+            "formula": "Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                5.239,
+                -0.0,
+                0.0
+              ],
+              [
+                0.0,
+                5.239,
+                0.0
+              ],
+              [
+                -0.0,
+                -0.0,
+                5.239
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Yb",
+              "Ce"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.5,
+                0.5
+              ],
+              [
+                0.5,
+                0.0,
+                0.5
+              ],
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 7,
+          "formula": "CaClO",
+          "id": "JVASP-93832",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-93832.html",
+          "spg": "P6_3mc (186)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.29,
+          "tc_sc": 1.99,
+          "lo": 0.0,
+          "hi": 8.34,
+          "p_sc": 0.141,
+          "p_lo": 0.007,
+          "p_hi": 0.277,
+          "p_unconventional": 1.0,
+          "family": "other oxide",
+          "gap": 0.54,
+          "magnetic": true,
+          "novelty": 0.66,
+          "nearest": {
+            "formula": "Ca2Cl2Cu1O2",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                -1.9686,
+                -3.4096,
+                0.0
+              ],
+              [
+                -1.9686,
+                3.4096,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                -9.1916
+              ]
+            ],
+            "elements": [
+              "Ca",
+              "Ca",
+              "Cl",
+              "Cl",
+              "O",
+              "O"
+            ],
+            "frac": [
+              [
+                0.33333,
+                0.66667,
+                0.81224
+              ],
+              [
+                0.66667,
+                0.33333,
+                0.31224
+              ],
+              [
+                0.33332,
+                0.66668,
+                0.50619
+              ],
+              [
+                0.66668,
+                0.33332,
+                0.00619
+              ],
+              [
+                1e-05,
+                0.99999,
+                0.26457
+              ],
+              [
+                0.99999,
+                1e-05,
+                0.76457
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 8,
+          "formula": "Yb2In8Ir",
+          "id": "JVASP-151620",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-151620.html",
+          "spg": "P4/mmm (123)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.24,
+          "tc_sc": 2.34,
+          "lo": 0.07,
+          "hi": 9.45,
+          "p_sc": 0.099,
+          "p_lo": 0.073,
+          "p_hi": 0.149,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.59,
+          "nearest": {
+            "formula": "In3Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.6811,
+                -0.0,
+                -0.0
+              ],
+              [
+                -0.0,
+                4.6811,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0,
+                12.1788
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "Ir"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.80633
+              ],
+              [
+                0.0,
+                0.0,
+                0.19367
+              ],
+              [
+                0.5,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.5,
+                0.0
+              ],
+              [
+                0.5,
+                0.0,
+                0.62432
+              ],
+              [
+                0.0,
+                0.5,
+                0.62432
+              ],
+              [
+                0.5,
+                0.0,
+                0.37568
+              ],
+              [
+                0.0,
+                0.5,
+                0.37568
+              ],
+              [
+                0.5,
+                0.5,
+                0.80709
+              ],
+              [
+                0.5,
+                0.5,
+                0.19291
+              ],
+              [
+                0.0,
+                0.0,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 9,
+          "formula": "LaYbCu2",
+          "id": "JVASP-175989",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-175989.html",
+          "spg": "Fm-3m (225)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.2,
+          "tc_sc": 6.81,
+          "lo": 1.5,
+          "hi": 23.42,
+          "p_sc": 0.02,
+          "p_lo": 0.013,
+          "p_hi": 0.032,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.86,
+          "nearest": {
+            "formula": "Au2In1Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.315,
+                -0.0,
+                2.4913
+              ],
+              [
+                1.4383,
+                4.0682,
+                2.4913
+              ],
+              [
+                -0.0,
+                -0.0,
+                4.9825
+              ]
+            ],
+            "elements": [
+              "La",
+              "Yb",
+              "Cu",
+              "Cu"
+            ],
+            "frac": [
+              [
+                0.25,
+                0.25,
+                0.25
+              ],
+              [
+                0.75,
+                0.75,
+                0.75
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 10,
+          "formula": "YbIn2Pd",
+          "id": "JVASP-17645",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17645.html",
+          "spg": "Cmcm (63)",
+          "ehull": 0.022,
+          "icsd": true,
+          "tc": 0.2,
+          "tc_sc": 1.5,
+          "lo": 0.0,
+          "hi": 6.82,
+          "p_sc": 0.143,
+          "p_lo": 0.055,
+          "p_hi": 0.369,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.82,
+          "nearest": {
+            "formula": "In3Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.4171,
+                0.0,
+                -0.0
+              ],
+              [
+                -2.2085,
+                5.1003,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                7.9908
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "In",
+              "In",
+              "In",
+              "In",
+              "Pd",
+              "Pd"
+            ],
+            "frac": [
+              [
+                0.93199,
+                0.86397,
+                0.25
+              ],
+              [
+                0.06801,
+                0.13603,
+                0.75
+              ],
+              [
+                0.35756,
+                0.71513,
+                0.5515
+              ],
+              [
+                0.64244,
+                0.28487,
+                0.4485
+              ],
+              [
+                0.35756,
+                0.71513,
+                0.9485
+              ],
+              [
+                0.64244,
+                0.28487,
+                0.0515
+              ],
+              [
+                0.7827,
+                0.5654,
+                0.75
+              ],
+              [
+                0.2173,
+                0.4346,
+                0.25
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 11,
+          "formula": "Cu8O",
+          "id": "JVASP-150511",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-150511.html",
+          "spg": "Cmmm (65)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.17,
+          "tc_sc": 7.45,
+          "lo": 1.7,
+          "hi": 25.44,
+          "p_sc": 0.02,
+          "p_lo": 0.009,
+          "p_hi": 0.041,
+          "p_unconventional": 0.999,
+          "family": "cuprate",
+          "gap": 0.0,
+          "novelty": 0.84,
+          "nearest": {
+            "formula": "Cu2O1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                3.1006,
+                -3.1196,
+                0.0
+              ],
+              [
+                3.1006,
+                3.1196,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                5.4831
+              ]
+            ],
+            "elements": [
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "O"
+            ],
+            "frac": [
+              [
+                0.17691,
+                0.39907,
+                0.5
+              ],
+              [
+                0.60093,
+                0.82309,
+                0.5
+              ],
+              [
+                0.2017,
+                0.424,
+                0.0
+              ],
+              [
+                0.576,
+                0.7983,
+                0.0
+              ],
+              [
+                0.11305,
+                0.88695,
+                0.72543
+              ],
+              [
+                0.11305,
+                0.88695,
+                0.27457
+              ],
+              [
+                0.66474,
+                0.33526,
+                0.27454
+              ],
+              [
+                0.66474,
+                0.33526,
+                0.72546
+              ],
+              [
+                0.88888,
+                0.11112,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 12,
+          "formula": "NaInO",
+          "id": "JVASP-135250",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-135250.html",
+          "spg": "C2/m (12)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.16,
+          "tc_sc": 5.48,
+          "lo": 1.07,
+          "hi": 19.25,
+          "p_sc": 0.034,
+          "p_lo": 0.007,
+          "p_hi": 0.103,
+          "p_unconventional": 0.999,
+          "family": "other oxide",
+          "gap": 0.0,
+          "novelty": 0.98,
+          "nearest": {
+            "formula": "Na2Sb2Ti2O1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 2,
+            "file": "screen_round2.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                5.9397,
+                -1.6637,
+                -0.3946
+              ],
+              [
+                5.9397,
+                1.6637,
+                -0.3946
+              ],
+              [
+                -2.1082,
+                0.0,
+                5.5447
+              ]
+            ],
+            "elements": [
+              "Na",
+              "Na",
+              "In",
+              "In",
+              "O",
+              "O"
+            ],
+            "frac": [
+              [
+                0.14245,
+                0.14245,
+                0.32315
+              ],
+              [
+                0.85755,
+                0.85755,
+                0.67685
+              ],
+              [
+                0.61676,
+                0.61676,
+                0.81702
+              ],
+              [
+                0.38324,
+                0.38324,
+                0.18298
+              ],
+              [
+                0.76241,
+                0.76241,
+                0.23449
+              ],
+              [
+                0.23759,
+                0.23759,
+                0.76551
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 13,
+          "formula": "YbIn4Pt",
+          "id": "JVASP-151922",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-151922.html",
+          "spg": "Cmcm (63)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.15,
+          "tc_sc": 1.88,
+          "lo": 0.0,
+          "hi": 8.02,
+          "p_sc": 0.079,
+          "p_lo": 0.037,
+          "p_hi": 0.122,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.73,
+          "nearest": {
+            "formula": "In3Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                2.23,
+                -8.3045,
+                -0.0
+              ],
+              [
+                2.23,
+                8.3045,
+                0.0
+              ],
+              [
+                0.0,
+                -0.0,
+                7.7293
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "Pt",
+              "Pt"
+            ],
+            "frac": [
+              [
+                0.13472,
+                0.86528,
+                0.75
+              ],
+              [
+                0.86528,
+                0.13472,
+                0.25
+              ],
+              [
+                0.31926,
+                0.68073,
+                0.95306
+              ],
+              [
+                0.68073,
+                0.31926,
+                0.45306
+              ],
+              [
+                0.31926,
+                0.68073,
+                0.54694
+              ],
+              [
+                0.68073,
+                0.31926,
+                0.04694
+              ],
+              [
+                0.93907,
+                0.06093,
+                0.75
+              ],
+              [
+                0.06093,
+                0.93907,
+                0.25
+              ],
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ],
+              [
+                0.77207,
+                0.22793,
+                0.75
+              ],
+              [
+                0.22793,
+                0.77207,
+                0.25
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 14,
+          "formula": "Yb2CuPd",
+          "id": "JVASP-104628",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-104628.html",
+          "spg": "Fm-3m (225)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.14,
+          "tc_sc": 8.05,
+          "lo": 1.89,
+          "hi": 27.32,
+          "p_sc": 0.059,
+          "p_lo": 0.006,
+          "p_hi": 0.152,
+          "p_unconventional": 0.991,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.91,
+          "nearest": {
+            "formula": "Au2In1Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.1778,
+                -0.0,
+                2.4121
+              ],
+              [
+                1.3926,
+                3.9389,
+                2.4121
+              ],
+              [
+                -0.0,
+                -0.0,
+                4.8241
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Cu",
+              "Pd"
+            ],
+            "frac": [
+              [
+                0.25,
+                0.25,
+                0.25
+              ],
+              [
+                0.75,
+                0.75,
+                0.75
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 15,
+          "formula": "YbGa5Co",
+          "id": "JVASP-17779",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17779.html",
+          "spg": "P4/mmm (123)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.12,
+          "tc_sc": 3.08,
+          "lo": 0.3,
+          "hi": 11.76,
+          "p_sc": 0.037,
+          "p_lo": 0.009,
+          "p_hi": 0.064,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "types": [
+            "115_heavy_fermion"
+          ],
+          "novelty": 0.63,
+          "nearest": {
+            "formula": "Ga6Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.208,
+                -0.0,
+                -0.0
+              ],
+              [
+                -0.0,
+                4.208,
+                -0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                6.7622
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Co"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.0,
+                0.5,
+                0.69319
+              ],
+              [
+                0.5,
+                0.0,
+                0.30681
+              ],
+              [
+                0.0,
+                0.5,
+                0.30681
+              ],
+              [
+                0.5,
+                0.0,
+                0.69319
+              ],
+              [
+                0.0,
+                0.0,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 16,
+          "formula": "YbGa5",
+          "id": "JVASP-164490",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-164490.html",
+          "spg": "I4/mmm (139)",
+          "ehull": 0.006,
+          "icsd": true,
+          "tc": 0.11,
+          "tc_sc": 2.85,
+          "lo": 0.23,
+          "hi": 11.03,
+          "p_sc": 0.036,
+          "p_lo": 0.006,
+          "p_hi": 0.07,
+          "p_unconventional": 0.998,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.51,
+          "nearest": {
+            "formula": "Ga6Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.258,
+                0.0,
+                -0.6951
+              ],
+              [
+                -0.1135,
+                4.2565,
+                -0.6951
+              ],
+              [
+                -0.0113,
+                -0.0116,
+                13.3198
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga"
+            ],
+            "frac": [
+              [
+                0.14955,
+                0.14955,
+                0.2991
+              ],
+              [
+                0.85045,
+                0.85045,
+                0.7009
+              ],
+              [
+                0.39917,
+                0.39917,
+                0.79833
+              ],
+              [
+                0.45216,
+                0.95216,
+                0.90432
+              ],
+              [
+                0.54784,
+                0.04784,
+                0.09568
+              ],
+              [
+                0.95216,
+                0.45216,
+                0.90432
+              ],
+              [
+                0.60083,
+                0.60083,
+                0.20167
+              ],
+              [
+                0.30537,
+                0.30537,
+                0.61074
+              ],
+              [
+                0.69463,
+                0.69463,
+                0.38926
+              ],
+              [
+                0.25,
+                0.75,
+                0.5
+              ],
+              [
+                0.04784,
+                0.54784,
+                0.09568
+              ],
+              [
+                0.75,
+                0.25,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 17,
+          "formula": "Ba2NiF6",
+          "id": "JVASP-90501",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-90501.html",
+          "spg": "I4/mmm (139)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.11,
+          "tc_sc": 5.43,
+          "lo": 1.06,
+          "hi": 19.13,
+          "p_sc": 0.017,
+          "p_lo": 0.002,
+          "p_hi": 0.051,
+          "p_unconventional": 0.605,
+          "gap": 0.41,
+          "magnetic": true,
+          "novelty": 0.7,
+          "nearest": {
+            "formula": "Ba0.25Cu1F2Sr1.75O2",
+            "tc": 58.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                3.9954,
+                -0.0,
+                -0.9621
+              ],
+              [
+                -0.2317,
+                3.9887,
+                -0.9621
+              ],
+              [
+                -0.0479,
+                -0.0508,
+                8.5786
+              ]
+            ],
+            "elements": [
+              "Ba",
+              "Ba",
+              "Ni",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            "frac": [
+              [
+                0.85082,
+                0.85082,
+                0.70164
+              ],
+              [
+                0.14918,
+                0.14918,
+                0.29836
+              ],
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.62058,
+                0.62057,
+                0.24115
+              ],
+              [
+                0.37943,
+                0.37943,
+                0.75885
+              ],
+              [
+                0.0,
+                0.5,
+                0.0
+              ],
+              [
+                0.75,
+                0.25,
+                0.5
+              ],
+              [
+                0.25,
+                0.75,
+                0.5
+              ],
+              [
+                0.5,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 18,
+          "formula": "Ce2Ga12Cu",
+          "id": "JVASP-165558",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-165558.html",
+          "spg": "P4/nbm (125)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.1,
+          "tc_sc": 1.67,
+          "lo": 0.0,
+          "hi": 7.36,
+          "p_sc": 0.055,
+          "p_lo": 0.008,
+          "p_hi": 0.109,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.46,
+          "nearest": {
+            "formula": "Ce1Ga6",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                6.1565,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                6.1565,
+                0.0
+              ],
+              [
+                0.0,
+                -0.0,
+                15.1818
+              ]
+            ],
+            "elements": [
+              "Ce",
+              "Ce",
+              "Ce",
+              "Ce",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Cu",
+              "Cu"
+            ],
+            "frac": [
+              [
+                0.25,
+                0.75,
+                0.7565
+              ],
+              [
+                0.75,
+                0.25,
+                0.7565
+              ],
+              [
+                0.25,
+                0.75,
+                0.2435
+              ],
+              [
+                0.75,
+                0.25,
+                0.2435
+              ],
+              [
+                0.92246,
+                0.42246,
+                0.42766
+              ],
+              [
+                0.92246,
+                0.07754,
+                0.57234
+              ],
+              [
+                0.42246,
+                0.92246,
+                0.57234
+              ],
+              [
+                0.07754,
+                0.57754,
+                0.57234
+              ],
+              [
+                0.75,
+                0.75,
+                0.18067
+              ],
+              [
+                0.75,
+                0.75,
+                0.81933
+              ],
+              [
+                0.25,
+                0.25,
+                0.81933
+              ],
+              [
+                0.25,
+                0.25,
+                0.18067
+              ],
+              [
+                0.75,
+                0.75,
+                0.34091
+              ],
+              [
+                0.75,
+                0.75,
+                0.65909
+              ],
+              [
+                0.25,
+                0.25,
+                0.65909
+              ],
+              [
+                0.25,
+                0.25,
+                0.34091
+              ],
+              [
+                0.50046,
+                0.00046,
+                0.91366
+              ],
+              [
+                0.49954,
+                0.50046,
+                0.91366
+              ],
+              [
+                0.00046,
+                0.99954,
+                0.91366
+              ],
+              [
+                0.50046,
+                0.49954,
+                0.08634
+              ],
+              [
+                0.99954,
+                0.00046,
+                0.08634
+              ],
+              [
+                0.99954,
+                0.49954,
+                0.91366
+              ],
+              [
+                0.00046,
+                0.50046,
+                0.08634
+              ],
+              [
+                0.49954,
+                0.99954,
+                0.08634
+              ],
+              [
+                0.57754,
+                0.07754,
+                0.42766
+              ],
+              [
+                0.42246,
+                0.57754,
+                0.42766
+              ],
+              [
+                0.07754,
+                0.92246,
+                0.42766
+              ],
+              [
+                0.57754,
+                0.42246,
+                0.57234
+              ],
+              [
+                0.75,
+                0.25,
+                0.0
+              ],
+              [
+                0.25,
+                0.75,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble",
+          "check": {
+            "kind": "experiment",
+            "superconducts": null,
+            "doi": "10.1021/cm801693t",
+            "cite": "J. Y. Cho et al., Chem. Mater. 20, 6116 (2008)",
+            "note": "The original paper reports a heat-capacity peak near 1.8 K attributed to magnetic order. Methods give susceptibility 2–300 K at 0.1 T and heat capacity 0.35–70 K. The heat-capacity floor must not be assigned to resistivity or treated as an explicit no-superconductivity cutoff. This audit did not establish a superconductivity absence statement to 0.35 K. Superconductivity outcome remains unknown."
+          }
+        },
+        {
+          "rank": 19,
+          "formula": "Sr3GeO",
+          "id": "JVASP-180041",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-180041.html",
+          "spg": "Pm-3m (221)",
+          "ehull": 0.002,
+          "icsd": false,
+          "tc": 0.1,
+          "tc_sc": 2.69,
+          "lo": 0.18,
+          "hi": 10.53,
+          "p_sc": 0.034,
+          "p_lo": 0.004,
+          "p_hi": 0.103,
+          "p_unconventional": 0.999,
+          "family": "other oxide",
+          "gap": 0.0,
+          "novelty": 0.94,
+          "nearest": {
+            "formula": "Cl1Cu2Sr3O5",
+            "tc": 70.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                5.042,
+                0.0,
+                -0.0
+              ],
+              [
+                0.0,
+                5.042,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0,
+                5.042
+              ]
+            ],
+            "elements": [
+              "Sr",
+              "Sr",
+              "Sr",
+              "Ge",
+              "O"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.5,
+                0.0,
+                0.5
+              ],
+              [
+                0.0,
+                0.5,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 20,
+          "formula": "YbIn",
+          "id": "JVASP-129550",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-129550.html",
+          "spg": "P4/mmm (123)",
+          "ehull": 0.017,
+          "icsd": false,
+          "tc": 0.09,
+          "tc_sc": 1.98,
+          "lo": 0.0,
+          "hi": 8.32,
+          "p_sc": 0.046,
+          "p_lo": 0.012,
+          "p_hi": 0.083,
+          "p_unconventional": 0.997,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.68,
+          "nearest": {
+            "formula": "In3Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                3.7874,
+                -0.0,
+                -0.0
+              ],
+              [
+                -0.0,
+                3.7874,
+                -0.0
+              ],
+              [
+                0.0,
+                0.0,
+                3.7714
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "In"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.5,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 21,
+          "formula": "Yb3GeO",
+          "id": "JVASP-164281",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-164281.html",
+          "spg": "Pnma (62)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.09,
+          "tc_sc": 2.42,
+          "lo": 0.09,
+          "hi": 9.7,
+          "p_sc": 0.04,
+          "p_lo": 0.009,
+          "p_hi": 0.09,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.95,
+          "nearest": {
+            "formula": "Cu2Yb2O5",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                6.5069,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                6.5384,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                9.1984
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "Ge",
+              "Ge",
+              "Ge",
+              "Ge",
+              "O",
+              "O",
+              "O",
+              "O"
+            ],
+            "frac": [
+              [
+                0.75078,
+                0.24922,
+                0.5211
+              ],
+              [
+                0.25078,
+                0.25078,
+                0.5211
+              ],
+              [
+                0.50008,
+                0.04133,
+                0.25
+              ],
+              [
+                0.49992,
+                0.95867,
+                0.75
+              ],
+              [
+                0.99992,
+                0.54133,
+                0.75
+              ],
+              [
+                0.74922,
+                0.74922,
+                0.4789
+              ],
+              [
+                0.24922,
+                0.75078,
+                0.4789
+              ],
+              [
+                0.25078,
+                0.25078,
+                0.9789
+              ],
+              [
+                8e-05,
+                0.45867,
+                0.25
+              ],
+              [
+                0.75078,
+                0.24922,
+                0.9789
+              ],
+              [
+                0.74922,
+                0.74922,
+                0.0211
+              ],
+              [
+                0.24922,
+                0.75078,
+                0.0211
+              ],
+              [
+                0.99969,
+                0.99906,
+                0.25
+              ],
+              [
+                0.49969,
+                0.50094,
+                0.25
+              ],
+              [
+                0.00031,
+                0.00094,
+                0.75
+              ],
+              [
+                0.50031,
+                0.49906,
+                0.75
+              ],
+              [
+                0.5,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.0,
+                0.5
+              ],
+              [
+                0.0,
+                0.5,
+                0.5
+              ],
+              [
+                0.0,
+                0.5,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 22,
+          "formula": "KCeF4",
+          "id": "JVASP-100557",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-100557.html",
+          "spg": "P4/mmm (123)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.08,
+          "tc_sc": 4.59,
+          "lo": 0.79,
+          "hi": 16.49,
+          "p_sc": 0.019,
+          "p_lo": 0.006,
+          "p_hi": 0.039,
+          "p_unconventional": 0.648,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.86,
+          "nearest": {
+            "formula": "Ba0.25Cu1F2Sr1.75O2",
+            "tc": 58.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.0481,
+                0.0,
+                -0.0
+              ],
+              [
+                0.0,
+                4.0481,
+                -0.0
+              ],
+              [
+                -0.0,
+                -0.0,
+                6.1829
+              ]
+            ],
+            "elements": [
+              "K",
+              "Ce",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ],
+              [
+                0.5,
+                0.0,
+                0.71517
+              ],
+              [
+                0.0,
+                0.5,
+                0.28483
+              ],
+              [
+                0.5,
+                0.0,
+                0.28483
+              ],
+              [
+                0.0,
+                0.5,
+                0.71517
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 23,
+          "formula": "CaYbIn2",
+          "id": "JVASP-172208",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-172208.html",
+          "spg": "Fm-3m (225)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.07,
+          "tc_sc": 1.98,
+          "lo": 0.0,
+          "hi": 8.31,
+          "p_sc": 0.037,
+          "p_lo": 0.012,
+          "p_hi": 0.085,
+          "p_unconventional": 0.997,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.87,
+          "nearest": {
+            "formula": "Au2In1Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.6595,
+                -0.0,
+                2.6902
+              ],
+              [
+                1.5532,
+                4.393,
+                2.6902
+              ],
+              [
+                -0.0,
+                -0.0,
+                5.3804
+              ]
+            ],
+            "elements": [
+              "Ca",
+              "Yb",
+              "In",
+              "In"
+            ],
+            "frac": [
+              [
+                0.25,
+                0.25,
+                0.25
+              ],
+              [
+                0.75,
+                0.75,
+                0.75
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 24,
+          "formula": "SrNiF2",
+          "id": "JVASP-134812",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-134812.html",
+          "spg": "P4mm (99)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.07,
+          "tc_sc": 3.5,
+          "lo": 0.44,
+          "hi": 13.08,
+          "p_sc": 0.023,
+          "p_lo": 0.004,
+          "p_hi": 0.057,
+          "p_unconventional": 0.994,
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.66,
+          "nearest": {
+            "formula": "Cu1F2Sr2O2",
+            "tc": 44.33
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                3.5301,
+                -0.0,
+                0.0
+              ],
+              [
+                0.0,
+                3.5301,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                4.9946
+              ]
+            ],
+            "elements": [
+              "Sr",
+              "Ni",
+              "F",
+              "F"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.5,
+                0.82564
+              ],
+              [
+                0.0,
+                0.0,
+                0.39821
+              ],
+              [
+                0.0,
+                0.0,
+                0.95486
+              ],
+              [
+                0.5,
+                0.5,
+                0.32129
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 25,
+          "formula": "NaYbCu2F8",
+          "id": "JVASP-171500",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-171500.html",
+          "spg": "I422 (97)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.07,
+          "tc_sc": 30.89,
+          "lo": 9.19,
+          "hi": 98.75,
+          "p_sc": 0.002,
+          "p_lo": 0.001,
+          "p_hi": 0.004,
+          "p_unconventional": 0.678,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.88,
+          "nearest": {
+            "formula": "Ba0.25Cu1F2Sr1.75O2",
+            "tc": 58.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.837,
+                0.0,
+                -2.2876
+              ],
+              [
+                -1.0819,
+                4.7145,
+                -2.2876
+              ],
+              [
+                0.0183,
+                0.023,
+                6.2963
+              ]
+            ],
+            "elements": [
+              "Na",
+              "Yb",
+              "Cu",
+              "Cu",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.25,
+                0.75,
+                0.5
+              ],
+              [
+                0.75,
+                0.25,
+                0.5
+              ],
+              [
+                0.2921,
+                0.44206,
+                0.24569
+              ],
+              [
+                0.95359,
+                0.80362,
+                0.24569
+              ],
+              [
+                0.80362,
+                0.2921,
+                0.24569
+              ],
+              [
+                0.7079,
+                0.19638,
+                0.75431
+              ],
+              [
+                0.44206,
+                0.95359,
+                0.24569
+              ],
+              [
+                0.04641,
+                0.55794,
+                0.75431
+              ],
+              [
+                0.19638,
+                0.04641,
+                0.75431
+              ],
+              [
+                0.55794,
+                0.7079,
+                0.75431
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 26,
+          "formula": "PrIn6Cu6",
+          "id": "JVASP-166391",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-166391.html",
+          "spg": "Immm (71)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.07,
+          "tc_sc": 7.25,
+          "lo": 1.64,
+          "hi": 24.8,
+          "p_sc": 0.009,
+          "p_lo": 0.004,
+          "p_hi": 0.015,
+          "p_unconventional": 0.997,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.84,
+          "nearest": {
+            "formula": "Ce2Co1In8",
+            "tc": 0.4
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                5.0591,
+                0.0,
+                -2.1576
+              ],
+              [
+                2.5527,
+                6.5708,
+                -1.0245
+              ],
+              [
+                0.0482,
+                0.0076,
+                7.1232
+              ]
+            ],
+            "elements": [
+              "Pr",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "In",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.66087,
+                0.33913,
+                0.66087
+              ],
+              [
+                0.33913,
+                0.66087,
+                0.33913
+              ],
+              [
+                0.0,
+                0.34392,
+                0.34392
+              ],
+              [
+                0.0,
+                0.65608,
+                0.65608
+              ],
+              [
+                0.5,
+                0.81473,
+                0.81473
+              ],
+              [
+                0.5,
+                0.18527,
+                0.18527
+              ],
+              [
+                0.5,
+                0.0,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.5
+              ],
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.0,
+                0.5,
+                0.0
+              ],
+              [
+                0.73568,
+                0.76432,
+                0.23568
+              ],
+              [
+                0.26432,
+                0.23568,
+                0.76432
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 27,
+          "formula": "YbCuSb",
+          "id": "JVASP-13734",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-13734.html",
+          "spg": "P6_3mc (186)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.07,
+          "tc_sc": 6.02,
+          "lo": 1.24,
+          "hi": 20.96,
+          "p_sc": 0.021,
+          "p_lo": 0.008,
+          "p_hi": 0.038,
+          "p_unconventional": 0.998,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.96,
+          "nearest": {
+            "formula": "Sb2Yb1",
+            "tc": 1.3
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                2.2506,
+                -3.8981,
+                -0.0
+              ],
+              [
+                2.2506,
+                3.8981,
+                0.0
+              ],
+              [
+                0.0,
+                -0.0,
+                7.3908
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Cu",
+              "Cu",
+              "Sb",
+              "Sb"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.26716
+              ],
+              [
+                0.0,
+                0.0,
+                0.76716
+              ],
+              [
+                0.66667,
+                0.33333,
+                0.44396
+              ],
+              [
+                0.33333,
+                0.66667,
+                0.94396
+              ],
+              [
+                0.33333,
+                0.66667,
+                0.53788
+              ],
+              [
+                0.66667,
+                0.33333,
+                0.03788
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 28,
+          "formula": "YbGa2Cu3",
+          "id": "JVASP-110106",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-110106.html",
+          "spg": "P6/mmm (191)",
+          "ehull": 0.002,
+          "icsd": false,
+          "tc": 0.05,
+          "tc_sc": 8.93,
+          "lo": 2.18,
+          "hi": 30.07,
+          "p_sc": 0.006,
+          "p_lo": 0.005,
+          "p_hi": 0.007,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.88,
+          "nearest": {
+            "formula": "Ga6Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 5,
+            "file": "screen_round5.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                5.2114,
+                0.0,
+                0.0
+              ],
+              [
+                -2.6057,
+                4.5132,
+                0.0
+              ],
+              [
+                -0.0,
+                -0.0,
+                4.0349
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Ga",
+              "Ga",
+              "Cu",
+              "Cu",
+              "Cu"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.33333,
+                0.66667,
+                0.0
+              ],
+              [
+                0.66667,
+                0.33333,
+                0.0
+              ],
+              [
+                0.5,
+                0.0,
+                0.5
+              ],
+              [
+                0.0,
+                0.5,
+                0.5
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 29,
+          "formula": "Ce2Ga12Ni",
+          "id": "JVASP-165420",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-165420.html",
+          "spg": "P4/nbm (125)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.05,
+          "tc_sc": 1.02,
+          "lo": 0.0,
+          "hi": 5.31,
+          "p_sc": 0.044,
+          "p_lo": 0.007,
+          "p_hi": 0.075,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.57,
+          "nearest": {
+            "formula": "Ce1Ga6",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                6.0618,
+                -0.0,
+                0.0
+              ],
+              [
+                0.0,
+                6.0618,
+                0.0
+              ],
+              [
+                -0.0,
+                -0.0,
+                15.3305
+              ]
+            ],
+            "elements": [
+              "Ce",
+              "Ce",
+              "Ce",
+              "Ce",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ni",
+              "Ni"
+            ],
+            "frac": [
+              [
+                0.25,
+                0.75,
+                0.75835
+              ],
+              [
+                0.25,
+                0.75,
+                0.24165
+              ],
+              [
+                0.75,
+                0.25,
+                0.24165
+              ],
+              [
+                0.75,
+                0.25,
+                0.75835
+              ],
+              [
+                0.92184,
+                0.42184,
+                0.42796
+              ],
+              [
+                0.42184,
+                0.92184,
+                0.57204
+              ],
+              [
+                0.25,
+                0.25,
+                0.34069
+              ],
+              [
+                0.99968,
+                0.00032,
+                0.08435
+              ],
+              [
+                0.99968,
+                0.49968,
+                0.91565
+              ],
+              [
+                0.00032,
+                0.50032,
+                0.08435
+              ],
+              [
+                0.49968,
+                0.50032,
+                0.91565
+              ],
+              [
+                0.75,
+                0.75,
+                0.81736
+              ],
+              [
+                0.07816,
+                0.57816,
+                0.57204
+              ],
+              [
+                0.50032,
+                0.00032,
+                0.91565
+              ],
+              [
+                0.25,
+                0.25,
+                0.81736
+              ],
+              [
+                0.07816,
+                0.92184,
+                0.42796
+              ],
+              [
+                0.57816,
+                0.07816,
+                0.42796
+              ],
+              [
+                0.75,
+                0.75,
+                0.34069
+              ],
+              [
+                0.75,
+                0.75,
+                0.18264
+              ],
+              [
+                0.49968,
+                0.99968,
+                0.08435
+              ],
+              [
+                0.92184,
+                0.07816,
+                0.57204
+              ],
+              [
+                0.00032,
+                0.99968,
+                0.91565
+              ],
+              [
+                0.57816,
+                0.42184,
+                0.57204
+              ],
+              [
+                0.50032,
+                0.49968,
+                0.08435
+              ],
+              [
+                0.75,
+                0.75,
+                0.65931
+              ],
+              [
+                0.42184,
+                0.57816,
+                0.42796
+              ],
+              [
+                0.25,
+                0.25,
+                0.18264
+              ],
+              [
+                0.25,
+                0.25,
+                0.65931
+              ],
+              [
+                0.25,
+                0.75,
+                0.0
+              ],
+              [
+                0.75,
+                0.25,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble",
+          "check": {
+            "kind": "experiment",
+            "superconducts": null,
+            "doi": "10.1021/cm801693t",
+            "cite": "J. Y. Cho et al., Chem. Mater. 20, 6116 (2008)",
+            "note": "The original paper reports antiferromagnetic order near 10 K. Methods give susceptibility 2–300 K at 0.1 T and heat capacity 0.35–70 K. The heat-capacity floor must not be assigned to resistivity or treated as an explicit no-superconductivity cutoff. This audit did not establish a superconductivity absence statement to 0.35 K. Superconductivity outcome remains unknown."
+          }
+        },
+        {
+          "rank": 30,
+          "formula": "SrOF",
+          "id": "JVASP-118315",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-118315.html",
+          "spg": "Amm2 (38)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.05,
+          "tc_sc": 2.98,
+          "lo": 0.27,
+          "hi": 11.44,
+          "p_sc": 0.014,
+          "p_lo": 0.004,
+          "p_hi": 0.027,
+          "p_unconventional": 0.999,
+          "family": "other oxide",
+          "gap": 0.55,
+          "magnetic": true,
+          "novelty": 0.62,
+          "nearest": {
+            "formula": "Cu1F2Sr2O2",
+            "tc": 44.33
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 5,
+            "file": "screen_round5.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.2706,
+                0.1616,
+                0.0
+              ],
+              [
+                -2.1105,
+                3.711,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                4.6666
+              ]
+            ],
+            "elements": [
+              "Sr",
+              "O",
+              "F"
+            ],
+            "frac": [
+              [
+                0.6626,
+                0.67046,
+                0.0
+              ],
+              [
+                0.01584,
+                0.3188,
+                0.0
+              ],
+              [
+                0.32156,
+                0.01075,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 31,
+          "formula": "NaSmCu2F8",
+          "id": "JVASP-168805",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-168805.html",
+          "spg": "I422 (97)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.05,
+          "tc_sc": 28.86,
+          "lo": 8.55,
+          "hi": 92.42,
+          "p_sc": 0.002,
+          "p_lo": 0.001,
+          "p_hi": 0.004,
+          "p_unconventional": 0.675,
+          "gap": 0.94,
+          "magnetic": true,
+          "novelty": 0.72,
+          "nearest": {
+            "formula": "Ba0.25Cu1F2Sr1.75O2",
+            "tc": 58.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.9334,
+                0.0,
+                -2.2923
+              ],
+              [
+                -1.0651,
+                4.817,
+                -2.2923
+              ],
+              [
+                0.0066,
+                0.0083,
+                6.4691
+              ]
+            ],
+            "elements": [
+              "Na",
+              "Sm",
+              "Cu",
+              "Cu",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.25,
+                0.75,
+                0.5
+              ],
+              [
+                0.75,
+                0.25,
+                0.5
+              ],
+              [
+                0.29545,
+                0.43834,
+                0.24447
+              ],
+              [
+                0.94902,
+                0.80613,
+                0.24447
+              ],
+              [
+                0.80613,
+                0.29545,
+                0.24447
+              ],
+              [
+                0.70455,
+                0.19387,
+                0.75553
+              ],
+              [
+                0.43834,
+                0.94902,
+                0.24447
+              ],
+              [
+                0.05098,
+                0.56166,
+                0.75553
+              ],
+              [
+                0.19387,
+                0.05098,
+                0.75553
+              ],
+              [
+                0.56166,
+                0.70455,
+                0.75553
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 32,
+          "formula": "YbIn2Ni",
+          "id": "JVASP-18010",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-18010.html",
+          "spg": "Cmcm (63)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.04,
+          "tc_sc": 1.22,
+          "lo": 0.0,
+          "hi": 5.93,
+          "p_sc": 0.037,
+          "p_lo": 0.016,
+          "p_hi": 0.066,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.83,
+          "nearest": {
+            "formula": "In3Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.3023,
+                0.0,
+                0.0
+              ],
+              [
+                -2.1511,
+                5.0272,
+                -0.0
+              ],
+              [
+                0.0,
+                -0.0,
+                7.6852
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "In",
+              "In",
+              "In",
+              "In",
+              "Ni",
+              "Ni"
+            ],
+            "frac": [
+              [
+                0.93719,
+                0.87437,
+                0.25
+              ],
+              [
+                0.06281,
+                0.12563,
+                0.75
+              ],
+              [
+                0.35319,
+                0.70638,
+                0.55178
+              ],
+              [
+                0.64681,
+                0.29362,
+                0.44822
+              ],
+              [
+                0.35319,
+                0.70638,
+                0.94822
+              ],
+              [
+                0.64681,
+                0.29362,
+                0.05178
+              ],
+              [
+                0.78231,
+                0.56461,
+                0.75
+              ],
+              [
+                0.21769,
+                0.43539,
+                0.25
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 33,
+          "formula": "Pr2Ga5Cu3",
+          "id": "JVASP-106012",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-106012.html",
+          "spg": "P-4m2 (115)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.04,
+          "tc_sc": 5.44,
+          "lo": 1.06,
+          "hi": 19.14,
+          "p_sc": 0.007,
+          "p_lo": 0.006,
+          "p_hi": 0.008,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.45,
+          "nearest": {
+            "formula": "Ga6Pr1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 3,
+            "file": "screen_round3.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.2555,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                4.2555,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                10.2556
+              ]
+            ],
+            "elements": [
+              "Pr",
+              "Pr",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Cu",
+              "Cu",
+              "Cu"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.0,
+                0.74394
+              ],
+              [
+                0.0,
+                0.5,
+                0.25606
+              ],
+              [
+                0.0,
+                0.5,
+                0.86359
+              ],
+              [
+                0.5,
+                0.0,
+                0.38103
+              ],
+              [
+                0.5,
+                0.0,
+                0.13641
+              ],
+              [
+                0.0,
+                0.5,
+                0.61897
+              ],
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 34,
+          "formula": "PrIn3",
+          "id": "JVASP-17871",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17871.html",
+          "spg": "Pm-3m (221)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.04,
+          "tc_sc": 0.73,
+          "lo": 0.0,
+          "hi": 4.4,
+          "p_sc": 0.064,
+          "p_lo": 0.003,
+          "p_hi": 0.125,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.56,
+          "nearest": {
+            "formula": "Ce1In3",
+            "tc": 0.13
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.7371,
+                -0.0,
+                -0.0
+              ],
+              [
+                0.0,
+                4.7371,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                4.7371
+              ]
+            ],
+            "elements": [
+              "Pr",
+              "In",
+              "In",
+              "In"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.0,
+                0.5
+              ],
+              [
+                0.0,
+                0.5,
+                0.5
+              ],
+              [
+                0.5,
+                0.5,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble",
+          "check": {
+            "kind": "experiment",
+            "note": "The publisher abstract gives a specific-heat measurement range of 0.07-10 mK (0.00007-0.01 K) for cubic Cu3Au-type PrIn3 and attributes an anomaly near 0.13 mK to nuclear magnetic ordering. This is a measured temperature range, not an established superconductivity exclusion limit. The inspected abstract does not establish absence of superconductivity; full text and the experimental conditions would be needed before assigning such a conclusion.",
+            "doi": "10.1007/BF02571096",
+            "cite": "Y. Karaki et al., Czech. J. Phys. 46, 2209 (1996)"
+          }
+        },
+        {
+          "rank": 35,
+          "formula": "CaOF",
+          "id": "JVASP-183688",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-183688.html",
+          "spg": "P-6m2 (187)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.04,
+          "tc_sc": 2.58,
+          "lo": 0.15,
+          "hi": 10.21,
+          "p_sc": 0.013,
+          "p_lo": 0.006,
+          "p_hi": 0.019,
+          "p_unconventional": 0.999,
+          "family": "other oxide",
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.9,
+          "nearest": {
+            "formula": "As1Ca1Cu0.05F1Fe0.95",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.0527,
+                -0.0,
+                -0.0
+              ],
+              [
+                -2.0264,
+                3.5098,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                4.3821
+              ]
+            ],
+            "elements": [
+              "Ca",
+              "O",
+              "F"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.66667,
+                0.33333,
+                0.0
+              ],
+              [
+                0.33333,
+                0.66667,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 36,
+          "formula": "LaCeCu12",
+          "id": "JVASP-140429",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-140429.html",
+          "spg": "Pmc2_1 (26)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.03,
+          "tc_sc": 4.17,
+          "lo": 0.65,
+          "hi": 15.17,
+          "p_sc": 0.015,
+          "p_lo": 0.005,
+          "p_hi": 0.027,
+          "p_unconventional": 0.765,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.67,
+          "nearest": {
+            "formula": "Ce1Cu6",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                5.0783,
+                -0.0,
+                0.0
+              ],
+              [
+                0.0,
+                8.1029,
+                0.0
+              ],
+              [
+                -0.0,
+                0.0,
+                10.1313
+              ]
+            ],
+            "elements": [
+              "La",
+              "La",
+              "Ce",
+              "Ce",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.76124,
+                0.68747
+              ],
+              [
+                0.0,
+                0.26124,
+                0.31253
+              ],
+              [
+                0.5,
+                0.23944,
+                0.81494
+              ],
+              [
+                0.5,
+                0.73944,
+                0.18506
+              ],
+              [
+                0.24584,
+                0.43505,
+                0.55994
+              ],
+              [
+                0.75416,
+                0.93505,
+                0.44006
+              ],
+              [
+                0.75416,
+                0.43505,
+                0.55994
+              ],
+              [
+                0.24584,
+                0.93505,
+                0.44006
+              ],
+              [
+                0.25639,
+                0.56343,
+                0.94283
+              ],
+              [
+                0.74361,
+                0.06343,
+                0.05717
+              ],
+              [
+                0.0,
+                0.89739,
+                0.23309
+              ],
+              [
+                0.0,
+                0.39739,
+                0.76691
+              ],
+              [
+                0.5,
+                0.09485,
+                0.26448
+              ],
+              [
+                0.5,
+                0.59485,
+                0.73552
+              ],
+              [
+                0.0,
+                0.56799,
+                0.15271
+              ],
+              [
+                0.5,
+                0.44075,
+                0.34642
+              ],
+              [
+                0.25639,
+                0.06343,
+                0.05717
+              ],
+              [
+                0.5,
+                0.94075,
+                0.65358
+              ],
+              [
+                0.0,
+                0.81827,
+                0.99345
+              ],
+              [
+                0.0,
+                0.31827,
+                0.00655
+              ],
+              [
+                0.5,
+                0.18227,
+                0.50605
+              ],
+              [
+                0.5,
+                0.68227,
+                0.49395
+              ],
+              [
+                0.0,
+                0.14795,
+                0.60824
+              ],
+              [
+                0.0,
+                0.64795,
+                0.39176
+              ],
+              [
+                0.5,
+                0.85289,
+                0.89299
+              ],
+              [
+                0.5,
+                0.35289,
+                0.10701
+              ],
+              [
+                0.0,
+                0.06799,
+                0.84729
+              ],
+              [
+                0.74361,
+                0.56343,
+                0.94283
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 37,
+          "formula": "SrLiNiF6",
+          "id": "JVASP-24364",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-24364.html",
+          "spg": "P-31c (163)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.03,
+          "tc_sc": 4.58,
+          "lo": 0.78,
+          "hi": 16.45,
+          "p_sc": 0.009,
+          "p_lo": 0.004,
+          "p_hi": 0.017,
+          "p_unconventional": 0.59,
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.96,
+          "nearest": {
+            "formula": "Cu1F2Sr2O2",
+            "tc": 44.33
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                2.568,
+                -4.4479,
+                -0.0
+              ],
+              [
+                2.568,
+                4.4479,
+                -0.0
+              ],
+              [
+                -0.0,
+                -0.0,
+                10.4171
+              ]
+            ],
+            "elements": [
+              "Sr",
+              "Sr",
+              "Li",
+              "Li",
+              "Ni",
+              "Ni",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.5
+              ],
+              [
+                0.66667,
+                0.33333,
+                0.75
+              ],
+              [
+                0.33333,
+                0.66667,
+                0.25
+              ],
+              [
+                0.33333,
+                0.66667,
+                0.75
+              ],
+              [
+                0.66667,
+                0.33333,
+                0.25
+              ],
+              [
+                0.018,
+                0.63858,
+                0.64589
+              ],
+              [
+                0.37942,
+                0.36142,
+                0.14589
+              ],
+              [
+                0.62058,
+                0.982,
+                0.64589
+              ],
+              [
+                0.018,
+                0.37942,
+                0.85411
+              ],
+              [
+                0.62058,
+                0.63858,
+                0.85411
+              ],
+              [
+                0.37942,
+                0.018,
+                0.35411
+              ],
+              [
+                0.63858,
+                0.62058,
+                0.35411
+              ],
+              [
+                0.63858,
+                0.018,
+                0.14589
+              ],
+              [
+                0.982,
+                0.36142,
+                0.35411
+              ],
+              [
+                0.36142,
+                0.982,
+                0.85411
+              ],
+              [
+                0.36142,
+                0.37942,
+                0.64589
+              ],
+              [
+                0.982,
+                0.62058,
+                0.14589
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 38,
+          "formula": "PrGa5Ni",
+          "id": "JVASP-162930",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-162930.html",
+          "spg": "P4/mmm (123)",
+          "ehull": 0.025,
+          "icsd": false,
+          "tc": 0.03,
+          "tc_sc": 1.7,
+          "lo": 0.0,
+          "hi": 7.45,
+          "p_sc": 0.018,
+          "p_lo": 0.011,
+          "p_hi": 0.028,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.37,
+          "nearest": {
+            "formula": "Ga6Pr1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.3291,
+                0.0,
+                -0.0
+              ],
+              [
+                0.0,
+                4.3291,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                7.0132
+              ]
+            ],
+            "elements": [
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ni",
+              "Pr"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.5,
+                0.0,
+                0.3144
+              ],
+              [
+                0.0,
+                0.5,
+                0.3144
+              ],
+              [
+                0.5,
+                0.0,
+                0.6856
+              ],
+              [
+                0.0,
+                0.5,
+                0.6856
+              ],
+              [
+                0.0,
+                0.0,
+                0.5
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 39,
+          "formula": "Yb2InGe2",
+          "id": "JVASP-89073",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-89073.html",
+          "spg": "P4/mbm (127)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.03,
+          "tc_sc": 1.48,
+          "lo": 0.0,
+          "hi": 6.74,
+          "p_sc": 0.021,
+          "p_lo": 0.009,
+          "p_hi": 0.029,
+          "p_unconventional": 0.998,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.92,
+          "nearest": {
+            "formula": "In3Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.3451,
+                -0.0,
+                0.0
+              ],
+              [
+                0.0,
+                7.3131,
+                -0.0
+              ],
+              [
+                0.0,
+                -0.0,
+                7.3131
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "In",
+              "In",
+              "Ge",
+              "Ge",
+              "Ge",
+              "Ge"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.82669,
+                0.32669
+              ],
+              [
+                0.5,
+                0.67331,
+                0.82669
+              ],
+              [
+                0.5,
+                0.32669,
+                0.17331
+              ],
+              [
+                0.5,
+                0.17331,
+                0.67331
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.5,
+                0.5
+              ],
+              [
+                0.0,
+                0.62268,
+                0.12268
+              ],
+              [
+                0.0,
+                0.87732,
+                0.62268
+              ],
+              [
+                0.0,
+                0.12268,
+                0.37732
+              ],
+              [
+                0.0,
+                0.37732,
+                0.87732
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 40,
+          "formula": "CeCu5",
+          "id": "JVASP-19820",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-19820.html",
+          "spg": "P6/mmm (191)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.03,
+          "tc_sc": 5.66,
+          "lo": 1.13,
+          "hi": 19.82,
+          "p_sc": 0.015,
+          "p_lo": 0.003,
+          "p_hi": 0.032,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.69,
+          "nearest": {
+            "formula": "Ce1Cu6",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                2.5505,
+                -4.4175,
+                -0.0
+              ],
+              [
+                2.5505,
+                4.4175,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                4.1182
+              ]
+            ],
+            "elements": [
+              "Ce",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu"
+            ],
+            "frac": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.0,
+                0.5
+              ],
+              [
+                0.33333,
+                0.66667,
+                0.0
+              ],
+              [
+                0.66667,
+                0.33333,
+                0.0
+              ],
+              [
+                0.0,
+                0.5,
+                0.5
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 41,
+          "formula": "PrCu6",
+          "id": "JVASP-163460",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-163460.html",
+          "spg": "Pnma (62)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.02,
+          "tc_sc": 5.7,
+          "lo": 1.14,
+          "hi": 19.97,
+          "p_sc": 0.004,
+          "p_lo": 0.003,
+          "p_hi": 0.004,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.73,
+          "nearest": {
+            "formula": "Ce1Cu6",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 5,
+            "file": "screen_round5.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                5.0983,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                8.0832,
+                0.0
+              ],
+              [
+                0.0,
+                -0.0,
+                10.1301
+              ]
+            ],
+            "elements": [
+              "Pr",
+              "Pr",
+              "Pr",
+              "Pr",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu"
+            ],
+            "frac": [
+              [
+                0.75,
+                0.73881,
+                0.56328
+              ],
+              [
+                0.25,
+                0.26119,
+                0.43672
+              ],
+              [
+                0.75,
+                0.23881,
+                0.93672
+              ],
+              [
+                0.25,
+                0.76119,
+                0.06328
+              ],
+              [
+                0.75,
+                0.85234,
+                0.85777
+              ],
+              [
+                0.25,
+                0.14766,
+                0.14223
+              ],
+              [
+                0.75,
+                0.35234,
+                0.64223
+              ],
+              [
+                0.25,
+                0.64766,
+                0.35777
+              ],
+              [
+                0.75,
+                0.18181,
+                0.24375
+              ],
+              [
+                0.25,
+                0.81819,
+                0.75625
+              ],
+              [
+                0.75,
+                0.68181,
+                0.25625
+              ],
+              [
+                0.25,
+                0.31819,
+                0.74375
+              ],
+              [
+                0.75,
+                0.43522,
+                0.40236
+              ],
+              [
+                0.25,
+                0.56478,
+                0.59764
+              ],
+              [
+                0.75,
+                0.93522,
+                0.09764
+              ],
+              [
+                0.25,
+                0.06478,
+                0.90236
+              ],
+              [
+                0.75,
+                0.09874,
+                0.48352
+              ],
+              [
+                0.25,
+                0.90126,
+                0.51648
+              ],
+              [
+                0.75,
+                0.59874,
+                0.01648
+              ],
+              [
+                0.25,
+                0.40126,
+                0.98352
+              ],
+              [
+                0.99421,
+                0.56475,
+                0.80914
+              ],
+              [
+                0.49421,
+                0.43525,
+                0.19086
+              ],
+              [
+                0.50579,
+                0.06475,
+                0.69086
+              ],
+              [
+                0.00579,
+                0.93525,
+                0.30914
+              ],
+              [
+                0.00579,
+                0.43525,
+                0.19086
+              ],
+              [
+                0.50579,
+                0.56475,
+                0.80914
+              ],
+              [
+                0.49421,
+                0.93525,
+                0.30914
+              ],
+              [
+                0.99421,
+                0.06475,
+                0.69086
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 42,
+          "formula": "BaOF",
+          "id": "JVASP-117591",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-117591.html",
+          "spg": "Amm2 (38)",
+          "ehull": 0.026,
+          "icsd": false,
+          "tc": 0.02,
+          "tc_sc": 5.47,
+          "lo": 1.07,
+          "hi": 19.25,
+          "p_sc": 0.004,
+          "p_lo": 0.003,
+          "p_hi": 0.006,
+          "p_unconventional": 0.999,
+          "family": "other oxide",
+          "gap": 0.51,
+          "magnetic": true,
+          "novelty": 0.89,
+          "nearest": {
+            "formula": "Ba0.25Cu1F2Sr1.75O2",
+            "tc": 58.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.76,
+                0.0121,
+                0.0
+              ],
+              [
+                -2.39,
+                3.8014,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                4.6734
+              ]
+            ],
+            "elements": [
+              "Ba",
+              "O",
+              "F"
+            ],
+            "frac": [
+              [
+                0.33236,
+                0.99801,
+                0.0
+              ],
+              [
+                0.67849,
+                0.6904,
+                0.0
+              ],
+              [
+                0.98915,
+                0.3116,
+                0.0
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 43,
+          "formula": "Yb2InGa",
+          "id": "JVASP-109617",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-109617.html",
+          "spg": "Fm-3m (225)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.02,
+          "tc_sc": 1.83,
+          "lo": 0.0,
+          "hi": 7.84,
+          "p_sc": 0.011,
+          "p_lo": 0.003,
+          "p_hi": 0.024,
+          "p_unconventional": 0.995,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.74,
+          "nearest": {
+            "formula": "Au2In1Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.5175,
+                -0.0,
+                2.6082
+              ],
+              [
+                1.5058,
+                4.2591,
+                2.6082
+              ],
+              [
+                -0.0,
+                -0.0,
+                5.2163
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "In",
+              "Ga"
+            ],
+            "frac": [
+              [
+                0.25,
+                0.25,
+                0.25
+              ],
+              [
+                0.75,
+                0.75,
+                0.75
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.5,
+                0.5,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 44,
+          "formula": "CaYb3In2Ge4",
+          "id": "JVASP-102795",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-102795.html",
+          "spg": "Amm2 (38)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.02,
+          "tc_sc": 1.13,
+          "lo": 0.0,
+          "hi": 5.67,
+          "p_sc": 0.019,
+          "p_lo": 0.007,
+          "p_hi": 0.038,
+          "p_unconventional": 0.998,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.98,
+          "nearest": {
+            "formula": "Ge13Ru4Yb3",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                7.3271,
+                -0.001,
+                0.0
+              ],
+              [
+                -0.0267,
+                7.3271,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                4.3799
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Yb",
+              "Ca",
+              "In",
+              "In",
+              "Ge",
+              "Ge",
+              "Ge",
+              "Ge"
+            ],
+            "frac": [
+              [
+                0.17407,
+                0.82593,
+                0.0
+              ],
+              [
+                0.67272,
+                0.67357,
+                0.0
+              ],
+              [
+                0.32643,
+                0.32728,
+                0.0
+              ],
+              [
+                0.82529,
+                0.17471,
+                0.0
+              ],
+              [
+                0.50008,
+                0.99972,
+                0.5
+              ],
+              [
+                0.00028,
+                0.49992,
+                0.5
+              ],
+              [
+                0.37668,
+                0.62332,
+                0.5
+              ],
+              [
+                0.6205,
+                0.37949,
+                0.5
+              ],
+              [
+                0.12489,
+                0.12095,
+                0.5
+              ],
+              [
+                0.87905,
+                0.87511,
+                0.5
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 45,
+          "formula": "Yb2InCu2",
+          "id": "JVASP-97801",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-97801.html",
+          "spg": "P4/mbm (127)",
+          "ehull": 0.0,
+          "icsd": true,
+          "tc": 0.02,
+          "tc_sc": 6.6,
+          "lo": 1.43,
+          "hi": 22.78,
+          "p_sc": 0.004,
+          "p_lo": 0.002,
+          "p_hi": 0.005,
+          "p_unconventional": 0.998,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.95,
+          "nearest": {
+            "formula": "In3Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                3.7179,
+                -0.0,
+                0.0
+              ],
+              [
+                0.0,
+                7.4293,
+                0.0
+              ],
+              [
+                -0.0,
+                -0.0,
+                7.4293
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Yb",
+              "Yb",
+              "In",
+              "In",
+              "Cu",
+              "Cu",
+              "Cu",
+              "Cu"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.17711,
+                0.67711
+              ],
+              [
+                0.5,
+                0.32289,
+                0.17711
+              ],
+              [
+                0.5,
+                0.67711,
+                0.8229
+              ],
+              [
+                0.5,
+                0.8229,
+                0.32289
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.5,
+                0.5
+              ],
+              [
+                0.0,
+                0.38198,
+                0.88198
+              ],
+              [
+                0.0,
+                0.11802,
+                0.38198
+              ],
+              [
+                0.0,
+                0.88198,
+                0.61802
+              ],
+              [
+                0.0,
+                0.61802,
+                0.11802
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 46,
+          "formula": "Na2FeNiF7",
+          "id": "JVASP-56646",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-56646.html",
+          "spg": "Imm2 (44)",
+          "ehull": 0.003,
+          "icsd": true,
+          "tc": 0.01,
+          "tc_sc": 5.81,
+          "lo": 1.18,
+          "hi": 20.31,
+          "p_sc": 0.002,
+          "p_lo": 0.002,
+          "p_hi": 0.004,
+          "p_unconventional": 0.714,
+          "gap": 0.31,
+          "magnetic": true,
+          "novelty": 0.97,
+          "nearest": {
+            "formula": "Cu1F2Sr2O2",
+            "tc": 44.33
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                6.2686,
+                -0.0,
+                3.5668
+              ],
+              [
+                2.1451,
+                6.0492,
+                3.5218
+              ],
+              [
+                -0.0166,
+                0.0006,
+                7.321
+              ]
+            ],
+            "elements": [
+              "Na",
+              "Na",
+              "Na",
+              "Na",
+              "Fe",
+              "Fe",
+              "Ni",
+              "Ni",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            "frac": [
+              [
+                0.25017,
+                0.49581,
+                0.50419
+              ],
+              [
+                0.75087,
+                0.99707,
+                0.5012
+              ],
+              [
+                0.74984,
+                0.49581,
+                0.50419
+              ],
+              [
+                0.24913,
+                0.4988,
+                0.00293
+              ],
+              [
+                0.25009,
+                0.9975,
+                0.50233
+              ],
+              [
+                0.74991,
+                0.49767,
+                0.0025
+              ],
+              [
+                0.2501,
+                0.99771,
+                0.00229
+              ],
+              [
+                0.7499,
+                0.99771,
+                0.00229
+              ],
+              [
+                0.0,
+                0.89372,
+                0.10628
+              ],
+              [
+                0.34377,
+                0.67156,
+                0.6409
+              ],
+              [
+                0.1561,
+                0.32354,
+                0.36426
+              ],
+              [
+                0.66555,
+                0.31523,
+                0.95094
+              ],
+              [
+                0.93172,
+                0.04906,
+                0.68477
+              ],
+              [
+                0.56821,
+                0.94638,
+                0.31978
+              ],
+              [
+                0.5,
+                0.10188,
+                0.89812
+              ],
+              [
+                0.65623,
+                0.3591,
+                0.32844
+              ],
+              [
+                0.16563,
+                0.94638,
+                0.31978
+              ],
+              [
+                0.83437,
+                0.68022,
+                0.05362
+              ],
+              [
+                0.8439,
+                0.63574,
+                0.67646
+              ],
+              [
+                0.06828,
+                0.31523,
+                0.95093
+              ],
+              [
+                0.33445,
+                0.04906,
+                0.68477
+              ],
+              [
+                0.43179,
+                0.68022,
+                0.05362
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 47,
+          "formula": "LaCeF6",
+          "id": "JVASP-102731",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-102731.html",
+          "spg": "Amm2 (38)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.01,
+          "tc_sc": 1.88,
+          "lo": 0.0,
+          "hi": 8.01,
+          "p_sc": 0.006,
+          "p_lo": 0.002,
+          "p_hi": 0.012,
+          "p_unconventional": 0.944,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "magnetic": true,
+          "novelty": 0.86,
+          "nearest": {
+            "formula": "Ba0.25Cu1F2Sr1.75O2",
+            "tc": 58.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                4.153,
+                0.0653,
+                0.0
+              ],
+              [
+                -2.1423,
+                3.5585,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                7.3147
+              ]
+            ],
+            "elements": [
+              "La",
+              "Ce",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F",
+              "F"
+            ],
+            "frac": [
+              [
+                0.66817,
+                0.33182,
+                0.0
+              ],
+              [
+                0.33205,
+                0.66795,
+                0.5
+              ],
+              [
+                0.00081,
+                0.99919,
+                0.0
+              ],
+              [
+                0.99922,
+                0.00078,
+                0.5
+              ],
+              [
+                0.6664,
+                0.3336,
+                0.66944
+              ],
+              [
+                0.33348,
+                0.66652,
+                0.8282
+              ],
+              [
+                0.33348,
+                0.66652,
+                0.1718
+              ],
+              [
+                0.6664,
+                0.3336,
+                0.33056
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 48,
+          "formula": "YbGa4Ni",
+          "id": "JVASP-152176",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-152176.html",
+          "spg": "Cmcm (63)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.01,
+          "tc_sc": 1.57,
+          "lo": 0.0,
+          "hi": 7.03,
+          "p_sc": 0.007,
+          "p_lo": 0.004,
+          "p_hi": 0.012,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.56,
+          "nearest": {
+            "formula": "Ga6Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                2.0512,
+                -7.6177,
+                0.0
+              ],
+              [
+                2.0512,
+                7.6177,
+                -0.0
+              ],
+              [
+                0.0,
+                -0.0,
+                6.5481
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ni",
+              "Ni"
+            ],
+            "frac": [
+              [
+                0.6249,
+                0.37509,
+                0.75
+              ],
+              [
+                0.37509,
+                0.6249,
+                0.25
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.5
+              ],
+              [
+                0.43203,
+                0.56797,
+                0.75
+              ],
+              [
+                0.56797,
+                0.43203,
+                0.25
+              ],
+              [
+                0.81517,
+                0.18483,
+                0.95072
+              ],
+              [
+                0.18483,
+                0.81517,
+                0.45072
+              ],
+              [
+                0.81517,
+                0.18483,
+                0.54928
+              ],
+              [
+                0.18483,
+                0.81517,
+                0.04928
+              ],
+              [
+                0.27696,
+                0.72304,
+                0.75
+              ],
+              [
+                0.72304,
+                0.27696,
+                0.25
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 49,
+          "formula": "Yb3Ga9Pt2",
+          "id": "JVASP-118972",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-118972.html",
+          "spg": "Immm (71)",
+          "ehull": 0.0,
+          "icsd": false,
+          "tc": 0.01,
+          "tc_sc": 1.18,
+          "lo": 0.0,
+          "hi": 5.83,
+          "p_sc": 0.009,
+          "p_lo": 0.005,
+          "p_hi": 0.015,
+          "p_unconventional": 1.0,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.6,
+          "nearest": {
+            "formula": "Ga6Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 5,
+            "file": "screen_round5.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                7.8008,
+                0.0258,
+                -2.375
+              ],
+              [
+                -0.8278,
+                4.0403,
+                -7.0346
+              ],
+              [
+                -0.002,
+                -0.0258,
+                8.1544
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Yb",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Pt",
+              "Pt"
+            ],
+            "frac": [
+              [
+                0.5,
+                0.5,
+                0.0
+              ],
+              [
+                0.19584,
+                0.19584,
+                0.0
+              ],
+              [
+                0.80416,
+                0.80416,
+                0.0
+              ],
+              [
+                0.64349,
+                0.36316,
+                0.28033
+              ],
+              [
+                0.35651,
+                0.63684,
+                0.71967
+              ],
+              [
+                0.08282,
+                0.36316,
+                0.71967
+              ],
+              [
+                0.91718,
+                0.63684,
+                0.28033
+              ],
+              [
+                0.52903,
+                0.15962,
+                0.36941
+              ],
+              [
+                0.47097,
+                0.84038,
+                0.63059
+              ],
+              [
+                0.79021,
+                0.15962,
+                0.63059
+              ],
+              [
+                0.20979,
+                0.84038,
+                0.36941
+              ],
+              [
+                0.0,
+                0.5,
+                0.5
+              ],
+              [
+                0.19094,
+                0.0,
+                0.19094
+              ],
+              [
+                0.80906,
+                0.0,
+                0.80906
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        },
+        {
+          "rank": 50,
+          "formula": "YbGa2Pd",
+          "id": "JVASP-150023",
+          "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-150023.html",
+          "spg": "Cmcm (63)",
+          "ehull": 0.048,
+          "icsd": false,
+          "tc": 0.01,
+          "tc_sc": 1.06,
+          "lo": 0.0,
+          "hi": 5.45,
+          "p_sc": 0.007,
+          "p_lo": 0.004,
+          "p_hi": 0.01,
+          "p_unconventional": 0.999,
+          "family": "heavy-fermion",
+          "gap": 0.0,
+          "novelty": 0.82,
+          "nearest": {
+            "formula": "Ga6Yb1",
+            "tc": 0.0
+          },
+          "listed": {
+            "date": "2026-10-31",
+            "round": 4,
+            "file": "screen_round4.json"
+          },
+          "atoms": {
+            "lattice": [
+              [
+                2.1854,
+                -4.9126,
+                0.0
+              ],
+              [
+                2.1854,
+                4.9126,
+                -0.0
+              ],
+              [
+                0.0,
+                -0.0,
+                6.9112
+              ]
+            ],
+            "elements": [
+              "Yb",
+              "Yb",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Ga",
+              "Pd",
+              "Pd"
+            ],
+            "frac": [
+              [
+                0.58087,
+                0.41913,
+                0.75
+              ],
+              [
+                0.41913,
+                0.58087,
+                0.25
+              ],
+              [
+                0.86651,
+                0.13349,
+                0.94442
+              ],
+              [
+                0.13349,
+                0.86651,
+                0.44442
+              ],
+              [
+                0.86651,
+                0.13349,
+                0.55558
+              ],
+              [
+                0.13349,
+                0.86651,
+                0.05558
+              ],
+              [
+                0.29434,
+                0.70566,
+                0.75
+              ],
+              [
+                0.70566,
+                0.29434,
+                0.25
+              ]
+            ]
+          },
+          "p_spread_method": "same-background-fold-training-fold-ensemble"
+        }
+      ],
+      "background": {
+        "n": 218,
+        "weight": 0.3,
+        "cross_fitted": true,
+        "radius": 1.0,
+        "pool": 1714
+      },
+      "reliability": {
+        "false_alarms": 0.0,
+        "false_alarms_previous": 0.0,
+        "previous": "3.0",
+        "about": "false alarms: the share of held-out background compounds (JARVIS-DFT compounds with no superconductivity record that Radar sends to Hurricane) given at least an even chance of superconducting; an upper bound, as a few of them may superconduct",
+        "n_background": 218,
+        "cite": "T. Konno et al., Phys. Rev. B 103, 014509 (2021)",
+        "doi": "10.1103/PhysRevB.103.014509",
+        "dismissed": 0.28,
+        "dismissed_previous": 0.882,
+        "dismissed_reference": 0.532,
+        "reference": "2.0",
+        "false_alarms_reference": 0.39,
+        "abstain": 1.0,
+        "dismissed_about": "called unlikely: trained without a whole family, the share of that family's superconductors given a chance under one half, averaged over the four families; a compound that gets no chance (not known) is not counted as called unlikely",
+        "unknown_about": "not known: a compound further from every training compound, in the model's standardized inputs, than the given multiple of the distance that separates 95% of the training compounds from their nearest neighbour in another parent compound gets no chance"
+      },
+      "not_known": {
+        "n": 279,
+        "of": 354,
+        "abstain": 1.0,
+        "about": "Hurricane gives no chance to a compound further from every training compound, in its standardized inputs, than the distance that separates 95% of the training compounds from their nearest neighbour in another parent compound; such compounds are not listed"
+      }
+    }
