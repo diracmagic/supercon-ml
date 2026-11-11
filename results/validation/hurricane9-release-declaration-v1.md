@@ -141,3 +141,45 @@ kept in results/ for a later audit. The waiver covers this protocol hash only.
 - One database, one way of dating reports (the year field of the datasheet) and one parent rule. A parent that is
   new in the datasheet may have been known in the literature earlier.
 - The screening list of candidates is not part of this run. It follows in its own round, with the released model.
+
+## 7. Amendment 1 (2026-11-11), after the run on the branch and before the run on main
+
+- The run on the branch. Run 43023142897 (Train #71, commit 73e32b92daef995ad7f69366129d0963863b00d9) ran the module
+  as declared above, and the rule is met. C1 is +0.306 [0.212, 0.390] over 472 parent clusters, as in the declared
+  run, and the prediction rows are byte for byte those of its repeat (SHA-256
+  4bce0e73d5e7c7905890387c20cb666a934af0a9c6f8e51a06ef74db1769bb62). The guard: 3,881 background compounds, 591 of
+  them sent to Hurricane by Radar, 158 inside the training data and used as weak negatives; false alarms on 0.17% of
+  the sent compounds (one compound; the limit is 5%), against 51.6% without the guard. The summary printed into the
+  job log has SHA-256 288032531a535151a2ca27d12af7fba91dd99328460906cc065942e475ad1a5a (14,706 characters). Nothing
+  was committed from the branch.
+- What that run showed and the published summary did not say. The guard passes mostly by not answering: 90.9% of
+  the sent compounds are not known, and of the 54 inside the training data one gets a chance of at least one half.
+  Of the measured non-superconductors among the new-parent units of the family windows, 38.5% get a chance of at
+  least one half: inside a family it knows, the model often cannot tell which compositions fail to superconduct.
+  In the window in which the cuprates were new it gives 76.6% of their superconductors and 60.6% of their measured
+  non-superconductors a chance of at least one half and never predicts more than 19.2 K; in the window in which the
+  iron-based compounds were new it answers not known for 99.9% of them.
+- What the amendment changes: only the texts and the rounding that entry and update_progress of
+  ml/hurricane9_release.py write into progress.json. (1) The summary of the model names the share answered not
+  known, and a share that is not zero is no longer written as 0%. (2) The summary carries the mark that lets apps
+  released before version 0.3.30 show it in place of their own description of the previous data. (3) Rank
+  correlations and AUCs are written with four decimals instead of three, so that rounding them to two gives the
+  right digit. (4) Three texts say composition where they said unit, and the first design note says more than five
+  times as many entries: the model learns from 11,642 compositions against 2,123, where section 4 says about six
+  times the measurements. PROTOCOL is untouched and its hash is the same. No number, model, guard, rule or decision
+  changes; the tests of the module were run again.
+- What is added for the published state. Three tests read progress/progress.json as it was audited with Hurricane
+  4.0 in use. They now hold in either state, and results/validation/hurricane9-release-publication.json records,
+  before the run on main, what that run may change outside the screen block with the values before it. After the
+  run, putting those values back and taking the round-9 entries out again must give the audited payload.
+
+| File after the amendment | SHA-256 |
+| --- | --- |
+| ml/hurricane9_release.py | 6b13d19af83ef958cb5897725f825d55d83de10983077513bd163e95807b31a5 |
+| tests/test_hurricane9_release.py | 7e8722212125f7b423bccb87f83ee41290be1ed9c0f3f4d582403494dfb95246 |
+| tests/test_hurricane_display_cohorts.py | cb3b3a221c5b65f6ea3061d042d1b1225ff16fc56af78f1b81789c0e2073b00f |
+| tests/test_screen_publication.py | e87054e1516856195aed6901746264a14f673b57f4ad5c23e4f42bcb1c508e35 |
+| results/validation/hurricane9-release-publication.json | 7c443b803eff41d76134572f81de44a77ff50dbd3a75627d6f72d6645784c162 |
+
+- The screening list is not changed by the release. The candidates in progress/progress.json were screened with
+  Hurricane 4.0 and stay so labelled until a new screening round is run, audited and published.
