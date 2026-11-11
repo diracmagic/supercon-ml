@@ -31,7 +31,7 @@ jobs:
       - run: pip install "jarvis-tools>=2024.10.10" "pymatgen>=2024.9.10" numpy
 
       - name: Check (counts only; no model, no fit)
-        run: python ml/jarvis_hull_check.py
+        run: python ml/jarvis_hull_check.py --all
 
       - name: Module identity
         run: |
