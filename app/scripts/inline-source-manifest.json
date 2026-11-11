@@ -565,7 +565,7 @@
     "candTrack": "c64ec36a1ea20b3f8ab0859989c36d15348bd7dcd87c1028425ad15f2ff380f3",
     "candArchive": "b168ca844115c6815c7b6e9c35471a050324a69a7246811172d33d6f11472338",
     "candModel": "f91855703dfffa4949bde6c1b4301c1de8d1699614e2d803da641cb6032ea5b5",
-    "candHurTop": "1e7424a43d2cb1e4dfdf692a3d2177761ff7ab26b1c542372f3077030376e45c",
+    "candHurTop": "500ed8c80b485c9b88e1f16e8f1de19ff599f36ceeccc8fa37df93892ed3c264",
     "renderCandidates": "81678be822f84e3d2e9284e66d606cb6b5b1b0cd957dbd9e06a1fa2fee86efe1",
     "candTellUs": "c4e2ef3c3b7fd11b4442678f2be13a5525d91d7c7077fab18746c0d26602bd32",
     "candSelect": "73ef0bc4418f1763c2307f182641dc7c83f3ae236802832c3268e8b4d5698dc9",
@@ -879,7 +879,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-11",
-    "purpose": "Release 0.3.30. A Hurricane version that learns from the NIMS SuperCon datasheet and is checked on time windows (scores.kind is time-windows, with a temporal block) gets its own captions, design stage, window-by-window validation bars, new-family answers, model card, tour text and details block; a version scored on folds takes the same code paths as before. Hurricane's baseline demo compares with the latest released version scored on folds. In Candidates the unconventional list comes first and is the default, and a strip names the compounds Hurricane gives the highest score and the version that screened the list. The liquid-nitrogen label of the data stage moves off a bar that crosses it. Version 0.3.30 in the service worker, the app constant and the cache name. The app changes no model result, candidate, score or threshold.",
+    "purpose": "Release 0.3.30. A Hurricane version that learns from the NIMS SuperCon datasheet and is checked on time windows (scores.kind is time-windows, with a temporal block) gets its own captions, design stage, window-by-window validation bars, new-family answers, model card, tour text and details block; a version scored on folds takes the same code paths as before. Hurricane's baseline demo compares with the latest released version scored on folds. In Candidates the unconventional list comes first and is the default, and a strip names the compounds Hurricane gives the highest score, any recorded check on them and the version that screened the list. The liquid-nitrogen label of the data stage moves off a bar that crosses it. Version 0.3.30 in the service worker, the app constant and the cache name. The app changes no model result, candidate, score or threshold.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -892,7 +892,7 @@
       "a version scored on folds is drawn and described exactly as before",
       "every number in the new texts and drawings is read from the live progress data",
       "the new texts name the nearest-compound reference the model does not clearly beat, the share it answers not known and the measured non-superconductors it still gives an even chance",
-      "the strip repeats candidates of the published list with their published score and Tc, adds none, changes no rank and names the version that screened the list"
+      "the strip repeats candidates of the published list with their published score and Tc, adds none, changes no rank, names the version that screened the list and marks every compound with a recorded check"
     ],
     "previous_css_sha256": "f20c189b8c4de62630f061050efb02e2e43a19c0fced85b3848eb29182a8d73d",
     "functions_added": [

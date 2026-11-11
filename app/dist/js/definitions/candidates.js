@@ -292,20 +292,24 @@
 
   // Hurricane's predictions first, whichever list is open: the compounds on its list with the highest model score, each
   // with the Tc it predicts if the compound superconducts. Ranked by the score so that a high Tc with almost no chance does not lead.
+  // A compound with a recorded check is marked and the check is named, so a prediction an experiment has already answered does not stand alone.
   const candHurTop = function candHurTop(sc, rows) {
     var block = candBlock(sc, 'hurricane'), best = list(rows).filter(function (c) { return candNum(c.p_sc) && candNum(candTcSc(c)); }).map(function (c, i) { return [c, i]; })
       .sort(function (a, b) { return b[0].p_sc - a[0].p_sc || candTcSc(b[0]) - candTcSc(a[0]) || a[1] - b[1]; }).slice(0, 5).map(function (x) { return x[0]; });
     if (!block || !best.length) return null;
-    var chips = h('div', { class: 'cand-mcm-chips' });
+    var chips = h('div', { class: 'cand-mcm-chips' }), checks = [];
     best.forEach(function (c) {
+      var k = candChecked(c);
+      if (k) checks.push(hurSub(c.formula) + ', ' + candCheckText(k).replace(/^Measured/, 'measured'));
       chips.appendChild(h('button', { class: 'btn small cand-hur-chip', type: 'button', onclick: function () { candGo('hurricane', candId(c)); } },
-        hurSub(c.formula) + ' · score ' + candPct(c.p_sc) + ' · ' + candK(candTcSc(c)) + ' if it superconducts'));
+        hurSub(c.formula) + (k ? '*' : '') + ' · score ' + candPct(c.p_sc) + ' · ' + candK(candTcSc(c)) + ' if it superconducts'));
     });
     var now = hurInfo(), older = now && now.hu.current && typeof block.model === 'string' && block.model !== hurTitle(now);
     return h('div', { class: 'cand-hur-top', role: 'note' },
       h('p', null, h('b', { text: cText(block.model || 'Hurricane', 40) + '’s predictions for the unconventional families.' }), ' Of the ' + fmtInt(list(rows).length) +
         ' compounds on its list, the ones it gives the highest model score, each with the Tc it predicts if the compound superconducts. A score is not an experimentally established probability, and none of these is a measurement.' +
-        (older ? ' This list was screened with ' + cText(block.model, 40) + '; ' + hurTitle(now) + ', now in use, has not screened the pool yet.' : '')), chips);
+        (older ? ' This list was screened with ' + cText(block.model, 40) + '; ' + hurTitle(now) + ', now in use, has not screened the pool yet.' : '') +
+        (checks.length ? ' Those marked * have a recorded check: ' + checks.join('; ') + '.' : '')), chips);
   };
 
 
