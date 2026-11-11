@@ -4,8 +4,9 @@ Step 1 (--probe). For each candidate database the JARVIS-tools copy is downloade
 gives its size, every field with how often it is filled and of which types, a few short example values of the scalar
 fields, the fields that look like an experimental or database cross-reference, and simple counts on the structures:
 atoms per cell, number of elements, hydrogen and carbon, and the distinct compositions (exact reduced formulas), with
-their overlaps between the databases. No model is loaded or fitted, nothing is written into results/ or progress/, and
-no structure is printed. The report goes into the job log between markers, in lines of at most 2,000 characters.
+their overlaps between the databases, for all records and for the pool-like ones (no hydrogen, at least two elements,
+at most 100 atoms in the cell, ordered). No model is loaded or fitted, nothing is written into results/ or progress/,
+and no structure is printed. The report goes into the job log between markers, in lines of at most 2,000 characters.
 
 Licences of the underlying data, as found on 2026-11-11: JARVIS-DFT, NIST (already used for the pool); Alexandria,
 CC BY 4.0 (alexandria.icams.rub.de/about.html); Crystallography Open Database, placed in the public domain by its
@@ -16,6 +17,7 @@ found for it, and it is not to be used until one is. This step only counts.
 import argparse
 import collections
 import hashlib
+import io
 import json
 import math
 import os
@@ -32,6 +34,43 @@ EXAMPLES = 3
 TEXT_MAX = 100
 CROSS_REF = re.compile(r"icsd|theor|exp|cod|source|database|origin|ref|entry|mp_id|material_id|prov|tag|^id$|_id$", re.I)
 NULLS = {None, "", "na", "NA", "nan", "None", "none", "[]"}
+TOKEN = re.compile(rb"(?<=[\[,:\s])-?(?:NaN|Infinity)(?=[\s,\]\}])")
+POOL_LIKE = "no hydrogen, at least two elements, at most 100 atoms in the cell, no two sites at the same place"
+
+
+class Finite(io.RawIOBase):
+    """The JSON byte stream with its bare NaN and Infinity tokens (which some of these files contain, and which strict
+    JSON readers refuse) written as null. A token is replaced only between delimiters, so a formula such as "NaN3" in a
+    string is left alone (text inside a string that itself reads ", NaN," would be changed; no field these counts use
+    holds such text), and the stream is cut only after a delimiter, so no token is split."""
+
+    def __init__(self, fh, chunk: int = 1 << 22):
+        self.fh, self.chunk, self.buf, self.eof, self.prev = fh, chunk, b"", False, b" "
+        self.out, self.pos = memoryview(b""), 0
+
+    def readable(self) -> bool:
+        return True
+
+    def _fill(self) -> None:
+        while self.pos >= len(self.out) and not (self.eof and not self.buf):
+            data = self.fh.read(self.chunk)
+            if data:
+                self.buf += data
+            else:
+                self.eof = True
+            cut = len(self.buf) if self.eof else max(self.buf.rfind(b","), self.buf.rfind(b"]"), self.buf.rfind(b"}")) + 1
+            if cut <= 0:
+                continue
+            head, self.buf = self.buf[:cut], self.buf[cut:]
+            self.out, self.pos = memoryview(TOKEN.sub(b"null", self.prev + head)[len(self.prev):]), 0
+            self.prev = head[-1:] or self.prev
+
+    def readinto(self, b) -> int:
+        self._fill()
+        n = min(len(b), len(self.out) - self.pos)
+        b[:n] = self.out[self.pos:self.pos + n]
+        self.pos += n
+        return n
 
 
 def catalogue():
@@ -66,7 +105,8 @@ def records(zpath: Path, member: str):
         data = json.loads(zf.read(name))
         yield from (data if isinstance(data, list) else data.values())
         return
-    with zf.open(name) as fh:
+    with zf.open(name) as raw:
+        fh = io.BufferedReader(Finite(raw), buffer_size=1 << 20)
         if top == b"[":
             yield from ijson.items(fh, "item", use_float=True)
         else:
@@ -170,7 +210,7 @@ def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, set]:
     n, fields, types, ex = 0, collections.Counter(), collections.defaultdict(collections.Counter), collections.defaultdict(list)
     atoms_key, n_atoms, n_el, with_h, with_c, no_structure = None, collections.Counter(), collections.Counter(), 0, 0, 0
     struct_keys, overlap = collections.Counter(), collections.Counter()
-    comps, top_elements = set(), collections.Counter()
+    comps, top_elements, pool_like, pool_comps, samples = set(), collections.Counter(), 0, set(), []
     for rec in records(zpath, member):
         n += 1
         if not isinstance(rec, dict):
@@ -189,10 +229,17 @@ def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, set]:
             no_structure += 1
             continue
         atoms_key = atoms_key or key
+        disordered = None
         if isinstance(rec.get(key), dict):
             struct_keys.update(rec[key].keys())
-            overlap[{True: "yes", False: "no", None: "not checked"}[overlapping_sites(rec[key])]] += 1
+            disordered = overlapping_sites(rec[key])
+            overlap[{True: "yes", False: "no", None: "not checked"}[disordered]] += 1
         c = counts_of(els)
+        if len(samples) < 3:
+            samples.append(sorted(c)[:8])
+        if disordered is False and "H" not in c and len(c) >= 2 and len(els) <= 100:
+            pool_like += 1
+            pool_comps.add(formula_key(c))
         n_atoms[bucket(len(els))] += 1
         n_el[bucket(len(c), (1, 2, 3, 4, 5, 6, 8))] += 1
         with_h += "H" in c
@@ -206,11 +253,12 @@ def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, set]:
         "structure_field": atoms_key, "structure_keys": dict(struct_keys.most_common(20)), "no_structure": no_structure,
         "atoms_per_cell": dict(sorted(n_atoms.items())), "elements_per_compound": dict(sorted(n_el.items())),
         "with_hydrogen": with_h, "with_carbon": with_c, "distinct_compositions": len(comps),
-        "overlapping_sites": dict(overlap), "licence_note": UNCONFIRMED.get(name),
+        "overlapping_sites": dict(overlap), "licence_note": UNCONFIRMED.get(name), "element_samples": samples,
+        "pool_like": {"rule": POOL_LIKE, "records": pool_like, "distinct_compositions": len(pool_comps)},
         "elements_seen": len(top_elements)})
     if not keep:
         zpath.unlink()
-    return rep, comps
+    return rep, (comps, pool_comps)
 
 
 def emit(report: dict, tag: str) -> None:
@@ -244,10 +292,11 @@ def probe(store: Path, names: list, keep: bool = False) -> dict:
         print(f"[census] {name}: {rep['records']:,} records, {rep['distinct_compositions']:,} distinct compositions, "
               f"read in {rep['read_s']} s", flush=True)
     keys = sorted(comp_sets)
-    out["overlaps"] = {f"{a} & {b}": len(comp_sets[a] & comp_sets[b]) for i, a in enumerate(keys) for b in keys[i + 1:]}
-    union = set().union(*comp_sets.values()) if comp_sets else set()
-    out["union_distinct_compositions"] = len(union)
-    out["only_in"] = {k: len(comp_sets[k] - set().union(*(comp_sets[j] for j in keys if j != k))) for k in keys}
+    for label, part in (("all", 0), ("pool_like", 1)):
+        sets = {k: comp_sets[k][part] for k in keys}
+        out[label] = {"overlaps": {f"{a} & {b}": len(sets[a] & sets[b]) for i, a in enumerate(keys) for b in keys[i + 1:]},
+                      "union_distinct_compositions": len(set().union(*sets.values())) if sets else 0,
+                      "only_in": {k: len(sets[k] - set().union(*(sets[j] for j in keys if j != k))) for k in keys}}
     return out
 
 
