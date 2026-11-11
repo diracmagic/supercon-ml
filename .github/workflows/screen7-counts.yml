@@ -1,0 +1,55 @@
+name: Screening round 7, pool counts (count-only)
+
+# The sizes of the wider pool of screening round 7 from the real sources (python ml/hurricane9_screen7.py --counts):
+# JARVIS-DFT with the hull distance computed from its formation energies, the Materials Project build, the Alexandria
+# convex hull and the COD's own table, through the pool's rules and the exclusions. No Radar, no model, no list; it
+# writes nothing, commits nothing and uploads nothing. Runs when this file changes on the branch; change COUNTS_TAG
+# to re-run.
+
+on:
+  push:
+    branches: [claude/screen-round7]
+    paths:
+      - '.github/workflows/screen7-counts.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  counts:
+    name: Count-only build of the round-7 pool
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      COUNTS_TAG: 'screen7-counts-1'
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install -r ml/requirements.txt
+
+      - name: The module's tests (invented rows)
+        run: python -m unittest tests.test_hurricane9_screen7 -v
+
+      - name: Protocol as it stands (not yet declared)
+        run: python ml/hurricane9_screen7.py --protocol | tail -n 1
+
+      - name: Counts (no Radar, no model, nothing written)
+        run: python ml/hurricane9_screen7.py --counts
+
+      - name: Nothing was written
+        run: |
+          git status --short
+          test -z "$(git status --porcelain)"
+
+      - name: Module identity
+        run: |
+          git rev-parse HEAD
+          sha256sum ml/hurricane9_screen7.py tests/test_hurricane9_screen7.py .github/workflows/screen7-counts.yml

@@ -1287,7 +1287,7 @@ def run_foundation() -> None:
 
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane", "hurricane2", "hurricane3", "hurricane4", "hurricane5", "hurricane6", "hurricane7", "hurricane9", "hurricane9screen", "gnn", "radar", "gnn2", "gnn2final", "storm4", "storm5", "storm6", "screen"])
+    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane", "hurricane2", "hurricane3", "hurricane4", "hurricane5", "hurricane6", "hurricane7", "hurricane9", "hurricane9screen", "hurricane9screen7", "gnn", "radar", "gnn2", "gnn2final", "storm4", "storm5", "storm6", "screen"])
     args = ap.parse_args(argv)
     if args.command == "baseline":
         run_baseline()
@@ -1327,6 +1327,9 @@ def main(argv=None) -> None:
     elif args.command == "hurricane9screen":
         import hurricane9_screen
         hurricane9_screen.run()
+    elif args.command == "hurricane9screen7":
+        import hurricane9_screen7
+        hurricane9_screen7.run()
     elif args.command == "gnn":
         import gnn
         gnn.run()
