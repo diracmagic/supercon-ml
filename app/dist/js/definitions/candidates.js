@@ -160,6 +160,8 @@
   // trusted, how close it is to what the model learned from, whether anything has checked it, and when we first listed it
   const candRemarks = function candRemarks(c, hur, block) {
     var out = [], model = hur ? 'Hurricane' : 'Storm', range = candRange(c), ck = (block && block.check) || {};
+    // a version that learns from the NIMS datasheet scores the compounds of its own background pool, each with a classifier that left it out
+    var tw = !!(hur && block && hurTW(candHurVersion(block)));
     out.push(c.icsd === true ? ['info', 'This database structure is linked to ICSD, an experimental crystallographic source. Verify the original sample and phase before assuming the relaxed computational structure is experimentally realized.'] :
       ['warn', 'Computed structure: not marked as an ICSD structure in this dataset; its synthesis history remains unresolved.']);
     if (range) {
@@ -169,14 +171,15 @@
     }
     if (candNum(c.p_sc)) {
       out.push(['warn', 'Superconductivity model score: ' + candPct(c.p_sc) + '. ' + (hur ?
-        'This classifier learns 3DSC labels' + (block && block.background ? ' and background compounds treated as negative because no superconductivity record was found' : '') +
-          '. An unreported compound is not a confirmed negative; the score is not established as the probability that a new material superconducts.' :
+        'This classifier learns ' + (tw ? 'the measured compositions of the NIMS SuperCon datasheet' : '3DSC labels') + (block && block.background ? ' and background compounds treated as negative because no superconductivity record was found' : '') +
+          '. ' + (tw && block.background && block.background.cross_fitted === true ? 'This compound is one of those background compounds; its score comes from a classifier that had not learned from it. ' : '') +
+          'An unreported compound is not a confirmed negative; the score is not established as the probability that a new material superconducts.' :
         'This calibration uses ' + (candNum(ck.n) ? fmtInt(ck.n) + ' ' : '') + 'selected materials in 3DSC. Its relationship to experimental outcomes may not transfer to untested candidates.') +
         (c.outside ? ' This candidate is outside the training domain, which adds extrapolation uncertainty.' : '')]);
     } else out.push(['warn', model + ' does not provide a superconductivity score for this candidate.']);
     if (hur && candidateData.disagreement(c)) out.push(['warn', candidateData.disagreement(c)]);
     if (c.nearest && typeof c.nearest.formula === 'string') {
-      var near = hurSub(cText(c.nearest.formula, 60).replace(/([A-Z][a-z]?)1(?![\d.])/g, '$1')) + (candNum(c.nearest.tc) ? ' (' + (hur ? 'measured' : 'DFT') + ' Tc ' + candK(c.nearest.tc) + ')' : '');
+      var near = hurSub(cText(c.nearest.formula, 60).replace(/([A-Z][a-z]?)1(?![\d.])/g, '$1')) + (candNum(c.nearest.tc) ? (tw && c.nearest.tc === 0 ? ' (measured not to superconduct)' : ' (' + (hur ? 'measured' : 'DFT') + ' Tc ' + candK(c.nearest.tc) + ')') : '');
       out.push([c.outside ? 'warn' : 'info', c.outside ? 'Outside the training data: even the most similar material ' + model + ' learned from, ' + near + ', is far from it, so this prediction is an extrapolation.' :
         'The most similar material ' + model + ' learned from is ' + near + '.']);
     } else if (hur) out.push(['warn', 'Many compounds on this list are unlike anything Hurricane learned from; this one has not been compared with its training data yet.']);
@@ -250,13 +253,14 @@
   };
 
   const candOursNote = function candOursNote(sc, kind) {
-    var b = candBlock(sc, kind), ex = (b && b.excluded) || {}, parts = [], sys = typeof ex.system === 'number';
+    var b = candBlock(sc, kind), ex = (b && b.excluded) || {}, parts = [], sys = typeof ex.system === 'number', own = b && candNum(b.round) ? b : (sc || {});   // a list screened in a round of its own names that round
     if (typeof ex.supercon === 'number') parts.push(fmtInt(ex.supercon) + ' with a SuperCon or 3DSC record');
+    if (typeof ex.datasheet === 'number') parts.push(fmtInt(ex.datasheet) + ' whose composition the NIMS SuperCon datasheet lists');
     if (typeof ex.computed === 'number') parts.push(fmtInt(ex.computed) + ' with a computed Tc');
     if (typeof ex.prior === 'number') parts.push(fmtInt(ex.prior) + ' reported or predicted by others');
     if (sys) parts.push(fmtInt(ex.system) + ' made of the same elements as a known superconductor');
     var txt = 'The new-candidate view retains predictions unless a reviewed experimental superconductivity report matches the exact composition, structure, phase, pressure, doping and sample form and predates a sourced frozen prediction. Such records remain visible in the earlier-reports archive. An unknown outcome, a formula match or a theoretical prediction is not enough to move a row. This list does not establish novelty.';
-    if (parts.length && sc) txt += ' The original screening round ' + (sc.round || 1) + ' applied broader pool exclusions: ' + parts.join(', ') + '. These historical exclusions are preserved in the screening data; the app does not restore materials absent from that data.';
+    if (parts.length && sc) txt += ' The original screening round ' + (own.round || 1) + ' applied broader pool exclusions: ' + parts.join(', ') + '. These historical exclusions are preserved in the screening data; the app does not restore materials absent from that data.';
     return h('div', { class: 'cand-ours' }, h('span', { class: 'cand-ours-mark', 'aria-hidden': 'true' }), h('p', null, h('b', { text: 'Predictions and earlier reports.' }), ' ', h('span', { text: txt })));
   };
 
@@ -378,7 +382,7 @@
         richText(h('li'), 'Review: exact candidates with verified earlier experimental superconductivity reports move to the visible archive.'),
         richText(h('li'), 'Check: the top candidates go to a full DFT electron–phonon calculation.'),
         richText(h('li'), 'Measure: the ones that pass are suggested to experimental groups.')]));
-      var round = (sc && sc.round) || 0, empty;
+      var round = (block && candNum(block.round) ? block.round : sc && sc.round) || 0, empty;
       if (sc && sc.status === 'running') empty = 'Screening round ' + (round || 1) + ' is running; the list appears here when it finishes.';
       else if (!hur && gotS.rows.length) empty = 'No published candidates belong to this selected ranking yet. Choose another Storm ranking to see the available candidates.';
       else if (got.hidden) empty = 'These candidates have reviewed earlier experimental reports. Their predictions, sources and conditions remain in the earlier-reports archive.';
@@ -390,7 +394,8 @@
       return;
     }
     var pool = (block && block.pool) || {};
-    var meta = h('p', { class: 'cand-meta' }), when = 'Screening round ' + (sc.round || 1) + (sc.date ? ', ' + fmtDayISO(sc.date) : '') + ': ';
+    var own = block && candNum(block.round) ? block : sc;   // Hurricane's list can come from a later screening round than Storm's
+    var meta = h('p', { class: 'cand-meta' }), when = 'Screening round ' + (own.round || 1) + (own.date ? ', ' + fmtDayISO(own.date) : '') + ': ';
     var rule = cText(String(pool.rule || '').split('; the list holds')[0], 400);
     if (hur) {
       richText(meta, when + 'of the ' + (candNum(pool.n_screened) ? fmtInt(pool.n_screened) + ' ' : '') + 'compounds in Hurricane’s pool from ' + cText(pool.source || 'JARVIS-DFT', 120) +
@@ -473,11 +478,18 @@
       var nLik9 = rows.filter(function (c) { return candNum(c.p_sc) && c.p_sc >= 0.5; }).length, cu9 = hurRank(hv9, 'cuprate', 'data'), nr9 = hurRank(hv9, 'cuprate', 'R1');
       lead += (block.model || 'Hurricane') + ' reads the composition only and provides a score only for compounds near its training data' +
         (nk && candNum(nk.n) && candNum(nk.of) ? ': ' + fmtInt(nk.n) + ' of the ' + fmtInt(nk.of) + ' compounds Radar sent it lie too far, so it does not judge them and they are not on this list' : '') +
-        '. It learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted as probably not superconducting; of the held-out compounds of that kind it gave ' +
-        (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' a model score of at least 0.5, and the published screening predictions give ' + (nLik9 === 0 ? 'none' : nLik9 === 1 ? 'one' : fmtInt(nLik9)) + ' of the ' + fmtInt(rows.length) + ' on this list such a score. ' +
+        '. It also learned from ' + (candNum(rel.n_background) ? fmtInt(rel.n_background) + ' ' : '') + 'compounds with no superconductivity record, counted at a low weight as probably not superconducting. ' +
+        // a list screened by this version holds compounds of that same pool, each scored by a classifier that left it out
+        (block.background && block.background.cross_fitted === true && candNum(block.round) ? 'The compounds on this list are among them: each score here comes from a classifier that had not learned from that compound, and ' +
+          (nLik9 === 0 ? 'none' : nLik9 === 1 ? 'one' : fmtInt(nLik9)) + ' of the ' + fmtInt(rows.length) + (nLik9 > 1 ? ' have' : ' has') + ' a model score of at least 0.5. ' :
+          'Of the held-out compounds of that kind it gave ' + (rel.false_alarms === 0 ? 'none' : candPct(rel.false_alarms)) + ' a model score of at least 0.5, and the published screening predictions give ' +
+          (nLik9 === 0 ? 'none' : nLik9 === 1 ? 'one' : fmtInt(nLik9)) + ' of the ' + fmtInt(rows.length) + ' on this list such a score. ') +
+        (ck && candNum(ck.found) && candNum(ck.alarms_on_negatives) ? 'Such a score is weak evidence: among parent compounds first reported after its training data end, it gave one to ' + candPct(ck.found) +
+          ' of the compositions that superconduct and to ' + candPct(ck.alarms_on_negatives) + ' of those measured not to superconduct. ' : '') +
         (candNum(cu9) && candNum(nr9) ? 'Asked about cuprate parent compounds first reported after its training data end, it ranks them by Tc with a rank correlation of ' + cu9.toFixed(2) + ', against ' + nr9.toFixed(2) + ' for the Tc of the nearest known compound: its Tc is a rough guide, not a measurement. ' : '') +
-        (candNum(rel.dismissed) ? 'Trained only on reports dated before a family was found, it calls ' + candPct(rel.dismissed) + ' of that family’s first superconductors unlikely' +
-          (candNum(rel.unknown_lofo) && candNum(rel.found) ? ', answers “not known” for ' + candPct(rel.unknown_lofo) + ' and gives ' + candPct(rel.found) + ' a model score of at least 0.5' : '') + ': it would be slow to recognize a new family. ' : '');
+        (candNum(rel.dismissed) ? 'Trained only on reports dated before a family was found, it ' + (candNum(rel.unknown_lofo) && candNum(rel.found) ? 'gives ' + candPct(rel.found) +
+          ' of that family’s first superconductors a model score of at least 0.5, answers “not known” for ' + candPct(rel.unknown_lofo) + ' and calls ' + candPct(rel.dismissed) + ' unlikely. ' :
+          'calls ' + candPct(rel.dismissed) + ' of that family’s first superconductors unlikely. ') : '');
     } else if (rel && candNum(rel.dismissed) && candNum(rel.false_alarms)) {   // round 4 on: "not known" far from the training data
       lead += (block.model || 'Hurricane') + ' provides a score only for compounds near its training data' +
         (nk && candNum(nk.n) && candNum(nk.of) ? ': ' + fmtInt(nk.n) + ' of the ' + fmtInt(nk.of) + ' compounds Radar sent it lie too far, so it does not judge them and they are not on this list' : '') +

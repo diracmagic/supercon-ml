@@ -261,6 +261,37 @@ test('published Ce corrections remove obsolete exclusions from table, remarks an
   } finally { globalThis.SuperconLiterature = previous; }
 });
 
+test('a list screened by a datasheet-trained Hurricane names its own round, its data and the cross-fitted score', () => {
+  const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
+  const makeElement = (tag, attrs, ...children) => ({ tag, attrs: attrs || {}, children });
+  const text = el => el == null ? '' : typeof el === 'string' ? el : (el.attrs && el.attrs.text || '') + (el.text || '') + (el.children || []).map(text).join('');
+  const versions = [{ version: '4.0' }, { version: '9.0', timeWindows: true }];
+  const context = { candidateData: candidates, CHECK_LABEL: { experiment: 'Measured' }, list: value => Array.isArray(value) ? value : [],
+    hurInfo: () => ({ versions }), hurTW: v => !!(v && v.timeWindows), hurSub: String, fmtInt: String,
+    cText: (s, n) => String(s).slice(0, n), h: makeElement, richText: (el, t) => ({ ...el, text: t }) };
+  vm.runInNewContext(source + '\nglobalThis.listRules = { candRemarks, candOursNote };', context);
+  const c = { id: 'JVASP-0', formula: 'Yb2InSn', p_sc: 0.711, nearest: { formula: 'Cu2O1', tc: 0 } };
+  const nine = { model: 'Hurricane 9.0', round: 6, date: '2026-11-11', background: { cross_fitted: true }, excluded: { supercon: 108, datasheet: 1 } };
+  const four = { model: 'Hurricane 4.0', background: { n: 100 }, excluded: { supercon: 67 } };
+  const remarks = block => context.listRules.candRemarks(c, true, block).map(row => typeof row[1] === 'string' ? row[1] : '').join(' ');
+  assert.match(remarks(nine), /learns the measured compositions of the NIMS SuperCon datasheet and background compounds treated as negative/);
+  assert.match(remarks(nine), /This compound is one of those background compounds; its score comes from a classifier that had not learned from it\. An unreported compound is not a confirmed negative/);
+  assert.match(remarks(nine), /Cu2O \(measured not to superconduct\)/);
+  assert.doesNotMatch(remarks(nine), /3DSC|measured Tc 0\.0 K/);
+  // a version scored on folds, and a version the live data does not describe, keep the earlier wording
+  for (const block of [four, { ...nine, model: 'Hurricane 12.0' }]) {
+    assert.match(remarks(block), /learns 3DSC labels and background compounds treated as negative/);
+    assert.match(remarks(block), /Cu2O \(measured Tc 0\.0 K\)/);
+    assert.doesNotMatch(remarks(block), /datasheet|one of those background compounds|measured not to superconduct/);
+  }
+  assert.match(context.listRules.candRemarks(c, true, null).map(row => row[1]).join(' '), /learns 3DSC labels\. An unreported compound/);
+  const note = (sc, kind) => text(context.listRules.candOursNote(sc, kind));
+  const sc = { round: 5, date: '2026-10-31', excluded: { supercon: 85 }, hurricane: nine };
+  assert.match(note(sc, 'hurricane'), /The original screening round 6 applied broader pool exclusions: 108 with a SuperCon or 3DSC record, 1 whose composition the NIMS SuperCon datasheet lists\./);
+  assert.match(note(sc, 'storm'), /The original screening round 5 applied broader pool exclusions: 85 with a SuperCon or 3DSC record\./);
+  assert.match(note({ ...sc, hurricane: four }, 'hurricane'), /The original screening round 5 applied broader pool exclusions: 67 with a SuperCon or 3DSC record\./);
+});
+
 test('literature statuses preserve unknown outcomes and a missing record stays unsearched', () => {
   assert.match(candidates.literatureText({ id: 'missing' }), /Literature searched: unsearched/);
   for (const status of ['structure-only', 'needs-full-text', 'not-found-in-this-search']) {
