@@ -183,3 +183,30 @@ kept in results/ for a later audit. The waiver covers this protocol hash only.
 
 - The screening list is not changed by the release. The candidates in progress/progress.json were screened with
   Hurricane 4.0 and stay so labelled until a new screening round is run, audited and published.
+
+## 8. The run on main (2026-11-11), recorded after it
+
+- The branch was merged into main as commit a7ea419d24f1b438510f1bd8b1817c974b3b7f49. Run 43035863689 (Train #73),
+  started by hand on main at that commit with the stage hurricane9, passed the tests that the workflow runs before
+  any training and ran the module as amended in section 7. The workflow committed its results as
+  35cca91283bc340d41cd125fe11c55c2242a215a: results/hurricane_round9.json, the two tables below and the entry of
+  Hurricane 9.0 in progress/progress.json. No other file was changed, and the screen block is the one that was there.
+- The decision. The rule is met and Hurricane 9.0 is the version in use. C1 is +0.3062 [0.2119, 0.3898] over 472
+  parent clusters. Of 3,881 background compounds Radar sends 591 to Hurricane; one of them gets a chance of at least
+  one half, 0.17% against the limit of 5% (51.6% without the guard), and 90.9% of the 591 are not known. Every
+  number of the decision is the number of the run on the branch.
+
+| Table written by the run | Rows | SHA-256 |
+| --- | --- | --- |
+| results/hurricane_round9_predictions.csv | 6,036 | 79ca0fc1f8529bf4b4d77b1cd3e430ec443019087917a2e6ca15c301e0f65d06 |
+| results/hurricane_round9_background.csv | 3,881 | e2575e5481cf6734f0e03b9b9741ba6fbba168d460a20589ccbc34a279c12500 |
+
+- The prediction rows are byte for byte those of the declared run itself (run 42904179317), where the run on the
+  branch gave those of its repeat (run 42907151258, the hash in section 7). The two declared runs agree to 13
+  decimals and differ in the last bits of some values, which depend on the machine a run lands on; each release run
+  reproduced one of them exactly.
+- The tests of the published state (section 7) hold on the new main: putting the recorded values back and taking
+  the round-9 entries out gives the audited payload. Libraries of the run: Python 3.11.18, numpy 2.4.6, scipy 1.17.1,
+  scikit-learn 1.9.1.
+- Still open: the independent recomputation of the two AUCs of C4 (section 2) has not been run, and the candidates
+  have not been screened with Hurricane 9.0.
