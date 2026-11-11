@@ -438,13 +438,14 @@ def entry(out: dict, stamp: str) -> dict:
     windows, and a "temporal" block with what only this round has."""
     ev, g, data = out["evidence"], out["guard"], out["data"]
     r2, r3 = (lambda v: None if v is None else round(float(v), 2)), (lambda v: None if v is None else round(float(v), 3))
+    r4 = lambda v: None if v is None else round(float(v), 4)   # noqa: E731  (rank correlations and AUCs: a reader may round them again)
     folds = ev["folds"]
     better = sum(1 for w in folds if w["released_measure_k"][DESIGN] is not None and w["released_measure_k"]["previous"] is not None
                  and w["released_measure_k"][DESIGN] < w["released_measure_k"]["previous"])
     spec = H2.model_spec({"X": "ACDE", "params": out["best"]["params"], "two_part": "mean"}, out["best"]["n_cols"])
     spec["learner"]["two_part"] = ("a gradient-boosting classifier gives the chance that the compound superconducts at or above 4.2 K "
-                                   "(1 K for a heavy-fermion compound); the regressor, trained on every unit with a measured Tc, gives "
-                                   "its Tc; the prediction is their product")
+                                   "(1 K for a heavy-fermion compound); the regressor, trained on every composition with a measured Tc, "
+                                   "gives its Tc; the prediction is their product")
     spec["learner"]["background"] = (f"{g['n_used']:,} JARVIS-DFT compounds with no superconductivity record join the classifier as "
                                      f"non-superconducting at weight {WEIGHT:g}; the Tc regressor never sees them")
     spec["cv"] = "time windows: trained on reports up to a year, asked about the parents first reported in the next five"
@@ -458,11 +459,11 @@ def entry(out: dict, stamp: str) -> dict:
         lofo.append({"family": APP_FAMILY[f], "n": inside["units"], "n_sc": cell["superconductors"], "mae": r2(inside["mae_k"].get(DESIGN)),
                      "mae_median": r2(inside["mae_k"].get("R0")), "max_pred": r2(cell["max_pred"]), "max_tc": r2(cell["max_tc"]),
                      "found": r3(cell["found"]), "unknown": r3(cell["not_known_superconductors"]), "dismissed": r3(cell["unlikely"]),
-                     "trained_up_to": t, "years": cell["years"], "spearman": r3(inside["spearman"].get(DESIGN)),
-                     "auc_30k": {n: {k: r3(block["thirty_kelvin_auc"][n].get(k)) for k in ("auc", "lower95", "upper95")}
+                     "trained_up_to": t, "years": cell["years"], "spearman": r4(inside["spearman"].get(DESIGN)),
+                     "auc_30k": {n: {k: r4(block["thirty_kelvin_auc"][n].get(k)) for k in ("auc", "lower95", "upper95")}
                                  for n in ("transfer", DESIGN, "R1") if n in block["thirty_kelvin_auc"]}})
     fw, nw = out["answers"]["family_windows"], out["answers"]["new_family_windows"]
-    interval = lambda d: {k: r3(d.get(k)) for k in ("estimate", "lower95", "upper95")}   # noqa: E731
+    interval = lambda d: {k: r4(d.get(k)) for k in ("estimate", "lower95", "upper95")}   # noqa: E731
     return {
         "version": out["version"], "round": ROUND, "date": stamp[:10], "status": "adopted" if out["adopted"] else "experimental", "data": data,
         "summary": f"{out['best']['name']}, {out['best']['settings']}", "changes": out["changes"], "spec": spec, "rule": RULE,
@@ -480,11 +481,11 @@ def entry(out: dict, stamp: str) -> dict:
         "lofo": lofo, "importance": out["importance"],
         "search": {"candidates": 4, "reference_id": "previous", "previous_id": None,
                    "leaderboard": [{"id": n, "name": label, "settings": note,
-                                    "spearman": r3(ev["families"]["cuprate"]["spearman"][n]["estimate"]),
+                                    "spearman": r4(ev["families"]["cuprate"]["spearman"][n]["estimate"]),
                                     "sc_mae": r2(ev["families"]["cuprate"]["error_k"].get(n)),
                                     "tc_mae": r2(ev["families"]["cuprate"]["released_measure_k"].get(n)), "passed": n == DESIGN and out["adopted"]}
                                    for n, label, note in (("previous", "The previous recipe on the previous model's data", "stands in for Hurricane 4.0"),
-                                                          (DESIGN, "The same recipe on every datasheet unit", "released as Hurricane 9.0" if out["adopted"] else "not released"),
+                                                          (DESIGN, "The same recipe on every datasheet composition", "released as Hurricane 9.0" if out["adopted"] else "not released"),
                                                           ("names", "With the datasheet's structure names", "no gain"),
                                                           ("measured", "With lattice lengths and the oxygen column", "no gain"))]},
         "reliability": {"about": "false alarms: the share of the held-out compounds with no superconductivity record that Radar sends to "
@@ -503,17 +504,22 @@ def entry(out: dict, stamp: str) -> dict:
                         "dismissed_about": "trained only on reports dated before a family was found (cuprates: up to 1985; iron-based: up to "
                                            "2005) and asked about that family's first five years"},
         "anchors": out["anchors"],
-        "temporal": {"protocol": out["protocol"], "width": F.WIDTH, "claims": [{k: (r3(v) if isinstance(v, float) else v) for k, v in c.items()} for c in ev["claims"]],
+        "temporal": {"protocol": out["protocol"], "width": F.WIDTH, "claims": [{k: (r4(v) if isinstance(v, float) else v) for k, v in c.items()} for c in ev["claims"]],
                      "families": {APP_FAMILY[f]: {"windows": v["windows"], "units": v["units"], "parents": v["parents"],
                                                   "spearman": {n: interval(v["spearman"][n]) for n in v["spearman"]},
                                                   "difference": {k: dict(interval(d), met=d.get("met")) for k, d in v["difference"].items()},
                                                   "error_k": {n: r2(x) for n, x in v["error_k"].items()}} for f, v in ev["families"].items()},
                      "windows": [{"family": APP_FAMILY[w["family"]], "years": [w["cutoff"] + 1, w["cutoff"] + F.WIDTH], "units": w["units_with_tc"],
-                                  "spearman": {n: r3(x) for n, x in w["spearman"].items()}, "error_k": {n: r2(x) for n, x in w["error_k"].items()}} for w in folds],
+                                  "spearman": {n: r4(x) for n, x in w["spearman"].items()}, "error_k": {n: r2(x) for n, x in w["error_k"].items()}} for w in folds],
                      "answers": {"family_windows": {k: r3(v) if isinstance(v, float) else v for k, v in fw.items()},
                                  "new_family_windows": {k: r3(v) if isinstance(v, float) else v for k, v in nw.items()}},
                      "range": {k: (r3(v) if isinstance(v, float) else v) for k, v in ev["range"].items()}},
     }
+
+
+def share_text(x: float) -> str:
+    """A share in words: never "0%" for a share that is not zero."""
+    return "none" if x == 0 else "under 1%" if x < 0.005 else f"{x:.0%}"
 
 
 def update_progress(out: dict, progress: Path) -> None:
@@ -536,23 +542,26 @@ def update_progress(out: dict, progress: Path) -> None:
                           "to superconduct. An AI agent (Claude) proposes each design, and a version is released only if it passes a rule "
                           "fixed before its run.")
         note = (f"parents first reported in the five years after the training data end, {len(ev['folds'])} family windows; "
-                f"{data['n']:,} datasheet units, {data['n_sc']:,} with a measured Tc, plus {g['n_used']:,} compounds with no "
-                "superconductivity record for the classifier")
+                f"{data['n']:,} compositions from the NIMS SuperCon datasheet, {data['n_sc']:,} with a measured Tc, plus {g['n_used']:,} "
+                "compounds with no superconductivity record for the classifier")
         prog["results"] = [r for r in prog.get("results", []) if r.get("tag") != "hurricane"] + [
             {"tag": "hurricane", "model": f"{HU.MODEL} {out['version']} (AI-designed)", "target": "Tc_exp", "mae": round(ev["overall"]["released_measure_k"], 2),
              "unit": "K", "note": note},
             {"tag": "hurricane", "model": "The previous recipe on the previous model's data", "target": "Tc_exp",
              "mae": round(ev["overall"]["released_measure_previous_k"], 2), "unit": "K", "note": "Same windows"}]
-        text = (f"Learns from {data['n']:,} measured units in the NIMS SuperCon datasheet (cuprates, iron-based, heavy-fermion and other oxides), "
+        beats = "which it beats" if any(c["id"] == "C3" and c["met"] for c in ev["claims"]) else "which it does not clearly beat"
+        text = (f"Learns from {data['n']:,} compositions in the NIMS SuperCon datasheet (cuprates, iron-based, heavy-fermion and other oxides), "
                 f"{data['n_sc']:,} with a measured Tc and {data['n_negative']:,} measured not to superconduct, and from {g['n_used']:,} compounds with "
                 "no superconductivity record, counted as probably not superconducting. It reads the composition only. Asked about cuprate parent "
                 "compounds first reported in the five years after its training data end, it ranks them by Tc with a rank correlation of "
                 f"{cu['spearman'][DESIGN]['estimate']:.2f}, against {cu['spearman']['previous']['estimate']:.2f} for the previous recipe on the previous "
-                f"data and {cu['spearman']['R1']['estimate']:.2f} for the Tc of the nearest known compound, which it does not clearly beat. It gives a "
-                f"chance only to compounds near its training data and answers \"not known\" further away: of the held-out compounds with no "
-                f"record, it gives {g['false_alarms']:.0%} at least an even chance. Our AI agent designed it.")
+                f"data and {cu['spearman']['R1']['estimate']:.2f} for the Tc of the nearest known compound, {beats}. It gives a "
+                "chance only to compounds near its training data and answers \"not known\" further away: of the held-out compounds with no "
+                f"superconductivity record that Radar sends it, it answers \"not known\" for {g['unknown_sent']:.0%} and gives "
+                f"{share_text(g['false_alarms'])} at least an even chance. Our AI agent designed it.")
         fam = [m for m in prog.get("model_family", []) if m.get("id") != "hurricane"]
-        fam.append({"id": "hurricane", "status": f"{HU.MODEL} {out['version']} in use", "active": True, "text": text})
+        # "force": apps released before 0.3.30 build this entry from the version's numbers with a text about the previous data
+        fam.append({"id": "hurricane", "status": f"{HU.MODEL} {out['version']} in use", "active": True, "force": True, "text": text})
         prog["model_family"] = fam
     prog["hurricane"] = block
     HU.ai_stage(prog)
@@ -561,14 +570,15 @@ def update_progress(out: dict, progress: Path) -> None:
     prog["log"] = [x for x in prog.get("log", []) if not str(x.get("event", "")).startswith(prefix)]   # a re-run replaces it
     P.add_log(prog, stamp, f"{HU.MODEL}, round {ROUND} (the recipe of Hurricane 4.0 on the NIMS datasheet): new cuprate parents ranked with "
                            f"{cu['spearman'][DESIGN]['estimate']:.2f} against {cu['spearman']['previous']['estimate']:.2f} for the previous data and "
-                           f"{cu['spearman']['R1']['estimate']:.2f} for the nearest known compound; false alarms {g['false_alarms']:.0%}; "
+                           f"{cu['spearman']['R1']['estimate']:.2f} for the nearest known compound; false alarms {share_text(g['false_alarms'])}, "
+                           f"not known for {g['unknown_sent']:.0%} of the compounds with no record that Radar sends it; "
                            + ("released as " + HU.MODEL + " " + out["version"] if out["adopted"] else "not released"))
     prog["updated"] = stamp
     progress.write_text(json.dumps(prog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 CHANGES = [
-    "Learns from the NIMS SuperCon datasheet instead of 3DSC: every unit of the four families, about six times the measurements",
+    "Learns from the NIMS SuperCon datasheet instead of 3DSC: every usable composition of the four families, more than five times as many entries",
     "Counts a compound as not superconducting only where a measurement reached down to 4.2 K (1 K for heavy-fermion compounds) and found nothing",
     "Reads the composition only: no datasheet row carries the Materials Project structure that Hurricane 4.0 read",
     "Keeps the physics features, the element shares and the structure types read from the stoichiometry",
