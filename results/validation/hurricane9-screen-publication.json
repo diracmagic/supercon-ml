@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "purpose": "What screening round 6 (python ml/pipeline.py hurricane9screen, ml/hurricane9_screen.update_progress) may change in progress/progress.json, with the values before the run. Written before the run on main. The round replaces Hurricane's list, which Hurricane 4.0 had screened, by the list of the version in use and touches nothing else of the screen block: putting the two recorded values back must give the screen that the publication audit of round 5 recorded, hash for hash.",
+  "screening": {
+    "round": 6,
+    "model": "Hurricane 9.0",
+    "module": "hurricane9-screen-v1",
+    "protocol": "hurricane9-screen-protocol-v1",
+    "protocol_sha256": "e0d088da29803a7a40f07b43683d34f1e87460e65bf6bfc6358ff12117dc2dcf",
+    "declaration": "results/validation/hurricane9-screen-declaration-v1.md"
+  },
+  "audited_screen_canonical_sha256": "3a764122abfc65f974e851cd0446fccaf42a6df9915bf6fd4eca859f9909cdb3",
+  "replaced_in_screen": [
+    {
+      "pointer": "/models",
+      "before": [
+        "Radar 1.0",
+        "Storm 5.0",
+        "Hurricane 4.0"
+      ]
+    },
+    {
+      "pointer": "/hurricane",
+      "before_file": "results/validation/screening-round5-hurricane-list.json",
+      "before_canonical_sha256": "5feabf1b81a531ca7194d757258639c43fcc1d3e449f320acb54d22eeaa243d9",
+      "before_model": "Hurricane 4.0",
+      "before_candidates": 50,
+      "before_text": "the block as progress/progress.json held it at commit 527f5b0eb58552b19ded7b0ede91fc7b4e1dea98, character for character"
+    }
+  ],
+  "replaced_outside_screen": [
+    {
+      "pointer": "/stages/7/detail",
+      "before": "Round 5: 102 Storm candidates and 50 Hurricane candidates retained from JARVIS-DFT. Prior reports and experimental evidence are recorded per candidate; a search with no match is not proof of novelty. 3 sampled-phonon checks completed with MACE; this is bounded structural triage, not DFT or superconductivity validation. The candidate list contains model suggestions, not newly confirmed superconductors."
+    }
+  ],
+  "appended": [
+    {
+      "pointer": "/log",
+      "where": {
+        "event_prefix": "Screening round 6:"
+      }
+    }
+  ],
+  "also_rewritten": "/updated, which the record of the release run already carries with its audited value",
+  "storm": "unchanged: the 102 candidates, their tracks, ranges and phonon checks are those of round 5",
+  "literature": "The literature audit of 2026-11-01 covers the 152 candidates of round 5 and is not changed by this round. A compound that is new on Hurricane's list has no literature record until a search is recorded for it, and the app says so; a recorded check keeps the exact-ID correction of that audit."
+}
