@@ -1,0 +1,4809 @@
+{
+ "run_at": "2026-11-11T13:24:44-06:00",
+ "commit": "85167512aa91cc0dbf4efd068602c267e946657f",
+ "round": 6,
+ "smoke": false,
+ "module": "hurricane9-screen-v1",
+ "protocol": {
+  "name": "hurricane9-screen-protocol-v1",
+  "sha256": "e0d088da29803a7a40f07b43683d34f1e87460e65bf6bfc6358ff12117dc2dcf",
+  "release_protocol_sha256": "87694b5845afb729f2f1ede376e194a48db8c65dd7d800f169af34521b1a1fdf"
+ },
+ "models": [
+  "Hurricane 9.0"
+ ],
+ "candidates": [],
+ "hurricane": {
+  "model": "Hurricane 9.0",
+  "design": "H90",
+  "two_part": "mean",
+  "round": 6,
+  "date": "2026-11-11",
+  "pool": {
+   "source": "JARVIS-DFT",
+   "what": "compounds with no superconductivity record that Radar sends to Hurricane",
+   "n_screened": 3881,
+   "n_sent": 591,
+   "rule": "within 50 meV/atom of the convex hull, a band gap of at most 1 eV, magnetic or not, 2 to 5 elements, up to 40 atoms in the cell, elements Hurricane's training data covers; the list holds the 591 that Radar sends to Hurricane, one per chemical system, except the 537 too far from Hurricane's training data for it to give a chance"
+  },
+  "excluded": {
+   "supercon": 108,
+   "computed": 251,
+   "prior": 0,
+   "system": 241,
+   "total": 600,
+   "datasheet": 1
+  },
+  "range": {
+   "level": 0.9,
+   "width_log": 0.9765,
+   "of": "the Tc if it superconducts",
+   "from": "its errors on parent compounds first reported after its training data end"
+  },
+  "check": {
+   "about": "of the compositions of new parent compounds in its time windows, the share given at least an even chance: of those that superconduct, and of those measured not to superconduct",
+   "found": 0.728,
+   "alarms_on_negatives": 0.385,
+   "n": 2230
+  },
+  "novelty": {
+   "level": 0.95,
+   "outside": 0,
+   "about": "each candidate's distance, in its model's standardized inputs, to the nearest material the model learned from; beyond the distance that separates 95% of the training materials from their nearest neighbour in another chemical system or parent compound, it lies outside the training data"
+  },
+  "caveat": "Hurricane learned measured Tc from cuprates, iron-based, heavy-fermion compounds and other oxides in the NIMS SuperCon datasheet; it reads the composition only and gives the chance that a compound superconducts and its Tc if it does. Many of these compounds would need doping or pressure, and a candidate is a prediction until an experiment checks it",
+  "candidates": [
+   {
+    "rank": 1,
+    "formula": "Cu8O",
+    "id": "JVASP-150511",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-150511.html",
+    "spg": "Cmmm (65)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 17.18,
+    "tc_sc": 38.63,
+    "lo": 13.92,
+    "hi": 104.21,
+    "p_sc": 0.445,
+    "p_unconventional": 0.999,
+    "family": "cuprate",
+    "gap": 0.0,
+    "novelty": 0.81,
+    "nearest": {
+     "formula": "Cu2O1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 3,
+     "file": "screen_round3.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       3.1006,
+       -3.1196,
+       0.0
+      ],
+      [
+       3.1006,
+       3.1196,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       5.4831
+      ]
+     ],
+     "elements": [
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "O"
+     ],
+     "frac": [
+      [
+       0.17691,
+       0.39907,
+       0.5
+      ],
+      [
+       0.60093,
+       0.82309,
+       0.5
+      ],
+      [
+       0.2017,
+       0.424,
+       0.0
+      ],
+      [
+       0.576,
+       0.7983,
+       0.0
+      ],
+      [
+       0.11305,
+       0.88695,
+       0.72543
+      ],
+      [
+       0.11305,
+       0.88695,
+       0.27457
+      ],
+      [
+       0.66474,
+       0.33526,
+       0.27454
+      ],
+      [
+       0.66474,
+       0.33526,
+       0.72546
+      ],
+      [
+       0.88888,
+       0.11112,
+       0.0
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 2,
+    "formula": "CaClO",
+    "id": "JVASP-93832",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-93832.html",
+    "spg": "P6_3mc (186)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 1.85,
+    "tc_sc": 4.51,
+    "lo": 1.07,
+    "hi": 13.63,
+    "p_sc": 0.411,
+    "p_unconventional": 1.0,
+    "family": "other oxide",
+    "gap": 0.54,
+    "magnetic": true,
+    "novelty": 0.44,
+    "nearest": {
+     "formula": "Ca2Cl2.25Cu1O2",
+     "tc": 31.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       -1.9686,
+       -3.4096,
+       0.0
+      ],
+      [
+       -1.9686,
+       3.4096,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       -9.1916
+      ]
+     ],
+     "elements": [
+      "Ca",
+      "Ca",
+      "Cl",
+      "Cl",
+      "O",
+      "O"
+     ],
+     "frac": [
+      [
+       0.33333,
+       0.66667,
+       0.81224
+      ],
+      [
+       0.66667,
+       0.33333,
+       0.31224
+      ],
+      [
+       0.33332,
+       0.66668,
+       0.50619
+      ],
+      [
+       0.66668,
+       0.33332,
+       0.00619
+      ],
+      [
+       1e-05,
+       0.99999,
+       0.26457
+      ],
+      [
+       0.99999,
+       1e-05,
+       0.76457
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 3,
+    "formula": "SmO",
+    "id": "JVASP-19779",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-19779.html",
+    "spg": "Fm-3m (225)",
+    "ehull": 0.0,
+    "icsd": true,
+    "tc": 1.77,
+    "tc_sc": 7.76,
+    "lo": 2.3,
+    "hi": 22.25,
+    "p_sc": 0.228,
+    "p_unconventional": 1.0,
+    "family": "other oxide",
+    "gap": 0.0,
+    "novelty": 0.81,
+    "nearest": {
+     "formula": "As2Fe2O4Sm4Te0.92",
+     "tc": 25.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       3.0293,
+       -0.0,
+       1.7489
+      ],
+      [
+       1.0098,
+       2.856,
+       1.7489
+      ],
+      [
+       -0.0,
+       0.0,
+       3.4979
+      ]
+     ],
+     "elements": [
+      "Sm",
+      "O"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 4,
+    "formula": "Yb2InSn",
+    "id": "JVASP-37617",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-37617.html",
+    "spg": "Fm-3m (225)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 1.48,
+    "tc_sc": 2.09,
+    "lo": 0.16,
+    "hi": 7.2,
+    "p_sc": 0.711,
+    "p_unconventional": 0.998,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.96,
+    "nearest": {
+     "formula": "Sn3Yb1",
+     "tc": 3.6
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       -0.0,
+       3.7827,
+       3.7827
+      ],
+      [
+       3.7827,
+       -0.0,
+       3.7827
+      ],
+      [
+       3.7827,
+       3.7827,
+       -0.0
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "In",
+      "Sn"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ],
+      [
+       0.25,
+       0.25,
+       0.25
+      ],
+      [
+       0.75,
+       0.75,
+       0.75
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 5,
+    "formula": "SrMg3O",
+    "id": "JVASP-186814",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-186814.html",
+    "spg": "Pm-3m (221)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.95,
+    "tc_sc": 2.29,
+    "lo": 0.24,
+    "hi": 7.74,
+    "p_sc": 0.413,
+    "p_unconventional": 0.999,
+    "family": "other oxide",
+    "gap": 0.0,
+    "novelty": 0.94,
+    "nearest": {
+     "formula": "As2Fe2Mg1O6Sr4Ti1",
+     "tc": 6.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.7757,
+       0.0,
+       -0.0
+      ],
+      [
+       0.0,
+       4.7757,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       4.7757
+      ]
+     ],
+     "elements": [
+      "Sr",
+      "Mg",
+      "Mg",
+      "Mg",
+      "O"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.5
+      ],
+      [
+       0.0,
+       0.5,
+       0.5
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 6,
+    "formula": "Yb3Ce",
+    "id": "JVASP-128322",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-128322.html",
+    "spg": "Pm-3m (221)",
+    "ehull": 0.005,
+    "icsd": false,
+    "tc": 0.86,
+    "tc_sc": 2.06,
+    "lo": 0.15,
+    "hi": 7.13,
+    "p_sc": 0.42,
+    "p_unconventional": 0.997,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.81,
+    "nearest": {
+     "formula": "Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       5.239,
+       -0.0,
+       0.0
+      ],
+      [
+       0.0,
+       5.239,
+       0.0
+      ],
+      [
+       -0.0,
+       -0.0,
+       5.239
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "Yb",
+      "Ce"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.5,
+       0.5
+      ],
+      [
+       0.5,
+       0.0,
+       0.5
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 7,
+    "formula": "YbCuSn",
+    "id": "JVASP-145804",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-145804.html",
+    "spg": "Pnma (62)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.72,
+    "tc_sc": 2.29,
+    "lo": 0.24,
+    "hi": 7.74,
+    "p_sc": 0.315,
+    "p_unconventional": 0.998,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.9,
+    "nearest": {
+     "formula": "Sn3Yb1",
+     "tc": 3.6
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.5427,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       7.1928,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       7.7971
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "Yb",
+      "Yb",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Sn",
+      "Sn",
+      "Sn",
+      "Sn"
+     ],
+     "frac": [
+      [
+       0.25,
+       0.50986,
+       0.2079
+      ],
+      [
+       0.75,
+       0.49014,
+       0.7921
+      ],
+      [
+       0.75,
+       0.99014,
+       0.7079
+      ],
+      [
+       0.25,
+       0.00986,
+       0.2921
+      ],
+      [
+       0.25,
+       0.80002,
+       0.91448
+      ],
+      [
+       0.75,
+       0.19998,
+       0.08552
+      ],
+      [
+       0.75,
+       0.69998,
+       0.41448
+      ],
+      [
+       0.25,
+       0.30002,
+       0.58552
+      ],
+      [
+       0.25,
+       0.69659,
+       0.58692
+      ],
+      [
+       0.75,
+       0.30341,
+       0.41308
+      ],
+      [
+       0.75,
+       0.80341,
+       0.08692
+      ],
+      [
+       0.25,
+       0.19659,
+       0.91308
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 8,
+    "formula": "YbGa2",
+    "id": "JVASP-20420",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-20420.html",
+    "spg": "P6_3/mmc (194)",
+    "ehull": 0.0,
+    "icsd": true,
+    "tc": 0.65,
+    "tc_sc": 3.04,
+    "lo": 0.52,
+    "hi": 9.73,
+    "p_sc": 0.215,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.86,
+    "nearest": {
+     "formula": "Ga6Yb1",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       2.2097,
+       -3.8273,
+       -0.0
+      ],
+      [
+       2.2097,
+       3.8273,
+       0.0
+      ],
+      [
+       0.0,
+       -0.0,
+       7.1169
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.25
+      ],
+      [
+       0.0,
+       0.0,
+       0.75
+      ],
+      [
+       0.33333,
+       0.66667,
+       0.95322
+      ],
+      [
+       0.66667,
+       0.33333,
+       0.45322
+      ],
+      [
+       0.33333,
+       0.66667,
+       0.54678
+      ],
+      [
+       0.66667,
+       0.33333,
+       0.04678
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 9,
+    "formula": "PrO",
+    "id": "JVASP-16493",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-16493.html",
+    "spg": "Fm-3m (225)",
+    "ehull": 0.0,
+    "icsd": true,
+    "tc": 0.62,
+    "tc_sc": 10.27,
+    "lo": 3.25,
+    "hi": 28.93,
+    "p_sc": 0.061,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.83,
+    "nearest": {
+     "formula": "As2Fe2O4Pr4Te0.88",
+     "tc": 25.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       3.1194,
+       -0.0,
+       1.801
+      ],
+      [
+       1.0398,
+       2.941,
+       1.801
+      ],
+      [
+       -0.0,
+       -0.0,
+       3.602
+      ]
+     ],
+     "elements": [
+      "Pr",
+      "O"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 10,
+    "formula": "YbIn5Rh",
+    "id": "JVASP-16400",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-16400.html",
+    "spg": "P4/mmm (123)",
+    "ehull": 0.0,
+    "icsd": true,
+    "tc": 0.44,
+    "tc_sc": 2.4,
+    "lo": 0.28,
+    "hi": 8.03,
+    "p_sc": 0.185,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "types": [
+     "115_heavy_fermion"
+    ],
+    "novelty": 0.99,
+    "nearest": {
+     "formula": "Ce0.225Co1In5Yb0.775",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.6693,
+       -0.0,
+       -0.0
+      ],
+      [
+       -0.0,
+       4.6693,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       7.5184
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "Rh"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.29907
+      ],
+      [
+       0.0,
+       0.5,
+       0.29907
+      ],
+      [
+       0.5,
+       0.0,
+       0.70093
+      ],
+      [
+       0.0,
+       0.5,
+       0.70093
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ]
+     ]
+    },
+    "check": {
+     "kind": "experiment",
+     "superconducts": false,
+     "note": "The authors describe the YbRhIn5 spacer as a normal metal in this thin-film stack. No standalone YbRhIn5 transition-temperature limit is assigned here. The passage does not specify an applied pressure. This observation does not exclude superconductivity in other crystal phases, doped compositions or pressure conditions, and is not a direct validation of the JARVIS structure.",
+     "doi": "10.1038/s41467-024-47875-4",
+     "cite": "T. Asaba et al., Nat. Commun. 15, 3861 (2024)"
+    }
+   },
+   {
+    "rank": 11,
+    "formula": "NdO",
+    "id": "JVASP-49844",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-49844.html",
+    "spg": "Fm-3m (225)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.44,
+    "tc_sc": 6.05,
+    "lo": 1.65,
+    "hi": 17.71,
+    "p_sc": 0.073,
+    "p_unconventional": 1.0,
+    "family": "other oxide",
+    "gap": 0.0,
+    "novelty": 0.95,
+    "nearest": {
+     "formula": "Cu1Nd2O3.99",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       -0.0,
+       2.5207,
+       2.5207
+      ],
+      [
+       2.5207,
+       -0.0,
+       2.5207
+      ],
+      [
+       2.5207,
+       2.5207,
+       -0.0
+      ]
+     ],
+     "elements": [
+      "Nd",
+      "O"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 12,
+    "formula": "YbIn5Co",
+    "id": "JVASP-17895",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17895.html",
+    "spg": "P4/mmm (123)",
+    "ehull": 0.0,
+    "icsd": true,
+    "tc": 0.42,
+    "tc_sc": 2.56,
+    "lo": 0.34,
+    "hi": 8.44,
+    "p_sc": 0.164,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "types": [
+     "115_heavy_fermion"
+    ],
+    "novelty": 0.3,
+    "nearest": {
+     "formula": "Ce0.225Co1In5Yb0.775",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 3,
+     "file": "screen_round3.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.5808,
+       0.0,
+       -0.0
+      ],
+      [
+       0.0,
+       4.5808,
+       -0.0
+      ],
+      [
+       -0.0,
+       0.0,
+       7.5413
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "Co"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.69466
+      ],
+      [
+       0.0,
+       0.5,
+       0.30534
+      ],
+      [
+       0.5,
+       0.0,
+       0.30534
+      ],
+      [
+       0.0,
+       0.5,
+       0.69466
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ]
+     ]
+    },
+    "check": {
+     "kind": "experiment",
+     "superconducts": false,
+     "below": 0.02,
+     "note": "The introduction cites prior work reporting no transition to 0.020 K. This is not a new temperature limit for every strained film. Applied pressure is unspecified in the passage; the statement does not exclude superconductivity in other phases, doping or pressure conditions.",
+     "doi": "10.1103/PhysRevB.86.144526",
+     "cite": "M. Shimozawa et al., Phys. Rev. B 86, 144526 (2012)"
+    }
+   },
+   {
+    "rank": 13,
+    "formula": "YbIn",
+    "id": "JVASP-129550",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-129550.html",
+    "spg": "P4/mmm (123)",
+    "ehull": 0.017,
+    "icsd": false,
+    "tc": 0.41,
+    "tc_sc": 1.14,
+    "lo": 0.0,
+    "hi": 4.67,
+    "p_sc": 0.361,
+    "p_unconventional": 0.997,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.82,
+    "nearest": {
+     "formula": "In3Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       3.7874,
+       -0.0,
+       -0.0
+      ],
+      [
+       -0.0,
+       3.7874,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       3.7714
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "In"
+     ],
+     "frac": [
+      [
+       0.5,
+       0.5,
+       0.5
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 14,
+    "formula": "BaClO",
+    "id": "JVASP-113040",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-113040.html",
+    "spg": "Pnma (62)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.39,
+    "tc_sc": 12.93,
+    "lo": 4.25,
+    "hi": 35.98,
+    "p_sc": 0.031,
+    "p_unconventional": 0.999,
+    "family": "other oxide",
+    "gap": 0.49,
+    "magnetic": true,
+    "novelty": 0.46,
+    "nearest": {
+     "formula": "Ba2Cl2Cu1O2",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.1968,
+       -0.0,
+       0.0
+      ],
+      [
+       0.0,
+       7.6385,
+       0.0
+      ],
+      [
+       -0.0,
+       -0.0,
+       9.0201
+      ]
+     ],
+     "elements": [
+      "Ba",
+      "Ba",
+      "Ba",
+      "Ba",
+      "Cl",
+      "Cl",
+      "Cl",
+      "Cl",
+      "O",
+      "O",
+      "O",
+      "O"
+     ],
+     "frac": [
+      [
+       0.25,
+       0.77553,
+       0.87244
+      ],
+      [
+       0.75,
+       0.22448,
+       0.12756
+      ],
+      [
+       0.75,
+       0.72448,
+       0.37244
+      ],
+      [
+       0.25,
+       0.27553,
+       0.62756
+      ],
+      [
+       0.25,
+       0.54148,
+       0.16067
+      ],
+      [
+       0.75,
+       0.45852,
+       0.83933
+      ],
+      [
+       0.75,
+       0.95852,
+       0.66067
+      ],
+      [
+       0.25,
+       0.04148,
+       0.33933
+      ],
+      [
+       0.25,
+       0.60295,
+       0.53988
+      ],
+      [
+       0.75,
+       0.39705,
+       0.46012
+      ],
+      [
+       0.75,
+       0.89705,
+       0.03988
+      ],
+      [
+       0.25,
+       0.10295,
+       0.96012
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 15,
+    "formula": "Yb3Ga9Pd2",
+    "id": "JVASP-171094",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-171094.html",
+    "spg": "Immm (71)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.38,
+    "tc_sc": 2.49,
+    "lo": 0.31,
+    "hi": 8.27,
+    "p_sc": 0.154,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.84,
+    "nearest": {
+     "formula": "Ga6Yb1",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.1123,
+       0.0,
+       1.1222
+      ],
+      [
+       1.5383,
+       7.6138,
+       2.4587
+      ],
+      [
+       -0.014,
+       0.0432,
+       8.1474
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "Yb",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Pd",
+      "Pd"
+     ],
+     "frac": [
+      [
+       0.5,
+       0.5,
+       0.5
+      ],
+      [
+       0.20006,
+       0.79994,
+       0.79994
+      ],
+      [
+       0.79994,
+       0.20006,
+       0.20006
+      ],
+      [
+       0.36139,
+       0.3578,
+       0.91942
+      ],
+      [
+       0.63861,
+       0.6422,
+       0.08058
+      ],
+      [
+       0.36139,
+       0.91942,
+       0.3578
+      ],
+      [
+       0.63861,
+       0.08058,
+       0.6422
+      ],
+      [
+       0.15588,
+       0.477,
+       0.21124
+      ],
+      [
+       0.84412,
+       0.523,
+       0.78876
+      ],
+      [
+       0.15588,
+       0.21124,
+       0.477
+      ],
+      [
+       0.84412,
+       0.78876,
+       0.523
+      ],
+      [
+       0.5,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.82121,
+       0.17879
+      ],
+      [
+       0.0,
+       0.17879,
+       0.82121
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 16,
+    "formula": "Yb3Ga9Pt2",
+    "id": "JVASP-118972",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-118972.html",
+    "spg": "Immm (71)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.36,
+    "tc_sc": 2.82,
+    "lo": 0.44,
+    "hi": 9.14,
+    "p_sc": 0.129,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.77,
+    "nearest": {
+     "formula": "Ga6Yb1",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 5,
+     "file": "screen_round5.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       7.8008,
+       0.0258,
+       -2.375
+      ],
+      [
+       -0.8278,
+       4.0403,
+       -7.0346
+      ],
+      [
+       -0.002,
+       -0.0258,
+       8.1544
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "Yb",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Pt",
+      "Pt"
+     ],
+     "frac": [
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.19584,
+       0.19584,
+       0.0
+      ],
+      [
+       0.80416,
+       0.80416,
+       0.0
+      ],
+      [
+       0.64349,
+       0.36316,
+       0.28033
+      ],
+      [
+       0.35651,
+       0.63684,
+       0.71967
+      ],
+      [
+       0.08282,
+       0.36316,
+       0.71967
+      ],
+      [
+       0.91718,
+       0.63684,
+       0.28033
+      ],
+      [
+       0.52903,
+       0.15962,
+       0.36941
+      ],
+      [
+       0.47097,
+       0.84038,
+       0.63059
+      ],
+      [
+       0.79021,
+       0.15962,
+       0.63059
+      ],
+      [
+       0.20979,
+       0.84038,
+       0.36941
+      ],
+      [
+       0.0,
+       0.5,
+       0.5
+      ],
+      [
+       0.19094,
+       0.0,
+       0.19094
+      ],
+      [
+       0.80906,
+       0.0,
+       0.80906
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 17,
+    "formula": "Pr2Ga5Cu3",
+    "id": "JVASP-106012",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-106012.html",
+    "spg": "P-4m2 (115)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.34,
+    "tc_sc": 2.3,
+    "lo": 0.24,
+    "hi": 7.77,
+    "p_sc": 0.149,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.6,
+    "nearest": {
+     "formula": "Ga6Pr1",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 3,
+     "file": "screen_round3.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.2555,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       4.2555,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       10.2556
+      ]
+     ],
+     "elements": [
+      "Pr",
+      "Pr",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Cu",
+      "Cu",
+      "Cu"
+     ],
+     "frac": [
+      [
+       0.5,
+       0.0,
+       0.74394
+      ],
+      [
+       0.0,
+       0.5,
+       0.25606
+      ],
+      [
+       0.0,
+       0.5,
+       0.86359
+      ],
+      [
+       0.5,
+       0.0,
+       0.38103
+      ],
+      [
+       0.5,
+       0.0,
+       0.13641
+      ],
+      [
+       0.0,
+       0.5,
+       0.61897
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 18,
+    "formula": "PrGa3",
+    "id": "JVASP-42026",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-42026.html",
+    "spg": "P6_3/mmc (194)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.32,
+    "tc_sc": 2.39,
+    "lo": 0.28,
+    "hi": 8.0,
+    "p_sc": 0.135,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.46,
+    "nearest": {
+     "formula": "Ga6Pr1",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       3.274,
+       -5.6707,
+       0.0
+      ],
+      [
+       3.274,
+       5.6707,
+       -0.0
+      ],
+      [
+       -0.0,
+       -0.0,
+       4.5464
+      ]
+     ],
+     "elements": [
+      "Pr",
+      "Pr",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga"
+     ],
+     "frac": [
+      [
+       0.66667,
+       0.33333,
+       0.25
+      ],
+      [
+       0.33333,
+       0.66667,
+       0.75
+      ],
+      [
+       0.85785,
+       0.71569,
+       0.75
+      ],
+      [
+       0.85785,
+       0.14215,
+       0.75
+      ],
+      [
+       0.28431,
+       0.14215,
+       0.75
+      ],
+      [
+       0.14215,
+       0.28431,
+       0.25
+      ],
+      [
+       0.14215,
+       0.85785,
+       0.25
+      ],
+      [
+       0.71569,
+       0.85785,
+       0.25
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 19,
+    "formula": "BaOF",
+    "id": "JVASP-117591",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-117591.html",
+    "spg": "Amm2 (38)",
+    "ehull": 0.026,
+    "icsd": false,
+    "tc": 0.2,
+    "tc_sc": 14.68,
+    "lo": 4.91,
+    "hi": 40.63,
+    "p_sc": 0.014,
+    "p_unconventional": 0.999,
+    "family": "other oxide",
+    "gap": 0.51,
+    "magnetic": true,
+    "novelty": 0.83,
+    "nearest": {
+     "formula": "Ba0.6Cu1F2O2Sr1.4",
+     "tc": 64.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.76,
+       0.0121,
+       0.0
+      ],
+      [
+       -2.39,
+       3.8014,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       4.6734
+      ]
+     ],
+     "elements": [
+      "Ba",
+      "O",
+      "F"
+     ],
+     "frac": [
+      [
+       0.33236,
+       0.99801,
+       0.0
+      ],
+      [
+       0.67849,
+       0.6904,
+       0.0
+      ],
+      [
+       0.98915,
+       0.3116,
+       0.0
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 20,
+    "formula": "PrTl3",
+    "id": "JVASP-20286",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-20286.html",
+    "spg": "Pm-3m (221)",
+    "ehull": 0.0,
+    "icsd": true,
+    "tc": 0.2,
+    "tc_sc": 1.45,
+    "lo": 0.0,
+    "hi": 5.51,
+    "p_sc": 0.138,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.9,
+    "nearest": {
+     "formula": "La0.901Pr0.099Tl3",
+     "tc": 0.55
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.8351,
+       0.0,
+       -0.0
+      ],
+      [
+       -0.0,
+       4.8351,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       4.8351
+      ]
+     ],
+     "elements": [
+      "Pr",
+      "Tl",
+      "Tl",
+      "Tl"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.5,
+       0.5
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 21,
+    "formula": "YbGa3Cu",
+    "id": "JVASP-109656",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-109656.html",
+    "spg": "I-4m2 (119)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.19,
+    "tc_sc": 2.38,
+    "lo": 0.27,
+    "hi": 7.99,
+    "p_sc": 0.082,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.55,
+    "nearest": {
+     "formula": "Ga6Yb1",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       3.8631,
+       -0.0105,
+       -4.7119
+      ],
+      [
+       -0.5019,
+       3.8304,
+       -4.7119
+      ],
+      [
+       0.0093,
+       0.0105,
+       6.093
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Cu"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.61446,
+       0.61445,
+       0.0
+      ],
+      [
+       0.38555,
+       0.38555,
+       0.0
+      ],
+      [
+       0.75,
+       0.25,
+       0.5
+      ],
+      [
+       0.25,
+       0.75,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 22,
+    "formula": "PrCu5",
+    "id": "JVASP-8002",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-8002.html",
+    "spg": "P6/mmm (191)",
+    "ehull": 0.05,
+    "icsd": true,
+    "tc": 0.17,
+    "tc_sc": 2.44,
+    "lo": 0.29,
+    "hi": 8.12,
+    "p_sc": 0.069,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.73,
+    "nearest": {
+     "formula": "Ce1Cu6",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       2.5817,
+       -4.4717,
+       0.0
+      ],
+      [
+       2.5817,
+       4.4717,
+       0.0
+      ],
+      [
+       -0.0,
+       -0.0,
+       4.1069
+      ]
+     ],
+     "elements": [
+      "Pr",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.33333,
+       0.66667,
+       0.0
+      ],
+      [
+       0.66667,
+       0.33333,
+       0.0
+      ],
+      [
+       0.0,
+       0.5,
+       0.5
+      ],
+      [
+       0.5,
+       0.0,
+       0.5
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 23,
+    "formula": "CeTl3",
+    "id": "JVASP-17773",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-17773.html",
+    "spg": "Pm-3m (221)",
+    "ehull": 0.003,
+    "icsd": true,
+    "tc": 0.16,
+    "tc_sc": 0.93,
+    "lo": 0.0,
+    "hi": 4.13,
+    "p_sc": 0.174,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.81,
+    "nearest": {
+     "formula": "La0.901Pr0.099Tl3",
+     "tc": 0.55
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 3,
+     "file": "screen_round3.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.7994,
+       0.0,
+       -0.0
+      ],
+      [
+       -0.0,
+       4.7994,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       4.7994
+      ]
+     ],
+     "elements": [
+      "Ce",
+      "Tl",
+      "Tl",
+      "Tl"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.5,
+       0.5
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 24,
+    "formula": "PrIn2Cu9",
+    "id": "JVASP-120726",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-120726.html",
+    "spg": "P4/mbm (127)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.14,
+    "tc_sc": 2.17,
+    "lo": 0.19,
+    "hi": 7.42,
+    "p_sc": 0.064,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.72,
+    "nearest": {
+     "formula": "Ce1Cu6",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       8.5021,
+       -0.0,
+       0.0
+      ],
+      [
+       0.0,
+       8.5021,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       5.0184
+      ]
+     ],
+     "elements": [
+      "Pr",
+      "Pr",
+      "In",
+      "In",
+      "In",
+      "In",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.1239,
+       0.6239,
+       0.0
+      ],
+      [
+       0.8761,
+       0.3761,
+       0.0
+      ],
+      [
+       0.6239,
+       0.8761,
+       0.0
+      ],
+      [
+       0.3761,
+       0.1239,
+       0.0
+      ],
+      [
+       0.67597,
+       0.17597,
+       0.75266
+      ],
+      [
+       0.17597,
+       0.32403,
+       0.75266
+      ],
+      [
+       0.17597,
+       0.32403,
+       0.24734
+      ],
+      [
+       0.32403,
+       0.82403,
+       0.24734
+      ],
+      [
+       0.32403,
+       0.82403,
+       0.75266
+      ],
+      [
+       0.67597,
+       0.17597,
+       0.24734
+      ],
+      [
+       0.43543,
+       0.29456,
+       0.5
+      ],
+      [
+       0.56457,
+       0.70544,
+       0.5
+      ],
+      [
+       0.70544,
+       0.43543,
+       0.5
+      ],
+      [
+       0.93543,
+       0.20544,
+       0.5
+      ],
+      [
+       0.82403,
+       0.67597,
+       0.75266
+      ],
+      [
+       0.06457,
+       0.79456,
+       0.5
+      ],
+      [
+       0.79456,
+       0.93543,
+       0.5
+      ],
+      [
+       0.20544,
+       0.06457,
+       0.5
+      ],
+      [
+       0.0,
+       0.5,
+       0.5
+      ],
+      [
+       0.5,
+       0.0,
+       0.5
+      ],
+      [
+       0.29456,
+       0.56457,
+       0.5
+      ],
+      [
+       0.82403,
+       0.67597,
+       0.24734
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 25,
+    "formula": "SrClO",
+    "id": "JVASP-110096",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-110096.html",
+    "spg": "P6_3mc (186)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.14,
+    "tc_sc": 3.87,
+    "lo": 0.83,
+    "hi": 11.92,
+    "p_sc": 0.035,
+    "p_unconventional": 0.999,
+    "family": "other oxide",
+    "gap": 0.54,
+    "magnetic": true,
+    "novelty": 0.65,
+    "nearest": {
+     "formula": "Cl1.4Cu1O2Sr2",
+     "tc": 30.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.2264,
+       0.0,
+       0.0
+      ],
+      [
+       -2.1132,
+       3.6602,
+       0.0
+      ],
+      [
+       -0.0,
+       -0.0,
+       9.4997
+      ]
+     ],
+     "elements": [
+      "Sr",
+      "Sr",
+      "Cl",
+      "Cl",
+      "O",
+      "O"
+     ],
+     "frac": [
+      [
+       0.66667,
+       0.33333,
+       0.43729
+      ],
+      [
+       0.33333,
+       0.66667,
+       0.93729
+      ],
+      [
+       0.66667,
+       0.33333,
+       0.74732
+      ],
+      [
+       0.33333,
+       0.66667,
+       0.24732
+      ],
+      [
+       0.0,
+       0.0,
+       0.9882
+      ],
+      [
+       0.0,
+       0.0,
+       0.4882
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 26,
+    "formula": "SrOF2",
+    "id": "JVASP-118314",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-118314.html",
+    "spg": "P4/mmm (123)",
+    "ehull": 0.04,
+    "icsd": false,
+    "tc": 0.11,
+    "tc_sc": 6.99,
+    "lo": 2.01,
+    "hi": 20.22,
+    "p_sc": 0.015,
+    "p_unconventional": 1.0,
+    "family": "other oxide",
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.45,
+    "nearest": {
+     "formula": "Cu1F2.6O2Sr2",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       3.6128,
+       -0.0,
+       -0.0
+      ],
+      [
+       0.0,
+       3.6128,
+       -0.0
+      ],
+      [
+       -0.0,
+       0.0,
+       4.717
+      ]
+     ],
+     "elements": [
+      "Sr",
+      "O",
+      "F",
+      "F"
+     ],
+     "frac": [
+      [
+       0.5,
+       0.5,
+       0.5026
+      ],
+      [
+       0.0,
+       0.0,
+       0.00239
+      ],
+      [
+       0.0,
+       0.0,
+       0.5024
+      ],
+      [
+       0.5,
+       0.5,
+       0.00261
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 27,
+    "formula": "PrGa5Ni",
+    "id": "JVASP-162930",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-162930.html",
+    "spg": "P4/mmm (123)",
+    "ehull": 0.025,
+    "icsd": false,
+    "tc": 0.1,
+    "tc_sc": 2.0,
+    "lo": 0.13,
+    "hi": 6.95,
+    "p_sc": 0.052,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.66,
+    "nearest": {
+     "formula": "Ga6Pr1",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.3291,
+       0.0,
+       -0.0
+      ],
+      [
+       0.0,
+       4.3291,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       7.0132
+      ]
+     ],
+     "elements": [
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ni",
+      "Pr"
+     ],
+     "frac": [
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.3144
+      ],
+      [
+       0.0,
+       0.5,
+       0.3144
+      ],
+      [
+       0.5,
+       0.0,
+       0.6856
+      ],
+      [
+       0.0,
+       0.5,
+       0.6856
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 28,
+    "formula": "CeGaCu4",
+    "id": "JVASP-101467",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-101467.html",
+    "spg": "Cmmm (65)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.1,
+    "tc_sc": 1.18,
+    "lo": 0.0,
+    "hi": 4.8,
+    "p_sc": 0.085,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.76,
+    "nearest": {
+     "formula": "Ce1Cu6",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       5.1371,
+       -0.013,
+       0.0
+      ],
+      [
+       -2.5718,
+       4.447,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       4.1863
+      ]
+     ],
+     "elements": [
+      "Ce",
+      "Ga",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu"
+     ],
+     "frac": [
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ],
+      [
+       0.17115,
+       0.82885,
+       0.0
+      ],
+      [
+       0.82885,
+       0.17115,
+       0.0
+      ],
+      [
+       0.0,
+       0.5,
+       0.5
+      ],
+      [
+       0.5,
+       0.0,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 29,
+    "formula": "LaCeCu12",
+    "id": "JVASP-140429",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-140429.html",
+    "spg": "Pmc2_1 (26)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.1,
+    "tc_sc": 0.96,
+    "lo": 0.0,
+    "hi": 4.21,
+    "p_sc": 0.102,
+    "p_unconventional": 0.765,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.47,
+    "nearest": {
+     "formula": "Ce1Cu6",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       5.0783,
+       -0.0,
+       0.0
+      ],
+      [
+       0.0,
+       8.1029,
+       0.0
+      ],
+      [
+       -0.0,
+       0.0,
+       10.1313
+      ]
+     ],
+     "elements": [
+      "La",
+      "La",
+      "Ce",
+      "Ce",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.76124,
+       0.68747
+      ],
+      [
+       0.0,
+       0.26124,
+       0.31253
+      ],
+      [
+       0.5,
+       0.23944,
+       0.81494
+      ],
+      [
+       0.5,
+       0.73944,
+       0.18506
+      ],
+      [
+       0.24584,
+       0.43505,
+       0.55994
+      ],
+      [
+       0.75416,
+       0.93505,
+       0.44006
+      ],
+      [
+       0.75416,
+       0.43505,
+       0.55994
+      ],
+      [
+       0.24584,
+       0.93505,
+       0.44006
+      ],
+      [
+       0.25639,
+       0.56343,
+       0.94283
+      ],
+      [
+       0.74361,
+       0.06343,
+       0.05717
+      ],
+      [
+       0.0,
+       0.89739,
+       0.23309
+      ],
+      [
+       0.0,
+       0.39739,
+       0.76691
+      ],
+      [
+       0.5,
+       0.09485,
+       0.26448
+      ],
+      [
+       0.5,
+       0.59485,
+       0.73552
+      ],
+      [
+       0.0,
+       0.56799,
+       0.15271
+      ],
+      [
+       0.5,
+       0.44075,
+       0.34642
+      ],
+      [
+       0.25639,
+       0.06343,
+       0.05717
+      ],
+      [
+       0.5,
+       0.94075,
+       0.65358
+      ],
+      [
+       0.0,
+       0.81827,
+       0.99345
+      ],
+      [
+       0.0,
+       0.31827,
+       0.00655
+      ],
+      [
+       0.5,
+       0.18227,
+       0.50605
+      ],
+      [
+       0.5,
+       0.68227,
+       0.49395
+      ],
+      [
+       0.0,
+       0.14795,
+       0.60824
+      ],
+      [
+       0.0,
+       0.64795,
+       0.39176
+      ],
+      [
+       0.5,
+       0.85289,
+       0.89299
+      ],
+      [
+       0.5,
+       0.35289,
+       0.10701
+      ],
+      [
+       0.0,
+       0.06799,
+       0.84729
+      ],
+      [
+       0.74361,
+       0.56343,
+       0.94283
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 30,
+    "formula": "CeCu5",
+    "id": "JVASP-19820",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-19820.html",
+    "spg": "P6/mmm (191)",
+    "ehull": 0.0,
+    "icsd": true,
+    "tc": 0.07,
+    "tc_sc": 1.1,
+    "lo": 0.0,
+    "hi": 4.57,
+    "p_sc": 0.065,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.1,
+    "nearest": {
+     "formula": "Ce1Cu6",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       2.5505,
+       -4.4175,
+       -0.0
+      ],
+      [
+       2.5505,
+       4.4175,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       4.1182
+      ]
+     ],
+     "elements": [
+      "Ce",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu",
+      "Cu"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.5
+      ],
+      [
+       0.33333,
+       0.66667,
+       0.0
+      ],
+      [
+       0.66667,
+       0.33333,
+       0.0
+      ],
+      [
+       0.0,
+       0.5,
+       0.5
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 31,
+    "formula": "SrNiF2",
+    "id": "JVASP-134812",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-134812.html",
+    "spg": "P4mm (99)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.06,
+    "tc_sc": 6.93,
+    "lo": 1.99,
+    "hi": 20.06,
+    "p_sc": 0.009,
+    "p_unconventional": 0.994,
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.94,
+    "nearest": {
+     "formula": "Cu1F2.33O2Sr2",
+     "tc": 46.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       3.5301,
+       -0.0,
+       0.0
+      ],
+      [
+       0.0,
+       3.5301,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       4.9946
+      ]
+     ],
+     "elements": [
+      "Sr",
+      "Ni",
+      "F",
+      "F"
+     ],
+     "frac": [
+      [
+       0.5,
+       0.5,
+       0.82564
+      ],
+      [
+       0.0,
+       0.0,
+       0.39821
+      ],
+      [
+       0.0,
+       0.0,
+       0.95486
+      ],
+      [
+       0.5,
+       0.5,
+       0.32129
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 32,
+    "formula": "YbIn4Pd",
+    "id": "JVASP-152553",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-152553.html",
+    "spg": "Cmcm (63)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.06,
+    "tc_sc": 1.38,
+    "lo": 0.0,
+    "hi": 5.31,
+    "p_sc": 0.046,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.8,
+    "nearest": {
+     "formula": "In3Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 2,
+     "file": "screen_round2.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       2.2457,
+       -8.3416,
+       -0.0
+      ],
+      [
+       2.2457,
+       8.3416,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       7.633
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "Pd",
+      "Pd"
+     ],
+     "frac": [
+      [
+       0.13185,
+       0.86815,
+       0.75
+      ],
+      [
+       0.86815,
+       0.13185,
+       0.25
+      ],
+      [
+       0.31852,
+       0.68148,
+       0.95257
+      ],
+      [
+       0.68148,
+       0.31852,
+       0.45257
+      ],
+      [
+       0.31852,
+       0.68148,
+       0.54743
+      ],
+      [
+       0.68148,
+       0.31852,
+       0.04743
+      ],
+      [
+       0.93772,
+       0.06228,
+       0.75
+      ],
+      [
+       0.06228,
+       0.93772,
+       0.25
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ],
+      [
+       0.77319,
+       0.2268,
+       0.75
+      ],
+      [
+       0.2268,
+       0.77319,
+       0.25
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 33,
+    "formula": "YbIn4Pt",
+    "id": "JVASP-151922",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-151922.html",
+    "spg": "Cmcm (63)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.06,
+    "tc_sc": 1.27,
+    "lo": 0.0,
+    "hi": 5.03,
+    "p_sc": 0.049,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.71,
+    "nearest": {
+     "formula": "In3Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 3,
+     "file": "screen_round3.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       2.23,
+       -8.3045,
+       -0.0
+      ],
+      [
+       2.23,
+       8.3045,
+       0.0
+      ],
+      [
+       0.0,
+       -0.0,
+       7.7293
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "Pt",
+      "Pt"
+     ],
+     "frac": [
+      [
+       0.13472,
+       0.86528,
+       0.75
+      ],
+      [
+       0.86528,
+       0.13472,
+       0.25
+      ],
+      [
+       0.31926,
+       0.68073,
+       0.95306
+      ],
+      [
+       0.68073,
+       0.31926,
+       0.45306
+      ],
+      [
+       0.31926,
+       0.68073,
+       0.54694
+      ],
+      [
+       0.68073,
+       0.31926,
+       0.04694
+      ],
+      [
+       0.93907,
+       0.06093,
+       0.75
+      ],
+      [
+       0.06093,
+       0.93907,
+       0.25
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ],
+      [
+       0.77207,
+       0.22793,
+       0.75
+      ],
+      [
+       0.22793,
+       0.77207,
+       0.25
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 34,
+    "formula": "Yb2In8Ir",
+    "id": "JVASP-151620",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-151620.html",
+    "spg": "P4/mmm (123)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.04,
+    "tc_sc": 1.04,
+    "lo": 0.0,
+    "hi": 4.41,
+    "p_sc": 0.043,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.54,
+    "nearest": {
+     "formula": "In3Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 3,
+     "file": "screen_round3.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       4.6811,
+       -0.0,
+       -0.0
+      ],
+      [
+       -0.0,
+       4.6811,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       12.1788
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "Ir"
+     ],
+     "frac": [
+      [
+       0.0,
+       0.0,
+       0.80633
+      ],
+      [
+       0.0,
+       0.0,
+       0.19367
+      ],
+      [
+       0.5,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.62432
+      ],
+      [
+       0.0,
+       0.5,
+       0.62432
+      ],
+      [
+       0.5,
+       0.0,
+       0.37568
+      ],
+      [
+       0.0,
+       0.5,
+       0.37568
+      ],
+      [
+       0.5,
+       0.5,
+       0.80709
+      ],
+      [
+       0.5,
+       0.5,
+       0.19291
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 35,
+    "formula": "BaNiF4",
+    "id": "JVASP-151129",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-151129.html",
+    "spg": "Cmc2_1 (36)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.03,
+    "tc_sc": 8.47,
+    "lo": 2.57,
+    "hi": 24.14,
+    "p_sc": 0.003,
+    "p_unconventional": 0.538,
+    "gap": 0.59,
+    "magnetic": true,
+    "novelty": 0.98,
+    "nearest": {
+     "formula": "Ba0.6Cu1F2O2Sr1.4",
+     "tc": 64.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       2.1133,
+       -7.1685,
+       0.0
+      ],
+      [
+       2.1133,
+       7.1685,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       5.7921
+      ]
+     ],
+     "elements": [
+      "Ba",
+      "Ba",
+      "Ni",
+      "Ni",
+      "F",
+      "F",
+      "F",
+      "F",
+      "F",
+      "F",
+      "F",
+      "F"
+     ],
+     "frac": [
+      [
+       0.14152,
+       0.85848,
+       0.75346
+      ],
+      [
+       0.85848,
+       0.14152,
+       0.25346
+      ],
+      [
+       0.40977,
+       0.59022,
+       0.72058
+      ],
+      [
+       0.59022,
+       0.40977,
+       0.22058
+      ],
+      [
+       0.30038,
+       0.69962,
+       0.514
+      ],
+      [
+       0.69962,
+       0.30038,
+       0.014
+      ],
+      [
+       0.328,
+       0.672,
+       0.98927
+      ],
+      [
+       0.672,
+       0.328,
+       0.48927
+      ],
+      [
+       0.52566,
+       0.47434,
+       0.90616
+      ],
+      [
+       0.47434,
+       0.52566,
+       0.40617
+      ],
+      [
+       0.92273,
+       0.07727,
+       0.71935
+      ],
+      [
+       0.07727,
+       0.92273,
+       0.21935
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 36,
+    "formula": "Ce2Ga12Ni",
+    "id": "JVASP-165420",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-165420.html",
+    "spg": "P4/nbm (125)",
+    "ehull": 0.0,
+    "icsd": true,
+    "tc": 0.02,
+    "tc_sc": 1.18,
+    "lo": 0.0,
+    "hi": 4.78,
+    "p_sc": 0.015,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.71,
+    "nearest": {
+     "formula": "Ce1Ga6",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 3,
+     "file": "screen_round3.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       6.0618,
+       -0.0,
+       0.0
+      ],
+      [
+       0.0,
+       6.0618,
+       0.0
+      ],
+      [
+       -0.0,
+       -0.0,
+       15.3305
+      ]
+     ],
+     "elements": [
+      "Ce",
+      "Ce",
+      "Ce",
+      "Ce",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ni",
+      "Ni"
+     ],
+     "frac": [
+      [
+       0.25,
+       0.75,
+       0.75835
+      ],
+      [
+       0.25,
+       0.75,
+       0.24165
+      ],
+      [
+       0.75,
+       0.25,
+       0.24165
+      ],
+      [
+       0.75,
+       0.25,
+       0.75835
+      ],
+      [
+       0.92184,
+       0.42184,
+       0.42796
+      ],
+      [
+       0.42184,
+       0.92184,
+       0.57204
+      ],
+      [
+       0.25,
+       0.25,
+       0.34069
+      ],
+      [
+       0.99968,
+       0.00032,
+       0.08435
+      ],
+      [
+       0.99968,
+       0.49968,
+       0.91565
+      ],
+      [
+       0.00032,
+       0.50032,
+       0.08435
+      ],
+      [
+       0.49968,
+       0.50032,
+       0.91565
+      ],
+      [
+       0.75,
+       0.75,
+       0.81736
+      ],
+      [
+       0.07816,
+       0.57816,
+       0.57204
+      ],
+      [
+       0.50032,
+       0.00032,
+       0.91565
+      ],
+      [
+       0.25,
+       0.25,
+       0.81736
+      ],
+      [
+       0.07816,
+       0.92184,
+       0.42796
+      ],
+      [
+       0.57816,
+       0.07816,
+       0.42796
+      ],
+      [
+       0.75,
+       0.75,
+       0.34069
+      ],
+      [
+       0.75,
+       0.75,
+       0.18264
+      ],
+      [
+       0.49968,
+       0.99968,
+       0.08435
+      ],
+      [
+       0.92184,
+       0.07816,
+       0.57204
+      ],
+      [
+       0.00032,
+       0.99968,
+       0.91565
+      ],
+      [
+       0.57816,
+       0.42184,
+       0.57204
+      ],
+      [
+       0.50032,
+       0.49968,
+       0.08435
+      ],
+      [
+       0.75,
+       0.75,
+       0.65931
+      ],
+      [
+       0.42184,
+       0.57816,
+       0.42796
+      ],
+      [
+       0.25,
+       0.25,
+       0.18264
+      ],
+      [
+       0.25,
+       0.25,
+       0.65931
+      ],
+      [
+       0.25,
+       0.75,
+       0.0
+      ],
+      [
+       0.75,
+       0.25,
+       0.0
+      ]
+     ]
+    },
+    "check": {
+     "kind": "experiment",
+     "superconducts": null,
+     "doi": "10.1021/cm801693t",
+     "cite": "J. Y. Cho et al., Chem. Mater. 20, 6116 (2008)",
+     "note": "The original paper reports antiferromagnetic order near 10 K. Methods give susceptibility 2–300 K at 0.1 T and heat capacity 0.35–70 K. The heat-capacity floor must not be assigned to resistivity or treated as an explicit no-superconductivity cutoff. This audit did not establish a superconductivity absence statement to 0.35 K. Superconductivity outcome remains unknown."
+    }
+   },
+   {
+    "rank": 37,
+    "formula": "YbGa4Ni",
+    "id": "JVASP-152176",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-152176.html",
+    "spg": "Cmcm (63)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.01,
+    "tc_sc": 2.08,
+    "lo": 0.16,
+    "hi": 7.18,
+    "p_sc": 0.005,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.64,
+    "nearest": {
+     "formula": "Ga6Yb1",
+     "tc": null
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       2.0512,
+       -7.6177,
+       0.0
+      ],
+      [
+       2.0512,
+       7.6177,
+       -0.0
+      ],
+      [
+       0.0,
+       -0.0,
+       6.5481
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ga",
+      "Ni",
+      "Ni"
+     ],
+     "frac": [
+      [
+       0.6249,
+       0.37509,
+       0.75
+      ],
+      [
+       0.37509,
+       0.6249,
+       0.25
+      ],
+      [
+       0.0,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ],
+      [
+       0.43203,
+       0.56797,
+       0.75
+      ],
+      [
+       0.56797,
+       0.43203,
+       0.25
+      ],
+      [
+       0.81517,
+       0.18483,
+       0.95072
+      ],
+      [
+       0.18483,
+       0.81517,
+       0.45072
+      ],
+      [
+       0.81517,
+       0.18483,
+       0.54928
+      ],
+      [
+       0.18483,
+       0.81517,
+       0.04928
+      ],
+      [
+       0.27696,
+       0.72304,
+       0.75
+      ],
+      [
+       0.72304,
+       0.27696,
+       0.25
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 38,
+    "formula": "YbIn4Ni",
+    "id": "JVASP-152253",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-152253.html",
+    "spg": "Cmcm (63)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.01,
+    "tc_sc": 1.2,
+    "lo": 0.0,
+    "hi": 4.84,
+    "p_sc": 0.006,
+    "p_unconventional": 0.999,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.87,
+    "nearest": {
+     "formula": "In3Yb1",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 4,
+     "file": "screen_round4.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       2.2038,
+       -8.2818,
+       -0.0
+      ],
+      [
+       2.2038,
+       8.2818,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       7.375
+      ]
+     ],
+     "elements": [
+      "Yb",
+      "Yb",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "In",
+      "Ni",
+      "Ni"
+     ],
+     "frac": [
+      [
+       0.12845,
+       0.87154,
+       0.25
+      ],
+      [
+       0.87154,
+       0.12845,
+       0.75
+      ],
+      [
+       0.5,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.5,
+       0.5
+      ],
+      [
+       0.93015,
+       0.06984,
+       0.25
+      ],
+      [
+       0.06984,
+       0.93015,
+       0.75
+      ],
+      [
+       0.31374,
+       0.68626,
+       0.04642
+      ],
+      [
+       0.68626,
+       0.31374,
+       0.54642
+      ],
+      [
+       0.31374,
+       0.68626,
+       0.45358
+      ],
+      [
+       0.68626,
+       0.31374,
+       0.95358
+      ],
+      [
+       0.77269,
+       0.22731,
+       0.25
+      ],
+      [
+       0.22731,
+       0.77269,
+       0.75
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 39,
+    "formula": "U2Zn17",
+    "id": "JVASP-154877",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-154877.html",
+    "spg": "R-3m (166)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.01,
+    "tc_sc": 0.34,
+    "lo": 0.0,
+    "hi": 2.57,
+    "p_sc": 0.021,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.99,
+    "nearest": {
+     "formula": "Ce1Os2Zn20",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-10-31",
+     "round": 3,
+     "file": "screen_round3.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       5.0952,
+       -4.4878,
+       0.0016
+      ],
+      [
+       5.0952,
+       4.4878,
+       0.0016
+      ],
+      [
+       1.1403,
+       -0.0,
+       6.6933
+      ]
+     ],
+     "elements": [
+      "U",
+      "U",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn"
+     ],
+     "frac": [
+      [
+       0.3369,
+       0.3369,
+       0.3369
+      ],
+      [
+       0.6631,
+       0.6631,
+       0.6631
+      ],
+      [
+       0.35515,
+       0.35515,
+       0.83927
+      ],
+      [
+       0.83927,
+       0.35515,
+       0.35515
+      ],
+      [
+       0.35515,
+       0.83927,
+       0.35515
+      ],
+      [
+       0.64485,
+       0.64485,
+       0.16073
+      ],
+      [
+       0.64485,
+       0.16073,
+       0.64485
+      ],
+      [
+       0.16073,
+       0.64485,
+       0.64485
+      ],
+      [
+       0.70298,
+       0.29702,
+       0.0
+      ],
+      [
+       0.29702,
+       0.0,
+       0.70298
+      ],
+      [
+       0.0,
+       0.70298,
+       0.29702
+      ],
+      [
+       0.29702,
+       0.70298,
+       0.0
+      ],
+      [
+       0.70298,
+       0.0,
+       0.29702
+      ],
+      [
+       0.0,
+       0.29702,
+       0.70298
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ],
+      [
+       0.0,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.0
+      ],
+      [
+       0.10158,
+       0.10158,
+       0.10158
+      ],
+      [
+       0.89842,
+       0.89842,
+       0.89843
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 40,
+    "formula": "Pr2Zn17",
+    "id": "JVASP-154784",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-154784.html",
+    "spg": "R-3m (166)",
+    "ehull": 0.002,
+    "icsd": false,
+    "tc": 0.01,
+    "tc_sc": 0.31,
+    "lo": 0.0,
+    "hi": 2.49,
+    "p_sc": 0.019,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "novelty": 0.43,
+    "nearest": {
+     "formula": "Pr1Ru2Zn20",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       5.1413,
+       -4.5363,
+       0.0019
+      ],
+      [
+       5.1413,
+       4.5363,
+       0.0019
+      ],
+      [
+       1.1362,
+       0.0,
+       6.7617
+      ]
+     ],
+     "elements": [
+      "Pr",
+      "Pr",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn"
+     ],
+     "frac": [
+      [
+       0.33503,
+       0.33503,
+       0.33503
+      ],
+      [
+       0.66497,
+       0.66497,
+       0.66497
+      ],
+      [
+       0.35175,
+       0.35175,
+       0.83812
+      ],
+      [
+       0.64825,
+       0.16187,
+       0.64825
+      ],
+      [
+       0.16187,
+       0.64825,
+       0.64825
+      ],
+      [
+       0.64825,
+       0.64825,
+       0.16187
+      ],
+      [
+       0.29292,
+       0.70708,
+       0.0
+      ],
+      [
+       0.70708,
+       0.0,
+       0.29292
+      ],
+      [
+       0.0,
+       0.29292,
+       0.70708
+      ],
+      [
+       0.70708,
+       0.29292,
+       0.0
+      ],
+      [
+       0.29292,
+       0.0,
+       0.70708
+      ],
+      [
+       0.0,
+       0.70708,
+       0.29292
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ],
+      [
+       0.0,
+       0.5,
+       0.0
+      ],
+      [
+       0.5,
+       0.0,
+       0.0
+      ],
+      [
+       0.90133,
+       0.90133,
+       0.90133
+      ],
+      [
+       0.09867,
+       0.09867,
+       0.09867
+      ],
+      [
+       0.35175,
+       0.83812,
+       0.35175
+      ],
+      [
+       0.83812,
+       0.35175,
+       0.35175
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 41,
+    "formula": "CeUZn17",
+    "id": "JVASP-140457",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-140457.html",
+    "spg": "R3m (160)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.0,
+    "tc_sc": 0.15,
+    "lo": 0.0,
+    "hi": 2.06,
+    "p_sc": 0.025,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.92,
+    "nearest": {
+     "formula": "Ce1Os2Zn20",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       6.7485,
+       -0.0138,
+       0.8964
+      ],
+      [
+       0.7834,
+       6.7029,
+       0.8964
+      ],
+      [
+       -0.0155,
+       -0.0138,
+       6.8077
+      ]
+     ],
+     "elements": [
+      "Ce",
+      "U",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn"
+     ],
+     "frac": [
+      [
+       0.66278,
+       0.66278,
+       0.66278
+      ],
+      [
+       0.33593,
+       0.33593,
+       0.33593
+      ],
+      [
+       0.50318,
+       0.99688,
+       0.99688
+      ],
+      [
+       0.99688,
+       0.50318,
+       0.99688
+      ],
+      [
+       0.99688,
+       0.99688,
+       0.50318
+      ],
+      [
+       0.64078,
+       0.16855,
+       0.64078
+      ],
+      [
+       0.64078,
+       0.64078,
+       0.16855
+      ],
+      [
+       0.16855,
+       0.64078,
+       0.64078
+      ],
+      [
+       0.35137,
+       0.84783,
+       0.35137
+      ],
+      [
+       0.35137,
+       0.35137,
+       0.84783
+      ],
+      [
+       0.84783,
+       0.35137,
+       0.35137
+      ],
+      [
+       0.7025,
+       0.29518,
+       0.00165
+      ],
+      [
+       0.00165,
+       0.7025,
+       0.29518
+      ],
+      [
+       0.29518,
+       0.00165,
+       0.7025
+      ],
+      [
+       0.00165,
+       0.29518,
+       0.7025
+      ],
+      [
+       0.7025,
+       0.00165,
+       0.29518
+      ],
+      [
+       0.29518,
+       0.7025,
+       0.00165
+      ],
+      [
+       0.90159,
+       0.90159,
+       0.90159
+      ],
+      [
+       0.10342,
+       0.10342,
+       0.10342
+      ]
+     ]
+    }
+   },
+   {
+    "rank": 42,
+    "formula": "Ce2Zn17",
+    "id": "JVASP-155091",
+    "url": "https://www.ctcms.nist.gov/~knc6/jsmol/JVASP-155091.html",
+    "spg": "R-3m (166)",
+    "ehull": 0.0,
+    "icsd": false,
+    "tc": 0.0,
+    "tc_sc": 0.11,
+    "lo": 0.0,
+    "hi": 1.95,
+    "p_sc": 0.011,
+    "p_unconventional": 1.0,
+    "family": "heavy-fermion",
+    "gap": 0.0,
+    "magnetic": true,
+    "novelty": 0.92,
+    "nearest": {
+     "formula": "Ce1Os2Zn20",
+     "tc": 0.0
+    },
+    "listed": {
+     "date": "2026-11-11",
+     "round": 6,
+     "file": "screen_round6.json"
+    },
+    "atoms": {
+     "lattice": [
+      [
+       5.1379,
+       -4.5241,
+       0.007
+      ],
+      [
+       5.1379,
+       4.5241,
+       0.007
+      ],
+      [
+       1.145,
+       0.0,
+       6.7494
+      ]
+     ],
+     "elements": [
+      "Ce",
+      "Ce",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn",
+      "Zn"
+     ],
+     "frac": [
+      [
+       0.66372,
+       0.66372,
+       0.66372
+      ],
+      [
+       0.33628,
+       0.33628,
+       0.33628
+      ],
+      [
+       0.647,
+       0.16083,
+       0.64701
+      ],
+      [
+       0.16083,
+       0.647,
+       0.64701
+      ],
+      [
+       0.647,
+       0.647,
+       0.16083
+      ],
+      [
+       0.83917,
+       0.35299,
+       0.353
+      ],
+      [
+       0.35299,
+       0.83917,
+       0.353
+      ],
+      [
+       0.35299,
+       0.35299,
+       0.83917
+      ],
+      [
+       0.70589,
+       0.29411,
+       0.0
+      ],
+      [
+       0.0,
+       0.70589,
+       0.29411
+      ],
+      [
+       0.29411,
+       0.0,
+       0.70589
+      ],
+      [
+       0.29411,
+       0.70589,
+       0.0
+      ],
+      [
+       0.0,
+       0.29411,
+       0.70589
+      ],
+      [
+       0.70589,
+       0.0,
+       0.29411
+      ],
+      [
+       0.0,
+       0.0,
+       0.5
+      ],
+      [
+       0.5,
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.5,
+       0.0
+      ],
+      [
+       0.89995,
+       0.89995,
+       0.89995
+      ],
+      [
+       0.10005,
+       0.10005,
+       0.10005
+      ]
+     ]
+    }
+   }
+  ],
+  "background": {
+   "n": 158,
+   "weight": 0.3,
+   "cross_fitted": true,
+   "radius": 1.0,
+   "pool": 3881
+  },
+  "reliability": {
+   "false_alarms": 0.0017,
+   "n_background": 158,
+   "abstain": 1.0,
+   "about": "false alarms: the share of the held-out compounds with no superconductivity record that Radar sends to Hurricane which lie inside its training data and get at least an even chance; the compounds of this list are those same compounds, so a candidate with at least an even chance is one of them",
+   "cite": "T. Konno et al., Phys. Rev. B 103, 014509 (2021)",
+   "doi": "10.1103/PhysRevB.103.014509",
+   "found": 0.514,
+   "dismissed": 0.155,
+   "unknown_lofo": 0.332,
+   "dismissed_about": "trained only on reports dated before a family was found and asked about that family's first five years"
+  },
+  "not_known": {
+   "n": 537,
+   "of": 591,
+   "abstain": 1.0,
+   "about": "Hurricane gives no chance to a compound further from every training compound, in its standardized inputs, than the distance that separates 95% of the training compounds from their nearest neighbour in another parent compound; such compounds are not listed"
+  }
+ },
+ "reproduces": {
+  "file": "results/hurricane_round9_background.csv",
+  "sha256": "e2575e5481cf6734f0e03b9b9741ba6fbba168d460a20589ccbc34a279c12500",
+  "rows": 3881,
+  "largest_difference": 5e-05,
+  "tolerance": 5.1e-05
+ },
+ "guard": {
+  "n": 3881,
+  "n_sent": 591,
+  "n_used": 158,
+  "weight": 0.3,
+  "radius": 1.0,
+  "abstain": 1.0,
+  "false_alarms": 0.001692047377326565,
+  "false_alarms_all": 0.001545993300695697,
+  "false_alarms_inside": 0.018518518518518517,
+  "false_alarms_without_guard": 0.5160744500846024,
+  "false_alarms_all_without_guard": 0.5763978356093791,
+  "unknown_sent": 0.9086294416243654,
+  "unknown_all": 0.9592888430816799,
+  "folds": [
+   0.007462686567164179,
+   0.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  "limit": 0.05,
+  "passed": true
+ },
+ "sources": [
+  {
+   "name": "3DSC, SuperCon matched to Materials Project structures",
+   "n": 5772,
+   "doi": "10.1038/s41597-023-02721-y",
+   "commit": "8d69ca9"
+  },
+  {
+   "name": "SuperCon formulas in JARVIS (supercon_chem)",
+   "n": 16398
+  },
+  {
+   "name": "SuperCon extract of K. Hamidieh (2018), UCI Machine Learning Repository",
+   "n": 21263,
+   "doi": "10.1016/j.commatsci.2018.07.052",
+   "sha256": "87f4490d7339"
+  },
+  {
+   "name": "chemical systems with a known superconductor (from the lists above)",
+   "n": 3546
+  },
+  {
+   "name": "Alexandria electron-phonon data (alex_supercon)",
+   "n": 8253
+  },
+  {
+   "name": "JARVIS electron-phonon data (supercon_3d)",
+   "n": 1058
+  },
+  {
+   "name": "data/prior_claims.json, reported or predicted by others",
+   "n": 18
+  },
+  {
+   "name": "data/hurricane_anchors.json, discoveries and claims that Hurricane is checked against",
+   "n": 11,
+   "systems": 6
+  }
+ ],
+ "radar": {
+  "design": "Composition + structure + physics + element fractions",
+  "id": "R4",
+  "n_train": 5751
+ },
+ "pool_steps": [
+  {
+   "step": "JARVIS-DFT 3D entries",
+   "n": 93902
+  },
+  {
+   "step": "within 50 meV/atom of the convex hull",
+   "n": 9339
+  },
+  {
+   "step": "a band gap of at most 1 eV, magnetic or not",
+   "n": 6530
+  },
+  {
+   "step": "2 to 5 elements, no hydrogen, noble gases or short-lived radioactive elements",
+   "n": 5759
+  },
+  {
+   "step": "up to 40 atoms in the cell",
+   "n": 5754
+  },
+  {
+   "step": "only elements in at least 20 of Hurricane's training materials",
+   "n": 5341
+  }
+ ],
+ "counts": {
+  "pool": 3881,
+  "sent": 591,
+  "not_known": 537,
+  "judged": 54,
+  "chemical_systems_judged": 42,
+  "listed": 42,
+  "at_least_an_even_chance": 1,
+  "with_a_recorded_check": 3,
+  "with_a_literature_record": 20,
+  "listed_before": 23
+ },
+ "libraries": {
+  "python": "3.11.18",
+  "numpy": "2.4.6",
+  "scipy": "1.17.1",
+  "scikit_learn": "1.9.1"
+ },
+ "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+ "attribution": "This study used the MDR SuperCon Datasheet (https://doi.org/10.48505/nims.3837), a numerical data sheet for superconducting materials, which is made public by the National Institute for Materials Science (NIMS).",
+ "files": {
+  "hurricane_table_sha256": "18564f826284a5a041a87a6c8831f510c6c287444a39226fec5bc554c3f7b14b"
+ },
+ "minutes": 1.9
+}
