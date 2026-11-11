@@ -554,19 +554,19 @@
     "candMcmChips": "97811282238f8930ce6ec4a90746849a033e741afb1ed031eacf9a97b5286ae3",
     "candMcmBanner": "f34145627a722794118783cbf08cf32fb1b12129e9d6d0b51ad691b2677cb9d9",
     "candGo": "6ef03d9a920451afffb40d428e50ea9ccf8cc8934b368e4d95e3c6a339dc883a",
-    "candRemarks": "a5a3de38e7af03677a7b004160b1edaf48cbc82907b3aa30414ba9ea9aba7e75",
+    "candRemarks": "1cc2c1e8d329739c5d2e5e246a5dce044e28f5d2b8563fb2a18a6bb5fe4b45b8",
     "candListedText": "e798428b8f91bf42469a328f27918bb7074c83ada058449e4e635239b4fa3bd7",
     "candRemarksEl": "27233e5433800427cfd3bb777653b4b3aaad339a5befbfed7978c9888452ac7e",
     "candCheckText": "216dd32a240283fb76aad4f74888232223034997c2f872bd73fbe8d1ffe9a98d",
     "candCheckSource": "28cce57d523a3c19be85c2f8014fce905378961f88ed46ad1bbc31836324cbef",
     "candCheck": "196772977a90bb19529010090d1c9a3599f0dae744237505c2a05b4e0ef2684d",
-    "candOursNote": "7dbb7191f0c934e89810065c4cfe4814f6d9e8a2c0f0e686838a87bae74a9539",
+    "candOursNote": "611bc2714c163501d02e54709fc9fc0db185c2d03c458166d66fbfcc933c1cf3",
     "candKind": "18131bff807ec68b589ffc1c6dfbcbf1fb661eeed46922b8a1614747b0f546ce",
     "candTrack": "c64ec36a1ea20b3f8ab0859989c36d15348bd7dcd87c1028425ad15f2ff380f3",
     "candArchive": "b168ca844115c6815c7b6e9c35471a050324a69a7246811172d33d6f11472338",
     "candModel": "f91855703dfffa4949bde6c1b4301c1de8d1699614e2d803da641cb6032ea5b5",
     "candHurTop": "500ed8c80b485c9b88e1f16e8f1de19ff599f36ceeccc8fa37df93892ed3c264",
-    "renderCandidates": "81678be822f84e3d2e9284e66d606cb6b5b1b0cd957dbd9e06a1fa2fee86efe1",
+    "renderCandidates": "ef96b2a8a1562d08bc1efe59f57ec3fd84c5cc16e73479f32e54af176ef68592",
     "candTellUs": "c4e2ef3c3b7fd11b4442678f2be13a5525d91d7c7077fab18746c0d26602bd32",
     "candSelect": "73ef0bc4418f1763c2307f182641dc7c83f3ae236802832c3268e8b4d5698dc9",
     "candViewer": "18ac4cad6b535c60f111fe7116fccb8512e7c5e223faebae22bc064518787a99",
@@ -617,7 +617,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "0035a6aff5b6721082ddf5a8d01381d2d7a1cbe4cd4ae19fd5d455875735ccec",
+    "ed5eea6e834511d3001e93e8e9f8318c927ecbedaf095c7a985f63d65bfa2cc2",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -879,7 +879,7 @@
   },
   "reviewed_revision": {
     "reviewed_on": "2026-11-11",
-    "purpose": "Release 0.3.30. A Hurricane version that learns from the NIMS SuperCon datasheet and is checked on time windows (scores.kind is time-windows, with a temporal block) gets its own captions, design stage, window-by-window validation bars, new-family answers, model card, tour text and details block; a version scored on folds takes the same code paths as before. Hurricane's baseline demo compares with the latest released version scored on folds. In Candidates the unconventional list comes first and is the default, and a strip names the compounds Hurricane gives the highest score, any recorded check on them and the version that screened the list. The liquid-nitrogen label of the data stage moves off a bar that crosses it. Version 0.3.30 in the service worker, the app constant and the cache name. The app changes no model result, candidate, score or threshold.",
+    "purpose": "Release 0.3.31. Candidates can show a list screened by a Hurricane version that learns from the NIMS SuperCon datasheet. Such a list names its own screening round and date, its remarks name the datasheet instead of 3DSC, say that the candidate is one of the model's background compounds scored by a classifier that left it out, and call a nearest training compound with Tc 0 measured not to superconduct; the pool exclusions count the compounds the datasheet lists. The lead gives the share of superconducting and of measured non-superconducting new parent compounds with a score of at least 0.5 and the three answers for a family not yet found, without a verdict. Version 0.3.31 in the service worker, the app constant and the cache name. The app changes no model result, candidate, score or threshold.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -887,80 +887,35 @@
       "strict mode and lexical bindings",
       "original snapshot provenance",
       "all prior reviewed revision records with ordered counts and complete content hashes",
-      "every control listed by the previous reviewed revision, retained in review-history-30.json",
+      "every control listed by the previous reviewed revision, retained in review-history-31.json",
       "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
-      "a version scored on folds is drawn and described exactly as before",
-      "every number in the new texts and drawings is read from the live progress data",
-      "the new texts name the nearest-compound reference the model does not clearly beat, the share it answers not known and the measured non-superconductors it still gives an even chance",
-      "the strip repeats candidates of the published list with their published score and Tc, adds none, changes no rank, names the version that screened the list and marks every compound with a recorded check"
+      "a list screened by a version scored on folds is described exactly as before, and Storm's list is unchanged",
+      "every number in the new texts is read from the live progress data",
+      "the new texts say that a listed compound is one of the background compounds the model counts as probably not superconducting, that its score comes from a classifier that left it out, and which share of measured non-superconductors still gets a score of at least 0.5"
     ],
-    "previous_css_sha256": "f20c189b8c4de62630f061050efb02e2e43a19c0fced85b3848eb29182a8d73d",
-    "functions_added": [
-      "hurTW",
-      "hurFoldInfo",
-      "hurR2",
-      "hurRank",
-      "hurWindowCaption",
-      "drawHurWindowDesign",
-      "hurWindowDetails",
-      "candHurTop"
-    ],
+    "previous_css_sha256": "87ff2e1121b9e2aca03c9963028a026cffb1e7e02302a95d493ffef0832a5947",
+    "functions_added": [],
     "functions_removed": [],
     "previous_removed_functions": [],
     "functions_changed": [
-      "modelCaption",
-      "drawBaseData",
-      "drawBaseScore",
-      "hurCaption",
-      "drawHurricane",
-      "drawHurData",
-      "drawHurCheck",
-      "drawHurFamily",
-      "drawHurLater",
-      "hurStoryCaption",
-      "drawStoryHurricane",
-      "hurFamilyEntry",
-      "hurricaneDetails",
+      "candRemarks",
+      "candOursNote",
       "renderCandidates"
     ],
     "initializers_changed": [
       {
         "file": "js/initialize/core.js",
-        "before_ast_sha256": "cf6b8fbd7dd3e4015b5a2368b712d80285a63ecc5498a068fa3482b256e1502a",
-        "after_ast_sha256": "cb617d272396b2b0e8fc7eabc624d46b2ae9622daf61c417a15adddc2723ca7d"
-      },
-      {
-        "file": "js/initialize/baseline-demos.js",
-        "before_ast_sha256": "23397092c1ed49e51c8117296940deb942202bdb9b956bbb95c17d276c93d237",
-        "after_ast_sha256": "4fb7f40d2b2831b200d106e93e76a15ef107baef546cc6a6b4a344def5b4c0e0"
-      },
-      {
-        "file": "js/initialize/candidates.js",
-        "before_ast_sha256": "00beb725475f78c788e8d40ab87c2144cd8ca7ffe964638fa7be134bf5d7a18a",
-        "after_ast_sha256": "35c45c58c973a0c766c442bc6c4f53e7b9f1c6b5516b3f3fc1793b60d7383f19"
+        "before_ast_sha256": "cb617d272396b2b0e8fc7eabc624d46b2ae9622daf61c417a15adddc2723ca7d",
+        "after_ast_sha256": "4c620d3db5c199a9bcd56cedd0dad15d1bb746e4f53e2d89f44fe680cba89e1c"
       }
     ],
     "previous_function_changes": {
-      "modelCaption": "11b579f71489c14aa171c4ddef6401a1223540650cdec33c34651c7b73aa700d",
-      "drawBaseData": "ed39983ecbe76210dd86944714a9ded078def6d6978ba8430d86bd4e94a487d8",
-      "drawBaseScore": "9dd3ce4f962161cadce17c52fecf0f89e83de5e1e2e360102805c31cc0f10d56",
-      "hurCaption": "8e325ca949f86d17a891845164d0c3b210fdf468ad7262f936843d8f702a5b19",
-      "drawHurricane": "1b56dd2760d52ce76236b15fe7b78b056bfa4f66db9c4907a8192f1d5ad9b028",
-      "drawHurData": "661f8ad09da708a23c5c0812a2273b98c523ec097e46d953cb1d0ab9df70f8d8",
-      "drawHurCheck": "f10f053abf94813414af8a5e0beaf293029a9b5e4fc9f8b2190f29e5dfaaa7fa",
-      "drawHurFamily": "81e94daa36e03302e406aad0523c10e1ea66dd61d2315fe071c8c8a03ea51998",
-      "drawHurLater": "9845404c172911b9379956ef9ef6d2ad995f5d667d2db0bb4965c864523375bf",
-      "hurStoryCaption": "e8f022a562db5869733ac84f9c030849a337d4ae580457214cfa4c3b7837e1ba",
-      "drawStoryHurricane": "b1b65e21b33668a27089e14cd48cdba5d51c1796ed9293a546dd6804cd6691a3",
-      "hurFamilyEntry": "2bc72799028c1c4370d85f0eaa859e9d98be2bfc7bb80391e8d4f7801a234946",
-      "hurricaneDetails": "d3c750d224a750377ecc860cbf87a46695e36042d639c4ab4459041ac5fe15bf",
-      "renderCandidates": "05cb354fce97babfdd8de7924bdb02839882481c9d33c2c42239d623b2895139"
+      "candRemarks": "a5a3de38e7af03677a7b004160b1edaf48cbc82907b3aa30414ba9ea9aba7e75",
+      "candOursNote": "7dbb7191f0c934e89810065c4cfe4814f6d9e8a2c0f0e686838a87bae74a9539",
+      "renderCandidates": "81678be822f84e3d2e9284e66d606cb6b5b1b0cd957dbd9e06a1fa2fee86efe1"
     },
     "previous_initialization_changes": {
-      "0": "926b7ed9f5959699d73837c67a0f2423c305f35e71b38d8749e156a3ee211f42",
-      "65": "d8a3f18b648cfd2ff95041a1f2c2157081d916d9a4fa661ad330909082119ade",
-      "138": "ea1eb542bd9d06f3b1568a8779d98aff7588606ecef90d5fe142ddff001e5990",
-      "141": "27e9a11955c9d3211290b7c3129824f87d2c7e2f073b30f3c209e7c99de49b38"
+      "0": "0035a6aff5b6721082ddf5a8d01381d2d7a1cbe4cd4ae19fd5d455875735ccec"
     }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -1131,7 +1086,12 @@
       "path": "review-history-30.json",
       "sha256": "f3d489f235e92f404537f433018ef561df49f286727833c1ca6cd1b13a5aa3ac",
       "count": 1
+    },
+    {
+      "path": "review-history-31.json",
+      "sha256": "4e31c338f120ddff62ae124580ecca60086fe5ad939dc6accf4cb653cc8b8a3b",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 35
+  "reviewed_revision_count": 36
 }
