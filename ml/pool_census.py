@@ -17,6 +17,11 @@ count also says how many records carry a link to an experimental structure (an I
 Materials Project; every COD entry is an experimental structure). Hurricane's rule on the training elements and the
 exclusions of known superconductors are not applied here: these are upper bounds on what a pool could gain.
 
+A wider pool (wider_pool). The usable databases together, by distinct composition, in two tracks: compounds with an
+experimental structure, whatever their hull distance, and compounds known from computation only, within the gap and hull
+rules. The report also compares the hull distances of the databases with each other (hull_agreement), because a pool
+that takes "within 50 meV/atom of the hull" from several databases relies on their hulls meaning the same thing.
+
 Licences of the underlying data, as found on 2026-11-11: JARVIS-DFT, NIST (already used for the pool); Alexandria,
 CC BY 4.0 (alexandria.icams.rub.de/about.html); Crystallography Open Database, placed in the public domain by its
 contributors (crystallography.net/cod); Materials Project, CC BY 4.0 for its own data. GNoME (Google DeepMind, read from
@@ -41,7 +46,9 @@ import zipfile
 from functools import reduce
 from pathlib import Path
 
-DATASETS = ["dft_3d", "mp_3d_2020", "mp_aws", "alexandria_hull_2025", "alex_pbe_hull", "cod", "gnome_2024"]
+DATASETS = ["dft_3d", "mp_3d_2020", "mp_aws", "alexandria_hull_2025", "cod", "gnome_2024"]
+# the databases a wider pool would be built from (the Materials Project from its own current build, not the 2020 copy)
+USE = ["dft_3d", "mp_aws", "alexandria_hull_2025", "cod"]
 # the Materials Project's own builds on AWS Open Data: public, no account and no key (registry.opendata.aws/materials-project)
 MP_S3 = "https://materialsproject-build.s3.amazonaws.com"
 S3NS = "{http://s3.amazonaws.com/doc/2006-03-01/}"
@@ -461,9 +468,11 @@ def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, dict]:
         rep["licence_file"] = licence_head(LICENCE_FILES[name])
     reader = {"bz2": lambda: records_bz2(zpath, rep), "csv": lambda: records_csv(zpath, rep),
               "zip": lambda: records(zpath, member), "s3": lambda: records_s3(url, store, rep)}[fmt]
-    hl = {"base": set(), "loose": set(), "strict": set(), "experimental": set()}
+    hl = {k: set() for k in ("base", "loose", "strict", "experimental", "gap_known", "gap_ok", "exp_base")}
     hl_records, hl_status, hl_exp_records, hl_exp_unknown = collections.Counter(), collections.Counter(), 0, 0
-    licences, set_apart = collections.Counter(), collections.Counter()
+    hl_exp_status, size_table = collections.Counter(), collections.Counter()
+    hulls, min_hull, exp_hull = [], {}, {"experimental": [0, 0], "not experimental": [0, 0]}
+    licences, set_apart, flags = collections.Counter(), collections.Counter(), collections.Counter()
     nested, nested_types, nested_ex = collections.Counter(), collections.defaultdict(collections.Counter), collections.defaultdict(list)
     t0 = time.time()
     n, fields, types, ex = 0, collections.Counter(), collections.defaultdict(collections.Counter), collections.defaultdict(list)
@@ -483,6 +492,9 @@ def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, dict]:
         if lic == "BY-NC" or rec.get("deprecated") is True:
             set_apart["BY-NC" if lic == "BY-NC" else "deprecated"] += 1
             continue
+        if EXPERIMENTAL.get(name) == "mp":              # how the Materials Project's two experimental marks go together
+            ids = rec.get("database_IDs")
+            flags[f"theoretical={rec.get('theoretical')}; icsd={'yes' if isinstance(ids, dict) and filled(ids.get('icsd')) else 'no'}"] += 1
         for k, v in rec.items():
             types[k][kind(v)] += 1
             if filled(v):
@@ -521,29 +533,48 @@ def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, dict]:
         if len(samples) < 3:
             samples.append(sorted(c)[:8])
         fk = formula_key(c)
+        h_any = value(rec, HULL.get(name, []))
+        if h_any is not None:                           # the hull distances as the database gives them, to compare databases
+            hulls.append(h_any)
+            if h_any < min_hull.get(fk, math.inf):
+                min_hull[fk] = h_any
+            x_any = experimental(rec, name)
+            if x_any is not None:
+                exp_hull["experimental" if x_any else "not experimental"][0 if h_any <= EHULL_MAX else 1] += 1
         if disordered is False and "H" not in c and len(c) >= 2 and nat is not None and nat <= 100:
             pool_like += 1
             pool_comps.add(fk)
-        if (disordered is False and HUR_ELEMENTS[0] <= len(c) <= HUR_ELEMENTS[1] and not (set(c) & BAD)
-                and nat is not None and nat <= HUR_MAX_ATOMS):
-            hl["base"].add(fk)
-            hl_records["base"] += 1
-            g, h = value(rec, GAP.get(name, [])), value(rec, HULL.get(name, []))
+        if disordered is False and len(c) >= 2 and not (set(c) & BAD) and nat is not None:
+            g, h, x = value(rec, GAP.get(name, [])), value(rec, HULL.get(name, [])), experimental(rec, name)
             gs = "no gap given" if g is None else ("gap <= 1 eV" if g <= HUR_GAP_MAX else "gap > 1 eV")
             hs = "no hull given" if h is None else ("hull <= 50 meV" if h <= EHULL_MAX else "hull > 50 meV")
-            hl_status[f"{gs}; {hs}"] += 1
-            if gs != "gap > 1 eV" and hs != "hull > 50 meV":
-                hl["loose"].add(fk)
-                hl_records["loose"] += 1
-                if gs == "gap <= 1 eV" and hs == "hull <= 50 meV":
-                    hl["strict"].add(fk)
-                    hl_records["strict"] += 1
-                x = experimental(rec, name)
-                if x:
-                    hl["experimental"].add(fk)
-                    hl_exp_records += 1
-                elif x is None:
-                    hl_exp_unknown += 1
+            if gs != "gap > 1 eV" and (x or hs != "hull > 50 meV"):     # what a wider size rule would let in
+                size_table["; ".join(["2-5 elements" if len(c) <= 5 else "6 elements" if len(c) == 6 else "7+ elements",
+                                      "<= 40 atoms" if nat <= 40 else "<= 100 atoms" if nat <= 100 else "> 100 atoms",
+                                      "experimental" if x else "computed only"])] += 1
+            if len(c) <= HUR_ELEMENTS[1] and nat <= HUR_MAX_ATOMS:
+                hl["base"].add(fk)
+                hl_records["base"] += 1
+                hl_status[f"{gs}; {hs}"] += 1
+                if g is not None:
+                    hl["gap_known"].add(fk)
+                if gs == "gap <= 1 eV":
+                    hl["gap_ok"].add(fk)
+                if x:                                   # an experimental structure, whatever its gap and hull distance
+                    hl["exp_base"].add(fk)
+                    hl_records["exp_base"] += 1
+                    hl_exp_status[f"{gs}; {hs}"] += 1
+                if gs != "gap > 1 eV" and hs != "hull > 50 meV":
+                    hl["loose"].add(fk)
+                    hl_records["loose"] += 1
+                    if gs == "gap <= 1 eV" and hs == "hull <= 50 meV":
+                        hl["strict"].add(fk)
+                        hl_records["strict"] += 1
+                    if x:
+                        hl["experimental"].add(fk)
+                        hl_exp_records += 1
+                    elif x is None:
+                        hl_exp_unknown += 1
         n_atoms[bucket(nat) if nat is not None else "unknown"] += 1
         n_el[bucket(len(c), (1, 2, 3, 4, 5, 6, 8))] += 1
         with_h += "H" in c
@@ -564,14 +595,52 @@ def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, dict]:
                            "experimental_link": EXPERIMENTAL.get(name), "records": dict(hl_records),
                            "status": dict(sorted(hl_status.items())),
                            "distinct_compositions": {k: len(v) for k, v in hl.items()},
-                           "experimental_records": hl_exp_records, "experimental_unknown_records": hl_exp_unknown},
-        "licences": dict(licences), "set_apart": dict(set_apart),
+                           "experimental_records": hl_exp_records, "experimental_unknown_records": hl_exp_unknown,
+                           "experimental_status": dict(sorted(hl_exp_status.items())),
+                           "wider_size_rule_records": dict(sorted(size_table.items()))},
+        "licences": dict(licences), "set_apart": dict(set_apart), "experimental_marks": dict(sorted(flags.items())),
+        "hull_distribution": hull_distribution(hulls, exp_hull),
         "elements_seen": len(top_elements)})
     if not keep and zpath is not None:
         zpath.unlink()
-    sets = {"all": comps, "pool_like": pool_comps}
+    sets = {"all": comps, "pool_like": pool_comps, "min_hull": min_hull}
     sets.update({f"hurricane_{k}": v for k, v in hl.items()})
     return rep, sets
+
+
+def hull_distribution(hulls: list, exp_hull: dict) -> dict | None:
+    """How the database's own hull distances are spread (eV/atom as given), and how many records lie within 50 meV/atom
+    among those with and without a link to an experimental structure."""
+    if not hulls:
+        return None
+    import numpy as np
+    v = np.asarray(hulls, float)
+    q = [1, 5, 10, 25, 50, 75, 90, 99]
+    return {"records": int(len(v)), "exactly_zero": int((v == 0).sum()), "at_most_50_meV": int((v <= EHULL_MAX).sum()),
+            "quantiles": {str(a): round(float(b), 4) for a, b in zip(q, np.percentile(v, q))},
+            "within_50_meV_by_experimental_link": {k: {"within": a, "beyond": b} for k, (a, b) in exp_hull.items() if a + b}}
+
+
+def hull_agreement(comp_sets: dict) -> dict:
+    """For every pair of databases with hull distances: the compositions both have, split by whether each puts its most
+    stable entry of that composition within 50 meV/atom of its own hull."""
+    import numpy as np
+    names = sorted(k for k in comp_sets if comp_sets[k].get("min_hull"))
+    out = {}
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            ha, hb = comp_sets[a]["min_hull"], comp_sets[b]["min_hull"]
+            common = ha.keys() & hb.keys()
+            if not common:
+                continue
+            t, diff = collections.Counter(), []
+            for fk in common:
+                t[f"{a} {'within' if ha[fk] <= EHULL_MAX else 'beyond'}; {b} {'within' if hb[fk] <= EHULL_MAX else 'beyond'}"] += 1
+                diff.append(ha[fk] - hb[fk])
+            d = np.asarray(diff, float)
+            out[f"{a} vs {b}"] = {"common_compositions": len(common), "table": dict(sorted(t.items())),
+                                  "difference_quantiles": {str(q): round(float(v), 4) for q, v in zip([5, 25, 50, 75, 95], np.percentile(d, [5, 25, 50, 75, 95]))}}
+    return out
 
 
 def emit(report: dict, tag: str) -> None:
@@ -616,7 +685,7 @@ def probe(store: Path, names: list, keep: bool = False) -> dict:
     keys = sorted(comp_sets)
     # the databases whose data could be used under their licence as found (JARVIS-DFT, Materials Project, Alexandria, COD)
     open_keys = [k for k in keys if k not in UNCONFIRMED]
-    labels = ["all", "pool_like", "hurricane_base", "hurricane_loose", "hurricane_strict", "hurricane_experimental"]
+    labels = ["all", "pool_like", "hurricane_base", "hurricane_loose", "hurricane_strict", "hurricane_experimental", "hurricane_exp_base"]
     for label in labels:
         sets = {k: comp_sets[k][label] for k in keys}
         open_union = set().union(*(sets[k] for k in open_keys)) if open_keys else set()
@@ -632,6 +701,44 @@ def probe(store: Path, names: list, keep: bool = False) -> dict:
         exp_open = set().union(*(comp_sets[k]["hurricane_experimental"] for k in open_keys)) if open_keys else set()
         out["experimental_open_union"] = len(exp_open)
         out["experimental_open_union_beyond_dft_3d"] = len(exp_open - base)
+    out["wider_pool"] = wider_pool(comp_sets, [k for k in open_keys if k in USE])
+    out["hull_agreement"] = hull_agreement(comp_sets)
+    return out
+
+
+def wider_pool(comp_sets: dict, use: list) -> dict:
+    """The size of a pool built from the usable databases together, by distinct composition. Two tracks: compounds with
+    an experimental structure in any of them, kept whatever their hull distance and left out only when every DFT record
+    of the composition has a band gap above 1 eV; and compounds known from computation only, kept with a band gap of at
+    most 1 eV and at most 50 meV/atom above the hull. Hurricane's training-element rule and the exclusions of known
+    superconductors are not applied, so these are upper bounds."""
+    def union(label, names):
+        return set().union(*(comp_sets[k]["hurricane_" + label] for k in names)) if names else set()
+    dft = [k for k in use if GAP.get(k)]
+    gap_known, gap_ok, exp_any = union("gap_known", dft), union("gap_ok", dft), union("exp_base", use)
+    wide_only = gap_known - gap_ok                  # every DFT record of the composition has a gap above 1 eV
+    E = exp_any - wide_only
+    C = union("strict", dft) - exp_any
+    out = {"databases": use, "dft_databases": dft, "experimental_any": len(exp_any), "experimental_wide_gap_only": len(exp_any & wide_only),
+           "experimental_track": len(E), "experimental_track_without_a_dft_gap": len(E - gap_known),
+           "computed_only_track": len(C), "both_tracks": len(E | C)}
+    out["experimental_track_by_database"] = {k: len(comp_sets[k]["hurricane_exp_base"] - wide_only) for k in use}
+    out["experimental_track_only_in"] = {k: len((comp_sets[k]["hurricane_exp_base"] - wide_only)
+                                                - set().union(*(comp_sets[j]["hurricane_exp_base"] for j in use if j != k))) for k in use}
+    out["computed_only_track_by_database"] = {k: len(comp_sets[k]["hurricane_strict"] - exp_any) for k in dft}
+    out["computed_only_track_only_in"] = {k: len((comp_sets[k]["hurricane_strict"] - exp_any)
+                                                 - set().union(*(comp_sets[j]["hurricane_strict"] for j in dft if j != k))) for k in dft}
+    if "dft_3d" in comp_sets:
+        j6 = comp_sets["dft_3d"]["hurricane_strict"]          # what round 6 screened, before its training-element rule and exclusions
+        out["round6_like"] = len(j6)
+        out["round6_like_kept"] = len(j6 & (E | C))
+        out["new_experimental"], out["new_computed_only"] = len(E - j6), len(C - j6)
+    for k in comp_sets:
+        if k in UNCONFIRMED:                                   # counted only: what it would add, if it were used
+            mine = comp_sets[k]["hurricane_loose"]
+            out["counted_only: " + k] = {"loose": len(mine), "strict": len(comp_sets[k]["hurricane_strict"]),
+                                         "beyond_both_tracks": len(mine - (E | C)),
+                                         "in_no_usable_database": len(mine - union("base", use))}
     return out
 
 
