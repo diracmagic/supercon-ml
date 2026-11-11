@@ -1,0 +1,48 @@
+name: Pool census (count-only)
+
+# Count-only census of the open crystal-structure databases that could widen Hurricane's screening pool: downloads
+# the JARVIS-tools copies of the databases, reads them as streams and prints their sizes, fields and simple counts
+# into the job log (`python ml/pool_census.py --probe`). No model is loaded or fitted; it commits nothing, uploads
+# nothing and prints no structure. Runs when this file or the module changes on the branch; change CENSUS_TAG to
+# re-run.
+
+on:
+  push:
+    branches: [claude/pool-census]
+    paths:
+      - '.github/workflows/pool-census.yml'
+      - 'ml/pool_census.py'
+
+permissions:
+  contents: read
+
+jobs:
+  census:
+    name: Count-only census of the candidate databases
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      CENSUS_TAG: 'pool-census-1'
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install "jarvis-tools>=2024.10.10" ijson numpy requests
+
+      - name: Disk and memory
+        run: |
+          df -h . /tmp
+          free -g
+          python -c "import ijson; print('ijson', ijson.__version__, ijson.backend)"
+
+      - name: Census, step 1 (sizes, fields and simple counts; no model, no fit)
+        run: python ml/pool_census.py --probe --store /tmp/pool-census
+
+      - name: Module identity
+        run: |
+          git rev-parse HEAD
+          sha256sum ml/pool_census.py .github/workflows/pool-census.yml
