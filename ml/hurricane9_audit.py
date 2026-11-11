@@ -22,7 +22,7 @@ from scipy.sparse.csgraph import connected_components
 from scipy.stats import spearmanr
 from sklearn.metrics import roc_auc_score
 
-VERSION = "hurricane9-audit-v1"
+VERSION = "hurricane9-audit-v2"
 CUTOFFS = [1990, 1995, 2000, 2005]
 PREDICTORS = ["previous", "data", "names", "measured", "R1"]
 CONTRASTS = {"C0": ("measured", "previous", False), "C1": ("data", "previous", False), "C2": ("measured", "names", True), "C3": ("data", "R1", False)}
@@ -86,6 +86,7 @@ def bootstrap(parts: list, weights: list, a: str, b: str, rng) -> tuple[float, f
 def audit(folder: Path) -> list:
     report = json.loads((folder / "hurricane9-report.json").read_text(encoding="utf-8"))
     frame = pd.read_csv(folder / "hurricane9-predictions.csv", float_precision="round_trip")
+    frame["high_tc_event"] = pd.to_numeric(frame["high_tc_event"], errors="coerce")     # the column also holds the word "censored"
     claims = {c["id"]: c for c in report["claims"]}
     rng = np.random.default_rng(SEED)
     checks = []       # (what, recomputed, reported)
