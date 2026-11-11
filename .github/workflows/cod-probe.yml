@@ -1,0 +1,38 @@
+name: COD access probe (count-only)
+
+# Asks the Crystallography Open Database's public interfaces (its REST interface and its public read-only database)
+# what they return: the columns of its own table and a few counts (`python ml/cod_probe.py`). No model is loaded or
+# fitted; it stores nothing, commits nothing and uploads nothing. Runs when this file or the module changes on the
+# branch.
+
+on:
+  push:
+    branches: [claude/pool-census]
+    paths:
+      - '.github/workflows/cod-probe.yml'
+      - 'ml/cod_probe.py'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    name: Count-only probe of the COD's own table
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install requests pymysql
+
+      - name: Probe (counts and column names; no model, no fit)
+        run: python ml/cod_probe.py
+
+      - name: Module identity
+        run: |
+          git rev-parse HEAD
+          sha256sum ml/cod_probe.py .github/workflows/cod-probe.yml
