@@ -1,0 +1,218 @@
+{
+ "schema_version": 1,
+ "purpose": "What the release run of Hurricane 9.0 (python ml/pipeline.py hurricane9, ml/hurricane9_release.update_progress) may change in progress/progress.json outside the screen block, with the values before the run. Written before the run on main. Putting these values back and taking the round-9 entries out again must give the payload the screening publication audit recorded: the release adds a model version and rewrites nothing else.",
+ "release": {
+  "model": "Hurricane",
+  "version": "9.0",
+  "round": 9,
+  "protocol": "hurricane9-release-protocol-v1",
+  "protocol_sha256": "87694b5845afb729f2f1ede376e194a48db8c65dd7d800f169af34521b1a1fdf",
+  "declaration": "results/validation/hurricane9-release-declaration-v1.md"
+ },
+ "audited_non_screen_canonical_sha256": "337983d8b31a9f628d346c27730ef1dcaf2453095538e72163373c532fa77e90",
+ "replaced": [
+  {
+   "pointer": "/hurricane/current",
+   "before": "4.0"
+  },
+  {
+   "pointer": "/hurricane/data",
+   "before": {
+    "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
+    "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
+    "doi": "10.1038/s41597-023-02721-y",
+    "licence": "CC BY 4.0",
+    "commit": "8d69ca9",
+    "n": 2123,
+    "n_sc": 1395,
+    "n_groups": 476,
+    "families": {
+     "cuprate": {
+      "label": "Cuprates",
+      "n": 874,
+      "n_sc": 576,
+      "max_tc": 132.9
+     },
+     "iron-based": {
+      "label": "Iron- and nickel-based",
+      "n": 517,
+      "n_sc": 406,
+      "max_tc": 56.5
+     },
+     "heavy-fermion": {
+      "label": "Heavy-fermion",
+      "n": 422,
+      "n_sc": 242,
+      "max_tc": 16.6
+     },
+     "other oxide": {
+      "label": "Other oxides",
+      "n": 310,
+      "n_sc": 171,
+      "max_tc": 31.5
+     }
+    },
+    "context": 3635
+   }
+  },
+  {
+   "pointer": "/hurricane/about",
+   "before": "Hurricane is the project's AI-designed Tc model for unconventional superconductors: cuprates, iron- and nickel-based pnictides and chalcogenides, heavy-fermion compounds and other oxides. No first-principles theory gives their Tc, so it learns from measured Tc (SuperCon, with Materials Project structures, via the 3DSC dataset), including materials that did not superconduct. An AI agent (Claude) proposes each design; candidates are scored with cross-validation grouped by parent compound, and a version is released only if it beats the reference on average and in at least 4 of 5 folds."
+  },
+  {
+   "pointer": "/results",
+   "before": [
+    {
+     "tag": "baseline-eph",
+     "model": "Gradient boosting (composition + structure)",
+     "target": "Tc",
+     "mae": 1.045,
+     "unit": "K",
+     "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+     "tag": "baseline-eph",
+     "model": "Gradient boosting for lambda and omega_log, then Allen-Dynes",
+     "target": "Tc",
+     "mae": 1.078,
+     "unit": "K",
+     "note": "Same CV; Tc computed from the two predicted quantities with mu* = 0.1"
+    },
+    {
+     "tag": "baseline-eph",
+     "model": "Gradient boosting (composition + structure)",
+     "target": "lambda",
+     "mae": 0.099,
+     "unit": "",
+     "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+     "tag": "baseline-eph",
+     "model": "Gradient boosting (composition + structure)",
+     "target": "omega_log",
+     "mae": 22.1,
+     "unit": "K",
+     "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+     "tag": "foundation-eph",
+     "model": "MACE-MP-0 descriptors + gradient boosting",
+     "target": "Tc",
+     "mae": 1.165,
+     "unit": "K",
+     "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+     "tag": "foundation-eph",
+     "model": "MACE-MP-0 descriptors, lambda and omega_log, then Allen-Dynes",
+     "target": "Tc",
+     "mae": 1.135,
+     "unit": "K",
+     "note": "Same CV; mu* = 0.1"
+    },
+    {
+     "tag": "foundation-eph",
+     "model": "MACE-MP-0 descriptors + gradient boosting",
+     "target": "lambda",
+     "mae": 0.105,
+     "unit": "",
+     "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+     "tag": "foundation-eph",
+     "model": "MACE-MP-0 descriptors + gradient boosting",
+     "target": "omega_log",
+     "mae": 23.1,
+     "unit": "K",
+     "note": "5-fold composition-grouped CV on Alexandria"
+    },
+    {
+     "tag": "storm-calibration",
+     "model": "Storm 3.0: Storm 1.0 calibrated to measured Tc",
+     "target": "Tc_exp",
+     "mae": 1.61,
+     "unit": "K",
+     "note": "298 conventional superconductors and non-superconductors from 3DSC matched to Alexandria; grouped CV"
+    },
+    {
+     "tag": "storm-calibration",
+     "model": "Storm 1.0, uncalibrated",
+     "target": "Tc_exp",
+     "mae": 2.24,
+     "unit": "K",
+     "note": "Same materials; Storm predicts DFT Allen-Dynes Tc"
+    },
+    {
+     "tag": "storm-calibration",
+     "model": "DFT electron-phonon labels (Alexandria)",
+     "target": "Tc_exp",
+     "mae": 2.48,
+     "unit": "K",
+     "note": "Same materials; the labels Storm learns from"
+    },
+    {
+     "tag": "hurricane",
+     "model": "Hurricane 4.0 (AI-designed)",
+     "target": "Tc_exp",
+     "mae": 10.43,
+     "unit": "K",
+     "note": "5-fold CV grouped by the Materials Project chemical-system label; 2,123 cuprates, iron-based, heavy-fermion and other oxides from 3DSC (SuperCon + Materials Project), 1,395 superconducting, plus 218 compounds with no superconductivity record for the classifier"
+    },
+    {
+     "tag": "hurricane",
+     "model": "Gradient boosting, composition only (measured-Tc baseline)",
+     "target": "Tc_exp",
+     "mae": 14.98,
+     "unit": "K",
+     "note": "Same data and folds"
+    }
+   ]
+  },
+  {
+   "pointer": "/model_family",
+   "before": [
+    {
+     "id": "storm",
+     "status": "Storm 5.0 in use",
+     "active": true,
+     "text": "Combines boosted trees that learn from about 7,600 materials whose electron–phonon coupling λ and phonon scale ω_log have been computed (the Alexandria set) with a crystal-graph network that learns from the atoms and their neighbours: 0.90 K off on average against the computed Tc of materials it never saw, against 0.97 K for the trees alone. Calibrated to measured Tc, it is off by 1.56 K against experiment (Storm 3.0: 1.61 K). Since Storm 5.0 it also gives a 90% range for every prediction: for materials it never saw, the range held the computed Tc 90% of the time (84% for the tenth with the highest Tc), and half of the ranges are narrower than 1.8 K. Our AI agent designed it."
+    },
+    {
+     "id": "radar",
+     "status": "Radar 1.0 in use",
+     "active": true,
+     "text": "Reads a material’s composition and crystal structure and gives the probability that it belongs to an unconventional family, then sends it to Hurricane or Storm. It learns from 5,751 SuperCon entries in 3DSC (2,123 unconventional, 3,628 conventional). For parent compounds it never saw it picks the right model 99.5% of the time (balanced accuracy), against 98.2% for a composition-only baseline. Trained without any cuprate, it still sends 100% of cuprates to Hurricane. Our AI agent designed it."
+    },
+    {
+     "id": "hurricane",
+     "status": "Hurricane 4.0 in use",
+     "active": true,
+     "text": "Learns from 2,123 measured Tc values (cuprates, iron-based, heavy-fermion and other oxides; SuperCon with Materials Project structures via 3DSC), including 728 zero-Tc catalog entries with measurement limits not established here, and from 218 compounds with no superconductivity record, counted as probably not superconducting. For held-out chemical-system groups it is off by 10.4 K on average. It gives a chance only to compounds near its training data and answers \"not known\" further away: of the held-out compounds with no record, it gives 0% at least an even chance (Hurricane 2.0: 39%), and trained without a whole family it calls 28% of that family's superconductors unlikely (Hurricane 3.0: 88%). Our AI agent designed it."
+    }
+   ]
+  },
+  {
+   "pointer": "/stages/5/detail",
+   "before": "Storm 5.0 for conventional superconductors (Storm 4.0 with a 90% range for every prediction), Hurricane 4.0 for unconventional ones and Radar 1.0 to pick between them are in use"
+  },
+  {
+   "pointer": "/updated",
+   "before": "2026-10-31T19:01:00-05:00"
+  }
+ ],
+ "appended": [
+  {
+   "pointer": "/hurricane/versions",
+   "where": {
+    "round": 9
+   }
+  },
+  {
+   "pointer": "/log",
+   "where": {
+    "event_prefix": "Hurricane, round 9 ("
+   }
+  }
+ ],
+ "screen": "unchanged by the release run; the candidates listed there were screened with Hurricane 4.0 until a new screening round is published"
+}

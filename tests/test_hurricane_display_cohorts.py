@@ -19,26 +19,45 @@ class HurricaneDisplayCohortTests(unittest.TestCase):
     def setUpClass(cls):
         cls.progress = json.loads((ROOT / 'progress/progress.json').read_text(encoding='utf-8'))
         cls.raw = {i: json.loads((ROOT / f'results/hurricane_round{i}.json').read_text(encoding='utf-8')) for i in range(1, 6)}
+        # Hurricane 4.0 was in use when these checks were written. The release run of Hurricane 9.0 writes
+        # results/hurricane_round9.json and its entry together, so the version in use is read from the payload and
+        # every check below holds for either state; the cohorts of versions 1.0 to 5.0 are checked by name.
+        if (ROOT / 'results/hurricane_round9.json').exists():
+            cls.raw[9] = json.loads((ROOT / 'results/hurricane_round9.json').read_text(encoding='utf-8'))
+        cls.by_version = {v['version']: v for v in cls.progress['hurricane']['versions']}
+        cls.current = cls.progress['hurricane']['current']
+        cls.current_round = cls.by_version[cls.current]['round']
 
     def test_current_and_each_historical_cohort_match_their_source_report(self):
         block = self.progress['hurricane']
-        self.assertEqual(block['current'], '4.0')
-        self.assertEqual(block['data'], self.raw[4]['data'])
-        self.assertEqual((block['data']['n'], block['data']['n_sc']), (2123, 1395))
+        self.assertIn(block['current'], ('4.0', '9.0'))
+        self.assertEqual(self.by_version[block['current']]['status'], 'adopted')
+        self.assertEqual(block['data'], self.raw[self.current_round]['data'])
+        self.assertEqual(self.by_version['4.0']['data'], self.raw[4]['data'])
+        self.assertEqual((self.by_version['4.0']['data']['n'], self.by_version['4.0']['data']['n_sc']), (2123, 1395))
         for version in block['versions']:
             self.assertEqual(version['data'], self.raw[version['round']]['data'])
             self.assertEqual(sum(row['n'] for row in version['data']['families'].values()), version['data']['n'])
-        self.assertEqual(block['versions'][-1]['status'], 'experimental')
-        self.assertEqual((block['versions'][-1]['data']['n'], block['versions'][-1]['data']['n_sc']), (619, 290))
+        self.assertEqual([v['version'] for v in block['versions']][:5], ['1.0', '2.0', '3.0', '4.0', '5.0'])
+        self.assertEqual(self.by_version['5.0']['status'], 'experimental')
+        self.assertEqual((self.by_version['5.0']['data']['n'], self.by_version['5.0']['data']['n_sc']), (619, 290))
+        if block['current'] == '9.0':
+            self.assertEqual((self.raw[9]['adopted'], self.raw[9]['smoke'], self.raw[9]['version']), (True, False, '9.0'))
+            self.assertEqual(block['data']['kind'], 'datasheet')
 
-    def test_headline_results_and_status_refer_to_active_h4(self):
+    def test_headline_results_and_status_refer_to_the_version_in_use(self):
         rows = [r for r in self.progress['results'] if r.get('tag') == 'hurricane']
-        self.assertEqual(rows[0]['model'], 'Hurricane 4.0 (AI-designed)')
+        raw = self.raw[self.current_round]
+        self.assertEqual(rows[0]['model'], f'Hurricane {self.current} (AI-designed)')
         self.assertEqual(rows[0]['target'], 'Tc_exp')
-        self.assertEqual(rows[0]['mae'], round(self.raw[4]['best']['scores']['tc_mae'], 2))
-        self.assertIn('2,123', rows[0]['note'])
+        if self.current == '4.0':
+            self.assertEqual(rows[0]['mae'], round(raw['best']['scores']['tc_mae'], 2))
+            self.assertIn('2,123', rows[0]['note'])
+        else:
+            self.assertEqual(rows[0]['mae'], round(raw['evidence']['overall']['released_measure_k'], 2))
+            self.assertIn(f"{raw['data']['n']:,}", rows[0]['note'])
         family = next(r for r in self.progress['model_family'] if r['id'] == 'hurricane')
-        self.assertEqual(family['status'], 'Hurricane 4.0 in use')
+        self.assertEqual(family['status'], f'Hurricane {self.current} in use')
 
     def test_rejected_h5_export_preserves_h4_cohort_and_published_results(self):
         out = copy.deepcopy(self.raw[5]); out['adopted'] = False
@@ -47,9 +66,9 @@ class HurricaneDisplayCohortTests(unittest.TestCase):
             path.write_text(json.dumps(self.progress), encoding='utf-8')
             H5.update_progress(out, path)
             actual = json.loads(path.read_text(encoding='utf-8'))
-        self.assertEqual(actual['hurricane']['current'], '4.0')
-        self.assertEqual(actual['hurricane']['data'], self.raw[4]['data'])
-        self.assertEqual(actual['hurricane']['versions'][-1]['data'], self.raw[5]['data'])
+        self.assertEqual(actual['hurricane']['current'], self.current)
+        self.assertEqual(actual['hurricane']['data'], self.raw[self.current_round]['data'])
+        self.assertEqual(next(v for v in actual['hurricane']['versions'] if v['round'] == 5)['data'], self.raw[5]['data'])
         self.assertEqual(actual['results'], self.progress['results'])
         self.assertEqual(actual['model_family'], self.progress['model_family'])
         self.assertEqual(actual['screen'], self.progress['screen'])
@@ -60,7 +79,7 @@ class HurricaneDisplayCohortTests(unittest.TestCase):
             path.write_text(json.dumps(self.progress), encoding='utf-8')
             H4.update_progress(self.raw[4], path)
             actual = json.loads(path.read_text(encoding='utf-8'))['hurricane']
-        self.assertEqual(actual['data'], self.raw[4]['data'])
+        self.assertEqual(actual['data'], self.raw[self.current_round]['data'])
         self.assertEqual({v['version']:v['data'] for v in actual['versions']},
                          {v['version']:v['data'] for v in self.progress['hurricane']['versions']})
 
