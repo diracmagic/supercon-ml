@@ -15,6 +15,7 @@ CC BY-NC (to be confirmed on the Materials Project terms page before any use). O
 found for it, and it is not to be used until one is. This step only counts.
 """
 import argparse
+import bz2
 import collections
 import hashlib
 import io
@@ -28,7 +29,11 @@ import zipfile
 from functools import reduce
 from pathlib import Path
 
-DATASETS = ["dft_3d", "alex_pbe_hull", "cod", "mp_3d_2020", "megnet2", "oqmd_3d_no_cfid"]
+DATASETS = ["dft_3d", "alex_pbe_hull", "cod", "mp_3d_2020", "megnet2", "oqmd_3d_no_cfid", "alexandria_hull_2025"]
+# databases read from their own servers rather than through JARVIS-tools: URL, compression, note, reference
+DIRECT = {"alexandria_hull_2025": ["https://alexandria.icams.rub.de/data/pbe/2025.07.02/convex_hull.json.bz2", "bz2",
+                                   "Alexandria PBE convex hull, release 2025.07.02, from alexandria.icams.rub.de (CC BY 4.0)",
+                                   "https://doi.org/10.1088/2515-7639/ae6620"]}
 UNCONFIRMED = {"oqmd_3d_no_cfid": "no data licence found on oqmd.org on 2026-11-11; counted only, not to be used until its licence is confirmed"}
 EXAMPLES = 3
 TEXT_MAX = 100
@@ -91,6 +96,34 @@ def download(url: str, path: Path) -> tuple[int, str, float]:
     return path.stat().st_size, h.hexdigest(), time.time() - t0
 
 
+def records_bz2(path: Path, report: dict):
+    """The records of a bz2-compressed JSON file: a list of objects, an object holding such a list, or an object of
+    objects. The first characters of the file are kept in the report, to show its layout."""
+    import ijson
+    with bz2.open(path, "rb") as fh:
+        head = fh.read(600)
+    report["head"] = head.decode("utf-8", errors="replace")[:300]
+    first = head.lstrip()[:1]
+    with bz2.open(path, "rb") as raw:
+        fh = io.BufferedReader(Finite(raw), buffer_size=1 << 20)
+        if first == b"[":
+            yield from ijson.items(fh, "item", use_float=True)
+            return
+        prefix = None
+        for pre, event, value in ijson.parse(fh, use_float=True):
+            if event == "start_array" and pre.count(".") == 0 and pre:
+                prefix = pre
+                break
+        report["list_at"] = prefix
+    if prefix:
+        with bz2.open(path, "rb") as raw:
+            yield from ijson.items(io.BufferedReader(Finite(raw), buffer_size=1 << 20), prefix + ".item", use_float=True)
+    else:
+        with bz2.open(path, "rb") as raw:
+            for _, v in ijson.kvitems(io.BufferedReader(Finite(raw), buffer_size=1 << 20), "", use_float=True):
+                yield v
+
+
 def records(zpath: Path, member: str):
     """The records of the JSON file inside the zip, one at a time (a list of objects, or an object of objects)."""
     zf = zipfile.ZipFile(zpath)
@@ -148,7 +181,7 @@ def example(v) -> str:
 
 
 def counts_of(elements) -> dict:
-    out = collections.Counter(str(e) for e in elements)
+    out = collections.Counter(str(e).strip() for e in elements)
     return dict(out)
 
 
@@ -202,16 +235,18 @@ def overlapping_sites(a: dict, limit: int = 400) -> bool | None:
 
 def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, set]:
     url, member = info[0], info[1]
-    zpath = store / (member + ".zip")
+    direct = member == "bz2"
+    zpath = store / (name + ".json.bz2" if direct else member + ".zip")
     size, digest, secs = download(url, zpath)
-    rep = {"dataset": name, "url": url, "file": member, "zip_bytes": size, "zip_sha256": digest, "download_s": round(secs, 1),
-           "note": info[2], "reference": info[3] if len(info) > 3 else None}
+    rep = {"dataset": name, "url": url, "file": zpath.name if direct else member, "zip_bytes": size, "zip_sha256": digest,
+           "download_s": round(secs, 1), "note": info[2], "reference": info[3] if len(info) > 3 else None}
+    nested, nested_types, nested_ex = collections.Counter(), collections.defaultdict(collections.Counter), collections.defaultdict(list)
     t0 = time.time()
     n, fields, types, ex = 0, collections.Counter(), collections.defaultdict(collections.Counter), collections.defaultdict(list)
     atoms_key, n_atoms, n_el, with_h, with_c, no_structure = None, collections.Counter(), collections.Counter(), 0, 0, 0
     struct_keys, overlap = collections.Counter(), collections.Counter()
     comps, top_elements, pool_like, pool_comps, samples = set(), collections.Counter(), 0, set(), []
-    for rec in records(zpath, member):
+    for rec in (records_bz2(zpath, rep) if direct else records(zpath, member)):
         n += 1
         if not isinstance(rec, dict):
             types["(record)"][kind(rec)] += 1
@@ -224,6 +259,15 @@ def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, set]:
                     ex[k].append(example(v))
                 elif len(ex[k]) < 1:
                     ex[k].append(example(v))
+        for sub in ("data", "parameters"):
+            d = rec.get(sub)
+            if isinstance(d, dict):
+                for k, v in d.items():
+                    nested_types[f"{sub}.{k}"][kind(v)] += 1
+                    if filled(v):
+                        nested[f"{sub}.{k}"] += 1
+                        if len(nested_ex[f"{sub}.{k}"]) < 2:
+                            nested_ex[f"{sub}.{k}"].append(example(v))
         key, els = find_elements(rec)
         if els is None:
             no_structure += 1
@@ -249,6 +293,7 @@ def census(name: str, info: list, store: Path, keep: bool) -> tuple[dict, set]:
     rep.update({
         "records": n, "read_s": round(time.time() - t0, 1),
         "fields": {k: {"filled": fields[k], "types": dict(types[k]), "examples": ex[k]} for k in sorted(types)},
+        "nested_fields": {k: {"filled": nested[k], "types": dict(nested_types[k]), "examples": nested_ex[k]} for k in sorted(nested_types)},
         "cross_reference_fields": sorted(k for k in types if CROSS_REF.search(str(k))),
         "structure_field": atoms_key, "structure_keys": dict(struct_keys.most_common(20)), "no_structure": no_structure,
         "atoms_per_cell": dict(sorted(n_atoms.items())), "elements_per_compound": dict(sorted(n_el.items())),
@@ -279,11 +324,12 @@ def probe(store: Path, names: list, keep: bool = False) -> dict:
     except ImportError:
         out["jarvis_tools"] = None
     for name in names:
-        if name not in cat:
+        info = DIRECT.get(name) or cat.get(name)
+        if info is None:
             out["missing"].append(name)
             continue
         try:
-            rep, comps = census(name, cat[name], store, keep)
+            rep, comps = census(name, info, store, keep)
         except Exception as exc:   # one database that cannot be read does not stop the others
             out["datasets"].append({"dataset": name, "error": f"{type(exc).__name__}: {str(exc)[:300]}"})
             continue
