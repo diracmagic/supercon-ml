@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "repo": "diracmagic/supercon-ml",
-  "updated": "2026-10-31T19:01:00-05:00",
+  "updated": "2026-11-11T08:21:43-06:00",
   "badge": "5/10 done · now: ai models",
   "project": "Finding high-Tc superconductors with AI-designed models",
   "summary": "Predict Tc for conventional and unconventional superconductors from crystal structure, screen open databases for high-Tc candidates, and probe what the models learn about pairing mechanisms.",
@@ -55,7 +55,7 @@
       "status": "active",
       "name": "AI-designed models",
       "short": "AI models",
-      "detail": "Storm 5.0 for conventional superconductors (Storm 4.0 with a 90% range for every prediction), Hurricane 4.0 for unconventional ones and Radar 1.0 to pick between them are in use",
+      "detail": "Storm 5.0 for conventional superconductors (Storm 4.0 with a 90% range for every prediction), Hurricane 9.0 for unconventional ones and Radar 1.0 to pick between them are in use",
       "date": "2026-10-30"
     },
     {
@@ -205,6 +205,10 @@
     {
       "at": "2026-10-31T19:01:00-05:00",
       "event": "Screening round 4: Storm 5.0 scored 1,464 metals and Hurricane 4.0 354 compounds that Radar 1.0 sent it, from JARVIS-DFT, after leaving out 809 entries that others have reported, computed or predicted or that share the elements of a known superconductor; 50 conventional and 50 unconventional candidates published. All are predictions that no calculation or experiment has checked; Storm's highest is InGa3 at 6.2 K (90% range 2.8–12.7 K); Hurricane's are far less certain: its 90% ranges span a factor of about 10 in Tc, and 0 of its 50 lie outside its training data; 279 of the 354 compounds Radar sent Hurricane are too far from its training data for a chance and are not listed"
+    },
+    {
+      "at": "2026-11-11T08:21:43-06:00",
+      "event": "Hurricane, round 9 (the recipe of Hurricane 4.0 on the NIMS datasheet): new cuprate parents ranked with 0.62 against 0.31 for the previous data and 0.57 for the nearest known compound; false alarms under 1%, not known for 91% of the compounds with no record that Radar sends it; released as Hurricane 9.0"
     }
   ],
   "baselines": [
@@ -350,19 +354,19 @@
     },
     {
       "tag": "hurricane",
-      "model": "Hurricane 4.0 (AI-designed)",
+      "model": "Hurricane 9.0 (AI-designed)",
       "target": "Tc_exp",
-      "mae": 10.43,
+      "mae": 16.01,
       "unit": "K",
-      "note": "5-fold CV grouped by the Materials Project chemical-system label; 2,123 cuprates, iron-based, heavy-fermion and other oxides from 3DSC (SuperCon + Materials Project), 1,395 superconducting, plus 218 compounds with no superconductivity record for the classifier"
+      "note": "parents first reported in the five years after the training data end, 13 family windows; 11,642 compositions from the NIMS SuperCon datasheet, 10,050 with a measured Tc, plus 158 compounds with no superconductivity record for the classifier"
     },
     {
       "tag": "hurricane",
-      "model": "Gradient boosting, composition only (measured-Tc baseline)",
+      "model": "The previous recipe on the previous model's data",
       "target": "Tc_exp",
-      "mae": 14.98,
+      "mae": 21.5,
       "unit": "K",
-      "note": "Same data and folds"
+      "note": "Same windows"
     }
   ],
   "history": [
@@ -1826,51 +1830,57 @@
     },
     {
       "id": "hurricane",
-      "status": "Hurricane 4.0 in use",
+      "status": "Hurricane 9.0 in use",
       "active": true,
-      "text": "Learns from 2,123 measured Tc values (cuprates, iron-based, heavy-fermion and other oxides; SuperCon with Materials Project structures via 3DSC), including 728 zero-Tc catalog entries with measurement limits not established here, and from 218 compounds with no superconductivity record, counted as probably not superconducting. For held-out chemical-system groups it is off by 10.4 K on average. It gives a chance only to compounds near its training data and answers \"not known\" further away: of the held-out compounds with no record, it gives 0% at least an even chance (Hurricane 2.0: 39%), and trained without a whole family it calls 28% of that family's superconductors unlikely (Hurricane 3.0: 88%). Our AI agent designed it."
+      "force": true,
+      "text": "Learns from 11,642 compositions in the NIMS SuperCon datasheet (cuprates, iron-based, heavy-fermion and other oxides), 10,050 with a measured Tc and 1,758 measured not to superconduct, and from 158 compounds with no superconductivity record, counted as probably not superconducting. It reads the composition only. Asked about cuprate parent compounds first reported in the five years after its training data end, it ranks them by Tc with a rank correlation of 0.62, against 0.31 for the previous recipe on the previous data and 0.57 for the Tc of the nearest known compound, which it does not clearly beat. It gives a chance only to compounds near its training data and answers \"not known\" further away: of the held-out compounds with no superconductivity record that Radar sends it, it answers \"not known\" for 91% and gives under 1% at least an even chance. Our AI agent designed it."
     }
   ],
   "hurricane": {
     "name": "Hurricane",
-    "about": "Hurricane is the project's AI-designed Tc model for unconventional superconductors: cuprates, iron- and nickel-based pnictides and chalcogenides, heavy-fermion compounds and other oxides. No first-principles theory gives their Tc, so it learns from measured Tc (SuperCon, with Materials Project structures, via the 3DSC dataset), including materials that did not superconduct. An AI agent (Claude) proposes each design; candidates are scored with cross-validation grouped by parent compound, and a version is released only if it beats the reference on average and in at least 4 of 5 folds.",
-    "current": "4.0",
+    "about": "Hurricane is the project's AI-designed Tc model for unconventional superconductors: cuprates, iron- and nickel-based pnictides and chalcogenides, heavy-fermion compounds and other oxides. No first-principles theory gives their Tc, so it learns from measured Tc: since Hurricane 9.0 from the NIMS SuperCon datasheet, including compounds measured not to superconduct. An AI agent (Claude) proposes each design, and a version is released only if it passes a rule fixed before its run.",
+    "current": "9.0",
     "data": {
-      "source": "3DSC_MP (SuperCon measured Tc matched to Materials Project structures)",
-      "cite": "T. Sommer et al., 3DSC - a dataset of superconductors including crystal structures, Sci. Data 10, 816 (2023), doi:10.1038/s41597-023-02721-y; data CC BY 4.0, github.com/aimat-lab/3DSC",
-      "doi": "10.1038/s41597-023-02721-y",
+      "kind": "datasheet",
+      "source": "MDR SuperCon Datasheet Ver.220808 (NIMS), oxide and metallic table",
+      "cite": "This study used the MDR SuperCon Datasheet (https://doi.org/10.48505/nims.3837), a numerical data sheet for superconducting materials, which is made public by the National Institute for Materials Science (NIMS).",
+      "doi": "10.48505/nims.3837",
       "licence": "CC BY 4.0",
-      "commit": "8d69ca9",
-      "n": 2123,
-      "n_sc": 1395,
-      "n_groups": 476,
+      "n": 11642,
+      "n_sc": 10050,
+      "n_event": 9372,
+      "n_negative": 1758,
+      "n_groups": 1734,
+      "years": [
+        1929,
+        2021
+      ],
       "families": {
         "cuprate": {
           "label": "Cuprates",
-          "n": 874,
-          "n_sc": 576,
-          "max_tc": 132.9
+          "n": 7926,
+          "n_sc": 7082,
+          "max_tc": 137.4
         },
         "iron-based": {
           "label": "Iron- and nickel-based",
-          "n": 517,
-          "n_sc": 406,
+          "n": 1839,
+          "n_sc": 1565,
           "max_tc": 56.5
         },
         "heavy-fermion": {
           "label": "Heavy-fermion",
-          "n": 422,
-          "n_sc": 242,
-          "max_tc": 16.6
+          "n": 1236,
+          "n_sc": 889,
+          "max_tc": 18.1
         },
         "other oxide": {
           "label": "Other oxides",
-          "n": 310,
-          "n_sc": 171,
-          "max_tc": 31.5
+          "n": 641,
+          "n_sc": 514,
+          "max_tc": 91.0
         }
-      },
-      "context": 3635
+      }
     },
     "versions": [
       {
@@ -5698,6 +5708,1422 @@
             }
           },
           "parent_about": "a parent compound is one Materials Project structure in 3DSC with all the SuperCon entries matched to it: it counts as superconducting if any of them does, and its Tc is the highest they reach"
+        }
+      },
+      {
+        "version": "9.0",
+        "round": 9,
+        "date": "2026-11-11",
+        "status": "adopted",
+        "data": {
+          "kind": "datasheet",
+          "source": "MDR SuperCon Datasheet Ver.220808 (NIMS), oxide and metallic table",
+          "cite": "This study used the MDR SuperCon Datasheet (https://doi.org/10.48505/nims.3837), a numerical data sheet for superconducting materials, which is made public by the National Institute for Materials Science (NIMS).",
+          "doi": "10.48505/nims.3837",
+          "licence": "CC BY 4.0",
+          "n": 11642,
+          "n_sc": 10050,
+          "n_event": 9372,
+          "n_negative": 1758,
+          "n_groups": 1734,
+          "years": [
+            1929,
+            2021
+          ],
+          "families": {
+            "cuprate": {
+              "label": "Cuprates",
+              "n": 7926,
+              "n_sc": 7082,
+              "max_tc": 137.4
+            },
+            "iron-based": {
+              "label": "Iron- and nickel-based",
+              "n": 1839,
+              "n_sc": 1565,
+              "max_tc": 56.5
+            },
+            "heavy-fermion": {
+              "label": "Heavy-fermion",
+              "n": 1236,
+              "n_sc": 889,
+              "max_tc": 18.1
+            },
+            "other oxide": {
+              "label": "Other oxides",
+              "n": 641,
+              "n_sc": 514,
+              "max_tc": 91.0
+            }
+          }
+        },
+        "summary": "The recipe of Hurricane 4.0 on the NIMS datasheet, composition only; the guard of Hurricane 4.0",
+        "changes": [
+          "Learns from the NIMS SuperCon datasheet instead of 3DSC: every usable composition of the four families, more than five times as many entries",
+          "Counts a compound as not superconducting only where a measurement reached down to 4.2 K (1 K for heavy-fermion compounds) and found nothing",
+          "Reads the composition only: no datasheet row carries the Materials Project structure that Hurricane 4.0 read",
+          "Keeps the physics features, the element shares and the structure types read from the stoichiometry",
+          "Is checked on parent compounds first reported in the five years after its training data end, not on folds",
+          "Keeps Hurricane 4.0's guard: compounds with no superconductivity record near the training data as weak negatives, and no chance outside it"
+        ],
+        "spec": {
+          "inputs": [
+            {
+              "group": "composition",
+              "label": "Composition statistics",
+              "n": 33,
+              "detail": "mean, spread, min and max of 8 element properties, plus the number of elements"
+            },
+            {
+              "group": "physics",
+              "label": "Physics features proposed by the AI",
+              "n": 15,
+              "items": [
+                {
+                  "name": "tm_d",
+                  "why": "d electrons per transition-metal atom from charge balance (Cu2+ is d9, Fe2+ d6, Ni+ d9); each family's parent compound sits at a characteristic filling and doping moves it away"
+                },
+                {
+                  "name": "p_cu",
+                  "why": "holes per Cu from charge balance (negative for electron doping); cuprate Tc rises and falls with it"
+                },
+                {
+                  "name": "dome",
+                  "why": "the empirical cuprate dome 1 - 82.6 (p - 0.16)^2 (Presland and Tallon), largest at p = 0.16"
+                },
+                {
+                  "name": "cu_layers",
+                  "why": "Cu atoms per formula unit, a proxy for the number of CuO2 planes; Tc rises from one to three planes"
+                },
+                {
+                  "name": "heavy_block",
+                  "why": "share of Hg, Tl, Bi and Pb, the heavy-metal charge reservoirs of the highest-Tc cuprates"
+                },
+                {
+                  "name": "fe_based",
+                  "why": "iron or nickel together with a pnictogen or chalcogen, the FeAs- or FeSe-type layer"
+                },
+                {
+                  "name": "f_share",
+                  "why": "share of atoms with a partly filled f shell (Ce, Yb, U, Pu and others), the local moments of heavy-fermion metals"
+                },
+                {
+                  "name": "f_count",
+                  "why": "nominal f-electron count of those atoms"
+                },
+                {
+                  "name": "mag3d",
+                  "why": "share of magnetic 3d atoms (V to Cu), a proxy for spin fluctuations"
+                },
+                {
+                  "name": "nonint",
+                  "why": "share of non-integer stoichiometry, which marks doped samples"
+                },
+                {
+                  "name": "n_atoms_fu",
+                  "why": "atoms per formula unit as written, a measure of chemical complexity"
+                },
+                {
+                  "name": "oxide",
+                  "why": "share of oxygen"
+                },
+                {
+                  "name": "chalcogenide",
+                  "why": "share of S, Se and Te"
+                },
+                {
+                  "name": "pnictide",
+                  "why": "share of P, As and Sb"
+                },
+                {
+                  "name": "halide",
+                  "why": "share of F, Cl, Br and I"
+                }
+              ]
+            },
+            {
+              "group": "elements",
+              "label": "Element fractions",
+              "n": 77,
+              "detail": "the share of each element seen in at least ten training compounds"
+            },
+            {
+              "group": "types",
+              "label": "Structure types proposed by the AI",
+              "n": 19,
+              "items": [
+                {
+                  "name": "123_cuprate",
+                  "why": "RE Ba2 Cu3 O6+x stoichiometry (YBCO and its rare-earth cousins): two CuO2 planes next to CuO chains"
+                },
+                {
+                  "name": "214_cuprate",
+                  "why": "A2 CuO4 stoichiometry (La2-xSrxCuO4 and relatives): single CuO2 planes in a rock-salt stack"
+                },
+                {
+                  "name": "electron_doped_cuprate",
+                  "why": "A2 CuO4 with cerium on the A site (Nd2-xCexCuO4, T' structure): doped with electrons"
+                },
+                {
+                  "name": "Bi_cuprate",
+                  "why": "bismuth with strontium, copper and oxygen: the Bi-2201, 2212 and 2223 series"
+                },
+                {
+                  "name": "Tl_cuprate",
+                  "why": "thallium-based cuprates, among the highest Tc at ambient pressure"
+                },
+                {
+                  "name": "Hg_cuprate",
+                  "why": "mercury-based cuprates, the record-holding Hg-12(n-1)n series"
+                },
+                {
+                  "name": "infinite_layer_cuprate",
+                  "why": "A CuO2 with no other charge reservoir: infinite-layer (Sr,Ca)CuO2"
+                },
+                {
+                  "name": "1111_pnictide",
+                  "why": "RE (or alkaline earth) Fe As O/F with one of each: the LaFeAsO family, Tc up to 55 K"
+                },
+                {
+                  "name": "122_pnictide",
+                  "why": "A Fe2 As2 with an alkaline-earth or alkali A: the BaFe2As2 family"
+                },
+                {
+                  "name": "111_pnictide",
+                  "why": "A Fe As with an alkali A: LiFeAs and NaFeAs"
+                },
+                {
+                  "name": "11_chalcogenide",
+                  "why": "Fe with Se, Te or S and no other cation: FeSe and Fe(Se,Te)"
+                },
+                {
+                  "name": "122_chalcogenide",
+                  "why": "an alkali with Fe2Se2: intercalated iron selenides such as KxFe2-ySe2"
+                },
+                {
+                  "name": "nickel_pnictide",
+                  "why": "nickel instead of iron in the pnictide or chalcogenide layer: low-Tc cousins such as LaNiAsO"
+                },
+                {
+                  "name": "115_heavy_fermion",
+                  "why": "an f element, a Co, Rh or Ir atom and five In or Ga atoms: the CeCoIn5 family"
+                },
+                {
+                  "name": "122_heavy_fermion",
+                  "why": "an f element with two transition-metal and two Si or Ge atoms: the CeCu2Si2 (ThCr2Si2) family"
+                },
+                {
+                  "name": "nickelate_oxide",
+                  "why": "nickel oxides without copper: the nickelate family, in 3DSC mostly non-superconducting"
+                },
+                {
+                  "name": "bismuthate_oxide",
+                  "why": "bismuth oxides with Ba or K and no copper: Ba1-xKxBiO3 and BaPb1-xBixO3, Tc up to about 30 K"
+                },
+                {
+                  "name": "ruthenate_oxide",
+                  "why": "ruthenium oxides with strontium: Sr2RuO4, a long-debated candidate for unconventional pairing"
+                },
+                {
+                  "name": "cobaltate_oxide",
+                  "why": "cobalt oxides with sodium: NaxCoO2, superconducting when hydrated"
+                }
+              ]
+            }
+          ],
+          "learner": {
+            "kind": "gradient-boosting",
+            "trees": 800,
+            "leaves": 31,
+            "learning_rate": 0.04,
+            "min_leaf": 10,
+            "l2": 1.0,
+            "features_per_split": 1.0,
+            "ensemble": 1,
+            "loss": "squared error",
+            "weights": null,
+            "two_part": "a gradient-boosting classifier gives the chance that the compound superconducts at or above 4.2 K (1 K for a heavy-fermion compound); the regressor, trained on every composition with a measured Tc, gives its Tc; the prediction is their product",
+            "background": "158 JARVIS-DFT compounds with no superconductivity record join the classifier as non-superconducting at weight 0.3; the Tc regressor never sees them"
+          },
+          "target": "log(1 + Tc)",
+          "cv": "time windows: trained on reports up to a year, asked about the parents first reported in the next five"
+        },
+        "rule": "release the design if, in this run, claim C1 of hurricane9-protocol-v1 is met (it ranks the units of new cuprate parents by Tc better than the previous recipe on the previous model's data, with the interval of the pooled difference above zero) and its guard gives at least an even chance to at most 5% of the held-out compounds with no superconductivity record that Radar sends to Hurricane",
+        "scores": {
+          "kind": "time-windows",
+          "tc_mae": 16.01,
+          "reference_mae": 21.5,
+          "reference": "The previous recipe on the previous model's data",
+          "folds": [
+            24.89,
+            18.27,
+            18.87,
+            23.3,
+            10.58,
+            13.87,
+            1.86,
+            2.1,
+            1.38,
+            1.81,
+            4.87,
+            8.53,
+            2.02
+          ],
+          "reference_folds": [
+            33.66,
+            25.3,
+            28.55,
+            34.15,
+            12.78,
+            13.51,
+            2.3,
+            1.92,
+            1.83,
+            2.21,
+            7.23,
+            3.56,
+            2.57
+          ],
+          "fold_labels": [
+            "cuprate 1991-1995",
+            "cuprate 1996-2000",
+            "cuprate 2001-2005",
+            "cuprate 2006-2010",
+            "iron-based 2011-2015",
+            "iron-based 2016-2020",
+            "heavy-fermion 1991-1995",
+            "heavy-fermion 2001-2005",
+            "heavy-fermion 2006-2010",
+            "heavy-fermion 2011-2015",
+            "other oxide 1996-2000",
+            "other oxide 2001-2005",
+            "other oxide 2011-2015"
+          ],
+          "folds_better": 10,
+          "sc_mae": 14.24,
+          "high_tc_mae": 20.48,
+          "high_tc": 30.0,
+          "r2_log": 0.775,
+          "by_family": {
+            "cuprate": {
+              "n": 1312,
+              "mae": 21.94,
+              "mae_ref": 30.28
+            },
+            "iron-based": {
+              "n": 267,
+              "mae": 11.18,
+              "mae_ref": 12.92
+            },
+            "heavy-fermion": {
+              "n": 274,
+              "mae": 1.85,
+              "mae_ref": 2.05
+            },
+            "other oxide": {
+              "n": 215,
+              "mae": 3.88,
+              "mae_ref": 3.4
+            }
+          }
+        },
+        "previous": {
+          "version": "4.0",
+          "stand_in": true,
+          "tc_mae": 21.5,
+          "folds": [
+            33.66,
+            25.3,
+            28.55,
+            34.15,
+            12.78,
+            13.51,
+            2.3,
+            1.92,
+            1.83,
+            2.21,
+            7.23,
+            3.56,
+            2.57
+          ],
+          "folds_better": 10,
+          "sc_mae": 20.22,
+          "high_tc_mae": null
+        },
+        "lofo": [
+          {
+            "family": "cuprate",
+            "n": 1317,
+            "n_sc": 1236,
+            "mae": 49.2,
+            "mae_median": 44.06,
+            "max_pred": 19.18,
+            "max_tc": 124.5,
+            "found": 0.766,
+            "unknown": 0.004,
+            "dismissed": 0.23,
+            "trained_up_to": 1985,
+            "years": [
+              1986,
+              1990
+            ],
+            "spearman": 0.4526,
+            "auc_30k": {
+              "transfer": {
+                "auc": 0.648,
+                "lower95": 0.5408,
+                "upper95": 0.7588
+              },
+              "data": {
+                "auc": 0.8655,
+                "lower95": 0.7751,
+                "upper95": 0.8987
+              },
+              "R1": {
+                "auc": 0.4341,
+                "lower95": 0.3339,
+                "upper95": 0.6617
+              }
+            }
+          },
+          {
+            "family": "iron-based",
+            "n": 790,
+            "n_sc": 608,
+            "mae": 16.86,
+            "mae_median": 19.52,
+            "max_pred": 19.33,
+            "max_tc": 56.5,
+            "found": 0.0,
+            "unknown": 0.998,
+            "dismissed": 0.002,
+            "trained_up_to": 2005,
+            "years": [
+              2006,
+              2010
+            ],
+            "spearman": 0.1546,
+            "auc_30k": {
+              "transfer": {
+                "auc": 0.7281,
+                "lower95": 0.6102,
+                "upper95": 0.8349
+              },
+              "data": {
+                "auc": 0.5625,
+                "lower95": 0.4368,
+                "upper95": 0.7129
+              },
+              "R1": {
+                "auc": 0.7609,
+                "lower95": 0.6549,
+                "upper95": 0.8562
+              }
+            }
+          }
+        ],
+        "importance": [
+          {
+            "name": "cu_layers",
+            "gain": 4.538
+          },
+          {
+            "name": "x_Ca",
+            "gain": 1.472
+          },
+          {
+            "name": "mendeleev_no_std",
+            "gain": 0.92
+          },
+          {
+            "name": "n_atoms_fu",
+            "gain": 0.607
+          },
+          {
+            "name": "x_Pr",
+            "gain": 0.525
+          },
+          {
+            "name": "x_Ba",
+            "gain": 0.525
+          },
+          {
+            "name": "nonint",
+            "gain": 0.523
+          },
+          {
+            "name": "f_share",
+            "gain": 0.497
+          },
+          {
+            "name": "x_La",
+            "gain": 0.457
+          },
+          {
+            "name": "X_mean",
+            "gain": 0.424
+          },
+          {
+            "name": "x_Fe",
+            "gain": 0.366
+          },
+          {
+            "name": "x_Sr",
+            "gain": 0.324
+          },
+          {
+            "name": "atomic_mass_mean",
+            "gain": 0.296
+          },
+          {
+            "name": "group_std",
+            "gain": 0.262
+          },
+          {
+            "name": "mendeleev_no_mean",
+            "gain": 0.237
+          }
+        ],
+        "search": {
+          "candidates": 4,
+          "reference_id": "previous",
+          "previous_id": null,
+          "leaderboard": [
+            {
+              "id": "previous",
+              "name": "The previous recipe on the previous model's data",
+              "settings": "stands in for Hurricane 4.0",
+              "spearman": 0.3146,
+              "sc_mae": 28.45,
+              "tc_mae": 30.28,
+              "passed": false
+            },
+            {
+              "id": "data",
+              "name": "The same recipe on every datasheet composition",
+              "settings": "released as Hurricane 9.0",
+              "spearman": 0.6208,
+              "sc_mae": 19.43,
+              "tc_mae": 21.94,
+              "passed": true
+            },
+            {
+              "id": "names",
+              "name": "With the datasheet's structure names",
+              "settings": "no gain",
+              "spearman": 0.6172,
+              "sc_mae": 19.59,
+              "tc_mae": 22.16,
+              "passed": false
+            },
+            {
+              "id": "measured",
+              "name": "With lattice lengths and the oxygen column",
+              "settings": "no gain",
+              "spearman": 0.6071,
+              "sc_mae": 19.83,
+              "tc_mae": 22.33,
+              "passed": false
+            }
+          ]
+        },
+        "reliability": {
+          "about": "false alarms: the share of the held-out compounds with no superconductivity record that Radar sends to Hurricane which lie inside its training data and get at least an even chance; cross-fitted over five folds of chemical systems",
+          "rule": "release the design if, in this run, claim C1 of hurricane9-protocol-v1 is met (it ranks the units of new cuprate parents by Tc better than the previous recipe on the previous model's data, with the interval of the pooled difference above zero) and its guard gives at least an even chance to at most 5% of the held-out compounds with no superconductivity record that Radar sends to Hurricane",
+          "caveat": "The background compounds have no superconductivity record, which is not a measurement of zero.",
+          "background": {
+            "n": 3881,
+            "n_sent": 591,
+            "n_used": 158,
+            "source": "JARVIS-DFT 3D compounds of Hurricane's screening pool with no superconductivity record in the checked sources",
+            "cite": "T. Konno et al., Phys. Rev. B 103, 014509 (2021)",
+            "doi": "10.1103/PhysRevB.103.014509",
+            "weight": 0.3,
+            "radius": 1.0
+          },
+          "abstain": 1.0,
+          "false_alarms": 0.002,
+          "false_alarms_without_guard": 0.516,
+          "false_alarms_all": 0.002,
+          "folds": [
+            0.007,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "unknown_sent": 0.909,
+          "unknown_all": 0.959,
+          "coverage": 0.785,
+          "found_new_parents": 0.728,
+          "dismissed_new_parents": 0.093,
+          "dismissed": 0.155,
+          "found": 0.514,
+          "unknown_lofo": 0.332,
+          "unknown_about": "not known: further from every training unit, in the model's standardized inputs, than 95% of the training units lie from the nearest unit of another parent",
+          "dismissed_about": "trained only on reports dated before a family was found (cuprates: up to 1985; iron-based: up to 2005) and asked about that family's first five years"
+        },
+        "anchors": {
+          "n_scored": 3,
+          "n_listed": 11,
+          "mae": 0.69,
+          "scored_as_check": false,
+          "rule": "reported as a score only with at least 8 scored measurements; an anchor whose composition the training rows hold is shown and not scored; never used for training or for choosing the design",
+          "table": [
+            {
+              "name": "UTe2",
+              "tc_exp": 2.0,
+              "status": "replicated",
+              "use": "show",
+              "family": "heavy-fermion",
+              "source": "rosa2022",
+              "note": "found in 2019 at 1.6 K (ran2019); cleaner crystals reach 2.0 K The datasheet the model learned from lists this composition, so it is not scored.",
+              "pred": 1.05,
+              "p_sc": 0.658,
+              "tc_sc": 1.6,
+              "ratio": 0.0,
+              "unknown": false,
+              "in_training": true,
+              "types": []
+            },
+            {
+              "name": "CeRh2As2",
+              "tc_exp": 0.26,
+              "status": "replicated",
+              "use": "score",
+              "family": "heavy-fermion",
+              "source": "khim2021",
+              "note": "two superconducting phases in a magnetic field",
+              "pred": 1.97,
+              "p_sc": 0.557,
+              "tc_sc": 3.54,
+              "ratio": 1.207,
+              "unknown": true,
+              "in_training": false,
+              "types": []
+            },
+            {
+              "name": "La3Ni2O7, bulk at ambient pressure",
+              "tc_exp": 0.0,
+              "status": "replicated",
+              "use": "score",
+              "family": "other oxide",
+              "source": "sun2023",
+              "note": "the ambient-pressure bulk samples in this study do not superconduct; about 80 K above 14 GPa. This bulk result does not apply to epitaxially strained thin films (ko2025)",
+              "pred": 0.14,
+              "p_sc": 0.037,
+              "tc_sc": 3.8,
+              "ratio": 0.225,
+              "unknown": false,
+              "in_training": false,
+              "types": [
+                "nickelate_oxide"
+              ]
+            },
+            {
+              "name": "Nd0.8Sr0.2NiO2, bulk",
+              "tc_exp": 0.0,
+              "status": "replicated",
+              "use": "score",
+              "family": "other oxide",
+              "source": "li2020",
+              "note": "bulk samples do not superconduct, unlike thin films",
+              "pred": 0.21,
+              "p_sc": 0.053,
+              "tc_sc": 3.98,
+              "ratio": 0.898,
+              "unknown": false,
+              "in_training": false,
+              "types": [
+                "nickelate_oxide"
+              ]
+            },
+            {
+              "name": "HgBa2Ca2Cu3O8+δ (Hg-1223)",
+              "tc_exp": 133,
+              "status": "replicated",
+              "use": "show",
+              "family": "cuprate",
+              "source": "schilling1993",
+              "note": "the ambient-pressure record since 1993; δ ≈ 0.25 assumed (near optimal doping); absent from the 3DSC training data The datasheet the model learned from lists this composition, so it is not scored.",
+              "pred": 118.3,
+              "p_sc": 0.998,
+              "tc_sc": 118.52,
+              "ratio": 0.0,
+              "unknown": false,
+              "in_training": true,
+              "types": [
+                "Hg_cuprate"
+              ]
+            },
+            {
+              "name": "Nd0.8Sr0.2NiO2, thin film",
+              "tc_exp": 15,
+              "status": "replicated",
+              "use": "show",
+              "family": "other oxide",
+              "source": "li2019",
+              "note": "films on SrTiO3 superconduct at 9 to 15 K; films are outside Hurricane's bulk training data",
+              "pred": 0.21,
+              "p_sc": 0.053,
+              "tc_sc": 3.98,
+              "ratio": 0.898,
+              "unknown": false,
+              "in_training": false,
+              "types": [
+                "nickelate_oxide"
+              ]
+            },
+            {
+              "name": "La3Ni2O7, strained thin film at ambient pressure",
+              "tc_exp": 42,
+              "status": "single report",
+              "use": "show",
+              "family": "other oxide",
+              "source": "ko2025",
+              "note": "epitaxial compressive strain stabilizes ambient-pressure thin-film signatures: resistive onset 26-42 K and zero resistance around 2 K, with mixed Ruddlesden-Popper phases. Display only: this is a strained thin film, outside Hurricane's bulk scoring domain; 42 K is onset, not the zero-resistance temperature",
+              "pred": 0.14,
+              "p_sc": 0.037,
+              "tc_sc": 3.8,
+              "ratio": 0.225,
+              "unknown": false,
+              "in_training": false,
+              "types": [
+                "nickelate_oxide"
+              ]
+            },
+            {
+              "name": "Hg-1223 after a pressure quench",
+              "tc_exp": 151,
+              "status": "single report",
+              "use": "show",
+              "family": "cuprate",
+              "source": "deng2026",
+              "note": "a metastable state kept at ambient pressure after squeezing and a fast release; one group so far",
+              "pred": 118.3,
+              "p_sc": 0.998,
+              "tc_sc": 118.52,
+              "ratio": 0.0,
+              "unknown": false,
+              "in_training": true,
+              "types": [
+                "Hg_cuprate"
+              ]
+            },
+            {
+              "name": "CsV3Sb5",
+              "tc_exp": 2.5,
+              "status": "replicated",
+              "use": "show",
+              "family": "kagome",
+              "source": "ortiz2020",
+              "note": "kagome metal, outside Hurricane's four families",
+              "pred": 1.13,
+              "p_sc": 0.469,
+              "tc_sc": 2.42,
+              "ratio": 2.103,
+              "unknown": true,
+              "in_training": false,
+              "types": []
+            },
+            {
+              "name": "KV3Sb5",
+              "tc_exp": 0.93,
+              "status": "replicated",
+              "use": "show",
+              "family": "kagome",
+              "source": "ortiz2021",
+              "note": "kagome metal, outside Hurricane's four families",
+              "pred": 1.28,
+              "p_sc": 0.339,
+              "tc_sc": 3.76,
+              "ratio": 1.81,
+              "unknown": true,
+              "in_training": false,
+              "types": []
+            },
+            {
+              "name": "LK-99 (Cu-doped lead apatite)",
+              "tc_exp": null,
+              "status": "refuted",
+              "use": "exclude",
+              "family": "other oxide",
+              "source": "zhu2023",
+              "note": "the resistivity jumps come from Cu2S impurities",
+              "pred": 1.43,
+              "p_sc": 0.055,
+              "tc_sc": 26.17,
+              "ratio": 1.426,
+              "unknown": true,
+              "in_training": false,
+              "types": []
+            }
+          ]
+        },
+        "temporal": {
+          "protocol": {
+            "name": "hurricane9-release-protocol-v1",
+            "sha256": "87694b5845afb729f2f1ede376e194a48db8c65dd7d800f169af34521b1a1fdf",
+            "fit_protocol_sha256": "37478fec876263854a3286539aac92820039d8f5a37a5bc87cd8844d40654987"
+          },
+          "width": 5,
+          "claims": [
+            {
+              "id": "C0",
+              "text": "the improved design ranks new cuprate parents better than the previous one",
+              "windows": [
+                1990,
+                1995,
+                2000,
+                2005
+              ],
+              "parents": 472,
+              "measured": 0.6071,
+              "previous": 0.3146,
+              "difference": 0.2925,
+              "lower95": 0.1958,
+              "upper95": 0.3805,
+              "met": true
+            },
+            {
+              "id": "C1",
+              "text": "more data helps the previous recipe",
+              "windows": [
+                1990,
+                1995,
+                2000,
+                2005
+              ],
+              "parents": 472,
+              "data": 0.6208,
+              "previous": 0.3146,
+              "difference": 0.3062,
+              "lower95": 0.2119,
+              "upper95": 0.3898,
+              "met": true
+            },
+            {
+              "id": "C2",
+              "text": "measured sample variables help where they exist",
+              "windows": [
+                1990,
+                1995,
+                2000,
+                2005
+              ],
+              "parents": 333,
+              "measured": 0.571,
+              "names": 0.5663,
+              "difference": 0.0047,
+              "lower95": -0.0269,
+              "upper95": 0.0331,
+              "met": false
+            },
+            {
+              "id": "C3",
+              "text": "the previous recipe on all data beats the nearest known compound",
+              "windows": [
+                1990,
+                1995,
+                2000,
+                2005
+              ],
+              "parents": 472,
+              "data": 0.6208,
+              "R1": 0.5715,
+              "difference": 0.0493,
+              "lower95": -0.0228,
+              "upper95": 0.1295,
+              "met": false
+            },
+            {
+              "id": "C4:cuprate:1985",
+              "text": "a design without element identities ranks the 30 K event above chance in a family it never saw",
+              "units": 1428,
+              "positives": 975,
+              "negatives": 453,
+              "positives_of_other_families_left_out": 1,
+              "auc": 0.648,
+              "lower95": 0.5408,
+              "upper95": 0.7588,
+              "met": true
+            },
+            {
+              "id": "C4:iron-nickel:2005",
+              "text": "a design without element identities ranks the 30 K event above chance in a family it never saw",
+              "units": 1047,
+              "positives": 153,
+              "negatives": 894,
+              "positives_of_other_families_left_out": 31,
+              "auc": 0.7281,
+              "lower95": 0.6102,
+              "upper95": 0.8349,
+              "met": true
+            }
+          ],
+          "families": {
+            "cuprate": {
+              "windows": [
+                1990,
+                1995,
+                2000,
+                2005
+              ],
+              "units": 1103,
+              "parents": 472,
+              "spearman": {
+                "previous": {
+                  "estimate": 0.3146,
+                  "lower95": 0.21,
+                  "upper95": 0.4094
+                },
+                "data": {
+                  "estimate": 0.6208,
+                  "lower95": 0.5153,
+                  "upper95": 0.6976
+                },
+                "names": {
+                  "estimate": 0.6172,
+                  "lower95": 0.5104,
+                  "upper95": 0.6963
+                },
+                "measured": {
+                  "estimate": 0.6071,
+                  "lower95": 0.5067,
+                  "upper95": 0.6866
+                },
+                "R1": {
+                  "estimate": 0.5715,
+                  "lower95": 0.4666,
+                  "upper95": 0.6552
+                }
+              },
+              "difference": {
+                "data-previous": {
+                  "estimate": 0.3062,
+                  "lower95": 0.2119,
+                  "upper95": 0.3898,
+                  "met": true
+                },
+                "data-R1": {
+                  "estimate": 0.0493,
+                  "lower95": -0.0228,
+                  "upper95": 0.1295,
+                  "met": false
+                }
+              },
+              "error_k": {
+                "R0": 27.22,
+                "R1": 21.52,
+                "previous": 28.45,
+                "data": 19.43,
+                "names": 19.59,
+                "measured": 19.83
+              }
+            },
+            "iron-based": {
+              "windows": [
+                2010,
+                2015
+              ],
+              "units": 246,
+              "parents": 99,
+              "spearman": {
+                "previous": {
+                  "estimate": 0.2498,
+                  "lower95": 0.0259,
+                  "upper95": 0.5148
+                },
+                "data": {
+                  "estimate": 0.2421,
+                  "lower95": -0.007,
+                  "upper95": 0.4583
+                },
+                "names": {
+                  "estimate": 0.2975,
+                  "lower95": 0.056,
+                  "upper95": 0.4934
+                },
+                "measured": {
+                  "estimate": 0.3139,
+                  "lower95": 0.0884,
+                  "upper95": 0.5097
+                },
+                "R1": {
+                  "estimate": 0.1591,
+                  "lower95": -0.0689,
+                  "upper95": 0.3758
+                }
+              },
+              "difference": {
+                "data-previous": {
+                  "estimate": -0.0078,
+                  "lower95": -0.3478,
+                  "upper95": 0.2417,
+                  "met": false
+                },
+                "data-R1": {
+                  "estimate": 0.0829,
+                  "lower95": -0.1018,
+                  "upper95": 0.2302,
+                  "met": false
+                }
+              },
+              "error_k": {
+                "R0": 11.46,
+                "R1": 11.5,
+                "previous": 11.18,
+                "data": 10.0,
+                "names": 9.61,
+                "measured": 9.76
+              }
+            },
+            "heavy-fermion": {
+              "windows": [
+                1990,
+                2000,
+                2005,
+                2010
+              ],
+              "units": 238,
+              "parents": 74,
+              "spearman": {
+                "previous": {
+                  "estimate": 0.1183,
+                  "lower95": -0.0714,
+                  "upper95": 0.3086
+                },
+                "data": {
+                  "estimate": 0.4236,
+                  "lower95": 0.2313,
+                  "upper95": 0.5613
+                },
+                "names": {
+                  "estimate": 0.42,
+                  "lower95": 0.2359,
+                  "upper95": 0.5634
+                },
+                "measured": {
+                  "estimate": 0.3877,
+                  "lower95": 0.1949,
+                  "upper95": 0.5394
+                },
+                "R1": {
+                  "estimate": 0.046,
+                  "lower95": -0.1731,
+                  "upper95": 0.2616
+                }
+              },
+              "difference": {
+                "data-previous": {
+                  "estimate": 0.3053,
+                  "lower95": 0.0929,
+                  "upper95": 0.4936,
+                  "met": true
+                },
+                "data-R1": {
+                  "estimate": 0.3776,
+                  "lower95": 0.0951,
+                  "upper95": 0.5954,
+                  "met": true
+                }
+              },
+              "error_k": {
+                "R0": 2.04,
+                "R1": 2.09,
+                "previous": 1.99,
+                "data": 2.0,
+                "names": 1.6,
+                "measured": 1.78
+              }
+            },
+            "other oxide": {
+              "windows": [
+                1995,
+                2000,
+                2010
+              ],
+              "units": 178,
+              "parents": 47,
+              "spearman": {
+                "previous": {
+                  "estimate": -0.1329,
+                  "lower95": -0.3456,
+                  "upper95": 0.1418
+                },
+                "data": {
+                  "estimate": 0.4326,
+                  "lower95": 0.1462,
+                  "upper95": 0.6009
+                },
+                "names": {
+                  "estimate": 0.4117,
+                  "lower95": 0.1552,
+                  "upper95": 0.5731
+                },
+                "measured": {
+                  "estimate": 0.463,
+                  "lower95": 0.1967,
+                  "upper95": 0.6253
+                },
+                "R1": {
+                  "estimate": 0.3315,
+                  "lower95": 0.1331,
+                  "upper95": 0.5358
+                }
+              },
+              "difference": {
+                "data-previous": {
+                  "estimate": 0.5655,
+                  "lower95": 0.183,
+                  "upper95": 0.826,
+                  "met": true
+                },
+                "data-R1": {
+                  "estimate": 0.1011,
+                  "lower95": -0.2454,
+                  "upper95": 0.3576,
+                  "met": false
+                }
+              },
+              "error_k": {
+                "R0": 2.93,
+                "R1": 3.49,
+                "previous": 6.09,
+                "data": 4.33,
+                "names": 4.27,
+                "measured": 3.74
+              }
+            }
+          },
+          "windows": [
+            {
+              "family": "cuprate",
+              "years": [
+                1991,
+                1995
+              ],
+              "units": 544,
+              "spearman": {
+                "previous": 0.2139,
+                "data": 0.5402,
+                "names": 0.5348,
+                "measured": 0.5202,
+                "R1": 0.5058
+              },
+              "error_k": {
+                "previous": 31.81,
+                "data": 22.28,
+                "names": 22.79,
+                "measured": 22.87,
+                "R1": 24.38,
+                "R0": 27.91
+              }
+            },
+            {
+              "family": "cuprate",
+              "years": [
+                1996,
+                2000
+              ],
+              "units": 395,
+              "spearman": {
+                "previous": 0.3853,
+                "data": 0.6664,
+                "names": 0.6584,
+                "measured": 0.6704,
+                "R1": 0.5937
+              },
+              "error_k": {
+                "previous": 24.4,
+                "data": 16.14,
+                "names": 16.22,
+                "measured": 16.25,
+                "R1": 19.48,
+                "R0": 24.17
+              }
+            },
+            {
+              "family": "cuprate",
+              "years": [
+                2001,
+                2005
+              ],
+              "units": 115,
+              "spearman": {
+                "previous": 0.4296,
+                "data": 0.7166,
+                "names": 0.7356,
+                "measured": 0.693,
+                "R1": 0.6383
+              },
+              "error_k": {
+                "previous": 25.34,
+                "data": 15.76,
+                "names": 15.07,
+                "measured": 15.98,
+                "R1": 18.06,
+                "R0": 29.15
+              }
+            },
+            {
+              "family": "cuprate",
+              "years": [
+                2006,
+                2010
+              ],
+              "units": 49,
+              "spearman": {
+                "previous": 0.4477,
+                "data": 0.7916,
+                "names": 0.7868,
+                "measured": 0.7334,
+                "R1": 0.8288
+              },
+              "error_k": {
+                "previous": 31.0,
+                "data": 22.79,
+                "names": 21.79,
+                "measured": 24.03,
+                "R1": 14.34,
+                "R0": 39.68
+              }
+            },
+            {
+              "family": "iron-based",
+              "years": [
+                2011,
+                2015
+              ],
+              "units": 199,
+              "spearman": {
+                "previous": 0.2963,
+                "data": 0.1984,
+                "names": 0.2637,
+                "measured": 0.2443,
+                "R1": 0.0846
+              },
+              "error_k": {
+                "previous": 11.2,
+                "data": 9.72,
+                "names": 9.43,
+                "measured": 9.88,
+                "R1": 11.8,
+                "R0": 11.35
+              }
+            },
+            {
+              "family": "iron-based",
+              "years": [
+                2016,
+                2020
+              ],
+              "units": 47,
+              "spearman": {
+                "previous": 0.0962,
+                "data": 0.3864,
+                "names": 0.409,
+                "measured": 0.5441,
+                "R1": 0.4054
+              },
+              "error_k": {
+                "previous": 11.14,
+                "data": 11.16,
+                "names": 10.38,
+                "measured": 9.25,
+                "R1": 10.23,
+                "R0": 11.92
+              }
+            },
+            {
+              "family": "heavy-fermion",
+              "years": [
+                1991,
+                1995
+              ],
+              "units": 30,
+              "spearman": {
+                "previous": 0.641,
+                "data": 0.3539,
+                "names": 0.5038,
+                "measured": 0.4245,
+                "R1": 0.694
+              },
+              "error_k": {
+                "previous": 1.88,
+                "data": 1.81,
+                "names": 1.81,
+                "measured": 1.84,
+                "R1": 1.26,
+                "R0": 2.25
+              }
+            },
+            {
+              "family": "heavy-fermion",
+              "years": [
+                2001,
+                2005
+              ],
+              "units": 92,
+              "spearman": {
+                "previous": -0.1314,
+                "data": 0.1228,
+                "names": 0.063,
+                "measured": -0.1592,
+                "R1": 0.2277
+              },
+              "error_k": {
+                "previous": 2.17,
+                "data": 1.72,
+                "names": 1.77,
+                "measured": 1.78,
+                "R1": 1.58,
+                "R0": 1.71
+              }
+            },
+            {
+              "family": "heavy-fermion",
+              "years": [
+                2006,
+                2010
+              ],
+              "units": 31,
+              "spearman": {
+                "previous": 0.5662,
+                "data": 0.5221,
+                "names": 0.5609,
+                "measured": 0.5387,
+                "R1": 0.1035
+              },
+              "error_k": {
+                "previous": 1.63,
+                "data": 1.51,
+                "names": 1.52,
+                "measured": 1.5,
+                "R1": 2.76,
+                "R0": 2.2
+              }
+            },
+            {
+              "family": "heavy-fermion",
+              "years": [
+                2011,
+                2015
+              ],
+              "units": 85,
+              "spearman": {
+                "previous": -0.1219,
+                "data": 0.5731,
+                "names": 0.5321,
+                "measured": 0.6203,
+                "R1": -0.2963
+              },
+              "error_k": {
+                "previous": 1.96,
+                "data": 2.54,
+                "names": 1.39,
+                "measured": 1.87,
+                "R1": 2.69,
+                "R0": 2.28
+              }
+            },
+            {
+              "family": "other oxide",
+              "years": [
+                1996,
+                2000
+              ],
+              "units": 24,
+              "spearman": {
+                "previous": 0.0913,
+                "data": 0.7592,
+                "names": 0.75,
+                "measured": 0.7464,
+                "R1": 0.8124
+              },
+              "error_k": {
+                "previous": 14.85,
+                "data": 5.02,
+                "names": 5.73,
+                "measured": 4.97,
+                "R1": 6.8,
+                "R0": 4.96
+              }
+            },
+            {
+              "family": "other oxide",
+              "years": [
+                2001,
+                2005
+              ],
+              "units": 37,
+              "spearman": {
+                "previous": -0.2308,
+                "data": 0.2849,
+                "names": 0.3148,
+                "measured": 0.2829,
+                "R1": 0.5247
+              },
+              "error_k": {
+                "previous": 6.49,
+                "data": 10.49,
+                "names": 10.91,
+                "measured": 9.22,
+                "R1": 2.81,
+                "R0": 3.84
+              }
+            },
+            {
+              "family": "other oxide",
+              "years": [
+                2011,
+                2015
+              ],
+              "units": 117,
+              "spearman": {
+                "previous": -0.1867,
+                "data": 0.3568,
+                "names": 0.3051,
+                "measured": 0.4231,
+                "R1": 0.0144
+              },
+              "error_k": {
+                "previous": 4.17,
+                "data": 2.24,
+                "names": 1.87,
+                "measured": 1.76,
+                "R1": 3.03,
+                "R0": 2.22
+              }
+            }
+          ],
+          "answers": {
+            "family_windows": {
+              "units": 2230,
+              "superconductors": 1588,
+              "coverage": 0.785,
+              "found": 0.728,
+              "dismissed": 0.093,
+              "unknown": 0.179,
+              "alarms_on_negatives": 0.385
+            },
+            "new_family_windows": {
+              "units": 2107,
+              "superconductors": 1844,
+              "coverage": 0.623,
+              "found": 0.514,
+              "dismissed": 0.155,
+              "unknown": 0.332,
+              "alarms_on_negatives": 0.17
+            }
+          },
+          "range": {
+            "level": 0.9,
+            "width_log": 0.976,
+            "n": 1765,
+            "coverage": 0.901,
+            "from": "the new-parent units with a Tc value of the declared family windows"
+          }
         }
       }
     ]

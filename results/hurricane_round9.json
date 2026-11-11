@@ -1,0 +1,2060 @@
+{
+  "round": 9,
+  "model": "Hurricane",
+  "version": "9.0",
+  "release_module": "hurricane9-release-v1",
+  "adopted": true,
+  "rule": "release the design if, in this run, claim C1 of hurricane9-protocol-v1 is met (it ranks the units of new cuprate parents by Tc better than the previous recipe on the previous model's data, with the interval of the pooled difference above zero) and its guard gives at least an even chance to at most 5% of the held-out compounds with no superconductivity record that Radar sends to Hurricane",
+  "protocol": {
+    "name": "hurricane9-release-protocol-v1",
+    "sha256": "87694b5845afb729f2f1ede376e194a48db8c65dd7d800f169af34521b1a1fdf",
+    "fit_protocol_sha256": "37478fec876263854a3286539aac92820039d8f5a37a5bc87cd8844d40654987"
+  },
+  "best": {
+    "id": "H90",
+    "name": "The recipe of Hurricane 4.0 on the NIMS datasheet",
+    "settings": "composition only; the guard of Hurricane 4.0",
+    "X": "ACDE",
+    "blocks": "ACDT",
+    "params": {
+      "max_iter": 800,
+      "learning_rate": 0.04,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 10,
+      "l2_regularization": 1.0,
+      "early_stopping": false
+    },
+    "two_part": "mean",
+    "background": 0.3,
+    "radius": 1.0,
+    "abstain": 1.0,
+    "rows": "datasheet",
+    "n_features": 144,
+    "n_cols": {
+      "A": 33,
+      "C": 15,
+      "E": 19,
+      "D": 77
+    }
+  },
+  "data": {
+    "kind": "datasheet",
+    "source": "MDR SuperCon Datasheet Ver.220808 (NIMS), oxide and metallic table",
+    "cite": "This study used the MDR SuperCon Datasheet (https://doi.org/10.48505/nims.3837), a numerical data sheet for superconducting materials, which is made public by the National Institute for Materials Science (NIMS).",
+    "doi": "10.48505/nims.3837",
+    "licence": "CC BY 4.0",
+    "n": 11642,
+    "n_sc": 10050,
+    "n_event": 9372,
+    "n_negative": 1758,
+    "n_groups": 1734,
+    "years": [
+      1929,
+      2021
+    ],
+    "families": {
+      "cuprate": {
+        "label": "Cuprates",
+        "n": 7926,
+        "n_sc": 7082,
+        "max_tc": 137.4
+      },
+      "iron-based": {
+        "label": "Iron- and nickel-based",
+        "n": 1839,
+        "n_sc": 1565,
+        "max_tc": 56.5
+      },
+      "heavy-fermion": {
+        "label": "Heavy-fermion",
+        "n": 1236,
+        "n_sc": 889,
+        "max_tc": 18.1
+      },
+      "other oxide": {
+        "label": "Other oxides",
+        "n": 641,
+        "n_sc": 514,
+        "max_tc": 91.0
+      }
+    }
+  },
+  "evidence": {
+    "families": {
+      "cuprate": {
+        "windows": [
+          1990,
+          1995,
+          2000,
+          2005
+        ],
+        "units": 1103,
+        "parents": 472,
+        "spearman": {
+          "previous": {
+            "estimate": 0.3146037908209046,
+            "lower95": 0.21003754595805527,
+            "upper95": 0.409362732674534,
+            "valid_replicates": 1000
+          },
+          "data": {
+            "estimate": 0.6208021532495988,
+            "lower95": 0.5152757928729252,
+            "upper95": 0.6976181987098854,
+            "valid_replicates": 1000
+          },
+          "names": {
+            "estimate": 0.6171692654360829,
+            "lower95": 0.5103822594960635,
+            "upper95": 0.6962770927914712,
+            "valid_replicates": 1000
+          },
+          "measured": {
+            "estimate": 0.6070902279231961,
+            "lower95": 0.5066629100492301,
+            "upper95": 0.6866370232105382,
+            "valid_replicates": 1000
+          },
+          "R1": {
+            "estimate": 0.5714549264077803,
+            "lower95": 0.4665971410852415,
+            "upper95": 0.6551872002175086,
+            "valid_replicates": 1000
+          }
+        },
+        "difference": {
+          "data-previous": {
+            "estimate": 0.3061983624286941,
+            "windows": [
+              1990,
+              1995,
+              2000,
+              2005
+            ],
+            "parents": 472,
+            "data": 0.6208021532495988,
+            "previous": 0.3146037908209046,
+            "lower95": 0.2118572798403134,
+            "upper95": 0.3898340169329854,
+            "valid_replicates": 1000,
+            "met": true
+          },
+          "data-R1": {
+            "estimate": 0.04934722684181837,
+            "windows": [
+              1990,
+              1995,
+              2000,
+              2005
+            ],
+            "parents": 472,
+            "data": 0.6208021532495988,
+            "R1": 0.5714549264077803,
+            "lower95": -0.02276761591303127,
+            "upper95": 0.12948637397273075,
+            "valid_replicates": 1000,
+            "met": false
+          }
+        },
+        "error_k": {
+          "R0": 27.222674524025386,
+          "R1": 21.517005893019043,
+          "previous": 28.44509165732552,
+          "data": 19.425498750128916,
+          "names": 19.587595894514596,
+          "measured": 19.83323796791346
+        },
+        "error_units": 1103,
+        "released_measure_k": {
+          "previous": 30.278916707224454,
+          "data": 21.939153826004702,
+          "names": 22.164743437939055,
+          "measured": 22.32998272948944
+        },
+        "released_measure_units": 1312
+      },
+      "iron-nickel": {
+        "windows": [
+          2010,
+          2015
+        ],
+        "units": 246,
+        "parents": 99,
+        "spearman": {
+          "previous": {
+            "estimate": 0.24982562006065462,
+            "lower95": 0.025884828856760782,
+            "upper95": 0.5148269919158237,
+            "valid_replicates": 1000
+          },
+          "data": {
+            "estimate": 0.24205165086390693,
+            "lower95": -0.00700091570663989,
+            "upper95": 0.45830160352534044,
+            "valid_replicates": 1000
+          },
+          "names": {
+            "estimate": 0.2974536489199098,
+            "lower95": 0.05597064264018623,
+            "upper95": 0.49340814541812983,
+            "valid_replicates": 1000
+          },
+          "measured": {
+            "estimate": 0.3139396859679601,
+            "lower95": 0.08843715144934548,
+            "upper95": 0.5097241552551669,
+            "valid_replicates": 1000
+          },
+          "R1": {
+            "estimate": 0.15910526122729027,
+            "lower95": -0.06893248610801629,
+            "upper95": 0.37581267085752335,
+            "valid_replicates": 1000
+          }
+        },
+        "difference": {
+          "data-previous": {
+            "estimate": -0.007773969196747703,
+            "windows": [
+              2010,
+              2015
+            ],
+            "parents": 99,
+            "data": 0.24205165086390693,
+            "previous": 0.24982562006065462,
+            "lower95": -0.347843934071977,
+            "upper95": 0.24173945720775858,
+            "valid_replicates": 1000,
+            "met": false
+          },
+          "data-R1": {
+            "estimate": 0.08294638963661664,
+            "windows": [
+              2010,
+              2015
+            ],
+            "parents": 99,
+            "data": 0.24205165086390693,
+            "R1": 0.15910526122729027,
+            "lower95": -0.10184070292223485,
+            "upper95": 0.2302273303985409,
+            "valid_replicates": 1000,
+            "met": false
+          }
+        },
+        "error_k": {
+          "R0": 11.457286585365855,
+          "R1": 11.496432926829268,
+          "previous": 11.184210280057888,
+          "data": 9.997277175159056,
+          "names": 9.613445592162536,
+          "measured": 9.76092209422116
+        },
+        "error_units": 246,
+        "released_measure_k": {
+          "previous": 12.915456497515628,
+          "data": 11.181027009184575,
+          "names": 10.958792187739201,
+          "measured": 11.277682064946765
+        },
+        "released_measure_units": 267
+      },
+      "heavy-fermion": {
+        "windows": [
+          1990,
+          2000,
+          2005,
+          2010
+        ],
+        "units": 238,
+        "parents": 74,
+        "spearman": {
+          "previous": {
+            "estimate": 0.11834939724224657,
+            "lower95": -0.07135090721934031,
+            "upper95": 0.30860731330594277,
+            "valid_replicates": 1000
+          },
+          "data": {
+            "estimate": 0.4236147275536615,
+            "lower95": 0.23127801528817185,
+            "upper95": 0.5613434403015711,
+            "valid_replicates": 1000
+          },
+          "names": {
+            "estimate": 0.42000677060705943,
+            "lower95": 0.23592069088779716,
+            "upper95": 0.563398865819372,
+            "valid_replicates": 1000
+          },
+          "measured": {
+            "estimate": 0.387678840584525,
+            "lower95": 0.194905880725122,
+            "upper95": 0.5393602478263069,
+            "valid_replicates": 1000
+          },
+          "R1": {
+            "estimate": 0.046048072144334096,
+            "lower95": -0.17311494211485365,
+            "upper95": 0.26160386875068065,
+            "valid_replicates": 1000
+          }
+        },
+        "difference": {
+          "data-previous": {
+            "estimate": 0.305265330311415,
+            "windows": [
+              1990,
+              2000,
+              2005,
+              2010
+            ],
+            "parents": 74,
+            "data": 0.4236147275536615,
+            "previous": 0.11834939724224657,
+            "lower95": 0.0928890276114861,
+            "upper95": 0.49356001615004713,
+            "valid_replicates": 1000,
+            "met": true
+          },
+          "data-R1": {
+            "estimate": 0.3775666554093274,
+            "windows": [
+              1990,
+              2000,
+              2005,
+              2010
+            ],
+            "parents": 74,
+            "data": 0.4236147275536615,
+            "R1": 0.046048072144334096,
+            "lower95": 0.09506865559638054,
+            "upper95": 0.5953641584301743,
+            "valid_replicates": 1000,
+            "met": true
+          }
+        },
+        "error_k": {
+          "R0": 2.0441764705882353,
+          "R1": 2.0901386554621846,
+          "previous": 1.9860221658260695,
+          "data": 1.9979535294931916,
+          "names": 1.6048341806420676,
+          "measured": 1.7825490109081357
+        },
+        "error_units": 238,
+        "released_measure_k": {
+          "previous": 2.0505180904994367,
+          "data": 1.8506479132893294,
+          "names": 1.6214341015157343,
+          "measured": 1.7829585996202257
+        },
+        "released_measure_units": 274
+      },
+      "other-oxide": {
+        "windows": [
+          1995,
+          2000,
+          2010
+        ],
+        "units": 178,
+        "parents": 47,
+        "spearman": {
+          "previous": {
+            "estimate": -0.1328738682405603,
+            "lower95": -0.3455895740346092,
+            "upper95": 0.14184337115073953,
+            "valid_replicates": 1000
+          },
+          "data": {
+            "estimate": 0.4325923131132463,
+            "lower95": 0.14619306477863606,
+            "upper95": 0.6009329612879459,
+            "valid_replicates": 1000
+          },
+          "names": {
+            "estimate": 0.41172598719333253,
+            "lower95": 0.15519227757239634,
+            "upper95": 0.5730666663972785,
+            "valid_replicates": 1000
+          },
+          "measured": {
+            "estimate": 0.46299333299582834,
+            "lower95": 0.19665693593619268,
+            "upper95": 0.6253287283410199,
+            "valid_replicates": 1000
+          },
+          "R1": {
+            "estimate": 0.33146786084967056,
+            "lower95": 0.13309243058408665,
+            "upper95": 0.53581352349483,
+            "valid_replicates": 1000
+          }
+        },
+        "difference": {
+          "data-previous": {
+            "estimate": 0.5654661813538067,
+            "windows": [
+              1995,
+              2000,
+              2010
+            ],
+            "parents": 47,
+            "data": 0.4325923131132463,
+            "previous": -0.1328738682405603,
+            "lower95": 0.1830305224279604,
+            "upper95": 0.8259549050647871,
+            "valid_replicates": 1000,
+            "met": true
+          },
+          "data-R1": {
+            "estimate": 0.10112445226357572,
+            "windows": [
+              1995,
+              2000,
+              2010
+            ],
+            "parents": 47,
+            "data": 0.4325923131132463,
+            "R1": 0.33146786084967056,
+            "lower95": -0.24539352896270233,
+            "upper95": 0.3575786974138071,
+            "valid_replicates": 1000,
+            "met": false
+          }
+        },
+        "error_k": {
+          "R0": 2.9285337078651685,
+          "R1": 3.492592696629213,
+          "previous": 6.0932779768463075,
+          "data": 4.328759225662958,
+          "names": 4.272361489058875,
+          "measured": 3.742091316885402
+        },
+        "error_units": 178,
+        "released_measure_k": {
+          "previous": 3.402065010140138,
+          "data": 3.8757002484701566,
+          "names": 4.022757381850772,
+          "measured": 3.4234100004990546
+        },
+        "released_measure_units": 215
+      }
+    },
+    "folds": [
+      {
+        "family": "cuprate",
+        "cutoff": 1990,
+        "units_with_tc": 544,
+        "product_units": 677,
+        "spearman": {
+          "previous": 0.2139041034495251,
+          "data": 0.5402188844482336,
+          "names": 0.5347702244370816,
+          "measured": 0.5201504029035108,
+          "R1": 0.5057887999256448
+        },
+        "error_k": {
+          "previous": 31.806638679558198,
+          "data": 22.281711222287374,
+          "names": 22.79156581915028,
+          "measured": 22.87456952961812,
+          "R1": 24.376668198529416,
+          "R0": 27.9140625
+        },
+        "released_measure_k": {
+          "previous": 33.65756154685762,
+          "data": 24.893629822780518
+        }
+      },
+      {
+        "family": "cuprate",
+        "cutoff": 1995,
+        "units_with_tc": 395,
+        "product_units": 452,
+        "spearman": {
+          "previous": 0.385332824074759,
+          "data": 0.6663749024673973,
+          "names": 0.6584394980278994,
+          "measured": 0.6703682346733593,
+          "R1": 0.5936859301114435
+        },
+        "error_k": {
+          "previous": 24.402738986896356,
+          "data": 16.1421398201879,
+          "names": 16.217351398180597,
+          "measured": 16.245989270213585,
+          "R1": 19.475189873417722,
+          "R0": 24.165088607594935
+        },
+        "released_measure_k": {
+          "previous": 25.29989053228935,
+          "data": 18.26756826463109
+        }
+      },
+      {
+        "family": "cuprate",
+        "cutoff": 2000,
+        "units_with_tc": 115,
+        "product_units": 133,
+        "spearman": {
+          "previous": 0.4296464879127283,
+          "data": 0.7165970604886464,
+          "names": 0.7356339644813801,
+          "measured": 0.6930151273979206,
+          "R1": 0.638319140992119
+        },
+        "error_k": {
+          "previous": 25.338626679789495,
+          "data": 15.756937248665688,
+          "names": 15.067799085658535,
+          "measured": 15.981080813219178,
+          "R1": 18.06086956521739,
+          "R0": 29.14782608695652
+        },
+        "released_measure_k": {
+          "previous": 28.546209996467656,
+          "data": 18.86732864630651
+        }
+      },
+      {
+        "family": "cuprate",
+        "cutoff": 2005,
+        "units_with_tc": 49,
+        "product_units": 50,
+        "spearman": {
+          "previous": 0.4476678937379936,
+          "data": 0.7915646091441308,
+          "names": 0.786818742616045,
+          "measured": 0.7334285946019797,
+          "R1": 0.8287827325773681
+        },
+        "error_k": {
+          "previous": 31.002054864296646,
+          "data": 22.793493957083427,
+          "names": 21.792974875505717,
+          "measured": 24.026644882484003,
+          "R1": 14.339795918367347,
+          "R0": 39.6765306122449
+        },
+        "released_measure_k": {
+          "previous": 34.15146205061782,
+          "data": 23.297737282474692
+        }
+      },
+      {
+        "family": "iron-nickel",
+        "cutoff": 2010,
+        "units_with_tc": 199,
+        "product_units": 218,
+        "spearman": {
+          "previous": 0.2963064647844502,
+          "data": 0.19837807374155603,
+          "names": 0.2636869784584607,
+          "measured": 0.24428326786508975,
+          "R1": 0.08457176179668109
+        },
+        "error_k": {
+          "previous": 11.19505998911142,
+          "data": 9.722973619932073,
+          "names": 9.433463970043153,
+          "measured": 9.881621597509985,
+          "R1": 11.795979899497487,
+          "R0": 11.349095477386935
+        },
+        "released_measure_k": {
+          "previous": 12.781986381111318,
+          "data": 10.57715436125927
+        }
+      },
+      {
+        "family": "iron-nickel",
+        "cutoff": 2015,
+        "units_with_tc": 47,
+        "product_units": 49,
+        "spearman": {
+          "previous": 0.09623674184289524,
+          "data": 0.3863643404855881,
+          "names": 0.4090304730533937,
+          "measured": 0.544108719699184,
+          "R1": 0.4053898680414771
+        },
+        "error_k": {
+          "previous": 11.138272150235489,
+          "data": 11.158690100481804,
+          "names": 10.375495439008438,
+          "measured": 9.24987526114719,
+          "R1": 10.228138297872341,
+          "R0": 11.915372340425535
+        },
+        "released_measure_k": {
+          "previous": 13.50926232151848,
+          "data": 13.867644095872667
+        }
+      },
+      {
+        "family": "heavy-fermion",
+        "cutoff": 1990,
+        "units_with_tc": 30,
+        "product_units": 35,
+        "spearman": {
+          "previous": 0.6410427966616367,
+          "data": 0.3538718860644909,
+          "names": 0.5038440392895553,
+          "measured": 0.42445164376737643,
+          "R1": 0.6939933325604907
+        },
+        "error_k": {
+          "previous": 1.8823422454581784,
+          "data": 1.811587810685117,
+          "names": 1.8104801340177048,
+          "measured": 1.843167710698149,
+          "R1": 1.2595999999999998,
+          "R0": 2.2492
+        },
+        "released_measure_k": {
+          "previous": 2.3049084557766193,
+          "data": 1.8624681575774826
+        }
+      },
+      {
+        "family": "heavy-fermion",
+        "cutoff": 2000,
+        "units_with_tc": 92,
+        "product_units": 101,
+        "spearman": {
+          "previous": -0.1313823595792477,
+          "data": 0.12283028115720362,
+          "names": 0.0629820795175757,
+          "measured": -0.15921328066811793,
+          "R1": 0.22771831457406955
+        },
+        "error_k": {
+          "previous": 2.1664582182895336,
+          "data": 1.7180313760003243,
+          "names": 1.7681462491340252,
+          "measured": 1.782888223991389,
+          "R1": 1.578521739130435,
+          "R0": 1.7108478260869564
+        },
+        "released_measure_k": {
+          "previous": 1.9168533565420567,
+          "data": 2.102119439245482
+        }
+      },
+      {
+        "family": "heavy-fermion",
+        "cutoff": 2005,
+        "units_with_tc": 31,
+        "product_units": 47,
+        "spearman": {
+          "previous": 0.566175921052393,
+          "data": 0.522126545324548,
+          "names": 0.5609223257820996,
+          "measured": 0.5386558073984803,
+          "R1": 0.10351139066457771
+        },
+        "error_k": {
+          "previous": 1.6276638346429015,
+          "data": 1.5120938423169794,
+          "names": 1.520601164222882,
+          "measured": 1.495528752156453,
+          "R1": 2.758483870967741,
+          "R0": 2.2018387096774195
+        },
+        "released_measure_k": {
+          "previous": 1.8347205444942103,
+          "data": 1.380884485840359
+        }
+      },
+      {
+        "family": "heavy-fermion",
+        "cutoff": 2010,
+        "units_with_tc": 85,
+        "product_units": 91,
+        "spearman": {
+          "previous": -0.1219460940015987,
+          "data": 0.5730944431492954,
+          "names": 0.5320822036767415,
+          "measured": 0.6203135389235485,
+          "R1": -0.29625730674922907
+        },
+        "error_k": {
+          "previous": 1.9580149781916727,
+          "data": 2.5439001175878815,
+          "names": 1.38621223483578,
+          "measured": 1.8654650041309875,
+          "R1": 2.6932705882352943,
+          "R0": 2.275094117647059
+        },
+        "released_measure_k": {
+          "previous": 2.2124846839855867,
+          "data": 1.8096209728326789
+        }
+      },
+      {
+        "family": "other-oxide",
+        "cutoff": 1995,
+        "units_with_tc": 24,
+        "product_units": 28,
+        "spearman": {
+          "previous": 0.09132656457570078,
+          "data": 0.7591749382491076,
+          "names": 0.7500045766136568,
+          "measured": 0.7464047118709367,
+          "R1": 0.8124269675833098
+        },
+        "error_k": {
+          "previous": 14.854383488846125,
+          "data": 5.022305229794887,
+          "names": 5.734427484594003,
+          "measured": 4.970042955348487,
+          "R1": 6.803020833333332,
+          "R0": 4.964583333333334
+        },
+        "released_measure_k": {
+          "previous": 7.23339097565249,
+          "data": 4.870085762413238
+        }
+      },
+      {
+        "family": "other-oxide",
+        "cutoff": 2000,
+        "units_with_tc": 37,
+        "product_units": 49,
+        "spearman": {
+          "previous": -0.2307646656020079,
+          "data": 0.2849085747939377,
+          "names": 0.3148302088210569,
+          "measured": 0.282941597435159,
+          "R1": 0.5246832049720165
+        },
+        "error_k": {
+          "previous": 6.491670216718824,
+          "data": 10.48802696223428,
+          "names": 10.908713251378176,
+          "measured": 9.223925747051311,
+          "R1": 2.806756756756757,
+          "R0": 3.8427027027027028
+        },
+        "released_measure_k": {
+          "previous": 3.557989264982618,
+          "data": 8.533655917679644
+        }
+      },
+      {
+        "family": "other-oxide",
+        "cutoff": 2010,
+        "units_with_tc": 117,
+        "product_units": 138,
+        "spearman": {
+          "previous": -0.18668700126728952,
+          "data": 0.35675047908563073,
+          "names": 0.30512952289515505,
+          "measured": 0.42312231879173845,
+          "R1": 0.014420598202246275
+        },
+        "error_k": {
+          "previous": 4.170140838698626,
+          "data": 2.2386907611133413,
+          "names": 1.8737751719763347,
+          "measured": 1.7566322293704213,
+          "R1": 3.030418803418803,
+          "R0": 2.2217863247863248
+        },
+        "released_measure_k": {
+          "previous": 2.569330115055881,
+          "data": 2.0200290732406554
+        }
+      }
+    ],
+    "claims": [
+      {
+        "id": "C0",
+        "text": "the improved design ranks new cuprate parents better than the previous one",
+        "windows": [
+          1990,
+          1995,
+          2000,
+          2005
+        ],
+        "parents": 472,
+        "measured": 0.6070902279231961,
+        "previous": 0.3146037908209046,
+        "difference": 0.2924864371022914,
+        "lower95": 0.1957631584930791,
+        "upper95": 0.38052508971640486,
+        "met": true
+      },
+      {
+        "id": "C1",
+        "text": "more data helps the previous recipe",
+        "windows": [
+          1990,
+          1995,
+          2000,
+          2005
+        ],
+        "parents": 472,
+        "data": 0.6208021532495988,
+        "previous": 0.3146037908209046,
+        "difference": 0.3061983624286941,
+        "lower95": 0.2118572798403134,
+        "upper95": 0.3898340169329854,
+        "met": true
+      },
+      {
+        "id": "C2",
+        "text": "measured sample variables help where they exist",
+        "windows": [
+          1990,
+          1995,
+          2000,
+          2005
+        ],
+        "parents": 333,
+        "measured": 0.5709618191377636,
+        "names": 0.5662542779109834,
+        "difference": 0.004707541226780147,
+        "lower95": -0.026911010853435214,
+        "upper95": 0.03306328943839291,
+        "met": false
+      },
+      {
+        "id": "C3",
+        "text": "the previous recipe on all data beats the nearest known compound",
+        "windows": [
+          1990,
+          1995,
+          2000,
+          2005
+        ],
+        "parents": 472,
+        "data": 0.6208021532495988,
+        "R1": 0.5714549264077803,
+        "difference": 0.04934722684181837,
+        "lower95": -0.02276761591303127,
+        "upper95": 0.12948637397273075,
+        "met": false
+      },
+      {
+        "id": "C4:cuprate:1985",
+        "text": "a design without element identities ranks the 30 K event above chance in a family it never saw",
+        "units": 1428,
+        "positives": 975,
+        "negatives": 453,
+        "positives_of_other_families_left_out": 1,
+        "auc": 0.648034188034188,
+        "lower95": 0.5407583102839485,
+        "upper95": 0.758788844860861,
+        "met": true
+      },
+      {
+        "id": "C4:iron-nickel:2005",
+        "text": "a design without element identities ranks the 30 K event above chance in a family it never saw",
+        "units": 1047,
+        "positives": 153,
+        "negatives": 894,
+        "positives_of_other_families_left_out": 31,
+        "auc": 0.7280526677486804,
+        "lower95": 0.6102492968516671,
+        "upper95": 0.8348668659913847,
+        "met": true
+      }
+    ],
+    "new_family": {
+      "cuprate:1985": {
+        "thirty_kelvin_auc": {
+          "transfer": {
+            "units": 1428,
+            "positives": 975,
+            "negatives": 453,
+            "positives_of_other_families_left_out": 1,
+            "auc": 0.648034188034188,
+            "lower95": 0.5407583102839485,
+            "upper95": 0.758788844860861,
+            "valid_replicates": 1000,
+            "above_chance": true
+          },
+          "previous": {
+            "units": 1428,
+            "positives": 975,
+            "negatives": 453,
+            "positives_of_other_families_left_out": 1,
+            "auc": 0.7079934340861493,
+            "lower95": 0.5367768771299509,
+            "upper95": 0.82813918800752,
+            "valid_replicates": 1000,
+            "above_chance": true
+          },
+          "data": {
+            "units": 1428,
+            "positives": 975,
+            "negatives": 453,
+            "positives_of_other_families_left_out": 1,
+            "auc": 0.8654519726042905,
+            "lower95": 0.7750609332086188,
+            "upper95": 0.8986865297948793,
+            "valid_replicates": 1000,
+            "above_chance": true
+          },
+          "names": {
+            "units": 1428,
+            "positives": 975,
+            "negatives": 453,
+            "positives_of_other_families_left_out": 1,
+            "auc": 0.8712843153902756,
+            "lower95": 0.7846952284316548,
+            "upper95": 0.902490644686735,
+            "valid_replicates": 1000,
+            "above_chance": true
+          },
+          "measured": {
+            "units": 1428,
+            "positives": 975,
+            "negatives": 453,
+            "positives_of_other_families_left_out": 1,
+            "auc": 0.8742129393785023,
+            "lower95": 0.7876834711717164,
+            "upper95": 0.9037697953786019,
+            "valid_replicates": 1000,
+            "above_chance": true
+          },
+          "R1": {
+            "units": 1428,
+            "positives": 975,
+            "negatives": 453,
+            "positives_of_other_families_left_out": 1,
+            "auc": 0.4340623761815815,
+            "lower95": 0.3338552092298369,
+            "upper95": 0.6617055883139155,
+            "valid_replicates": 1000,
+            "above_chance": false
+          }
+        },
+        "inside_the_family": {
+          "units": 1317,
+          "units_with_tc": 1253,
+          "parents": 150,
+          "units_no_relative": 621,
+          "units_with_c": 601,
+          "spearman": {
+            "R0": null,
+            "R1": -0.438666215959376,
+            "previous": 0.26462457230101716,
+            "data": 0.4526069278148768,
+            "names": 0.4736763329070938,
+            "measured": 0.4508591269502935,
+            "transfer": -0.1265959871481157
+          },
+          "mae_k": {
+            "R0": 44.05619912210694,
+            "R1": 43.86895650438946,
+            "previous": 56.21908463259918,
+            "data": 49.204113173047105,
+            "names": 48.99076596532695,
+            "measured": 49.82937604620937,
+            "transfer": 51.22993493394853
+          },
+          "spearman_no_relative": {
+            "R0": null,
+            "R1": -0.41476736408166565,
+            "previous": 0.07414524158349678,
+            "data": 0.6002223764238637,
+            "names": 0.6048658719084875,
+            "measured": 0.62819033046808,
+            "transfer": -0.09276815372503441
+          },
+          "spearman_with_c": {
+            "R0": null,
+            "R1": -0.3227167432464655,
+            "previous": 0.2725195642628368,
+            "data": 0.34528898086445187,
+            "names": 0.3772312773030406,
+            "measured": 0.3234538809987859,
+            "transfer": -0.12950661029670968
+          },
+          "event": {
+            "positives": 1236,
+            "negatives": 66,
+            "auc": {
+              "previous": 0.42766867706188094,
+              "data": 0.6486282730214769,
+              "names": 0.6780609492988133,
+              "measured": 0.46964793566735313
+            }
+          },
+          "product": {
+            "units": 1302,
+            "measured_negatives": 49,
+            "mae_k": {
+              "previous": 57.99992009363841,
+              "data": 48.84802935965148,
+              "names": 48.63354172582209,
+              "measured": 49.652327139812726
+            },
+            "spearman": {
+              "previous": -0.27954253921609235,
+              "data": 0.4258380566351998,
+              "names": 0.4246455336941301,
+              "measured": 0.37231779283179445
+            }
+          },
+          "top_parents": {
+            "k": 20,
+            "parents": 137,
+            "share_of_30k_parents": 0.8613138686131386,
+            "precision": {
+              "R0": 1.0,
+              "R1": 0.5,
+              "previous": 0.95,
+              "data": 0.95,
+              "names": 0.95,
+              "measured": 1.0,
+              "transfer": 1.0
+            }
+          },
+          "series": {
+            "parents": 31,
+            "median_spearman": {
+              "R0": null,
+              "R1": 0.06880647141890808,
+              "previous": 0.024685169308474808,
+              "data": 0.21251185925162072,
+              "names": 0.12049067317796996,
+              "measured": 0.17393131069573456,
+              "transfer": 0.14285714285714288
+            }
+          }
+        }
+      },
+      "iron-nickel:2005": {
+        "thirty_kelvin_auc": {
+          "transfer": {
+            "units": 1047,
+            "positives": 153,
+            "negatives": 894,
+            "positives_of_other_families_left_out": 31,
+            "auc": 0.7280526677486804,
+            "lower95": 0.6102492968516671,
+            "upper95": 0.8348668659913847,
+            "valid_replicates": 1000,
+            "above_chance": true
+          },
+          "previous": {
+            "units": 1047,
+            "positives": 153,
+            "negatives": 894,
+            "positives_of_other_families_left_out": 31,
+            "auc": 0.38544179789738414,
+            "lower95": 0.2745199560995838,
+            "upper95": 0.5240771869401312,
+            "valid_replicates": 1000,
+            "above_chance": false
+          },
+          "data": {
+            "units": 1047,
+            "positives": 153,
+            "negatives": 894,
+            "positives_of_other_families_left_out": 31,
+            "auc": 0.562530157476861,
+            "lower95": 0.4367701540494844,
+            "upper95": 0.7129143966484301,
+            "valid_replicates": 1000,
+            "above_chance": false
+          },
+          "names": {
+            "units": 1047,
+            "positives": 153,
+            "negatives": 894,
+            "positives_of_other_families_left_out": 31,
+            "auc": 0.5534244271907123,
+            "lower95": 0.43631892140351103,
+            "upper95": 0.7011709806716014,
+            "valid_replicates": 1000,
+            "above_chance": false
+          },
+          "measured": {
+            "units": 1047,
+            "positives": 153,
+            "negatives": 894,
+            "positives_of_other_families_left_out": 31,
+            "auc": 0.46721425333742744,
+            "lower95": 0.3616161200766037,
+            "upper95": 0.6468357062934197,
+            "valid_replicates": 1000,
+            "above_chance": false
+          },
+          "R1": {
+            "units": 1047,
+            "positives": 153,
+            "negatives": 894,
+            "positives_of_other_families_left_out": 31,
+            "auc": 0.7608932461873639,
+            "lower95": 0.6549072828003988,
+            "upper95": 0.8561896158990397,
+            "valid_replicates": 1000,
+            "above_chance": true
+          }
+        },
+        "inside_the_family": {
+          "units": 790,
+          "units_with_tc": 652,
+          "parents": 83,
+          "units_no_relative": 651,
+          "units_with_c": 391,
+          "spearman": {
+            "R0": null,
+            "R1": 0.3411197872316431,
+            "previous": -0.36563377529853386,
+            "data": 0.1545944111249723,
+            "names": 0.1438662279305961,
+            "measured": 0.017529335563368786,
+            "transfer": 0.3131695371331135
+          },
+          "mae_k": {
+            "R0": 19.516606595092025,
+            "R1": 19.084750766871164,
+            "previous": 16.70772012073167,
+            "data": 16.858989264277593,
+            "names": 16.66167527448106,
+            "measured": 16.917982458399255,
+            "transfer": 14.351928368015304
+          },
+          "spearman_no_relative": {
+            "R0": null,
+            "R1": 0.34074430752406976,
+            "previous": -0.3658621718282022,
+            "data": 0.1532394468196308,
+            "names": 0.14255725760235316,
+            "measured": 0.01689950707400993,
+            "transfer": 0.3124879387529652
+          },
+          "spearman_with_c": {
+            "R0": null,
+            "R1": 0.29276022183875877,
+            "previous": -0.35553317156783576,
+            "data": 0.14602372418527482,
+            "names": 0.13552466896645213,
+            "measured": 0.06747023544150649,
+            "transfer": 0.2237592474902091
+          },
+          "event": {
+            "positives": 608,
+            "negatives": 169,
+            "auc": {
+              "previous": 0.6433694721270632,
+              "data": 0.5284471348489567,
+              "names": 0.5172454064154469,
+              "measured": 0.5645486219246341
+            }
+          },
+          "product": {
+            "units": 777,
+            "measured_negatives": 125,
+            "mae_k": {
+              "previous": 17.414791675656137,
+              "data": 17.02068277601149,
+              "names": 17.205763572346324,
+              "measured": 17.1167909097798
+            },
+            "spearman": {
+              "previous": 0.13972305611482524,
+              "data": 0.12038651198278276,
+              "names": 0.12410143454349534,
+              "measured": 0.1123244816354105
+            }
+          },
+          "top_parents": {
+            "k": 20,
+            "parents": 69,
+            "share_of_30k_parents": 0.42028985507246375,
+            "precision": {
+              "R0": 0.55,
+              "R1": 0.7,
+              "previous": 0.1,
+              "data": 0.6,
+              "names": 0.65,
+              "measured": 0.55,
+              "transfer": 0.45
+            }
+          },
+          "series": {
+            "parents": 21,
+            "median_spearman": {
+              "R0": null,
+              "R1": 0.08746385442995304,
+              "previous": -0.18005816498563787,
+              "data": 0.1345622379598885,
+              "names": 0.1713230703028916,
+              "measured": 0.02206898651034198,
+              "transfer": -0.016551739882756485
+            }
+          }
+        }
+      }
+    },
+    "overall": {
+      "units_with_tc": 1765,
+      "error_k": 14.23891636751768,
+      "error_previous_k": 20.217296647178205,
+      "released_measure_k": 16.01056920349749,
+      "released_measure_previous_k": 21.50273285236563,
+      "high_tc_error_k": 20.478188663957,
+      "r2_log": 0.7754627832671273
+    },
+    "range": {
+      "level": 0.9,
+      "width_log": 0.9764683790795727,
+      "n": 1765,
+      "coverage": 0.9008498583569405,
+      "from": "the new-parent units with a Tc value of the declared family windows"
+    }
+  },
+  "answers": {
+    "cells": {
+      "cuprate:1985": {
+        "family": "cuprate",
+        "cutoff": 1985,
+        "years": [
+          1986,
+          1990
+        ],
+        "new_family": true,
+        "units": 1317,
+        "superconductors": 1236,
+        "measured_negatives": 66,
+        "not_known": 0.0037965072133637054,
+        "found": 0.7661812297734628,
+        "unlikely": 0.2297734627831715,
+        "not_known_superconductors": 0.0040453074433656954,
+        "alarms_on_negatives": 0.6060606060606061,
+        "max_pred": 19.176961348893727,
+        "max_tc": 124.5
+      },
+      "cuprate:1990": {
+        "family": "cuprate",
+        "cutoff": 1990,
+        "years": [
+          1991,
+          1995
+        ],
+        "new_family": false,
+        "units": 714,
+        "superconductors": 541,
+        "measured_negatives": 136,
+        "not_known": 0.025210084033613446,
+        "found": 0.9001848428835489,
+        "unlikely": 0.08133086876155268,
+        "not_known_superconductors": 0.018484288354898338,
+        "alarms_on_negatives": 0.8308823529411765,
+        "max_pred": 122.30956933784212,
+        "max_tc": 135.7
+      },
+      "heavy-fermion:1990": {
+        "family": "heavy-fermion",
+        "cutoff": 1990,
+        "years": [
+          1991,
+          1995
+        ],
+        "new_family": false,
+        "units": 46,
+        "superconductors": 24,
+        "measured_negatives": 11,
+        "not_known": 0.7608695652173914,
+        "found": 0.08333333333333333,
+        "unlikely": 0.08333333333333333,
+        "not_known_superconductors": 0.8333333333333334,
+        "alarms_on_negatives": 0.0,
+        "max_pred": 6.638103764421431,
+        "max_tc": 13.8
+      },
+      "cuprate:1995": {
+        "family": "cuprate",
+        "cutoff": 1995,
+        "years": [
+          1996,
+          2000
+        ],
+        "new_family": false,
+        "units": 494,
+        "superconductors": 395,
+        "measured_negatives": 57,
+        "not_known": 0.006072874493927126,
+        "found": 0.9443037974683545,
+        "unlikely": 0.053164556962025315,
+        "not_known_superconductors": 0.002531645569620253,
+        "alarms_on_negatives": 0.5263157894736842,
+        "max_pred": 114.74235770397908,
+        "max_tc": 119.0
+      },
+      "other-oxide:1995": {
+        "family": "other-oxide",
+        "cutoff": 1995,
+        "years": [
+          1996,
+          2000
+        ],
+        "new_family": false,
+        "units": 28,
+        "superconductors": 12,
+        "measured_negatives": 16,
+        "not_known": 0.42857142857142855,
+        "found": 0.75,
+        "unlikely": 0.16666666666666666,
+        "not_known_superconductors": 0.08333333333333333,
+        "alarms_on_negatives": 0.125,
+        "max_pred": 37.12702043202426,
+        "max_tc": 23.3
+      },
+      "cuprate:2000": {
+        "family": "cuprate",
+        "cutoff": 2000,
+        "years": [
+          2001,
+          2005
+        ],
+        "new_family": false,
+        "units": 159,
+        "superconductors": 115,
+        "measured_negatives": 18,
+        "not_known": 0.0440251572327044,
+        "found": 0.8869565217391304,
+        "unlikely": 0.06086956521739131,
+        "not_known_superconductors": 0.05217391304347826,
+        "alarms_on_negatives": 0.7222222222222222,
+        "max_pred": 121.85386091426699,
+        "max_tc": 130.0
+      },
+      "heavy-fermion:2000": {
+        "family": "heavy-fermion",
+        "cutoff": 2000,
+        "years": [
+          2001,
+          2005
+        ],
+        "new_family": false,
+        "units": 119,
+        "superconductors": 59,
+        "measured_negatives": 42,
+        "not_known": 0.15966386554621848,
+        "found": 0.03389830508474576,
+        "unlikely": 0.8135593220338984,
+        "not_known_superconductors": 0.15254237288135594,
+        "alarms_on_negatives": 0.023809523809523808,
+        "max_pred": 4.334492622710586,
+        "max_tc": 18.5
+      },
+      "other-oxide:2000": {
+        "family": "other-oxide",
+        "cutoff": 2000,
+        "years": [
+          2001,
+          2005
+        ],
+        "new_family": false,
+        "units": 50,
+        "superconductors": 27,
+        "measured_negatives": 22,
+        "not_known": 0.66,
+        "found": 0.18518518518518517,
+        "unlikely": 0.2222222222222222,
+        "not_known_superconductors": 0.5925925925925926,
+        "alarms_on_negatives": 0.0,
+        "max_pred": 41.928843812630404,
+        "max_tc": 30.8
+      },
+      "cuprate:2005": {
+        "family": "cuprate",
+        "cutoff": 2005,
+        "years": [
+          2006,
+          2010
+        ],
+        "new_family": false,
+        "units": 52,
+        "superconductors": 49,
+        "measured_negatives": 1,
+        "not_known": 0.11538461538461539,
+        "found": 0.8571428571428571,
+        "unlikely": 0.02040816326530612,
+        "not_known_superconductors": 0.12244897959183673,
+        "alarms_on_negatives": 1.0,
+        "max_pred": 125.89322901674002,
+        "max_tc": 133.0
+      },
+      "heavy-fermion:2005": {
+        "family": "heavy-fermion",
+        "cutoff": 2005,
+        "years": [
+          2006,
+          2010
+        ],
+        "new_family": false,
+        "units": 54,
+        "superconductors": 12,
+        "measured_negatives": 35,
+        "not_known": 0.6296296296296297,
+        "found": 0.16666666666666666,
+        "unlikely": 0.08333333333333333,
+        "not_known_superconductors": 0.75,
+        "alarms_on_negatives": 0.2,
+        "max_pred": 6.846984050315036,
+        "max_tc": 7.92
+      },
+      "iron-nickel:2005": {
+        "family": "iron-nickel",
+        "cutoff": 2005,
+        "years": [
+          2006,
+          2010
+        ],
+        "new_family": true,
+        "units": 790,
+        "superconductors": 608,
+        "measured_negatives": 169,
+        "not_known": 0.9987341772151899,
+        "found": 0.0,
+        "unlikely": 0.001644736842105263,
+        "not_known_superconductors": 0.9983552631578947,
+        "alarms_on_negatives": 0.0,
+        "max_pred": 19.32604392132892,
+        "max_tc": 56.5
+      },
+      "iron-nickel:2010": {
+        "family": "iron-nickel",
+        "cutoff": 2010,
+        "years": [
+          2011,
+          2015
+        ],
+        "new_family": false,
+        "units": 218,
+        "superconductors": 181,
+        "measured_negatives": 37,
+        "not_known": 0.5045871559633027,
+        "found": 0.5303867403314917,
+        "unlikely": 0.022099447513812154,
+        "not_known_superconductors": 0.44751381215469616,
+        "alarms_on_negatives": 0.13513513513513514,
+        "max_pred": 42.179517507737174,
+        "max_tc": 47.2
+      },
+      "heavy-fermion:2010": {
+        "family": "heavy-fermion",
+        "cutoff": 2010,
+        "years": [
+          2011,
+          2015
+        ],
+        "new_family": false,
+        "units": 102,
+        "superconductors": 77,
+        "measured_negatives": 14,
+        "not_known": 0.8921568627450981,
+        "found": 0.012987012987012988,
+        "unlikely": 0.012987012987012988,
+        "not_known_superconductors": 0.974025974025974,
+        "alarms_on_negatives": 0.2857142857142857,
+        "max_pred": 12.819954759279941,
+        "max_tc": 7.8
+      },
+      "other-oxide:2010": {
+        "family": "other-oxide",
+        "cutoff": 2010,
+        "years": [
+          2011,
+          2015
+        ],
+        "new_family": false,
+        "units": 138,
+        "superconductors": 51,
+        "measured_negatives": 87,
+        "not_known": 0.7463768115942029,
+        "found": 0.058823529411764705,
+        "unlikely": 0.11764705882352941,
+        "not_known_superconductors": 0.8235294117647058,
+        "alarms_on_negatives": 0.06896551724137931,
+        "max_pred": 23.655865415823293,
+        "max_tc": 17.2
+      },
+      "iron-nickel:2015": {
+        "family": "iron-nickel",
+        "cutoff": 2015,
+        "years": [
+          2016,
+          2020
+        ],
+        "new_family": false,
+        "units": 56,
+        "superconductors": 45,
+        "measured_negatives": 4,
+        "not_known": 0.16071428571428573,
+        "found": 0.7111111111111111,
+        "unlikely": 0.1111111111111111,
+        "not_known_superconductors": 0.17777777777777778,
+        "alarms_on_negatives": 0.75,
+        "max_pred": 33.51474303764814,
+        "max_tc": 36.8
+      }
+    },
+    "family_windows": {
+      "units": 2230,
+      "superconductors": 1588,
+      "coverage": 0.7847533632286996,
+      "found": 0.7279596977329975,
+      "dismissed": 0.09319899244332494,
+      "unknown": 0.17884130982367757,
+      "alarms_on_negatives": 0.3854166666666667
+    },
+    "new_family_windows": {
+      "units": 2107,
+      "superconductors": 1844,
+      "coverage": 0.6231608922638823,
+      "found": 0.5135574837310195,
+      "dismissed": 0.15455531453362256,
+      "unknown": 0.3318872017353579,
+      "alarms_on_negatives": 0.1702127659574468
+    }
+  },
+  "importance": [
+    {
+      "name": "cu_layers",
+      "gain": 4.538
+    },
+    {
+      "name": "x_Ca",
+      "gain": 1.472
+    },
+    {
+      "name": "mendeleev_no_std",
+      "gain": 0.92
+    },
+    {
+      "name": "n_atoms_fu",
+      "gain": 0.607
+    },
+    {
+      "name": "x_Pr",
+      "gain": 0.525
+    },
+    {
+      "name": "x_Ba",
+      "gain": 0.525
+    },
+    {
+      "name": "nonint",
+      "gain": 0.523
+    },
+    {
+      "name": "f_share",
+      "gain": 0.497
+    },
+    {
+      "name": "x_La",
+      "gain": 0.457
+    },
+    {
+      "name": "X_mean",
+      "gain": 0.424
+    },
+    {
+      "name": "x_Fe",
+      "gain": 0.366
+    },
+    {
+      "name": "x_Sr",
+      "gain": 0.324
+    },
+    {
+      "name": "atomic_mass_mean",
+      "gain": 0.296
+    },
+    {
+      "name": "group_std",
+      "gain": 0.262
+    },
+    {
+      "name": "mendeleev_no_mean",
+      "gain": 0.237
+    }
+  ],
+  "importance_units": 1765,
+  "guard": {
+    "n": 3881,
+    "n_sent": 591,
+    "n_used": 158,
+    "weight": 0.3,
+    "radius": 1.0,
+    "abstain": 1.0,
+    "false_alarms": 0.001692047377326565,
+    "false_alarms_all": 0.001545993300695697,
+    "false_alarms_inside": 0.018518518518518517,
+    "false_alarms_without_guard": 0.5160744500846024,
+    "false_alarms_all_without_guard": 0.5763978356093791,
+    "unknown_sent": 0.9086294416243654,
+    "unknown_all": 0.9592888430816799,
+    "folds": [
+      0.007462686567164179,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "limit": 0.05,
+    "passed": true,
+    "source": "JARVIS-DFT 3D compounds of Hurricane's screening pool with no superconductivity record in the checked sources",
+    "info": {
+      "steps": [
+        {
+          "step": "JARVIS-DFT 3D entries",
+          "n": 93902
+        },
+        {
+          "step": "within 50 meV/atom of the convex hull",
+          "n": 9339
+        },
+        {
+          "step": "a band gap of at most 1 eV, magnetic or not",
+          "n": 6530
+        },
+        {
+          "step": "2 to 5 elements, no hydrogen, noble gases or short-lived radioactive elements",
+          "n": 5759
+        },
+        {
+          "step": "up to 40 atoms in the cell",
+          "n": 5754
+        },
+        {
+          "step": "only elements in at least 20 of Hurricane's training materials",
+          "n": 5341
+        }
+      ],
+      "excluded": {
+        "supercon": 108,
+        "computed": 251,
+        "prior": 0,
+        "system": 241,
+        "total": 600
+      },
+      "polymorphs_dropped": 859,
+      "sources": [
+        {
+          "name": "3DSC, SuperCon matched to Materials Project structures",
+          "n": 5772,
+          "doi": "10.1038/s41597-023-02721-y",
+          "commit": "8d69ca9"
+        },
+        {
+          "name": "SuperCon formulas in JARVIS (supercon_chem)",
+          "n": 16398
+        },
+        {
+          "name": "SuperCon extract of K. Hamidieh (2018), UCI Machine Learning Repository",
+          "n": 21263,
+          "doi": "10.1016/j.commatsci.2018.07.052",
+          "sha256": "87f4490d7339"
+        },
+        {
+          "name": "chemical systems with a known superconductor (from the lists above)",
+          "n": 3546
+        },
+        {
+          "name": "Alexandria electron-phonon data (alex_supercon)",
+          "n": 8253
+        },
+        {
+          "name": "JARVIS electron-phonon data (supercon_3d)",
+          "n": 1058
+        },
+        {
+          "name": "data/prior_claims.json, reported or predicted by others",
+          "n": 18
+        },
+        {
+          "name": "data/hurricane_anchors.json, discoveries and claims that Hurricane is checked against",
+          "n": 11,
+          "systems": 6
+        }
+      ],
+      "in_the_datasheet": 1
+    },
+    "radar": {
+      "design": "Composition + structure + physics + element fractions",
+      "id": "R4",
+      "n_train": 5751
+    },
+    "cite": "T. Konno et al., Phys. Rev. B 103, 014509 (2021)",
+    "doi": "10.1103/PhysRevB.103.014509"
+  },
+  "anchors": {
+    "n_scored": 3,
+    "n_listed": 11,
+    "mae": 0.69,
+    "scored_as_check": false,
+    "rule": "reported as a score only with at least 8 scored measurements; an anchor whose composition the training rows hold is shown and not scored; never used for training or for choosing the design",
+    "table": [
+      {
+        "name": "UTe2",
+        "tc_exp": 2.0,
+        "status": "replicated",
+        "use": "show",
+        "family": "heavy-fermion",
+        "source": "rosa2022",
+        "note": "found in 2019 at 1.6 K (ran2019); cleaner crystals reach 2.0 K The datasheet the model learned from lists this composition, so it is not scored.",
+        "pred": 1.05,
+        "p_sc": 0.658,
+        "tc_sc": 1.6,
+        "ratio": 0.0,
+        "unknown": false,
+        "in_training": true,
+        "types": []
+      },
+      {
+        "name": "CeRh2As2",
+        "tc_exp": 0.26,
+        "status": "replicated",
+        "use": "score",
+        "family": "heavy-fermion",
+        "source": "khim2021",
+        "note": "two superconducting phases in a magnetic field",
+        "pred": 1.97,
+        "p_sc": 0.557,
+        "tc_sc": 3.54,
+        "ratio": 1.207,
+        "unknown": true,
+        "in_training": false,
+        "types": []
+      },
+      {
+        "name": "La3Ni2O7, bulk at ambient pressure",
+        "tc_exp": 0.0,
+        "status": "replicated",
+        "use": "score",
+        "family": "other oxide",
+        "source": "sun2023",
+        "note": "the ambient-pressure bulk samples in this study do not superconduct; about 80 K above 14 GPa. This bulk result does not apply to epitaxially strained thin films (ko2025)",
+        "pred": 0.14,
+        "p_sc": 0.037,
+        "tc_sc": 3.8,
+        "ratio": 0.225,
+        "unknown": false,
+        "in_training": false,
+        "types": [
+          "nickelate_oxide"
+        ]
+      },
+      {
+        "name": "Nd0.8Sr0.2NiO2, bulk",
+        "tc_exp": 0.0,
+        "status": "replicated",
+        "use": "score",
+        "family": "other oxide",
+        "source": "li2020",
+        "note": "bulk samples do not superconduct, unlike thin films",
+        "pred": 0.21,
+        "p_sc": 0.053,
+        "tc_sc": 3.98,
+        "ratio": 0.898,
+        "unknown": false,
+        "in_training": false,
+        "types": [
+          "nickelate_oxide"
+        ]
+      },
+      {
+        "name": "HgBa2Ca2Cu3O8+\u03b4 (Hg-1223)",
+        "tc_exp": 133,
+        "status": "replicated",
+        "use": "show",
+        "family": "cuprate",
+        "source": "schilling1993",
+        "note": "the ambient-pressure record since 1993; \u03b4 \u2248 0.25 assumed (near optimal doping); absent from the 3DSC training data The datasheet the model learned from lists this composition, so it is not scored.",
+        "pred": 118.3,
+        "p_sc": 0.998,
+        "tc_sc": 118.52,
+        "ratio": 0.0,
+        "unknown": false,
+        "in_training": true,
+        "types": [
+          "Hg_cuprate"
+        ]
+      },
+      {
+        "name": "Nd0.8Sr0.2NiO2, thin film",
+        "tc_exp": 15,
+        "status": "replicated",
+        "use": "show",
+        "family": "other oxide",
+        "source": "li2019",
+        "note": "films on SrTiO3 superconduct at 9 to 15 K; films are outside Hurricane's bulk training data",
+        "pred": 0.21,
+        "p_sc": 0.053,
+        "tc_sc": 3.98,
+        "ratio": 0.898,
+        "unknown": false,
+        "in_training": false,
+        "types": [
+          "nickelate_oxide"
+        ]
+      },
+      {
+        "name": "La3Ni2O7, strained thin film at ambient pressure",
+        "tc_exp": 42,
+        "status": "single report",
+        "use": "show",
+        "family": "other oxide",
+        "source": "ko2025",
+        "note": "epitaxial compressive strain stabilizes ambient-pressure thin-film signatures: resistive onset 26-42 K and zero resistance around 2 K, with mixed Ruddlesden-Popper phases. Display only: this is a strained thin film, outside Hurricane's bulk scoring domain; 42 K is onset, not the zero-resistance temperature",
+        "pred": 0.14,
+        "p_sc": 0.037,
+        "tc_sc": 3.8,
+        "ratio": 0.225,
+        "unknown": false,
+        "in_training": false,
+        "types": [
+          "nickelate_oxide"
+        ]
+      },
+      {
+        "name": "Hg-1223 after a pressure quench",
+        "tc_exp": 151,
+        "status": "single report",
+        "use": "show",
+        "family": "cuprate",
+        "source": "deng2026",
+        "note": "a metastable state kept at ambient pressure after squeezing and a fast release; one group so far",
+        "pred": 118.3,
+        "p_sc": 0.998,
+        "tc_sc": 118.52,
+        "ratio": 0.0,
+        "unknown": false,
+        "in_training": true,
+        "types": [
+          "Hg_cuprate"
+        ]
+      },
+      {
+        "name": "CsV3Sb5",
+        "tc_exp": 2.5,
+        "status": "replicated",
+        "use": "show",
+        "family": "kagome",
+        "source": "ortiz2020",
+        "note": "kagome metal, outside Hurricane's four families",
+        "pred": 1.13,
+        "p_sc": 0.469,
+        "tc_sc": 2.42,
+        "ratio": 2.103,
+        "unknown": true,
+        "in_training": false,
+        "types": []
+      },
+      {
+        "name": "KV3Sb5",
+        "tc_exp": 0.93,
+        "status": "replicated",
+        "use": "show",
+        "family": "kagome",
+        "source": "ortiz2021",
+        "note": "kagome metal, outside Hurricane's four families",
+        "pred": 1.28,
+        "p_sc": 0.339,
+        "tc_sc": 3.76,
+        "ratio": 1.81,
+        "unknown": true,
+        "in_training": false,
+        "types": []
+      },
+      {
+        "name": "LK-99 (Cu-doped lead apatite)",
+        "tc_exp": null,
+        "status": "refuted",
+        "use": "exclude",
+        "family": "other oxide",
+        "source": "zhu2023",
+        "note": "the resistivity jumps come from Cu2S impurities",
+        "pred": 1.43,
+        "p_sc": 0.055,
+        "tc_sc": 26.17,
+        "ratio": 1.426,
+        "unknown": true,
+        "in_training": false,
+        "types": []
+      }
+    ]
+  },
+  "features": [
+    "n_elements",
+    "Z_mean",
+    "Z_std",
+    "Z_min",
+    "Z_max",
+    "atomic_mass_mean",
+    "atomic_mass_std",
+    "atomic_mass_min",
+    "atomic_mass_max",
+    "X_mean",
+    "X_std",
+    "X_min",
+    "X_max",
+    "row_mean",
+    "row_std",
+    "row_min",
+    "row_max",
+    "group_mean",
+    "group_std",
+    "group_min",
+    "group_max",
+    "atomic_radius_mean",
+    "atomic_radius_std",
+    "atomic_radius_min",
+    "atomic_radius_max",
+    "mendeleev_no_mean",
+    "mendeleev_no_std",
+    "mendeleev_no_min",
+    "mendeleev_no_max",
+    "valence_mean",
+    "valence_std",
+    "valence_min",
+    "valence_max",
+    "tm_d",
+    "p_cu",
+    "dome",
+    "cu_layers",
+    "heavy_block",
+    "fe_based",
+    "f_share",
+    "f_count",
+    "mag3d",
+    "nonint",
+    "n_atoms_fu",
+    "oxide",
+    "chalcogenide",
+    "pnictide",
+    "halide",
+    "x_Ag",
+    "x_Al",
+    "x_As",
+    "x_B",
+    "x_Ba",
+    "x_Be",
+    "x_Bi",
+    "x_Br",
+    "x_C",
+    "x_Ca",
+    "x_Cd",
+    "x_Ce",
+    "x_Cl",
+    "x_Co",
+    "x_Cr",
+    "x_Cs",
+    "x_Cu",
+    "x_Dy",
+    "x_Er",
+    "x_Eu",
+    "x_F",
+    "x_Fe",
+    "x_Ga",
+    "x_Gd",
+    "x_Ge",
+    "x_Hf",
+    "x_Hg",
+    "x_Ho",
+    "x_I",
+    "x_In",
+    "x_Ir",
+    "x_K",
+    "x_La",
+    "x_Li",
+    "x_Lu",
+    "x_Mg",
+    "x_Mn",
+    "x_Mo",
+    "x_N",
+    "x_Na",
+    "x_Nb",
+    "x_Nd",
+    "x_Ni",
+    "x_O",
+    "x_Os",
+    "x_P",
+    "x_Pb",
+    "x_Pd",
+    "x_Pr",
+    "x_Pt",
+    "x_Pu",
+    "x_Rb",
+    "x_Re",
+    "x_Rh",
+    "x_Ru",
+    "x_S",
+    "x_Sb",
+    "x_Sc",
+    "x_Se",
+    "x_Si",
+    "x_Sm",
+    "x_Sn",
+    "x_Sr",
+    "x_Ta",
+    "x_Tb",
+    "x_Te",
+    "x_Th",
+    "x_Ti",
+    "x_Tl",
+    "x_Tm",
+    "x_U",
+    "x_V",
+    "x_W",
+    "x_Y",
+    "x_Yb",
+    "x_Zn",
+    "x_Zr",
+    "123_cuprate",
+    "214_cuprate",
+    "electron_doped_cuprate",
+    "Bi_cuprate",
+    "Tl_cuprate",
+    "Hg_cuprate",
+    "infinite_layer_cuprate",
+    "1111_pnictide",
+    "122_pnictide",
+    "111_pnictide",
+    "11_chalcogenide",
+    "122_chalcogenide",
+    "nickel_pnictide",
+    "115_heavy_fermion",
+    "122_heavy_fermion",
+    "nickelate_oxide",
+    "bismuthate_oxide",
+    "ruthenate_oxide",
+    "cobaltate_oxide"
+  ],
+  "smoke": false,
+  "changes": [
+    "Learns from the NIMS SuperCon datasheet instead of 3DSC: every usable composition of the four families, more than five times as many entries",
+    "Counts a compound as not superconducting only where a measurement reached down to 4.2 K (1 K for heavy-fermion compounds) and found nothing",
+    "Reads the composition only: no datasheet row carries the Materials Project structure that Hurricane 4.0 read",
+    "Keeps the physics features, the element shares and the structure types read from the stoichiometry",
+    "Is checked on parent compounds first reported in the five years after its training data end, not on folds",
+    "Keeps Hurricane 4.0's guard: compounds with no superconductivity record near the training data as weak negatives, and no chance outside it"
+  ],
+  "run_at": "2026-11-11T08:21:43-06:00",
+  "commit": "a7ea419d24f1b438510f1bd8b1817c974b3b7f49",
+  "designer": "AI agent (Claude)",
+  "licence": "CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+  "attribution": "This study used the MDR SuperCon Datasheet (https://doi.org/10.48505/nims.3837), a numerical data sheet for superconducting materials, which is made public by the National Institute for Materials Science (NIMS).",
+  "libraries": {
+    "python": "3.11.18",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "scikit_learn": "1.9.1"
+  },
+  "files": {
+    "predictions_sha256": "79ca0fc1f8529bf4b4d77b1cd3e430ec443019087917a2e6ca15c301e0f65d06",
+    "background_sha256": "e2575e5481cf6734f0e03b9b9741ba6fbba168d460a20589ccbc34a279c12500"
+  },
+  "minutes": 9.5
+}
