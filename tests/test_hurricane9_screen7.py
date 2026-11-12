@@ -319,6 +319,32 @@ class Hurricane9Screen7Tests(unittest.TestCase):
         pool, info = S.assemble(calc, [other, same], self.counts, [], None)
         self.assertEqual((pool[0]["evidence"], pool[0]["same_space_group"], info["experimental_structure_in_another_space_group"]), ("COD 8", True, 0))
         self.assertEqual(pool[0]["also"], ["COD 7", "COD 8"])
+        self.assertIsNone(pool[0]["evidence_comp"])
+        # a structure of exactly this composition is named before one within 2 at.% that has the reference's space group
+        near = S.record(S.COD, 6, {"Nb": 1, "Se": 2.02}, 3.02, None, None, None, True, [[4, 0, 0], [0, 4, 0], [0, 0, 4]], 123, "P4/mmm")
+        pool, info = S.assemble(calc, [near, other], self.counts, [], None)
+        mine = next(r for r in pool if r["id"] == "JVASP-9")
+        self.assertEqual((mine["evidence"], mine["same_space_group"], mine["evidence_comp"]), ("COD 7", False, None))
+        pool, info = S.assemble(calc, [near], self.counts, [], None)
+        mine = next(r for r in pool if r["id"] == "JVASP-9")
+        self.assertEqual((mine["evidence"], mine["same_space_group"], mine["evidence_comp"]), ("COD 6", True, {"Nb": 1.0, "Se": 2.02}))
+        self.assertEqual(info["experimental_structure_of_another_composition_within_2_at_percent"], 1)
+
+    def test_a_mark_far_above_the_hull_is_not_taken(self):
+        comp = {"Ca": 1, "Fe": 2, "As": 2}
+        calc = [rec(S.MP, "mp-odd", comp, hull=2.5, experimental=True)]             # marked experimental, 2.5 eV/atom above the hull
+        pool, info = S.assemble(calc, [], self.counts, [], None)
+        self.assertEqual(pool, [])
+        self.assertEqual(info["steps"]["Materials Project"]["marked experimental, but more than 0.5 eV/atom above the hull: the mark is not taken"], 1)
+        self.assertTrue(calc[0]["experimental"])                                    # the records handed in are not changed
+        calc = [rec(S.MP, "mp-odd", comp, hull=0.5, experimental=True)]             # at the limit the mark stands
+        self.assertEqual([r["track"] for r in S.assemble(calc, [], self.counts, [], None)[0]], ["experimental"])
+        # the doubtful entry no longer speaks before a calculated entry near its hull, and a COD entry still makes the compound experimental
+        calc = [rec(S.MP, "mp-odd", comp, hull=2.5, gap=3.0, experimental=True), rec(S.ALEX, "agm-1", comp, hull=0.0)]
+        pool, _ = S.assemble(calc, [], self.counts, [], None)
+        self.assertEqual([(r["id"], r["track"]) for r in pool], [("agm-1", "computed")])
+        pool, _ = S.assemble(calc, [rec(S.COD, 5, comp, gap=None, hull=None, experimental=True)], self.counts, [], None)
+        self.assertEqual([(r["id"], r["track"], r["evidence"]) for r in pool], [("agm-1", "experimental", "COD 5")])
 
     def test_a_published_candidate_says_whose_gap_it_shows_and_how_its_experimental_structure_compares(self):
         comp = {"Nb": 1, "Se": 2}
@@ -333,7 +359,7 @@ class Hurricane9Screen7Tests(unittest.TestCase):
         got = S.candidates(rows, "experimental", ({}, {}), now, (SC.Known("checks"), {}), {})
         calc_c, cod_c = got
         self.assertEqual((calc_c["id"], calc_c["experimental"]), ("JVASP-9", {"source": "COD", "id": "7", "url": "https://www.crystallography.net/cod/7.html",
-                                                                              "same_space_group": False}))
+                                                                              "same_space_group": False, "formula": "Nb1Se2.02"}))
         self.assertEqual((calc_c["icsd"], calc_c["gap"], calc_c["ehull"]), (False, 0.3, 0.2))
         self.assertNotIn("gap_from", calc_c)
         self.assertEqual(sorted(calc_c["atoms"]), ["elements", "frac", "lattice"])
@@ -369,6 +395,10 @@ class Hurricane9Screen7Tests(unittest.TestCase):
         self.assertIs(S.corrected_check(mine, dict(check, doi="10.1/other"), records).get("superconducts"), False)
         self.assertIsNone(S.corrected_check(mine, None, records))
         self.assertEqual(S.corrected_check(rec(S.JARVIS, "JVASP-1", {"Ce": 2, "Ga": 12, "Cu": 1}), check, records)["note"], "unknown")
+        records["JVASP-2"] = {"formula": "Ce2Ga12Ni", "check_correction": {"replaces_doi": "10.1/old", "check": {"kind": "experiment", "note": "from the formula"}}}
+        self.assertEqual(S.corrected_check(rec(S.MP, "mp-8", {"Ce": 2, "Ga": 12, "Ni": 1}), check, records)["note"], "from the formula")
+        records["JVASP-3"] = {"formula": "not a formula", "check_correction": {"replaces_doi": "10.1/old", "check": {"kind": "experiment"}}}
+        self.assertIs(S.corrected_check(rec(S.MP, "mp-7", {"Ce": 2, "Ga": 12, "Co": 1}), check, records), check)
 
     # ------------------------------------------------------------ the sources
     def test_the_hull_of_formation_energies(self):

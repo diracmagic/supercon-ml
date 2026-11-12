@@ -74,6 +74,7 @@ ELEMENTS = (2, 6)               # round 6: 2 to 5
 MAX_ATOMS = 100                 # atoms in the primitive cell; round 6: 40. Hurricane reads the composition only
 GAP_MAX = 1.0                   # eV, as round 6
 EHULL_MAX = 0.05                # eV/atom, as round 6
+MARK_HULL_MAX = 0.5             # eV/atom: beyond it an entry's mark "experimental" is not taken (see PROTOCOL)
 MIN_ELEMENT = 20                # an element must occur in at least this many training materials, as round 6
 NEAR = 0.02                     # the same elements and every share within 2 at.%: the same material (screen.NEAR)
 PRESSURE_MAX = 1.0e5            # kPa (0.1 GPa): a COD structure determined above it is left out
@@ -83,7 +84,7 @@ ALEXANDRIA_RELEASE = "2025.07.02"
 ALEXANDRIA_URL = f"https://alexandria.icams.rub.de/data/pbe/{ALEXANDRIA_RELEASE}/convex_hull.json.bz2"
 COD_HOST, COD_USER, COD_DB = "www.crystallography.net", "cod_reader", "cod"      # the COD's public read-only database
 # What the count-only run of 2026-11-11 read. A run that reads anything else stops and writes nothing.
-JARVIS_ROWS_SHA256 = None
+JARVIS_ROWS_SHA256 = "465925380733c02fe03da2c76adeda63d352649881dfcc2184cddfa4428c7761"    # of the lines described in SOURCES
 MP_FILES_SHA256 = "c4464ec53f0c2d27395bc622bc43faa18985d1d0bb53ace5f0d0f6b6f74ffd45"       # of the SHA-256 of the build's 21 summary files, in order
 ALEXANDRIA_SHA256 = "8e3206c2f3623c0931ce5b0c3aa62ba83905b4838e4660fd6f2067c55c5bbb8e"
 DECLARATION = P.ROOT / "results" / "validation" / "hurricane9-screen7-declaration-v1.md"
@@ -145,7 +146,12 @@ PROTOCOL = {
                "no calculated entry of the same material has a gap",
         "experimental": "a compound for which a source holds an experimental structure of the same material (an entry marked "
                         "experimental in JARVIS-DFT or the Materials Project, or a usable COD entry); no rule on the distance to a "
-                        "convex hull. The structure named is one with the space group of the reference calculation if there is one",
+                        "convex hull. The structure named is one of exactly the compound's composition if there is one, then one with the "
+                        "space group of the reference calculation",
+        "mark_in_doubt": f"an entry marked experimental that its source puts more than {MARK_HULL_MAX:g} eV/atom above its convex hull is "
+                         "treated as not marked: at that distance the mark or the calculation is in doubt. Of the metastable "
+                         "compounds of the ICSD, nine in ten lie within about 0.07 eV/atom of the Materials Project's hull (W. Sun et "
+                         "al., Sci. Adv. 2, e1600225 (2016), doi:10.1126/sciadv.1600225)",
         "computed": f"any other compound, if its reference calculation lies at most {EHULL_MAX * 1000:g} meV/atom above the convex hull "
                     "of its source",
         "jarvis_hull": "the lowest energy that a mixture of JARVIS-DFT entries of the same overall composition can have, from the "
@@ -608,7 +614,8 @@ def jarvis_records(rows, counts: dict) -> tuple[list, dict]:
 
 
 def hull_check(recs: list, need: list, sample: int = 300, seed: int = F.SEED) -> dict:
-    """The linear programme against pymatgen's phase diagram, for a seeded sample of the entries: the two must agree."""
+    """The linear programme against pymatgen's phase diagram, for a seeded sample of the entries: the two must agree.
+    The sample is drawn from the entries of at most five elements, where a phase diagram is quick to build."""
     try:
         from pymatgen.analysis.phase_diagram import PDEntry, PhaseDiagram
         from pymatgen.core import Composition
@@ -619,10 +626,11 @@ def hull_check(recs: list, need: list, sample: int = 300, seed: int = F.SEED) ->
         if r["e_form"] is not None and r["e_form"] < 0:
             by_system[frozenset(r["comp"])].append(r)
     rng = np.random.default_rng(seed)
-    pick = sorted(rng.choice(len(need), size=min(sample, len(need)), replace=False).tolist()) if need else []
-    worst = 0.0
+    small = [i for i in need if len(recs[i]["comp"]) <= 5]
+    pick = sorted(rng.choice(len(small), size=min(sample, len(small)), replace=False).tolist()) if small else []
+    worst, t0 = 0.0, time.time()
     for j in pick:
-        r = recs[need[j]]
+        r = recs[small[j]]
         system = frozenset(r["comp"])
         entries = [PDEntry(Composition(x["comp"]), x["e_form"] * sum(x["comp"].values())) for s, members in by_system.items() if s <= system for x in members]
         entries += [PDEntry(Composition({e: 1}), 0.0) for e in system]
@@ -630,7 +638,7 @@ def hull_check(recs: list, need: list, sample: int = 300, seed: int = F.SEED) ->
         worst = max(worst, abs(max(r["e_form"] - e, 0.0) - r["hull"]))
     if worst > 1e-4:
         raise SystemExit(f"the hull distance of this module differs from pymatgen's by {worst:.2e} eV/atom; nothing is written")
-    return {"entries_compared": len(pick), "largest_difference_eV_per_atom": round(worst, 9)}
+    return {"entries_compared": len(pick), "largest_difference_eV_per_atom": round(worst, 9), "seconds": round(time.time() - t0, 1)}
 
 
 # ---------------------------------------------------------------- the pool
@@ -692,11 +700,13 @@ def reference_order(r: dict) -> tuple:
 
 
 def experimental_structure(near: list, ref: dict):
-    """Of the experimental structures of a material, the one to name next to its reference calculation: one with the
-    reference's space group first, then by source, then the identifier."""
+    """Of the experimental structures of a material, the one to name next to its reference calculation: one of exactly
+    the reference's composition first, then one with its space group, then by source, then the identifier."""
     if not near:
         return None
-    return min(near, key=lambda e: (e["spg_number"] is None or e["spg_number"] != ref["spg_number"], ORDER.index(e["db"]), by_id(e)))
+    key = P._composition_key(ref["comp"])
+    return min(near, key=lambda e: (P._composition_key(e["comp"]) != key, e["spg_number"] is None or e["spg_number"] != ref["spg_number"],
+                                    ORDER.index(e["db"]), by_id(e)))
 
 
 def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=None) -> tuple[list, dict]:
@@ -704,13 +714,17 @@ def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=N
     structure that puts it on the first track, and its marks. calculated: every record of the three calculated sources
     (those that cannot enter still say which materials have an experimental structure, and a wide gap of the entry that
     speaks for a material keeps that material out); cod: the usable COD records."""
+    steps = {db: collections.Counter() for db in ORDER}
+    doubt = [r["experimental"] and r["hull"] is not None and r["hull"] > MARK_HULL_MAX for r in calculated]
+    for r, d in zip(calculated, doubt):
+        steps[r["db"]]["marked experimental, but more than 0.5 eV/atom above the hull: the mark is not taken"] += bool(d)
+    calculated = [dict(r, experimental=False) if d else r for r, d in zip(calculated, doubt)]
     made = Materials()                       # the experimental structures
     for r in calculated:
         if r["experimental"]:
             made.add(r["comp"], r)
     for r in cod:
         made.add(r["comp"], r)
-    steps = {db: collections.Counter() for db in ORDER}
     groups, with_tc = collections.defaultdict(list), set()
     for r in calculated:
         steps[r["db"]]["entries"] += 1
@@ -719,7 +733,7 @@ def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=N
             with_tc.add(key)
         if r["gap"] is not None:
             groups[key].append(r)
-    refs, cands, other_group = Materials(), [], 0
+    refs, cands, other_group, other_comp = Materials(), [], 0, 0
     for key, members in groups.items():      # the reference calculation of each composition decides for it
         ref = min(members, key=reference_order)
         refs.add(ref["comp"], ref)
@@ -739,8 +753,9 @@ def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=N
             continue
         st["an experimental structure, or within 50 meV/atom of the hull"] += 1
         same = None if evidence is None or evidence is ref else bool(evidence["spg_number"] is not None and evidence["spg_number"] == ref["spg_number"])
+        other = None if evidence is None or P._composition_key(evidence["comp"]) == key else dict(evidence["comp"])
         cands.append(dict(ref, key=key, track="experimental" if evidence else "computed", evidence=tag(evidence) if evidence else None,
-                          same_space_group=same, gap_from=None, labels=[]))
+                          same_space_group=same, evidence_comp=other, gap_from=None, labels=[]))
     for r in cod:                            # a measured composition takes the gap of the reference calculation of the same material
         st = steps[COD]
         st["entries"] += 1
@@ -756,7 +771,7 @@ def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=N
             continue
         st["band gap of the reference calculation at most 1 eV, or no calculation"] += 1
         cands.append(dict(r, key=P._composition_key(r["comp"]), gap=None if ref is None else ref["gap"], track="experimental", evidence=tag(r),
-                          same_space_group=None, gap_from=tag(ref) if ref else None, labels=[] if ref else [NO_GAP]))
+                          same_space_group=None, evidence_comp=None, gap_from=tag(ref) if ref else None, labels=[] if ref else [NO_GAP]))
     excluded, kept = collections.Counter(), []
     for r in cands:
         reason = next((k.name for k in known if k.match(r["comp"])), None)
@@ -777,19 +792,21 @@ def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=N
         members.sort(key=lambda r: (r["db"] == COD, ORDER.index(r["db"]), by_id(r)))
         first = dict(members[0])
         first["track"] = "experimental" if any(m["track"] == "experimental" for m in members) else "computed"
-        first["evidence"] = next((m["evidence"] for m in members if m["evidence"]), None)
+        first["evidence"] = first["evidence"] or next((m["evidence"] for m in members if m["evidence"]), None)
         first["also"] = [tag(m) for m in members[1:]][:5]
         first["chemsys"] = "-".join(sorted(first["comp"]))
         pool.append(first)
         steps[first["db"]]["one per composition"] += 1
         other_group += first["same_space_group"] is False
+        other_comp += first["evidence_comp"] is not None
     pool.sort(key=lambda r: (ORDER.index(r["db"]), by_id(r)))
     info = {"steps": {db: dict(steps[db]) for db in ORDER}, "excluded": dict(excluded) | {"total": int(sum(excluded.values()))},
             "pool": len(pool), "tracks": dict(collections.Counter(r["track"] for r in pool)),
             "chemical_systems": len({r["chemsys"] for r in pool}),
             "by_source": {t: dict(collections.Counter(r["db"] for r in pool if r["track"] == t)) for t in PROTOCOL["listed"]["tracks"]},
             "no_calculated_gap": sum(1 for r in pool if NO_GAP in r["labels"]),
-            "experimental_structure_in_another_space_group": int(other_group)}
+            "experimental_structure_in_another_space_group": int(other_group),
+            "experimental_structure_of_another_composition_within_2_at_percent": int(other_comp)}
     return pool, info
 
 
@@ -942,10 +959,20 @@ def corrected_check(r: dict, check, records: dict):
     key = P._composition_key(r["comp"])
     for row in records.values():
         c = row.get("check_correction")
-        if c and isinstance(c.get("check"), dict) and check.get("doi") == c.get("replaces_doi") and isinstance(row.get("composition"), dict) \
-                and P._composition_key(row["composition"]) == key:
+        if c and isinstance(c.get("check"), dict) and check.get("doi") == c.get("replaces_doi") and audited_composition(row) == key:
             return copy.deepcopy(c["check"])
     return check
+
+
+def audited_composition(row: dict):
+    """The composition key of a record of the literature audit, from its composition or, where it has none, its formula."""
+    comp = row.get("composition")
+    if not isinstance(comp, dict):
+        try:
+            comp = H2.H.parse_formula(str(row.get("formula") or ""))
+        except ValueError:
+            return None
+    return P._composition_key(comp)
 
 
 def candidates(rows: list, track: str, seen: tuple, now: dict, checks: tuple, records: dict) -> list:
@@ -960,6 +987,8 @@ def candidates(rows: list, track: str, seen: tuple, now: dict, checks: tuple, re
         exp = page(r["evidence"])
         if exp and r.get("same_space_group") is not None:
             exp["same_space_group"] = bool(r["same_space_group"])      # of the named experimental structure and the calculated entry shown
+        if exp and r.get("evidence_comp"):
+            exp["formula"] = pretty(r["evidence_comp"])                # its composition, where that is not exactly this one (within NEAR)
         c = {"rank": rank, "formula": row["formula"], "id": r["id"], "url": src.get("url"), "spg": spg, "ehull": SC._r(r["hull"], 3) if r["hull"] is not None else None,
              "icsd": bool(exp and exp["source"] in (JARVIS, MP)), "track": track, "source": src, "experimental": exp,
              "labels": list(r["labels"]) or None, "tc": SC._r(row["hurricane_tc"], 2), "tc_sc": SC._r(row["tc_sc"], 2), "lo": SC._r(row["lo"], 2),
@@ -1030,10 +1059,13 @@ def block(rows: list, lists: dict, pool: list, info: dict, bg: dict, sc: dict, r
                  "n_screened": len(pool), "n_sent": n_sent, "rule": rule, "chemical_systems": info.get("chemical_systems"),
                  "no_calculated_gap": info.get("no_calculated_gap"),
                  "experimental_structure_in_another_space_group": info.get("experimental_structure_in_another_space_group"),
+                 "experimental_structure_of_another_composition_within_2_at_percent":
+                     info.get("experimental_structure_of_another_composition_within_2_at_percent"),
                  "about": "each compound is a composition, judged once. The calculated entry that speaks for it is one marked "
                           "experimental before any other, then one near its source's convex hull; a measured COD composition takes the "
                           "band gap of the calculation of the same material and is marked if there is none. The experimental structure "
-                          "named with a compound can have another space group than the calculated structure shown"},
+                          "named with a compound can have another space group than the calculated structure shown, and a composition "
+                          "that differs from the compound's by up to 2 at.% in every element; its record then gives that formula"},
         "excluded": dict(info.get("excluded") or {}),
         "range": {"level": rng.get("level", 1 - R.ALPHA), "width_log": round(float(rng["width_log"]), 4), "of": "the Tc if it superconducts",
                   "from": "its errors on parent compounds first reported after its training data end"},
@@ -1333,6 +1365,15 @@ def dry_counts() -> dict:
     out["pool_by_kind"] = {t: dict(collections.Counter(kind(r) for r in pool if r["track"] == t)) for t in PROTOCOL["listed"]["tracks"]}
     out["no_calculated_gap_by_kind"] = dict(collections.Counter(kind(r) for r in pool if NO_GAP in r["labels"]))
     out["cod_entries_with_a_reference_gap"] = sum(1 for r in pool if r["db"] == COD and r["gap_from"])
+    edges = (0.05, 0.1, 0.2, 0.3, 0.5, 1.0)
+    band = lambda h: "no distance" if h is None else next((f"at most {e:g}" for e in edges if h <= e), "above 1")   # noqa: E731
+    out["marked_experimental_by_hull_distance"] = {db: dict(collections.Counter(band(r["hull"]) for r in recs if r["experimental"]))
+                                                   for db, recs in ((JARVIS, jar), (MP, mp))}
+    far = sorted((r for r in jar + mp if r["experimental"] and r["hull"] is not None and r["hull"] > MARK_HULL_MAX), key=lambda r: -r["hull"])
+    out["marked_experimental_beyond_the_doubt_limit (the 12 furthest, then every 40th)"] = [
+        [tag(r), pretty(r["comp"]), round(r["hull"], 3), r["gap"]] for r in far[:12] + far[12::40]]
+    out["pool_experimental_reference_by_hull_distance"] = dict(collections.Counter(
+        band(r["hull"]) for r in pool if r["track"] == "experimental" and r["db"] != COD))
     out["probes (formula, what speaks for it, gap, hull distance, marked experimental, result)"] = probe_report(jar + mp + alex, pool, known, sheet)
     out["experimental_named_by"] = dict(collections.Counter((r["evidence"] or "").rsplit(" ", 1)[0] for r in pool if r["track"] == "experimental"))
     examples = collections.defaultdict(list)             # a seeded sample of each source and track, to see that they were read as meant
