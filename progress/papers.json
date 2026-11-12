@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-11T19:23:36+00:00",
+ "updated": "2026-11-12T01:37:20+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2531,25 +2531,6 @@
    "kind": ""
   },
   {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
-  },
-  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2569,6 +2550,25 @@
     "Vortices and junctions"
    ],
    "kind": ""
+  },
+  {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -4572,6 +4572,17 @@
  ],
  "news": [
   {
+   "id": "https://phys.org/news/2026-11-superconducting-vortices-experimental-evidence-clogging.html",
+   "source": "Phys.org",
+   "title": "Superconducting vortices provide experimental evidence that clogging is a phase transition",
+   "date": "2026-11-11",
+   "summary": "Clogging is a phenomenon in which moving particles get stuck, slowing or blocking the flow, but how this transition occurs has remained experimentally unproven. Researchers from Science Tokyo studied superconducting vortices to demonstrate that clogging is a nonequilibrium phase…",
+   "url": "https://phys.org/news/2026-11-superconducting-vortices-experimental-evidence-clogging.html",
+   "topics": [
+    "Vortices and junctions"
+   ]
+  },
+  {
    "id": "https://phys.org/news/2026-11-paired-electron-pairing-room-temperature.html",
    "source": "Phys.org",
    "title": "Paired but out of step: Why electron pairing alone is not enough for room-temperature superconductivity",
@@ -4888,17 +4899,6 @@
    "summary": "Author(s): Marric Stephens Researchers have identified the reason a high-pressure, high-temperature superconductor outperforms other similar compounds. [Physics 19, s109] Published Tue Sep 01, 2026",
    "url": "http://link.aps.org/doi/10.1103/Physics.19.s109",
    "topics": []
-  },
-  {
-   "id": "https://phys.org/news/2026-08-high-magnetic-fields-revive-superconductivity.html",
-   "source": "Phys.org",
-   "title": "High magnetic fields revive superconductivity in nickelates",
-   "date": "2026-08-26",
-   "summary": "Scientists from the National University of Singapore (NUS), in collaboration with Los Alamos National Laboratory in the United States, have uncovered that a class of nickel-based materials known as samarium (Sm)-based infinite-layer nickelates can regain their superconducting…",
-   "url": "https://phys.org/news/2026-08-high-magnetic-fields-revive-superconductivity.html",
-   "topics": [
-    "Nickelates"
-   ]
   },
   {
    "id": "http://link.aps.org/doi/10.1103/Physics.19.s106",
