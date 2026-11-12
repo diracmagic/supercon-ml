@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-12T04:17:35+00:00",
+ "updated": "2026-11-12T13:37:45+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -58,6 +58,7 @@
   "npj Quantum Mater.",
   "Nature News",
   "Phys.org",
+  "Physics World",
   "APS Physics",
   "Quanta Magazine",
   "arXiv AI"
@@ -2373,6 +2374,25 @@
  ],
  "journals": [
   {
+   "id": "10.1103/fnnn-n593",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Excitonic-Superconducting Coexistence and Emergent Nematic Superconductivity Driven by Spontaneous Symmetry Breaking",
+   "authors": [
+    "Fei Yang",
+    "Ruigang Li",
+    "Junwei Liu",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-12",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/fnnn-n593",
+   "doi": "10.1103/fnnn-n593",
+   "topics": [],
+   "kind": ""
+  },
+  {
    "id": "10.1103/rkn7-f5rs",
    "source": "PRX",
    "journal": "Phys. Rev. X",
@@ -2531,25 +2551,6 @@
    "kind": ""
   },
   {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
-  },
-  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2569,6 +2570,25 @@
     "Vortices and junctions"
    ],
    "kind": ""
+  },
+  {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -2664,25 +2684,6 @@
    "abstract": "",
    "url": "https://doi.org/10.1103/vth5-lzjn",
    "doi": "10.1103/vth5-lzjn",
-   "topics": [],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/fnnn-n593",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Excitonic-superconducting coexistence and emergent nematic superconductivity driven by spontaneous symmetry breaking",
-   "authors": [
-    "Fei Yang",
-    "Ruigang Li",
-    "Junwei Liu",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-27",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/fnnn-n593",
-   "doi": "10.1103/fnnn-n593",
    "topics": [],
    "kind": ""
   },
@@ -4839,15 +4840,6 @@
    "topics": [
     "Iron-based"
    ]
-  },
-  {
-   "id": "https://physicsworld.com/a/vacuumtronics-could-help-make-better-superconductors/",
-   "source": "Physics World",
-   "title": "‘Vacuumtronics’ could help make better superconductors",
-   "date": "2026-09-15",
-   "summary": "Vacuum fluctuations could be a non-invasive way to tune superconductivity The post ‘Vacuumtronics’ could help make better superconductors appeared first on Physics World.",
-   "url": "https://physicsworld.com/a/vacuumtronics-could-help-make-better-superconductors/",
-   "topics": []
   },
   {
    "id": "https://phys.org/news/2026-09-spinons-electrons-pair-stripes-superconductors.html",
