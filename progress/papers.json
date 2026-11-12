@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-12T19:18:07+00:00",
+ "updated": "2026-11-12T22:06:47+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2551,25 +2551,6 @@
    "kind": ""
   },
   {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
-  },
-  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2589,6 +2570,25 @@
     "Vortices and junctions"
    ],
    "kind": ""
+  },
+  {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -4573,6 +4573,17 @@
  ],
  "news": [
   {
+   "id": "https://phys.org/news/2026-11-zn-doping-reveals-robust-gap.html",
+   "source": "Phys.org",
+   "title": "Zn doping reveals robust two-gap superconductivity in FeSe",
+   "date": "2026-11-12",
+   "summary": "Researchers using the Steady High Magnetic Field Facility have found that zinc doping unexpectedly alters the superconducting properties of iron selenide (FeSe) while preserving its two-gap superconducting state.",
+   "url": "https://phys.org/news/2026-11-zn-doping-reveals-robust-gap.html",
+   "topics": [
+    "Iron-based"
+   ]
+  },
+  {
    "id": "https://phys.org/news/2026-11-superconducting-vortices-experimental-evidence-clogging.html",
    "source": "Phys.org",
    "title": "Superconducting vortices provide experimental evidence that clogging is a phase transition",
@@ -4873,15 +4884,6 @@
     "Moiré and 2D",
     "Electron–phonon"
    ]
-  },
-  {
-   "id": "https://phys.org/news/2026-08-superconductors-thinner-accommodate-magnetic-fields.html",
-   "source": "Phys.org",
-   "title": "Making superconductors thinner can change how they accommodate magnetic fields",
-   "date": "2026-09-02",
-   "summary": "What happens when a superconductor becomes so thin that electrons can no longer behave as if they were moving through an ordinary three-dimensional piece of metal? This question has been at the center of my recent work on quantum confinement in metallic films. Over the past few…",
-   "url": "https://phys.org/news/2026-08-superconductors-thinner-accommodate-magnetic-fields.html",
-   "topics": []
   },
   {
    "id": "http://link.aps.org/doi/10.1103/Physics.19.s109",
