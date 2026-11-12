@@ -74,7 +74,7 @@ ELEMENTS = (2, 6)               # round 6: 2 to 5
 MAX_ATOMS = 100                 # atoms in the primitive cell; round 6: 40. Hurricane reads the composition only
 GAP_MAX = 1.0                   # eV, as round 6
 EHULL_MAX = 0.05                # eV/atom, as round 6
-MARK_HULL_MAX = 0.5             # eV/atom: beyond it an entry's mark "experimental" is not taken (see PROTOCOL)
+FAR_HULL = 0.5                  # eV/atom: a calculated entry further above its source's hull is not used (see PROTOCOL)
 MIN_ELEMENT = 20                # an element must occur in at least this many training materials, as round 6
 NEAR = 0.02                     # the same elements and every share within 2 at.%: the same material (screen.NEAR)
 PRESSURE_MAX = 1.0e5            # kPa (0.1 GPa): a COD structure determined above it is left out
@@ -148,10 +148,12 @@ PROTOCOL = {
                         "experimental in JARVIS-DFT or the Materials Project, or a usable COD entry); no rule on the distance to a "
                         "convex hull. The structure named is one of exactly the compound's composition if there is one, then one with the "
                         "space group of the reference calculation",
-        "mark_in_doubt": f"an entry marked experimental that its source puts more than {MARK_HULL_MAX:g} eV/atom above its convex hull is "
-                         "treated as not marked: at that distance the mark or the calculation is in doubt. Of the metastable "
-                         "compounds of the ICSD, nine in ten lie within about 0.07 eV/atom of the Materials Project's hull (W. Sun et "
-                         "al., Sci. Adv. 2, e1600225 (2016), doi:10.1126/sciadv.1600225)",
+        "far_from_the_hull": f"a calculated entry that its source puts more than {FAR_HULL:g} eV/atom above its convex hull is not used: "
+                             "neither its mark as experimental nor its band gap. At that distance the entry, its mark or the "
+                             "calculation is in doubt: among the entries so far out are nitrogen and nitrogen-rich molecular and "
+                             "coordination compounds, for which these hulls are unreliable, and entries that are plainly faulty (the "
+                             "count-only runs list a sample). A compound left without a calculated entry can still enter through "
+                             "its COD entry",
         "computed": f"any other compound, if its reference calculation lies at most {EHULL_MAX * 1000:g} meV/atom above the convex hull "
                     "of its source",
         "jarvis_hull": "the lowest energy that a mixture of JARVIS-DFT entries of the same overall composition can have, from the "
@@ -179,7 +181,8 @@ PROTOCOL = {
     "written": [f"results/screen_round{ROUND}.json", f"results/screen_round{ROUND}_hurricane.csv (the compounds Hurricane gives a chance)",
                 "results/" + POOL_FILE + " (every compound of the pool)", "results/" + COD_SNAPSHOT + " and results/" + COD_NOTE
                 + " (if they are not there yet)",
-                "progress/progress.json: screen.hurricane, screen.models, the detail of the screen stage and one log entry"],
+                "progress/progress.json: screen.hurricane (with, under hull.storm, the distance of each entry of Storm's published list "
+                "to the computed hull), screen.models, the detail of the screen stage and one log entry"],
     "unchanged": "Storm's list and every other field of the screen block, as screening round 5 published them",
 }
 CAVEAT = S6.CAVEAT
@@ -715,24 +718,23 @@ def assemble(calculated: list, cod: list, counts: dict, known: list, datasheet=N
     (those that cannot enter still say which materials have an experimental structure, and a wide gap of the entry that
     speaks for a material keeps that material out); cod: the usable COD records."""
     steps = {db: collections.Counter() for db in ORDER}
-    doubt = [r["experimental"] and r["hull"] is not None and r["hull"] > MARK_HULL_MAX for r in calculated]
-    for r, d in zip(calculated, doubt):
-        steps[r["db"]]["marked experimental, but more than 0.5 eV/atom above the hull: the mark is not taken"] += bool(d)
-    calculated = [dict(r, experimental=False) if d else r for r, d in zip(calculated, doubt)]
-    made = Materials()                       # the experimental structures
+    made, groups, with_tc = Materials(), collections.defaultdict(list), set()         # made: the experimental structures
     for r in calculated:
-        if r["experimental"]:
-            made.add(r["comp"], r)
-    for r in cod:
-        made.add(r["comp"], r)
-    groups, with_tc = collections.defaultdict(list), set()
-    for r in calculated:
-        steps[r["db"]]["entries"] += 1
+        st = steps[r["db"]]
+        st["entries"] += 1
         key = P._composition_key(r["comp"])
         if r.get("jarvis_tc") is not None:
             with_tc.add(key)
+        if r["hull"] is not None and r["hull"] > FAR_HULL:
+            st["more than 0.5 eV/atom above the hull: not used"] += 1
+            st["of them marked experimental"] += bool(r["experimental"])
+            continue
+        if r["experimental"]:
+            made.add(r["comp"], r)
         if r["gap"] is not None:
             groups[key].append(r)
+    for r in cod:
+        made.add(r["comp"], r)
     refs, cands, other_group, other_comp = Materials(), [], 0, 0
     for key, members in groups.items():      # the reference calculation of each composition decides for it
         ref = min(members, key=reference_order)
@@ -1037,7 +1039,22 @@ TRACK_ABOUT = {
 }
 
 
-def block(rows: list, lists: dict, pool: list, info: dict, bg: dict, sc: dict, released: dict, stamp: str) -> dict:
+def published_hull(candidates: list, jar: list) -> dict:
+    """The candidates of a published list against the hull computed here: how far above it each JARVIS-DFT entry lies.
+    Storm's list took its pool by the file's ehull field (screening round 5) and is not re-screened by this round;
+    this gives a reader of that list the distance the field did not."""
+    hull = {r["id"]: r["hull"] for r in jar if r["hull"] is not None}
+    rows = {str(c["id"]): round(float(hull[c["id"]]), 4) for c in candidates if isinstance(c, dict) and c.get("id") in hull}
+    d = list(rows.values())
+    return {"listed": len(candidates), "found": len(rows), "within_50_meV": sum(1 for v in d if v <= EHULL_MAX),
+            "beyond_50_meV": sum(1 for v in d if v > EHULL_MAX), "beyond_200_meV": sum(1 for v in d if v > 0.2),
+            "about": "Storm's list of screening round 5, whose pool kept an entry if the ehull field of JARVIS-DFT was at most 0.05 eV/atom: "
+                     "the distance of each listed entry to the convex hull computed from the file's formation energies, in eV/atom. The "
+                     "list itself is not re-screened by this round",
+            "distance_eV_per_atom": rows}
+
+
+def block(rows: list, lists: dict, pool: list, info: dict, bg: dict, sc: dict, released: dict, stamp: str, storm_hull=None) -> dict:
     """screen.hurricane as the app reads it: the fields the earlier rounds published, with the experimental track as
     the list ("candidates") and, new in this round, the second list, the tracks and the sources."""
     import screen as SC
@@ -1079,7 +1096,11 @@ def block(rows: list, lists: dict, pool: list, info: dict, bg: dict, sc: dict, r
                      "url": SOURCES[db].get("url"), "in_the_pool": sum(1 for r in pool if r["db"] == db)} for db in ORDER],
         "hull": {"about": "JARVIS-DFT's distance to the convex hull is computed in the run from the file's own formation energies; the "
                           "file's ehull field, which the pools of rounds 1 to 6 used, does not follow that hull",
-                 "record": "results/validation/pool-census.md"},
+                 "record": "results/validation/pool-census.md", "storm": storm_hull},
+        "score": {"about": "the classifier learned which measured compounds superconduct above the threshold of their family, and its "
+                           "score is its estimate of that for a new compound: a compound that superconducts only below the threshold "
+                           "counts as not superconducting",
+                  "above_k": dict(D.EVENT_K)},
         "background": {"n": int(g["n_used"]), "weight": R.WEIGHT, "cross_fitted": "fold", "radius": R.RADIUS, "pool": int(g["n"])},
         "reliability": {"false_alarms": None if g["false_alarms"] is None else round(float(g["false_alarms"]), 4),
                         "n_background": int(g["n_used"]), "abstain": R.ABSTAIN,
@@ -1190,7 +1211,7 @@ def publish(pool: list, info: dict, sent: list, p_unc, bg: dict, sc: dict, relea
     now = {"date": stamp[:10], "at": stamp, "round": ROUND, "file": f"screen_round{ROUND}.json"}
     records, checks = load_audit()[0], SC.load_checks()
     lists = {t: candidates(rows, t, seen, now, checks, records) for t in PROTOCOL["listed"]["tracks"]}
-    b = block(rows, lists, pool, info, bg, sc, released, stamp)
+    b = block(rows, lists, pool, info, bg, sc, released, stamp, extra.get("storm_hull"))
     both = lists["experimental"] + lists["computed"]
     out = {"run_at": stamp, "commit": os.environ.get("GITHUB_SHA", "local"), "round": ROUND, "smoke": smoke, "module": VERSION,
            "protocol": {"name": PROTOCOL["name"], "sha256": protocol_sha256(), "release_protocol_sha256": R.protocol_sha256()},
@@ -1369,8 +1390,8 @@ def dry_counts() -> dict:
     band = lambda h: "no distance" if h is None else next((f"at most {e:g}" for e in edges if h <= e), "above 1")   # noqa: E731
     out["marked_experimental_by_hull_distance"] = {db: dict(collections.Counter(band(r["hull"]) for r in recs if r["experimental"]))
                                                    for db, recs in ((JARVIS, jar), (MP, mp))}
-    far = sorted((r for r in jar + mp if r["experimental"] and r["hull"] is not None and r["hull"] > MARK_HULL_MAX), key=lambda r: -r["hull"])
-    out["marked_experimental_beyond_the_doubt_limit (the 12 furthest, then every 40th)"] = [
+    far = sorted((r for r in jar + mp if r["experimental"] and r["hull"] is not None and r["hull"] > FAR_HULL), key=lambda r: -r["hull"])
+    out["marked_experimental_and_not_used (the 12 furthest above the hull, then every 40th)"] = [
         [tag(r), pretty(r["comp"]), round(r["hull"], 3), r["gap"]] for r in far[:12] + far[12::40]]
     out["pool_experimental_reference_by_hull_distance"] = dict(collections.Counter(
         band(r["hull"]) for r in pool if r["track"] == "experimental" and r["db"] != COD))
@@ -1417,6 +1438,8 @@ def run(smoke: bool = False, output_dir: Path | None = None) -> dict:
         pool, info = assemble(calculated, cod, counts, [], None)
         p_unc, extra["radar"] = synthetic_route(pool)
         extra["sources"] = {"synthetic": True}
+        extra["storm_hull"] = published_hull((json.loads(progress.read_text(encoding="utf-8")).get("screen") or {}).get("candidates") or [],
+                                             [r for r in calculated if r["db"] == JARVIS])
     else:
         import screen as SC
         declared = DECLARATION.read_text(encoding="utf-8") if DECLARATION.exists() else ""
@@ -1452,6 +1475,7 @@ def run(smoke: bool = False, output_dir: Path | None = None) -> dict:
         p_unc, extra["radar"] = radar_route(pool)
         extra["radar"] = dict(extra["radar"], check=routing_check(pool, p_unc, bg))
         extra["sources"] = {JARVIS: j_info, MP: m_info, ALEX: a_info, COD: c_info}
+        extra["storm_hull"] = published_hull((json.loads(progress.read_text(encoding="utf-8")).get("screen") or {}).get("candidates") or [], jar)
     p_unc = np.asarray(p_unc, float)
     for r, p in zip(pool, p_unc):
         r["p_unconventional"] = float(p)

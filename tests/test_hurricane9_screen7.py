@@ -330,21 +330,29 @@ class Hurricane9Screen7Tests(unittest.TestCase):
         self.assertEqual((mine["evidence"], mine["same_space_group"], mine["evidence_comp"]), ("COD 6", True, {"Nb": 1.0, "Se": 2.02}))
         self.assertEqual(info["experimental_structure_of_another_composition_within_2_at_percent"], 1)
 
-    def test_a_mark_far_above_the_hull_is_not_taken(self):
+    def test_an_entry_far_above_its_hull_is_not_used(self):
         comp = {"Ca": 1, "Fe": 2, "As": 2}
         calc = [rec(S.MP, "mp-odd", comp, hull=2.5, experimental=True)]             # marked experimental, 2.5 eV/atom above the hull
         pool, info = S.assemble(calc, [], self.counts, [], None)
         self.assertEqual(pool, [])
-        self.assertEqual(info["steps"]["Materials Project"]["marked experimental, but more than 0.5 eV/atom above the hull: the mark is not taken"], 1)
-        self.assertTrue(calc[0]["experimental"])                                    # the records handed in are not changed
-        calc = [rec(S.MP, "mp-odd", comp, hull=0.5, experimental=True)]             # at the limit the mark stands
+        self.assertEqual((info["steps"]["Materials Project"]["more than 0.5 eV/atom above the hull: not used"],
+                          info["steps"]["Materials Project"]["of them marked experimental"]), (1, 1))
+        self.assertNotIn("reference calculations, one per composition", info["steps"]["Materials Project"])
+        calc = [rec(S.MP, "mp-odd", comp, hull=0.5, experimental=True)]             # at the limit it is used
         self.assertEqual([r["track"] for r in S.assemble(calc, [], self.counts, [], None)[0]], ["experimental"])
-        # the doubtful entry no longer speaks before a calculated entry near its hull, and a COD entry still makes the compound experimental
+        # the far entry speaks neither by its mark nor by its wide gap: an entry near its hull does, and a COD entry makes the compound experimental
         calc = [rec(S.MP, "mp-odd", comp, hull=2.5, gap=3.0, experimental=True), rec(S.ALEX, "agm-1", comp, hull=0.0)]
         pool, _ = S.assemble(calc, [], self.counts, [], None)
         self.assertEqual([(r["id"], r["track"]) for r in pool], [("agm-1", "computed")])
         pool, _ = S.assemble(calc, [rec(S.COD, 5, comp, gap=None, hull=None, experimental=True)], self.counts, [], None)
         self.assertEqual([(r["id"], r["track"], r["evidence"]) for r in pool], [("agm-1", "experimental", "COD 5")])
+        # with no other calculation, the measured composition stands for itself and has no calculated gap
+        pool, _ = S.assemble(calc[:1], [rec(S.COD, 5, comp, gap=None, hull=None, experimental=True)], self.counts, [], None)
+        self.assertEqual([(S.tag(r), r["track"], r["labels"], r["gap"]) for r in pool], [("COD 5", "experimental", [S.NO_GAP], None)])
+        # a computed Tc of a far entry still marks its composition as having one
+        calc = [rec(S.JARVIS, "JVASP-far", comp, hull=0.9, jarvis_tc=4.0), rec(S.ALEX, "agm-1", comp, hull=0.0)]
+        pool, info = S.assemble(calc, [], self.counts, [], None)
+        self.assertEqual((pool, info["excluded"]), ([], {"computed": 1, "total": 1}))
 
     def test_a_published_candidate_says_whose_gap_it_shows_and_how_its_experimental_structure_compares(self):
         comp = {"Nb": 1, "Se": 2}
@@ -435,6 +443,18 @@ class Hurricane9Screen7Tests(unittest.TestCase):
         with patch.object(S, "JARVIS_ROWS_SHA256", info["rows_sha256"]):
             with self.assertRaisesRegex(SystemExit, "is not what this protocol names"):
                 S.jarvis_records(changed, self.counts)
+
+    def test_storms_published_list_gets_its_distances_to_the_computed_hull(self):
+        jar = [rec(S.JARVIS, "JVASP-1", {"La": 1, "Cu": 1}, hull=0.0), rec(S.JARVIS, "JVASP-2", {"La": 1, "Cu": 2}, hull=0.0612),
+               rec(S.JARVIS, "JVASP-3", {"La": 1, "Cu": 3}, hull=0.91), rec(S.JARVIS, "JVASP-4", {"La": 1, "Cu": 4}, hull=None)]
+        listed = [{"id": "JVASP-1", "ehull": 0.0}, {"id": "JVASP-2", "ehull": 0.0}, {"id": "JVASP-3", "ehull": 0.0003}, {"id": "JVASP-4"}, {"id": "JVASP-9"}]
+        got = S.published_hull(listed, jar)
+        self.assertEqual({k: v for k, v in got.items() if k != "about"},
+                         {"listed": 5, "found": 3, "within_50_meV": 1, "beyond_50_meV": 2, "beyond_200_meV": 1,
+                          "distance_eV_per_atom": {"JVASP-1": 0.0, "JVASP-2": 0.0612, "JVASP-3": 0.91}})
+        storm = self.block["hull"]["storm"]                       # in the smoke run no invented entry is on Storm's list
+        self.assertEqual((storm["listed"], storm["found"], storm["distance_eV_per_atom"]), (len(self.before["screen"]["candidates"]), 0, {}))
+        self.assertEqual(self.block["score"]["above_k"], dict(D.EVENT_K))
 
     def test_a_source_file_other_than_the_one_named_stops_the_run(self):
         S.same_source("a file", "abc", None)

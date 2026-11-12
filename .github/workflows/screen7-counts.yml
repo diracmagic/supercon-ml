@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
-      COUNTS_TAG: 'screen7-counts-3'
+      COUNTS_TAG: 'screen7-counts-4'
       PYTHONHASHSEED: '0'
       OMP_NUM_THREADS: '2'
       OPENBLAS_NUM_THREADS: '2'
