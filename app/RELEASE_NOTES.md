@@ -1,5 +1,9 @@
 Desktop app that shows the live progress of [supercon-ml](https://github.com/diracmagic/supercon-ml): every stage, training results and GitHub Actions runs, refreshed every few minutes.
 
+Version 0.3.32 adds:
+
+- **A correction to the candidate lists.** The pools of screening rounds 1 to 6 were selected with the `ehull` field of JARVIS-DFT, which the app described as the distance to the convex hull. That field does not follow the convex hull of the file’s own formation energies, so neither list was restricted to compounds near the hull. Candidates now says so under both lists, next to the description of the pool. Where the published record gives it, every candidate shows its distance to the hull computed from those formation energies in place of the field’s value, the note counts how many candidates lie more than 50 and more than 200 meV/atom above that hull, and the remarks of a candidate beyond 50 meV/atom say so. Until that record is published, a candidate’s line names the field’s value as what it is. No rank or score has changed, and both lists stand as published until a screening on a corrected pool replaces them.
+
 Version 0.3.31 adds:
 
 - **The candidates of Hurricane 9.0.** Candidates can now show a list that the Hurricane version in use screened itself. Hurricane’s list names its own screening round and date, which can be later than Storm’s, and the pool exclusions count the compounds whose composition the NIMS SuperCon datasheet lists. For a version that learns from the datasheet, every candidate’s remarks say what the classifier learned from, that the candidate is itself one of the compounds with no superconductivity record that the model counts, at a low weight, as probably not superconducting, and that its score comes from a classifier that had not learned from it. Where the most similar training compound was measured not to superconduct, the remarks say so instead of giving it a measured Tc of 0.0 K.

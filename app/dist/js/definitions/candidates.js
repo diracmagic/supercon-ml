@@ -158,12 +158,16 @@
 
   // the remarks that go with every candidate: whether it was ever made, how wide its range is, how far its chance can be
   // trusted, how close it is to what the model learned from, whether anything has checked it, and when we first listed it
-  const candRemarks = function candRemarks(c, hur, block) {
+  const candRemarks = function candRemarks(c, hur, block, sc) {
     var out = [], model = hur ? 'Hurricane' : 'Storm', range = candRange(c), ck = (block && block.check) || {};
     // a version that learns from the NIMS datasheet scores the compounds of its own background pool, each with a classifier that left it out
     var tw = !!(hur && block && hurTW(candHurVersion(block)));
     out.push(c.icsd === true ? ['info', 'This database structure is linked to ICSD, an experimental crystallographic source. Verify the original sample and phase before assuming the relaxed computational structure is experimentally realized.'] :
       ['warn', 'Computed structure: not marked as an ICSD structure in this dataset; its synthesis history remains unresolved.']);
+    // the published correction: this candidate's distance to the hull computed from JARVIS-DFT's formation energies, where it is beyond what the pool was meant to keep
+    var above = candidateData.hullBeyond(sc, hur ? 'hurricane' : 'storm', c);
+    if (above !== null) out.push(['warn', 'Computed from JARVIS-DFT’s own formation energies, this structure lies ' + fmtInt(above) +
+      ' meV/atom above the convex hull. The pool was meant to hold compounds within 50 meV/atom of it and was selected with a field that does not follow the hull.']);
     if (range) {
       var wide = (c.hi + 1) / (c.lo + 1) >= 5;
       out.push([wide ? 'warn' : 'info', (wide ? 'Very wide range: the 90% range for its ' + (hur ? 'Tc if it superconducts' : 'DFT Tc') + ' is ' + range + ', so ' + model + ' is far from sure.' :
@@ -207,9 +211,9 @@
   const candListedText = function candListedText(l) { return 'First listed on ' + fmtDayISO(l.date) + (candNum(l.round) ? ', in screening round ' + l.round : ''); };
 
   // the remarks fold away, to save space: a click on "Remarks" opens them (the viewer remembers the choice)
-  const candRemarksEl = function candRemarksEl(c, hur, block, inRow) {
+  const candRemarksEl = function candRemarksEl(c, hur, block, inRow, sc) {
     var ul = h('ul', { class: 'xt-notes', 'aria-label': 'Remarks' });
-    candRemarks(c, hur, block).forEach(function (r) {
+    candRemarks(c, hur, block, sc).forEach(function (r) {
       if (r[0] === 'date') {
         var file = /^screen_round\d+\.json$/.test(String(r[1].file || '')) ? r[1].file : '';
         ul.appendChild(h('li', { class: 'is-date' }, candListedText(r[1]) + '. ', file ? h('a', { href: REPO_URL + '/commits/main/results/' + file, text: 'The repository’s history' }) : 'The repository’s history',
@@ -317,14 +321,42 @@
   };
 
 
+  // A candidate's distance to the convex hull, said for what it is. The pools of screening rounds 1 to 6 were selected
+  // with the ehull field of JARVIS-DFT, which does not follow the hull. For a list of those rounds the line gives the
+  // distance to the hull computed from the file's formation energies where the published record has it, and names the
+  // field otherwise. A list of a later round is described by its own record.
+  const candHullText = function candHullText(sc, kind, c) {
+    var mev = function (v) { return Math.round(1000 * v); };
+    if (!candidateData.fieldPool(sc, kind)) return candNum(c.ehull) ? (mev(c.ehull) === 0 ? 'on the convex hull' : mev(c.ehull) + ' meV/atom above the hull') : '';
+    var d = candidateData.hullDistance(sc, kind, c);
+    if (candNum(d)) return mev(d) === 0 ? 'on the computed hull' : mev(d) + ' meV/atom above the computed hull';
+    return candNum(c.ehull) ? 'JARVIS-DFT ehull field ' + mev(c.ehull) + ' meV/atom' : '';
+  };
+
+  // The correction a reader of such a list has to see next to the description of its pool; every number is the record's.
+  const candHullNote = function candHullNote(sc, kind) {
+    if (!candidateData.fieldPool(sc, kind)) return null;
+    var s = candidateData.hullRecord(sc, kind), n50 = s ? s.beyond_50_meV : 0, n200 = s ? s.beyond_200_meV : 0;
+    return h('p', { class: 'cand-meta' }, h('b', { text: 'Correction. ' }),
+      'The pool of this list was selected with the ehull field of JARVIS-DFT, kept at 50 meV/atom or less, and not by the distance to the convex hull that the description above gives: that field does not follow the convex hull of the file’s own formation energies. ' +
+      (s ? 'Against the hull computed from those energies, ' + (n50 === 0 ? 'none' : fmtInt(n50)) + ' of the ' + fmtInt(s.listed) + ' candidates on this list ' + (n50 === 1 ? 'lies' : 'lie') + ' more than 50 meV/atom above it' +
+        (n50 > 0 ? ' and ' + (n200 === 0 ? 'none' : fmtInt(n200)) + ' more than 200 meV/atom' : '') + '; each candidate’s line gives its computed distance. ' :
+        'Each candidate’s line names the value of that field as such. ') +
+      'No rank or score has changed, and the list stands as published until a screening on a corrected pool replaces it. ',
+      h('a', { href: REPO_URL + '/blob/main/' + candidateData.hullRecordPath(sc), text: 'The record' }), ' gives the check.');
+  };
+
   const renderCandidates = function renderCandidates(d) {
     var el = $('#candidates-card');
     if (!el) return;
     var sc = d && d.screen, kind = candState.kind === 'hurricane' ? 'hurricane' : 'storm', hur = kind === 'hurricane';
     var gotS = candRows(sc, 'storm'), gotH = candRows(sc, 'hurricane'), got = candCurrentRows(sc, kind), rows = got.rows;
     // a refresh with the same list keeps the card (and its turning structures) as it is
+    var hullRec = candidateData.hullRecord(sc, kind);
     var key = JSON.stringify([sc && sc.round, sc && sc.date, sc && sc.status, sc && (sc.phonon_checks || sc.phonon_check), kind, candState.track, candState.archive, gotS.hidden, gotH.hidden, gotS.rows.length, gotH.rows.length, candState.all,
-      rows.map(function (c) { return [candId(c), c.tc, c.tc_cal, c.tc_sc, c.lo, c.hi, c.p_sc, c.p_lo, c.p_hi, c.novelty, c.outside, candChecked(c), c.phonon_check, candidateData.literatureFor(c), c.prior_superconductivity, c.prediction_provenance]; })]);
+      hullRec ? [hullRec.round, hullRec.beyond_50_meV, hullRec.beyond_200_meV] : null,
+      rows.map(function (c) { return [candId(c), c.tc, c.tc_cal, c.tc_sc, c.lo, c.hi, c.p_sc, c.p_lo, c.p_hi, c.novelty, c.outside, candChecked(c), c.phonon_check, candidateData.literatureFor(c), c.prior_superconductivity, c.prediction_provenance,
+        candidateData.hullDistance(sc, kind, c)]; })]);
     if (key === candState.key && el.firstChild) return;
     candState.key = key;
     xtReset();
@@ -408,6 +440,7 @@
         (rule ? ': ' + rule : '') + '. Storm’s Tc is the computed (DFT) Tc that it learns, and the 90% range is for that value.');
     }
     el.appendChild(meta);
+    append(el, [candHullNote(sc, kind)]);
     if (!rows.some(function (c) { return candId(c) === candState.sel[kind]; })) candState.sel[kind] = candId(rows[0]);
     var sel = candState.sel[kind];
     var shown = candState.all ? rows : rows.slice(0, CAND_SHOWN);
@@ -424,7 +457,7 @@
     shown.forEach(function (c) {
       var i = rows.indexOf(c), id = candId(c), M = xtModel(c), on = id === sel;
       var name = isHttps(c.url) ? h('a', { href: c.url, text: hurSub(c.formula) }) : h('span', { text: hurSub(c.formula) });
-      var sub = [c.spg ? cText(c.spg, 30) : '', candNum(c.ehull) ? (Math.round(1000 * c.ehull) === 0 ? 'on the convex hull' : Math.round(1000 * c.ehull) + ' meV/atom above the hull') : '',
+      var sub = [c.spg ? cText(c.spg, 30) : '', candHullText(sc, kind, c),
         hur && candNum(c.gap) ? (c.gap > 0 ? 'band gap ' + c.gap.toFixed(1) + ' eV' : 'metallic') : '', hur && c.magnetic === true ? 'magnetic' : '',
         c.id ? cText(String(c.id), 40) : '', c.listed && /^\d{4}-\d{2}-\d{2}$/.test(String(c.listed.date)) ? 'listed ' + fmtDayISO(c.listed.date) : ''].filter(Boolean).join(' · ');
       var thumb;
@@ -440,7 +473,7 @@
         thumb,
         h('div', { class: 'cand-main' }, h('b', null, name), sub ? h('div', { class: 'dt-cell-sub', text: sub }) : null,
           h('div', { class: 'dt-cell-sub', text: candidateData.literatureText(c) }),
-          candRemarksEl(c, hur, block, true),
+          candRemarksEl(c, hur, block, true, sc),
           mcm ? h('span', { class: 'cand-mcm' + (mcm === 'confirmed' ? ' is-done' : mcm === 'testable' ? ' is-testable' : ''), text: mcm === 'confirmed' ? 'At least 40 K: experimental check recorded' : mcm === 'worth' ? 'Worth an experiment: predicted at least 40 K' : 'Testable prediction: at least ' + TESTABLE_K + ' K, ICSD-linked structure' }) : null),
         h('div', { class: 'cand-tc' }, h('b', { text: candK(tc) }), range ? h('div', { class: 'dt-cell-sub', text: range }) : null),
         hur ? null : h('div', { class: 'cand-cal' }, h('span', { class: 'cand-label', text: 'Calibrated ' }), candNum(c.tc_cal) ? candK(c.tc_cal) : '—'),
@@ -563,7 +596,7 @@
     box.appendChild(h('p', { class: 'xt-facts', text: candidateData.literatureText(c) }));
     if (!M) {
       box.appendChild(h('p', { class: 'note', text: 'No crystal structure is stored for this material.' }));
-      box.appendChild(candRemarksEl(c, hur, candBlock(state.data && state.data.screen, hur ? 'hurricane' : 'storm')));
+      box.appendChild(candRemarksEl(c, hur, candBlock(state.data && state.data.screen, hur ? 'hurricane' : 'storm'), false, state.data && state.data.screen));
       return;
     }
     var cv = h('canvas', { class: 'xt-big', role: 'img', tabindex: '0', 'aria-label': xtAlt(c, M) });
@@ -601,7 +634,7 @@
         box.appendChild(h('p', { class: 'xt-facts' }, [fam ? 'It contains ' + fam + '.' : '', types.length ? 'Its formula fits the pattern of the ' + types.join(' and the ') + '.' : ''].filter(Boolean).join(' ')));
       }
     }
-    box.appendChild(candRemarksEl(c, hur, candBlock(state.data && state.data.screen, hur ? 'hurricane' : 'storm')));
+    box.appendChild(candRemarksEl(c, hur, candBlock(state.data && state.data.screen, hur ? 'hurricane' : 'storm'), false, state.data && state.data.screen));
     var nav = h('div', { class: 'xt-nav' },
       h('button', { class: 'btn small', type: 'button', disabled: i === 0, onclick: function () { candSelect(candId(rows[i - 1]), false); } }, 'Previous'),
       h('span', { class: 'xt-hint', text: 'Drag to turn it' }),

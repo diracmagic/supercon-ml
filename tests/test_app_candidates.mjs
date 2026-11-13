@@ -292,6 +292,98 @@ test('a list screened by a datasheet-trained Hurricane names its own round, its 
   assert.match(note({ ...sc, hurricane: four }, 'hurricane'), /The original screening round 5 applied broader pool exclusions: 67 with a SuperCon or 3DSC record\./);
 });
 
+// The pools of screening rounds 1 to 6 were selected with the ehull field of JARVIS-DFT, which does not follow the convex hull.
+const fieldScreen = () => ({ round: 5, date: '2026-10-31', candidates: [{ id: 'JVASP-1', formula: 'InGa3', ehull: 0 }, { id: 'JVASP-2', formula: 'CaClO', ehull: 0.012 }],
+  hurricane: { model: 'Hurricane 9.0', round: 6, date: '2026-11-11', candidates: [{ id: 'JVASP-3', formula: 'Cu8O', ehull: 0 }, { id: 'JVASP-4', formula: 'SmO', ehull: 0 }] } });
+const hullRecord = () => ({ about: 'x', record: 'results/validation/screening-pools-hull-correction.md',
+  storm: { round: 5, listed: 2, found: 2, within_50_meV: 1, beyond_50_meV: 1, beyond_200_meV: 1, distance_eV_per_atom: { 'JVASP-1': 0.0004, 'JVASP-2': 0.3298 } },
+  hurricane: { round: 6, listed: 2, found: 2, within_50_meV: 2, beyond_50_meV: 0, beyond_200_meV: 0, distance_eV_per_atom: { 'JVASP-3': 0.05, 'JVASP-4': 0 } } });
+
+test('a published hull record is used only for the list it was computed for', () => {
+  const bare = fieldScreen(), sc = { ...fieldScreen(), hull: hullRecord() };
+  for (const kind of ['storm', 'hurricane']) {
+    assert.equal(candidates.fieldPool(bare, kind), true);
+    assert.equal(candidates.hullRecord(bare, kind), null);
+    assert.equal(candidates.hullRecord(sc, kind), sc.hull[kind]);
+  }
+  assert.equal(candidates.hullDistance(bare, 'storm', bare.candidates[1]), null);
+  assert.equal(candidates.hullDistance(sc, 'storm', sc.candidates[1]), 0.3298);
+  assert.equal(candidates.hullBeyond(sc, 'storm', sc.candidates[1]), 330);
+  assert.equal(candidates.hullBeyond(sc, 'storm', sc.candidates[0]), null);
+  assert.equal(candidates.hullBeyond(sc, 'hurricane', sc.hurricane.candidates[0]), null, 'exactly 50 meV/atom is within');
+  assert.equal(candidates.hullDistance(sc, 'hurricane', sc.hurricane.candidates[1]), 0);
+  // a record that does not fit the list is not used at all
+  const broken = change => { const s = { ...fieldScreen(), hull: hullRecord() }; change(s); return s; };
+  for (const change of [s => { s.hull.storm.round = 4; }, s => { s.hull.storm.listed = 3; }, s => { s.hull.storm.found = 1; }, s => { delete s.hull.storm.distance_eV_per_atom['JVASP-2']; },
+    s => { s.hull.storm.distance_eV_per_atom['JVASP-2'] = -0.1; }, s => { s.hull.storm.distance_eV_per_atom['JVASP-2'] = '0.3'; }, s => { s.hull.storm.beyond_200_meV = 2; },
+    s => { s.hull.storm.beyond_50_meV = 3; }, s => { s.hull.storm.distance_eV_per_atom = [0, 0.3]; }, s => { s.hull.storm = 'all on the hull'; }, s => { s.hull = 'none'; },
+    s => { s.candidates.push({ id: 'JVASP-9', formula: 'New' }); }]) {
+    const s = broken(change);
+    assert.equal(candidates.hullRecord(s, 'storm'), null);
+    assert.equal(candidates.hullBeyond(s, 'storm', s.candidates[1]), null);
+  }
+  // a list of a later round was not selected with the field: neither the note nor an old record applies to it
+  const later = { ...sc, round: 7, hull: { ...hullRecord(), storm: { ...hullRecord().storm, round: 7 } } };
+  assert.equal(candidates.fieldPool(later, 'storm'), false);
+  assert.equal(candidates.hullRecord(later, 'storm'), null);
+  assert.equal(candidates.fieldPool({ ...sc, hurricane: { ...sc.hurricane, round: 8 } }, 'hurricane'), false);
+  // a Hurricane list without its own round belongs to the screen's round, as before round 6
+  const old = { ...bare, hurricane: { model: 'Hurricane 4.0', candidates: bare.hurricane.candidates } };
+  assert.equal(candidates.fieldPool(old, 'hurricane'), true);
+  for (const nothing of [null, undefined, {}, 'x']) {
+    assert.equal(candidates.fieldPool(nothing, 'hurricane'), false);
+    assert.equal(candidates.hullRecord(nothing, 'hurricane'), null);
+    assert.equal(candidates.hullBeyond(nothing, 'storm', { id: 'JVASP-1' }), null);
+  }
+  // the link to the record is a fixed path pattern in this repository
+  assert.equal(candidates.hullRecordPath(sc), 'results/validation/screening-pools-hull-correction.md');
+  for (const path of ['https://example.org/x.md', '../secrets.md', 'results/validation/x.md?raw=1', 'results/validation/sub/x.md', 'results/x.md', 7])
+    assert.equal(candidates.hullRecordPath({ hull: { record: path } }), 'results/validation/screening-pools-hull-correction.md');
+  assert.equal(candidates.hullRecordPath({ hull: { record: 'results/validation/another-record_2.md' } }), 'results/validation/another-record_2.md');
+});
+
+test('Candidates states the hull correction under a list of rounds 1 to 6 and gives each computed distance', () => {
+  const source = fs.readFileSync(new URL('../app/dist/js/definitions/candidates.js', import.meta.url), 'utf8');
+  const makeElement = (tag, attrs, ...children) => ({ tag, attrs: attrs || {}, children });
+  const text = el => el == null ? '' : typeof el === 'string' ? el : (el.attrs && el.attrs.text || '') + (el.text || '') + (el.children || []).map(text).join('');
+  const links = el => el == null || typeof el === 'string' ? [] : (el.tag === 'a' ? [el.attrs.href] : []).concat(...(el.children || []).map(links));
+  const context = { candidateData: candidates, CHECK_LABEL: { experiment: 'Measured' }, list: value => Array.isArray(value) ? value : [], hurInfo: () => ({ versions: [] }), hurTW: () => false,
+    hurSub: String, fmtInt: String, cText: (s, n) => String(s).slice(0, n), h: makeElement, richText: (el, t) => ({ ...el, text: t }), REPO_URL: 'https://github.com/owner/repo' };
+  vm.runInNewContext(source + '\nglobalThis.hullRules = { candHullText, candHullNote, candRemarks };', context);
+  const { candHullText, candHullNote, candRemarks } = context.hullRules;
+  const bare = fieldScreen(), sc = { ...fieldScreen(), hull: hullRecord() };
+  // before the record is published the field is named as such; with it, the computed distance takes its place
+  assert.equal(candHullText(bare, 'storm', bare.candidates[0]), 'JARVIS-DFT ehull field 0 meV/atom');
+  assert.equal(candHullText(bare, 'storm', bare.candidates[1]), 'JARVIS-DFT ehull field 12 meV/atom');
+  assert.equal(candHullText(sc, 'storm', sc.candidates[0]), 'on the computed hull');
+  assert.equal(candHullText(sc, 'storm', sc.candidates[1]), '330 meV/atom above the computed hull');
+  assert.equal(candHullText(sc, 'hurricane', sc.hurricane.candidates[0]), '50 meV/atom above the computed hull');
+  assert.equal(candHullText(bare, 'storm', { id: 'JVASP-5' }), '');
+  // a list of a later round is described by its own values, as before
+  const later = { ...bare, round: 7 };
+  assert.equal(candHullText(later, 'storm', later.candidates[0]), 'on the convex hull');
+  assert.equal(candHullText(later, 'storm', later.candidates[1]), '12 meV/atom above the hull');
+  assert.equal(candHullNote(later, 'storm'), null);
+  for (const kind of ['storm', 'hurricane']) {
+    const note = text(candHullNote(bare, kind));
+    assert.match(note, /^Correction\. The pool of this list was selected with the ehull field of JARVIS-DFT, kept at 50 meV\/atom or less, and not by the distance to the convex hull that the description above gives: that field does not follow the convex hull of the file’s own formation energies\. /);
+    assert.match(note, /Each candidate’s line names the value of that field as such\. No rank or score has changed, and the list stands as published until a screening on a corrected pool replaces it\. The record gives the check\.$/);
+    assert.doesNotMatch(note, /\d+ of the/);
+    assert.deepEqual(links(candHullNote(bare, kind)), ['https://github.com/owner/repo/blob/main/results/validation/screening-pools-hull-correction.md']);
+  }
+  assert.match(text(candHullNote(sc, 'storm')), /Against the hull computed from those energies, 1 of the 2 candidates on this list lies more than 50 meV\/atom above it and 1 more than 200 meV\/atom; each candidate’s line gives its computed distance\. No rank or score has changed/);
+  assert.match(text(candHullNote(sc, 'hurricane')), /Against the hull computed from those energies, none of the 2 candidates on this list lie more than 50 meV\/atom above it; each candidate’s line gives its computed distance\./);
+  const many = { ...sc, hull: { ...sc.hull, storm: { ...sc.hull.storm, beyond_50_meV: 2, beyond_200_meV: 0, distance_eV_per_atom: { 'JVASP-1': 0.07, 'JVASP-2': 0.12 } } } };
+  assert.match(text(candHullNote(many, 'storm')), /2 of the 2 candidates on this list lie more than 50 meV\/atom above it and none more than 200 meV\/atom;/);
+  // the remarks of a candidate beyond 50 meV/atom say so; no other candidate's remarks change
+  const remarks = (s, kind, c) => candRemarks(c, kind === 'hurricane', kind === 'hurricane' ? s.hurricane : null, s).map(row => typeof row[1] === 'string' ? row[1] : '').join(' ');
+  assert.match(remarks(sc, 'storm', sc.candidates[1]), /Computed from JARVIS-DFT’s own formation energies, this structure lies 330 meV\/atom above the convex hull\. The pool was meant to hold compounds within 50 meV\/atom of it and was selected with a field that does not follow the hull\./);
+  for (const [s, kind, c] of [[sc, 'storm', sc.candidates[0]], [bare, 'storm', bare.candidates[1]], [sc, 'hurricane', sc.hurricane.candidates[0]], [later, 'storm', later.candidates[1]]]) {
+    assert.doesNotMatch(remarks(s, kind, c), /above the convex hull/);
+    assert.equal(remarks(s, kind, c), candRemarks(c, kind === 'hurricane', kind === 'hurricane' ? s.hurricane : null).map(row => typeof row[1] === 'string' ? row[1] : '').join(' '));
+  }
+});
+
 test('literature statuses preserve unknown outcomes and a missing record stays unsearched', () => {
   assert.match(candidates.literatureText({ id: 'missing' }), /Literature searched: unsearched/);
   for (const status of ['structure-only', 'needs-full-text', 'not-found-in-this-search']) {
