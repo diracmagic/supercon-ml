@@ -104,7 +104,7 @@ TOPICS = [
     ("Heavy fermions", r"heavy[- ]fermion|Kondo|CeCoIn|CeRh[_]?2As|UTe[_]?2|uranium ditelluride|UPt[_]?3|URhGe|UCoGe|CeCu[_]?2Si"),
     ("Triplet and ruthenates", r"Sr[_]?2RuO[_]?4|ruthenate|spin-triplet|triplet pairing|odd-parity"),
     ("Topological", r"topolog|Majorana|Kitaev"),
-    ("Electron–phonon", r"electron-phonon|electron–phonon|phonon-mediated|Eliashberg|MgB[_]?2|Nb[_]?3Sn|NbTi|conventional superconduct|McMillan|Allen-Dynes"),
+    ("Electron–phonon", r"electron-phonon|electron–phonon|phonon-mediated|Eliashberg|MgB[_]?2|Nb[_]?3Sn|NbTi|\bconventional superconduct|McMillan|Allen-Dynes"),
     ("Vortices and junctions", r"Josephson|SQUID|diode effect|vortex|vortices|Meissner|flux quant|Abrikosov"),
     ("AI and data", r"machine learning|machine-learning|deep learning|neural network|data-driven|high-throughput|large language model|generative model"),
 ]
@@ -118,6 +118,11 @@ EXCLUDE = r"qubit|transmon|fluxonium|quantum processor|quantum computer|quantum 
 # story that only says it "could help build quantum computers" is not a device story.
 DEVICE_TITLE = EXCLUDE + r"|superconducting circuit|quantum information|quantum technolog"
 DEVICE_TEXT = r"qubit|transmon|fluxonium|quantum processor|quantum memory|circuit QED|single-photon detector|SNSPD|parametric amplifier|kinetic inductance detector"
+# Editorial notices about an earlier paper (corrections, errata, addenda, retraction notes) are not new results.
+NOTICE = (r"^(?:(?:author|publisher)\s+)?(?:correction|erratum|corrigendum|addendum)\s*(?::|to\b)|"
+          r"^retraction(?:\s+note)?\s*:|^expression of concern\s*:|^publisher[’']?s note\s*:")
+# Electrochemistry titles sometimes call a superionic (ion) conductor a "superconductor"; those are not superconductivity.
+ION_CONDUCTOR = r"superionic|\bion(?:ic)?[- ]conduct|solid(?:[- ]state)? electrolyte|electrodialy|lithium extraction|\bbatter(?:y|ies)\b"
 # Titles from news feeds and Crossref often carry Unicode sub- and superscripts (La₃Ni₂O₇, UTe₂); match them like plain digits.
 PLAIN_DIGITS = str.maketrans("₀₁₂₃₄₅₆₇₈₉⁰¹²³⁴⁵⁶⁷⁸⁹₊₋⁺⁻", "01234567890123456789+-+-")
 
@@ -179,6 +184,16 @@ def html_lite(s: str) -> str:
 def clean_text(s: str) -> str:
     s = tex_lite(html.unescape(html_lite(s or "")))
     return re.sub(r"\s+", " ", s).strip()
+
+
+def is_notice(title: str) -> bool:
+    """A correction, erratum, addendum or retraction notice rather than a new paper."""
+    return bool(re.search(NOTICE, (title or "").strip(), re.I))
+
+
+def is_ion_conductor(title: str) -> bool:
+    """An electrochemistry title that uses "superconductor" for a superionic conductor."""
+    return bool(re.search(ION_CONDUCTOR, title or "", re.I))
 
 
 def tags_for(text: str) -> tuple[list, str]:
@@ -293,6 +308,8 @@ def fetch_journal(short: str, name: str, issns: list) -> list:
         title = clean_text(" ".join(w.get("title") or []))
         if not re.search(r"supercond", title, re.I) or re.search(EXCLUDE, title, re.I):
             continue
+        if is_notice(title) or is_ion_conductor(title):
+            continue
         abstract = clean_text(w.get("abstract", ""))
         abstract = re.sub(r"^(Abstract|Summary)\s+", "", abstract)
         names = [clean_text(" ".join(x for x in (a.get("given"), a.get("family")) if x)) or clean_text(a.get("name", ""))
@@ -359,6 +376,8 @@ def fetch_news(name: str, url: str) -> list:
         date = parse_date(text("pubDate") or text("published") or text("updated") or text(DC + "date"))
         if not title or not link.startswith("http") or not re.search(r"supercond", title + " " + desc, re.I):
             continue
+        if is_ion_conductor(title):
+            continue
         if name == "Nature News" and "/d41586-" not in link:   # keep news and comment, not research papers
             continue
         if date and date < since:
@@ -400,6 +419,8 @@ def main() -> int:
             journals += kept.get(short, [])
     seen, unique = set(), []
     for x in sorted(journals, key=lambda x: x["date"], reverse=True):
+        if is_notice(x.get("title", "")) or is_ion_conductor(x.get("title", "")):
+            continue   # also drops such items kept from an earlier run when a journal could not be fetched
         if x["id"] not in seen:
             seen.add(x["id"])
             unique.append(x)
@@ -417,6 +438,8 @@ def main() -> int:
             news += kept_news.get(name, [])
     seen_n, uniq_n = set(), []
     for x in sorted(news, key=lambda x: x.get("date", ""), reverse=True):
+        if is_ion_conductor(x.get("title", "")):
+            continue
         key = re.sub(r"\W+", " ", x["title"].lower()).strip()
         if x["url"] not in seen_n and key not in seen_n:
             seen_n.update([x["url"], key])
