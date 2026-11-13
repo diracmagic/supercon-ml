@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "revisions": [
+    {
+      "reviewed_on": "2026-11-11",
+      "purpose": "Release 0.3.31. Candidates can show a list screened by a Hurricane version that learns from the NIMS SuperCon datasheet. Such a list names its own screening round and date, its remarks name the datasheet instead of 3DSC, say that the candidate is one of the model's background compounds scored by a classifier that left it out, and call a nearest training compound with Tc 0 measured not to superconduct; the pool exclusions count the compounds the datasheet lists. The lead gives the share of superconducting and of measured non-superconducting new parent compounds with a score of at least 0.5 and the three answers for a family not yet found, without a verdict. Version 0.3.31 in the service worker, the app constant and the cache name. The app changes no model result, candidate, score or threshold.",
+      "controls_preserved": [
+        "complete function and initializer AST comparison",
+        "script/initializer order",
+        "70,000 byte resource limit",
+        "strict mode and lexical bindings",
+        "original snapshot provenance",
+        "all prior reviewed revision records with ordered counts and complete content hashes",
+        "every control listed by the previous reviewed revision, retained in review-history-31.json",
+        "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
+        "a list screened by a version scored on folds is described exactly as before, and Storm's list is unchanged",
+        "every number in the new texts is read from the live progress data",
+        "the new texts say that a listed compound is one of the background compounds the model counts as probably not superconducting, that its score comes from a classifier that left it out, and which share of measured non-superconductors still gets a score of at least 0.5"
+      ],
+      "previous_css_sha256": "87ff2e1121b9e2aca03c9963028a026cffb1e7e02302a95d493ffef0832a5947",
+      "functions_added": [],
+      "functions_removed": [],
+      "previous_removed_functions": [],
+      "functions_changed": [
+        "candRemarks",
+        "candOursNote",
+        "renderCandidates"
+      ],
+      "initializers_changed": [
+        {
+          "file": "js/initialize/core.js",
+          "before_ast_sha256": "cb617d272396b2b0e8fc7eabc624d46b2ae9622daf61c417a15adddc2723ca7d",
+          "after_ast_sha256": "4c620d3db5c199a9bcd56cedd0dad15d1bb746e4f53e2d89f44fe680cba89e1c"
+        }
+      ],
+      "previous_function_changes": {
+        "candRemarks": "a5a3de38e7af03677a7b004160b1edaf48cbc82907b3aa30414ba9ea9aba7e75",
+        "candOursNote": "7dbb7191f0c934e89810065c4cfe4814f6d9e8a2c0f0e686838a87bae74a9539",
+        "renderCandidates": "81678be822f84e3d2e9284e66d606cb6b5b1b0cd957dbd9e06a1fa2fee86efe1"
+      },
+      "previous_initialization_changes": {
+        "0": "0035a6aff5b6721082ddf5a8d01381d2d7a1cbe4cd4ae19fd5d455875735ccec"
+      }
+    }
+  ]
+}

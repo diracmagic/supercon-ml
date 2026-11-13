@@ -233,7 +233,46 @@
     out.push('This is a MACE potential-based finite-mesh prescreen, not DFT or a full Brillouin-zone validation. It does not compute electron–phonon coupling or Tc, and does not establish superconductivity.');
     return out;
   }
+  /* A correction to the pools of screening rounds 1 to 6. They kept a JARVIS-DFT entry if the file's ehull field was at
+     most 50 meV/atom, and that field does not follow the convex hull of the file's own formation energies. A list of one
+     of those rounds is described as selected with the field. The published record screen.hull gives each candidate's
+     distance to the hull computed from those energies; a list's part of it is used only for the list it was computed
+     for: the same screening round and the same number of candidates. Nothing here changes a list, a rank or a score. */
+  var FIELD_POOL_LAST_ROUND = 6;
+  function listRound(screen, kind) {
+    var block = kind === 'hurricane' ? screen && screen.hurricane : screen;
+    return block && number(block.round) ? block.round : screen && number(screen.round) ? screen.round : null;
+  }
+  function fieldPool(screen, kind) {
+    var round = listRound(screen, kind);
+    return round !== null && round <= FIELD_POOL_LAST_ROUND;
+  }
+  function hullRecord(screen, kind) {
+    if (!screen || typeof screen !== 'object' || !fieldPool(screen, kind)) return null;
+    var hull = screen.hull && typeof screen.hull === 'object' ? screen.hull : null, s = hull ? hull[kind === 'hurricane' ? 'hurricane' : 'storm'] : null;
+    var block = kind === 'hurricane' ? screen.hurricane : screen, rows = block && Array.isArray(block.candidates) ? block.candidates : [];
+    var d = s && typeof s === 'object' ? s.distance_eV_per_atom : null;
+    if (!d || typeof d !== 'object' || Array.isArray(d)) return null;
+    if (s.round !== listRound(screen, kind) || !number(s.listed) || s.listed !== rows.length || s.found !== s.listed) return null;
+    if (![s.beyond_50_meV, s.beyond_200_meV].every(function (n) { return number(n) && n >= 0 && n <= s.listed; }) || s.beyond_200_meV > s.beyond_50_meV) return null;
+    if (!rows.every(function (c) { return c && Object.prototype.hasOwnProperty.call(d, id(c)) && number(d[id(c)]) && d[id(c)] >= 0; })) return null;
+    return s;
+  }
+  function hullDistance(screen, kind, c) {
+    var s = hullRecord(screen, kind);
+    return s && c ? s.distance_eV_per_atom[id(c)] : null;
+  }
+  // a candidate that the record puts beyond the 50 meV/atom the pools were meant to keep within: its distance in meV/atom
+  function hullBeyond(screen, kind, c) {
+    var d = hullDistance(screen, kind, c);
+    return number(d) && d > 0.05 ? Math.round(1000 * d) : null;
+  }
+  function hullRecordPath(screen) {
+    var path = screen && screen.hull && typeof screen.hull.record === 'string' ? screen.hull.record : '';
+    return /^results\/validation\/[\w.-]+\.md$/.test(path) ? path : 'results/validation/screening-pools-hull-correction.md';
+  }
   return { tracks: TRACKS, id: id, inside: inside, trackRows: trackRows, trackForId: trackForId, checkText: checkText,
+    fieldPool: fieldPool, hullRecord: hullRecord, hullDistance: hullDistance, hullBeyond: hullBeyond, hullRecordPath: hullRecordPath,
     predictedTc: predictedTc, sortByPredictedTc: sortByPredictedTc, partitionCandidates: partitionCandidates, earlierReport: earlierReport,
     priorReportLines: priorReportLines, sourceLink: sourceLink, checkEvidenceLines: checkEvidenceLines,
     literatureFor: literatureFor, literatureText: literatureText, literatureLines: literatureLines, literatureSources: literatureSources, checkFor: checkFor,

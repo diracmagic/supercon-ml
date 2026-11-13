@@ -554,9 +554,9 @@
     "candMcmChips": "97811282238f8930ce6ec4a90746849a033e741afb1ed031eacf9a97b5286ae3",
     "candMcmBanner": "f34145627a722794118783cbf08cf32fb1b12129e9d6d0b51ad691b2677cb9d9",
     "candGo": "6ef03d9a920451afffb40d428e50ea9ccf8cc8934b368e4d95e3c6a339dc883a",
-    "candRemarks": "1cc2c1e8d329739c5d2e5e246a5dce044e28f5d2b8563fb2a18a6bb5fe4b45b8",
+    "candRemarks": "9c7338d8a09259002bcd55a9760e58ee17ef9e0ae46425284822c427828f0f8b",
     "candListedText": "e798428b8f91bf42469a328f27918bb7074c83ada058449e4e635239b4fa3bd7",
-    "candRemarksEl": "27233e5433800427cfd3bb777653b4b3aaad339a5befbfed7978c9888452ac7e",
+    "candRemarksEl": "ebb0a67874e250fb48b84bb114cdc6e889d3784bd01c8832fdbc8a909d94fc70",
     "candCheckText": "216dd32a240283fb76aad4f74888232223034997c2f872bd73fbe8d1ffe9a98d",
     "candCheckSource": "28cce57d523a3c19be85c2f8014fce905378961f88ed46ad1bbc31836324cbef",
     "candCheck": "196772977a90bb19529010090d1c9a3599f0dae744237505c2a05b4e0ef2684d",
@@ -566,10 +566,12 @@
     "candArchive": "b168ca844115c6815c7b6e9c35471a050324a69a7246811172d33d6f11472338",
     "candModel": "f91855703dfffa4949bde6c1b4301c1de8d1699614e2d803da641cb6032ea5b5",
     "candHurTop": "500ed8c80b485c9b88e1f16e8f1de19ff599f36ceeccc8fa37df93892ed3c264",
-    "renderCandidates": "ef96b2a8a1562d08bc1efe59f57ec3fd84c5cc16e73479f32e54af176ef68592",
+    "candHullText": "156492213e74ca85dca5f4a8dcb870332b9268e78bc8c6458b09768ff6d253bb",
+    "candHullNote": "1637536fac4838869516c74ea4ce08ec31370f666d40d2ec10b8f1ae9efa2612",
+    "renderCandidates": "2ecaeac11702631091c20ab0d1d1c74adba4ac4a446cdd86f7bf546219483409",
     "candTellUs": "c4e2ef3c3b7fd11b4442678f2be13a5525d91d7c7077fab18746c0d26602bd32",
     "candSelect": "73ef0bc4418f1763c2307f182641dc7c83f3ae236802832c3268e8b4d5698dc9",
-    "candViewer": "18ac4cad6b535c60f111fe7116fccb8512e7c5e223faebae22bc064518787a99",
+    "candViewer": "e5af7629936aab685501646e3b56dda21d7302613b56c8455dac000dbfb9028e",
     "xtSync": "7bedc96ae35c90d7b5a1389626b937ffd45e248ce351eeec1852985a0b166131",
     "xtAlt": "608c859a749f06a481d273b00fd8bf598bdbbbdf19a01e7cde2c902c4b9ad1a2",
     "xtCellText": "f28c04f54b64dc1090578798659b982707134aebf852a52a6ba68adda2fb4c8a",
@@ -617,7 +619,7 @@
     "applyTheme": "0996d8f87f8a8392f49f24f4e4b4af9012f7997f2a43b39859e8445885c25b65"
   },
   "initialization": [
-    "ed5eea6e834511d3001e93e8e9f8318c927ecbedaf095c7a985f63d65bfa2cc2",
+    "6564a0729761acbd95c969b744cb972e3feebc5616d1eb5304b44720e2d09d2b",
     "7b896c2a8329467cb8d65bf7f23014a92ec6764ed367284bffff0302937b3548",
     "ee9badd6208953ead89dfd383964cef5ec0611a74a19b3f3856f90680056bca4",
     "2553b5473d145d0da397221b8a75d5eeb2ef7273f3fa886e814bfcc1cac2ee25",
@@ -878,8 +880,8 @@
     "initialization": "8e4e0a8ac6baf038aae01f9e1ffdd3511623ae2eaa0f048b5af620cb4da5b0a6"
   },
   "reviewed_revision": {
-    "reviewed_on": "2026-11-11",
-    "purpose": "Release 0.3.31. Candidates can show a list screened by a Hurricane version that learns from the NIMS SuperCon datasheet. Such a list names its own screening round and date, its remarks name the datasheet instead of 3DSC, say that the candidate is one of the model's background compounds scored by a classifier that left it out, and call a nearest training compound with Tc 0 measured not to superconduct; the pool exclusions count the compounds the datasheet lists. The lead gives the share of superconducting and of measured non-superconducting new parent compounds with a score of at least 0.5 and the three answers for a family not yet found, without a verdict. Version 0.3.31 in the service worker, the app constant and the cache name. The app changes no model result, candidate, score or threshold.",
+    "reviewed_on": "2026-11-12",
+    "purpose": "Release 0.3.32. Candidates states a correction: the pools of screening rounds 1 to 6 were selected with the ehull field of JARVIS-DFT, which does not follow the convex hull of the file's formation energies. A list of those rounds carries a note next to the description of its pool; a candidate's line gives its distance to the hull computed from those energies where the published record (screen.hull) has it and names the field otherwise; the remarks of a candidate beyond 50 meV/atom say so. New data rules in dist/candidates.js decide which lists the note applies to and accept a record only for the list it was computed for. Version 0.3.32 in the service worker, the app constant and the cache name. No model result, candidate, rank, score or threshold changes.",
     "controls_preserved": [
       "complete function and initializer AST comparison",
       "script/initializer order",
@@ -887,35 +889,42 @@
       "strict mode and lexical bindings",
       "original snapshot provenance",
       "all prior reviewed revision records with ordered counts and complete content hashes",
-      "every control listed by the previous reviewed revision, retained in review-history-31.json",
+      "every control listed by the previous reviewed revision, retained in review-history-32.json",
       "model thresholds, raw scientific results and candidate numeric scores remain unchanged",
-      "a list screened by a version scored on folds is described exactly as before, and Storm's list is unchanged",
       "every number in the new texts is read from the live progress data",
-      "the new texts say that a listed compound is one of the background compounds the model counts as probably not superconducting, that its score comes from a classifier that left it out, and which share of measured non-superconductors still gets a score of at least 0.5"
+      "a hull distance is named for what it is: the distance to the computed hull where the published record gives it for that list, the ehull field of JARVIS-DFT otherwise; a list of a later round keeps its own wording",
+      "a record is used only for the list it was computed for: the same screening round, the same number of candidates and a distance for every candidate",
+      "a list of rounds 1 to 6 keeps its other texts, its ranks and its tiers; the tiers do not read the hull",
+      "the link to the record is built from a fixed path pattern in this repository"
     ],
     "previous_css_sha256": "87ff2e1121b9e2aca03c9963028a026cffb1e7e02302a95d493ffef0832a5947",
-    "functions_added": [],
+    "functions_added": [
+      "candHullText",
+      "candHullNote"
+    ],
     "functions_removed": [],
     "previous_removed_functions": [],
     "functions_changed": [
       "candRemarks",
-      "candOursNote",
-      "renderCandidates"
+      "candRemarksEl",
+      "renderCandidates",
+      "candViewer"
     ],
     "initializers_changed": [
       {
         "file": "js/initialize/core.js",
-        "before_ast_sha256": "cb617d272396b2b0e8fc7eabc624d46b2ae9622daf61c417a15adddc2723ca7d",
-        "after_ast_sha256": "4c620d3db5c199a9bcd56cedd0dad15d1bb746e4f53e2d89f44fe680cba89e1c"
+        "before_ast_sha256": "4c620d3db5c199a9bcd56cedd0dad15d1bb746e4f53e2d89f44fe680cba89e1c",
+        "after_ast_sha256": "691f6c75c3c82ee7b69fc339b7c32480f5eb0832a7fc95657ea61d098c5a3baa"
       }
     ],
     "previous_function_changes": {
-      "candRemarks": "a5a3de38e7af03677a7b004160b1edaf48cbc82907b3aa30414ba9ea9aba7e75",
-      "candOursNote": "7dbb7191f0c934e89810065c4cfe4814f6d9e8a2c0f0e686838a87bae74a9539",
-      "renderCandidates": "81678be822f84e3d2e9284e66d606cb6b5b1b0cd957dbd9e06a1fa2fee86efe1"
+      "candRemarks": "1cc2c1e8d329739c5d2e5e246a5dce044e28f5d2b8563fb2a18a6bb5fe4b45b8",
+      "candRemarksEl": "27233e5433800427cfd3bb777653b4b3aaad339a5befbfed7978c9888452ac7e",
+      "renderCandidates": "ef96b2a8a1562d08bc1efe59f57ec3fd84c5cc16e73479f32e54af176ef68592",
+      "candViewer": "18ac4cad6b535c60f111fe7116fccb8512e7c5e223faebae22bc064518787a99"
     },
     "previous_initialization_changes": {
-      "0": "0035a6aff5b6721082ddf5a8d01381d2d7a1cbe4cd4ae19fd5d455875735ccec"
+      "0": "ed5eea6e834511d3001e93e8e9f8318c927ecbedaf095c7a985f63d65bfa2cc2"
     }
   },
   "original_css_sha256": "62e4f2aa68a5a89947192c001d57572d0ffd73087b1cf6a1db2abd6525684441",
@@ -1091,7 +1100,12 @@
       "path": "review-history-31.json",
       "sha256": "4e31c338f120ddff62ae124580ecca60086fe5ad939dc6accf4cb653cc8b8a3b",
       "count": 1
+    },
+    {
+      "path": "review-history-32.json",
+      "sha256": "fe7232249fdf0140b08922eb28ccecc1f9f7b380b72b4e9187c576fda3bec850",
+      "count": 1
     }
   ],
-  "reviewed_revision_count": 36
+  "reviewed_revision_count": 37
 }
