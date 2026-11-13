@@ -204,6 +204,10 @@ jobs:
         if: success() && contains(format(' {0} ', env.STAGES), ' hurricane9screen ')
         run: python ml/pipeline.py hurricane9screen
 
+      - name: Correction to the screening pools (each published candidate's distance to the hull computed from JARVIS-DFT's formation energies; no list is changed)
+        if: success() && contains(format(' {0} ', env.STAGES), ' screenhull ')
+        run: python ml/pipeline.py screenhull
+
       - name: Check incremental descriptor caches before saving
         id: cache-integrity
         if: always() && steps.data-cache.outcome == 'success'

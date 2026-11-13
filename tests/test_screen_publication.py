@@ -32,7 +32,14 @@ class ScreeningPublicationTests(unittest.TestCase):
         # payload that audit saw, and Storm's list is bound to it hash for hash.
         cls.round6 = json.loads((ROOT / 'results/validation/hurricane9-screen-publication.json').read_text(encoding='utf-8'))
         cls.rescreened = cls.deployed['hurricane']['model'] != 'Hurricane 4.0'
-        cls.screen = copy.deepcopy(cls.deployed)
+        # The correction to the screening pools comes after round 6 and adds one field to the screen block, /hull: each
+        # published candidate's distance to the convex hull computed from JARVIS-DFT's formation energies. Its record,
+        # written before that run, names the field and the log entry. The screen without the field is the published
+        # screen, and everything below runs on it, so the correction can add what it says and change nothing else.
+        cls.hull_record = json.loads((ROOT / 'results/validation/screen-hull-correction-publication.json').read_text(encoding='utf-8'))
+        cls.corrected = 'hull' in cls.deployed
+        cls.published = {k: v for k, v in cls.deployed.items() if k != 'hull'}
+        cls.screen = copy.deepcopy(cls.published)
         for row in cls.round6['replaced_in_screen']:
             key = row['pointer'].strip('/')
             before = json.loads((ROOT / row['before_file']).read_text(encoding='utf-8')) if 'before_file' in row else copy.deepcopy(row['before'])
@@ -71,7 +78,10 @@ class ScreeningPublicationTests(unittest.TestCase):
                                                              else str(item.get('event', '')).startswith(where['event_prefix']))]
                 self.assertEqual(len(parent[key]) - len(kept), 1 if done else 0)
                 parent[key] = kept
-        # Screening round 6 comes after the release and is undone first: one line of the screen stage and one log entry.
+        # The correction to the screening pools comes last and is undone first: one log entry.
+        self.assertTrue(self.rescreened or not self.corrected)
+        take_out(self.hull_record['appended'], self.corrected)
+        # Screening round 6 comes after the release and is undone next: one line of the screen stage and one log entry.
         self.assertTrue(released or not self.rescreened)
         restore(self.round6['replaced_outside_screen'], self.rescreened)
         take_out(self.round6['appended'], self.rescreened)
@@ -178,11 +188,11 @@ class ScreeningPublicationTests(unittest.TestCase):
         self.assertEqual((record['protocol'], record['protocol_sha256'], record['round']), (S.PROTOCOL['name'], S.protocol_sha256(), S.ROUND))
         self.assertIn(S.protocol_sha256(), (ROOT / record['declaration']).read_text(encoding='utf-8'))
         self.assertEqual([row['pointer'] for row in self.round6['replaced_in_screen']], ['/models', '/hurricane'])
-        self.assertEqual({k: v for k, v in self.deployed.items() if k not in ('models', 'hurricane')},
+        self.assertEqual({k: v for k, v in self.published.items() if k not in ('models', 'hurricane')},
                          {k: v for k, v in self.screen.items() if k not in ('models', 'hurricane')})
         result = ROOT / f'results/screen_round{S.ROUND}.json'
         if not self.rescreened:
-            self.assertEqual(self.deployed, self.screen)
+            self.assertEqual(self.published, self.screen)
             return
         block = self.deployed['hurricane']
         self.assertEqual(self.payload['hurricane']['current'], R.MODEL_VERSION)
@@ -213,6 +223,50 @@ class ScreeningPublicationTests(unittest.TestCase):
             self.assertTrue(0 <= c['p_sc'] <= 1 and c['lo'] <= c['tc_sc'] <= c['hi'])
             self.assertNotIn('p_lo', c)
         self.assertEqual({c['id'] for c in self.deployed['candidates']} - set(self.literature), set())
+
+    def test_the_hull_correction_adds_one_field_and_changes_no_list(self):
+        import screen_hull as H
+        record = self.hull_record
+        self.assertEqual([row['pointer'] for row in record['added_in_screen']], ['/hull'])
+        self.assertEqual((record['step']['module'], record['step']['record'], record['step']['jarvis_rows_sha256']), (H.VERSION, H.RECORD, H.ROWS_SHA256))
+        self.assertEqual(record['step']['result'], f'results/{H.RESULT}')
+        self.assertEqual(record['appended'][0]['where']['event_prefix'], H.LOG_PREFIX)
+        self.assertTrue((ROOT / record['step']['record']).is_file())
+        result = ROOT / record['step']['result']
+        storm, hurricane = self.deployed['candidates'], self.deployed['hurricane']['candidates']
+        self.assertEqual((self.deployed['round'], len(storm)), (record['lists']['storm']['round'], record['lists']['storm']['candidates']))
+        if self.rescreened:
+            self.assertEqual((self.deployed['hurricane']['round'], self.deployed['hurricane']['model'], len(hurricane)),
+                             tuple(record['lists']['hurricane'][k] for k in ('round', 'model', 'candidates')))
+        log = [e for e in self.payload['log'] if str(e.get('event', '')).startswith(H.LOG_PREFIX)]
+        if not self.corrected:
+            self.assertFalse(result.exists())
+            self.assertEqual(log, [])
+            return
+        hull = self.deployed['hull']
+        self.assertEqual(list(self.deployed)[-1], 'hull')            # added after everything the block held
+        out = json.loads(result.read_text(encoding='utf-8'))
+        self.assertEqual((out['module'], out['smoke'], out['screen']), (H.VERSION, False, {'hull': hull}))
+        self.assertEqual(out['file']['rows_sha256'], H.ROWS_SHA256)
+        self.assertLessEqual(out['against_pymatgen']['largest_difference_eV_per_atom'], H.AGREE)
+        self.assertEqual(out['against_pymatgen']['published_candidates_compared'], len(storm) + len(hurricane))
+        self.assertEqual((hull['about'], hull['record']), (H.ABOUT, H.RECORD))
+        self.assertEqual({k: out['file'][k] for k in hull['file'] if k != 'source'}, {k: v for k, v in hull['file'].items() if k != 'source'})
+        rows = {(row['list'], row['id']): row for row in out['candidates']}
+        self.assertEqual(len(rows), len(storm) + len(hurricane))
+        for name, block, cands in (('storm', self.deployed, storm), ('hurricane', self.deployed['hurricane'], hurricane)):
+            rec = hull[name]
+            d = rec['distance_eV_per_atom']
+            self.assertEqual(set(d), {c['id'] for c in cands})
+            self.assertEqual((rec['round'], rec['date'], rec['listed'], rec['found']), (block['round'], block['date'], len(cands), len(cands)))
+            self.assertEqual((rec['within_50_meV'], rec['beyond_50_meV'], rec['beyond_200_meV']),
+                             (sum(v <= 0.05 for v in d.values()), sum(v > 0.05 for v in d.values()), sum(v > 0.2 for v in d.values())))
+            for c in cands:
+                row = rows[(name, c['id'])]
+                self.assertEqual((row['rank'], row['formula'], row['published_ehull'], row['distance_eV_per_atom']), (c['rank'], c['formula'], c['ehull'], d[c['id']]))
+                self.assertTrue(0 <= d[c['id']] == round(d[c['id']], 4))
+                self.assertLessEqual(row['ehull_field'], 0.05)       # the field is what the pool was selected with
+        self.assertEqual([e['event'] for e in log], [H.message(hull)])
 
 
 if __name__ == '__main__':
