@@ -186,6 +186,8 @@ Hydrides are excluded from the electron–phonon track.
 
 The training data are downloaded when the models train and are not stored in this repository. We filter and match them and compute features from them; the models, predictions and scores in `results/` and `progress/` are our own. None of the data providers endorses this project.
 
+The structures and database fields shown with the candidates are taken from JARVIS-DFT (lattice vectors rounded to four decimals, fractional coordinates to five). NIST provides these data as a public service, as is and without warranty of any kind; the hull distances, scores and lists are this project's own computations.
+
 | Data | Used for | Licence | Please cite |
 |---|---|---|---|
 | [Alexandria](https://alexandria.icams.rub.de/) electron–phonon calculations | Storm's training data | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | T. F. T. Cerqueira, A. Sanna & M. A. L. Marques, Adv. Mater. 36, 2307085 (2024), [doi:10.1002/adma.202307085](https://doi.org/10.1002/adma.202307085); T. Cavignac et al., J. Phys. Mater. 9, 025014 (2026), [doi:10.1088/2515-7639/ae6620](https://doi.org/10.1088/2515-7639/ae6620) |
