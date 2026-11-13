@@ -42,6 +42,18 @@ class ScreeningPublicationTests(unittest.TestCase):
                 cls.screen[key] = before
             else:
                 assert cls.screen[key] == before, f'{key} differs from the record written before screening round 6'
+        # Screening round 7 replaces Hurricane's list again, with the lists of the same model on a wider pool. Its
+        # record, written before that run, keeps the list of round 6 as it was published. screen6 is the screen block
+        # as round 6 left it: the deployed one before the run of round 7, and after it the deployed one with the
+        # archived list put back, so the checks of round 6 below keep running on the list that round published.
+        cls.round7 = json.loads((ROOT / 'results/validation/hurricane9-screen7-publication.json').read_text(encoding='utf-8'))
+        row = cls.round7['replaced_in_screen'][0]
+        cls.round6_block = json.loads((ROOT / row['before_file']).read_text(encoding='utf-8'))
+        assert digest(cls.round6_block) == row['before_canonical_sha256'], 'the archived list of round 6 is not the published one'
+        cls.widened = cls.rescreened and cls.deployed['hurricane'].get('round') == cls.round7['screening']['round']
+        cls.screen6 = copy.deepcopy(cls.deployed)
+        if cls.widened:
+            cls.screen6['hurricane'] = copy.deepcopy(cls.round6_block)
 
     def test_screen_publication_does_not_release_a_new_model_or_rewrite_history(self):
         rest = copy.deepcopy({k:v for k,v in self.payload.items() if k != 'screen'})
@@ -71,8 +83,12 @@ class ScreeningPublicationTests(unittest.TestCase):
                                                              else str(item.get('event', '')).startswith(where['event_prefix']))]
                 self.assertEqual(len(parent[key]) - len(kept), 1 if done else 0)
                 parent[key] = kept
-        # Screening round 6 comes after the release and is undone first: one line of the screen stage and one log entry.
+        # Screening round 7 comes last and is undone first, then round 6, which came after the release: each changed one
+        # line of the screen stage and added one log entry.
         self.assertTrue(released or not self.rescreened)
+        self.assertTrue(self.rescreened or not self.widened)
+        restore(self.round7['replaced_outside_screen'], self.widened)
+        take_out(self.round7['appended'], self.widened)
         restore(self.round6['replaced_outside_screen'], self.rescreened)
         take_out(self.round6['appended'], self.rescreened)
         restore(release['replaced'], released)
@@ -184,7 +200,7 @@ class ScreeningPublicationTests(unittest.TestCase):
         if not self.rescreened:
             self.assertEqual(self.deployed, self.screen)
             return
-        block = self.deployed['hurricane']
+        block = self.screen6['hurricane']         # the list round 6 published: deployed, or archived once round 7 has run
         self.assertEqual(self.payload['hurricane']['current'], R.MODEL_VERSION)
         self.assertEqual((block['model'], block['round']), (f"Hurricane {R.MODEL_VERSION}", S.ROUND))
         self.assertEqual(self.deployed['models'], ['Radar 1.0', 'Storm 5.0', block['model']])
@@ -212,6 +228,76 @@ class ScreeningPublicationTests(unittest.TestCase):
             self.assertLessEqual(c['novelty'], 1.0)
             self.assertTrue(0 <= c['p_sc'] <= 1 and c['lo'] <= c['tc_sc'] <= c['hi'])
             self.assertNotIn('p_lo', c)
+        self.assertEqual({c['id'] for c in self.deployed['candidates']} - set(self.literature), set())
+
+    def test_screening_round_7_replaces_hurricanes_lists_only_and_binds_them_to_the_release(self):
+        import hurricane9_release as R
+        import hurricane9_screen7 as S
+        record = self.round7['screening']
+        self.assertEqual((record['protocol'], record['protocol_sha256'], record['round']), (S.PROTOCOL['name'], S.protocol_sha256(), S.ROUND))
+        self.assertIn(S.protocol_sha256(), (ROOT / record['declaration']).read_text(encoding='utf-8'))
+        self.assertEqual([row['pointer'] for row in self.round7['replaced_in_screen']], ['/hurricane'])
+        # Storm's list, the models and every other field of the screen block are those round 6 left, hash for hash
+        self.assertEqual(digest(self.screen6), self.round7['published_screen_canonical_sha256'])
+        result = ROOT / f'results/screen_round{S.ROUND}.json'
+        if not self.widened:
+            self.assertEqual(self.deployed['hurricane'], self.round6_block)
+            self.assertFalse(result.exists())
+            return
+        block = self.deployed['hurricane']
+        self.assertEqual(self.payload['hurricane']['current'], R.MODEL_VERSION)
+        self.assertEqual((block['model'], block['round']), (f"Hurricane {R.MODEL_VERSION}", S.ROUND))
+        self.assertEqual(self.deployed['models'], ['Radar 1.0', 'Storm 5.0', block['model']])
+        out = json.loads(result.read_text(encoding='utf-8'))
+        self.assertEqual((out['round'], out['smoke'], out['protocol']['sha256'], out['hurricane']), (S.ROUND, False, S.protocol_sha256(), block))
+        self.assertEqual(out['protocol']['release_protocol_sha256'], R.protocol_sha256())
+        self.assertLessEqual(out['reproduces']['largest_difference'], S.TOLERANCE)       # the released background, recomputed
+        self.assertLessEqual(out['classifier_difference'], 1e-12)
+        import gzip
+        import hashlib as H
+        pool_path, table_path = ROOT / 'results' / S.POOL_FILE, ROOT / f'results/screen_round{S.ROUND}_hurricane.csv'
+        self.assertEqual(H.sha256(pool_path.read_bytes()).hexdigest(), out['files']['pool_sha256'])
+        self.assertEqual(H.sha256(table_path.read_bytes()).hexdigest(), out['files']['hurricane_table_sha256'])
+        note = json.loads((ROOT / 'results' / S.COD_NOTE).read_text(encoding='utf-8'))
+        self.assertEqual(H.sha256((ROOT / 'results' / S.COD_SNAPSHOT).read_bytes()).hexdigest(), note['sha256'])
+        self.assertEqual(out['sources']['COD']['sha256'], note['sha256'])               # the run screened the stored rows
+        with gzip.open(pool_path, 'rt', encoding='utf-8', newline='') as fh:
+            pool = list(csv.DictReader(fh))
+        with open(table_path, newline='', encoding='utf-8') as fh:
+            table = {(r['source'], r['id']): r for r in csv.DictReader(fh)}
+        sent = [r for r in pool if r['sent'] == 'True']
+        self.assertEqual((block['pool']['n_screened'], block['pool']['n_sent']), (len(pool), len(sent)))
+        self.assertEqual(block['not_known']['n'], sum(r['not_known'] == 'True' for r in sent))
+        self.assertEqual({(r['source'], r['id']) for r in sent if r['not_known'] == 'False'}, set(table))
+        self.assertEqual({r['source'] for r in pool} - set(S.ORDER), set())
+        self.assertEqual([s['name'] for s in block['sources']], S.ORDER)
+        self.assertTrue(all(s['licence'] and s['cite'] for s in block['sources']))
+        tracks = {t['id']: t for t in block['tracks']}
+        fixed = {S.audited_composition(v): v['check_correction']['check'] for v in self.literature.values() if v.get('check_correction')}
+        self.assertEqual((len(fixed), None in fixed), (2, False))
+        for track, cands in (('experimental', block['candidates']), ('computed', block['candidates_computed'])):
+            mine = [r for r in table.values() if r['track'] == track]
+            self.assertEqual((tracks[track]['pool'], tracks[track]['judged'], tracks[track]['listed']),
+                             (sum(r['track'] == track for r in pool), len(mine), len(cands)))
+            self.assertEqual([c['rank'] for c in cands], list(range(1, len(cands) + 1)))
+            self.assertEqual(len(cands), min(S.TOP_N, len({r['chemsys'] for r in mine})))
+            self.assertEqual(len({table[(c['source']['source'], c['id'])]['chemsys'] for c in cands}), len(cands))
+            for c in cands:
+                row = table[(c['source']['source'], c['id'])]
+                self.assertEqual((row['track'], c['track']), (track, track))
+                self.assertAlmostEqual(c['p_sc'], float(row['p_sc']), delta=6e-4)
+                self.assertLessEqual(c['novelty'], 1.0)
+                self.assertTrue(0 <= c['p_sc'] <= 1 and c['lo'] <= c['tc_sc'] <= c['hi'])
+                self.assertEqual('experimental' in c, track == 'experimental')
+                if track == 'computed':
+                    self.assertLessEqual(c['ehull'], S.EHULL_MAX)
+                    self.assertFalse(c['icsd'])
+                try:
+                    key = S.P._composition_key(S.H2.H.parse_formula(c['formula']))
+                except ValueError:
+                    key = None
+                if key in fixed and 'check' in c:         # a corrected check stays corrected, whichever source lists the compound
+                    self.assertEqual(c['check'], fixed[key])
         self.assertEqual({c['id'] for c in self.deployed['candidates']} - set(self.literature), set())
 
 

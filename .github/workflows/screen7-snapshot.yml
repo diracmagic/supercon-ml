@@ -1,0 +1,66 @@
+name: Screening round 7, COD rows (read once)
+
+# Reads the Crystallography Open Database's public read-only database once and stores the usable rows of its own table
+# in results/screen_round7_cod.csv.gz, with a note of what was read (results/screen_round7_cod.json). Every run of
+# screening round 7, on this branch and later on main, screens these stored rows, so the two runs screen the same
+# pool whatever the COD adds in between. The module refuses unless the screening protocol is declared, and refuses a
+# second reading once the file is there. Runs when this file changes on the branch.
+
+on:
+  push:
+    branches: [claude/screen-round7]
+    paths:
+      - '.github/workflows/screen7-snapshot.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: screen7-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    name: Store the COD rows of screening round 7
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SNAPSHOT_TAG: 'screen7-snapshot-1'
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - run: pip install -r ml/requirements.txt
+
+      - name: Protocol
+        run: python ml/hurricane9_screen7.py --protocol | tail -n 1
+
+      - name: Read the COD once and store the usable rows
+        run: python ml/hurricane9_screen7.py --snapshot
+
+      - name: The stored rows read back as the note describes
+        run: |
+          python - <<'EOF'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, "ml")
+          import hurricane9_screen7 as S
+          records, info = S.read_cod(Path("results"))
+          print({k: v for k, v in info.items() if k != "left_out"})
+          print(info.get("left_out"))
+          EOF
+          ls -l results/screen_round7_cod.csv.gz results/screen_round7_cod.json
+          sha256sum results/screen_round7_cod.csv.gz results/screen_round7_cod.json
+
+      - name: Commit the two files to this branch
+        run: |
+          test "$(git status --porcelain | wc -l)" = "2"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/screen_round7_cod.csv.gz results/screen_round7_cod.json
+          git commit -m "Screening round 7: the COD rows it screens (read once)"
+          git push origin HEAD:${{ github.ref_name }}

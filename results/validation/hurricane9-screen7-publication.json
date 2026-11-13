@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "purpose": "What screening round 7 (python ml/pipeline.py hurricane9screen7, ml/hurricane9_screen7.update_progress) may change in progress/progress.json, with the values before the run. Written before the run on main. The round replaces Hurricane's list of round 6 by the two lists of the same model on a wider pool and touches nothing else of the screen block: putting the recorded list back must give the screen block that round 6 published, hash for hash, and from there the record of round 6 leads back to the screen that the publication audit of round 5 recorded.",
+  "screening": {
+    "round": 7,
+    "model": "Hurricane 9.0",
+    "module": "hurricane9-screen7-v1",
+    "protocol": "hurricane9-screen7-protocol-v1",
+    "protocol_sha256": "46c955b68e68a52a291eba5398757125a22fbcd44f4a47db08c330d0f1eecfd2",
+    "declaration": "results/validation/hurricane9-screen7-declaration-v1.md"
+  },
+  "published_screen_canonical_sha256": "1f55b7670066a4620801aee767a6182d2aef69ee3649d04899dcf28b9ee9aa7d",
+  "published_at_commit": "42940c3ccb54a8b36ea5a2daaf0d340d54314bff",
+  "replaced_in_screen": [
+    {
+      "pointer": "/hurricane",
+      "before_file": "results/validation/screening-round6-hurricane-list.json",
+      "before_canonical_sha256": "3fc77b00df4fbb4e44550bc040bb0e15a5d469b4ab87373424b0ca97aee57a75",
+      "before_model": "Hurricane 9.0",
+      "before_round": 6,
+      "before_candidates": 42,
+      "before_text": "the block as progress/progress.json held it at commit 42940c3ccb54a8b36ea5a2daaf0d340d54314bff"
+    }
+  ],
+  "rewritten_with_the_same_value": [
+    "/models"
+  ],
+  "replaced_outside_screen": [
+    {
+      "pointer": "/stages/7/detail",
+      "before": "Round 5: 102 Storm candidates and 42 Hurricane candidates retained from JARVIS-DFT. Prior reports and experimental evidence are recorded per candidate; a search with no match is not proof of novelty. 3 sampled-phonon checks completed with MACE; this is bounded structural triage, not DFT or superconductivity validation. Hurricane's list is from round 6, screened with Hurricane 9.0: 537 of the 591 compounds Radar sent it are too far from its training data for a chance. The candidate list contains model suggestions, not newly confirmed superconductors."
+    }
+  ],
+  "appended": [
+    {
+      "pointer": "/log",
+      "where": {
+        "event_prefix": "Screening round 7:"
+      }
+    }
+  ],
+  "also_rewritten": "/updated, which the record of the release run already carries with its audited value",
+  "storm": "unchanged: the 102 candidates, their tracks, ranges and phonon checks are those of round 5. Their pool was built with the JARVIS-DFT ehull field, which does not follow the convex hull (results/validation/pool-census.md); Storm's list is not re-screened by this round.",
+  "literature": "The literature audit of 2026-11-01 covers the 152 candidates of round 5 and is not changed by this round. A compound that is new on Hurricane's lists has no literature record until a search is recorded for it, and the app says so; a recorded check keeps the correction of that audit, also where another source's entry now stands for the compound."
+}

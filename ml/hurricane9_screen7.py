@@ -1072,7 +1072,8 @@ def block(rows: list, lists: dict, pool: list, info: dict, bg: dict, sc: dict, r
     r3 = lambda v: None if v is None else round(float(v), 3)   # noqa: E731
     return {
         "model": f"{HU.MODEL} {R.MODEL_VERSION}", "design": "H90", "two_part": "mean", "round": ROUND, "date": stamp[:10],
-        "pool": {"source": ", ".join(ORDER), "what": "compounds with no superconductivity record that Radar sends to Hurricane",
+        "pool": {"source": "JARVIS-DFT, the Materials Project, Alexandria and the Crystallography Open Database",
+                 "what": "compounds with no superconductivity record that Radar sends to Hurricane",
                  "n_screened": len(pool), "n_sent": n_sent, "rule": rule, "chemical_systems": info.get("chemical_systems"),
                  "no_calculated_gap": info.get("no_calculated_gap"),
                  "experimental_structure_in_another_space_group": info.get("experimental_structure_in_another_space_group"),
