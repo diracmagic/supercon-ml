@@ -1,0 +1,21 @@
+{
+ "read_at": "2026-11-12T21:21:24-06:00",
+ "from": "the COD's public read-only database (www.crystallography.net, database cod)",
+ "rows_read": 61145,
+ "what": "entries with 2 to 6 elements and no hydrogen",
+ "left_out": {
+  "determined above 0.1 GPa": 1855,
+  "hydrogen": 187,
+  "marked as a duplicate": 1365,
+  "marked theoretical": 691,
+  "no cell or space-group number": 439,
+  "no coordinates": 554,
+  "no readable composition": 68,
+  "retracted, with errors or warnings, or on hold": 158
+ },
+ "rows_stored": 55828,
+ "file": "results/screen_round7_cod.csv.gz",
+ "sha256": "891622279ff2379b30974d284775d0a2d9507243355592b26388dfea36e4e14e",
+ "licence": "public domain",
+ "cite": "S. Grazulis et al., Crystallography Open Database - an open-access collection of crystal structures, J. Appl. Cryst. 42, 726 (2009); S. Grazulis et al., Nucleic Acids Res. 40, D420 (2012)"
+}
