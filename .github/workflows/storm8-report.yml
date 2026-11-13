@@ -1,0 +1,50 @@
+name: Storm8 report reader
+
+# Prints the evidence of one completed Storm8 run (its uploaded artifact) into the job log, so the
+# report can be read and cross-checked without downloading the archive. It runs no experiment and
+# touches no data; the run it reads is named below. Change RUN_ID and ARTIFACT to read another run.
+
+on:
+  push:
+    branches: [claude/storm8]
+    paths:
+      - '.github/workflows/storm8-report.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  print:
+    name: Print a Storm8 run artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      RUN_ID: '41633822119'
+      ARTIFACT: 'storm8-41633822119-1'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT }}
+          run-id: ${{ env.RUN_ID }}
+          github-token: ${{ github.token }}
+          path: artifact
+
+      - name: File list with SHA-256 and sizes
+        run: |
+          cd artifact
+          find . -type f | sort | while read -r f; do
+            printf '%s %s %s\n' "$(sha256sum "$f" | cut -c1-64)" "$(stat -c %s "$f")" "$f"
+          done
+
+      - name: Report, run identity, decision and manifests
+        run: |
+          cd artifact
+          for f in $(find . -name report.json | sort); do echo "=== $f"; cat "$f"; echo; done
+          for f in $(find . -name run.json -o -name artifact-manifest.json -o -name optimade-progress.json | sort); do echo "=== $f"; cat "$f"; echo; done
+
+      - name: First rows of the saved forecasts and the runner record
+        run: |
+          cd artifact
+          for f in $(find . -name predictions.csv -o -name shifted-forecasts.csv | sort); do echo "=== $f ($(wc -l < "$f") lines)"; head -n 5 "$f"; done
+          for f in $(find . -name runtime.txt | sort); do echo "=== $f"; head -n 60 "$f"; done
