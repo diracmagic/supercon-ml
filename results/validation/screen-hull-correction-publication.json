@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "purpose": "What the correction to the screening pools (python ml/pipeline.py screenhull, ml/screen_hull.update_progress) may change in progress/progress.json. Written before the run on main. The step adds one field to the screen block, /hull, with each published candidate's distance to the convex hull computed from JARVIS-DFT's own formation energies, and one entry to the activity log. It changes no list, rank, score or text of the published screen: taking the field out again must give the screen block as it was, and the checks of the round-5 audit and of screening round 6 then run on it unchanged.",
+  "step": {
+    "module": "screen-hull-v1",
+    "command": "python ml/pipeline.py screenhull",
+    "record": "results/validation/screening-pools-hull-correction.md",
+    "result": "results/screen_hull_correction.json",
+    "jarvis_rows_sha256": "465925380733c02fe03da2c76adeda63d352649881dfcc2184cddfa4428c7761"
+  },
+  "added_in_screen": [
+    {
+      "pointer": "/hull"
+    }
+  ],
+  "appended": [
+    {
+      "pointer": "/log",
+      "where": {
+        "event_prefix": "Correction to the screening pools:"
+      }
+    }
+  ],
+  "also_rewritten": "/updated, which the record of the release run already carries with its audited value",
+  "lists": {
+    "storm": {
+      "round": 5,
+      "candidates": 102,
+      "pointer": "/screen/candidates"
+    },
+    "hurricane": {
+      "round": 6,
+      "model": "Hurricane 9.0",
+      "candidates": 42,
+      "pointer": "/screen/hurricane/candidates"
+    }
+  },
+  "not_rewritten": "The published statements that the pools lie within 50 meV/atom of the convex hull (screen.pool.rule, screen.hurricane.pool.rule, the steps in results/screen_round*.json and results/hurricane_round*.json) stay as they were written; the field and the record are the correction, and the app shows it next to them."
+}
