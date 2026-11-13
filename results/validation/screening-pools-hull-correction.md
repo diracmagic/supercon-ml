@@ -318,9 +318,22 @@ SHA-256 of the report was checked against the one printed with it.
 | JARVIS-DFT hull check, a sample of 4,000 chemical systems | [43114277650](https://github.com/diracmagic/supercon-ml/actions/runs/43114277650) | d863dd9b649aa420e834306b657933c1c01b5a18 | 445d35baee88860b6083f54a32eecdb678c83345b41ec895371a4c095b5df68c |
 | JARVIS-DFT hull check, every chemical system and the published candidates | [43114917286](https://github.com/diracmagic/supercon-ml/actions/runs/43114917286) | e61c48ee1d88d2d02d43f05ace7086e419b15282 | fc9373c1f2a47cd882bd789e6e53180d06c0728c21c8c7c1ac9b0a46e55996d0 |
 
-The digest of the file's rows was printed by the count-only runs [43123563097](https://github.com/diracmagic/supercon-ml/actions/runs/43123563097), [43125373652](https://github.com/diracmagic/supercon-ml/actions/runs/43125373652) and [43126793006](https://github.com/diracmagic/supercon-ml/actions/runs/43126793006) and by run 43358591536 (section 6), all on the
-branch `claude/screen-round7`; each also computed the distance of all 93,902 entries by the linear programme of section 5
-(50,656 within 50 meV/atom) and compared 300 of them with pymatgen (largest difference 0.0 eV/atom).
+The digest of the file's rows was printed by the count-only runs
+[43123563097](https://github.com/diracmagic/supercon-ml/actions/runs/43123563097),
+[43125373652](https://github.com/diracmagic/supercon-ml/actions/runs/43125373652) and
+[43126793006](https://github.com/diracmagic/supercon-ml/actions/runs/43126793006) and by run 43358591536 (section 6),
+all on the branch `claude/screen-round7`; each also computed the distance of all 93,902 entries by the linear
+programme of section 5 (50,656 within 50 meV/atom) and compared 300 of them with pymatgen (largest difference 0.0
+eV/atom).
+
+The correction step, run on the branch `claude/hull-correction` before publication
+([43370714810](https://github.com/diracmagic/supercon-ml/actions/runs/43370714810), commit
+dec36b8e275d6a6302b7d28a1aa08ca2d678839a, record SHA-256
+bb1e14aa72b32c0018ac93ed94476e3bf12724b4f9052c246f24d2339f93eeb7), gave every one of the 144 distances of section 3:
+62 of Storm's 102 candidates beyond 50 meV/atom and 13 beyond 200, 10 of Hurricane's 42 and 7. Over the file, the
+field passes 9,339 of 93,902 entries and the computed distance 50,656; 6,016 pass both, 3,323 only the field and
+44,640 only the computed distance. The 144 published candidates and 300 other entries agree with pymatgen's phase
+diagram (largest difference 0.0 eV/atom). The run on main that publishes the record repeats this.
 
 ## 8. What follows from this
 
