@@ -208,6 +208,10 @@ jobs:
         if: success() && contains(format(' {0} ', env.STAGES), ' screenhull ')
         run: python ml/pipeline.py screenhull
 
+      - name: Hurricane round 10 (the guard of Hurricane 9.0 learns from the pool of screening round 7; tests fixed before the run; writes results only)
+        if: success() && contains(format(' {0} ', env.STAGES), ' hurricane10 ')
+        run: python ml/pipeline.py hurricane10
+
       - name: Check incremental descriptor caches before saving
         id: cache-integrity
         if: always() && steps.data-cache.outcome == 'success'
