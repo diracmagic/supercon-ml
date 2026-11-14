@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-14T01:27:42+00:00",
+ "updated": "2026-11-14T04:18:19+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,7 +47,6 @@
   ]
  },
  "sources_ok": [
-  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -60,8 +59,7 @@
   "Phys.org",
   "Physics World",
   "APS Physics",
-  "Quanta Magazine",
-  "arXiv AI"
+  "Quanta Magazine"
  ],
  "arxiv": [
   {
@@ -4469,27 +4467,6 @@
    "kind": "experiment"
   },
   {
-   "id": "10.1126/science.adw8329",
-   "source": "Science",
-   "journal": "Science",
-   "title": "Nodeless superconducting gap and electron-boson coupling in (La,Pr,Sm) ₃ Ni ₂ O ₇ films",
-   "authors": [
-    "Jianchang Shen",
-    "Guangdi Zhou",
-    "Yu Miao",
-    "et al."
-   ],
-   "n_authors": 21,
-   "date": "2026-06-25",
-   "abstract": "The discovery of superconductivity in Ruddlesden-Popper bilayer nickelate films under ambient pressure provides an opportunity to directly investigate electronic energy scales of the superconducting state and the pairing mechanism.",
-   "url": "https://doi.org/10.1126/science.adw8329",
-   "doi": "10.1126/science.adw8329",
-   "topics": [
-    "Nickelates"
-   ],
-   "kind": "experiment"
-  },
-  {
    "id": "10.1126/science.adp4440",
    "source": "Science",
    "journal": "Science",
@@ -4510,6 +4487,27 @@
     "Nickelates"
    ],
    "kind": ""
+  },
+  {
+   "id": "10.1126/science.adw8329",
+   "source": "Science",
+   "journal": "Science",
+   "title": "Nodeless superconducting gap and electron-boson coupling in (La,Pr,Sm) ₃ Ni ₂ O ₇ films",
+   "authors": [
+    "Jianchang Shen",
+    "Guangdi Zhou",
+    "Yu Miao",
+    "et al."
+   ],
+   "n_authors": 21,
+   "date": "2026-06-25",
+   "abstract": "The discovery of superconductivity in Ruddlesden-Popper bilayer nickelate films under ambient pressure provides an opportunity to directly investigate electronic energy scales of the superconducting state and the pairing mechanism.",
+   "url": "https://doi.org/10.1126/science.adw8329",
+   "doi": "10.1126/science.adw8329",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": "experiment"
   },
   {
    "id": "10.1038/s41535-026-00896-2",
