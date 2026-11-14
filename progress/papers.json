@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-14T13:16:14+00:00",
+ "updated": "2026-11-14T15:57:52+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2370,6 +2370,28 @@
  ],
  "journals": [
   {
+   "id": "10.1038/s41467-026-78019-5",
+   "source": "Nat. Commun.",
+   "journal": "Nature Communications",
+   "title": "Field-angle-resolved heat transport in UTe2: determination of nodal positions in the superconducting order parameter",
+   "authors": [
+    "Ian M. Hayes",
+    "Elliot Fang",
+    "Shanta R. Saha",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-11-14",
+   "abstract": "One of the recurring hurdles in studying unconventional superconductivity is the challenge of efficiently and conclusively identifying the symmetry of the superconducting order parameter in a new material.",
+   "url": "https://doi.org/10.1038/s41467-026-78019-5",
+   "doi": "10.1038/s41467-026-78019-5",
+   "topics": [
+    "Heavy fermions",
+    "Electron–phonon"
+   ],
+   "kind": "experiment"
+  },
+  {
    "id": "10.1103/fnnn-n593",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2547,6 +2569,25 @@
    "kind": ""
   },
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2566,25 +2607,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -4294,28 +4316,6 @@
    "url": "https://doi.org/10.1038/s41467-026-75261-9",
    "doi": "10.1038/s41467-026-75261-9",
    "topics": [],
-   "kind": "experiment"
-  },
-  {
-   "id": "10.1038/s41467-026-75677-3",
-   "source": "Nat. Commun.",
-   "journal": "Nature Communications",
-   "title": "Mixed triplet-singlet order parameter in decoupled superconducting 1H monolayers of transition-metal dichalcogenides",
-   "authors": [
-    "Avior Almoalem",
-    "Sajilesh K. P.",
-    "Roni Anna Gofman",
-    "et al."
-   ],
-   "n_authors": 12,
-   "date": "2026-07-16",
-   "abstract": "Understanding the emergence of unconventional superconductivity, where the order parameter deviates from simple isotropic s-wave pairing, is a central challenge in condensed matter physics.",
-   "url": "https://doi.org/10.1038/s41467-026-75677-3",
-   "doi": "10.1038/s41467-026-75677-3",
-   "topics": [
-    "Moiré and 2D",
-    "Electron–phonon"
-   ],
    "kind": "experiment"
   },
   {
