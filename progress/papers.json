@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-16T09:08:50+00:00",
+ "updated": "2026-11-16T19:21:38+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2572,6 +2572,25 @@
    "kind": ""
   },
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2591,25 +2610,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -4553,6 +4553,18 @@
  ],
  "news": [
   {
+   "id": "https://phys.org/news/2026-11-superconducting-qubits-suppressing-unwanted-state.html",
+   "source": "Phys.org",
+   "title": "Reading superconducting qubits while suppressing unwanted state transitions",
+   "date": "2026-11-16",
+   "summary": "Recently an artificial intelligence proved an 18-year-old conjecture in computer science, called the Aaronson–Ambainis conjecture. The proof settles a long-standing conjecture (educated guess) that eliminates one proposed route to enormous quantum computer speedups, ruling out…",
+   "url": "https://phys.org/news/2026-11-superconducting-qubits-suppressing-unwanted-state.html",
+   "topics": [
+    "Iron-based",
+    "Quantum devices"
+   ]
+  },
+  {
    "id": "https://phys.org/news/2026-11-zn-doping-reveals-robust-gap.html",
    "source": "Phys.org",
    "title": "Zn doping reveals robust two-gap superconductivity in FeSe",
@@ -4851,18 +4863,6 @@
    "topics": [
     "Triplet and ruthenates",
     "Quantum devices"
-   ]
-  },
-  {
-   "id": "https://phys.org/news/2026-09-magic-angle-graphene-evidence-unconventional.html",
-   "source": "Phys.org",
-   "title": "Magic-angle graphene provides evidence for unconventional superconductivity",
-   "date": "2026-09-04",
-   "summary": "Researchers have completely suppressed superconductivity in magic-angle graphene by screening interactions between electrons, helping resolve a long-running debate about the origin of the phenomenon.",
-   "url": "https://phys.org/news/2026-09-magic-angle-graphene-evidence-unconventional.html",
-   "topics": [
-    "Moiré and 2D",
-    "Electron–phonon"
    ]
   },
   {
