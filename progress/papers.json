@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-16T04:57:15+00:00",
+ "updated": "2026-11-16T09:08:50+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,6 +47,7 @@
   ]
  },
  "sources_ok": [
+  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -59,9 +60,130 @@
   "Phys.org",
   "Physics World",
   "APS Physics",
-  "Quanta Magazine"
+  "Quanta Magazine",
+  "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.17882",
+   "source": "arXiv",
+   "title": "Quantum Fluctuations drive Emerging Bosonic Quantum Phases in a Moiré Flatband Superconductor",
+   "authors": [
+    "Yu Hong",
+    "Haiming Sun",
+    "Qixing Zhang",
+    "et al."
+   ],
+   "n_authors": 15,
+   "date": "2026-11-13",
+   "updated": "2026-11-13",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Quantum fluctuations play a central role in superconductors by mediating the interactions that promote electron pairing and controlling the phase coherence required for macroscopic condensation. Thus far, understanding the interplay between quantum fluctuations and superconductivity remains challenging in unconventional superconductors. Here, we establish quantum phase fluctuations as the organizing principle linking superconductivity and Bose-insulating quantum criticality in a moiré flatband superconductor of alternating twisted trilayer graphene (ATTG). Superconductivity is optimal near half-filling of the moiré flatband and gives way to a density-wave-like resistance peak at high temperatures, in which we observe distinct temperature scales for the pairing (~6 K) and the condensation (~1 K). We observe compelling evidence of a bosonic superconducting quantum phase transition, driven by both out-of-plane and in-plane magnetic fields, with a universal critical resistivity of Rc = 0.62RQ and finite-temperature scaling of zνB = 2.3, where RQ = h/4e² is the quantum resistance for bosons. Strikingly, the observed bosonic insulator shows a nearly quantized resistivity of RQ that saturates at low temperatures and high magnetic fields, together with a zero-bias peak, a nearly zero Hall resistance, and a logarithmic dependence at higher temperatures. Both the superconductor and the b",
+   "url": "https://arxiv.org/abs/2611.17882",
+   "pdf": "https://arxiv.org/pdf/2611.17882",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Electron–phonon"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall",
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.17823",
+   "source": "arXiv",
+   "title": "Reference-Assisted Qutrit Control and Conditional One-Round Distillation in a Charge-4e Superconductor Model",
+   "authors": [
+    "Junhao",
+    "Wang"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-13",
+   "updated": "2026-11-13",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "We formulate a charge-4e parafermionic-vortex route to qutrit processing as a conditional theory with explicit operational assumptions. Sector preservation and same-label charge-conjugation covariance imply closure for every adaptive visible record. For charge-conjugation-invariant inputs, record probabilities are independent of the supported reference state; for arbitrary inputs, discarding the reference gives a population-weighted mixture of conjugate sector maps. We give a finite-depth stability bound for complete labelled instruments, including postselection and initial zero-sector contamination. A self-contained calculation reproduces the known dense single-qutrit closure of the registered Clifford-plus-Flip gate set. We also specify an abstract ternary CSS [[11,1,5]]₃ syndrome/recovery decoder: 243 classical representatives per CSS component correct all 3,609 Pauli errors of support weight at most two, and an exact integer dynamic program yields the full independent-Pauli logical enumerator. Its all-syndrome acceptance is distinct from the known 1/1728 ideal acceptance of one-round strange-state Golay distillation. An accepted-run target-infidelity budget and a synthetic parameter protocol expose the remaining noise assumptions. Native charge-4e syndrome extraction, material feasibility, a device threshold, and unconditional fault tolerance are not established.",
+   "url": "https://arxiv.org/abs/2611.17823",
+   "pdf": "https://arxiv.org/pdf/2611.17823",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Iron-based",
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "quant-ph",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.17709",
+   "source": "arXiv",
+   "title": "Theoretical exploration of ambient-pressure superconductivity in the bilayer nickelate: A strategy of atomic substitution for tuning chemical pressure",
+   "authors": [
+    "Tomo-Hiko Hamada",
+    "Kensei Ushio",
+    "Shu Kamiyama",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-11-13",
+   "updated": "2026-11-13",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "The possibility of ambient-pressure superconductivity in La₃Ni₂O₇ is theoretically explored via chemical substitution. Using first-principles and many-body calculations, we propose substituting Ba at the lanthanide site to exert chemical pressure, thereby mitigating the octahedral distortions that suppress superconductivity. Phonon calculations demonstrate the dynamical stability of the high-symmetry tetragonal phase in mathrmLa₃₋ₓBaₓNi₂O₇ at a small doping ratio of x ∼0.15. By applying the fluctuation exchange approximation to an effective model Hamiltonian derived from this stable structure, we calculate the Eliashberg eigenvalue λ to evaluate the relative superconducting transition temperature Tc to existing unconventional superconductors. We conclude that s±-wave superconductivity is likely to emerge, as the required Ba concentration (x ∼0.15) is sufficiently small to minimize the detrimental suppression of superconductivity induced by hole doping.",
+   "url": "https://arxiv.org/abs/2611.17709",
+   "pdf": "https://arxiv.org/pdf/2611.17709",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Nickelates",
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.17511",
+   "source": "arXiv",
+   "title": "Non-ergodic Area Scaling of Andreev Transport in Al/AlOₓ/Al Tunnel Junctions",
+   "authors": [
+    "David J. Perello",
+    "Marco Coraiola",
+    "Minje Park",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-11-12",
+   "updated": "2026-11-12",
+   "category": "cond-mat.mes-hall",
+   "cross_list": true,
+   "abstract": "State-of-the-art superconducting qubits rely on Al/AlOₓ/Al Josephson junctions (JJs) as a nonlinear element with an ideal sinusoidal current-phase dependence, with its inductance set by the junction area and oxidation conditions. This idealization holds only if the many conduction channels through the amorphous AlOₓ barrier transmit weakly and almost identically. Here, we measure the second-order subgap Andreev current, which sets the second Josephson harmonic, in Al/AlOₓ/Al JJs. For junction sizes relevant to qubits, we find that this current is dominated by ≲300 effective channels whose transparencies exceed the ideal tunneling limit (≲10⁻⁶) by orders of magnitude. For small and high-aspect-ratio junctions, increasing the junction size does not average out the effect of these high transparency channels but instead adds additional channels of even greater transparency. The trend inverts once both the width and length of the junction exceed a critical length scale, above which the effective transparency decreases with area. This non-ergodic scaling of the Andreev current is reproduced by simulations and attributed to non-self-averaging statistics of the transparency distribution, which arise from variations in oxide thickness. The effect is largely invisible to the normal-state conductance used to target the inductance and reveals unexpected geometric and size-related trade-off",
+   "url": "https://arxiv.org/abs/2611.17511",
+   "pdf": "https://arxiv.org/pdf/2611.17511",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.mes-hall",
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2611.17001",
    "source": "arXiv",
@@ -537,7 +659,7 @@
    ],
    "n_authors": 27,
    "date": "2026-11-11",
-   "updated": "2026-11-11",
+   "updated": "2026-11-13",
    "category": "cond-mat.supr-con",
    "cross_list": false,
    "abstract": "Superconductor-insulator-superconductor Josephson junctions with crystalline tunnel barriers have remained elusive by epitaxial techniques such as MOCVD or MBE that produce the junction materials and devices powering today's electronic and photonic systems like transistors and lasers. Here, we overcome the key materials hurdle to realize the first functional nitride crystalline barrier Josephson junctions by MBE. Despite an AlN barrier thickness of approximately 4.5 nm, the NbN/AlN/NbN trilayers exhibit coherent Josephson tunneling with critical current densities of approximately 17 A/cm2, an IcRn product of approximately 2.5 mV, and a superconducting gap voltage of approximately 3.7 mV with a BCS-like gap evolution with temperature. Hysteretic current-voltage characteristics and Fraunhofer current modulation with magnetic field establish underdamped SIS Josephson behavior. The realization of crystalline barrier Josephson junctions by MBE opens the doors to a richer materials palette with alloys and superlattice electrodes and tunnel barriers, as well as potential monolithic integration of superconducting quantum circuits with active electronic and photonic devices such as HEMTs and lasers.",
@@ -2246,123 +2368,6 @@
    "categories": [
     "cond-mat.supr-con",
     "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2611.04815",
-   "source": "arXiv",
-   "title": "Intra-unit-cell Josephson scanning tunneling spectroscopy of the cuprate Bi₁.₂Pb₀.₈Sr₂CaCu₂O₈₊δ",
-   "authors": [
-    "Fengyu Yao",
-    "Jiong Mei",
-    "Wenjin Mao",
-    "et al."
-   ],
-   "n_authors": 18,
-   "date": "2026-11-03",
-   "updated": "2026-11-03",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The predominantly dₓ₂₋y₂-wave pairing symmetry of cuprate superconductors is well established, yet its microscopic manifestation in local Cooper-pair tunneling remains less explored. Here, we investigate Bi₁.₂Pb₀.₈Sr₂CaCu₂O₈₊δ, using Josephson scanning tunneling spectroscopy with a conventional s-wave superconducting Pb tip. We observe a zero-bias conductance enhancement whose approximately quadratic dependence on junction conductance is consistent with phase-diffusive Josephson tunneling. Atomic-resolution conductance maps and site-resolved spectra reveal a pronounced intra-unit-cell modulation, with enhanced Josephson response near oxygen sites and strong suppression near copper sites and along diagonal directions. Microscopic calculations incorporating the bilayer electronic structure and realistic Wannier-based tunneling matrix elements reproduce the observed spatial pattern through interference between pairing contributions of opposite signs. Our results reveal how the sign-changing d-wave superconducting order parameter manifests itself in atomic-scale Josephson tunneling, providing complementary evidence for unconventional pairing symmetry in cuprates.",
-   "url": "https://arxiv.org/abs/2611.04815",
-   "pdf": "https://arxiv.org/pdf/2611.04815",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Cuprates",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2611.03978",
-   "source": "arXiv",
-   "title": "Constraining the Superconducting Gap of Monolayer FeSe/SrTiO₃ via Statistical Analysis and Tip-Height-Dependent Tunneling Spectroscopy",
-   "authors": [
-    "Dongwon Shin",
-    "Xiyou Peng",
-    "Kaleb McClure",
-    "et al."
-   ],
-   "n_authors": 9,
-   "date": "2026-11-02",
-   "updated": "2026-11-02",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Monolayer FeSe grown on SrTiO₃ (001) exemplifies interface-enhanced superconductivity, exhibiting a transition temperature nearly ten times that of bulk FeSe. Yet, its tunneling spectra lack clearly identifiable superconducting coherence peaks, preventing an unambiguous determination of the gap magnitude. Here, we use ultralow-temperature scanning tunneling spectroscopy as a function of temperature, tip-sample separation, and lateral position to disentangle tunneling contributions by statistical analysis. Decay rates extracted by regression of tip-height-dependent spectroscopy reveal three energy regimes: Andreev-reflection-dominated tunneling below 6 meV, mixed Andreev and quasiparticle tunneling between 6 and 13 meV, and predominantly quasiparticle tunneling above 13 meV. Spatially resolved spectroscopy and correlation analysis further reveal that the tunneling conductance is predominantly localized near defects below 6 meV but becomes spatially extended at higher energies. Together, these results constrain the superconducting gap to lie between 6 and 13 meV. Our findings establish statistical analysis of spectroscopy as a powerful approach to constraining superconducting gap structures when complex spectral features prevent the unambiguous identification of coherence peaks.",
-   "url": "https://arxiv.org/abs/2611.03978",
-   "pdf": "https://arxiv.org/pdf/2611.03978",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Iron-based",
-    "Moiré and 2D"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mes-hall"
-   ]
-  },
-  {
-   "id": "2611.03833",
-   "source": "arXiv",
-   "title": "Repulsion-Driven Topological Superconductivity in Twisted MoTe₂",
-   "authors": [
-    "Tianle Wang",
-    "Tomohiro Soejima",
-    "Norman Y. Yao",
-    "et al."
-   ],
-   "n_authors": 7,
-   "date": "2026-11-02",
-   "updated": "2026-11-02",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "We show that a microscopic model of twisted MoTe₂ with screened Coulomb interactions produces topological superconductivity. Using the density matrix renormalization group (DMRG) on infinite cylinders, we find that the narrow Chern band of twisted MoTe₂ has Cooper pair correlations that strengthen with cylinder circumference, consistent with two dimensional superconductivity. The superconductor has chiral f-wave pairing around the valley center, and its topology produces chiral Majorana edge modes and non-Abelian vortex cores. At zero displacement field, the superconductor spans fillings -0.78≲ν≲-0.72, close to the experimental range, and extends in a dome to finite displacement field. We then predict how its stiffness evolves with the filling and the tunable displacement field. The interplay with screening length is also examined. Nearby, we find a fractional Chern insulator, a topological charge density wave, a metal, and a charge-ordered state. The last is a candidate for the reentrant integer Hall regime in experiments. These results establish a route from repulsive interactions in microscopic models of moiré materials to chiral topological uperconductors with chiral Majorana edge modes.",
-   "url": "https://arxiv.org/abs/2611.03833",
-   "pdf": "https://arxiv.org/pdf/2611.03833",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D",
-    "Topological",
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.03405",
-   "source": "arXiv",
-   "title": "Acoustic damping limits superfluid helium as a thermal bath for mechanical resonators",
-   "authors": [
-    "Yunhu Huang",
-    "Mehri Ebrahimi",
-    "Alireza Rashedi",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-02",
-   "updated": "2026-11-02",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Thermalization is a persistent problem for cryogenic mechanical resonators. The weak supports used to obtain high mechanical quality factors are also poor thermal links, while the optical or microwave fields used for readout and control can heat the resonator above the cryostat temperature. Superfluid helium is therefore an appealing exchange medium: it has excellent low-temperature thermal transport and an inviscid superfluid component, suggesting cooling of mechanical devices without the damping associated with an ordinary fluid. Here we test this idea by immersing a \\qty{250}{\\micro\\meter}-diameter yttrium iron garnet sphere in liquid \\textsuperscript{4}He and reading out a \\(\\sim\\qty{12.47}{\\mega\\hertz}\\) mechanical mode using cavity magnomechanics. The mechanical linewidth increases from \\qty{6.1}{\\hertz} in vacuum to \\qty{9.1}{\\kilo\\hertz} after filling the cavity with liquid helium in the normal state, and reaches \\qty{17.5}{\\kilo\\hertz} deep in the superfluid at \\qty{84}{\\milli\\kelvin}. Thus the mechanical quality factor is reduced by more than three orders of magnitude, and crossing into the superfluid does not recover low dissipation. At the same time, the magnon linewidth remains strongly dependent on microwave power at the lowest temperatures, showing that the sphere is not perfectly anchored to the cryostat despite the large mechanical damping. The result follows f",
-   "url": "https://arxiv.org/abs/2611.03405",
-   "pdf": "https://arxiv.org/pdf/2611.03405",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
    ]
   }
  ],
