@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-17T04:16:58+00:00",
+ "updated": "2026-11-17T07:43:36+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -64,6 +64,231 @@
   "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.21593",
+   "source": "arXiv",
+   "title": "Electrostatic and magnetic control of the anomalous Josephson phase in ferromagnetic hybrid junctions",
+   "authors": [
+    "D. Rana",
+    "O. S. Kurapati",
+    "N. Vanjarapu",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "cond-mat.mes-hall",
+   "cross_list": true,
+   "abstract": "We report phase-sensitive measurements of Josephson junctions formed in InAs nanowires with epitaxial ferromagnetic EuS and superconducting Al shells. Using a superconducting interferometer, we observe a continuous, hysteretic anomalous phase shift under axial magnetic-field sweeps. A remanent phase bias persists at zero applied field and depends on magnetic history. Electrostatic gating strongly modifies the magnitude of the phase response, revealing its sensitivity to the transverse electronic structure of the nanowire. Self-consistent electrostatic simulations show that the effective Rashba spin-orbit coupling follows the measured gate-dependent phase response, suggesting its central role in the electrostatic control of the anomalous Josephson phase.",
+   "url": "https://arxiv.org/abs/2611.21593",
+   "pdf": "https://arxiv.org/pdf/2611.21593",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.mes-hall",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.21536",
+   "source": "arXiv",
+   "title": "Failure of Mean-Field Critical Scaling and Two Distinct Dissipation Regimes in La₂SmNi₂O₇₋δ",
+   "authors": [
+    "Yongze Ye",
+    "Feiyu Li",
+    "Di Peng",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Recently, superconductivity with an onset transition temperature (Tcoⁿset) up to 96 K has been observed in the La₂₋ₓSm₁₊ₓNi₂O₇₋δ system under pressure, providing an attractive platform for investigating superconducting mechanisms in nickelates. Here, we systematically analyzed the critical scaling and vortex dynamics for the La₂SmNi₂O₇₋δ single crystal with Tcoⁿset=92.5 K under pressure. Within the Ullah–Dorsey framework, neither the two-dimensional nor three-dimensional scaling provides a good collapse near TcMF. This failure may be associated with the multiband composite order parameter of bilayer nickelates, in which pairing is mainly driven by antiferromagnetic exchange in the dz₂ orbital, whereas the superfluid stiffness is mainly governed by the dₓ₂₋y₂ orbital. The two-step decrease in the logarithmic resistivity reveals two distinct dissipative regimes. The low-temperature regime is well described by the thermally assisted flux flow (TAFF) model, whereas the high-temperature regime cannot be explained by the vortex dynamics involved with the superconducting fluctuation. The crossover between the two regimes may be associated with the orbital-dependent evolution of vortex cores. These results suggest the significant role of the composite order parameter in critical fluctuations and vortex-motion dissipation in nickelates.",
+   "url": "https://arxiv.org/abs/2611.21536",
+   "pdf": "https://arxiv.org/pdf/2611.21536",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Nickelates",
+    "Moiré and 2D",
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.21397",
+   "source": "arXiv",
+   "title": "Quantitative measurement of microwave power at millikelvin temperatures: Comparison between dispersively and directly coupled superconducting qubits",
+   "authors": [
+    "Asen L. Georgiev",
+    "Christoph Kissling",
+    "Fabian Kaap",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "The Rabi frequency of a two-level system is directly proportional to the electric field amplitude being incident on this system. Taking advantage of this relationship, it is possible to use two-level systems as quantitative sensors of electric fields. Here, we apply this concept to superconducting qubits and use them for quantitative measurement of microwave power at millikelvin temperatures. Our superconducting circuit design includes three transmon qubits directly coupled to the central microwave feedline and three transmon qubits coupled dispersively via readout resonators to the feedline. We compare both coupling schemes to assess their reliability for microwave power sensing. Further, we describe the modeling behind each power-sensing method, including an uncertainty estimation based upon repeated measurements. By combining dispersively coupled and directly coupled qubits on the same device, we are able to explore different power ranges: from -155;dBm to -130;dBm for the directly coupled qubits and from -95;dBm to -55;dBm for the dispersively coupled qubits. When determining the microwave-line attenuation for a frequency of 6.0;GHz from room temperature to the millikelvin stage of the cryostat, we obtain best estimates and uncertainties for the directly coupled transmons of (74.7±0.2) ;dB and for the dispersively coupled transmons of (75.4±6.8) ;dB. The larger uncertainty ",
+   "url": "https://arxiv.org/abs/2611.21397",
+   "pdf": "https://arxiv.org/pdf/2611.21397",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "experiment",
+   "categories": [
+    "quant-ph",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.21138",
+   "source": "arXiv",
+   "title": "Orbital-dependent electronic correlations and single-band character in layered palladates",
+   "authors": [
+    "Jing-Xuan Wang",
+    "Jia-Ming Wang",
+    "Rong-Qiang He",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "Layered palladates provide a 4d platform for examining electronic correlations in materials with cuprate-like structural and orbital characteristics. Using fully charge-self-consistent density functional theory plus dynamical mean-field theory, we investigate the orbital- and layer-resolved electronic structures of LaPdO₂, RbSr₂PdO₃, BaLaPdO₂Cl₂, La₄Pd₃O₈, and La₅Pd₄O₁₀. Under the conditions studied, all compounds remain metallic, with low-energy states dominated by the Pd-dₓ₂₋y₂ orbital. This orbital exhibits stronger mass renormalization than the Pd-dz₂ orbital. LaPdO₂ and BaLaPdO₂Cl₂ show moderate correlations, whereas RbSr₂PdO₃ is more weakly correlated. Both the trilayer La₄Pd₃O₈ and quadlayer La₅Pd₄O₁₀ remain weakly correlated, with similar Pd-dₓ₂₋y₂ mass enhancements and little difference between inner- and outer-layer Pd sites. Among the structures studied, BaLaPdO₂Cl₂ is closest to a cuprate-like single-band description, whereas RbSr₂PdO₃ retains an additional electron pocket with Pd-dz₂ character. These results establish a comparative picture of weak to moderate, orbital-dependent electronic correlations in layered palladates.",
+   "url": "https://arxiv.org/abs/2611.21138",
+   "pdf": "https://arxiv.org/pdf/2611.21138",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.20560",
+   "source": "arXiv",
+   "title": "Inversion of magnetization anisotropy in low magnetic fields for textured Bi2223 superconductor due to magnetic responses from superconducting crystallites and intercrystalline boundaries",
+   "authors": [
+    "D. A. Balaev",
+    "S. V. Semenov",
+    "D. M. Gokhfeld",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "A detailed study of the magnetic anisotropy of a bulk textured high-temperature superconductor Bi2223 has been carried out. In the range of moderate and high fields (up to 1 kOe), the difference ΔM between the upper and lower branches of the magnetization hysteresis loop is larger when the external magnetic field H is parallel to the normal of the texturing plane (H||NTP) than when H is parallel to the texturing plane (H {\\perp} NTP). This magnetic anisotropy is typical for such textured superconductors. However, at small values of the maximum applied field Hmax (up to 15 Oe at a temperature T = 78 K), an anomalous inversion of anisotropy has been found: ΔM(H||NTP) < ΔM(H {\\perp} NTP). It has been established that in the field range up to ~30 Oe (the first penetration field into Bi2223 crystallites is about 30 Oe at T = 78 K), the magnetic hysteresis is determined only by the magnetic flux trapped in the intercrystallite boundary subsystem. The pronounced platelet shape of the Bi2223 crystallites leads to partial screening of the external field inside the sample when the field is oriented parallel to the crystallite c-axis. The observed inverse anisotropy ΔM(H||NTP) < ΔM(H {\\perp} NTP) has been explained by the fact that the effective magnetic field into the intercrystallite boundaries is smaller for the H||NTP orientation than for H {\\perp} NTP. Therefore, when the field is or",
+   "url": "https://arxiv.org/abs/2611.20560",
+   "pdf": "https://arxiv.org/pdf/2611.20560",
+   "journal_ref": "J. Supercond Nov Magn. 39, 162 (2026)",
+   "doi": "10.1007/s10948-026-07262-0",
+   "topics": [],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.20496",
+   "source": "arXiv",
+   "title": "Sharp bounds on the Eliashberg critical temperature: a comparison principle, convexity in the spectrum, and the Kiessling-Altshuler-Yuzbashyan conjectures",
+   "authors": [
+    "Davis Rens"
+   ],
+   "n_authors": 1,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "In Eliashberg theory of phonon-mediated superconductivity with vanishing Coulomb pseudopotential, the critical temperature Tc marks the linear instability of the normal state. Kiessling, Altshuler and Yuzbashyan (KAY) characterized it through the top eigenvalue of a compact operator on Matsubara-frequency sequences. They proved that Tc is unique at strong coupling and conjectured Tc<C(λ⟨ω²⟩)¹/² for every coupling λ, with ⟨ω²⟩ the second moment of the normalized phonon spectrum and C≈0.1827 sharp, a bound Leavens stated in 1977 on partly numerical grounds. A preprint by Kondratev, not yet peer reviewed, gives a proof of this bound and of all-coupling uniqueness. We give an independent proof, for every spectrum with finite second moment, based on a comparison principle that is also Kondratev's central step and was proved to first order by Bergmann and Rainer: strengthening the pairing interaction at every Matsubara transfer, strictly at the smallest one, strictly raises the top eigenvalue. At fixed λ and ⟨ω²⟩ a single Einstein mode maximizes Tc. Convexity of the top eigenvalue in the spectrum gives sharp bounds on Tc by the moments intωⁿα²F dω, 0≤n≤1, including Leavens's zeroth-moment bound Tc≤c₀intα²F dω, c₀≈0.231 numerically, optimal at moderate coupling. All bounds persist under a Coulomb pseudopotential with symmetric cutoff. A prefix decomposition of non-increasing vectors p",
+   "url": "https://arxiv.org/abs/2611.20496",
+   "pdf": "https://arxiv.org/pdf/2611.20496",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.supr-con",
+    "math-ph"
+   ]
+  },
+  {
+   "id": "2611.20469",
+   "source": "arXiv",
+   "title": "Phase diagram and lattice structure of interlayer vortices in multilayer Ising superconductors in parallel magnetic fields",
+   "authors": [
+    "Subhradeep Mahata",
+    "Uddalok Nag",
+    "J. K. Jain"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "In this work, we investigate layered s-wave Ising superconductors under an in-plane magnetic field using self-consistent solutions of the microscopic Bogoliubov-de Gennes equations. Comparing bilayer, four-layer, and infinite-layer systems, we determine how the phase diagram and vortex structure evolve with layer number. Compared to standard Ginzburg-Landau treatments, our approach applies over a broader parameter regime and self-consistently resolves the spatial and layer dependence of the gap amplitude without prescribing its form. We find that the field range supporting the conventional Bardeen-Cooper-Schrieffer (BCS) phase (defined as having no interlayer vortices) is reduced with increasing layer number and is essentially absent at nonzero magnetic flux in the infinite-layer system, consistent with recent thickness-dependent experiments on multilayer 2H-NbSe₂. In the infinite-layer limit, the Fulde-Ferrell-Larkin-Ovchinnikov (FFLO) phase containing interlayer vortices persists to progressively larger in-plane fields as temperature is lowered below the zero-field critical temperature, consistent with the experimentally observed low-temperature enhancement of the upper critical field. The vortex structure also evolves with interlayer hopping: in four-layer systems, for the fluxes and system sizes considered, increasing hopping reorganizes vortices from outer to inner interla",
+   "url": "https://arxiv.org/abs/2611.20469",
+   "pdf": "https://arxiv.org/pdf/2611.20469",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Nickelates",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.20327",
+   "source": "arXiv",
+   "title": "Exceptional structure and Lifshitz criticality in a non-Hermitian Kitaev chain",
+   "authors": [
+    "Aritra Ghosh",
+    "Akash Sinha",
+    "Miloslav Znojil"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-15",
+   "updated": "2026-11-15",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "We study an exactly solvable non-Hermitian N-site Kitaev chain with unequal pair-creation and pair-annihilation amplitudes and vanishing intersite hopping. We show that the chain supports an exceptional point (EP) at which all the many-body energies collapse to zero and the largest Jordan block grows quadratically with N. By constructing an explicit positive metric for the associated N-dimensional one-body problem which admits an extension to the full many-body Hamiltonian, we demonstrate that this EP collapse can be approached through a continuous quasi-Hermitian path in the parameter space. Further, in a different regime with onsite energies alternating between two unequal positive values, we show that pairing amplitudes of opposite signs can lead to crossings between ground states of opposite fermion parity within a quasi-Hermitian regime. Their accumulation in the thermodynamic limit produces a Lifshitz transition, characterized by particle-/hole-pocket formation, quadratic critical dispersion, and a nonanalytic ground-state energy density. We show that this transition remains separated from the EP boundary and ceases to exist for balanced real pairing.",
+   "url": "https://arxiv.org/abs/2611.20327",
+   "pdf": "https://arxiv.org/pdf/2611.20327",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Topological"
+   ],
+   "kind": "theory",
+   "categories": [
+    "quant-ph",
+    "cond-mat.stat-mech",
+    "cond-mat.supr-con",
+    "math-ph"
+   ]
+  },
   {
    "id": "2611.20170",
    "source": "arXiv",
@@ -475,17 +700,17 @@
   {
    "id": "2611.16428",
    "source": "arXiv",
-   "title": "Why \"quantum spin liquids” are quantum singlet liquids",
+   "title": "Why \"quantum spin liquids\" are quantum singlet liquids",
    "authors": [
     "Sergey Syzranov",
     "Arthur P. Ramirez"
    ],
    "n_authors": 2,
    "date": "2026-11-12",
-   "updated": "2026-11-12",
+   "updated": "2026-11-16",
    "category": "cond-mat.str-el",
    "cross_list": true,
-   "abstract": "The last couple of decades have seen enormous theoretical and experimental research efforts aimed at finding quantum spin liquids (QSLs) in geometrically frustrated (GF) magnetic materials. Experimental demonstrations of QSLs are challenging due to the indirect character of possible QSL signatures and the presence of impurities in materials, which may destroy or obscure a QSL. At the same time, theoretical literature often lacks consensus about the ground states of quantum spins on even the simplest GF magnetic lattices. We summarize experimental evidence that in the impurity-free limit, available GF magnetic materials that do not develop magnetic order at low temperatures would form {\\it a quantum singlet liquid}, i.e. a disordered state of non-magnetic excitations. We further confirm the existence of such a singlet liquid and its gapless character with theoretical arguments. Such a liquid manifests itself in the thermodynamics of GF magnets while having no magnetic features at low temperatures.",
+   "abstract": "The last couple of decades have seen enormous theoretical and experimental research efforts aimed at finding quantum spin liquids (QSLs) in geometrically frustrated (GF) magnetic materials. Experimental demonstrations of QSLs are challenging due to the indirect character of possible QSL signatures and the presence of impurities in materials, which may destroy or obscure a QSL. At the same time, the theoretical literature often lacks consensus about the ground states of quantum spins on even the simplest GF magnetic lattices. We summarize experimental evidence that in the impurity-free limit, available GF magnetic materials that do not develop magnetic order at low temperatures would form {\\it a quantum singlet liquid}, i.e. a disordered state of non-magnetic excitations. We further confirm with theoretical arguments the existence of such a singlet liquid and its gapless character in materials with half-integer spins per primitive magnetic cell. Such a liquid manifests itself in the thermodynamics of GF magnets while having no magnetic features at low temperatures.",
    "url": "https://arxiv.org/abs/2611.16428",
    "pdf": "https://arxiv.org/pdf/2611.16428",
    "journal_ref": "",
@@ -2133,239 +2358,6 @@
     "cond-mat.supr-con",
     "quant-ph"
    ]
-  },
-  {
-   "id": "2611.07601",
-   "source": "arXiv",
-   "title": "Fermi-volume anomaly in quartet condensates",
-   "authors": [
-    "Yixin Guo"
-   ],
-   "n_authors": 1,
-   "date": "2026-11-05",
-   "updated": "2026-11-05",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We investigate the relation between density and Fermi volume in a four-component Fermi system with quartet order. For a regular zero-temperature branch without pair order, we express the correction to the Fermi-volume count in terms of the response of the Luttinger-Ward functional to a phase winding of the quartet source. Its leading term is a weighted difference between four-particle and four-hole states. For a Gaussian vertex and parabolic dispersion, we find that the correction expands the Fermi volume in one dimension and contracts it in three dimensions in the parameter range studied. The sign in two dimensions depends on the momentum cutoff. We solve the one-dimensional Dyson equation at fixed density and compare the counting correction obtained from the Fermi points with that evaluated from the dressed spectra at low temperature. At fixed quartet amplitude and peak normalization of the vertex, the correction depends strongly on the vertex width, whereas the fermionic entropy changes little. We also examine the linear pairing response, which can limit the continuation of the unpaired branch to zero temperature.",
-   "url": "https://arxiv.org/abs/2611.07601",
-   "pdf": "https://arxiv.org/pdf/2611.07601",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.quant-gas",
-    "cond-mat.str-el",
-    "nucl-th"
-   ]
-  },
-  {
-   "id": "2611.07302",
-   "source": "arXiv",
-   "title": "Electrically tunable superconducting dimensionality in stripe-ordered monolayer MoTe₂",
-   "authors": [
-    "Tianyu Qiu",
-    "Ziyi Han",
-    "Fei Yang",
-    "et al."
-   ],
-   "n_authors": 20,
-   "date": "2026-11-05",
-   "updated": "2026-11-05",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Dimensionality governs the stability of collective quantum states, including whether Cooper pairs can establish the phase coherence required for superconductivity. In solids, however, electronic dimensionality is usually encoded in the crystal structure and is difficult to control reversibly. Here we show evidence that monolayer 1T′-MoTe₂ develops a stripe charge-density wave that reorganizes its low-energy electronic states into quasi-one-dimensional channels. Raman spectroscopy and scanning tunneling microscopy identify the stripe order, whereas directional transport and tunneling spectroscopy reveal superconducting correlations confined to the stripe direction and insulating behavior perpendicular to it. Electrostatic doping weakens the transverse insulating response and drives the system into phase-coherent two-dimensional superconductivity. These results show that stripe charge order can reconfigure superconducting dimensionality and make it electrically tunable within a single crystalline layer.",
-   "url": "https://arxiv.org/abs/2611.07302",
-   "pdf": "https://arxiv.org/pdf/2611.07302",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mes-hall",
-    "cond-mat.mtrl-sci",
-    "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2611.07116",
-   "source": "arXiv",
-   "title": "Universal Negative Correlation between Nonreciprocity and Superconducting Transition Width in FeTe-Based Heterostructures",
-   "authors": [
-    "Annie G. Wang",
-    "Saswata Mandal",
-    "Zi-Jie Yan",
-    "et al."
-   ],
-   "n_authors": 13,
-   "date": "2026-11-04",
-   "updated": "2026-11-04",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Nonreciprocal charge transport in noncentrosymmetric superconductors probes broken symmetries and superconducting fluctuations and underpins the superconducting diode effect. Despite extensive studies, the factors governing its magnitude remain unclear. In this work, we use molecular beam epitaxy (MBE) to synthesize a broad family of FeTe-based superconducting heterostructures with top layers spanning topologically trivial versus nontrivial, layered versus nonlayered, and magnetic versus nonmagnetic materials. Through systematic first- and second-harmonic transport measurements, we find that the magnetochiral anisotropy coefficient γ is insensitive to the top-layer crystal structure, lattice constant, thickness, topology, and magnetism, but exhibits a negative correlation with the superconducting transition width ΔT. Control measurements on superconducting stoichiometric FeTe films reveal much weaker nonreciprocity, confirming the essential role of interfacial inversion-symmetry breaking. Combined with a disorder-based theoretical model, our results establish a universal relationship: for comparable inversion-symmetry breaking, reduced interfacial disorder sharpens the superconducting transition and strongly enhances nonreciprocal transport in the Berezinskii-Kosterlitz-Thouless (BKT) transition regime. These findings identify ΔT as a unifying parameter governing nonreciprocity",
-   "url": "https://arxiv.org/abs/2611.07116",
-   "pdf": "https://arxiv.org/pdf/2611.07116",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Iron-based",
-    "Topological",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mes-hall"
-   ]
-  },
-  {
-   "id": "2611.07014",
-   "source": "arXiv",
-   "title": "Stability and Relaxation of Electron-Phonon Systems at Strong Coupling",
-   "authors": [
-    "Noga Bashan",
-    "Erez Berg"
-   ],
-   "n_authors": 2,
-   "date": "2026-11-04",
-   "updated": "2026-11-04",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "We study the kinetic properties of Migdal-Eliashberg theory (MET) for electron-phonon interactions at strong coupling. Previously, the system was found to be dynamically unstable at large couplings within a Markovian quantum Boltzmann approximation. Using the quasiclassical Kadanoff-Baym equation, we show that this instability is absent when non-Markovian effects are taken into account. We also analyze the long-time relaxation dynamics at strong-couplin, and find a clear imprint of the non-Markovian nature of the dynamics: in an intermediate temperature range between the Debye frequency and the coupling strength, the relaxation rate becomes linear in temperature with Planckian slope, while the leading relaxation mode acquires a large imaginary component, producing strongly oscillatory decay. Our results imply that any instability which preempts superconductivity must arise from effects beyond MET, such as phonon softening or polaronic effects at finite electronic bandwidth. This shows that the characteristic phonon frequency is not a fundamental bound on Tc, and leaves open a route to higher Tc in multi-orbital electron-phonon systems.",
-   "url": "https://arxiv.org/abs/2611.07014",
-   "pdf": "https://arxiv.org/pdf/2611.07014",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.mtrl-sci",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.06424",
-   "source": "arXiv",
-   "title": "Hydrogen sublattice in LaH₁₂: structural stability and possible ordering motifs",
-   "authors": [
-    "Khasan Akhmadiev",
-    "Di Zhou",
-    "Viktor V. Struzhkin",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-11-04",
-   "updated": "2026-11-04",
-   "category": "cond-mat.mtrl-sci",
-   "cross_list": true,
-   "abstract": "Lanthanum polyhydrides, synthesized under extreme pressure, exhibit near-room-temperature superconductivity. Finding a precise arrangement of the hydrogen sublattice that is critical for understanding the strong electron-phonon coupling remains experimentally unresolved due to the small X-ray scattering form factor of hydrogen atoms. In this work, we attempt to computationally reconstruct hydrogen sublattices of the LaH₁₂ at 100-200 GPa combining unconstrained evolutionary searches and structure generation with fixed lanthanum sublattice. By implementing a similarity metric, we screen the computationally generated configurations against experimental powder X-ray diffraction data. We specifically identify the trigonal Rbar3-LaH₁₂ and pseudo-hexagonal C222₁-La₂H₂₄ phases, which demonstrate close agreement with the experimental X-ray diffraction data. First-principles calculations confirm the metallic and superconducting nature of these hydrides. Crucially, our lattice dynamics analysis using the stochastic self-consistent harmonic approximation (SSCHA) indicates that these structures are dynamically stable. We reveal the presence of molecular H₂ units and soft phonon modes in the trigonal LaH₁₂ that suppresses superconductivity (Tc ≥30 K), while the hydrogen clathrate network in the C222₁ phase drives strong electron-phonon interactions, yielding the coupling parameters of λ≈1.83",
-   "url": "https://arxiv.org/abs/2611.06424",
-   "pdf": "https://arxiv.org/pdf/2611.06424",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Hydrides",
-    "Electron–phonon"
-   ],
-   "kind": "computation",
-   "categories": [
-    "cond-mat.mtrl-sci",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.05964",
-   "source": "arXiv",
-   "title": "Variational Monte Carlo Study of Superconductivity in a Correlated System with Broken Inversion Symmetry",
-   "authors": [
-    "Tsuyoshi Imazu",
-    "Katsunori Kubo"
-   ],
-   "n_authors": 2,
-   "date": "2026-11-04",
-   "updated": "2026-11-04",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Unconventional superconductivity in systems with broken inversion symmetry has attracted considerable interest because antisymmetric spin-orbit coupling (ASOC) can strongly affect the spin structure and stability of superconducting states. In this study, we investigate superconductivity in a correlated system with the symmetry of a honeycomb network using the variational Monte Carlo method. We consider a single-band Hubbard model including an on-site Coulomb interaction U and ASOC with coupling strength λ, and compare several pairing states with different pairing symmetries. The trial wave functions are constructed from particle-number- and Gutzwiller-projected BCS states. To examine the energetic stability of each pairing state, we calculate the variational energy as a function of the gap amplitude, while optimizing the variational parameter μ and the Gutzwiller parameter g for each gap amplitude. At U/t = 10, the f-wave state has the lowest variational energy for λ/t = 0, whereas the chiral p-wave state becomes the most energetically favorable for λ/t = 0.1. These results indicate that ASOC strongly affects the competition among superconducting pairing states in the presence of strong electron correlations.",
-   "url": "https://arxiv.org/abs/2611.05964",
-   "pdf": "https://arxiv.org/pdf/2611.05964",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.05784",
-   "source": "arXiv",
-   "title": "Predictions of superconducting properties from chemical bonding interactions",
-   "authors": [
-    "Francesco Belli",
-    "Trinidad Novoa",
-    "Ion Errea",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-04",
-   "updated": "2026-11-04",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The need for rapid estimates of superconducting critical temperatures, Tc s, is becoming increasingly urgent as first-principles and artificial intelligence based methods enable the exploration of ever-larger and more chemically complex materials spaces. In this context, chemical bonding based quantities have emerged as promising descriptors for predicting superconductivity. To date, these approaches have mainly been developed for hydride superconductors, notably through the networking value, a descriptor based upon the electron localization function, whose topological properties have been found to correlate with Tc . In this perspective, we review and consolidate the method's theory, and we discuss how the estimate of the Tc is achievable within a real-space view. We conclude by proposing a framework that enables Tc prediction for the broad family of conventional superconductors from easily computable intermediate physical quantities.",
-   "url": "https://arxiv.org/abs/2611.05784",
-   "pdf": "https://arxiv.org/pdf/2611.05784",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Hydrides",
-    "Topological",
-    "Electron–phonon"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.05710",
-   "source": "arXiv",
-   "title": "Exact Mirror-Parity Selection Rule for Electron-Phonon Coupling in Two-Dimensional Crystals",
-   "authors": [
-    "Nicolás F. Barrera",
-    "Javiera Cabezas-Escares",
-    "Francisco Munoz",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-11-03",
-   "updated": "2026-11-03",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The electron–phonon (e-ph) interaction underlies conventional superconductivity and plays a central role in transport and other many-body phenomena in solids. Here, we derive a symmetry selection rule for e-ph scattering in two-dimensional crystals possessing a horizontal mirror plane, σh. For electronic states of mirror parity sn(k) and sm(k+q), and a phonon mode of parity χν(q), we show that the e-ph matrix element gmn,ν(k,q) vanishes identically unless sn(k),χν(q), sm(k+q)=+1. The rule follows from the covariance of the phonon-induced deformation potential under σh, constitutes the Cs case of the general group-theoretical selection rule for matrix elements, and partitions the e-ph interaction throughout the Brillouin zone into symmetry-allowed and symmetry-forbidden scattering channels. Consequently, mirror-even phonons couple electronic states of the same mirror parity, either even–even or odd–odd, whereas mirror-odd phonons couple only states of opposite mirror parity, for both intra- and interband processes. We illustrate the selection rule through first-principles calculations for the two-dimensional superconductor Sc₂BCH₄, where mirror parity is well defined throughout the entire Brillouin zone and symmetry-forbidden matrix elements vanish up to numerical precision. We then extend the analysis to bulk MgB₂, where the rule applies exactly only on mirror-invariant planes ",
-   "url": "https://arxiv.org/abs/2611.05710",
-   "pdf": "https://arxiv.org/pdf/2611.05710",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D",
-    "Electron–phonon"
-   ],
-   "kind": "computation",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci",
-    "quant-ph"
-   ]
   }
  ],
  "journals": [
@@ -2569,6 +2561,25 @@
    "kind": ""
   },
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2588,25 +2599,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
