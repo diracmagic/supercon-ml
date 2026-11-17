@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-16T22:07:58+00:00",
+ "updated": "2026-11-17T04:16:58+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -64,6 +64,121 @@
   "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.20170",
+   "source": "arXiv",
+   "title": "Stabilization of LaH₁₀ with Thorium: Superconductivity in (La,Th)H₁₀ up to 232 K near 1 Mbar",
+   "authors": [
+    "Dmitrii V. Semenok",
+    "Mikhail A. Volkov",
+    "Andrey V. Sadakov",
+    "et al."
+   ],
+   "n_authors": 12,
+   "date": "2026-11-15",
+   "updated": "2026-11-15",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Ternary lanthanum-based hydrides are among the best high-temperature superconductors. Here we show that substituting La with thorium stabilizes La(Th)H₁₀ clathrate structure at ∼1 Mbar while only minimally suppressing superconductivity. The resulting cubic (La,Th)H₁₀ phase, synthesized from relatively air-stable La₂Th, La₃Th and La₅Th alloys, reaches an onset textitT_c = 232 K at 134 GPa, as confirmed by contact resistance measurements. Superconductivity was verified by two independent methods: electrical resistance and contactless radio-frequency measurements under applied magnetic fields at various pressures. Using a record-high pulsed current of 380 mA, we investigated critical phenomena in P6₃/mmc-(La,Th)H₉ at 173 GPa, which allowed for the experimental determination of a single superconducting gap within the s-wave model: Δ(0) = 37 ±4.5 meV and 2Δ(0)/kTc = 4.9 ±0.6. The La-Th-H system is chemically rich: in addition to the decahydride and nonahydride mentioned above, we also identified nanocrystalline I4/mmm-(La,Th)H₄ (5-6 nm grain size), (La,Th)H₆, as well as hP13, cF80 and A15 phases with compositions of (La,Th)H₅.₇₅₋₆.₂₅ and textitT_c ≈ 83 K at 70-80 GPa, and a possible (La,Th)H₁₆ polyhydride.",
+   "url": "https://arxiv.org/abs/2611.20170",
+   "pdf": "https://arxiv.org/pdf/2611.20170",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Hydrides"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci"
+   ]
+  },
+  {
+   "id": "2611.19718",
+   "source": "arXiv",
+   "title": "High Characteristic Voltage YBCO Josephson Junctions Written With a Focused Helium Ion Beam",
+   "authors": [
+    "Rochelle Y. Qu",
+    "Aravind R. Sreeja",
+    "Adhilsha Parachikunnumal",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-11-15",
+   "updated": "2026-11-15",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "We report in-plane Josephson junctions written directly into YBa₂Cu₃O₇₋δ (YBCO) thin films with a focused helium ion beam (He FIB). The characteristic voltage ICR of these junctions, where IC is the Josephson critical current and R is the junction resistance, sets the operating frequency and the sensitivity of the circuits built from them. A single line irradiation with a dose of \\SI{500}{ions/nm} across a \\SI{4}{\\micro\\metre} wide electrode produced a junction with ICR of 929 \\si{\\micro\\volt} at \\SI{1.6}{K}, which is `higher than the 200 to 400 \\si{\\micro\\volt} typical of junctions fabricated previously in our laboratory. Temperature dependent resistance, current-voltage characteristics, magnetic field modulation of the critical current, and Shapiro steps under 20.5~GHz microwave irradiation show Josephson behavior with an excess current below 5 percent of the critical current. The critical current falls steeply with temperature near the junction transition and saturates at low temperature. We attribute this behavior to a barrier at the metal insulator transition, where hopping conduction through localized states is active at finite temperature and freezes out on cooling. We describe the changes in surface preparation, sample selection, beam focusing, and sample storage that accompanied the improvement, although the present data do not separate their individual contributions. ",
+   "url": "https://arxiv.org/abs/2611.19718",
+   "pdf": "https://arxiv.org/pdf/2611.19718",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.19486",
+   "source": "arXiv",
+   "title": "Galerkin methods for unconventional superconductors with long-range interactions on 3D lattices",
+   "authors": [
+    "Andreas A. Buchheit",
+    "Torsten Keßler",
+    "Sergej Rjasanow"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-14",
+   "updated": "2026-11-14",
+   "category": "math.NA",
+   "cross_list": true,
+   "abstract": "We develop an analysis and a B-spline Galerkin method for the matrix-valued Bardeen-Cooper-Schrieffer (BCS) gap equation of unconventional superconductors with general long-range interaction kernels on arbitrary Bravais lattices. We define the BCS free energy functional on lattices, show that it is bounded from below, and characterise solutions of the gap equation as its stationary points. For non-repulsive kernels, we prove that fixed-point iteration never increases the free energy and drives the residual to zero. The algebraically decaying tails of the interaction are described by Epstein zeta functions, so the method applies to any power-law exponent ν>0, including exponents at or below the lattice dimension such as dipolar interactions in three-dimensional lattices. In the B-spline Galerkin basis, the singular convolutions correspond to block-circulant matrices whose eigenvalues are lattice sums, applied without quadrature at FFT cost. Each iteration takes log-linear work and linear memory, and Broyden updates accelerate convergence. By engineering a suitable dispersion for a prescribed gap, we obtain non-trivial analytic singlet and triplet solutions of the gap equation with power-law interactions on the integer lattice at zero temperature, to our knowledge the first ones. Benchmarks against these solutions and against highly resolved numerical data show convergence rates ",
+   "url": "https://arxiv.org/abs/2611.19486",
+   "pdf": "https://arxiv.org/pdf/2611.19486",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Topological",
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "math.NA",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.19195",
+   "source": "arXiv",
+   "title": "Optical response of quantum metals",
+   "authors": [
+    "Erik van Heumen",
+    "Martin Dressel",
+    "Simone Fratini"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-14",
+   "updated": "2026-11-14",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "Strongly interacting quantum systems display puzzling electrical transport properties whose interpretation remains controversial. Many theoretical and phenomenological analyses assume that the complex behaviour observed in such `quantum materials' originates either from quasi-particles dressed with an anomalous electron self-energy or from collective excitations associated with hydrodynamic flow. Despite their distinctly different starting points, the underlying assumption is that dissipation of electrical current arises from the relaxation of the total momentum of charge carriers. This classical description breaks down in the absence of long-lived charge carriers. In such strange metals dissipation seems to be governed by the rate at which equilibrium is thermally restored, and it has been suggested that this constitutes an upper bound, known as the `Planckian limit'. Here we show that in this quantum regime a description of the conductivity in terms of relaxation rates no longer suffices: strange metal transport is carried instead by fast-decaying current fluctuations, which together with quantum detailed balance give rise to the widely observed Planckian dissipation. The distinction between classical and quantum metals becomes transparent when experimental data is analysed in terms of the current-current correlation function instead of the optical conductivity. When applied ",
+   "url": "https://arxiv.org/abs/2611.19195",
+   "pdf": "https://arxiv.org/pdf/2611.19195",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2611.17882",
    "source": "arXiv",
@@ -1232,7 +1347,7 @@
    "abstract": "Understanding interactions between different low-energy excitations is a central theme in condensed-matter physics. Magnons and superconducting condensates represent two distinct macroscopic quantum states, yet their mutual interaction remains largely unexplored. Here, we demonstrate supercurrent-controlled magnon transport in a ferromagnet/superconductor heterostructure. We observe that the magnon transport signal decreases as the supercurrent increases. This suppression originates from a supercurrent-induced reduction of the superconducting gap, which enhances magnon dissipation into the superconductor via Bogoliubov quasiparticles. Our results provide direct experimental evidence of a supercurrent-controlled interaction between magnons and quasiparticles in the superconductor. The approach used in this study relies on supercurrents, enabling magnon modulation without Joule heating. These findings establish a new route to control magnons via superconductivity and pave the way for energy-efficient magnonic devices.",
    "url": "https://arxiv.org/abs/2611.11781",
    "pdf": "https://arxiv.org/pdf/2611.11781",
-   "journal_ref": "",
+   "journal_ref": "Phys. Rev. Applied 26, 054040 (2026)",
    "doi": "10.1103/jlhg-yy14",
    "topics": [],
    "kind": "experiment",
@@ -2250,124 +2365,6 @@
     "cond-mat.supr-con",
     "cond-mat.mtrl-sci",
     "quant-ph"
-   ]
-  },
-  {
-   "id": "2611.05555",
-   "source": "arXiv",
-   "title": "Classification and Signatures of Dissipative Quantum Hall-Superconductor Junctions",
-   "authors": [
-    "Evgenii Zheltonozhskii",
-    "Barak A. Katzir",
-    "Yuval Oreg",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-11-03",
-   "updated": "2026-11-03",
-   "category": "cond-mat.mes-hall",
-   "cross_list": true,
-   "abstract": "Fractional quantum Hall (FQH) edges with proximity-induced superconductivity can host parafermionic zero modes (PZMs), making them a promising platform for topological quantum computing. Recent experiments [Gül et al., Phys. Rev. X 12, 021057 (2022)] measured the edge conductance from crossed Andreev reflection (CAR) between counter-propagating FQH edges separated by a narrow superconductor. The observed conductance was small and non-quantized, with two distinct behaviors: some states show temperature-independent conductance, while others show conductance that grows as temperature decreases. We explain these results by dissipation to sub-gap modes in the superconductor and present a phase diagram for the FQH-superconductor junction. We show that for Jain states, temperature-independent non-quantized conductance occurs only in the presence of an integer mode (such as at filling ν=1±frac1m, with odd m≥3) strongly coupled to the dissipative channel. The predicted temperature trends qualitatively agree with the experiment, which shows temperature-independent conductance for ν=2/3 and integer states, but not for ν=1/3 and ν=2/5. We propose comparing ν=4/3 and 2/3 to test the predicted influence of the relative chirality of integer and fractional modes.",
-   "url": "https://arxiv.org/abs/2611.05555",
-   "pdf": "https://arxiv.org/pdf/2611.05555",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Topological"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.mes-hall",
-    "cond-mat.str-el",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.05529",
-   "source": "arXiv",
-   "title": "Resonantly interacting 2e/3 anyons: a controlled microscopic theory of anyon superconductivity",
-   "authors": [
-    "Qingchen Li",
-    "Pavel A. Nosov",
-    "Zhaoyu Han",
-    "et al."
-   ],
-   "n_authors": 6,
-   "date": "2026-11-03",
-   "updated": "2026-11-03",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "We develop a microscopic theory of anyon superconductivity that connects electronic interactions in a lightly doped Laughlin state to the universal physics of a resonantly interacting anyon gas. Using geometric quantization of Laughlin quasiholes, we derive the effective many-body Hamiltonian of dilute charge-2e/3 anyons, including their valley structure, dispersion, and statistical and short-range interactions, together with an explicit map between anyon and electron observables. This reduces the dilute many-body problem to a few parameters fixed by data computable from few anyon numerics. In analogy with resonant Fermi and Bose gases, we organize the dilute anyon problem around a two-body binding resonance and its relevant and marginal perturbations. For a three-valley gas of charge-2e/3 anyons, we identify a resonance whose long-distance theory is governed by an Aharonov-Casher anyon Hamiltonian whose magnetic field is the statistical Chern-Simons field and whose ground state is exactly solvable. Using the ground state wavefunction, we demonstrate Cooper-pair off-diagonal long-range order directly in electron coordinates and determine the pairing symmetry and vortex-lattice structure. The leading perturbations at the fixed point are a relevant pair detuning and a marginal three-body contact in the valley-singlet channel, which determine the compressibility and sound velocity",
-   "url": "https://arxiv.org/abs/2611.05529",
-   "pdf": "https://arxiv.org/pdf/2611.05529",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.04982",
-   "source": "arXiv",
-   "title": "Ta-based S-I-S junctions for integrated superconducting electronics",
-   "authors": [
-    "Trent Borman",
-    "Cameron Bullock",
-    "Cole Chason",
-    "et al."
-   ],
-   "n_authors": 27,
-   "date": "2026-11-03",
-   "updated": "2026-11-09",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "In this work, we have presented S-I-S Josephson junctions with rmα-Ta electrodes and a rmTaOₓ barrier. We grew base and top α-Ta electrodes using seed layer engineering, showing both Nb and rmTaNₓ are viable seed layer choices, and particularly emphasize that at room temperature a re-seed layer is required to nucleate rmα-Ta for the top electrode. However, we note that the choice of seed layer can have subtle implications on the electrical tunneling behavior of the junctions. We used room-temperature probing of variable junction areas, combined with Ambegaokar-Baratoff physics, to characterize the wafer scale critical current densities. For 0.4 μm² junctions, we found junction spreads as low as 2.0% across the 20 x 20 mm chip relevant for device performance. The entire process was carried out using standard industry foundry processing using 150 mm wafer tooling, which is an important step towards proving that Ta-based junctions can be implemented at scale. We have successfully fabricated and tested junctions with rmα-Ta electrodes and a rmTaOₓ insulating tunnel barrier, demonstrating that this is a material platform which merits further investigation and studies for potential application in classical and quantum superconducting technologies.",
-   "url": "https://arxiv.org/abs/2611.04982",
-   "pdf": "https://arxiv.org/pdf/2611.04982",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci"
-   ]
-  },
-  {
-   "id": "2611.04821",
-   "source": "arXiv",
-   "title": "Nonreciprocal charge transport in quantum materials: From superconductors to magnetic systems",
-   "authors": [
-    "Boning Yu",
-    "Yalei Huang",
-    "Alltrin Dhanarajagopal",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "updated": "2026-11-03",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Nonreciprocal charge transport, where current flows preferentially in one direction, has become a key topic across quantum materials. This review covers some recent progress in bulk crystals, artificial heterostructures, van der Waals systems, high-temperature superconductors, and magnetic materials. The review discusses both intrinsic origins, such as band-structure effects, and extrinsic ones, including vortex motion, device geometry, and heating artifacts. A central focus is the superconducting diode effect due to its application potential, which shows different critical currents for opposite directions. The review also examines how symmetry breaking, spin-orbit coupling, and magnetic order contribute to the observed responses. However, there remain challenges when many exciting findings lack a unified picture, and the field continues to debate the relative importance of various mechanisms. The review highlights key open questions and suggests future directions, including better experimental standards and device integration. This review aims to give a balanced view of what is known, what is uncertain, and where the field might go next.",
-   "url": "https://arxiv.org/abs/2611.04821",
-   "pdf": "https://arxiv.org/pdf/2611.04821",
-   "journal_ref": "J. Phys.: Condens. Matter 38 (2026) 443002",
-   "doi": "10.1088/1361-648X/aeb784",
-   "topics": [
-    "Moiré and 2D",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.str-el"
    ]
   }
  ],
