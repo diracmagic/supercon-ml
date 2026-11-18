@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-18T01:42:34+00:00",
+ "updated": "2026-11-18T04:18:42+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -65,6 +65,260 @@
  ],
  "arxiv": [
   {
+   "id": "2611.23232",
+   "source": "arXiv",
+   "title": "Emergent Attraction and Competing Orders near the Van Hove Singularity in Rhombohedral n-layer Graphene",
+   "authors": [
+    "Jing-Yu Zhao",
+    "Yang-Zhi Chou",
+    "Sankar Das Sarma"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Unconventional superconductivity in rhombohedral n-layer graphene exhibits a rich phase diagram with multiple distinct superconducting regions, whose microscopic origins remain unclear. Here, we investigate the competition between charge-density-wave (CDW) and pair-density-wave (PDW) instabilities near the inner van Hove singularities (VHSs), using a patch renormalization-group approach with the realistic band structures incorporated. We identify two key findings. First, we find an effective attractive interaction emerging from purely repulsive interactions through RG flow in the presence of C₃ symmetry breaking. The resulting interaction structure, with two repulsive couplings and one attractive coupling, gives rise to competing CDW and PDW instabilities. Second, the competition is controlled by the detuning from the VHS. While CDW dominates near the VHS filling and at higher temperatures, PDW becomes the leading instability on either side of the VHS and at lower temperatures. This mechanism naturally produces two superconducting regions separated by a CDW-dominated regime, providing a possible qualitative explanation for the experimentally observed separation between SC1 and SC2.",
+   "url": "https://arxiv.org/abs/2611.23232",
+   "pdf": "https://arxiv.org/pdf/2611.23232",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Electron–phonon"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.23227",
+   "source": "arXiv",
+   "title": "Expressivity of two-dimensional Gaussian fermion tensor network states",
+   "authors": [
+    "Pok Man Tam",
+    "William Musk",
+    "Zhehao Dai"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "category": "quant-ph",
+   "cross_list": true,
+   "abstract": "Tensor network states (TNS) provide a family of efficiently compressed approximations to physically relevant many-body quantum states. An important quantity that characterizes the computational resources required by a TNS is its bond dimension. While in one dimension an area law for the Renyi-0 entropy guarantees an exact matrix product state representation with a bond dimension independent of the system size, an analogous statement does not hold for general states in two dimensions (2D). This leaves open the question of how the expressivity of 2D TNS is related to the entanglement properties of the states they represent. In this work, we focus on two families of 2D translation-invariant Gaussian fermionic states: single-band BCS superconductors and half-filled two-band insulators (including semimetals). For each family, we prove that an area law for the Renyi-0 entropy is equivalent to having an exact Gaussian fermionic TNS representation with a finite bond dimension determined by the Renyi-0 entropy. We also establish equivalent characterizations in terms of compactly supported Wannier-type orbitals and the momentum-space wavefunction, relating the spatial extent of these orbitals and the structure of the wavefunction to the required bond dimension.",
+   "url": "https://arxiv.org/abs/2611.23227",
+   "pdf": "https://arxiv.org/pdf/2611.23227",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D"
+   ],
+   "kind": "computation",
+   "categories": [
+    "quant-ph",
+    "cond-mat.mes-hall",
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.23065",
+   "source": "arXiv",
+   "title": "Quasi-long-range order in the quantum XY model on Sierpiński gaskets",
+   "authors": [
+    "Robert Canyellas",
+    "Jannes van Poppelen",
+    "Annica M. Black-Schaffer",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Fractal geometry has recently been shown to enhance the amplitude of the superconducting order parameter, but the fate of the superconducting phase on such lattices is far less clear. Classical XY models on finitely ramified fractals have no finite-temperature transition, as the energy of a vortex stays bounded as the system grows. However, that statement concerns an infinite gasket and thermal vortices, while real fractal structures are finite by construction. It also leaves open what happens at T = 0, where the phase competes not with temperature but with its own quantum fluctuations. In this work we address whether superconducting phase coherence survives at T=0. %Whether coherence survives those is the prior question, and the one we address here. To that end, we study the spin-1/2 XY ferromagnet, the phase sector of a Josephson network with at most one Cooper pair per island, thus capturing the maximum effect of quantum phase fluctuations, on both triangular and honeycomb Sierpiński gaskets. By using vision-transformer neural quantum states optimized by variational Monte Carlo, we reach generations up to G = 5, that is 366 sites for the triangular gasket and 609 for the honeycomb one, well beyond the reach of exact diagonalization. We find that the transverse two-point correlator decays algebraically, Cₓy(r) ∼r⁻η with η≃0.12!-!0.32, independent of distance measured along th",
+   "url": "https://arxiv.org/abs/2611.23065",
+   "pdf": "https://arxiv.org/pdf/2611.23065",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.dis-nn"
+   ]
+  },
+  {
+   "id": "2611.23060",
+   "source": "arXiv",
+   "title": "Atomic-scale Imaging of Time Reversal Breaking Supercurrents in Bi₂Sr₂CaCu₂O₈",
+   "authors": [
+    "Bin Hu",
+    "Catherine Dawson",
+    "Shuqiu Wang",
+    "et al."
+   ],
+   "n_authors": 11,
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "A persistent mystery of CuO_2-based high temperature superconductivity has been the mechanism and consequences of time reversal (T)-symmetry breaking. Although theoretical hypotheses focus upon persistent electronic currents as a potential cause, these have been invisible to direct experimental probes. That impasse has recently been removed by development of techniques for atomic-scale supercurrent visualization. Here, by imaging the energy-resolved density of electronic states N(r,E) in Bi₂Sr₂CaCu₂O₈, we search for the specific signatures of flowing supercurrents in a disordered d-wave superconductor. Employing the strategy of artificial neural networks (ANN) for complex quantum matter visualization, we designed a dual-ANN (VMAP) to efficiently implement d-wave supercurrent visualization, achieving imaging of supercurrent speeds V(r) at magnetic fields |B| ≤μT in Bi₂Sr₂CaCu₂O₈. Correspondence between specific characteristics of N(r,E) around each supercurrent loop and a quantum \"Rosetta Stone\" which translates N(r,E) to V(r), emphasizes the validity of V(r) detection and visualization. Then, for hole-densities 0.17 ≤p ≤ 0.22 we observe statistically repeatable networks of supercurrent flows. Crucially, these supercurrents satisfy Kirchhoff's law at junctions within each network. Further, theoretical predictions for supercurrent speeds V in disordered d-wave superconductors are",
+   "url": "https://arxiv.org/abs/2611.23060",
+   "pdf": "https://arxiv.org/pdf/2611.23060",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "AI and data"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.23016",
+   "source": "arXiv",
+   "title": "Ab initio Engineering of Topological Superconductivity in Substrate-Supported Magnetic Chains",
+   "authors": [
+    "András Lászlóffy",
+    "Balazs Ujfalussy"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "In this paper, we employ a combination of several first-principles-based approaches to systematically scan chains of several types of magnetic atoms in different chain geometries on top of various overlayers on the Nb(110) surface, to develop a pathway to engineer topological Majorana edge states. Using atomistic spin-model calculations, we first identify a rich variety of magnetic configurations, including ferromagnetic, antiferromagnetic, spin-spiral, and exotic up-up-down-down states stabilized solely within a second-order Heisenberg model. In the next step, we solve the Bogoliubov-de Gennes equations using a band-theoretical method. Depending on the magnetic structure and atomic configuration, the superconducting spectra may exhibit topologically trivial minigaps, broad overlapping Shiba bands, or localized zero-energy edge states accompanied by sizable topological minigaps. In particular, Fe chains on Ag/Nb(110) are found to display pronounced signatures associated with topological superconductivity, including strongly localized zero-energy edge states and indications of Shiba band inversion. We further demonstrate that changes in the spin structure or a small amount of spatial relaxation can substantially modify the superconducting band structure and the localization properties of the edge states.",
+   "url": "https://arxiv.org/abs/2611.23016",
+   "pdf": "https://arxiv.org/pdf/2611.23016",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Topological"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.22493",
+   "source": "arXiv",
+   "title": "From the Full Fermionic Hilbert Space to the BCS Paired Subspace",
+   "authors": [
+    "Guo-Jian Qiao",
+    "Xin Yue",
+    "C. P. Sun"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Conventional Bardeen–Cooper–Schrieffer (BCS) and number-projected BCS variational treatments are formulated within a paired Hilbert subspace, where modes with opposite momenta and spins are either both empty or both occupied. Here we ask whether this paired subspace can itself be selected energetically from the full fermionic Hilbert space of the attractive reduced BCS model. Using conserved projectors that distinguish singly occupied states from empty and doubly occupied ones, we decompose the full Hilbert space into invariant sectors. A direct energy comparison between sectors shows that, at zero temperature, every ground state at fixed average particle number lies in the paired subspace. The same holds at fixed even particle number, with the comparison preserving the total particle number, while at fixed odd particle number one fermion remains unpaired, as required by parity. Within the resulting paired subspace, minimization over positive generalized-P representations of pseudospin coherent states selects a common phase for the nonzero pair amplitudes and determines their magnitudes. BCS and number-projected BCS states arise as particular minimizers under the respective particle-number constraints.",
+   "url": "https://arxiv.org/abs/2611.22493",
+   "pdf": "https://arxiv.org/pdf/2611.22493",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.22462",
+   "source": "arXiv",
+   "title": "Orbital differentiation in a rare earth ion near half filling",
+   "authors": [
+    "D. W. Tam",
+    "Ø. S. Fjellvåg",
+    "B. Gonano",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "In the electronic structure of rare earth ions, details can be crucial for understanding the origin of correlated states. Currently, state-of-the-art wavefunction-based methods (e.g. CASSCF) can capture single-ion properties of molecular magnets and some band insulating systems, but are expensive to perform, and cannot be applied to metallic systems. Here, we carry out full multiplet calculations for SmN with the cubic rock-salt structure using the crystal field software Quanty. The calculated experimental observables from our model agree precisely with magnetic susceptibility and inelastic neutron scattering experiments, and the spatially resolved spin density also agrees with DFT predictions. By tuning the crystal field parameters, our full multiplet-derived wavefunctions reveal the presence of orbital differentiation of the ground J=frac52 manifold into two groups, which are distinct subspaces with different orbital stiffness. This violation of Hund's rule, observed with a fast and inexpensive calculation tool, represents a step forward for microscopic models of rare earth materials, and may provide support for the claim of unconventional triplet superconductivity in SmN.",
+   "url": "https://arxiv.org/abs/2611.22462",
+   "pdf": "https://arxiv.org/pdf/2611.22462",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.mtrl-sci",
+    "cond-mat.supr-con",
+    "physics.chem-ph",
+    "physics.comp-ph"
+   ]
+  },
+  {
+   "id": "2611.21848",
+   "source": "arXiv",
+   "title": "High-resolution top-down nanopatterning of NbN thin films for superconducting metamaterials",
+   "authors": [
+    "Francesca Incalza",
+    "Davide Mondin",
+    "Dip Joti Paul",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Periodic nanopatterning offers a route to tailoring vortex motion and the electromagnetic response of superconducting films, providing a basis for superconducting metamaterials. Here, we report a high-resolution top-down nanopatterning process for ultrathin epitaxial NbN films on sapphire substrates. Electron-beam lithography using hydrogen silsesquioxane (HSQ) and ZEP 530A resists was optimized through proximity-effect correction and adhesion-layer integration. Dense superconducting nanowire grids with pitches down to 70 nm were fabricated, alongside millimeter-square areas patterned with 100-nm-pitch hole arrays with high pattern fidelity. A thin Si capping layer was found to significantly improve HSQ adhesion on epitaxial NbN. The nanopatterns were successfully transferred into 5-nm-thick NbN films by reactive ion etching (RIE). Structural and dimensional characterization was performed using scanning electron microscopy (SEM), transmission electron microscopy (TEM), and atomic force microscopy (AFM), enabling cross-validation of nanoscale feature dimensions and etch quality. Electrical transport measurements reveal periodic resistance minima and switching-current oscillations at magnetic fields set by the hole-array pitch, consistent with enhanced vortex pinning when the vortex configuration matches the patterned lattice. Cryogenic THz time-domain spectroscopy further reveal",
+   "url": "https://arxiv.org/abs/2611.21848",
+   "pdf": "https://arxiv.org/pdf/2611.21848",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.21773",
+   "source": "arXiv",
+   "title": "Hidden convexity of the Eliashberg condensation energy: existence, uniqueness and continuity of the superconducting state",
+   "authors": [
+    "Davis Rens"
+   ],
+   "n_authors": 1,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Kiessling, Altshuler and Yuzbashyan conjectured the thermodynamic transition picture for the isotropic Eliashberg spin-chain functional with vanishing Coulomb pseudopotential: the normal state is the unique minimizer above and at a critical temperature, the superconducting minimizer below it is unique up to gauge, and the transition is continuous. We establish the nonlinear part of this picture. In the variables ρn=sin²θn, the condensation energy restricted to the first quadrant is strictly convex, and folding any admissible chain into that quadrant cannot increase its energy. For every positive, non-increasing interaction with power-law decay, hidden convexity and a compactness estimate give existence and uniqueness of the minimizer up to gauge. The normal state minimizes the energy exactly when its quadratic form is non-negative, including marginal stability. Among admissible chains, a positive solution of the nonlinear Eliashberg equations exists exactly when the normal state is linearly unstable and is then unique. For temperature-dependent families with pointwise continuity and locally uniform decay bounds, the minimizing density is continuous in a weighted ℓ¹ norm. Together with uniqueness of the linear-stability temperature, these results prove the thermodynamic conjectures for the γ-model, Einstein phonons and general phonon spectra; the phonon applications use separate",
+   "url": "https://arxiv.org/abs/2611.21773",
+   "pdf": "https://arxiv.org/pdf/2611.21773",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.stat-mech",
+    "math-ph"
+   ]
+  },
+  {
    "id": "2611.21593",
    "source": "arXiv",
    "title": "Electrostatic and magnetic control of the anomalous Josephson phase in ferromagnetic hybrid junctions",
@@ -121,6 +375,37 @@
    "kind": "theory",
    "categories": [
     "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.21708",
+   "source": "arXiv",
+   "title": "Probing Phase Fluctuations in Cuprates by Multidimensional Josephson Spectroscopy",
+   "authors": [
+    "Albert Liu",
+    "Danica Pavicevic",
+    "Alex Gómez Salvador",
+    "et al."
+   ],
+   "n_authors": 10,
+   "date": "2026-11-16",
+   "updated": "2026-11-16",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "The normal state of cuprate superconductors is believed to host precursor electron pairing above the superconducting transition temperature. These pre-formed pairs, which extend over an unknown temperature range, are expected to lack long-range phase coherence. Because spectroscopic evidence for this hypothesis is only indirect, new methods to probe these physics are needed. Nonlinear terahertz spectroscopy allows one to probe high-order time correlation functions and is therefore sensitive to fluctuations. Measurements of third-harmonic generation along the superconducting planes have revealed responses persisting above Tc, but a clear relation between these optical responses and specific properties of the fluctuating state has not yet been established. Here, we apply angle-resolved multidimensional terahertz spectroscopy to probe the optical nonlinearity of the Josephson tunneling resonance in La1.83Sr0.17CuO4 across the superconducting to normal state transition. We find that among all third-order nonlinear responses, the non-rephasing multidimensional signal is especially sensitive to non-mean field fluctuations of the order parameter. We measure a crossover occurring at T ~ Tc between a mean-field optical nonlinearity that dominates at low temperatures and one that is mediated by short-range superconducting fluctuations. We present a theoretical framework that connects the",
+   "url": "https://arxiv.org/abs/2611.21708",
+   "pdf": "https://arxiv.org/pdf/2611.21708",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci",
+    "physics.optics"
    ]
   },
   {
@@ -2069,294 +2354,6 @@
    "kind": "experiment",
    "categories": [
     "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.10083",
-   "source": "arXiv",
-   "title": "Pelletization Pressure Engineering of the Superconducting Properties of Fluorine-Doped PrFeAsO",
-   "authors": [
-    "Jayant Kumar",
-    "Konrad Kwatek",
-    "Tatiana Zajarniuk",
-    "et al."
-   ],
-   "n_authors": 8,
-   "date": "2026-11-06",
-   "updated": "2026-11-06",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We investigate the influence of the pelletization pressure on the structural, microstructural, and superconducting properties of fluorine-doped PrFeAsO0.7F0.3 (Pr1111). Precursor powders are pressed into pellets at pressures ranging from 174 to 1131 MPa, after which the applied pressure is released and all samples undergo an identical two-step conventional synthesis process at ambient pressure (CSP-AP). All samples predominantly exhibit the tetragonal P4/nmm structure, and the lattice parameter a and unit-cell volume V decrease with increasing pelletization pressure up to an intermediate-pressure range (~900 MPa) before increasing at higher pressures. The actual fluorine-content derived from energy-dispersive X-ray spectroscopy (EDX) also increase with pelletization pressure, while Raman spectra show only modest variations in the characteristic vibrational modes associated with Fe and As. The superconducting response exhibits a non-monotonic dependence on the pelletization pressure. Among the investigated samples, the sample pelletized at 870 MPa exhibits the most favorable overall superconducting properties, with a superconducting onset temperature of 44.2 K, ~5 K higher than that of the lowest-pressure sample. It also displays a narrower superconducting transition, the highest relative sample density, a favorable effective magnetic critical current density at high fields, and",
-   "url": "https://arxiv.org/abs/2611.10083",
-   "pdf": "https://arxiv.org/pdf/2611.10083",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Iron-based"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci",
-    "physics.app-ph"
-   ]
-  },
-  {
-   "id": "2611.09499",
-   "source": "arXiv",
-   "title": "Driving Atomic Spins through Their Substrate Electrons",
-   "authors": [
-    "Samir Lounis"
-   ],
-   "n_authors": 1,
-   "date": "2026-11-06",
-   "updated": "2026-11-06",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Coherent control of single spins on surfaces has relied on decoupling them from the substrate with insulating films, which protects the spin but also removes any electronic means of addressing it. Here we show that a local electric potential can drive an adatom spin through the substrate electrons themselves. An exact reciprocity relation fixes the torque, which equals the change of the local electron density when the moment rotates; the drive map is thus a ground-state property that can be measured independently. The relation also implies sharp selection rules, since point-contact spins, spin-1/2 and the central transition of half-integer spins remain dark. On a normal metal the hybridization responsible for the drive also destroys coherence, but on a superconductor the drive survives while substrate damping is confined to subgap transitions. For atomically sharp tips we find Rabi frequencies of several MHz at RF amplitudes of tens of mV, with substrate-limited linewidths below 0.1~MHz, so that strong hybridization, usually the enemy of spin coherence, becomes an asset.",
-   "url": "https://arxiv.org/abs/2611.09499",
-   "pdf": "https://arxiv.org/pdf/2611.09499",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.10076",
-   "source": "arXiv",
-   "title": "Roadmap on Nanoscale Superconductivity for Quantum Technologies",
-   "authors": [
-    "Oleksandr Dobrovolskiy",
-    "Hermann Suderow",
-    "Francesco Tafuri",
-    "et al."
-   ],
-   "n_authors": 64,
-   "date": "2026-11-06",
-   "updated": "2026-11-06",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "In 2025, the Year of Quantum Science and Technology, we celebrate a century of quantum mechanics, witnessing a surge in activities that illuminate its inherent strangeness and drive technological innovation. Superconductivity, discovered 114 years ago, stands as a prime example, offering direct and compelling evidence of macroscopic quantum phenomena. Beyond its ability to conduct immense currents without loss, superconductivity reveals the quantum realm operating on a scale we can directly observe and manipulate. The macroscopic quantum coherence, where an ensemble of particles is described by a single wave function, leads to remarkable consequences: dissipation-less current and flux quantization - the basic properties exploited in superconducting quantum circuit fabrication. This Roadmap has been inspired by intensive discussions and collaborations emerging from the European COST Action CA21144 (SuperQuMap - Superconducting Nanodevices and Quantum Materials for Coherent Manipulation). The roadmap outlines the network's concrete activities, driving advancements in superconductor-based quantum technologies and charting future directions. Spanning fundamental research to practical applications, the roadmap incorporates insights from industry partners developing quantum computation. It begins by exploring quantum materials, highlighting how topology and electronic correlations co",
-   "url": "https://arxiv.org/abs/2611.10076",
-   "pdf": "https://arxiv.org/pdf/2611.10076",
-   "journal_ref": "Supercond. Sci. Technol. 39 (2026) 023502",
-   "doi": "10.1088/1361-6668/ae3030",
-   "topics": [
-    "Topological",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mes-hall",
-    "cond-mat.mtrl-sci",
-    "cond-mat.str-el",
-    "quant-ph"
-   ]
-  },
-  {
-   "id": "2611.09320",
-   "source": "arXiv",
-   "title": "Thermodynamic Phase Diagrams in λ-(BETS)₂GaBrₓCl₄₋ₓ under Physical and Chemical Pressure",
-   "authors": [
-    "Aulia Anisa Firdaus",
-    "Arifa Diana Agustin",
-    "Fathan Muyassar Santana",
-    "et al."
-   ],
-   "n_authors": 8,
-   "date": "2026-11-06",
-   "updated": "2026-11-06",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The evolution of electron correlation in the superconducting state of the mixed-crystal series λ-(BETS)₂GaBrₓCl₄₋ₓ was investigated by magnetic and transport measurements. Br concentrations evaluated by electron-probe microanalysis agree well with single-crystal X-ray diffraction refinement. Demagnetization-corrected susceptibility and magnetization of crystals with xc₍rf₎ = 0.22, 0.24, 0.42, and 0.63 all show a diamagnetic superconducting transition. The lower critical field Hc₁, determined from the deviation from the Meissner response, shows a dome-like maximum at xc₍rf₎ = 0.24. The upper critical field Hc₂, obtained from the first high-field magnetoresistance measurements in this system, decreases with increasing Br concentration up to xc₍rf₎ = 0.42, establishing the high-field superconducting boundary on the chemical-pressure side. Combining these results with reported transport data under chemical and physical pressure, we propose a pressure-temperature phase diagram for λ-(BETS)₂GaCl₄. Its double-dome-like structure has a local minimum near x = 0, where a quantum-critical point was proposed at P ≈ 0.13 GPa, separating a low-pressure regime of superconductivity coexisting with magnetism and an unconventional metallic state from a higher-pressure regime with conventional metallic behavior. A low-temperature resistivity upturn, previously reported only under physical pressur",
-   "url": "https://arxiv.org/abs/2611.09320",
-   "pdf": "https://arxiv.org/pdf/2611.09320",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2611.08475",
-   "source": "arXiv",
-   "title": "Direct transition from a fractional Chern insulator to a topological superconductor",
-   "authors": [
-    "Taige Wang"
-   ],
-   "n_authors": 1,
-   "date": "2026-11-05",
-   "updated": "2026-11-05",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "We find numerical evidence for a direct continuous transition from a Laughlin fractional Chern insulator (FCI) to a c₋=3/2 topological superconductor (TSC), driven by increasing bandwidth at filling ν=1/3 in a repulsively interacting Chern band. At the critical point, the electron correlation length diverges at momentum away from the reference Fermi surface. We develop a generalized theory of superconducting-vortex proliferation for this transition. Magnetic translation organizes the vortices into six valleys, so translation-preserving proliferation requires additional gauge fields. The resulting theory reproduces the momentum structure of the critical spectrum and captures the divergent electron correlation. Upon doping away from commensurate filling, the theory gives rise to a superconducting dome. These results are consistent with an anyonic origin of the topological superconductivity in the absence of a weak-coupling Fermi-surface instability.",
-   "url": "https://arxiv.org/abs/2611.08475",
-   "pdf": "https://arxiv.org/pdf/2611.08475",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Topological",
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.08239",
-   "source": "arXiv",
-   "title": "Experimental Evidence for Type-I Superconductivity in OsB₂",
-   "authors": [
-    "Yogesh Singh"
-   ],
-   "n_authors": 1,
-   "date": "2026-11-05",
-   "updated": "2026-11-05",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Since the discovery of superconductivity in MgB₂, metal diborides have attracted significant attention. Among these, osmium diboride (OsB₂), crystallizing in an orthorhombic structure (space group Pmmn) with puckered boron layers, has been classified as a low-κ Type-II superconductor (Tc ≈2.1 K). Here, we report experimental evidence establishing that OsB₂ is in fact a rare nonelemental Type-I superconductor. Our identification is supported by three primary experimental hallmarks: (i) a pronounced Differential Paramagnetic Effect (DPE) peak in AC susceptibility (χac) measurements under static DC magnetic fields, signaling the intermediate state; (ii) a field-induced crossover to a divergent first-order phase transition in specific heat (C/T); and (iii) pronounced magnetic hysteresis in field-ramped transitions indicative of supercooling.",
-   "url": "https://arxiv.org/abs/2611.08239",
-   "pdf": "https://arxiv.org/pdf/2611.08239",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci"
-   ]
-  },
-  {
-   "id": "2611.08037",
-   "source": "arXiv",
-   "title": "Microscopic Origin and Josephson Signatures of d-Wave Superconductivity in Monolayer FeSe",
-   "authors": [
-    "Jiong Mei",
-    "Lili Wang",
-    "Yu-Jie Sun",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-05",
-   "updated": "2026-11-05",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Monolayer FeSe on SrTiO₃ exhibits high-temperature superconductivity with an electron-only Fermi surface, raising fundamental questions about its unconventional pairing mechanism. Motivated by recent Josephson scanning tunneling microscopy evidence for nodeless d-wave superconductivity, we investigate the microscopic role of the Fe dₓy orbital using an experimentally constrained multiorbital theory. A tight-binding model fitted to quasiparticle interference and angle-resolved photoemission spectroscopy reveals substantial dₓy character near the Fermi level and dominant nearest-neighbor hopping, in contrast to the conventional kinetic-frustration picture of iron-based superconductors. Both itinerant spin-fluctuation calculations and strong-coupling exchange approaches favor a robust d-wave pairing state, whose interband pairing components allow a fully gapped quasiparticle spectrum. We further establish a symmetry-based selection rule for spatial Josephson tunneling, revealing characteristic bond-centered maxima and mirror-enforced interference zeros that distinguish d-wave pairing from competing s-wave states. These symmetry-enforced nodal lines survive near Fe-site impurities, while a pronounced contrast between the d- and s-wave Josephson patterns persists around vortices despite the loss of mirror protection. Our results connect the unconventional dₓy electronic structure to",
-   "url": "https://arxiv.org/abs/2611.08037",
-   "pdf": "https://arxiv.org/pdf/2611.08037",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Iron-based",
-    "Moiré and 2D",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci",
-    "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2611.07989",
-   "source": "arXiv",
-   "title": "Pressure-Induced Phase Transition and Superconducting Properties of LiPdH₂: A First-Principles Study",
-   "authors": [
-    "Zahra Alizadeh",
-    "Yue-Wen Fang",
-    "M. R. Mohammadizadeh"
-   ],
-   "n_authors": 3,
-   "date": "2026-11-05",
-   "updated": "2026-11-05",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We present a detailed first-principles investigation of the superconducting hydride LiPdH₂, focusing on the competition between its tetragonal P4/mmm and rhombohedral Rbar3m phases. Our results reveal a pressure-induced phase transition near 220 GPa, where Rbar3m overtakes P4/mmm in thermodynamic stability. The Rbar3m phase is predicted to be superconducting, with Trmc values of up to 46 K in the harmonic approximation and 28 K at the anharmonic level. In contrast, although the P4/mmm phase is stable up to 200 GPa, it maintains a more rigid electronic character with weaker hydrogen involvement, resulting in lower superconducting performance. Ionic quantum and anharmonic effects play a decisive role in stabilizing P4/mmm and shaping its superconducting properties, whereas these effects diminish rapidly with pressure. These findings highlight the interplay between structural stability, hydrogen orbital activity, and quantum effect in optimizing the superconductivity of hydrogen-based superconductors.",
-   "url": "https://arxiv.org/abs/2611.07989",
-   "pdf": "https://arxiv.org/pdf/2611.07989",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Hydrides",
-    "Moiré and 2D"
-   ],
-   "kind": "computation",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci"
-   ]
-  },
-  {
-   "id": "2611.07708",
-   "source": "arXiv",
-   "title": "Signature of charge-3e tunneling in twisted cuprate Josephson junctions",
-   "authors": [
-    "Yuying Zhu",
-    "Heng Wang",
-    "Zechao Wang",
-    "et al."
-   ],
-   "n_authors": 6,
-   "date": "2026-11-05",
-   "updated": "2026-11-05",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Cooper pairing is a fundamental aspect of superconductivity and results in charge transport with a basic unit of 2e (e is the electron charge). This basic unit can manifest itself as the denominator in the formula for Shapiro steps of ac Josephson effect-nhf/(2e), where h is the Planck constant, f is the ac frequency and n is an integer. Violation of this standard formula may suggest unconventional physics, such as nhf/4e for charge-4e superconductivity. Here, we report discovery of a new sequence of nhf/3e in twisted cuprate Josephson junctions. The microwave frequency/power, temperature, and current annealing dependences of this exotic sequence consistently point to hf/3e as the unit for Shapiro steps, indicating a Josephson tunneling process involving a trio of electrons (3e). This bunching of an odd number of charges distinguishes itself from well-established superconducting processes, which are carried by composite bosons made of an even number of charges. The unusual observations highlight the important interplay between competing charge orders in twisted bilayer systems.",
-   "url": "https://arxiv.org/abs/2611.07708",
-   "pdf": "https://arxiv.org/pdf/2611.07708",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Cuprates",
-    "Moiré and 2D",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.07645",
-   "source": "arXiv",
-   "title": "Majorana corner modes and tunable braiding in an altermagnet-superconductor heterostructure",
-   "authors": [
-    "Yingli Gao",
-    "Kai Zhang",
-    "Ling-Zheng Meng",
-    "et al."
-   ],
-   "n_authors": 6,
-   "date": "2026-11-05",
-   "updated": "2026-11-05",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Zeeman fields are usually required for realizing and manipulating Majorana corner modes at the cost of suppressed superconducting pairing. Altermagnetism offers a new route toward realizing Majorana corner modes under zero net external magnetic fields. Here we propose a theoretical scheme to host Majorana corner modes in a honeycomb-lattice altermagnet-superconductor heterostructure. In contrast to previous studies on square lattices, altermagnetism yields distinct effective low-energy edge masses on various inequivalent edges of the honeycomb lattice. Within a low-energy edge-theory framework, we establish the conditions under which Majorana corner modes emerge for both bearded and zigzag edge terminations. We further explicitly construct a complete set of Clifford gates by tuning the altermagnetic anisotropy and chemical potential of the heterostructure. Our results provide a promising platform for the realization and manipulation of Majorana corner modes.",
-   "url": "https://arxiv.org/abs/2611.07645",
-   "pdf": "https://arxiv.org/pdf/2611.07645",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Topological"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con",
-    "quant-ph"
    ]
   }
  ],
