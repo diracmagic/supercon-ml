@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-19T01:38:42+00:00",
+ "updated": "2026-11-19T04:21:52+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -64,6 +64,96 @@
   "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.24288",
+   "source": "arXiv",
+   "title": "Reconciling Models for Infinite-Layer Nickelate Superconductors: Role of Interstitial-s Band or A-Pocket",
+   "authors": [
+    "Ao Zhang",
+    "Chao Deng",
+    "Leonard M. Verhoff",
+    "et al."
+   ],
+   "n_authors": 8,
+   "date": "2026-11-18",
+   "updated": "2026-11-18",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Understanding the minimal model that captures the essential physics of infinite-layer nickelate superconductors remains a central challenge. Using first-principles density-functional theory combined with dynamical mean-field theory (DFT+DMFT), we compute and compare the strongly correlated electronic structures and optical spectra of various effective models for the infinite-layer nickelate LaNiO₂, ranging from a dₓ₂₋y₂ 1-band model to a full 6-band model with all Ni-3d plus an interstitial-s orbital. The results demonstrate that Ni-3d 5-band models overestimate the Hundness picture, whereas 6-band models, which explicitly include the interstitial-s band and have an A-pocket, recover the characteristic Mottness physics. Importantly, the influence of the interstitial-s band on the correlations of the dₓ₂₋y₂ band is negligible. Thus, superconductivity in infinite-layer nickelates can be reliably described within a single-band Hubbard framework, while the accurate description of inter-orbital properties such as (optical) conductivities requires the inclusion of at least the interstitial-s band.",
+   "url": "https://arxiv.org/abs/2611.24288",
+   "pdf": "https://arxiv.org/pdf/2611.24288",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.23595",
+   "source": "arXiv",
+   "title": "Layer-dependent s± superconducting pairing and influence of incipient bands in La₃Ni₂O₇ thin films on real LaSrAlO₄ substrate",
+   "authors": [
+    "Yang Zhang",
+    "Philip M. Dee",
+    "Ling-Fang Lin",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Motivated by recent advances in ambient-pressure superconducting La₃Ni₂O₇ (LNO) thin films, we theoretically investigate these films by explicitly incorporating the realistic LaSrAlO₄ (LSAO) substrate. The Fermi-surface topology of the nickelate thin film closely resembles that of the high-pressure bulk phase, with similar α and β sheets and a small hole-like γ pocket originating from the surface bilayer (BL3). The bonding d₃z₂₋r₂ state of the interfacial bilayer (BL1, adjacent to the LSAO substrate) lies only ∼5 meV below the Fermi level, giving rise to an incipient γ band, while for the middle bilayer (BL2) its energy is much lower (∼95 meV). Remarkably, no significant spontaneous charge transfer from the LSAO substrate to the LNO film is found. Instead, {\\it symmetry-allowed charge disproportionation} occurs between the BLs, with hole doping in BL3 and electron doping in BL1 and BL2. Via the weak-coupling Random Phase Approximation, we find a strong s±-wave superconducting pairing instability in BL3, while dₓ₂₋y₂ and s± are nearly degenerate in the other bilayers BL1 and BL2. Including the incipient γ band via the Dynamical Cluster Approximation beyond weak coupling, robust s±-wave pairing is observed in all three layers",
+   "url": "https://arxiv.org/abs/2611.23595",
+   "pdf": "https://arxiv.org/pdf/2611.23595",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Nickelates",
+    "Topological"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.23390",
+   "source": "arXiv",
+   "title": "Trapped fermions frustrate multiterminal Josephson networks",
+   "authors": [
+    "Antonio Manesco",
+    "Karsten Flensberg"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-17",
+   "updated": "2026-11-17",
+   "category": "cond-mat.mes-hall",
+   "cross_list": true,
+   "abstract": "Coherent control of fermions has become a standard approach for engineering quantum devices. Here, we explore parity-induced frustration in multiterminal Josephson arrays. We focus on odd-parity Josephson trijunctions, where the presence of a trapped fermion induces a phase winding in each trijunction. Connecting these trijunctions constrains their shared phases, resulting in a long-distance phase coherence where the frustrated configurations dominate the low-energy physics. In the classical regime, these arrays map onto the Kagome XY antiferromagnet, whose established Berezinskii-Kosterlitz-Thouless (BKT) transition yields algebraically decaying 6e phase correlations. We show that the 6e phase coherence is manifested as a pronounced third harmonic in the current-phase relation of these arrays. While quantum phase fluctuations suppress the 6e coherence, we show that through spin-orbit coupling they also lead to spin correlations and entanglement between the trapped fermions. Our results establish fermion-induced frustration as a route to composite superconducting coherence and phase-mediated spin entanglement in superconductor-semiconductor artificial quantum materials.",
+   "url": "https://arxiv.org/abs/2611.23390",
+   "pdf": "https://arxiv.org/pdf/2611.23390",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Kagome",
+    "Triplet and ruthenates",
+    "Vortices and junctions"
+   ],
+   "kind": "",
+   "categories": [
+    "cond-mat.mes-hall",
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2611.23232",
    "source": "arXiv",
@@ -136,10 +226,10 @@
    ],
    "n_authors": 5,
    "date": "2026-11-17",
-   "updated": "2026-11-17",
+   "updated": "2026-11-18",
    "category": "cond-mat.supr-con",
    "cross_list": false,
-   "abstract": "Fractal geometry has recently been shown to enhance the amplitude of the superconducting order parameter, but the fate of the superconducting phase on such lattices is far less clear. Classical XY models on finitely ramified fractals have no finite-temperature transition, as the energy of a vortex stays bounded as the system grows. However, that statement concerns an infinite gasket and thermal vortices, while real fractal structures are finite by construction. It also leaves open what happens at T = 0, where the phase competes not with temperature but with its own quantum fluctuations. In this work we address whether superconducting phase coherence survives at T=0. %Whether coherence survives those is the prior question, and the one we address here. To that end, we study the spin-1/2 XY ferromagnet, the phase sector of a Josephson network with at most one Cooper pair per island, thus capturing the maximum effect of quantum phase fluctuations, on both triangular and honeycomb Sierpiński gaskets. By using vision-transformer neural quantum states optimized by variational Monte Carlo, we reach generations up to G = 5, that is 366 sites for the triangular gasket and 609 for the honeycomb one, well beyond the reach of exact diagonalization. We find that the transverse two-point correlator decays algebraically, Cₓy(r) ∼r⁻η with η≃0.12!-!0.32, independent of distance measured along th",
+   "abstract": "Fractal geometry has recently been shown to enhance the amplitude of the superconducting order parameter, but the fate of the superconducting phase on such lattices is far less clear. Classical XY models on finitely ramified fractals have no finite-temperature transition, as the energy of a vortex stays bounded as the system grows. However, that statement concerns an infinite gasket and thermal vortices, while real fractal structures are finite by construction. It also leaves open what happens at T = 0, where the phase competes not with temperature but with its own quantum fluctuations. In this work we address whether superconducting phase coherence survives at T=0. To that end, we study the spin-1/2 XY ferromagnet, the phase sector of a Josephson network with at most one Cooper pair per island, thus capturing the maximum effect of quantum phase fluctuations, on both triangular and honeycomb Sierpiński gaskets. By using vision-transformer neural quantum states optimized by variational Monte Carlo, we reach generations up to G = 5, that is 366 sites for the triangular gasket and 609 for the honeycomb one, well beyond the reach of exact diagonalization. We find that the transverse two-point correlator decays algebraically, Cₓy(r) ∼r⁻η with η≃0.12!-!0.32, independent of distance measured along the graph, along the fractal boundary, or in the embedding plane. Quantum phase fluctuat",
    "url": "https://arxiv.org/abs/2611.23065",
    "pdf": "https://arxiv.org/pdf/2611.23065",
    "journal_ref": "",
@@ -165,10 +255,10 @@
    ],
    "n_authors": 11,
    "date": "2026-11-17",
-   "updated": "2026-11-17",
+   "updated": "2026-11-18",
    "category": "cond-mat.supr-con",
    "cross_list": false,
-   "abstract": "A persistent mystery of CuO_2-based high temperature superconductivity has been the mechanism and consequences of time reversal (T)-symmetry breaking. Although theoretical hypotheses focus upon persistent electronic currents as a potential cause, these have been invisible to direct experimental probes. That impasse has recently been removed by development of techniques for atomic-scale supercurrent visualization. Here, by imaging the energy-resolved density of electronic states N(r,E) in Bi₂Sr₂CaCu₂O₈, we search for the specific signatures of flowing supercurrents in a disordered d-wave superconductor. Employing the strategy of artificial neural networks (ANN) for complex quantum matter visualization, we designed a dual-ANN (VMAP) to efficiently implement d-wave supercurrent visualization, achieving imaging of supercurrent speeds V(r) at magnetic fields |B| ≤μT in Bi₂Sr₂CaCu₂O₈. Correspondence between specific characteristics of N(r,E) around each supercurrent loop and a quantum \"Rosetta Stone\" which translates N(r,E) to V(r), emphasizes the validity of V(r) detection and visualization. Then, for hole-densities 0.17 ≤p ≤ 0.22 we observe statistically repeatable networks of supercurrent flows. Crucially, these supercurrents satisfy Kirchhoff's law at junctions within each network. Further, theoretical predictions for supercurrent speeds V in disordered d-wave superconductors are",
+   "abstract": "A persistent mystery of CuO₂-based high temperature superconductivity has been the mechanism and consequences of time reversal (T)-symmetry breaking. Although theoretical hypotheses focus upon persistent electronic currents as a potential cause, these have been invisible to direct experimental probes. That impasse has recently been removed by development of techniques for atomic-scale supercurrent visualization. Here, by imaging the energy-resolved density of electronic states N(r,E) in Bi₂Sr₂CaCu₂O₈, we search for the specific signatures of flowing supercurrents in a disordered d-wave superconductor. Employing the strategy of artificial neural networks (ANN) for complex quantum matter visualization, we designed a dual-ANN (VMAP) to efficiently implement d-wave supercurrent visualization, achieving imaging of supercurrent speeds V(r) at magnetic fields |B| ≤ 50 μT in Bi₂Sr₂CaCu₂O₈. Correspondence between specific characteristics of N(r,E) around each supercurrent loop and a quantum \"Rosetta Stone\" which translates N(r,E) to V(r), emphasizes the validity of V(r) detection and visualization. Then, for hole-densities 0.17 ≤p ≤ 0.22 we observe statistically repeatable networks of supercurrent flows. Crucially, these supercurrents satisfy Kirchhoff's law at junctions within each network. Further, theoretical predictions for supercurrent speeds V in disordered d-wave superconductors ",
    "url": "https://arxiv.org/abs/2611.23060",
    "pdf": "https://arxiv.org/pdf/2611.23060",
    "journal_ref": "",
@@ -2268,92 +2358,6 @@
     "cond-mat.supr-con",
     "cond-mat.mtrl-sci",
     "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2611.09572",
-   "source": "arXiv",
-   "title": "Inverse design of superconductors and semiconductors with differentiable foundation models",
-   "authors": [
-    "Cristóbal Méndez",
-    "Justin Tahmassebpur",
-    "Tomás A. Arias"
-   ],
-   "n_authors": 3,
-   "date": "2026-11-06",
-   "updated": "2026-11-06",
-   "category": "cond-mat.mtrl-sci",
-   "cross_list": true,
-   "abstract": "Designing a crystal for a target property requires choosing its elements, stoichiometry, and atomic structure together, yet gradients exist only for the continuous structural variables. We introduce differentiable Equiformer fast effective-atom theory (DEFEAT), which lets a pretrained EquiformerV3 foundation model accept continuous species weights and site occupancies without retraining on fractional data, thereby enabling gradient-based materials optimization. Gradients from fine-tuned property models and a machine-learned energy penalty then guide updates to composition, atom count, atomic positions, and lattice vectors in a single optimization. In a search for phonon-mediated superconductors, density-functional perturbation theory on 45 structurally novel designs gives isotropic Allen-Dynes critical temperatures above 10 K for 39; the highest is 24.0 K for ZrTiNb2CN3, and H4LiPd3 (23.2 K) lies on the static DFT hull. In searches for photovoltaic absorbers, SCAN calculations confirm ten novel crystal structures with band gaps within 20% of a 1.34 eV target on their respective raw or empirically corrected scales, all within 70 meV/atom of the DFT hull, and show that the systematic gap error of the training functional propagates into the designs unless the objective corrects for it. Quasiharmonic free energies from machine-learned potentials further show that finite-temperature",
-   "url": "https://arxiv.org/abs/2611.09572",
-   "pdf": "https://arxiv.org/pdf/2611.09572",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.mtrl-sci",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.09547",
-   "source": "arXiv",
-   "title": "Josephson current along the domain walls in Weyl fully compensated ferrimagnet Ti₂MnAl",
-   "authors": [
-    "V. D. Esin",
-    "N. N. Orlova",
-    "A. R. Banschikova",
-    "et al."
-   ],
-   "n_authors": 7,
-   "date": "2026-11-06",
-   "updated": "2026-11-06",
-   "category": "cond-mat.mes-hall",
-   "cross_list": true,
-   "abstract": "We experimentally investigate Josephson current in planar Nb-Ti₂MnAl-Nb proximity devices, which are formed as junctions between superconducting niobium leads and single crystal flakes of the Weyl fully compensated ferrimagnet Ti₂MnAl. We demonstrate well developed Josephson effect for 2~μm distance between the niobium contacts on the Ti₂MnAl surface. The measured critical current dependence on the magnetic field Ic(B) shows strong anisotropy for two magnetic field orientations in respect to the Nb-Ti₂MnAl-Nb junction plane. For the parallel magnetic field, one can see standard Fraunhofer-like Ic(B) suppression pattern. In contrast, Ic(B) is qualitatively different in normal magnetic field, indicating non-trivial distribution of the Josephson current within the junction plane. From this anisotropy, long-range supercurrent and fast aperiodic fluctuations in Ic(B) we conclude that Josephson current is transferred by the chiral surface states, which emerge along the domain walls in topological compensated ferrimagnet Ti₂MnAl. The conclusion on the domain walls is supported by magnetization data for small Ti₂MnAl flakes.",
-   "url": "https://arxiv.org/abs/2611.09547",
-   "pdf": "https://arxiv.org/pdf/2611.09547",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Topological",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.mes-hall",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.09510",
-   "source": "arXiv",
-   "title": "Superconducting Fluctuation Driven Quantum Transport in Bi₂Sr₂CaCu₂O₈₊δ Thin Films",
-   "authors": [
-    "Sohini Guin",
-    "Naresh Shyaga",
-    "Jagadish Rajendran",
-    "et al."
-   ],
-   "n_authors": 9,
-   "date": "2026-11-06",
-   "updated": "2026-11-06",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Superconducting fluctuations (SF), arising from Cooper-pair-driven interactions and electron-electron interactions within the transition regime, can dominate the magnetoconductance (MC) of superconducting thin films near their transition temperature. In some systems, this fluctuation-dominated regime is preceded by a narrow window in which quantum interference effects are manifested as weak antilocalization (WAL) or weak localization (WL). Here, we report magnetotransport measurements on thin films of the high-temperature superconductor Bi₂Sr₂CaCu₂O₈₊δ (BSCCO) that establish SF as the dominant mechanism governing MC across the transition regime. In the narrow temperature window well above Tc where SF does not exist, a cusp in MC can be attributed to WAL-like signature well described by the Hikami–Larkin–Nagaoka (HLN) framework. Closer to the transition (TBKT), we observe signatures consistent with Berezinskii–Kosterlitz–Thouless (BKT) correlations, underscoring that the dominant physics is set by collective, pairing-driven behavior rather than single-particle quantum interference. Measurements on non-superconducting control samples show no WAL-like features, indicating that the WAL over narrow temperature window, emerges only in conjunction with superconducting fluctuations. Hall measurements further reveal a concomitant sign reversal of the dominant carrier response, pointing ",
-   "url": "https://arxiv.org/abs/2611.09510",
-   "pdf": "https://arxiv.org/pdf/2611.09510",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Cuprates"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
    ]
   }
  ],
@@ -5393,35 +5397,6 @@
    "kind": "computation",
    "categories": [
     "cond-mat.supr-con"
-   ],
-   "kind_of": "paper"
-  },
-  {
-   "id": "2607.07339",
-   "source": "arXiv",
-   "title": "Machine Learning Materials Properties by Encoding Orbital-Projected Density of States",
-   "authors": [
-    "Paulo Pires",
-    "Pierre-Paul De Breuck",
-    "Mauro Fava",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-07-08",
-   "updated": "2026-07-08",
-   "category": "cond-mat.mtrl-sci",
-   "cross_list": true,
-   "abstract": "Graph neural networks have become the dominant machine-learning architecture for predicting materials properties from crystal structures. Yet the initialization of atomic node features has received comparatively little attention, and conventional approaches rely on static elemental descriptors that carry no information about the quantum-mechanical electronic environment of each atom in its crystalline host. Here we show that augmenting atomic node representations with site-projected orbital density of states (pDOS) fingerprints, computed directly from density functional theory calculations, yields systematic and substantial improvements in predictive performance.These representations are fused with Pettifor elemental embeddings at each atomic site before message passing. For the superconducting critical temperature Tc and the optical dielectric constant ε∞,the pDOS augmentation reduces prediction errors by 22.9% and 27.9%, respectively, relative to the elemental-descriptor baseline. These improvements are comparable to those achieved by doubling the training-set size. The gains are, however, contingent on training-set size. For the magnetic exchange energies of Heusler compounds, a substantially smaller dataset, the improvement is reduced,indicating that pDOS augmentation is most effective when the training data exceeds the length of the pDOS feature vector. We introduce an int",
-   "url": "https://arxiv.org/abs/2607.07339",
-   "pdf": "https://arxiv.org/pdf/2607.07339",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "AI and data"
-   ],
-   "kind": "computation",
-   "categories": [
-    "cond-mat.mtrl-sci"
    ],
    "kind_of": "paper"
   }
