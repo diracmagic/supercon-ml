@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-20T19:26:11+00:00",
+ "updated": "2026-11-20T22:08:53+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2352,6 +2352,23 @@
  ],
  "journals": [
   {
+   "id": "10.1103/syf4-2hgz",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Quadratic pair-breaking absorption edge from Anderson localization in a superconducting wire",
+   "authors": [
+    "Bahruz Suleymanli",
+    "B. Tanatar"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-20",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/syf4-2hgz",
+   "doi": "10.1103/syf4-2hgz",
+   "topics": [],
+   "kind": ""
+  },
+  {
    "id": "10.1103/b884-4h1s",
    "source": "PRX",
    "journal": "Phys. Rev. X",
@@ -2634,6 +2651,25 @@
    "kind": ""
   },
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2653,25 +2689,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -3394,28 +3411,6 @@
    "doi": "10.1038/s41586-026-11033-1",
    "topics": [
     "Moiré and 2D"
-   ],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/6f1z-dvc6",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Intertwined Charge Stripes and Majorana Zero Modes in an Iron-Based Superconductor",
-   "authors": [
-    "Yu Liu",
-    "Li-Xuan Wei",
-    "Qiang-Jun Cheng",
-    "et al."
-   ],
-   "n_authors": 15,
-   "date": "2026-09-23",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/6f1z-dvc6",
-   "doi": "10.1103/6f1z-dvc6",
-   "topics": [
-    "Iron-based",
-    "Topological"
    ],
    "kind": ""
   },
