@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-22T16:02:58+00:00",
+ "updated": "2026-11-23T01:42:04+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2651,6 +2651,25 @@
    "kind": ""
   },
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2670,25 +2689,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -4439,49 +4439,6 @@
     "Moiré and 2D",
     "Topological",
     "Electron–phonon"
-   ],
-   "kind": "experiment"
-  },
-  {
-   "id": "10.1126/science.adp4440",
-   "source": "Science",
-   "journal": "Science",
-   "title": "Superconducting phase diagram of multilayer square-planar nickelates",
-   "authors": [
-    "Grace A. Pan",
-    "Dan Ferenc Segedin",
-    "Sophia F. R. TenHuisen",
-    "et al."
-   ],
-   "n_authors": 24,
-   "date": "2026-06-25",
-   "abstract": "The discovery of superconductivity in square-planar nickelates has offered a rich materials platform to explore the origins of high-temperature superconductivity.",
-   "url": "https://doi.org/10.1126/science.adp4440",
-   "doi": "10.1126/science.adp4440",
-   "topics": [
-    "Cuprates",
-    "Nickelates"
-   ],
-   "kind": ""
-  },
-  {
-   "id": "10.1126/science.adw8329",
-   "source": "Science",
-   "journal": "Science",
-   "title": "Nodeless superconducting gap and electron-boson coupling in (La,Pr,Sm) ₃ Ni ₂ O ₇ films",
-   "authors": [
-    "Jianchang Shen",
-    "Guangdi Zhou",
-    "Yu Miao",
-    "et al."
-   ],
-   "n_authors": 21,
-   "date": "2026-06-25",
-   "abstract": "The discovery of superconductivity in Ruddlesden-Popper bilayer nickelate films under ambient pressure provides an opportunity to directly investigate electronic energy scales of the superconducting state and the pairing mechanism.",
-   "url": "https://doi.org/10.1126/science.adw8329",
-   "doi": "10.1126/science.adw8329",
-   "topics": [
-    "Nickelates"
    ],
    "kind": "experiment"
   }
