@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-23T19:24:46+00:00",
+ "updated": "2026-11-23T22:12:20+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2346,6 +2346,24 @@
  ],
  "journals": [
   {
+   "id": "10.1103/gd1k-s125",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Chiral Skyrmionic Superconductivity from Doping a Chern Ferromagnet",
+   "authors": [
+    "Miguel Gonçalves",
+    "Kun Yang",
+    "Shi-Zeng Lin"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-23",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/gd1k-s125",
+   "doi": "10.1103/gd1k-s125",
+   "topics": [],
+   "kind": ""
+  },
+  {
    "id": "10.1103/vth5-lzjn",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2841,24 +2859,6 @@
     "Topological"
    ],
    "kind": "computation"
-  },
-  {
-   "id": "10.1103/gd1k-s125",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Chiral skyrmionic superconductivity from doping a Chern Ferromagnet",
-   "authors": [
-    "Miguel Gonçalves",
-    "Kun Yang",
-    "Shi-Zeng Lin"
-   ],
-   "n_authors": 3,
-   "date": "2026-10-22",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/gd1k-s125",
-   "doi": "10.1103/gd1k-s125",
-   "topics": [],
-   "kind": ""
   },
   {
    "id": "10.1103/8vgt-twh5",
