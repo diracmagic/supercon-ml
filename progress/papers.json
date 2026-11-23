@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-23T07:58:53+00:00",
+ "updated": "2026-11-23T13:46:39+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -60,8 +60,7 @@
   "Phys.org",
   "Physics World",
   "APS Physics",
-  "Quanta Magazine",
-  "arXiv AI"
+  "Quanta Magazine"
  ],
  "arxiv": [
   {
@@ -2346,6 +2345,46 @@
  ],
  "journals": [
   {
+   "id": "10.1103/vth5-lzjn",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Enhancing Superconductivity Using Thermal Bosons",
+   "authors": [
+    "Ekaterina Vlasiuk",
+    "Manfred Salmhofer",
+    "Eugene Demler",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-23",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/vth5-lzjn",
+   "doi": "10.1103/vth5-lzjn",
+   "topics": [],
+   "kind": ""
+  },
+  {
+   "id": "10.1103/lwp9-xjym",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Imprinting Macroscopic Orbital Angular Momentum onto the Superconducting Higgs Mode Using a Terahertz Vortex Beam",
+   "authors": [
+    "Kotaro Tanaka",
+    "Daemo Kang",
+    "Naotaka Yoshikawa",
+    "et al."
+   ],
+   "n_authors": 7,
+   "date": "2026-11-23",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lwp9-xjym",
+   "doi": "10.1103/lwp9-xjym",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1103/syf4-2hgz",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2645,25 +2684,6 @@
    "kind": ""
   },
   {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
-  },
-  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2683,6 +2703,25 @@
     "Vortices and junctions"
    ],
    "kind": ""
+  },
+  {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -2739,25 +2778,6 @@
    "topics": [
     "Heavy fermions"
    ],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/vth5-lzjn",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Enhancing superconductivity using thermal bosons",
-   "authors": [
-    "Ekaterina Vlasiuk",
-    "Manfred Salmhofer",
-    "Eugene Demler",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-10-27",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/vth5-lzjn",
-   "doi": "10.1103/vth5-lzjn",
-   "topics": [],
    "kind": ""
   },
   {
@@ -2900,27 +2920,6 @@
    "doi": "10.1103/6mmg-k9yp",
    "topics": [
     "Nickelates"
-   ],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/lwp9-xjym",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Orbital angular momentum transfer from terahertz vortex beam to a superconductor via Higgs mode excitation",
-   "authors": [
-    "Kotaro Tanaka",
-    "Daemo Kang",
-    "Naotaka Yoshikawa",
-    "et al."
-   ],
-   "n_authors": 7,
-   "date": "2026-10-20",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lwp9-xjym",
-   "doi": "10.1103/lwp9-xjym",
-   "topics": [
-    "Vortices and junctions"
    ],
    "kind": ""
   },
@@ -4438,6 +4437,17 @@
   }
  ],
  "news": [
+  {
+   "id": "https://physicsworld.com/a/strain-triggers-jump-in-resistance-of-magic-angle-graphene/",
+   "source": "Physics World",
+   "title": "Strain triggers jump in resistance of magic-angle graphene",
+   "date": "2026-11-23",
+   "summary": "Effect is controllable and reversible, offering a platform for studies of superconductivity and other correlated electron phenomena The post Strain triggers jump in resistance of magic-angle graphene appeared first on Physics World.",
+   "url": "https://physicsworld.com/a/strain-triggers-jump-in-resistance-of-magic-angle-graphene/",
+   "topics": [
+    "Moiré and 2D"
+   ]
+  },
   {
    "id": "https://phys.org/news/2026-11-critical-temperature-superconductors.html",
    "source": "Phys.org",
