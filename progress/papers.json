@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-23T04:36:29+00:00",
+ "updated": "2026-11-23T07:58:53+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -47,6 +47,7 @@
   ]
  },
  "sources_ok": [
+  "arXiv",
   "Nature",
   "Science",
   "PRL",
@@ -63,6 +64,199 @@
   "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.27749",
+   "source": "arXiv",
+   "title": "Lattice-geometry dependence of Type-I and Type-II magnetic flux responses in strongly correlated bosons",
+   "authors": [
+    "Takayuki Yokoyama",
+    "Yasuhiro Tada"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-20",
+   "updated": "2026-11-20",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "Superfluids and superconductors are classified into Type-I and Type-II according to their response to a magnetic flux, but this classification has hardly been addressed for lattice bosons under magnetic flux, where the Meissner and vortex phases have been studied mostly in ladder geometries. Here, we study the flux response of the extended Bose-Hubbard model with nearest-neighbor interaction V at half filling on square and triangular ladders with two to four legs by using the density-matrix renormalization group. On the square ladders, the vortex phase is confined to a region near V=0. At finite V, a magnetic flux-induced charge-density-wave (CDW) order replaces it, and the response becomes Type-I-like. In contrast, on the triangular ladders, the vortex phase persists over the whole range of V studied, and the response remains Type-II-like. By extrapolating the ladder results to two dimensions, we argue that the Type-I or Type-II character of the flux response depends on the lattice geometry, which suggests a role of geometric frustration.",
+   "url": "https://arxiv.org/abs/2611.27749",
+   "pdf": "https://arxiv.org/pdf/2611.27749",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.stat-mech",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.27532",
+   "source": "arXiv",
+   "title": "Annular Terahertz Near-Field of a Breathing Charged Vortex",
+   "authors": [
+    "I. Tolbatov",
+    "L. Salasnich"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-20",
+   "updated": "2026-11-20",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "We study the radial electric field around a singly quantized vortex in a charged BCS superconductor, when the Higgs amplitude mode is driven by a uniform terahertz (THz) electromagnetic pulse. In a local-density approximation the pairing gap vanishes on the vortex axis at all times, so the particle density on the axis cannot oscillate, whereas the curvature of the density profile around the axis does. Starting from the electrostatic-lens formalism of our previous work, we show that this converts the electrically neutral Higgs oscillation into an alternating radial electric field that vanishes on the axis. When the electrostatic screening length is much shorter than the vortex core, we obtain the field in closed form: it has a ring-shaped profile, with a maximum at a distance of the order of the coherence length from the axis, and the Higgs drive modulates it by a fraction 2η, where η is the relative oscillation of the gap. For niobium nitride and η=0.1 the static field of the vortex is about 140~V/m and its modulation about 30~V/m, independently of the carrier density and of the dielectric constant. We also discuss how the thermodynamic factor entering the field changes toward the BCS-BEC crossover.",
+   "url": "https://arxiv.org/abs/2611.27532",
+   "pdf": "https://arxiv.org/pdf/2611.27532",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.27240",
+   "source": "arXiv",
+   "title": "Normal-state exponential muon-spin relaxation and its implications for time-reversal symmetry breaking in Sr₂RuO₄",
+   "authors": [
+    "Rustem Khasanov",
+    "Thomas J. Hicken",
+    "Jonas A. Krieger",
+    "et al."
+   ],
+   "n_authors": 15,
+   "date": "2026-11-20",
+   "updated": "2026-11-20",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "The low-temperature increase of the zero-field muon-spin relaxation rate in Sr₂RuO₄ has long been regarded as evidence for spontaneous internal fields associated with time-reversal-symmetry-breaking (TRSB) superconductivity. Here we directly test this interpretation using muon-spin rotation/relaxation (μSR) measurements on high-quality Sr₂RuO₄ single crystals. For all four samples, the onset temperature of the additional exponential relaxation in the zero-fieldμSR data, TΛ, lies below the bulk superconducting transition temperature Trmc, even in the absence of applied strain. More importantly, in transverse-field μSR measurements we find a quantitatively similar exponential relaxation in a field of 80 mT applied along the crystallographic c axis. This field exceeds the upper critical field of the crystals studied in transverse-field geometry and suppresses bulk superconductivity, demonstrating that the characteristic relaxation persists in the normal state. Measurements below the upper critical field reveal an additional superconducting mixed-state contribution superposed on this normal-state channel. Our results show that the zero-field μSR relaxation in Sr₂RuO₄ cannot, by itself, be regarded as a unique signature of superconducting TRSB. They call for a reassessment of a key experimental signature of TRSB in Sr₂RuO₄ and highlight the need to distinguish superconducting and no",
+   "url": "https://arxiv.org/abs/2611.27240",
+   "pdf": "https://arxiv.org/pdf/2611.27240",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Triplet and ruthenates",
+    "Electron–phonon"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.27220",
+   "source": "arXiv",
+   "title": "Chemical Programming of Stacking Order and Superconductivity Dimensionality in NbSe2-xTex Polytypic Heterostructures",
+   "authors": [
+    "Xiangqi Liu",
+    "Haonan Wang",
+    "Ziguang Liu",
+    "et al."
+   ],
+   "n_authors": 17,
+   "date": "2026-11-20",
+   "updated": "2026-11-20",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Layered transition-metal dichalcogenides exhibit electronic states highly sensitive to lattice symmetry, yet elucidating the structure-superconductivity relationship has been challenging due to the lack of a continuous structural evolution within a single material system. Here, we establish NbSe2-xTex as a model system, where Te substitution drives a sequential polytypic transition across the full composition range-from the low-Te 2H phase, through mixed 1H/1T heterostructured 4H and 6R polytypes at intermediate substitution, to ideal 1T and distorted 1T' structures at high Te content. Combining comprehensive characterizations, we map both the structural evolution and the accompanying changes in spectral weight and orbital character near the Fermi level. Electrical transport measurements reveal a striking phase-dependent superconducting dimensionality: the 4H phase (NbSe1.4Te0.6) exhibits enhanced anisotropy and an anomalous boost in the in-plane upper critical field, while the 6R phase (NbSe1.2Te0.8)shows suppressed Tc (~ 2.8 K) and three-dimensional-like behavior. The combined electronic-structure and superconducting results connect the stacking sequence to effective interlayer coherence and the local spin-orbit environment. SOC band calculations resolve the distinct symmetry constraints on the 4H and 6R electronic states. These mechanisms fundamentally differ from convention",
+   "url": "https://arxiv.org/abs/2611.27220",
+   "pdf": "https://arxiv.org/pdf/2611.27220",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.26959",
+   "source": "arXiv",
+   "title": "High-Sensitivity Magnetometry with Scalable Mixed SQUID Arrays",
+   "authors": [
+    "Anjishnu Bose",
+    "Jonathan Marenkovic",
+    "Giuseppe C. Tettamanzi"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-20",
+   "updated": "2026-11-20",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "The utilisation of Superconducting Quantum Interference Devices (SQUIDs), a loop of superconducting material hosting two Josephson junctions, has long been at the forefront of quantum sensing. To enhance performance and signal power, modern architectures connect multiple SQUIDs into two-dimensional series-parallel arrays called Superconducting Quantum Interference Filters (SQIFs). A major recent advancement, called a mixed-SQUID array, integrates junction-free “bare\" loops alongside active SQUID loops, offering a promising strategy to engineer high-performance alternatives to traditional SQIF technology. However, a rigorous theoretical optimization and performance scaling analysis for this novel geometry remains lacking. In this work, an analytical framework, validated against full numerical simulations, is developed to establish fundamental design rules for this technology. This work systematically examines how key quantum sensing parameters evolve as a function of loop inductance, parasitic coupling, and overall array dimensions. Crucially, it is demonstrated that these mixed SQUID arrays circumvent the severe inductive screening losses inherent to conventional SQIF designs, achieving a performance boost in flux sensitivity in the range of 2-4:× under realistic device parameters.",
+   "url": "https://arxiv.org/abs/2611.26959",
+   "pdf": "https://arxiv.org/pdf/2611.26959",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Vortices and junctions"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.26735",
+   "source": "arXiv",
+   "title": "Atomic layer etching of niobium via alternating O₂ and H₂/SF₆ plasma exposures",
+   "authors": [
+    "Lillian B. Hughes Wyatt",
+    "Azmain A. Hossain",
+    "Yifei Yan",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-19",
+   "updated": "2026-11-19",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "Niobium thin films are a key component of superconducting detectors and electronics, and film surface quality, surface roughness, and geometrical dimensional accuracy affect many performance metrics. Atomic layer etching (ALE) is of interest for modifying film surfaces owing to its Angstrom-scale etching precision and surface smoothing characteristics. Here, we report a plasma-enhanced ALE process for Nb based on sequential O₂ plasma and H₂/SF₆ plasma exposures. The process achieves an etch per cycle of 5-7 Angstrom/cycle and exhibits surface smoothing. The superconducting transition temperature of the ALE-treated films is maintained up to the expected decrease associated with reduced film thickness. Our ALE process could find applications in superconducting electronics for which surface quality and precise thickness control are of high importance.",
+   "url": "https://arxiv.org/abs/2611.26735",
+   "pdf": "https://arxiv.org/pdf/2611.26735",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.26690",
+   "source": "arXiv",
+   "title": "Off-diagonal long-range order and p-wave pairing in one dimension from critical density fluctuations",
+   "authors": [
+    "Matthew D. Thomson",
+    "Simon M. Martin",
+    "Frank Marsiglio",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-19",
+   "updated": "2026-11-19",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "A central theme in the theory of unconventional superconductivity is that Cooper pairing can be mediated by bosonic collective modes other than lattice vibrations. However, collective fluctuations in reduced dimensions can also have a destabilizing effect on superconductivity, by suppressing long-range order or by destroying Fermi-liquid quasiparticles in the normal state. In this work, we study a one-dimensional (1D) model of spinless fermions with local interactions that exhibits a continuous quantum phase transition from a Luttinger liquid to a phase-separated state. Combining field-theoretic arguments with numerical exact diagonalization and matrix-product-state methods, we find that the quantum critical point exhibits two-particle off-diagonal long-range order and p-wave pairing. Our work shows that critical density fluctuations at a phase-separation instability can act as pairing glue for unconventional superconductivity in 1D, overcoming the disordering effect of phase fluctuations and the absence of long-lived fermionic quasiparticles in the normal state.",
+   "url": "https://arxiv.org/abs/2611.26690",
+   "pdf": "https://arxiv.org/pdf/2611.26690",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2611.26360",
    "source": "arXiv",
@@ -185,7 +379,7 @@
    ],
    "n_authors": 6,
    "date": "2026-11-19",
-   "updated": "2026-11-19",
+   "updated": "2026-11-20",
    "category": "cond-mat.supr-con",
    "cross_list": false,
    "abstract": "We resolve the long-standing controversy over the interpretation of magnetic-flux expulsion in high-pressure superhydrides by measuring the local magnetic field adjacent to yttrium polyhydride at 171 GPa and 4.1 K with a ⁵⁷Fe Mössbauer sensor. Nuclear forward scattering tracks the local induction Brmsensor(Ba), which nearly merges with the normal-state line near 1.5 T. Rather than assuming a constant-current Bean state, we solve the critical-state problem for the actual thin-disk geometry using the Shantsev–Clem–Sanchez method and compare generalized field-dependent critical-state models. Both the Kim and exponential laws reproduce the measured virgin branch, whereas the constant-Jc Bean model fails. The corresponding zero-field critical-current densities, (4.38±1.48)×10¹¹ and (2.45±0.22)×10¹¹ A/m², respectively, are consistent in order of magnitude with transport estimates for granular YH₆. These results establish that the observed flux expulsion is a pinned critical state, not the equilibrium Meissner effect, and demonstrate a general methodology for probing local superconductivity under extreme conditions.",
@@ -1934,10 +2128,10 @@
    ],
    "n_authors": 6,
    "date": "2026-11-09",
-   "updated": "2026-11-09",
+   "updated": "2026-11-20",
    "category": "cond-mat.supr-con",
    "cross_list": false,
-   "abstract": "Superconductivity in the Ruddlesden-Popper (RP) nickelates has so far been confined either to multilayer compounds under high pressure or to square-planar infinite-layer-type films stabilized by epitaxial strain. Here we report the high-pressure high-temperature (HPHT) growth of bulk single crystals of the quadruple-layer RP nickelate La₅Ni₄O₁₃ (n=4) and reproduce the quintuple-layer La₆Ni₅O₁₆ (n=5) synthesis, two members of the series that had previously been accessible only as thin films. Topotactic reduction of La₅Ni₄O₁₃ single crystals with CaH₂ yields the square-planar phase La₅Ni₄O₁₀, which we show to be a bulk, ambient-pressure superconductor with Tconset ≈18,K, a shielding fraction above 60%, and a specific-heat jump that confirms a bulk pairing transition. All crystals show besides superconductivity a coexistence with a density-wave or metal-insulator transition. The upper critical field shows a small anisotropy, γ≈2.4, which remains finite as T →Tc, indicating three-dimensional superconductivity with substantial coupling between the four-layer blocks. These results identify the square-planar nickelates Rn₊₁NinO₂n₊₂ as a bulk platform in which the layer number alone tunes the nickel valence into the superconducting regime, without chemical substitution, pressure, or epitaxial constraint.",
+   "abstract": "Superconductivity in the Ruddlesden–Popper (RP) nickelates has so far been confined either to multilayer compounds under high pressure or to square-planar infinite-layer-type films stabilized by epitaxial strain. Here, we report the high-pressure high-temperature (HPHT) growth of bulk single crystals of the quadruple-layer RP nickelate La₅Ni₄O₁₃ (n=4) and reproduce the quintuple-layer La₆Ni₅O₁₆ (n=5) synthesis, phases previously accessible only as thin films. Topotactic reduction of La₅Ni₄O₁₃ single crystals with CaH₂ yields the square-planar La₅Ni₄O₁₀, which we show to be a bulk, ambient-pressure superconductor with Tconset≈18.7\\,K, a shielding fraction above 60%, and a specific-heat jump that confirms a bulk pairing transition. In transport, all crystals show an anomaly near 90~K reminiscent of a density-wave like transition, which may arise from a partially gapped Fermi surface or from the non-superconducting volume fraction. The upper critical field shows a small anisotropy, γ≈2.4, which remains finite as T →Tc, indicating three-dimensional superconductivity with substantial coupling between the four-layer blocks. These results identify the square-planar nickelates Rn₊₁NinO₂n₊₂ as a bulk platform in which the layer number alone tunes the nickel valence into the superconducting regime, without chemical substitution, pressure, or epitaxial constraint.",
    "url": "https://arxiv.org/abs/2611.12788",
    "pdf": "https://arxiv.org/pdf/2611.12788",
    "journal_ref": "",
@@ -2145,205 +2339,6 @@
    "doi": "",
    "topics": [],
    "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.11781",
-   "source": "arXiv",
-   "title": "Supercurrent-controlled magnon transport via suppression of the superconducting gap",
-   "authors": [
-    "Tetsuma Mandokoro",
-    "Yoichi Shiota",
-    "Hisakazu Matsuki",
-    "et al."
-   ],
-   "n_authors": 8,
-   "date": "2026-11-09",
-   "updated": "2026-11-09",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Understanding interactions between different low-energy excitations is a central theme in condensed-matter physics. Magnons and superconducting condensates represent two distinct macroscopic quantum states, yet their mutual interaction remains largely unexplored. Here, we demonstrate supercurrent-controlled magnon transport in a ferromagnet/superconductor heterostructure. We observe that the magnon transport signal decreases as the supercurrent increases. This suppression originates from a supercurrent-induced reduction of the superconducting gap, which enhances magnon dissipation into the superconductor via Bogoliubov quasiparticles. Our results provide direct experimental evidence of a supercurrent-controlled interaction between magnons and quasiparticles in the superconductor. The approach used in this study relies on supercurrents, enabling magnon modulation without Joule heating. These findings establish a new route to control magnons via superconductivity and pave the way for energy-efficient magnonic devices.",
-   "url": "https://arxiv.org/abs/2611.11781",
-   "pdf": "https://arxiv.org/pdf/2611.11781",
-   "journal_ref": "Phys. Rev. Applied 26, 054040 (2026)",
-   "doi": "10.1103/jlhg-yy14",
-   "topics": [],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci"
-   ]
-  },
-  {
-   "id": "2611.11453",
-   "source": "arXiv",
-   "title": "Momentum-dependent phonon effects on spin-fluctuation d-wave pairing in bulk La₆Ni₅O₁₂",
-   "authors": [
-    "Dexi Shao",
-    "Zhiming Pan",
-    "Ming Zhang",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-11-08",
-   "updated": "2026-11-08",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "We study the effect of electron-phonon coupling on spin-fluctuation-mediated pairing in bulk La₆Ni₅O₁₂. A five-layer Hubbard model treated within the random-phase approximation yields a leading dₓ₂₋y₂ pairing state. Two phenomenological couplings motivated by oxygen breathing modes favor s-wave pairing when considered alone, while their attractive scattering between opposite-sign regions of the spin-fluctuation-induced gap suppresses d-wave pairing. Electronic charge screening strongly reduces this suppression. Comparing the s- and d-wave pairing strengths with and without screening shows that screening shifts their boundary in favor of d-wave pairing. Momentum-resolved projections locate the reduction of the unfavorable scattering processes. At the representative electronic interaction, d-wave pairing remains dominant.",
-   "url": "https://arxiv.org/abs/2611.11453",
-   "pdf": "https://arxiv.org/pdf/2611.11453",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.11339",
-   "source": "arXiv",
-   "title": "Visualizing d-wave pairing symmetry at the atomic scale in a cuprate high-Tc superconductor by Josephson tunneling",
-   "authors": [
-    "Zhen Liang",
-    "Tianheng Wei",
-    "Jinpeng Lu",
-    "et al."
-   ],
-   "n_authors": 8,
-   "date": "2026-11-08",
-   "updated": "2026-11-08",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Superconducting pairing symmetry provides crucial insight into the microscopic mechanisms of Cooper pairing. However, probing the local manifestations of sign-changing superconducting order parameters remains experimentally challenging. Here, we investigate the superconducting condensate in optimally doped (OPT) Bi2Sr2Ca2Cu3O10+δ (Bi-2223) using scanning Josephson tunneling microscopy (SJTM), equipped with an s-wave superconducting tip. Measurements at ultra-low temperatures reveal a pronounced modulation of the Josephson tunneling signal at different locations inside the crystallographic unit cell. A distinct Josephson tunneling signal is detected above O sites in the underlying CuO2 plane, whereas the signal nearly vanishes above the Cu-plaquette diagonals, including Cu sites and plaquette centers. This unique intra-unit-cell spatial pattern agrees with the theoretical prediction for the symmetry-dependent cancellation of Josephson tunneling between an s-wave superconducting tip and a d-wave superconducting sample. Our findings provide atomic-scale, real-space evidence for d-wave pairing symmetry in OPT high-Tc Bi-2223 and establish SJTM as a powerful approach for investigating the pairing symmetry of unconventional superconductors.",
-   "url": "https://arxiv.org/abs/2611.11339",
-   "pdf": "https://arxiv.org/pdf/2611.11339",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Cuprates",
-    "Electron–phonon",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mes-hall",
-    "cond-mat.mtrl-sci",
-    "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2611.10976",
-   "source": "arXiv",
-   "title": "Superconductivity and Polar Metallicity in Atomically Thin Nitride Superlattices",
-   "authors": [
-    "Huma Nawaz",
-    "Dawei Wang",
-    "C. S. Ting",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-07",
-   "updated": "2026-11-07",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The integration of polar and superconducting materials in the atomically thin limit typically results in a competition that suppresses the superconducting order. Here, we challenge this conventional view by employing first-principles calculations to investigate 1:1 superlattices composed of alternating atomically thin layers of TiN/AlN and δ-NbN/AlN. Contrary to the expectation that dense insulating barriers would quench superconductivity, we find that the polar interface can coexist with a superconducting state. We observe that the transition temperature (Tc) of TiN is enhanced by nearly 2 K over its bulk value, while δ-NbN maintains a relatively high Tc exceeding 20 K. We demonstrate that this resilience arises from the formation of a polar metal, where the strong internal electric fields of the AlN layers are partially screened by a charge redistribution within the nitride layers. This screening mechanism, along with the geometric confinement, creates a quasi-two-dimensional electronic environment, establishing these superlattices as a novel platform for exploring the coexistence of structural inversion-symmetry breaking and superconductivity in the two-dimensional limit.",
-   "url": "https://arxiv.org/abs/2611.10976",
-   "pdf": "https://arxiv.org/pdf/2611.10976",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D"
-   ],
-   "kind": "computation",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.10941",
-   "source": "arXiv",
-   "title": "Deintercalation Equilibria Control the Composition, Structure, and Electronic Quality in the Synthesis of 2M-WS₂",
-   "authors": [
-    "Brenna C. Bierman",
-    "Taeran Yang",
-    "Jon Ramos",
-    "et al."
-   ],
-   "n_authors": 6,
-   "date": "2026-11-07",
-   "updated": "2026-11-07",
-   "category": "cond-mat.mtrl-sci",
-   "cross_list": true,
-   "abstract": "Alkali-metal intercalation-deintercalation (AMID) enables access to metastable layered materials such as 2M-WS₂. Mechanistic studies of AMID have focused on intercalation; how deintercalation proceeds and influences crystal properties is comparatively poorly understood. Here, we assess 34 deintercalation treatments of 2M-KₓWS₂ and find that K⁺ removal proceeds through coupled redox and ion-exchange equilibria, whose positions set the composition, structure, and electronic quality of the products. Across a series of neat solvents, K⁺ deintercalation amount increased with solvent polarity and was driven to near-completion upon addition of nonoxidizing crown ether chelators, regardless of solvent polarity. Spontaneous reintercalation occurred when 2M-WS₂ was placed in dilute aqueous solutions of the strong base KOH but not the neutral salt KCl. These results suggest that the extent of deintercalation is governed by the stability of K⁺ in solution, rather than oxidant strength alone, consistent with a reaction under thermodynamic control. Treatments that bias the deintercalation equilibrium most strongly toward the products while avoiding deleterious side reactions produce the highest quality 2M-WS₂. A six-hour treatment with acidified K₂Cr₂O₇ gave the highest average residual resistivity ratio (overlineRRR). Residual K⁺, quantified by ICP-MS, was found in all treated samples and a",
-   "url": "https://arxiv.org/abs/2611.10941",
-   "pdf": "https://arxiv.org/pdf/2611.10941",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.mtrl-sci",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.10868",
-   "source": "arXiv",
-   "title": "Multilayer Heater Nano cryotrons: Electrothermal Modeling of Geometry-Dependent Switching",
-   "authors": [
-    "Baibhari Priya Barua",
-    "Md Rahatul Islam Udoy",
-    "Shamiul Alam",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-11-07",
-   "updated": "2026-11-07",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "This paper presents a finite-element framework to study how device geometry affects the switching current of multilayer heater nano cryotrons (hTrons). The device comprises a 50 nm Au/5 nm Ti heater, a 100 nm SiO2 spacer, a 23.6 nm NbN channel, and a Si substrate. Two-dimensional electrothermal simulations examine nine heater and channel width combinations using widths of 100, 500, and 1000 nm. Three-dimensional simulations show how heat flows through the layers and spreads across the channel near the heater-channel overlap. Heater electrical losses and heat transport are coupled, whereas the channel switching threshold is obtained separately from a temperature-dependent constitutive relation. Published global temperature measurements support the switching-law calibration, and heater-current measurements assess the resulting device response. The model measurement comparisons show a systematic reduction of switching-current density with heating, but also geometry-dependent discrepancies in the low-drive plateau and transition shape. A common extraction protocol is formulated for heater-current and heater-power requirements at a specified suppression level, while separating fitted device amplitudes from controlled geometry effects. The resulting comparisons connect thermal fields to design metrics while distinguishing calibration from validation and excluding transient-performanc",
-   "url": "https://arxiv.org/abs/2611.10868",
-   "pdf": "https://arxiv.org/pdf/2611.10868",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.10675",
-   "source": "arXiv",
-   "title": "Sub-Thouless energy scale in interface-dominated unconventional superconductor junctions",
-   "authors": [
-    "Léon Goedegebuur",
-    "Tim Kokkeler",
-    "Yukio Tanaka"
-   ],
-   "n_authors": 3,
-   "date": "2026-11-07",
-   "updated": "2026-11-07",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We derive the conductance in unconventional superconductor - normal metal - normal metal junctions, taking into account the resistance between the normal metals. We show that applying Tanaka–Nazarov boundary conditions at both superconductor and normal metal interfaces reveals a new characteristic low-energy scale which is sub-Thouless in the experimentally relevant strong-interface regime. This scale governs, among other quantities, the curvature of the local density of states (LDOS) and the width of conductance dips near the zero-bias conductance peak in triplet superconductor junctions, thereby replacing the Thouless energy as the dominant low-energy parameter. We derive universal s-wave proximitized diffusive metal expressions for the zero-bias LDOS and differential conductance which solely depend on the interface and bulk resistances, independent of the superconducting gap and Thouless energy scale. This framework provides a possible origin of the anomalous low-bias conductance features observed in unconventional superconductors, offering a refined mechanism for interpreting interface and correlated electron physics in experimental hybrid junctions.",
-   "url": "https://arxiv.org/abs/2611.10675",
-   "pdf": "https://arxiv.org/pdf/2611.10675",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": "",
    "categories": [
     "cond-mat.supr-con"
    ]
@@ -2650,6 +2645,25 @@
    "kind": ""
   },
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2669,25 +2683,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
