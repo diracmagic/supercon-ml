@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-24T10:27:01+00:00",
+ "updated": "2026-11-24T16:31:23+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2332,6 +2332,49 @@
  ],
  "journals": [
   {
+   "id": "10.1103/xtkg-zqzg",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Tip-tuned renormalization-group spectroscopy unmasks a false-positive topological superconducting vortex",
+   "authors": [
+    "Zhenhua Zhu",
+    "Qun Zhu",
+    "Yong-Wei Wang",
+    "et al."
+   ],
+   "n_authors": 9,
+   "date": "2026-11-24",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/xtkg-zqzg",
+   "doi": "10.1103/xtkg-zqzg",
+   "topics": [
+    "Topological",
+    "Vortices and junctions"
+   ],
+   "kind": "experiment"
+  },
+  {
+   "id": "10.1103/3ks4-64cq",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "AI-accelerated metallized σ -bonding screening for discovering phonon-mediated superconductors",
+   "authors": [
+    "Zechen Tang",
+    "Wen-Han Dong",
+    "Baochun Wu",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-11-24",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/3ks4-64cq",
+   "doi": "10.1103/3ks4-64cq",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": ""
+  },
+  {
    "id": "10.1103/gd1k-s125",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2689,6 +2732,25 @@
    "kind": ""
   },
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2708,25 +2770,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -3284,48 +3327,6 @@
    "abstract": "",
    "url": "https://doi.org/10.1103/pzpk-81tt",
    "doi": "10.1103/pzpk-81tt",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/d9cc-jnst",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Role of the Apical Oxygen in Cuprate High-Temperature Superconductors",
-   "authors": [
-    "Samuel Vadnais",
-    "Rémi Duchesne",
-    "Kristjan Haule",
-    "et al."
-   ],
-   "n_authors": 6,
-   "date": "2026-09-29",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/d9cc-jnst",
-   "doi": "10.1103/d9cc-jnst",
-   "topics": [
-    "Cuprates"
-   ],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/3cn5-hb8z",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Protection of Unconventional Superconductivity from Disorder",
-   "authors": [
-    "Sofie Castro Holbæk",
-    "Morten H. Christensen",
-    "Andreas Kreisel",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-09-25",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/3cn5-hb8z",
-   "doi": "10.1103/3cn5-hb8z",
    "topics": [
     "Electron–phonon"
    ],
@@ -4776,6 +4777,29 @@
   }
  ],
  "ai": [
+  {
+   "id": "10.1103/3ks4-64cq",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "AI-accelerated metallized σ -bonding screening for discovering phonon-mediated superconductors",
+   "authors": [
+    "Zechen Tang",
+    "Wen-Han Dong",
+    "Baochun Wu",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-11-24",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/3ks4-64cq",
+   "doi": "10.1103/3ks4-64cq",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "",
+   "kind_of": "paper",
+   "ai_kind": "prediction"
+  },
   {
    "id": "2611.29445",
    "source": "arXiv",
