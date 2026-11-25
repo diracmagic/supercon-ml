@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-25T13:45:03+00:00",
+ "updated": "2026-11-25T16:30:15+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2334,6 +2334,25 @@
  ],
  "journals": [
   {
+   "id": "10.1103/l53w-z6sy",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "Proximity-induced orbital antiferromagnetism in Ising superconductors",
+   "authors": [
+    "G. A. Bobkov",
+    "V. A. Bobkov",
+    "T. Karabassov",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-11-25",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/l53w-z6sy",
+   "doi": "10.1103/l53w-z6sy",
+   "topics": [],
+   "kind": ""
+  },
+  {
    "id": "10.1038/s41535-026-00955-8",
    "source": "npj Quantum Mater.",
    "journal": "npj Quantum Materials",
@@ -2755,6 +2774,25 @@
    "kind": ""
   },
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2774,25 +2812,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
@@ -3329,27 +3348,6 @@
    "abstract": "",
    "url": "https://doi.org/10.1103/r8fj-4t94",
    "doi": "10.1103/r8fj-4t94",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": ""
-  },
-  {
-   "id": "10.1103/pzpk-81tt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "Ultrafast Modulation of Electron-Phonon Couplings and Phonon-Mediated Superconductivity",
-   "authors": [
-    "Yang Yang",
-    "Da-Qiang Chen",
-    "Xuan-De Bu",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-10-01",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/pzpk-81tt",
-   "doi": "10.1103/pzpk-81tt",
    "topics": [
     "Electron–phonon"
    ],
