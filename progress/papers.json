@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-24T22:17:16+00:00",
+ "updated": "2026-11-25T01:44:38+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -2331,6 +2331,27 @@
   }
  ],
  "journals": [
+  {
+   "id": "10.1038/s41535-026-00955-8",
+   "source": "npj Quantum Mater.",
+   "journal": "npj Quantum Materials",
+   "title": "Intertwined charge density wave order in vanadium based kagome superconductors",
+   "authors": [
+    "Kuanglv Sun",
+    "Linpeng Nie",
+    "Hongyu Li",
+    "et al."
+   ],
+   "n_authors": 12,
+   "date": "2026-11-25",
+   "abstract": "The discovery of superconductivity and charge density waves (CDWs) with multiple symmetry-breaking states in kagome superconductors A V ₃ Sb ₅ ( A = K, Rb, Cs) offers a new territory for exploring correlated quantum phenomena.",
+   "url": "https://doi.org/10.1038/s41535-026-00955-8",
+   "doi": "10.1038/s41535-026-00955-8",
+   "topics": [
+    "Kagome"
+   ],
+   "kind": "experiment"
+  },
   {
    "id": "10.1103/xtkg-zqzg",
    "source": "PRL",
