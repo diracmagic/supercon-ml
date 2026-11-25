@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-25T04:31:06+00:00",
+ "updated": "2026-11-25T10:27:58+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -64,6 +64,63 @@
   "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.33041",
+   "source": "arXiv",
+   "title": "Multistable Thermoelectric Josephson Automata",
+   "authors": [
+    "Filippo Antola",
+    "Margherita Cervi",
+    "Angelo Greco",
+    "et al."
+   ],
+   "n_authors": 6,
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Multistable systems can store and process information, yet their elements usually only burn the drive energy. Here, we build an automaton whose elements actively convert heat into electrical power. Heat alone stabilizes the states at zero bias, and each state routes generation and dissipation to different junctions. The elements, gap-asymmetric superconducting tunnel junctions, deliver up to 2.6 pW at either polarity under fixed heating and support a magnetic-field-tunable Josephson current. Two junctions sharing a heated island split the bias hysteretically and, even at zero bias, lock into opposite voltages encoding the sweep direction. With a load and current bias, the automaton accesses states spanning junction polarity combinations, including zero voltage; the magnetic field sets which are available and the bias history selects the occupied one.",
+   "url": "https://arxiv.org/abs/2611.33041",
+   "pdf": "https://arxiv.org/pdf/2611.33041",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall"
+   ]
+  },
+  {
+   "id": "2611.32988",
+   "source": "arXiv",
+   "title": "Topological Anderson Superconductor in Landau Levels",
+   "authors": [
+    "Uddalok Nag",
+    "Koji Kudo",
+    "J. K. Jain"
+   ],
+   "n_authors": 3,
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "There is much interest in two-dimensional superconductors with odd integer values of the Bogoliubov-de Gennes (BdG) Chern number CrmBdG, often termed topological superconductors, as these are predicted to harbor Majorana zero modes. Because a magnetic field produces Landau levels (LL) with nonzero Chern numbers, it is natural to ask if a conventional two-dimensional superconductor of spinful fermions with Rashba spin-orbit coupling can be driven topological by application of a magnetic field. Self-consistent solutions of the BdG equations for an on-site attractive interaction produce a phase diagram consisting almost everywhere of superconducting states with even integer values of CrmBdG, transitioning from one value to another as parameters such as the chemical potential are varied. We predict that introducing Anderson-type on-site disorder, which broadens as well as mixes LLs, produces, in the transition region, states wherein topological superconductivity percolates. This topological Anderson superconducting state provides another example where disorder can produce topologically nontrivial states.",
+   "url": "https://arxiv.org/abs/2611.32988",
+   "pdf": "https://arxiv.org/pdf/2611.32988",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Topological"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2611.32916",
    "source": "arXiv",
@@ -2273,64 +2330,6 @@
     "cond-mat.dis-nn",
     "cond-mat.str-el"
    ]
-  },
-  {
-   "id": "2611.15627",
-   "source": "arXiv",
-   "title": "Machine-accelerated extraction of experimental superconducting parameters for physical insight and prediction across thousands of materials",
-   "authors": [
-    "Mihir Manium",
-    "Benjamin Geisler",
-    "Peter J. Hirschfeld",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-11",
-   "updated": "2026-11-11",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "New superconductors could unlock next-generation technologies from nuclear fusion to lossless electronics. Machine learning can predict candidate superconductors but lacks validated experimental training data beyond the critical temperature. Here we present AutoSuperCon, a database of eight superconducting parameters, containing 20354 entries for 6793 superconductors. The data were extracted from over 47000 arXiv preprints using a large language model and validated against reference datasets (R² = 0.96 with NIMS SuperCon). Using AutoSuperCon, we show that median gap ratios rise from 3.6 in conventional superconductors to 6.4 in cuprates, 28% of upper critical fields exceed the Pauli limit, and critical temperatures lie below a ceiling proportional to the superfluid density. Further, we train composition-based predictors for the critical temperature (R²log=0.83) and the upper critical field (R²log=0.69), boosted by transfer learning. Within known superconducting families, composition alone is sufficient to screen candidates for both parameters. AutoSuperCon thus enables physical insight and data-driven discovery across thousands of superconductors.",
-   "url": "https://arxiv.org/abs/2611.15627",
-   "pdf": "https://arxiv.org/pdf/2611.15627",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Cuprates",
-    "Electron–phonon",
-    "AI and data"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci",
-    "cond-mat.str-el"
-   ]
-  },
-  {
-   "id": "2611.15446",
-   "source": "arXiv",
-   "title": "Multifractal collective order : Application to multifractal superconductivity in dodecagonal quasicrystals",
-   "authors": [
-    "SeHyun Park",
-    "Junmo Jeon",
-    "SungBin Lee"
-   ],
-   "n_authors": 3,
-   "date": "2026-11-11",
-   "updated": "2026-11-11",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "Conventional descriptions of collective ordering often assume spatially uniform order parameters, although the underlying electronic states can exhibit strong spatial inhomogeneity or multifractality. Here, we demonstrate that deterministic aperiodic geometry can instead stabilize multifractal collective order. We formulate a general diagnostic applicable to superconducting, magnetic, and charge channels, combining direct scaling analysis of the order parameter with three criteria: its spatial hierarchy must be dictated by the underlying geometry, emerge in the leading ordering instability, and persist in the self-consistent ordered state below a single mean-field ordering onset. We demonstrate that superconductivity on the experimentally resolved Ti network of a dodecagonal oxide quasicrystal satisfies all three criteria. The resulting condensate exhibits multifractal scaling over the resolved range of spatial scales, retaining its hierarchical structure throughout the ordered phase and channeling flux-induced equilibrium currents along geometry-locked rings.",
-   "url": "https://arxiv.org/abs/2611.15446",
-   "pdf": "https://arxiv.org/pdf/2611.15446",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.supr-con"
-   ]
   }
  ],
  "journals": [
@@ -2756,6 +2755,25 @@
    "kind": ""
   },
   {
+   "id": "10.1103/lrhl-j9bt",
+   "source": "PRL",
+   "journal": "Phys. Rev. Lett.",
+   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
+   "authors": [
+    "Mitsuaki Kawamura",
+    "Takuya Nomoto",
+    "Niklas Witt",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-03",
+   "abstract": "",
+   "url": "https://doi.org/10.1103/lrhl-j9bt",
+   "doi": "10.1103/lrhl-j9bt",
+   "topics": [],
+   "kind": "computation"
+  },
+  {
    "id": "10.1103/g262-dlhf",
    "source": "PRL",
    "journal": "Phys. Rev. Lett.",
@@ -2775,25 +2793,6 @@
     "Vortices and junctions"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1103/lrhl-j9bt",
-   "source": "PRL",
-   "journal": "Phys. Rev. Lett.",
-   "title": "First-Principles Calculation of Coherence Length and Penetration Depth Based on Density Functional Theory for Superconductors",
-   "authors": [
-    "Mitsuaki Kawamura",
-    "Takuya Nomoto",
-    "Niklas Witt",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-03",
-   "abstract": "",
-   "url": "https://doi.org/10.1103/lrhl-j9bt",
-   "doi": "10.1103/lrhl-j9bt",
-   "topics": [],
-   "kind": "computation"
   },
   {
    "id": "10.1103/qp2j-p4xh",
