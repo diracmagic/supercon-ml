@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-26T01:44:24+00:00",
+ "updated": "2026-11-26T04:27:05+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -64,6 +64,280 @@
   "arXiv AI"
  ],
  "arxiv": [
+  {
+   "id": "2611.34000",
+   "source": "arXiv",
+   "title": "Wannier-Based Low-Energy Electronic Structure Analysis of λ-(STF)₂GaCl₄",
+   "authors": [
+    "Arifa D. Agustin",
+    "Aulia A. Firdaus",
+    "Fathan M. Santana",
+    "et al."
+   ],
+   "n_authors": 9,
+   "date": "2026-11-25",
+   "updated": "2026-11-25",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "The low-energy electronic structures of λ-(BETS)₂GaCl₄ and λ-(STF)₂GaCl₄ were investigated using density functional theory (DFT) and maximally localized Wannier functions (MLWFs). For λ-(STF)₂GaCl₄, DFT-selected and directly XRD-refined structural models were compared before and after fixed-lattice relaxation. Their initially different near-Fermi-level electronic structures become similar after relaxation. Relative to BETS, relaxed STF has a narrower frontier bandwidth while retaining a substantial dimerization energy scale. Two MLWFs were constructed for each selected unrelaxed structure to represent the upper frontier bands, with total spreads of 36.708 Å² for BETS and 37.578 Å² for STF. The Wannier-derived transfer integrals show a pronounced reduction of td₁ from 51 meV in BETS to 6.5 meV in STF, indicating selective modification of the low-energy electronic connectivity.",
+   "url": "https://arxiv.org/abs/2611.34000",
+   "pdf": "https://arxiv.org/pdf/2611.34000",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.33869",
+   "source": "arXiv",
+   "title": "Structural Anisotropy in Bi₂Se₃/λ-(BETS)₂GaCl₄ Topological Insulator/Superconductor Bilayer",
+   "authors": [
+    "Fathan M. Santana",
+    "Arifa D. Agustin",
+    "Aulia A. Firdaus",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-11-25",
+   "updated": "2026-11-25",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "We investigate the crystallographic-orientation dependence of the response of λ-(BETS)₂GaCl₄ (λ-Ga) to Bi₂Se₃ deposition. Cross-sectional focused-ion-beam (FIB) imaging confirms formation of a deposited Bi₂Se₃-containing layer and a distinct interface with λ-Ga. Single-crystal X-ray diffraction (SC-XRD) shows that the coated λ-Ga crystal remains structurally intact but exhibits a strongly orientation-dependent, non-monotonic response, with the largest modification for the ab-plane after 4 min of deposition, whereas the ac-plane remains comparatively unchanged. This condition corresponds to the intermediate-deposition regime previously identified at a Bi₂Se₃ thickness of approximately 110 nm. First-principles calculations based on the refined structures show the largest orientation-dependent electronic modification under the same conditions. Complementary optical spectroscopy of Bi₂Se₃/SiO₂ films shows deposition-time-dependent evolution of the film response. These results establish a pronounced crystallographic anisotropy in the structural and calculated electronic response of λ-Ga to Bi₂Se₃ deposition.",
+   "url": "https://arxiv.org/abs/2611.33869",
+   "pdf": "https://arxiv.org/pdf/2611.33869",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Topological"
+   ],
+   "kind": "computation",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mtrl-sci"
+   ]
+  },
+  {
+   "id": "2611.33803",
+   "source": "arXiv",
+   "title": "Superconductivity from a Cooper surface instability in a nodal Bose metal",
+   "authors": [
+    "Jian-Jian Miao",
+    "Cui Ding"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-25",
+   "updated": "2026-11-25",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "In underdoped cuprates, the superconducting gap is largest where low-energy electron spectral weight is already depleted above the transition. How can a weak attraction drive superconductivity when the one-electron density of states vanishes? In a momentum-space \\(t\\)–\\(J\\) model, the exactly solvable normal state is a nodal Bose metal with four one-electron nodes. Along two contours called Cooper surfaces, adding or removing a spin-singlet pair of electrons with opposite momenta costs no energy. The resulting logarithmic divergence of the pair susceptibility allows an arbitrarily weak pair-transfer attraction to stabilize a correlated nodal \\(d\\)-wave superconductor. Spin-resolved coincidence photoemission could test this pairing mechanism by resolving two zero-energy pair-removal ridges above the transition and a third along the underlying Luttinger surface below it.",
+   "url": "https://arxiv.org/abs/2611.33803",
+   "pdf": "https://arxiv.org/pdf/2611.33803",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.33723",
+   "source": "arXiv",
+   "title": "Superconductivity from the Berry connection from many-electron wave functions: U(1) gauge fluctuation, gauge invariance, and superconductivity",
+   "authors": [
+    "Hiroyasu Koizumi"
+   ],
+   "n_authors": 1,
+   "date": "2026-11-25",
+   "updated": "2026-11-25",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "The electromagnetic U(1) gauge invariance and superconductivity are examined by employing the Berry connection from many-electron wave functions and the fluctuations of it that give rise to the probabilistic random transitions among quantum states. The gauge invariance in the classical electrodynamics is regarded as the requirement that extracts unaffected parts by the gauge fluctuation. In quantum mechanics, dissipation-free states from the gauge fluctuation exist, and we identify them as superconducting states. We explain the reversible superconducting-normal phase transition in a magnetic field including the force balance. The present superconductivity theory lifts two fundamental disagreements between theory and experiment existing in the current standard theory with keeping the major results by the BCS theory. Thus, it may be considered as a superconductivity theory encompassing the current standard one.",
+   "url": "https://arxiv.org/abs/2611.33723",
+   "pdf": "https://arxiv.org/pdf/2611.33723",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.supr-con",
+    "quant-ph"
+   ]
+  },
+  {
+   "id": "2611.33717",
+   "source": "arXiv",
+   "title": "Crystal-Symmetry-Dependent Field-Free Superconducting Diode Effect in CoPt/Nb Heterostructures",
+   "authors": [
+    "He Yu",
+    "Jiaxin Chen",
+    "Yi Zhang",
+    "et al."
+   ],
+   "n_authors": 21,
+   "date": "2026-11-25",
+   "updated": "2026-11-25",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Superconducting diodes convert nonreciprocal critical currents into current-polarity-selective switching between zero-resistance and resistive states. However, realizing the superconducting diode effect often requires complex device architectures and an external magnetic field to break spatial-inversion and time-reversal symmetry, substantially limiting its integration into cryogenic electronics and superconducting quantum circuits. Here, we demonstrate precise control of the field-free superconducting diode effect in epitaxial [111]-oriented A1-CoPt/Nb heterostructures. The critical-current asymmetry obeys the magnetic-point-group symmetry relation: it is finite along low-symmetry directions, suppressed along magnetic mirror axes, and reverses under either a 60° in-plane rotation or reversal of the CoPt magnetization. The same threefold symmetry dependence is observed in field-free current-induced magnetization switching in A1-CoPt films, indicating a common crystallographic origin for the superconducting and normal-state transport responses. Current- and temperature-dependent second-harmonic transport measurements are consistent with vortex-mediated nonreciprocity arising from an orientation-dependent interfacial edge landscape. We further exploit the magnetization-dependent diode polarity for proof-of-concept superconducting readout of electrically written magnetic states. T",
+   "url": "https://arxiv.org/abs/2611.33717",
+   "pdf": "https://arxiv.org/pdf/2611.33717",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Vortices and junctions"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.33473",
+   "source": "arXiv",
+   "title": "Electron–phonon interactions in a pseudo–atomic orbital basis: superconductivity, transport, spectroscopy and thermal emission from one interpolated vertex",
+   "authors": [
+    "Marco Buongiorno Nardelli"
+   ],
+   "n_authors": 1,
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "category": "cond-mat.mtrl-sci",
+   "cross_list": true,
+   "abstract": "Electron–phonon interactions govern superconductivity, electrical resistivity, optical absorption and electronic excitation lifetimes in solids. First–principles calculations require interpolating this coupling onto dense Brillouin–zone grids, traditionally using maximally localized Wannier functions that demand material–specific tuning. Here we show that a fixed basis of pseudo–atomic orbitals–automatically generated from pseudopotentials and implemented in the open–source code PAOFLOW captures the electron–phonon vertex with equivalent accuracy and no manual tuning. Computed from density–functional perturbation theory or displaced supercells, and incorporating long–range fields and spin–orbit coupling, the vertex matches established codes on identical inputs. We validate the method on lead, reproducing its phonon dispersion, superconducting gap, critical temperature, resistivity, photoemission kink and cyclotron masses, and on silicon, capturing phonon–assisted optical absorption, wafer emissivity and carrier mobilities. This parameter–free framework enables high–throughput, automated electron–phonon calculations across large materials databases.",
+   "url": "https://arxiv.org/abs/2611.33473",
+   "pdf": "https://arxiv.org/pdf/2611.33473",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Electron–phonon"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.mtrl-sci",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.33422",
+   "source": "arXiv",
+   "title": "Spectroscopic Signatures of Polaronic Density Wave Fluctuations in Superconducting Bismuthates",
+   "authors": [
+    "Wojciech R. Pudełko",
+    "Muntaser Naamneh",
+    "Philip M. Dee",
+    "et al."
+   ],
+   "n_authors": 14,
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "The bismuthate high-temperature superconductors have been identified as potential bipolaron systems, where hole pairs are bound to local breathing distortions of the BiO₆ octahedra in their metallic phase. However, obtaining definitive evidence for these quasiparticles and their excitations remains challenging. Here, we report on periodic modulations of the spectral intensities and scattering rates of quasiparticles on the Fermi surfaces of doped bismuthates Ba₁₋ₓKₓBiO₃ and BaPb₁₋yBiyO₃, which are reminiscent of “hot spot” patterns that have been observed in cuprate superconductors. We show that these features can be well described by a model where electrons couple to fluctuating density wave modulations with short-range coherence along a (π,π,π)-oriented wavevector. The results are consistent with the existence of a two-component fluid where unpaired electrons interact with a fluctuating density wave created by residual bipolarons and their breathing distortions of the BiO₆ octahedra.",
+   "url": "https://arxiv.org/abs/2611.33422",
+   "pdf": "https://arxiv.org/pdf/2611.33422",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Cuprates"
+   ],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.str-el"
+   ]
+  },
+  {
+   "id": "2611.33298",
+   "source": "arXiv",
+   "title": "Spin-Wave Excitations in La₃Ni₂O₇: A Dynamical Mean-Field Theory and Bethe-Salpeter Equation Study",
+   "authors": [
+    "Zhihui Luo",
+    "Zhong-Yi Xie",
+    "Cui-Qun Chen",
+    "et al."
+   ],
+   "n_authors": 5,
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "We perform a dynamical mean-field theory (DMFT) + Bethe-Salpeter equation (BSE) study of collective spin excitations in La₃Ni₂O₇, using a bilayer two-orbital Kanamori-Hubbard model derived from density functional theory. Our DMFT calculations reveal a double spin-stripe ground state. On this basis, we apply the BSE to compute the lattice transverse spin susceptibility, which exhibits a damped spin-wave spectrum with a bandwidth of ∼0.1 eV and a wave vector of (π/2, π/2), in good agreement with resonant inelastic x-ray scattering and inelastic neutron scattering data. We inspect the orbital-resolved bare susceptibility that provides insight into the momentum dependence of the spin-wave line shape. Further analysis of the irreducible vertex reveals notable frequency dependence in the dz₂ orbital. Finally, we investigate the evolution of the spectrum with varying Hund's coupling and electron fillings. Our study bridges the localized and itinerant descriptions of spin excitations in La₃Ni₂O₇.",
+   "url": "https://arxiv.org/abs/2611.33298",
+   "pdf": "https://arxiv.org/pdf/2611.33298",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Nickelates"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
+  {
+   "id": "2611.33288",
+   "source": "arXiv",
+   "title": "Spontaneous Time-Reversal-Symmetry-Breaking State in Proximity-Induced Superconductivity",
+   "authors": [
+    "Jonathan Schirmer",
+    "Wei Pan",
+    "Javad Shabani",
+    "et al."
+   ],
+   "n_authors": 4,
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "category": "cond-mat.supr-con",
+   "cross_list": false,
+   "abstract": "Recent experiments on superconducting heterostructures formed by an s-wave superconductor and a Dirac semimetal suggest that in these systems the superconducting state can break time-reversal symmetry even though no magnetic order or unconventional pairing is present in any of the structure's components. We present a minimal mechanism for a time-reversal-symmetry-breaking superconducting state in multiband systems proximity-coupled to a conventional s-wave superconductor. We derive the conditions for this state, find that it is the ground state wherever it exists, and obtain the phase diagrams. We find that in some situations the phase diagrams describe reentrant behavior: by continuously varying a parameter the system can undergo multiple transitions between a time-reversal-symmetric state and a state that spontaneously breaks time-reversal symmetry. The results help identify heterostructures that can be engineered to obtain nonreciprocal superconducting transport effects even when no magnetic field or magnetization is present.",
+   "url": "https://arxiv.org/abs/2611.33288",
+   "pdf": "https://arxiv.org/pdf/2611.33288",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [],
+   "kind": "experiment",
+   "categories": [
+    "cond-mat.supr-con",
+    "cond-mat.mes-hall"
+   ]
+  },
+  {
+   "id": "2611.33286",
+   "source": "arXiv",
+   "title": "Pairing from anti-Hund's coupling under infinite Hubbard repulsion",
+   "authors": [
+    "Donggyu Kim",
+    "Ya-Hui Zhang"
+   ],
+   "n_authors": 2,
+   "date": "2026-11-24",
+   "updated": "2026-11-24",
+   "category": "cond-mat.str-el",
+   "cross_list": true,
+   "abstract": "Electron-phonon coupling is a natural source of superconductivity, but in strongly correlated materials the phonon-mediated interaction is often much weaker than the on-site Hubbard repulsion U. Whether, and how, it can still produce pairing when U dominates is a basic open question. We address this question by studying a minimal model with an anti-Hund's coupling JA: an on-site spin exchange between two orbitals or two valleys, mediated by optical phonons, that favors a local inter-orbital spin singlet. In the limit U=+∞, the two-orbital Hubbard model on the triangular lattice, doped away from the insulator at n=2 electrons per site, reduces to a four-flavor t-JA model. Density-matrix renormalization group calculations find robust pairing throughout 1≤JA/|t|≤10, with the largest pairing gap at JA∼|t|. The Cooper pairs reside on bonds and do not come from a direct attraction provided by JA, since infinite U excludes on-site pairs from the Hilbert space. For JAgg|t|, the normal state is a second Fermi liquid whose small Fermi surface violates the perturbative Luttinger theorem, and a strong-coupling expansion in t/JA provides a controlled effective theory of superconductivity from this unconventional metal. Our results provide strong evidence for a strongly coupled superconductor beyond BCS theory, driven by the interplay of the kinetic energy, the phonon-mediated anti-Hund's co",
+   "url": "https://arxiv.org/abs/2611.33286",
+   "pdf": "https://arxiv.org/pdf/2611.33286",
+   "journal_ref": "",
+   "doi": "",
+   "topics": [
+    "Moiré and 2D",
+    "Electron–phonon"
+   ],
+   "kind": "theory",
+   "categories": [
+    "cond-mat.str-el",
+    "cond-mat.supr-con"
+   ]
+  },
   {
    "id": "2611.33041",
    "source": "arXiv",
@@ -2034,301 +2308,6 @@
     "cond-mat.mes-hall",
     "cond-mat.supr-con",
     "physics.optics"
-   ]
-  },
-  {
-   "id": "2611.16912",
-   "source": "arXiv",
-   "title": "Symmetry-Controlled Criticality and Zeno Localization in a Monitored Quasiperiodic Superconductor",
-   "authors": [
-    "Pinaki Singha",
-    "Marcin Szyniszewski",
-    "Nilanjan Roy",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-12",
-   "updated": "2026-11-12",
-   "category": "quant-ph",
-   "cross_list": true,
-   "abstract": "Measurement-induced transitions of free fermions depend strongly on symmetry, but their interplay with quasiperiodic localization and superconducting pairing remains largely unexplored. We study a continuously monitored model of free fermions with pairing, where quasiperiodicity both controls localization and changes the symmetry class of the monitored field theory. Using topological entanglement entropy as a probe of nonlocal correlations in quantum state diffusion simulations, we identify a transition between a critical phase whose von Neumann entanglement entropy scales as (lnL)² and an area-law phase, whereas no transition occurs in the clean limit, consistent with the corresponding DIII and D nonlinear sigma models. The transition line exhibits strong multifractality and depends nonmonotonically on quasiperiodicity, which we associate with the symmetry crossover. Deep in the Zeno regime, we derive an effective non-Hermitian Bogoliubov-de Gennes description of individual trajectories and obtain a closed-form localization length that quantitatively agrees with numerics. Our results reveal how symmetry, quasiperiodic localization, and measurement backaction combine to determine both critical entanglement and microscopic trajectory localization in monitored superconductors.",
-   "url": "https://arxiv.org/abs/2611.16912",
-   "pdf": "https://arxiv.org/pdf/2611.16912",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Topological"
-   ],
-   "kind": "theory",
-   "categories": [
-    "quant-ph",
-    "cond-mat.dis-nn",
-    "cond-mat.stat-mech",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.16705",
-   "source": "arXiv",
-   "title": "A superconducting quantum point contact in Ge",
-   "authors": [
-    "Anna Tacchini",
-    "Inga Seidler",
-    "Isabell Grandt-Ionita",
-    "et al."
-   ],
-   "n_authors": 6,
-   "date": "2026-11-12",
-   "updated": "2026-11-12",
-   "category": "cond-mat.mes-hall",
-   "cross_list": true,
-   "abstract": "Hybrid superconducting-semiconducting circuits provide a versatile platform for investigating coherent transport in mesoscopic weak links. Superconducting quantum point contacts (SQPCs) are particularly interesting in this context, as their supercurrent is carried by a discrete number of ballistic transport modes. Here, we investigate a gate-tunable superconducting quantum point contact realized in Ge/SiGe. By incorporating the QPC into a highly asymmetric superconducting quantum interference device (SQUID), we gain access to its current-phase relation (CPR) and switching current, enabling phase-sensitive studies of few-mode superconducting transport. We observe a direct correspondence between conductance quantization and switching-current quantization, linking the normal-state transport modes to the superconducting response. In addition, we demonstrate strong gate tunability of the effective transmission near the onset of the first conductance plateau. Under microwave irradiation, the QPC exhibits photon-assisted multiple Andreev reflections at lower transparencies and Shapiro replicas in the high-transparency, few-mode regime.",
-   "url": "https://arxiv.org/abs/2611.16705",
-   "pdf": "https://arxiv.org/pdf/2611.16705",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.mes-hall",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.16681",
-   "source": "arXiv",
-   "title": "Dislocation Arrays Hosting Topological Bound States in Epitaxial Tetragonal FeSe Films",
-   "authors": [
-    "Huimin Zhang",
-    "Basu Oli",
-    "Zhengfei Wang",
-    "et al."
-   ],
-   "n_authors": 5,
-   "date": "2026-11-12",
-   "updated": "2026-11-12",
-   "category": "cond-mat.mtrl-sci",
-   "cross_list": true,
-   "abstract": "Topological defects in real space can host robust, localized quantum states for quantum information processing and sensing, yet deterministic control over their formation in crystalline materials remain challenging.",
-   "url": "https://arxiv.org/abs/2611.16681",
-   "pdf": "https://arxiv.org/pdf/2611.16681",
-   "journal_ref": "",
-   "doi": "10.1021/acsnano.6c11893",
-   "topics": [
-    "Iron-based",
-    "Topological"
-   ],
-   "kind": "",
-   "categories": [
-    "cond-mat.mtrl-sci",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.16679",
-   "source": "arXiv",
-   "title": "Sign changing pairing in single layer FeSe/SrTiO3 revealed by nonmagnetic impurity bound states",
-   "authors": [
-    "Huimin Zhang",
-    "Zhuozhi Ge",
-    "Michael Weinert",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-12",
-   "updated": "2026-11-12",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "The discovery of high-temperature superconductivity in single layer FeSe epitaxially grown on SrTiO3(001) substrates has instigated extensive debate over whether its pairing symmetry is conventional sign-preserving s-wave or unconventional sign-changing. Here we probe the pairing state for single layer FeSe/SrTiO3 grown by molecular beam epitaxy using scanning tunneling microscopy/spectroscopy. We observe robust in-gap bound states induced by non-magnetic Fe-vacancy defects within the Fe-plane, which exhibit strong spatial electron-hole asymmetry with two-fold symmetry in hole states and four-fold in electron states. The bound states exhibit no energy shift or splitting under an applied magnetic field, consistent with a sign-changing order parameter.",
-   "url": "https://arxiv.org/abs/2611.16679",
-   "pdf": "https://arxiv.org/pdf/2611.16679",
-   "journal_ref": "",
-   "doi": "10.1038/s42005-020-0351-1",
-   "topics": [
-    "Iron-based"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mtrl-sci"
-   ]
-  },
-  {
-   "id": "2611.16563",
-   "source": "arXiv",
-   "title": "Noise-Protected Superconducting Qudits from Higher-Harmonic Josephson Junctions",
-   "authors": [
-    "Hamed Vakili"
-   ],
-   "n_authors": 1,
-   "date": "2026-11-12",
-   "updated": "2026-11-12",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Qudits, which generalize qubits to d levels, store more information per circuit element than qubits. As with qubits, however, their sensitivity to noise must be overcome before they can be used for fault-tolerant quantum computing. Here we show that, by exploiting the second harmonic of the current–phase relation, a superconducting loop of three Josephson junctions can host qutrits strongly protected against relaxation, while dephasing limits their coherence. When the second harmonic is positive, a simple loop with a small asymmetry between the junctions provides a tunable, symmetry-protected qutrit. When it is negative, a protected qutrit can be realized by adding a small symmetry-breaking term, such as a weak Josephson diode effect. The two designs involve different trade-offs: the first has an exact charge selection rule, whereas the second is nearly insensitive to charge noise and its quasiparticle errors can be corrected. The preferable choice therefore depends on the materials used. Both require a sizable second harmonic to begin with, and we identify altermagnetic Josephson junctions as a candidate platform. Finally, microscopic calculations show that a gate voltage selects the sign of the second harmonic in these junctions, although gate-voltage noise then becomes the leading source of dephasing. These findings establish the sign of the second harmonic as a design princ",
-   "url": "https://arxiv.org/abs/2611.16563",
-   "pdf": "https://arxiv.org/pdf/2611.16563",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mes-hall",
-    "quant-ph"
-   ]
-  },
-  {
-   "id": "2611.16428",
-   "source": "arXiv",
-   "title": "Why \"quantum spin liquids\" are quantum singlet liquids",
-   "authors": [
-    "Sergey Syzranov",
-    "Arthur P. Ramirez"
-   ],
-   "n_authors": 2,
-   "date": "2026-11-12",
-   "updated": "2026-11-16",
-   "category": "cond-mat.str-el",
-   "cross_list": true,
-   "abstract": "The last couple of decades have seen enormous theoretical and experimental research efforts aimed at finding quantum spin liquids (QSLs) in geometrically frustrated (GF) magnetic materials. Experimental demonstrations of QSLs are challenging due to the indirect character of possible QSL signatures and the presence of impurities in materials, which may destroy or obscure a QSL. At the same time, the theoretical literature often lacks consensus about the ground states of quantum spins on even the simplest GF magnetic lattices. We summarize experimental evidence that in the impurity-free limit, available GF magnetic materials that do not develop magnetic order at low temperatures would form {\\it a quantum singlet liquid}, i.e. a disordered state of non-magnetic excitations. We further confirm with theoretical arguments the existence of such a singlet liquid and its gapless character in materials with half-integer spins per primitive magnetic cell. Such a liquid manifests itself in the thermodynamics of GF magnets while having no magnetic features at low temperatures.",
-   "url": "https://arxiv.org/abs/2611.16428",
-   "pdf": "https://arxiv.org/pdf/2611.16428",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.str-el",
-    "cond-mat.mes-hall",
-    "cond-mat.mtrl-sci",
-    "cond-mat.stat-mech",
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.16387",
-   "source": "arXiv",
-   "title": "Quantum geometry drives orbital paramagnetism in superconducting fluctuations",
-   "authors": [
-    "Zi-Ting Sun",
-    "Ying-Ming Xie",
-    "Chunli Huang",
-    "et al."
-   ],
-   "n_authors": 4,
-   "date": "2026-11-12",
-   "updated": "2026-11-12",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Superconductors expel magnetic fields through the Meissner effect. Even slightly above the superconducting transition temperature, electrons can briefly form Cooper pairs, leading to an orbital diamagnetic susceptibility that diverges as the transition is approached. In this work, we use Gaussian fluctuation theory to study a generic multicomponent superconductor above its transition temperature and show that fluctuations can instead produce a paramagnetic response. We identify two competing contributions: the usual diamagnetic contribution from the center-of-mass motion of Cooper pairs and a paramagnetic contribution from interference between different components of the superconducting order parameter. The latter is related to pair quantum geometry, which describes how the internal components of the Cooper pair change with momentum. We then apply our theory to a model of a kagome superconductor with two chiral pairing modes. When the parent state preserves time-reversal symmetry, the paramagnetic contribution can outweigh the conventional diamagnetic contribution, producing net fluctuation paramagnetism. However, when the orbital time-reversal symmetry is broken, e.g., by forming a weak loop-current order, the degeneracy between the two chiral modes is then lifted. Upon cooling toward the superconducting transition, the lower-energy mode dominates the fluctuations, and diamagn",
-   "url": "https://arxiv.org/abs/2611.16387",
-   "pdf": "https://arxiv.org/pdf/2611.16387",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Kagome",
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.mes-hall"
-   ]
-  },
-  {
-   "id": "2611.16196",
-   "source": "arXiv",
-   "title": "Evidence of anisotropic surface state residual loss in UTe₂ amid isotropic low-energy excitations",
-   "authors": [
-    "Arthur Carlton-Jones",
-    "Jared Z. Dans",
-    "Gicela Saucedo Salas",
-    "et al."
-   ],
-   "n_authors": 7,
-   "date": "2026-11-12",
-   "updated": "2026-11-12",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "We explore the pairing mechanism and possible topological properties of the unconventional superconductor UTe₂ through their influence on both the inductive and resistive channels using resonant cavity perturbation techniques. We measure a composite surface impedance for a variety of UTe₂ single crystals at microwave frequencies, where the inductive and resistive channels are comparable and can be treated on equal footing. By studying the composite electrodynamics for a large number of resonant modes, we are able to provide a comprehensive picture of the directional dependence of the excitations out of the ground state. We find similar power-law temperature dependencies at low-temperature for both the penetration depth and surface resistance, which in aggregate across modes, are quadratic and isotropic. On the other hand, we find a distinct and systematic anisotropy of the residual loss. The power-law results are inconsistent with a single pair of point nodes on the Fermi surface under weak scattering. We discuss the possibility of topological superconductivity as an interpretation of these isotropic power-laws in conjunction with the anisotropic residual loss.",
-   "url": "https://arxiv.org/abs/2611.16196",
-   "pdf": "https://arxiv.org/pdf/2611.16196",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Heavy fermions",
-    "Topological",
-    "Electron–phonon"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "cond-mat.supr-con"
-   ]
-  },
-  {
-   "id": "2611.16071",
-   "source": "arXiv",
-   "title": "Mapping the High-Field Response of Superconducting Nanowire Single-Photon Detectors",
-   "authors": [
-    "Harshit Agarwal",
-    "Yueh-Chun Wu",
-    "Katyayani Seal",
-    "et al."
-   ],
-   "n_authors": 9,
-   "date": "2026-11-11",
-   "updated": "2026-11-11",
-   "category": "physics.optics",
-   "cross_list": true,
-   "abstract": "Superconducting nanowire single-photon detectors (SNSPDs) are increasingly being integrated into cryogenic quantum-sensing platforms that operate in large magnetic fields. Here, the high-field limits of these measurements were probed by characterizing the dark count response of a NbTiN SNSPD at up to 14~T using in situ control of the detector orientation and benchmarking that performance against normal detector operation in smaller magnetic fields. The detector performance is strongly anisotropic: perpendicular magnetic fields rapidly reduce the usable bias-current range, whereas near-parallel alignment enables operation at substantially larger total fields, with a finite operating margin retained to 12~T and measurable dark-count response at the 14~T field limit. The angular dependence is governed predominantly by the perpendicular component of the magnetic field, consistent with vortex-mediated suppression of the superconducting current scale. The same field-dependent current scale also determines the electrical pulse amplitude, linking high-field detector operation directly to readout performance. These results establish a practical route for deploying SNSPDs in multi-tesla quantum-sensing and high-field cryogenic experiments.",
-   "url": "https://arxiv.org/abs/2611.16071",
-   "pdf": "https://arxiv.org/pdf/2611.16071",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Electron–phonon",
-    "Vortices and junctions"
-   ],
-   "kind": "experiment",
-   "categories": [
-    "physics.optics",
-    "cond-mat.supr-con",
-    "quant-ph"
-   ]
-  },
-  {
-   "id": "2611.15872",
-   "source": "arXiv",
-   "title": "Band geometry, Anderson's theorem, and vortex nucleation in unconventional 2D superconductors",
-   "authors": [
-    "Vladislav Poliakov",
-    "Inti Sodemann Villadiego",
-    "T. Senthil"
-   ],
-   "n_authors": 3,
-   "date": "2026-11-11",
-   "updated": "2026-11-11",
-   "category": "cond-mat.supr-con",
-   "cross_list": false,
-   "abstract": "Motivated by the recent discovery of chiral superconductors in 2d materials, we study the effects of disorder on superconductivity in materials with non-trivial band geometry. First, we show how Anderson's theorem and the conventional Abrikosov-Gorkov description of disorder-induced pair breaking are modified by the structure of the normal-state Bloch functions. We apply these results to twisted MoTe2 and show that a BCS pairing mechanism for the observed superconductor is in tension with the measured normal state residual resistivity. Second, we study whether random potential disorder can nucleate superconducting vortices in a chiral time- reversal-breaking superconductor. We show that, for a superconductor stabilized by the usual BCS mechanism, weak disorder does not induce a vortex glass phase, in contrast to superconductivity formed from an anyon fluid.",
-   "url": "https://arxiv.org/abs/2611.15872",
-   "pdf": "https://arxiv.org/pdf/2611.15872",
-   "journal_ref": "",
-   "doi": "",
-   "topics": [
-    "Moiré and 2D",
-    "Vortices and junctions"
-   ],
-   "kind": "theory",
-   "categories": [
-    "cond-mat.supr-con",
-    "cond-mat.dis-nn",
-    "cond-mat.str-el"
    ]
   }
  ],
