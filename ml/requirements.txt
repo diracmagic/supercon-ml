@@ -4,3 +4,5 @@ scikit-learn>=1.5
 pandas>=2.2
 numpy>=1.26
 ase>=3.23
+ijson>=3.2
+pymysql>=1.1

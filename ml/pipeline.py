@@ -22,6 +22,7 @@ Usage (from the repository root):
     python ml/pipeline.py storm6       # report-only geometry and nonlinear CPU challengers; no model release
     python ml/pipeline.py screen       # Screening, the current round: candidates found by our models, only our own finds (ml/screen.py)
     python ml/pipeline.py screenhull   # Correction: each published candidate's distance to the hull computed from JARVIS-DFT (ml/screen_hull.py)
+    python ml/pipeline.py hurricane10  # Hurricane round 10: the guard learns from the pool of screening round 7 (ml/hurricane10.py)
 
 The command downloads the Alexandria and JARVIS electron-phonon datasets through
 jarvis-tools, cleans them, recomputes the Allen-Dynes Tc with one mu*, trains
@@ -1288,7 +1289,7 @@ def run_foundation() -> None:
 
 def main(argv=None) -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane", "hurricane2", "hurricane3", "hurricane4", "hurricane5", "hurricane6", "hurricane7", "hurricane9", "hurricane9screen", "screenhull", "gnn", "radar", "gnn2", "gnn2final", "storm4", "storm5", "storm6", "screen"])
+    ap.add_argument("command", choices=["baseline", "foundation", "search", "search1", "storm3", "hurricane", "hurricane2", "hurricane3", "hurricane4", "hurricane5", "hurricane6", "hurricane7", "hurricane9", "hurricane9screen", "screenhull", "hurricane10", "gnn", "radar", "gnn2", "gnn2final", "storm4", "storm5", "storm6", "screen"])
     args = ap.parse_args(argv)
     if args.command == "baseline":
         run_baseline()
@@ -1331,6 +1332,9 @@ def main(argv=None) -> None:
     elif args.command == "screenhull":
         import screen_hull
         screen_hull.run()
+    elif args.command == "hurricane10":
+        import hurricane10
+        hurricane10.run()
     elif args.command == "gnn":
         import gnn
         gnn.run()
