@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-26T16:27:00+00:00",
+ "updated": "2026-11-27T01:45:16+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -4399,29 +4399,6 @@
     "Electron–phonon"
    ],
    "kind": ""
-  },
-  {
-   "id": "10.1038/s41586-026-10815-x",
-   "source": "Nature",
-   "journal": "Nature",
-   "title": "Family of magnetic field-boosted superconductors in rhombohedral graphene",
-   "authors": [
-    "Junseok Seo",
-    "Armel A. Cotten",
-    "Shenyong Ye",
-    "et al."
-   ],
-   "n_authors": 21,
-   "date": "2026-06-29",
-   "abstract": "In some unconventional superconductors, time-reversal symmetry can be broken apart from the gauge symmetry ¹ , resulting in superconductivity that can be enhanced or induced by magnetic fields ² .",
-   "url": "https://doi.org/10.1038/s41586-026-10815-x",
-   "doi": "10.1038/s41586-026-10815-x",
-   "topics": [
-    "Moiré and 2D",
-    "Topological",
-    "Electron–phonon"
-   ],
-   "kind": "experiment"
   }
  ],
  "news": [
