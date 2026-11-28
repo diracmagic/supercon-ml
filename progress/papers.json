@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-11-27T22:16:07+00:00",
+ "updated": "2026-11-28T01:41:11+00:00",
  "about": "New superconductivity papers from arXiv (cond-mat.supr-con, including cross-lists) and from Nature, Nature Physics, Nature Materials, Nature Communications, npj Quantum Materials, Science, Physical Review Letters and Physical Review X, and superconductivity news from Nature and science-news sites, refreshed every three hours. Topic and type tags are assigned automatically.",
  "sources": {
   "journals": [
@@ -4378,27 +4378,6 @@
     "Vortices and junctions"
    ],
    "kind": "experiment"
-  },
-  {
-   "id": "10.1038/s41563-026-02647-x",
-   "source": "Nat. Mater.",
-   "journal": "Nature Materials",
-   "title": "Electron–phonon coupling and symmetry breaking in superconducting oxide interfaces near ferroelectric quantum criticality",
-   "authors": [
-    "Roger Guzman",
-    "Miguel Pruneda",
-    "Jean Paul Nery",
-    "et al."
-   ],
-   "n_authors": 13,
-   "date": "2026-06-30",
-   "abstract": "",
-   "url": "https://doi.org/10.1038/s41563-026-02647-x",
-   "doi": "10.1038/s41563-026-02647-x",
-   "topics": [
-    "Electron–phonon"
-   ],
-   "kind": ""
   }
  ],
  "news": [
